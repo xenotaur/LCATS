@@ -300,6 +300,7 @@ gpt_35_data, gpt_35_df = collate_story_extractions(
 print(gpt_35_df.describe())
 gpt_35_df.sum()
 
+difference = []
 comparisons = []
 for story in corpora.stories:
     gpt_4o_extraction = gpt_4o_data[story.name]
@@ -327,6 +328,20 @@ for story in corpora.stories:
     print(f" - scenes: {len(gpt_4o_scenes)} (gpt-4o) vs {len(gpt_35_scenes)} (gpt-3.5-turbo)")
     print(f" - sequels: {len(gpt_4o_sequels)} (gpt-4o) vs {len(gpt_35_sequels)} (gpt-3.5-turbo)")
     print(f" - nones: {len(gpt_4o_nones)} (gpt-4o) vs {len(gpt_35_nones)} (gpt-3.5-turbo)")
+
+
+    difference.append({
+        "story_name": story.name,
+        "model": "",
+        "tokens": gpt_4o_tokens,
+        "avg_tokens": (gpt_4o_tokens+gpt_35_tokens)/2, 
+        "diff_tokens": gpt_4o_tokens-gpt_35_tokens, 
+        "events": len(gpt_4o_events)-len(gpt_35_events),
+        "scenes": len(gpt_4o_scenes)-len(gpt_35_scenes),
+        "sequels": len(gpt_4o_sequels)-len(gpt_35_sequels),
+        "nones": len(gpt_4o_nones)-len(gpt_35_nones), 
+        "paragraphs": number_paragraphs
+    })
     
     comparisons.append({
         "story_name": story.name,
@@ -349,8 +364,10 @@ for story in corpora.stories:
         "paragraphs": number_paragraphs
     })
 
-comparison_df = pd.DataFrame(comparisons)
 
+comparison_df = pd.DataFrame(comparisons)
+difference_df = pd.DataFrame(difference)
+difference_df['x_axis'] = range(len(difference_df))
 
 
 print(comparison_df.columns)
@@ -366,19 +383,25 @@ print(common_4o.describe())
 print(f" - gpt-3.5-turbo: {len(common_35)}")
 print(common_35.describe())
 
-def plot_columns_vs(df, x_col, y_col, hue_col=None):
+def plot_columns_vs(df, x_col, y_col, y_low = 0, y_high = 300, log=False, hue_col=None, legend=""):
     plt.figure(figsize=(10, 6))
     sns.scatterplot(data=df, x=x_col, y=y_col, hue=hue_col)
     plt.xlabel(x_col)
     plt.ylabel(y_col)
+    plt.ylim(y_low, y_high)
+    if log:
+        plt.xscale('log')
     plt.title(f"{y_col} vs {x_col}")
     plt.legend(title=hue_col)
+    if len(legend) > 0:
+        plt.legend(title = "GPT 4 events - GPT 3 events")
     plt.grid(True)
     plt.show()
 
 def showPlots():
     plot_columns_vs(comparison_df, 'tokens', 'events', hue_col='model')
     plot_columns_vs(comparison_df, 'tokens', 'scenes', hue_col='model')
+    plot_columns_vs(comparison_df, 'tokens', 'sequels', hue_col='model')
     plot_columns_vs(comparison_df, 'tokens', 'nones', hue_col='model')
     plot_columns_vs(comparison_df, 'paragraphs', 'events', hue_col='model')
 
