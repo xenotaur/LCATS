@@ -774,6 +774,9 @@ def title_ok(title):
         if "volume " in piece or "Volume " in piece:
             result = False
             break
+        if ", book " in piece or ", Book " in piece:
+            result = False
+            break
         if "chapter " in piece or "Chapter " in piece:
             result = False
             break
@@ -781,6 +784,15 @@ def title_ok(title):
             result = False
             break
         if "vol. " in piece or "Vol. " in piece:
+            result = False
+            break
+        
+        # KMM may be overzealous
+        if "poem" in piece or "Poem" in piece:
+            result = False
+            break
+        # KMM kills one that is unworkable
+        if "a political romance" in piece or "A Political Romance" in piece:
             result = False
             break
         
@@ -1060,7 +1072,7 @@ def main():
     print(f" - Total stories in the single corpus: {len(downloads)}")
 
 
-s = 7556
+s = 32360
 def testStory(s):
     d1 = strip_headers(load_etext(s).strip())
     d1array = d1.split('\n\n')
