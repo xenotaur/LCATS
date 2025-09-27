@@ -35,7 +35,7 @@ def find_paragraphs_london(soup, start_heading_text):
     
     # Iterate through sibling elements until the next heading or the end of the siblings is reached.
     while current_element and current_element.name not in ('h2', 'div'):
-        print(current_element.name)
+        # print(current_element.name)
         if current_element.name == 'p' or current_element.name == 'pre':
             paragraphs.append(current_element.get_text(strip=False))
         current_element = current_element.find_next_sibling()

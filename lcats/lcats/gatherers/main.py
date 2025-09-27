@@ -10,7 +10,7 @@ import lcats.gatherers.grimm.gutenberg as grimm
 import lcats.gatherers.anderson.gutenberg as anderson
 import lcats.gatherers.chesterton.gutenberg as chesterton
 import lcats.gatherers.london.gutenberg as london
-import lcats.gatherers.massQuantities.gutenberg1 as massQuantities
+import lcats.gatherers.mass_quantities.gatherer as mass_quantities
 
 def run(dry_run=False):
     if not dry_run:
@@ -25,7 +25,7 @@ def run(dry_run=False):
         print(anderson.gather())
         print(chesterton.gather())
         print(london.gather())
-        print(massQuantities.gather())
+        print(mass_quantities.gather())
 
         
     return "Gathering complete.", 0

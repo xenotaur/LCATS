@@ -12,3 +12,5 @@ LICENSE_FILE = "LICENSE"  # Used in downloaders.py
 # File encodings
 TEXT_ENCODING = "ISO-8859-1"  # used by Gutenberg.
 
+# File formats
+FILE_SUFFIX = ".json"  # Standard suffix for story files.

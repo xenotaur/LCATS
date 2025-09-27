@@ -249,6 +249,7 @@ class DataGatherer:
         self.cache = cache
         self.suffix = suffix
         self.license = license
+        self.resources = {}
         self.downloads = {}
         self.resource_cache = UrlResourceCache(root=self.cache)
 
@@ -335,3 +336,7 @@ class DataGatherer:
             print(f"Cleared all contents in {self.path}")
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")
+
+    def gather(self, extractors):
+        """Gather a set of resources from a list of extractor objects."""
+        # Lovecraft is []

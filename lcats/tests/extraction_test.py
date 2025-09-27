@@ -37,7 +37,6 @@ class TestExtraction(unittest.TestCase):
         self.assertIn("Story to process", messages[1]["content"])
         self.assertIn(self.story, messages[1]["content"])
 
-
     def test_extract_successful(self):
         result = extraction.extract_from_story(
             story_text=self.story,
@@ -102,13 +101,9 @@ class TestExtraction(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
-
-
-
-
-
     def test_extract_fails_on_invalid_json(self):
-        self.fake_client.chat.completions.create.return_value.choices[0].message.content = "not valid json"
+        self.fake_client.chat.completions.create.return_value.choices[
+            0].message.content = "not valid json"
         result = extraction.extract_from_story(
             story_text=self.story,
             template=self.template,
@@ -120,7 +115,8 @@ if __name__ == "__main__":
         self.assertIn("No parsed JSON", result.extraction_error)
 
     def test_extract_fails_on_missing_events_key(self):
-        self.fake_client.chat.completions.create.return_value.choices[0].message.content = '{"unexpected": []}'
+        self.fake_client.chat.completions.create.return_value.choices[
+            0].message.content = '{"unexpected": []}'
         result = extraction.extract_from_story(
             story_text=self.story,
             template=self.template,
@@ -144,7 +140,8 @@ if __name__ == "__main__":
     def test_validate_events_reports_missing_fields(self):
         # Provide malformed event data
         malformed_json = '{"events": [{"text": "no type"}, "not a dict"]}'
-        self.fake_client.chat.completions.create.return_value.choices[0].message.content = malformed_json
+        self.fake_client.chat.completions.create.return_value.choices[
+            0].message.content = malformed_json
         result = extraction.extract_from_story(
             story_text=self.story,
             template=self.template,
