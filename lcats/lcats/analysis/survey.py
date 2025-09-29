@@ -78,7 +78,6 @@ def find_corpus_stories(
     return results
 
 
-
 _WORD_RE = re.compile(r"\S+")  # simple, robust word-ish segmentation
 
 def _get_encoder() -> "tiktoken.Encoding":

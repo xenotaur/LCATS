@@ -1,4 +1,4 @@
-"""Unit test utilities for the treemi package."""
+"""Unit test utilities for the lcats package."""
 import os
 import shutil
 import tempfile
