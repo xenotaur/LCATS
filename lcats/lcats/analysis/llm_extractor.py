@@ -5,10 +5,18 @@ from typing import Any, Callable, Dict, Optional, Tuple
 
 from lcats import utils
 
+# lcats/analysis/llm_extract.py
+
+import json
+from typing import Any, Callable, Dict, Optional, Tuple
+
+from lcats import utils  # already used by your project
+
 
 class JSONPromptExtractor:
     """
-    Generic JSON-focused LLM extractor with optional text indexing and result alignment.
+    Generic JSON-focused LLM extractor with optional text indexing, result alignment,
+    and result validation/auditing.
 
     Parameters
     ----------
@@ -29,6 +37,8 @@ class JSONPromptExtractor:
         If provided, called as (indexed_text, index_meta) = text_indexer(story_text).
     result_aligner : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
         If provided, called to post-process the parsed JSON and fill canonical offsets.
+    result_validator : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
+        If provided, runs AFTER alignment and attaches a 'validation_report' to the result.
     """
 
     def __init__(
@@ -42,7 +52,10 @@ class JSONPromptExtractor:
         temperature: float = 0.2,
         force_json: bool = True,
         text_indexer: Optional[Callable[[str], Tuple[str, Any]]] = None,
-        result_aligner: Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]] = None,
+        result_aligner: Optional[Callable[[
+            Dict[str, Any], str, Any], Dict[str, Any]]] = None,
+        result_validator: Optional[Callable[[
+            Dict[str, Any], str, Any], Dict[str, Any]]] = None,  # << NEW
     ):
         self.client = client
         self.system_prompt = system_prompt
@@ -53,12 +66,14 @@ class JSONPromptExtractor:
         self.force_json = force_json
         self.text_indexer = text_indexer
         self.result_aligner = result_aligner
+        self.result_validator = result_validator  # << NEW
 
         # Debug/inspection hooks
         self.last_messages: Optional[list] = None
         self.last_response: Any = None
         self.last_raw_output: Optional[str] = None
         self.last_index_meta: Any = None
+        self.last_validation_report: Optional[Dict[str, Any]] = None  # << NEW
 
     # ---------- helpers ----------
 
@@ -71,7 +86,6 @@ class JSONPromptExtractor:
         if self.text_indexer:
             indexed_text, index_meta = self.text_indexer(story_text)
             self.last_index_meta = index_meta
-            # Provide both placeholders; template can use either key.
             content = self.user_prompt_template.format(
                 indexed_story_text=indexed_text,
                 story_text=indexed_text,
@@ -109,7 +123,8 @@ class JSONPromptExtractor:
         self.last_messages = messages
 
         # Call model
-        kwargs = dict(model=model, messages=messages, temperature=self.temperature)
+        kwargs = dict(model=model, messages=messages,
+                      temperature=self.temperature)
         if self.force_json:
             kwargs["response_format"] = {"type": "json_object"}
         response = self.client.chat.completions.create(**kwargs)
@@ -127,17 +142,31 @@ class JSONPromptExtractor:
             parsing_error = str(exc)
 
         extraction_error = None
+        alignment_error = None
+        validation_error = None
+        validation_report = None
         extracted = None
 
-        # Optional alignment
-        alignment_error = None
         if isinstance(parsed, dict) and self.output_key in parsed:
+            # Optional alignment
             if self.result_aligner and index_meta is not None:
                 try:
-                    parsed = self.result_aligner(parsed, story_text, index_meta)
+                    parsed = self.result_aligner(
+                        parsed, story_text, index_meta)
                 except Exception as exc:
                     alignment_error = f"alignment failed: {exc!r}"
-            extracted = parsed.get(self.output_key) if isinstance(parsed, dict) else None
+
+            # Optional validation/auditing  << NEW
+            if self.result_validator and index_meta is not None:
+                try:
+                    validation_report = self.result_validator(
+                        parsed, story_text, index_meta)
+                except Exception as exc:
+                    validation_error = f"validation failed: {exc!r}"
+            self.last_validation_report = validation_report
+
+            extracted = parsed.get(self.output_key) if isinstance(
+                parsed, dict) else None
             if extracted is None:
                 extraction_error = f"Expected '{self.output_key}' key in JSON response."
         else:
@@ -147,7 +176,7 @@ class JSONPromptExtractor:
             "story_text": story_text,
             "model_name": model,
             "messages": messages,
-            "response": response,           # non-serializable; strip with make_serializable()
+            "response": response,  # non-serializable; strip with make_serializable()
             "raw_output": raw_output,
             "parsed_output": parsed,
             "extracted_output": extracted,
@@ -155,4 +184,6 @@ class JSONPromptExtractor:
             "extraction_error": extraction_error,
             "alignment_error": alignment_error,
             "index_meta": index_meta,
+            "validation_report": validation_report,     # << NEW
+            "validation_error": validation_error,       # << NEW
         }
