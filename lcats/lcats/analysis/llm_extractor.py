@@ -1,31 +1,48 @@
 """Generic JSON-focused LLM extractor."""
 
 import json
-from typing import Any, Dict
+from typing import Any, Callable, Dict, Optional, Tuple
 
 from lcats import utils
 
 
 class JSONPromptExtractor:
     """
-    Generic JSON-focused LLM extractor.
+    Generic JSON-focused LLM extractor with optional text indexing and result alignment.
 
-    - Accepts arbitrary system/user prompt templates.
-    - Forces JSON output (optionally) via OpenAI response_format when supported.
-    - Returns a dict matching your downstream expectations.
-    - Callable: __call__(story_text, model_name=...) -> result dict
+    Parameters
+    ----------
+    client : OpenAI-like client
+    system_prompt : str
+    user_prompt_template : str
+        May reference either `{indexed_story_text}` or `{story_text}`.
+        This extractor will always provide BOTH keys; when indexing is enabled,
+        both will point to the indexed text. When indexing is disabled, both
+        will point to the raw story text.
+    output_key : str
+        Key in the returned JSON object to extract (e.g., "segments").
+    default_model : str
+    temperature : float
+    force_json : bool
+        If True, pass response_format={"type": "json_object"} when supported.
+    text_indexer : Optional[Callable[[str], Tuple[str, Any]]]
+        If provided, called as (indexed_text, index_meta) = text_indexer(story_text).
+    result_aligner : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
+        If provided, called to post-process the parsed JSON and fill canonical offsets.
     """
 
     def __init__(
         self,
-        client,
+        client: Any,
         *,
         system_prompt: str,
         user_prompt_template: str,
-        output_key: str = "events",
+        output_key: str = "segments",
         default_model: str = "gpt-4o",
         temperature: float = 0.2,
         force_json: bool = True,
+        text_indexer: Optional[Callable[[str], Tuple[str, Any]]] = None,
+        result_aligner: Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]] = None,
     ):
         self.client = client
         self.system_prompt = system_prompt
@@ -34,65 +51,74 @@ class JSONPromptExtractor:
         self.default_model = default_model
         self.temperature = temperature
         self.force_json = force_json
+        self.text_indexer = text_indexer
+        self.result_aligner = result_aligner
 
-        # Debug hooks (last call)
-        self.last_messages = None
-        self.last_response = None
-        self.last_raw_output = None
+        # Debug/inspection hooks
+        self.last_messages: Optional[list] = None
+        self.last_response: Any = None
+        self.last_raw_output: Optional[str] = None
+        self.last_index_meta: Any = None
 
-    # ---------- public API ----------
+    # ---------- helpers ----------
+
+    def _prepare_user_content(self, story_text: str) -> Tuple[str, Any]:
+        """
+        Returns (content_text, index_meta):
+          - content_text is what we place into the user prompt.
+          - index_meta is indexing metadata (or None) for possible alignment.
+        """
+        if self.text_indexer:
+            indexed_text, index_meta = self.text_indexer(story_text)
+            self.last_index_meta = index_meta
+            # Provide both placeholders; template can use either key.
+            content = self.user_prompt_template.format(
+                indexed_story_text=indexed_text,
+                story_text=indexed_text,
+            )
+            return content, index_meta
+        else:
+            self.last_index_meta = None
+            content = self.user_prompt_template.format(
+                indexed_story_text=story_text,
+                story_text=story_text,
+            )
+            return content, None
 
     def build_messages(self, story_text: str) -> list[Dict[str, str]]:
-        """Build the messages list for the chat completion.
-        
-        Args:
-            story_text (str): The story text to include in the user prompt.
-        Returns:
-            list: The list of messages for the chat completion.
-        """
+        content, _ = self._prepare_user_content(story_text)
         return [
             {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": self.user_prompt_template.format(story_text=story_text)},
+            {"role": "user", "content": content},
         ]
 
-    def __call__(self, story_text: str, *, model_name: str | None = None) -> Dict[str, Any]:
-        """Convenience method to call extract with optional model override."""
+    # ---------- API ----------
+
+    def __call__(self, story_text: str, *, model_name: Optional[str] = None) -> Dict[str, Any]:
         return self.extract(story_text, model_name=model_name)
 
-    def extract(self, story_text: str, *, model_name: str | None = None) -> Dict[str, Any]:
-        """Run the LLM and parse the JSON into the expected structure.
-        
-        Args:
-            story_text (str): The story text to analyze.
-            model_name (str, optional): The model name to use. Defaults to None, which
-                                        uses the default model.
-        Returns:
-            dict: A dictionary containing the extraction results and metadata.
-        """
+    def extract(self, story_text: str, *, model_name: Optional[str] = None) -> Dict[str, Any]:
         model = model_name or self.default_model
-        messages = self.build_messages(story_text)
 
-        # Save for debugging/inspection
+        # Build messages (with optional indexing)
+        user_content, index_meta = self._prepare_user_content(story_text)
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": user_content},
+        ]
         self.last_messages = messages
 
-        # Prepare kwargs; some OpenAI SDKs accept response_format for strict JSON.
-        create_kwargs = dict(
-            model=model,
-            messages=messages,
-            temperature=self.temperature,
-        )
+        # Call model
+        kwargs = dict(model=model, messages=messages, temperature=self.temperature)
         if self.force_json:
-            # If the SDK supports this, it will enforce JSON object responses.
-            create_kwargs["response_format"] = {"type": "json_object"}
+            kwargs["response_format"] = {"type": "json_object"}
+        response = self.client.chat.completions.create(**kwargs)
 
-        response = self.client.chat.completions.create(**create_kwargs)
-
-        # Extract content
         raw_output = response.choices[0].message.content if response.choices else ""
         self.last_response = response
         self.last_raw_output = raw_output
 
-        # Parse JSON (tolerant extractor you already have)
+        # Parse
         parsing_error = None
         try:
             parsed = utils.extract_json(raw_output)
@@ -100,21 +126,33 @@ class JSONPromptExtractor:
             parsed = None
             parsing_error = str(exc)
 
+        extraction_error = None
+        extracted = None
+
+        # Optional alignment
+        alignment_error = None
         if isinstance(parsed, dict) and self.output_key in parsed:
-            extracted = parsed[self.output_key]
-            extraction_error = None
+            if self.result_aligner and index_meta is not None:
+                try:
+                    parsed = self.result_aligner(parsed, story_text, index_meta)
+                except Exception as exc:
+                    alignment_error = f"alignment failed: {exc!r}"
+            extracted = parsed.get(self.output_key) if isinstance(parsed, dict) else None
+            if extracted is None:
+                extraction_error = f"Expected '{self.output_key}' key in JSON response."
         else:
-            extracted = None
             extraction_error = f"Expected '{self.output_key}' key in JSON response."
 
         return {
             "story_text": story_text,
             "model_name": model,
             "messages": messages,
-            "response": response,          # may be non-serializable
+            "response": response,           # non-serializable; strip with make_serializable()
             "raw_output": raw_output,
             "parsed_output": parsed,
             "extracted_output": extracted,
             "parsing_error": parsing_error,
             "extraction_error": extraction_error,
+            "alignment_error": alignment_error,
+            "index_meta": index_meta,
         }
