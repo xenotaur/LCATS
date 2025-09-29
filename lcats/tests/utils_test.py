@@ -86,6 +86,82 @@ class TestSm(unittest.TestCase):
         self.assertEqual(len(result), limit)
 
 
+class TestSml(unittest.TestCase):
+    """Unit tests for the sml function."""
+
+    def test_sml_within_limit(self):
+        """When n <= limit, the full list is shown (no spacer)."""
+        items = ["item1", "item2", "item3"]
+        # default limit is 10, so this should show everything
+        result = utils.sml(items)
+        expected = "\n".join([
+            "[",
+            "  item1,",
+            "  item2,",
+            "  item3",
+            "] total items: 3",
+        ])
+        self.assertEqual(result, expected)
+
+    def test_sml_exceeds_limit_default(self):
+        """When n > limit, show head, spacer (without trailing comma), and tail."""
+        items = [f"item{i}" for i in range(1, 20)]  # 19 items
+        # default limit=10 -> head=5, tail=4, omitted=10
+        result = utils.sml(items)  # limit=10 by default
+        expected = "\n".join([
+            "[",
+            "  item1,",
+            "  item2,",
+            "  item3,",
+            "  item4,",
+            "  item5,",
+            "  ...10 items omitted...",
+            "  item16,",
+            "  item17,",
+            "  item18,",
+            "  item19",
+            "] total items: 19",
+        ])
+        self.assertEqual(result, expected)
+
+    def test_sml_exactly_limit(self):
+        """Exactly at limit prints all items (no spacer)."""
+        items = ["a", "b", "c", "d"]
+        result = utils.sml(items, limit=4)
+        expected = "\n".join([
+            "[",
+            "  a,",
+            "  b,",
+            "  c,",
+            "  d",
+            "] total items: 4",
+        ])
+        self.assertEqual(result, expected)
+
+    def test_sml_raises_for_too_small_limit(self):
+        """If summarizing is needed and limit < 3, raise ValueError."""
+        items = [1, 2, 3, 4]
+        with self.assertRaises(ValueError):
+            utils.sml(items, limit=2)  # needs spacer but limit too small
+
+    def test_sml_custom_spacer(self):
+        """Custom spacer text is used (no trailing comma), and count is correct."""
+        items = list(range(1, 9))  # n=8
+        # limit=5 -> head=2, tail=2, omitted=4
+        spacer = "~ {count} gone ~"
+        result = utils.sml(items, limit=5, spacer=spacer)
+        expected = "\n".join([
+            "[",
+            "  1,",
+            "  2,",
+            "  ~ 4 gone ~",
+            "  7,",
+            "  8",
+            "] total items: 8",
+        ])
+        self.assertEqual(result, expected)
+
+
 class TestExtractFencedCodeBlocks(unittest.TestCase):
     """Unit tests for the extract_fenced_code_blocks function."""
 
@@ -204,6 +280,55 @@ just text """
         self.assertEqual(
             len(blocks), 0, "Incomplete fence should not be treated as valid code blocks.")
 
+
+class TestMakeSerializable(unittest.TestCase):
+    """Unit tests for utils.make_serializable."""
+
+    def test_removes_default_key_without_mutating_original(self):
+        """Removes the default 'response' key, leaving the original dict unchanged."""
+        original = {"response": object(), "parsed_output": {"a": 1}, "status": "ok"}
+        result = utils.make_serializable(original)
+
+        # 'response' removed in the returned copy
+        self.assertNotIn("response", result)
+        self.assertIn("parsed_output", result)
+        self.assertIn("status", result)
+
+        # original untouched
+        self.assertIn("response", original)
+        self.assertIsNot(result, original)
+
+    def test_noop_when_key_missing(self):
+        """If the key is absent, the returned dict equals the input (but is a new object)."""
+        original = {"a": 1, "b": 2}
+        result = utils.make_serializable(original)
+
+        self.assertEqual(result, original)
+        self.assertIsNot(result, original)  # shallow copy returned
+
+    def test_custom_key_removal(self):
+        """Removes a custom nonserializable_key when provided."""
+        original = {"foo": "bar", "data": 123}
+        result = utils.make_serializable(original, nonserializable_key="foo")
+
+        self.assertNotIn("foo", result)
+        self.assertIn("data", result)
+        # original remains intact
+        self.assertIn("foo", original)
+
+    def test_shallow_copy_only(self):
+        """Function performs a shallow copy: nested objects are shared."""
+        nested = {"k": [1, 2, 3]}
+        original = {"response": "X", "nested": nested}
+        result = utils.make_serializable(original)
+
+        # response removed, nested preserved
+        self.assertNotIn("response", result)
+        self.assertIn("nested", result)
+
+        # Same nested object (shallow copy semantics)
+        self.assertIs(result["nested"], original["nested"])
+        self.assertIs(result["nested"]["k"], original["nested"]["k"])
 
 if __name__ == '__main__':
     unittest.main()

@@ -337,6 +337,10 @@ class DataGatherer:
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")
 
-    def gather(self, extractors):
-        """Gather a set of resources from a list of extractor objects."""
-        # Lovecraft is []
+    def gather(self, extractor):
+        """Gather a resource from an extractor object."""
+        # For each extractor, we should do the following:
+        #  - Compute a unique name for each object
+        #    - This should be a resource, name tuple
+        #    - The name must be unique within the gatherer
+        raise NotImplementedError("Gather method not implemented yet.")

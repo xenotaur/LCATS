@@ -53,12 +53,12 @@ class GutenbergWrapperTests(unittest.TestCase):
         if hasattr(gb, "_CACHE"):
             gb._CACHE = None
 
-        # --- PATCH WHERE USED: on gb.gutenbergcache.GutenbergCache ---
+        # --- PATCH WHERE USED: on gb.gc.GutenbergCache ---
         self.p_create = mock.patch.object(
-            gb.gutenbergcache.GutenbergCache, "create", autospec=True
+            gb.gc.GutenbergCache, "create", autospec=True
         )
         self.p_get_cache = mock.patch.object(
-            gb.gutenbergcache.GutenbergCache, "get_cache", autospec=True
+            gb.gc.GutenbergCache, "get_cache", autospec=True
         )
         self.m_create = self.p_create.start()
         self.m_get_cache = self.p_get_cache.start()

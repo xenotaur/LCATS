@@ -34,7 +34,7 @@ def dispatch(command, args):
         return "LCATS is a literary case based reasoning system.", 0
 
     elif command == 'gather':
-        return lcats.gatherers.main.run()
+        return lcats.gatherers.main.run(args)
     
     elif command == 'inspect':
         return lcats.inspect.inspect(*args)

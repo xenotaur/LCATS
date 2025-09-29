@@ -1,33 +1,50 @@
 """Runs the extractors we have."""
 
-import lcats.gatherers.sherlock.gutenberg as sherlock
-import lcats.gatherers.lovecraft.gutenberg as lovecraft
-import lcats.gatherers.ohenry.gutenberg as ohenry
-import lcats.gatherers.hemingway.gutenberg as hemingway
-import lcats.gatherers.wodehouse.gutenberg as wodehouse
-import lcats.gatherers.wilde_happy_prince.gutenberg as wilde_happy_prince
-import lcats.gatherers.grimm.gutenberg as grimm
-import lcats.gatherers.anderson.gutenberg as anderson
-import lcats.gatherers.chesterton.gutenberg as chesterton
-import lcats.gatherers.london.gutenberg as london
+import lcats.gatherers.sherlock.gatherer as sherlock
+import lcats.gatherers.lovecraft.gatherer as lovecraft
+import lcats.gatherers.ohenry.gatherer as ohenry
+import lcats.gatherers.hemingway.gatherer as hemingway
+import lcats.gatherers.wodehouse.gatherer as wodehouse
+import lcats.gatherers.wilde_happy_prince.gatherer as wilde_happy_prince
+import lcats.gatherers.grimm.gatherer as grimm
+import lcats.gatherers.anderson.gatherer as anderson
+import lcats.gatherers.chesterton.gatherer as chesterton
+import lcats.gatherers.london.gatherer as london
 import lcats.gatherers.mass_quantities.gatherer as mass_quantities
 
-def run(dry_run=False):
-    if not dry_run:
-        print("Gathering data from the corpus.")
-        print(sherlock.gather())
-        print(lovecraft.gather())
-        print(ohenry.gather())
-        print(hemingway.gather())
-        print(wilde_happy_prince.gather())
-        print(wodehouse.gather())
-        print(grimm.gather())
-        print(anderson.gather())
-        print(chesterton.gather())
-        print(london.gather())
-        print(mass_quantities.gather())
 
-        
+GATHERERS = {
+    "sherlock": sherlock,
+    "lovecraft": lovecraft,
+    "ohenry": ohenry,
+    "hemingway": hemingway,
+    "wilde_happy_prince": wilde_happy_prince,
+    "wodehouse": wodehouse,
+    "grimm": grimm,
+    "anderson": anderson,
+    "chesterton": chesterton,
+    "london": london,
+    "mass_quantities": mass_quantities,
+}
+
+
+def run(gatherers="ALL", dry_run=False):
+    """Run the gatherers."""
+    if gatherers == "ALL":
+        gatherers = list(GATHERERS.keys())
+
+    print("Gathering data from the corpus.")
+    print(f"Gatherers to run: {', '.join(gatherers)}")
+    for gatherer in gatherers:
+        if gatherer not in GATHERERS:
+            print(f"Unknown gatherer: {gatherer}")
+            continue
+        print(f"Running gatherer: {gatherer}")
+        if dry_run:
+            print(f"Dry run: would run {gatherer}.gather()")
+        else:
+            GATHERERS[gatherer].gather()
+
     return "Gathering complete.", 0
 
 
