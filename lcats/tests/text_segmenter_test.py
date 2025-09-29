@@ -2,7 +2,7 @@
 
 import unittest
 
-from lcats.analysis import text_indexing
+from lcats.analysis import text_segmenter
 
 
 class TestTextIndexing(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestTextIndexing(unittest.TestCase):
 
         # Simulate Windows newlines between paragraphs to test canonicalization.
         self.story_raw = self.p1 + "\r\n\r\n" + self.p2 + "\r\n\r\n" + self.p3
-        self.story = text_indexing.canonicalize_text(self.story_raw)  # -> \n only
+        self.story = text_segmenter.canonicalize_text(self.story_raw)  # -> \n only
 
     def test_canonicalize_text_normalizes_newlines(self):
         """CRLF/CR are normalized to LF and content is preserved."""
@@ -27,7 +27,7 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_build_paragraph_index_returns_parts_and_spans(self):
         """Paragraphs and their absolute spans should align with the source string."""
-        parts, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        parts, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         self.assertEqual(parts, [self.p1, self.p2, self.p3])
         self.assertEqual(len(spans), 3)
 
@@ -41,8 +41,8 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_add_paragraph_markers_inserts_ids(self):
         """Markers like [P0001] should prefix each paragraph with correct delimiter usage."""
-        parts, _ = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
-        indexed = text_indexing.add_paragraph_markers(parts, delimiter="\n\n")
+        parts, _ = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
+        indexed = text_segmenter.add_paragraph_markers(parts, delimiter="\n\n")
 
         self.assertTrue(indexed.startswith("[P0001] "))
         self.assertIn("[P0002] ", indexed)
@@ -53,28 +53,28 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_find_anchor_in_range_exact_match(self):
         """Exact anchor within a paragraph range returns the correct absolute index."""
-        _, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        _, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         lo, hi = spans[1]  # paragraph 2 range
         anchor = "para with   extra   spaces"  # keep spaces exact
-        idx = text_indexing.find_anchor_in_range(self.story, anchor, lo, hi)
+        idx = text_segmenter.find_anchor_in_range(self.story, anchor, lo, hi)
         self.assertIsNotNone(idx)
         self.assertEqual(self.story[idx: idx + len(anchor)], anchor)
 
     def test_find_anchor_in_range_outside_range_returns_none(self):
         """Anchors outside the search window should return None."""
-        _, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        _, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         lo, hi = spans[2]  # paragraph 3 only
         anchor = "Second para"  # exists only in paragraph 2
-        self.assertIsNone(text_indexing.find_anchor_in_range(self.story, anchor, lo, hi))
+        self.assertIsNone(text_segmenter.find_anchor_in_range(self.story, anchor, lo, hi))
 
     def test_align_segment_happy_path_within_one_paragraph(self):
         """Align using (start_par_id, end_par_id) and exact anchors inside paragraph 2."""
-        parts, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        parts, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         p2_start, p2_end = spans[1]
 
         start_exact = self.p2[:12]     # "Second para "
         end_exact = self.p2[-7:]       # "spaces."
-        span = text_indexing.align_segment(
+        span = text_segmenter.align_segment(
             self.story, spans, start_par_id=2, end_par_id=2,
             start_exact=start_exact, end_exact=end_exact
         )
@@ -90,10 +90,10 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_align_segment_fallback_to_paragraph_bounds_when_anchors_missing(self):
         """Empty anchors fall back to paragraph bounds."""
-        parts, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        parts, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         p3_start, p3_end = spans[2]
 
-        span = text_indexing.align_segment(
+        span = text_segmenter.align_segment(
             self.story, spans, start_par_id=3, end_par_id=3,
             start_exact="", end_exact=""
         )
@@ -101,14 +101,14 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_align_segment_handles_reversed_par_ids_gracefully(self):
         """If end < start, it clamps to a single paragraph instead of crashing."""
-        parts, spans = text_indexing.build_paragraph_index(self.story, splitter="\n\n")
+        parts, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         p2_start, p2_end = spans[1]
 
         start_exact = self.p2[:6]
         end_exact = self.p2[-6:]
 
         # Intentionally reversed: start_par_id=3, end_par_id=2 -> clamped to 3 (or 2) per implementation
-        span = text_indexing.align_segment(
+        span = text_segmenter.align_segment(
             self.story, spans, start_par_id=3, end_par_id=2,
             start_exact=start_exact, end_exact=end_exact
         )
@@ -120,7 +120,7 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_paragraph_text_indexer_outputs_indexed_text_and_meta(self):
         """Indexer returns indexed text with markers and meta that maps back to canonical text."""
-        indexed_text, meta = text_indexing.paragraph_text_indexer(self.story_raw)
+        indexed_text, meta = text_segmenter.paragraph_text_indexer(self.story_raw)
 
         # Canonical text in meta should equal our precomputed canonical story.
         self.assertEqual(meta["canonical_text"], self.story)
@@ -136,7 +136,7 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_segments_result_aligner_fills_start_end_chars(self):
         """Result aligner fills canonical start/end chars for well-formed segments."""
-        _, meta = text_indexing.paragraph_text_indexer(self.story_raw)
+        _, meta = text_segmenter.paragraph_text_indexer(self.story_raw)
 
         # Build a parsed_output with one segment targeting paragraph 2 anchors.
         parsed_output = {
@@ -160,7 +160,7 @@ class TestTextIndexing(unittest.TestCase):
             ]
         }
 
-        aligned = text_indexing.segments_result_aligner(parsed_output, self.story, meta)
+        aligned = text_segmenter.segments_result_aligner(parsed_output, self.story, meta)
         self.assertIn("segments", aligned)
         seg = aligned["segments"][0]
         self.assertIsInstance(seg.get("start_char"), int)
@@ -173,7 +173,7 @@ class TestTextIndexing(unittest.TestCase):
 
     def test_segments_result_aligner_is_resilient_to_missing_fields(self):
         """Segments missing required fields should be left unchanged (no crash)."""
-        _, meta = text_indexing.paragraph_text_indexer(self.story_raw)
+        _, meta = text_segmenter.paragraph_text_indexer(self.story_raw)
         parsed_output = {
             "segments": [
                 {
@@ -184,7 +184,7 @@ class TestTextIndexing(unittest.TestCase):
                 }
             ]
         }
-        aligned = text_indexing.segments_result_aligner(parsed_output, self.story, meta)
+        aligned = text_segmenter.segments_result_aligner(parsed_output, self.story, meta)
         seg = aligned["segments"][0]
         self.assertNotIn("start_char", seg)
         self.assertNotIn("end_char", seg)

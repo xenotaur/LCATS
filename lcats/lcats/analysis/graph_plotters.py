@@ -1,257 +1,9 @@
-"""Survey and analyze a corpus of JSON story files."""
-
-import ast
-import json
-import os
-import pathlib
-import re
-import sys
-import typing
-
-from typing import Any, Dict, Iterable, List, Tuple, Union
+"""Plotting functions for LCATS corpus analysis."""
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import tiktoken
-from tqdm import tqdm
-
-
-def find_corpus_stories(
-    root: Union[str, pathlib.Path],
-    *,
-    ignore_dir_names: Iterable[str] = ("cache",),
-    follow_symlinks: bool = False,
-    ignore_hidden: bool = False,
-    sort: bool = True,
-) -> List[pathlib.Path]:
-    """
-    Recursively list all .json files under `root`, pruning directories
-    whose *name* is in `ignore_dir_names` (e.g., 'cache') anywhere in the tree.
-
-    Args:
-        root: Corpus root directory (string or Path).
-        ignore_dir_names: Directory names to prune (case-insensitive).
-        follow_symlinks: Whether to descend into symlinked directories.
-        ignore_hidden: If True, skip dot-directories and dot-files.
-        sort: If True, return paths in sorted order (stable/deterministic).
-
-    Returns:
-        A list of pathlib.Path objects for all discovered JSON files.
-
-    Raises:
-        FileNotFoundError: if `root` does not exist.
-        NotADirectoryError: if `root` is not a directory.
-    """
-    root_path = pathlib.Path(root).expanduser()
-    if not root_path.exists():
-        raise FileNotFoundError(f"Root path not found: {root_path}")
-    if not root_path.is_dir():
-        raise NotADirectoryError(f"Root is not a directory: {root_path}")
-
-    ignore_set = {name.casefold() for name in ignore_dir_names}
-    results: typing.List[pathlib.Path] = []
-
-    for dirpath, dirnames, filenames in os.walk(
-        root_path, topdown=True, followlinks=follow_symlinks
-    ):
-        # Prune ignored / hidden directories in-place so os.walk won't descend into them.
-        pruned = []
-        for d in dirnames:
-            if d.casefold() in ignore_set:
-                continue
-            if ignore_hidden and d.startswith("."):
-                continue
-            pruned.append(d)
-        dirnames[:] = pruned
-
-        # Collect JSON files (optionally skipping hidden files).
-        for fname in filenames:
-            if ignore_hidden and fname.startswith("."):
-                continue
-            if fname.lower().endswith(".json"):
-                results.append(pathlib.Path(dirpath) / fname)
-
-    if sort:
-        results.sort()
-    return results
-
-
-_WORD_RE = re.compile(r"\S+")  # simple, robust word-ish segmentation
-
-def _get_encoder() -> "tiktoken.Encoding":
-    """Prefer GPT-4o-ish tokens; fallback to cl100k_base."""
-    for name in ("o200k_base", "cl100k_base"):
-        try:
-            return tiktoken.get_encoding(name)
-        except Exception:
-            continue
-    # As a last resort, use the default encoding for cl100k_base-compatible models
-    try:
-        return tiktoken.encoding_for_model("gpt-4")
-    except Exception as e:
-        raise RuntimeError("No suitable tiktoken encoding found.") from e
-
-
-def _decode_possible_bytes_literal(s: str) -> str:
-    """
-    Safely decode strings that look like Python bytes literals: b'...'/b"...".
-    Otherwise return the string unchanged.
-    """
-    if not isinstance(s, str):
-        return str(s)
-    t = s.strip()
-    if len(t) >= 3 and t[0] == "b" and t[1] in ("'", '"'):
-        try:
-            b = ast.literal_eval(t)
-            if isinstance(b, (bytes, bytearray)):
-                return bytes(b).decode("utf-8", errors="replace")
-        except Exception:
-            pass
-    return s
-
-
-def _extract_title_authors_body(data: Dict[str, Any]) -> Tuple[str, List[str], str]:
-    # Title
-    title = (data.get("name") or data.get("metadata", {}).get("name") or "").strip()
-    if not title:
-        title = "<Untitled>"
-
-    # Authors (list of strings)
-    authors = data.get("author")
-    if not authors:
-        authors = data.get("metadata", {}).get("author", [])
-    if isinstance(authors, str):
-        authors = [authors]
-    authors = [a.strip() for a in (authors or []) if str(a).strip()]
-
-    # Body
-    body = data.get("body", "")
-    if isinstance(body, (bytes, bytearray)):
-        body = bytes(body).decode("utf-8", errors="replace")
-    else:
-        body = _decode_possible_bytes_literal(str(body))
-    return title, authors, body
-
-
-def _normalize_title(s: str) -> str:
-    return re.sub(r"\s+", " ", s).strip().lower()
-
-
-def _word_count(text: str) -> int:
-    return len(_WORD_RE.findall(text))
-
-
-def _token_count(text: str, enc: "tiktoken.Encoding") -> int:
-    # Note: tiktoken expects bytes/str; do not pre-split.
-    return len(enc.encode(text, disallowed_special=()))
-
-
-# ---------- main API ----------
-
-def compute_corpus_stats(
-    json_paths: Iterable[Union[str, pathlib.Path]],
-    *,
-    dedupe: bool = True,
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    Given an iterable of JSON file paths, produce:
-      - story_stats: one row per unique story
-      - author_stats: one row per author, aggregated across their stories
-
-    Uniqueness key (if dedupe=True): (normalized_title, tuple(sorted(lowercased_authors)))
-
-    Columns in story_stats:
-        path, story_id, title, authors, n_authors,
-        title_words, title_chars, title_tokens,
-        body_words, body_chars, body_tokens
-
-    Columns in author_stats:
-        author, stories, body_words, body_chars, body_tokens
-    """
-    enc = _get_encoder()
-    seen_keys = set()
-
-    story_rows: List[Dict[str, Any]] = []
-
-    for p in tqdm(json_paths):
-        path = pathlib.Path(p)
-        try:
-            with path.open("r", encoding="utf-8") as f:
-                data = json.load(f)
-        except Exception as e:
-            print(f"warn: skipping unreadable JSON {path}: {e}", file=sys.stderr)
-            continue
-
-        title, authors, body = _extract_title_authors_body(data)
-
-        # Uniqueness key
-        key = (_normalize_title(title), tuple(sorted(a.lower() for a in authors)))
-        if dedupe and key in seen_keys:
-            continue
-        seen_keys.add(key)
-
-        # Metrics
-        title_chars = len(title)
-        title_words = _word_count(title)
-        title_tokens = _token_count(title, enc)
-
-        body_chars = len(body)
-        body_words = _word_count(body)
-        body_tokens = _token_count(body, enc)
-
-        story_rows.append(
-            {
-                "path": str(path),
-                "story_id": f"{key[0]}::{';'.join(key[1])}" if key[1] else key[0],
-                "title": title,
-                "authors": authors,
-                "n_authors": len(authors),
-
-                "title_words": title_words,
-                "title_chars": title_chars,
-                "title_tokens": title_tokens,
-
-                "body_words": body_words,
-                "body_chars": body_chars,
-                "body_tokens": body_tokens,
-            }
-        )
-
-    story_stats = pd.DataFrame(story_rows)
-
-    if story_stats.empty:
-        # Return empty frames with expected columns
-        story_cols = [
-            "path","story_id","title","authors","n_authors",
-            "title_words","title_chars","title_tokens",
-            "body_words","body_chars","body_tokens",
-        ]
-        author_cols = ["author","stories","body_words","body_chars","body_tokens"]
-        return pd.DataFrame(columns=story_cols), pd.DataFrame(columns=author_cols)
-
-    # Build author_stats by exploding authors and aggregating body metrics.
-    # (We aggregate body metrics, as requested; titles are usually small and not counted here.)
-    exploded = story_stats.explode("authors", ignore_index=True)
-    exploded["authors"] = exploded["authors"].fillna("")
-
-    # Drop rows with no author string (optional; comment out to keep)
-    exploded = exploded[exploded["authors"].str.len() > 0].copy()
-
-    grp = exploded.groupby("authors", as_index=False).agg(
-        stories=("story_id", "nunique"),
-        body_words=("body_words", "sum"),
-        body_chars=("body_chars", "sum"),
-        body_tokens=("body_tokens", "sum"),
-    )
-    grp = grp.rename(columns={"authors": "author"}).sort_values(
-        ["stories", "body_words"], ascending=[False, False]
-    )
-
-    author_stats = grp.reset_index(drop=True)
-
-    return story_stats, author_stats
 
 
 def plot_author_stories_vs_tokens(
@@ -321,6 +73,7 @@ def tokens_per_story_by_author_frame(story_stats):
     df = df.rename(columns={"authors": "author"})
     return df[["author", "story_id", "title", "body_tokens"]]
 
+
 def plot_tokens_per_story_by_author(
     story_stats,
     *,
@@ -331,6 +84,7 @@ def plot_tokens_per_story_by_author(
     rotate_labels=45,
     bottom_pad=0.35
 ):
+    """Boxplot: tokens per story, grouped by author."""
     df = tokens_per_story_by_author_frame(story_stats)
 
     counts = df.groupby("author")["story_id"].nunique().sort_values(ascending=False)
@@ -371,6 +125,7 @@ def plot_tokens_per_story_by_author(
     fig.subplots_adjust(bottom=bottom_pad)
     return fig, ax
 
+
 def plot_author_stories_vs_tokens_sns(
     author_stats: pd.DataFrame,
     *,
@@ -378,6 +133,7 @@ def plot_author_stories_vs_tokens_sns(
     annotate_top: int = 10,
     figsize: tuple = (8, 6)
 ):
+    """Scatter: number of stories per author (x) vs tokens per author (y) using seaborn."""
     df = author_stats.sort_values("body_tokens", ascending=False).copy()
 
     fig, ax = plt.subplots(figsize=figsize)
@@ -415,6 +171,7 @@ def plot_tokens_per_story_by_author_sns(
     rotate_labels=45,
     bottom_pad=0.35
 ):
+    """Violinplot: tokens per story, grouped by author, using seaborn."""
     df = tokens_per_story_by_author_frame(story_stats)
 
     counts = df.groupby("author")["story_id"].nunique().sort_values(ascending=False)
@@ -535,4 +292,5 @@ def plot_tokens_per_story_vs_stories(
 
     fig.tight_layout()
     return fig, ax
+
 

@@ -1,4 +1,4 @@
-"""Unit tests for lcats.analysis.survey."""
+"""Unit tests for lcats.analysis.corpus_surveyor."""
 
 import json
 import numbers
@@ -8,11 +8,11 @@ import unittest
 import tiktoken
 
 from lcats import test_utils
-from lcats.analysis import survey
+from lcats.analysis import corpus_surveyor
 
 
 class TestComputeCorpusStats(test_utils.TestCaseWithData):
-    """Unit tests for survey.compute_corpus_stats."""
+    """Unit tests for corpus_surveyor.compute_corpus_stats."""
 
     def setUp(self):
         super().setUp()
@@ -98,7 +98,7 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_basic_aggregation_with_dedupe(self):
         """Deduplicate duplicate stories; aggregate author/story stats correctly."""
-        story_stats, author_stats = survey.compute_corpus_stats(self.paths, dedupe=True)
+        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(self.paths, dedupe=True)
 
         # Story frame has expected columns
         expected_story_cols = {
@@ -150,7 +150,7 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_dedupe_false_keeps_duplicate_row_but_author_story_counts_stay_unique(self):
         """When dedupe=False, keep duplicates; author 'stories' remains unique by story_id."""
-        story_stats, author_stats = survey.compute_corpus_stats(self.paths, dedupe=False)
+        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(self.paths, dedupe=False)
 
         # Both p1 and its duplicate p2 should appear now
         self.assertEqual(len(story_stats), 5)
@@ -165,7 +165,7 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         """Exact token counts match the encoder preference used by the implementation."""
         enc = self._preferred_encoder()
 
-        story_stats, _ = survey.compute_corpus_stats([self.p3], dedupe=True)
+        story_stats, _ = corpus_surveyor.compute_corpus_stats([self.p3], dedupe=True)
         row = story_stats.iloc[0]
 
         self.assertEqual(row["title"], "Beta")

@@ -5,13 +5,6 @@ from typing import Any, Callable, Dict, Optional, Tuple
 
 from lcats import utils
 
-# lcats/analysis/llm_extract.py
-
-import json
-from typing import Any, Callable, Dict, Optional, Tuple
-
-from lcats import utils  # already used by your project
-
 
 class JSONPromptExtractor:
     """
