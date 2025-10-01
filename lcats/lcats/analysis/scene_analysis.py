@@ -3,6 +3,7 @@
 import re
 from typing import Any, Dict, List, Optional
 
+
 from lcats import utils
 from lcats.analysis import llm_extractor
 from lcats.analysis import text_segmenter
@@ -602,3 +603,89 @@ def normalize_preview(s: str) -> str:
     s = s.replace("\n", " ")            # single newlines -> spaces
     s = re.sub(r"[ \t\u00A0]+", " ", s).strip()
     return s.replace("\u2029", "\n")
+
+
+ALLOWED_SCENE_TYPES = ["dramatic_scene", "dramatic_sequel", "narrative_scene", "other"]
+
+
+def normalize_label(label: str) -> str:
+    """Re-label unknown scene types to "unknown".
+
+    We are deliberately strict here to avoid typos and unexpected values.
+
+    Args:
+        label: Raw label (e.g., 'Dramatic Scene', 'dramatic_scene').
+
+    Returns:
+        One of: 'dramatic_scene', 'dramatic_sequel', 'narrative_scene',
+        'other', 'unknown'.
+    """
+    return label if label in ALLOWED_SCENE_TYPES else "unknown"
+
+
+def summarize_type_agreement(story_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Summarize agreement/disagreement counts across segments.
+
+    Args:
+        story_data: A story payload (typically output of `attach_type_agreement`).
+
+    Returns:
+        Dict with counts and percentages:
+        {
+          "segments_total": int,
+          "agreements": int,
+          "disagreements": int,
+          "agreement_pct": float,   # 0.0..100.0
+          "by_extractor": {type: count, ...},
+          "by_auditor": {type: count, ...}
+        }
+    """
+    segments = story_data.get("segments") or []
+    if not isinstance(segments, list):
+        segments = []
+
+    by_extractor = {
+        "dramatic_scene": 0,
+        "dramatic_sequel": 0,
+        "narrative_scene": 0,
+        "other": 0,
+        "unknown": 0,
+    }
+    by_auditor = {
+        "dramatic_scene": 0,
+        "dramatic_sequel": 0,
+        "narrative_scene": 0,
+        "other": 0,
+        "unknown": 0,
+    }
+
+    agreements = 0
+    total = 0
+
+    for seg in segments:
+        # Ensure we’re using normalized values even if attach_type_agreement
+        # hasn’t been run yet.
+        whole = normalize_label(seg.get("whole_story_type") or seg.get("segment_type"))
+        per_scene = normalize_label(
+            seg.get("per_scene_type")
+            or (seg.get("segment_eval") or {}).get("label")
+        )
+
+        by_extractor[whole] = by_extractor.get(whole, 0) + 1
+        by_auditor[per_scene] = by_auditor.get(per_scene, 0) + 1
+
+        total += 1
+        if whole == per_scene:
+            agreements += 1
+
+    disagreements = max(0, total - agreements)
+    agreement_rate = (agreements / total) if total else 0.0
+
+    return {
+        "segments_total": total,
+        "agreements": agreements,
+        "disagreements": disagreements,
+        "agreement_rate": agreement_rate,
+        "by_extractor": by_extractor,
+        "by_auditor": by_auditor,
+    }

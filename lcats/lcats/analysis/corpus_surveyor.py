@@ -1,6 +1,5 @@
 """Survey and analyze a corpus of JSON story files."""
 
-import ast
 from datetime import datetime
 import json
 import os
@@ -108,13 +107,15 @@ def compute_corpus_stats(
             with path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
         except Exception as e:
-            print(f"warn: skipping unreadable JSON {path}: {e}", file=sys.stderr)
+            print(
+                f"warn: skipping unreadable JSON {path}: {e}", file=sys.stderr)
             continue
 
         title, authors, body = story_analysis.extract_title_authors_body(data)
 
         # Uniqueness key
-        key = (story_analysis.normalize_title(title), tuple(sorted(a.lower() for a in authors)))
+        key = (story_analysis.normalize_title(title),
+               tuple(sorted(a.lower() for a in authors)))
         if dedupe and key in seen_keys:
             continue
         seen_keys.add(key)
@@ -151,11 +152,12 @@ def compute_corpus_stats(
     if story_stats.empty:
         # Return empty frames with expected columns
         story_cols = [
-            "path","story_id","title","authors","n_authors",
-            "title_words","title_chars","title_tokens",
-            "body_words","body_chars","body_tokens",
+            "path", "story_id", "title", "authors", "n_authors",
+            "title_words", "title_chars", "title_tokens",
+            "body_words", "body_chars", "body_tokens",
         ]
-        author_cols = ["author","stories","body_words","body_chars","body_tokens"]
+        author_cols = ["author", "stories",
+                       "body_words", "body_chars", "body_tokens"]
         return pd.DataFrame(columns=story_cols), pd.DataFrame(columns=author_cols)
 
     # Build author_stats by exploding authors and aggregating body metrics.
@@ -196,19 +198,11 @@ def process_corpora(
     indent: int = 2,
     verbose: bool = False,
 ) -> Dict[str, Any]:
-    """Process corpus JSON files into a mirrored output directory tree.
+    """Discover corpus JSON files and process them to a mirrored output tree.
 
-    Discovers all JSON files under `corpora_root` (using find_corpus_stories),
-    computes an output path that preserves the same relative structure beneath
-    `output_root/<job_dir>`, and for each file:
-      - if the output does not exist (or `force=True`), loads the input JSON,
-        calls `processor_function(data)`, and writes the returned JSON to the
-        output path;
-      - otherwise, skips processing.
-
-    The job directory is `output_root/job_<YYYY_MM_DD_HH_MM_SS>` if `job_label`
-    is not provided. If provided, `job_label` is sanitized to a safe path
-    component and used as `output_root/<job_label>`.
+    This is a convenience wrapper around `process_files(...)` that first finds
+    all JSON files under `corpora_root` using `find_corpus_stories(...)`
+    and then processes those files.
 
     Args:
         corpora_root: Root directory of the corpus to scan.
@@ -222,6 +216,71 @@ def process_corpora(
         follow_symlinks: Whether to descend into symlinked directories.
         ignore_hidden: If True, skip dot-dirs and dot-files during discovery.
         sort: If True, process files in sorted order (stable/deterministic).
+        encoding: Text encoding used to read/write JSON.
+        indent: Indentation level for pretty JSON output.
+        verbose: If True, print per-file status lines.
+
+    Returns:
+        A dict summary; see `process_files(...)` for exact schema.
+
+    Raises:
+        FileNotFoundError: If `corpora_root` does not exist.
+        NotADirectoryError: If `corpora_root` is not a directory.
+    """
+    corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
+
+    # Let survey.find_corpus_stories validate inputs and produce the file list.
+    files = find_corpus_stories(
+        corpora_root_path,
+        ignore_dir_names=ignore_dir_names,
+        follow_symlinks=follow_symlinks,
+        ignore_hidden=ignore_hidden,
+        sort=sort,
+    )
+
+    return process_files(
+        files,
+        corpora_root=corpora_root_path,
+        output_root=output_root,
+        processor_function=processor_function,
+        job_label=job_label,
+        force=force,
+        sort=False,  # already sorted above if requested
+        encoding=encoding,
+        indent=indent,
+        verbose=verbose,
+    )
+
+
+def process_files(
+    files: Iterable[Union[str, pathlib.Path]],
+    corpora_root: Union[str, pathlib.Path],
+    output_root: Union[str, pathlib.Path],
+    processor_function: Callable[[Any], Any],
+    *,
+    job_label: Optional[str] = None,
+    force: bool = False,
+    sort: bool = True,
+    encoding: str = "utf-8",
+    indent: int = 2,
+    verbose: bool = False,
+) -> Dict[str, Any]:
+    """Process a given list of JSON files, mirroring paths under a job directory.
+
+    Unlike `process_corpora`, this function does not search the filesystem. It
+    takes an explicit iterable of file paths, and uses `corpora_root` only to
+    compute each file's relative path for mirroring under the output job dir.
+
+    Args:
+        files: Iterable of file paths to process.
+        corpora_root: Root used to compute relative paths for mirroring.
+        output_root: Root directory under which the job directory is created.
+        processor_function: Callable that accepts an input JSON object and
+            returns a JSON-serializable object to be written.
+        job_label: Optional label for the job directory. If None, a timestamped
+            label is generated.
+        force: Recompute and overwrite outputs even if output files exist.
+        sort: If True, process files in sorted order (by path).
         encoding: Text encoding used to read/write JSON.
         indent: Indentation level for pretty JSON output.
         verbose: If True, print per-file status lines.
@@ -244,110 +303,51 @@ def process_corpora(
               "status": "processed" | "skipped" | "error",
               "error": Optional[str]
             }
-
-    Raises:
-        FileNotFoundError: If `corpora_root` does not exist.
-        NotADirectoryError: If `corpora_root` is not a directory.
     """
     corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
     output_root_path = pathlib.Path(output_root).expanduser().resolve()
 
-    # Validate corpus root; find_corpus_stories will also sanity-check.
-    if not corpora_root_path.exists():
-        raise FileNotFoundError(f"Root path not found: {corpora_root_path}")
-    if not corpora_root_path.is_dir():
-        raise NotADirectoryError(f"Root is not a directory: {corpora_root_path}")
-
-    # Compute/sanitize job directory name.
-    if job_label:
-        # Keep alnum, dash, underscore; collapse spaces to underscore.
-        safe = re.sub(r"\s+", "_", job_label.strip())
-        safe = re.sub(r"[^A-Za-z0-9._-]", "_", safe)
-        job_dir = output_root_path / safe
-    else:
-        stamp = datetime.now().strftime("job_%Y_%m_%d_%H_%M_%S")
-        job_dir = output_root_path / stamp
-
-    # Ensure job directory exists.
+    job_dir = compute_job_dir(output_root_path, job_label)
     job_dir.mkdir(parents=True, exist_ok=True)
 
-    # Discover input files.
-    inputs = find_corpus_stories(
-        corpora_root_path,
-        ignore_dir_names=ignore_dir_names,
-        follow_symlinks=follow_symlinks,
-        ignore_hidden=ignore_hidden,
-        sort=sort,
-    )
+    norm_files: List[pathlib.Path] = [
+        pathlib.Path(p).expanduser().resolve() for p in files
+    ]
+    if sort:
+        norm_files.sort()
 
     processed = 0
     skipped = 0
     errors: List[Dict[str, Any]] = []
     results: List[Dict[str, Any]] = []
 
-    for in_path in inputs:
-        # Compute path relative to corpus root, mirror under job_dir.
-        try:
-            rel = in_path.resolve().relative_to(corpora_root_path)
-        except ValueError:
-            # Should not happen if discovery was rooted correctly; fallback.
-            rel = in_path.name
-
-        out_path = job_dir / rel
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-
-        if out_path.exists() and not force:
-            skipped += 1
-            results.append({
-                "input": in_path,
-                "output": out_path,
-                "status": "skipped",
-                "error": None,
-            })
-            if verbose:
-                print(f"SKIP  {rel}")
-            continue
-
-        # Process one file.
-        try:
-            with in_path.open("r", encoding=encoding) as f:
-                data = json.load(f)
-
-            transformed = processor_function(data)
-
-            with out_path.open("w", encoding=encoding, newline="\n") as f:
-                json.dump(transformed, f, ensure_ascii=False, indent=indent)
-                f.write("\n")
-
+    for in_path in tqdm(norm_files, desc="Processing files", unit="file"):
+        result = process_file(
+            in_path=in_path,
+            corpora_root=corpora_root_path,
+            job_dir=job_dir,
+            processor_function=processor_function,
+            force=force,
+            encoding=encoding,
+            indent=indent,
+            verbose=verbose,
+        )
+        results.append(result)
+        if result["status"] == "processed":
             processed += 1
-            results.append({
-                "input": in_path,
-                "output": out_path,
-                "status": "processed",
-                "error": None,
-            })
-            if verbose:
-                print(f"OK    {rel} -> {out_path.relative_to(job_dir)}")
-
-        except Exception as exc:  # noqa: BLE001
-            err_msg = f"{type(exc).__name__}: {exc}"
+        elif result["status"] == "skipped":
+            skipped += 1
+        elif result["status"] == "error":
             errors.append({
-                "input": str(in_path),
-                "output": str(out_path),
-                "error": err_msg,
+                "input": str(result["input"]),
+                "output": str(result["output"]),
+                "error": result.get("error") or "",
             })
-            results.append({
-                "input": in_path,
-                "output": out_path,
-                "status": "error",
-                "error": err_msg,
-            })
-            if verbose:
-                print(f"ERROR {rel} :: {err_msg}")
 
+    print(f"{processed} files processed, {skipped} skipped, {len(errors)} errors")
     return {
         "job_dir": job_dir,
-        "total": len(inputs),
+        "total": len(norm_files),
         "processed": processed,
         "skipped": skipped,
         "errors": errors,
@@ -355,3 +355,114 @@ def process_corpora(
     }
 
 
+def process_file(
+    in_path: Union[str, pathlib.Path],
+    *,
+    corpora_root: Union[str, pathlib.Path],
+    job_dir: Union[str, pathlib.Path],
+    processor_function: Callable[[Any], Any],
+    force: bool = False,
+    encoding: str = "utf-8",
+    indent: int = 2,
+    verbose: bool = False,
+) -> Dict[str, Any]:
+    """Process a single JSON file and write its transformed output.
+
+    The output path mirrors the input path relative to `corpora_root`, but is
+    rooted under `job_dir`.
+
+    Args:
+        in_path: Input JSON path.
+        corpora_root: Root used to compute relative path for mirroring.
+        job_dir: Pre-created job directory under the output root.
+        processor_function: Callable that accepts input JSON and returns a
+            JSON-serializable object to be written.
+        force: Overwrite existing output.
+        encoding: Text encoding used to read/write JSON.
+        indent: Indentation level for pretty JSON output.
+        verbose: If True, print per-file status.
+
+    Returns:
+        A result dict:
+            {
+              "input": pathlib.Path,
+              "output": pathlib.Path,
+              "status": "processed" | "skipped" | "error",
+              "error": Optional[str]
+            }
+    """
+    in_path = pathlib.Path(in_path).expanduser().resolve()
+    corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
+    job_dir_path = pathlib.Path(job_dir).expanduser().resolve()
+
+    # Compute relative path against corpora_root; fallback to filename if outside.
+    try:
+        rel = in_path.relative_to(corpora_root_path)
+    except ValueError:
+        rel = in_path.name
+
+    out_path = job_dir_path / rel
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if out_path.exists() and not force:
+        if verbose:
+            print(f"SKIP  {rel}")
+        return {
+            "input": in_path,
+            "output": out_path,
+            "status": "skipped",
+            "error": None,
+        }
+
+    try:
+        print(f"Processing {rel} -> {out_path.relative_to(job_dir_path)}")
+        with in_path.open("r", encoding=encoding) as f:
+            data = json.load(f)
+
+        transformed = processor_function(data)
+
+        with out_path.open("w", encoding=encoding, newline="\n") as f:
+            json.dump(transformed, f, ensure_ascii=False, indent=indent)
+            f.write("\n")
+
+        if verbose:
+            print(f"OK    {rel} -> {out_path.relative_to(job_dir_path)}")
+
+        return {
+            "input": in_path,
+            "output": out_path,
+            "status": "processed",
+            "error": None,
+        }
+
+    except Exception as exc:  # noqa: BLE001
+        err_msg = f"{type(exc).__name__}: {exc}"
+        if verbose:
+            print(f"ERROR {rel} :: {err_msg}")
+        return {
+            "input": in_path,
+            "output": out_path,
+            "status": "error",
+            "error": err_msg,
+        }
+
+
+def compute_job_dir(
+    output_root_path: pathlib.Path,
+    job_label: Optional[str],
+) -> pathlib.Path:
+    """Compute and sanitize the job directory path.
+
+    Args:
+        output_root_path: Base output root directory.
+        job_label: Optional label; if None, a timestamped label is generated.
+
+    Returns:
+        A pathlib.Path under output_root_path representing the job directory.
+    """
+    if job_label:
+        safe = re.sub(r"\s+", "_", job_label.strip())
+        safe = re.sub(r"[^A-Za-z0-9._-]", "_", safe)
+        return output_root_path / safe
+    stamp = datetime.now().strftime("job_%Y_%m_%d_%H_%M_%S")
+    return output_root_path / stamp
