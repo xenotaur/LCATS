@@ -6,6 +6,8 @@ import re
 
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+from lcats.analysis import llm_extractor
+
 import tiktoken
 
 
@@ -212,7 +214,142 @@ def decode_possible_bytes_literal(s: str) -> str:
 
 
 
+DOC_CLASSIFY_SYSTEM_PROMPT = """
+You are a careful document diagnostician. Given a single narrative text,
+you must assess: integrity, completeness, primary type, series relation,
+and genre. Use ONLY the provided text. Output JSON ONLY.
 
+DEFINITIONS & DECISION RULES
+----------------------------
 
+Integrity (intact | corrupted)
+- corrupted: strong evidence of encoding/OCR damage or file breakage:
+  • mojibake (e.g., �, â€™, Ã, â€”), control chars beyond \\n/\\t,
+  • pervasive OCR artifacts: co-\\noperation hyphen breaks, ﬁ/ﬂ ligatures,
+    0/O/1/l swaps, mid-word newlines across lines,
+  • truncation markers: [TRUNCATED], <<cut>>, partial trailers,
+  • glyph/table junk; broken paragraphing on long texts.
+- intact: normal letters/whitespace/punctuation; sentences/paragraphs parse.
 
+Completeness (complete | missing_start | missing_end | missing_middle | unknown)
+- missing_start: opens mid-sentence/word; references earlier content not present;
+  early chapter number not “1”; opens with “…” cut-in.
+- missing_end: ends mid-sentence/word; dangling dialogue/emdash; final header
+  without content; explicit cut markers.
+- missing_middle: large numbering jump or abrupt discontinuity without bridge;
+  duplicated blocks implying an omitted chunk.
+- complete: plausible opening, coherent middle, and closure (ending cue or
+  narrative resolution).
 
+Type (primary content type)
+- fiction: prose narrative with invented events, characters, scenes, dialogue.
+- poetry: dominant verse with deliberate line breaks/stanzas; pervasive enjambment.
+- nonfiction: expository/informational prose (essays, memoir, history,
+  journalism, academic writing with sections/citations/data).
+- drama: play/screenplay format: CHARACTER: lines, stage directions
+  (e.g., [Aside], (Exit)), acts/scenes, or screenplay cues (INT./EXT., CUT TO:).
+- mixed: substantial interleaving of ≥2 types with no clear majority.
+- paratext: file is predominantly paratext (license, ToC, transcriber/publisher
+  notes, advertisements/catalogs). If a dominant main type exists, classify by
+  that type and note paratext in evidence; use paratext only when paratext
+  dominates or is the only content.
+- other: true fallback when none of the above fit (e.g., dictionary, code dump).
+
+Tie-breakers:
+- Prose with occasional embedded verse → fiction (note poetry presence).
+- Anthology of short stories → fiction; set series="collection".
+- A play with long preface → drama (note paratext presence).
+- If two clear types with no dominance → mixed.
+- If only ToC/license/notes → paratext.
+
+Series (standalone | series_entry | collection | unknown)
+- series_entry: explicit numbering (“Book II”, “Vol. 3”, “Part of …”), or clear
+  reliance on recurring setting/characters assumed known (episodic cases).
+- standalone: self-contained; introduces premise/characters; no numbering.
+- collection: anthology of discrete pieces (stories/poems/essays) with separate
+  titles.
+- unknown: no signal.
+
+Genre / Domain
+- Fiction genres: fantasy, science fiction, mystery/detective, thriller, horror,
+  romance, historical, adventure, literary, western, satire, children’s, etc.
+  Base on concrete cues (magic/secondary worlds; advanced tech/space/time;
+  investigation + clues; sustained peril; supernatural dread; courtship/HEA;
+  period detail; etc.).
+- Nonfiction domains: memoir, biography, history, science, travel, journalism,
+  philosophy, essay collection, etc.
+- If unclear: "unknown" with a brief reason.
+
+EVIDENCE & CONFIDENCE
+- Use short, concrete quotes/phrases (≤120 chars each) for evidence lists.
+- Provide confidence ∈ [0,1] for each dimension.
+- Consider paratext for integrity; ignore paratext when deciding type/genre
+  unless the entire file is paratext.
+- Use only the provided text; do not rely on external knowledge.
+
+OUTPUT SHAPE (JSON ONLY)
+Return exactly:
+{
+  "classification": {
+    "integrity": "intact | corrupted",
+    "integrity_evidence": ["..."],
+    "completeness": "complete | missing_start | missing_end | missing_middle | unknown",
+    "completeness_evidence": ["..."],
+    "type": "fiction | poetry | nonfiction | drama | mixed | paratext | other",
+    "type_evidence": ["..."],
+    "series": "standalone | series_entry | collection | unknown",
+    "series_title": "",
+    "series_evidence": ["..."],
+    "genre_primary": "fantasy | science fiction | ... | unknown",
+    "genre_secondary": "",
+    "genre_evidence": ["..."],
+    "confidence": {
+      "integrity": 0.0,
+      "completeness": 0.0,
+      "type": 0.0,
+      "series": 0.0,
+      "genre": 0.0
+    }
+  }
+}
+"""
+
+DOC_CLASSIFY_USER_PROMPT_TEMPLATE = """
+You will receive a STORY. Read ONLY the text and produce the JSON object
+described in the system instructions under the single key "classification".
+
+Procedure (internally):
+1) Skim for obvious encoding/OCR issues; decide integrity (with evidence).
+2) Mentally set aside paratext; assess completeness of the main narrative.
+3) Decide the primary type (fiction/poetry/nonfiction/drama/mixed/paratext/other).
+4) Determine whether it is standalone, a series entry, a collection, or unknown,
+   and capture any series title if stated.
+5) Assign a best-fit genre (or domain for nonfiction); allow a secondary label
+   only if it’s clearly warranted.
+6) Fill all fields, include brief evidence lists and per-dimension confidences.
+7) Output JSON ONLY, no commentary.
+
+STORY:
+\"\"\"{story_text}\"\"\"
+"""
+
+def make_doc_classification_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
+    """Create a JSONPromptExtractor for whole-text document classification.
+
+    Args:
+        client: OpenAI-like client (e.g., openai.OpenAI()).
+
+    Returns:
+        Configured JSONPromptExtractor that emits a dict under key "classification".
+    """
+    return llm_extractor.JSONPromptExtractor(
+        client,
+        system_prompt=DOC_CLASSIFY_SYSTEM_PROMPT,
+        user_prompt_template=DOC_CLASSIFY_USER_PROMPT_TEMPLATE,  # uses {story_text}
+        output_key="classification",
+        default_model="gpt-4o",
+        temperature=0.1,
+        force_json=True,
+        text_indexer=None,          # not needed for whole-text classification
+        result_aligner=None,        # no offsets to align
+    )

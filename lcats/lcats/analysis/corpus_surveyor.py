@@ -14,6 +14,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from lcats.analysis import story_analysis
+from lcats import utils
 
 
 def find_corpus_stories(
@@ -419,10 +420,20 @@ def process_file(
         with in_path.open("r", encoding=encoding) as f:
             data = json.load(f)
 
-        transformed = processor_function(data)
+        result = processor_function(data)
 
+        # Optionally stop the job on fatal API errors (e.g., insufficient quota)
+        api_err = result.get("api_error")
+        if api_err and api_err.get("should_abort_batch"):
+            raise RuntimeError(
+                f"Fatal API error: {api_err.get('category')} "
+                f"{api_err.get('code')}: {api_err.get('message')}"
+            )
+
+        # Save a JSON-safe version
+        serializable = utils.make_serializable_extraction(result)
         with out_path.open("w", encoding=encoding, newline="\n") as f:
-            json.dump(transformed, f, ensure_ascii=False, indent=indent)
+            json.dump(serializable, f, ensure_ascii=False, indent=indent)
             f.write("\n")
 
         if verbose:

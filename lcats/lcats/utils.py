@@ -160,3 +160,41 @@ def make_serializable(result, nonserializable_key="response"):
     result = dict(result)  # shallow copy to avoid mutating original
     result.pop(nonserializable_key, None)
     return result
+
+
+def make_serializable_extraction(result: dict) -> dict:
+    """Return a JSON-serializable copy of an extractor result.
+
+    - Drops non-serializable SDK objects like 'response'.
+    - Coerces 'usage' (if present) to a plain dict.
+    - Leaves all other JSON-native fields as-is.
+
+    Args:
+        result: The dict returned by JSONPromptExtractor.extract(...).
+
+    Returns:
+        A shallow-copied dict safe for json.dump.
+    """
+    out = dict(result)  # shallow copy
+
+    # Drop raw SDK response (not JSON-serializable).
+    out.pop("response", None)
+
+    # Normalize usage (SDKs sometimes return a custom object).
+    usage = out.get("usage")
+    if usage is not None and not isinstance(usage, dict):
+        # Best-effort coercion of common OpenAI usage shape.
+        pt = getattr(usage, "prompt_tokens", None)
+        ct = getattr(usage, "completion_tokens", None)
+        tt = getattr(usage, "total_tokens", None)
+        if any(v is not None for v in (pt, ct, tt)):
+            out["usage"] = {
+                "prompt_tokens": int(pt or 0),
+                "completion_tokens": int(ct or 0),
+                "total_tokens": int(tt or 0),
+            }
+        else:
+            # Fallback to string to avoid serialization errors.
+            out["usage"] = str(usage)
+
+    return out
