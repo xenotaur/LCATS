@@ -30,21 +30,23 @@ GATHERERS = {
 
 def run(gatherers=None, dry_run=False):
     """Run the gatherers."""
-    print("Starting gatherers...", gatherers)
     if not gatherers:
         gatherers = list(GATHERERS.keys())
 
     print("Gathering data from the corpus.")
-    print(f"Gatherers to run: {', '.join(gatherers)}")
+    print(f" - Running {len(gatherers)} gatherers: {', '.join(gatherers)}")
+    print()
     for gatherer in gatherers:
         if gatherer not in GATHERERS:
             print(f"Unknown gatherer: {gatherer}")
             continue
         print(f"Running gatherer: {gatherer}")
+        print("-" * (len(gatherer) + 18))
         if dry_run:
             print(f"Dry run: would run {gatherer}.gather()")
         else:
             GATHERERS[gatherer].gather()
+        print()
 
     return "Gathering complete.", 0
 
