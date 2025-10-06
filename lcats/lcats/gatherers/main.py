@@ -28,9 +28,10 @@ GATHERERS = {
 }
 
 
-def run(gatherers="ALL", dry_run=False):
+def run(gatherers=None, dry_run=False):
     """Run the gatherers."""
-    if gatherers == "ALL":
+    print("Starting gatherers...", gatherers)
+    if not gatherers:
         gatherers = list(GATHERERS.keys())
 
     print("Gathering data from the corpus.")
