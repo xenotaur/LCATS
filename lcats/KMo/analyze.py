@@ -216,6 +216,40 @@ def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
     encoding = tiktoken.encoding_for_model(model)
     return len(encoding.encode(text))
 
+def get_scenes(events):
+    scenes = []
+    for event in events:
+        if event['event_type'] == 'scene':
+            scenes.append({event['event_text'], event['reason']})
+
+    return scenes
+
+def build_indexes(extracted_story_text: str, model_name="gpt-3.5-turbo") -> Dict:
+    messages = "Take the following extracted scene text and reason and produce a JSON structure consisting of 'goal', 'action', and 'catastrophe.   Make the elements of the JSON structure generic."
+    
+    scenes_parts = []
+    for scene in get_scenes(extracted_story_text):
+        message_to_send = [{'role':'user', 'content': "'" + messages + ' ' + list(scene)[0] + ' ' + list(scene)[1] + "'"}]
+
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=message_to_send, 
+            temperature=0.2,
+        )
+
+        raw_output = response.choices[0].message.content
+
+        try:
+            parsed_output = utils.extract_json(raw_output)
+            parsing_error = None
+        except json.JSONDecodeError as exc:
+            parsed_output = None
+            parsing_error = str(exc)
+
+        scenes_parts.append(parsed_output)
+
+    return scenes_parts
+
 def collate_story_extractions(corpora, model_name, output_dir):
     """
     Collate the story extractions into a DataFrame.
