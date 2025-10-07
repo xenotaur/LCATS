@@ -5,7 +5,11 @@ from bs4 import BeautifulSoup
 import lcats.gatherers.downloaders as downloaders
 
 
+TARGET_DIRECTORY = "ohenry"
+
+
 FOUR_MILLION_GUTENBERG = 'https://www.gutenberg.org/cache/epub/2776/pg2776-images.html'
+
 
 # KMM Issues with some of the encodings
 FOUR_MILLION_HEADINGS = [
@@ -89,7 +93,7 @@ def create_download_callback(story_name, url, start_heading_text, description):
 def gather():
     """Run DataGatherers for the OHenry corpus."""
     gatherer = downloaders.DataGatherer(
-        "ohenry", 
+        TARGET_DIRECTORY,
         description="OHenry stories from the Gutenberg Project.",
         license="Public domain, from Project Gutenberg.")
     for filename, heading, title in FOUR_MILLION_HEADINGS:

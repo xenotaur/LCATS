@@ -7,6 +7,9 @@ from lcats.gatherers.mass_quantities import storymap
 from lcats.gatherers.mass_quantities import parser
 
 
+TARGET_DIRECTORY = "mass_quantities"
+
+
 def gather():
     """Extract all the "single stories" we have identified in the Gutenberg Project.
 
@@ -37,7 +40,7 @@ def gather_stories(stories):
         - A dictionary mapping story IDs to error messages for failed stories.
     """
     gatherer = downloaders.DataGatherer(
-        "massQuantities",
+        TARGET_DIRECTORY,
         description="Single stories from Gutenberg",
         license="Public domain, from Project Gutenberg.")
 

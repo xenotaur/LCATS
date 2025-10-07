@@ -5,6 +5,9 @@ from bs4 import BeautifulSoup
 import lcats.gatherers.downloaders as downloaders
 
 
+TARGET_DIRECTORY = "sherlock"
+
+
 ADVENTURES_GUTENBERG = 'https://www.gutenberg.org/files/1661/1661-h/1661-h.htm'
 ADVENTURES_HEADINGS = [
     ('scandal_in_bohemia', "A SCANDAL IN BOHEMIA",
@@ -86,7 +89,7 @@ def create_download_callback(story_name, url, start_heading_text, description):
 def gather():
     """Run DataGatherers for the Sherlock Holmes corpus."""
     gatherer = downloaders.DataGatherer(
-        "sherlock", 
+        TARGET_DIRECTORY,
         description="Sherlock Holmes stories from the Gutenberg Project.",
         license="Public domain, from Project Gutenberg.")
     for filename, heading, title in ADVENTURES_HEADINGS:

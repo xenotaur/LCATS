@@ -5,16 +5,22 @@ from bs4 import BeautifulSoup
 import lcats.gatherers.downloaders as downloaders
 
 
+TARGET_DIRECTORY = "wilde_happy_prince"
+
+
 THE_HAPPY_PRINCE_GUTENBERG = 'https://www.gutenberg.org/cache/epub/902/pg902-images.html'
+
 
 THE_HAPPY_PRINCE_HEADINGS = [
     ('happy_prince', 'The Happy Prince', 'Wilde - the Happy Prince'),
-    ('nightingale_and_the_rose', 'The Nightingale and the Rose', 'Wilde - the Nightingale And the Rose'),
+    ('nightingale_and_the_rose', 'The Nightingale and the Rose',
+     'Wilde - the Nightingale And the Rose'),
     ('selfish_giant', 'The Selfish Giant', 'Wilde - the Selfish Giant'),
     ('devoted_friend', 'The Devoted Friend', 'Wilde - the Devoted Friend'),
     ('remarkable_rocket', 'The Remarkable Rocket', 'Wilde - the Remarkable Rocket')
 ]
-    
+
+
 def find_paragraphs_happyprince(soup, start_heading_text):
     """Find paragraphs following a specific heading in a BeautifulSoup object."""
 
@@ -24,7 +30,7 @@ def find_paragraphs_happyprince(soup, start_heading_text):
 
     if start_heading is None:
         return None
-    
+
     # If we got the heading, try to return the paragraphs following it
     paragraphs = []
     current_element = start_heading.find_next_sibling()
@@ -48,11 +54,12 @@ def create_download_callback(story_name, url, start_heading_text, description):
 
         story_soup = BeautifulSoup(contents, "lxml")
 
-        story_text = find_paragraphs_happyprince(story_soup, start_heading_text)
+        story_text = find_paragraphs_happyprince(
+            story_soup, start_heading_text)
         if story_text is None:
             raise ValueError(
                 f"Failed to find text for {story_name} given {start_heading_text} in {url}")
-        
+
         story_data = {
             "author": "Wilde",
             "year": 1888,
@@ -68,7 +75,7 @@ def create_download_callback(story_name, url, start_heading_text, description):
 def gather():
     """Run DataGatherers for the Wilde corpus."""
     gatherer = downloaders.DataGatherer(
-        "wilde", 
+        TARGET_DIRECTORY,
         description="Wilde stories from the Gutenberg Project.",
         license="Public domain, from Project Gutenberg.")
     for filename, heading, title in THE_HAPPY_PRINCE_HEADINGS:

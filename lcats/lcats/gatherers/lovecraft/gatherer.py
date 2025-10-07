@@ -6,6 +6,9 @@ import lcats.gatherers.downloaders as downloaders
 import lcats.gatherers.extractors as extractors
 
 
+TARGET_DIRECTORY = "lovecraft"
+
+
 def make_extractor(title, url, author="H. P. Lovecraft"):
     """Create an Extractor for a Lovecraft story."""
     return extractors.Extractor(title, url, author=author)
@@ -14,17 +17,25 @@ def make_extractor(title, url, author="H. P. Lovecraft"):
 THE_LOVECRAFT_FILES = [make_extractor(*params) for params in [
     ('The Call of Cthulhu', 'https://www.gutenberg.org/cache/epub/68283/pg68283-images.html'),
     ('The Dunwich Horror', 'https://www.gutenberg.org/cache/epub/50133/pg50133-images.html'),
-    ('At the Mountains of Madness', 'https://www.gutenberg.org/cache/epub/70652/pg70652-images.html'),
-    ('The Shadow over Innsmouth', 'https://www.gutenberg.org/cache/epub/73181/pg73181-images.html'),
-    ('The Colour out of Space', 'https://www.gutenberg.org/cache/epub/68236/pg68236-images.html'),
+    ('At the Mountains of Madness',
+     'https://www.gutenberg.org/cache/epub/70652/pg70652-images.html'),
+    ('The Shadow over Innsmouth',
+     'https://www.gutenberg.org/cache/epub/73181/pg73181-images.html'),
+    ('The Colour out of Space',
+     'https://www.gutenberg.org/cache/epub/68236/pg68236-images.html'),
     ('The Shunned House', 'https://www.gutenberg.org/cache/epub/31469/pg31469-images.html'),
-    ('The Case of Charles Dexter Ward', 'https://www.gutenberg.org/cache/epub/73547/pg73547-images.html'),
-    ('The Horror at Red Hook', 'https://www.gutenberg.org/cache/epub/72966/pg72966-images.html'),
-    ('The Thing on the Door-Step', 'https://www.gutenberg.org/cache/epub/73230/pg73230-images.html'),
+    ('The Case of Charles Dexter Ward',
+     'https://www.gutenberg.org/cache/epub/73547/pg73547-images.html'),
+    ('The Horror at Red Hook',
+     'https://www.gutenberg.org/cache/epub/72966/pg72966-images.html'),
+    ('The Thing on the Door-Step',
+     'https://www.gutenberg.org/cache/epub/73230/pg73230-images.html'),
     ('The Festival', 'https://www.gutenberg.org/cache/epub/68553/pg68553-images.html'),
-    ('The Haunter of the Dark', 'https://www.gutenberg.org/cache/epub/73233/pg73233-images.html'),
+    ('The Haunter of the Dark',
+     'https://www.gutenberg.org/cache/epub/73233/pg73233-images.html'),
     ('The Lurking Fear', 'https://www.gutenberg.org/cache/epub/70486/pg70486-images.html'),
-    ('Through the Gates of the Silver Key', 'https://www.gutenberg.org/cache/epub/71167/pg71167-images.html'),
+    ('Through the Gates of the Silver Key',
+     'https://www.gutenberg.org/cache/epub/71167/pg71167-images.html'),
     ('The Silver Key', 'https://www.gutenberg.org/cache/epub/70478/pg70478-images.html'),
     ('Cool Air', 'https://www.gutenberg.org/cache/epub/73177/pg73177-images.html'),
     ('The Quest of Iranon', 'https://www.gutenberg.org/cache/epub/73182/pg73182-images.html'),
@@ -39,7 +50,7 @@ THE_LOVECRAFT_FILES = [make_extractor(*params) for params in [
 # Collaborations:
 # Medusa's Coil: https://www.gutenberg.org/cache/epub/70899/pg70899-images.html
 # The Trap: https://www.gutenberg.org/cache/epub/73243/pg73243-images.html
-# The Curse of Yig: https://www.gutenberg.org/cache/epub/70912/pg70912-images.html: 
+# The Curse of Yig: https://www.gutenberg.org/cache/epub/70912/pg70912-images.html:
 
 
 def create_download_callback(extractor):
@@ -50,7 +61,7 @@ def create_download_callback(extractor):
             raise ValueError(f"Failed to download {extractor.url}")
 
         story_soup = BeautifulSoup(contents, "lxml")
-    
+
         story_text = extractors.extract_text_between_ids(story_soup)
         if story_text is None:
             raise ValueError(
@@ -71,7 +82,7 @@ def create_download_callback(extractor):
 def gather():
     """Run DataGatherers for the Lovecraft corpus."""
     gatherer = downloaders.DataGatherer(
-        "lovecraft",
+        TARGET_DIRECTORY,
         description="Lovecraft stories from the Gutenberg Project.",
         license="Public domain, from Project Gutenberg.")
     for extractor in THE_LOVECRAFT_FILES:
