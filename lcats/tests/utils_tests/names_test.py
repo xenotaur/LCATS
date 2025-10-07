@@ -2,9 +2,11 @@
 import unittest
 from lcats.utils import names
 
+
 class TestAsciiTransliterate(unittest.TestCase):
     def test_ascii_passthrough(self):
-        self.assertEqual(names.ascii_transliterate("simple ascii 123"), "simple ascii 123")
+        self.assertEqual(names.ascii_transliterate(
+            "simple ascii 123"), "simple ascii 123")
 
     def test_diacritics_removed(self):
         # Works with or without unidecode
@@ -20,6 +22,7 @@ class TestAsciiTransliterate(unittest.TestCase):
         out = names.ascii_transliterate("Файл №7 — 标题")
         out.encode("ascii")  # ASCII-only
         self.assertIn("7", out)  # at least digit survives
+
 
 class TestIsValidBasename(unittest.TestCase):
     def test_valid_examples(self):
@@ -38,20 +41,24 @@ class TestIsValidBasename(unittest.TestCase):
         self.assertTrue(names.is_valid_basename(s_ok))
         self.assertFalse(names.is_valid_basename(s_bad))
 
+
 class TestRepairBasename(unittest.TestCase):
     def test_basic_repairs(self):
-        self.assertEqual(names.repair_basename('Hello, "World"!'), "hello_world")
+        self.assertEqual(names.repair_basename(
+            'Hello, "World"!'), "hello_world")
         self.assertEqual(names.repair_basename("__HI__"), "hi")
         self.assertEqual(names.repair_basename("a__b"), "a_b")
-        self.assertEqual(names.repair_basename("  spaced   out  "), "spaced_out")
-
+        self.assertEqual(names.repair_basename(
+            "  spaced   out  "), "spaced_out")
 
     def test_unicode_title(self):
         out = names.repair_basename("Curaçao — №7")
-        self.assertEqual(out, "curacao_no_7")   # deterministic with unidecode pinned
+        # deterministic with unidecode pinned
+        self.assertEqual(out, "curacao_no_7")
 
         # keep the policy checks too (nice guardrails)
-        self.assertTrue(all(c.islower() or c.isdigit() or c == "_" for c in out))
+        self.assertTrue(all(c.islower() or c.isdigit()
+                        or c == "_" for c in out))
         self.assertTrue(out.endswith("7"))
 
     def test_all_removed_yields_empty(self):
@@ -68,28 +75,34 @@ class TestRepairBasename(unittest.TestCase):
         self.assertFalse(out2.startswith("_") or out2.endswith("_"))
         self.assertNotIn("__", out2)
 
+
 class TestTitleToFilename(unittest.TestCase):
     def test_simple(self):
-        self.assertEqual(names.title_to_filename('Hello, "World"!'), "hello_world.json")
+        self.assertEqual(names.title_to_filename(
+            'Hello, "World"!'), "hello_world.json")
 
     def test_truncation(self):
         t = "A" * 100
-        self.assertEqual(names.title_to_filename(t, max_len=10), "aaaaaaaaaa.json")
+        self.assertEqual(names.title_to_filename(
+            t, max_len=10), "aaaaaaaaaa.json")
 
     def test_invalid_extension(self):
         with self.assertRaises(ValueError):
             names.title_to_filename("ok", ext=".J*")
         with self.assertRaises(ValueError):
-            names.title_to_filename("ok", ext="bad!")  # even without dot it becomes ".bad!" and fails
+            # even without dot it becomes ".bad!" and fails
+            names.title_to_filename("ok", ext="bad!")
 
     def test_allow_empty(self):
-        self.assertEqual(names.title_to_filename("— — —", allow_empty=True), ".json")
+        self.assertEqual(names.title_to_filename(
+            "— — —", allow_empty=True), ".json")
         with self.assertRaises(ValueError):
             names.title_to_filename("— — —", allow_empty=False)
 
     def test_extension_normalization(self):
         self.assertEqual(names.title_to_filename("ok", ext="JSON"), "ok.json")
         self.assertEqual(names.title_to_filename("ok", ext=".Json"), "ok.json")
+
 
 class TestNormalizeBasename(unittest.TestCase):
     def test_already_valid(self):
@@ -107,6 +120,7 @@ class TestNormalizeBasename(unittest.TestCase):
         out, changed = names.normalize_basename("— — —")
         self.assertEqual(out, "")     # caller must decide how to handle
         self.assertTrue(changed)
+
 
 if __name__ == "__main__":
     unittest.main()
