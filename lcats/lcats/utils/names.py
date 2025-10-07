@@ -1,33 +1,27 @@
 # lcats/names.py
 from __future__ import annotations
 import re
-import unicodedata
+from unidecode import unidecode  # hard requirement
 from typing import Optional, Pattern, Final, Tuple
 
-try:
-    from unidecode import unidecode
-    _HAS_UNIDECODE = True
-except Exception:
-    _HAS_UNIDECODE = False
 
-# -------- Policy constants --------
+# -------- Constants --------
+
 BASENAME_MAXIMUM_LENGTH: Final[int] = 72
 BASENAME_VALIDATION_REGEX: Final[Pattern[str]] = re.compile(
     r"^[a-z0-9]+(?:_[a-z0-9]+)*\Z", flags=re.ASCII
 )
 
 # -------- Core primitives --------
+
+
 def ascii_transliterate(text: str) -> str:
-    """Unicode→ASCII best-effort transliteration (casefold, strip diacritics).
-    Returns ASCII only (others dropped)."""
+    """Unicode→ASCII transliteration (deterministic via unidecode)."""
     s = text.casefold()
-    if _HAS_UNIDECODE:
-        s = unidecode(s)
-    else:
-        s = unicodedata.normalize("NFKD", s)
-        s = "".join(ch for ch in s if unicodedata.category(ch) != "Mn")
-    # Ensure pure ASCII (drop anything left)
-    return s.encode("ascii", "ignore").decode("ascii")
+    s = unidecode(s)
+    # ensure pure ASCII (just in case)
+    return s.encode("ascii", "ignore").decode("ascii").casefold()
+
 
 def is_valid_basename(
     basename: str,
@@ -40,6 +34,7 @@ def is_valid_basename(
         return False
     pat = pattern or BASENAME_VALIDATION_REGEX
     return bool(pat.fullmatch(basename))
+
 
 def repair_basename(
     raw: str,
@@ -56,6 +51,7 @@ def repair_basename(
     s = re.sub(r"_+", "_", s)
     s = s.strip("_")
     return s  # may be '' if nothing usable remains
+
 
 def title_to_filename(
     title: str,
@@ -82,7 +78,10 @@ def title_to_filename(
         raise ValueError("Title produced empty basename under current policy.")
     return f"{base}{ext}" if base else ext
 
+
 # -------- Convenience helper --------
+
+
 def normalize_basename(
     basename: str,
     *,
