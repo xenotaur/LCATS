@@ -1,5 +1,9 @@
 """Contains indices into the Gutenberg stories for mass downloading."""
 
+
+TARGET_DIRECTORY = "mass_quantities"
+
+
 # Pen names of authors
 PEN_NAMES = {
     'Garrett, Randall': ['Gordon, David']

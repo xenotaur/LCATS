@@ -527,7 +527,7 @@ def gather_story(gatherer, story):
 
     # Move all of this code up into the API so it is done consistently.
     # Ensure the data directory exists
-    path = os.path.join(constants.DATA_ROOT, "massQuantities")
+    path = os.path.join(constants.DATA_ROOT, storymap.TARGET_DIRECTORY)
 
     # Ensure the file path exists.
     file_path = os.path.join(path, file_name)
