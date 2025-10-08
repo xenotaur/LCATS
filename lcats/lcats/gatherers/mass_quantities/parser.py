@@ -9,12 +9,11 @@ import json
 import os
 import difflib
 
-from tqdm import tqdm
-
 from lcats import constants
-from lcats.gatherers import downloaders
 from lcats.gatherers import extractors
-from lcats.gatherers import gutenberg
+from lcats.gettenberg import api
+from lcats.gettenberg import headers
+
 from lcats.gatherers.mass_quantities import storymap
 
 
@@ -173,8 +172,6 @@ def title_ok(title):
     Returns:
         bool: True if the title is consistent with what we want, False otherwise.
     """
-    result = True
-
     if len(list(title)) != 1:   # something crazy has happened :-(
         return False
 
@@ -473,13 +470,13 @@ def gather_story(gatherer, story):
         - An error message (str) or None if no error occurred.
     """
     # Extract metadata and filter out stories that don't meet our criteria.
-    subject = gutenberg.get_metadata('subject', story)
+    subject = api.get_metadata('subject', story)
     is_subject_ok = subject_ok(subject)
-    language = gutenberg.get_metadata('language', story)
+    language = api.get_metadata('language', story)
     is_language_ok = only_english(language)
-    title = gutenberg.get_metadata('title', story)
+    title = api.get_metadata('title', story)
     is_title_ok = title_ok(title)
-    author = list(gutenberg.get_metadata('author', story))
+    author = list(api.get_metadata('author', story))
     is_author_ok = author_ok(author)
     if not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
         print(f"Metadata not OK, skipping story: {story}")
@@ -490,7 +487,7 @@ def gather_story(gatherer, story):
         return story, None, "Metadata not suitable, skipping."
 
     # Extract the text and remove stories that have chapters.
-    text = str(gutenberg.strip_headers(gutenberg.load_etext(story).strip()))
+    text = str(headers.strip_headers(api.load_etext(story).strip()))
     if chaptered(text):
         print("Story has chapters, skipping: " + str(story))
         return story, None, "Story has chapters, skipping."
@@ -509,7 +506,7 @@ def gather_story(gatherer, story):
     print(f"Gathering story: {story}")
     print(f" - Title: {title}")
     print(f" - File name: {file_name}")
-    
+
     # Structure the data into a dictionary
     url = "https://www.gutenberg.org/cache/epub/" + \
         str(story) + "/pg" + str(story) + ".txt"
