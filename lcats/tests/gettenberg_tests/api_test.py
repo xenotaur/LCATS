@@ -177,7 +177,7 @@ class GettenbergApiTests(unittest.TestCase):
                 mock.patch.object(api, "load_etext") as p_load, \
                 mock.patch.object(headers, "get_text_header_lines") as p_hdr, \
                 mock.patch.object(metadata, "get_metadata_from_header") as p_hdr_meta:
-            out = api.get_metadata("Title", 123, use_cache=True)
+            out = api.get_metadata("Title", 123, skip_cache=True)
             self.assertEqual(out, {"X"})
             p_ensure.assert_called_once()
             p_meta.assert_called_once_with(
@@ -190,7 +190,7 @@ class GettenbergApiTests(unittest.TestCase):
         """get_metadata propagates errors if ensure_gutenberg_cache fails."""
         with mock.patch.object(cache, "ensure_gutenberg_cache", side_effect=sqlite3.Error("db down")):
             with self.assertRaises(sqlite3.Error):
-                api.get_metadata("title", 1, use_cache=True)
+                api.get_metadata("title", 1, skip_cache=True)
 
     def test_get_metadata_header_fallback_when_use_cache_false(self):
         """get_metadata falls back to header parsing when use_cache is False."""
@@ -200,7 +200,7 @@ class GettenbergApiTests(unittest.TestCase):
                 mock.patch.object(metadata, "get_metadata_from_header", return_value={"Foo"}) as p_hdr_meta, \
                 mock.patch.object(cache, "ensure_gutenberg_cache") as p_ensure, \
                 mock.patch.object(metadata, "get_metadata_from_cache") as p_meta:
-            out = api.get_metadata("title", 1, use_cache=False)
+            out = api.get_metadata("title", 1, skip_cache=False)
             self.assertEqual(out, {"Foo"})
             p_ensure.assert_not_called()
             p_meta.assert_not_called()

@@ -77,36 +77,40 @@ def gutenberg_cache_ready(path: pathlib.Path) -> bool:
 
 def ensure_gutenberg_cache():
     """Return cache handle; build only if explicitly allowed AND missing."""
+    # Find the expected cache path.
     path = gutenberg_cache_path()
-
-    print(f" - Checking for local Gutenberg cache at {path}...")
-    print(f"   - auto-create is {'ON' if GUTENBERG_CACHE_AUTO_CREATE else 'OFF'})")
 
     # Call once up front; reuse this value in the if-guard
     ready = gutenberg_cache_ready(path)
-    print("    - gutenberg_cache_ready() →", ready)
+    if ready:
+        # Don't print anything in normal operation.
+        # print(f"Checking local Gutenberg cache at {path}...")
+        # print(" - Cache present and ready.")
+        pass
 
-    if GUTENBERG_CACHE_AUTO_CREATE and not ready:
+    elif GUTENBERG_CACHE_AUTO_CREATE:
+        print(f"Checking local Gutenberg cache at {path}...")
+        print(" - Cache missing or stale; (re)creating it...")
         # If an empty/stale file exists, delete it so create() doesn’t early-exit.
         if path.exists() and path.stat().st_size == 0:
             path.unlink(missing_ok=True)
 
-        print("Gutenberg local cache missing / stale, (re)creating it...")
+        # Create the cache from scratch, downloading/parsing as needed.
+        # This may take a while, so go get a coffee or soda.
         gc.GutenbergCache.create(
             refresh=True,
             download=True,
             unpack=True,
             parse=True,
             cache=True,
-            deleteTemp=True,
+            deleteTemp=False,
         )
-        print(" - Checking for cache readiness...")
 
         # Second call only when we actually ran create()
         ready = gutenberg_cache_ready(path)
         if not ready:
             raise RuntimeError(f"Gutenberg cache NOT ready at {path}")
-        print(" - Cache ready.")
+        print(" - Cache created and ready.")
 
     # Only now open the cache
     return gc.GutenbergCache.get_cache()

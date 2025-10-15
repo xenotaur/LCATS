@@ -10,7 +10,9 @@ import os
 import difflib
 
 from lcats import constants
-from lcats.gatherers import extractors
+
+from lcats.utils import names
+
 from lcats.gettenberg import api
 from lcats.gettenberg import headers
 
@@ -302,12 +304,12 @@ def line_contains_author(line, authors, limit=8):
     """
     if len(authors) == 1:    # only one author, woo hoo!
         for author in pen_names(authors[0]):
-            names = author.split(",")
-            last_name = names[0].strip().lower()
-            if len(names) < 2:
+            author_names = author.split(",")
+            last_name = author_names[0].strip().lower()
+            if len(author_names) < 2:
                 first_name = ""
             else:
-                first_name = names[1].strip().lower()
+                first_name = author_names[1].strip().lower()
 
             # If an author is detected and the line is short enough, return True.
             stripped = line.strip().lower()
@@ -487,24 +489,25 @@ def gather_story(gatherer, story):
         return story, None, "Metadata not suitable, skipping."
 
     # Extract the text and remove stories that have chapters.
-    text = str(headers.strip_headers(api.load_etext(story).strip()))
-    if chaptered(text):
+    etext = api.load_etext(story)
+    stripped_text = headers.strip_headers(etext.strip()).strip()
+    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+    if chaptered(clean_text):
         print("Story has chapters, skipping: " + str(story))
         return story, None, "Story has chapters, skipping."
 
     # Extract the title and body of the story.
     title = list(title)[0]
-    body = body_of_text(text, author, title)
+    body = body_of_text(clean_text, author, title)
     if len(body) < 10:
         print("Story is too short, skipping: " + str(story))
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
-    file_name = extractors.title_to_filename(
-        title)[:50] + constants.FILE_SUFFIX
+    file_name = names.title_to_filename(
+        title, ext=constants.FILE_SUFFIX, max_len=50)
 
-    print(f"Gathering story: {story}")
-    print(f" - Title: {title}")
+    print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
 
     # Structure the data into a dictionary
@@ -535,7 +538,3 @@ def gather_story(gatherer, story):
         json.dump(data_to_save, json_file, indent=4)
 
     return story, file_path, None
-
-
-if __name__ == "__main__":
-    main()

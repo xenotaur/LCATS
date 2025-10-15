@@ -18,7 +18,6 @@ from typing import Any, List, Mapping, Optional, Sequence, Set
 
 from gutenbergpy import textget
 
-
 from lcats.gettenberg import cache
 from lcats.gettenberg import headers
 from lcats.gettenberg import metadata
@@ -138,7 +137,7 @@ def extract_book_id(row: Mapping[str, Any]) -> int:
 
 
 def get_metadata(field: str, book_id: int,
-                 use_cache: bool = cache.GUTENBERG_CACHE_SKIP_MODE) -> Set[str]:
+                 skip_cache: bool = cache.GUTENBERG_CACHE_SKIP_MODE) -> Set[str]:
     """Rough equivalent of gutenberg.query.get_metadata(field, book_id).
 
     Tries the gutenbergpy cache first (SQLite backend) via native_query(sql),
@@ -158,7 +157,9 @@ def get_metadata(field: str, book_id: int,
     # Try to get a cache handle if allowed. If not allowed,
     # the code below will fall back to header-parse.
     gut_cache = None
-    if use_cache:
+    if skip_cache:
+        print(" - get_metadata: skip_cache is True, falling back to header parse.")
+    else:
         try:
             gut_cache = cache.ensure_gutenberg_cache()
         except (sqlite3.Error, RuntimeError, OSError) as e:
@@ -172,6 +173,7 @@ def get_metadata(field: str, book_id: int,
         return metadata.get_metadata_from_cache(gut_cache, field, book_id)
 
     # No cache, fall back to header parse.
+    print(f" - get_metadata: falling back to header parse for field '{field}' and book ID {book_id}")
     text = load_etext(int(book_id))
     header = headers.get_text_header_lines(text) or ()
     return metadata.get_metadata_from_header(field, header)
