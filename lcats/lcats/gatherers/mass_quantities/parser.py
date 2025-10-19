@@ -165,31 +165,9 @@ def author_ok(author):
 # Input:      A string the title from the metadata of the story
 # Output:     Bool indicating if the system believes the title is consistent with what we want
 # Notes:
-def title_ok2(title):
-    """ Return True if the title is consistent with a valid story.
-
-    Args:
-        title (string): A string representing the title from the metadata of the story.
-
-    Returns:
-        bool: True if the title is consistent with what we want, False otherwise.
-    """
-    if len(list(title)) != 1:   # something crazy has happened :-(
-        return False
-
-    if "index of the project gutenberg" in list(title)[0].lower():
-        return False
-
-    for piece in list(title):
-        piece = piece.lower()
-        if piece in storymap.EXCLUDED_TITLE_WORDS:
-            return False
-
-    return True
-
 
 # Function:   title_ok
-# Input:      A string the title from the metadata of the story
+# Input:      A set containing the title from the metadata of the story
 # Output:     Bool indicating if the system believes the title is consistent with what we want
 # Notes:
 def title_ok(title):
