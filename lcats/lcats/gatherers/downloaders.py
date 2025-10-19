@@ -249,6 +249,7 @@ class DataGatherer:
         self.cache = cache
         self.suffix = suffix
         self.license = license
+        self.resources = {}
         self.downloads = {}
         self.resource_cache = UrlResourceCache(root=self.cache)
 
@@ -335,3 +336,11 @@ class DataGatherer:
             print(f"Cleared all contents in {self.path}")
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")
+
+    def gather(self, extractor):
+        """Gather a resource from an extractor object."""
+        # For each extractor, we should do the following:
+        #  - Compute a unique name for each object
+        #    - This should be a resource, name tuple
+        #    - The name must be unique within the gatherer
+        raise NotImplementedError("Gather method not implemented yet.")

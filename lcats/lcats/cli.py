@@ -2,6 +2,7 @@
 
 import sys
 
+import lcats.inspect
 import lcats.gatherers.main
 
 USAGE_MESSAGE = """Usage: lcats <command> [<args>]
@@ -9,6 +10,7 @@ Commands:
     help      Display this help message.
     info      Describes LCATS, the literary captain's advisory tool system.
     gather    Gathers corpus data to a local database.
+    inspect   Inspects a story JSON file and pretty-prints it.
     index     Preprocesses a corpus to answer questions.
     advise    LCATS command-line advising tool.
     eval      Evaluate LCATS on a benchmark suite.
@@ -28,12 +30,14 @@ def dispatch(command, args):
     Returns:
         A tuple containing the output of the command and an exit status.
     """
-    del args  # Unused currently
     if command == 'info':
         return "LCATS is a literary case based reasoning system.", 0
 
     elif command == 'gather':
-        return lcats.gatherers.main.run()
+        return lcats.gatherers.main.run(args)
+    
+    elif command == 'inspect':
+        return lcats.inspect.inspect(*args)
 
     elif command == 'index':
         return "Indexing data files is not yet implemented.", 1
