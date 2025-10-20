@@ -161,10 +161,6 @@ def author_ok(author):
     return len(list(author)) > 0
 
 
-# Function:   title_ok
-# Input:      A string the title from the metadata of the story
-# Output:     Bool indicating if the system believes the title is consistent with what we want
-# Notes:
 
 # Function:   title_ok
 # Input:      A set containing the title from the metadata of the story
@@ -192,7 +188,6 @@ def title_ok(title):
 
     for piece in list(title)[0].split(" "):
         piece = piece.lower()
-        print("Working on --> " + str(piece))
         if piece in storymap.EXCLUDED_TITLE_WORDS:
             return False
 
