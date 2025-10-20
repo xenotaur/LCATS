@@ -141,12 +141,18 @@ def subject_ok(subject):
         bool: True if the subject appears to be short fiction, False otherwise.
     """
     normalized_subject = " ".join(list(subject)).lower().strip()
-    if normalized_subject in storymap.EXCLUDED_SUBJECTS:
-        return False
+    
+    #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
+    #    return False
 
+    for piece in normalized_subject.split(" "):
+        if piece in storymap.EXCLUDED_SUBJECTS:
+            return False
+        
     for piece in list(subject):
         if piece in ["PS", "PR"]:
             return True
+
     return False
 
 
