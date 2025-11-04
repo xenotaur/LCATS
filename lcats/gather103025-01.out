@@ -1,0 +1,323 @@
+Using overridden rdfparser.py
+Using overridden sqlitecache.py
+Gathering data from the corpus.
+ - Running 11 gatherers: sherlock, lovecraft, ohenry, hemingway, wilde_happy_prince, wodehouse, grimm, anderson, chesterton, london, mass_quantities
+
+Running gatherer: sherlock
+--------------------------
+File data/sherlock/scandal_in_bohemia.json exists, skipping download.
+File data/sherlock/red_headed_league.json exists, skipping download.
+File data/sherlock/case_of_identity.json exists, skipping download.
+File data/sherlock/boscombe_valley.json exists, skipping download.
+File data/sherlock/five_orange_pips.json exists, skipping download.
+File data/sherlock/twisted_lip.json exists, skipping download.
+File data/sherlock/blue_carbuncle.json exists, skipping download.
+File data/sherlock/speckled_band.json exists, skipping download.
+File data/sherlock/engineers_thumb.json exists, skipping download.
+File data/sherlock/noble_bachelor.json exists, skipping download.
+File data/sherlock/beryl_coronet.json exists, skipping download.
+File data/sherlock/copper_beeches.json exists, skipping download.
+
+Running gatherer: lovecraft
+---------------------------
+File data/lovecraft/the_call_of_cthulhu.json exists, skipping download.
+File data/lovecraft/the_dunwich_horror.json exists, skipping download.
+File data/lovecraft/at_the_mountains_of_madness.json exists, skipping download.
+File data/lovecraft/the_shadow_over_innsmouth.json exists, skipping download.
+File data/lovecraft/the_colour_out_of_space.json exists, skipping download.
+File data/lovecraft/the_shunned_house.json exists, skipping download.
+File data/lovecraft/the_case_of_charles_dexter_ward.json exists, skipping download.
+File data/lovecraft/the_horror_at_red_hook.json exists, skipping download.
+File data/lovecraft/the_thing_on_the_doorstep.json exists, skipping download.
+File data/lovecraft/the_festival.json exists, skipping download.
+File data/lovecraft/the_haunter_of_the_dark.json exists, skipping download.
+File data/lovecraft/the_lurking_fear.json exists, skipping download.
+File data/lovecraft/through_the_gates_of_the_silver_key.json exists, skipping download.
+File data/lovecraft/the_silver_key.json exists, skipping download.
+File data/lovecraft/cool_air.json exists, skipping download.
+File data/lovecraft/the_quest_of_iranon.json exists, skipping download.
+File data/lovecraft/he.json exists, skipping download.
+
+Running gatherer: ohenry
+------------------------
+File data/ohenry/tobin's_palm.json exists, skipping download.
+File data/ohenry/gift_of_the_magi.json exists, skipping download.
+File data/ohenry/cosmopolite_in_a_cafe.json exists, skipping download.
+File data/ohenry/between_rounds.json exists, skipping download.
+File data/ohenry/skylight_room.json exists, skipping download.
+File data/ohenry/service_of_love.json exists, skipping download.
+File data/ohenry/coming-out_of_maggie.json exists, skipping download.
+File data/ohenry/man_about_town.json exists, skipping download.
+File data/ohenry/cop_and_the_anthem.json exists, skipping download.
+File data/ohenry/adjustment_of_nature.json exists, skipping download.
+File data/ohenry/memoirs_of_a_yellow_dog.json exists, skipping download.
+File data/ohenry/love-philtre_of_ikey_schoenstein.json exists, skipping download.
+File data/ohenry/mammon_and_the_archer.json exists, skipping download.
+File data/ohenry/springtime_a_la_carte.json exists, skipping download.
+File data/ohenry/green_door.json exists, skipping download.
+File data/ohenry/the_cabby's_seat.json exists, skipping download.
+File data/ohenry/unfinished_story.json exists, skipping download.
+File data/ohenry/caliph,_cupid_and_the_clock.json exists, skipping download.
+File data/ohenry/sisters_of_the_golden_circle.json exists, skipping download.
+File data/ohenry/romance_of_a_busy_broker.json exists, skipping download.
+File data/ohenry/after_twenty_years.json exists, skipping download.
+File data/ohenry/lost_on_dress_parade.json exists, skipping download.
+File data/ohenry/by_courier.json exists, skipping download.
+File data/ohenry/furnished_room.json exists, skipping download.
+File data/ohenry/brief_debut_of_tildy.json exists, skipping download.
+
+Running gatherer: hemingway
+---------------------------
+File data/hemingway/undefeated.json exists, skipping download.
+File data/hemingway/in_another_country.json exists, skipping download.
+File data/hemingway/hills_like_white_elephants.json exists, skipping download.
+File data/hemingway/killers.json exists, skipping download.
+File data/hemingway/che_ti_dice_la_patria?.json exists, skipping download.
+File data/hemingway/fifty_grand.json exists, skipping download.
+File data/hemingway/simple_enquiry.json exists, skipping download.
+File data/hemingway/ten_indians.json exists, skipping download.
+File data/hemingway/canary_for_one.json exists, skipping download.
+File data/hemingway/alpine_idyll.json exists, skipping download.
+File data/hemingway/pursuit_race.json exists, skipping download.
+File data/hemingway/to-day_is_friday.json exists, skipping download.
+File data/hemingway/banal_story.json exists, skipping download.
+File data/hemingway/now_i_lay_me.json exists, skipping download.
+
+Running gatherer: wilde_happy_prince
+------------------------------------
+File data/wilde_happy_prince/happy_prince.json exists, skipping download.
+File data/wilde_happy_prince/nightingale_and_the_rose.json exists, skipping download.
+File data/wilde_happy_prince/selfish_giant.json exists, skipping download.
+File data/wilde_happy_prince/devoted_friend.json exists, skipping download.
+File data/wilde_happy_prince/remarkable_rocket.json exists, skipping download.
+
+Running gatherer: wodehouse
+---------------------------
+File data/wodehouse/bill_the_bloodhound.json exists, skipping download.
+File data/wodehouse/extricating_young_gussie.json exists, skipping download.
+File data/wodehouse/wilton's_holiday.json exists, skipping download.
+File data/wodehouse/mixer.json exists, skipping download.
+File data/wodehouse/crowned_heads.json exists, skipping download.
+File data/wodehouse/at_geisenheimer's.json exists, skipping download.
+File data/wodehouse/making_of_mac's.json exists, skipping download.
+File data/wodehouse/one_touch_of_nature.json exists, skipping download.
+File data/wodehouse/black_for_luck.json exists, skipping download.
+File data/wodehouse/romance_of_an_ugly_policeman.json exists, skipping download.
+File data/wodehouse/sea_of_troubles.json exists, skipping download.
+File data/wodehouse/man_with_two_left_feet.json exists, skipping download.
+
+Running gatherer: grimm
+-----------------------
+File data/grimm/golden_bird.json exists, skipping download.
+File data/grimm/hans_in_luck.json exists, skipping download.
+File data/grimm/jorinda_and_jorindel.json exists, skipping download.
+File data/grimm/travelling_musicians.json exists, skipping download.
+File data/grimm/old_sultan.json exists, skipping download.
+File data/grimm/straw,_the_coal,_and_the_bean.json exists, skipping download.
+File data/grimm/briar_rose.json exists, skipping download.
+File data/grimm/dog_and_the_sparrow.json exists, skipping download.
+File data/grimm/twelve_dancing_princesses.json exists, skipping download.
+File data/grimm/fisherman_and_his_wife.json exists, skipping download.
+File data/grimm/willow-wren_and_the_bear.json exists, skipping download.
+File data/grimm/frog-prince.json exists, skipping download.
+File data/grimm/cat_and_mouse_in_partnership.json exists, skipping download.
+File data/grimm/goose-girl.json exists, skipping download.
+File data/grimm/adventures_of_chanticleer_and_partlet.json exists, skipping download.
+File data/grimm/rapunzel.json exists, skipping download.
+File data/grimm/fundevogel.json exists, skipping download.
+File data/grimm/valiant_little_tailor.json exists, skipping download.
+File data/grimm/hansel_and_gretel.json exists, skipping download.
+File data/grimm/mouse,_the_bird,_and_the_sausage.json exists, skipping download.
+File data/grimm/mother_holle.json exists, skipping download.
+File data/grimm/little_red-cap_[little_red_riding_hood].json exists, skipping download.
+File data/grimm/robber_bridegroom.json exists, skipping download.
+File data/grimm/tom_thumb.json exists, skipping download.
+File data/grimm/rumpelstiltskin.json exists, skipping download.
+File data/grimm/clever_gretel.json exists, skipping download.
+File data/grimm/old_man_and_his_grandson.json exists, skipping download.
+File data/grimm/little_peasant.json exists, skipping download.
+File data/grimm/frederick_and_catherine.json exists, skipping download.
+File data/grimm/sweetheart_roland.json exists, skipping download.
+File data/grimm/snowdrop.json exists, skipping download.
+File data/grimm/pink.json exists, skipping download.
+File data/grimm/clever_elsie.json exists, skipping download.
+File data/grimm/miser_in_the_bush.json exists, skipping download.
+File data/grimm/ashputtel.json exists, skipping download.
+File data/grimm/white_snake.json exists, skipping download.
+File data/grimm/wolf_and_the_seven_little_kids.json exists, skipping download.
+File data/grimm/queen_bee.json exists, skipping download.
+File data/grimm/elves_and_the_shoemaker.json exists, skipping download.
+File data/grimm/juniper-tree.json exists, skipping download.
+File data/grimm/turnip.json exists, skipping download.
+File data/grimm/clever_hans.json exists, skipping download.
+File data/grimm/three_languages.json exists, skipping download.
+File data/grimm/fox_and_the_cat.json exists, skipping download.
+File data/grimm/four_clever_brothers.json exists, skipping download.
+File data/grimm/lily_and_the_lion.json exists, skipping download.
+File data/grimm/fox_and_the_horse.json exists, skipping download.
+File data/grimm/blue_light.json exists, skipping download.
+File data/grimm/raven.json exists, skipping download.
+File data/grimm/golden_goose.json exists, skipping download.
+File data/grimm/water_of_life.json exists, skipping download.
+File data/grimm/twelve_huntsmen.json exists, skipping download.
+File data/grimm/king_of_the_golden_mountain.json exists, skipping download.
+File data/grimm/doctor_knowall.json exists, skipping download.
+File data/grimm/seven_ravens.json exists, skipping download.
+File data/grimm/wedding_of_mrs_fox.json exists, skipping download.
+File data/grimm/salad.json exists, skipping download.
+File data/grimm/story_of_the_youth_who_went_forth_to_learn_what_fear_was.json exists, skipping download.
+File data/grimm/king_grisly-beard.json exists, skipping download.
+File data/grimm/iron_hans.json exists, skipping download.
+File data/grimm/cat-skin.json exists, skipping download.
+File data/grimm/snow-white_and_rose-red.json exists, skipping download.
+
+Running gatherer: anderson
+--------------------------
+File data/anderson/emperor's_new_clothes.json exists, skipping download.
+File data/anderson/swineherd.json exists, skipping download.
+File data/anderson/real_princess.json exists, skipping download.
+File data/anderson/shoes_of_fortune.json exists, skipping download.
+File data/anderson/fir_tree.json exists, skipping download.
+File data/anderson/snow_queen.json exists, skipping download.
+File data/anderson/leap-frog.json exists, skipping download.
+File data/anderson/elderbush.json exists, skipping download.
+File data/anderson/bell.json exists, skipping download.
+File data/anderson/old_house.json exists, skipping download.
+File data/anderson/happy_family.json exists, skipping download.
+File data/anderson/story_of_a_mother.json exists, skipping download.
+File data/anderson/false_collar.json exists, skipping download.
+File data/anderson/shadow.json exists, skipping download.
+File data/anderson/little_match_girl.json exists, skipping download.
+File data/anderson/dream_of_little_tuk.json exists, skipping download.
+File data/anderson/naughty_boy.json exists, skipping download.
+File data/anderson/red_shoes.json exists, skipping download.
+
+Running gatherer: chesterton
+----------------------------
+File data/chesterton/blue_cross.json exists, skipping download.
+File data/chesterton/secret_garden.json exists, skipping download.
+File data/chesterton/queer_feet.json exists, skipping download.
+File data/chesterton/flying_stars.json exists, skipping download.
+File data/chesterton/invisible_man.json exists, skipping download.
+File data/chesterton/honour_of_israel_gow.json exists, skipping download.
+File data/chesterton/wrong_shape.json exists, skipping download.
+File data/chesterton/sins_of_prince_saradine.json exists, skipping download.
+File data/chesterton/hammer_of_god.json exists, skipping download.
+File data/chesterton/eye_of_apollo.json exists, skipping download.
+File data/chesterton/sign_of_the_broken_sword.json exists, skipping download.
+File data/chesterton/three_tools_of_death.json exists, skipping download.
+
+Running gatherer: london
+------------------------
+File data/london/love_of_life.json exists, skipping download.
+File data/london/day's_lodging.json exists, skipping download.
+File data/london/white_man's_way.json exists, skipping download.
+File data/london/story_of_keesh.json exists, skipping download.
+File data/london/unexpected.json exists, skipping download.
+File data/london/brown_wolf.json exists, skipping download.
+File data/london/sun-dog_trail.json exists, skipping download.
+File data/london/negore,_the_coward.json exists, skipping download.
+
+Running gatherer: mass_quantities
+---------------------------------
+Metadata not OK, skipping story: 1
+ - Subject: {'United States. Declaration of Independence', 'JK', 'E201', 'United States -- History -- Revolution, 1775-1783 -- Sources'}: False
+ - Language: {'en'}: True
+ - Title: {'The Declaration of Independence of the United States of America'}: True
+ - Author: ['Jefferson, Thomas']: True
+Metadata not OK, skipping story: 5
+ - Subject: {'United States -- Politics and government -- 1783-1789 -- Sources', 'JK', 'KF', 'United States. Constitution'}: False
+ - Language: {'en'}: True
+ - Title: {'The United States Constitution'}: True
+ - Author: ['United States']: True
+Metadata not OK, skipping story: 9
+ - Subject: {'E456', 'United States -- Politics and government -- 1861-1865', 'Presidents -- United States -- Inaugural addresses'}: False
+ - Language: {'en'}: True
+ - Title: {"Abraham Lincoln's First Inaugural Address"}: True
+ - Author: ['Lincoln, Abraham']: True
+Metadata not OK, skipping story: 39
+ - Subject: {'Internet', 'Computer networks', 'TK'}: False
+ - Language: {'en'}: True
+ - Title: {"Hitchhiker's Guide to the Internet"}: True
+ - Author: ['Krol, Ed']: True
+Metadata not OK, skipping story: 56
+ - Subject: {'National Research and Education Network (Computer network)', 'Internet', 'TK'}: False
+ - Language: {'en'}: True
+ - Title: {'NREN for All: Insurmountable Opportunity'}: True
+ - Author: ['Polly, Jean Armour']: True
+Metadata not OK, skipping story: 109
+ - Subject: {'American poetry', 'PS'}: False
+ - Language: {'en'}: True
+ - Title: {'Renascence, and Other Poems'}: True
+ - Author: ['Millay, Edna St. Vincent']: True
+Metadata not OK, skipping story: 151
+ - Subject: {'PR', 'Poetry'}: False
+ - Language: {'en'}: True
+ - Title: {'The Rime of the Ancient Mariner'}: True
+ - Author: ['Coleridge, Samuel Taylor']: True
+Metadata not OK, skipping story: 254
+ - Subject: {'Mathematics', 'QA'}: False
+ - Language: {'en'}: True
+ - Title: {"The Second Story of Meno\r\nA Continuation of Socrates' Dialogue with Meno in Which the Boy Proves Root 2 is Irrational"}: True
+ - Author: ['Unknown']: True
+Metadata not OK, skipping story: 263
+ - Subject: {'PS', 'Poetry, Modern -- 20th century'}: False
+ - Language: {'en'}: True
+ - Title: {'Trees, and Other Poems'}: True
+ - Author: ['Kilmer, Joyce']: True
+Metadata not OK, skipping story: 264
+ - Subject: {'PS', 'Poetry, Modern -- 20th century', 'City and town life -- Poetry'}: False
+ - Language: {'en'}: True
+ - Title: {'Main Street, and Other Poems'}: True
+ - Author: ['Kilmer, Joyce']: True
+Metadata not OK, skipping story: 272
+ - Subject: {'BR', 'Bible -- Translating', 'Reformation -- Germany'}: False
+ - Language: {'en'}: True
+ - Title: {'An Open Letter on Translating'}: True
+ - Author: ['Luther, Martin']: True
+Metadata not OK, skipping story: 274
+ - Subject: {'BR', 'Reformation -- Germany -- Sources', 'Indulgences'}: False
+ - Language: {'en'}: True
+ - Title: {'Disputatio pro declaratione virtutis indulgentiarum. English', 'Disputation of Doctor Martin Luther on the Power and Efficacy of Indulgences'}: True
+ - Author: ['Luther, Martin']: True
+Metadata not OK, skipping story: 277
+ - Subject: {'QC', 'U', 'D731', 'Atomic bomb -- New Mexico -- Testing -- History', 'Manhattan Project (U.S.)'}: False
+ - Language: {'en'}: True
+ - Title: {'Trinity Site'}: True
+ - Author: ['National Atomic Museum (U.S.)']: True
+Metadata not OK, skipping story: 278
+ - Subject: {'QC', 'U', 'Atomic bomb -- New Mexico -- Los Alamos -- Testing -- History', 'D731', 'Manhattan Project (U.S.)'}: False
+ - Language: {'en'}: True
+ - Title: {'Trinity Site: 1945-1995.\r\nA National Historic Landmark, White Sands Missile Range, New Mexico'}: True
+ - Author: ['White Sands Missile Range (N.M.). Public Affairs Office']: True
+Metadata not OK, skipping story: 281
+ - Subject: {'Damien, Saint, Father, 1840-1889', 'BX'}: False
+ - Language: {'en'}: True
+ - Title: {'Father Damien: An Open Letter to the Reverend Dr. Hyde of Honolulu'}: True
+ - Author: ['Stevenson, Robert Louis']: True
+Story has chapters, skipping: 375
+Metadata not OK, skipping story: 377
+ - Subject: {'PS', 'Women -- Kansas -- Intellectual life', 'Kansas -- In literature', 'Women and literature -- Kansas', 'Kansas -- Biography', 'Women authors, American -- Homes and haunts -- Kansas'}: False
+ - Language: {'en'}: True
+ - Title: {'Kansas Women in Literature'}: True
+ - Author: ['Barker, Nettie Garmer']: True
+Metadata not OK, skipping story: 412
+ - Subject: {'Businessmen -- United States -- Biography', 'Astor, John Jacob, 1763-1848', 'CT'}: False
+ - Language: {'en'}: True
+ - Title: {'John Jacob Astor'}: True
+ - Author: ['Hubbard, Elbert']: True
+Metadata not OK, skipping story: 414
+ - Subject: {'Nature study', 'QH'}: False
+ - Language: {'en'}: True
+ - Title: {'The Pageant of Summer'}: True
+ - Author: ['Jefferies, Richard']: True
+Metadata not OK, skipping story: 442
+ - Subject: {'American poetry', 'Lyric poetry', 'PS'}: False
+ - Language: {'en'}: True
+ - Title: {'Love Songs'}: True
+ - Author: ['Teasdale, Sara']: True
+Metadata not OK, skipping story: 487
+ - Subject: {'PR', 'Poetry', 'Voyages and travels -- Poetry'}: False
+ - Language: {'en'}: True
+ - Title: {'Songs of Travel, and Other Verses'}: True
+ - Author: ['Stevenson, Robert Louis']: True

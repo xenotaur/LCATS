@@ -29,7 +29,7 @@ EXCLUDED_SUBJECTS = [
 # Words in titles that indicate the work is not a single short story.
 EXCLUDED_TITLE_WORDS = [
     # Indicates that this is one part of a larger work.
-    "part", "volume", ", book", "chapter", "duologue", "vol.",
+    ", part", "volume", ", book", "chapter", "duologue", "vol.",
 
     # This may be overzealous, but indicates a non-story.
     "poem",

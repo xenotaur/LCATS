@@ -1,0 +1,81 @@
+ - Subject: {'Africa -- Fiction', 'Quatermain, Allan (Fictitious character) -- Fiction', 'PR', 'Adventure stories', 'Hunting guides -- Fiction'}: True
+ - Language: {'en'}: True
+ - Title: {'Long Odds'}: True
+ - Author: ['Haggard, H. Rider (Henry Rider)', 'Haggard, Henry Rider', 'Haggard, Rider']: True
+Gathering story 1918: Long Odds
+ - File name: long_odds.json
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'Lost in Translation'}: True
+ - Author: ['Logan, William', 'Harris, Larry M.', 'Janifer, Larry', 'Janifer, Laurence Mark', 'Janifer, Laurence M.', 'Harris, Laurence Mark']: True
+Story is too short, skipping: 30029
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'Runaway'}: True
+ - Author: ['Samachson, Joseph', 'Sterling, Brett', 'Morrison, William', 'Samachson, Joe']: True
+Gathering story 29897: Runaway
+ - File name: runaway.json
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'Satellite System'}: True
+ - Author: ['Fyfe, H.B.', 'Fyfe, H. B. (Horace Bowne)', 'Fyfe, Horace Bowne']: True
+Story is too short, skipping: 29990
+ - Subject: {'Short stories', 'PS', 'Science fiction, American'}: True
+ - Language: {'en'}: True
+ - Title: {'Security'}: True
+ - Author: ['Kenyon, Ernest M.']: True
+Gathering story 26140: Security
+ - File name: security.json
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'The Asses of Balaam'}: True
+ - Author: ['Garret, Randall', 'Barretton, Grandall', 'Burke, Ralph', 'Garrett, Gordon Randall', 'Garrett, Randall', 'Mitchell, Clyde']: True
+Story is too short, skipping: 30583
+ - Subject: {'Science fiction', 'PS', 'Africa -- Fiction', 'Political fiction', 'Soldiers -- Fiction', 'Short stories'}: True
+ - Language: {'en'}: True
+ - Title: {'The Green Beret'}: True
+ - Author: ['Purdom, Tom', 'Purdom, Thomas E.', 'Purdom, Thomas Edward']: True
+Story is too short, skipping: 24278
+ - Subject: {'Private investigators -- England -- Fiction', 'Poirot, Hercule (Fictitious character) -- Fiction', 'Detective and mystery stories', 'PR', 'Murder -- Investigation -- Fiction', 'Short stories'}: True
+ - Language: {'en'}: True
+ - Title: {"The Hunter's Lodge Case"}: True
+ - Author: ['Christie, Agatha', 'Christie, Agatha Mary Clarissa Miller']: True
+Story is too short, skipping: 67160
+ - Subject: {'Science fiction', 'PS', 'Maguire, Tubby (Fictitious character) -- Fiction', 'Light -- Fiction', 'Short stories'}: True
+ - Language: {'en'}: True
+ - Title: {'The Light Machine'}: True
+ - Author: ['King, Ray', 'Cummings, Raymond King', 'Cummings, Ray']: True
+Story is too short, skipping: 67208
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'The Man Who Played to Lose'}: True
+ - Author: ['Logan, William', 'Harris, Larry M.', 'Janifer, Larry', 'Janifer, Laurence Mark', 'Janifer, Laurence M.', 'Harris, Laurence Mark']: True
+Story is too short, skipping: 30259
+ - Subject: {'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'The Pygmy Planet', 'Pigmy Planet'}: True
+ - Author: ['Williamson, Jack', 'Stewart, Will', 'Williamson, John Stewart']: True
+Gathering story 29177: The Pygmy Planet
+ - File name: the_pygmy_planet.json
+ - Subject: {'Short stories', 'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {"The Street That Wasn't There"}: True
+ - Author: ['Jacobi, Carl Richard', 'Simak, Clifford Donald', 'Jacobi, Carl', 'Simak, Clifford D.']: True
+Story is too short, skipping: 22218
+ - Subject: {'Short stories', 'Science fiction', 'PS', 'Rejuvenation -- Fiction'}: True
+ - Language: {'en'}: True
+ - Title: {'The Trap'}: True
+ - Author: ['Curtis, Elizabeth M.', 'Curtis, Betsy', 'Curtis, B.']: True
+Gathering story 32718: The Trap
+ - File name: the_trap.json
+ - Subject: {'Science fiction', 'PS'}: True
+ - Language: {'en'}: True
+ - Title: {'The Tunnel Under the World'}: True
+ - Author: ['Lavond, Paul Dennis', 'Pohl, Frederick', 'Pohl, Frederik George, Jr.', 'MacCreigh, James', 'Pohl, Frederik']: True
+Story is too short, skipping: 31979
+ - Subject: {'Science fiction', 'PS', 'Triangles (Interpersonal relations) -- Fiction', 'Man-woman relationships -- Fiction', 'Chicago (Ill.) -- Fiction', 'Immortality -- Fiction', 'Short stories'}: True
+ - Language: {'en'}: True
+ - Title: {'Until Life Do Us Part'}: False
+ - Author: ['Marks, Winston K. (Winston Kinney)', 'Marks, Winston Kinney']: True
+Gathering story 59285: Until Life Do Us Part
+ - File name: until_life_do_us_part.json

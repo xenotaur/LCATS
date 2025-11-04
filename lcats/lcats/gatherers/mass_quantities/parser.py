@@ -140,8 +140,8 @@ def subject_ok(subject):
     Returns:
         bool: True if the subject appears to be short fiction, False otherwise.
     """
-    normalized_subject = " ".join(list(subject)).lower().strip()
-    
+    normalized_subject = " ".join(list(subject)).lower().strip().replace(",","")
+
     #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
     #    return False
 
@@ -295,7 +295,7 @@ def line_contains_title(original_line, title):
     return False
 
 
-def line_contains_author(line, authors, limit=8):
+def line_contains_author (line, authors, limit=8):
     """Detect whether the line contains the author of the story or other author-like content.
 
     We limit the size of the line so we don't find this in a longer line of text.
@@ -358,6 +358,67 @@ def line_contains_author(line, authors, limit=8):
     # print("Multiple authors detected: ", authors)
     return False
 
+def names_match(name1, name2):
+    name1 = name1.strip().lower()
+    name2 = name2.strip().lower().replace(", ", " ").replace(",", " ")
+
+    matches = 0
+    for namelet in name2.split():
+        if namelet in name1:
+            matches = matches + 1
+
+    if matches == len(name2.split()):    # all match!
+        return True
+    elif matches == 0:
+        return False
+    elif matches > len(name2.split()):   # more matches?
+        return False
+    elif len(name2.split()) > 2 and matches >= 2:
+        return True
+    else:
+        return False
+
+def line_contains_author2(line, authors, limit=8):
+    """Detect whether the line contains the author of the story or other author-like content.
+
+    We limit the size of the line so we don't find this in a longer line of text.
+
+    Questions:
+    - What about folks with more than two names? Or just one name?
+    - Do all metadata use LN, FN format?
+    - What about pen names? We forgot about pen names :-(
+    - The logic for the 'by' case seems off. We should be checking for the names.
+
+    Args:
+        line (str): A string representing a line of the story.
+        authors (list): A list of strings representing the author(s) of the story.
+        limit (int): An integer representing the maximum number of words in the line to consider 
+            it as an author line.
+    Returns:
+        bool: True if the line contains the author, False otherwise.
+    """
+
+    result = False
+    for author in authors:
+        result = result or names_match(line, author)
+        
+    if not result:    # check the by special case?
+        stripped = line.strip().lower()
+        #if (first_name in stripped and last_name in stripped and len(line.split()) < limit):
+        #    return True
+
+        # Handle lines that just say "by" or "by FN LN" or similar.
+        if (stripped == "by" or stripped.startswith("by ")
+            or stripped.startswith("_by ")
+            or stripped.startswith("_by_")):
+            
+            # If the line is short enough and starts with by, assume it's the author line.
+            if len(line.split()) < limit:
+                result = True
+            else:
+                result = False
+
+    return result
 
 def is_blank_line(line):
     """ Return True if the line is blank, False otherwise.
@@ -509,9 +570,15 @@ def gather_story(gatherer, story):
         return story, None, "Story has chapters, skipping."
 
     # Extract the title and body of the story.
-    title = list(title)[0]
-    body = body_of_text(clean_text, author, title)
-    if len(body) < 10:
+    short = True
+    for single_title in list(title):
+        body = body_of_text(clean_text, author, single_title)
+        if len(body) > 10:
+            short = False
+            title = single_title   # wow this is bad style 
+            break
+
+    if short: 
         print("Story is too short, skipping: " + str(story))
         return story, None, "Story is too short, skipping."
 
@@ -550,3 +617,98 @@ def gather_story(gatherer, story):
         json.dump(data_to_save, json_file, indent=4)
 
     return story, file_path, None
+
+
+
+import csv
+
+def test_stories (stories):
+    for story in stories:
+        test_story_get(story)
+
+        
+def test_story_get (story):
+    # Extract metadata and filter out stories that don't meet our criteria.
+    subject = api.get_metadata('subject', story)
+    is_subject_ok = subject_ok(subject)
+    language = api.get_metadata('language', story)
+    is_language_ok = only_english(language)
+    title = api.get_metadata('title', story)
+    is_title_ok = title_ok(title)
+    author = list(api.get_metadata('author', story))
+    is_author_ok = author_ok(author)
+    if True or not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
+        #print(f"Metadata not OK, skipping story: {story}")
+        print(f" - Subject: {subject}: {is_subject_ok}")
+        print(f" - Language: {language}: {is_language_ok}")
+        print(f" - Title: {title}: {is_title_ok}")
+        print(f" - Author: {author}: {is_author_ok}")
+        #return story, None, "Metadata not suitable, skipping."
+
+    # Extract the text and remove stories that have chapters.
+    etext = api.load_etext(story)
+    stripped_text = headers.strip_headers(etext.strip()).strip()
+    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+    if chaptered(clean_text):
+        print("Story has chapters, skipping: " + str(story))
+        return story, None, "Story has chapters, skipping."
+
+    # Extract the title and body of the story.
+    title = list(title)[0]
+    body = body_of_text(clean_text, author, title)
+    if len(body) < 10:
+        print("Story is too short, skipping: " + str(story))
+        return story, None, "Story is too short, skipping."
+
+    # if we get here, we have the pieces of the story, so let's save
+    file_name = names.title_to_filename(
+        title, ext=constants.FILE_SUFFIX, max_len=50)
+
+    print(f"Gathering story {story}: {title}")
+    print(f" - File name: {file_name}")
+
+def show_data_not_corpora():
+    file_path = 'notebooks/output/stories_comparison.csv'  # Replace with the actual path to your CSV file
+
+    try:
+        with open(file_path, 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            # Iterate over each row in the CSV file
+            for row in reader:
+                if row[3] == "False" and row[7] == "False":   # appears in data and NOT in corpora
+                    #print(row)
+                    id = row[0].split("/")
+                    subs = api.get_metadata("subject", int(id[5]))
+                    title = api.get_metadata("title", int(id[5]))
+
+                    print(id[5] + " , '" + str(title) + "' , " + str(subs)) 
+
+    except FileNotFoundError:
+        print(f"Error: The file '{file_path}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+def show_corpora_not_data():
+    file_path = 'notebooks/output/stories_comparison.csv'  # Replace with the actual path to your CSV file
+
+    try:
+        with open(file_path, 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile)
+            # Iterate over each row in the CSV file
+            for row in reader:
+                if row[3] == "False" and row[7] == "True":   # appears in corpora and NOT in data
+                    #print(row)
+                    id = row[0].split("/")
+                    subs = api.get_metadata("subject", int(id[5]))
+                    title = api.get_metadata("title", int(id[5]))
+
+                    print(id[5] + " , '" + str(title) + "' , " + str(subs)) 
+
+    except FileNotFoundError:
+        print(f"Error: The file '{file_path}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+
