@@ -49,18 +49,6 @@ class TestExtraction(unittest.TestCase):
         self.assertIsNone(result.extraction_error)
         self.assertEqual(result.extracted_output[0]["type"], "scene")
 
-    def test_extract_successful(self):
-        result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
-        )
-        self.assertEqual(result.model_name, "gpt-3.5-turbo")
-        self.assertEqual(len(result.extracted_output), 2)
-        self.assertIsNone(result.parsing_error)
-        self.assertIsNone(result.extraction_error)
-        self.assertEqual(result.extracted_output[0]["type"], "scene")
-
     def test_extract_fails_on_invalid_json(self):
         # Patch the client's output to return invalid JSON
         message = self.fake_client.chat.completions.create.return_value.choices[0].message

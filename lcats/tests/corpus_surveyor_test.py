@@ -12,7 +12,7 @@ from lcats.analysis import corpus_surveyor
 
 
 class TestComputeCorpusStats(test_utils.TestCaseWithData):
-    """Unit tests for corpus_surveyor.compute_corpus_stats."""
+    """Unit tests for corpus_surveyor.coßmpute_corpus_stats."""
 
     def setUp(self):
         super().setUp()
@@ -21,7 +21,9 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         self.root = pathlib.Path(self.test_temp_dir) / "data"
         (self.root / "lovecraft").mkdir(parents=True, exist_ok=True)
         (self.root / "wilde").mkdir(parents=True, exist_ok=True)
-        (self.root / "cache" / "gutenberg").mkdir(parents=True, exist_ok=True)  # realism
+        (self.root / "cache" / "gutenberg").mkdir(
+            parents=True, exist_ok=True
+        )  # realism
 
         def write_json(relpath: str, payload: dict) -> pathlib.Path:
             p = self.root / pathlib.Path(relpath)
@@ -98,13 +100,23 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_basic_aggregation_with_dedupe(self):
         """Deduplicate duplicate stories; aggregate author/story stats correctly."""
-        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(self.paths, dedupe=True)
+        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
+            self.paths, dedupe=True
+        )
 
         # Story frame has expected columns
         expected_story_cols = {
-            "path", "story_id", "title", "authors", "n_authors",
-            "title_words", "title_chars", "title_tokens",
-            "body_words", "body_chars", "body_tokens",
+            "path",
+            "story_id",
+            "title",
+            "authors",
+            "n_authors",
+            "title_words",
+            "title_chars",
+            "title_tokens",
+            "body_words",
+            "body_chars",
+            "body_tokens",
         }
         self.assertTrue(expected_story_cols.issubset(set(story_stats.columns)))
 
@@ -116,7 +128,7 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         self.assertEqual(s1["title"], "Alpha Tale")
         self.assertEqual(s1["title_words"], 2)
         self.assertEqual(s1["title_chars"], len("Alpha Tale"))
-        self.assertEqual(s1["body_words"], 4)                  # "One two three four"
+        self.assertEqual(s1["body_words"], 4)  # "One two three four"
         self.assertEqual(s1["body_chars"], len("One two three four"))
         self.assertIsInstance(s1["title_tokens"], numbers.Integral)
         self.assertIsInstance(s1["body_tokens"], numbers.Integral)
@@ -128,7 +140,13 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         self.assertEqual(s4["title"], "Gamma")
 
         # Author aggregation frame
-        expected_author_cols = {"author", "stories", "body_words", "body_chars", "body_tokens"}
+        expected_author_cols = {
+            "author",
+            "stories",
+            "body_words",
+            "body_chars",
+            "body_tokens",
+        }
         self.assertTrue(expected_author_cols.issubset(set(author_stats.columns)))
 
         # Alice: story1 + story3
@@ -142,7 +160,9 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         row_bob = author_stats[author_stats["author"] == "Bob"].iloc[0]
         self.assertEqual(row_bob["stories"], 2)
         self.assertEqual(row_bob["body_words"], 4 + 3)
-        self.assertEqual(row_bob["body_chars"], len("One two three four") + len("Z z z"))
+        self.assertEqual(
+            row_bob["body_chars"], len("One two three four") + len("Z z z")
+        )
         self.assertGreater(row_bob["body_tokens"], 0)
 
         # No anonymous authors in author_stats
@@ -150,7 +170,9 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_dedupe_false_keeps_duplicate_row_but_author_story_counts_stay_unique(self):
         """When dedupe=False, keep duplicates; author 'stories' remains unique by story_id."""
-        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(self.paths, dedupe=False)
+        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
+            self.paths, dedupe=False
+        )
 
         # Both p1 and its duplicate p2 should appear now
         self.assertEqual(len(story_stats), 5)
@@ -169,8 +191,12 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         row = story_stats.iloc[0]
 
         self.assertEqual(row["title"], "Beta")
-        self.assertEqual(row["title_tokens"], len(enc.encode("Beta", disallowed_special=())))
-        self.assertEqual(row["body_tokens"], len(enc.encode("Hi", disallowed_special=())))
+        self.assertEqual(
+            row["title_tokens"], len(enc.encode("Beta", disallowed_special=()))
+        )
+        self.assertEqual(
+            row["body_tokens"], len(enc.encode("Hi", disallowed_special=()))
+        )
 
 
 if __name__ == "__main__":

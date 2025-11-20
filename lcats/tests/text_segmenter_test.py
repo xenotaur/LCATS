@@ -58,25 +58,31 @@ class TestTextIndexing(unittest.TestCase):
         anchor = "para with   extra   spaces"  # keep spaces exact
         idx = text_segmenter.find_anchor_in_range(self.story, anchor, lo, hi)
         self.assertIsNotNone(idx)
-        self.assertEqual(self.story[idx: idx + len(anchor)], anchor)
+        self.assertEqual(self.story[idx : idx + len(anchor)], anchor)
 
     def test_find_anchor_in_range_outside_range_returns_none(self):
         """Anchors outside the search window should return None."""
         _, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         lo, hi = spans[2]  # paragraph 3 only
         anchor = "Second para"  # exists only in paragraph 2
-        self.assertIsNone(text_segmenter.find_anchor_in_range(self.story, anchor, lo, hi))
+        self.assertIsNone(
+            text_segmenter.find_anchor_in_range(self.story, anchor, lo, hi)
+        )
 
     def test_align_segment_happy_path_within_one_paragraph(self):
         """Align using (start_par_id, end_par_id) and exact anchors inside paragraph 2."""
         parts, spans = text_segmenter.build_paragraph_index(self.story, splitter="\n\n")
         p2_start, p2_end = spans[1]
 
-        start_exact = self.p2[:12]     # "Second para "
-        end_exact = self.p2[-7:]       # "spaces."
+        start_exact = self.p2[:12]  # "Second para "
+        end_exact = self.p2[-7:]  # "spaces."
         span = text_segmenter.align_segment(
-            self.story, spans, start_par_id=2, end_par_id=2,
-            start_exact=start_exact, end_exact=end_exact
+            self.story,
+            spans,
+            start_par_id=2,
+            end_par_id=2,
+            start_exact=start_exact,
+            end_exact=end_exact,
         )
         self.assertIsNotNone(span)
         s, e = span
@@ -94,8 +100,12 @@ class TestTextIndexing(unittest.TestCase):
         p3_start, p3_end = spans[2]
 
         span = text_segmenter.align_segment(
-            self.story, spans, start_par_id=3, end_par_id=3,
-            start_exact="", end_exact=""
+            self.story,
+            spans,
+            start_par_id=3,
+            end_par_id=3,
+            start_exact="",
+            end_exact="",
         )
         self.assertEqual(span, (p3_start, p3_end))
 
@@ -109,8 +119,12 @@ class TestTextIndexing(unittest.TestCase):
 
         # Intentionally reversed: start_par_id=3, end_par_id=2 -> clamped to 3 (or 2) per implementation
         span = text_segmenter.align_segment(
-            self.story, spans, start_par_id=3, end_par_id=2,
-            start_exact=start_exact, end_exact=end_exact
+            self.story,
+            spans,
+            start_par_id=3,
+            end_par_id=2,
+            start_exact=start_exact,
+            end_exact=end_exact,
         )
         # May fall back to bounds if anchors don't fit paragraph 3; just ensure it returns a valid span.
         self.assertIsNotNone(span)
@@ -146,8 +160,8 @@ class TestTextIndexing(unittest.TestCase):
                     "segment_type": "narrative_scene",
                     "start_par_id": 2,
                     "end_par_id": 2,
-                    "start_exact": self.p2[:6],   # "Second"
-                    "end_exact": self.p2[-7:],    # "spaces."
+                    "start_exact": self.p2[:6],  # "Second"
+                    "end_exact": self.p2[-7:],  # "spaces."
                     "start_char": None,
                     "end_char": None,
                     "summary": "Para 2 summary",
@@ -160,7 +174,9 @@ class TestTextIndexing(unittest.TestCase):
             ]
         }
 
-        aligned = text_segmenter.segments_result_aligner(parsed_output, self.story, meta)
+        aligned = text_segmenter.segments_result_aligner(
+            parsed_output, self.story, meta
+        )
         self.assertIn("segments", aligned)
         seg = aligned["segments"][0]
         self.assertIsInstance(seg.get("start_char"), int)
@@ -184,7 +200,9 @@ class TestTextIndexing(unittest.TestCase):
                 }
             ]
         }
-        aligned = text_segmenter.segments_result_aligner(parsed_output, self.story, meta)
+        aligned = text_segmenter.segments_result_aligner(
+            parsed_output, self.story, meta
+        )
         seg = aligned["segments"][0]
         self.assertNotIn("start_char", seg)
         self.assertNotIn("end_char", seg)
