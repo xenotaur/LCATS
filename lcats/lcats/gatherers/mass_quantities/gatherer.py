@@ -48,7 +48,6 @@ def gather_stories(stories):
     #    for story in tqdm(stories):
     #for story in range(1, 77805):
     for story in tqdm(stories):
-        print(story)
         story, filename, error = parser.gather_story(gatherer, story)
                     
         if filename:

@@ -576,9 +576,6 @@ def body_of_text(text, author, alias, title, debug=False):
             break  # ???
         else:
             continue
-
-    # should be in the body
-    print("In body " + str(seen_author) + " " + str(author))
     
     body = '\n\n'.join([('' if line == '       *       *       *       *       *' else line)
                        for line in paragraph_array[index:]])
