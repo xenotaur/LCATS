@@ -14,8 +14,8 @@ PEN_NAMES = {
 EXCLUDED_SUBJECTS = [
     # Known bad general subjects for our purposes
     "poetry", "drama", "biography", "plays", "influence", "diaries",
-    "travel", "maxims", "ethics", "political satire", "quotations",
-    "cagots", "zines", "epistolary",
+    "maxims", "ethics", "political satire", "quotations",
+    "cagots", "zines", "epistolary", "indexes",
 
     # Eliminates stories we couldn't fix
     "johnson, samuel, 1709-1784",

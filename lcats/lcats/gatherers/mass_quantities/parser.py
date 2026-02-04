@@ -130,6 +130,53 @@ def pen_names(name):
     return all_names
 
 
+def subject_ok2(subject):
+    """Return True if the subject is consistent with what we want (short fiction).
+
+    Uses the list of excluded subjects from storymap.py to filter out unwanted subjects.
+
+    Args:
+        subject: a string or list of strings representing the subject from the story metadata.
+    Returns:
+        bool: True if the subject appears to be short fiction, False otherwise.
+    """
+    normalized_subject = " ".join(list(subject)).lower().strip().replace(",","")
+
+    #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
+    #    return False
+
+    for piece in normalized_subject.split(" "):
+        if piece in storymap.EXCLUDED_SUBJECTS:
+            return False
+        
+    for piece in list(subject):
+        if piece in ["PS", "PR"]:
+            return True
+
+    return False
+
+
+def fiction (subject):
+    for piece in list(subject):
+        if "fiction" in piece.lower().strip():
+            return True
+
+    return False
+
+def short_story (subject):
+    for piece in list(subject):
+        if "short stor" in piece.lower().strip():
+            return True
+
+    return False
+
+def loc_fiction (subject):
+    for piece in list(subject):
+        if piece in ["PS", "PR"]:
+            return True
+
+    return False
+
 def subject_ok(subject):
     """Return True if the subject is consistent with what we want (short fiction).
 
@@ -145,6 +192,9 @@ def subject_ok(subject):
     #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
     #    return False
 
+    if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
+        return True
+    
     for piece in normalized_subject.split(" "):
         if piece in storymap.EXCLUDED_SUBJECTS:
             return False
@@ -295,7 +345,7 @@ def line_contains_title(original_line, title):
     return False
 
 
-def line_contains_author (line, authors, limit=8):
+def line_contains_author (line, authors, alias, limit=8):
     """Detect whether the line contains the author of the story or other author-like content.
 
     We limit the size of the line so we don't find this in a longer line of text.
@@ -350,8 +400,8 @@ def line_contains_author (line, authors, limit=8):
         author1 = [authors[0]]
         author2 = [authors[1]]
 
-        author1_present = line_contains_author(line, author1, limit*2)
-        author2_present = line_contains_author(line, author2, limit*2)
+        author1_present = line_contains_author(line, author1, alias, limit*2)
+        author2_present = line_contains_author(line, author2, alias, limit*2)
         return author1_present and author2_present
 
     # Don't attempt to match more than two authors.
@@ -430,7 +480,7 @@ def is_blank_line(line):
     return len(line) == 0 or line[0] == " " or line[:2] == "\n "
 
 
-def in_body(line, title, author):
+def in_body(line, title, author, alias):
     """ Return True if the line is in the body of the story, False otherwise.
 
     Args:
@@ -441,7 +491,7 @@ def in_body(line, title, author):
         bool: True if the line is in the body of the story, False otherwise.
     """
     # Skip title and author lines.
-    if line_contains_title(line, title) or line_contains_author(line, author):
+    if line_contains_title(line, title) or line_contains_author(line, author, alias):
         return False
 
     # Skip empty lines and indented lines.
@@ -455,7 +505,7 @@ def in_body(line, title, author):
     return True
 
 
-def fix_body(text, author):
+def fix_body(text, author, alias):
     """Removes extraneous lines from the body of the story.
 
     Args:
@@ -475,7 +525,7 @@ def fix_body(text, author):
             continue
         if "This etext was produced" in paragraph:
             continue
-        if line_contains_author(paragraph, author):
+        if line_contains_author(paragraph, author, alias):
             continue
 
         fixed_body.append(paragraph)
@@ -483,7 +533,7 @@ def fix_body(text, author):
     return ('\n\n'.join(fixed_body))
 
 
-def body_of_text(text, author, title, debug=False):
+def body_of_text(text, author, alias, title, debug=False):
     """ Return the body of the story, i.e., the material after the title and author.
     Args:
         text (str): A string representing a story from Gutenberg in plain text.
@@ -511,26 +561,29 @@ def body_of_text(text, author, title, debug=False):
             break
         if (number_of_titles == 0) and seen_author:
             break
-        if seen_title and seen_author and in_body(line, title, author):
+        if seen_title and seen_author and in_body(line, title, author, alias):
             break
         if line_contains_title(line, title):
             seen_title = True
             number_of_titles_found = number_of_titles_found + 1
-        elif line_contains_author(line, author):
+        elif line_contains_author(line, author, alias):
             seen_author = True
         elif is_blank_line(line):
             continue
         elif (number_of_titles > 1) and (number_of_titles_found != number_of_titles):
             continue
-        elif in_body(line, title, author) and (seen_title or seen_author):
+        elif in_body(line, title, author, alias) and (seen_title or seen_author):
             break  # ???
         else:
             continue
 
+    # should be in the body
+    print("In body " + str(seen_author) + " " + str(author))
+    
     body = '\n\n'.join([('' if line == '       *       *       *       *       *' else line)
                        for line in paragraph_array[index:]])
 
-    return fix_body(body.removeprefix('\n'), author)
+    return fix_body(body.removeprefix('\n'), author, alias)
 
 
 def gather_story(gatherer, story):
@@ -546,6 +599,9 @@ def gather_story(gatherer, story):
     """
     # Extract metadata and filter out stories that don't meet our criteria.
     subject = api.get_metadata('subject', story)
+    if len(subject) == 0:
+        return story, None, "No data for this story, skipping"
+    
     is_subject_ok = subject_ok(subject)
     language = api.get_metadata('language', story)
     is_language_ok = only_english(language)
@@ -553,6 +609,7 @@ def gather_story(gatherer, story):
     is_title_ok = title_ok(title)
     author = list(api.get_metadata('author', story))
     is_author_ok = author_ok(author)
+    alias = list(api.get_metadata('alias', story))
     if not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
         print(f"Metadata not OK, skipping story: {story}")
         print(f" - Subject: {subject}: {is_subject_ok}")
@@ -562,18 +619,22 @@ def gather_story(gatherer, story):
         return story, None, "Metadata not suitable, skipping."
 
     # Extract the text and remove stories that have chapters.
-    etext = api.load_etext(story)
+
+    try:
+        etext = api.load_etext(story)
+    except:
+        return story, None, "Failed to retrieve a story, skipping."
+        
     stripped_text = headers.strip_headers(etext.strip()).strip()
     clean_text = stripped_text.decode('utf-8', errors='replace').strip()
     if chaptered(clean_text):
-        print("Story has chapters, skipping: " + str(story))
         return story, None, "Story has chapters, skipping."
 
     # Extract the title and body of the story.
     short = True
     for single_title in list(title):
-        body = body_of_text(clean_text, author, single_title)
-        if len(body) > 10:
+        body = body_of_text(clean_text, author, alias, single_title)
+        if len(body.split("\n\n")) > 10:
             short = False
             title = single_title   # wow this is bad style 
             break
@@ -637,6 +698,8 @@ def test_story_get (story):
     is_title_ok = title_ok(title)
     author = list(api.get_metadata('author', story))
     is_author_ok = author_ok(author)
+    alias = list(api.get_metadata('alias', story))
+
     if True or not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
         #print(f"Metadata not OK, skipping story: {story}")
         print(f" - Subject: {subject}: {is_subject_ok}")
@@ -655,7 +718,8 @@ def test_story_get (story):
 
     # Extract the title and body of the story.
     title = list(title)[0]
-    body = body_of_text(clean_text, author, title)
+    print(story)
+    body = body_of_text(clean_text, author, alias, title)
     if len(body) < 10:
         print("Story is too short, skipping: " + str(story))
         return story, None, "Story is too short, skipping."
