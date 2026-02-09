@@ -8,6 +8,7 @@
 import json
 import os
 import difflib
+import re
 
 from lcats import constants
 
@@ -130,31 +131,6 @@ def pen_names(name):
     return all_names
 
 
-def subject_ok2(subject):
-    """Return True if the subject is consistent with what we want (short fiction).
-
-    Uses the list of excluded subjects from storymap.py to filter out unwanted subjects.
-
-    Args:
-        subject: a string or list of strings representing the subject from the story metadata.
-    Returns:
-        bool: True if the subject appears to be short fiction, False otherwise.
-    """
-    normalized_subject = " ".join(list(subject)).lower().strip().replace(",","")
-
-    #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
-    #    return False
-
-    for piece in normalized_subject.split(" "):
-        if piece in storymap.EXCLUDED_SUBJECTS:
-            return False
-        
-    for piece in list(subject):
-        if piece in ["PS", "PR"]:
-            return True
-
-    return False
-
 
 def fiction (subject):
     for piece in list(subject):
@@ -195,13 +171,13 @@ def subject_ok(subject):
     if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
         return True
     
-    for piece in normalized_subject.split(" "):
-        if piece in storymap.EXCLUDED_SUBJECTS:
-            return False
+#    for piece in normalized_subject.split(" "):
+#        if piece in storymap.EXCLUDED_SUBJECTS:
+#            return False
         
-    for piece in list(subject):
-        if piece in ["PS", "PR"]:
-            return True
+#    for piece in list(subject):
+#        if piece in ["PS", "PR"]:
+#            return True
 
     return False
 
@@ -242,8 +218,14 @@ def title_ok(title):
     if "index of the project gutenberg" in list(title)[0].lower():
         return False
 
+    for part_indicator in storymap.EXCLUDED_TITLE_PART_WORDS:
+        if re.search(rf'{part_indicator}\s*\d+', str(list(title)[0]), re.IGNORECASE):
+            return False
+        
+
     for piece in list(title)[0].split(" "):
         piece = piece.lower()
+
         if piece in storymap.EXCLUDED_TITLE_WORDS:
             return False
 
@@ -274,6 +256,34 @@ def make_title(title):
     return title
 
 
+def intrusive_paragraph(paragraph):
+    """ Return True if we believe the paragraph is intrusive
+    Args:
+        paragraph (str):  A string representing a paragraph
+    Returns:
+        book:  True if the paragraph is deemed to be extra textual."""
+
+    result = True
+
+    if len(paragraph) == 0:
+        result = False
+        
+    lines = paragraph.split("\n")
+
+    for line in lines:
+        if len(line) == 0:
+            continue
+        if line[:4] == "    " and line[4] == '“':
+            result = False
+        if line[:4] == "    " and line[4] != " ":
+            continue
+        
+        result = False
+
+    return result
+
+            
+    
 def line_contains_transcriber_info(line):
     """ Return True if the line contains transcriber information.
     Args:
@@ -511,23 +521,30 @@ def fix_body(text, author, alias):
     Args:
         text (str): A string representing the body of the story.
         author (str): A string representing the author of the story.
-
+        alias (str): A string representing the alias of the story.
     Returns:
         str: A string representing the cleaned-up body of the story.
     """
     text_array = text.split("\n\n")
     fixed_body = []
 
+    firstTime = True
+    
     for paragraph in text_array:
-        if line_contains_transcriber_info(paragraph):
-            continue
-        if line_contains_illustration(paragraph):
-            continue
-        if "This etext was produced" in paragraph:
-            continue
-        if line_contains_author(paragraph, author, alias):
-            continue
-
+        if firstTime:
+            if line_contains_transcriber_info(paragraph):
+                continue
+            elif line_contains_illustration(paragraph):
+                continue
+            elif "This etext was produced" in paragraph:
+                continue
+            elif line_contains_author(paragraph, author, alias):
+                continue
+            elif firstTime and intrusive_paragraph(paragraph):
+                continue
+            else:
+                firstTime = False
+            
         fixed_body.append(paragraph)
 
     return ('\n\n'.join(fixed_body))
@@ -576,10 +593,12 @@ def body_of_text(text, author, alias, title, debug=False):
             break  # ???
         else:
             continue
+    # should be in the body
+    #print("In body " + str(seen_author) + " " + str(author))
     
-    body = '\n\n'.join([('' if line == '       *       *       *       *       *' else line)
+    body = '\n\n'.join([('' if '*       *       *       *       *' in line else line)
                        for line in paragraph_array[index:]])
-
+   
     return fix_body(body.removeprefix('\n'), author, alias)
 
 
@@ -616,7 +635,6 @@ def gather_story(gatherer, story):
         return story, None, "Metadata not suitable, skipping."
 
     # Extract the text and remove stories that have chapters.
-
     try:
         etext = api.load_etext(story)
     except:
@@ -626,6 +644,8 @@ def gather_story(gatherer, story):
     clean_text = stripped_text.decode('utf-8', errors='replace').strip()
     if chaptered(clean_text):
         return story, None, "Story has chapters, skipping."
+
+    #print("DEBUG " + str(story) + " " + str(how_many_titles(clean_text, list(title)[0])))
 
     # Extract the title and body of the story.
     short = True
@@ -643,6 +663,8 @@ def gather_story(gatherer, story):
     # if we get here, we have the pieces of the story, so let's save
     file_name = names.title_to_filename(
         title, ext=constants.FILE_SUFFIX, max_len=50)
+
+    #print("DESUB " + str(file_name) + " " + str(subject))
 
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
@@ -728,6 +750,8 @@ def test_story_get (story):
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
 
+    return body
+
 def show_data_not_corpora():
     file_path = 'notebooks/output/stories_comparison.csv'  # Replace with the actual path to your CSV file
 
@@ -773,3 +797,10 @@ def show_corpora_not_data():
 
 
 
+
+def grab_story (story):
+    etext = api.load_etext(story)
+    stripped_text = headers.strip_headers(etext.strip()).strip()
+    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+
+    return clean_text
