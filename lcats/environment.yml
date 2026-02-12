@@ -229,12 +229,14 @@ dependencies:
       - babel==2.16.0
       - backports-tarfile==1.2.0
       - beautifulsoup4==4.12.3
+      - black==25.11.0
       - bleach==6.2.0
       - build==1.2.1
       - certifi==2024.7.4
       - cffi==1.17.1
       - chardet==5.2.0
       - charset-normalizer==3.3.2
+      - click==8.3.1
       - construct==2.5.3
       - datasets==2.21.0
       - defusedxml==0.7.1
@@ -295,6 +297,7 @@ dependencies:
       - more-itertools==10.3.0
       - multidict==6.0.5
       - multiprocess==0.70.16
+      - mypy-extensions==1.1.0
       - nbclient==0.10.0
       - nbconvert==7.16.4
       - nbformat==5.10.4
@@ -316,6 +319,7 @@ dependencies:
       - pandocfilters==1.5.1
       - parse==1.20.2
       - pathable==0.4.3
+      - pathspec==0.12.1
       - pefile==2024.8.26
       - pinecone-client==5.0.1
       - pinecone-plugin-inference==1.0.3
@@ -336,6 +340,7 @@ dependencies:
       - python-dotenv==1.0.1
       - python-json-logger==2.0.7
       - python-ptrace==0.9.9
+      - pytokens==0.3.0
       - pytz==2024.1
       - pyyaml==6.0.2
       - rdflib==4.2.2
@@ -352,6 +357,7 @@ dependencies:
       - rpds-py==0.20.0
       - ruamel-yaml==0.18.6
       - ruamel-yaml-clib==0.2.8
+      - ruff==0.15.0
       - safetensors==0.4.4
       - semantic-kernel==1.8.2
       - send2trash==1.8.3
@@ -364,6 +370,7 @@ dependencies:
       - tiktoken==0.8.0
       - tinycss2==1.4.0
       - tinydb==4.8.0
+      - tokenize-rt==6.2.0
       - tokenizers==0.19.1
       - tqdm==4.66.5
       - transformers==4.44.2
