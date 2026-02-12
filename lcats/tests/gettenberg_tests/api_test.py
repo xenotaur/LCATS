@@ -1,4 +1,5 @@
 """Unit tests for the compatibility API in lcats.gettenberg.api."""
+
 import pathlib
 import sqlite3
 import tempfile
@@ -23,8 +24,7 @@ class GettenbergApiTests(unittest.TestCase):
         self.texts_dir.mkdir(parents=True, exist_ok=True)
 
         # Patch where the module reads the text cache path
-        self.p_texts = mock.patch.object(
-            cache, "GUTENBERG_TEXTS", self.texts_dir)
+        self.p_texts = mock.patch.object(cache, "GUTENBERG_TEXTS", self.texts_dir)
         self.p_texts.start()
 
     def tearDown(self):
@@ -40,8 +40,9 @@ class GettenbergApiTests(unittest.TestCase):
         fp = self.texts_dir / f"{bid}.txt"
         fp.write_bytes(b"CACHED")
 
-        with mock.patch.object(textget, "get_text_by_id") as p_get, \
-                mock.patch.object(cache, "download_raw_text") as p_raw:
+        with mock.patch.object(textget, "get_text_by_id") as p_get, mock.patch.object(
+            cache, "download_raw_text"
+        ) as p_raw:
             out = api.load_etext(bid)
             self.assertEqual(out, b"CACHED")
             p_get.assert_not_called()
@@ -53,8 +54,9 @@ class GettenbergApiTests(unittest.TestCase):
         expect = b"BODY"
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(textget, "get_text_by_id", return_value=expect) as p_get, \
-                mock.patch.object(cache, "download_raw_text") as p_raw:
+        with mock.patch.object(
+            textget, "get_text_by_id", return_value=expect
+        ) as p_get, mock.patch.object(cache, "download_raw_text") as p_raw:
             out = api.load_etext(bid)
             self.assertEqual(out, expect)
             p_get.assert_called_once_with(bid)
@@ -67,8 +69,9 @@ class GettenbergApiTests(unittest.TestCase):
         bid = 101
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(textget, "get_text_by_id", return_value="héllo") as p_get, \
-                mock.patch.object(cache, "download_raw_text") as p_raw:
+        with mock.patch.object(
+            textget, "get_text_by_id", return_value="héllo"
+        ) as p_get, mock.patch.object(cache, "download_raw_text") as p_raw:
             out = api.load_etext(bid)
             self.assertIsInstance(out, (bytes, bytearray))
             self.assertIn(b"h\xc3\xa9llo", out)  # UTF-8 encoding
@@ -81,8 +84,11 @@ class GettenbergApiTests(unittest.TestCase):
         bid = 102
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(textget, "get_text_by_id", side_effect=RuntimeError("boom")) as p_get, \
-                mock.patch.object(cache, "download_raw_text", return_value=b"RAW") as p_raw:
+        with mock.patch.object(
+            textget, "get_text_by_id", side_effect=RuntimeError("boom")
+        ) as p_get, mock.patch.object(
+            cache, "download_raw_text", return_value=b"RAW"
+        ) as p_raw:
             out = api.load_etext(bid)
             self.assertEqual(out, b"RAW")
             p_get.assert_called_once_with(bid)
@@ -94,6 +100,7 @@ class GettenbergApiTests(unittest.TestCase):
 
     def test_get_matching_rows_happy_path_and_query_args(self):
         """get_matching_rows calls ensure_gutenberg_cache().query with normalized lists."""
+
         class _FakeCache:
             def __init__(self):
                 self.last_kwargs = None
@@ -103,7 +110,9 @@ class GettenbergApiTests(unittest.TestCase):
                 return [{"gutenbergbookid": 1}, {"gutenbergbookid": 2}]
 
         fake = _FakeCache()
-        with mock.patch.object(cache, "ensure_gutenberg_cache", return_value=fake) as p_ensure:
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=fake
+        ) as p_ensure:
             rows = api.get_matching_rows(
                 authors="Mark Twain",
                 titles=["Moby Dick"],
@@ -126,10 +135,14 @@ class GettenbergApiTests(unittest.TestCase):
 
     def test_get_matching_rows_raises_typeerror_if_non_mapping_row(self):
         """Rows must be mapping; a tuple row triggers a TypeError with index info."""
+
         class _FakeCache:
             def query(self, **kwargs):
                 return [("not-a-mapping",)]
-        with mock.patch.object(cache, "ensure_gutenberg_cache", return_value=_FakeCache()):
+
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=_FakeCache()
+        ):
             with self.assertRaises(TypeError) as ctx:
                 api.get_matching_rows(authors="A")
             self.assertIn("non-mapping row at index 0", str(ctx.exception))
@@ -138,8 +151,7 @@ class GettenbergApiTests(unittest.TestCase):
 
     def test_extract_book_id_accepts_str_or_int(self):
         """extract_book_id returns int for both str and int values."""
-        self.assertEqual(api.extract_book_id(
-            {"gutenbergbookid": "2701"}), 2701)
+        self.assertEqual(api.extract_book_id({"gutenbergbookid": "2701"}), 2701)
         self.assertEqual(api.extract_book_id({"gutenbergbookid": 2701}), 2701)
 
     def test_extract_book_id_raises_on_missing_key(self):
@@ -169,37 +181,52 @@ class GettenbergApiTests(unittest.TestCase):
 
     # ---------------- get_metadata ----------------
 
-    def test_get_metadata_uses_cache_path_when_use_cache_true_and_lowercases_field(self):
+    def test_get_metadata_uses_cache_path_when_use_cache_true_and_lowercases_field(
+        self,
+    ):
         """get_metadata uses ensure_gutenberg_cache + metadata.get_metadata_from_cache with lowercased field."""
         fake_cache = object()
-        with mock.patch.object(cache, "ensure_gutenberg_cache", return_value=fake_cache) as p_ensure, \
-                mock.patch.object(metadata, "get_metadata_from_cache", return_value={"X"}) as p_meta, \
-                mock.patch.object(api, "load_etext") as p_load, \
-                mock.patch.object(headers, "get_text_header_lines") as p_hdr, \
-                mock.patch.object(metadata, "get_metadata_from_header") as p_hdr_meta:
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=fake_cache
+        ) as p_ensure, mock.patch.object(
+            metadata, "get_metadata_from_cache", return_value={"X"}
+        ) as p_meta, mock.patch.object(
+            api, "load_etext"
+        ) as p_load, mock.patch.object(
+            headers, "get_text_header_lines"
+        ) as p_hdr, mock.patch.object(
+            metadata, "get_metadata_from_header"
+        ) as p_hdr_meta:
             out = api.get_metadata("Title", 123, skip_cache=True)
             self.assertEqual(out, {"X"})
             p_ensure.assert_called_once()
-            p_meta.assert_called_once_with(
-                fake_cache, "title", 123)  # lowercased
+            p_meta.assert_called_once_with(fake_cache, "title", 123)  # lowercased
             p_load.assert_not_called()
             p_hdr.assert_not_called()
             p_hdr_meta.assert_not_called()
 
     def test_get_metadata_propagates_cache_errors(self):
         """get_metadata propagates errors if ensure_gutenberg_cache fails."""
-        with mock.patch.object(cache, "ensure_gutenberg_cache", side_effect=sqlite3.Error("db down")):
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", side_effect=sqlite3.Error("db down")
+        ):
             with self.assertRaises(sqlite3.Error):
                 api.get_metadata("title", 1, skip_cache=True)
 
     def test_get_metadata_header_fallback_when_use_cache_false(self):
         """get_metadata falls back to header parsing when use_cache is False."""
         # Provide deterministic header parse
-        with mock.patch.object(api, "load_etext", return_value=b"Title: Foo\n*** START\nBody") as p_load, \
-                mock.patch.object(headers, "get_text_header_lines", return_value=["Title: Foo"]) as p_hdr, \
-                mock.patch.object(metadata, "get_metadata_from_header", return_value={"Foo"}) as p_hdr_meta, \
-                mock.patch.object(cache, "ensure_gutenberg_cache") as p_ensure, \
-                mock.patch.object(metadata, "get_metadata_from_cache") as p_meta:
+        with mock.patch.object(
+            api, "load_etext", return_value=b"Title: Foo\n*** START\nBody"
+        ) as p_load, mock.patch.object(
+            headers, "get_text_header_lines", return_value=["Title: Foo"]
+        ) as p_hdr, mock.patch.object(
+            metadata, "get_metadata_from_header", return_value={"Foo"}
+        ) as p_hdr_meta, mock.patch.object(
+            cache, "ensure_gutenberg_cache"
+        ) as p_ensure, mock.patch.object(
+            metadata, "get_metadata_from_cache"
+        ) as p_meta:
             out = api.get_metadata("title", 1, skip_cache=False)
             self.assertEqual(out, {"Foo"})
             p_ensure.assert_not_called()

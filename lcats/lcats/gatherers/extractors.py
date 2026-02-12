@@ -3,14 +3,14 @@
 import re
 
 
-DEFAULT_HEADING_TAGS = ['h2', 'h3']
-DEFAULT_END_SECTION_TAGS = ['h2', 'div']
-DEFAULT_SECTION_BODY_TAGS = ['p']
+DEFAULT_HEADING_TAGS = ["h2", "h3"]
+DEFAULT_END_SECTION_TAGS = ["h2", "div"]
+DEFAULT_SECTION_BODY_TAGS = ["p"]
 
-DEFAULT_START_SEPARATOR = 'pg-start-separator'
-DEFAULT_END_SEPARATOR = 'pg-end-separator'
-DEFAULT_CONTENT_TAGS = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-DEFAULT_JOIN_SEPARATOR = '\n\n'
+DEFAULT_START_SEPARATOR = "pg-start-separator"
+DEFAULT_END_SEPARATOR = "pg-end-separator"
+DEFAULT_CONTENT_TAGS = ["p", "h1", "h2", "h3", "h4", "h5", "h6"]
+DEFAULT_JOIN_SEPARATOR = "\n\n"
 
 
 class Extractor:
@@ -50,19 +50,21 @@ def title_to_filename(title):
     title = title.lower()
 
     # Remove any character that is not alphanumeric or a space
-    title = re.sub(r'[^a-z0-9\s]', '', title)
+    title = re.sub(r"[^a-z0-9\s]", "", title)
 
     # Replace multiple spaces with a single space, then replace spaces with underscores
-    title = re.sub(r'\s+', '_', title.strip())
+    title = re.sub(r"\s+", "_", title.strip())
 
     return title
 
 
-def get_section_text_from_headings(soup,
-                                   start_heading_text,
-                                   start_heading_tags=None,
-                                   end_section_tags=None,
-                                   section_body_tags=None):
+def get_section_text_from_headings(
+    soup,
+    start_heading_text,
+    start_heading_tags=None,
+    end_section_tags=None,
+    section_body_tags=None,
+):
     """Find paragraphs following a specific heading in a BeautifulSoup object.
 
     This function is a generalization of previous corpora-specific functions.
@@ -84,7 +86,9 @@ def get_section_text_from_headings(soup,
 
     # Construct lambdas used by the get_section_text function.
     def is_start_heading(tag):
-        return tag.name in start_heading_tags and start_heading_text in tag.get_text(strip=True)
+        return tag.name in start_heading_tags and start_heading_text in tag.get_text(
+            strip=True
+        )
 
     def is_end_section(tag):
         return tag.name in end_section_tags
@@ -96,10 +100,7 @@ def get_section_text_from_headings(soup,
     return get_section_text(soup, is_start_heading, is_end_section, is_section_body)
 
 
-def get_section_text(soup,
-                     is_section_start,
-                     is_section_end,
-                     is_section_body):
+def get_section_text(soup, is_section_start, is_section_end, is_section_body):
     """Find paragraphs following a specific heading in a BeautifulSoup object.
 
     Enables extracting text based on a start heading, an end section, and a section body
@@ -124,24 +125,27 @@ def get_section_text(soup,
 
     # Iterate through sibling elements until the next heading or the end of the siblings is reached.
     while current_element and not is_section_end(current_element):
-        print('current_element:', current_element)
+        print("current_element:", current_element)
         if is_section_body(current_element):
-            print(current_element, 'is_section_body:',
-                  is_section_body(current_element))
-            print('current_element.get_text(strip=False):',
-                  current_element.get_text(strip=False))
+            print(current_element, "is_section_body:", is_section_body(current_element))
+            print(
+                "current_element.get_text(strip=False):",
+                current_element.get_text(strip=False),
+            )
             paragraphs.append(current_element.get_text(strip=False).strip())
         else:
-            print(current_element, 'is not section body')
+            print(current_element, "is not section body")
         current_element = current_element.find_next_sibling()
 
-    return '\n'.join(paragraphs)
+    return "\n".join(paragraphs)
 
 
-def extract_tags_between_ids(soup,
-                             start_id=DEFAULT_START_SEPARATOR,
-                             end_id=DEFAULT_END_SEPARATOR,
-                             content_tags=None):
+def extract_tags_between_ids(
+    soup,
+    start_id=DEFAULT_START_SEPARATOR,
+    end_id=DEFAULT_END_SEPARATOR,
+    content_tags=None,
+):
     """Extract tags between two HTML elements with specific IDs.
 
     Args:
@@ -171,8 +175,7 @@ def extract_tags_between_ids(soup,
     return matching_tags
 
 
-def extract_text_from_tags(tags,
-                           separator=DEFAULT_JOIN_SEPARATOR):
+def extract_text_from_tags(tags, separator=DEFAULT_JOIN_SEPARATOR):
     """Extract text from a list of BeautifulSoup tags.
 
     Args:
@@ -191,11 +194,13 @@ def extract_text_from_tags(tags,
     return separator.join(collected_text)
 
 
-def extract_text_between_ids(soup,
-                             start_id=DEFAULT_START_SEPARATOR,
-                             end_id=DEFAULT_END_SEPARATOR,
-                             content_tags=None,
-                             separator=DEFAULT_JOIN_SEPARATOR):
+def extract_text_between_ids(
+    soup,
+    start_id=DEFAULT_START_SEPARATOR,
+    end_id=DEFAULT_END_SEPARATOR,
+    content_tags=None,
+    separator=DEFAULT_JOIN_SEPARATOR,
+):
     """Extract text between two HTML elements with specific IDs.
 
     Args:

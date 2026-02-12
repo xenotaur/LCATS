@@ -113,7 +113,8 @@ def get_matching_rows(
     for i, r in enumerate(rows):
         if not isinstance(r, Mapping):
             raise TypeError(
-                f"cache.query returned a non-mapping row at index {i}: {type(r).__name__}")
+                f"cache.query returned a non-mapping row at index {i}: {type(r).__name__}"
+            )
     return rows  # type: ignore[return-value]
 
 
@@ -136,8 +137,9 @@ def extract_book_id(row: Mapping[str, Any]) -> int:
         raise ValueError(f"Invalid 'gutenbergbookid' value: {value!r}") from e
 
 
-def get_metadata(field: str, book_id: int,
-                 skip_cache: bool = cache.GUTENBERG_CACHE_SKIP_MODE) -> Set[str]:
+def get_metadata(
+    field: str, book_id: int, skip_cache: bool = cache.GUTENBERG_CACHE_SKIP_MODE
+) -> Set[str]:
     """Rough equivalent of gutenberg.query.get_metadata(field, book_id).
 
     Tries the gutenbergpy cache first (SQLite backend) via native_query(sql),
@@ -149,7 +151,7 @@ def get_metadata(field: str, book_id: int,
     Args:
         field: The metadata field to retrieve (e.g. 'title', 'author', 'language', 'subject').
         book_id: The Gutenberg book ID (integer).
-        use_cache: Whether to use the local cache (default: True). 
+        use_cache: Whether to use the local cache (default: True).
             If False, always falls back to header parse.
     Returns:
         Set of strings (may be empty if not found).
@@ -173,7 +175,9 @@ def get_metadata(field: str, book_id: int,
         return metadata.get_metadata_from_cache(gut_cache, field, book_id)
 
     # No cache, fall back to header parse.
-    print(f" - get_metadata: falling back to header parse for field '{field}' and book ID {book_id}")
+    print(
+        f" - get_metadata: falling back to header parse for field '{field}' and book ID {book_id}"
+    )
     text = load_etext(int(book_id))
     header = headers.get_text_header_lines(text) or ()
     return metadata.get_metadata_from_header(field, header)

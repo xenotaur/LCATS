@@ -1,4 +1,5 @@
 """Data gathering utility functions."""
+
 import abc
 import codecs
 import json
@@ -27,8 +28,7 @@ def detect_url_encoding(url, timeout=10):
     if response.status_code == 200:
         return response.encoding
     else:
-        print(
-            f"Failed to get the encoding. Status code: {response.status_code}")
+        print(f"Failed to get the encoding. Status code: {response.status_code}")
         return None
 
 
@@ -36,14 +36,14 @@ def detect_encoding(text):
     """Detect the encoding of a text string."""
     # If text is a string, encode it to bytes for detection
     if isinstance(text, str):
-        text = text.encode('utf-8', errors='ignore')
+        text = text.encode("utf-8", errors="ignore")
 
     # Use chardet to detect encoding
     detected = chardet.detect(text)
-    return detected['encoding']
+    return detected["encoding"]
 
 
-def convert_encoding(text, source_encoding='utf-8', target_encoding='ISO-8859-1'):
+def convert_encoding(text, source_encoding="utf-8", target_encoding="ISO-8859-1"):
     """Convert the encoding of a text string from source to target encoding."""
     # Decode the text from source encoding, then re-encode in target encoding
     try:
@@ -53,9 +53,9 @@ def convert_encoding(text, source_encoding='utf-8', target_encoding='ISO-8859-1'
 
         # If text is bytes, decode it first; otherwise, assume it's already decoded
         if isinstance(text, bytes):
-            text = text.decode(source_encoding, errors='strict')
+            text = text.decode(source_encoding, errors="strict")
         # Encode in the target encoding
-        converted_text = text.encode(target_encoding, errors='strict')
+        converted_text = text.encode(target_encoding, errors="strict")
         return converted_text
     except (UnicodeEncodeError, UnicodeDecodeError, LookupError) as e:
         print(f"Error converting text encoding: {e}")
@@ -80,8 +80,7 @@ def load_page(url, timeout=10, force_encoding=None):
         print("File successfully downloaded.")
         return response.text
     else:
-        print(
-            f"Failed to download the file. Status code: {response.status_code}")
+        print(f"Failed to download the file. Status code: {response.status_code}")
         return None
 
 
@@ -95,10 +94,10 @@ def filename_from_url(url):
     url_query = unquote(parsed_url.query)
 
     # Combine path and query to form a unique identifier
-    unique_string = url_path + '?' + url_query if url_query else url_path
+    unique_string = url_path + "?" + url_query if url_query else url_path
 
     # Create a hash of the unique string
-    url_hash = hashlib.sha256(unique_string.encode('utf-8')).hexdigest()
+    url_hash = hashlib.sha256(unique_string.encode("utf-8")).hexdigest()
 
     # Get the file extension (if any) from the URL path
     file_extension = os.path.splitext(parsed_url.path)[1]
@@ -112,9 +111,7 @@ def filename_from_url(url):
 class ResourceCache(abc.ABC):
     """Utility class to cache resources in a directory."""
 
-    def __init__(self,
-                 root=constants.CACHE_ROOT,
-                 encoding=constants.TEXT_ENCODING):
+    def __init__(self, root=constants.CACHE_ROOT, encoding=constants.TEXT_ENCODING):
         """Initialize the downloader with a root directory.
 
         Args:
@@ -151,7 +148,7 @@ class ResourceCache(abc.ABC):
         acquired = self.acquire(contents)
         print(f"Acquired {len(acquired)} bytes from {contents}")
         print(f"Storing at {full_path} with encoding {self.encoding}")
-        with open(full_path, 'w', encoding=self.encoding) as file:
+        with open(full_path, "w", encoding=self.encoding) as file:
             file.write(acquired)
 
     def cache(self, resource, force=False):
@@ -163,14 +160,13 @@ class ResourceCache(abc.ABC):
             self.store(resource, full_path)
             print(f"Resource {resource} saved to {file_name} .")
         else:
-            print(
-                f"Resource {resource} exists at {file_name} , skipping download.")
+            print(f"Resource {resource} exists at {file_name} , skipping download.")
         return full_path
 
     def get(self, resource, force=False):
         """Get the contents of a file if it exists, otherwise acquire it."""
         full_path = self.cache(resource, force=force)
-        with open(full_path, 'r', encoding=self.encoding) as file:
+        with open(full_path, "r", encoding=self.encoding) as file:
             return file.read()
 
     def clear(self):
@@ -185,7 +181,7 @@ class ResourceCache(abc.ABC):
                     elif os.path.isdir(file_path):
                         shutil.rmtree(file_path)  # Remove the directory
                 except Exception as e:
-                    print(f'Failed to delete {file_path}. Reason: {e}')
+                    print(f"Failed to delete {file_path}. Reason: {e}")
             print(f"Cleared all contents in {self.root}")
         else:
             print(f"Directory {self.root} does not exist, nothing to clear.")
@@ -222,19 +218,22 @@ class UrlResourceCache(LambdaResourceCache):
         super().__init__(
             canonicalizer=filename_from_url,
             acquirer=lambda url: load_page(url, force_encoding=self.encoding),
-            **kwargs)
+            **kwargs,
+        )
 
 
 class DataGatherer:
     """Utility class to download data files if needed to a given directory."""
 
-    def __init__(self,
-                 name,
-                 description=None,
-                 root=constants.DATA_ROOT,
-                 cache=constants.CACHE_ROOT,
-                 suffix=".json",
-                 license=None):
+    def __init__(
+        self,
+        name,
+        description=None,
+        root=constants.DATA_ROOT,
+        cache=constants.CACHE_ROOT,
+        suffix=".json",
+        license=None,
+    ):
         """Initialize the gatherer with a name, description, and root directory.
 
         Args:
@@ -271,9 +270,10 @@ class DataGatherer:
         # Create the license file if it doesn't exist
         license_path = os.path.join(self.path, constants.LICENSE_FILE)
         if not os.path.exists(license_path):
-            with open(license_path, 'w', encoding='utf-8') as license_file:
+            with open(license_path, "w", encoding="utf-8") as license_file:
                 license_file.write(
-                    self.license if self.license else "No license provided.")
+                    self.license if self.license else "No license provided."
+                )
 
         # Check if the file exists
         file_path = os.path.join(self.path, filename + self.suffix)
@@ -300,11 +300,11 @@ class DataGatherer:
             data_to_save = {
                 "name": descriptive_name,
                 "body": body_text,
-                "metadata": additional_data
+                "metadata": additional_data,
             }
 
             # Write data to JSON file
-            with open(file_path, 'w', encoding='utf-8') as json_file:
+            with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(data_to_save, json_file, indent=4)
             print(f"File {file_path} saved")
             self.downloads[filename] = file_path
@@ -317,7 +317,7 @@ class DataGatherer:
         if not file_exists or force:
             self.download(filename, callback, force)
         else:
-            with open(file_path, 'r', encoding='utf-8') as json_file:
+            with open(file_path, "r", encoding="utf-8") as json_file:
                 return json.load(json_file)
 
     def clear(self):
@@ -332,7 +332,7 @@ class DataGatherer:
                     elif os.path.isdir(self.path):
                         shutil.rmtree(self.path)  # Remove the directory
                 except Exception as e:
-                    print(f'Failed to delete {self.path}. Reason: {e}')
+                    print(f"Failed to delete {self.path}. Reason: {e}")
             print(f"Cleared all contents in {self.path}")
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")

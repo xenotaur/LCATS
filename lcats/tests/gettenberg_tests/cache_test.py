@@ -26,20 +26,22 @@ class GettenbergCacheTests(unittest.TestCase):
 
         # Patch the settings constants the module reads.
         self._p_cache_filename = mock.patch.object(
-            cache.gc.GutenbergCacheSettings, "CACHE_FILENAME", str(
-                self.db_path)
+            cache.gc.GutenbergCacheSettings, "CACHE_FILENAME", str(self.db_path)
         )
         self._p_archive_name = mock.patch.object(
-            cache.gc.GutenbergCacheSettings, "CACHE_RDF_ARCHIVE_NAME", str(
-                self.rdf_path)
+            cache.gc.GutenbergCacheSettings,
+            "CACHE_RDF_ARCHIVE_NAME",
+            str(self.rdf_path),
         )
         self._p_texts_folder = mock.patch.object(
-            cache.gc.GutenbergCacheSettings, "TEXT_FILES_CACHE_FOLDER", str(
-                self.texts_dir)
+            cache.gc.GutenbergCacheSettings,
+            "TEXT_FILES_CACHE_FOLDER",
+            str(self.texts_dir),
         )
         self._p_unpack_dir = mock.patch.object(
-            cache.gc.GutenbergCacheSettings, "CACHE_RDF_UNPACK_DIRECTORY", str(
-                self.tmp_unpack)
+            cache.gc.GutenbergCacheSettings,
+            "CACHE_RDF_UNPACK_DIRECTORY",
+            str(self.tmp_unpack),
         )
 
         self._p_cache_filename.start()
@@ -85,35 +87,39 @@ class GettenbergCacheTests(unittest.TestCase):
         """gutenberg_cache_ready is True when 'books' and 'subjects' tables exist."""
         with sqlite3.connect(self.db_path) as con:
             con.execute(
-                "CREATE TABLE books (id INTEGER PRIMARY KEY, gutenbergbookid INTEGER)")
-            con.execute(
-                "CREATE TABLE subjects (id INTEGER PRIMARY KEY, name TEXT)")
+                "CREATE TABLE books (id INTEGER PRIMARY KEY, gutenbergbookid INTEGER)"
+            )
+            con.execute("CREATE TABLE subjects (id INTEGER PRIMARY KEY, name TEXT)")
         self.assertTrue(cache.gutenberg_cache_ready(self.db_path))
 
     def test_gutenberg_cache_ready_true_with_book_subjects_join(self):
         """gutenberg_cache_ready is True when 'books' + 'book_subjects' exist (join schema)."""
         with sqlite3.connect(self.db_path) as con:
             con.execute(
-                "CREATE TABLE books (id INTEGER PRIMARY KEY, gutenbergbookid INTEGER)")
+                "CREATE TABLE books (id INTEGER PRIMARY KEY, gutenbergbookid INTEGER)"
+            )
             con.execute(
-                "CREATE TABLE book_subjects (bookid INTEGER, subjectid INTEGER)")
+                "CREATE TABLE book_subjects (bookid INTEGER, subjectid INTEGER)"
+            )
         self.assertTrue(cache.gutenberg_cache_ready(self.db_path))
 
     def test_gutenberg_cache_ready_false_if_books_missing(self):
         """gutenberg_cache_ready is False when 'books' table is missing."""
         with sqlite3.connect(self.db_path) as con:
-            con.execute(
-                "CREATE TABLE subjects (id INTEGER PRIMARY KEY, name TEXT)")
+            con.execute("CREATE TABLE subjects (id INTEGER PRIMARY KEY, name TEXT)")
         self.assertFalse(cache.gutenberg_cache_ready(self.db_path))
 
     # ----------- ensure_gutenberg_cache -----------
 
     def test_ensure_gutenberg_cache_calls_create_when_not_ready(self):
         """ensure_gutenberg_cache calls GutenbergCache.create when ready=False then returns handle."""
-        with mock.patch.object(cache, "gutenberg_cache_ready",
-                            side_effect=[False, True]) as p_ready, \
-            mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True) as p_create, \
-            mock.patch.object(cache.gc.GutenbergCache, "get_cache", autospec=True) as p_get:
+        with mock.patch.object(
+            cache, "gutenberg_cache_ready", side_effect=[False, True]
+        ) as p_ready, mock.patch.object(
+            cache.gc.GutenbergCache, "create", autospec=True
+        ) as p_create, mock.patch.object(
+            cache.gc.GutenbergCache, "get_cache", autospec=True
+        ) as p_get:
             fake_handle = object()
             p_get.return_value = fake_handle
 
@@ -127,9 +133,13 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_ensure_gutenberg_cache_skips_create_when_already_ready(self):
         """ensure_gutenberg_cache does not call create when DB is ready."""
-        with mock.patch.object(cache, "gutenberg_cache_ready", return_value=True) as p_ready, \
-                mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True) as p_create, \
-                mock.patch.object(cache.gc.GutenbergCache, "get_cache", autospec=True) as p_get:
+        with mock.patch.object(
+            cache, "gutenberg_cache_ready", return_value=True
+        ) as p_ready, mock.patch.object(
+            cache.gc.GutenbergCache, "create", autospec=True
+        ) as p_create, mock.patch.object(
+            cache.gc.GutenbergCache, "get_cache", autospec=True
+        ) as p_get:
             fake_handle = object()
             p_get.return_value = fake_handle
 
@@ -142,8 +152,11 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_ensure_gutenberg_cache_raises_if_still_not_ready_after_create(self):
         """ensure_gutenberg_cache raises RuntimeError if cache remains unready after create."""
-        with mock.patch.object(cache, "gutenberg_cache_ready", side_effect=[False, False]) as p_ready, \
-                mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True) as p_create:
+        with mock.patch.object(
+            cache, "gutenberg_cache_ready", side_effect=[False, False]
+        ) as p_ready, mock.patch.object(
+            cache.gc.GutenbergCache, "create", autospec=True
+        ) as p_create:
             with self.assertRaises(RuntimeError):
                 cache.ensure_gutenberg_cache()
             self.assertEqual(p_ready.call_count, 2)
@@ -156,15 +169,16 @@ class GettenbergCacheTests(unittest.TestCase):
         self.assertTrue(self.db_path.exists())
         self.assertEqual(self.db_path.stat().st_size, 0)
 
-        with mock.patch.object(cache, "gutenberg_cache_ready", side_effect=[False, True]), \
-                mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True):
+        with mock.patch.object(
+            cache, "gutenberg_cache_ready", side_effect=[False, True]
+        ), mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True):
             cache.ensure_gutenberg_cache()
         # Since we mocked create(), no one recreates the file; it should be gone.
-        self.assertFalse(self.db_path.exists(),
-                         "Zero-byte DB should be unlinked before create()")
+        self.assertFalse(
+            self.db_path.exists(), "Zero-byte DB should be unlinked before create()"
+        )
 
     # ----------- download_raw_text -----------
-
 
     def test_download_raw_text_success_on_first_pattern(self):
         """download_raw_text returns bytes and sets User-Agent header."""
@@ -175,8 +189,9 @@ class GettenbergCacheTests(unittest.TestCase):
         m_cm.__enter__.return_value = m_resp
         m_cm.__exit__.return_value = False
 
-        with mock.patch.object(cache, "urlopen", return_value=m_cm) as p_open, \
-                mock.patch.object(time, "sleep") as p_sleep:
+        with mock.patch.object(
+            cache, "urlopen", return_value=m_cm
+        ) as p_open, mock.patch.object(time, "sleep") as p_sleep:
             data = cache.download_raw_text(123)
             self.assertEqual(data, b"abc")
 
@@ -189,9 +204,9 @@ class GettenbergCacheTests(unittest.TestCase):
             self.assertEqual(hdrs.get("user-agent"), cache.USER_AGENT)
             p_sleep.assert_not_called()
 
-
     def test_download_raw_text_tries_multiple_patterns_then_succeeds(self):
         """download_raw_text tries subsequent URL patterns after failures."""
+
         # First call raises, second returns data
         def side_effect(_req, timeout=30):
             if side_effect.counter == 0:
@@ -206,8 +221,9 @@ class GettenbergCacheTests(unittest.TestCase):
 
         side_effect.counter = 0
 
-        with mock.patch.object(cache, "urlopen", side_effect=side_effect) as p_open, \
-                mock.patch.object(time, "sleep") as p_sleep:
+        with mock.patch.object(
+            cache, "urlopen", side_effect=side_effect
+        ) as p_open, mock.patch.object(time, "sleep") as p_sleep:
             out = cache.download_raw_text(456)
             self.assertEqual(out, b"OK")
             self.assertGreaterEqual(p_open.call_count, 2)
@@ -215,8 +231,9 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_download_raw_text_raises_after_all_patterns_fail(self):
         """download_raw_text raises RuntimeError if all URL patterns fail."""
-        with mock.patch.object(cache, "urlopen", side_effect=cache.URLError("nope")), \
-                mock.patch.object(time, "sleep"):
+        with mock.patch.object(
+            cache, "urlopen", side_effect=cache.URLError("nope")
+        ), mock.patch.object(time, "sleep"):
             with self.assertRaises(RuntimeError) as ctx:
                 cache.download_raw_text(789)
             self.assertIn("Could not download book 789", str(ctx.exception))
@@ -231,7 +248,9 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_refreshable_metadata_cache_rebuild_calls_create(self):
         """RefreshableMetadataCache.rebuild delegates to GutenbergCache.create()."""
-        with mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True) as p_create:
+        with mock.patch.object(
+            cache.gc.GutenbergCache, "create", autospec=True
+        ) as p_create:
             cache.RefreshableMetadataCache().rebuild()
             p_create.assert_called_once()
 

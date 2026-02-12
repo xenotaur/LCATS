@@ -11,23 +11,28 @@ class TestExtraction(unittest.TestCase):
         self.template = extraction.ExtractionTemplate(
             name="test-template",
             system_template="System prompt here.",
-            user_template="Story to process:\n\"\"\"{story_text}\"\"\""
+            user_template='Story to process:\n"""{story_text}"""',
         )
 
         self.valid_response_json = {
             "events": [
                 {"type": "scene", "text": "Alice opened the door."},
-                {"type": "none", "text": "She stepped into a world of wonder."}
+                {"type": "none", "text": "She stepped into a world of wonder."},
             ]
         }
 
         self.fake_client = Mock()
         self.fake_client.chat.completions.create.return_value = Mock(
-            choices=[Mock(message=Mock(
-                content='{"events": ['
+            choices=[
+                Mock(
+                    message=Mock(
+                        content='{"events": ['
                         '{"type": "scene", "text": "Alice opened the door."}, '
                         '{"type": "none", "text": "She stepped into a world of wonder."}'
-                        ']}'))]
+                        "]}"
+                    )
+                )
+            ]
         )
 
     def test_prompt_template_renders_correctly(self):
@@ -39,9 +44,7 @@ class TestExtraction(unittest.TestCase):
 
     def test_extract_successful(self):
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertEqual(result.model_name, "gpt-3.5-turbo")
         self.assertEqual(len(result.extracted_output), 2)
@@ -51,9 +54,7 @@ class TestExtraction(unittest.TestCase):
 
     def test_extract_successful(self):
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertEqual(result.model_name, "gpt-3.5-turbo")
         self.assertEqual(len(result.extracted_output), 2)
@@ -63,12 +64,12 @@ class TestExtraction(unittest.TestCase):
 
     def test_extract_fails_on_invalid_json(self):
         # Patch the client's output to return invalid JSON
-        message = self.fake_client.chat.completions.create.return_value.choices[0].message
+        message = self.fake_client.chat.completions.create.return_value.choices[
+            0
+        ].message
         message.content = "this is not JSON"
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertIsNone(result.parsed_output)
         self.assertIsNotNone(result.parsing_error)
@@ -76,12 +77,12 @@ class TestExtraction(unittest.TestCase):
 
     def test_extract_fails_on_missing_events_key(self):
         # Return valid JSON but missing "events"
-        message = self.fake_client.chat.completions.create.return_value.choices[0].message
+        message = self.fake_client.chat.completions.create.return_value.choices[
+            0
+        ].message
         message.content = '{"not_events": []}'
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertIsNotNone(result.parsed_output)
         self.assertIsNone(result.extracted_output)
@@ -89,9 +90,7 @@ class TestExtraction(unittest.TestCase):
 
     def test_summary(self):
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         summary = result.summary()
         self.assertIn("Model: gpt-3.5-turbo", summary)
@@ -103,11 +102,10 @@ if __name__ == "__main__":
 
     def test_extract_fails_on_invalid_json(self):
         self.fake_client.chat.completions.create.return_value.choices[
-            0].message.content = "not valid json"
+            0
+        ].message.content = "not valid json"
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertIsNone(result.parsed_output)
         self.assertIsNone(result.extracted_output)
@@ -116,11 +114,10 @@ if __name__ == "__main__":
 
     def test_extract_fails_on_missing_events_key(self):
         self.fake_client.chat.completions.create.return_value.choices[
-            0].message.content = '{"unexpected": []}'
+            0
+        ].message.content = '{"unexpected": []}'
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         self.assertIsNotNone(result.parsed_output)
         self.assertIsNone(result.extracted_output)
@@ -128,9 +125,7 @@ if __name__ == "__main__":
 
     def test_summary_and_validation(self):
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         summary = result.summary()
         self.assertIn("Model: gpt-3.5-turbo", summary)
@@ -141,11 +136,10 @@ if __name__ == "__main__":
         # Provide malformed event data
         malformed_json = '{"events": [{"text": "no type"}, "not a dict"]}'
         self.fake_client.chat.completions.create.return_value.choices[
-            0].message.content = malformed_json
+            0
+        ].message.content = malformed_json
         result = extraction.extract_from_story(
-            story_text=self.story,
-            template=self.template,
-            client=self.fake_client
+            story_text=self.story, template=self.template, client=self.fake_client
         )
         errors = result.validate_events()
         self.assertEqual(len(errors), 2)

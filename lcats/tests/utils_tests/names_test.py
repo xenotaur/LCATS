@@ -5,8 +5,9 @@ from lcats.utils import names
 
 class TestAsciiTransliterate(unittest.TestCase):
     def test_ascii_passthrough(self):
-        self.assertEqual(names.ascii_transliterate(
-            "simple ascii 123"), "simple ascii 123")
+        self.assertEqual(
+            names.ascii_transliterate("simple ascii 123"), "simple ascii 123"
+        )
 
     def test_diacritics_removed(self):
         # Works with or without unidecode
@@ -44,12 +45,10 @@ class TestIsValidBasename(unittest.TestCase):
 
 class TestRepairBasename(unittest.TestCase):
     def test_basic_repairs(self):
-        self.assertEqual(names.repair_basename(
-            'Hello, "World"!'), "hello_world")
+        self.assertEqual(names.repair_basename('Hello, "World"!'), "hello_world")
         self.assertEqual(names.repair_basename("__HI__"), "hi")
         self.assertEqual(names.repair_basename("a__b"), "a_b")
-        self.assertEqual(names.repair_basename(
-            "  spaced   out  "), "spaced_out")
+        self.assertEqual(names.repair_basename("  spaced   out  "), "spaced_out")
 
     def test_unicode_title(self):
         out = names.repair_basename("Curaçao — №7")
@@ -57,8 +56,7 @@ class TestRepairBasename(unittest.TestCase):
         self.assertEqual(out, "curacao_no_7")
 
         # keep the policy checks too (nice guardrails)
-        self.assertTrue(all(c.islower() or c.isdigit()
-                        or c == "_" for c in out))
+        self.assertTrue(all(c.islower() or c.isdigit() or c == "_" for c in out))
         self.assertTrue(out.endswith("7"))
 
     def test_all_removed_yields_empty(self):
@@ -78,13 +76,11 @@ class TestRepairBasename(unittest.TestCase):
 
 class TestTitleToFilename(unittest.TestCase):
     def test_simple(self):
-        self.assertEqual(names.title_to_filename(
-            'Hello, "World"!'), "hello_world.json")
+        self.assertEqual(names.title_to_filename('Hello, "World"!'), "hello_world.json")
 
     def test_truncation(self):
         t = "A" * 100
-        self.assertEqual(names.title_to_filename(
-            t, max_len=10), "aaaaaaaaaa.json")
+        self.assertEqual(names.title_to_filename(t, max_len=10), "aaaaaaaaaa.json")
 
     def test_invalid_extension(self):
         with self.assertRaises(ValueError):
@@ -94,8 +90,7 @@ class TestTitleToFilename(unittest.TestCase):
             names.title_to_filename("ok", ext="bad!")
 
     def test_allow_empty(self):
-        self.assertEqual(names.title_to_filename(
-            "— — —", allow_empty=True), ".json")
+        self.assertEqual(names.title_to_filename("— — —", allow_empty=True), ".json")
         with self.assertRaises(ValueError):
             names.title_to_filename("— — —", allow_empty=False)
 
@@ -118,7 +113,7 @@ class TestNormalizeBasename(unittest.TestCase):
 
     def test_empty_after_repair(self):
         out, changed = names.normalize_basename("— — —")
-        self.assertEqual(out, "")     # caller must decide how to handle
+        self.assertEqual(out, "")  # caller must decide how to handle
         self.assertTrue(changed)
 
 

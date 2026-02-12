@@ -9,7 +9,7 @@ from lcats import utils
 class TestPprint(unittest.TestCase):
     """Unit tests for the pprint function."""
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_pprint_basic(self, mock_print):
         """Test that a simple paragraph is wrapped correctly."""
         text = "This is a simple paragraph that should wrap correctly."
@@ -18,12 +18,12 @@ class TestPprint(unittest.TestCase):
         # Verify that the printed output was wrapped to the specified width
         expected_calls = [
             ((),),
-            (('This is a simple\nparagraph that\nshould wrap\ncorrectly.',),),
-            ((),)
+            (("This is a simple\nparagraph that\nshould wrap\ncorrectly.",),),
+            ((),),
         ]
         mock_print.assert_has_calls(expected_calls, any_order=False)
 
-    @patch('builtins.print')
+    @patch("builtins.print")
     def test_pprint_multiple_paragraphs(self, mock_print):
         """Test that multiple paragraphs are wrapped separately."""
         text = "First paragraph.\n\nSecond paragraph."
@@ -32,10 +32,10 @@ class TestPprint(unittest.TestCase):
         # Verify each paragraph is wrapped separately
         expected_calls = [
             ((),),  # Extra newline before printing
-            (('First paragraph.',),),
+            (("First paragraph.",),),
             ((),),  # Newline after first paragraph
-            (('Second paragraph.',),),
-            ((),)  # Newline after second paragraph
+            (("Second paragraph.",),),
+            ((),),  # Newline after second paragraph
         ]
         mock_print.assert_has_calls(expected_calls, any_order=False)
 
@@ -73,8 +73,7 @@ class TestSm(unittest.TestCase):
         too_short = len(spacer) + 1
         with self.assertRaises(ValueError):
             utils.sm(text, limit=too_short, spacer=spacer)
-        self.assertEqual(
-            utils.sm(text, limit=too_short + 1, spacer=spacer), "A...t")
+        self.assertEqual(utils.sm(text, limit=too_short + 1, spacer=spacer), "A...t")
 
     def test_sm_custom_spacer(self):
         """Test that a custom spacer is used for the shortened text."""
@@ -94,13 +93,15 @@ class TestSml(unittest.TestCase):
         items = ["item1", "item2", "item3"]
         # default limit is 10, so this should show everything
         result = utils.sml(items)
-        expected = "\n".join([
-            "[",
-            "  item1,",
-            "  item2,",
-            "  item3",
-            "] total items: 3",
-        ])
+        expected = "\n".join(
+            [
+                "[",
+                "  item1,",
+                "  item2,",
+                "  item3",
+                "] total items: 3",
+            ]
+        )
         self.assertEqual(result, expected)
 
     def test_sml_exceeds_limit_default(self):
@@ -108,34 +109,38 @@ class TestSml(unittest.TestCase):
         items = [f"item{i}" for i in range(1, 20)]  # 19 items
         # default limit=10 -> head=5, tail=4, omitted=10
         result = utils.sml(items)  # limit=10 by default
-        expected = "\n".join([
-            "[",
-            "  item1,",
-            "  item2,",
-            "  item3,",
-            "  item4,",
-            "  item5,",
-            "  ...10 items omitted...",
-            "  item16,",
-            "  item17,",
-            "  item18,",
-            "  item19",
-            "] total items: 19",
-        ])
+        expected = "\n".join(
+            [
+                "[",
+                "  item1,",
+                "  item2,",
+                "  item3,",
+                "  item4,",
+                "  item5,",
+                "  ...10 items omitted...",
+                "  item16,",
+                "  item17,",
+                "  item18,",
+                "  item19",
+                "] total items: 19",
+            ]
+        )
         self.assertEqual(result, expected)
 
     def test_sml_exactly_limit(self):
         """Exactly at limit prints all items (no spacer)."""
         items = ["a", "b", "c", "d"]
         result = utils.sml(items, limit=4)
-        expected = "\n".join([
-            "[",
-            "  a,",
-            "  b,",
-            "  c,",
-            "  d",
-            "] total items: 4",
-        ])
+        expected = "\n".join(
+            [
+                "[",
+                "  a,",
+                "  b,",
+                "  c,",
+                "  d",
+                "] total items: 4",
+            ]
+        )
         self.assertEqual(result, expected)
 
     def test_sml_raises_for_too_small_limit(self):
@@ -150,15 +155,17 @@ class TestSml(unittest.TestCase):
         # limit=5 -> head=2, tail=2, omitted=4
         spacer = "~ {count} gone ~"
         result = utils.sml(items, limit=5, spacer=spacer)
-        expected = "\n".join([
-            "[",
-            "  1,",
-            "  2,",
-            "  ~ 4 gone ~",
-            "  7,",
-            "  8",
-            "] total items: 8",
-        ])
+        expected = "\n".join(
+            [
+                "[",
+                "  1,",
+                "  2,",
+                "  ~ 4 gone ~",
+                "  7,",
+                "  8",
+                "] total items: 8",
+            ]
+        )
         self.assertEqual(result, expected)
 
 
@@ -170,7 +177,8 @@ class TestExtractFencedCodeBlocks(unittest.TestCase):
         text = "Here is some text with no code fences."
         blocks = utils.extract_fenced_code_blocks(text)
         self.assertEqual(
-            len(blocks), 0, "Should return an empty list for no code fences.")
+            len(blocks), 0, "Should return an empty list for no code fences."
+        )
 
     def test_single_code_block_no_lang(self):
         """Test extraction of one code block with no specified language."""
@@ -184,12 +192,13 @@ some code here print("No language specified")
 Done.
 """
         blocks = utils.extract_fenced_code_blocks(text)
-        self.assertEqual(
-            len(blocks), 1, "Should detect exactly one code block.")
-        self.assertEqual(blocks[0][0], '',
-                         "Language should be empty if not specified.")
+        self.assertEqual(len(blocks), 1, "Should detect exactly one code block.")
+        self.assertEqual(blocks[0][0], "", "Language should be empty if not specified.")
         self.assertIn(
-            'some code here', blocks[0][1], "Extracted code content should match what's inside the fence.")
+            "some code here",
+            blocks[0][1],
+            "Extracted code content should match what's inside the fence.",
+        )
 
     def test_single_code_block_with_lang(self):
         """Test extraction of one code block with an explicit language."""
@@ -202,12 +211,13 @@ def hello_world():
 ```
 Post-text """
         blocks = utils.extract_fenced_code_blocks(text)
-        self.assertEqual(
-            len(blocks), 1, "Should detect exactly one code block.")
-        self.assertEqual(blocks[0][0], 'python',
-                         "Language should be 'python'.")
+        self.assertEqual(len(blocks), 1, "Should detect exactly one code block.")
+        self.assertEqual(blocks[0][0], "python", "Language should be 'python'.")
         self.assertIn(
-            'hello_world', blocks[0][1], "Function name should be present in extracted code.")
+            "hello_world",
+            blocks[0][1],
+            "Function name should be present in extracted code.",
+        )
 
     def test_multiple_code_blocks(self):
         """Test extraction of multiple code blocks (some with language, some without)."""
@@ -228,26 +238,31 @@ System.out.println("No language specified here either");
 ```
 """
         blocks = utils.extract_fenced_code_blocks(text)
-        self.assertEqual(
-            len(blocks), 3, "Should extract three code blocks in total.")
+        self.assertEqual(len(blocks), 3, "Should extract three code blocks in total.")
 
         # Check 1st block (json)
-        self.assertEqual(blocks[0][0], 'json',
-                         "First block language should be 'json'.")
-        self.assertIn('"bar"', blocks[0][1],
-                      "Should contain 'bar' in JSON code.")
+        self.assertEqual(blocks[0][0], "json", "First block language should be 'json'.")
+        self.assertIn('"bar"', blocks[0][1], "Should contain 'bar' in JSON code.")
 
         # Check 2nd block (plaintext)
-        self.assertEqual(blocks[1][0], 'plaintext',
-                         "Second block language should be 'plaintext'.")
-        self.assertIn('plain text in a block',
-                      blocks[1][1], "Should contain 'plain text in a block'.")
+        self.assertEqual(
+            blocks[1][0], "plaintext", "Second block language should be 'plaintext'."
+        )
+        self.assertIn(
+            "plain text in a block",
+            blocks[1][1],
+            "Should contain 'plain text in a block'.",
+        )
 
         # Check 3rd block (no language)
         self.assertEqual(
-            blocks[2][0], '', "Third block should have an empty language label.")
-        self.assertIn('System.out.println',
-                      blocks[2][1], "Should contain Java-style println statement.")
+            blocks[2][0], "", "Third block should have an empty language label."
+        )
+        self.assertIn(
+            "System.out.println",
+            blocks[2][1],
+            "Should contain Java-style println statement.",
+        )
 
     def test_empty_code_block(self):
         """Test extraction when the code fence has no content."""
@@ -257,18 +272,20 @@ System.out.println("No language specified here either");
 """
         blocks = utils.extract_fenced_code_blocks(text)
         self.assertEqual(
-            len(blocks), 1, "Should still detect one code block even if empty.")
-        self.assertEqual(blocks[0][0], 'python',
-                         "Language should be 'python'.")
-        self.assertEqual(blocks[0][1].strip(), '',
-                         "Code snippet should be empty.")
+            len(blocks), 1, "Should still detect one code block even if empty."
+        )
+        self.assertEqual(blocks[0][0], "python", "Language should be 'python'.")
+        self.assertEqual(blocks[0][1].strip(), "", "Code snippet should be empty.")
 
     def test_inline_backticks_are_ignored(self):
         """Test that single or double backticks inline do not affect extraction."""
         text = "We have inline `code` here, and ``some more`` there, but no fences."
         blocks = utils.extract_fenced_code_blocks(text)
-        self.assertEqual(len(
-            blocks), 0, "Inline single/double backticks should not be treated as fenced blocks.")
+        self.assertEqual(
+            len(blocks),
+            0,
+            "Inline single/double backticks should not be treated as fenced blocks.",
+        )
 
     def test_partial_fence(self):
         """Test that partial fences (missing triple backticks) do not extract anything."""
@@ -278,7 +295,10 @@ We have something like: ``python code missing the ending backticks
 just text """
         blocks = utils.extract_fenced_code_blocks(text)
         self.assertEqual(
-            len(blocks), 0, "Incomplete fence should not be treated as valid code blocks.")
+            len(blocks),
+            0,
+            "Incomplete fence should not be treated as valid code blocks.",
+        )
 
 
 class TestMakeSerializable(unittest.TestCase):
@@ -330,5 +350,6 @@ class TestMakeSerializable(unittest.TestCase):
         self.assertIs(result["nested"], original["nested"])
         self.assertIs(result["nested"]["k"], original["nested"]["k"])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

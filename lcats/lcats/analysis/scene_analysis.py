@@ -203,7 +203,7 @@ def make_segment_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
         force_json=True,
         text_indexer=text_segmenter.paragraph_text_indexer,
         result_aligner=text_segmenter.segments_result_aligner,
-        result_validator=text_segmenter.segments_auditor
+        result_validator=text_segmenter.segments_auditor,
     )
 
 
@@ -283,16 +283,16 @@ def display_segments(story_text, extracted_scenes):
                     # fallback: partial window from start_exact
                     if start_exact:
                         start_char = s_idx
-                        end_char = min(n_text, s_idx +
-                                       max(len(start_exact), 120))
+                        end_char = min(n_text, s_idx + max(len(start_exact), 120))
                         if _valid_span(start_char, end_char):
                             span_note = " (partial span from start_exact)"
                         else:
                             start_char = end_char = None
 
         length_str = (
-            f"{end_char - start_char} chars" if _valid_span(
-                start_char, end_char) else "unknown"
+            f"{end_char - start_char} chars"
+            if _valid_span(start_char, end_char)
+            else "unknown"
         )
 
         print(f"Segment {i}: Type {segment_type} (Confidence: {confidence})")
@@ -303,8 +303,7 @@ def display_segments(story_text, extracted_scenes):
         )
 
         # Paragraph & anchors (normalized+sm for readability)
-        print(
-            f" - Paragraphs: start_par_id={start_par_id}, end_par_id={end_par_id}")
+        print(f" - Paragraphs: start_par_id={start_par_id}, end_par_id={end_par_id}")
         print(
             " - Anchors:"
             f"\n     start_prefix='{_sm_norm(start_prefix, 80)}'"
@@ -319,7 +318,8 @@ def display_segments(story_text, extracted_scenes):
         chars = cohesion.get("characters", [])
         # Normalize the string fields for display
         print(
-            f" - Cohesion: time='{_sm_norm(time_, 120)}', place='{_sm_norm(place, 120)}', characters={chars}")
+            f" - Cohesion: time='{_sm_norm(time_, 120)}', place='{_sm_norm(place, 120)}', characters={chars}"
+        )
 
         if gacd:
             # Normalize each field of GACD for display
@@ -328,14 +328,16 @@ def display_segments(story_text, extracted_scenes):
             g_con = _sm_norm((gacd or {}).get("conflict", ""), 140)
             g_out = (gacd or {}).get("outcome", "")
             print(
-                f" - GACD: goal='{g_goal}', action='{g_act}', conflict='{g_con}', outcome='{g_out}'")
+                f" - GACD: goal='{g_goal}', action='{g_act}', conflict='{g_con}', outcome='{g_out}'"
+            )
         if erac:
             e_emo = _sm_norm((erac or {}).get("emotion", ""), 140)
             e_rea = _sm_norm((erac or {}).get("reason", ""), 140)
             e_ant = _sm_norm((erac or {}).get("anticipation", ""), 140)
             e_cho = _sm_norm((erac or {}).get("choice", ""), 140)
             print(
-                f" - ERAC: emotion='{e_emo}', reason='{e_rea}', anticipation='{e_ant}', choice='{e_cho}'")
+                f" - ERAC: emotion='{e_emo}', reason='{e_rea}', anticipation='{e_ant}', choice='{e_cho}'"
+            )
 
         # Optional: show a normalized + sm preview slice if we have a valid span
         if _valid_span(start_char, end_char):
@@ -480,9 +482,9 @@ def make_semantics_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
         default_model="gpt-4o",
         temperature=0.2,
         force_json=True,
-        text_indexer=None,       # segment-level: no indexing
-        result_aligner=None,     # segment-level: no alignment
-        result_validator=None,   # optional: add later if desired
+        text_indexer=None,  # segment-level: no indexing
+        result_aligner=None,  # segment-level: no alignment
+        result_validator=None,  # optional: add later if desired
     )
 
 
@@ -554,30 +556,34 @@ def display_annotated_segments(annotated_segments: List[Dict[str, Any]]) -> None
 
 def display_annotated_segment(segment: Dict[str, Any]) -> None:
     """Pretty-print one segment with attached semantic judgment."""
-    segment_type = segment.get('segment_type', 'unknown')
-    confidence = segment.get('confidence', -1.0)
+    segment_type = segment.get("segment_type", "unknown")
+    confidence = segment.get("confidence", -1.0)
     evaluation = segment.get("segment_eval", {})
     if evaluation:
-        audited_type = evaluation.get('label', 'unknown')
-        audited_confidence = evaluation.get('confidence', -1.0)
+        audited_type = evaluation.get("label", "unknown")
+        audited_confidence = evaluation.get("confidence", -1.0)
     else:
-        audited_type = 'N/A'
+        audited_type = "N/A"
         audited_confidence = -1.0
     if segment_type == audited_type:
-        print(f"Segment ID: {segment.get('segment_id', '?')}, "
-              f"Type: {segment_type}, Confidence: {confidence}")
+        print(
+            f"Segment ID: {segment.get('segment_id', '?')}, "
+            f"Type: {segment_type}, Confidence: {confidence}"
+        )
     else:
-        print(f"Segment ID: {segment.get('segment_id', '?')}, "
-              f"Type: MISMATCH - extracted type DOES NOT match audited type!")
+        print(
+            f"Segment ID: {segment.get('segment_id', '?')}, "
+            f"Type: MISMATCH - extracted type DOES NOT match audited type!"
+        )
     print(f" - Summary: {utils.sm(segment.get('summary', ''), limit=100)}")
 
     print(f" - Segment Type: {segment_type}, Confidence: {confidence}")
     print(f"   - Reason: {utils.sm(segment.get('reason', ''), limit=100)}")
-    if segment.get('cohesion'):
+    if segment.get("cohesion"):
         print(f"   - Cohesion: {segment.get('cohesion', {})}")
-    if segment.get('gacd'):
+    if segment.get("gacd"):
         print(f"   - GACD: {segment.get('gacd')}")
-    if segment.get('erac'):
+    if segment.get("erac"):
         print(f"   - ERAC: {segment.get('erac')}")
 
     if evaluation:
@@ -600,7 +606,7 @@ def normalize_preview(s: str) -> str:
         return ""
     s = s.replace("\r\n", "\n").replace("\r", "\n")
     s = re.sub(r"\n{2,}", "\u2029", s)  # mark paragraph breaks
-    s = s.replace("\n", " ")            # single newlines -> spaces
+    s = s.replace("\n", " ")  # single newlines -> spaces
     s = re.sub(r"[ \t\u00A0]+", " ", s).strip()
     return s.replace("\u2029", "\n")
 
@@ -667,8 +673,7 @@ def summarize_type_agreement(story_data: Dict[str, Any]) -> Dict[str, Any]:
         # hasn’t been run yet.
         whole = normalize_label(seg.get("whole_story_type") or seg.get("segment_type"))
         per_scene = normalize_label(
-            seg.get("per_scene_type")
-            or (seg.get("segment_eval") or {}).get("label")
+            seg.get("per_scene_type") or (seg.get("segment_eval") or {}).get("label")
         )
 
         by_extractor[whole] = by_extractor.get(whole, 0) + 1

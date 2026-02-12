@@ -14,7 +14,7 @@ from gutenbergpy import gutenbergcache as gc
 # ------------ cache helpers ------------
 # Whether to auto-create the cache if missing.
 GUTENBERG_CACHE_AUTO_CREATE = True
-GUTENBERG_CACHE_SKIP_MODE = False   # Whether to skip using the cache entirely.
+GUTENBERG_CACHE_SKIP_MODE = False  # Whether to skip using the cache entirely.
 
 
 GUTENBERG_ROOT = pathlib.Path("cache")
@@ -28,7 +28,8 @@ gc.GutenbergCacheSettings.set(
     CacheFilename=str(GUTENBERG_ROOT / "gutenbergindex.db"),
     # CacheUnpackDir=str(_GUTENBERG_TMP),  # Don't override, changes aren't respected.
     CacheArchiveName=str(GUTENBERG_ROOT / "rdf-files.tar.bz2"),
-    TextFilesCacheFolder=str(GUTENBERG_TEXTS))
+    TextFilesCacheFolder=str(GUTENBERG_TEXTS),
+)
 
 
 # Define a custom User-Agent to avoid 403 errors from Gutenberg servers.

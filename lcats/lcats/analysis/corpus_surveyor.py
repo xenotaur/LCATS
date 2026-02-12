@@ -108,15 +108,16 @@ def compute_corpus_stats(
             with path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
         except Exception as e:
-            print(
-                f"warn: skipping unreadable JSON {path}: {e}", file=sys.stderr)
+            print(f"warn: skipping unreadable JSON {path}: {e}", file=sys.stderr)
             continue
 
         title, authors, body = story_analysis.extract_title_authors_body(data)
 
         # Uniqueness key
-        key = (story_analysis.normalize_title(title),
-               tuple(sorted(a.lower() for a in authors)))
+        key = (
+            story_analysis.normalize_title(title),
+            tuple(sorted(a.lower() for a in authors)),
+        )
         if dedupe and key in seen_keys:
             continue
         seen_keys.add(key)
@@ -137,11 +138,9 @@ def compute_corpus_stats(
                 "title": title,
                 "authors": authors,
                 "n_authors": len(authors),
-
                 "title_words": title_words,
                 "title_chars": title_chars,
                 "title_tokens": title_tokens,
-
                 "body_words": body_words,
                 "body_chars": body_chars,
                 "body_tokens": body_tokens,
@@ -153,12 +152,19 @@ def compute_corpus_stats(
     if story_stats.empty:
         # Return empty frames with expected columns
         story_cols = [
-            "path", "story_id", "title", "authors", "n_authors",
-            "title_words", "title_chars", "title_tokens",
-            "body_words", "body_chars", "body_tokens",
+            "path",
+            "story_id",
+            "title",
+            "authors",
+            "n_authors",
+            "title_words",
+            "title_chars",
+            "title_tokens",
+            "body_words",
+            "body_chars",
+            "body_tokens",
         ]
-        author_cols = ["author", "stories",
-                       "body_words", "body_chars", "body_tokens"]
+        author_cols = ["author", "stories", "body_words", "body_chars", "body_tokens"]
         return pd.DataFrame(columns=story_cols), pd.DataFrame(columns=author_cols)
 
     # Build author_stats by exploding authors and aggregating body metrics.
@@ -339,11 +345,13 @@ def process_files(
         elif result["status"] == "skipped":
             skipped += 1
         elif result["status"] == "error":
-            errors.append({
-                "input": str(result["input"]),
-                "output": str(result["output"]),
-                "error": result.get("error") or "",
-            })
+            errors.append(
+                {
+                    "input": str(result["input"]),
+                    "output": str(result["output"]),
+                    "error": result.get("error") or "",
+                }
+            )
 
     print(f"{processed} files processed, {skipped} skipped, {len(errors)} errors")
     return {

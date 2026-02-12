@@ -13,14 +13,72 @@ import tiktoken
 
 # TODO(centaur): reconcile with the word counter belo.
 # Minimal English stopword set (extend as needed).
-_STOPWORDS: frozenset = frozenset({
-    "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "from",
-    "had", "has", "have", "he", "her", "hers", "him", "his", "i", "if", "in",
-    "into", "is", "it", "its", "me", "my", "of", "on", "or", "our", "ours",
-    "she", "so", "that", "the", "their", "theirs", "them", "they", "this",
-    "those", "to", "too", "us", "was", "we", "were", "what", "when", "where",
-    "which", "who", "whom", "why", "will", "with", "you", "your", "yours",
-})
+_STOPWORDS: frozenset = frozenset(
+    {
+        "a",
+        "an",
+        "and",
+        "are",
+        "as",
+        "at",
+        "be",
+        "but",
+        "by",
+        "for",
+        "from",
+        "had",
+        "has",
+        "have",
+        "he",
+        "her",
+        "hers",
+        "him",
+        "his",
+        "i",
+        "if",
+        "in",
+        "into",
+        "is",
+        "it",
+        "its",
+        "me",
+        "my",
+        "of",
+        "on",
+        "or",
+        "our",
+        "ours",
+        "she",
+        "so",
+        "that",
+        "the",
+        "their",
+        "theirs",
+        "them",
+        "they",
+        "this",
+        "those",
+        "to",
+        "too",
+        "us",
+        "was",
+        "we",
+        "were",
+        "what",
+        "when",
+        "where",
+        "which",
+        "who",
+        "whom",
+        "why",
+        "will",
+        "with",
+        "you",
+        "your",
+        "yours",
+    }
+)
+
 
 def get_keywords(text: str) -> List[str]:
     """Tokenize to lowercase alphabetic terms, length ≥ 3, excluding stopwords.
@@ -61,8 +119,12 @@ def coerce_text(value: Any) -> str:
     if isinstance(value, str):
         text = value
         # Detect a Python bytes literal and decode if present.
-        if (len(text) >= 3 and text[0] == "b" and text[1] in {"'", '"'}
-                and text[-1] == text[1]):
+        if (
+            len(text) >= 3
+            and text[0] == "b"
+            and text[1] in {"'", '"'}
+            and text[-1] == text[1]
+        ):
             try:
                 b = ast.literal_eval(text)  # type: ignore[arg-type]
                 if isinstance(b, (bytes, bytearray)):
@@ -94,7 +156,7 @@ def word_count(text: str) -> int:
 
 def token_count(text: str, enc: Optional["tiktoken.Encoding"] = None) -> int:
     """Count tokens in text using the specified tiktoken encoding.
-    
+
     Note: tiktoken expects bytes/str; do not pre-split.
 
     Args:
@@ -147,6 +209,7 @@ def count_paragraph(text: Any) -> int:
     # Count non-empty chunks (ignoring pure whitespace).
     paragraphs = [c for c in chunks if c.strip()]
     return len(paragraphs)
+
 
 def extract_title_authors_body(data: Dict[str, Any]) -> Tuple[str, List[str], str]:
     """Extract title, authors, and body text from a story metadata dictionary.
@@ -211,7 +274,6 @@ def decode_possible_bytes_literal(s: str) -> str:
         except Exception:
             pass
     return s
-
 
 
 DOC_CLASSIFY_SYSTEM_PROMPT = """
@@ -333,6 +395,7 @@ STORY:
 \"\"\"{story_text}\"\"\"
 """
 
+
 def make_doc_classification_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor for whole-text document classification.
 
@@ -350,6 +413,6 @@ def make_doc_classification_extractor(client: Any) -> llm_extractor.JSONPromptEx
         default_model="gpt-4o",
         temperature=0.1,
         force_json=True,
-        text_indexer=None,          # not needed for whole-text classification
-        result_aligner=None,        # no offsets to align
+        text_indexer=None,  # not needed for whole-text classification
+        result_aligner=None,  # no offsets to align
     )

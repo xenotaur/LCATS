@@ -7,7 +7,6 @@ from lcats.gatherers.mass_quantities import storymap
 from lcats.gatherers.mass_quantities import parser
 
 
-
 def gather():
     """Extract all the "single stories" we have identified in the Gutenberg Project.
 
@@ -40,24 +39,25 @@ def gather_stories(stories):
     gatherer = downloaders.DataGatherer(
         storymap.TARGET_DIRECTORY,
         description="Single stories from Gutenberg",
-        license="Public domain, from Project Gutenberg.")
+        license="Public domain, from Project Gutenberg.",
+    )
 
     gathered_stories = {}
     failed_stories = {}
     # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
     #    for story in tqdm(stories):
-    #for story in range(1, 77805):
+    # for story in range(1, 77805):
     for story in tqdm(stories):
         print(story)
         story, filename, error = parser.gather_story(gatherer, story)
-                    
+
         if filename:
             gathered_stories[story] = filename
         if error:
             failed_stories[story] = error
         # Trying to be good net citizens; since we are grabbing >6000 stories, let's pause
         # sleep(2)
-        
+
     return gathered_stories, failed_stories
 
 

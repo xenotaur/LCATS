@@ -8,12 +8,15 @@ import lcats.gatherers.downloaders as downloaders
 TARGET_DIRECTORY = "anderson"
 
 
-ANDERSON_GUTENBERG = 'https://www.gutenberg.org/cache/epub/1597/pg1597-images.html'
+ANDERSON_GUTENBERG = "https://www.gutenberg.org/cache/epub/1597/pg1597-images.html"
 
 
 ANDERSON_HEADINGS = [
-    ("emperor's_new_clothes", "THE EMPEROR'S NEW CLOTHES",
-     "Anderson - The Emperor's New Clothes"),
+    (
+        "emperor's_new_clothes",
+        "THE EMPEROR'S NEW CLOTHES",
+        "Anderson - The Emperor's New Clothes",
+    ),
     ("swineherd", "THE SWINEHERD", "Anderson - The Swineherd"),
     ("real_princess", "THE REAL PRINCESS", "Anderson - The Real Princess"),
     ("shoes_of_fortune", "THE SHOES OF FORTUNE", "Anderson - The Shoes Of Fortune"),
@@ -24,16 +27,17 @@ ANDERSON_HEADINGS = [
     ("bell", "THE BELL", "Anderson - The Bell"),
     ("old_house", "THE OLD HOUSE", "Anderson - The Old House"),
     ("happy_family", "THE HAPPY FAMILY", "Anderson - The Happy Family"),
-    ("story_of_a_mother", "THE STORY OF A MOTHER",
-     "Anderson - The Story Of a Mother"),
+    ("story_of_a_mother", "THE STORY OF A MOTHER", "Anderson - The Story Of a Mother"),
     ("false_collar", "THE FALSE COLLAR", "Anderson - The False Collar"),
     ("shadow", "THE SHADOW", "Anderson - The Shadow"),
-    ("little_match_girl", "THE LITTLE MATCH GIRL",
-     "Anderson - The Little Match Girl"),
-    ("dream_of_little_tuk", "THE DREAM OF LITTLE TUK",
-     "Anderson - The Dream Of Little Tuk"),
+    ("little_match_girl", "THE LITTLE MATCH GIRL", "Anderson - The Little Match Girl"),
+    (
+        "dream_of_little_tuk",
+        "THE DREAM OF LITTLE TUK",
+        "Anderson - The Dream Of Little Tuk",
+    ),
     ("naughty_boy", "THE NAUGHTY BOY", "Anderson - The Naughty Boy"),
-    ("red_shoes", "THE RED SHOES", "Anderson - The Red Shoes")
+    ("red_shoes", "THE RED SHOES", "Anderson - The Red Shoes"),
 ]
 
 
@@ -41,7 +45,9 @@ def find_paragraphs_andersonfairytales(soup, start_heading_text):
     """Find paragraphs following a specific heading in a BeautifulSoup object."""
     # Find the start heading - this is brittle and may need to be adjusted for different stories
     start_heading = soup.find(
-        lambda tag: tag.name in ('h2') and start_heading_text in tag.get_text(strip=True))
+        lambda tag: tag.name in ("h2")
+        and start_heading_text in tag.get_text(strip=True)
+    )
 
     if start_heading is None:
         return None
@@ -51,16 +57,17 @@ def find_paragraphs_andersonfairytales(soup, start_heading_text):
     current_element = start_heading.find_next_sibling()
 
     # Iterate through sibling elements until the next heading or the end of the siblings is reached.
-    while current_element and current_element.name not in ('h2', 'div'):
-        if current_element.name == 'p' or current_element.name == 'pre':
+    while current_element and current_element.name not in ("h2", "div"):
+        if current_element.name == "p" or current_element.name == "pre":
             paragraphs.append(current_element.get_text(strip=False))
         current_element = current_element.find_next_sibling()
 
-    return '\n'.join(paragraphs)
+    return "\n".join(paragraphs)
 
 
 def create_download_callback(story_name, url, start_heading_text, description):
     """Create a download callback function for a specific story."""
+
     def story_download_callback(contents):
         """Download a specific Anderson story from the Gutenberg Project."""
 
@@ -69,11 +76,11 @@ def create_download_callback(story_name, url, start_heading_text, description):
 
         story_soup = BeautifulSoup(contents, "lxml")
 
-        story_text = find_paragraphs_andersonfairytales(
-            story_soup, start_heading_text)
+        story_text = find_paragraphs_andersonfairytales(story_soup, start_heading_text)
         if story_text is None:
             raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}")
+                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
+            )
 
         story_data = {
             "author": "Anderson",
@@ -92,7 +99,8 @@ def gather():
     gatherer = downloaders.DataGatherer(
         TARGET_DIRECTORY,
         description="Anderson stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.")
+        license="Public domain, from Project Gutenberg.",
+    )
     for filename, heading, title in ANDERSON_HEADINGS:
         gatherer.download(
             filename,
@@ -101,7 +109,9 @@ def gather():
                 story_name=filename,
                 url=ANDERSON_GUTENBERG,
                 start_heading_text=heading,
-                description=title))
+                description=title,
+            ),
+        )
     return gatherer.downloads
 
 

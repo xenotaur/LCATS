@@ -28,15 +28,19 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         """get_metadata_from_cache uses titles_for for title/titles fields."""
         with mock.patch.object(metadata, "titles_for", return_value={"Moby-Dick"}) as p:
             out = metadata.get_metadata_from_cache(
-                cache=object(), field="title", book_id=2701)
+                cache=object(), field="title", book_id=2701
+            )
             self.assertEqual(out, {"Moby-Dick"})
             p.assert_called_once_with(mock.ANY, 2701)
 
     def test_get_metadata_from_cache_dispatches_author(self):
         """get_metadata_from_cache uses authors_for for author/authors fields."""
-        with mock.patch.object(metadata, "authors_for", return_value={"Melville, Herman"}) as p:
+        with mock.patch.object(
+            metadata, "authors_for", return_value={"Melville, Herman"}
+        ) as p:
             out = metadata.get_metadata_from_cache(
-                cache=object(), field="authors", book_id=2701)
+                cache=object(), field="authors", book_id=2701
+            )
             self.assertEqual(out, {"Melville, Herman"})
             p.assert_called_once_with(mock.ANY, 2701)
 
@@ -44,15 +48,19 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         """get_metadata_from_cache uses languages_for for language/languages fields."""
         with mock.patch.object(metadata, "languages_for", return_value={"en"}) as p:
             out = metadata.get_metadata_from_cache(
-                cache=object(), field="language", book_id=2701)
+                cache=object(), field="language", book_id=2701
+            )
             self.assertEqual(out, {"en"})
             p.assert_called_once_with(mock.ANY, 2701)
 
     def test_get_metadata_from_cache_dispatches_subject(self):
         """get_metadata_from_cache uses subjects_for for subject/subjects fields."""
-        with mock.patch.object(metadata, "subjects_for", return_value={"Whaling -- Fiction"}) as p:
+        with mock.patch.object(
+            metadata, "subjects_for", return_value={"Whaling -- Fiction"}
+        ) as p:
             out = metadata.get_metadata_from_cache(
-                cache=object(), field="subjects", book_id=2701)
+                cache=object(), field="subjects", book_id=2701
+            )
             self.assertEqual(out, {"Whaling -- Fiction"})
             p.assert_called_once_with(mock.ANY, 2701)
 
@@ -60,14 +68,18 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         """get_metadata_from_cache raises ValueError for unsupported fields."""
         with self.assertRaises(ValueError):
             metadata.get_metadata_from_cache(
-                cache=object(), field="publisher", book_id=2701)
+                cache=object(), field="publisher", book_id=2701
+            )
 
     def test_get_metadata_from_cache_propagates_exceptions(self):
         """get_metadata_from_cache re-raises exceptions from helper calls."""
-        with mock.patch.object(metadata, "titles_for", side_effect=RuntimeError("boom")):
+        with mock.patch.object(
+            metadata, "titles_for", side_effect=RuntimeError("boom")
+        ):
             with self.assertRaises(RuntimeError):
                 metadata.get_metadata_from_cache(
-                    cache=object(), field="title", book_id=1)
+                    cache=object(), field="title", book_id=1
+                )
 
     # ---------------- get_metadata_from_header ----------------
 
@@ -101,24 +113,23 @@ class GettenbergApiMetadataTests(unittest.TestCase):
     def test_get_metadata_from_header_returns_empty_set_when_missing(self):
         """Header parser returns empty set when no matching lines are present."""
         header = ["Not a field: value", "Another: value"]
-        self.assertEqual(metadata.get_metadata_from_header(
-            "title", header), set())
-        self.assertEqual(metadata.get_metadata_from_header(
-            "subjects", header), set())
+        self.assertEqual(metadata.get_metadata_from_header("title", header), set())
+        self.assertEqual(metadata.get_metadata_from_header("subjects", header), set())
 
     def test_get_metadata_from_header_allows_colons_in_value(self):
         """Header parser keeps additional colons in the value part."""
         header = ["Title: Foo: Bar", "Author: Last, First: Extra"]
-        self.assertEqual(metadata.get_metadata_from_header(
-            "title", header), {"Foo: Bar"})
-        self.assertEqual(metadata.get_metadata_from_header(
-            "author", header), {"Last, First: Extra"})
+        self.assertEqual(
+            metadata.get_metadata_from_header("title", header), {"Foo: Bar"}
+        )
+        self.assertEqual(
+            metadata.get_metadata_from_header("author", header), {"Last, First: Extra"}
+        )
 
     def test_get_metadata_from_header_raises_on_unsupported_field(self):
         """Header parser raises ValueError for unsupported fields."""
         with self.assertRaises(ValueError):
-            metadata.get_metadata_from_header(
-                "publisher", ["Publisher: Unknown"])
+            metadata.get_metadata_from_header("publisher", ["Publisher: Unknown"])
 
     # ---------------- SQL helpers: titles_for / authors_for / languages_for / subjects_for ----------------
 
@@ -139,8 +150,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         out = metadata.authors_for(fc, 2701)
         self.assertEqual(out, {"Melville, Herman"})
         self.assertIn("FROM authors a", fc.last_sql)
-        self.assertIn(
-            "JOIN book_authors ba ON a.id = ba.authorid", fc.last_sql)
+        self.assertIn("JOIN book_authors ba ON a.id = ba.authorid", fc.last_sql)
         self.assertIn("JOIN books b         ON ba.bookid = b.id", fc.last_sql)
         self.assertIn("WHERE b.gutenbergbookid = 2701", fc.last_sql)
 
@@ -162,8 +172,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         out = metadata.subjects_for(fc, 2701)
         self.assertEqual(out, {"Whaling -- Fiction", "Sea stories"})
         self.assertIn("FROM subjects s", fc.last_sql)
-        self.assertIn(
-            "JOIN book_subjects bs ON s.id = bs.subjectid", fc.last_sql)
+        self.assertIn("JOIN book_subjects bs ON s.id = bs.subjectid", fc.last_sql)
         self.assertIn("JOIN books b          ON bs.bookid = b.id", fc.last_sql)
         self.assertIn("WHERE b.gutenbergbookid = 2701", fc.last_sql)
 

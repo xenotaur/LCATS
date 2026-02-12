@@ -49,7 +49,7 @@ class Corpora:
                 corpora[dir_name] = []
                 dir_path = os.path.join(root, dir_name)
                 for file_name in os.listdir(dir_path):
-                    if file_name.endswith('.json'):
+                    if file_name.endswith(".json"):
                         file_path = os.path.join(dir_path, file_name)
                         story = Story.from_json_file(file_path)
                         corpora[dir_name].append(story)
@@ -83,7 +83,7 @@ class Story:
         return cls(
             name=data.get("name", ""),
             body=data.get("body", ""),
-            metadata=data.get("metadata", {})
+            metadata=data.get("metadata", {}),
         )
 
     @classmethod
@@ -112,11 +112,7 @@ class Story:
         """
         Convert this Story instance into a dict with 'name', 'body', 'metadata'.
         """
-        return {
-            "name": self.name,
-            "body": self.body,
-            "metadata": self.metadata
-        }
+        return {"name": self.name, "body": self.body, "metadata": self.metadata}
 
     def to_json_file(self, filepath: str) -> None:
         """
@@ -130,9 +126,7 @@ class Story:
         Write this Story instance out to a YAML file on disk.
         """
         with open(filepath, "w", encoding="utf-8") as f:
-            yaml.safe_dump(self.to_dict(), f, sort_keys=False,
-                           allow_unicode=True)
-
+            yaml.safe_dump(self.to_dict(), f, sort_keys=False, allow_unicode=True)
 
     #
     # __str__ method for displaying the Story

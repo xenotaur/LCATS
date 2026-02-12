@@ -21,7 +21,7 @@ from lcats.gatherers.mass_quantities import storymap
 
 
 def how_many_titles(text, title):
-    """ Return the number of times the title appears in the text.
+    """Return the number of times the title appears in the text.
 
     Args:
         text (str): The full text of the story.
@@ -60,7 +60,7 @@ def title_in_body(text, title):
 
 
 def chaptered(text):
-    """ Return True if the text contains chapters, False otherwise.
+    """Return True if the text contains chapters, False otherwise.
 
     Works for chapters in Roman numerals and w/o names.   Needs to be expanded.
 
@@ -71,14 +71,30 @@ def chaptered(text):
     """
     result = 0
 
-    text_array = text.split('\n')
+    text_array = text.split("\n")
     for line in text_array:
         line = line.strip().lower()
         if line in ["contents", "contents."]:
             return True
-        if line in ["i", "i.", "chapter i", "chapter 1", "chapter i.", "chap. i.", "part i"]:
+        if line in [
+            "i",
+            "i.",
+            "chapter i",
+            "chapter 1",
+            "chapter i.",
+            "chap. i.",
+            "part i",
+        ]:
             result = result + 1
-        if line in ["ii", "ii.", "chapter ii", "chapter 2", "chapter ii.", "chap. ii.", "part ii"]:
+        if line in [
+            "ii",
+            "ii.",
+            "chapter ii",
+            "chapter 2",
+            "chapter ii.",
+            "chap. ii.",
+            "part ii",
+        ]:
             result = result + 1
 
     # A single I or II might be an anomoly so this is to see if both exist
@@ -102,7 +118,7 @@ def is_number(string):
 
 
 def only_english(languages, target="en"):
-    """ Return True if the only language is the target language (default "en" for English).
+    """Return True if the only language is the target language (default "en" for English).
 
     Args:
         languages (list or set): A list or set of language codes (e.g., ["en", "fr"])
@@ -119,7 +135,7 @@ def only_english(languages, target="en"):
 
 
 def pen_names(name):
-    """ Return a list of pen names for a given author name, including the original name.
+    """Return a list of pen names for a given author name, including the original name.
     Args:
         name (str): The name of the author.
     Returns:
@@ -131,27 +147,29 @@ def pen_names(name):
     return all_names
 
 
-
-def fiction (subject):
+def fiction(subject):
     for piece in list(subject):
         if "fiction" in piece.lower().strip():
             return True
 
     return False
 
-def short_story (subject):
+
+def short_story(subject):
     for piece in list(subject):
         if "short stor" in piece.lower().strip():
             return True
 
     return False
 
-def loc_fiction (subject):
+
+def loc_fiction(subject):
     for piece in list(subject):
         if piece in ["PS", "PR"]:
             return True
 
     return False
+
 
 def subject_ok(subject):
     """Return True if the subject is consistent with what we want (short fiction).
@@ -163,27 +181,27 @@ def subject_ok(subject):
     Returns:
         bool: True if the subject appears to be short fiction, False otherwise.
     """
-    normalized_subject = " ".join(list(subject)).lower().strip().replace(",","")
+    normalized_subject = " ".join(list(subject)).lower().strip().replace(",", "")
 
-    #if normalized_subject in storymap.EXCLUDED_SUBJECTS:
+    # if normalized_subject in storymap.EXCLUDED_SUBJECTS:
     #    return False
 
     if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
         return True
-    
-#    for piece in normalized_subject.split(" "):
-#        if piece in storymap.EXCLUDED_SUBJECTS:
-#            return False
-        
-#    for piece in list(subject):
-#        if piece in ["PS", "PR"]:
-#            return True
+
+    #    for piece in normalized_subject.split(" "):
+    #        if piece in storymap.EXCLUDED_SUBJECTS:
+    #            return False
+
+    #    for piece in list(subject):
+    #        if piece in ["PS", "PR"]:
+    #            return True
 
     return False
 
 
 def author_ok(author):
-    """ Return True if the author is consistent with what we want.
+    """Return True if the author is consistent with what we want.
 
     Args:
         author (frozenset): A frozenset representing the author from the metadata of the story.
@@ -193,13 +211,12 @@ def author_ok(author):
     return len(list(author)) > 0
 
 
-
 # Function:   title_ok
 # Input:      A set containing the title from the metadata of the story
 # Output:     Bool indicating if the system believes the title is consistent with what we want
 # Notes:
 def title_ok(title):
-    """ Return True if the title is consistent with a valid story.
+    """Return True if the title is consistent with a valid story.
 
     Args:
         title (string): A string representing the title from the metadata of the story.
@@ -209,7 +226,7 @@ def title_ok(title):
     """
 
     result = True
-    if len(list(title)) > 1:   # multiple titles 
+    if len(list(title)) > 1:  # multiple titles
         for a_title in list(title):
             result = result and title_ok(a_title)
 
@@ -219,9 +236,8 @@ def title_ok(title):
         return False
 
     for part_indicator in storymap.EXCLUDED_TITLE_PART_WORDS:
-        if re.search(rf'{part_indicator}\s*\d+', str(list(title)[0]), re.IGNORECASE):
+        if re.search(rf"{part_indicator}\s*\d+", str(list(title)[0]), re.IGNORECASE):
             return False
-        
 
     for piece in list(title)[0].split(" "):
         piece = piece.lower()
@@ -241,14 +257,14 @@ def make_title(title):
         string: A cleaned-up version of the title.
     """
     # First try splitting by \n and attempt to remove any trailing year.
-    title_array = title.split('\n')
+    title_array = title.split("\n")
     if len(title_array) == 2 and is_number(title_array[1]):
         title_number = int(title_array[1])
         if title_number > 1800 and title_number < 1960:
             return title_array[0]
 
     # Next try splitting by \r\n and attempt to remove any trailing item.
-    title_array = title.split('\r\n')
+    title_array = title.split("\r\n")
     if len(title_array) != 1:
         return title_array[0]
 
@@ -257,7 +273,7 @@ def make_title(title):
 
 
 def intrusive_paragraph(paragraph):
-    """ Return True if we believe the paragraph is intrusive
+    """Return True if we believe the paragraph is intrusive
     Args:
         paragraph (str):  A string representing a paragraph
     Returns:
@@ -267,45 +283,48 @@ def intrusive_paragraph(paragraph):
 
     if len(paragraph) == 0:
         result = False
-        
+
     lines = paragraph.split("\n")
 
     for line in lines:
         if len(line) == 0:
             continue
-        if line[:4] == "    " and line[4] == '“':
+        if line[:4] == "    " and line[4] == "“":
             result = False
         if line[:4] == "    " and line[4] != " ":
             continue
-        
+
         result = False
 
     return result
 
-            
-    
+
 def line_contains_transcriber_info(line):
-    """ Return True if the line contains transcriber information.
+    """Return True if the line contains transcriber information.
     Args:
         line (str): A string representing a line of the story.
     Returns:
         bool: True if the line contains transcriber information, False otherwise."""
     stripped = line.strip().lower()
-    return (stripped.startswith("transcriber")
-            or stripped.startswith("[transcriber")
-            or stripped.startswith("_transcriber"))
+    return (
+        stripped.startswith("transcriber")
+        or stripped.startswith("[transcriber")
+        or stripped.startswith("_transcriber")
+    )
 
 
 def line_contains_illustration(line):
-    """ Return True if the line contains illustration information.
+    """Return True if the line contains illustration information.
     Args:
         line (str): A string representing a line of the story.
     Returns:
         bool: True if the line contains illustration information, False otherwise."""
     stripped = line.strip().lower()
-    return (stripped.startswith("illustrat")
-            or stripped.startswith("[illustrat")
-            or stripped.startswith("_illustrat"))
+    return (
+        stripped.startswith("illustrat")
+        or stripped.startswith("[illustrat")
+        or stripped.startswith("_illustrat")
+    )
 
 
 def line_contains_title(original_line, title):
@@ -320,12 +339,20 @@ def line_contains_title(original_line, title):
         bool: True if the line contains the title, False otherwise.
     """
     stripped = original_line.strip().lower()
-    if stripped.find('rn\n') > -1:
-        line = (' '.join([piece.strip() for piece in original_line.split('rn\n')])).lower(
-        ).removesuffix("printed in the united states of america").strip()
-    elif stripped.find('\n') > -1:
-        line = (' '.join([piece.strip() for piece in original_line.split('\n')])).lower(
-        ).removesuffix("printed in the united states of america").strip()
+    if stripped.find("rn\n") > -1:
+        line = (
+            (" ".join([piece.strip() for piece in original_line.split("rn\n")]))
+            .lower()
+            .removesuffix("printed in the united states of america")
+            .strip()
+        )
+    elif stripped.find("\n") > -1:
+        line = (
+            (" ".join([piece.strip() for piece in original_line.split("\n")]))
+            .lower()
+            .removesuffix("printed in the united states of america")
+            .strip()
+        )
     else:
         line = original_line.strip().lower()
     title = title.lower()
@@ -335,16 +362,23 @@ def line_contains_title(original_line, title):
         return False
 
     # Exact matches, with some common variations.
-    if (line == title
+    if (
+        line == title
         or line == "_" + title + "_"
         or line == title + "."
         or line[:-1] == title
-            or line[1:-1] == title):
+        or line[1:-1] == title
+    ):
         return True
 
     # Fuzzy match for minor variations.
-    if max(difflib.SequenceMatcher(None, line, title).ratio(),
-           difflib.SequenceMatcher(None, title, line).ratio()) > 0.90:   # KMM
+    if (
+        max(
+            difflib.SequenceMatcher(None, line, title).ratio(),
+            difflib.SequenceMatcher(None, title, line).ratio(),
+        )
+        > 0.90
+    ):  # KMM
         return True
 
     # Handle titles that start with "The ".
@@ -355,7 +389,7 @@ def line_contains_title(original_line, title):
     return False
 
 
-def line_contains_author (line, authors, alias, limit=8):
+def line_contains_author(line, authors, alias, limit=8):
     """Detect whether the line contains the author of the story or other author-like content.
 
     We limit the size of the line so we don't find this in a longer line of text.
@@ -369,12 +403,12 @@ def line_contains_author (line, authors, alias, limit=8):
     Args:
         line (str): A string representing a line of the story.
         authors (list): A list of strings representing the author(s) of the story.
-        limit (int): An integer representing the maximum number of words in the line to consider 
+        limit (int): An integer representing the maximum number of words in the line to consider
             it as an author line.
     Returns:
         bool: True if the line contains the author, False otherwise.
     """
-    if len(authors) == 1:    # only one author, woo hoo!
+    if len(authors) == 1:  # only one author, woo hoo!
         for author in pen_names(authors[0]):
             author_names = author.split(",")
             last_name = author_names[0].strip().lower()
@@ -385,13 +419,20 @@ def line_contains_author (line, authors, alias, limit=8):
 
             # If an author is detected and the line is short enough, return True.
             stripped = line.strip().lower()
-            if (first_name in stripped and last_name in stripped and len(line.split()) < limit):
+            if (
+                first_name in stripped
+                and last_name in stripped
+                and len(line.split()) < limit
+            ):
                 return True
 
             # Handle lines that just say "by" or "by FN LN" or similar.
-            if (stripped == "by" or stripped.startswith("by ")
+            if (
+                stripped == "by"
+                or stripped.startswith("by ")
                 or stripped.startswith("_by ")
-                    or stripped.startswith("_by_")):
+                or stripped.startswith("_by_")
+            ):
 
                 # If the line is short enough and starts with by, assume it's the author line.
                 if len(line.split()) < limit:
@@ -410,13 +451,14 @@ def line_contains_author (line, authors, alias, limit=8):
         author1 = [authors[0]]
         author2 = [authors[1]]
 
-        author1_present = line_contains_author(line, author1, alias, limit*2)
-        author2_present = line_contains_author(line, author2, alias, limit*2)
+        author1_present = line_contains_author(line, author1, alias, limit * 2)
+        author2_present = line_contains_author(line, author2, alias, limit * 2)
         return author1_present and author2_present
 
     # Don't attempt to match more than two authors.
     # print("Multiple authors detected: ", authors)
     return False
+
 
 def names_match(name1, name2):
     name1 = name1.strip().lower()
@@ -427,16 +469,17 @@ def names_match(name1, name2):
         if namelet in name1:
             matches = matches + 1
 
-    if matches == len(name2.split()):    # all match!
+    if matches == len(name2.split()):  # all match!
         return True
     elif matches == 0:
         return False
-    elif matches > len(name2.split()):   # more matches?
+    elif matches > len(name2.split()):  # more matches?
         return False
     elif len(name2.split()) > 2 and matches >= 2:
         return True
     else:
         return False
+
 
 def line_contains_author2(line, authors, limit=8):
     """Detect whether the line contains the author of the story or other author-like content.
@@ -452,7 +495,7 @@ def line_contains_author2(line, authors, limit=8):
     Args:
         line (str): A string representing a line of the story.
         authors (list): A list of strings representing the author(s) of the story.
-        limit (int): An integer representing the maximum number of words in the line to consider 
+        limit (int): An integer representing the maximum number of words in the line to consider
             it as an author line.
     Returns:
         bool: True if the line contains the author, False otherwise.
@@ -461,17 +504,20 @@ def line_contains_author2(line, authors, limit=8):
     result = False
     for author in authors:
         result = result or names_match(line, author)
-        
-    if not result:    # check the by special case?
+
+    if not result:  # check the by special case?
         stripped = line.strip().lower()
-        #if (first_name in stripped and last_name in stripped and len(line.split()) < limit):
+        # if (first_name in stripped and last_name in stripped and len(line.split()) < limit):
         #    return True
 
         # Handle lines that just say "by" or "by FN LN" or similar.
-        if (stripped == "by" or stripped.startswith("by ")
+        if (
+            stripped == "by"
+            or stripped.startswith("by ")
             or stripped.startswith("_by ")
-            or stripped.startswith("_by_")):
-            
+            or stripped.startswith("_by_")
+        ):
+
             # If the line is short enough and starts with by, assume it's the author line.
             if len(line.split()) < limit:
                 result = True
@@ -480,8 +526,9 @@ def line_contains_author2(line, authors, limit=8):
 
     return result
 
+
 def is_blank_line(line):
-    """ Return True if the line is blank, False otherwise.
+    """Return True if the line is blank, False otherwise.
     Args:
         line (str): A string representing a line of the story.
     Returns:
@@ -491,7 +538,7 @@ def is_blank_line(line):
 
 
 def in_body(line, title, author, alias):
-    """ Return True if the line is in the body of the story, False otherwise.
+    """Return True if the line is in the body of the story, False otherwise.
 
     Args:
         line (str): A string representing a line of the story.
@@ -529,7 +576,7 @@ def fix_body(text, author, alias):
     fixed_body = []
 
     firstTime = True
-    
+
     for paragraph in text_array:
         if firstTime:
             if line_contains_transcriber_info(paragraph):
@@ -544,14 +591,14 @@ def fix_body(text, author, alias):
                 continue
             else:
                 firstTime = False
-            
+
         fixed_body.append(paragraph)
 
-    return ('\n\n'.join(fixed_body))
+    return "\n\n".join(fixed_body)
 
 
 def body_of_text(text, author, alias, title, debug=False):
-    """ Return the body of the story, i.e., the material after the title and author.
+    """Return the body of the story, i.e., the material after the title and author.
     Args:
         text (str): A string representing a story from Gutenberg in plain text.
         author (str): A string representing the author of the story.
@@ -567,13 +614,20 @@ def body_of_text(text, author, alias, title, debug=False):
     title = make_title(title)
     number_of_titles = how_many_titles(text, title)
 
-    paragraph_array = text.split('\n\n')
+    paragraph_array = text.split("\n\n")
 
     for index, line in enumerate(paragraph_array):
         #   KMM Useful for debugging
         if debug:
-            print(str(index) + " : " + str(seen_title) +
-                  ", " + str(seen_author) + " -- " + line[:60])
+            print(
+                str(index)
+                + " : "
+                + str(seen_title)
+                + ", "
+                + str(seen_author)
+                + " -- "
+                + line[:60]
+            )
         if (number_of_titles > 1) and (number_of_titles_found == number_of_titles):
             break
         if (number_of_titles == 0) and seen_author:
@@ -594,12 +648,16 @@ def body_of_text(text, author, alias, title, debug=False):
         else:
             continue
     # should be in the body
-    #print("In body " + str(seen_author) + " " + str(author))
-    
-    body = '\n\n'.join([('' if '*       *       *       *       *' in line else line)
-                       for line in paragraph_array[index:]])
-   
-    return fix_body(body.removeprefix('\n'), author, alias)
+    # print("In body " + str(seen_author) + " " + str(author))
+
+    body = "\n\n".join(
+        [
+            ("" if "*       *       *       *       *" in line else line)
+            for line in paragraph_array[index:]
+        ]
+    )
+
+    return fix_body(body.removeprefix("\n"), author, alias)
 
 
 def gather_story(gatherer, story):
@@ -614,18 +672,18 @@ def gather_story(gatherer, story):
         - An error message (str) or None if no error occurred.
     """
     # Extract metadata and filter out stories that don't meet our criteria.
-    subject = api.get_metadata('subject', story)
+    subject = api.get_metadata("subject", story)
     if len(subject) == 0:
         return story, None, "No data for this story, skipping"
-    
+
     is_subject_ok = subject_ok(subject)
-    language = api.get_metadata('language', story)
+    language = api.get_metadata("language", story)
     is_language_ok = only_english(language)
-    title = api.get_metadata('title', story)
+    title = api.get_metadata("title", story)
     is_title_ok = title_ok(title)
-    author = list(api.get_metadata('author', story))
+    author = list(api.get_metadata("author", story))
     is_author_ok = author_ok(author)
-    alias = list(api.get_metadata('alias', story))
+    alias = list(api.get_metadata("alias", story))
     if not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
         print(f"Metadata not OK, skipping story: {story}")
         print(f" - Subject: {subject}: {is_subject_ok}")
@@ -639,13 +697,13 @@ def gather_story(gatherer, story):
         etext = api.load_etext(story)
     except:
         return story, None, "Failed to retrieve a story, skipping."
-        
+
     stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
     if chaptered(clean_text):
         return story, None, "Story has chapters, skipping."
 
-    #print("DEBUG " + str(story) + " " + str(how_many_titles(clean_text, list(title)[0])))
+    # print("DEBUG " + str(story) + " " + str(how_many_titles(clean_text, list(title)[0])))
 
     # Extract the title and body of the story.
     short = True
@@ -653,25 +711,29 @@ def gather_story(gatherer, story):
         body = body_of_text(clean_text, author, alias, single_title)
         if len(body.split("\n\n")) > 10:
             short = False
-            title = single_title   # wow this is bad style 
+            title = single_title  # wow this is bad style
             break
 
-    if short: 
+    if short:
         print("Story is too short, skipping: " + str(story))
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
-    file_name = names.title_to_filename(
-        title, ext=constants.FILE_SUFFIX, max_len=50)
+    file_name = names.title_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
 
-    #print("DESUB " + str(file_name) + " " + str(subject))
+    # print("DESUB " + str(file_name) + " " + str(subject))
 
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
 
     # Structure the data into a dictionary
-    url = "https://www.gutenberg.org/cache/epub/" + \
-        str(story) + "/pg" + str(story) + ".txt"
+    url = (
+        "https://www.gutenberg.org/cache/epub/"
+        + str(story)
+        + "/pg"
+        + str(story)
+        + ".txt"
+    )
     data_to_save = {
         "name": title,
         "author": author,
@@ -680,8 +742,8 @@ def gather_story(gatherer, story):
             "author": author,
             "year": "Unknown",
             "url": url,
-            "name": file_name
-        }
+            "name": file_name,
+        },
     }
 
     # Move all of this code up into the API so it is done consistently.
@@ -693,44 +755,44 @@ def gather_story(gatherer, story):
     gatherer.ensure(file_name)
 
     # Write data to JSON file
-    with open(file_path, 'w', encoding='utf-8') as json_file:
+    with open(file_path, "w", encoding="utf-8") as json_file:
         json.dump(data_to_save, json_file, indent=4)
 
     return story, file_path, None
 
 
-
 import csv
 
-def test_stories (stories):
+
+def test_stories(stories):
     for story in stories:
         test_story_get(story)
 
-        
-def test_story_get (story):
+
+def test_story_get(story):
     # Extract metadata and filter out stories that don't meet our criteria.
-    subject = api.get_metadata('subject', story)
+    subject = api.get_metadata("subject", story)
     is_subject_ok = subject_ok(subject)
-    language = api.get_metadata('language', story)
+    language = api.get_metadata("language", story)
     is_language_ok = only_english(language)
-    title = api.get_metadata('title', story)
+    title = api.get_metadata("title", story)
     is_title_ok = title_ok(title)
-    author = list(api.get_metadata('author', story))
+    author = list(api.get_metadata("author", story))
     is_author_ok = author_ok(author)
-    alias = list(api.get_metadata('alias', story))
+    alias = list(api.get_metadata("alias", story))
 
     if True or not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
-        #print(f"Metadata not OK, skipping story: {story}")
+        # print(f"Metadata not OK, skipping story: {story}")
         print(f" - Subject: {subject}: {is_subject_ok}")
         print(f" - Language: {language}: {is_language_ok}")
         print(f" - Title: {title}: {is_title_ok}")
         print(f" - Author: {author}: {is_author_ok}")
-        #return story, None, "Metadata not suitable, skipping."
+        # return story, None, "Metadata not suitable, skipping."
 
     # Extract the text and remove stories that have chapters.
     etext = api.load_etext(story)
     stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
     if chaptered(clean_text):
         print("Story has chapters, skipping: " + str(story))
         return story, None, "Story has chapters, skipping."
@@ -744,29 +806,31 @@ def test_story_get (story):
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
-    file_name = names.title_to_filename(
-        title, ext=constants.FILE_SUFFIX, max_len=50)
+    file_name = names.title_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
 
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
 
     return body
 
+
 def show_data_not_corpora():
-    file_path = 'notebooks/output/stories_comparison.csv'  # Replace with the actual path to your CSV file
+    file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
 
     try:
-        with open(file_path, 'r', newline='') as csvfile:
+        with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
             # Iterate over each row in the CSV file
             for row in reader:
-                if row[3] == "False" and row[7] == "False":   # appears in data and NOT in corpora
-                    #print(row)
+                if (
+                    row[3] == "False" and row[7] == "False"
+                ):  # appears in data and NOT in corpora
+                    # print(row)
                     id = row[0].split("/")
                     subs = api.get_metadata("subject", int(id[5]))
                     title = api.get_metadata("title", int(id[5]))
 
-                    print(id[5] + " , '" + str(title) + "' , " + str(subs)) 
+                    print(id[5] + " , '" + str(title) + "' , " + str(subs))
 
     except FileNotFoundError:
         print(f"Error: The file '{file_path}' was not found.")
@@ -775,20 +839,22 @@ def show_data_not_corpora():
 
 
 def show_corpora_not_data():
-    file_path = 'notebooks/output/stories_comparison.csv'  # Replace with the actual path to your CSV file
+    file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
 
     try:
-        with open(file_path, 'r', newline='') as csvfile:
+        with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
             # Iterate over each row in the CSV file
             for row in reader:
-                if row[3] == "False" and row[7] == "True":   # appears in corpora and NOT in data
-                    #print(row)
+                if (
+                    row[3] == "False" and row[7] == "True"
+                ):  # appears in corpora and NOT in data
+                    # print(row)
                     id = row[0].split("/")
                     subs = api.get_metadata("subject", int(id[5]))
                     title = api.get_metadata("title", int(id[5]))
 
-                    print(id[5] + " , '" + str(title) + "' , " + str(subs)) 
+                    print(id[5] + " , '" + str(title) + "' , " + str(subs))
 
     except FileNotFoundError:
         print(f"Error: The file '{file_path}' was not found.")
@@ -796,11 +862,9 @@ def show_corpora_not_data():
         print(f"An error occurred: {e}")
 
 
-
-
-def grab_story (story):
+def grab_story(story):
     etext = api.load_etext(story)
     stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode('utf-8', errors='replace').strip()
+    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
 
     return clean_text

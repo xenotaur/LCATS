@@ -2,7 +2,7 @@
 
 import json
 
-from typing import Any, Callable, Dict,  List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from lcats import utils
 
@@ -46,10 +46,12 @@ class JSONPromptExtractor:
         temperature: float = 0.2,
         force_json: bool = True,
         text_indexer: Optional[Callable[[str], Tuple[str, Any]]] = None,
-        result_aligner: Optional[Callable[[
-            Dict[str, Any], str, Any], Dict[str, Any]]] = None,
-        result_validator: Optional[Callable[[
-            Dict[str, Any], str, Any], Dict[str, Any]]] = None,  # << NEW
+        result_aligner: Optional[
+            Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
+        ] = None,
+        result_validator: Optional[
+            Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
+        ] = None,  # << NEW
     ):
         self.client = client
         self.system_prompt = system_prompt
@@ -219,10 +221,14 @@ class JSONPromptExtractor:
 
     # ---------- API ----------
 
-    def __call__(self, story_text: str, *, model_name: Optional[str] = None) -> Dict[str, Any]:
+    def __call__(
+        self, story_text: str, *, model_name: Optional[str] = None
+    ) -> Dict[str, Any]:
         return self.extract(story_text, model_name=model_name)
 
-    def extract(self, story_text: str, *, model_name: Optional[str] = None) -> Dict[str, Any]:
+    def extract(
+        self, story_text: str, *, model_name: Optional[str] = None
+    ) -> Dict[str, Any]:
         """Run the prompt, parse JSON, optionally align and validate.
 
         Args:
@@ -318,8 +324,7 @@ class JSONPromptExtractor:
             # Optional alignment
             if self.result_aligner and index_meta is not None:
                 try:
-                    parsed = self.result_aligner(
-                        parsed, story_text, index_meta)
+                    parsed = self.result_aligner(parsed, story_text, index_meta)
                 except Exception as exc:
                     alignment_error = f"alignment failed: {exc!r}"
 
@@ -327,13 +332,15 @@ class JSONPromptExtractor:
             if self.result_validator and index_meta is not None:
                 try:
                     validation_report = self.result_validator(
-                        parsed, story_text, index_meta)
+                        parsed, story_text, index_meta
+                    )
                 except Exception as exc:
                     validation_error = f"validation failed: {exc!r}"
             self.last_validation_report = validation_report
 
-            extracted = parsed.get(self.output_key) if isinstance(
-                parsed, dict) else None
+            extracted = (
+                parsed.get(self.output_key) if isinstance(parsed, dict) else None
+            )
             if extracted is None:
                 extraction_error = f"Expected '{self.output_key}' key in JSON response."
         else:

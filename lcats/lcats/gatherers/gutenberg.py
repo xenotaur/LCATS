@@ -27,7 +27,7 @@ from gutenbergpy import gutenbergcache as gc
 # ------------ cache helpers ------------
 # Whether to auto-create the cache if missing.
 GUTENBERG_CACHE_AUTO_CREATE = True
-GUTENBERG_CACHE_SKIP_MODE = False   # Whether to skip using the cache entirely.
+GUTENBERG_CACHE_SKIP_MODE = False  # Whether to skip using the cache entirely.
 
 
 GUTENBERG_ROOT = pathlib.Path("cache")
@@ -41,7 +41,8 @@ gc.GutenbergCacheSettings.set(
     CacheFilename=str(GUTENBERG_ROOT / "gutenbergindex.db"),
     # CacheUnpackDir=str(_GUTENBERG_TMP),  # Don't override, changes aren't respected.
     CacheArchiveName=str(GUTENBERG_ROOT / "rdf-files.tar.bz2"),
-    TextFilesCacheFolder=str(GUTENBERG_TEXTS))
+    TextFilesCacheFolder=str(GUTENBERG_TEXTS),
+)
 
 
 # Define a custom User-Agent to avoid 403 errors from Gutenberg servers.
@@ -94,8 +95,7 @@ def ensure_gutenberg_cache():
 
     # If someone already opened the DB earlier, we might have a zero-byte file.
     print(f" - Checking for local Gutenberg cache at {path}...")
-    print(
-        f"   - auto-create is {'ON' if GUTENBERG_CACHE_AUTO_CREATE else 'OFF'})")
+    print(f"   - auto-create is {'ON' if GUTENBERG_CACHE_AUTO_CREATE else 'OFF'})")
     print("    - _gutenberg_cache_ready() → ", gutenberg_cache_ready(path))
 
     if GUTENBERG_CACHE_AUTO_CREATE and not gutenberg_cache_ready(path):
@@ -199,7 +199,7 @@ def get_metadata_cache() -> RefreshableMetadataCache:
 
 
 def strip_headers(text: Union[bytes, str]) -> bytes:
-    """    Remove Gutenberg headers/footers and return bytes of the content.
+    """Remove Gutenberg headers/footers and return bytes of the content.
 
     Accepts either bytes or str (str is encoded as UTF-8 best-effort).
 
@@ -271,7 +271,8 @@ def get_matching_rows(
     for i, r in enumerate(rows):
         if not isinstance(r, Mapping):
             raise TypeError(
-                f"cache.query returned a non-mapping row at index {i}: {type(r).__name__}")
+                f"cache.query returned a non-mapping row at index {i}: {type(r).__name__}"
+            )
     return rows  # type: ignore[return-value]
 
 
@@ -294,8 +295,9 @@ def extract_book_id(row: Mapping[str, Any]) -> int:
         raise ValueError(f"Invalid 'gutenbergbookid' value: {value!r}") from e
 
 
-def get_metadata(field: str, book_id: int,
-                 use_cache: bool = GUTENBERG_CACHE_SKIP_MODE) -> Set[str]:
+def get_metadata(
+    field: str, book_id: int, use_cache: bool = GUTENBERG_CACHE_SKIP_MODE
+) -> Set[str]:
     """Rough equivalent of gutenberg.query.get_metadata(field, book_id).
 
     Tries the gutenbergpy cache first (SQLite backend) via native_query(sql),
@@ -307,7 +309,7 @@ def get_metadata(field: str, book_id: int,
     Args:
         field: The metadata field to retrieve (e.g. 'title', 'author', 'language', 'subject').
         book_id: The Gutenberg book ID (integer).
-        use_cache: Whether to use the local cache (default: True). 
+        use_cache: Whether to use the local cache (default: True).
             If False, always falls back to header parse.
     Returns:
         Set of strings (may be empty if not found).
@@ -327,15 +329,13 @@ def get_metadata(field: str, book_id: int,
     field = field.lower().strip()
     if cache:
         return metadata.get_metadata_from_cache(cache, field, book_id)
-    
+
     # No cache, fall back to header parse.
     header = get_text_header_lines(book_id) or ()
     return metadata.get_metadata_from_header(field, header)
 
 
-def get_metadata_from_cache(cache: Any,
-                            field: str,
-                            book_id: int) -> Set[str]:
+def get_metadata_from_cache(cache: Any, field: str, book_id: int) -> Set[str]:
     """Extract metadata from the cache for a given field and book ID.
 
     Args:
@@ -408,7 +408,7 @@ def get_metadata_from_header(field: str, book_id: int) -> Set[str]:
 
 def get_text_header_lines(book_id: int) -> Iterable[str]:
     """Yield non-blank lines from the header of a Gutenberg text (before '*** START')."""
-    raw = load_etext(int(book_id))            # <— was textget.get_text_by_id
+    raw = load_etext(int(book_id))  # <— was textget.get_text_by_id
     pre, _, _ = raw.partition(b"*** START")
     for line in pre.splitlines():
         s = line.strip().decode("utf-8", errors="ignore")
@@ -468,4 +468,3 @@ def subjects_for(cache, bid: int) -> Set[str]:
         """
     )
     return get_strings_from_sql(rows)
-

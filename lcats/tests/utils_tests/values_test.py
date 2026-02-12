@@ -14,10 +14,10 @@ class ValuesUtilsTests(unittest.TestCase):
     def test_strings_from_sql_tuple_rows(self):
         """Test tuple rows with various cases, including None and numeric."""
         rows = [
-            (123,),                # numeric → "123"
+            (123,),  # numeric → "123"
             ("hello", "ignored"),  # only first element is used
-            (None,),               # None is ignored
-            ["world"],             # list row also supported
+            (None,),  # None is ignored
+            ["world"],  # list row also supported
         ]
         got = values.strings_from_sql(rows)
         self.assertEqual(got, {"123", "hello", "world"})
@@ -26,10 +26,10 @@ class ValuesUtilsTests(unittest.TestCase):
         """Test dict rows with various cases, including missing/None 'v'."""
         rows = [
             {"v": "alpha"},
-            {"v": 42},               # numeric → "42"
-            {"v": None},             # ignored
-            {"other": "beta"},       # missing 'v' → ignored
-            {"v": "alpha"},          # duplicate
+            {"v": 42},  # numeric → "42"
+            {"v": None},  # ignored
+            {"other": "beta"},  # missing 'v' → ignored
+            {"v": "alpha"},  # duplicate
         ]
         got = values.strings_from_sql(rows)
         self.assertEqual(got, {"alpha", "42"})
@@ -38,7 +38,7 @@ class ValuesUtilsTests(unittest.TestCase):
         """Test mixed tuple and dict rows, including bytes."""
         rows = [
             {"v": "x"},
-            (b"y",),                 # bytes in tuple → "b'y'"
+            (b"y",),  # bytes in tuple → "b'y'"
             ["z", "extra"],
             {"other": "ignored"},
         ]

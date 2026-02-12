@@ -22,8 +22,7 @@ class TestChunking(unittest.TestCase):
 
     def test_chunk_story_no_overlap(self):
         """Test chunk_story without overlap returns at least one full chunk."""
-        chunks = chunking.chunk_story(
-            self.text, max_tokens=20, model_name=self.model)
+        chunks = chunking.chunk_story(self.text, max_tokens=20, model_name=self.model)
         self.assertGreaterEqual(len(chunks), 1)
         for i, chunk in enumerate(chunks):
             self.assertIsInstance(chunk, chunking.Chunk)
@@ -33,7 +32,8 @@ class TestChunking(unittest.TestCase):
     def test_chunk_story_with_overlap(self):
         """Test chunk_story with overlap includes shared tokens."""
         chunks = chunking.chunk_story(
-            self.text, max_tokens=30, overlap_tokens=10, model_name=self.model)
+            self.text, max_tokens=30, overlap_tokens=10, model_name=self.model
+        )
         self.assertGreaterEqual(len(chunks), 2)
         self.assertTrue(chunks[1].start_token < chunks[1].start_token + 30)
         # Ensure overlap exists
@@ -44,26 +44,28 @@ class TestChunking(unittest.TestCase):
         """Test end_token_limit truncates token input."""
         limit = 30
         chunks = chunking.chunk_story(
-            self.text, max_tokens=20, end_token_limit=limit, model_name=self.model)
-        total_tokens = sum(chunking.count_tokens(
-            c.text, model=self.model) for c in chunks)
+            self.text, max_tokens=20, end_token_limit=limit, model_name=self.model
+        )
+        total_tokens = sum(
+            chunking.count_tokens(c.text, model=self.model) for c in chunks
+        )
         self.assertLessEqual(total_tokens, limit)
 
     def test_chunk_story_with_max_chunks(self):
         """Test limiting total number of chunks."""
         chunks = chunking.chunk_story(
-            self.text, max_tokens=20, max_chunks=2, model_name=self.model)
+            self.text, max_tokens=20, max_chunks=2, model_name=self.model
+        )
         self.assertEqual(len(chunks), 2)
 
     def test_summarize_chunks_format(self):
         """Test summarize_chunks returns a string with chunk headers."""
-        chunks = chunking.chunk_story(
-            self.text, max_tokens=30, model_name=self.model)
+        chunks = chunking.chunk_story(self.text, max_tokens=30, model_name=self.model)
         summary = chunking.summarize_chunks(chunks)
         self.assertIsInstance(summary, str)
         self.assertIn("Chunk 0", summary)
         self.assertIn("starts at char", summary)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

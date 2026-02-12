@@ -12,7 +12,9 @@ class GettenbergHeadersTests(unittest.TestCase):
     def test_strip_headers_passes_bytes_through_to_backend_and_returns_bytes(self):
         """strip_headers forwards bytes to textget.strip_headers and returns bytes."""
         data = b"Some header\n\n*** START OF THE PROJECT GUTENBERG EBOOK\nBody..."
-        with mock.patch.object(headers.textget, "strip_headers", return_value=b"Body") as p:
+        with mock.patch.object(
+            headers.textget, "strip_headers", return_value=b"Body"
+        ) as p:
             out = headers.strip_headers(data)
             self.assertEqual(out, b"Body")
             p.assert_called_once_with(data)
@@ -20,7 +22,9 @@ class GettenbergHeadersTests(unittest.TestCase):
     def test_strip_headers_encodes_str_input_utf8(self):
         """strip_headers encodes str to UTF-8 before calling backend."""
         s = "Title: Moby-Dick 🐋\n\n*** START OF THE PROJECT GUTENBERG EBOOK\nBody..."
-        with mock.patch.object(headers.textget, "strip_headers", return_value=b"Body") as p:
+        with mock.patch.object(
+            headers.textget, "strip_headers", return_value=b"Body"
+        ) as p:
             out = headers.strip_headers(s)
             self.assertEqual(out, b"Body")
             # Ensure the backend saw bytes (UTF-8 encoded)

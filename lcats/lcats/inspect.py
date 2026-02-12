@@ -23,8 +23,7 @@ def inspect(*args: str) -> int:
         1 if any file was missing / invalid / failed to parse
     """
     if not args:
-        sys.stderr.write(
-            "usage: lcats inspect <file1.json> [file2.json ...]\n")
+        sys.stderr.write("usage: lcats inspect <file1.json> [file2.json ...]\n")
         return 2
 
     inspected = 0
@@ -103,7 +102,7 @@ def format_story_json(
     data: Dict[str, Any],
     *,  # Enforce keyword-only arguments after this point.
     max_body_chars: int = 1000,
-    width: int = 80
+    width: int = 80,
 ) -> str:
     """Low-level formatter: takes a story JSON object and returns a pretty string.
 
@@ -158,7 +157,9 @@ def format_story_json(
     return "\n".join(out)
 
 
-def pretty_print_story(json_path: str | pathlib.Path, *, max_body_chars: int = 1000, width: int = 80) -> None:
+def pretty_print_story(
+    json_path: str | pathlib.Path, *, max_body_chars: int = 1000, width: int = 80
+) -> None:
     """
     Top-level printer: loads the JSON from file, formats it with `format_story_json`,
     and prints the result.
@@ -167,8 +168,7 @@ def pretty_print_story(json_path: str | pathlib.Path, *, max_body_chars: int = 1
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    formatted = format_story_json(
-        data, max_body_chars=max_body_chars, width=width)
+    formatted = format_story_json(data, max_body_chars=max_body_chars, width=width)
     print(formatted)
 
 

@@ -20,7 +20,9 @@ def canonicalize_text(s: str) -> str:
     return s.replace("\r\n", "\n").replace("\r", "\n")
 
 
-def build_paragraph_index(story_text: str, splitter: str = "\n\n") -> Tuple[List[str], List[Tuple[int, int]]]:
+def build_paragraph_index(
+    story_text: str, splitter: str = "\n\n"
+) -> Tuple[List[str], List[Tuple[int, int]]]:
     """Split story_text into paragraphs by splitter, returning (parts, spans).
 
     Each span is a (start, end) tuple of absolute character indices in story_text.
@@ -56,8 +58,10 @@ def add_paragraph_markers(paragraphs: List[str], delimiter: str = "\n\n") -> str
     Returns:
         The combined text with paragraph markers.
     """
-    return "".join(f"[P{idx+1:04d}] " + p + (delimiter if idx < len(paragraphs) - 1 else "")
-                   for idx, p in enumerate(paragraphs))
+    return "".join(
+        f"[P{idx+1:04d}] " + p + (delimiter if idx < len(paragraphs) - 1 else "")
+        for idx, p in enumerate(paragraphs)
+    )
 
 
 def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None:
@@ -92,7 +96,7 @@ def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None
 
     # Heuristic remap back to original indices
     start_guess = max(0, int(pos_n * (len(segment) / max(1, len(seg_n))) - 20))
-    window = segment[start_guess:start_guess + len(anchor) + 200]
+    window = segment[start_guess : start_guess + len(anchor) + 200]
     pos2 = window.find(anchor)
     if pos2 != -1:
         return lo + start_guess + pos2
@@ -145,12 +149,17 @@ def align_segment(
         e_idx = hi
 
     # Validate
-    if not (0 <= s_idx < len(story_text)) or not (0 < e_idx <= len(story_text)) or e_idx <= s_idx:
+    if (
+        not (0 <= s_idx < len(story_text))
+        or not (0 < e_idx <= len(story_text))
+        or e_idx <= s_idx
+    ):
         return None
     return s_idx, e_idx
 
 
 # ---- public hooks ----
+
 
 def paragraph_text_indexer(story_text: str) -> Tuple[str, Dict[str, Any]]:
     """
@@ -231,7 +240,7 @@ def _normalize_preview(s: str) -> str:
         return ""
     s = s.replace("\r\n", "\n").replace("\r", "\n")
     s = re.sub(r"\n{2,}", "\u2029", s)  # mark paragraph breaks
-    s = s.replace("\n", " ")            # single newlines -> spaces
+    s = s.replace("\n", " ")  # single newlines -> spaces
     s = re.sub(r"[ \t\u00A0]+", " ", s).strip()
     return s.replace("\u2029", "\n")
 
@@ -265,13 +274,13 @@ def validate_coverage_and_overlaps(
     segments: List[Dict[str, Any]],
     *,
     ignore_whitespace_gaps: bool = True,
-    whitespace_gap_max: int = 8
+    whitespace_gap_max: int = 8,
 ):
     """Returns (missing_components, overlapping_components)."""
     n = len(text)
 
     def is_ws_only(s: str) -> bool:
-        return s.strip().strip("\u00A0") == ""
+        return s.strip().strip("\u00a0") == ""
 
     # Build valid spans
     items = []
@@ -279,22 +288,28 @@ def validate_coverage_and_overlaps(
         s = seg.get("start_char")
         e = seg.get("end_char")
         if _valid_span(s, e, n):
-            items.append({
-                "i": idx,
-                "segment_id": seg.get("segment_id", f"#{idx}"),
-                "start": int(s),
-                "end": int(e),
-            })
+            items.append(
+                {
+                    "i": idx,
+                    "segment_id": seg.get("segment_id", f"#{idx}"),
+                    "start": int(s),
+                    "end": int(e),
+                }
+            )
     items.sort(key=lambda d: (d["start"], d["end"]))
 
     missing, overlaps = [], []
     if not items:
         if n > 0:
-            missing.append({
-                "type": "start_gap",
-                "start": 0, "end": n, "length": n,
-                "preview": _sm(text[0:n]),
-            })
+            missing.append(
+                {
+                    "type": "start_gap",
+                    "start": 0,
+                    "end": n,
+                    "length": n,
+                    "preview": _sm(text[0:n]),
+                }
+            )
         return missing, overlaps
 
     covered_end = 0
@@ -307,10 +322,16 @@ def validate_coverage_and_overlaps(
         # GAP relative to farthest coverage so far
         if s > covered_end:
             gap_slice = text[covered_end:s]
-            if not (ignore_whitespace_gaps and (s - covered_end) <= whitespace_gap_max and is_ws_only(gap_slice)):
+            if not (
+                ignore_whitespace_gaps
+                and (s - covered_end) <= whitespace_gap_max
+                and is_ws_only(gap_slice)
+            ):
                 gap = {
                     "type": "start_gap" if covered_end == 0 else "gap",
-                    "start": covered_end, "end": s, "length": s - covered_end,
+                    "start": covered_end,
+                    "end": s,
+                    "length": s - covered_end,
                     "preview": _sm(gap_slice),
                 }
                 if prev_seg is not None and covered_end != 0:
@@ -330,24 +351,34 @@ def validate_coverage_and_overlaps(
                 otype = "contained"
             else:
                 otype = "partial_overlap"
-            overlaps.append({
-                "type": otype,
-                "a_index": pos - 1, "b_index": pos,
-                "a_segment_id": prev_seg["segment_id"],
-                "b_segment_id": cur["segment_id"],
-                "start": ov_start, "end": ov_end, "length": max(0, ov_end - ov_start),
-            })
+            overlaps.append(
+                {
+                    "type": otype,
+                    "a_index": pos - 1,
+                    "b_index": pos,
+                    "a_segment_id": prev_seg["segment_id"],
+                    "b_segment_id": cur["segment_id"],
+                    "start": ov_start,
+                    "end": ov_end,
+                    "length": max(0, ov_end - ov_start),
+                }
+            )
 
         # OVERLAP vs max-extent segment (containment across non-adjacent)
         if max_seg is not None and max_seg is not prev_seg and s < max_seg["end"]:
             if s >= max_seg["start"] and e <= max_seg["end"]:
-                overlaps.append({
-                    "type": "contained",
-                    "a_index": max_seg["i"], "b_index": cur["i"],
-                    "a_segment_id": max_seg["segment_id"],
-                    "b_segment_id": cur["segment_id"],
-                    "start": s, "end": e, "length": e - s,
-                })
+                overlaps.append(
+                    {
+                        "type": "contained",
+                        "a_index": max_seg["i"],
+                        "b_index": cur["i"],
+                        "a_segment_id": max_seg["segment_id"],
+                        "b_segment_id": cur["segment_id"],
+                        "start": s,
+                        "end": e,
+                        "length": e - s,
+                    }
+                )
 
         # Advance coverage frontier
         if e > covered_end:
@@ -359,54 +390,72 @@ def validate_coverage_and_overlaps(
     # END GAP
     if covered_end < n:
         tail = text[covered_end:n]
-        if not (ignore_whitespace_gaps and is_ws_only(tail) and (n - covered_end) <= whitespace_gap_max):
-            missing.append({
-                "type": "end_gap",
-                "start": covered_end, "end": n, "length": n - covered_end,
-                "preview": _sm(tail),
-            })
+        if not (
+            ignore_whitespace_gaps
+            and is_ws_only(tail)
+            and (n - covered_end) <= whitespace_gap_max
+        ):
+            missing.append(
+                {
+                    "type": "end_gap",
+                    "start": covered_end,
+                    "end": n,
+                    "length": n - covered_end,
+                    "preview": _sm(tail),
+                }
+            )
 
     return missing, overlaps
 
 
-def audit_segments_against_anchors(text: str, segments: List[Dict[str, Any]], *, sample: int = 100):
+def audit_segments_against_anchors(
+    text: str, segments: List[Dict[str, Any]], *, sample: int = 100
+):
     """Warn when aligned offsets don't match the anchors verbatim."""
     warns = []
     n = len(text)
     for idx, seg in enumerate(segments):
         s = seg.get("start_char")
         e = seg.get("end_char")
-        sx = (seg.get("start_exact") or "")
-        ex = (seg.get("end_exact") or "")
+        sx = seg.get("start_exact") or ""
+        ex = seg.get("end_exact") or ""
         if _valid_span(s, e, n):
-            head = text[s:s + len(sx)] if sx else ""
-            tail = text[e - len(ex):e] if ex else ""
+            head = text[s : s + len(sx)] if sx else ""
+            tail = text[e - len(ex) : e] if ex else ""
             if sx and head != sx:
-                warns.append({
-                    "segment_id": seg.get("segment_id", idx),
-                    "issue": "start_mismatch",
-                    "at": s,
-                    "expected": utils.sm(sx, sample),
-                    "found": utils.sm(head, sample),
-                })
+                warns.append(
+                    {
+                        "segment_id": seg.get("segment_id", idx),
+                        "issue": "start_mismatch",
+                        "at": s,
+                        "expected": utils.sm(sx, sample),
+                        "found": utils.sm(head, sample),
+                    }
+                )
             if ex and tail != ex:
-                warns.append({
-                    "segment_id": seg.get("segment_id", idx),
-                    "issue": "end_mismatch",
-                    "at": e,
-                    "expected": utils.sm(ex, sample),
-                    "found": utils.sm(tail, sample),
-                })
+                warns.append(
+                    {
+                        "segment_id": seg.get("segment_id", idx),
+                        "issue": "end_mismatch",
+                        "at": e,
+                        "expected": utils.sm(ex, sample),
+                        "found": utils.sm(tail, sample),
+                    }
+                )
         else:
-            warns.append({
-                "segment_id": seg.get("segment_id", idx),
-                "issue": "invalid_span",
-                "span": (s, e),
-            })
+            warns.append(
+                {
+                    "segment_id": seg.get("segment_id", idx),
+                    "issue": "invalid_span",
+                    "span": (s, e),
+                }
+            )
     return warns
 
 
-def segments_auditor(parsed_output: Dict[str, Any], story_text: str, index_meta: Dict[str, Any]) -> Dict[str, Any]:
+def segments_auditor(
+    parsed_output: Dict[str, Any], story_text: str, index_meta: Dict[str, Any]
+) -> Dict[str, Any]:
     """
     Default validator/auditor for JSONPromptExtractor.
     Uses canonical text (from index_meta) if available.
@@ -424,9 +473,11 @@ def segments_auditor(parsed_output: Dict[str, Any], story_text: str, index_meta:
     warnings = audit_segments_against_anchors(text, segments, sample=120)
 
     # Coverage stats
-    spans = [(int(s["start_char"]), int(s["end_char"]))
-             for s in segments
-             if _valid_span(s.get("start_char"), s.get("end_char"), len(text))]
+    spans = [
+        (int(s["start_char"]), int(s["end_char"]))
+        for s in segments
+        if _valid_span(s.get("start_char"), s.get("end_char"), len(text))
+    ]
     covered = _union_coverage(spans)
     total = len(text)
     coverage_pct = (covered / total * 100.0) if total else 0.0
@@ -434,8 +485,8 @@ def segments_auditor(parsed_output: Dict[str, Any], story_text: str, index_meta:
     return {
         # anchor/offset mismatches, invalid spans
         "warnings": warnings,
-        "missing_components": missing,              # gaps
-        "overlapping_components": overlaps,         # overlaps/containment
+        "missing_components": missing,  # gaps
+        "overlapping_components": overlaps,  # overlaps/containment
         "coverage": {
             "covered_chars": covered,
             "total_chars": total,
@@ -449,5 +500,3 @@ def segments_auditor(parsed_output: Dict[str, Any], story_text: str, index_meta:
             "overlaps": len(overlaps),
         },
     }
-
-

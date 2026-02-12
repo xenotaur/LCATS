@@ -123,7 +123,6 @@ def make_annotated_segment_extractor(
             "body_length_tokens": token_count,
             "body_length_paragraphs": paragraph_count,
             "top_keywords": top_keywords,
-
             "models": {
                 "segment_model": segment_model,
                 "semantic_model": semantic_model,
@@ -139,11 +138,11 @@ def make_annotated_segment_extractor(
 
         try:
             # 1) Story-level segmentation (with alignment + optional validation).
-            seg_extraction = seg_extractor.extract(
-                body, model_name=segment_model)
+            seg_extraction = seg_extractor.extract(body, model_name=segment_model)
             segments = seg_extraction.get("extracted_output") or []
             result["segmentation"]["parsing_error"] = seg_extraction.get(
-                "parsing_error")
+                "parsing_error"
+            )
             result["segmentation"]["extraction_error"] = seg_extraction.get(
                 "extraction_error"
             )

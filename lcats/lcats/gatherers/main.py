@@ -51,5 +51,5 @@ def run(gatherers=None, dry_run=False):
     return "Gathering complete.", 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

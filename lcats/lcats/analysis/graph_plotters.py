@@ -12,7 +12,7 @@ def plot_author_stories_vs_tokens(
     log_tokens: bool = True,
     annotate_top: int = 10,
     figsize: tuple = (8, 6),
-    save_path: str | None = None
+    save_path: str | None = None,
 ):
     """
     Scatter: number of stories per author (x) vs tokens per author (y).
@@ -82,7 +82,7 @@ def plot_tokens_per_story_by_author(
     log_tokens=True,
     figsize=(10, 6),
     rotate_labels=45,
-    bottom_pad=0.35
+    bottom_pad=0.35,
 ):
     """Boxplot: tokens per story, grouped by author."""
     df = tokens_per_story_by_author_frame(story_stats)
@@ -119,7 +119,9 @@ def plot_tokens_per_story_by_author(
     ax.grid(True, axis="y", linestyle="--", linewidth=0.5, alpha=0.6)
 
     ha = "right" if rotate_labels and (rotate_labels % 180) != 0 else "center"
-    plt.setp(ax.get_xticklabels(), rotation=rotate_labels, ha=ha, rotation_mode="anchor")
+    plt.setp(
+        ax.get_xticklabels(), rotation=rotate_labels, ha=ha, rotation_mode="anchor"
+    )
 
     fig.tight_layout()
     fig.subplots_adjust(bottom=bottom_pad)
@@ -131,7 +133,7 @@ def plot_author_stories_vs_tokens_sns(
     *,
     log_tokens: bool = True,
     annotate_top: int = 10,
-    figsize: tuple = (8, 6)
+    figsize: tuple = (8, 6),
 ):
     """Scatter: number of stories per author (x) vs tokens per author (y) using seaborn."""
     df = author_stats.sort_values("body_tokens", ascending=False).copy()
@@ -161,6 +163,7 @@ def plot_author_stories_vs_tokens_sns(
     fig.tight_layout()
     return fig, ax
 
+
 def plot_tokens_per_story_by_author_sns(
     story_stats,
     *,
@@ -169,7 +172,7 @@ def plot_tokens_per_story_by_author_sns(
     log_tokens=True,
     figsize=(10, 6),
     rotate_labels=45,
-    bottom_pad=0.35
+    bottom_pad=0.35,
 ):
     """Violinplot: tokens per story, grouped by author, using seaborn."""
     df = tokens_per_story_by_author_frame(story_stats)
@@ -185,8 +188,25 @@ def plot_tokens_per_story_by_author_sns(
     label_order = [label_map[a] for a in order]
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.violinplot(data=df, x="author_label", y="body_tokens", order=label_order, inner=None, cut=0, ax=ax)
-    sns.stripplot(data=df, x="author_label", y="body_tokens", order=label_order, ax=ax, alpha=0.5, size=3, jitter=0.2)
+    sns.violinplot(
+        data=df,
+        x="author_label",
+        y="body_tokens",
+        order=label_order,
+        inner=None,
+        cut=0,
+        ax=ax,
+    )
+    sns.stripplot(
+        data=df,
+        x="author_label",
+        y="body_tokens",
+        order=label_order,
+        ax=ax,
+        alpha=0.5,
+        size=3,
+        jitter=0.2,
+    )
 
     if log_tokens:
         ax.set_yscale("log")
@@ -197,7 +217,9 @@ def plot_tokens_per_story_by_author_sns(
     ax.grid(True, axis="y", linestyle="--", linewidth=0.5, alpha=0.6)
 
     ha = "right" if rotate_labels and (rotate_labels % 180) != 0 else "center"
-    plt.setp(ax.get_xticklabels(), rotation=rotate_labels, ha=ha, rotation_mode="anchor")
+    plt.setp(
+        ax.get_xticklabels(), rotation=rotate_labels, ha=ha, rotation_mode="anchor"
+    )
 
     fig.tight_layout()
     fig.subplots_adjust(bottom=bottom_pad)
@@ -208,14 +230,14 @@ def plot_tokens_per_story_vs_stories(
     author_stats,
     *,
     log_y=True,
-    annotate_top=12,      # how many authors to label
+    annotate_top=12,  # how many authors to label
     min_stories=1,
-    jitter=0.0,           # small x jitter to de-overlap points with identical story counts
+    jitter=0.0,  # small x jitter to de-overlap points with identical story counts
     figsize=(9, 6),
-    spread_step=6,        # vertical step (in points) between adjacent labels
-    max_spread=None,      # max vertical steps from point (None = no limit)
-    x_spread=6,           # horizontal spread (in points) for labels
-    arrow=True            # draw faint leader line from label to point
+    spread_step=6,  # vertical step (in points) between adjacent labels
+    max_spread=None,  # max vertical steps from point (None = no limit)
+    x_spread=6,  # horizontal spread (in points) for labels
+    arrow=True,  # draw faint leader line from label to point
 ):
     """
     Scatter of average tokens per story (y) vs stories per author (x),
@@ -232,7 +254,9 @@ def plot_tokens_per_story_vs_stories(
         df = df[df["avg_tokens_per_story"] > 0].copy()
 
     # Order by stories desc (annotation priority), then avg tokens
-    df = df.sort_values(["stories", "avg_tokens_per_story"], ascending=[False, False]).reset_index(drop=True)
+    df = df.sort_values(
+        ["stories", "avg_tokens_per_story"], ascending=[False, False]
+    ).reset_index(drop=True)
 
     x = df["stories"].to_numpy()
     y = df["avg_tokens_per_story"].to_numpy()
@@ -258,7 +282,7 @@ def plot_tokens_per_story_vs_stories(
         offsets_y = []
         offsets_x = []
         for i in range(len(top)):
-            k = ((i // 2) + 1)
+            k = (i // 2) + 1
             sign = +1 if i % 2 == 0 else -1
             spread = k * spread_step
             if max_spread:
@@ -292,5 +316,3 @@ def plot_tokens_per_story_vs_stories(
 
     fig.tight_layout()
     return fig, ax
-
-

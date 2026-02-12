@@ -11,20 +11,21 @@ def pprint(text, width=80, header=True):
     """Pretty-print text with a given line width."""
     if header:
         print()
-    paragraphs = text.split('\n\n')
+    paragraphs = text.split("\n\n")
     for paragraph in paragraphs:
         print(textwrap.fill(paragraph, width=width))
         print()
 
 
-def sm(text, limit=80, spacer='...'):
+def sm(text, limit=80, spacer="..."):
     """Show prefix and suffix of text if it is longer than the limit."""
     if len(text) <= limit:
         return text
     prefix = (limit - len(spacer)) // 2
     if prefix <= 0:
         raise ValueError(
-            f"Text limit {limit} not long enough for prefix/suffix spacer '{spacer}'.")
+            f"Text limit {limit} not long enough for prefix/suffix spacer '{spacer}'."
+        )
     suffix = limit - prefix - len(spacer)
     return text[:prefix] + spacer + text[-suffix:]
 
@@ -35,7 +36,7 @@ def sml(  # pylint: disable=too-many-locals
     spacer: str = "...{count} items omitted...",
     *,
     item_to_str: Callable[[Any], str] = str,
-    indent: str = "  "
+    indent: str = "  ",
 ) -> str:
     """Summarize a list-like sequence for display.
 
@@ -81,7 +82,8 @@ def sml(  # pylint: disable=too-many-locals
     else:
         if limit < 3:
             raise ValueError(
-                "limit must be >= 3 when summarizing lists longer than the limit.")
+                "limit must be >= 3 when summarizing lists longer than the limit."
+            )
         # Choose head & tail so that head + 1(spacer) + tail == limit.
         # head = ceil((limit-1)/2) simplifies to head = limit // 2
         head = limit // 2
@@ -98,7 +100,7 @@ def sml(  # pylint: disable=too-many-locals
         # Tail (comma after each except the very last overall line)
         for j, x in enumerate(seq[-tail:]):
             # last printed item in the whole block
-            last_overall = (j == tail - 1)
+            last_overall = j == tail - 1
             s = f"{indent}{item_to_str(x)}"
             if not last_overall:
                 s += ","
@@ -121,7 +123,7 @@ def extract_fenced_code_blocks(text):
     #   [^\n]*  then zero or more non-newline characters until a newline
     #   (.*?)   lazily captures all content (including newlines) up to...
     #   ```     the closing three backticks
-    pattern = r'```(\w+)?[^\n]*\n(.*?)```'
+    pattern = r"```(\w+)?[^\n]*\n(.*?)```"
     matches = re.findall(pattern, text, flags=re.DOTALL)
     return matches
 
@@ -139,7 +141,8 @@ def extract_json(json_string: str, allow_multiple: bool = False) -> dict:
             raise ValueError("No JSON found in the string.") from exc
         if len(code_blocks) > 1 and not allow_multiple:
             raise ValueError(
-                "Multiple JSON blocks found, but allow_multiple is False.") from exc
+                "Multiple JSON blocks found, but allow_multiple is False."
+            ) from exc
         fmt, content = code_blocks[0]
         if fmt != "json":
             raise ValueError(f"Expected JSON format, but got: {fmt}") from exc
