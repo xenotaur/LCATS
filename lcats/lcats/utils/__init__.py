@@ -6,6 +6,9 @@ import warnings
 # Everything that used to live in utils.py now lives in compat.py.
 from .compat import *  # noqa: F401,F403  (intentionally re-export full legacy surface)
 
+# Explicitly expose submodules on the package so `from lcats.utils import names` works.
+from . import names  # now accessible as lcats.utils.names
+
 # Optionally, nudge users toward the new submodules (one-time warning per process)
 warnings.warn(
     "lcats.utils is now a package. Legacy utilities are still available via "
@@ -15,8 +18,6 @@ warnings.warn(
     stacklevel=2,
 )
 
-# Explicitly expose submodules on the package so `from lcats.utils import names` works.
-from . import names  # now accessible as lcats.utils.names
 
 # Keep a tidy __all__: legacy names + submodule handles you want importable
 try:

@@ -64,7 +64,7 @@ def find_paragraphs_menwithoutwomen(soup, start_heading_text):
         if current_element.name == "div":
             if current_element.get(
                 "class"
-            ) != None and "blockquote" in current_element.get("class"):
+            ) is not None and "blockquote" in current_element.get("class"):
                 paragraphs.append(current_element.get_text(strip=False))
             else:
                 break

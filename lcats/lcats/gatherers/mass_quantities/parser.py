@@ -1,22 +1,18 @@
 """Gatherer for single stories from gutenberg"""
 
-# Notes from KMM and Anthony's attempts to address them.
-# - Had to be called gutenberg1.py because of a name clash - is this fixed now?
-# - Set up is not as clean as the others - workign on it.
 # - Should change the line to paragraph for accuracy - TODO?
 
 import json
 import os
 import difflib
 import re
+import csv
+
 
 from lcats import constants
-
 from lcats.utils import names
-
 from lcats.gettenberg import api
 from lcats.gettenberg import headers
-
 from lcats.gatherers.mass_quantities import storymap
 
 
@@ -181,21 +177,9 @@ def subject_ok(subject):
     Returns:
         bool: True if the subject appears to be short fiction, False otherwise.
     """
-    normalized_subject = " ".join(list(subject)).lower().strip().replace(",", "")
-
-    # if normalized_subject in storymap.EXCLUDED_SUBJECTS:
-    #    return False
 
     if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
         return True
-
-    #    for piece in normalized_subject.split(" "):
-    #        if piece in storymap.EXCLUDED_SUBJECTS:
-    #            return False
-
-    #    for piece in list(subject):
-    #        if piece in ["PS", "PR"]:
-    #            return True
 
     return False
 
@@ -695,7 +679,7 @@ def gather_story(gatherer, story):
     # Extract the text and remove stories that have chapters.
     try:
         etext = api.load_etext(story)
-    except:
+    except Exception:
         return story, None, "Failed to retrieve a story, skipping."
 
     stripped_text = headers.strip_headers(etext.strip()).strip()
@@ -759,10 +743,6 @@ def gather_story(gatherer, story):
         json.dump(data_to_save, json_file, indent=4)
 
     return story, file_path, None
-
-
-import csv
-
 
 def test_stories(stories):
     for story in stories:

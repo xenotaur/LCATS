@@ -5,14 +5,13 @@ from lcats.gatherers import downloaders
 import os
 import unittest
 from unittest.mock import patch, Mock
+from lcats import constants
+from lcats import test_utils
 
 # import parameterized
 import requests
 
 
-from lcats import constants
-from lcats import test_utils
-from lcats.gatherers import downloaders
 
 
 class TestDetectUrlEncoding(unittest.TestCase):
