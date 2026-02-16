@@ -126,7 +126,7 @@ class JSONPromptExtractor:
         """
         status = payload.get("status")
         code = (payload.get("code") or "").lower()
-        etype = (payload.get("type") or "").lower()
+        # etype = (payload.get("type") or "").lower()  # not used in this function.
         message = (payload.get("message") or "").lower()
 
         category = "unknown"
