@@ -1,4 +1,4 @@
-""" Code produced by OpenAI ChatGPT 5.0, modified by K. Moorman """
+"""Code produced by OpenAI ChatGPT 5.0, modified by K. Moorman"""
 
 import re
 import unicodedata
@@ -6,12 +6,38 @@ from dataclasses import dataclass
 from typing import List, Optional, Dict
 
 HONORIFICS = {
-    "mr", "mrs", "ms", "miss", "mx", "dr", "prof", "sir", "madam", "dame", "lord", "lady"
+    "mr",
+    "mrs",
+    "ms",
+    "miss",
+    "mx",
+    "dr",
+    "prof",
+    "sir",
+    "madam",
+    "dame",
+    "lord",
+    "lady",
 }
 
 # Common particles that may belong with the surname
 SURNAME_PARTICLES = {
-    "da","de","del","della","der","di","du","la","le","van","von","bin","binti","al","st","st."
+    "da",
+    "de",
+    "del",
+    "della",
+    "der",
+    "di",
+    "du",
+    "la",
+    "le",
+    "van",
+    "von",
+    "bin",
+    "binti",
+    "al",
+    "st",
+    "st.",
 }
 
 # Generational suffixes we standardize; not academic/professional degrees.
@@ -24,6 +50,7 @@ SUFFIXES = {
     "v": "V",
 }
 
+
 @dataclass
 class ParsedName:
     first: str
@@ -31,16 +58,24 @@ class ParsedName:
     last: str
     suffix: Optional[str] = None
 
+
 def _strip_diacritics(s: str) -> str:
-    return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
+    return "".join(
+        c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c)
+    )
+
 
 def _clean_token(tok: str) -> str:
     tok = tok.replace(".", "").replace("’", "'").strip()
-    tok = re.sub(r"[^\w'\- ]+", "", tok)  # keep letters, digits, apostrophe, hyphen, space
+    tok = re.sub(
+        r"[^\w'\- ]+", "", tok
+    )  # keep letters, digits, apostrophe, hyphen, space
     return tok
+
 
 def _normalize_space(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
+
 
 def parse_name(
     raw: str,
@@ -77,7 +112,7 @@ def parse_name(
         cand = _clean_token(m.group(1)).lower()
         if cand in SUFFIXES:
             suffix = SUFFIXES[cand]
-            s = s[:m.start()].strip()
+            s = s[: m.start()].strip()
 
     # Or suffix at end without comma
     if suffix is None:
@@ -86,16 +121,20 @@ def parse_name(
             cand = _clean_token(m2.group(1)).lower()
             if cand in SUFFIXES:
                 suffix = SUFFIXES[cand]
-                s = s[:m2.start()].strip()
+                s = s[: m2.start()].strip()
 
     # Split on comma to detect "Last, First Middle" format
     parts = [p.strip() for p in s.split(",") if p.strip()]
-    tokens: List[str]
+    # tokens: List[str]  # not used
     if len(parts) == 2:
         # Format: Last, First Middlename(s)
         last_part, first_part = parts
-        last_tokens = [_clean_token(t).lower() for t in _normalize_space(last_part).split()]
-        first_tokens = [_clean_token(t).lower() for t in _normalize_space(first_part).split()]
+        last_tokens = [
+            _clean_token(t).lower() for t in _normalize_space(last_part).split()
+        ]
+        first_tokens = [
+            _clean_token(t).lower() for t in _normalize_space(first_part).split()
+        ]
     else:
         # Assume "First Middle Last"
         first_tokens = [_clean_token(t).lower() for t in _normalize_space(s).split()]
@@ -151,6 +190,7 @@ def parse_name(
             if "-" in p:
                 return "_".join(sub.capitalize() for sub in p.split("-"))
             return p.capitalize()
+
         return " ".join(tpart(p) for p in name.split(" "))
 
     first = _tcase(first)
@@ -158,6 +198,7 @@ def parse_name(
     last = _tcase(last)
 
     return ParsedName(first=first, middles=middles, last=last, suffix=suffix)
+
 
 def canonical_key(
     name: str,
@@ -200,7 +241,7 @@ def canonical_key(
     raise ValueError("case must be one of: lower, upper, title")
 
 
-def last_name (canonical_name):
+def last_name(canonical_name):
     split_name = canonical_name.split("_")
     if len(split_name) == 3:
         last = split_name[0] + "_" + split_name[1]
@@ -209,7 +250,8 @@ def last_name (canonical_name):
 
     return last
 
-def first_name (canonical_name):
+
+def first_name(canonical_name):
     split_name = canonical_name.split("_")
     if len(split_name) == 3:
         first = split_name[2]
@@ -220,25 +262,24 @@ def first_name (canonical_name):
 
     return first
 
-    
-def add_authors (file_name,
-                 authors,
-                 ext: str = ".json",
-                 max_len: int = 72):    #  needs to go in constants BASENAME_MAXIMUM_LENGTH):
+
+def add_authors(
+    file_name, authors, ext: str = ".json", max_len: int = 72
+):  #  needs to go in constants BASENAME_MAXIMUM_LENGTH):
     file_name = file_name.split(ext)[0]
     file_name = file_name + "__"
     first = True
-    for author in authors:  
+    for author in authors:
         if first:
             first = False
         else:
             file_name = file_name + "-"
-              
+
         file_name = file_name + canonical_key(author)
 
     file_name = file_name + ext
 
     if len(file_name) > max_len:
         file_name = file_name[:max_len]
-        
+
     return file_name

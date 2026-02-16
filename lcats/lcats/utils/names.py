@@ -4,7 +4,6 @@ import re
 from unidecode import unidecode  # hard requirement
 from typing import Optional, Pattern, Final, Tuple
 from lcats.utils import canonical_author
-from lcats import constants
 
 
 # -------- Constants --------
@@ -54,9 +53,10 @@ def repair_basename(
     s = s.strip("_")
     return s  # may be '' if nothing usable remains
 
+
 def title_and_author_to_filename(
     title: str,
-    authors: str, 
+    authors: str,
     *,
     ext: str = ".json",
     max_len: int = BASENAME_MAXIMUM_LENGTH,
@@ -65,12 +65,19 @@ def title_and_author_to_filename(
     title_filename = (title_to_filename(title, max_len=50)).removesuffix(ext)
     author_filename = ""
 
-    author_filename = canonical_author.last_name(canonical_author.canonical_key (authors[0]))
-    
+    author_filename = canonical_author.last_name(
+        canonical_author.canonical_key(authors[0])
+    )
+
     for author in authors[1:]:
-        author_filename = author_filename + "_" + canonical_author.last_name(canonical_author.canonical_key (author))
+        author_filename = (
+            author_filename
+            + "_"
+            + canonical_author.last_name(canonical_author.canonical_key(author))
+        )
 
     return title_filename + "__" + author_filename + ext
+
 
 def title_to_filename(
     title: str,

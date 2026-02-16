@@ -699,9 +699,10 @@ def gather_story(gatherer, story):
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
-    #file_name = names.title_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
+    # file_name = names.title_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
     file_name = names.title_and_author_to_filename(
-        title, author, ext=constants.FILE_SUFFIX, max_len=50)
+        title, author, ext=constants.FILE_SUFFIX, max_len=50
+    )
 
     # print("DESUB " + str(file_name) + " " + str(subject))
 
@@ -741,6 +742,7 @@ def gather_story(gatherer, story):
         json.dump(data_to_save, json_file, indent=4)
 
     return story, file_path, None
+
 
 def test_stories(stories):
     for story in stories:
@@ -784,7 +786,9 @@ def test_story_get(story):
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
-    file_name = names.title_and_author_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
+    file_name = names.title_and_author_to_filename(
+        title, ext=constants.FILE_SUFFIX, max_len=50
+    )
 
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")
