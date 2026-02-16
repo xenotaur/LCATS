@@ -744,6 +744,7 @@ def gather_story(gatherer, story):
 
     return story, file_path, None
 
+
 def test_stories(stories):
     for story in stories:
         test_story_get(story)

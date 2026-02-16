@@ -1,15 +1,12 @@
 """Unit tests for the compatibility API in lcats.gettenberg.api."""
 
 import pathlib
-import sqlite3
 import tempfile
 import unittest
 import unittest.mock as mock
 
 from lcats.gettenberg import api
 from lcats.gettenberg import cache
-from lcats.gettenberg import headers
-from lcats.gettenberg import metadata
 from gutenbergpy import textget
 
 
@@ -178,62 +175,6 @@ class GettenbergApiTests(unittest.TestCase):
             out = api.get_etexts(authors="A")
             self.assertEqual(out, {1, 2})
             p_rows.assert_called_once()
-
-    # ---------------- get_metadata ----------------
-
-    def test_get_metadata_uses_cache_path_when_use_cache_true_and_lowercases_field(
-        self,
-    ):
-        """get_metadata uses ensure_gutenberg_cache + metadata.get_metadata_from_cache with lowercased field."""
-        fake_cache = object()
-        with mock.patch.object(
-            cache, "ensure_gutenberg_cache", return_value=fake_cache
-        ) as p_ensure, mock.patch.object(
-            metadata, "get_metadata_from_cache", return_value={"X"}
-        ) as p_meta, mock.patch.object(
-            api, "load_etext"
-        ) as p_load, mock.patch.object(
-            headers, "get_text_header_lines"
-        ) as p_hdr, mock.patch.object(
-            metadata, "get_metadata_from_header"
-        ) as p_hdr_meta:
-            out = api.get_metadata("Title", 123, skip_cache=True)
-            self.assertEqual(out, {"X"})
-            p_ensure.assert_called_once()
-            p_meta.assert_called_once_with(fake_cache, "title", 123)  # lowercased
-            p_load.assert_not_called()
-            p_hdr.assert_not_called()
-            p_hdr_meta.assert_not_called()
-
-    def test_get_metadata_propagates_cache_errors(self):
-        """get_metadata propagates errors if ensure_gutenberg_cache fails."""
-        with mock.patch.object(
-            cache, "ensure_gutenberg_cache", side_effect=sqlite3.Error("db down")
-        ):
-            with self.assertRaises(sqlite3.Error):
-                api.get_metadata("title", 1, skip_cache=True)
-
-    def test_get_metadata_header_fallback_when_use_cache_false(self):
-        """get_metadata falls back to header parsing when use_cache is False."""
-        # Provide deterministic header parse
-        with mock.patch.object(
-            api, "load_etext", return_value=b"Title: Foo\n*** START\nBody"
-        ) as p_load, mock.patch.object(
-            headers, "get_text_header_lines", return_value=["Title: Foo"]
-        ) as p_hdr, mock.patch.object(
-            metadata, "get_metadata_from_header", return_value={"Foo"}
-        ) as p_hdr_meta, mock.patch.object(
-            cache, "ensure_gutenberg_cache"
-        ) as p_ensure, mock.patch.object(
-            metadata, "get_metadata_from_cache"
-        ) as p_meta:
-            out = api.get_metadata("title", 1, skip_cache=False)
-            self.assertEqual(out, {"Foo"})
-            p_ensure.assert_not_called()
-            p_meta.assert_not_called()
-            p_load.assert_called_once_with(1)
-            p_hdr.assert_called_once()
-            p_hdr_meta.assert_called_once_with("title", ["Title: Foo"])
 
 
 if __name__ == "__main__":

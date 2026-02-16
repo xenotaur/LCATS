@@ -12,8 +12,6 @@ from lcats import test_utils
 import requests
 
 
-
-
 class TestDetectUrlEncoding(unittest.TestCase):
     """Unit tests for the detect_url_encoding function."""
 
