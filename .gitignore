@@ -15,6 +15,9 @@ env/
 *.log
 *.tmp
 
+# Ignore output files used for debugging
+*.out
+
 # Ignore database files
 *.db
 *.sqlite
@@ -29,6 +32,20 @@ lcats/data
 lcats/lcats/data
 lcats/notebooks/data
 lcats/lcats/notebooks/data
+
+# Ignore local copies of cache files.
+cache/
+lcats/cache
+lcats/lcats/cache
+lcats/notebooks/cache
+lcats/lcats/notebooks/cache
+
+# Ignore local workspace files
+workspace/
+lcats/workspace
+lcats/notebooks/workspace
+lcats/lcats/notebooks/workspace
+
 
 # Ignore local output files.
 output/

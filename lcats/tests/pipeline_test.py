@@ -1,7 +1,7 @@
 """Unit tests for the lcats.pipeline module."""
 
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from lcats import pipeline
 
@@ -11,6 +11,7 @@ class TestPipeline(unittest.TestCase):
 
     def test_single_stage_success(self):
         """Test a pipeline with one successful stage."""
+
         def add_exclamation(text):
             return text + "!"
 
@@ -19,7 +20,7 @@ class TestPipeline(unittest.TestCase):
                 name="AddExclamation",
                 processor=add_exclamation,
                 inputs=["text"],
-                outputs=["result"]
+                outputs=["result"],
             )
         ]
         pipe = pipeline.Pipeline(stages, log=None)
@@ -30,7 +31,10 @@ class TestPipeline(unittest.TestCase):
 
     def test_missing_input(self):
         """Test that missing input is caught early."""
-        def dummy(x): return x
+
+        def dummy(x):
+            return x
+
         stages = [pipeline.Stage("Dummy", dummy, ["missing"], ["out"])]
         pipe = pipeline.Pipeline(stages, log=None)
         result = pipe()
@@ -40,6 +44,7 @@ class TestPipeline(unittest.TestCase):
 
     def test_multiple_outputs(self):
         """Test that multiple outputs are mapped correctly."""
+
         def split_text(text):
             return text.split()
 
@@ -48,7 +53,7 @@ class TestPipeline(unittest.TestCase):
                 name="Splitter",
                 processor=split_text,
                 inputs=["text"],
-                outputs=["first", "second"]
+                outputs=["first", "second"],
             )
         ]
         pipe = pipeline.Pipeline(stages, log=None)
@@ -60,6 +65,7 @@ class TestPipeline(unittest.TestCase):
 
     def test_unexpected_output_shape(self):
         """Test error raised if output count doesn't match stage outputs."""
+
         def broken_processor(text):
             return ["too", "many", "values"]
 
@@ -68,7 +74,7 @@ class TestPipeline(unittest.TestCase):
                 name="TooManyOutputs",
                 processor=broken_processor,
                 inputs=["text"],
-                outputs=["a", "b"]
+                outputs=["a", "b"],
             )
         ]
         pipe = pipeline.Pipeline(stages, log=None)
@@ -93,7 +99,7 @@ class TestPipeline(unittest.TestCase):
                 processor=flaky_processor,
                 inputs=["x"],
                 outputs=["y"],
-                retries=2
+                retries=2,
             )
         ]
         pipe = pipeline.Pipeline(stages, log=None)
@@ -106,7 +112,10 @@ class TestPipeline(unittest.TestCase):
     @patch("builtins.print")
     def test_logging(self, mock_print):
         """Test that logging function is called."""
-        def echo(x): return x
+
+        def echo(x):
+            return x
+
         stage = pipeline.Stage("Echo", echo, ["x"], ["y"])
         pipe = pipeline.Pipeline([stage], log=print)
         pipe(x="hello")

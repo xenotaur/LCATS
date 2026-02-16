@@ -8,6 +8,7 @@ from typing import Any, Callable, Optional
 @dataclass
 class Stage:
     """A stage in the pipeline."""
+
     name: str
     processor: Callable[..., Any]
     inputs: list[str]
@@ -19,6 +20,7 @@ class Stage:
 @dataclass
 class RunResult:
     """Result of running the pipeline."""
+
     success: bool
     values: dict[str, Any]
     failures: list[tuple[str, str]]  # List of (stage_name, error_message)
@@ -27,6 +29,7 @@ class RunResult:
 @dataclass
 class RunContext:
     """Optional context object for more advanced usage."""
+
     values: dict[str, Any]
     log: list[str] = field(default_factory=list)
     cache: dict[str, Any] = field(default_factory=dict)
@@ -35,7 +38,9 @@ class RunContext:
 class Pipeline:
     """A simple pipeline class to manage stages of processing."""
 
-    def __init__(self, stages: list[Stage], log: Optional[Callable[[str], None]] = print):
+    def __init__(
+        self, stages: list[Stage], log: Optional[Callable[[str], None]] = print
+    ):
         self.stages = stages
         self.log = log
 
@@ -61,12 +66,15 @@ class Pipeline:
                 # Map outputs
                 if isinstance(stage.outputs, list) and len(stage.outputs) == 1:
                     state[stage.outputs[0]] = result
-                elif isinstance(result, (list, tuple)) and len(result) == len(stage.outputs):
+                elif isinstance(result, (list, tuple)) and len(result) == len(
+                    stage.outputs
+                ):
                     for name, val in zip(stage.outputs, result):
                         state[name] = val
                 else:
                     raise ValueError(
-                        f"Stage {stage.name} returned unexpected output format: {result}")
+                        f"Stage {stage.name} returned unexpected output format: {result}"
+                    )
 
             except Exception as e:
                 failures.append((stage.name, str(e)))
@@ -83,6 +91,7 @@ class Pipeline:
                 last_exception = e
                 if self.log:
                     self.log(
-                        f"Retry {attempt+1}/{stage.retries} failed for stage {stage.name}: {e}")
+                        f"Retry {attempt+1}/{stage.retries} failed for stage {stage.name}: {e}"
+                    )
                 time.sleep(0.5)
         raise last_exception
