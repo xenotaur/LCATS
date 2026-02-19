@@ -18,6 +18,7 @@ dependencies = [
    "chardet",
    "beautifulsoup4",
    "tiktoken",
+   "pandas",
    "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
 ]
 classifiers = [

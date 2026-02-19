@@ -1,5 +1,6 @@
 """Caching layer for the Gutenberg corpus using gutenbergpy."""
 
+import os
 import pathlib
 import sqlite3
 import time
@@ -16,8 +17,18 @@ from gutenbergpy import gutenbergcache as gc
 GUTENBERG_CACHE_AUTO_CREATE = True
 GUTENBERG_CACHE_SKIP_MODE = False  # Whether to skip using the cache entirely.
 
+# Allow CI (or users) to override cache location, defaulting to "cache" in the current directory.
+# This is a directory, not a file; the actual cache DB is inside it.
+_GUTENBERG_ROOT_STR = os.environ.get("LCATS_CACHE_DIR", "cache")
+GUTENBERG_ROOT = pathlib.Path(_GUTENBERG_ROOT_STR)
 
-GUTENBERG_ROOT = pathlib.Path("cache")
+# Defensive: if a file exists where the directory should be, fail clearly
+if GUTENBERG_ROOT.exists() and not GUTENBERG_ROOT.is_dir():
+    raise RuntimeError(
+        f"Gutenberg cache root '{GUTENBERG_ROOT}' exists but is not a directory. "
+        "Set LCATS_CACHE_DIR to a valid directory path."
+    )
+
 GUTENBERG_TEXTS = GUTENBERG_ROOT / "texts"
 GUTENBERG_TEXTS.mkdir(parents=True, exist_ok=True)  # makes root too.
 GUTENBERG_TMP = GUTENBERG_ROOT / "tmp"
