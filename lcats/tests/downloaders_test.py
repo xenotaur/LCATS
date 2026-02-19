@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch, Mock
 from lcats import constants
 from lcats import test_utils
+from lcats.utils import env
 
 # import parameterized
 import requests
@@ -250,7 +251,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
                 downloaders.LambdaResourceCache,
                 "LambdaResourceCache instance was not created correctly.",
             )
-            self.assertEqual(cache.root, constants.CACHE_ROOT)
+            self.assertEqual(cache.root, env.cache_resources_dir())
         except Exception as e:
             self.fail(f"Instantiation of LambdaResourceCache failed: {e}")
 
@@ -276,7 +277,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         )
         self.assertEqual(
             cache.full_path("foo.bar"),
-            os.path.join(constants.CACHE_ROOT, "foo.bar"),
+            os.path.join(env.cache_resources_dir(), "foo.bar"),
             "Full path failed.",
         )
 
@@ -384,7 +385,7 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
                 downloaders.UrlResourceCache,
                 "UrlResourceCache instance was not created correctly.",
             )
-            self.assertEqual(cache.root, constants.CACHE_ROOT)
+            self.assertEqual(cache.root, env.cache_resources_dir())
         except Exception as e:
             self.fail(f"Instantiation of UrlResourceCache failed: {e}")
 

@@ -11,7 +11,8 @@ from urllib.parse import urlparse, unquote
 import chardet
 import requests
 
-import lcats.constants as constants
+from lcats import constants
+from lcats.utils import env
 
 
 def detect_url_encoding(url, timeout=10):
@@ -111,7 +112,9 @@ def filename_from_url(url):
 class ResourceCache(abc.ABC):
     """Utility class to cache resources in a directory."""
 
-    def __init__(self, root=constants.CACHE_ROOT, encoding=constants.TEXT_ENCODING):
+    def __init__(
+        self, root=env.cache_resources_dir(), encoding=constants.TEXT_ENCODING
+    ):
         """Initialize the downloader with a root directory.
 
         Args:
@@ -229,8 +232,8 @@ class DataGatherer:
         self,
         name,
         description=None,
-        root=constants.DATA_ROOT,
-        cache=constants.CACHE_ROOT,
+        root=env.data_root(),
+        cache=env.cache_resources_dir(),
         suffix=".json",
         license=None,
     ):

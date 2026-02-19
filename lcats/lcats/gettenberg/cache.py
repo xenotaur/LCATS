@@ -1,6 +1,5 @@
 """Caching layer for the Gutenberg corpus using gutenbergpy."""
 
-import os
 import pathlib
 import sqlite3
 import time
@@ -10,7 +9,7 @@ from urllib.request import Request, urlopen
 from typing import Optional
 
 from gutenbergpy import gutenbergcache as gc
-
+from lcats.utils import env
 
 # ------------ cache helpers ------------
 # Whether to auto-create the cache if missing.
@@ -19,8 +18,7 @@ GUTENBERG_CACHE_SKIP_MODE = False  # Whether to skip using the cache entirely.
 
 # Allow CI (or users) to override cache location, defaulting to "cache" in the current directory.
 # This is a directory, not a file; the actual cache DB is inside it.
-_GUTENBERG_ROOT_STR = os.environ.get("LCATS_CACHE_DIR", "cache")
-GUTENBERG_ROOT = pathlib.Path(_GUTENBERG_ROOT_STR)
+GUTENBERG_ROOT = env.cache_root()
 
 # Defensive: if a file exists where the directory should be, fail clearly
 if GUTENBERG_ROOT.exists() and not GUTENBERG_ROOT.is_dir():
