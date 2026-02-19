@@ -5,7 +5,7 @@ from lcats.utils import canonical_author
 
 class TestParseName(unittest.TestCase):
     """Tests for the parse_name function in the canonical_author module."""
-    
+
     def test_parse_name_raises_on_empty_input(self):
         """Test that parse_name raises a ValueError on empty string or with only whitespace."""
         for raw in ["", "   "]:
