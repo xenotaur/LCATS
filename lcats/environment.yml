@@ -238,6 +238,7 @@ dependencies:
       - charset-normalizer==3.3.2
       - click==8.3.1
       - construct==2.5.3
+      - coverage==7.13.4
       - datasets==2.21.0
       - defusedxml==0.7.1
       - deprecated==1.2.14
