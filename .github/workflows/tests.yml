@@ -14,7 +14,7 @@ jobs:
       run:
         working-directory: lcats
     env:
-      LCATS_CACHE_DIR: ${{ runner.temp }}/lcats-gutenberg-cache
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-gutenberg-cache
 
     steps:
       - uses: actions/checkout@v4
