@@ -407,7 +407,7 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.UrlResourceCache()
         self.assertEqual(
             cache.full_path("foo.bar"),
-            os.path.join(constants.CACHE_ROOT, "foo.bar"),
+            os.path.join(env.cache_resources_dir(), "foo.bar"),
             "Full path failed.",
         )
 
