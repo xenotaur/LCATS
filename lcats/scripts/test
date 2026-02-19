@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
 # Test LCATS via Python's unittest module
 echo "Testing lcats ..."
 set -x
