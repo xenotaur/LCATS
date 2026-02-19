@@ -1,0 +1,76 @@
+name: Cache maintenance (Gutenberg)
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "What to do"
+        required: true
+        type: choice
+        options:
+          - delete
+          - rebuild
+          - delete_and_rebuild
+      key_prefix:
+        description: "Cache key prefix to delete (e.g., ubuntu-latest-gutenberg-)"
+        required: true
+        default: "Linux-gutenberg-"
+        type: string
+
+jobs:
+  cache_maintenance:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lcats
+    env:
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-gutenberg-cache
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Authenticate gh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth status
+
+      - name: Delete caches by key prefix
+        if: ${{ github.event.inputs.action == 'delete' || github.event.inputs.action == 'delete_and_rebuild' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          KEY_PREFIX: ${{ github.event.inputs.key_prefix }}
+        run: |
+          # List and delete caches whose keys start with KEY_PREFIX
+          # (gh cache list supports filtering; if your gh version doesn't, you can grep)
+          gh cache list --limit 200 | awk '{print $1}' | grep "^${KEY_PREFIX}" | while read -r key; do
+            echo "Deleting cache key: $key"
+            gh cache delete "$key" --confirm
+          done
+
+      - name: Set up Python
+        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: |
+            lcats/pyproject.toml
+
+      - name: Install deps
+        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[test]"
+
+      - name: Rebuild cache by running a targeted test
+        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
+        run: |
+          # Choose a minimal test that forces cache creation without running everything.
+          python -m unittest tests/gettenberg_tests/cache_test.py -v || true
+          # If you want rebuild to fail the job when rebuild fails, remove "|| true".
