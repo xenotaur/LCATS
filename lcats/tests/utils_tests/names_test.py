@@ -140,9 +140,7 @@ class TestNormalizeBasename(unittest.TestCase):
 
 class TestTitleAndAuthorToFilename(unittest.TestCase):
     def test_single_author(self):
-        result = names.title_and_author_to_filename(
-            "Hello World", ["Ada Lovelace"]
-        )
+        result = names.title_and_author_to_filename("Hello World", ["Ada Lovelace"])
         self.assertEqual(result, "hello_world__lovelace.json")
 
     def test_multiple_authors(self):
