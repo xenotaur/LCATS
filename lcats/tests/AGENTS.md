@@ -23,6 +23,12 @@ Example:
 - Use table-driven tests with `subTest` where appropriate.
 - For serializers/extractors: add an invariant test such as “result can be `json.dumps`’d”.
 
+## Parameterized tests
+- Prefer decorator-style parameterized tests for curated case tables:
+  - `from parameterized import parameterized`
+  - `@parameterized.expand([...])`
+- Prefer `subTest` when iterating ranges / generated cases.
+
 ## What not to do
 - Do not add or expand print/debug output in tests.
 - If existing tests print excessively, do not “fix” them unless asked.

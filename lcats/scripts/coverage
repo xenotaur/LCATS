@@ -8,7 +8,7 @@ set -x
 python -m coverage erase
 
 # Run the same discovery pattern as scripts/test
-python -m coverage run -m unittest discover tests "*_test.py"
+python -m coverage run --source=lcats -m unittest discover -s tests -p "*_test.py"
 
 # Terminal summary (with missing lines)
 python -m coverage report -m
