@@ -1,5 +1,7 @@
 import unittest
 
+from parameterized import parameterized
+
 from lcats.utils import canonical_author
 
 
@@ -131,6 +133,91 @@ class TestAddAuthors(unittest.TestCase):
 
         self.assertEqual(len(out), 20)
         self.assertEqual(out, "paper__lovelace_ada-")
+
+
+class TestParseNameEdgeCases(unittest.TestCase):
+    """Tests for parse_name branches not covered by the base test class."""
+
+    @parameterized.expand(
+        [
+            # Single-token name: no last name (covers line 152 + empty-string tpart, line 186)
+            ("single_token", "Madonna", "Madonna", [], ""),
+            # All tokens before the last are particles: core is empty → first="" (line 163 + 186)
+            ("all_particle_prefix", "van Smith", "", [], "Van Smith"),
+            # Comma form, all first tokens stripped as honorific → first="" (line 174)
+            ("comma_form_no_first", "Smith, Dr.", "", [], "Smith"),
+        ]
+    )
+    def test_parse_name_first_middles_last(
+        self, _name, raw, expected_first, expected_middles, expected_last
+    ):
+        """Parameterized: exercise edge cases for first/middles/last assignment."""
+        parsed = canonical_author.parse_name(raw)
+        self.assertEqual(parsed.first, expected_first)
+        self.assertEqual(parsed.middles, expected_middles)
+        self.assertEqual(parsed.last, expected_last)
+
+    def test_parse_name_comma_form_multi_token_last(self):
+        """Comma form with a multi-word last name is joined correctly (line 172)."""
+        parsed = canonical_author.parse_name("Van der Waals, Johannes")
+        self.assertEqual(parsed.first, "Johannes")
+        self.assertEqual(parsed.last, "Van Der Waals")
+        self.assertEqual(parsed.middles, [])
+
+    @parameterized.expand(
+        [
+            # Apostrophe in last name triggers the "'" branch in tpart (line 189)
+            ("apostrophe_last", "Sean O'Neill", "Sean", "O_Neill"),
+            # Hyphen in first name triggers the "-" branch in tpart (line 191)
+            ("hyphen_first", "Mary-Jane Watson", "Mary_Jane", "Watson"),
+        ]
+    )
+    def test_parse_name_special_char_in_name(
+        self, _name, raw, expected_first, expected_last
+    ):
+        """Parameterized: names with apostrophes or hyphens are title-cased correctly."""
+        parsed = canonical_author.parse_name(raw)
+        self.assertEqual(parsed.first, expected_first)
+        self.assertEqual(parsed.last, expected_last)
+
+
+class TestPrivateHelpers(unittest.TestCase):
+    """Direct unit tests for private helper functions."""
+
+    @parameterized.expand(
+        [
+            ("accented_e", "café", "cafe"),
+            ("spanish_tilde", "Núñez", "Nunez"),
+            ("plain_ascii", "hello", "hello"),
+        ]
+    )
+    def test_strip_diacritics(self, _name, text, expected):
+        """_strip_diacritics removes combining characters from a unicode string."""
+        self.assertEqual(canonical_author._strip_diacritics(text), expected)
+
+    @parameterized.expand(
+        [
+            ("removes_dots", "Dr.", "Dr"),
+            ("removes_trailing_punct", "hello!!", "hello"),
+            ("keeps_hyphen", "mary-jane", "mary-jane"),
+            ("keeps_apostrophe", "o'brien", "o'brien"),
+            ("normalizes_curly_quote", "o\u2019brien", "o'brien"),
+        ]
+    )
+    def test_clean_token(self, _name, token, expected):
+        """_clean_token strips dots, curly quotes, and non-word punctuation."""
+        self.assertEqual(canonical_author._clean_token(token), expected)
+
+    @parameterized.expand(
+        [
+            ("multi_space", "hello   world", "hello world"),
+            ("leading_trailing", "  hello  ", "hello"),
+            ("tab_and_newline", "a\t b\n c", "a b c"),
+        ]
+    )
+    def test_normalize_space(self, _name, text, expected):
+        """_normalize_space collapses runs of whitespace to a single space."""
+        self.assertEqual(canonical_author._normalize_space(text), expected)
 
 
 if __name__ == "__main__":
