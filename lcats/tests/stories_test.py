@@ -31,7 +31,11 @@ class TestStoryFromDict(unittest.TestCase):
 
     def test_full_dict(self):
         """from_dict populates all fields."""
-        data = {"name": "MyStory", "body": "Once upon a time.", "metadata": {"year": 1900}}
+        data = {
+            "name": "MyStory",
+            "body": "Once upon a time.",
+            "metadata": {"year": 1900},
+        }
         story = stories.Story.from_dict(data)
         self.assertEqual(story.name, "MyStory")
         self.assertEqual(story.body, "Once upon a time.")
@@ -60,11 +64,16 @@ class TestStoryFromJsonFile(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def test_load_from_json(self):
         """from_json_file loads a Story from a JSON file."""
-        data = {"name": "JSON Story", "body": "A JSON body.", "metadata": {"author": "Bob"}}
+        data = {
+            "name": "JSON Story",
+            "body": "A JSON body.",
+            "metadata": {"author": "Bob"},
+        }
         path = os.path.join(self.tmp, "story.json")
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f)
@@ -92,13 +101,16 @@ class TestStoryFromYamlFile(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def test_load_from_yaml(self):
         """from_yaml_file loads a Story from a YAML file."""
         path = os.path.join(self.tmp, "story.yaml")
         with open(path, "w", encoding="utf-8") as f:
-            f.write("name: YAML Story\nbody: A YAML body.\nmetadata:\n  author: Carol\n")
+            f.write(
+                "name: YAML Story\nbody: A YAML body.\nmetadata:\n  author: Carol\n"
+            )
         story = stories.Story.from_yaml_file(path)
         self.assertEqual(story.name, "YAML Story")
         self.assertEqual(story.body, "A YAML body.")
@@ -130,6 +142,7 @@ class TestStoryToJsonFile(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def test_write_and_reload(self):
@@ -163,6 +176,7 @@ class TestStoryToYamlFile(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def test_write_and_reload(self):
@@ -221,6 +235,7 @@ class TestCorpora(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def _make_corpus_dir(self, corpus_name, story_dicts):
@@ -258,10 +273,13 @@ class TestCorpora(unittest.TestCase):
     def test_get_corpora_multiple_corpora(self):
         """get_corpora handles multiple subdirectories."""
         self._make_corpus_dir("scifi", [{"name": "S2", "body": "B2", "metadata": {}}])
-        self._make_corpus_dir("horror", [
-            {"name": "S3", "body": "B3", "metadata": {}},
-            {"name": "S4", "body": "B4", "metadata": {}},
-        ])
+        self._make_corpus_dir(
+            "horror",
+            [
+                {"name": "S3", "body": "B3", "metadata": {}},
+                {"name": "S4", "body": "B4", "metadata": {}},
+            ],
+        )
         corpora = stories.Corpora(self.tmp)
         result = corpora.get_corpora()
         self.assertIn("scifi", result)
@@ -304,13 +322,19 @@ class TestCorpora(unittest.TestCase):
 
     def test_get_stories_returns_flat_list(self):
         """get_stories returns a flat list of all Story objects."""
-        self._make_corpus_dir("corpA", [
-            {"name": "A1", "body": "BA1", "metadata": {}},
-            {"name": "A2", "body": "BA2", "metadata": {}},
-        ])
-        self._make_corpus_dir("corpB", [
-            {"name": "B1", "body": "BB1", "metadata": {}},
-        ])
+        self._make_corpus_dir(
+            "corpA",
+            [
+                {"name": "A1", "body": "BA1", "metadata": {}},
+                {"name": "A2", "body": "BA2", "metadata": {}},
+            ],
+        )
+        self._make_corpus_dir(
+            "corpB",
+            [
+                {"name": "B1", "body": "BB1", "metadata": {}},
+            ],
+        )
         corpora = stories.Corpora(self.tmp)
         result = corpora.get_stories()
         self.assertEqual(len(result), 3)
