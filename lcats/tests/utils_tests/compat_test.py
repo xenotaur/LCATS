@@ -351,5 +351,133 @@ class TestMakeSerializable(unittest.TestCase):
         self.assertIs(result["nested"]["k"], original["nested"]["k"])
 
 
+class TestExtractJson(unittest.TestCase):
+    """Unit tests for utils.extract_json."""
+
+    def test_valid_json_string_parsed_directly(self):
+        """A valid JSON string is parsed without inspecting code fences."""
+        result = utils.extract_json('{"key": "value", "n": 42}')
+        self.assertEqual(result, {"key": "value", "n": 42})
+
+    def test_json_in_fenced_code_block(self):
+        """JSON wrapped in a ```json fence is extracted and parsed."""
+        text = 'Some preamble\n```json\n{"a": 1}\n```\nTrailing text'
+        result = utils.extract_json(text)
+        self.assertEqual(result, {"a": 1})
+
+    def test_no_json_raises_value_error(self):
+        """Plain text with no JSON and no fences raises ValueError."""
+        with self.assertRaises(ValueError):
+            utils.extract_json("just some plain text, no JSON here")
+
+    def test_multiple_blocks_allow_multiple_false_raises(self):
+        """Multiple fenced blocks with allow_multiple=False raises ValueError."""
+        text = "```json\n{}\n```\n```json\n{}\n```"
+        with self.assertRaises(ValueError):
+            utils.extract_json(text, allow_multiple=False)
+
+    def test_multiple_blocks_allow_multiple_true_returns_first(self):
+        """Multiple fenced blocks with allow_multiple=True returns the first block."""
+        text = '```json\n{"first": 1}\n```\n```json\n{"second": 2}\n```'
+        result = utils.extract_json(text, allow_multiple=True)
+        self.assertEqual(result, {"first": 1})
+
+    def test_wrong_language_in_fence_raises_value_error(self):
+        """A fenced block with a non-json language label raises ValueError."""
+        text = "```python\nprint('hello')\n```"
+        with self.assertRaises(ValueError):
+            utils.extract_json(text)
+
+    def test_single_block_no_language_raises_value_error(self):
+        """A fenced block with no language label raises ValueError."""
+        text = "```\n{}\n```"
+        with self.assertRaises(ValueError):
+            utils.extract_json(text)
+
+
+class TestMakeSerializableExtraction(unittest.TestCase):
+    """Unit tests for utils.make_serializable_extraction."""
+
+    def test_drops_response_key_without_mutating_original(self):
+        """Drops 'response' and returns a new dict; original is unchanged."""
+        original = {"response": object(), "parsed": {"x": 1}, "status": "ok"}
+        result = utils.make_serializable_extraction(original)
+
+        self.assertNotIn("response", result)
+        self.assertIn("parsed", result)
+        self.assertIn("response", original)
+        self.assertIsNot(result, original)
+
+    def test_no_response_key_is_a_noop(self):
+        """When 'response' is absent the result equals the input (minus nothing)."""
+        original = {"a": 1, "b": 2}
+        result = utils.make_serializable_extraction(original)
+
+        self.assertEqual(result, original)
+        self.assertIsNot(result, original)
+
+    def test_dict_usage_left_unchanged(self):
+        """When 'usage' is already a dict it is not coerced."""
+        original = {"usage": {"prompt_tokens": 5, "completion_tokens": 3, "total_tokens": 8}}
+        result = utils.make_serializable_extraction(original)
+
+        self.assertEqual(result["usage"], original["usage"])
+
+    def test_usage_object_with_token_attrs_is_coerced_to_dict(self):
+        """A usage object with token attributes is converted to a plain dict."""
+
+        class FakeUsage:
+            prompt_tokens = 10
+            completion_tokens = 20
+            total_tokens = 30
+
+        original = {"usage": FakeUsage()}
+        result = utils.make_serializable_extraction(original)
+
+        self.assertIsInstance(result["usage"], dict)
+        self.assertEqual(result["usage"]["prompt_tokens"], 10)
+        self.assertEqual(result["usage"]["completion_tokens"], 20)
+        self.assertEqual(result["usage"]["total_tokens"], 30)
+
+    def test_usage_object_without_token_attrs_falls_back_to_str(self):
+        """A usage object with no recognised attrs is coerced to a string."""
+
+        class OpaqueUsage:
+            def __str__(self):
+                return "opaque-usage-repr"
+
+        original = {"usage": OpaqueUsage()}
+        result = utils.make_serializable_extraction(original)
+
+        self.assertIsInstance(result["usage"], str)
+        self.assertEqual(result["usage"], "opaque-usage-repr")
+
+    def test_no_usage_key_passes_through(self):
+        """When 'usage' is absent the result is unchanged (no KeyError)."""
+        original = {"parsed": [1, 2, 3]}
+        result = utils.make_serializable_extraction(original)
+        self.assertEqual(result["parsed"], [1, 2, 3])
+        self.assertNotIn("usage", result)
+
+    def test_result_is_json_serializable(self):
+        """The returned dict can be passed to json.dumps without error."""
+        import json
+
+        class FakeUsage:
+            prompt_tokens = 1
+            completion_tokens = 2
+            total_tokens = 3
+
+        original = {
+            "response": object(),
+            "usage": FakeUsage(),
+            "data": {"nested": True},
+        }
+        result = utils.make_serializable_extraction(original)
+        # Should not raise
+        serialized = json.dumps(result)
+        self.assertIsInstance(serialized, str)
+
+
 if __name__ == "__main__":
     unittest.main()
