@@ -74,6 +74,7 @@ class TestInspectValidFile(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def _write_json(self, filename, data):
@@ -84,13 +85,17 @@ class TestInspectValidFile(unittest.TestCase):
 
     def test_valid_json_returns_code_0(self):
         """inspect() with a valid JSON file returns exit code 0."""
-        path = self._write_json("story.json", {"name": "Test", "body": "Once.", "author": []})
+        path = self._write_json(
+            "story.json", {"name": "Test", "body": "Once.", "author": []}
+        )
         _message, code = inspect_module.inspect(path)
         self.assertEqual(code, 0)
 
     def test_valid_json_message_includes_inspected_count(self):
         """inspect() message reports how many files were inspected."""
-        path = self._write_json("story.json", {"name": "Test", "body": "Once.", "author": []})
+        path = self._write_json(
+            "story.json", {"name": "Test", "body": "Once.", "author": []}
+        )
         message, _code = inspect_module.inspect(path)
         self.assertIn("1", message)
 
@@ -305,6 +310,7 @@ class TestPrettyPrintStory(unittest.TestCase):
 
     def tearDown(self):
         import shutil
+
         shutil.rmtree(self.tmp)
 
     def _write_json(self, filename, data):
