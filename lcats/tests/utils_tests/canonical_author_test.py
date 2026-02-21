@@ -172,7 +172,9 @@ class TestParseNameEdgeCases(unittest.TestCase):
             ("hyphen_first", "Mary-Jane Watson", "Mary_Jane", "Watson"),
         ]
     )
-    def test_parse_name_special_char_in_name(self, _name, raw, expected_first, expected_last):
+    def test_parse_name_special_char_in_name(
+        self, _name, raw, expected_first, expected_last
+    ):
         """Parameterized: names with apostrophes or hyphens are title-cased correctly."""
         parsed = canonical_author.parse_name(raw)
         self.assertEqual(parsed.first, expected_first)
