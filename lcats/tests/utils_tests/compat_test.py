@@ -418,7 +418,9 @@ class TestMakeSerializableExtraction(unittest.TestCase):
 
     def test_dict_usage_left_unchanged(self):
         """When 'usage' is already a dict it is not coerced."""
-        original = {"usage": {"prompt_tokens": 5, "completion_tokens": 3, "total_tokens": 8}}
+        original = {
+            "usage": {"prompt_tokens": 5, "completion_tokens": 3, "total_tokens": 8}
+        }
         result = utils.make_serializable_extraction(original)
 
         self.assertEqual(result["usage"], original["usage"])
