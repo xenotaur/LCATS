@@ -17,6 +17,7 @@ dependencies = [
    "unidecode",
    "chardet",
    "beautifulsoup4",
+   "PyYAML",
    "tiktoken",
    "pandas",
    "tqdm",
