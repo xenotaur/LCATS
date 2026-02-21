@@ -116,6 +116,7 @@ class TestExtractors(unittest.TestCase):
 
     def test_get_section_text_no_start_heading(self):
         """Test extractors.get_section_text directly when no start heading is found."""
+
         def is_section_start(tag):
             return tag.name == "h1" and "Nonexistent" in tag.get_text()
 
@@ -126,6 +127,7 @@ class TestExtractors(unittest.TestCase):
 
     def test_get_section_text_no_end_section(self):
         """Test extraction with no end tag to stop at."""
+
         def is_section_start(tag):
             return tag.name == "h2" and "Body" in tag.get_text()
 
@@ -141,6 +143,7 @@ class TestExtractors(unittest.TestCase):
 
     def test_get_section_text_includes_div(self):
         """Test extraction with a div inside the section."""
+
         def is_section_start(tag):
             return tag.name == "h2" and "Body" in tag.get_text()
 
