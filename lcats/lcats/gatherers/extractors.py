@@ -125,16 +125,17 @@ def get_section_text(soup, is_section_start, is_section_end, is_section_body):
 
     # Iterate through sibling elements until the next heading or the end of the siblings is reached.
     while current_element and not is_section_end(current_element):
-        print("current_element:", current_element)
+        # print("current_element:", current_element)
         if is_section_body(current_element):
-            print(current_element, "is_section_body:", is_section_body(current_element))
-            print(
-                "current_element.get_text(strip=False):",
-                current_element.get_text(strip=False),
-            )
+            # print(current_element, "is_section_body:", is_section_body(current_element))
+            # print(
+            #    "current_element.get_text(strip=False):",
+            #    current_element.get_text(strip=False),
+            # )
             paragraphs.append(current_element.get_text(strip=False).strip())
         else:
-            print(current_element, "is not section body")
+            # print(current_element, "is not section body")
+            pass
         current_element = current_element.find_next_sibling()
 
     return "\n".join(paragraphs)

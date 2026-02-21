@@ -78,20 +78,15 @@ class TestExtractors(unittest.TestCase):
 
     def test_get_section_text_from_headings_basic(self):
         """Test extracting a section with headings."""
-        print()
-        print("test_get_section_text_from_headings_basic")
         result = extractors.get_section_text_from_headings(self.soup, "Body")
         expected_text = (
             "This is the body section paragraph one.\n"
             "This is the body section paragraph two."
         )
         self.assertEqual(result, expected_text)
-        print()
 
     def test_get_section_text_from_headings_with_subsection(self):
         """Test extracting a section with subsections included."""
-        print()
-        print("test_get_section_text_from_headings_with_subsection")
         result = extractors.get_section_text_from_headings(
             self.soup,
             "Body",
@@ -104,34 +99,23 @@ class TestExtractors(unittest.TestCase):
             "Subsection\n"
             "This is a subsection within the body."
         )
-        print("expected:", expected_text)
-        print("result:", result)
         self.assertEqual(result, expected_text)
-        print()
 
     def test_get_section_text_from_headings_no_section(self):
         """Test extracting a non-existent section."""
-        print()
-        print("test_get_section_text_from_headings_no_section")
         result = extractors.get_section_text_from_headings(self.soup, "Nonexistent")
         self.assertIsNone(result)
-        print()
 
     def test_get_section_text_from_headings_different_tags(self):
         """Test with different heading and body tags."""
-        print()
-        print("test_get_section_text_from_headings_different_tags")
         result = extractors.get_section_text_from_headings(
             self.soup, "Subsection", start_heading_tags=["h3"], end_section_tags=["h2"]
         )
         expected_text = "This is a subsection within the body."
         self.assertEqual(result, expected_text)
-        print()
 
     def test_get_section_text_no_start_heading(self):
         """Test extractors.get_section_text directly when no start heading is found."""
-        print()
-        print("test_get_section_text_no_start_heading")
 
         def is_section_start(tag):
             return tag.name == "h1" and "Nonexistent" in tag.get_text()
@@ -140,12 +124,9 @@ class TestExtractors(unittest.TestCase):
             self.soup, is_section_start, lambda x: False, lambda x: x.name == "p"
         )
         self.assertIsNone(result)
-        print()
 
     def test_get_section_text_no_end_section(self):
         """Test extraction with no end tag to stop at."""
-        print()
-        print("test_get_section_text_no_end_section")
 
         def is_section_start(tag):
             return tag.name == "h2" and "Body" in tag.get_text()
@@ -158,15 +139,10 @@ class TestExtractors(unittest.TestCase):
             "This is the body section paragraph two.\n"
             "Final thoughts."
         )
-        print("expected:", expected_text)
-        print("result:", result)
         self.assertEqual(result, expected_text)
-        print()
 
     def test_get_section_text_includes_div(self):
         """Test extraction with a div inside the section."""
-        print()
-        print("test_get_section_text_includes_div")
 
         def is_section_start(tag):
             return tag.name == "h2" and "Body" in tag.get_text()
@@ -178,10 +154,7 @@ class TestExtractors(unittest.TestCase):
             lambda x: x.name == "p",
         )
         expected_text = "This is the body section paragraph one.\nThis is the body section paragraph two."
-        print("expected:", expected_text)
-        print("result:", result)
         self.assertEqual(result, expected_text)
-        print()
 
     def test_extract_tags_between_ids_present(self):
         """Test extract_tags_between_ids for tags between two IDs."""
