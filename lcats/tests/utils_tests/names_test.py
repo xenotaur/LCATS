@@ -1,4 +1,5 @@
 # tests/test_names.py
+import re
 import unittest
 from lcats.utils import names
 
@@ -42,8 +43,20 @@ class TestIsValidBasename(unittest.TestCase):
         self.assertTrue(names.is_valid_basename(s_ok))
         self.assertFalse(names.is_valid_basename(s_bad))
 
+    def test_max_len_zero_returns_false(self):
+        self.assertFalse(names.is_valid_basename("hello", max_len=0))
+
+    def test_custom_pattern(self):
+        letters_only = re.compile(r"^[a-z]+\Z")
+        self.assertTrue(names.is_valid_basename("hello", pattern=letters_only))
+        self.assertFalse(names.is_valid_basename("hello123", pattern=letters_only))
+
 
 class TestRepairBasename(unittest.TestCase):
+    def test_max_len_zero_raises(self):
+        with self.assertRaises(ValueError):
+            names.repair_basename("hello", max_len=0)
+
     def test_basic_repairs(self):
         self.assertEqual(names.repair_basename('Hello, "World"!'), "hello_world")
         self.assertEqual(names.repair_basename("__HI__"), "hi")
@@ -115,6 +128,28 @@ class TestNormalizeBasename(unittest.TestCase):
         out, changed = names.normalize_basename("— — —")
         self.assertEqual(out, "")  # caller must decide how to handle
         self.assertTrue(changed)
+
+    def test_custom_max_len(self):
+        out, changed = names.normalize_basename("hello_world", max_len=5)
+        self.assertEqual(out, "hello")
+        self.assertTrue(changed)
+        out2, changed2 = names.normalize_basename("hello", max_len=5)
+        self.assertEqual(out2, "hello")
+        self.assertFalse(changed2)
+
+
+class TestTitleAndAuthorToFilename(unittest.TestCase):
+    def test_single_author(self):
+        result = names.title_and_author_to_filename(
+            "Hello World", ["Ada Lovelace"]
+        )
+        self.assertEqual(result, "hello_world__lovelace.json")
+
+    def test_multiple_authors(self):
+        result = names.title_and_author_to_filename(
+            "Hello World", ["Ada Lovelace", "Grace Hopper"]
+        )
+        self.assertEqual(result, "hello_world__lovelace_hopper.json")
 
 
 if __name__ == "__main__":
