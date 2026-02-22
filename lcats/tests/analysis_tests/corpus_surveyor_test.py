@@ -3,7 +3,6 @@
 import json
 import numbers
 import pathlib
-import re
 import unittest
 from unittest import mock
 
@@ -321,9 +320,7 @@ class TestComputeJobDir(test_utils.TestCaseWithData):
 
     def test_without_label_generates_timestamped_name(self):
         result = corpus_surveyor.compute_job_dir(self.root, None)
-        self.assertRegex(
-            result.name, r"^job_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$"
-        )
+        self.assertRegex(result.name, r"^job_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$")
         self.assertEqual(result.parent, self.root)
 
     def test_result_is_under_output_root(self):
@@ -333,9 +330,7 @@ class TestComputeJobDir(test_utils.TestCaseWithData):
     def test_empty_string_label_generates_timestamped_name(self):
         # Empty string is falsy; should fall through to timestamp branch
         result = corpus_surveyor.compute_job_dir(self.root, "")
-        self.assertRegex(
-            result.name, r"^job_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$"
-        )
+        self.assertRegex(result.name, r"^job_\d{4}_\d{2}_\d{2}_\d{2}_\d{2}_\d{2}$")
 
 
 class TestProcessFile(test_utils.TestCaseWithData):
@@ -656,8 +651,10 @@ class TestProcessFiles(test_utils.TestCaseWithData):
             processor_function=self._identity_processor,
             job_label="dir_test",
         )
-        self.assertTrue(summary["job_dir"].exists())
-        self.assertTrue(str(summary["job_dir"]).startswith(str(self.output_root)))
+        job_dir = summary["job_dir"].resolve()
+        output_root = self.output_root.resolve()
+        self.assertTrue(job_dir.is_dir())
+        self.assertTrue(job_dir.relative_to(output_root))
 
     def test_sort_true_processes_files_in_order(self):
         p_b = self._write_json("b.json", {"n": 2})
@@ -904,9 +901,7 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         root2.mkdir()
         p = root2 / "s.json"
         p.write_text(
-            json.dumps(
-                {"name": "Multi", "author": ["A", "B", "C"], "body": "text"}
-            ),
+            json.dumps({"name": "Multi", "author": ["A", "B", "C"], "body": "text"}),
             encoding="utf-8",
         )
         story_stats, _ = self._run_stats([p])
