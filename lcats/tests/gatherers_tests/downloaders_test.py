@@ -52,11 +52,18 @@ class TestDetectEncoding(unittest.TestCase):
         encoding = downloaders.detect_encoding(text)
         self.assertEqual(encoding, "utf-8")
 
-    def test_detect_encoding_latin1(self):
+    def test_detect_encoding_latin1_bytes(self):
         """ "Text in Latin-1 encoding."""
-        text = "quanto lhe é possive"
-        encoding = downloaders.detect_encoding(text)
-        self.assertEqual(encoding, "ISO-8859-1")
+        # Note 'é' is 0xE9 in both ISO-8859-1 and cp1252
+        data = "quanto lhe é possive".encode("iso-8859-1")
+        enc = downloaders.detect_encoding(data)
+        self.assertIn(enc.upper(), "ISO-8859-1")
+
+    def test_detect_encoding_cp1252_distinguishing(self):
+        # 0x80 is € in cp1252, control in iso-8859-1
+        data = b"Price: \x80 10"
+        enc = downloaders.detect_encoding(data)
+        self.assertEqual(enc.upper(), "WINDOWS-1252")
 
     def test_detect_encoding_ascii(self):
         """Test detecting ASCII encoding."""
