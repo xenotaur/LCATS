@@ -176,6 +176,179 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         self.assertIn("JOIN books b          ON bs.bookid = b.id", fc.last_sql)
         self.assertIn("WHERE b.gutenbergbookid = 2701", fc.last_sql)
 
+    def test_aliases_for_builds_expected_sql_and_returns_strings(self):
+        """aliases_for emits expected SQL shape and returns normalized set."""
+        rows = [("Twain, Mark",)]
+        fc = _FakeCache(rows)
+        out = metadata.aliases_for(fc, 3176)
+        self.assertEqual(out, {"Twain, Mark"})
+        self.assertIn("FROM aliases a", fc.last_sql)
+        self.assertIn("WHERE b.gutenbergbookid = 3176", fc.last_sql)
+
+    def test_get_metadata_from_cache_dispatches_alias(self):
+        """get_metadata_from_cache uses aliases_for for alias/aliases fields."""
+        with mock.patch.object(
+            metadata, "aliases_for", return_value={"Twain, Mark"}
+        ) as p:
+            out = metadata.get_metadata_from_cache(
+                cache=object(), field="alias", book_id=3176
+            )
+            self.assertEqual(out, {"Twain, Mark"})
+            p.assert_called_once_with(mock.ANY, 3176)
+
+    def test_get_metadata_from_cache_dispatches_aliases(self):
+        """get_metadata_from_cache uses aliases_for for aliases field."""
+        with mock.patch.object(
+            metadata, "aliases_for", return_value={"Twain, Mark"}
+        ) as p:
+            out = metadata.get_metadata_from_cache(
+                cache=object(), field="aliases", book_id=3176
+            )
+            self.assertEqual(out, {"Twain, Mark"})
+            p.assert_called_once_with(mock.ANY, 3176)
+
+
+class SplitIntoConsecutiveChunksTests(unittest.TestCase):
+    """Unit tests for split_into_consecutive_chunks."""
+
+    def test_empty_input_returns_empty_list(self):
+        """Empty input returns an empty list."""
+        self.assertEqual(metadata.split_into_consecutive_chunks([]), [])
+
+    def test_single_element(self):
+        """Single-element input returns one chunk containing that element."""
+        self.assertEqual(metadata.split_into_consecutive_chunks([7]), [[7]])
+
+    def test_all_consecutive_descending(self):
+        """Fully consecutive descending sequence is one chunk."""
+        self.assertEqual(
+            metadata.split_into_consecutive_chunks([5, 4, 3]),
+            [[5, 4, 3]],
+        )
+
+    def test_non_consecutive_splits_into_multiple_chunks(self):
+        """Non-consecutive values each form their own chunk."""
+        self.assertEqual(
+            metadata.split_into_consecutive_chunks([10, 7, 6]),
+            [[10], [7, 6]],
+        )
+
+    def test_all_non_consecutive_one_per_chunk(self):
+        """Values with no consecutive relationships each produce a single chunk."""
+        self.assertEqual(
+            metadata.split_into_consecutive_chunks([9, 5, 1]),
+            [[9], [5], [1]],
+        )
+
+    def test_mixed_consecutive_and_non_consecutive(self):
+        """Mixed sequence splits at non-consecutive boundaries."""
+        self.assertEqual(
+            metadata.split_into_consecutive_chunks([8, 7, 5, 4, 3, 1]),
+            [[8, 7], [5, 4, 3], [1]],
+        )
+
+
+class ConvertToNameTests(unittest.TestCase):
+    """Unit tests for convert_to_name and convert_to_names."""
+
+    def _make_fetchall_cache(self, rows_by_id):
+        """Return a fake cache where native_query(...).fetchall() returns rows."""
+
+        class _FetchAllResult:
+            def __init__(self, rows):
+                self._rows = rows
+
+            def fetchall(self):
+                return self._rows
+
+        class _FetchCache:
+            def native_query(self, sql):
+                for author_id, rows in rows_by_id.items():
+                    if str(author_id) in sql:
+                        return _FetchAllResult(rows)
+                return _FetchAllResult([])
+
+        return _FetchCache()
+
+    def test_convert_to_name_returns_name_from_query(self):
+        """convert_to_name returns the second column of the first row."""
+        cache = self._make_fetchall_cache({42: [(42, "Clemens, Samuel")]})
+        self.assertEqual(metadata.convert_to_name(cache, 42), "Clemens, Samuel")
+
+    def test_convert_to_names_returns_list_of_names(self):
+        """convert_to_names returns a list of names for each given id."""
+        cache = self._make_fetchall_cache(
+            {1: [(1, "Doe, Jane")], 2: [(2, "Doe, John")]}
+        )
+        result = metadata.convert_to_names(cache, [1, 2])
+        self.assertEqual(result, ["Doe, Jane", "Doe, John"])
+
+    def test_convert_to_names_empty_list(self):
+        """convert_to_names with an empty list returns an empty list."""
+        cache = self._make_fetchall_cache({})
+        self.assertEqual(metadata.convert_to_names(cache, []), [])
+
+
+class AuthorsSplitTests(unittest.TestCase):
+    """Unit tests for authors_split."""
+
+    def test_authors_split_returns_names_grouped_by_consecutive_ids(self):
+        """authors_split groups consecutive author IDs and resolves them to names."""
+        # Rows returned by the first query: author IDs 3, 1 (as strings in tuples).
+        # IDs 3 and 1 are non-consecutive, so they form two chunks [[3], [1]].
+        # Each chunk is resolved via convert_to_names.
+
+        class _SmartCache:
+            def __init__(self):
+                self.call_count = 0
+                self._names = {1: "Austen, Jane", 3: "Dickens, Charles"}
+
+            def native_query(self, sql):
+                self.call_count += 1
+
+                class _Rows:
+                    def __init__(self, rows):
+                        self._rows = rows
+
+                    def __iter__(self):
+                        return iter(self._rows)
+
+                    def fetchall(self):
+                        return self._rows
+
+                if "gutenbergbookid" in sql:
+                    return _Rows([("3",), ("1",)])
+                # author lookup by id
+                for aid, name in self._names.items():
+                    if str(aid) in sql:
+                        return _Rows([(aid, name)])
+                return _Rows([])
+
+        cache = _SmartCache()
+        result = metadata.authors_split(cache, 99)
+        # IDs [3,1] sorted desc → [3,1]; chunks [[3],[1]]; names resolved
+        self.assertIsInstance(result, list)
+        flat = [name for chunk in result for name in chunk]
+        self.assertIn("Dickens, Charles", flat)
+        self.assertIn("Austen, Jane", flat)
+
+    def test_authors_split_empty_returns_empty_list(self):
+        """authors_split with no rows returns an empty list."""
+
+        class _EmptyCache:
+            def native_query(self, sql):
+                class _Rows:
+                    def __iter__(self):
+                        return iter([])
+
+                    def fetchall(self):
+                        return []
+
+                return _Rows()
+
+        result = metadata.authors_split(_EmptyCache(), 0)
+        self.assertEqual(result, [])
+
 
 if __name__ == "__main__":
     unittest.main()
