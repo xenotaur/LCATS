@@ -54,10 +54,12 @@ class TestDetectEncoding(unittest.TestCase):
 
     def test_detect_encoding_latin1_bytes(self):
         """ "Text in Latin-1 encoding."""
-        # Note 'é' is 0xE9 in both ISO-8859-1 and cp1252
         data = "quanto lhe é possive".encode("iso-8859-1")
         enc = downloaders.detect_encoding(data)
-        self.assertIn(enc.upper(), "ISO-8859-1")
+        # Note 'é' is 0xE9 in both ISO-8859-1 and cp1252
+        # These cannot be reliably distinguished at the byte level as
+        # both encodings are valid for the same byte sequence.
+        self.assertIn(enc.upper(), {"ISO-8859-1", "WINDOWS-1252"})
 
     def test_detect_encoding_cp1252_distinguishing(self):
         # 0x80 is € in cp1252, control in iso-8859-1
