@@ -122,6 +122,60 @@ class TestPipeline(unittest.TestCase):
 
         mock_print.assert_any_call("Running stage: Echo")
 
+    @patch("time.sleep")
+    def test_retry_exhaustion(self, mock_sleep):
+        """Test that exhausting all retries results in failure."""
+
+        def always_fail(x):
+            raise RuntimeError("always fails")
+
+        stages = [
+            pipeline.Stage(
+                name="AlwaysFail",
+                processor=always_fail,
+                inputs=["x"],
+                outputs=["y"],
+                retries=2,
+            )
+        ]
+        pipe = pipeline.Pipeline(stages, log=None)
+        result = pipe(x=1)
+
+        self.assertFalse(result.success)
+        self.assertIn("always fails", result.failures[0][1])
+        self.assertEqual(mock_sleep.call_count, 3)
+
+    @patch("time.sleep")
+    @patch("builtins.print")
+    def test_retry_log_message(self, mock_print, mock_sleep):
+        """Test that retry failures are logged when a log function is provided."""
+        attempt_counter = {"count": 0}
+
+        def flaky_processor(x):
+            attempt_counter["count"] += 1
+            if attempt_counter["count"] < 2:
+                raise ValueError("flaky error")
+            return x
+
+        stages = [
+            pipeline.Stage(
+                name="FlakyStage",
+                processor=flaky_processor,
+                inputs=["x"],
+                outputs=["y"],
+                retries=1,
+            )
+        ]
+        pipe = pipeline.Pipeline(stages, log=print)
+        result = pipe(x=42)
+
+        self.assertTrue(result.success)
+        logged_messages = [call.args[0] for call in mock_print.call_args_list]
+        self.assertTrue(
+            any("flaky error" in msg for msg in logged_messages),
+            f"Expected retry log message not found in: {logged_messages}",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
