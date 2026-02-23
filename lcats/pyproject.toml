@@ -21,6 +21,7 @@ dependencies = [
    "tiktoken",
    "pandas",
    "tqdm",
+   "matplotlib",
    "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
 ]
 classifiers = [
@@ -34,6 +35,8 @@ lcats = "lcats.cli:main"
 
 [project.optional-dependencies]
 test = [
+    "ruff",
+    "black",
     "coverage",
     "parameterized",
 ]
