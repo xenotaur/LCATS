@@ -4,7 +4,6 @@ import unittest
 import unittest.mock
 from unittest.mock import MagicMock
 
-from parameterized import parameterized
 
 from lcats.analysis import story_analysis
 
@@ -326,7 +325,9 @@ class TestGetEncoder(unittest.TestCase):
                 raise ValueError("not found")
             return mock_enc
 
-        with unittest.mock.patch.object(tiktoken, "get_encoding", side_effect=side_effect):
+        with unittest.mock.patch.object(
+            tiktoken, "get_encoding", side_effect=side_effect
+        ):
             enc = story_analysis.get_encoder()
         self.assertIs(enc, mock_enc)
 
