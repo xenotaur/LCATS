@@ -85,7 +85,9 @@ def _has_main_guard(text: str) -> bool:
     return 'if __name__ == "__main__"' in text or "if __name__=='__main__'" in text
 
 
-def analyze_file(root: pathlib.Path, path: pathlib.Path, tests_root: Optional[pathlib.Path]) -> FileReport:
+def analyze_file(
+    root: pathlib.Path, path: pathlib.Path, tests_root: Optional[pathlib.Path]
+) -> FileReport:
     relpath = str(path.relative_to(root))
     module = _module_name_from_path(root, path)
 
@@ -155,17 +157,25 @@ def analyze_file(root: pathlib.Path, path: pathlib.Path, tests_root: Optional[pa
     )
 
 
-def scan_tree(root: pathlib.Path, tests_root: Optional[pathlib.Path]) -> list[FileReport]:
+def scan_tree(
+    root: pathlib.Path, tests_root: Optional[pathlib.Path]
+) -> list[FileReport]:
     reports: list[FileReport] = []
     for path in sorted(root.rglob("*.py")):
         # Skip common junk dirs
-        if any(part in (".venv", "venv", "__pycache__", ".git", ".mypy_cache", ".pytest_cache") for part in path.parts):
+        if any(
+            part
+            in (".venv", "venv", "__pycache__", ".git", ".mypy_cache", ".pytest_cache")
+            for part in path.parts
+        ):
             continue
         reports.append(analyze_file(root, path, tests_root))
     return reports
 
 
-def to_markdown(reports: list[FileReport], root: pathlib.Path, tests_root: Optional[pathlib.Path]) -> str:
+def to_markdown(
+    reports: list[FileReport], root: pathlib.Path, tests_root: Optional[pathlib.Path]
+) -> str:
     lines: list[str] = []
     lines.append(f"# Surface inventory: `{root}`")
     if tests_root is not None:
@@ -242,7 +252,11 @@ def to_json(reports: list[FileReport]) -> str:
 def _parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("root", help="Root directory to scan (e.g., lcats/lcats/utils)")
-    p.add_argument("--tests-root", default=None, help="Optional tests dir (e.g., lcats/tests/utils_tests)")
+    p.add_argument(
+        "--tests-root",
+        default=None,
+        help="Optional tests dir (e.g., lcats/tests/utils_tests)",
+    )
     p.add_argument("--format", choices=("md", "json"), default="md")
     p.add_argument("--out", default="-", help="Output file path, or '-' for stdout")
     return p.parse_args(argv)
@@ -260,7 +274,10 @@ def main(argv: list[str]) -> int:
     if args.tests_root:
         tests_root = pathlib.Path(args.tests_root).resolve()
         if not tests_root.exists() or not tests_root.is_dir():
-            print(f"ERROR: tests-root not found or not a directory: {tests_root}", file=sys.stderr)
+            print(
+                f"ERROR: tests-root not found or not a directory: {tests_root}",
+                file=sys.stderr,
+            )
             return 2
 
     reports = scan_tree(root, tests_root)

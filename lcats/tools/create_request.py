@@ -90,7 +90,9 @@ def _compute_suggested_test_path(target_module_gha: str) -> str:
     if len(parts) < 4 or parts[0] != "lcats" or parts[1] != "lcats":
         # Fall back: place in lcats/tests/misc_tests/
         stem = p.stem
-        return str(Path("lcats/tests/misc_tests") / f"{stem}_test.py").replace("\\", "/")
+        return str(Path("lcats/tests/misc_tests") / f"{stem}_test.py").replace(
+            "\\", "/"
+        )
 
     subdir = parts[2]
     rest_dirs = parts[3:-1]  # dirs after subdir, before file
