@@ -22,6 +22,7 @@ dependencies = [
    "pandas",
    "tqdm",
    "matplotlib",
+   "seaborn",
    "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
 ]
 classifiers = [
