@@ -371,21 +371,15 @@ class TestProcessorFunction(unittest.TestCase):
     # -- Segmentation errors propagated --
 
     def test_parsing_error_propagated(self):
-        result = self._run_processor(
-            seg_errors={"parsing_error": "bad JSON"}
-        )
+        result = self._run_processor(seg_errors={"parsing_error": "bad JSON"})
         self.assertEqual(result["segmentation"]["parsing_error"], "bad JSON")
 
     def test_extraction_error_propagated(self):
-        result = self._run_processor(
-            seg_errors={"extraction_error": "LLM timeout"}
-        )
+        result = self._run_processor(seg_errors={"extraction_error": "LLM timeout"})
         self.assertEqual(result["segmentation"]["extraction_error"], "LLM timeout")
 
     def test_alignment_error_propagated(self):
-        result = self._run_processor(
-            seg_errors={"alignment_error": "offset mismatch"}
-        )
+        result = self._run_processor(seg_errors={"alignment_error": "offset mismatch"})
         self.assertEqual(result["segmentation"]["alignment_error"], "offset mismatch")
 
     def test_validation_report_included_when_flag_true(self):
@@ -406,18 +400,14 @@ class TestProcessorFunction(unittest.TestCase):
     # -- Exception handling --
 
     def test_exception_captured_in_error_key(self):
-        result = self._run_processor(
-            raise_in_annotate=RuntimeError("boom")
-        )
+        result = self._run_processor(raise_in_annotate=RuntimeError("boom"))
         self.assertIn("error", result)
         self.assertIn("RuntimeError", result["error"])
         self.assertIn("boom", result["error"])
 
     def test_partial_results_preserved_on_exception(self):
         """When annotate raises, the other fields should still be populated."""
-        result = self._run_processor(
-            raise_in_annotate=ValueError("oops")
-        )
+        result = self._run_processor(raise_in_annotate=ValueError("oops"))
         self.assertEqual(result["title"], "A Short Tale")
         self.assertIn("error", result)
 
