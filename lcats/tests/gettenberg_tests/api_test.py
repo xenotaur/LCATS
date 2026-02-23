@@ -1,12 +1,15 @@
 """Unit tests for the compatibility API in lcats.gettenberg.api."""
 
 import pathlib
+import sqlite3
 import tempfile
 import unittest
 import unittest.mock as mock
 
 from lcats.gettenberg import api
 from lcats.gettenberg import cache
+from lcats.gettenberg import headers
+from lcats.gettenberg import metadata
 from gutenbergpy import textget
 
 
@@ -144,6 +147,22 @@ class GettenbergApiTests(unittest.TestCase):
                 api.get_matching_rows(authors="A")
             self.assertIn("non-mapping row at index 0", str(ctx.exception))
 
+    def test_get_matching_rows_coerces_non_list_iterable_to_list(self):
+        """If cache.query returns a non-list iterable, it is coerced to a list."""
+
+        class _FakeCache:
+            def query(self, **kwargs):
+                # Return a generator (not a list) of mapping rows.
+                yield {"gutenbergbookid": 5}
+                yield {"gutenbergbookid": 6}
+
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=_FakeCache()
+        ):
+            rows = api.get_matching_rows(authors="A")
+            self.assertIsInstance(rows, list)
+            self.assertEqual(rows, [{"gutenbergbookid": 5}, {"gutenbergbookid": 6}])
+
     # ---------------- extract_book_id ----------------
 
     def test_extract_book_id_accepts_str_or_int(self):
@@ -175,6 +194,84 @@ class GettenbergApiTests(unittest.TestCase):
             out = api.get_etexts(authors="A")
             self.assertEqual(out, {1, 2})
             p_rows.assert_called_once()
+
+    # ---------------- get_metadata ----------------
+
+    def test_get_metadata_uses_cache_when_skip_cache_is_false(self):
+        """When skip_cache=False and cache is available, get_metadata returns cache result."""
+        fake_cache = object()
+        expected = {"Moby Dick"}
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=fake_cache
+        ) as p_ensure, mock.patch.object(
+            metadata, "get_metadata_from_cache", return_value=expected
+        ) as p_from_cache:
+            out = api.get_metadata("title", 2701, skip_cache=False)
+            p_ensure.assert_called_once()
+            p_from_cache.assert_called_once_with(fake_cache, "title", 2701)
+            self.assertEqual(out, expected)
+
+    def test_get_metadata_normalises_field_before_cache_lookup(self):
+        """Field name is lowercased/stripped before being passed to the cache."""
+        fake_cache = object()
+        with mock.patch.object(
+            cache, "ensure_gutenberg_cache", return_value=fake_cache
+        ), mock.patch.object(
+            metadata, "get_metadata_from_cache", return_value=set()
+        ) as p_from_cache:
+            api.get_metadata("  TITLE  ", 42, skip_cache=False)
+            args, _ = p_from_cache.call_args
+            self.assertEqual(args[1], "title")
+
+    def test_get_metadata_reraises_on_cache_error(self):
+        """When ensure_gutenberg_cache raises a recognized error, it propagates."""
+        with mock.patch.object(
+            cache,
+            "ensure_gutenberg_cache",
+            side_effect=RuntimeError("db error"),
+        ):
+            with self.assertRaises(RuntimeError):
+                api.get_metadata("title", 42, skip_cache=False)
+
+    def test_get_metadata_reraises_sqlite_error(self):
+        """When ensure_gutenberg_cache raises sqlite3.Error, it propagates."""
+        with mock.patch.object(
+            cache,
+            "ensure_gutenberg_cache",
+            side_effect=sqlite3.Error("db locked"),
+        ):
+            with self.assertRaises(sqlite3.Error):
+                api.get_metadata("title", 42, skip_cache=False)
+
+    def test_get_metadata_skip_cache_falls_back_to_header_parse(self):
+        """When skip_cache=True, get_metadata falls back to header parse via load_etext."""
+        fake_text = b"Title: Moby Dick\nAuthor: Melville\n*** START ***"
+        expected = {"Moby Dick"}
+        with mock.patch.object(
+            api, "load_etext", return_value=fake_text
+        ) as p_load, mock.patch.object(
+            metadata, "get_metadata_from_header", return_value=expected
+        ) as p_from_header:
+            out = api.get_metadata("title", 2701, skip_cache=True)
+            p_load.assert_called_once_with(2701)
+            p_from_header.assert_called_once()
+            self.assertEqual(out, expected)
+
+    def test_get_metadata_skip_cache_passes_field_and_header_to_from_header(self):
+        """With skip_cache=True, the field and parsed header lines reach get_metadata_from_header."""
+        fake_text = b"Title: Foo\n*** START ***"
+        fake_header = ["Title: Foo"]
+        with mock.patch.object(
+            api, "load_etext", return_value=fake_text
+        ), mock.patch.object(
+            headers, "get_text_header_lines", return_value=iter(fake_header)
+        ), mock.patch.object(
+            metadata, "get_metadata_from_header", return_value={"Foo"}
+        ) as p_from_header:
+            out = api.get_metadata("title", 99, skip_cache=True)
+            args, _ = p_from_header.call_args
+            self.assertEqual(args[0], "title")
+            self.assertEqual(out, {"Foo"})
 
 
 if __name__ == "__main__":
