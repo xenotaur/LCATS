@@ -109,6 +109,12 @@ class GettenbergCacheTests(unittest.TestCase):
             con.execute("CREATE TABLE subjects (id INTEGER PRIMARY KEY, name TEXT)")
         self.assertFalse(cache.gutenberg_cache_ready(self.db_path))
 
+    def test_gutenberg_cache_ready_false_on_sqlite_error(self):
+        """gutenberg_cache_ready returns False when the file is not a valid SQLite DB."""
+        # Write garbage bytes so the file is non-empty but unparseable by SQLite.
+        self.db_path.write_bytes(b"this is not a SQLite database file\x00\x01\x02")
+        self.assertFalse(cache.gutenberg_cache_ready(self.db_path))
+
     # ----------- ensure_gutenberg_cache -----------
 
     def test_ensure_gutenberg_cache_calls_create_when_not_ready(self):
