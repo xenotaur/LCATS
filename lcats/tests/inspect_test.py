@@ -14,6 +14,13 @@ from lcats import inspect as inspect_module
 class TestInspectNoArgs(unittest.TestCase):
     """Tests for inspect() with no arguments."""
 
+    def setUp(self):
+        self._stderr_patcher = patch("sys.stderr", new_callable=io.StringIO)
+        self._stderr_patcher.start()
+
+    def tearDown(self):
+        self._stderr_patcher.stop()
+
     def test_no_args_returns_code_2(self):
         """inspect() with no arguments returns exit code 2."""
         result = inspect_module.inspect()
@@ -38,6 +45,13 @@ class TestInspectNoArgs(unittest.TestCase):
 
 class TestInspectMissingFile(unittest.TestCase):
     """Tests for inspect() with missing or invalid file paths."""
+
+    def setUp(self):
+        self._stderr_patcher = patch("sys.stderr", new_callable=io.StringIO)
+        self._stderr_patcher.start()
+
+    def tearDown(self):
+        self._stderr_patcher.stop()
 
     def test_missing_file_returns_code_1(self):
         """inspect() with a missing file path returns exit code 1."""
@@ -71,8 +85,14 @@ class TestInspectValidFile(unittest.TestCase):
 
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
+        self._stderr_patcher = patch("sys.stderr", new_callable=io.StringIO)
+        self._print_patcher = patch("builtins.print")
+        self._stderr_patcher.start()
+        self._print_patcher.start()
 
     def tearDown(self):
+        self._stderr_patcher.stop()
+        self._print_patcher.stop()
         import shutil
 
         shutil.rmtree(self.tmp)
@@ -204,6 +224,17 @@ class TestDecodePossibleBytesLiteral(unittest.TestCase):
         result = inspect_module._decode_possible_bytes_literal(s)
         self.assertEqual(result, s)
 
+    def test_b_prefix_without_quote_returned_unchanged(self):
+        """A string starting with 'b' but not followed by a quote is returned as-is."""
+        s = "bXYZ"
+        result = inspect_module._decode_possible_bytes_literal(s)
+        self.assertEqual(result, s)
+
+    def test_none_input_returns_empty(self):
+        """None input is treated as empty and returns empty string."""
+        result = inspect_module._decode_possible_bytes_literal(None)
+        self.assertEqual(result, "")
+
 
 class TestFormatStoryJson(unittest.TestCase):
     """Tests for format_story_json()."""
@@ -300,6 +331,24 @@ class TestFormatStoryJson(unittest.TestCase):
         data = {"name": "Story", "body": "Text.", "author": "   "}
         result = inspect_module.format_story_json(data)
         self.assertNotIn("Author:", result)
+
+    def test_none_author_no_author_section(self):
+        """format_story_json with explicit None author shows no author section."""
+        data = {"name": "Story", "body": "Text.", "author": None}
+        result = inspect_module.format_story_json(data)
+        self.assertNotIn("Author", result)
+
+    def test_bytearray_body_decoded(self):
+        """format_story_json decodes a bytearray body."""
+        data = {"name": "ByteArrayStory", "body": bytearray(b"bytearray content")}
+        result = inspect_module.format_story_json(data)
+        self.assertIn("bytearray content", result)
+
+    def test_empty_metadata_no_metadata_section(self):
+        """format_story_json with empty metadata dict shows no metadata section."""
+        data = {"name": "Story", "body": "Text.", "metadata": {}}
+        result = inspect_module.format_story_json(data)
+        self.assertNotIn("Metadata", result)
 
 
 class TestPrettyPrintStory(unittest.TestCase):
