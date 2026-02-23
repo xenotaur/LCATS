@@ -1,6 +1,5 @@
 """Unit tests for lcats.analysis.scene_analysis."""
 
-import io
 import unittest
 from unittest.mock import MagicMock, patch
 
@@ -30,10 +29,6 @@ class TestNormalizePreview(unittest.TestCase):
     """Tests for normalize_preview."""
 
     def test_empty_string_returns_empty(self):
-        self.assertEqual(scene_analysis.normalize_preview(""), "")
-
-    def test_none_via_falsy_not_applicable(self):
-        """normalize_preview only accepts str; empty str returns empty."""
         self.assertEqual(scene_analysis.normalize_preview(""), "")
 
     def test_single_newline_becomes_space(self):
@@ -78,22 +73,26 @@ class TestNormalizePreview(unittest.TestCase):
 class TestNormalizeLabel(unittest.TestCase):
     """Tests for normalize_label."""
 
-    @parameterized.expand([
-        ("dramatic_scene", "dramatic_scene"),
-        ("dramatic_sequel", "dramatic_sequel"),
-        ("narrative_scene", "narrative_scene"),
-        ("other", "other"),
-    ])
+    @parameterized.expand(
+        [
+            ("dramatic_scene", "dramatic_scene"),
+            ("dramatic_sequel", "dramatic_sequel"),
+            ("narrative_scene", "narrative_scene"),
+            ("other", "other"),
+        ]
+    )
     def test_allowed_labels_pass_through(self, name, label):
         self.assertEqual(scene_analysis.normalize_label(label), label)
 
-    @parameterized.expand([
-        ("capitalized", "Dramatic Scene"),
-        ("typo", "dramatic-scene"),
-        ("empty", ""),
-        ("random", "unknown_type"),
-        ("none_string", "None"),
-    ])
+    @parameterized.expand(
+        [
+            ("capitalized", "Dramatic Scene"),
+            ("typo", "dramatic-scene"),
+            ("empty", ""),
+            ("random", "unknown_type"),
+            ("none_string", "None"),
+        ]
+    )
     def test_disallowed_labels_become_unknown(self, name, label):
         self.assertEqual(scene_analysis.normalize_label(label), "unknown")
 
@@ -152,8 +151,14 @@ class TestSummarizeTypeAgreement(unittest.TestCase):
     def test_by_extractor_and_auditor_counts(self):
         story_data = {
             "segments": [
-                {"whole_story_type": "dramatic_scene", "per_scene_type": "dramatic_scene"},
-                {"whole_story_type": "narrative_scene", "per_scene_type": "dramatic_scene"},
+                {
+                    "whole_story_type": "dramatic_scene",
+                    "per_scene_type": "dramatic_scene",
+                },
+                {
+                    "whole_story_type": "narrative_scene",
+                    "per_scene_type": "dramatic_scene",
+                },
             ]
         }
         result = scene_analysis.summarize_type_agreement(story_data)
@@ -185,7 +190,10 @@ class TestSummarizeTypeAgreement(unittest.TestCase):
     def test_agreement_rate_calculation(self):
         story_data = {
             "segments": [
-                {"whole_story_type": "dramatic_scene", "per_scene_type": "dramatic_scene"},
+                {
+                    "whole_story_type": "dramatic_scene",
+                    "per_scene_type": "dramatic_scene",
+                },
                 {"whole_story_type": "narrative_scene", "per_scene_type": "other"},
                 {"whole_story_type": "other", "per_scene_type": "other"},
             ]
@@ -279,14 +287,18 @@ class TestEvaluateSegmentSemantics(unittest.TestCase):
     """Tests for evaluate_segment_semantics."""
 
     def test_calls_extractor_with_segment_text(self):
-        mock_extractor = MagicMock(return_value={"extracted_output": {"label": "dramatic_scene"}})
+        mock_extractor = MagicMock(
+            return_value={"extracted_output": {"label": "dramatic_scene"}}
+        )
         result = scene_analysis.evaluate_segment_semantics(mock_extractor, "some text")
         mock_extractor.assert_called_once_with("some text", model_name=None)
         self.assertEqual(result, {"extracted_output": {"label": "dramatic_scene"}})
 
     def test_passes_model_name_override(self):
         mock_extractor = MagicMock(return_value={})
-        scene_analysis.evaluate_segment_semantics(mock_extractor, "text", model_name="gpt-3.5")
+        scene_analysis.evaluate_segment_semantics(
+            mock_extractor, "text", model_name="gpt-3.5"
+        )
         mock_extractor.assert_called_once_with("text", model_name="gpt-3.5")
 
     def test_returns_extractor_result(self):
@@ -309,7 +321,9 @@ class TestAnnotateSegmentsWithSemantics(unittest.TestCase):
 
     def test_annotates_valid_segment(self):
         segments = [{"segment_id": 1, "start_char": 0, "end_char": 12}]
-        mock_extractor = MagicMock(return_value={"extracted_output": {"label": "narrative_scene"}})
+        mock_extractor = MagicMock(
+            return_value={"extracted_output": {"label": "narrative_scene"}}
+        )
         result = scene_analysis.annotate_segments_with_semantics(
             self.story_text, segments, mock_extractor
         )
@@ -365,8 +379,12 @@ class TestAnnotateSegmentsWithSemantics(unittest.TestCase):
             {"segment_id": 1, "start_char": 0, "end_char": 5},
             {"segment_id": 2, "start_char": 5, "end_char": 10},
         ]
-        mock_extractor = MagicMock(return_value={"extracted_output": {"label": "other"}})
-        result = scene_analysis.annotate_segments_with_semantics(story, segments, mock_extractor)
+        mock_extractor = MagicMock(
+            return_value={"extracted_output": {"label": "other"}}
+        )
+        result = scene_analysis.annotate_segments_with_semantics(
+            story, segments, mock_extractor
+        )
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]["segment_text"], "ABCDE")
         self.assertEqual(result[1]["segment_text"], "FGHIJ")
@@ -439,7 +457,9 @@ class TestDisplaySegments(unittest.TestCase):
             "gacd": None,
             "erac": None,
         }
-        mock_print = self._capture_output(scene_analysis.display_segments, self.STORY, [seg])
+        mock_print = self._capture_output(
+            scene_analysis.display_segments, self.STORY, [seg]
+        )
         # Should have printed something
         self.assertTrue(mock_print.called)
 
@@ -545,8 +565,13 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
 
     def test_matching_types_print_segment_id(self):
         seg = self._base_segment(
-            segment_eval={"label": "narrative_scene", "confidence": 0.8, "reason": "ok",
-                          "checks": {}, "evidence": {}}
+            segment_eval={
+                "label": "narrative_scene",
+                "confidence": 0.8,
+                "reason": "ok",
+                "checks": {},
+                "evidence": {},
+            }
         )
         with patch("builtins.print") as mock_print:
             scene_analysis.display_annotated_segment(seg)
@@ -555,8 +580,13 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
 
     def test_mismatched_types_print_mismatch(self):
         seg = self._base_segment(
-            segment_eval={"label": "dramatic_scene", "confidence": 0.9, "reason": "ok",
-                          "checks": {}, "evidence": {}}
+            segment_eval={
+                "label": "dramatic_scene",
+                "confidence": 0.9,
+                "reason": "ok",
+                "checks": {},
+                "evidence": {},
+            }
         )
         with patch("builtins.print") as mock_print:
             scene_analysis.display_annotated_segment(seg)
@@ -572,7 +602,12 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
 
     def test_with_gacd(self):
         seg = self._base_segment(
-            gacd={"goal": "escape", "action": "runs", "conflict": "pursuer", "outcome": "Success"}
+            gacd={
+                "goal": "escape",
+                "action": "runs",
+                "conflict": "pursuer",
+                "outcome": "Success",
+            }
         )
         with patch("builtins.print") as mock_print:
             scene_analysis.display_annotated_segment(seg)
@@ -581,7 +616,12 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
 
     def test_with_erac(self):
         seg = self._base_segment(
-            erac={"emotion": "relief", "reason": "thinks", "anticipation": "hopes", "choice": "stays"}
+            erac={
+                "emotion": "relief",
+                "reason": "thinks",
+                "anticipation": "hopes",
+                "choice": "stays",
+            }
         )
         with patch("builtins.print") as mock_print:
             scene_analysis.display_annotated_segment(seg)
@@ -685,10 +725,14 @@ class TestPromptConstants(unittest.TestCase):
         self.assertGreater(len(scene_analysis.SCENE_SEMANTICS_USER_PROMPT_TEMPLATE), 0)
 
     def test_user_prompt_template_contains_placeholder(self):
-        self.assertIn("{indexed_story_text}", scene_analysis.SCENE_SEQUEL_USER_PROMPT_TEMPLATE)
+        self.assertIn(
+            "{indexed_story_text}", scene_analysis.SCENE_SEQUEL_USER_PROMPT_TEMPLATE
+        )
 
     def test_semantics_user_prompt_template_contains_placeholder(self):
-        self.assertIn("{story_text}", scene_analysis.SCENE_SEMANTICS_USER_PROMPT_TEMPLATE)
+        self.assertIn(
+            "{story_text}", scene_analysis.SCENE_SEMANTICS_USER_PROMPT_TEMPLATE
+        )
 
 
 if __name__ == "__main__":
