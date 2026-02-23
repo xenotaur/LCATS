@@ -25,7 +25,7 @@ if GUTENBERG_ROOT.exists() and not GUTENBERG_ROOT.is_dir():
     raise RuntimeError(
         f"Gutenberg cache root '{GUTENBERG_ROOT}' exists but is not a directory. "
         "Set LCATS_CACHE_DIR to a valid directory path."
-    )
+    )  # pragma: no cover
 
 GUTENBERG_TEXTS = GUTENBERG_ROOT / "texts"
 GUTENBERG_TEXTS.mkdir(parents=True, exist_ok=True)  # makes root too.
