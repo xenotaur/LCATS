@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ruff check lcats tests "$@"
+ruff check lcats tests tools "$@"
