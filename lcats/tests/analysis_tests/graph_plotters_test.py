@@ -69,7 +69,9 @@ class TestTokensPerStoryByAuthorFrame(unittest.TestCase):
         """Result has exactly the expected columns."""
         story_stats = _make_story_stats()
         result = graph_plotters.tokens_per_story_by_author_frame(story_stats)
-        self.assertEqual(list(result.columns), ["author", "story_id", "title", "body_tokens"])
+        self.assertEqual(
+            list(result.columns), ["author", "story_id", "title", "body_tokens"]
+        )
 
     def test_does_not_mutate_input(self):
         """Input DataFrame is not modified."""
