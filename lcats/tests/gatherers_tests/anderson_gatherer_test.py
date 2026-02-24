@@ -202,7 +202,7 @@ class TestGather(unittest.TestCase):
         mock_instance.downloads = {}
         mock_gatherer_cls.return_value = mock_instance
 
-        result = gatherer.gather()
+        gatherer.gather()
 
         self.assertEqual(
             mock_instance.download.call_count, len(gatherer.ANDERSON_HEADINGS)
