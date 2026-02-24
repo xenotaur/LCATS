@@ -2,6 +2,7 @@
 
 # Assuming convert_encoding is in this module
 from lcats.gatherers import downloaders
+import json
 import os
 import unittest
 from unittest.mock import patch, Mock
@@ -536,6 +537,268 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
         cache.clear()
         self.assertFalse(os.path.exists(full_path), "Clear failed to remove the file.")
+
+
+class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
+    """Tests for edge cases in ResourceCache.clear not covered by existing tests."""
+
+    def test_clear_with_subdirectory(self):
+        """Test clear when the cache root contains a subdirectory."""
+        cache = downloaders.LambdaResourceCache(
+            canonicalizer=lambda x: x,
+            acquirer=lambda x: x,
+            root=self.test_temp_dir,
+        )
+        subdir = os.path.join(self.test_temp_dir, "subdir")
+        os.makedirs(subdir)
+        with open(os.path.join(subdir, "file.txt"), "w") as f:
+            f.write("content")
+
+        cache.clear()
+        self.assertFalse(os.path.exists(subdir))
+
+    def test_clear_exception_handling(self):
+        """Test clear when an exception is raised during deletion."""
+        cache = downloaders.LambdaResourceCache(
+            canonicalizer=lambda x: x,
+            acquirer=lambda x: x,
+            root=self.test_temp_dir,
+        )
+        file_path = os.path.join(self.test_temp_dir, "test.txt")
+        with open(file_path, "w") as f:
+            f.write("content")
+
+        with patch(
+            "lcats.gatherers.downloaders.os.unlink",
+            side_effect=OSError("Permission denied"),
+        ):
+            # Should not raise even when deletion fails
+            cache.clear()
+
+    def test_clear_nonexistent_directory(self):
+        """Test clear when the root directory does not exist."""
+        cache = downloaders.LambdaResourceCache(
+            canonicalizer=lambda x: x,
+            acquirer=lambda x: x,
+            root=os.path.join(self.test_temp_dir, "nonexistent"),
+        )
+        # Should complete without raising
+        cache.clear()
+
+
+class TestDataGatherer(test_utils.TestCaseWithData):
+    """Tests for the DataGatherer class."""
+
+    def setUp(self):
+        super().setUp()
+        self.gatherer = downloaders.DataGatherer(
+            name="test_gatherer",
+            root=self.test_temp_dir,
+            cache=self.test_temp_dir,
+        )
+
+    def _make_lambda_cache(self, content="resource content"):
+        """Return a LambdaResourceCache with a fixed acquirer for testing."""
+        return downloaders.LambdaResourceCache(
+            canonicalizer=lambda x: x,
+            acquirer=lambda x: content,
+            root=self.test_temp_dir,
+        )
+
+    def test_instantiation(self):
+        """Test that DataGatherer initialises correctly."""
+        self.assertIsInstance(self.gatherer, downloaders.DataGatherer)
+        self.assertEqual(self.gatherer.name, "test_gatherer")
+        self.assertEqual(self.gatherer.root, self.test_temp_dir)
+        self.assertEqual(self.gatherer.cache, self.test_temp_dir)
+        self.assertEqual(self.gatherer.suffix, ".json")
+        self.assertIsNone(self.gatherer.license)
+        self.assertIsNone(self.gatherer.description)
+        self.assertEqual(self.gatherer.resources, {})
+        self.assertEqual(self.gatherer.downloads, {})
+
+    def test_instantiation_with_optional_args(self):
+        """Test DataGatherer with description, suffix and license."""
+        gatherer = downloaders.DataGatherer(
+            name="test_gatherer",
+            description="A test gatherer",
+            root=self.test_temp_dir,
+            cache=self.test_temp_dir,
+            suffix=".txt",
+            license="MIT License",
+        )
+        self.assertEqual(gatherer.description, "A test gatherer")
+        self.assertEqual(gatherer.suffix, ".txt")
+        self.assertEqual(gatherer.license, "MIT License")
+
+    def test_path_property(self):
+        """Test that path returns root joined with name."""
+        expected = os.path.join(self.test_temp_dir, "test_gatherer")
+        self.assertEqual(self.gatherer.path, expected)
+
+    def test_ensure_creates_directories_and_license(self):
+        """Test that ensure creates the directory tree and writes a license file."""
+        file_exists, file_path = self.gatherer.ensure("testfile")
+
+        self.assertFalse(file_exists)
+        self.assertTrue(os.path.isdir(self.gatherer.path))
+        license_path = os.path.join(self.gatherer.path, constants.LICENSE_FILE)
+        self.assertTrue(os.path.exists(license_path))
+        with open(license_path, encoding="utf-8") as f:
+            self.assertEqual(f.read(), "No license provided.")
+
+    def test_ensure_writes_custom_license(self):
+        """Test that ensure writes the provided license text."""
+        gatherer = downloaders.DataGatherer(
+            name="licensed",
+            root=self.test_temp_dir,
+            cache=self.test_temp_dir,
+            license="MIT License",
+        )
+        gatherer.ensure("testfile")
+        license_path = os.path.join(gatherer.path, constants.LICENSE_FILE)
+        with open(license_path, encoding="utf-8") as f:
+            self.assertEqual(f.read(), "MIT License")
+
+    def test_ensure_returns_true_when_file_exists(self):
+        """Test that ensure returns True for an already-present file."""
+        self.gatherer.ensure("testfile")
+        file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write("content")
+
+        file_exists, returned_path = self.gatherer.ensure("testfile")
+        self.assertTrue(file_exists)
+        self.assertEqual(returned_path, file_path)
+
+    def test_resource_delegates_to_cache(self):
+        """Test that resource returns content from the resource cache."""
+        self.gatherer.resource_cache = self._make_lambda_cache("hello")
+        result = self.gatherer.resource("any_key")
+        self.assertEqual(result, "hello")
+
+    def test_download_creates_json_file(self):
+        """Test that download writes a structured JSON file."""
+        self.gatherer.resource_cache = self._make_lambda_cache()
+
+        def handler(contents):
+            return "Test Name", "Test body text", {"key": "value"}
+
+        self.gatherer.download("testfile", "test_resource", handler)
+
+        file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
+        self.assertTrue(os.path.exists(file_path))
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+        self.assertEqual(data["name"], "Test Name")
+        self.assertEqual(data["body"], "Test body text")
+        self.assertEqual(data["metadata"], {"key": "value"})
+        self.assertIn("testfile", self.gatherer.downloads)
+
+    def test_download_raises_on_none_body(self):
+        """Test that download raises ValueError when handler returns None body."""
+        self.gatherer.resource_cache = self._make_lambda_cache()
+
+        def handler(contents):
+            return "Test Name", None, {}
+
+        with self.assertRaises(ValueError):
+            self.gatherer.download("testfile", "test_resource", handler)
+
+    def test_download_skips_existing_file(self):
+        """Test that download does not overwrite an existing file."""
+        self.gatherer.ensure("testfile")
+        file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
+        original_data = {"name": "Original", "body": "original", "metadata": {}}
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(original_data, f)
+
+        handler_called = [False]
+
+        def handler(contents):
+            handler_called[0] = True
+            return "New Name", "New body", {}
+
+        self.gatherer.resource_cache = self._make_lambda_cache()
+        self.gatherer.download("testfile", "test_resource", handler)
+
+        self.assertFalse(handler_called[0])
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+        self.assertEqual(data["name"], "Original")
+
+    def test_download_force_overwrites(self):
+        """Test that download with force=True overwrites an existing file."""
+        self.gatherer.resource_cache = self._make_lambda_cache()
+
+        def handler(contents):
+            return "Name", "Body", {}
+
+        self.gatherer.download("testfile", "test_resource", handler)
+
+        def handler2(contents):
+            return "New Name", "New Body", {}
+
+        self.gatherer.download("testfile", "test_resource", handler2, force=True)
+
+        file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
+        with open(file_path, encoding="utf-8") as f:
+            data = json.load(f)
+        self.assertEqual(data["name"], "New Name")
+
+    def test_get_returns_existing_file(self):
+        """Test that get reads and returns an existing JSON file."""
+        self.gatherer.ensure("testfile")
+        file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
+        saved = {"name": "Test", "body": "content", "metadata": {}}
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(saved, f)
+
+        result = self.gatherer.get("testfile", None)
+        self.assertEqual(result, saved)
+
+    def test_clear_removes_path(self):
+        """Test that clear removes the gatherer's directory."""
+        self.gatherer.ensure("testfile")
+        self.assertTrue(os.path.isdir(self.gatherer.path))
+        self.gatherer.clear()
+        self.assertFalse(os.path.exists(self.gatherer.path))
+
+    def test_clear_nonexistent_path(self):
+        """Test that clear on a non-existent path does not raise."""
+        self.assertFalse(os.path.exists(self.gatherer.path))
+        self.gatherer.clear()
+
+    def test_ensure_creates_root_when_missing(self):
+        """Test that ensure creates the root directory when it does not exist."""
+        new_root = os.path.join(self.test_temp_dir, "new_root")
+        gatherer = downloaders.DataGatherer(
+            name="sub", root=new_root, cache=self.test_temp_dir
+        )
+        self.assertFalse(os.path.exists(new_root))
+        gatherer.ensure("testfile")
+        self.assertTrue(os.path.isdir(gatherer.path))
+
+    def test_get_when_file_missing_delegates_to_download(self):
+        """Test that get calls download when the file does not yet exist."""
+        with patch.object(self.gatherer, "download") as mock_download:
+            self.gatherer.get("missing", "some_resource")
+            mock_download.assert_called_once()
+
+    def test_clear_exception_during_removal(self):
+        """Test that clear catches exceptions raised while removing items."""
+        self.gatherer.ensure("testfile")
+        with patch(
+            "lcats.gatherers.downloaders.shutil.rmtree",
+            side_effect=OSError("Permission denied"),
+        ):
+            # Should not propagate the exception
+            self.gatherer.clear()
+
+    def test_gather_raises_not_implemented(self):
+        """Test that gather raises NotImplementedError."""
+        with self.assertRaises(NotImplementedError):
+            self.gatherer.gather(None)
 
 
 if __name__ == "__main__":
