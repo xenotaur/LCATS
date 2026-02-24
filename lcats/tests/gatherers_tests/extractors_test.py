@@ -4,6 +4,48 @@ from bs4 import BeautifulSoup
 from lcats.gatherers import extractors
 
 
+class TestExtractor(unittest.TestCase):
+    """Unit tests for the extractors.Extractor class."""
+
+    def test_init_basic(self):
+        """Basic construction with required fields."""
+        extractor = extractors.Extractor("My Story", "http://example.com/story")
+        self.assertEqual(extractor.title, "My Story")
+        self.assertEqual(extractor.url, "http://example.com/story")
+        self.assertEqual(extractor.file, "my_story")
+        self.assertIsNone(extractor.author)
+        self.assertIsNone(extractor.year)
+
+    def test_init_with_optional_fields(self):
+        """Construction with all optional fields provided."""
+        extractor = extractors.Extractor(
+            "My Story", "http://example.com/story", file="custom_file", author="Jane Doe", year=2021
+        )
+        self.assertEqual(extractor.file, "custom_file")
+        self.assertEqual(extractor.author, "Jane Doe")
+        self.assertEqual(extractor.year, 2021)
+
+    def test_description_with_author(self):
+        """Description includes author when provided."""
+        extractor = extractors.Extractor("My Story", "http://example.com/story", author="Jane Doe")
+        self.assertEqual(extractor.description, "My Story by Jane Doe")
+
+    def test_description_without_author(self):
+        """Description is just the title when no author is provided."""
+        extractor = extractors.Extractor("My Story", "http://example.com/story")
+        self.assertEqual(extractor.description, "My Story")
+
+    def test_repr_with_author(self):
+        """Repr includes description with author."""
+        extractor = extractors.Extractor("My Story", "http://example.com/story", author="Jane Doe")
+        self.assertEqual(repr(extractor), "Extractor('My Story by Jane Doe')")
+
+    def test_repr_without_author(self):
+        """Repr includes title when no author is provided."""
+        extractor = extractors.Extractor("My Story", "http://example.com/story")
+        self.assertEqual(repr(extractor), "Extractor('My Story')")
+
+
 class TestTitleToFilename(unittest.TestCase):
     """Unit tests for the extractors.title_to_filename function."""
 
