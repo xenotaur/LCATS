@@ -564,7 +564,9 @@ class TestSegmentsAuditor(unittest.TestCase):
     """Tests for segments_auditor."""
 
     def setUp(self):
-        self.story = "First paragraph text.\n\nSecond paragraph text.\n\nThird paragraph."
+        self.story = (
+            "First paragraph text.\n\nSecond paragraph text.\n\nThird paragraph."
+        )
         _, self.meta = text_segmenter.paragraph_text_indexer(self.story)
 
     def test_full_coverage_no_warnings(self):
@@ -591,9 +593,7 @@ class TestSegmentsAuditor(unittest.TestCase):
         story_with_cr = self.story.replace("\n", "\r\n")
         n = len(self.meta["canonical_text"])
         parsed_output = {
-            "segments": [
-                {"segment_id": 1, "start_char": 0, "end_char": n}
-            ]
+            "segments": [{"segment_id": 1, "start_char": 0, "end_char": n}]
         }
         result = text_segmenter.segments_auditor(
             parsed_output, story_with_cr, self.meta
