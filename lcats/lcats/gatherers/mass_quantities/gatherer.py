@@ -45,18 +45,13 @@ def gather_stories(stories):
     gathered_stories = {}
     failed_stories = {}
     # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
-    #    for story in tqdm(stories):
-    # for story in range(1, 77805):
     for story in tqdm(stories):
         print(story)
         story, filename, error = parser.gather_story(gatherer, story)
-
         if filename:
             gathered_stories[story] = filename
         if error:
             failed_stories[story] = error
-        # Trying to be good net citizens; since we are grabbing >6000 stories, let's pause
-        # sleep(2)
 
     return gathered_stories, failed_stories
 
