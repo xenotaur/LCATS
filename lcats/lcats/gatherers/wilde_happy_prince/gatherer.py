@@ -1,8 +1,6 @@
 """Corpus extractor for the Wilde stories."""
 
-from bs4 import BeautifulSoup
-
-import lcats.gatherers.downloaders as downloaders
+from lcats.gatherers import gatherlib
 
 
 TARGET_DIRECTORY = "wilde_happy_prince"
@@ -51,62 +49,20 @@ def find_paragraphs_happyprince(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def create_download_callback(story_name, url, start_heading_text, description):
-    """Create a download callback function for a specific story."""
-
-    def story_download_callback(contents):
-        """Download a specific Wilde story from the Gutenberg Project."""
-
-        if contents is None:
-            raise ValueError(f"Failed to download {url}")
-
-        story_soup = BeautifulSoup(contents, "lxml")
-
-        story_text = find_paragraphs_happyprince(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
-
-        story_data = {
-            "author": "Wilde",
-            "year": 1888,
-            "url": url,
-            "name": story_name,
-        }
-
-        return description, story_text, story_data
-
-    return story_download_callback
-
-
 def gather():
-    """Run DataGatherers for the Wilde corpus."""
-    gatherer = downloaders.DataGatherer(
-        TARGET_DIRECTORY,
-        description="Wilde stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.",
-    )
-    for filename, heading, title in THE_HAPPY_PRINCE_HEADINGS:
-        gatherer.download(
-            filename,
-            THE_HAPPY_PRINCE_GUTENBERG,
-            create_download_callback(
-                story_name=filename,
-                url=THE_HAPPY_PRINCE_GUTENBERG,
-                start_heading_text=heading,
-                description=title,
-            ),
-        )
-    return gatherer.downloads
-
-
-def main():
     """Extract the Wilde stories from the Gutenberg Project."""
-    print("Gathering Wilde stories.")
-    downloads = gather()
-    print(f" - Total stories in Wilde corpus: {len(downloads)}")
+    gatherlib.gather(
+        corpus="Wilde",
+        target_directory=TARGET_DIRECTORY,
+        description="Wilde stories from the Gutenberg Project.",
+        license_text="Public domain, from Project Gutenberg.",
+        author="Wilde",
+        year=1888,
+        headings=THE_HAPPY_PRINCE_HEADINGS,
+        gutenberg_url=THE_HAPPY_PRINCE_GUTENBERG,
+        paragraph_finder=find_paragraphs_happyprince,
+    )
 
 
 if __name__ == "__main__":
-    main()
+    gather()

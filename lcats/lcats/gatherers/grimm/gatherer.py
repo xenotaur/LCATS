@@ -1,8 +1,6 @@
 """Corpus extractor for the Grimm stories."""
 
-from bs4 import BeautifulSoup
-
-import lcats.gatherers.downloaders as downloaders
+from lcats.gatherers import gatherlib
 
 # The grimm book on gutenberg uses a bizarre bit of encoding for some
 # characters.   Found help on using reg expr to convert the text at
@@ -190,62 +188,20 @@ def find_paragraphs_grimmfairytales(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def create_download_callback(story_name, url, start_heading_text, description):
-    """Create a download callback function for a specific story."""
-
-    def story_download_callback(contents):
-        """Download a specific Grimm story from the Gutenberg Project."""
-
-        if contents is None:
-            raise ValueError(f"Failed to download {url}")
-
-        story_soup = BeautifulSoup(contents, "lxml")
-
-        story_text = find_paragraphs_grimmfairytales(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
-
-        story_data = {
-            "author": "Grimm",
-            "year": 1812,
-            "url": url,
-            "name": story_name,
-        }
-
-        return description, story_text, story_data
-
-    return story_download_callback
-
-
 def gather():
-    """Run DataGatherers for the Grimm corpus."""
-    gatherer = downloaders.DataGatherer(
-        TARGET_DIRECTORY,
-        description="Grimm stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.",
-    )
-    for filename, heading, title in GRIMM_HEADINGS:
-        gatherer.download(
-            filename,
-            GRIMM_GUTENBERG,
-            create_download_callback(
-                story_name=filename,
-                url=GRIMM_GUTENBERG,
-                start_heading_text=heading,
-                description=title,
-            ),
-        )
-    return gatherer.downloads
-
-
-def main():
     """Extract the Grimm stories from the Gutenberg Project."""
-    print("Gathering Grimm stories.")
-    downloads = gather()
-    print(f" - Total stories in Grimm corpus: {len(downloads)}")
+    gatherlib.gather(
+        corpus="Grimm",
+        target_directory=TARGET_DIRECTORY,
+        description="Grimm stories from the Gutenberg Project.",
+        license_text="Public domain, from Project Gutenberg.",
+        author="Grimm",
+        year=1812,
+        headings=GRIMM_HEADINGS,
+        gutenberg_url=GRIMM_GUTENBERG,
+        paragraph_finder=find_paragraphs_grimmfairytales,
+    )
 
 
 if __name__ == "__main__":
-    main()
+    gather()
