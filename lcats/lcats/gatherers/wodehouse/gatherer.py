@@ -37,6 +37,31 @@ TWO_LEFT_FEET_HEADINGS = [
 ]
 
 
+def find_paragraphs_fourmillion(soup, start_heading_text):
+    """Find paragraphs following a specific heading in a BeautifulSoup object."""
+
+    # Find the start heading - this is brittle and may need to be adjusted for different stories
+    start_heading = soup.find(
+        lambda tag: tag.name in ("h2", "h3")
+        and start_heading_text in tag.get_text(strip=True)
+    )
+
+    if start_heading is None:
+        return None
+
+    # If we got the heading, try to return the paragraphs following it
+    paragraphs = []
+    current_element = start_heading.find_next_sibling()
+
+    # Iterate through sibling elements until the next heading or the end of the siblings is reached.
+    while current_element and current_element.name not in ("h2", "div"):
+        if current_element.name == "p":
+            paragraphs.append(current_element.get_text(strip=False))
+        current_element = current_element.find_next_sibling()
+
+    return "\n".join(paragraphs)
+
+
 def gather():
     """Extract the Wodehouse stories from the Gutenberg Project."""
     gatherlib.gather(
@@ -48,6 +73,7 @@ def gather():
         year=1917,
         headings=TWO_LEFT_FEET_HEADINGS,
         gutenberg_url=TWO_LEFT_FEET_GUTENBERG,
+        paragraph_finder=find_paragraphs_fourmillion,
     )
 
 
