@@ -67,7 +67,6 @@ ADVENTURES_HEADINGS = [
         "Sherlock Holmes - The Adventure of the Copper Beeches",
     ),
 ]
-ADVENURES_SCANDAL_HEADING = "A SCANDAL IN BOHEMIA"
 
 
 def find_paragraphs_adventures(soup, start_heading_text):

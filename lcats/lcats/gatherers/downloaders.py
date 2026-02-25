@@ -324,19 +324,13 @@ class DataGatherer:
                 return json.load(json_file)
 
     def clear(self):
-        """Clear the contents of the gatherer's directory."""
+        """Clear the gatherer's directory and all its contents."""
         if os.path.exists(self.path):
-            # Remove all contents of the directory
-            for filename in os.listdir(self.path):
-                file_path = os.path.join(self.path, filename)
-                try:
-                    if os.path.isfile(self.path) or os.path.islink(self.path):
-                        os.unlink(file_path)  # Remove the file or link
-                    elif os.path.isdir(self.path):
-                        shutil.rmtree(self.path)  # Remove the directory
-                except Exception as e:
-                    print(f"Failed to delete {self.path}. Reason: {e}")
-            print(f"Cleared all contents in {self.path}")
+            try:
+                shutil.rmtree(self.path)
+                print(f"Cleared all contents in {self.path}")
+            except Exception as e:
+                print(f"Failed to delete {self.path}. Reason: {e}")
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")
 

@@ -1,4 +1,4 @@
-"""Corpus extractor for the london stories."""
+"""Corpus extractor for the London stories."""
 
 from lcats.gatherers import gatherlib
 
@@ -35,12 +35,10 @@ def find_paragraphs_london(soup, start_heading_text):
 
     # If we got the heading, try to return the paragraphs following it
     paragraphs = []
-    # current_element = start_heading.find_next_sibling()
     current_element = start_heading.find_next()
 
-    # Iterate through sibling elements until the next heading or the end of the siblings is reached.
+    # Iterate through elements until the next heading or the end of the siblings is reached.
     while current_element and current_element.name not in ("h2", "div"):
-        # print(current_element.name)
         if current_element.name == "p" or current_element.name == "pre":
             paragraphs.append(current_element.get_text(strip=False))
         current_element = current_element.find_next_sibling()
@@ -49,13 +47,13 @@ def find_paragraphs_london(soup, start_heading_text):
 
 
 def gather():
-    """Extract the london stories from the Gutenberg Project."""
+    """Extract the London stories from the Gutenberg Project."""
     gatherlib.gather(
-        corpus="london",
+        corpus="London",
         target_directory=TARGET_DIRECTORY,
-        description="london stories from the Gutenberg Project.",
+        description="London stories from the Gutenberg Project.",
         license_text="Public domain, from Project Gutenberg.",
-        author="london",
+        author="Jack London",
         year=0,
         headings=LONDON_HEADINGS,
         gutenberg_url=LONDON_GUTENBERG,

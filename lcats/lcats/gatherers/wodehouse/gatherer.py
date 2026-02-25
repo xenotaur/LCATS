@@ -37,7 +37,7 @@ TWO_LEFT_FEET_HEADINGS = [
 ]
 
 
-def find_paragraphs_fourmillion(soup, start_heading_text):
+def find_paragraphs_wodehouse(soup, start_heading_text):
     """Find paragraphs following a specific heading in a BeautifulSoup object."""
 
     # Find the start heading - this is brittle and may need to be adjusted for different stories
@@ -73,7 +73,7 @@ def gather():
         year=1917,
         headings=TWO_LEFT_FEET_HEADINGS,
         gutenberg_url=TWO_LEFT_FEET_GUTENBERG,
-        paragraph_finder=find_paragraphs_fourmillion,
+        paragraph_finder=find_paragraphs_wodehouse,
     )
 
 
