@@ -1,8 +1,6 @@
 """Corpus extractor for the Hemingway stories."""
 
-from bs4 import BeautifulSoup
-
-import lcats.gatherers.downloaders as downloaders
+from lcats.gatherers import gatherlib
 
 
 TARGET_DIRECTORY = "hemingway"
@@ -77,62 +75,20 @@ def find_paragraphs_menwithoutwomen(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def create_download_callback(story_name, url, start_heading_text, description):
-    """Create a download callback function for a specific story."""
-
-    def story_download_callback(contents):
-        """Download a specific Hemingway story from the Gutenberg Project."""
-
-        if contents is None:
-            raise ValueError(f"Failed to download {url}")
-
-        story_soup = BeautifulSoup(contents, "lxml")
-
-        story_text = find_paragraphs_menwithoutwomen(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
-
-        story_data = {
-            "author": "Hemingway",
-            "year": 1927,
-            "url": url,
-            "name": story_name,
-        }
-
-        return description, story_text, story_data
-
-    return story_download_callback
-
-
 def gather():
-    """Run DataGatherers for the Hemingway corpus."""
-    gatherer = downloaders.DataGatherer(
-        TARGET_DIRECTORY,
-        description="Hemingway stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.",
-    )
-    for filename, heading, title in MEN_WITHOUT_WOMEN_HEADINGS:
-        gatherer.download(
-            filename,
-            MEN_WITHOUT_WOMEN_GUTENBERG,
-            create_download_callback(
-                story_name=filename,
-                url=MEN_WITHOUT_WOMEN_GUTENBERG,
-                start_heading_text=heading,
-                description=title,
-            ),
-        )
-    return gatherer.downloads
-
-
-def main():
     """Extract the Hemingway stories from the Gutenberg Project."""
-    print("Gathering Hemingway stories.")
-    downloads = gather()
-    print(f" - Total stories in Hemingway corpus: {len(downloads)}")
+    gatherlib.gather(
+        corpus="Hemingway",
+        target_directory=TARGET_DIRECTORY,
+        description="Hemingway stories from the Gutenberg Project.",
+        license_text="Public domain, from Project Gutenberg.",
+        author="Hemingway",
+        year=1927,
+        headings=MEN_WITHOUT_WOMEN_HEADINGS,
+        gutenberg_url=MEN_WITHOUT_WOMEN_GUTENBERG,
+        paragraph_finder=find_paragraphs_menwithoutwomen,
+    )
 
 
 if __name__ == "__main__":
-    main()
+    gather()
