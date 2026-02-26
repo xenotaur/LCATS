@@ -8,8 +8,8 @@ class ValuesUtilsTests(unittest.TestCase):
     """Tests for lcats.utils.values functions."""
 
     def test_strings_from_sql_empty_iterable(self):
-        """Test that an empty iterable returns an empty set."""
-        self.assertEqual(values.strings_from_sql([]), set())
+        """Test that an empty iterable returns an empty list."""
+        self.assertEqual(values.strings_from_sql([]), [])
 
     def test_strings_from_sql_tuple_rows(self):
         """Test tuple rows with various cases, including None and numeric."""
@@ -20,7 +20,7 @@ class ValuesUtilsTests(unittest.TestCase):
             ["world"],  # list row also supported
         ]
         got = values.strings_from_sql(rows)
-        self.assertEqual(got, {"123", "hello", "world"})
+        self.assertEqual(got, ["123", "hello", "world"])
 
     def test_strings_from_sql_dict_rows(self):
         """Test dict rows with various cases, including missing/None 'v'."""
@@ -32,7 +32,7 @@ class ValuesUtilsTests(unittest.TestCase):
             {"v": "alpha"},  # duplicate
         ]
         got = values.strings_from_sql(rows)
-        self.assertEqual(got, {"alpha", "42"})
+        self.assertEqual(got, ["42", "alpha"])
 
     def test_strings_from_sql_mixed_rows(self):
         """Test mixed tuple and dict rows, including bytes."""
@@ -42,7 +42,7 @@ class ValuesUtilsTests(unittest.TestCase):
             ["z", "extra"],
             {"other": "ignored"},
         ]
-        self.assertEqual(values.strings_from_sql(rows), {"x", "b'y'", "z"})
+        self.assertEqual(values.strings_from_sql(rows), ["b'y'", "x", "z"])
 
     # ---------- strings_as_list ----------
 
