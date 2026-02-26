@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 from lcats.gatherers import downloaders
 from lcats.gatherers.mass_quantities import storymap
-from lcats.gatherers.mass_quantities import parser
+from lcats.gatherers import parser
 
 
 def gather():

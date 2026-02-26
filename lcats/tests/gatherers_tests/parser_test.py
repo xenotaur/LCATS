@@ -3,7 +3,7 @@
 import unittest
 from parameterized import parameterized
 
-from lcats.gatherers.mass_quantities import parser
+from lcats.gatherers import parser
 
 
 class TestIsNumber(unittest.TestCase):
