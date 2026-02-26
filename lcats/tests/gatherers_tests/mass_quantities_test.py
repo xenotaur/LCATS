@@ -1,7 +1,7 @@
 """Tests for lcats.gatherers.mass_quantities.gatherer."""
 
 import unittest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, MagicMock
 
 from lcats.gatherers.mass_quantities import gatherer
 
@@ -147,9 +147,7 @@ class TestMain(unittest.TestCase):
     """Tests for gatherer.main."""
 
     @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_main_calls_gather_stories_with_single_stories(
-        self, mock_gather_stories
-    ):
+    def test_main_calls_gather_stories_with_single_stories(self, mock_gather_stories):
         """main() calls gather_stories with storymap.SINGLE_STORIES."""
         mock_gather_stories.return_value = ({}, {})
 
