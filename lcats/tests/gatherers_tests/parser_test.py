@@ -1,6 +1,7 @@
 """Tests for lcats.gatherers.mass_quantities.parser."""
 
 import unittest
+from unittest import mock
 from parameterized import parameterized
 
 from lcats.gatherers import parser
@@ -574,6 +575,409 @@ class TestBodyOfText(unittest.TestCase):
         text = "The Bell\n\nJohn Smith\n\nOnce upon a time."
         result = parser.body_of_text(text, ["Smith, John"], [], "The Bell\n1920")
         self.assertIn("Once upon a time.", result)
+
+
+class TestLineContainsTitleAdditional(unittest.TestCase):
+    """Additional tests for line_contains_title covering fuzzy and no-match branches."""
+
+    def test_fuzzy_match_fires_for_near_miss(self):
+        """A line with high similarity to the title triggers the fuzzy-match branch when no exact match exists."""
+        # "The Bel" vs "The Bell": no exact match variant fires,
+        # but SequenceMatcher ratio ~0.93 > 0.90 so the fuzzy branch returns True.
+        self.assertTrue(parser.line_contains_title("The Bel", "The Bell"))
+
+    def test_no_match_returns_false_for_non_the_title(self):
+        """A line with no similarity and title not starting with 'the ' returns False."""
+        # len diff = 3 (<=5), no exact match, low fuzzy ratio, title[:4] != "the "
+        self.assertFalse(parser.line_contains_title("abcde", "my story"))
+
+
+class TestLineContainsAuthorAdditional(unittest.TestCase):
+    """Additional tests for line_contains_author covering single-name and long-by-line cases."""
+
+    def test_single_name_no_comma(self):
+        """Author with a single name (no comma) sets first_name to empty string."""
+        self.assertTrue(parser.line_contains_author("Mark", ["Mark"], []))
+
+    def test_by_line_over_limit_containing_names_returns_true(self):
+        """A 'by' line with >=limit words that still contains author names returns True."""
+        # 9 words: the length check fails (len >= 8), but names are present, exercising lines 422-424.
+        line = "by john smith the author of this story today"
+        self.assertTrue(parser.line_contains_author(line, ["Smith, John"], []))
+
+
+class TestNamesMatchAdditional(unittest.TestCase):
+    """Additional tests for names_match covering partial three-word name matching."""
+
+    def test_three_word_name_two_match_returns_true(self):
+        """A 3+ word name2 with exactly 2 matching words still returns True."""
+        # name2 split = ["john", "edward", "smith"]; "edward" not in name1
+        self.assertTrue(parser.names_match("John Smith", "John Edward Smith"))
+
+
+class TestFixBodyAdditional(unittest.TestCase):
+    """Additional tests for fix_body covering the intrusive-paragraph branch."""
+
+    def test_removes_intrusive_paragraph_at_start(self):
+        """An intrusive paragraph (4-space-indented non-quoted lines) at the start is skipped."""
+        text = "    X\n\nActual story begins here."
+        result = parser.fix_body(text, ["Smith, John"], [])
+        self.assertNotIn("    X", result)
+        self.assertIn("Actual story begins here.", result)
+
+
+class TestBodyOfTextAdditional(unittest.TestCase):
+    """Additional tests for body_of_text covering the remaining break/continue branches."""
+
+    def test_double_title_breaks_after_second_occurrence(self):
+        """When the title appears twice, the loop breaks after both are found (line 612)."""
+        text = "The Bell\n\nThe Bell\n\nThis is the body."
+        result = parser.body_of_text(text, [], [], "The Bell")
+        self.assertIn("This is the body.", result)
+
+    def test_no_title_breaks_on_author(self):
+        """When title is absent but the author is seen, the loop breaks (line 614)."""
+        text = "John Smith\n\nThis is the body."
+        result = parser.body_of_text(text, ["Smith, John"], [], "Absent Title")
+        self.assertIn("This is the body.", result)
+
+    def test_blank_paragraph_before_title_is_skipped(self):
+        """A blank paragraph before the title is skipped via the is_blank_line branch (line 622)."""
+        text = "\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
+        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
+        self.assertIn("This is the body.", result)
+
+    def test_text_between_multiple_title_occurrences_is_skipped(self):
+        """Paragraphs between multiple title occurrences are skipped (line 624)."""
+        text = "The Bell\n\nMiddle text\n\nThe Bell\n\nThis is the body."
+        result = parser.body_of_text(text, [], [], "The Bell")
+        self.assertIn("This is the body.", result)
+
+    def test_body_content_after_title_without_author_triggers_break(self):
+        """Body content after title but with no author present triggers the elif break (line 626)."""
+        text = "The Bell\n\nThis is the body."
+        result = parser.body_of_text(text, [], [], "The Bell")
+        self.assertIn("This is the body.", result)
+
+    def test_preface_before_title_is_skipped_via_else_continue(self):
+        """Text before the title (not blank, not title/author) is skipped via else:continue (line 628)."""
+        text = "Preface text\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
+        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
+        self.assertIn("This is the body.", result)
+        self.assertNotIn("Preface text", result)
+
+
+def _make_metadata_side_effect(subject, language, title, author, alias):
+    """Return a side_effect function for api.get_metadata that returns metadata by key."""
+
+    def side_effect(key, story_id):
+        return {
+            "subject": subject,
+            "language": language,
+            "title": title,
+            "author": author,
+            "alias": alias,
+        }[key]
+
+    return side_effect
+
+
+class TestGatherStory(unittest.TestCase):
+    """Tests for parser.gather_story using a mocked API and gatherer."""
+
+    def test_empty_subject_returns_early(self):
+        """An empty subject causes gather_story to return early with an error."""
+        gatherer = mock.MagicMock()
+        with mock.patch("lcats.gatherers.parser.api.get_metadata", return_value=[]):
+            result = parser.gather_story(gatherer, 42)
+        self.assertEqual(result[0], 42)
+        self.assertIsNone(result[1])
+        self.assertIn("No data", result[2])
+
+    def test_bad_metadata_returns_early(self):
+        """Non-OK metadata causes gather_story to return early."""
+        gatherer = mock.MagicMock()
+        side_effect = _make_metadata_side_effect(
+            subject=["PQ", "poetry"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            result = parser.gather_story(gatherer, 42)
+        self.assertEqual(result[0], 42)
+        self.assertIsNone(result[1])
+        self.assertIn("Metadata not suitable", result[2])
+
+    def test_failed_etext_load_returns_early(self):
+        """A failure to load the etext causes gather_story to return early."""
+        gatherer = mock.MagicMock()
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext",
+                side_effect=Exception("network error"),
+            ):
+                result = parser.gather_story(gatherer, 42)
+        self.assertIn("Failed to retrieve", result[2])
+
+    def test_chaptered_text_returns_early(self):
+        """A text with chapters causes gather_story to return early."""
+        gatherer = mock.MagicMock()
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        chaptered_bytes = b"Chapter I\nsome content\nChapter II\nmore content"
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=chaptered_bytes
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    result = parser.gather_story(gatherer, 42)
+        self.assertIn("chapters", result[2])
+
+    def test_short_story_returns_early(self):
+        """A story whose body is too short causes gather_story to return early."""
+        gatherer = mock.MagicMock()
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        short_text = b"The Bell\n\nJohn Smith\n\nA short story."
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=short_text
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    result = parser.gather_story(gatherer, 42)
+        self.assertIn("too short", result[2])
+
+    def test_happy_path_saves_story(self):
+        """A valid story is saved and the function returns the story ID and path."""
+        gatherer = mock.MagicMock()
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        body_paragraphs = "\n\n".join(["Paragraph {}.".format(i) for i in range(15)])
+        story_text = "The Bell\n\nJohn Smith\n\n{}".format(body_paragraphs)
+        etext = story_text.encode("utf-8")
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=etext
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    with mock.patch("builtins.open", mock.mock_open()):
+                        result = parser.gather_story(gatherer, 42)
+        self.assertEqual(result[0], 42)
+        self.assertIsNone(result[2])
+        self.assertIsNotNone(result[1])
+
+
+class TestTestStories(unittest.TestCase):
+    """Tests for parser.test_stories."""
+
+    def test_calls_test_story_get_for_each_story(self):
+        """test_stories calls test_story_get for each story ID."""
+        with mock.patch("lcats.gatherers.parser.test_story_get") as mock_get:
+            parser.test_stories([1, 2, 3])
+        self.assertEqual(mock_get.call_count, 3)
+
+
+class TestShowDataFunctions(unittest.TestCase):
+    """Tests for parser.show_data_not_corpora and parser.show_corpora_not_data."""
+
+    def test_show_data_not_corpora_handles_missing_file(self):
+        """show_data_not_corpora handles a missing CSV file without raising."""
+        try:
+            parser.show_data_not_corpora(limit=10)
+        except Exception as e:
+            self.fail(
+                "show_data_not_corpora raised an unexpected exception: {}".format(e)
+            )
+
+    def test_show_corpora_not_data_handles_missing_file(self):
+        """show_corpora_not_data handles a missing CSV file without raising."""
+        try:
+            parser.show_corpora_not_data(limit=10)
+        except Exception as e:
+            self.fail(
+                "show_corpora_not_data raised an unexpected exception: {}".format(e)
+            )
+
+    def test_show_data_not_corpora_reads_matching_rows(self):
+        """show_data_not_corpora processes rows with data=False and corpora=False."""
+        rows = [["a/b/c/d/e/42", "x", "y", "False", "a", "b", "c", "False"]]
+        with mock.patch("builtins.open", mock.mock_open()):
+            with mock.patch(
+                "lcats.gatherers.parser.csv.reader", return_value=iter(rows)
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.api.get_metadata",
+                    return_value=frozenset(["something"]),
+                ):
+                    parser.show_data_not_corpora(limit=10)
+
+    def test_show_data_not_corpora_handles_generic_exception(self):
+        """show_data_not_corpora handles a generic exception without raising."""
+        with mock.patch("builtins.open", side_effect=PermissionError("denied")):
+            try:
+                parser.show_data_not_corpora(limit=10)
+            except Exception as e:
+                self.fail(
+                    "show_data_not_corpora raised an unexpected exception: {}".format(e)
+                )
+
+    def test_show_corpora_not_data_reads_matching_rows(self):
+        """show_corpora_not_data processes rows with data=False and corpora=True."""
+        rows = [["a/b/c/d/e/42", "x", "y", "False", "a", "b", "c", "True"]]
+        with mock.patch("builtins.open", mock.mock_open()):
+            with mock.patch(
+                "lcats.gatherers.parser.csv.reader", return_value=iter(rows)
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.api.get_metadata",
+                    return_value=frozenset(["something"]),
+                ):
+                    parser.show_corpora_not_data()
+
+    def test_show_corpora_not_data_handles_generic_exception(self):
+        """show_corpora_not_data handles a generic exception without raising."""
+        with mock.patch("builtins.open", side_effect=PermissionError("denied")):
+            try:
+                parser.show_corpora_not_data()
+            except Exception as e:
+                self.fail(
+                    "show_corpora_not_data raised an unexpected exception: {}".format(e)
+                )
+
+
+class TestTestStoryGet(unittest.TestCase):
+    """Tests for parser.test_story_get using a mocked API."""
+
+    def test_chaptered_text_returns_early(self):
+        """test_story_get returns early when text has chapters."""
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        chaptered_bytes = b"Chapter I\nsome content\nChapter II\nmore content"
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=chaptered_bytes
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    result = parser.test_story_get(42)
+        self.assertIn("chapters", result[2])
+
+    def test_short_body_returns_early(self):
+        """test_story_get returns early when body is too short."""
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        short_bytes = b"The Bell\n\nJohn Smith\n\nA"
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=short_bytes
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    result = parser.test_story_get(42)
+        self.assertIn("too short", result[2])
+
+    def test_returns_body_for_valid_story(self):
+        """test_story_get returns the body text for a valid non-chaptered story."""
+        side_effect = _make_metadata_side_effect(
+            subject=["PS", "Short stories"],
+            language=["en"],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
+        )
+        story_text = b"The Bell\n\nJohn Smith\n\nOnce upon a time there was a story."
+        with mock.patch(
+            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
+        ):
+            with mock.patch(
+                "lcats.gatherers.parser.api.load_etext", return_value=story_text
+            ):
+                with mock.patch(
+                    "lcats.gatherers.parser.headers.strip_headers",
+                    side_effect=lambda x: x,
+                ):
+                    with mock.patch(
+                        "lcats.gatherers.parser.names.title_and_author_to_filename",
+                        return_value="the_bell__smith.json",
+                    ):
+                        result = parser.test_story_get(42)
+        self.assertIn("Once upon a time", result)
+
+
+class TestGrabStory(unittest.TestCase):
+    """Tests for parser.grab_story."""
+
+    def test_returns_decoded_text(self):
+        """grab_story returns the decoded text of the story."""
+        etext = b"Some story text"
+        with mock.patch("lcats.gatherers.parser.api.load_etext", return_value=etext):
+            with mock.patch(
+                "lcats.gatherers.parser.headers.strip_headers",
+                side_effect=lambda x: x,
+            ):
+                result = parser.grab_story(42)
+        self.assertIn("Some story text", result)
 
 
 if __name__ == "__main__":
