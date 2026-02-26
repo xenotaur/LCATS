@@ -115,8 +115,7 @@ LCATS/
 │   ├── sherlock/          # Arthur Conan Doyle
 │   ├── lovecraft/         # H.P. Lovecraft
 │   └── ...               # Additional authors
-├── experiments/           # Research experiments
-└── Papers/               # Academic references
+└── experiments/           # Research experiments
 ```
 
 ## Corpora
@@ -188,6 +187,66 @@ scripts/coverage
 | `scripts/lint` | Run code linting |
 | `scripts/format` | Format code with black |
 | `scripts/develop` | Install in development mode |
+
+## Continuous Integration
+
+LCATS uses GitHub Actions for automated testing, code quality checks, and maintenance tasks. The CI pipeline ensures code reliability and maintains consistent formatting across the project.
+
+### Workflows Overview
+
+| Workflow | Triggers | Purpose |
+|----------|----------|---------|
+| [**Lint and Formatting**](.github/workflows/lint.yml) | PR, main branch push | Code quality and formatting checks |
+| [**Python Tests**](.github/workflows/tests.yml) | PR, push, weekly schedule, manual | Unit test execution |
+| [**Coverage**](.github/workflows/coverage.yml) | PR, main branch push, weekly schedule, manual | Test coverage reporting |
+| [**Cache Maintenance**](.github/workflows/cache_maintenance.yml) | Manual only | Gutenberg cache management |
+
+### Automated Checks
+
+#### Code Quality & Formatting
+- **Linter**: Ruff v0.15.0 for Python code analysis
+- **Formatter**: Black v25.11.0 for consistent code formatting
+- **Python Version**: 3.11 on Ubuntu latest
+- **Trigger**: All pull requests and pushes to main branch
+
+#### Testing & Coverage
+- **Test Runner**: Python unittest with custom test discovery
+- **Coverage Tool**: Python coverage module with HTML report generation
+- **Environment**: Ubuntu 24.04 with Python 3.11
+- **Caching**: pip dependency caching and Gutenberg data caching
+- **Concurrency**: Auto-cancellation of outdated workflow runs
+- **Schedule**: Weekly runs every Monday at 9 AM UTC
+- **Artifacts**: HTML coverage reports uploaded for 90 days
+
+### Caching Strategy
+
+The CI system implements intelligent caching to improve performance:
+
+- **Dependency Caching**: pip packages cached based on `pyproject.toml` hash
+- **Gutenberg Cache**: Project Gutenberg data cached with configurable key prefixes
+- **Cache Maintenance**: Manual workflow for cache deletion and rebuilding
+
+### Performance Optimizations
+
+- **Concurrency Control**: Prevents multiple workflow runs on the same branch
+- **Conditional Steps**: Cache restoration and rebuilding only when needed  
+- **Scheduled Runs**: Weekly automated testing to catch integration issues
+- **Artifact Management**: Coverage reports stored as downloadable artifacts
+
+### Manual Operations
+
+The cache maintenance workflow supports manual operations:
+- **Delete**: Remove specific cache entries by key prefix
+- **Rebuild**: Regenerate cache by running targeted tests
+- **Delete & Rebuild**: Combined operation for complete cache refresh
+
+### Development Integration
+
+All developers should ensure:
+1. **Linting passes**: Run `scripts/lint` before submitting PRs
+2. **Tests pass**: Run `scripts/test` to verify functionality  
+3. **Coverage maintained**: Check coverage reports in CI artifacts
+4. **Formatting applied**: Run `scripts/format` for consistent style
 
 ## CLI Commands
 
