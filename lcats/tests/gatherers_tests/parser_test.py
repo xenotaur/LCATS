@@ -688,9 +688,7 @@ class TestGatherStory(unittest.TestCase):
     def test_empty_subject_returns_early(self):
         """An empty subject causes gather_story to return early with an error."""
         gatherer = mock.MagicMock()
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", return_value=[]
-        ):
+        with mock.patch("lcats.gatherers.parser.api.get_metadata", return_value=[]):
             result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
         self.assertIsNone(result[1])
@@ -792,9 +790,7 @@ class TestGatherStory(unittest.TestCase):
             author=frozenset(["Smith, John"]),
             alias=frozenset([]),
         )
-        body_paragraphs = "\n\n".join(
-            ["Paragraph {}.".format(i) for i in range(15)]
-        )
+        body_paragraphs = "\n\n".join(["Paragraph {}.".format(i) for i in range(15)])
         story_text = "The Bell\n\nJohn Smith\n\n{}".format(body_paragraphs)
         etext = story_text.encode("utf-8")
         with mock.patch(
@@ -819,9 +815,7 @@ class TestTestStories(unittest.TestCase):
 
     def test_calls_test_story_get_for_each_story(self):
         """test_stories calls test_story_get for each story ID."""
-        with mock.patch(
-            "lcats.gatherers.parser.test_story_get"
-        ) as mock_get:
+        with mock.patch("lcats.gatherers.parser.test_story_get") as mock_get:
             parser.test_stories([1, 2, 3])
         self.assertEqual(mock_get.call_count, 3)
 
@@ -832,7 +826,7 @@ class TestShowDataFunctions(unittest.TestCase):
     def test_show_data_not_corpora_handles_missing_file(self):
         """show_data_not_corpora handles a missing CSV file without raising."""
         try:
-            parser.show_data_not_corpora()
+            parser.show_data_not_corpora(limit=10)
         except Exception as e:
             self.fail(
                 "show_data_not_corpora raised an unexpected exception: {}".format(e)
@@ -841,7 +835,7 @@ class TestShowDataFunctions(unittest.TestCase):
     def test_show_corpora_not_data_handles_missing_file(self):
         """show_corpora_not_data handles a missing CSV file without raising."""
         try:
-            parser.show_corpora_not_data()
+            parser.show_corpora_not_data(limit=10)
         except Exception as e:
             self.fail(
                 "show_corpora_not_data raised an unexpected exception: {}".format(e)
@@ -858,13 +852,13 @@ class TestShowDataFunctions(unittest.TestCase):
                     "lcats.gatherers.parser.api.get_metadata",
                     return_value=frozenset(["something"]),
                 ):
-                    parser.show_data_not_corpora()
+                    parser.show_data_not_corpora(limit=10)
 
     def test_show_data_not_corpora_handles_generic_exception(self):
         """show_data_not_corpora handles a generic exception without raising."""
         with mock.patch("builtins.open", side_effect=PermissionError("denied")):
             try:
-                parser.show_data_not_corpora()
+                parser.show_data_not_corpora(limit=10)
             except Exception as e:
                 self.fail(
                     "show_data_not_corpora raised an unexpected exception: {}".format(e)
@@ -977,9 +971,7 @@ class TestGrabStory(unittest.TestCase):
     def test_returns_decoded_text(self):
         """grab_story returns the decoded text of the story."""
         etext = b"Some story text"
-        with mock.patch(
-            "lcats.gatherers.parser.api.load_etext", return_value=etext
-        ):
+        with mock.patch("lcats.gatherers.parser.api.load_etext", return_value=etext):
             with mock.patch(
                 "lcats.gatherers.parser.headers.strip_headers",
                 side_effect=lambda x: x,

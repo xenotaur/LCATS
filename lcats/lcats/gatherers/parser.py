@@ -796,12 +796,14 @@ def test_story_get(story):
     return body
 
 
-def show_data_not_corpora():
+def show_data_not_corpora(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
 
     try:
         with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
+            if limit is not None:
+                reader = list(reader)[:limit]
             # Iterate over each row in the CSV file
             for row in reader:
                 if (
@@ -820,12 +822,14 @@ def show_data_not_corpora():
         print(f"An error occurred: {e}")
 
 
-def show_corpora_not_data():
+def show_corpora_not_data(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
 
     try:
         with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
+            if limit is not None:
+                reader = list(reader)[:limit]
             # Iterate over each row in the CSV file
             for row in reader:
                 if (
