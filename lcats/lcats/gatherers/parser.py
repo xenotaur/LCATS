@@ -574,7 +574,36 @@ def fix_body(text, author, alias):
 
         fixed_body.append(paragraph)
 
-    return "\n\n".join(fixed_body)
+    # And now backwards!
+    final_fixed_body = []
+
+    firstTime = True
+
+    for paragraph in reversed(fixed_body):
+        if firstTime:
+            if line_contains_transcriber_info(paragraph):
+                continue
+            elif line_contains_illustration(paragraph):
+                continue
+            elif "This etext was produced" in paragraph:
+                continue
+            elif "THE END" in paragraph:
+                continue
+            elif line_contains_author(paragraph, author, alias):
+                continue
+            elif len(paragraph) == 0:
+                continue
+            elif firstTime and intrusive_paragraph(paragraph):
+                continue
+            else:
+                firstTime = False
+
+        final_fixed_body.append(paragraph)
+
+    final_fixed_body.reverse()
+    final_body = "\n\n".join(final_fixed_body)
+
+    return final_body
 
 
 def body_of_text(text, author, alias, title, debug=False):
@@ -627,8 +656,8 @@ def body_of_text(text, author, alias, title, debug=False):
             break  # ???
         else:
             continue
+
     # should be in the body
-    # print("In body " + str(seen_author) + " " + str(author))
 
     body = "\n\n".join(
         [
@@ -683,8 +712,6 @@ def gather_story(gatherer, story):
     if chaptered(clean_text):
         return story, None, "Story has chapters, skipping."
 
-    # print("DEBUG " + str(story) + " " + str(how_many_titles(clean_text, list(title)[0])))
-
     # Extract the title and body of the story.
     short = True
     for single_title in list(title):
@@ -703,8 +730,6 @@ def gather_story(gatherer, story):
     file_name = names.title_and_author_to_filename(
         title, author, ext=constants.FILE_SUFFIX, max_len=50
     )
-
-    # print("DESUB " + str(file_name) + " " + str(subject))
 
     print(f"Gathering story {story}: {title}")
     print(f" - File name: {file_name}")

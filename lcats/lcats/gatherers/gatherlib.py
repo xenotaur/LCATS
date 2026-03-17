@@ -2,7 +2,8 @@
 
 from bs4 import BeautifulSoup
 from lcats.gatherers import downloaders
-
+from lcats import constants
+from lcats.utils import names
 
 DEFAULT_DIVISION_TAGS = ["h2", "div"]
 DEFAULT_HEADING_TAGS = ["h2", "h3"]
@@ -97,7 +98,13 @@ def gather(
         description=description,
         license=license_text,
     )
-    for filename, heading, title in headings:
+    for raw_filename, heading, title in headings:
+        filename = names.title_to_filename(
+            raw_filename, ext=constants.FILE_SUFFIX, max_len=50
+        )
+        # TERRIBLE HACK KMM
+        filename = filename.removesuffix(constants.FILE_SUFFIX)
+
         gatherer.download(
             filename,
             gutenberg_url,

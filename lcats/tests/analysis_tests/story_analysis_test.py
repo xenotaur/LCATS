@@ -7,7 +7,6 @@ from unittest.mock import MagicMock
 
 from lcats.analysis import story_analysis
 
-
 # ---------------------------------------------------------------------------
 # Tests: get_keywords
 # ---------------------------------------------------------------------------

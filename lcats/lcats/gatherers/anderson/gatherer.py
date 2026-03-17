@@ -2,7 +2,6 @@
 
 from lcats.gatherers import gatherlib
 
-
 TARGET_DIRECTORY = "anderson"
 
 

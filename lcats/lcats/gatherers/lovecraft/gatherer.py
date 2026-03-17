@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import lcats.gatherers.downloaders as downloaders
 import lcats.gatherers.extractors as extractors
 
-
 TARGET_DIRECTORY = "lovecraft"
 
 

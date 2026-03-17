@@ -2,7 +2,6 @@
 
 import re
 
-
 DEFAULT_HEADING_TAGS = ["h2", "h3"]
 DEFAULT_END_SECTION_TAGS = ["h2", "div"]
 DEFAULT_SECTION_BODY_TAGS = ["p"]
@@ -29,6 +28,7 @@ class Extractor:
         self.title = title
         self.url = url
         self.file = file or title_to_filename(title)
+
         self.author = author
         self.year = year
 

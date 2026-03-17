@@ -18,7 +18,6 @@ import sys
 from pathlib import Path
 from typing import Dict, Tuple
 
-
 _TEMPLATE_VAR_RE = re.compile(r"\{\{([A-Z0-9_]+)\}\}")
 
 

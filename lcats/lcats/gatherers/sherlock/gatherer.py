@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 
 import lcats.gatherers.downloaders as downloaders
 
-
 TARGET_DIRECTORY = "sherlock"
 
 

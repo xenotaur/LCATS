@@ -8,10 +8,7 @@ from lcats.gatherers import gatherlib
 
 import re
 
-
 TARGET_DIRECTORY = "grimm"
-
-
 GRIMM_GUTENBERG = "https://www.gutenberg.org/cache/epub/2591/pg2591-images.html"
 
 

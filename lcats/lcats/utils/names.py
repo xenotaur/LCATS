@@ -5,7 +5,6 @@ from unidecode import unidecode  # hard requirement
 from typing import Optional, Pattern, Final, Tuple
 from lcats.utils import canonical_author
 
-
 # -------- Constants --------
 
 BASENAME_MAXIMUM_LENGTH: Final[int] = 72

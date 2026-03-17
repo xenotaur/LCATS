@@ -131,6 +131,7 @@ class ResourceCache(abc.ABC):
     def ensure(self, filename):
         """Ensure the directory tree exists and whether the file is there."""
         # Create the root directory if it doesn't exist
+
         if not os.path.exists(self.root):
             os.makedirs(self.root)
 

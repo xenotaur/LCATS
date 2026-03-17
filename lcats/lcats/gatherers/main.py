@@ -2,7 +2,8 @@
 
 import lcats.gatherers.sherlock.gatherer as sherlock
 import lcats.gatherers.lovecraft.gatherer as lovecraft
-import lcats.gatherers.ohenry.gatherer as ohenry
+import lcats.gatherers.ohenry_four_million.gatherer as ohenry_four_million
+import lcats.gatherers.ohenry_whirligigs.gatherer as ohenry_whirligigs
 import lcats.gatherers.hemingway.gatherer as hemingway
 import lcats.gatherers.wodehouse.gatherer as wodehouse
 import lcats.gatherers.wilde_happy_prince.gatherer as wilde_happy_prince
@@ -12,11 +13,11 @@ import lcats.gatherers.chesterton.gatherer as chesterton
 import lcats.gatherers.london.gatherer as london
 import lcats.gatherers.mass_quantities.gatherer as mass_quantities
 
-
 GATHERERS = {
     "sherlock": sherlock,
     "lovecraft": lovecraft,
-    "ohenry": ohenry,
+    "ohenry_four_million": ohenry_four_million,
+    "ohenry_whirligigs": ohenry_whirligigs,
     "hemingway": hemingway,
     "wilde_happy_prince": wilde_happy_prince,
     "wodehouse": wodehouse,

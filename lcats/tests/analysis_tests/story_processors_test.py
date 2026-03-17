@@ -7,7 +7,6 @@ from unittest.mock import MagicMock, patch
 
 from lcats.analysis import story_processors
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------

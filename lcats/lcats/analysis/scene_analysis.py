@@ -8,7 +8,6 @@ from lcats import utils
 from lcats.analysis import llm_extractor
 from lcats.analysis import text_segmenter
 
-
 SCENE_SEQUEL_SYSTEM_PROMPT = """
 You are a narrative segmentation assistant. Your job is to segment a story
 into COARSE-GRAINED, contiguous narrative segments (“scenes” at the level

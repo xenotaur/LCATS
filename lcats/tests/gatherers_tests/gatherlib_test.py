@@ -8,7 +8,6 @@ import json
 
 from lcats.gatherers import gatherlib
 
-
 EXAMPLE_DIRECTORY = "test_example_directory"
 
 

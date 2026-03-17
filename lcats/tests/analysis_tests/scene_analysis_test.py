@@ -7,7 +7,6 @@ from parameterized import parameterized
 
 from lcats.analysis import scene_analysis
 
-
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------

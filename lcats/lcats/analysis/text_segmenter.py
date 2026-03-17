@@ -6,7 +6,6 @@ from typing import Any, Dict, List, Tuple
 
 from lcats import utils
 
-
 _WS = re.compile(r"\s+")
 
 

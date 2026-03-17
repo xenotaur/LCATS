@@ -10,7 +10,6 @@ from lcats.analysis import llm_extractor
 
 import tiktoken
 
-
 # TODO(centaur): reconcile with the word counter belo.
 # Minimal English stopword set (extend as needed).
 _STOPWORDS: frozenset = frozenset(
