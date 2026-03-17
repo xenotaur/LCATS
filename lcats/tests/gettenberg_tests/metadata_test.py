@@ -138,7 +138,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         rows = [("Moby-Dick",), ("Moby-Dick",)]  # duplicates deduped
         fc = _FakeCache(rows)
         out = metadata.titles_for(fc, 2701)
-        self.assertEqual(out, {"Moby-Dick"})
+        self.assertEqual(out, ["Moby-Dick"])
         self.assertIn("FROM titles t", fc.last_sql)
         self.assertIn("JOIN books b ON t.bookid = b.id", fc.last_sql)
         self.assertIn("WHERE b.gutenbergbookid = 2701", fc.last_sql)
@@ -148,7 +148,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         rows = [("Melville, Herman",)]
         fc = _FakeCache(rows)
         out = metadata.authors_for(fc, 2701)
-        self.assertEqual(out, {"Melville, Herman"})
+        self.assertEqual(out, ["Melville, Herman"])
         self.assertIn("FROM authors a", fc.last_sql)
         self.assertIn("JOIN book_authors ba ON a.id = ba.authorid", fc.last_sql)
         self.assertIn("JOIN books b         ON ba.bookid = b.id", fc.last_sql)
@@ -159,7 +159,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         rows = [("en",), ("fr",)]
         fc = _FakeCache(rows)
         out = metadata.languages_for(fc, 2701)
-        self.assertEqual(out, {"en", "fr"})
+        self.assertEqual(out, ["en", "fr"])
         self.assertIn("FROM languages l", fc.last_sql)
         # assert the join shape used by your implementation
         self.assertIn("JOIN books b ON l.id = b.languageid", fc.last_sql)
@@ -170,7 +170,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         rows = [("Whaling -- Fiction",), ("Sea stories",)]
         fc = _FakeCache(rows)
         out = metadata.subjects_for(fc, 2701)
-        self.assertEqual(out, {"Whaling -- Fiction", "Sea stories"})
+        self.assertEqual(out, ["Sea stories", "Whaling -- Fiction"])
         self.assertIn("FROM subjects s", fc.last_sql)
         self.assertIn("JOIN book_subjects bs ON s.id = bs.subjectid", fc.last_sql)
         self.assertIn("JOIN books b          ON bs.bookid = b.id", fc.last_sql)
@@ -181,7 +181,7 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         rows = [("Twain, Mark",)]
         fc = _FakeCache(rows)
         out = metadata.aliases_for(fc, 3176)
-        self.assertEqual(out, {"Twain, Mark"})
+        self.assertEqual(out, ["Twain, Mark"])
         self.assertIn("FROM aliases a", fc.last_sql)
         self.assertIn("WHERE b.gutenbergbookid = 3176", fc.last_sql)
 

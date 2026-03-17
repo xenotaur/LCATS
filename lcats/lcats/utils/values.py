@@ -14,7 +14,7 @@ def strings_from_sql(rows: Iterable[Mapping[str, Any] | tuple]) -> Set[str]:
             v = r.get("v")
             if v is not None:
                 out.add(str(v))
-    return out
+    return sorted(list(out))
 
 
 def strings_as_list(x: Optional[Union[str, Iterable[str]]]) -> Optional[list]:

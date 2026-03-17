@@ -12,6 +12,10 @@ venv/
 env/
 
 # Ignore logs and temporary files
+temp
+tmp
+lcats/tmp
+lcats/temp
 *.log
 *.tmp
 
