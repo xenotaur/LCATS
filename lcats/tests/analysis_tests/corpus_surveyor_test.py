@@ -193,7 +193,9 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         enc = self._preferred_encoder()
 
         with capture.suppress_output():
-            story_stats, _ = corpus_surveyor.compute_corpus_stats([self.p3], dedupe=True)
+            story_stats, _ = corpus_surveyor.compute_corpus_stats(
+                [self.p3], dedupe=True
+            )
         row = story_stats.iloc[0]
 
         self.assertEqual(row["title"], "Beta")
@@ -372,7 +374,7 @@ class TestProcessFile(test_utils.TestCaseWithData):
     def test_output_file_is_written(self):
         """Test that the output file is written correctly."""
         in_path = self._write_json("story.json", {"key": "value"})
-        with capture.suppress_output():        
+        with capture.suppress_output():
             result = corpus_surveyor.process_file(
                 in_path,
                 corpora_root=self.corpus_root,
@@ -660,9 +662,9 @@ class TestProcessFiles(test_utils.TestCaseWithData):
                 [p1],
                 corpora_root=self.corpus_root,
                 output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="keys_test",
-        )
+                processor_function=self._identity_processor,
+                job_label="keys_test",
+            )
         for key in ("job_dir", "total", "processed", "skipped", "errors", "results"):
             self.assertIn(key, summary)
 
@@ -693,9 +695,9 @@ class TestProcessFiles(test_utils.TestCaseWithData):
                 [p1],
                 corpora_root=self.corpus_root,
                 output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="dir_test",
-        )
+                processor_function=self._identity_processor,
+                job_label="dir_test",
+            )
         job_dir = summary["job_dir"].resolve()
         output_root = self.output_root.resolve()
         self.assertTrue(job_dir.is_dir())

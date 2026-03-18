@@ -2,7 +2,6 @@
 
 import unittest
 from unittest import mock
-from lcats.utils import capture
 from parameterized import parameterized
 
 from lcats.gatherers import parser

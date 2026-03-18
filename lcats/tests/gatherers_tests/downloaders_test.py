@@ -1,7 +1,7 @@
 """Tests for the downloaders module."""
+
 import json
 import os
-import resource
 import requests
 
 import unittest
@@ -394,7 +394,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         with capture.suppress_output():
             full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
-        with capture.suppress_output():     
+        with capture.suppress_output():
             cache.clear()
         self.assertFalse(os.path.exists(full_path), "Clear failed to remove the file.")
 
@@ -833,7 +833,7 @@ class TestDataGatherer(test_utils.TestCaseWithData):
             side_effect=OSError("Permission denied"),
         ):
             # Should not propagate the exception
-            with capture.suppress_output():     
+            with capture.suppress_output():
                 self.gatherer.clear()
 
     def test_gather_raises_not_implemented(self):

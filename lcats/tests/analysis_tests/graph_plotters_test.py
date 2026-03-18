@@ -232,7 +232,9 @@ class TestPlotAuthorStoriesVsTokensSns(unittest.TestCase):
     def test_returns_fig_ax(self):
         """Function returns a (fig, ax) tuple."""
         with capture.suppress_output():
-            fig, ax = graph_plotters.plot_author_stories_vs_tokens_sns(self.author_stats)
+            fig, ax = graph_plotters.plot_author_stories_vs_tokens_sns(
+                self.author_stats
+            )
         self.assertIsInstance(fig, plt.Figure)
         self.assertIsNotNone(ax)
 

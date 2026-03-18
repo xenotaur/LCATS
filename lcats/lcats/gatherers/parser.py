@@ -826,7 +826,7 @@ def test_story_get(story):
 def show_data_not_corpora(limit=None):
     """Show stories that appear in data but not in corpora."""
     # Replace with the actual path to your CSV file
-    file_path = "notebooks/output/stories_comparison.csv"  
+    file_path = "notebooks/output/stories_comparison.csv"
 
     try:
         with open(file_path, "r", newline="") as csvfile:
@@ -855,7 +855,7 @@ def show_corpora_not_data(limit=None):
     """Show stories that appear in corpora but not in data."""
     # Replace with the actual path to your CSV file
     file_path = "notebooks/output/stories_comparison.csv"
-    
+
     try:
         with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
