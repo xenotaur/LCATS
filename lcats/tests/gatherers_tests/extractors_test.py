@@ -209,9 +209,9 @@ class TestExtractors(unittest.TestCase):
     def test_extract_tags_between_ids_present(self):
         """Test extract_tags_between_ids for tags between two IDs."""
         # Add start and end IDs to test specific section extraction
-        start_tag = self.soup.find("h2", text="Body")
+        start_tag = self.soup.find("h2", string="Body")
         start_tag["id"] = "pg-start-separator"
-        end_tag = self.soup.find("h2", text="Conclusion")
+        end_tag = self.soup.find("h2", string="Conclusion")
         end_tag["id"] = "pg-end-separator"
 
         # Extract tags between the start and end
@@ -275,9 +275,9 @@ class TestExtractors(unittest.TestCase):
     def test_extract_text_between_ids(self):
         """Test extract_text_between_ids to get full section text between IDs."""
         # Add start and end IDs to test specific section extraction
-        start_tag = self.soup.find("h2", text="Body")
+        start_tag = self.soup.find("h2", string="Body")
         start_tag["id"] = "pg-start-separator"
-        end_tag = self.soup.find("h2", text="Conclusion")
+        end_tag = self.soup.find("h2", string="Conclusion")
         end_tag["id"] = "pg-end-separator"
 
         # Extract text between the start and end tags

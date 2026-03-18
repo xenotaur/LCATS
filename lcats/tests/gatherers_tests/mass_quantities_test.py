@@ -4,6 +4,8 @@ import unittest
 from unittest.mock import patch, MagicMock
 
 from lcats.gatherers.mass_quantities import gatherer
+from lcats.gatherers.mass_quantities import storymap
+from lcats.utils import capture
 
 
 class TestGatherStories(unittest.TestCase):
@@ -16,10 +18,12 @@ class TestGatherStories(unittest.TestCase):
         self, mock_downloaders, mock_parser, mock_tqdm
     ):
         """A story with a filename is added to gathered_stories."""
+        del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
         mock_parser.gather_story.return_value = (42, "/path/to/story.json", None)
 
-        gathered, failed = gatherer.gather_stories([42])
+        with capture.suppress_output():
+            gathered, failed = gatherer.gather_stories([42])
 
         self.assertIn(42, gathered)
         self.assertEqual(gathered[42], "/path/to/story.json")
@@ -32,10 +36,12 @@ class TestGatherStories(unittest.TestCase):
         self, mock_downloaders, mock_parser, mock_tqdm
     ):
         """A story with an error is added to failed_stories."""
+        del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
         mock_parser.gather_story.return_value = (99, None, "No data for this story")
 
-        gathered, failed = gatherer.gather_stories([99])
+        with capture.suppress_output():
+            gathered, failed = gatherer.gather_stories([99])
 
         self.assertEqual(gathered, {})
         self.assertIn(99, failed)
@@ -46,9 +52,11 @@ class TestGatherStories(unittest.TestCase):
     @patch("lcats.gatherers.mass_quantities.gatherer.downloaders")
     def test_empty_stories_list(self, mock_downloaders, mock_parser, mock_tqdm):
         """An empty story list returns two empty dicts."""
+        del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
 
-        gathered, failed = gatherer.gather_stories([])
+        with capture.suppress_output():
+            gathered, failed = gatherer.gather_stories([])
 
         self.assertEqual(gathered, {})
         self.assertEqual(failed, {})
@@ -61,6 +69,7 @@ class TestGatherStories(unittest.TestCase):
         self, mock_downloaders, mock_parser, mock_tqdm
     ):
         """Mix of successes and failures are partitioned correctly."""
+        del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
         mock_parser.gather_story.side_effect = [
             (1, "/path/1.json", None),
@@ -68,7 +77,8 @@ class TestGatherStories(unittest.TestCase):
             (3, "/path/3.json", None),
         ]
 
-        gathered, failed = gatherer.gather_stories([1, 2, 3])
+        with capture.suppress_output():
+            gathered, failed = gatherer.gather_stories([1, 2, 3])
 
         self.assertEqual(gathered, {1: "/path/1.json", 3: "/path/3.json"})
         self.assertEqual(failed, {2: "skipped"})
@@ -85,9 +95,8 @@ class TestGatherStories(unittest.TestCase):
         mock_instance = MagicMock()
         mock_downloaders.DataGatherer.return_value = mock_instance
 
-        from lcats.gatherers.mass_quantities import storymap
-
-        gatherer.gather_stories([1])
+        with capture.suppress_output():
+            gatherer.gather_stories([1])
 
         args, _ = mock_downloaders.DataGatherer.call_args
         self.assertEqual(args[0], storymap.TARGET_DIRECTORY)
@@ -104,7 +113,8 @@ class TestGatherStories(unittest.TestCase):
         mock_downloaders.DataGatherer.return_value = mock_instance
         mock_parser.gather_story.return_value = (7, "/path/7.json", None)
 
-        gatherer.gather_stories([7])
+        with capture.suppress_output():
+            gatherer.gather_stories([7])
 
         mock_parser.gather_story.assert_called_once_with(mock_instance, 7)
 
@@ -118,7 +128,8 @@ class TestGather(unittest.TestCase):
         expected = {10: "/data/10.json"}
         mock_gather_stories.return_value = (expected, {20: "error"})
 
-        result = gatherer.gather()
+        with capture.suppress_output():
+            result = gatherer.gather()
 
         self.assertIs(result, expected)
 
@@ -126,10 +137,8 @@ class TestGather(unittest.TestCase):
     def test_gather_passes_single_stories(self, mock_gather_stories):
         """gather() calls gather_stories with storymap.SINGLE_STORIES."""
         mock_gather_stories.return_value = ({}, {})
-
-        from lcats.gatherers.mass_quantities import storymap
-
-        gatherer.gather()
+        with capture.suppress_output():
+            gatherer.gather()
 
         mock_gather_stories.assert_called_once_with(storymap.SINGLE_STORIES)
 
@@ -138,7 +147,8 @@ class TestGather(unittest.TestCase):
         """gather() returns an empty dict when all stories fail."""
         mock_gather_stories.return_value = ({}, {1: "error"})
 
-        result = gatherer.gather()
+        with capture.suppress_output():
+            result = gatherer.gather()
 
         self.assertEqual(result, {})
 
@@ -150,10 +160,8 @@ class TestMain(unittest.TestCase):
     def test_main_calls_gather_stories_with_single_stories(self, mock_gather_stories):
         """main() calls gather_stories with storymap.SINGLE_STORIES."""
         mock_gather_stories.return_value = ({}, {})
-
-        from lcats.gatherers.mass_quantities import storymap
-
-        gatherer.main()
+        with capture.suppress_output():
+            gatherer.main()
 
         mock_gather_stories.assert_called_once_with(storymap.SINGLE_STORIES)
 
@@ -163,7 +171,8 @@ class TestMain(unittest.TestCase):
         """main() prints the number of successfully downloaded stories."""
         mock_gather_stories.return_value = ({1: "/a.json", 2: "/b.json"}, {})
 
-        gatherer.main()
+        with capture.suppress_output():
+            gatherer.main()
 
         corpus_line = any(
             "single corpus: 2" in str(c) for c in mock_print.call_args_list
@@ -176,7 +185,8 @@ class TestMain(unittest.TestCase):
         """main() prints the number of errors encountered."""
         mock_gather_stories.return_value = ({}, {5: "err", 6: "err"})
 
-        gatherer.main()
+        with capture.suppress_output():
+            gatherer.main()
 
         error_line = any(
             "errors encountered: 2" in str(c) for c in mock_print.call_args_list

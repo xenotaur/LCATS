@@ -434,7 +434,8 @@ class TestDisplaySegments(unittest.TestCase):
             "reason": "test reason",
             "summary": "test summary",
         }
-        scene_analysis.display_segments(self.STORY, [seg])
+        with patch("builtins.print"):
+            scene_analysis.display_segments(self.STORY, [seg])
 
     def test_segment_with_valid_char_offsets(self):
         """Segment with valid start_char/end_char shows preview."""
@@ -519,7 +520,8 @@ class TestDisplaySegments(unittest.TestCase):
             "end_exact": "lazy dog.",
         }
         # Should not raise
-        scene_analysis.display_segments(story, [seg])
+        with patch("builtins.print"):
+            scene_analysis.display_segments(story, [seg])
 
     def test_segment_with_invalid_anchors_fallback(self):
         """When anchors are not found in story, partial span fallback used."""
@@ -535,7 +537,8 @@ class TestDisplaySegments(unittest.TestCase):
             "start_exact": "NOT IN STORY AT ALL XYZ",
             "end_exact": "ALSO NOT IN STORY",
         }
-        scene_analysis.display_segments(story, [seg])
+        with patch("builtins.print"):
+            scene_analysis.display_segments(story, [seg])
 
 
 # ---------------------------------------------------------------------------
@@ -560,7 +563,8 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
         return seg
 
     def test_no_crash_minimal_segment(self):
-        scene_analysis.display_annotated_segment(self._base_segment())
+        with patch("builtins.print"):
+            scene_analysis.display_annotated_segment(self._base_segment())
 
     def test_matching_types_print_segment_id(self):
         seg = self._base_segment(
@@ -597,7 +601,8 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
             cohesion={"time": "morning", "place": "forest", "characters": ["hero"]}
         )
         # should not crash
-        scene_analysis.display_annotated_segment(seg)
+        with patch("builtins.print"):
+            scene_analysis.display_annotated_segment(seg)
 
     def test_with_gacd(self):
         seg = self._base_segment(
@@ -680,7 +685,8 @@ class TestDisplayAnnotatedSegment(unittest.TestCase):
 
     def test_display_annotated_segments_empty_list(self):
         # Should not crash
-        scene_analysis.display_annotated_segments([])
+        with patch("builtins.print"):
+            scene_analysis.display_annotated_segments([])
 
 
 # ---------------------------------------------------------------------------

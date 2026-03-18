@@ -5,6 +5,7 @@ from unittest import mock
 from parameterized import parameterized
 
 from lcats.gatherers import parser
+from lcats.utils import capture
 
 
 class TestIsNumber(unittest.TestCase):
@@ -565,8 +566,10 @@ class TestBodyOfText(unittest.TestCase):
     def test_debug_flag_does_not_raise(self):
         """debug=True should not raise errors."""
         text = self._make_story("The Bell", "John Smith", "Once upon a time.")
+
         try:
-            parser.body_of_text(text, ["Smith, John"], [], "The Bell", debug=True)
+            with capture.suppress_output():
+                parser.body_of_text(text, ["Smith, John"], [], "The Bell", debug=True)
         except Exception as e:
             self.fail(f"body_of_text raised an exception with debug=True: {e}")
 
@@ -654,13 +657,13 @@ class TestBodyOfTextAdditional(unittest.TestCase):
         self.assertIn("This is the body.", result)
 
     def test_body_content_after_title_without_author_triggers_break(self):
-        """Body content after title but with no author present triggers the elif break (line 626)."""
+        """Body content after title but w/o author present triggers the elif break (line 626)."""
         text = "The Bell\n\nThis is the body."
         result = parser.body_of_text(text, [], [], "The Bell")
         self.assertIn("This is the body.", result)
 
     def test_preface_before_title_is_skipped_via_else_continue(self):
-        """Text before the title (not blank, not title/author) is skipped via else:continue (line 628)."""
+        """Text before title (not blank/title/author) is skipped via else:continue (line 628)."""
         text = "Preface text\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
         result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
         self.assertIn("This is the body.", result)
@@ -689,7 +692,8 @@ class TestGatherStory(unittest.TestCase):
         """An empty subject causes gather_story to return early with an error."""
         gatherer = mock.MagicMock()
         with mock.patch("lcats.gatherers.parser.api.get_metadata", return_value=[]):
-            result = parser.gather_story(gatherer, 42)
+            with capture.suppress_output():
+                result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
         self.assertIsNone(result[1])
         self.assertIn("No data", result[2])
@@ -707,7 +711,8 @@ class TestGatherStory(unittest.TestCase):
         with mock.patch(
             "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
         ):
-            result = parser.gather_story(gatherer, 42)
+            with capture.suppress_output():
+                result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
         self.assertIsNone(result[1])
         self.assertIn("Metadata not suitable", result[2])
@@ -729,7 +734,8 @@ class TestGatherStory(unittest.TestCase):
                 "lcats.gatherers.parser.api.load_etext",
                 side_effect=Exception("network error"),
             ):
-                result = parser.gather_story(gatherer, 42)
+                with capture.suppress_output():
+                    result = parser.gather_story(gatherer, 42)
         self.assertIn("Failed to retrieve", result[2])
 
     def test_chaptered_text_returns_early(self):
@@ -753,7 +759,8 @@ class TestGatherStory(unittest.TestCase):
                     "lcats.gatherers.parser.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
-                    result = parser.gather_story(gatherer, 42)
+                    with capture.suppress_output():
+                        result = parser.gather_story(gatherer, 42)
         self.assertIn("chapters", result[2])
 
     def test_short_story_returns_early(self):
@@ -777,7 +784,8 @@ class TestGatherStory(unittest.TestCase):
                     "lcats.gatherers.parser.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
-                    result = parser.gather_story(gatherer, 42)
+                    with capture.suppress_output():
+                        result = parser.gather_story(gatherer, 42)
         self.assertIn("too short", result[2])
 
     def test_happy_path_saves_story(self):
@@ -804,7 +812,8 @@ class TestGatherStory(unittest.TestCase):
                     side_effect=lambda x: x,
                 ):
                     with mock.patch("builtins.open", mock.mock_open()):
-                        result = parser.gather_story(gatherer, 42)
+                        with capture.suppress_output():
+                            result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
         self.assertIsNone(result[2])
         self.assertIsNotNone(result[1])
@@ -816,7 +825,8 @@ class TestTestStories(unittest.TestCase):
     def test_calls_test_story_get_for_each_story(self):
         """test_stories calls test_story_get for each story ID."""
         with mock.patch("lcats.gatherers.parser.test_story_get") as mock_get:
-            parser.test_stories([1, 2, 3])
+            with capture.suppress_output():
+                parser.test_stories([1, 2, 3])
         self.assertEqual(mock_get.call_count, 3)
 
 
@@ -835,7 +845,8 @@ class TestShowDataFunctions(unittest.TestCase):
     def test_show_corpora_not_data_handles_missing_file(self):
         """show_corpora_not_data handles a missing CSV file without raising."""
         try:
-            parser.show_corpora_not_data(limit=10)
+            with capture.suppress_output():
+                parser.show_corpora_not_data(limit=10)
         except Exception as e:
             self.fail(
                 "show_corpora_not_data raised an unexpected exception: {}".format(e)
@@ -852,7 +863,8 @@ class TestShowDataFunctions(unittest.TestCase):
                     "lcats.gatherers.parser.api.get_metadata",
                     return_value=frozenset(["something"]),
                 ):
-                    parser.show_data_not_corpora(limit=10)
+                    with capture.suppress_output():
+                        parser.show_data_not_corpora(limit=10)
 
     def test_show_data_not_corpora_handles_generic_exception(self):
         """show_data_not_corpora handles a generic exception without raising."""
@@ -875,7 +887,8 @@ class TestShowDataFunctions(unittest.TestCase):
                     "lcats.gatherers.parser.api.get_metadata",
                     return_value=frozenset(["something"]),
                 ):
-                    parser.show_corpora_not_data()
+                    with capture.suppress_output():
+                        parser.show_corpora_not_data()
 
     def test_show_corpora_not_data_handles_generic_exception(self):
         """show_corpora_not_data handles a generic exception without raising."""
@@ -911,7 +924,8 @@ class TestTestStoryGet(unittest.TestCase):
                     "lcats.gatherers.parser.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
-                    result = parser.test_story_get(42)
+                    with capture.suppress_output():
+                        result = parser.test_story_get(42)
         self.assertIn("chapters", result[2])
 
     def test_short_body_returns_early(self):
@@ -934,7 +948,8 @@ class TestTestStoryGet(unittest.TestCase):
                     "lcats.gatherers.parser.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
-                    result = parser.test_story_get(42)
+                    with capture.suppress_output():
+                        result = parser.test_story_get(42)
         self.assertIn("too short", result[2])
 
     def test_returns_body_for_valid_story(self):
@@ -961,7 +976,8 @@ class TestTestStoryGet(unittest.TestCase):
                         "lcats.gatherers.parser.names.title_and_author_to_filename",
                         return_value="the_bell__smith.json",
                     ):
-                        result = parser.test_story_get(42)
+                        with capture.suppress_output():
+                            result = parser.test_story_get(42)
         self.assertIn("Once upon a time", result)
 
 
@@ -976,7 +992,8 @@ class TestGrabStory(unittest.TestCase):
                 "lcats.gatherers.parser.headers.strip_headers",
                 side_effect=lambda x: x,
             ):
-                result = parser.grab_story(42)
+                with capture.suppress_output():
+                    result = parser.grab_story(42)
         self.assertIn("Some story text", result)
 
 

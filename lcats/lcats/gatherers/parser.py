@@ -770,11 +770,13 @@ def gather_story(gatherer, story):
 
 
 def test_stories(stories):
+    """Test the retrieval and processing of multiple stories."""
     for story in stories:
         test_story_get(story)
 
 
 def test_story_get(story):
+    """Test the retrieval and processing of a single story."""
     # Extract metadata and filter out stories that don't meet our criteria.
     subject = api.get_metadata("subject", story)
     is_subject_ok = subject_ok(subject)
@@ -822,7 +824,9 @@ def test_story_get(story):
 
 
 def show_data_not_corpora(limit=None):
-    file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
+    """Show stories that appear in data but not in corpora."""
+    # Replace with the actual path to your CSV file
+    file_path = "notebooks/output/stories_comparison.csv"
 
     try:
         with open(file_path, "r", newline="") as csvfile:
@@ -848,7 +852,9 @@ def show_data_not_corpora(limit=None):
 
 
 def show_corpora_not_data(limit=None):
-    file_path = "notebooks/output/stories_comparison.csv"  # Replace with the actual path to your CSV file
+    """Show stories that appear in corpora but not in data."""
+    # Replace with the actual path to your CSV file
+    file_path = "notebooks/output/stories_comparison.csv"
 
     try:
         with open(file_path, "r", newline="") as csvfile:
@@ -874,6 +880,7 @@ def show_corpora_not_data(limit=None):
 
 
 def grab_story(story):
+    """Grab the text of a story and strip and clean it."""
     etext = api.load_etext(story)
     stripped_text = headers.strip_headers(etext.strip()).strip()
     clean_text = stripped_text.decode("utf-8", errors="replace").strip()

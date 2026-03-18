@@ -8,6 +8,7 @@ import unittest
 from unittest import mock
 
 from lcats.gettenberg import cache
+from lcats.utils import capture
 
 
 class GettenbergCacheTests(unittest.TestCase):
@@ -129,7 +130,8 @@ class GettenbergCacheTests(unittest.TestCase):
             fake_handle = object()
             p_get.return_value = fake_handle
 
-            handle = cache.ensure_gutenberg_cache()
+            with capture.suppress_output():
+                handle = cache.ensure_gutenberg_cache()
 
             self.assertIs(handle, fake_handle)
             # one pre-check + one post-create check
@@ -149,7 +151,8 @@ class GettenbergCacheTests(unittest.TestCase):
             fake_handle = object()
             p_get.return_value = fake_handle
 
-            handle = cache.ensure_gutenberg_cache()
+            with capture.suppress_output():
+                handle = cache.ensure_gutenberg_cache()
 
             self.assertIs(handle, fake_handle)
             p_ready.assert_called_once()
@@ -164,7 +167,8 @@ class GettenbergCacheTests(unittest.TestCase):
             cache.gc.GutenbergCache, "create", autospec=True
         ) as p_create:
             with self.assertRaises(RuntimeError):
-                cache.ensure_gutenberg_cache()
+                with capture.suppress_output():
+                    cache.ensure_gutenberg_cache()
             self.assertEqual(p_ready.call_count, 2)
             p_create.assert_called_once()
 
@@ -178,7 +182,8 @@ class GettenbergCacheTests(unittest.TestCase):
         with mock.patch.object(
             cache, "gutenberg_cache_ready", side_effect=[False, True]
         ), mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True):
-            cache.ensure_gutenberg_cache()
+            with capture.suppress_output():
+                cache.ensure_gutenberg_cache()
         # Since we mocked create(), no one recreates the file; it should be gone.
         self.assertFalse(
             self.db_path.exists(), "Zero-byte DB should be unlinked before create()"
