@@ -4,6 +4,7 @@ import unittest
 import unittest.mock as mock
 
 from lcats.gettenberg import metadata
+from lcats.utils import capture
 
 
 class _FakeCache:
@@ -27,9 +28,10 @@ class GettenbergApiMetadataTests(unittest.TestCase):
     def test_get_metadata_from_cache_dispatches_title(self):
         """get_metadata_from_cache uses titles_for for title/titles fields."""
         with mock.patch.object(metadata, "titles_for", return_value={"Moby-Dick"}) as p:
-            out = metadata.get_metadata_from_cache(
-                cache=object(), field="title", book_id=2701
-            )
+            with capture.suppress_output():
+                out = metadata.get_metadata_from_cache(
+                    cache=object(), field="title", book_id=2701
+                )
             self.assertEqual(out, {"Moby-Dick"})
             p.assert_called_once_with(mock.ANY, 2701)
 
@@ -38,18 +40,20 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         with mock.patch.object(
             metadata, "authors_for", return_value={"Melville, Herman"}
         ) as p:
-            out = metadata.get_metadata_from_cache(
-                cache=object(), field="authors", book_id=2701
-            )
+            with capture.suppress_output():
+                out = metadata.get_metadata_from_cache(
+                    cache=object(), field="authors", book_id=2701
+                )
             self.assertEqual(out, {"Melville, Herman"})
             p.assert_called_once_with(mock.ANY, 2701)
 
     def test_get_metadata_from_cache_dispatches_language(self):
         """get_metadata_from_cache uses languages_for for language/languages fields."""
         with mock.patch.object(metadata, "languages_for", return_value={"en"}) as p:
-            out = metadata.get_metadata_from_cache(
-                cache=object(), field="language", book_id=2701
-            )
+            with capture.suppress_output():
+                out = metadata.get_metadata_from_cache(
+                    cache=object(), field="language", book_id=2701
+                )
             self.assertEqual(out, {"en"})
             p.assert_called_once_with(mock.ANY, 2701)
 
@@ -58,9 +62,10 @@ class GettenbergApiMetadataTests(unittest.TestCase):
         with mock.patch.object(
             metadata, "subjects_for", return_value={"Whaling -- Fiction"}
         ) as p:
-            out = metadata.get_metadata_from_cache(
-                cache=object(), field="subjects", book_id=2701
-            )
+            with capture.suppress_output():
+                out = metadata.get_metadata_from_cache(
+                    cache=object(), field="subjects", book_id=2701
+                )
             self.assertEqual(out, {"Whaling -- Fiction"})
             p.assert_called_once_with(mock.ANY, 2701)
 

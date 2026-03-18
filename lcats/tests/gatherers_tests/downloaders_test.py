@@ -1,17 +1,17 @@
 """Tests for the downloaders module."""
-
-# Assuming convert_encoding is in this module
-from lcats.gatherers import downloaders
 import json
 import os
+import resource
+import requests
+
 import unittest
 from unittest.mock import patch, Mock
+
 from lcats import constants
 from lcats import test_utils
+from lcats.gatherers import downloaders
+from lcats.utils import capture
 from lcats.utils import env
-
-# import parameterized
-import requests
 
 
 class TestDetectUrlEncoding(unittest.TestCase):
@@ -40,7 +40,8 @@ class TestDetectUrlEncoding(unittest.TestCase):
         mock_head.return_value = mock_response
 
         url = "http://example.com"
-        encoding = downloaders.detect_url_encoding(url)
+        with capture.suppress_output():
+            encoding = downloaders.detect_url_encoding(url)
         self.assertIsNone(encoding)
 
 
@@ -116,24 +117,27 @@ class TestConvertEncoding(unittest.TestCase):
         """Test converting a byte string from UTF-8 to ISO-8859-1 encoding."""
         # UTF-8 encoded byte string with an emoji
         text = "Text with emoji 😊".encode("utf-8")
-        result = downloaders.convert_encoding(
-            text, source_encoding="utf-8", target_encoding="ISO-8859-1"
-        )
+        with capture.suppress_output():
+            result = downloaders.convert_encoding(
+                text, source_encoding="utf-8", target_encoding="ISO-8859-1"
+            )
         # ISO-8859-1 cannot represent the emoji, should return None
         self.assertIsNone(result)
 
     def test_invalid_source_encoding(self):
         text = "Invalid encoding test"
-        result = downloaders.convert_encoding(
-            text, source_encoding="nonexistent-encoding", target_encoding="utf-8"
-        )
+        with capture.suppress_output():
+            result = downloaders.convert_encoding(
+                text, source_encoding="nonexistent-encoding", target_encoding="utf-8"
+            )
         self.assertIsNone(result)
 
     def test_invalid_target_encoding(self):
         text = "Invalid encoding test"
-        result = downloaders.convert_encoding(
-            text, source_encoding="utf-8", target_encoding="nonexistent-encoding"
-        )
+        with capture.suppress_output():
+            result = downloaders.convert_encoding(
+                text, source_encoding="utf-8", target_encoding="nonexistent-encoding"
+            )
         self.assertIsNone(result)
 
     def test_empty_string(self):
@@ -164,7 +168,8 @@ class TestLoadPage(unittest.TestCase):
         mock_get.return_value = mock_response
 
         # Call the function
-        result = downloaders.load_page("http://example.com")
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
 
         # Assert the expected behavior
         self.assertEqual(result, "Mocked page content")
@@ -180,7 +185,8 @@ class TestLoadPage(unittest.TestCase):
         mock_get.return_value = mock_response
 
         # Call the function
-        result = downloaders.load_page("http://example.com")
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
 
         # Assert the expected behavior
         self.assertIsNone(result)
@@ -194,7 +200,8 @@ class TestLoadPage(unittest.TestCase):
 
         # Call the function
         with self.assertRaises(requests.exceptions.Timeout):
-            downloaders.load_page("http://example.com")
+            with capture.suppress_output():
+                downloaders.load_page("http://example.com")
 
 
 class TestFilenameFromUrl(unittest.TestCase):
@@ -299,13 +306,15 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         full_path = cache.full_path("foo.bar")
         if os.path.exists(full_path):
             os.unlink(full_path)  # Remove the file or link
-        file_exists, path = cache.ensure("foo.bar")
+        with capture.suppress_output():
+            file_exists, path = cache.ensure("foo.bar")
         self.assertFalse(file_exists, "File should not exist.")
         self.assertEqual(path, full_path, "Path is correct.")
 
         with open(full_path, "w", encoding=constants.TEXT_ENCODING) as file:
             file.write("contents")
-        file_exists, path = cache.ensure("foo.bar")
+        with capture.suppress_output():
+            file_exists, path = cache.ensure("foo.bar")
         self.assertTrue(file_exists, "File should exist.")
         self.assertEqual(path, full_path, "Path is correct.")
         if os.path.exists(full_path):
@@ -325,7 +334,9 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x
         )
-        self.assertEqual(cache.acquire("foo.bar"), "foo.bar", "Acquisition failed.")
+        with capture.suppress_output():
+            acquired = cache.acquire("foo.bar")
+        self.assertEqual(acquired, "foo.bar", "Acquisition failed.")
 
     def test_store_with_root(self):
         """Test the store method."""
@@ -335,7 +346,8 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         canonical = cache.canonicalize("foo.bar")
         full_path = cache.full_path(canonical)
         contents = "contents"
-        cache.store(contents, full_path)
+        with capture.suppress_output():
+            cache.store(contents, full_path)
         self.assertTrue(os.path.exists(full_path), "Store failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
@@ -347,12 +359,13 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        resource = "foo.bar"
-        full_path = cache.cache(resource)
+        rezource = "foo.bar"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
-                file.read(), resource, "Contents of stored file are incorrect."
+                file.read(), rezource, "Contents of stored file are incorrect."
             )
         if os.path.exists(full_path):
             os.unlink(full_path)  # Remove the file or link
@@ -362,10 +375,11 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        resource = "foo.bar"
-        full_path = cache.cache(resource)
+        rezource = "foo.bar"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
         self.assertEqual(
-            cache.get(resource), resource, "Get failed to return the correct contents."
+            cache.get(rezource), rezource, "Get failed to return the correct contents."
         )
         self.assertTrue(os.path.exists(full_path), "Get failed to write a file.")
         if os.path.exists(full_path):
@@ -376,10 +390,12 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        resource = "foo.bar"
-        full_path = cache.cache(resource)
+        rezource = "foo.bar"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
-        cache.clear()
+        with capture.suppress_output():     
+            cache.clear()
         self.assertFalse(os.path.exists(full_path), "Clear failed to remove the file.")
 
 
@@ -427,13 +443,15 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         full_path = cache.full_path("foo.bar")
         if os.path.exists(full_path):
             os.unlink(full_path)  # Remove the file.
-        file_exists, path = cache.ensure("foo.bar")
+        with capture.suppress_output():
+            file_exists, path = cache.ensure("foo.bar")
         self.assertFalse(file_exists, "File should not exist.")
         self.assertEqual(path, full_path, "Path is correct.")
 
         with open(full_path, "w", encoding=constants.TEXT_ENCODING) as file:
             file.write("contents")
-        file_exists, path = cache.ensure("foo.bar")
+        with capture.suppress_output():
+            file_exists, path = cache.ensure("foo.bar")
         self.assertTrue(file_exists, "File should exist.")
         self.assertEqual(path, full_path, "Path is correct.")
         if os.path.exists(full_path):
@@ -458,9 +476,9 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
 
         resource = "http://example.com"
         cache = downloaders.UrlResourceCache()
-        self.assertEqual(
-            cache.acquire(resource), mock_response.text, "Acquisition failed."
-        )
+        with capture.suppress_output():
+            acquired = cache.acquire(resource)
+        self.assertEqual(acquired, mock_response.text, "Acquisition failed.")
         mock_get.assert_called_once_with(resource, timeout=10)
 
     @patch("lcats.gatherers.downloaders.requests.get")
@@ -477,7 +495,8 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         full_path = cache.full_path(canonical)
 
         contents = "contents"
-        cache.store(contents, full_path)
+        with capture.suppress_output():
+            cache.store(contents, full_path)
         self.assertTrue(os.path.exists(full_path), "Store failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
@@ -497,8 +516,9 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         mock_get.return_value = mock_response
 
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        resource = "http://example.com"
-        full_path = cache.cache(resource)
+        rezource = "http://example.com"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
@@ -518,10 +538,12 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         mock_get.return_value = mock_response
 
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        resource = "http://example.com"
-        full_path = cache.cache(resource)
+        rezource = "http://example.com"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
+            cache_get = cache.get(rezource)
         self.assertEqual(
-            cache.get(resource),
+            cache_get,
             mock_response.text,
             "Get failed to return the correct contents.",
         )
@@ -532,10 +554,12 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
     def test_clear(self):
         """Test the clear method."""
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        resource = "http://example.com"
-        full_path = cache.cache(resource)
+        rezource = "http://example.com"
+        with capture.suppress_output():
+            full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
-        cache.clear()
+        with capture.suppress_output():
+            cache.clear()
         self.assertFalse(os.path.exists(full_path), "Clear failed to remove the file.")
 
 
@@ -554,7 +578,8 @@ class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
         with open(os.path.join(subdir, "file.txt"), "w") as f:
             f.write("content")
 
-        cache.clear()
+        with capture.suppress_output():
+            cache.clear()
         self.assertFalse(os.path.exists(subdir))
 
     def test_clear_exception_handling(self):
@@ -573,7 +598,8 @@ class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
             side_effect=OSError("Permission denied"),
         ):
             # Should not raise even when deletion fails
-            cache.clear()
+            with capture.suppress_output():
+                cache.clear()
 
     def test_clear_nonexistent_directory(self):
         """Test clear when the root directory does not exist."""
@@ -583,7 +609,8 @@ class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
             root=os.path.join(self.test_temp_dir, "nonexistent"),
         )
         # Should complete without raising
-        cache.clear()
+        with capture.suppress_output():
+            cache.clear()
 
 
 class TestDataGatherer(test_utils.TestCaseWithData):
@@ -674,7 +701,8 @@ class TestDataGatherer(test_utils.TestCaseWithData):
     def test_resource_delegates_to_cache(self):
         """Test that resource returns content from the resource cache."""
         self.gatherer.resource_cache = self._make_lambda_cache("hello")
-        result = self.gatherer.resource("any_key")
+        with capture.suppress_output():
+            result = self.gatherer.resource("any_key")
         self.assertEqual(result, "hello")
 
     def test_download_creates_json_file(self):
@@ -682,9 +710,11 @@ class TestDataGatherer(test_utils.TestCaseWithData):
         self.gatherer.resource_cache = self._make_lambda_cache()
 
         def handler(contents):
+            del contents
             return "Test Name", "Test body text", {"key": "value"}
 
-        self.gatherer.download("testfile", "test_resource", handler)
+        with capture.suppress_output():
+            self.gatherer.download("testfile", "test_resource", handler)
 
         file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
         self.assertTrue(os.path.exists(file_path))
@@ -700,10 +730,12 @@ class TestDataGatherer(test_utils.TestCaseWithData):
         self.gatherer.resource_cache = self._make_lambda_cache()
 
         def handler(contents):
+            del contents
             return "Test Name", None, {}
 
         with self.assertRaises(ValueError):
-            self.gatherer.download("testfile", "test_resource", handler)
+            with capture.suppress_output():
+                self.gatherer.download("testfile", "test_resource", handler)
 
     def test_download_skips_existing_file(self):
         """Test that download does not overwrite an existing file."""
@@ -716,11 +748,13 @@ class TestDataGatherer(test_utils.TestCaseWithData):
         handler_called = [False]
 
         def handler(contents):
+            del contents
             handler_called[0] = True
             return "New Name", "New body", {}
 
         self.gatherer.resource_cache = self._make_lambda_cache()
-        self.gatherer.download("testfile", "test_resource", handler)
+        with capture.suppress_output():
+            self.gatherer.download("testfile", "test_resource", handler)
 
         self.assertFalse(handler_called[0])
         with open(file_path, encoding="utf-8") as f:
@@ -732,14 +766,18 @@ class TestDataGatherer(test_utils.TestCaseWithData):
         self.gatherer.resource_cache = self._make_lambda_cache()
 
         def handler(contents):
+            del contents
             return "Name", "Body", {}
 
-        self.gatherer.download("testfile", "test_resource", handler)
+        with capture.suppress_output():
+            self.gatherer.download("testfile", "test_resource", handler)
 
         def handler2(contents):
+            del contents
             return "New Name", "New Body", {}
 
-        self.gatherer.download("testfile", "test_resource", handler2, force=True)
+        with capture.suppress_output():
+            self.gatherer.download("testfile", "test_resource", handler2, force=True)
 
         file_path = os.path.join(self.gatherer.path, "testfile" + self.gatherer.suffix)
         with open(file_path, encoding="utf-8") as f:
@@ -761,13 +799,15 @@ class TestDataGatherer(test_utils.TestCaseWithData):
         """Test that clear removes the gatherer's directory."""
         self.gatherer.ensure("testfile")
         self.assertTrue(os.path.isdir(self.gatherer.path))
-        self.gatherer.clear()
+        with capture.suppress_output():
+            self.gatherer.clear()
         self.assertFalse(os.path.exists(self.gatherer.path))
 
     def test_clear_nonexistent_path(self):
         """Test that clear on a non-existent path does not raise."""
         self.assertFalse(os.path.exists(self.gatherer.path))
-        self.gatherer.clear()
+        with capture.suppress_output():
+            self.gatherer.clear()
 
     def test_ensure_creates_root_when_missing(self):
         """Test that ensure creates the root directory when it does not exist."""
@@ -793,7 +833,8 @@ class TestDataGatherer(test_utils.TestCaseWithData):
             side_effect=OSError("Permission denied"),
         ):
             # Should not propagate the exception
-            self.gatherer.clear()
+            with capture.suppress_output():     
+                self.gatherer.clear()
 
     def test_gather_raises_not_implemented(self):
         """Test that gather raises NotImplementedError."""

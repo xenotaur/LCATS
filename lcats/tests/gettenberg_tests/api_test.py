@@ -10,6 +10,7 @@ from lcats.gettenberg import api
 from lcats.gettenberg import cache
 from lcats.gettenberg import headers
 from lcats.gettenberg import metadata
+from lcats.utils import capture
 from gutenbergpy import textget
 
 
@@ -206,7 +207,8 @@ class GettenbergApiTests(unittest.TestCase):
         ) as p_ensure, mock.patch.object(
             metadata, "get_metadata_from_cache", return_value=expected
         ) as p_from_cache:
-            out = api.get_metadata("title", 2701, skip_cache=False)
+            with capture.suppress_output():
+                out = api.get_metadata("title", 2701, skip_cache=False)
             p_ensure.assert_called_once()
             p_from_cache.assert_called_once_with(fake_cache, "title", 2701)
             self.assertEqual(out, expected)
@@ -219,7 +221,8 @@ class GettenbergApiTests(unittest.TestCase):
         ), mock.patch.object(
             metadata, "get_metadata_from_cache", return_value=set()
         ) as p_from_cache:
-            api.get_metadata("  TITLE  ", 42, skip_cache=False)
+            with capture.suppress_output():
+                api.get_metadata("  TITLE  ", 42, skip_cache=False)
             args, _ = p_from_cache.call_args
             self.assertEqual(args[1], "title")
 
@@ -231,7 +234,8 @@ class GettenbergApiTests(unittest.TestCase):
             side_effect=RuntimeError("db error"),
         ):
             with self.assertRaises(RuntimeError):
-                api.get_metadata("title", 42, skip_cache=False)
+                with capture.suppress_output():
+                    api.get_metadata("title", 42, skip_cache=False)
 
     def test_get_metadata_reraises_sqlite_error(self):
         """When ensure_gutenberg_cache raises sqlite3.Error, it propagates."""
@@ -241,7 +245,8 @@ class GettenbergApiTests(unittest.TestCase):
             side_effect=sqlite3.Error("db locked"),
         ):
             with self.assertRaises(sqlite3.Error):
-                api.get_metadata("title", 42, skip_cache=False)
+                with capture.suppress_output():
+                    api.get_metadata("title", 42, skip_cache=False)
 
     def test_get_metadata_skip_cache_falls_back_to_header_parse(self):
         """When skip_cache=True, get_metadata falls back to header parse via load_etext."""
@@ -252,7 +257,8 @@ class GettenbergApiTests(unittest.TestCase):
         ) as p_load, mock.patch.object(
             metadata, "get_metadata_from_header", return_value=expected
         ) as p_from_header:
-            out = api.get_metadata("title", 2701, skip_cache=True)
+            with capture.suppress_output():
+                out = api.get_metadata("title", 2701, skip_cache=True)
             p_load.assert_called_once_with(2701)
             p_from_header.assert_called_once()
             self.assertEqual(out, expected)
@@ -268,7 +274,8 @@ class GettenbergApiTests(unittest.TestCase):
         ), mock.patch.object(
             metadata, "get_metadata_from_header", return_value={"Foo"}
         ) as p_from_header:
-            out = api.get_metadata("title", 99, skip_cache=True)
+            with capture.suppress_output():
+                out = api.get_metadata("title", 99, skip_cache=True)
             args, _ = p_from_header.call_args
             self.assertEqual(args[0], "title")
             self.assertEqual(out, {"Foo"})

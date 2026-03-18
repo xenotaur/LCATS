@@ -6,10 +6,12 @@ import pathlib
 import unittest
 from unittest import mock
 
+import pandas as pd
 import tiktoken
 
 from lcats import test_utils
 from lcats.analysis import corpus_surveyor
+from lcats.utils import capture
 
 
 class TestComputeCorpusStats(test_utils.TestCaseWithData):
@@ -101,9 +103,10 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_basic_aggregation_with_dedupe(self):
         """Deduplicate duplicate stories; aggregate author/story stats correctly."""
-        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
-            self.paths, dedupe=True
-        )
+        with capture.suppress_output():
+            story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
+                self.paths, dedupe=True
+            )
 
         # Story frame has expected columns
         expected_story_cols = {
@@ -171,9 +174,10 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_dedupe_false_keeps_duplicate_row_but_author_story_counts_stay_unique(self):
         """When dedupe=False, keep duplicates; author 'stories' remains unique by story_id."""
-        story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
-            self.paths, dedupe=False
-        )
+        with capture.suppress_output():
+            story_stats, author_stats = corpus_surveyor.compute_corpus_stats(
+                self.paths, dedupe=False
+            )
 
         # Both p1 and its duplicate p2 should appear now
         self.assertEqual(len(story_stats), 5)
@@ -188,7 +192,8 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
         """Exact token counts match the encoder preference used by the implementation."""
         enc = self._preferred_encoder()
 
-        story_stats, _ = corpus_surveyor.compute_corpus_stats([self.p3], dedupe=True)
+        with capture.suppress_output():
+            story_stats, _ = corpus_surveyor.compute_corpus_stats([self.p3], dedupe=True)
         row = story_stats.iloc[0]
 
         self.assertEqual(row["title"], "Beta")
@@ -353,38 +358,45 @@ class TestProcessFile(test_utils.TestCaseWithData):
         return {"echo": data}
 
     def test_returns_processed_status(self):
+        """Test that the processed status is returned correctly."""
         in_path = self._write_json("story.json", {"key": "value"})
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+            )
         self.assertEqual(result["status"], "processed")
 
     def test_output_file_is_written(self):
+        """Test that the output file is written correctly."""
         in_path = self._write_json("story.json", {"key": "value"})
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-        )
+        with capture.suppress_output():        
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+            )
         self.assertTrue(result["output"].exists())
 
     def test_output_is_valid_json(self):
+        """Test that the output is a valid json file."""
         in_path = self._write_json("story.json", {"key": "value"})
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+            )
         content = result["output"].read_text(encoding="utf-8")
         parsed = json.loads(content)
         self.assertIsInstance(parsed, dict)
 
     def test_skips_when_output_exists_and_not_forced(self):
+        """Test that the processor is skipped when the output file exists and force is False."""
         in_path = self._write_json("story.json", {"key": "value"})
         out_path = self.job_dir / "story.json"
         out_path.write_text("{}", encoding="utf-8")
@@ -395,118 +407,135 @@ class TestProcessFile(test_utils.TestCaseWithData):
             called.append(True)
             return {"result": "x"}
 
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=counting_processor,
-            force=False,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=counting_processor,
+                force=False,
+            )
         self.assertEqual(result["status"], "skipped")
         self.assertEqual(called, [])
 
     def test_force_overwrites_existing_output(self):
+        """Test that the processor overwrites the output file when force is True."""
         in_path = self._write_json("story.json", {"key": "value"})
         out_path = self.job_dir / "story.json"
         out_path.write_text("{}", encoding="utf-8")
 
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-            force=True,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+                force=True,
+            )
         self.assertEqual(result["status"], "processed")
 
     def test_error_status_on_processor_exception(self):
+        """Test that the processor returns an error status when an exception is raised."""
         in_path = self._write_json("story.json", {"key": "value"})
 
         def failing_processor(data):
             raise ValueError("deliberate failure")
 
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=failing_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=failing_processor,
+            )
         self.assertEqual(result["status"], "error")
         self.assertIn("ValueError", result["error"])
         self.assertIn("deliberate failure", result["error"])
 
     def test_result_has_input_and_output_keys(self):
+        """Test that the result contains the expected keys."""
         in_path = self._write_json("story.json", {"key": "value"})
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+            )
         self.assertIn("input", result)
         self.assertIn("output", result)
         self.assertIn("status", result)
         self.assertIn("error", result)
 
     def test_file_outside_corpora_root_falls_back_to_filename(self):
+        """Test that a file outside the corpora root falls back to using the filename."""
         outside = pathlib.Path(self.test_temp_dir) / "outside.json"
         outside.write_text(json.dumps({"key": "value"}), encoding="utf-8")
 
-        result = corpus_surveyor.process_file(
-            outside,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                outside,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+            )
         self.assertEqual(result["status"], "processed")
         self.assertEqual(result["output"].name, "outside.json")
 
     def test_verbose_true_does_not_raise(self):
+        """Test that verbose=True does not raise an exception."""
         in_path = self._write_json("story.json", {"key": "value"})
         # Should not raise; just prints to stdout
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-            verbose=True,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+                verbose=True,
+            )
         self.assertEqual(result["status"], "processed")
 
     def test_verbose_skip_does_not_raise(self):
+        """Test that verbose=True does not raise an exception when skipping a file."""
         in_path = self._write_json("skip_story.json", {"key": "value"})
         out_path = self.job_dir / "skip_story.json"
         out_path.write_text("{}", encoding="utf-8")
         # With verbose=True and output existing, the skip branch prints
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=self._simple_processor,
-            force=False,
-            verbose=True,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=self._simple_processor,
+                force=False,
+                verbose=True,
+            )
         self.assertEqual(result["status"], "skipped")
 
     def test_verbose_error_does_not_raise(self):
+        """Test that verbose=True does not raise an exception when an error occurs."""
         in_path = self._write_json("err_story.json", {"key": "value"})
 
         def failing_processor(data):
             raise RuntimeError("verbose error test")
 
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=failing_processor,
-            verbose=True,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=failing_processor,
+                verbose=True,
+            )
         self.assertEqual(result["status"], "error")
 
     def test_abort_batch_on_fatal_api_error(self):
+        """Test that a fatal API error aborts the batch processing."""
         in_path = self._write_json("story.json", {"key": "value"})
 
         def aborting_processor(data):
+            del data
             return {
                 "api_error": {
                     "should_abort_batch": True,
@@ -516,12 +545,13 @@ class TestProcessFile(test_utils.TestCaseWithData):
                 }
             }
 
-        result = corpus_surveyor.process_file(
-            in_path,
-            corpora_root=self.corpus_root,
-            job_dir=self.job_dir,
-            processor_function=aborting_processor,
-        )
+        with capture.suppress_output():
+            result = corpus_surveyor.process_file(
+                in_path,
+                corpora_root=self.corpus_root,
+                job_dir=self.job_dir,
+                processor_function=aborting_processor,
+            )
         self.assertEqual(result["status"], "error")
         self.assertIn("Fatal API error", result["error"])
 
@@ -546,79 +576,90 @@ class TestProcessFiles(test_utils.TestCaseWithData):
         return data
 
     def test_basic_processing(self):
+        """Test basic processing of multiple files."""
         p1 = self._write_json("a.json", {"x": 1})
         p2 = self._write_json("b.json", {"x": 2})
-        summary = corpus_surveyor.process_files(
-            [p1, p2],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="test_basic",
-        )
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_files(
+                [p1, p2],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="test_basic",
+            )
         self.assertEqual(summary["total"], 2)
         self.assertEqual(summary["processed"], 2)
         self.assertEqual(summary["skipped"], 0)
         self.assertEqual(len(summary["errors"]), 0)
 
     def test_empty_file_list(self):
-        summary = corpus_surveyor.process_files(
-            [],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="empty_job",
-        )
+        """Test processing with an empty file list."""
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_files(
+                [],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="empty_job",
+            )
         self.assertEqual(summary["total"], 0)
         self.assertEqual(summary["processed"], 0)
         self.assertEqual(summary["skipped"], 0)
 
     def test_skips_existing_outputs_when_not_forced(self):
+        """Test that existing outputs are skipped when force is False."""
         p1 = self._write_json("story.json", {"x": 1})
-        summary1 = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="skip_test",
-        )
+        with capture.suppress_output():
+            summary1 = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="skip_test",
+            )
         self.assertEqual(summary1["processed"], 1)
 
-        summary2 = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="skip_test",
-            force=False,
-        )
+        with capture.suppress_output():
+            summary2 = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="skip_test",
+                force=False,
+            )
         self.assertEqual(summary2["skipped"], 1)
 
     def test_force_reprocesses_existing_outputs(self):
+        """Test that existing outputs are reprocessed when force is True."""
         p1 = self._write_json("story.json", {"x": 1})
-        corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="force_test",
-        )
-        summary = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=self._identity_processor,
-            job_label="force_test",
-            force=True,
-        )
+        with capture.suppress_output():
+            corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="force_test",
+            )
+            summary = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=self._identity_processor,
+                job_label="force_test",
+                force=True,
+            )
         self.assertEqual(summary["processed"], 1)
         self.assertEqual(summary["skipped"], 0)
 
     def test_summary_contains_expected_keys(self):
+        """Test that the summary contains the expected keys."""
         p1 = self._write_json("story.json", {"x": 1})
-        summary = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
             processor_function=self._identity_processor,
             job_label="keys_test",
         )
@@ -626,28 +667,32 @@ class TestProcessFiles(test_utils.TestCaseWithData):
             self.assertIn(key, summary)
 
     def test_errors_are_reported(self):
+        """Test that errors are reported in the summary."""
         p1 = self._write_json("bad.json", {"x": 1})
 
         def failing_processor(data):
             raise RuntimeError("boom")
 
-        summary = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=failing_processor,
-            job_label="error_test",
-        )
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=failing_processor,
+                job_label="error_test",
+            )
         self.assertEqual(summary["total"], 1)
         self.assertEqual(summary["processed"], 0)
         self.assertEqual(len(summary["errors"]), 1)
 
     def test_job_dir_created_under_output_root(self):
+        """Test that the job directory is created under the output root."""
         p1 = self._write_json("story.json", {"x": 1})
-        summary = corpus_surveyor.process_files(
-            [p1],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_files(
+                [p1],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
             processor_function=self._identity_processor,
             job_label="dir_test",
         )
@@ -657,6 +702,7 @@ class TestProcessFiles(test_utils.TestCaseWithData):
         self.assertTrue(job_dir.relative_to(output_root))
 
     def test_sort_true_processes_files_in_order(self):
+        """Test that files are processed in order when sort is True."""
         p_b = self._write_json("b.json", {"n": 2})
         p_a = self._write_json("a.json", {"n": 1})
         order = []
@@ -665,14 +711,15 @@ class TestProcessFiles(test_utils.TestCaseWithData):
             order.append(data["n"])
             return data
 
-        corpus_surveyor.process_files(
-            [p_b, p_a],
-            corpora_root=self.corpus_root,
-            output_root=self.output_root,
-            processor_function=tracking_processor,
-            job_label="sort_test",
-            sort=True,
-        )
+        with capture.suppress_output():
+            corpus_surveyor.process_files(
+                [p_b, p_a],
+                corpora_root=self.corpus_root,
+                output_root=self.output_root,
+                processor_function=tracking_processor,
+                job_label="sort_test",
+                sort=True,
+            )
         self.assertEqual(order, [1, 2])
 
 
@@ -696,65 +743,77 @@ class TestProcessCorpora(test_utils.TestCaseWithData):
         return data
 
     def test_processes_discovered_files(self):
+        """Test that discovered files are processed."""
         self._write_json("author/story.json", {"title": "Story", "body": "hello"})
-        summary = corpus_surveyor.process_corpora(
-            self.corpus_root,
-            self.output_root,
-            self._identity_processor,
-            job_label="corpora_basic",
-        )
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_corpora(
+                self.corpus_root,
+                self.output_root,
+                self._identity_processor,
+                job_label="corpora_basic",
+            )
         self.assertEqual(summary["total"], 1)
         self.assertEqual(summary["processed"], 1)
 
     def test_ignores_cache_dir(self):
+        """Test that the cache directory is ignored."""
         self._write_json("author/story.json", {"title": "Story"})
         (self.corpus_root / "cache").mkdir(parents=True, exist_ok=True)
         self._write_json("cache/cached.json", {"title": "Cached"})
 
-        summary = corpus_surveyor.process_corpora(
-            self.corpus_root,
-            self.output_root,
-            self._identity_processor,
-            job_label="cache_test",
-        )
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_corpora(
+                self.corpus_root,
+                self.output_root,
+                self._identity_processor,
+                job_label="cache_test",
+            )
         self.assertEqual(summary["total"], 1)
 
     def test_raises_on_missing_corpora_root(self):
+        """Test that a FileNotFoundError is raised for a missing corpora root."""
         with self.assertRaises(FileNotFoundError):
-            corpus_surveyor.process_corpora(
-                self.corpus_root / "nonexistent",
-                self.output_root,
-                self._identity_processor,
-            )
+            with capture.suppress_output():
+                corpus_surveyor.process_corpora(
+                    self.corpus_root / "nonexistent",
+                    self.output_root,
+                    self._identity_processor,
+                )
 
     def test_raises_on_non_directory_corpora_root(self):
+        """Test that a NotADirectoryError is raised for a non-directory corpora root."""
         f = self.corpus_root / "file.txt"
         f.write_text("x", encoding="utf-8")
         with self.assertRaises(NotADirectoryError):
-            corpus_surveyor.process_corpora(
-                f,
-                self.output_root,
-                self._identity_processor,
-            )
+            with capture.suppress_output():
+                corpus_surveyor.process_corpora(
+                    f,
+                    self.output_root,
+                    self._identity_processor,
+                )
 
     def test_summary_contains_expected_keys(self):
+        """Test that the summary contains the expected keys."""
         self._write_json("story.json", {"title": "A"})
-        summary = corpus_surveyor.process_corpora(
-            self.corpus_root,
-            self.output_root,
-            self._identity_processor,
-            job_label="keys_test",
-        )
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_corpora(
+                self.corpus_root,
+                self.output_root,
+                self._identity_processor,
+                job_label="keys_test",
+            )
         for key in ("job_dir", "total", "processed", "skipped", "errors", "results"):
             self.assertIn(key, summary)
 
     def test_empty_corpus_produces_zero_totals(self):
-        summary = corpus_surveyor.process_corpora(
-            self.corpus_root,
-            self.output_root,
-            self._identity_processor,
-            job_label="empty_corpora",
-        )
+        """Test that an empty corpus produces zero totals."""
+        with capture.suppress_output():
+            summary = corpus_surveyor.process_corpora(
+                self.corpus_root,
+                self.output_root,
+                self._identity_processor,
+                job_label="empty_corpora",
+            )
         self.assertEqual(summary["total"], 0)
         self.assertEqual(summary["processed"], 0)
 
@@ -791,16 +850,17 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
             "lcats.analysis.story_analysis.get_encoder",
             return_value=self._mock_enc,
         ):
-            return corpus_surveyor.compute_corpus_stats(paths, **kwargs)
+            with capture.suppress_output():
+                return corpus_surveyor.compute_corpus_stats(paths, **kwargs)
 
     def test_returns_two_dataframes(self):
+        """Test that _run_stats returns two pandas DataFrames."""
         story_stats, author_stats = self._run_stats([self.p_story])
-        import pandas as pd
-
         self.assertIsInstance(story_stats, pd.DataFrame)
         self.assertIsInstance(author_stats, pd.DataFrame)
 
     def test_story_stats_columns(self):
+        """Test that story_stats DataFrame contains the expected columns."""
         story_stats, _ = self._run_stats([self.p_story])
         expected = {
             "path",
@@ -818,11 +878,13 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertTrue(expected.issubset(set(story_stats.columns)))
 
     def test_author_stats_columns(self):
+        """Test that author_stats DataFrame contains the expected columns."""
         _, author_stats = self._run_stats([self.p_story])
         expected = {"author", "stories", "body_words", "body_chars", "body_tokens"}
         self.assertTrue(expected.issubset(set(author_stats.columns)))
 
     def test_word_and_char_counts_are_correct(self):
+        """Test that word and character counts are calculated correctly."""
         story_stats, _ = self._run_stats([self.p_story])
         row = story_stats.iloc[0]
         self.assertEqual(row["title"], "My Title")
@@ -832,6 +894,7 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertEqual(row["body_chars"], len("Hello world"))
 
     def test_dedupe_removes_duplicate(self):
+        """Test that duplicate stories are removed when dedupe is True."""
         root2 = pathlib.Path(self.test_temp_dir) / "data2"
         root2.mkdir()
         p1 = root2 / "orig.json"
@@ -844,6 +907,7 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertEqual(len(story_stats), 1)
 
     def test_dedupe_false_keeps_duplicates(self):
+        """Test that duplicate stories are kept when dedupe is False."""
         root2 = pathlib.Path(self.test_temp_dir) / "data3"
         root2.mkdir()
         p1 = root2 / "orig.json"
@@ -856,15 +920,18 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertEqual(len(story_stats), 2)
 
     def test_empty_input_returns_empty_frames(self):
+        """Test that empty input returns empty DataFrames."""
         story_stats, author_stats = self._run_stats([])
         self.assertTrue(story_stats.empty)
         self.assertTrue(author_stats.empty)
 
     def test_anonymous_author_excluded_from_author_stats(self):
+        """Test that anonymous authors are excluded from author_stats."""
         _, author_stats = self._run_stats([self.p_noauthor])
         self.assertTrue(author_stats.empty)
 
     def test_invalid_json_is_skipped_with_warning(self):
+        """Test that invalid JSON files are skipped with a warning."""
         bad = pathlib.Path(self.test_temp_dir) / "bad.json"
         bad.write_text("not valid json", encoding="utf-8")
 
@@ -873,6 +940,7 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertEqual(len(story_stats), 1)
 
     def test_author_stats_aggregates_multiple_stories(self):
+        """Test that author_stats aggregates multiple stories correctly."""
         root2 = pathlib.Path(self.test_temp_dir) / "multi"
         root2.mkdir()
         p1 = root2 / "s1.json"
@@ -892,11 +960,13 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
         self.assertEqual(row["body_words"], 3)  # 2 + 1
 
     def test_story_id_includes_authors(self):
+        """Test that story_id includes author names."""
         story_stats, _ = self._run_stats([self.p_story])
         row = story_stats.iloc[0]
         self.assertIn("alice", row["story_id"])
 
     def test_n_authors_is_correct(self):
+        """Test that the number of authors is calculated correctly."""
         root2 = pathlib.Path(self.test_temp_dir) / "nauth"
         root2.mkdir()
         p = root2 / "s.json"
