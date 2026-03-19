@@ -61,21 +61,34 @@ def title_and_author_to_filename(
     max_len: int = BASENAME_MAXIMUM_LENGTH,
     allow_empty: bool = False,
 ) -> str:
-    title_filename = (title_to_filename(title, max_len=50)).removesuffix(ext)
-    author_filename = ""
-
-    author_filename = canonical_author.last_name(
+    ext = normalize_extension(ext)
+    # TODO(centaur): this max_len is now applied only to the title component, not the whole
+    # basename. We need to come up with a policy for normalizing these longer titles while
+    # making sure they remain unique.
+    title_component = normalize_basename(
+        title, max_len=max_len, allow_empty=allow_empty
+    )[0]
+    author_component = canonical_author.last_name(
         canonical_author.canonical_key(authors[0])
     )
-
     for author in authors[1:]:
-        author_filename = (
-            author_filename
+        author_component = (
+            author_component
             + "_"
             + canonical_author.last_name(canonical_author.canonical_key(author))
         )
 
-    return title_filename + "__" + author_filename + ext
+    return title_component + "__" + author_component + ext
+
+
+def normalize_extension(ext: str) -> str:
+    """Normalize extension to start with '.' and be lowercase. Validates that it matches r'\.[a-z0-9]+'."""
+    if not ext.startswith("."):
+        ext = "." + ext
+    ext = ext.lower()
+    if not re.fullmatch(r"\.[a-z0-9]+", ext):
+        raise ValueError(f"Invalid extension policy: {ext!r}")
+    return ext
 
 
 def title_to_filename(
@@ -87,20 +100,12 @@ def title_to_filename(
 ) -> str:
     """Title (Unicode) → canonical ASCII filename (basename + ext).
 
-    - Produces a basename via `repair_basename`.
+    - Gets a base from the normalized title, and appends the normalized extension.
     - If basename is empty and allow_empty=False, raises ValueError.
     - Extension must match r'\.[a-z0-9]+' and is lowered.
     """
-    # normalize/validate extension
-    if not ext.startswith("."):
-        ext = "." + ext
-    ext = ext.lower()
-    if not re.fullmatch(r"\.[a-z0-9]+", ext):
-        raise ValueError(f"Invalid extension policy: {ext!r}")
-
-    base = repair_basename(title, max_len=max_len)
-    if not base and not allow_empty:
-        raise ValueError("Title produced empty basename under current policy.")
+    ext = normalize_extension(ext)
+    base = normalize_basename(title, max_len=max_len, allow_empty=allow_empty)[0]
     return f"{base}{ext}" if base else ext
 
 
@@ -111,9 +116,13 @@ def normalize_basename(
     basename: str,
     *,
     max_len: int = BASENAME_MAXIMUM_LENGTH,
+    allow_empty: bool = False,
 ) -> Tuple[str, bool]:
     """Return (result, changed). If already valid, returns (basename, False);
     else returns (repair_basename(basename), True)."""
     if is_valid_basename(basename, max_len=max_len):
         return basename, False
-    return repair_basename(basename, max_len=max_len), True
+    base = repair_basename(basename, max_len=max_len)
+    if not base and not allow_empty:
+        raise ValueError("Normalizing produced empty basename under current policy.")
+    return base, True

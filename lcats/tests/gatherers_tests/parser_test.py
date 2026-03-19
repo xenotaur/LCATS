@@ -541,10 +541,15 @@ class TestFixBody(unittest.TestCase):
         self.assertIn("First paragraph.", result)
         self.assertIn("Second paragraph.", result)
 
-    def test_does_not_remove_transcriber_after_first_paragraph(self):
-        text = "First paragraph.\n\nTranscriber's note: late note"
+    def test_does_not_remove_transcriber_from_body(self):
+        text = "First paragraph.\n\nTranscriber's note: late note\n\nSecond paragraph."
         result = parser.fix_body(text, ["Smith, John"], [])
         self.assertIn("Transcriber", result)
+
+    def test_does_remove_transcriber_in_last_paragraph(self):
+        text = "First paragraph.\n\nSecond paragraph.\n\nTranscriber's note: late note"
+        result = parser.fix_body(text, ["Smith, John"], [])
+        self.assertNotIn("Transcriber", result)
 
 
 class TestBodyOfText(unittest.TestCase):
