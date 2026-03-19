@@ -63,9 +63,16 @@ class TestDetectEncoding(unittest.TestCase):
         self.assertIn(enc.upper(), {"ISO-8859-1", "WINDOWS-1250", "WINDOWS-1252"})
 
     def test_detect_encoding_cp1252_distinguishing(self):
-        # cp1252-specific punctuation:
-        # 0x80 = €, 0x93/0x94 = smart quotes, 0x96 = en dash
-        data = b"Price: \x80 10 \x93quoted\x94 \x96 dash"
+        # cp1252-heavy sample:
+        # 0x80 = €, 0x91/0x92 = curly apostrophes,
+        # 0x93/0x94 = smart quotes, 0x95 = bullet,
+        # 0x96/0x97 = en/em dash, 0x85 = ellipsis
+        data = (
+            b"Price: \x80 10. "
+            b"\x93Quoted text\x94 with \x91apostrophes\x92. "
+            b"List item \x95 one. "
+            b"Range 1\x962 and pause\x85 then emphasis\x97done."
+        )
         enc = downloaders.detect_encoding(data)
         self.assertIn(enc.lower(), {"windows-1252", "cp1252"})
 
