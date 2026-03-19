@@ -1,5 +1,6 @@
 """Tests for lcats.gatherers.mass_quantities.parser."""
 
+from io import StringIO
 import unittest
 from unittest import mock
 from parameterized import parameterized
@@ -556,14 +557,17 @@ class TestBodyOfText(unittest.TestCase):
     """Tests for parser.body_of_text."""
 
     def _make_story(self, title, author_line, body):
+        """Helper to create a story text with title, author, and body."""
         return f"{title}\n\n{author_line}\n\n{body}"
 
     def test_extracts_body_after_title_and_author(self):
+        """The body should be extracted after the title and author lines."""
         text = self._make_story("The Bell", "John Smith", "Once upon a time.")
         result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
         self.assertIn("Once upon a time.", result)
 
     def test_body_excludes_title(self):
+        """The title line should not be included in the body, even if it appears at the start."""
         text = self._make_story("The Bell", "John Smith", "Once upon a time.")
         result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
         self.assertNotIn("The Bell\n\nJohn Smith", result)
@@ -589,7 +593,7 @@ class TestLineContainsTitleAdditional(unittest.TestCase):
     """Additional tests for line_contains_title covering fuzzy and no-match branches."""
 
     def test_fuzzy_match_fires_for_near_miss(self):
-        """A line with high similarity to the title triggers the fuzzy-match branch when no exact match exists."""
+        """Line w/high similarity to title triggers fuzzy-match when no exact match exists."""
         # "The Bel" vs "The Bell": no exact match variant fires,
         # but SequenceMatcher ratio ~0.93 > 0.90 so the fuzzy branch returns True.
         self.assertTrue(parser.line_contains_title("The Bel", "The Bell"))
@@ -609,7 +613,7 @@ class TestLineContainsAuthorAdditional(unittest.TestCase):
 
     def test_by_line_over_limit_containing_names_returns_true(self):
         """A 'by' line with >=limit words that still contains author names returns True."""
-        # 9 words: the length check fails (len >= 8), but names are present, exercising lines 422-424.
+        # 9 words: length check fails (len >= 8), but names are present, exercising lines 422-424.
         line = "by john smith the author of this story today"
         self.assertTrue(parser.line_contains_author(line, ["Smith, John"], []))
 
@@ -679,6 +683,7 @@ def _make_metadata_side_effect(subject, language, title, author, alias):
     """Return a side_effect function for api.get_metadata that returns metadata by key."""
 
     def side_effect(key, story_id):
+        del story_id
         return {
             "subject": subject,
             "language": language,
@@ -824,6 +829,8 @@ class TestGatherStory(unittest.TestCase):
         self.assertIsNotNone(result[1])
 
 
+# REMOVE Clean up to here
+
 class TestTestStories(unittest.TestCase):
     """Tests for parser.test_stories."""
 
@@ -841,7 +848,8 @@ class TestShowDataFunctions(unittest.TestCase):
     def test_show_data_not_corpora_handles_missing_file(self):
         """show_data_not_corpora handles a missing CSV file without raising."""
         try:
-            parser.show_data_not_corpora(limit=10)
+           with mock.patch("sys.stdout", new_callable=StringIO):
+                parser.show_data_not_corpora(limit=10)
         except Exception as e:
             self.fail(
                 "show_data_not_corpora raised an unexpected exception: {}".format(e)
@@ -875,7 +883,8 @@ class TestShowDataFunctions(unittest.TestCase):
         """show_data_not_corpora handles a generic exception without raising."""
         with mock.patch("builtins.open", side_effect=PermissionError("denied")):
             try:
-                parser.show_data_not_corpora(limit=10)
+                with mock.patch("sys.stdout", new_callable=StringIO):
+                    parser.show_data_not_corpora(limit=10)
             except Exception as e:
                 self.fail(
                     "show_data_not_corpora raised an unexpected exception: {}".format(e)
@@ -897,14 +906,17 @@ class TestShowDataFunctions(unittest.TestCase):
 
     def test_show_corpora_not_data_handles_generic_exception(self):
         """show_corpora_not_data handles a generic exception without raising."""
+        
         with mock.patch("builtins.open", side_effect=PermissionError("denied")):
             try:
-                parser.show_corpora_not_data()
+                with mock.patch("sys.stdout", new_callable=StringIO):
+                    parser.show_corpora_not_data()
             except Exception as e:
                 self.fail(
                     "show_corpora_not_data raised an unexpected exception: {}".format(e)
                 )
 
+# Clean after here
 
 class TestTestStoryGet(unittest.TestCase):
     """Tests for parser.test_story_get using a mocked API."""
