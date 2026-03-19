@@ -125,7 +125,7 @@ class TestNormalizeBasename(unittest.TestCase):
         self.assertEqual(out, "bad_name")
 
     def test_empty_after_repair(self):
-        out, changed = names.normalize_basename("— — —")
+        out, changed = names.normalize_basename("— — —", allow_empty=True)
         self.assertEqual(out, "")  # caller must decide how to handle
         self.assertTrue(changed)
 
