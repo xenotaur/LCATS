@@ -65,7 +65,7 @@ class TestDetectEncoding(unittest.TestCase):
     def test_detect_encoding_cp1252_distinguishing(self):
         # cp1252-specific punctuation:
         # 0x80 = €, 0x93/0x94 = smart quotes, 0x96 = en dash
-        data = b'Price: \x80 10 \x93quoted\x94 \x96 dash'
+        data = b"Price: \x80 10 \x93quoted\x94 \x96 dash"
         enc = downloaders.detect_encoding(data)
         self.assertIn(enc.lower(), {"windows-1252", "cp1252"})
 
@@ -82,6 +82,7 @@ class TestDetectEncoding(unittest.TestCase):
         encoding = downloaders.detect_encoding(text)
         # `chardet` might return None for unknown encodings, or call it UTF-16
         self.assertIn(encoding.lower(), {"utf-16", "utf-16-le", "utf-16-be"})
+
 
 class TestConvertEncoding(unittest.TestCase):
     """Unit tests for the convert_encoding function."""
