@@ -1,4 +1,108 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ruff check lcats tests tools "$@"
+fix=0
+extra=0
+
+# Parse flags
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --fix)
+            fix=1
+            shift
+            ;;
+        --extra)
+            extra=1
+            shift
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+# Targets
+if [[ "$#" -gt 0 ]]; then
+    targets=("$@")
+else
+    targets=(lcats tests tools)
+fi
+
+# Ruff rule sets
+ruff_base=()
+ruff_extra=(--extend-select D B UP C4 SIM)
+
+# ------------------------
+# FIX MODE
+# ------------------------
+if [[ "$fix" -eq 1 ]]; then
+    echo "Fixing lint issues with ruff..."
+    if [[ "$extra" -eq 1 ]]; then
+        ruff check --fix "${ruff_extra[@]}" "${targets[@]}"
+    else
+        ruff check --fix "${targets[@]}"
+    fi
+
+    echo "Formatting with black..."
+    black "${targets[@]}"
+
+    if [[ "$extra" -eq 1 ]]; then
+        echo
+        echo "Running extra checks (pylint, pyright)..."
+        pylint "${targets[@]}" || true
+        pyright "${targets[@]}" || true
+    fi
+
+    exit 0
+fi
+
+# ------------------------
+# CHECK MODE
+# ------------------------
+ruff_failed=0
+black_failed=0
+pylint_failed=0
+pyright_failed=0
+
+echo "Checking lint with ruff..."
+if [[ "$extra" -eq 1 ]]; then
+    if ! ruff check "${ruff_extra[@]}" "${targets[@]}"; then
+        ruff_failed=1
+    fi
+else
+    if ! ruff check "${targets[@]}"; then
+        ruff_failed=1
+    fi
+fi
+
+echo "Checking formatting with black..."
+if ! black --check --quiet "${targets[@]}"; then
+    black_failed=1
+    echo
+    echo "Black formatting check failed. Run scripts/lint --fix or scripts/format."
+fi
+
+# ------------------------
+# EXTRA CHECKS
+# ------------------------
+if [[ "$extra" -eq 1 ]]; then
+    echo
+    echo "Running extra checks..."
+
+    echo "Checking with pylint..."
+    if ! pylint "${targets[@]}"; then
+        pylint_failed=1
+    fi
+
+    echo "Checking with pyright..."
+    if ! pyright "${targets[@]}"; then
+        pyright_failed=1
+    fi
+fi
+
+# ------------------------
+# FINAL STATUS
+# ------------------------
+if [[ "$ruff_failed" -ne 0 || "$black_failed" -ne 0 || "$pylint_failed" -ne 0 || "$pyright_failed" -ne 0 ]]; then
+    exit 1
+fi

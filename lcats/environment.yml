@@ -157,7 +157,6 @@ dependencies:
   - pexpect=4.9.0=pyhd8ed1ab_0
   - pickleshare=0.7.5=py_1003
   - pillow=11.2.1=py311hb9ba9e9_0
-  - pip=24.2=pyhd8ed1ab_0
   - pixman=0.46.2=h2f9eb0b_0
   - platformdirs=4.2.2=pyhd8ed1ab_0
   - pluggy=1.0.0=py311hca03da5_1
@@ -224,6 +223,7 @@ dependencies:
       - argon2-cffi==23.1.0
       - argon2-cffi-bindings==21.2.0
       - arrow==1.3.0
+      - astroid==4.0.4
       - async-lru==2.0.4
       - attrs==24.2.0
       - babel==2.16.0
@@ -263,6 +263,7 @@ dependencies:
       - ipywidgets==8.1.5
       - isodate==0.6.1
       - isoduration==20.11.0
+      - isort==8.0.1
       - jaraco-classes==3.4.0
       - jaraco-context==5.3.0
       - jaraco-functools==4.0.2
@@ -293,6 +294,7 @@ dependencies:
       - lxml==5.2.2
       - mako==1.3.10
       - markdown-it-py==3.0.0
+      - mccabe==0.7.0
       - mdurl==0.1.2
       - mistune==3.0.2
       - more-itertools==10.3.0
@@ -303,6 +305,7 @@ dependencies:
       - nbconvert==7.16.4
       - nbformat==5.10.4
       - nh3==0.2.18
+      - nodeenv==1.10.0
       - notebook==7.2.2
       - notebook-shim==0.2.4
       - numpy==1.25.2
@@ -325,6 +328,7 @@ dependencies:
       - pinecone-client==5.0.1
       - pinecone-plugin-inference==1.0.3
       - pinecone-plugin-interface==0.0.7
+      - pip==26.0.1
       - pkginfo==1.10.0
       - prance==23.6.21.0
       - prometheus-client==0.21.0
@@ -334,10 +338,12 @@ dependencies:
       - pydantic==2.8.2
       - pydantic-core==2.20.1
       - pydantic-settings==2.4.0
+      - pylint==4.0.5
       - pymeta3==0.5.1
       - pymongo==4.10.1
       - pyparsing==2.4.7
       - pyproject-hooks==1.1.0
+      - pyright==1.1.408
       - python-dotenv==1.0.1
       - python-json-logger==2.0.7
       - python-ptrace==0.9.9
@@ -373,6 +379,7 @@ dependencies:
       - tinydb==4.8.0
       - tokenize-rt==6.2.0
       - tokenizers==0.19.1
+      - tomlkit==0.14.0
       - tqdm==4.66.5
       - transformers==4.44.2
       - twine==5.1.1

@@ -299,9 +299,10 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x
         )
+        file_name = "foo.bar"
         self.assertEqual(
-            cache.full_path("foo.bar"),
-            os.path.join(env.cache_resources_dir(), "foo.bar"),
+            cache.full_path(file_name),
+            os.path.join(env.cache_resources_dir(), file_name),
             "Full path failed.",
         )
 
@@ -310,19 +311,19 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x
         )
-
-        full_path = cache.full_path("foo.bar")
+        file_name = "bar.baz"
+        full_path = cache.full_path(file_name)
         if os.path.exists(full_path):
             os.unlink(full_path)  # Remove the file or link
         with capture.suppress_output():
-            file_exists, path = cache.ensure("foo.bar")
+            file_exists, path = cache.ensure(file_name)
         self.assertFalse(file_exists, "File should not exist.")
         self.assertEqual(path, full_path, "Path is correct.")
 
         with open(full_path, "w", encoding=constants.TEXT_ENCODING) as file:
             file.write("contents")
         with capture.suppress_output():
-            file_exists, path = cache.ensure("foo.bar")
+            file_exists, path = cache.ensure(file_name)
         self.assertTrue(file_exists, "File should exist.")
         self.assertEqual(path, full_path, "Path is correct.")
         if os.path.exists(full_path):
@@ -342,16 +343,18 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x
         )
+        file_name = "baz.qux"
         with capture.suppress_output():
-            acquired = cache.acquire("foo.bar")
-        self.assertEqual(acquired, "foo.bar", "Acquisition failed.")
+            acquired = cache.acquire(file_name)
+        self.assertEqual(acquired, file_name, "Acquisition failed.")
 
     def test_store_with_root(self):
         """Test the store method."""
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        canonical = cache.canonicalize("foo.bar")
+        file_name = "qux.hef"
+        canonical = cache.canonicalize(file_name)
         full_path = cache.full_path(canonical)
         contents = "contents"
         with capture.suppress_output():
@@ -367,7 +370,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        rezource = "foo.bar"
+        rezource = "hef.alu"
         with capture.suppress_output():
             full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
@@ -383,11 +386,12 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        rezource = "foo.bar"
+        rezource = "alu.ump"
         with capture.suppress_output():
             full_path = cache.cache(rezource)
+            got_stuff = cache.get(rezource)
         self.assertEqual(
-            cache.get(rezource), rezource, "Get failed to return the correct contents."
+            got_stuff, rezource, "Get failed to return the correct contents."
         )
         self.assertTrue(os.path.exists(full_path), "Get failed to write a file.")
         if os.path.exists(full_path):
@@ -398,7 +402,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.LambdaResourceCache(
             canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
-        rezource = "foo.bar"
+        rezource = "ump.kin"
         with capture.suppress_output():
             full_path = cache.cache(rezource)
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")

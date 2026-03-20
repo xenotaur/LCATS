@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Test LCATS via Python's unittest module
 echo "Testing lcats ..."
-set -x
 
-python -m unittest discover -s tests -p "*_test.py"
+if [ "$#" -eq 0 ]; then
+    set -x
+    python -m unittest discover -s tests -p "*_test.py"
+elif [ -d "$1" ]; then
+    set -x
+    python -m unittest discover -s "$1" -p "*_test.py"
+elif [ -f "$1" ]; then
+    module="${1%.py}"
+    module="${module#./}"
+    module="${module//\//.}"
+    set -x
+    python -m unittest "$module"
+else
+    set -x
+    python -m unittest "$@"
+fi
 
-# Turn off logging and print a blank line
 { set +x; } 2>/dev/null
 echo

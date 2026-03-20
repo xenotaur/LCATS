@@ -1,5 +1,6 @@
 """Unit tests for lcats.gettenberg.metadata functions."""
 
+from io import StringIO
 import unittest
 import unittest.mock as mock
 
@@ -82,9 +83,10 @@ class GettenbergApiMetadataTests(unittest.TestCase):
             metadata, "titles_for", side_effect=RuntimeError("boom")
         ):
             with self.assertRaises(RuntimeError):
-                metadata.get_metadata_from_cache(
-                    cache=object(), field="title", book_id=1
-                )
+                with mock.patch("sys.stdout", new_callable=StringIO):
+                    metadata.get_metadata_from_cache(
+                        cache=object(), field="title", book_id=2  # the bug!
+                    )
 
     # ---------------- get_metadata_from_header ----------------
 
