@@ -1,4 +1,44 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ruff check lcats tests tools "$@"
+fix=0
+
+if [[ "${1:-}" == "--fix" ]]; then
+    fix=1
+    shift
+fi
+
+if [[ "$#" -gt 0 ]]; then
+    targets=("$@")
+else
+    targets=(lcats tests tools)
+fi
+
+if [[ "$fix" -eq 1 ]]; then
+    echo "Fixing lint issues with ruff..."
+    ruff check --fix "${targets[@]}"
+
+    echo "Formatting with black..."
+    black "${targets[@]}"
+else
+    ruff_failed=0
+    black_failed=0
+
+    echo "Checking lint with ruff..."
+    if ! ruff check "${targets[@]}"; then
+        ruff_failed=1
+    fi
+
+    echo "Checking formatting with black..."
+    if ! black --check --quiet "${targets[@]}"; then
+        black_failed=1
+        echo
+        echo "Black formatting check failed. Run scripts/lint --fix or scripts/format."
+    else
+        echo "Black formatting check passed."
+    fi
+
+    if [[ "$ruff_failed" -ne 0 || "$black_failed" -ne 0 ]]; then
+        exit 1
+    fi
+fi

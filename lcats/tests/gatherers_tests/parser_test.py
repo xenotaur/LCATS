@@ -829,8 +829,6 @@ class TestGatherStory(unittest.TestCase):
         self.assertIsNotNone(result[1])
 
 
-# REMOVE Clean up to here
-
 class TestTestStories(unittest.TestCase):
     """Tests for parser.test_stories."""
 
@@ -848,7 +846,7 @@ class TestShowDataFunctions(unittest.TestCase):
     def test_show_data_not_corpora_handles_missing_file(self):
         """show_data_not_corpora handles a missing CSV file without raising."""
         try:
-           with mock.patch("sys.stdout", new_callable=StringIO):
+            with mock.patch("sys.stdout", new_callable=StringIO):
                 parser.show_data_not_corpora(limit=10)
         except Exception as e:
             self.fail(
@@ -906,7 +904,7 @@ class TestShowDataFunctions(unittest.TestCase):
 
     def test_show_corpora_not_data_handles_generic_exception(self):
         """show_corpora_not_data handles a generic exception without raising."""
-        
+
         with mock.patch("builtins.open", side_effect=PermissionError("denied")):
             try:
                 with mock.patch("sys.stdout", new_callable=StringIO):
@@ -916,7 +914,6 @@ class TestShowDataFunctions(unittest.TestCase):
                     "show_corpora_not_data raised an unexpected exception: {}".format(e)
                 )
 
-# Clean after here
 
 class TestTestStoryGet(unittest.TestCase):
     """Tests for parser.test_story_get using a mocked API."""

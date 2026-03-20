@@ -100,15 +100,62 @@ scripts/lint [additional-ruff-args]
 ### Testing
 
 #### `test`
-Runs the complete test suite using Python's unittest framework.
+Runs the test suite using Python's `unittest` framework.
+
+```bash
+scripts/test [target]
+```
+
+**Default behavior (no arguments):**
+- Discovers and runs all tests in the `tests/` directory
+- Matches files with pattern `*_test.py`
 
 ```bash
 scripts/test
 ```
 
+**Targeted test execution:**
+
+The `test` script also supports running a subset of tests by passing a target. The target can be:
+
+- A **directory**
+- A **test file**
+- A **dotted module path**
+- A **specific test class or method**
+
+**Examples:**
+
+_Run all tests in a subdirectory:_
+```bash
+scripts/test tests/gatherers
+```
+
+_Run a single test file:_
+```bash
+scripts/test tests/gatherers/downloaders_test.py
+```
+
+_Run a module (dotted path):_
+```bash
+scripts/test tests.gatherers.downloaders_test
+```
+
+_Run a specific test class:_
+```bash
+scripts/test tests.gatherers.downloaders_test.TestDownloader
+```
+
+_Run a single test method:_
+```bash
+scripts/test tests.gatherers.downloaders_test.TestDownloader.test_detect_encoding
+```
+
 **Test Discovery:**
-- Searches `tests/` directory
-- Runs files matching pattern `*_test.py`
+- Directory targets use `unittest discover` under the specified path.
+- File paths are automatically converted to module paths.
+- Dotted paths provide the most precise and reliable way to target individual tests.
+- If no target is provided, full test discovery is used.
+
 
 #### `coverage`
 Runs test coverage analysis and generates reports.
