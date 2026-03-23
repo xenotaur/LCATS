@@ -99,12 +99,8 @@ def gather(
         license=license_text,
     )
     for raw_filename, heading, title in headings:
-        filename = names.title_to_filename(
-            raw_filename, ext=constants.FILE_SUFFIX, max_len=50
-        )
-        # TERRIBLE HACK KMM
-        filename = filename.removesuffix(constants.FILE_SUFFIX)
-
+        filename = names.normalize_basename(raw_filename)[0]
+        
         gatherer.download(
             filename,
             gutenberg_url,
