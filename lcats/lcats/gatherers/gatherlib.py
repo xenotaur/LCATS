@@ -99,7 +99,7 @@ def gather(
     )
     for raw_filename, heading, title in headings:
         filename = names.normalize_basename(raw_filename)[0]
-        
+
         gatherer.download(
             filename,
             gutenberg_url,
