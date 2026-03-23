@@ -2,7 +2,6 @@
 
 from bs4 import BeautifulSoup
 from lcats.gatherers import downloaders
-from lcats import constants
 from lcats.utils import names
 
 DEFAULT_DIVISION_TAGS = ["h2", "div"]
