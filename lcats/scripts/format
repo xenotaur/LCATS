@@ -1,4 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-black lcats tests tools
+black_args=()
+targets=(lcats tests tools)
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --check|--diff|--quiet|--verbose)
+            black_args+=("$1")
+            shift
+            ;;
+        --)
+            shift
+            targets=("$@")
+            break
+            ;;
+        *)
+            targets=("$@")
+            break
+            ;;
+    esac
+done
+
+black "${black_args[@]}" "${targets[@]}"
