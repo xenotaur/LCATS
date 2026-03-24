@@ -11,14 +11,14 @@ import textwrap
 from typing import Any, Dict
 
 
-def inspect(*args: str) -> int:
+def inspect_files(*args: str) -> int:
     """
-    Inspect one or more JSON files (args are strings from the CLI).
+    Shows a summary of one or more JSON files (args are strings from the CLI).
     Resolves each path relative to the current directory and pretty-prints the story.
     Errors are written to stderr. Returns a non-zero exit code on failure.
 
     Returns:
-        0 if all files printed successfully
+        0 if all files inspected successfully
         2 if no arguments provided
         1 if any file was missing / invalid / failed to parse
     """
@@ -26,53 +26,108 @@ def inspect(*args: str) -> int:
         sys.stderr.write("usage: lcats inspect <file1.json> [file2.json ...]\n")
         return 2
 
-    inspected = 0
-    not_found = 0
-    errors = 0
+    return summarize_process_results(*process_files(args, inspect_story))
 
-    for raw in args:
-        p = pathlib.Path(raw).expanduser()
-        # resolve(strict=False) to keep non-existent paths as-is for better error messages
-        try:
-            p = p.resolve(strict=False)
-        except Exception:
-            # Very rare, but Path.resolve could raise on weird paths; fallback to original
-            p = pathlib.Path(raw)
 
-        if not p.exists():
-            sys.stderr.write(f"error: not found: {raw} (resolved: {p})\n")
-            not_found += 1
-            continue
+def display_files(*args: str) -> int:
+    """
+    Display full story text of one or more JSON files (args are strings from the CLI).
+    Resolves each path relative to the current directory and pretty-prints the story.
+    Errors are written to stderr. Returns a non-zero exit code on failure.
 
-        if not p.is_file():
-            sys.stderr.write(f"error: not a file: {raw} (resolved: {p})\n")
-            not_found += 1
-            continue
+    Returns:
+        0 if all files displayed successfully
+        2 if no arguments provided
+        1 if any file was missing / invalid / failed to parse
+    """
+    if not args:
+        sys.stderr.write("usage: lcats display <file1.json> [file2.json ...]\n")
+        return 2
 
-        try:
-            pretty_print_story(p)
-            inspected += 1
-        except json.JSONDecodeError as e:
-            sys.stderr.write(f"error: invalid JSON in {p}: {e}\n")
-            errors += 1
-        except UnicodeDecodeError as e:
-            sys.stderr.write(f"error: could not decode {p}: {e}\n")
-            errors += 1
-        except Exception as e:
-            # Catch-all so one bad file doesn't stop the rest
-            sys.stderr.write(f"error: failed to inspect {p}: {e}\n")
-            errors += 1
+    return summarize_process_results(*process_files(args, display_story))
 
-    message = f"Inspected {inspected} files"
+
+def process_files(filenames, processor) -> tuple[int, int, int]:
+    """
+    Process a list of filenames with the given processor function.
+
+    Resolves each path relative to the current directory and then applies the processor.
+    Errors are written to stderr. Returns a non-zero exit code on failure.
+
+    Returns:
+        0 if all files processed successfully
+        2 if no arguments provided
+        1 if any file was missing / invalid / failed to parse
+    """
+    files_inspected = 0
+    files_not_found = 0
+    files_with_errors = 0
+
+    for filename in filenames:
+        inspected, not_found, errors = process_file(filename, processor)
+        files_inspected += inspected
+        files_not_found += not_found
+        files_with_errors += errors
+
+    return files_inspected, files_not_found, files_with_errors
+
+
+def summarize_process_results(
+    files_inspected: int, files_not_found: int, files_with_errors: int
+) -> tuple[str, int]:
+    """
+    Summarize the results of processing multiple files into a message and exit code.
+
+    Args:
+        inspected: The number of files successfully inspected.
+        not_found: The number of files that were not found.
+        errors: The number of files that had errors during processing.
+    Returns:
+        A tuple containing a summary message and an exit code (0 for success, 1 for any issues).
+    """
+    message = f"Inspected {files_inspected} files"
     result = 0
-    if not_found > 0:
-        message += f", {not_found} not found"
+    if files_not_found > 0:
+        message += f", {files_not_found} not found"
         result = 1
-    if errors > 0:
-        message += f", {errors} errors"
+    if files_with_errors > 0:
+        message += f", {files_with_errors} errors"
         result = 1
     message += "."
     return message, result
+
+
+def process_file(filename: str, processor) -> tuple[int, int, int]:
+    """Inspect a file at a given path and pretty-print it. Returns (inspected, not_found, errors)."""
+    p = pathlib.Path(filename).expanduser()
+    # resolve(strict=False) to keep non-existent paths as-is for better error messages
+    try:
+        p = p.resolve(strict=False)
+    except Exception:
+        # Very rare, but Path.resolve could raise on weird paths; fallback to original
+        p = pathlib.Path(filename)
+
+    if not p.exists():
+        sys.stderr.write(f"error: not found: {filename} (resolved: {p})\n")
+        return 0, 1, 0  # inspected, not_found, errors
+
+    if not p.is_file():
+        sys.stderr.write(f"error: not a file: {filename} (resolved: {p})\n")
+        return 0, 1, 0  # inspected, not_found, errors
+
+    try:
+        processor(p)
+        return 1, 0, 0  # inspected, not_found, errors
+    except json.JSONDecodeError as e:
+        sys.stderr.write(f"error: invalid JSON in {p}: {e}\n")
+        return 0, 0, 1  # inspected, not_found, errors
+    except UnicodeDecodeError as e:
+        sys.stderr.write(f"error: could not decode {p}: {e}\n")
+        return 0, 0, 1  # inspected, not_found, errors
+    except Exception as e:
+        # Catch-all so one bad file doesn't stop the rest
+        sys.stderr.write(f"error: failed to inspect {p}: {e}\n")
+        return 0, 0, 1  # inspected, not_found, errors
 
 
 def _decode_possible_bytes_literal(s: str) -> str:
@@ -148,10 +203,14 @@ def format_story_json(
         out.append("")
 
     out.append("📜 Story:")
-    snippet = body[:max_body_chars]
-    out.extend(textwrap.wrap(snippet, width=width))
-    if len(body) > max_body_chars:
-        out.append("\n... [truncated] ...")
+    if max_body_chars is not None:
+        snippet = body[:max_body_chars]
+        out.extend(textwrap.wrap(snippet, width=width))
+        if max_body_chars is not None and len(body) > max_body_chars:
+            out.append("\n... [truncated] ...")
+    else:
+        # TODO(centaur): Add support for textwrapping very long lines.
+        out.extend(body.splitlines())
     out.append(sep)
 
     return "\n".join(out)
@@ -172,9 +231,23 @@ def pretty_print_story(
     print(formatted)
 
 
+def inspect_story(
+    json_path: str | pathlib.Path, *, max_body_chars: int = 1000, width: int = 80
+) -> None:
+    """Alias for pretty_print_story which uses its summarization features."""
+    pretty_print_story(json_path, max_body_chars=max_body_chars, width=width)
+
+
+def display_story(
+    json_path: str | pathlib.Path, *, max_body_chars: int = None, width: int = 80
+) -> None:
+    """Alias for pretty_print_story which uses its summarization features."""
+    pretty_print_story(json_path, max_body_chars=max_body_chars, width=width)
+
+
 # Optional: allow running directly via `python -m lcats.inspect ...`
 if __name__ == "__main__":
     # The top-level entrypoint in your app might do:
     #   return lcats.inspect.inspect(*args)
     # but this lets you test it directly.
-    sys.exit(inspect(*sys.argv[1:]))
+    sys.exit(inspect_files(*sys.argv[1:]))

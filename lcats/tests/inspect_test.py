@@ -23,14 +23,14 @@ class TestInspectNoArgs(unittest.TestCase):
 
     def test_no_args_returns_code_2(self):
         """inspect() with no arguments returns exit code 2."""
-        result = inspect_module.inspect()
+        result = inspect_module.inspect_files()
         self.assertEqual(result, 2)
 
     def test_no_args_writes_usage_to_stderr(self):
         """inspect() with no arguments writes usage message to stderr."""
         buf = io.StringIO()
         with patch("sys.stderr", buf):
-            inspect_module.inspect()
+            inspect_module.inspect_files()
         self.assertIn("usage", buf.getvalue().lower())
 
     def test_path_resolve_exception_fallback(self):
@@ -38,7 +38,7 @@ class TestInspectNoArgs(unittest.TestCase):
         buf = io.StringIO()
         with patch("pathlib.Path.resolve", side_effect=OSError("resolve failed")):
             with patch("sys.stderr", buf):
-                inspect_module.inspect("/nonexistent/fallback.json")
+                inspect_module.inspect_files("/nonexistent/fallback.json")
         # The fallback path is the original raw string - error mentions the raw path
         self.assertIn("fallback.json", buf.getvalue())
 
@@ -55,20 +55,20 @@ class TestInspectMissingFile(unittest.TestCase):
 
     def test_missing_file_returns_code_1(self):
         """inspect() with a missing file path returns exit code 1."""
-        _message, code = inspect_module.inspect("/nonexistent/path/to/file.json")
+        _message, code = inspect_module.inspect_files("/nonexistent/path/to/file.json")
         self.assertEqual(code, 1)
 
     def test_missing_file_writes_error_to_stderr(self):
         """inspect() with a missing file path writes error to stderr."""
         buf = io.StringIO()
         with patch("sys.stderr", buf):
-            inspect_module.inspect("/nonexistent/path/file.json")
+            inspect_module.inspect_files("/nonexistent/path/file.json")
         self.assertIn("not found", buf.getvalue())
 
     def test_directory_path_returns_code_1(self):
         """inspect() with a directory path (not a file) returns exit code 1."""
         with tempfile.TemporaryDirectory() as tmp:
-            _message, code = inspect_module.inspect(tmp)
+            _message, code = inspect_module.inspect_files(tmp)
         self.assertEqual(code, 1)
 
     def test_directory_path_writes_error_to_stderr(self):
@@ -76,7 +76,7 @@ class TestInspectMissingFile(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             buf = io.StringIO()
             with patch("sys.stderr", buf):
-                inspect_module.inspect(tmp)
+                inspect_module.inspect_files(tmp)
             self.assertIn("not a file", buf.getvalue())
 
 
@@ -108,7 +108,7 @@ class TestInspectValidFile(unittest.TestCase):
         path = self._write_json(
             "story.json", {"name": "Test", "body": "Once.", "author": []}
         )
-        _message, code = inspect_module.inspect(path)
+        _message, code = inspect_module.inspect_files(path)
         self.assertEqual(code, 0)
 
     def test_valid_json_message_includes_inspected_count(self):
@@ -116,21 +116,21 @@ class TestInspectValidFile(unittest.TestCase):
         path = self._write_json(
             "story.json", {"name": "Test", "body": "Once.", "author": []}
         )
-        message, _code = inspect_module.inspect(path)
+        message, _code = inspect_module.inspect_files(path)
         self.assertIn("1", message)
 
     def test_multiple_valid_files_returns_code_0(self):
         """inspect() with multiple valid JSON files returns exit code 0."""
         path1 = self._write_json("s1.json", {"name": "S1", "body": "B1", "author": []})
         path2 = self._write_json("s2.json", {"name": "S2", "body": "B2", "author": []})
-        message, code = inspect_module.inspect(path1, path2)
+        message, code = inspect_module.inspect_files(path1, path2)
         self.assertEqual(code, 0)
         self.assertIn("2", message)
 
     def test_mixed_valid_and_missing_returns_code_1(self):
         """inspect() with one valid and one missing file returns exit code 1."""
         path = self._write_json("valid.json", {"name": "X", "body": "Y", "author": []})
-        _message, code = inspect_module.inspect(path, "/nonexistent/z.json")
+        _message, code = inspect_module.inspect_files(path, "/nonexistent/z.json")
         self.assertEqual(code, 1)
 
     def test_invalid_json_returns_code_1(self):
@@ -138,7 +138,7 @@ class TestInspectValidFile(unittest.TestCase):
         bad_path = os.path.join(self.tmp, "bad.json")
         with open(bad_path, "w", encoding="utf-8") as f:
             f.write("not valid json {{{")
-        _message, code = inspect_module.inspect(bad_path)
+        _message, code = inspect_module.inspect_files(bad_path)
         self.assertEqual(code, 1)
 
     def test_invalid_json_writes_error_to_stderr(self):
@@ -148,7 +148,7 @@ class TestInspectValidFile(unittest.TestCase):
             f.write("not valid json {{{")
         buf = io.StringIO()
         with patch("sys.stderr", buf):
-            inspect_module.inspect(bad_path)
+            inspect_module.inspect_files(bad_path)
         self.assertIn("error", buf.getvalue().lower())
 
     def test_unicode_decode_error_returns_code_1(self):
@@ -156,7 +156,7 @@ class TestInspectValidFile(unittest.TestCase):
         bad_path = os.path.join(self.tmp, "binary.json")
         with open(bad_path, "wb") as f:
             f.write(b"\xff\xfe{invalid utf-8}")
-        _message, code = inspect_module.inspect(bad_path)
+        _message, code = inspect_module.inspect_files(bad_path)
         self.assertEqual(code, 1)
 
     def test_unicode_decode_error_writes_error_to_stderr(self):
@@ -166,7 +166,7 @@ class TestInspectValidFile(unittest.TestCase):
             f.write(b"\xff\xfe{invalid utf-8}")
         buf = io.StringIO()
         with patch("sys.stderr", buf):
-            inspect_module.inspect(bad_path)
+            inspect_module.inspect_files(bad_path)
         self.assertIn("error", buf.getvalue().lower())
 
     def test_general_exception_during_pretty_print_returns_code_1(self):
@@ -175,7 +175,7 @@ class TestInspectValidFile(unittest.TestCase):
         with patch.object(
             inspect_module, "pretty_print_story", side_effect=RuntimeError("boom")
         ):
-            _message, code = inspect_module.inspect(path)
+            _message, code = inspect_module.inspect_files(path)
         self.assertEqual(code, 1)
 
 

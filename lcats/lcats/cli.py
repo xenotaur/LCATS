@@ -10,7 +10,8 @@ Commands:
     help      Display this help message.
     info      Describes LCATS, the literary captain's advisory tool system.
     gather    Gathers corpus data to a local database.
-    inspect   Inspects a story JSON file and pretty-prints it.
+    inspect   Inspects a story JSON file and summarizes its contents.
+    display   Displays entire story JSON file in a human-readable format.
     index     Preprocesses a corpus to answer questions.
     advise    LCATS command-line advising tool.
     eval      Evaluate LCATS on a benchmark suite.
@@ -38,7 +39,10 @@ def dispatch(command, args):
         return lcats.gatherers.main.run(args)
 
     elif command == "inspect":
-        return lcats.inspect.inspect(*args)
+        return lcats.inspect.inspect_files(*args)
+
+    elif command == "display":
+        return lcats.inspect.display_files(*args)
 
     elif command == "index":
         return "Indexing data files is not yet implemented.", 1
