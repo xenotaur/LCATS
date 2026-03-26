@@ -81,7 +81,7 @@ THE_LOVECRAFT_FILES = [
     ]
 ]
 
-# Need to find the URLs for these stories:
+# TODO(centaur): Need to find the URLs for these stories:
 # The Whisperer in Darkness
 # The Dreams in the Witch-House
 # The Shadow out of Time
