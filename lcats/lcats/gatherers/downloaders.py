@@ -1,17 +1,15 @@
 """Data gathering utility functions."""
 
 import abc
-import codecs
 import json
 import os
-import hashlib
 import shutil
-from urllib.parse import urlparse, unquote
 
 import requests
 
 from lcats import constants
 from lcats.utils import env
+from lcats.utils import names
 
 
 
@@ -35,30 +33,6 @@ def load_page(url, timeout=10, force_encoding=None):
     else:
         print(f"Failed to download the file. Status code: {response.status_code}")
         return None
-
-
-def filename_from_url(url):
-    """Generate a unique filename from a URL."""
-    # Parse the URL
-    parsed_url = urlparse(url)
-
-    # Extract the path and query to form the base of the filename
-    url_path = unquote(parsed_url.path)
-    url_query = unquote(parsed_url.query)
-
-    # Combine path and query to form a unique identifier
-    unique_string = url_path + "?" + url_query if url_query else url_path
-
-    # Create a hash of the unique string
-    url_hash = hashlib.sha256(unique_string.encode("utf-8")).hexdigest()
-
-    # Get the file extension (if any) from the URL path
-    file_extension = os.path.splitext(parsed_url.path)[1]
-
-    # Combine the hash with the file extension to form the filename
-    filename = f"{url_hash}{file_extension}"
-
-    return filename
 
 
 class ResourceCache(abc.ABC):
@@ -172,7 +146,7 @@ class UrlResourceCache(LambdaResourceCache):
     def __init__(self, **kwargs):
         """Initialize the downloader with a root directory."""
         super().__init__(
-            canonicalizer=filename_from_url,
+            canonicalizer=names.url_to_filename,
             acquirer=lambda url: load_page(url, force_encoding=self.encoding),
             **kwargs,
         )

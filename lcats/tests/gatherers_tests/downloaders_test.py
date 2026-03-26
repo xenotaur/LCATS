@@ -12,6 +12,7 @@ from lcats import test_utils
 from lcats.gatherers import downloaders
 from lcats.utils import capture
 from lcats.utils import env
+from lcats.utils import names
 
 
 class TestLoadPage(unittest.TestCase):
@@ -63,54 +64,6 @@ class TestLoadPage(unittest.TestCase):
                 downloaders.load_page("http://example.com")
 
 
-class TestFilenameFromUrl(unittest.TestCase):
-    """Tests for the filename_from_url function."""
-
-    def test_basic_url(self):
-        """Test generating a filename from a basic URL."""
-        url = "http://example.com/file.txt"
-        expected_extension = ".txt"
-        filename = downloaders.filename_from_url(url)
-
-        # Ensure the filename ends with the correct extension
-        self.assertTrue(filename.endswith(expected_extension))
-
-        # Ensure the filename is correctly hashed and unique
-        self.assertEqual(len(filename), 64 + len(expected_extension))
-
-    def test_url_with_query(self):
-        """Test generating a filename from a URL with a query parameter."""
-        url = "http://example.com/file.txt?param=value"
-        filename = downloaders.filename_from_url(url)
-
-        # Ensure the filename is unique even with a query parameter
-        # 64 for the hash + 4 for ".txt"
-        self.assertEqual(len(filename), 64 + 4)
-
-    def test_url_without_extension(self):
-        """Test generating a filename from a URL without an extension."""
-        url = "http://example.com/file"
-        filename = downloaders.filename_from_url(url)
-
-        # Ensure the filename has no extension
-        self.assertEqual(len(filename), 64)
-        self.assertTrue("." not in filename)
-
-    def test_url_with_no_path(self):
-        """Test generating a filename from a URL with no path."""
-        url = "http://example.com"
-        filename = downloaders.filename_from_url(url)
-
-        # Ensure the filename has no extension and is hashed correctly
-        self.assertEqual(len(filename), 64)
-
-    def test_empty_url(self):
-        """Test generating a filename from an empty URL."""
-        url = ""
-        filename = downloaders.filename_from_url(url)
-
-        # Ensure the filename is still a valid hash with no extension
-        self.assertEqual(len(filename), 64)
 
 
 class TestLambdaResourceCache(test_utils.TestCaseWithData):
@@ -325,7 +278,7 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         cache = downloaders.UrlResourceCache()
         self.assertEqual(
             cache.canonicalize("foo.bar"),
-            downloaders.filename_from_url("foo.bar"),
+            names.url_to_filename("foo.bar"),
             "Canonicalization failed.",
         )
 
