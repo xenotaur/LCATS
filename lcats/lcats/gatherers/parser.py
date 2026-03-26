@@ -829,7 +829,7 @@ def show_data_not_corpora(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"
 
     try:
-        with open(file_path, "r", newline="") as csvfile:
+        with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
             reader = csv.reader(csvfile)
             if limit is not None:
                 reader = list(reader)[:limit]
@@ -857,7 +857,7 @@ def show_corpora_not_data(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"
 
     try:
-        with open(file_path, "r", newline="") as csvfile:
+        with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
             reader = csv.reader(csvfile)
             if limit is not None:
                 reader = list(reader)[:limit]
