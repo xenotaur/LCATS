@@ -14,24 +14,6 @@ from lcats import constants
 from lcats.utils import env
 
 
-def convert_encoding(text, source_encoding="utf-8", target_encoding="ISO-8859-1"):
-    """Convert the encoding of a text string from source to target encoding."""
-    # Decode the text from source encoding, then re-encode in target encoding
-    try:
-        # Confirm we have valid input and output codecs
-        codecs.lookup(source_encoding)
-        codecs.lookup(target_encoding)
-
-        # If text is bytes, decode it first; otherwise, assume it's already decoded
-        if isinstance(text, bytes):
-            text = text.decode(source_encoding, errors="strict")
-        # Encode in the target encoding
-        converted_text = text.encode(target_encoding, errors="strict")
-        return converted_text
-    except (UnicodeEncodeError, UnicodeDecodeError, LookupError) as e:
-        print(f"Error converting text encoding: {e}")
-        return None
-
 
 def load_page(url, timeout=10, force_encoding=None):
     """Load a page from a URL and return the text content.
