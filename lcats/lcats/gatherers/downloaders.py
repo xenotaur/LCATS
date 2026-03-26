@@ -8,40 +8,10 @@ import hashlib
 import shutil
 from urllib.parse import urlparse, unquote
 
-import chardet
 import requests
 
 from lcats import constants
 from lcats.utils import env
-
-
-def detect_url_encoding(url, timeout=10):
-    """Get the encoding of a page from a URL.
-
-    Args:
-        url (str): The URL to check.
-        timeout (int): The number of seconds to wait for a response.
-
-    Returns:
-        str: The encoding of the page, or None if it couldn't be determined.
-    """
-    response = requests.head(url, timeout=timeout)
-    if response.status_code == 200:
-        return response.encoding
-    else:
-        print(f"Failed to get the encoding. Status code: {response.status_code}")
-        return None
-
-
-def detect_encoding(text):
-    """Detect the encoding of a text string."""
-    # If text is a string, encode it to bytes for detection
-    if isinstance(text, str):
-        text = text.encode("utf-8", errors="ignore")
-
-    # Use chardet to detect encoding
-    detected = chardet.detect(text)
-    return detected["encoding"]
 
 
 def convert_encoding(text, source_encoding="utf-8", target_encoding="ISO-8859-1"):
