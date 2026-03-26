@@ -8,11 +8,11 @@ FOUR_MILLION_GUTENBERG = "https://www.gutenberg.org/cache/epub/2776/pg2776-image
 
 # KMM Issues with some of the encodings
 FOUR_MILLION_HEADINGS = [
-    ("tobin's_palm", "TOBINâS PALM", "OHenry - Tobin’s Palm"),
+    ("tobin's_palm", "TOBIN’S PALM", "OHenry - Tobin’s Palm"),
     ("gift_of_the_magi", "THE GIFT OF THE MAGI", "OHenry - the Gift Of the Magi"),
     (
         "cosmopolite_in_a_cafe",
-        "A COSMOPOLITE IN A CAFÃ",
+        "A COSMOPOLITE IN A CAFÉ",
         "OHenry - a Cosmopolite In a Café",
     ),
     ("between_rounds", "BETWEEN ROUNDS", "OHenry - Between Rounds"),
@@ -47,11 +47,11 @@ FOUR_MILLION_HEADINGS = [
     ),
     (
         "springtime_a_la_carte",
-        "SPRINGTIME Ã LA CARTE",
+        "SPRINGTIME À LA CARTE",
         "OHenry - Springtime À La Carte",
     ),
     ("green_door", "THE GREEN DOOR", "OHenry - the Green Door"),
-    ("the_cabby's_seat", "FROM THE CABBYâS SEAT", "OHenry - From the Cabby’s Seat"),
+    ("the_cabby's_seat", "FROM THE CABBY’S SEAT", "OHenry - From the Cabby’s Seat"),
     ("unfinished_story", "AN UNFINISHED STORY", "OHenry - An Unfinished Story"),
     (
         "caliph,_cupid_and_the_clock",
@@ -74,7 +74,7 @@ FOUR_MILLION_HEADINGS = [
     ("furnished_room", "THE FURNISHED ROOM", "OHenry - the Furnished Room"),
     (
         "brief_debut_of_tildy",
-        "THE BRIEF DÃBUT OF TILDY",
+        "THE BRIEF DÉBUT OF TILDY",
         "OHenry - the Brief Début Of Tildy",
     ),
 ]
