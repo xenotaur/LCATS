@@ -128,7 +128,7 @@ def title_to_filename(
     allow_empty: bool = False,
 ) -> str:
     """Convert a Unicode title to a canonical ASCII filename (basename + ext).
-    
+
     - Gets a base from the normalized title, and appends the normalized extension.
     - If basename is empty and allow_empty=False, raises ValueError.
     - Extension must match r'\.[a-z0-9]+' and is lowered.
@@ -151,7 +151,7 @@ def title_to_filename(
 
 def url_to_filename(url):
     """Generate a unique filename from a URL.
-    
+
     This function creates a unique filename by hashing the URL and preserving the file extension
     if it exists. The filename is generated as follows:
     1. Parse the URL to extract the path and query components.
@@ -187,7 +187,6 @@ def url_to_filename(url):
     return filename
 
 
-
 # -------- Convenience helper --------
 
 
@@ -206,7 +205,7 @@ def normalize_basename(
         max_len: The maximum length of the basename (default: BASENAME_MAXIMUM_LENGTH).
         allow_empty: Whether to allow an empty basename (default: False).
     Returns:
-        A tuple containing the normalized basename and a boolean indicating whether it was changed.   
+        A tuple containing the normalized basename and a boolean indicating whether it was changed.
     else returns (repair_basename(basename), True).
     """
     if is_valid_basename(basename, max_len=max_len):

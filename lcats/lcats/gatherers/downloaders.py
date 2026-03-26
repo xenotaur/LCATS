@@ -12,27 +12,35 @@ from lcats.utils import env
 from lcats.utils import names
 
 
-
-def load_page(url, timeout=10, force_encoding=None):
-    """Load a page from a URL and return the text content.
+def load_page(url, timeout=10, preferred_encoding="utf-8"):
+    """Load a page from a URL and return decoded text content.
 
     Args:
         url (str): The URL to load.
         timeout (int): The number of seconds to wait for a response.
-        force_encoding (str): The encoding to use for the response.
+        preferred_encoding (str): The encoding to try first when decoding.
 
     Returns:
-        str: The text content of the page.
+        str: The decoded text content of the page.
     """
     response = requests.get(url, timeout=timeout)
-    if force_encoding:
-        response.encoding = force_encoding
-    if response.status_code == 200:
-        print("File successfully downloaded.")
-        return response.text
-    else:
-        print(f"Failed to download the file. Status code: {response.status_code}")
-        return None
+    response.raise_for_status()
+
+    raw = response.content
+
+    try:
+        text = raw.decode(preferred_encoding)
+        encoding_used = preferred_encoding
+    except UnicodeDecodeError as exception:
+        encoding_used = response.apparent_encoding or response.encoding
+        if not encoding_used:
+            raise UnicodeDecodeError(
+                "unknown", raw, 0, 1, "Unable to determine response encoding"
+            ) from exception
+        text = raw.decode(encoding_used, errors="replace")
+
+    print(f"File successfully downloaded using encoding {encoding_used}.")
+    return text
 
 
 class ResourceCache(abc.ABC):
@@ -147,7 +155,7 @@ class UrlResourceCache(LambdaResourceCache):
         """Initialize the downloader with a root directory."""
         super().__init__(
             canonicalizer=names.url_to_filename,
-            acquirer=lambda url: load_page(url, force_encoding=self.encoding),
+            acquirer=load_page,
             **kwargs,
         )
 
@@ -171,6 +179,7 @@ class DataGatherer:
             description: A description of the gatherer.
             root: The root directory where the data will be stored.
             suffix: The file extension to use for the data files.
+            license: The license to include in the gatherer's directory.
         """
         self.name = name
         self.description = description
