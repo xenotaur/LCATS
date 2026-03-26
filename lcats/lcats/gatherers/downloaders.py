@@ -1,112 +1,46 @@
 """Data gathering utility functions."""
 
 import abc
-import codecs
 import json
 import os
-import hashlib
 import shutil
-from urllib.parse import urlparse, unquote
 
-import chardet
 import requests
 
 from lcats import constants
 from lcats.utils import env
+from lcats.utils import names
 
 
-def detect_url_encoding(url, timeout=10):
-    """Get the encoding of a page from a URL.
-
-    Args:
-        url (str): The URL to check.
-        timeout (int): The number of seconds to wait for a response.
-
-    Returns:
-        str: The encoding of the page, or None if it couldn't be determined.
-    """
-    response = requests.head(url, timeout=timeout)
-    if response.status_code == 200:
-        return response.encoding
-    else:
-        print(f"Failed to get the encoding. Status code: {response.status_code}")
-        return None
-
-
-def detect_encoding(text):
-    """Detect the encoding of a text string."""
-    # If text is a string, encode it to bytes for detection
-    if isinstance(text, str):
-        text = text.encode("utf-8", errors="ignore")
-
-    # Use chardet to detect encoding
-    detected = chardet.detect(text)
-    return detected["encoding"]
-
-
-def convert_encoding(text, source_encoding="utf-8", target_encoding="ISO-8859-1"):
-    """Convert the encoding of a text string from source to target encoding."""
-    # Decode the text from source encoding, then re-encode in target encoding
-    try:
-        # Confirm we have valid input and output codecs
-        codecs.lookup(source_encoding)
-        codecs.lookup(target_encoding)
-
-        # If text is bytes, decode it first; otherwise, assume it's already decoded
-        if isinstance(text, bytes):
-            text = text.decode(source_encoding, errors="strict")
-        # Encode in the target encoding
-        converted_text = text.encode(target_encoding, errors="strict")
-        return converted_text
-    except (UnicodeEncodeError, UnicodeDecodeError, LookupError) as e:
-        print(f"Error converting text encoding: {e}")
-        return None
-
-
-def load_page(url, timeout=10, force_encoding=None):
-    """Load a page from a URL and return the text content.
+def load_page(url, timeout=10, preferred_encoding="utf-8"):
+    """Load a page from a URL and return decoded text content.
 
     Args:
         url (str): The URL to load.
         timeout (int): The number of seconds to wait for a response.
-        force_encoding (str): The encoding to use for the response.
+        preferred_encoding (str): The encoding to try first when decoding.
 
     Returns:
-        str: The text content of the page.
+        str: The decoded text content of the page.
     """
     response = requests.get(url, timeout=timeout)
-    if force_encoding:
-        response.encoding = force_encoding
-    if response.status_code == 200:
-        print("File successfully downloaded.")
-        return response.text
-    else:
-        print(f"Failed to download the file. Status code: {response.status_code}")
-        return None
+    response.raise_for_status()
 
+    raw = response.content
 
-def filename_from_url(url):
-    """Generate a unique filename from a URL."""
-    # Parse the URL
-    parsed_url = urlparse(url)
+    try:
+        text = raw.decode(preferred_encoding)
+        encoding_used = preferred_encoding
+    except UnicodeDecodeError as exception:
+        encoding_used = response.apparent_encoding or response.encoding
+        if not encoding_used:
+            raise UnicodeDecodeError(
+                "unknown", raw, 0, 1, "Unable to determine response encoding"
+            ) from exception
+        text = raw.decode(encoding_used, errors="replace")
 
-    # Extract the path and query to form the base of the filename
-    url_path = unquote(parsed_url.path)
-    url_query = unquote(parsed_url.query)
-
-    # Combine path and query to form a unique identifier
-    unique_string = url_path + "?" + url_query if url_query else url_path
-
-    # Create a hash of the unique string
-    url_hash = hashlib.sha256(unique_string.encode("utf-8")).hexdigest()
-
-    # Get the file extension (if any) from the URL path
-    file_extension = os.path.splitext(parsed_url.path)[1]
-
-    # Combine the hash with the file extension to form the filename
-    filename = f"{url_hash}{file_extension}"
-
-    return filename
+    print(f"File successfully downloaded using encoding {encoding_used}.")
+    return text
 
 
 class ResourceCache(abc.ABC):
@@ -220,8 +154,8 @@ class UrlResourceCache(LambdaResourceCache):
     def __init__(self, **kwargs):
         """Initialize the downloader with a root directory."""
         super().__init__(
-            canonicalizer=filename_from_url,
-            acquirer=lambda url: load_page(url, force_encoding=self.encoding),
+            canonicalizer=names.url_to_filename,
+            acquirer=load_page,
             **kwargs,
         )
 
@@ -245,6 +179,7 @@ class DataGatherer:
             description: A description of the gatherer.
             root: The root directory where the data will be stored.
             suffix: The file extension to use for the data files.
+            license: The license to include in the gatherer's directory.
         """
         self.name = name
         self.description = description

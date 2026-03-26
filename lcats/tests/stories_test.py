@@ -291,9 +291,9 @@ class TestCorpora(unittest.TestCase):
         """get_corpora ignores files that are not .json."""
         corpus_dir = os.path.join(self.tmp, "misc")
         os.makedirs(corpus_dir)
-        with open(os.path.join(corpus_dir, "readme.txt"), "w") as f:
+        with open(os.path.join(corpus_dir, "readme.txt"), "w", encoding="utf-8") as f:
             f.write("not a story")
-        with open(os.path.join(corpus_dir, "story.yaml"), "w") as f:
+        with open(os.path.join(corpus_dir, "story.yaml"), "w", encoding="utf-8") as f:
             f.write("name: yaml_story\n")
         corpora = stories.Corpora(self.tmp)
         result = corpora.get_corpora()

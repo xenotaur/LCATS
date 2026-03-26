@@ -150,5 +150,55 @@ class TestTitleAndAuthorToFilename(unittest.TestCase):
         self.assertEqual(result, "hello_world__lovelace_hopper.json")
 
 
+class TestUrlToFilename(unittest.TestCase):
+    """Tests for the url_to_filename function."""
+
+    def test_basic_url(self):
+        """Test generating a filename from a basic URL."""
+        url = "http://example.com/file.txt"
+        expected_extension = ".txt"
+        filename = names.url_to_filename(url)
+
+        # Ensure the filename ends with the correct extension
+        self.assertTrue(filename.endswith(expected_extension))
+
+        # Ensure the filename is correctly hashed and unique
+        self.assertEqual(len(filename), 64 + len(expected_extension))
+
+    def test_url_with_query(self):
+        """Test generating a filename from a URL with a query parameter."""
+        url = "http://example.com/file.txt?param=value"
+        filename = names.url_to_filename(url)
+
+        # Ensure the filename is unique even with a query parameter
+        # 64 for the hash + 4 for ".txt"
+        self.assertEqual(len(filename), 64 + 4)
+
+    def test_url_without_extension(self):
+        """Test generating a filename from a URL without an extension."""
+        url = "http://example.com/file"
+        filename = names.url_to_filename(url)
+
+        # Ensure the filename has no extension
+        self.assertEqual(len(filename), 64)
+        self.assertTrue("." not in filename)
+
+    def test_url_with_no_path(self):
+        """Test generating a filename from a URL with no path."""
+        url = "http://example.com"
+        filename = names.url_to_filename(url)
+
+        # Ensure the filename has no extension and is hashed correctly
+        self.assertEqual(len(filename), 64)
+
+    def test_empty_url(self):
+        """Test generating a filename from an empty URL."""
+        url = ""
+        filename = names.url_to_filename(url)
+
+        # Ensure the filename is still a valid hash with no extension
+        self.assertEqual(len(filename), 64)
+
+
 if __name__ == "__main__":
     unittest.main()

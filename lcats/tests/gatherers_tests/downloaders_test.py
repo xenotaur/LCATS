@@ -12,254 +12,134 @@ from lcats import test_utils
 from lcats.gatherers import downloaders
 from lcats.utils import capture
 from lcats.utils import env
-
-
-class TestDetectUrlEncoding(unittest.TestCase):
-    """Unit tests for the detect_url_encoding function."""
-
-    @patch("requests.head")
-    def test_detect_url_encoding_success(self, mock_head):
-        """Test detecting the encoding of a URL with a successful response."""
-        # Mock a successful response with a specified encoding
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.encoding = "utf-8"
-        mock_head.return_value = mock_response
-
-        url = "http://example.com"
-        encoding = downloaders.detect_url_encoding(url)
-        self.assertEqual(encoding, "utf-8")
-
-    @patch("requests.head")
-    def test_detect_url_encoding_failure(self, mock_head):
-        """Test detecting the encoding of a URL with a failed response."""
-        # Mock a failed response (e.g., 404 Not Found)
-        mock_response = Mock()
-        mock_response.status_code = 404
-        mock_response.encoding = None
-        mock_head.return_value = mock_response
-
-        url = "http://example.com"
-        with capture.suppress_output():
-            encoding = downloaders.detect_url_encoding(url)
-        self.assertIsNone(encoding)
-
-
-class TestDetectEncoding(unittest.TestCase):
-    """Unit tests for the detect_encoding function."""
-
-    def test_detect_encoding_utf8(self):
-        """Test detecting UTF-8 encoding."""
-        text = "Some UTF-8 encoded text 麦蒂"
-        encoding = downloaders.detect_encoding(text)
-        self.assertEqual(encoding, "utf-8")
-
-    def test_detect_encoding_latin1_bytes(self):
-        """ "Text in Latin-1 encoding."""
-        data = "quanto lhe é possive".encode("iso-8859-1")
-        enc = downloaders.detect_encoding(data)
-        # These cannot be reliably distinguished at the byte level as
-        # both encodings are valid for the same byte sequence.
-        self.assertIn(enc.upper(), {"ISO-8859-1", "WINDOWS-1250", "WINDOWS-1252"})
-
-    def test_detect_encoding_cp1252_distinguishing(self):
-        # cp1252-heavy sample:
-        # 0x80 = €, 0x91/0x92 = curly apostrophes,
-        # 0x93/0x94 = smart quotes, 0x95 = bullet,
-        # 0x96/0x97 = en/em dash, 0x85 = ellipsis
-        data = (
-            b"Price: \x80 10. "
-            b"\x93Quoted text\x94 with \x91apostrophes\x92. "
-            b"List item \x95 one. "
-            b"Range 1\x962 and pause\x85 then emphasis\x97done."
-        )
-        enc = downloaders.detect_encoding(data)
-        self.assertIn(enc.lower(), {"windows-1252", "cp1252"})
-
-    def test_detect_encoding_ascii(self):
-        """Test detecting ASCII encoding."""
-        text = "Simple ASCII text"
-        encoding = downloaders.detect_encoding(text)
-        self.assertEqual(encoding, "ascii")
-
-    def test_detect_encoding_unknown(self):
-        """Test detecting an unknown encoding."""
-        # A byte sequence that doesn't clearly match a known encoding
-        text = b"\xff\xfe\xfd"
-        encoding = downloaders.detect_encoding(text)
-        # `chardet` might return None for unknown encodings, or call it UTF-16
-        self.assertIn(encoding.lower(), {"utf-16", "utf-16-le", "utf-16-be"})
-
-
-class TestConvertEncoding(unittest.TestCase):
-    """Unit tests for the convert_encoding function."""
-
-    def test_utf8_to_iso8859_1(self):
-        """Test converting UTF-8 to ISO-8859-1 encoding."""
-        text = "Café"  # UTF-8 text with a special character
-        result = downloaders.convert_encoding(
-            text, source_encoding="utf-8", target_encoding="ISO-8859-1"
-        )
-        expected_result = text.encode("ISO-8859-1")
-        self.assertEqual(result, expected_result)
-
-    def test_iso8859_1_to_utf8(self):
-        """Test converting ISO-8859-1 to UTF-8 encoding."""
-        text = "Café".encode("ISO-8859-1")  # Latin-1 encoded byte string
-        result = downloaders.convert_encoding(
-            text, source_encoding="ISO-8859-1", target_encoding="utf-8"
-        )
-        expected_result = "Café".encode("utf-8")
-        self.assertEqual(result, expected_result)
-
-    def test_ascii_to_utf8(self):
-        """Test converting ASCII to UTF-8 encoding."""
-        text = "Simple ASCII text"  # ASCII text
-        result = downloaders.convert_encoding(
-            text, source_encoding="ascii", target_encoding="utf-8"
-        )
-        expected_result = text.encode("utf-8")
-        self.assertEqual(result, expected_result)
-
-    def test_byte_input_utf8_to_iso8859_1(self):
-        """Test converting a byte string from UTF-8 to ISO-8859-1 encoding."""
-        # UTF-8 encoded byte string with an emoji
-        text = "Text with emoji 😊".encode("utf-8")
-        with capture.suppress_output():
-            result = downloaders.convert_encoding(
-                text, source_encoding="utf-8", target_encoding="ISO-8859-1"
-            )
-        # ISO-8859-1 cannot represent the emoji, should return None
-        self.assertIsNone(result)
-
-    def test_invalid_source_encoding(self):
-        text = "Invalid encoding test"
-        with capture.suppress_output():
-            result = downloaders.convert_encoding(
-                text, source_encoding="nonexistent-encoding", target_encoding="utf-8"
-            )
-        self.assertIsNone(result)
-
-    def test_invalid_target_encoding(self):
-        text = "Invalid encoding test"
-        with capture.suppress_output():
-            result = downloaders.convert_encoding(
-                text, source_encoding="utf-8", target_encoding="nonexistent-encoding"
-            )
-        self.assertIsNone(result)
-
-    def test_empty_string(self):
-        text = ""
-        result = downloaders.convert_encoding(
-            text, source_encoding="utf-8", target_encoding="ISO-8859-1"
-        )
-        self.assertEqual(result, b"")
-
-    def test_none_input(self):
-        text = None
-        with self.assertRaises(AttributeError):
-            downloaders.convert_encoding(
-                text, source_encoding="utf-8", target_encoding="ISO-8859-1"
-            )
+from lcats.utils import names
 
 
 class TestLoadPage(unittest.TestCase):
     """Tests for the load_page function."""
 
     @patch("lcats.gatherers.downloaders.requests.get")
-    def test_load_page_success(self, mock_get):
-        """Test the load_page function with a successful response."""
-        # Create a mock response object with the desired properties
+    def test_load_page_success_utf8(self, mock_get):
+        """Test load_page with content that decodes using the preferred encoding."""
         mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = "Mocked page content"
+        mock_response.content = "Mocked page content — with dash".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
         mock_get.return_value = mock_response
 
-        # Call the function
         with capture.suppress_output():
             result = downloaders.load_page("http://example.com")
 
-        # Assert the expected behavior
-        self.assertEqual(result, "Mocked page content")
+        self.assertEqual(result, "Mocked page content — with dash")
         mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
     @patch("lcats.gatherers.downloaders.requests.get")
-    def test_load_page_failure(self, mock_get):
-        """Test the load_page function with a failed response."""
-        # Create a mock response object with a failure status code
+    def test_load_page_http_error(self, mock_get):
+        """Test load_page propagates HTTP errors from raise_for_status."""
         mock_response = Mock()
-        mock_response.status_code = 404
-        mock_response.text = "Not Found"
+        mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
+            "404 Client Error"
+        )
         mock_get.return_value = mock_response
 
-        # Call the function
-        with capture.suppress_output():
-            result = downloaders.load_page("http://example.com")
+        with self.assertRaises(requests.exceptions.HTTPError):
+            with capture.suppress_output():
+                downloaders.load_page("http://example.com")
 
-        # Assert the expected behavior
-        self.assertIsNone(result)
         mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
     @patch("lcats.gatherers.downloaders.requests.get")
     def test_load_page_timeout(self, mock_get):
-        """Test the load_page function with a timeout exception."""
-        # Simulate a timeout exception
+        """Test load_page propagates timeout exceptions from requests.get."""
         mock_get.side_effect = requests.exceptions.Timeout
 
-        # Call the function
         with self.assertRaises(requests.exceptions.Timeout):
             with capture.suppress_output():
                 downloaders.load_page("http://example.com")
 
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
 
-class TestFilenameFromUrl(unittest.TestCase):
-    """Tests for the filename_from_url function."""
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_falls_back_to_apparent_encoding(self, mock_get):
+        """Test load_page falls back to apparent_encoding when preferred decoding fails."""
+        text = "café"
+        raw = text.encode("cp1252")
 
-    def test_basic_url(self):
-        """Test generating a filename from a basic URL."""
-        url = "http://example.com/file.txt"
-        expected_extension = ".txt"
-        filename = downloaders.filename_from_url(url)
+        mock_response = Mock()
+        mock_response.content = raw
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = "cp1252"
+        mock_response.encoding = None
+        mock_get.return_value = mock_response
 
-        # Ensure the filename ends with the correct extension
-        self.assertTrue(filename.endswith(expected_extension))
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
 
-        # Ensure the filename is correctly hashed and unique
-        self.assertEqual(len(filename), 64 + len(expected_extension))
+        self.assertEqual(result, text)
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
-    def test_url_with_query(self):
-        """Test generating a filename from a URL with a query parameter."""
-        url = "http://example.com/file.txt?param=value"
-        filename = downloaders.filename_from_url(url)
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_falls_back_to_response_encoding(self, mock_get):
+        """Test load_page falls back to response.encoding when apparent_encoding is unavailable."""
+        text = "café"
+        raw = text.encode("cp1252")
 
-        # Ensure the filename is unique even with a query parameter
-        # 64 for the hash + 4 for ".txt"
-        self.assertEqual(len(filename), 64 + 4)
+        mock_response = Mock()
+        mock_response.content = raw
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = "cp1252"
+        mock_get.return_value = mock_response
 
-    def test_url_without_extension(self):
-        """Test generating a filename from a URL without an extension."""
-        url = "http://example.com/file"
-        filename = downloaders.filename_from_url(url)
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
 
-        # Ensure the filename has no extension
-        self.assertEqual(len(filename), 64)
-        self.assertTrue("." not in filename)
+        self.assertEqual(result, text)
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
-    def test_url_with_no_path(self):
-        """Test generating a filename from a URL with no path."""
-        url = "http://example.com"
-        filename = downloaders.filename_from_url(url)
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_raises_when_no_encoding_can_be_determined(self, mock_get):
+        """Test load_page raises UnicodeDecodeError if decoding fails and no fallback encoding exists."""
+        mock_response = Mock()
+        mock_response.content = b"\x81"
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
+        mock_get.return_value = mock_response
 
-        # Ensure the filename has no extension and is hashed correctly
-        self.assertEqual(len(filename), 64)
+        with self.assertRaises(UnicodeDecodeError):
+            with capture.suppress_output():
+                downloaders.load_page("http://example.com")
 
-    def test_empty_url(self):
-        """Test generating a filename from an empty URL."""
-        url = ""
-        filename = downloaders.filename_from_url(url)
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
-        # Ensure the filename is still a valid hash with no extension
-        self.assertEqual(len(filename), 64)
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_uses_custom_preferred_encoding(self, mock_get):
+        """Test load_page uses a caller-supplied preferred encoding."""
+        text = "café"
+        raw = text.encode("cp1252")
+
+        mock_response = Mock()
+        mock_response.content = raw
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
+        mock_get.return_value = mock_response
+
+        with capture.suppress_output():
+            result = downloaders.load_page(
+                "http://example.com", preferred_encoding="cp1252"
+            )
+
+        self.assertEqual(result, text)
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
 
 class TestLambdaResourceCache(test_utils.TestCaseWithData):
@@ -412,6 +292,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
 
 
 class TestUrlResourceCache(test_utils.TestCaseWithData):
+    """Tests for the UrlResourceCache class."""
 
     def test_instantiation(self):
         """Test instantiating a LocalTreeReader with no parameters."""
@@ -454,7 +335,8 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
 
         full_path = cache.full_path("foo.bar")
         if os.path.exists(full_path):
-            os.unlink(full_path)  # Remove the file.
+            os.unlink(full_path)
+
         with capture.suppress_output():
             file_exists, path = cache.ensure("foo.bar")
         self.assertFalse(file_exists, "File should not exist.")
@@ -462,19 +344,21 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
 
         with open(full_path, "w", encoding=constants.TEXT_ENCODING) as file:
             file.write("contents")
+
         with capture.suppress_output():
             file_exists, path = cache.ensure("foo.bar")
         self.assertTrue(file_exists, "File should exist.")
         self.assertEqual(path, full_path, "Path is correct.")
+
         if os.path.exists(full_path):
-            os.unlink(full_path)  # Remove the file.
+            os.unlink(full_path)
 
     def test_canonicalize(self):
         """Test the canonicalize method."""
         cache = downloaders.UrlResourceCache()
         self.assertEqual(
             cache.canonicalize("foo.bar"),
-            downloaders.filename_from_url("foo.bar"),
+            names.url_to_filename("foo.bar"),
             "Canonicalization failed.",
         )
 
@@ -482,23 +366,30 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
     def test_acquire(self, mock_get):
         """Test the acquire method."""
         mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = "Mocked page content"
+        mock_response.content = "Mocked page content".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
         mock_get.return_value = mock_response
 
         resource = "http://example.com"
         cache = downloaders.UrlResourceCache()
+
         with capture.suppress_output():
             acquired = cache.acquire(resource)
-        self.assertEqual(acquired, mock_response.text, "Acquisition failed.")
+
+        self.assertEqual(acquired, "Mocked page content", "Acquisition failed.")
         mock_get.assert_called_once_with(resource, timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
     @patch("lcats.gatherers.downloaders.requests.get")
     def test_store_with_root(self, mock_get):
         """Test the store method."""
         mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = "Mocked page content"
+        mock_response.content = "Mocked page content".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
         mock_get.return_value = mock_response
 
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
@@ -506,38 +397,50 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
         canonical = cache.canonicalize(resource)
         full_path = cache.full_path(canonical)
 
-        contents = "contents"
         with capture.suppress_output():
-            cache.store(contents, full_path)
+            cache.store(resource, full_path)
+
         self.assertTrue(os.path.exists(full_path), "Store failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
                 file.read(),
-                mock_response.text,
+                "Mocked page content",
                 "Contents of stored file are incorrect.",
             )
+
+        mock_get.assert_called_once_with(resource, timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
+
         if os.path.exists(full_path):
-            os.unlink(full_path)  # Remove the file
+            os.unlink(full_path)
 
     @patch("lcats.gatherers.downloaders.requests.get")
     def test_cache(self, mock_get):
         """Test the cache method."""
         mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = "Mocked page content"
+        mock_response.content = "Mocked page content".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
         mock_get.return_value = mock_response
 
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        rezource = "http://example.com"
+        resource = "http://example.com"
+
         with capture.suppress_output():
-            full_path = cache.cache(rezource)
+            full_path = cache.cache(resource)
+
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
         with open(full_path, "r", encoding=constants.TEXT_ENCODING) as file:
             self.assertEqual(
                 file.read(),
-                mock_response.text,
+                "Mocked page content",
                 "Contents of stored file are incorrect.",
             )
+
+        mock_get.assert_called_once_with(resource, timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
+
         if os.path.exists(full_path):
             os.unlink(full_path)
 
@@ -545,34 +448,57 @@ class TestUrlResourceCache(test_utils.TestCaseWithData):
     def test_get(self, mock_get):
         """Test the get method."""
         mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = "Mocked page content"
+        mock_response.content = "Mocked page content".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
         mock_get.return_value = mock_response
 
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        rezource = "http://example.com"
+        resource = "http://example.com"
+
         with capture.suppress_output():
-            full_path = cache.cache(rezource)
-            cache_get = cache.get(rezource)
+            full_path = cache.cache(resource)
+            cache_get = cache.get(resource)
+
         self.assertEqual(
             cache_get,
-            mock_response.text,
+            "Mocked page content",
             "Get failed to return the correct contents.",
         )
         self.assertTrue(os.path.exists(full_path), "Get failed to write a file.")
-        if os.path.exists(full_path):
-            os.unlink(full_path)  # Remove the file
 
-    def test_clear(self):
+        mock_get.assert_called_once_with(resource, timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
+
+        if os.path.exists(full_path):
+            os.unlink(full_path)
+
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_clear(self, mock_get):
         """Test the clear method."""
+        mock_response = Mock()
+        mock_response.content = "Mocked page content".encode("utf-8")
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = None
+        mock_response.encoding = None
+        mock_get.return_value = mock_response
+
         cache = downloaders.UrlResourceCache(root=self.test_temp_dir)
-        rezource = "http://example.com"
+        resource = "http://example.com"
+
         with capture.suppress_output():
-            full_path = cache.cache(rezource)
+            full_path = cache.cache(resource)
+
         self.assertTrue(os.path.exists(full_path), "Cache failed to write a file.")
+
         with capture.suppress_output():
             cache.clear()
+
         self.assertFalse(os.path.exists(full_path), "Clear failed to remove the file.")
+
+        mock_get.assert_called_once_with(resource, timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
 
 
 class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
@@ -587,7 +513,7 @@ class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
         )
         subdir = os.path.join(self.test_temp_dir, "subdir")
         os.makedirs(subdir)
-        with open(os.path.join(subdir, "file.txt"), "w") as f:
+        with open(os.path.join(subdir, "file.txt"), "w", encoding="utf-8") as f:
             f.write("content")
 
         with capture.suppress_output():
@@ -602,7 +528,7 @@ class TestResourceCacheClearEdgeCases(test_utils.TestCaseWithData):
             root=self.test_temp_dir,
         )
         file_path = os.path.join(self.test_temp_dir, "test.txt")
-        with open(file_path, "w") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write("content")
 
         with patch(
@@ -677,7 +603,7 @@ class TestDataGatherer(test_utils.TestCaseWithData):
 
     def test_ensure_creates_directories_and_license(self):
         """Test that ensure creates the directory tree and writes a license file."""
-        file_exists, file_path = self.gatherer.ensure("testfile")
+        file_exists, _ = self.gatherer.ensure("testfile")
 
         self.assertFalse(file_exists)
         self.assertTrue(os.path.isdir(self.gatherer.path))
