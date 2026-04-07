@@ -1,0 +1,125 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use utf8;
+use open qw(:std :encoding(UTF-8));
+use Getopt::Long qw(GetOptions);
+
+binmode(STDIN,  ":encoding(UTF-8)");
+binmode(STDOUT, ":encoding(UTF-8)");
+binmode(STDERR, ":encoding(UTF-8)");
+
+my $allow_smart = 0;
+my $show_counts = 0;
+my $show_lines  = 0;
+my $help        = 0;
+
+GetOptions(
+    "allow-smart!" => \$allow_smart,
+    "counts!"      => \$show_counts,
+    "lines!"       => \$show_lines,
+    "help!"        => \$help,
+) or die usage();
+
+if ($help) {
+    print usage();
+    exit 0;
+}
+
+# ASCII printable chars plus whitespace we normally allow.
+# If allow-smart is enabled, also allow a few standard document punctuation chars.
+my %allowed_extra = ();
+if ($allow_smart) {
+    %allowed_extra = map { $_ => 1 } qw(
+        – — ‘ ’ “ ” …
+    );
+}
+
+sub is_allowed_char {
+    my ($ch) = @_;
+
+    return 1 if $ch =~ /[A-Za-z0-9]/;
+    return 1 if $ch =~ /[[:punct:]]/;
+    return 1 if $ch =~ /[ \t\r\n]/;
+
+    return 1 if $allowed_extra{$ch};
+
+    return 0;
+}
+
+sub process_handle {
+    my ($fh, $label) = @_;
+    my %counts;
+    my $line_no = 0;
+
+    while (my $line = <$fh>) {
+        $line_no++;
+        my @bad = grep { !is_allowed_char($_) } split(//, $line);
+        next unless @bad;
+
+        if ($show_lines) {
+            chomp $line;
+            print "$label:$line_no:$line\n";
+        } else {
+            $counts{$_}++ for @bad;
+        }
+    }
+
+    if (!$show_lines) {
+        if ($show_counts) {
+            for my $ch (sort keys %counts) {
+                my $display = $ch;
+                my $code = sprintf("U+%04X", ord($ch));
+                $display =~ s/\n/\\n/g;
+                $display =~ s/\r/\\r/g;
+                $display =~ s/\t/\\t/g;
+                print "$counts{$ch}\t$code\t$display\n";
+            }
+        } else {
+            for my $ch (sort keys %counts) {
+                my $display = $ch;
+                my $code = sprintf("U+%04X", ord($ch));
+                $display =~ s/\n/\\n/g;
+                $display =~ s/\r/\\r/g;
+                $display =~ s/\t/\\t/g;
+                print "$code\t$display\n";
+            }
+        }
+    }
+}
+
+sub usage {
+    return <<'EOF';
+Usage:
+  extract_special_chars [--allow-smart] [--counts] [--lines] [file ...]
+
+Examples:
+  lcats display data/sherlock/twisted_lip.json | extract_special_chars
+  lcats display data/sherlock/twisted_lip.json | extract_special_chars --allow-smart
+  extract_special_chars --counts file.txt
+  extract_special_chars --lines file.txt
+
+Behavior:
+  By default, allows:
+    - A-Z a-z 0-9
+    - ASCII punctuation
+    - spaces, tabs, newlines
+
+  Flags everything else, including:
+    - emoji
+    - non-ASCII symbols
+    - control-like oddities
+    - smart punctuation unless --allow-smart is used
+EOF
+}
+
+if (@ARGV) {
+    for my $file (@ARGV) {
+        open(my $fh, "<:encoding(UTF-8)", $file)
+            or die "Could not open '$file': $!\n";
+        process_handle($fh, $file);
+        close($fh);
+    }
+} else {
+    process_handle(\*STDIN, "stdin");
+}
