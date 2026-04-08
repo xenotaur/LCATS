@@ -6,9 +6,26 @@ TARGET_DIRECTORY = "mass_quantities"
 # Pen names of authors
 PEN_NAMES = {"Garrett, Randall": ["Gordon, David"]}
 
+# Publishers
+PUBLISHERS = [
+    "HARPER & BROTHERS",
+    "THE Q AND C CO",
+    "FLEMING H REVELL COMPANY",
+    "FLEMING H. REVELL COMPANY",
+    "George W Jacobs and Company",
+    "George W Jacobs & Company",
+]
 
-# Subjects we want to exclude from our corpus.
+# Exceptions to internal chapter names
+TITLE_EXCEPTIONS = ["SIR,", "FINIS.", "THE END", "END"]
+
+# Bad subjects we currently want to exclude from the corpus.
 EXCLUDED_SUBJECTS = [
+    "epistolary",
+]
+
+# (original) Subjects we want to exclude from our corpus.
+BAD_SUBJECTS = [
     # Known bad general subjects for our purposes
     "poetry",
     "drama",
