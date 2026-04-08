@@ -686,7 +686,7 @@ def fix_body(text, author, alias):
             elif "This etext was produced" in paragraph:
                 continue
 
-        elif line_contains_author(paragraph, author, alias):
+            elif line_contains_author(paragraph, author, alias):
                 continue
             elif firstTime and intrusive_paragraph(paragraph):
                 continue
