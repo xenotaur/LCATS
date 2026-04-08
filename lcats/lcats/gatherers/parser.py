@@ -14,6 +14,7 @@ from lcats.gettenberg import api
 from lcats.gettenberg import headers
 from lcats.gatherers.mass_quantities import storymap
 
+
 def how_many_titles(text, title):
     """Return the number of times the title appears in the text.
 
@@ -623,7 +624,6 @@ def line_contains_author(line, authors, alias, limit=8):
     # Don't attempt to match more than two authors.
     # print("Multiple authors detected: ", authors)
     return False
-
 
 
 def is_blank_line(line):
