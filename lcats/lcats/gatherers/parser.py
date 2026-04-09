@@ -8,7 +8,6 @@ import difflib
 import re
 import csv
 
-
 from lcats import constants
 from lcats.utils import names
 from lcats.gettenberg import api
@@ -55,6 +54,16 @@ def title_in_body(text, title):
     return location + len(title_to_find) + 1
 
 
+def possible_internal_chapter_name(line):
+    if line.strip().isupper() and len(line.strip().split(" ")) < 7:
+        if not any(
+            exception == line.strip() for exception in storymap.TITLE_EXCEPTIONS
+        ):
+            return True
+
+    return False
+
+
 def chaptered(text):
     """Return True if the text contains chapters, False otherwise.
 
@@ -67,8 +76,23 @@ def chaptered(text):
     """
     result = 0
 
+    possible_titles = 0
+
     text_array = text.split("\n")
-    for line in text_array:
+    multiple_lines_all_caps = False
+    for index, line in enumerate(text_array):
+        if possible_internal_chapter_name(line):
+            print("-- " + line.strip())
+            if index < len(text_array) - 2:
+                multiple_lines_all_caps = True
+                print("----- " + text_array[index + 1])
+            else:
+                multiple_lines_all_caps = False
+
+            if not multiple_lines_all_caps:
+                print("           Add 1")
+                possible_titles = possible_titles + 1
+
         line = line.strip().lower()
         if line in ["contents", "contents."]:
             return True
@@ -94,7 +118,7 @@ def chaptered(text):
             result = result + 1
 
     # A single I or II might be an anomoly so this is to see if both exist
-    return result >= 2
+    return result >= 2 or possible_titles > 6
 
 
 def is_number(string):
@@ -144,6 +168,13 @@ def pen_names(name):
 
 
 def fiction(subject):
+    """Return True if the subject contains fiction
+    Args:
+        subjects (frozenset): The subject from the gutenberg metadata.
+    Returns:
+        bool:  True if id'ed as fiction, False otherwse
+    """
+
     for piece in list(subject):
         if "fiction" in piece.lower().strip():
             return True
@@ -152,6 +183,13 @@ def fiction(subject):
 
 
 def short_story(subject):
+    """Return True if the subject contains a short story tag
+    Args:
+        subjects (frozenset): The subject from the gutenberg metadata.
+    Returns:
+        bool:  True if id'ed as a short story / short stories, False otherwse
+    """
+
     for piece in list(subject):
         if "short stor" in piece.lower().strip():
             return True
@@ -160,6 +198,13 @@ def short_story(subject):
 
 
 def loc_fiction(subject):
+    """Return True if the subject contains a fiction tag via library of congress keys
+    Args:
+        subjects (frozenset): The subject from the gutenberg metadata.
+    Returns:
+        bool:  True if id'ed as a PS or PR library of congress tag, False otherwse
+    """
+
     for piece in list(subject):
         if piece in ["PS", "PR"]:
             return True
@@ -167,16 +212,33 @@ def loc_fiction(subject):
     return False
 
 
+def bad_subjects(subjects):
+    """Return True if the subject contains a bad topic (currently just epistolary)
+    Args:
+        subjects (frozenset): The subject from the gutenberg metadata.
+    Returns:
+        bool:  True if id'ed as bad, False otherwse
+    """
+
+    for subject in subjects:
+        for bad_subject in storymap.EXCLUDED_SUBJECTS:
+            if bad_subject in subject.lower():
+                return True
+
+    return False
+
+
 def subject_ok(subject):
     """Return True if the subject is consistent with what we want (short fiction).
 
-    Uses the list of excluded subjects from storymap.py to filter out unwanted subjects.
-
     Args:
-        subject: a string or list of strings representing the subject from the story metadata.
+        subject (frozenset): a string or list of strings representing the subject from the story metadata.
     Returns:
         bool: True if the subject appears to be short fiction, False otherwise.
     """
+
+    if bad_subjects(subject):
+        return False
 
     if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
         return True
@@ -193,6 +255,24 @@ def author_ok(author):
         bool: True if the author is consistent with what we want, False otherwise.
     """
     return len(list(author)) > 0
+
+
+def title_multiple_lines(titles):
+    """Return True if the title has multiple lines.   Current legacy code
+    Args:
+        titles (string): A string representing the title from the metadata of the story.
+
+    Returns:
+        bool: True if the title has multiple lines, False otherwise.
+    """
+
+    contains = False
+
+    for title in titles:
+        if "\n" in title:
+            contains = True
+
+    return contains
 
 
 def title_ok(title):
@@ -305,6 +385,112 @@ def line_contains_illustration(line):
         or stripped.startswith("[illustrat")
         or stripped.startswith("_illustrat")
     )
+
+
+def line_contains_frontispiece(line):
+    """Return True if the line contains illustration information.
+    Args:
+        line (str): A string representing a line of the story.
+    Returns:
+        bool: True if the line contains illustration information, False otherwise."""
+    stripped = line.strip().lower()
+    return (
+        stripped.startswith("frontispiece")
+        or stripped.startswith("[frontispiece")
+        or stripped.startswith("_frontispiece")
+    )
+
+
+def chunk_contains_publisher(chunk):
+    """Return True if the chunk of story has a publisher in it.
+
+    Args:
+        chunk (string):  A chunk of the story.
+
+    Returns:
+        bool: True if the chunk has a publisher on one of the lines, False otherwise.
+    """
+    lines = chunk.split("\n\n")
+    if len(lines) > 10:
+        return False
+
+    contains = False
+    for line in lines:
+        contains = contains or line_contains_publisher(line)
+
+    return contains
+
+
+def line_contains_publisher(line):
+    """Return True if the line has a publisher in it.
+
+    Args:
+        line (string):  A line of the story.
+
+    Returns:
+        bool: True if the line contains a known publisher, False otherwise.
+    """
+    result = False
+
+    for publisher in storymap.PUBLISHERS:
+        if publisher.lower() in line.strip().lower():
+            result = True
+
+    return result
+
+
+def chunk_contains_author(chunk, authors, alias, limit=8):
+    """Detect whether the chunk contains the author of the story or other author-like content.
+
+    We limit the size of the chunk so we don't find this in a longer chunk of text.
+
+    Questions:
+    - What about folks with more than two names? Or just one name?
+    - Do all metadata use LN, FN format?
+    - What about pen names? We forgot about pen names :-(
+    - The logic for the 'by' case seems off. We should be checking for the names.
+
+    Args:
+        chunk (str): A string representing a chunk of the story.
+        authors (list): A list of strings representing the author(s) of the story.
+        limit (int): An integer representing the maximum number of words in the chunk to consider
+            it as an author chunk.
+    Returns:
+        bool: True if the chunk contains the author, False otherwise.
+    """
+
+    lines = chunk.split("\n\n")
+    if len(lines) > 10:
+        return False
+
+    contains = False
+    for line in lines:
+        contains = contains or line_contains_author(line, authors, alias)
+
+    return contains
+
+
+def chunk_contains_title(original_chunk, title):
+    """Detect whether the chunk contains the title of the story.
+
+    Some things have an extra period.  Some are surrounded by _.   Some leave off the !.
+
+    Args:
+        original_chunk (str): A string representing a chunk of the story.
+        title (str): A string representing the title of the story.
+    Returns:
+        bool: True if the chunk contains the title, False otherwise.
+    """
+
+    lines = original_chunk.split("\n\n")
+    if len(lines) > 10:
+        return False
+
+    contains = False
+    for line in lines:
+        contains = contains or line_contains_title(line, title)
+
+    return contains
 
 
 def line_contains_title(original_line, title):
@@ -440,73 +626,6 @@ def line_contains_author(line, authors, alias, limit=8):
     return False
 
 
-def names_match(name1, name2):
-    name1 = name1.strip().lower()
-    name2 = name2.strip().lower().replace(", ", " ").replace(",", " ")
-
-    matches = 0
-    for namelet in name2.split():
-        if namelet in name1:
-            matches = matches + 1
-
-    if matches == len(name2.split()):  # all match!
-        return True
-    elif matches == 0:
-        return False
-    elif matches > len(name2.split()):  # more matches?
-        return False
-    elif len(name2.split()) > 2 and matches >= 2:
-        return True
-    else:
-        return False
-
-
-def line_contains_author2(line, authors, limit=8):
-    """Detect whether the line contains the author of the story or other author-like content.
-
-    We limit the size of the line so we don't find this in a longer line of text.
-
-    Questions:
-    - What about folks with more than two names? Or just one name?
-    - Do all metadata use LN, FN format?
-    - What about pen names? We forgot about pen names :-(
-    - The logic for the 'by' case seems off. We should be checking for the names.
-
-    Args:
-        line (str): A string representing a line of the story.
-        authors (list): A list of strings representing the author(s) of the story.
-        limit (int): An integer representing the maximum number of words in the line to consider
-            it as an author line.
-    Returns:
-        bool: True if the line contains the author, False otherwise.
-    """
-
-    result = False
-    for author in authors:
-        result = result or names_match(line, author)
-
-    if not result:  # check the by special case?
-        stripped = line.strip().lower()
-        # if (first_name in stripped and last_name in stripped and len(line.split()) < limit):
-        #    return True
-
-        # Handle lines that just say "by" or "by FN LN" or similar.
-        if (
-            stripped == "by"
-            or stripped.startswith("by ")
-            or stripped.startswith("_by ")
-            or stripped.startswith("_by_")
-        ):
-
-            # If the line is short enough and starts with by, assume it's the author line.
-            if len(line.split()) < limit:
-                result = True
-            else:
-                result = False
-
-    return result
-
-
 def is_blank_line(line):
     """Return True if the line is blank, False otherwise.
     Args:
@@ -527,6 +646,7 @@ def in_body(line, title, author, alias):
     Returns:
         bool: True if the line is in the body of the story, False otherwise.
     """
+
     # Skip title and author lines.
     if line_contains_title(line, title) or line_contains_author(line, author, alias):
         return False
@@ -565,6 +685,7 @@ def fix_body(text, author, alias):
                 continue
             elif "This etext was produced" in paragraph:
                 continue
+
             elif line_contains_author(paragraph, author, alias):
                 continue
             elif firstTime and intrusive_paragraph(paragraph):
@@ -623,6 +744,55 @@ def body_of_text(text, author, alias, title, debug=False):
     title = make_title(title)
     number_of_titles = how_many_titles(text, title)
 
+    pieces = text.split("\n\n\n")
+    story_parts = []
+
+    title_chunk = "NO TITLE"
+    first_time = True
+
+    for piece in pieces:
+        if line_contains_illustration(piece):
+            continue
+        if line_contains_frontispiece(piece):
+            continue
+        if line_contains_publisher(piece):
+            continue
+        if line_contains_transcriber_info(piece):
+            continue
+        if chunk_contains_title(piece, title):
+            title_chunk = piece
+            continue
+        if chunk_contains_author(piece, author, alias):
+            if title_chunk == "NO TITLE":
+                title_chunk = piece
+
+            continue
+        if len(piece) == 0:
+            continue
+        if (
+            first_time and piece.strip()[0:3] == "  " and piece.strip()[0] == "_"
+        ):  # Unhappy times
+            first_time = False
+            continue
+
+        story_chunk = piece
+        print("--> " + story_chunk[:100])
+        story_parts.append(piece)
+
+    new_text = "\n\n\n".join(story_parts)
+    paragraph_array = new_text.split("\n\n")
+
+    body = "\n\n".join(
+        [
+            ("" if "*       *       *       *       *" in line else line)
+            for line in paragraph_array
+        ]
+    )
+
+    final_body = fix_body(body.removeprefix("\n"), author, alias)
+    if len(final_body.split("\n\n")) > 10:
+        return final_body
+
     paragraph_array = text.split("\n\n")
 
     for index, line in enumerate(paragraph_array):
@@ -631,6 +801,8 @@ def body_of_text(text, author, alias, title, debug=False):
             print(
                 str(index)
                 + " : "
+                + str(number_of_titles)
+                + " - "
                 + str(seen_title)
                 + ", "
                 + str(seen_author)
@@ -658,7 +830,6 @@ def body_of_text(text, author, alias, title, debug=False):
             continue
 
     # should be in the body
-
     body = "\n\n".join(
         [
             ("" if "*       *       *       *       *" in line else line)
@@ -667,6 +838,20 @@ def body_of_text(text, author, alias, title, debug=False):
     )
 
     return fix_body(body.removeprefix("\n"), author, alias)
+
+
+def make_single_title(title):
+    if "\r\n" in title:
+        pieces = title.split("\r\n")
+
+        return pieces[0]
+
+    if "\n" in title:
+        pieces = title.split("\n")
+
+        return pieces[0]
+
+    return title
 
 
 def gather_story(gatherer, story):
@@ -709,16 +894,19 @@ def gather_story(gatherer, story):
 
     stripped_text = headers.strip_headers(etext.strip()).strip()
     clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-    if chaptered(clean_text):
-        return story, None, "Story has chapters, skipping."
 
     # Extract the title and body of the story.
     short = True
     for single_title in list(title):
         body = body_of_text(clean_text, author, alias, single_title)
+
+        if chaptered(body):
+            print("Chaptered")
+            return story, None, "Story has chapters, skipping."
+
         if len(body.split("\n\n")) > 10:
             short = False
-            title = single_title  # wow this is bad style
+            title = make_single_title(single_title)
             break
 
     if short:
@@ -800,21 +988,26 @@ def test_story_get(story):
     etext = api.load_etext(story)
     stripped_text = headers.strip_headers(etext.strip()).strip()
     clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-    if chaptered(clean_text):
-        print("Story has chapters, skipping: " + str(story))
-        return story, None, "Story has chapters, skipping."
+    #    if chaptered(clean_text):
+    #        print("Story has chapters, skipping: " + str(story))
+    #        return story, None, "Story has chapters, skipping."
 
     # Extract the title and body of the story.
     title = list(title)[0]
     print(story)
-    body = body_of_text(clean_text, author, alias, title)
+    body = body_of_text(clean_text, author, alias, title, True)
+
+    if chaptered(body):
+        print("Story has chapters, skipping: " + str(story))
+        return story, None, "Story has chapters, skipping."
+
     if len(body) < 10:
         print("Story is too short, skipping: " + str(story))
         return story, None, "Story is too short, skipping."
 
     # if we get here, we have the pieces of the story, so let's save
     file_name = names.title_and_author_to_filename(
-        title, ext=constants.FILE_SUFFIX, max_len=50
+        title, author, ext=constants.FILE_SUFFIX, max_len=50
     )
 
     print(f"Gathering story {story}: {title}")
@@ -829,7 +1022,7 @@ def show_data_not_corpora(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"
 
     try:
-        with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
+        with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
             if limit is not None:
                 reader = list(reader)[:limit]
@@ -857,7 +1050,7 @@ def show_corpora_not_data(limit=None):
     file_path = "notebooks/output/stories_comparison.csv"
 
     try:
-        with open(file_path, "r", encoding="utf-8", newline="") as csvfile:
+        with open(file_path, "r", newline="") as csvfile:
             reader = csv.reader(csvfile)
             if limit is not None:
                 reader = list(reader)[:limit]

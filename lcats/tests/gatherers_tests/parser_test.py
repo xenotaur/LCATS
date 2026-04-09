@@ -354,27 +354,6 @@ class TestLineContainsTitle(unittest.TestCase):
         self.assertTrue(parser.line_contains_title(line, "The Bell"))
 
 
-class TestNamesMatch(unittest.TestCase):
-    """Tests for parser.names_match."""
-
-    def test_exact_match(self):
-        self.assertTrue(parser.names_match("smith john", "smith john"))
-
-    def test_reverse_order(self):
-        self.assertTrue(parser.names_match("John Smith", "Smith, John"))
-
-    def test_no_match(self):
-        self.assertFalse(parser.names_match("John Smith", "Jane Doe"))
-
-    def test_partial_match_single_word(self):
-        """Single-word name2 matches if that word is found in name1."""
-        self.assertTrue(parser.names_match("John Smith", "John"))
-
-    def test_three_word_name_two_match(self):
-        """With 3+ word name2, >=2 matches returns True."""
-        self.assertTrue(parser.names_match("John Edward Smith", "John Edward Smith"))
-
-
 class TestLineContainsAuthor(unittest.TestCase):
     """Tests for parser.line_contains_author."""
 
@@ -433,27 +412,6 @@ class TestLineContainsAuthor(unittest.TestCase):
         self.assertTrue(
             parser.line_contains_author("David Gordon", ["Garrett, Randall"], [])
         )
-
-
-class TestLineContainsAuthor2(unittest.TestCase):
-    """Tests for parser.line_contains_author2."""
-
-    def test_name_match(self):
-        self.assertTrue(parser.line_contains_author2("John Smith", ["Smith, John"]))
-
-    def test_by_line(self):
-        self.assertTrue(parser.line_contains_author2("by John", ["Smith, John"]))
-
-    def test_by_alone(self):
-        self.assertTrue(parser.line_contains_author2("by", ["Smith, John"]))
-
-    def test_no_match(self):
-        self.assertFalse(parser.line_contains_author2("Jane Doe", ["Smith, John"]))
-
-    def test_by_too_long(self):
-        """A 'by' line that is too long returns False."""
-        long_line = "by " + " ".join(["word"] * 10)
-        self.assertFalse(parser.line_contains_author2(long_line, ["Smith, John"]))
 
 
 class TestIsBlankLine(unittest.TestCase):
@@ -616,15 +574,6 @@ class TestLineContainsAuthorAdditional(unittest.TestCase):
         # 9 words: length check fails (len >= 8), but names are present, exercising lines 422-424.
         line = "by john smith the author of this story today"
         self.assertTrue(parser.line_contains_author(line, ["Smith, John"], []))
-
-
-class TestNamesMatchAdditional(unittest.TestCase):
-    """Additional tests for names_match covering partial three-word name matching."""
-
-    def test_three_word_name_two_match_returns_true(self):
-        """A 3+ word name2 with exactly 2 matching words still returns True."""
-        # name2 split = ["john", "edward", "smith"]; "edward" not in name1
-        self.assertTrue(parser.names_match("John Smith", "John Edward Smith"))
 
 
 class TestFixBodyAdditional(unittest.TestCase):

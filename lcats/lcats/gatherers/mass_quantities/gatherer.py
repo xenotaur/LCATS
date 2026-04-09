@@ -19,6 +19,7 @@ def gather():
     Returns: A dictionary mapping story IDs to file paths.
     """
     gathered_stories, _ = gather_stories(storymap.SINGLE_STORIES)
+
     return gathered_stories
 
 
@@ -60,6 +61,7 @@ def main():
     """Extract the Single stories from the Gutenberg Project."""
     print("Gathering single stories en masse from Gutenberg.")
     downloads, errors = gather_stories(storymap.SINGLE_STORIES)
+    # downloads, errors = gather_stories(range(1, 78290))
     print(f" - Total stories in the single corpus: {len(downloads)}")
     print(f" - Total errors encountered: {len(errors)}")
 
