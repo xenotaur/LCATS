@@ -163,6 +163,22 @@ scripts/lint --fix --extra
 - Ruff remains the primary linter; Pylint and Pyright provide additional perspectives.
 - Black is the sole source of truth for formatting.
 
+---
+
+#### `precommit`
+Installs optional local pre-commit hooks for fast feedback before pushing.
+
+```bash
+scripts/precommit [--all-files]
+```
+
+**Behavior:**
+- Installs `pre-commit` with `pip` if missing
+- Runs `pre-commit install`
+- Optionally runs `pre-commit run --all-files` when `--all-files` is passed
+
+**Important:** This is optional convenience only. CI and `scripts/lint`/`scripts/format` remain authoritative.
+
 ### Testing
 
 #### `test`

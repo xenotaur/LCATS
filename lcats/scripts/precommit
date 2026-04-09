@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+run_all=0
+if [[ "${1:-}" == "--all-files" ]]; then
+    run_all=1
+fi
+
+if ! command -v pre-commit >/dev/null 2>&1; then
+    echo "pre-commit not found; installing with pip..."
+    python -m pip install pre-commit
+fi
+
+echo "Installing pre-commit git hooks..."
+pre-commit install
+
+if [[ "$run_all" -eq 1 ]]; then
+    echo "Running pre-commit on all files..."
+    pre-commit run --all-files
+else
+    echo "Done. Optionally run: pre-commit run --all-files"
+fi
