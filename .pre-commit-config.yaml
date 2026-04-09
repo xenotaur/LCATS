@@ -3,32 +3,48 @@
 default_language_version:
   python: python3.11
 
+exclude: |
+  (?x)^(
+    corpora/|
+    experiments/|
+    Papers/|
+    Resources/|
+    lcats/KMo/|
+    lcats/notebooks/|
+    lcats/output/|
+    lcats/dist/|
+    lcats/htmlcov/|
+    lcats/lcats\.egg-info/
+  )
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
-      # Remove trailing spaces in text files.
       - id: trailing-whitespace
-      # Ensure files end with a single newline.
+        files: ^lcats/(lcats|tests|tools)/.*$
+
       - id: end-of-file-fixer
-      # Prevent accidental unresolved merge markers.
+        files: ^lcats/(lcats|tests|tools)/.*$
+
       - id: check-merge-conflict
-      # Validate YAML syntax in repo config files.
+        files: ^lcats/(lcats|tests|tools)/.*$
+
       - id: check-yaml
-      # Validate JSON syntax in data/config files.
+        files: ^lcats/(lcats|tests|tools)/.*\.(ya?ml)$
+
       - id: check-json
+        files: ^lcats/(lcats|tests|tools)/.*\.json$
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.9
     hooks:
-      # Fast linting with auto-fix for Python files under lcats/.
       - id: ruff
         args: [--fix]
-        files: ^lcats/.*\.py$
+        files: ^lcats/(lcats|tests|tools)/.*\.py$
 
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
-      # Keep Python formatting consistent for files under lcats/.
       - id: black
-        files: ^lcats/.*\.py$
+        files: ^lcats/(lcats|tests|tools)/.*\.py$

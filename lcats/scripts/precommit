@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-run_all=0
-if [[ "${1:-}" == "--all-files" ]]; then
-    run_all=1
-fi
+# Run from the repository root relative to this script.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "${script_dir}/.." && pwd)"
+cd "${repo_root}"
 
 if ! command -v pre-commit >/dev/null 2>&1; then
     echo "pre-commit not found; installing with pip..."
@@ -14,9 +14,11 @@ fi
 echo "Installing pre-commit git hooks..."
 pre-commit install
 
-if [[ "$run_all" -eq 1 ]]; then
-    echo "Running pre-commit on all files..."
-    pre-commit run --all-files
+if [[ $# -gt 0 ]]; then
+    echo "Running: pre-commit run $*"
+    pre-commit run "$@"
 else
-    echo "Done. Optionally run: pre-commit run --all-files"
+    echo "Done."
+    echo "Optionally run:"
+    echo "  pre-commit run --all-files"
 fi
