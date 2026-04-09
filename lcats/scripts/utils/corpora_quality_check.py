@@ -4,7 +4,7 @@ import pathlib
 import subprocess
 import sys
 
-from tqdm import tqdm
+import tqdm
 
 
 DEFAULT_EXCLUDED_CODEPOINTS = [
@@ -26,7 +26,7 @@ DEFAULT_EXCLUDED_CHARS = [
     "í",  # Latin Small Letter I with Acute
     "ñ",  # Latin Small Letter N with Tilde
     "ö",  # Latin Small Letter O with Diaeresis
-    "ü",  # Latin Small Letter U with Diaeresis    
+    "ü",  # Latin Small Letter U with Diaeresis
     "è",  # Latin Small Letter E with Grave
     "ë",  # Latin Small Letter E with Diaeresis
     "°",  # Degree Sign
@@ -55,12 +55,13 @@ DEFAULT_EXCLUDED_CHARS = [
     "Ō",  # Latin Capital Letter O with Macron
     "ō",  # Latin Small Letter O with Macron
     "ū",  # Latin Small Letter U with Macron
-    ]
+]
 
 DEFAULT_CHECKS = ["special-characters"]
 
 
 def find_json_files(directories):
+    """Yield JSON files from provided paths in deterministic order."""
     for directory in directories:
         path = pathlib.Path(directory)
         if not path.exists():
@@ -76,6 +77,7 @@ def find_json_files(directories):
 
 
 def run_lcats_display(file_path: pathlib.Path) -> str:
+    """Run `lcats display` and return emitted text for one corpus file."""
     result = subprocess.run(
         ["lcats", "display", str(file_path)],
         capture_output=True,
@@ -93,20 +95,30 @@ def run_special_characters_check(
     displayed_text: str,
     extract_script: str,
     allow_smart: bool,
-    show_names: bool,
     excluded_codepoints,
     excluded_chars,
+    context: int,
+    nocontext: bool,
+    name_width: int,
+    header: bool,
 ) -> str:
+    """Run the special-character extractor and return its TSV output."""
     cmd = [extract_script]
 
     if allow_smart:
         cmd.append("--allow-smart")
-    if show_names:
-        cmd.append("--names")
     if excluded_codepoints:
         cmd.append("--exclude-codepoint=" + ",".join(excluded_codepoints))
     if excluded_chars:
         cmd.append("--exclude-char=" + ",".join(excluded_chars))
+    if nocontext:
+        cmd.append("--nocontext")
+    else:
+        cmd.append(f"--context={context}")
+    if name_width > 0:
+        cmd.append(f"--name-width={name_width}")
+    if header:
+        cmd.append("--header")
 
     result = subprocess.run(
         cmd,
@@ -125,6 +137,7 @@ def run_special_characters_check(
 
 
 def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
+    """Run enabled checks on a single corpus file and return check outputs."""
     displayed_text = run_lcats_display(file_path)
     findings = []
 
@@ -134,9 +147,12 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
                 displayed_text=displayed_text,
                 extract_script=args.extract_script,
                 allow_smart=args.allow_smart,
-                show_names=args.names,
                 excluded_codepoints=args.exclude_codepoint,
                 excluded_chars=args.exclude_char,
+                context=args.context,
+                nocontext=args.nocontext,
+                name_width=args.name_width,
+                header=False,
             )
             if output:
                 findings.append((check_name, output))
@@ -147,6 +163,7 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
 
 
 def parse_csv_args(values):
+    """Split repeatable comma-separated CLI values into a flat list."""
     items = []
     for value in values or []:
         for item in value.split(","):
@@ -157,6 +174,7 @@ def parse_csv_args(values):
 
 
 def build_parser():
+    """Build and return the CLI parser for corpus quality checks."""
     parser = argparse.ArgumentParser(
         description="Survey LCATS corpora files for issues."
     )
@@ -186,8 +204,6 @@ def build_parser():
         help="Path to the extract_special_chars.py script.",
     )
 
-    # special-characters options
-    # allow-smart (default: True)
     parser.add_argument(
         "--allow-smart",
         dest="allow_smart",
@@ -202,21 +218,29 @@ def build_parser():
     )
     parser.set_defaults(allow_smart=True)
 
-
-    # names (default: True)
     parser.add_argument(
-        "--names",
-        dest="names",
+        "--context",
+        type=int,
+        default=10,
+        help="Number of left/right context characters to include (default: 10).",
+    )
+    parser.add_argument(
+        "--nocontext",
         action="store_true",
-        help="Show Unicode names (default: enabled).",
+        help="Convenience flag equivalent to --context=0.",
     )
     parser.add_argument(
-        "--no-names",
-        dest="names",
-        action="store_false",
-        help="Disable Unicode names.",
+        "--name-width",
+        type=int,
+        default=0,
+        help="Optional max width for Unicode name (0 means no truncation).",
     )
-    parser.set_defaults(names=True)
+    parser.add_argument(
+        "--header",
+        action="store_true",
+        help="Emit a TSV header row.",
+    )
+
     parser.add_argument(
         "--exclude-codepoint",
         action="append",
@@ -239,13 +263,21 @@ def build_parser():
 
 
 def main() -> int:
+    """Run the corpus quality checker CLI."""
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.context < 0:
+        parser.error("--context must be >= 0")
+    if args.name_width < 0:
+        parser.error("--name-width must be >= 0")
 
     args.check_for = parse_csv_args(args.check_for) or list(DEFAULT_CHECKS)
 
     user_excluded_codepoints = parse_csv_args(args.exclude_codepoint)
-    args.exclude_codepoint = list(DEFAULT_EXCLUDED_CODEPOINTS) + user_excluded_codepoints
+    args.exclude_codepoint = (
+        list(DEFAULT_EXCLUDED_CODEPOINTS) + user_excluded_codepoints
+    )
 
     user_excluded_chars = parse_csv_args(args.exclude_char)
     args.exclude_char = list(DEFAULT_EXCLUDED_CHARS) + user_excluded_chars
@@ -254,19 +286,27 @@ def main() -> int:
 
     try:
         files_found = list(find_json_files(args.directories))
-        for file_path in tqdm(files_found):
+        header_written = False
+
+        for file_path in tqdm.tqdm(files_found):
             findings = survey_file(file_path, args)
 
             if findings:
                 had_findings = True
-                print()
-                print(file_path)
                 for check_name, output in findings:
                     if len(args.check_for) > 1:
-                        print(f"[{check_name}]")
-                    print(output)
+                        print(f"#check={check_name}\tpath={file_path}")
+                    for line in output.splitlines():
+                        if not line.strip():
+                            continue
+                        if args.header and not header_written:
+                            print(
+                                "path\tcodepoint\tchar\tunicode_name\t"
+                                "occurrence_index\toffset\tcontext"
+                            )
+                            header_written = True
+                        print(f"{file_path}\t{line}")
             elif args.print_clean_filenames:
-                print()
                 print(file_path)
                 print("[clean]")
 
