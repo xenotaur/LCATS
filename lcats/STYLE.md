@@ -34,6 +34,19 @@ If you follow only a few rules, follow these:
 
 For full details, see the sections below.
 
+
+## 0. Style Precedence
+
+When style rules overlap, apply them in this order:
+
+1. Rules in this file (`STYLE.md`)
+2. Google Python Style Guide (for unspecified cases)
+3. PEP 8 (fallback only)
+
+If an older document conflicts with this guide, `STYLE.md` wins.
+
+---
+
 ## 1. Philosophy
 
 LCATS is a research-grade system for:
@@ -149,6 +162,13 @@ from lcats.utils import names as n
 - snake_case (functions)
 - PascalCase (classes)
 - UPPER_CASE (constants)
+
+### Python Baseline Conventions
+- Use 4 spaces for indentation
+- Keep lines roughly within 80–100 characters where practical
+- Use explicit imports; avoid wildcard imports
+- Add type annotations when they improve clarity
+- When modifying existing files, preserve local style and existing comments unless a change is intentional and justified
 
 ---
 
@@ -338,6 +358,7 @@ Avoid:
 
 Use Google-style docstrings for non-trivial public functions.
 One-line docstrings are acceptable for trivial functions.
+For Google-style docstrings, use sections such as `Args`, `Returns`, and `Raises` when applicable.
 
 GOOD:
 ```python
