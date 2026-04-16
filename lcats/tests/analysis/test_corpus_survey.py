@@ -17,9 +17,67 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
         self.bad_start_text = "© starts with a bad char"
         self.bad_end_text = "ends with a bad char ©"
         self.encoding_issue_text = "contains replacement char: �"
+        self.fixture_dir = pathlib.Path(__file__).parent / "fixtures"
+
+    def _fixture_text(self, filename):
+        return (self.fixture_dir / filename).read_text(encoding="utf-8")
 
     def test_clean_text_has_no_findings(self):
         findings = corpus_survey.run_detectors(self.clean_text, config={})
+        self.assertEqual([], findings)
+
+    def test_start_detector_finds_title_author_and_editor_note(self):
+        text = self._fixture_text("bad_start_title_author_note.txt")
+        findings = corpus_survey.StartDetector().run(text)
+
+        types = [finding.evidence["type"] for finding in findings]
+        self.assertIn("title-line", types)
+        self.assertIn("author-line", types)
+        self.assertIn("editor-note", types)
+
+    def test_end_detector_finds_the_end_and_gutenberg_footer(self):
+        text = self._fixture_text("bad_end_markers.txt")
+        findings = corpus_survey.EndDetector().run(text)
+
+        types = [finding.evidence["type"] for finding in findings]
+        self.assertIn("the-end", types)
+        self.assertIn("gutenberg-footer", types)
+
+    def test_structural_detectors_find_expected_artifacts(self):
+        text = self._fixture_text("structural_artifacts.txt")
+        detectors = [
+            corpus_survey.ChapterHeadingDetector(),
+            corpus_survey.TocRemnantsDetector(),
+            corpus_survey.SectionBreakDetector(),
+            corpus_survey.IllustrationCaptionDetector(),
+        ]
+
+        findings = []
+        for detector in detectors:
+            findings.extend(detector.run(text))
+
+        types = [finding.evidence["type"] for finding in findings]
+        self.assertIn("chapter-heading", types)
+        self.assertIn("toc-heading", types)
+        self.assertIn("toc-entry", types)
+        self.assertIn("section-break", types)
+        self.assertIn("illustration-caption", types)
+
+    def test_structural_detectors_avoid_false_positives_on_clean_excerpt(self):
+        text = self._fixture_text("clean_story_excerpt.txt")
+        detectors = [
+            corpus_survey.StartDetector(),
+            corpus_survey.EndDetector(),
+            corpus_survey.ChapterHeadingDetector(),
+            corpus_survey.TocRemnantsDetector(),
+            corpus_survey.SectionBreakDetector(),
+            corpus_survey.IllustrationCaptionDetector(),
+        ]
+
+        findings = []
+        for detector in detectors:
+            findings.extend(detector.run(text))
+
         self.assertEqual([], findings)
 
 
