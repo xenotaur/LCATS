@@ -24,10 +24,10 @@ TSV_COLUMNS = [
     "classification",
     "evidence",
     "message",
-    "story_title",
-    "story_file",
-    "path",
-    "identifier",
+    # "story_title",
+    # "story_file",
+    # "path",
+    "story_identifier",
 ]
 IDENTIFIER_FIELDS = ("path", "filename", "title")
 DEFAULT_IDENTIFIER_FIELD = "path"
@@ -171,11 +171,11 @@ def with_identifier(
     """Return row with selected identifier value and stable schema."""
     mutable = dict(row)
     if identifier == "filename":
-        mutable["identifier"] = mutable.get("story_file", "")
+        mutable["story_identifier"] = mutable.get("story_file", "")
     elif identifier == "title":
-        mutable["identifier"] = mutable.get("story_title", "")
+        mutable["story_identifier"] = mutable.get("story_title", "")
     else:
-        mutable["identifier"] = mutable.get("path", "")
+        mutable["story_identifier"] = mutable.get("path", "")
     return mutable
 
 
