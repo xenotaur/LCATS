@@ -1,5 +1,8 @@
 """Unit tests for lcats.analysis.corpus_survey architecture."""
 
+import json
+import pathlib
+import tempfile
 import unittest
 import unittest.mock
 
@@ -86,6 +89,30 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         args = parser.parse_args([])
         self.assertEqual(10, args.context)
         self.assertFalse(args.nocontext)
+
+    def test_run_lcats_display_uses_internal_formatter_api(self):
+        sample_story = {
+            "name": "Sample",
+            "author": ["Author"],
+            "metadata": {"source": "unit-test"},
+            "body": "Hello world",
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            with story_path.open("w", encoding="utf-8") as story_file:
+                json.dump(sample_story, story_file)
+
+            with unittest.mock.patch.object(
+                corpus_survey.lcats.inspect,
+                "format_story_json",
+                return_value="rendered",
+            ) as mock_formatter:
+                output = corpus_survey.run_lcats_display(story_path)
+
+        mock_formatter.assert_called_once_with(
+            sample_story, max_body_chars=None, width=80
+        )
+        self.assertEqual("rendered\n", output)
 
     def test_bad_start_and_bad_end_report_precise_spans(self):
         cases = [
