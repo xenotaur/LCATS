@@ -28,6 +28,7 @@ If you follow only a few rules, follow these:
 5. **Tests**
    - Use `unittest` (not `pytest`)  
    - Prefer deterministic tests
+   - Use the `capture` library to suppress print output.
 
 6. **General Principle**
    - Prefer clarity and consistency over cleverness
@@ -217,7 +218,8 @@ python -m unittest discover -s tests -p "*_test.py"
 Rules:
 - Deterministic tests only
 - No network calls (unless mocked)
-- Mirror package structure
+- Avoid printing or use the lcats.utils.capture library to suppress output
+- Mirror package structure - test sample_module in sample_module_tests
 - Mocking is allowed, but prefer testing behavior through upstream objects with stubbed internals rather than mocking the exact method under test
 
 GOOD:
