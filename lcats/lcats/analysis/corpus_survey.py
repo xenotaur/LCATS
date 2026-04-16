@@ -1,6 +1,7 @@
 """Corpus survey architecture primitives and detector orchestration."""
 
 import argparse
+import csv
 from dataclasses import dataclass
 import json
 import pathlib
@@ -75,6 +76,24 @@ DEFAULT_EXCLUDED_CHARS = (
     SAFE_EXCLUDED_CHARS + RARE_REVIEW_CHARS + MOJIBAKE_TRIGGER_CHARS
 )
 DEFAULT_CHECKS = ["special-characters"]
+DEFAULT_OUTPUT_FORMAT = "human"
+TSV_COLUMNS = [
+    "path",
+    "check",
+    "kind",
+    "severity",
+    "codepoint",
+    "char",
+    "unicode_name",
+    "occurrence_index",
+    "offset",
+    "span_start",
+    "span_end",
+    "context",
+    "classification",
+    "evidence",
+    "message",
+]
 
 BOUNDARY_WINDOW_LINES = 12
 STRUCTURAL_WINDOW_LINES = 40
@@ -642,10 +661,101 @@ def run_boundary_contamination_check(displayed_text: str) -> str:
     return "\n".join(lines)
 
 
-def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
-    """Run enabled checks on a single corpus file and return check outputs."""
+def _empty_tsv_row() -> dict[str, str]:
+    """Return a blank TSV row with all stable fields present."""
+    return {column: "" for column in TSV_COLUMNS}
+
+
+def _severity_from_classification(classification: str) -> str:
+    """Map special-character classification to severity."""
+    lowered = classification.lower()
+    if "mojibake" in lowered:
+        return "error"
+    if "rare" in lowered:
+        return "info"
+    if lowered:
+        return "warning"
+    return "warning"
+
+
+def parse_special_character_rows(
+    tsv_output: str, file_path: pathlib.Path
+) -> list[dict[str, str]]:
+    """Parse extractor TSV output into stable report rows."""
+    if not tsv_output.strip():
+        return []
+
+    rows = []
+    parsed_rows = list(csv.reader(tsv_output.splitlines(), delimiter="\t"))
+    if parsed_rows and parsed_rows[0] and parsed_rows[0][0] == "codepoint":
+        parsed_rows = parsed_rows[1:]
+
+    for parts in parsed_rows:
+        if not parts:
+            continue
+        padded = parts + [""] * (8 - len(parts))
+        row = _empty_tsv_row()
+        row.update(
+            {
+                "path": str(file_path),
+                "check": "special-characters",
+                "kind": "special-character",
+                "severity": _severity_from_classification(padded[6]),
+                "codepoint": padded[0],
+                "char": padded[1],
+                "unicode_name": padded[2],
+                "occurrence_index": padded[3],
+                "offset": padded[4],
+                "context": padded[5],
+                "classification": padded[6],
+                "evidence": padded[7],
+                "message": "Special character finding.",
+            }
+        )
+        rows.append(row)
+
+    return rows
+
+
+def _finding_to_row(
+    file_path: pathlib.Path, check_name: str, finding: Finding
+) -> dict[str, str]:
+    """Convert one Finding into a stable TSV row."""
+    row = _empty_tsv_row()
+    row.update(
+        {
+            "path": str(file_path),
+            "check": check_name,
+            "kind": finding.kind,
+            "severity": finding.severity,
+            "span_start": str(finding.span[0]),
+            "span_end": str(finding.span[1]),
+            "evidence": json.dumps(dict(finding.evidence), ensure_ascii=False),
+            "message": finding.message,
+        }
+    )
+    return row
+
+
+def _clean_row(file_path: pathlib.Path) -> dict[str, str]:
+    """Build a summary row for files with no findings."""
+    row = _empty_tsv_row()
+    row.update(
+        {
+            "path": str(file_path),
+            "check": "summary",
+            "kind": "clean",
+            "severity": "info",
+            "message": "No findings.",
+        }
+    )
+    return row
+
+
+def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
+    """Run enabled checks on a single corpus file and return report rows."""
     displayed_text = run_lcats_display(file_path)
-    findings = []
+    rows = []
 
     for check_name in args.check_for:
         if check_name == "special-characters":
@@ -661,16 +771,19 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
                 name_width=args.name_width,
                 header=False,
             )
-            if output:
-                findings.append((check_name, output))
+            rows.extend(parse_special_character_rows(output, file_path))
         elif check_name == "boundary-contamination":
-            output = run_boundary_contamination_check(displayed_text)
-            if output:
-                findings.append((check_name, output))
+            boundary_findings = run_detectors(
+                displayed_text, config={"detectors": [StartDetector(), EndDetector()]}
+            )
+            rows.extend(
+                _finding_to_row(file_path, check_name, finding)
+                for finding in boundary_findings
+            )
         else:
             raise ValueError(f"Unsupported check: {check_name}")
 
-    return findings
+    return rows
 
 
 def parse_csv_args(values):
@@ -753,9 +866,41 @@ def build_parser():
     )
     parser.add_argument(
         "--header",
+        dest="header",
         action="store_true",
-        help="Emit a TSV header row.",
+        help="Emit a TSV header row (default in TSV mode).",
     )
+    parser.add_argument(
+        "--no-header",
+        dest="header",
+        action="store_false",
+        help="Do not emit a TSV header row.",
+    )
+    parser.set_defaults(header=None)
+    parser.add_argument(
+        "--format",
+        choices=["human", "tsv"],
+        default=DEFAULT_OUTPUT_FORMAT,
+        help="Output format (human or machine-readable TSV).",
+    )
+    parser.add_argument(
+        "--output",
+        default="",
+        help="Optional output file path (default: stdout).",
+    )
+    parser.add_argument(
+        "--progress",
+        dest="progress",
+        action="store_true",
+        help="Force-enable the progress bar.",
+    )
+    parser.add_argument(
+        "--no-progress",
+        dest="progress",
+        action="store_false",
+        help="Disable the progress bar.",
+    )
+    parser.set_defaults(progress=None)
 
     parser.add_argument(
         "--exclude-codepoint",
@@ -776,6 +921,41 @@ def build_parser():
         ),
     )
     return parser
+
+
+def _show_progress(progress_arg: Optional[bool]) -> bool:
+    """Resolve progress-bar visibility from CLI choice and TTY defaults."""
+    if progress_arg is not None:
+        return progress_arg
+    return sys.stderr.isatty()
+
+
+def _write_human_rows(
+    output_stream, file_path: pathlib.Path, rows: Sequence[Mapping[str, str]]
+) -> None:
+    """Write human-readable findings for one file."""
+    print(str(file_path), file=output_stream)
+    for row in rows:
+        check_name = row.get("check", "")
+        severity = row.get("severity", "")
+        message = row.get("message", "")
+        codepoint = row.get("codepoint", "")
+        character = row.get("char", "")
+        span_start = row.get("span_start", "")
+        span_end = row.get("span_end", "")
+
+        details = []
+        if codepoint:
+            details.append(codepoint)
+        if character:
+            details.append(repr(character))
+        if span_start or span_end:
+            details.append(f"span={span_start}:{span_end}")
+        suffix = f" ({', '.join(details)})" if details else ""
+        print(
+            f"  [{check_name}] {severity}: {message}{suffix}",
+            file=output_stream,
+        )
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -802,31 +982,46 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     try:
         files_found = list(find_json_files(args.directories))
-        header_written = False
+        output_stream = sys.stdout
+        if args.output:
+            output_stream = pathlib.Path(args.output).open(
+                "w", encoding="utf-8", newline=""
+            )
 
-        for file_path in tqdm.tqdm(files_found):
-            findings = survey_file(file_path, args)
+        header_enabled = args.header
+        if header_enabled is None:
+            header_enabled = args.format == "tsv"
 
-            if findings:
+        tsv_writer = None
+        if args.format == "tsv":
+            tsv_writer = csv.DictWriter(
+                output_stream,
+                fieldnames=TSV_COLUMNS,
+                delimiter="\t",
+                extrasaction="ignore",
+            )
+            if header_enabled:
+                tsv_writer.writeheader()
+
+        for file_path in tqdm.tqdm(
+            files_found, disable=not _show_progress(args.progress)
+        ):
+            rows = survey_file(file_path, args)
+            if rows:
                 had_findings = True
-                for check_name, output in findings:
-                    if len(args.check_for) > 1:
-                        print(f"#check={check_name}\tpath={file_path}")
-                    for line in output.splitlines():
-                        if not line.strip():
-                            continue
-                        if args.header and not header_written:
-                            print(
-                                "path\tcodepoint\tchar\tunicode_name\t"
-                                "occurrence_index\toffset\tcontext\t"
-                                "classification\tevidence"
-                            )
-                            header_written = True
-                        print(f"{file_path}\t{line}")
+                if args.format == "tsv":
+                    for row in rows:
+                        tsv_writer.writerow(row)
+                else:
+                    _write_human_rows(output_stream, file_path, rows)
             elif args.print_clean_filenames:
-                print(file_path)
-                print("[clean]")
+                if args.format == "tsv":
+                    tsv_writer.writerow(_clean_row(file_path))
+                else:
+                    print(f"{file_path} [clean]", file=output_stream)
 
+        if output_stream is not sys.stdout:
+            output_stream.close()
         return 1 if had_findings else 0
 
     except BrokenPipeError:
