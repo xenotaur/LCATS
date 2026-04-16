@@ -1,7 +1,9 @@
 """Command-line interface for the Literary Captain's Advisory Tool System (LCATS)."""
 
+import argparse
 import sys
 
+from lcats.analysis import corpus_survey
 import lcats.inspect
 import lcats.gatherers.main
 
@@ -12,6 +14,7 @@ Commands:
     gather    Gathers corpus data to a local database.
     inspect   Inspects a story JSON file and summarizes its contents.
     display   Displays entire story JSON file in a human-readable format.
+    survey    Surveys corpus files for quality issues.
     index     Preprocesses a corpus to answer questions.
     advise    LCATS command-line advising tool.
     eval      Evaluate LCATS on a benchmark suite.
@@ -44,6 +47,9 @@ def dispatch(command, args):
     elif command == "display":
         return lcats.inspect.display_files(*args)
 
+    elif command == "survey":
+        return "", corpus_survey.main(args)
+
     elif command == "index":
         return "Indexing data files is not yet implemented.", 1
 
@@ -62,11 +68,17 @@ def dispatch(command, args):
 
 def main():
     """Main entry point for the LCATS command-line interface."""
-    if len(sys.argv) < 2:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("command", nargs="?")
+    parser.add_argument("args", nargs=argparse.REMAINDER)
+    parsed = parser.parse_args()
+
+    if parsed.command is None:
         print(usage())
         sys.exit(1)
-    result, status = dispatch(sys.argv[1], sys.argv[2:])
-    print(result)
+    result, status = dispatch(parsed.command, parsed.args)
+    if result:
+        print(result)
     sys.exit(status)
 
 

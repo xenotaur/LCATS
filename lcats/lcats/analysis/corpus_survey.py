@@ -2,6 +2,7 @@
 
 import argparse
 from dataclasses import dataclass
+import json
 import pathlib
 import re
 import subprocess
@@ -9,6 +10,7 @@ import sys
 from typing import Any, Mapping, Optional, Protocol, Sequence
 import unicodedata
 
+import lcats.inspect
 import tqdm
 
 
@@ -266,18 +268,12 @@ def find_json_files(directories):
 
 
 def run_lcats_display(file_path: pathlib.Path) -> str:
-    """Run `lcats display` and return emitted text for one corpus file."""
-    result = subprocess.run(
-        ["lcats", "display", str(file_path)],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-    )
-    if result.returncode != 0:
-        raise RuntimeError(
-            f"lcats display failed for {file_path}:\n{result.stderr.strip()}"
-        )
-    return result.stdout
+    """Render one corpus JSON file using the same formatter as `lcats display`."""
+    with file_path.open("r", encoding="utf-8") as json_file:
+        data = json.load(json_file)
+
+    rendered = lcats.inspect.format_story_json(data, max_body_chars=None, width=80)
+    return f"{rendered}\n"
 
 
 def run_special_characters_check(
@@ -475,10 +471,10 @@ def build_parser():
     return parser
 
 
-def main() -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Run the corpus quality checker CLI."""
     parser = build_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.context < 0:
         parser.error("--context must be >= 0")
