@@ -71,7 +71,9 @@ class SpecialCharactersDetector:
         return findings
 
 
-def run_detectors(text: str, config: Optional[Mapping[str, Any]] = None) -> list[Finding]:
+def run_detectors(
+    text: str, config: Optional[Mapping[str, Any]] = None
+) -> list[Finding]:
     """Run configured detectors and return all findings in deterministic order."""
     resolved = dict(config or {})
     detectors = resolved.get("detectors")
