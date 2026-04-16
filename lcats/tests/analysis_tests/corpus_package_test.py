@@ -5,7 +5,7 @@ import pathlib
 import unittest
 from unittest import mock
 
-from lcats import test_utils
+from lcats.utils import test_utils
 from lcats.analysis.corpus import cli
 from lcats.analysis.corpus import discovery
 from lcats.analysis.corpus import processing

@@ -4,7 +4,7 @@ import unittest
 
 from lcats import chunking
 from lcats.analysis import story_analysis
-import tokenizer_test_utils
+from lcats.utils import tokenizer_test_utils
 
 
 class TestFakeCharacterEncoding(unittest.TestCase):

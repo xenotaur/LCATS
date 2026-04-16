@@ -7,9 +7,9 @@ import unittest
 
 import pandas as pd
 
-from lcats import test_utils
+from lcats.utils import test_utils
 from lcats.analysis import corpus_surveyor
-import tokenizer_test_utils
+import lcats.utils.tokenizer_test_utils as tokenizer_test_utils
 from lcats.utils import capture
 
 

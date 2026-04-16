@@ -12,7 +12,7 @@ class TestCaseWithData(unittest.TestCase):
         """Find the local test data directory, and create a temp dir."""
         # Assumes tests are being run from the root of the workspace.
         self.test_data_dir = os.path.normpath(
-            os.path.join(os.path.dirname(__file__), "../tests/data")
+            os.path.join(os.path.dirname(__file__), "../../tests/data")
         )
         self.test_temp_dir = tempfile.mkdtemp()
 

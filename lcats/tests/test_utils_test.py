@@ -3,7 +3,7 @@
 import os
 import unittest
 
-from lcats import test_utils
+from lcats.utils import test_utils
 
 
 class TestTestCaseWithTestData(test_utils.TestCaseWithData):

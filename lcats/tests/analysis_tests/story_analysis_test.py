@@ -3,7 +3,7 @@
 import unittest
 import unittest.mock
 from lcats.analysis import story_analysis
-import tokenizer_test_utils
+import lcats.utils.tokenizer_test_utils as tokenizer_test_utils
 
 # ---------------------------------------------------------------------------
 # Tests: get_keywords

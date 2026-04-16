@@ -3,7 +3,7 @@ import io
 import unittest
 
 from lcats import chunking
-import tokenizer_test_utils
+from lcats.utils import tokenizer_test_utils
 
 
 class TestChunking(unittest.TestCase):
