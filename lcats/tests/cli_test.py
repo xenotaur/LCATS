@@ -34,6 +34,16 @@ class TestCli(unittest.TestCase):
         self.assertEqual(expected_message, actual_message)
         self.assertEqual(expected_status, actual_status)
 
+    @patch("lcats.analysis.corpus_survey.main")
+    def test_dispatch_survey(self, mock_main):
+        """Ensure the survey command delegates to corpus_survey.main."""
+        mock_main.return_value = 0
+
+        actual_message, actual_status = cli.dispatch("survey", ["corpora/sherlock"])
+        self.assertEqual("", actual_message)
+        self.assertEqual(0, actual_status)
+        mock_main.assert_called_once_with(["corpora/sherlock"])
+
     @parameterized.parameterized.expand(
         [
             ("index", "Indexing data files is not yet implemented."),
@@ -52,6 +62,25 @@ class TestCli(unittest.TestCase):
         result, response = cli.dispatch("unknown", [])
         self.assertEqual(result, "Unknown command: unknown")
         self.assertEqual(response, 1)
+
+    @patch("sys.argv", ["lcats", "survey", "corpora/sherlock"])
+    @patch("lcats.analysis.corpus_survey.main")
+    def test_main_survey_invocation(self, mock_main):
+        """Ensure CLI main routes survey arguments via argparse."""
+        mock_main.return_value = 0
+
+        with self.assertRaises(SystemExit) as cm:
+            cli.main()
+
+        self.assertEqual(0, cm.exception.code)
+        mock_main.assert_called_once_with(["corpora/sherlock"])
+
+    @patch("sys.argv", ["lcats", "--help"])
+    def test_main_help_flag_exits(self):
+        """Ensure argparse handles the built-in help flag."""
+        with self.assertRaises(SystemExit) as cm:
+            cli.main()
+        self.assertEqual(0, cm.exception.code)
 
 
 if __name__ == "__main__":

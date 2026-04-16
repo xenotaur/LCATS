@@ -342,10 +342,10 @@ def build_parser():
     return parser
 
 
-def main() -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Run the corpus quality checker CLI."""
     parser = build_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.context < 0:
         parser.error("--context must be >= 0")
