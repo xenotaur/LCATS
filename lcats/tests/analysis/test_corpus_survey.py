@@ -240,6 +240,63 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
 
         self.assertEqual([], findings)
 
+    def test_safe_accented_characters_and_horizontal_bar_are_not_flagged(self):
+        detector = corpus_survey.SpecialCharactersDetector(
+            safe_excluded_chars=corpus_survey.SAFE_EXCLUDED_CHARS,
+            rare_review_chars=corpus_survey.RARE_REVIEW_CHARS,
+            mojibake_trigger_chars=corpus_survey.MOJIBAKE_TRIGGER_CHARS,
+        )
+        text = "A naïve café uses æ and œ with ― punctuation."
+
+        findings = detector.run(text)
+
+        self.assertEqual([], findings)
+
+    def test_rare_review_characters_emit_low_severity_findings(self):
+        detector = corpus_survey.SpecialCharactersDetector(
+            safe_excluded_chars=corpus_survey.SAFE_EXCLUDED_CHARS,
+            rare_review_chars=corpus_survey.RARE_REVIEW_CHARS,
+            mojibake_trigger_chars=corpus_survey.MOJIBAKE_TRIGGER_CHARS,
+        )
+
+        findings = detector.run("Transliteration: Ō ā ×")
+
+        self.assertEqual(3, len(findings))
+        for finding in findings:
+            self.assertEqual("rare-review-character", finding.kind)
+            self.assertEqual("info", finding.severity)
+
+    def test_mojibake_sequences_emit_high_severity_findings(self):
+        detector = corpus_survey.SpecialCharactersDetector(
+            safe_excluded_chars=corpus_survey.SAFE_EXCLUDED_CHARS,
+            rare_review_chars=corpus_survey.RARE_REVIEW_CHARS,
+            mojibake_trigger_chars=corpus_survey.MOJIBAKE_TRIGGER_CHARS,
+        )
+        text = "Broken tokens: Â£ and Ã© and â€™."
+
+        findings = detector.run(text)
+
+        self.assertGreaterEqual(len(findings), 3)
+        self.assertTrue(
+            all(finding.kind == "mojibake-sequence" for finding in findings)
+        )
+        self.assertTrue(all(finding.severity == "error" for finding in findings))
+
+    def test_valid_accented_text_does_not_flood_findings(self):
+        detector = corpus_survey.SpecialCharactersDetector(
+            safe_excluded_chars=corpus_survey.SAFE_EXCLUDED_CHARS,
+            rare_review_chars=corpus_survey.RARE_REVIEW_CHARS,
+            mojibake_trigger_chars=corpus_survey.MOJIBAKE_TRIGGER_CHARS,
+        )
+        text = (
+            "Émile wrote about naïve readers in café salons while "
+            "François and Zoë discussed œuvre and æsthetics."
+        )
+
+        findings = detector.run(text)
+
+        self.assertEqual([], findings)
+
 
 if __name__ == "__main__":
     unittest.main()
