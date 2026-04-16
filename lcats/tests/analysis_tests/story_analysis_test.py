@@ -2,10 +2,8 @@
 
 import unittest
 import unittest.mock
-from unittest.mock import MagicMock
-
-
 from lcats.analysis import story_analysis
+import lcats.utils.tokenizer_test_utils as tokenizer_test_utils
 
 # ---------------------------------------------------------------------------
 # Tests: get_keywords
@@ -253,48 +251,41 @@ class TestWordCount(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
-def _make_mock_encoder(words_as_tokens=True):
-    """Return a mock encoder that tokenizes by splitting on whitespace."""
-    enc = MagicMock()
-    enc.encode.side_effect = lambda text, **kw: text.split()
-    return enc
+def _make_fake_encoder():
+    """Return a shared deterministic fake encoder for tokenizer tests."""
+    return tokenizer_test_utils.FakeCharacterEncoding()
 
 
 class TestTokenCount(unittest.TestCase):
     """Tests for token_count."""
 
     def test_empty_string_returns_zero(self):
-        enc = _make_mock_encoder()
+        enc = _make_fake_encoder()
         self.assertEqual(story_analysis.token_count("", enc=enc), 0)
 
     def test_nonempty_string_returns_positive(self):
-        enc = _make_mock_encoder()
+        enc = _make_fake_encoder()
         result = story_analysis.token_count("hello world", enc=enc)
         self.assertGreater(result, 0)
 
     def test_longer_text_more_tokens(self):
-        enc = _make_mock_encoder()
+        enc = _make_fake_encoder()
         short = story_analysis.token_count("hello", enc=enc)
         long = story_analysis.token_count("hello world foo bar baz", enc=enc)
         self.assertGreater(long, short)
 
     def test_uses_provided_encoder(self):
-        enc = _make_mock_encoder()
+        enc = _make_fake_encoder()
         result = story_analysis.token_count("test text", enc=enc)
-        enc.encode.assert_called_once_with("test text", disallowed_special=())
-        self.assertIsInstance(result, int)
+        self.assertEqual(result, len("test text"))
 
     def test_uses_default_encoder_when_none(self):
-        mock_enc = _make_mock_encoder()
-        with unittest.mock.patch(
-            "lcats.analysis.story_analysis.get_encoder", return_value=mock_enc
-        ):
+        with tokenizer_test_utils.patch_story_analysis_get_encoder():
             result = story_analysis.token_count("some text", enc=None)
-        self.assertIsInstance(result, int)
-        self.assertGreater(result, 0)
+        self.assertEqual(result, len("some text"))
 
     def test_returns_integer(self):
-        enc = _make_mock_encoder()
+        enc = _make_fake_encoder()
         result = story_analysis.token_count("one two three", enc=enc)
         self.assertIsInstance(result, int)
 
@@ -303,7 +294,7 @@ class TestGetEncoder(unittest.TestCase):
     """Tests for get_encoder (mocked to avoid network calls)."""
 
     def test_returns_result_of_tiktoken_get_encoding(self):
-        mock_enc = MagicMock()
+        mock_enc = tokenizer_test_utils.FakeCharacterEncoding()
         import tiktoken
 
         with unittest.mock.patch.object(
@@ -313,7 +304,7 @@ class TestGetEncoder(unittest.TestCase):
         self.assertIs(enc, mock_enc)
 
     def test_fallback_to_cl100k_base_when_o200k_fails(self):
-        mock_enc = MagicMock()
+        mock_enc = tokenizer_test_utils.FakeCharacterEncoding()
         import tiktoken
 
         call_count = [0]
@@ -563,27 +554,27 @@ class TestMakeDocClassificationExtractor(unittest.TestCase):
     def test_returns_json_prompt_extractor(self):
         from lcats.analysis import llm_extractor
 
-        client = MagicMock()
+        client = unittest.mock.MagicMock()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsInstance(extractor, llm_extractor.JSONPromptExtractor)
 
     def test_output_key_is_classification(self):
-        client = MagicMock()
+        client = unittest.mock.MagicMock()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertEqual(extractor.output_key, "classification")
 
     def test_default_model_is_gpt4o(self):
-        client = MagicMock()
+        client = unittest.mock.MagicMock()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertEqual(extractor.default_model, "gpt-4o")
 
     def test_text_indexer_is_none(self):
-        client = MagicMock()
+        client = unittest.mock.MagicMock()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsNone(extractor.text_indexer)
 
     def test_result_aligner_is_none(self):
-        client = MagicMock()
+        client = unittest.mock.MagicMock()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsNone(extractor.result_aligner)
 

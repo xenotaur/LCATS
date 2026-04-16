@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import patch, Mock
 
 from lcats import constants
-from lcats import test_utils
+from lcats.utils import test_utils
 from lcats.gatherers import downloaders
 from lcats.utils import capture
 from lcats.utils import env

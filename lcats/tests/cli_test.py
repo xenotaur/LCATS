@@ -75,8 +75,9 @@ class TestCli(unittest.TestCase):
 
     def test_dispatch_unknown(self):
         """Ensure unknown commands are rejected by the top-level parser."""
-        with self.assertRaises(SystemExit) as cm:
-            cli.dispatch("unknown", [])
+        with capture.capture_output():
+            with self.assertRaises(SystemExit) as cm:
+                cli.dispatch("unknown", [])
         self.assertEqual(2, cm.exception.code)
 
     @parameterized.parameterized.expand(
