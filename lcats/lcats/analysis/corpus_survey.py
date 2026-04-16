@@ -56,6 +56,8 @@ SAFE_EXCLUDED_CHARS = [
     "ù",  # Latin Small Letter U with Grave
     "û",  # Latin Small Letter U with Circumflex
     "―",  # Horizontal Bar
+    "½",  # Vulgar Fraction One Half
+    "¼",  # Vulgar Fraction One Quarter
 ]
 RARE_REVIEW_CHARS = [
     "°",  # Degree Sign
