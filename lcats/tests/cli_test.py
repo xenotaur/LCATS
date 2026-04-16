@@ -6,6 +6,7 @@ from unittest.mock import patch
 import parameterized
 
 from lcats import cli
+from lcats.utils import capture
 
 
 class TestCli(unittest.TestCase):
@@ -78,8 +79,9 @@ class TestCli(unittest.TestCase):
     @patch("sys.argv", ["lcats", "--help"])
     def test_main_help_flag_exits(self):
         """Ensure argparse handles the built-in help flag."""
-        with self.assertRaises(SystemExit) as cm:
-            cli.main()
+        with capture.suppress_output():
+            with self.assertRaises(SystemExit) as cm:
+                cli.main()
         self.assertEqual(0, cm.exception.code)
 
 

@@ -4,6 +4,7 @@ import argparse
 from dataclasses import dataclass
 import json
 import pathlib
+import re
 import subprocess
 import sys
 from typing import Any, Mapping, Optional, Protocol, Sequence
@@ -129,6 +130,110 @@ class SpecialCharactersDetector:
         return findings
 
 
+class StartDetector:
+    """Detect likely non-story contamination at the start of text."""
+
+    def __init__(self, *, max_scan_chars: int = 500, max_lines: int = 8):
+        self.max_scan_chars = max_scan_chars
+        self.max_lines = max_lines
+        self._compiled_patterns = [
+            ("title-line", re.compile(r"^\s*title\s*:\s*.+$", re.IGNORECASE)),
+            ("author-line", re.compile(r"^\s*(?:by|author)\s*:?\s+.+$", re.IGNORECASE)),
+            (
+                "editor-note",
+                re.compile(r"^\s*(?:\[)?editor(?:'|’)s?\s+note[:\]].*$", re.IGNORECASE),
+            ),
+        ]
+
+    def _scan_prefix(self, text: str) -> tuple[int, str]:
+        if not text:
+            return 0, ""
+        scan_end = min(len(text), self.max_scan_chars)
+        prefix = text[:scan_end]
+        candidate_lines = prefix.splitlines(keepends=True)[: self.max_lines]
+        scanned = "".join(candidate_lines)
+        return len(scanned), scanned
+
+    def run(self, text: str) -> list[Finding]:
+        findings = []
+        _, scanned_prefix = self._scan_prefix(text)
+        offset = 0
+
+        for line in scanned_prefix.splitlines(keepends=True):
+            stripped = line.strip()
+            if not stripped:
+                offset += len(line)
+                continue
+
+            for pattern_name, pattern in self._compiled_patterns:
+                match = pattern.match(line)
+                if not match:
+                    continue
+                span = (offset + match.start(), offset + match.end())
+                findings.append(
+                    Finding(
+                        kind="start-contamination",
+                        severity="warning",
+                        span=span,
+                        message=f"Suspicious start content ({pattern_name})",
+                        evidence={
+                            "pattern": pattern_name,
+                            "matched_text": line.strip(),
+                        },
+                    )
+                )
+                break
+            offset += len(line)
+
+        return findings
+
+
+class EndDetector:
+    """Detect likely non-story contamination at the end of text."""
+
+    def __init__(self, *, max_scan_chars: int = 2500):
+        self.max_scan_chars = max_scan_chars
+        self._compiled_patterns = [
+            (
+                "the-end",
+                re.compile(r"(?im)^\s*the\s+end\s*[.!]?\s*$"),
+            ),
+            (
+                "gutenberg-footer",
+                re.compile(
+                    r"(?i)(project\s+gutenberg|www\.gutenberg\.org|start:\s*full\s+license)"
+                ),
+            ),
+        ]
+
+    def run(self, text: str) -> list[Finding]:
+        findings = []
+        if not text:
+            return findings
+
+        scan_start = max(0, len(text) - self.max_scan_chars)
+        tail = text[scan_start:]
+
+        for pattern_name, pattern in self._compiled_patterns:
+            for match in pattern.finditer(tail):
+                span = (scan_start + match.start(), scan_start + match.end())
+                findings.append(
+                    Finding(
+                        kind="end-contamination",
+                        severity="warning",
+                        span=span,
+                        message=f"Suspicious end content ({pattern_name})",
+                        evidence={
+                            "pattern": pattern_name,
+                            "matched_text": match.group(0),
+                        },
+                    )
+                )
+
+        findings.sort(key=lambda finding: (finding.span[0], finding.span[1]))
+        return findings
+
+
 def run_detectors(
     text: str, config: Optional[Mapping[str, Any]] = None
 ) -> list[Finding]:
@@ -137,7 +242,7 @@ def run_detectors(
     detectors = resolved.get("detectors")
 
     if detectors is None:
-        detectors = [SpecialCharactersDetector()]
+        detectors = [SpecialCharactersDetector(), StartDetector(), EndDetector()]
 
     findings = []
     for detector in detectors:
@@ -216,6 +321,26 @@ def run_special_characters_check(
     return result.stdout.strip()
 
 
+def run_boundary_contamination_check(displayed_text: str) -> str:
+    """Run boundary contamination detectors and emit TSV rows."""
+    detectors = [StartDetector(), EndDetector()]
+    findings = run_detectors(displayed_text, config={"detectors": detectors})
+    lines = []
+    for finding in findings:
+        lines.append(
+            "\t".join(
+                [
+                    finding.kind,
+                    finding.severity,
+                    str(finding.span[0]),
+                    str(finding.span[1]),
+                    finding.message,
+                ]
+            )
+        )
+    return "\n".join(lines)
+
+
 def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
     """Run enabled checks on a single corpus file and return check outputs."""
     displayed_text = run_lcats_display(file_path)
@@ -234,6 +359,10 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
                 name_width=args.name_width,
                 header=False,
             )
+            if output:
+                findings.append((check_name, output))
+        elif check_name == "boundary-contamination":
+            output = run_boundary_contamination_check(displayed_text)
             if output:
                 findings.append((check_name, output))
         else:
@@ -270,7 +399,7 @@ def build_parser():
         default=[],
         help=(
             "Check(s) to run. Repeatable or comma-separated. "
-            "Currently supported: special-characters"
+            "Currently supported: special-characters,boundary-contamination"
         ),
     )
     parser.add_argument(
