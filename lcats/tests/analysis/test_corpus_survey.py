@@ -1,6 +1,7 @@
 """Unit tests for lcats.analysis.corpus_survey architecture."""
 
 import unittest
+import unittest.mock
 
 from lcats.analysis import corpus_survey
 
@@ -17,6 +18,74 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
     def test_clean_text_has_no_findings(self):
         findings = corpus_survey.run_detectors(self.clean_text, config={})
         self.assertEqual([], findings)
+
+
+class CorpusSurveyCliHelpersTest(unittest.TestCase):
+    """Tests for corpus_survey CLI helper functions moved from script."""
+
+    def setUp(self):
+        self.bad_start_text = "© starts with a bad char"
+        self.bad_end_text = "ends with a bad char ©"
+        self.encoding_issue_text = "contains replacement char: �"
+
+    def test_run_special_characters_check_forwards_context(self):
+        completed = unittest.mock.Mock()
+        completed.returncode = 0
+        completed.stdout = "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx"
+        completed.stderr = ""
+
+        with unittest.mock.patch.object(
+            corpus_survey.subprocess, "run", return_value=completed
+        ) as mock_run:
+            output = corpus_survey.run_special_characters_check(
+                displayed_text="pi√©ce",
+                extract_script="scripts/utils/extract_special_chars.py",
+                allow_smart=True,
+                excluded_codepoints=["00A0"],
+                excluded_chars=["é"],
+                context=10,
+                nocontext=False,
+                name_width=0,
+                header=False,
+            )
+
+        self.assertIn("COPYRIGHT SIGN", output)
+        cmd = mock_run.call_args.args[0]
+        self.assertIn("--context=10", cmd)
+        self.assertNotIn("--nocontext", cmd)
+
+    def test_run_special_characters_check_uses_nocontext_flag(self):
+        completed = unittest.mock.Mock()
+        completed.returncode = 0
+        completed.stdout = ""
+        completed.stderr = ""
+
+        with unittest.mock.patch.object(
+            corpus_survey.subprocess, "run", return_value=completed
+        ) as mock_run:
+            corpus_survey.run_special_characters_check(
+                displayed_text="pi√©ce",
+                extract_script="scripts/utils/extract_special_chars.py",
+                allow_smart=True,
+                excluded_codepoints=[],
+                excluded_chars=[],
+                context=10,
+                nocontext=True,
+                name_width=12,
+                header=True,
+            )
+
+        cmd = mock_run.call_args.args[0]
+        self.assertIn("--nocontext", cmd)
+        self.assertNotIn("--context=10", cmd)
+        self.assertIn("--name-width=12", cmd)
+        self.assertIn("--header", cmd)
+
+    def test_parser_defaults_include_context(self):
+        parser = corpus_survey.build_parser()
+        args = parser.parse_args([])
+        self.assertEqual(10, args.context)
+        self.assertFalse(args.nocontext)
 
     def test_bad_start_and_bad_end_report_precise_spans(self):
         cases = [

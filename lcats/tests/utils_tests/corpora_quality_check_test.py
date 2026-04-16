@@ -21,64 +21,13 @@ class CorporaQualityCheckScriptTest(unittest.TestCase):
             "corpora_quality_check_script",
         )
 
-    def test_run_special_characters_check_forwards_context(self):
-        completed = unittest.mock.Mock()
-        completed.returncode = 0
-        completed.stdout = "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx"
-        completed.stderr = ""
-
+    def test_main_delegates_to_library_main(self):
         with unittest.mock.patch.object(
-            self.module.subprocess, "run", return_value=completed
-        ) as mock_run:
-            output = self.module.run_special_characters_check(
-                displayed_text="pi√©ce",
-                extract_script="scripts/utils/extract_special_chars.py",
-                allow_smart=True,
-                excluded_codepoints=["00A0"],
-                excluded_chars=["é"],
-                context=10,
-                nocontext=False,
-                name_width=0,
-                header=False,
-            )
-
-        self.assertIn("COPYRIGHT SIGN", output)
-        cmd = mock_run.call_args.args[0]
-        self.assertIn("--context=10", cmd)
-        self.assertNotIn("--nocontext", cmd)
-
-    def test_run_special_characters_check_uses_nocontext_flag(self):
-        completed = unittest.mock.Mock()
-        completed.returncode = 0
-        completed.stdout = ""
-        completed.stderr = ""
-
-        with unittest.mock.patch.object(
-            self.module.subprocess, "run", return_value=completed
-        ) as mock_run:
-            self.module.run_special_characters_check(
-                displayed_text="pi√©ce",
-                extract_script="scripts/utils/extract_special_chars.py",
-                allow_smart=True,
-                excluded_codepoints=[],
-                excluded_chars=[],
-                context=10,
-                nocontext=True,
-                name_width=12,
-                header=True,
-            )
-
-        cmd = mock_run.call_args.args[0]
-        self.assertIn("--nocontext", cmd)
-        self.assertNotIn("--context=10", cmd)
-        self.assertIn("--name-width=12", cmd)
-        self.assertIn("--header", cmd)
-
-    def test_parser_defaults_include_context(self):
-        parser = self.module.build_parser()
-        args = parser.parse_args([])
-        self.assertEqual(10, args.context)
-        self.assertFalse(args.nocontext)
+            self.module.corpus_survey, "main", return_value=7
+        ) as mock_main:
+            result = self.module.main()
+        self.assertEqual(7, result)
+        mock_main.assert_called_once_with()
 
 
 if __name__ == "__main__":
