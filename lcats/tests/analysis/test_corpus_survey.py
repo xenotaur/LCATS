@@ -134,6 +134,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
                 displayed_text="pi√©ce",
                 extract_script="scripts/utils/extract_special_chars.py",
                 allow_smart=True,
+                allowlist_config="",
                 excluded_codepoints=["00A0"],
                 excluded_chars=["é"],
                 context=10,
@@ -160,6 +161,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
                 displayed_text="pi√©ce",
                 extract_script="scripts/utils/extract_special_chars.py",
                 allow_smart=True,
+                allowlist_config="quality/allowlist.json",
                 excluded_codepoints=[],
                 excluded_chars=[],
                 context=10,
@@ -173,6 +175,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.assertNotIn("--context=10", cmd)
         self.assertIn("--name-width=12", cmd)
         self.assertIn("--header", cmd)
+        self.assertIn("--allowlist-config=quality/allowlist.json", cmd)
 
     def test_parser_defaults_include_context(self):
         parser = corpus_survey.build_parser()

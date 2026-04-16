@@ -31,6 +31,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=0,
             )
@@ -53,6 +54,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=0,
                 name_width=0,
             )
@@ -70,6 +72,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=0,
             )
@@ -89,6 +92,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=0,
             )
@@ -109,6 +113,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=unnamed_char,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=0,
             )
@@ -125,6 +130,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=6,
             )
@@ -140,6 +146,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
                 text=text,
                 allow_smart=False,
                 excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
                 context=10,
                 name_width=0,
             )
@@ -159,7 +166,48 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
         self.assertEqual(0, exit_code)
         lines = [line for line in output.getvalue().splitlines() if line.strip()]
         self.assertEqual(2, len(lines))
-        self.assertTrue(lines[0].endswith("\t"))
+        self.assertEqual("", lines[0].split("\t")[6])
+
+    def test_classification_distinguishes_typography_mojibake_and_suspicious(self):
+        text = "‘quote’ Ã© ©"
+        rows = list(
+            self.module.iter_special_character_rows(
+                path="stdin",
+                text=text,
+                allow_smart=False,
+                excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
+                context=10,
+                name_width=0,
+            )
+        )
+
+        classifications = [row.split("\t")[7] for row in rows]
+        self.assertIn("valid-typography", classifications)
+        self.assertIn("mojibake-pattern", classifications)
+        self.assertIn("suspicious-unicode", classifications)
+
+    def test_allowlist_config_allows_configured_character(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            config_path = pathlib.Path(tmpdir) / "allowlist.json"
+            config_path.write_text(
+                '{"allowed_codepoints":["00A9"]}',
+                encoding="utf-8",
+            )
+            allowlist = self.module.load_allowlist_config(str(config_path))
+
+        rows = list(
+            self.module.iter_special_character_rows(
+                path="stdin",
+                text="©",
+                allow_smart=False,
+                excluded=set(),
+                allowlist=allowlist,
+                context=10,
+                name_width=0,
+            )
+        )
+        self.assertEqual([], rows)
 
 
 if __name__ == "__main__":

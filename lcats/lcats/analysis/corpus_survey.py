@@ -480,6 +480,7 @@ def run_special_characters_check(
     displayed_text: str,
     extract_script: str,
     allow_smart: bool,
+    allowlist_config: str,
     excluded_codepoints,
     excluded_chars,
     context: int,
@@ -492,6 +493,8 @@ def run_special_characters_check(
 
     if allow_smart:
         cmd.append("--allow-smart")
+    if allowlist_config:
+        cmd.append(f"--allowlist-config={allowlist_config}")
     if excluded_codepoints:
         cmd.append("--exclude-codepoint=" + ",".join(excluded_codepoints))
     if excluded_chars:
@@ -552,6 +555,7 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
                 displayed_text=displayed_text,
                 extract_script=args.extract_script,
                 allow_smart=args.allow_smart,
+                allowlist_config=args.allowlist_config,
                 excluded_codepoints=args.exclude_codepoint,
                 excluded_chars=args.exclude_char,
                 context=args.context,
@@ -611,6 +615,11 @@ def build_parser():
         "--extract-script",
         default="scripts/utils/extract_special_chars.py",
         help="Path to the extract_special_chars.py script.",
+    )
+    parser.add_argument(
+        "--allowlist-config",
+        default="",
+        help="Optional JSON config path for allowed characters/codepoints.",
     )
 
     parser.add_argument(
@@ -711,7 +720,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                         if args.header and not header_written:
                             print(
                                 "path\tcodepoint\tchar\tunicode_name\t"
-                                "occurrence_index\toffset\tcontext"
+                                "occurrence_index\toffset\tcontext\t"
+                                "classification\tevidence"
                             )
                             header_written = True
                         print(f"{file_path}\t{line}")

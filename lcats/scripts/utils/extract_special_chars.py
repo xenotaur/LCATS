@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 import argparse
+import json
+import pathlib
+import re
 import sys
 import unicodedata
 
@@ -16,7 +19,31 @@ TSV_COLUMNS = [
     "occurrence_index",
     "offset",
     "context",
+    "classification",
+    "evidence",
 ]
+MOJIBAKE_RE = re.compile(r"(?:Ã.|Â.|â.|ð.|�)")
+
+
+class AllowlistConfig:
+    """Allowlist settings loaded from CLI and optional JSON config."""
+
+    def __init__(self):
+        self.allowed_chars = set()
+        self.allowed_codepoints = set()
+        self.allowed_unicode_names = set()
+        self.allowed_categories = set()
+
+    def is_allowed(self, ch: str) -> bool:
+        if ch in self.allowed_chars:
+            return True
+        if f"U+{ord(ch):04X}" in self.allowed_codepoints:
+            return True
+        if get_unicode_name(ch) in self.allowed_unicode_names:
+            return True
+        if unicodedata.category(ch) in self.allowed_categories:
+            return True
+        return False
 
 
 def parse_codepoint(text: str) -> str:
@@ -63,7 +90,32 @@ def build_excluded_set(exclude_chars, exclude_codepoints):
     return excluded
 
 
-def is_allowed(ch: str, allow_smart: bool) -> bool:
+def load_allowlist_config(config_path: str | None) -> AllowlistConfig:
+    """Load allowlist config from JSON, returning an empty config when unset."""
+    config = AllowlistConfig()
+    if not config_path:
+        return config
+
+    with pathlib.Path(config_path).open("r", encoding="utf-8") as config_file:
+        payload = json.load(config_file)
+
+    for ch in payload.get("allowed_chars", []):
+        for value in ch:
+            config.allowed_chars.add(value)
+
+    for codepoint in payload.get("allowed_codepoints", []):
+        config.allowed_codepoints.add(f"U+{ord(parse_codepoint(codepoint)):04X}")
+
+    for name in payload.get("allowed_unicode_names", []):
+        config.allowed_unicode_names.add(name)
+
+    for category in payload.get("allowed_categories", []):
+        config.allowed_categories.add(category)
+
+    return config
+
+
+def is_allowed(ch: str, allow_smart: bool, allowlist: AllowlistConfig) -> bool:
     """Return True when a character is allowed by the configured filters."""
     if ch.isascii():
         if ch.isalnum():
@@ -74,14 +126,36 @@ def is_allowed(ch: str, allow_smart: bool) -> bool:
             return True
     if allow_smart and ch in SMART_ALLOWED:
         return True
+    if allowlist.is_allowed(ch):
+        return True
     return False
 
 
-def is_flagged(ch: str, allow_smart: bool, excluded: set[str]) -> bool:
+def is_flagged(
+    ch: str, allow_smart: bool, excluded: set[str], allowlist: AllowlistConfig
+) -> bool:
     """Return True when a character should be reported."""
     if ch in excluded:
         return False
-    return not is_allowed(ch, allow_smart)
+    return not is_allowed(ch, allow_smart, allowlist)
+
+
+def classify_character(text: str, offset: int, ch: str) -> tuple[str, str]:
+    """Classify one character with a compact evidence string."""
+    if ch in SMART_ALLOWED:
+        return ("valid-typography", "common typographic punctuation")
+
+    window_start = max(0, offset - 2)
+    window_end = min(len(text), offset + 3)
+    window = text[window_start:window_end]
+    match = MOJIBAKE_RE.search(window)
+    if match:
+        return ("mojibake-pattern", f"matched mojibake fragment '{match.group(0)}'")
+
+    return (
+        "suspicious-unicode",
+        f"unicode_category={unicodedata.category(ch)}; non-ascii outside allowlist",
+    )
 
 
 def iter_input(files):
@@ -126,6 +200,7 @@ def iter_special_character_rows(
     text: str,
     allow_smart: bool,
     excluded: set[str],
+    allowlist: AllowlistConfig,
     context: int,
     name_width: int,
 ):
@@ -133,10 +208,11 @@ def iter_special_character_rows(
     occurrence_counts = {}
 
     for offset, ch in enumerate(text):
-        if not is_flagged(ch, allow_smart, excluded):
+        if not is_flagged(ch, allow_smart, excluded, allowlist):
             continue
 
         occurrence_counts[ch] = occurrence_counts.get(ch, 0) + 1
+        classification, evidence = classify_character(text, offset, ch)
         row = [
             path,
             f"U+{ord(ch):04X}",
@@ -145,6 +221,8 @@ def iter_special_character_rows(
             str(occurrence_counts[ch]),
             str(offset),
             escape_for_tsv(get_context_snippet(text, offset, context)),
+            classification,
+            escape_for_tsv(evidence),
         ]
         yield "\t".join(row)
 
@@ -158,6 +236,15 @@ def build_parser() -> argparse.ArgumentParser:
         )
     )
     parser.add_argument("files", nargs="*")
+    parser.add_argument(
+        "--allowlist-config",
+        default="",
+        help=(
+            "Optional path to a JSON allowlist config containing keys such as "
+            "allowed_chars, allowed_codepoints, allowed_unicode_names, and "
+            "allowed_categories."
+        ),
+    )
     parser.add_argument(
         "--allow-smart",
         action="store_true",
@@ -237,6 +324,7 @@ def main(argv=None) -> int:
         parser.error("--name-width must be >= 0")
 
     excluded = build_excluded_set(args.exclude_char, args.exclude_codepoint)
+    allowlist = load_allowlist_config(args.allowlist_config)
 
     try:
         if args.header:
@@ -254,6 +342,7 @@ def main(argv=None) -> int:
                 text=text,
                 allow_smart=args.allow_smart,
                 excluded=excluded,
+                allowlist=allowlist,
                 context=args.context,
                 name_width=args.name_width,
             ):
