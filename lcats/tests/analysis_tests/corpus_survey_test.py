@@ -183,6 +183,8 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         args = parser.parse_args([])
         self.assertEqual(10, args.context)
         self.assertFalse(args.nocontext)
+        self.assertEqual("path", args.identifier)
+        self.assertEqual(48, args.unicode_name_width)
 
     def test_run_lcats_display_uses_internal_formatter_api(self):
         sample_story = {
@@ -314,6 +316,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.assertEqual("spchar", row["check"])
         self.assertEqual("spchar", row["kind"])
         self.assertEqual("U+00A9", row["codepoint"])
+        self.assertEqual("", row["identifier"])
 
     def test_parse_special_character_rows_skips_header_line(self):
         output = (
@@ -333,9 +336,6 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
     def test_main_tsv_output_has_stable_columns_for_multiple_checks(self):
         rows = [
             {
-                "story_title": "The Story",
-                "story_file": "story.json",
-                "path": "story.json",
                 "check": "spchar",
                 "kind": "spchar",
                 "severity": "warning",
@@ -350,11 +350,12 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
                 "classification": "special",
                 "evidence": "literal",
                 "message": "Special character finding.",
-            },
-            {
                 "story_title": "The Story",
                 "story_file": "story.json",
                 "path": "story.json",
+                "identifier": "",
+            },
+            {
                 "check": "boundary",
                 "kind": "start-contam",
                 "severity": "warning",
@@ -369,6 +370,10 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
                 "classification": "",
                 "evidence": '{"line":"By Author"}',
                 "message": "Likely author line at start of story.",
+                "story_title": "The Story",
+                "story_file": "story.json",
+                "path": "story.json",
+                "identifier": "",
             },
         ]
 
@@ -402,6 +407,9 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.assertGreaterEqual(len(lines), 3)
         self.assertEqual("\t".join(corpus_survey.TSV_COLUMNS), lines[0])
         self.assertTrue(all(not line.startswith("#check=") for line in lines[1:]))
+        first_data = lines[1].split("\t")
+        self.assertEqual("spchar", first_data[0])
+        self.assertEqual("story.json", first_data[-1])
 
     def test_main_tsv_output_file_writes_and_skips_stdout(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -438,6 +446,72 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             self.assertIn("summary\tclean\tinfo", written)
             self.assertIn("story.json", written)
             self.assertEqual("summary", row["check"])
+
+    def test_main_tsv_identifier_switches_to_filename(self):
+        rows = [
+            {
+                "check": "spchar",
+                "kind": "spchar",
+                "severity": "warning",
+                "codepoint": "U+00A9",
+                "char": "©",
+                "unicode_name": "COPYRIGHT SIGN",
+                "occurrence_index": "1",
+                "offset": "2",
+                "span_start": "",
+                "span_end": "",
+                "context": "ctx",
+                "classification": "special",
+                "evidence": "literal",
+                "message": "Special character finding.",
+                "story_title": "The Story",
+                "story_file": "story.json",
+                "path": "corpora/story.json",
+                "identifier": "",
+            }
+        ]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=rows
+            ), mock.patch.object(
+                corpus_survey.sys.stderr, "isatty", return_value=False
+            ), mock.patch(
+                "sys.stdout"
+            ) as fake_stdout:
+                corpus_survey.main(
+                    [
+                        "--format",
+                        "tsv",
+                        "--identifier",
+                        "filename",
+                        "--no-progress",
+                        temp_dir,
+                    ]
+                )
+
+        output = "".join(call.args[0] for call in fake_stdout.write.call_args_list)
+        lines = [line for line in output.splitlines() if line]
+        self.assertEqual("story.json", lines[1].split("\t")[-1])
+
+    def test_compact_human_tsv_row_truncates_unicode_name(self):
+        row = corpus_survey.compact_human_tsv_row(
+            {
+                "unicode_name": "MATHEMATICAL DOUBLE-STRUCK SMALL C",
+                "story_title": "Story",
+                "story_file": "story.json",
+                "path": "corpora/story.json",
+            },
+            identifier="title",
+            unicode_name_width=8,
+        )
+
+        self.assertEqual("MATHEMA…", row["unicode_name"])
+        self.assertEqual("Story", row["identifier"])
 
     def test_parser_help_includes_compact_value_legend(self):
         parser = corpus_survey.build_parser()

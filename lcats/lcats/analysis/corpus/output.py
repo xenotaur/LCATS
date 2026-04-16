@@ -10,9 +10,6 @@ from lcats.analysis.corpus import models
 
 DEFAULT_OUTPUT_FORMAT = "human"
 TSV_COLUMNS = [
-    "story_title",
-    "story_file",
-    "path",
     "check",
     "kind",
     "severity",
@@ -27,7 +24,14 @@ TSV_COLUMNS = [
     "classification",
     "evidence",
     "message",
+    "story_title",
+    "story_file",
+    "path",
+    "identifier",
 ]
+IDENTIFIER_FIELDS = ("path", "filename", "title")
+DEFAULT_IDENTIFIER_FIELD = "path"
+DEFAULT_TSV_UNICODE_NAME_WIDTH = 48
 
 CHECK_VALUE_MAP = {
     "special-characters": "spchar",
@@ -159,6 +163,40 @@ def clean_row(file_path: pathlib.Path, story_title: str = "") -> dict[str, str]:
         }
     )
     return row
+
+
+def with_identifier(
+    row: Mapping[str, str], identifier: str = DEFAULT_IDENTIFIER_FIELD
+) -> dict[str, str]:
+    """Return row with selected identifier value and stable schema."""
+    mutable = dict(row)
+    if identifier == "filename":
+        mutable["identifier"] = mutable.get("story_file", "")
+    elif identifier == "title":
+        mutable["identifier"] = mutable.get("story_title", "")
+    else:
+        mutable["identifier"] = mutable.get("path", "")
+    return mutable
+
+
+def truncate_value(value: str, width: int) -> str:
+    """Return value truncated to width with ellipsis when needed."""
+    if width <= 0 or len(value) <= width:
+        return value
+    if width == 1:
+        return "…"
+    return f"{value[: width - 1]}…"
+
+
+def compact_human_tsv_row(
+    row: Mapping[str, str], identifier: str, unicode_name_width: int
+) -> dict[str, str]:
+    """Return TSV row adjusted for human-readable terminal display."""
+    mutable = with_identifier(row, identifier)
+    mutable["unicode_name"] = truncate_value(
+        mutable.get("unicode_name", ""), unicode_name_width
+    )
+    return mutable
 
 
 def write_human_rows(
