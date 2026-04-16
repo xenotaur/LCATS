@@ -86,10 +86,11 @@ def parse_csv_args(values):
     return items
 
 
-def build_survey_parser() -> argparse.ArgumentParser:
+def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
     """Build parser for the survey subcommand."""
     parser = argparse.ArgumentParser(
-        description="Survey LCATS corpora files for issues."
+        description="Survey LCATS corpora files for issues.",
+        add_help=add_help,
     )
     parser.add_argument(
         "directories",
@@ -132,9 +133,12 @@ def build_survey_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def build_stats_parser() -> argparse.ArgumentParser:
+def build_stats_parser(add_help: bool = True) -> argparse.ArgumentParser:
     """Build parser for the stats subcommand."""
-    parser = argparse.ArgumentParser(description="Compute LCATS corpus statistics.")
+    parser = argparse.ArgumentParser(
+        description="Compute LCATS corpus statistics.",
+        add_help=add_help,
+    )
     parser.add_argument("directories", nargs="*", default=["data/"])
     parser.add_argument("--dedupe", dest="dedupe", action="store_true")
     parser.add_argument("--no-dedupe", dest="dedupe", action="store_false")
@@ -188,10 +192,13 @@ def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
     return rows
 
 
-def run_survey(argv: Optional[Sequence[str]] = None) -> int:
+def run_survey(
+    argv: Optional[Sequence[str]] = None,
+    parsed_args: Optional[argparse.Namespace] = None,
+) -> int:
     """Run survey subcommand."""
     parser = build_survey_parser()
-    args = parser.parse_args(argv)
+    args = parsed_args if parsed_args is not None else parser.parse_args(argv)
     if args.context < 0:
         parser.error("--context must be >= 0")
     if args.name_width < 0:
@@ -256,10 +263,13 @@ def run_survey(argv: Optional[Sequence[str]] = None) -> int:
             output_stream.close()
 
 
-def run_stats(argv: Optional[Sequence[str]] = None) -> int:
+def run_stats(
+    argv: Optional[Sequence[str]] = None,
+    parsed_args: Optional[argparse.Namespace] = None,
+) -> int:
     """Run stats subcommand."""
     parser = build_stats_parser()
-    args = parser.parse_args(argv)
+    args = parsed_args if parsed_args is not None else parser.parse_args(argv)
     files = []
     for directory in args.directories:
         if pathlib.Path(directory).is_dir():
