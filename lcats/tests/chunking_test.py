@@ -1,27 +1,9 @@
 import contextlib
 import io
 import unittest
-import unittest.mock
 
 from lcats import chunking
-
-
-class FakeEncoding:
-    """Character-level tokenizer for testing without network access.
-
-    Each character maps to its Unicode code point, enabling lossless
-    round-trip: decode(encode(text)) == text.
-    """
-
-    def encode(self, text):
-        return [ord(ch) for ch in text]
-
-    def decode(self, tokens):
-        return "".join(chr(t) for t in tokens)
-
-
-def _fake_encoding_for_model(model):
-    return FakeEncoding()
+import tokenizer_test_utils
 
 
 class TestChunking(unittest.TestCase):
@@ -35,10 +17,7 @@ class TestChunking(unittest.TestCase):
             "that glowed with mysterious light. Inside, they discovered an ancient map that led "
             "to a forgotten treasure..."
         )
-        self.patcher = unittest.mock.patch(
-            "lcats.chunking.tiktoken.encoding_for_model",
-            side_effect=_fake_encoding_for_model,
-        )
+        self.patcher = tokenizer_test_utils.patch_chunking_encoding_for_model()
         self.patcher.start()
         self.token_count = chunking.count_tokens(self.text, model=self.model)
 

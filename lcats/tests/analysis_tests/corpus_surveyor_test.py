@@ -4,13 +4,12 @@ import json
 import numbers
 import pathlib
 import unittest
-from unittest import mock
 
 import pandas as pd
-import tiktoken
 
 from lcats import test_utils
 from lcats.analysis import corpus_surveyor
+import tokenizer_test_utils
 from lcats.utils import capture
 
 
@@ -19,6 +18,11 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def setUp(self):
         super().setUp()
+        self.encoder = tokenizer_test_utils.FakeCharacterEncoding()
+        self.encoder_patcher = tokenizer_test_utils.patch_story_analysis_get_encoder(
+            self.encoder
+        )
+        self.encoder_patcher.start()
 
         # Corpus root in the temp dir
         self.root = pathlib.Path(self.test_temp_dir) / "data"
@@ -88,18 +92,9 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
         self.paths = [self.p1, self.p2, self.p3, self.p4, self.p5]
 
-    def _preferred_encoder(self):
-        """Mirror survey's preference: o200k_base -> cl100k_base -> gpt-4 fallback."""
-        enc = None
-        for name in ("o200k_base", "cl100k_base"):
-            try:
-                enc = tiktoken.get_encoding(name)
-                break
-            except Exception:
-                continue
-        if enc is None:
-            enc = tiktoken.encoding_for_model("gpt-4")
-        return enc
+    def tearDown(self):
+        self.encoder_patcher.stop()
+        super().tearDown()
 
     def test_basic_aggregation_with_dedupe(self):
         """Deduplicate duplicate stories; aggregate author/story stats correctly."""
@@ -190,8 +185,6 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
     def test_token_counts_match_selected_encoder(self):
         """Exact token counts match the encoder preference used by the implementation."""
-        enc = self._preferred_encoder()
-
         with capture.suppress_output():
             story_stats, _ = corpus_surveyor.compute_corpus_stats(
                 [self.p3], dedupe=True
@@ -200,10 +193,10 @@ class TestComputeCorpusStats(test_utils.TestCaseWithData):
 
         self.assertEqual(row["title"], "Beta")
         self.assertEqual(
-            row["title_tokens"], len(enc.encode("Beta", disallowed_special=()))
+            row["title_tokens"], len(self.encoder.encode("Beta", disallowed_special=()))
         )
         self.assertEqual(
-            row["body_tokens"], len(enc.encode("Hi", disallowed_special=()))
+            row["body_tokens"], len(self.encoder.encode("Hi", disallowed_special=()))
         )
 
 
@@ -821,7 +814,7 @@ class TestProcessCorpora(test_utils.TestCaseWithData):
 
 
 class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
-    """Tests for compute_corpus_stats with a mocked tiktoken encoder."""
+    """Tests for compute_corpus_stats with a fake deterministic encoder."""
 
     def setUp(self):
         super().setUp()
@@ -843,15 +836,10 @@ class TestComputeCorpusStatsWithMockedEncoder(test_utils.TestCaseWithData):
             {"name": "Anon Story", "body": "Some text"},
         )
 
-        # Mock encoder returns words as tokens (one token per word approximation).
-        self._mock_enc = mock.MagicMock()
-        self._mock_enc.encode.side_effect = lambda text, **kw: text.split()
+        self._fake_encoder = tokenizer_test_utils.FakeCharacterEncoding()
 
     def _run_stats(self, paths, **kwargs):
-        with mock.patch(
-            "lcats.analysis.story_analysis.get_encoder",
-            return_value=self._mock_enc,
-        ):
+        with tokenizer_test_utils.patch_story_analysis_get_encoder(self._fake_encoder):
             with capture.suppress_output():
                 return corpus_surveyor.compute_corpus_stats(paths, **kwargs)
 
