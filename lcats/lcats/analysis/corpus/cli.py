@@ -144,6 +144,24 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
     parser.add_argument("--context", type=int, default=10)
     parser.add_argument("--nocontext", action="store_true")
     parser.add_argument("--name-width", type=int, default=0)
+    parser.add_argument(
+        "--identifier",
+        choices=output.IDENTIFIER_FIELDS,
+        default=output.DEFAULT_IDENTIFIER_FIELD,
+        help=(
+            "Identifier shown in TSV reports. "
+            "Defaults to path; choose filename or title for alternate emphasis."
+        ),
+    )
+    parser.add_argument(
+        "--unicode-name-width",
+        type=int,
+        default=output.DEFAULT_TSV_UNICODE_NAME_WIDTH,
+        help=(
+            "Maximum Unicode name width for TSV shown on a TTY. "
+            "Set 0 to disable truncation."
+        ),
+    )
     parser.add_argument("--header", dest="header", action="store_true")
     parser.add_argument("--no-header", dest="header", action="store_false")
     parser.set_defaults(header=None)
@@ -230,6 +248,8 @@ def run_survey(
         parser.error("--context must be >= 0")
     if args.name_width < 0:
         parser.error("--name-width must be >= 0")
+    if args.unicode_name_width < 0:
+        parser.error("--unicode-name-width must be >= 0")
 
     args.check_for = parse_csv_args(args.check_for) or list(qa.DEFAULT_CHECKS)
     args.exclude_codepoint = list(unicode.DEFAULT_EXCLUDED_CODEPOINTS) + parse_csv_args(
@@ -269,15 +289,34 @@ def run_survey(
             if rows:
                 had_findings = True
                 if args.format == "tsv":
+                    human_tsv = output_stream is sys.stdout and output_stream.isatty()
                     for row in rows:
-                        tsv_writer.writerow(row)
+                        if human_tsv:
+                            formatted_row = output.compact_human_tsv_row(
+                                row,
+                                identifier=args.identifier,
+                                unicode_name_width=args.unicode_name_width,
+                            )
+                        else:
+                            formatted_row = output.with_identifier(
+                                row, identifier=args.identifier
+                            )
+                        tsv_writer.writerow(formatted_row)
                 else:
                     output.write_human_rows(output_stream, file_path, rows)
             elif args.print_clean_filenames:
                 if args.format == "tsv":
-                    tsv_writer.writerow(
-                        output.clean_row(file_path, read_story_title(file_path))
+                    clean_row = output.with_identifier(
+                        output.clean_row(file_path, read_story_title(file_path)),
+                        identifier=args.identifier,
                     )
+                    if output_stream is sys.stdout and output_stream.isatty():
+                        clean_row = output.compact_human_tsv_row(
+                            clean_row,
+                            identifier=args.identifier,
+                            unicode_name_width=args.unicode_name_width,
+                        )
+                    tsv_writer.writerow(clean_row)
                 else:
                     print(f"{file_path} [clean]", file=output_stream)
 
