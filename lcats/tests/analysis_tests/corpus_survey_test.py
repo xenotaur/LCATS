@@ -5,6 +5,7 @@ import pathlib
 import tempfile
 import unittest
 import unittest.mock
+from unittest import mock
 
 from lcats.analysis import corpus_survey
 
@@ -296,6 +297,198 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         findings = detector.run(text)
 
         self.assertEqual([], findings)
+
+    def test_parse_special_character_rows_uses_stable_schema(self):
+        output = "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tspecial\tliteral"
+
+        rows = corpus_survey.parse_special_character_rows(
+            output, pathlib.Path("story.json")
+        )
+
+        self.assertEqual(1, len(rows))
+        row = rows[0]
+        self.assertEqual(corpus_survey.TSV_COLUMNS, list(row.keys()))
+        self.assertEqual("story.json", row["path"])
+        self.assertEqual("special-characters", row["check"])
+        self.assertEqual("U+00A9", row["codepoint"])
+
+    def test_parse_special_character_rows_skips_header_line(self):
+        output = (
+            "codepoint\tchar\tunicode_name\toccurrence_index\t"
+            "offset\tcontext\tclassification\tevidence\n"
+            "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tspecial\tliteral"
+        )
+
+        rows = corpus_survey.parse_special_character_rows(
+            output, pathlib.Path("story.json")
+        )
+
+        self.assertEqual(1, len(rows))
+        self.assertEqual("U+00A9", rows[0]["codepoint"])
+
+    def test_main_tsv_output_has_stable_columns_for_multiple_checks(self):
+        rows = [
+            {
+                "path": "story.json",
+                "check": "special-characters",
+                "kind": "special-character",
+                "severity": "warning",
+                "codepoint": "U+00A9",
+                "char": "©",
+                "unicode_name": "COPYRIGHT SIGN",
+                "occurrence_index": "1",
+                "offset": "2",
+                "span_start": "",
+                "span_end": "",
+                "context": "ctx",
+                "classification": "special",
+                "evidence": "literal",
+                "message": "Special character finding.",
+            },
+            {
+                "path": "story.json",
+                "check": "boundary-contamination",
+                "kind": "start-contamination",
+                "severity": "warning",
+                "codepoint": "",
+                "char": "",
+                "unicode_name": "",
+                "occurrence_index": "",
+                "offset": "",
+                "span_start": "0",
+                "span_end": "10",
+                "context": "",
+                "classification": "",
+                "evidence": '{"line":"By Author"}',
+                "message": "Likely author line at start of story.",
+            },
+        ]
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=rows
+            ), mock.patch.object(
+                corpus_survey.sys.stderr, "isatty", return_value=False
+            ), mock.patch(
+                "sys.stdout"
+            ) as fake_stdout:
+                exit_code = corpus_survey.main(
+                    [
+                        "--format",
+                        "tsv",
+                        "--check-for",
+                        "special-characters,boundary-contamination",
+                        "--no-progress",
+                        temp_dir,
+                    ]
+                )
+
+        self.assertEqual(1, exit_code)
+        output = "".join(call.args[0] for call in fake_stdout.write.call_args_list)
+        lines = [line for line in output.splitlines() if line]
+        self.assertGreaterEqual(len(lines), 3)
+        self.assertEqual("\t".join(corpus_survey.TSV_COLUMNS), lines[0])
+        self.assertTrue(all(not line.startswith("#check=") for line in lines[1:]))
+
+    def test_main_tsv_output_file_writes_and_skips_stdout(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+            output_path = pathlib.Path(temp_dir) / "report.tsv"
+            row = corpus_survey._clean_row(story_path)
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=[]
+            ), mock.patch.object(
+                corpus_survey.sys.stderr, "isatty", return_value=False
+            ), mock.patch(
+                "sys.stdout"
+            ) as fake_stdout:
+                exit_code = corpus_survey.main(
+                    [
+                        "--format",
+                        "tsv",
+                        "--output",
+                        str(output_path),
+                        "--print-clean-filenames",
+                        "--no-progress",
+                        temp_dir,
+                    ]
+                )
+
+            self.assertEqual(0, exit_code)
+            self.assertEqual([], fake_stdout.write.call_args_list)
+            written = output_path.read_text(encoding="utf-8")
+            self.assertIn("\t".join(corpus_survey.TSV_COLUMNS), written)
+            self.assertIn("summary\tclean\tinfo", written)
+            self.assertEqual("summary", row["check"])
+
+    def test_main_tsv_no_header_is_deterministic(self):
+        rows = [corpus_survey._clean_row(pathlib.Path("story.json"))]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=rows
+            ), mock.patch.object(
+                corpus_survey.sys.stderr, "isatty", return_value=False
+            ), mock.patch(
+                "sys.stdout"
+            ) as fake_stdout:
+                corpus_survey.main(
+                    ["--format", "tsv", "--no-header", "--no-progress", temp_dir]
+                )
+
+        output = "".join(call.args[0] for call in fake_stdout.write.call_args_list)
+        lines = [line for line in output.splitlines() if line]
+        self.assertEqual(1, len(lines))
+        self.assertNotEqual("\t".join(corpus_survey.TSV_COLUMNS), lines[0])
+
+    def test_main_progress_default_follows_tty(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=[]
+            ), mock.patch.object(
+                corpus_survey.sys.stderr, "isatty", return_value=False
+            ), mock.patch.object(
+                corpus_survey.tqdm, "tqdm"
+            ) as mock_tqdm:
+                mock_tqdm.side_effect = lambda items, disable: items
+                corpus_survey.main([temp_dir])
+
+        self.assertTrue(mock_tqdm.call_args.kwargs["disable"])
+
+    def test_main_no_progress_disables_tqdm(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            story_path.write_text("{}", encoding="utf-8")
+
+            with mock.patch.object(
+                corpus_survey, "find_json_files", return_value=[story_path]
+            ), mock.patch.object(
+                corpus_survey, "survey_file", return_value=[]
+            ), mock.patch.object(
+                corpus_survey.tqdm, "tqdm"
+            ) as mock_tqdm:
+                mock_tqdm.side_effect = lambda items, disable: items
+                corpus_survey.main(["--no-progress", temp_dir])
+
+        self.assertTrue(mock_tqdm.call_args.kwargs["disable"])
 
 
 if __name__ == "__main__":
