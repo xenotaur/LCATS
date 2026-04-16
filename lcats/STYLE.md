@@ -1,4 +1,38 @@
-# LCATS STYLE GUIDE (Expanded)
+# LCATS Style Guide (Canonical)
+
+This document is the authoritative style and engineering guide for LCATS.
+
+All contributors (human and agent) must follow `STYLE.md`.  
+Any older or conflicting style documents are deprecated and should not be used.
+
+## Quick Start (Human Summary)
+
+If you follow only a few rules, follow these:
+
+1. **Imports**
+   - Always import modules, not symbols  
+   - `from lcats.utils import names`  
+   - `names.normalize(...)`
+
+2. **Formatting**
+   - Run `scripts/format` and `scripts/lint` before committing  
+   - Do not rely on editor formatting
+
+3. **Docstrings**
+   - Use Google-style docstrings for most functions  
+   - One-line docstrings are fine for trivial functions
+
+4. **Aliases**
+   - Avoid aliases unless standard (`np`, `pd`), necessary, or clearly helpful
+
+5. **Tests**
+   - Use `unittest` (not `pytest`)  
+   - Prefer deterministic tests
+
+6. **General Principle**
+   - Prefer clarity and consistency over cleverness
+
+For full details, see the sections below.
 
 ## 1. Philosophy
 
@@ -46,17 +80,29 @@ Key rules:
 
 ## 3. Imports
 
-Always import modules, never symbols:
+Always import modules, not symbols, and access functionality via the module namespace.
 
 GOOD:
 ```python
-import lcats.utils.names as names
+from lcats.utils import names
+names.normalize(...)
 ```
 
 BAD:
 ```python
-from lcats.utils.names import url_to_filename
+from lcats.utils.names import normalize
 ```
+
+---
+
+## 3.1 Aliases
+
+Aliases should be avoided unless:
+- Widely accepted (`np`, `pd`)
+- Resolving name conflicts
+- Necessary for readability
+
+Do not alias LCATS modules arbitrarily.
 
 ---
 
@@ -142,15 +188,11 @@ Rules:
 
 ## 10. Formatting & Linting
 
-Tools:
-- black
-- ruff
+Formatting and linting are governed by:
+- `scripts/format` (Black)
+- `scripts/lint` (Ruff)
 
-Commands:
-```bash
-scripts/format
-scripts/lint --fix
-```
+Editors must conform to project configuration.
 
 CI must enforce:
 - formatting clean
@@ -190,7 +232,8 @@ Avoid:
 
 ## 14. Documentation
 
-All public functions require docstrings:
+Use Google-style docstrings for non-trivial public functions.
+One-line docstrings are acceptable for trivial functions.
 
 ```python
 def func(x):
