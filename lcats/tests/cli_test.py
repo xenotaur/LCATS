@@ -35,15 +35,25 @@ class TestCli(unittest.TestCase):
         self.assertEqual(expected_message, actual_message)
         self.assertEqual(expected_status, actual_status)
 
-    @patch("lcats.analysis.corpus_survey.main")
+    @patch("lcats.analysis.corpus.cli.run_survey")
     def test_dispatch_survey(self, mock_main):
-        """Ensure the survey command delegates to corpus_survey.main."""
+        """Ensure the survey command delegates to corpus cli."""
         mock_main.return_value = 0
 
         actual_message, actual_status = cli.dispatch("survey", ["corpora/sherlock"])
         self.assertEqual("", actual_message)
         self.assertEqual(0, actual_status)
         mock_main.assert_called_once_with(["corpora/sherlock"])
+
+    @patch("lcats.analysis.corpus.cli.run_stats")
+    def test_dispatch_stats(self, mock_run_stats):
+        """Ensure the stats command delegates to corpus cli."""
+        mock_run_stats.return_value = 0
+
+        actual_message, actual_status = cli.dispatch("stats", ["corpora/sherlock"])
+        self.assertEqual("", actual_message)
+        self.assertEqual(0, actual_status)
+        mock_run_stats.assert_called_once_with(["corpora/sherlock"])
 
     @parameterized.parameterized.expand(
         [
@@ -65,7 +75,7 @@ class TestCli(unittest.TestCase):
         self.assertEqual(response, 1)
 
     @patch("sys.argv", ["lcats", "survey", "corpora/sherlock"])
-    @patch("lcats.analysis.corpus_survey.main")
+    @patch("lcats.analysis.corpus.cli.run_survey")
     def test_main_survey_invocation(self, mock_main):
         """Ensure CLI main routes survey arguments via argparse."""
         mock_main.return_value = 0
