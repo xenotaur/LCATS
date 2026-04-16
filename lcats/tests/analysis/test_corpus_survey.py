@@ -14,7 +14,9 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
 
     def setUp(self):
         self.fixture_dir = (
-            pathlib.Path(__file__).resolve().parent / "fixtures" / "boundary_contamination"
+            pathlib.Path(__file__).resolve().parent
+            / "fixtures"
+            / "boundary_contamination"
         )
         self.clean_text = "This is plain ASCII text."
         self.bad_start_text = "© starts with a bad char"
