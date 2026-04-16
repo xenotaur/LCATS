@@ -1,11 +1,14 @@
 # LCATS tests: agent guidance
 
+## Style
+- follow the style guide in STYLE.md
+
 ## Framework
 - Use `unittest` only (no pytest).
 - Follow existing naming: `*_test.py`.
 
 ## Test execution
-- Always run `scripts/test` after making changes.
+- Always run `scripts/format`, `scripts/lint` and `scripts/test` after making changes.
 - Keep new tests deterministic; avoid reliance on clock/time/random unless seeded and justified.
 
 ## Imports (important)
