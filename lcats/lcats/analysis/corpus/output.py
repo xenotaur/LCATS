@@ -10,6 +10,8 @@ from lcats.analysis.corpus import models
 
 DEFAULT_OUTPUT_FORMAT = "human"
 TSV_COLUMNS = [
+    "story_title",
+    "story_file",
     "path",
     "check",
     "kind",
@@ -27,10 +29,41 @@ TSV_COLUMNS = [
     "message",
 ]
 
+CHECK_VALUE_MAP = {
+    "special-characters": "spchar",
+    "boundary-contamination": "boundary",
+}
+KIND_VALUE_MAP = {
+    "special-character": "spchar",
+    "start-contamination": "start-contam",
+    "end-contamination": "end-contam",
+    "rare-review-character": "rare-char",
+    "mojibake-sequence": "mojibake",
+}
+CLASSIFICATION_VALUE_MAP = {
+    "valid-typography": "valid-typo",
+    "suspicious-unicode": "sus-unicode",
+    "mojibake-pattern": "mojibake",
+}
+TSV_VALUE_LEGEND = (
+    "Compact TSV values: "
+    "check(spchar=special-characters, boundary=boundary-contamination); "
+    "kind(spchar=special-character, start-contam=start-contamination, "
+    "end-contam=end-contamination, rare-char=rare-review-character, "
+    "mojibake=mojibake-sequence); "
+    "classification(valid-typo=valid-typography, "
+    "sus-unicode=suspicious-unicode, mojibake=mojibake-pattern)."
+)
+
 
 def empty_tsv_row() -> dict[str, str]:
     """Return a blank TSV row with all stable fields present."""
     return {column: "" for column in TSV_COLUMNS}
+
+
+def compact_value(value: str, mapping: Mapping[str, str]) -> str:
+    """Return compact TSV value for known verbose labels."""
+    return mapping.get(value, value)
 
 
 def severity_from_classification(classification: str) -> str:
@@ -46,7 +79,7 @@ def severity_from_classification(classification: str) -> str:
 
 
 def parse_special_character_rows(
-    tsv_output: str, file_path: pathlib.Path
+    tsv_output: str, file_path: pathlib.Path, story_title: str = ""
 ) -> list[dict[str, str]]:
     """Parse extractor TSV output into stable report rows."""
     if not tsv_output.strip():
@@ -64,9 +97,11 @@ def parse_special_character_rows(
         row = empty_tsv_row()
         row.update(
             {
+                "story_title": story_title,
+                "story_file": file_path.name,
                 "path": str(file_path),
-                "check": "special-characters",
-                "kind": "special-character",
+                "check": compact_value("special-characters", CHECK_VALUE_MAP),
+                "kind": compact_value("special-character", KIND_VALUE_MAP),
                 "severity": severity_from_classification(padded[6]),
                 "codepoint": padded[0],
                 "char": padded[1],
@@ -74,7 +109,7 @@ def parse_special_character_rows(
                 "occurrence_index": padded[3],
                 "offset": padded[4],
                 "context": padded[5],
-                "classification": padded[6],
+                "classification": compact_value(padded[6], CLASSIFICATION_VALUE_MAP),
                 "evidence": padded[7],
                 "message": "Special character finding.",
             }
@@ -85,15 +120,20 @@ def parse_special_character_rows(
 
 
 def finding_to_row(
-    file_path: pathlib.Path, check_name: str, finding: models.Finding
+    file_path: pathlib.Path,
+    story_title: str,
+    check_name: str,
+    finding: models.Finding,
 ) -> dict[str, str]:
     """Convert one finding into a stable TSV row."""
     row = empty_tsv_row()
     row.update(
         {
+            "story_title": story_title,
+            "story_file": file_path.name,
             "path": str(file_path),
-            "check": check_name,
-            "kind": finding.kind,
+            "check": compact_value(check_name, CHECK_VALUE_MAP),
+            "kind": compact_value(finding.kind, KIND_VALUE_MAP),
             "severity": finding.severity,
             "span_start": str(finding.span[0]),
             "span_end": str(finding.span[1]),
@@ -104,11 +144,13 @@ def finding_to_row(
     return row
 
 
-def clean_row(file_path: pathlib.Path) -> dict[str, str]:
+def clean_row(file_path: pathlib.Path, story_title: str = "") -> dict[str, str]:
     """Build a summary row for files with no findings."""
     row = empty_tsv_row()
     row.update(
         {
+            "story_title": story_title,
+            "story_file": file_path.name,
             "path": str(file_path),
             "check": "summary",
             "kind": "clean",
