@@ -1,5 +1,6 @@
 """Unit tests for lcats.analysis.corpus_survey architecture."""
 
+import pathlib
 import unittest
 import unittest.mock
 
@@ -10,14 +11,52 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
     """Tests for detector orchestration and placeholder special-char detector."""
 
     def setUp(self):
+        self.fixture_dir = (
+            pathlib.Path(__file__).resolve().parent / "fixtures" / "boundary_contamination"
+        )
         self.clean_text = "This is plain ASCII text."
         self.bad_start_text = "© starts with a bad char"
         self.bad_end_text = "ends with a bad char ©"
         self.encoding_issue_text = "contains replacement char: �"
 
+    def _fixture_text(self, filename: str) -> str:
+        return (self.fixture_dir / filename).read_text(encoding="utf-8")
+
     def test_clean_text_has_no_findings(self):
         findings = corpus_survey.run_detectors(self.clean_text, config={})
         self.assertEqual([], findings)
+
+    def test_start_detector_fixtures(self):
+        cases = [
+            ("start_contaminated.txt", 3),
+            ("clean_story.txt", 0),
+        ]
+
+        for fixture_name, expected_count in cases:
+            with self.subTest(fixture_name=fixture_name):
+                findings = corpus_survey.StartDetector().run(
+                    self._fixture_text(fixture_name)
+                )
+                self.assertEqual(expected_count, len(findings))
+                for finding in findings:
+                    self.assertEqual("start-contamination", finding.kind)
+
+    def test_end_detector_fixtures(self):
+        cases = [
+            ("end_the_end.txt", "the-end"),
+            ("end_gutenberg.txt", "gutenberg-footer"),
+        ]
+
+        for fixture_name, expected_pattern in cases:
+            with self.subTest(fixture_name=fixture_name):
+                findings = corpus_survey.EndDetector().run(
+                    self._fixture_text(fixture_name)
+                )
+                self.assertGreaterEqual(len(findings), 1)
+                patterns = [finding.evidence["pattern"] for finding in findings]
+                self.assertIn(expected_pattern, patterns)
+                for finding in findings:
+                    self.assertEqual("end-contamination", finding.kind)
 
 
 class CorpusSurveyCliHelpersTest(unittest.TestCase):
