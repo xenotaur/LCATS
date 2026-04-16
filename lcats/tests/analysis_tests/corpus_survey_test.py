@@ -302,36 +302,42 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         output = "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tspecial\tliteral"
 
         rows = corpus_survey.parse_special_character_rows(
-            output, pathlib.Path("story.json")
+            output, pathlib.Path("story.json"), "Story Title"
         )
 
         self.assertEqual(1, len(rows))
         row = rows[0]
         self.assertEqual(corpus_survey.TSV_COLUMNS, list(row.keys()))
+        self.assertEqual("Story Title", row["story_title"])
+        self.assertEqual("story.json", row["story_file"])
         self.assertEqual("story.json", row["path"])
-        self.assertEqual("special-characters", row["check"])
+        self.assertEqual("spchar", row["check"])
+        self.assertEqual("spchar", row["kind"])
         self.assertEqual("U+00A9", row["codepoint"])
 
     def test_parse_special_character_rows_skips_header_line(self):
         output = (
             "codepoint\tchar\tunicode_name\toccurrence_index\t"
             "offset\tcontext\tclassification\tevidence\n"
-            "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tspecial\tliteral"
+            "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tmojibake-pattern\tliteral"
         )
 
         rows = corpus_survey.parse_special_character_rows(
-            output, pathlib.Path("story.json")
+            output, pathlib.Path("story.json"), "Story Title"
         )
 
         self.assertEqual(1, len(rows))
         self.assertEqual("U+00A9", rows[0]["codepoint"])
+        self.assertEqual("mojibake", rows[0]["classification"])
 
     def test_main_tsv_output_has_stable_columns_for_multiple_checks(self):
         rows = [
             {
+                "story_title": "The Story",
+                "story_file": "story.json",
                 "path": "story.json",
-                "check": "special-characters",
-                "kind": "special-character",
+                "check": "spchar",
+                "kind": "spchar",
                 "severity": "warning",
                 "codepoint": "U+00A9",
                 "char": "©",
@@ -346,9 +352,11 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
                 "message": "Special character finding.",
             },
             {
+                "story_title": "The Story",
+                "story_file": "story.json",
                 "path": "story.json",
-                "check": "boundary-contamination",
-                "kind": "start-contamination",
+                "check": "boundary",
+                "kind": "start-contam",
                 "severity": "warning",
                 "codepoint": "",
                 "char": "",
@@ -428,7 +436,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             written = output_path.read_text(encoding="utf-8")
             self.assertIn("\t".join(corpus_survey.TSV_COLUMNS), written)
             self.assertIn("summary\tclean\tinfo", written)
+            self.assertIn("story.json", written)
             self.assertEqual("summary", row["check"])
+
+    def test_parser_help_includes_compact_value_legend(self):
+        parser = corpus_survey.build_parser()
+
+        help_text = parser.format_help()
+
+        self.assertIn("Compact TSV values:", help_text)
+        self.assertIn("spchar=special-characters", help_text)
 
     def test_main_tsv_no_header_is_deterministic(self):
         rows = [corpus_survey._clean_row(pathlib.Path("story.json"))]

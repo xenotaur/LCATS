@@ -22,10 +22,34 @@ from lcats.analysis.corpus.detectors import unicode
 
 def run_lcats_display(file_path: pathlib.Path) -> str:
     """Render one corpus JSON file using the same formatter as lcats display."""
+    rendered, _ = run_lcats_display_and_title(file_path)
+    return rendered
+
+
+def read_story_title(file_path: pathlib.Path) -> str:
+    """Read one corpus JSON file and return a display title."""
     with file_path.open("r", encoding="utf-8") as json_file:
         data = json.load(json_file)
+    return infer_story_title(data, file_path)
+
+
+def infer_story_title(data: dict, file_path: pathlib.Path) -> str:
+    """Infer stable title from story data, falling back to filename stem."""
+    story_title = (
+        data.get("name") or data.get("metadata", {}).get("name") or ""
+    ).strip()
+    if not story_title:
+        return file_path.stem
+    return story_title
+
+
+def run_lcats_display_and_title(file_path: pathlib.Path) -> tuple[str, str]:
+    """Render one corpus JSON file and return display text plus story title."""
+    with file_path.open("r", encoding="utf-8") as json_file:
+        data = json.load(json_file)
+    story_title = infer_story_title(data, file_path)
     rendered = lcats.inspect.format_story_json(data, max_body_chars=None, width=80)
-    return f"{rendered}\n"
+    return f"{rendered}\n", story_title
 
 
 def run_special_characters_check(
@@ -91,6 +115,8 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Survey LCATS corpora files for issues.",
         add_help=add_help,
+        epilog=output.TSV_VALUE_LEGEND,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "directories",
@@ -156,7 +182,7 @@ def _show_progress(progress_arg: Optional[bool]) -> bool:
 
 def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
     """Run enabled checks on a single corpus file and return report rows."""
-    displayed_text = run_lcats_display(file_path)
+    displayed_text, story_title = run_lcats_display_and_title(file_path)
     rows = []
     for check_name in args.check_for:
         if check_name == "special-characters":
@@ -174,6 +200,7 @@ def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
                     header=False,
                 ),
                 file_path,
+                story_title,
             )
             rows.extend(parsed)
         elif check_name == "boundary-contamination":
@@ -184,7 +211,7 @@ def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
                 },
             )
             rows.extend(
-                output.finding_to_row(file_path, check_name, finding)
+                output.finding_to_row(file_path, story_title, check_name, finding)
                 for finding in findings
             )
         else:
@@ -248,7 +275,9 @@ def run_survey(
                     output.write_human_rows(output_stream, file_path, rows)
             elif args.print_clean_filenames:
                 if args.format == "tsv":
-                    tsv_writer.writerow(output.clean_row(file_path))
+                    tsv_writer.writerow(
+                        output.clean_row(file_path, read_story_title(file_path))
+                    )
                 else:
                     print(f"{file_path} [clean]", file=output_stream)
 
