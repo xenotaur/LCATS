@@ -113,7 +113,6 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
                     self.assertEqual("end-contamination", finding.kind)
 
 
-
 class CorpusSurveyCliHelpersTest(unittest.TestCase):
     """Tests for corpus_survey CLI helper functions moved from script."""
 
