@@ -521,6 +521,26 @@ def run_special_characters_check(
     return result.stdout.strip()
 
 
+def run_boundary_contamination_check(displayed_text: str) -> str:
+    """Run boundary contamination detectors and emit TSV rows."""
+    detectors = [StartDetector(), EndDetector()]
+    findings = run_detectors(displayed_text, config={"detectors": detectors})
+    lines = []
+    for finding in findings:
+        lines.append(
+            "\t".join(
+                [
+                    finding.kind,
+                    finding.severity,
+                    str(finding.span[0]),
+                    str(finding.span[1]),
+                    finding.message,
+                ]
+            )
+        )
+    return "\n".join(lines)
+
+
 def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
     """Run enabled checks on a single corpus file and return check outputs."""
     displayed_text = run_lcats_display(file_path)
@@ -539,6 +559,10 @@ def survey_file(file_path: pathlib.Path, args) -> list[tuple[str, str]]:
                 name_width=args.name_width,
                 header=False,
             )
+            if output:
+                findings.append((check_name, output))
+        elif check_name == "boundary-contamination":
+            output = run_boundary_contamination_check(displayed_text)
             if output:
                 findings.append((check_name, output))
         else:
@@ -575,7 +599,7 @@ def build_parser():
         default=[],
         help=(
             "Check(s) to run. Repeatable or comma-separated. "
-            "Currently supported: special-characters"
+            "Currently supported: special-characters,boundary-contamination"
         ),
     )
     parser.add_argument(
@@ -647,10 +671,10 @@ def build_parser():
     return parser
 
 
-def main() -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     """Run the corpus quality checker CLI."""
     parser = build_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.context < 0:
         parser.error("--context must be >= 0")
