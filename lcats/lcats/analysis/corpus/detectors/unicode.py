@@ -12,44 +12,59 @@ ASCII_PUNCT = {chr(index) for index in range(32, 127)} - set(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 )
 SAFE_EXCLUDED_CHARS = [
-    "£",
-    "ç",
-    "é",
-    "œ",
-    "æ",
-    "á",
-    "í",
-    "ñ",
-    "ö",
-    "ü",
-    "è",
-    "ë",
-    "ï",
-    "ô",
-    "ä",
-    "ê",
-    "À",
-    "Ç",
-    "É",
-    "Ê",
-    "Î",
-    "Ü",
-    "à",
-    "ó",
-    "ù",
-    "û",
-    "―",
+    "£",  # Pound Sign
+    "ç",  # Latin Small Letter C with Cedilla
+    "é",  # Latin Small Letter E with Acute
+    "œ",  # Latin Small Ligature OE
+    "æ",  # Latin Small Letter AE
+    "á",  # Latin Small Letter A with Acute
+    "í",  # Latin Small Letter I with Acute
+    "ñ",  # Latin Small Letter N with Tilde
+    "ö",  # Latin Small Letter O with Diaeresis
+    "ü",  # Latin Small Letter U with Diaeresis
+    "è",  # Latin Small Letter E with Grave
+    "ë",  # Latin Small Letter E with Diaeresis
+    "ï",  # Latin Small Letter I with Diaeresis
+    "ô",  # Latin Small Letter O with Circumflex
+    "ä",  # Latin Small Letter A with Diaeresis
+    "ê",  # Latin Small Letter E with Circumflex
+    "À",  # Latin Capital Letter A with Grave
+    "Ç",  # Latin Capital Letter C with Cedilla
+    "É",  # Latin Capital Letter E with Acute
+    "Ê",  # Latin Capital Letter E with Circumflex
+    "Î",  # Latin Capital Letter I with Circumflex
+    "Ü",  # Latin Capital Letter U with Diaeresis
+    "à",  # Latin Small Letter A with Grave
+    "ó",  # Latin Small Letter O with Acute
+    "ù",  # Latin Small Letter U with Grave
+    "û",  # Latin Small Letter U with Circumflex
+    "―",  # Horizontal Bar
+    "½",  # Vulgar Fraction One Half
+    "¼",  # Vulgar Fraction One Quarter
 ]
-RARE_REVIEW_CHARS = ["°", "´", "×", "ā", "ī", "ū", "Ō", "ō"]
-MOJIBAKE_TRIGGER_CHARS = ["Â", "Ã", "â"]
+RARE_REVIEW_CHARS = [
+    "°",  # Degree Sign
+    "´",  # Acute Accent
+    "×",  # Multiplication Sign
+    "ā",  # Latin Small Letter A with Macron
+    "ī",  # Latin Small Letter I with Macron
+    "ū",  # Latin Small Letter U with Macron
+    "Ō",  # Latin Capital Letter O with Macron
+    "ō",  # Latin Small Letter O with Macron
+]
+MOJIBAKE_TRIGGER_CHARS = [
+    "Â",  # Latin Capital Letter A with Circumflex (often appears in mojibake sequences)
+    "Ã",  # Latin Capital Letter A with Tilde (often appears in mojibake sequences)
+    "â",  # Latin Small Letter A with Circumflex (often appears in mojibake sequences)
+]
 DEFAULT_EXCLUDED_CODEPOINTS = [
-    "1F4D6",
-    "1F4DC",
-    "1F5C2",
-    "270D",
-    "FE0F",
-    "202F",
-    "00A0",
+    "1F4D6",  # Open Book emoji
+    "1F4DC",  # Page Facing Up emoji
+    "1F5C2",  # Card Index Dividers emoji
+    "270D",  # Writing Hand emoji
+    "FE0F",  # Variation Selector-16 (often used to force emoji presentation)
+    "202F",  # Narrow No-Break Space
+    "00A0",  # No-Break Space
 ]
 DEFAULT_EXCLUDED_CHARS = (
     SAFE_EXCLUDED_CHARS + RARE_REVIEW_CHARS + MOJIBAKE_TRIGGER_CHARS
