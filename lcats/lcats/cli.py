@@ -3,7 +3,7 @@
 import argparse
 import sys
 
-from lcats.analysis import corpus_survey
+from lcats.analysis.corpus import cli as corpus_cli
 import lcats.inspect
 import lcats.gatherers.main
 
@@ -15,6 +15,7 @@ Commands:
     inspect   Inspects a story JSON file and summarizes its contents.
     display   Displays entire story JSON file in a human-readable format.
     survey    Surveys corpus files for quality issues.
+    stats     Computes corpus-level statistics.
     index     Preprocesses a corpus to answer questions.
     advise    LCATS command-line advising tool.
     eval      Evaluate LCATS on a benchmark suite.
@@ -48,7 +49,10 @@ def dispatch(command, args):
         return lcats.inspect.display_files(*args)
 
     elif command == "survey":
-        return "", corpus_survey.main(args)
+        return "", corpus_cli.run_survey(args)
+
+    elif command == "stats":
+        return "", corpus_cli.run_stats(args)
 
     elif command == "index":
         return "Indexing data files is not yet implemented.", 1
