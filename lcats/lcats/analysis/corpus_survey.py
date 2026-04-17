@@ -4,6 +4,7 @@ from lcats.analysis.corpus import cli
 from lcats.analysis.corpus import discovery
 from lcats.analysis.corpus import output
 from lcats.analysis.corpus import qa
+from lcats.analysis.corpus import specials as specials_module
 from lcats.analysis.corpus.detectors import boundary
 from lcats.analysis.corpus.detectors import structural
 from lcats.analysis.corpus.detectors import unicode
@@ -42,7 +43,6 @@ with_identifier = output.with_identifier
 survey_file = cli.survey_file
 parse_csv_args = cli.parse_csv_args
 build_parser = cli.build_survey_parser
-subprocess = cli.subprocess
 lcats = cli.lcats
 
 
@@ -67,5 +67,6 @@ def main(argv=None):
 
 _clean_row = output.clean_row
 _show_progress = cli._show_progress
+specials = specials_module
 sys = cli.sys
 tqdm = cli.tqdm

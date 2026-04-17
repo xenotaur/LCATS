@@ -123,66 +123,47 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.encoding_issue_text = "contains replacement char: �"
 
     def test_run_special_characters_check_forwards_context(self):
-        completed = unittest.mock.Mock()
-        completed.returncode = 0
-        completed.stdout = "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx"
-        completed.stderr = ""
-
-        with unittest.mock.patch.object(
-            corpus_survey.subprocess, "run", return_value=completed
-        ) as mock_run:
-            output = corpus_survey.run_special_characters_check(
-                displayed_text="pi√©ce",
-                extract_script="scripts/utils/extract_special_chars.py",
-                allow_smart=True,
-                allowlist_config="",
-                excluded_codepoints=["00A0"],
-                excluded_chars=["é"],
-                context=10,
-                nocontext=False,
-                name_width=0,
-                header=False,
-            )
-
+        output = corpus_survey.run_special_characters_check(
+            displayed_text="pi√©ce",
+            extract_script="scripts/utils/extract_special_chars.py",
+            allow_smart=True,
+            allowlist_config="",
+            excluded_codepoints=["00A0"],
+            excluded_chars=["é"],
+            context=10,
+            nocontext=False,
+            name_width=0,
+            header=False,
+        )
         self.assertIn("COPYRIGHT SIGN", output)
-        cmd = mock_run.call_args.args[0]
-        self.assertIn("--context=10", cmd)
-        self.assertNotIn("--nocontext", cmd)
+        first_row = output.splitlines()[0].split("\t")
+        self.assertEqual("U+221A", first_row[0])
+        self.assertEqual("2", first_row[4])
 
     def test_run_special_characters_check_uses_nocontext_flag(self):
-        completed = unittest.mock.Mock()
-        completed.returncode = 0
-        completed.stdout = ""
-        completed.stderr = ""
+        output = corpus_survey.run_special_characters_check(
+            displayed_text="pi√©ce",
+            extract_script="scripts/utils/extract_special_chars.py",
+            allow_smart=True,
+            allowlist_config="",
+            excluded_codepoints=[],
+            excluded_chars=[],
+            context=10,
+            nocontext=True,
+            name_width=12,
+            header=True,
+        )
 
-        with unittest.mock.patch.object(
-            corpus_survey.subprocess, "run", return_value=completed
-        ) as mock_run:
-            corpus_survey.run_special_characters_check(
-                displayed_text="pi√©ce",
-                extract_script="scripts/utils/extract_special_chars.py",
-                allow_smart=True,
-                allowlist_config="quality/allowlist.json",
-                excluded_codepoints=[],
-                excluded_chars=[],
-                context=10,
-                nocontext=True,
-                name_width=12,
-                header=True,
-            )
-
-        cmd = mock_run.call_args.args[0]
-        self.assertIn("--nocontext", cmd)
-        self.assertNotIn("--context=10", cmd)
-        self.assertIn("--name-width=12", cmd)
-        self.assertIn("--header", cmd)
-        self.assertIn("--allowlist-config=quality/allowlist.json", cmd)
+        lines = output.splitlines()
+        self.assertEqual("\t".join(corpus_survey.specials.TSV_COLUMNS), lines[0])
+        self.assertEqual("", lines[1].split("\t")[5])
 
     def test_parser_defaults_include_context(self):
         parser = corpus_survey.build_parser()
         args = parser.parse_args([])
         self.assertEqual(10, args.context)
         self.assertFalse(args.nocontext)
+        self.assertEqual("qa", args.mode)
         self.assertEqual("path", args.identifier)
         self.assertEqual(48, args.unicode_name_width)
 
@@ -309,14 +290,14 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
 
         self.assertEqual(1, len(rows))
         row = rows[0]
-        self.assertEqual(corpus_survey.TSV_COLUMNS, list(row.keys()))
+        self.assertEqual(corpus_survey.TSV_COLUMNS, list(row.keys())[:15])
         self.assertEqual("Story Title", row["story_title"])
         self.assertEqual("story.json", row["story_file"])
         self.assertEqual("story.json", row["path"])
         self.assertEqual("spchar", row["check"])
         self.assertEqual("spchar", row["kind"])
         self.assertEqual("U+00A9", row["codepoint"])
-        self.assertEqual("", row["identifier"])
+        self.assertEqual("", row["story_identifier"])
 
     def test_parse_special_character_rows_skips_header_line(self):
         output = (
@@ -511,7 +492,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         )
 
         self.assertEqual("MATHEMA…", row["unicode_name"])
-        self.assertEqual("Story", row["identifier"])
+        self.assertEqual("Story", row["story_identifier"])
 
     def test_parser_help_includes_compact_value_legend(self):
         parser = corpus_survey.build_parser()

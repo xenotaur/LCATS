@@ -209,6 +209,25 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
         )
         self.assertEqual([], rows)
 
+    def test_legacy_wrapper_delegates_to_corpus_specials_library(self):
+        with unittest.mock.patch.object(
+            self.module.specials, "iter_special_character_rows", return_value=["x\ty"]
+        ) as mock_rows:
+            rows = list(
+                self.module.iter_special_character_rows(
+                    path="stdin",
+                    text="©",
+                    allow_smart=False,
+                    excluded=set(),
+                    allowlist=self.module.AllowlistConfig(),
+                    context=10,
+                    name_width=0,
+                )
+            )
+
+        self.assertEqual(["stdin\tx\ty"], rows)
+        mock_rows.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
