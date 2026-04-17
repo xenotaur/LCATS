@@ -120,7 +120,7 @@ class TestCli(test_utils.TestCaseWithData):
         mock_survey_file.return_value = []
 
         with capture.suppress_output():
-            status = cli.run_survey(["specials", str(path)])
+            status = cli.run_survey(["--mode", "specials", str(path)])
 
         self.assertEqual(0, status)
         called_args = mock_survey_file.call_args.args[1]
@@ -128,7 +128,7 @@ class TestCli(test_utils.TestCaseWithData):
 
     @mock.patch("lcats.analysis.corpus.cli.survey_file")
     @mock.patch("lcats.analysis.corpus.cli.discovery.find_json_files")
-    def test_run_survey_preserves_literal_specials_directory(
+    def test_run_survey_default_mode_preserves_specials_directory(
         self, mock_find_json_files, mock_survey_file
     ):
         path = pathlib.Path(self.test_temp_dir) / "story.json"

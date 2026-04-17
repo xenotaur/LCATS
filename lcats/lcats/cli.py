@@ -134,7 +134,7 @@ def build_parser() -> argparse.ArgumentParser:
         ),
         epilog=(
             "Examples:\n"
-            "  lcats survey specials corpora/sherlock\n"
+            "  lcats survey --mode specials corpora/sherlock\n"
             "  lcats survey corpora/sherlock --check-for special-characters\n"
             "  lcats survey data/ --format tsv --output findings.tsv\n"
             "  lcats survey corpora/sherlock --no-progress --print-clean-filenames"

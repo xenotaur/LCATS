@@ -100,19 +100,19 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "mode_or_directory",
-        nargs="?",
-        default="",
-        help=(
-            "Optional mode or first directory. Use 'specials' to run only "
-            "special-character extraction."
-        ),
-    )
-    parser.add_argument(
         "directories",
         nargs="*",
-        default=[],
-        help="Additional directories or files to survey.",
+        default=["data/"],
+        help="Directories or files to survey.",
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["qa", "specials"],
+        default="qa",
+        help=(
+            "Survey mode. Use qa (default) for normal checks, or specials to "
+            "default to special-character extraction."
+        ),
     )
     parser.add_argument(
         "--check-for",
@@ -243,14 +243,8 @@ def run_survey(
     if args.unicode_name_width < 0:
         parser.error("--unicode-name-width must be >= 0")
 
-    directories = list(args.directories)
-    if args.mode_or_directory:
-        if args.mode_or_directory == "specials" and directories:
-            if not args.check_for:
-                args.check_for = ["special-characters"]
-        else:
-            directories = [args.mode_or_directory, *directories]
-    args.directories = directories or ["data/"]
+    if args.mode == "specials" and not args.check_for:
+        args.check_for = ["special-characters"]
 
     args.check_for = parse_csv_args(args.check_for) or list(qa.DEFAULT_CHECKS)
     args.exclude_codepoint = list(unicode.DEFAULT_EXCLUDED_CODEPOINTS) + parse_csv_args(

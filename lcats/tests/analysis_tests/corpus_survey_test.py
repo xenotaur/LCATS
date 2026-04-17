@@ -163,6 +163,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         args = parser.parse_args([])
         self.assertEqual(10, args.context)
         self.assertFalse(args.nocontext)
+        self.assertEqual("qa", args.mode)
         self.assertEqual("path", args.identifier)
         self.assertEqual(48, args.unicode_name_width)
 
