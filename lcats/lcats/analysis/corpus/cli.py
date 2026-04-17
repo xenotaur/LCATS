@@ -245,7 +245,7 @@ def run_survey(
 
     directories = list(args.directories)
     if args.mode_or_directory:
-        if args.mode_or_directory == "specials":
+        if args.mode_or_directory == "specials" and directories:
             if not args.check_for:
                 args.check_for = ["special-characters"]
         else:
