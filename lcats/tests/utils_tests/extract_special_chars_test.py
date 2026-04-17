@@ -37,14 +37,11 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
             )
         )
 
-        self.assertEqual(2, len(rows))
+        self.assertEqual(1, len(rows))
         first = rows[0].split("\t")
-        second = rows[1].split("\t")
 
         self.assertEqual("U+221A", first[1])
         self.assertEqual("23456789pi√©ce", first[6])
-        self.assertEqual("U+00A9", second[1])
-        self.assertEqual("3456789pi√©ce", second[6])
 
     def test_context_zero_suppresses_context_column_value(self):
         text = "pi√©ce"
@@ -165,7 +162,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
 
         self.assertEqual(0, exit_code)
         lines = [line for line in output.getvalue().splitlines() if line.strip()]
-        self.assertEqual(2, len(lines))
+        self.assertEqual(1, len(lines))
         self.assertEqual("", lines[0].split("\t")[6])
 
     def test_classification_distinguishes_typography_mojibake_and_suspicious(self):
@@ -183,8 +180,7 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
         )
 
         classifications = [row.split("\t")[7] for row in rows]
-        self.assertIn("valid-typography", classifications)
-        self.assertIn("mojibake-pattern", classifications)
+        self.assertIn("repair-candidate", classifications)
         self.assertIn("suspicious-unicode", classifications)
 
     def test_allowlist_config_allows_configured_character(self):
@@ -208,6 +204,59 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
             )
         )
         self.assertEqual([], rows)
+
+    def test_likely_good_latin_diacritic_is_classified_as_good(self):
+        rows = list(
+            self.module.iter_special_character_rows(
+                path="stdin",
+                text="Muñoz",
+                allow_smart=False,
+                excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
+                context=10,
+                name_width=0,
+            )
+        )
+
+        self.assertEqual(1, len(rows))
+        fields = rows[0].split("\t")
+        self.assertEqual("ñ", fields[2])
+        self.assertEqual("likely-good-unicode", fields[7])
+        self.assertIn("latin-letter-in-word-context", fields[8])
+
+    def test_review_needed_catches_bom_and_narrow_no_break_space(self):
+        rows = list(
+            self.module.iter_special_character_rows(
+                path="stdin",
+                text="\ufeffA\u202fB",
+                allow_smart=False,
+                excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
+                context=10,
+                name_width=0,
+            )
+        )
+
+        classifications = [row.split("\t")[7] for row in rows]
+        self.assertEqual(["review-needed", "review-needed"], classifications)
+
+    def test_repair_candidate_contains_auditable_repair_payload(self):
+        rows = list(
+            self.module.iter_special_character_rows(
+                path="stdin",
+                text="se√±orita and blas√©",
+                allow_smart=False,
+                excluded=set(),
+                allowlist=self.module.AllowlistConfig(),
+                context=10,
+                name_width=0,
+            )
+        )
+
+        self.assertGreaterEqual(len(rows), 2)
+        first = rows[0].split("\t")
+        self.assertEqual("repair-candidate", first[7])
+        self.assertIn('"proposed_repair"', first[8])
 
 
 if __name__ == "__main__":

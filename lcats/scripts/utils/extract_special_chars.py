@@ -22,7 +22,29 @@ TSV_COLUMNS = [
     "classification",
     "evidence",
 ]
-MOJIBAKE_RE = re.compile(r"(?:Ã.|Â.|â.|ð.|�)")
+
+COMMON_MOJIBAKE_REPAIRS = {
+    "Ã©": "é",
+    "Ã±": "ñ",
+    "Ã¶": "ö",
+    "Ã¼": "ü",
+    "Ã¨": "è",
+    "Ã¡": "á",
+    "Ã": "à",
+    "Â£": "£",
+    "Â ": " ",
+    "â€™": "’",
+    "â€œ": "“",
+    "â€\x9d": "”",
+    "â€“": "–",
+    "â€”": "—",
+    "â€¦": "…",
+    "√©": "é",
+    "√±": "ñ",
+    "√∂": "ö",
+}
+MOJIBAKE_KEYS = sorted(COMMON_MOJIBAKE_REPAIRS.keys(), key=len, reverse=True)
+KNOWN_ODD_SPACES = {"\u00A0", "\u2007", "\u202F"}
 
 
 class AllowlistConfig:
@@ -140,21 +162,125 @@ def is_flagged(
     return not is_allowed(ch, allow_smart, allowlist)
 
 
-def classify_character(text: str, offset: int, ch: str) -> tuple[str, str]:
-    """Classify one character with a compact evidence string."""
-    if ch in SMART_ALLOWED:
-        return ("valid-typography", "common typographic punctuation")
+def _is_word_like(ch: str) -> bool:
+    return ch.isalpha() or ch in "'-"
 
-    window_start = max(0, offset - 2)
-    window_end = min(len(text), offset + 3)
-    window = text[window_start:window_end]
-    match = MOJIBAKE_RE.search(window)
-    if match:
-        return ("mojibake-pattern", f"matched mojibake fragment '{match.group(0)}'")
+
+def _is_likely_good_lexical(text: str, offset: int, ch: str) -> bool:
+    if not ch.isalpha():
+        return False
+    if ord(ch) <= 127:
+        return False
+    if "LATIN" not in get_unicode_name(ch):
+        return False
+    prev_char = text[offset - 1] if offset > 0 else ""
+    next_char = text[offset + 1] if offset + 1 < len(text) else ""
+    return _is_word_like(prev_char) or _is_word_like(next_char)
+
+
+def _build_metadata(ch: str) -> dict[str, str | bool]:
+    nfc = unicodedata.normalize("NFC", ch)
+    nfd = unicodedata.normalize("NFD", ch)
+    return {
+        "unicode_name": get_unicode_name(ch),
+        "unicode_category": unicodedata.category(ch),
+        "is_combining": bool(unicodedata.combining(ch)),
+        "is_odd_space": ch in KNOWN_ODD_SPACES,
+        "is_bom": ord(ch) == 0xFEFF,
+        "nfc": nfc,
+        "nfd": nfd,
+        "is_normalized_nfc": nfc == ch,
+    }
+
+
+def _scan_repair_sequences(text: str) -> list[dict[str, object]]:
+    candidates: list[dict[str, object]] = []
+    index = 0
+    while index < len(text):
+        matched = False
+        for key in MOJIBAKE_KEYS:
+            if text.startswith(key, index):
+                candidates.append(
+                    {
+                        "offset": index,
+                        "sequence": key,
+                        "repair": COMMON_MOJIBAKE_REPAIRS[key],
+                        "evidence": {
+                            "rule": "known-mojibake-map",
+                            "confidence": "high",
+                            "original": key,
+                            "proposed_repair": COMMON_MOJIBAKE_REPAIRS[key],
+                        },
+                    }
+                )
+                index += len(key)
+                matched = True
+                break
+        if not matched:
+            index += 1
+    return candidates
+
+
+def classify_character(
+    text: str,
+    offset: int,
+    ch: str,
+    covered_offsets: set[int],
+) -> tuple[str | None, str]:
+    """Classify one character using layered Unicode QA checks."""
+    if offset in covered_offsets:
+        return (None, "")
+
+    metadata = _build_metadata(ch)
+    if _is_likely_good_lexical(text, offset, ch):
+        return (
+            "likely-good-unicode",
+            json.dumps(
+                {
+                    "layer": "likely-good",
+                    "reason": "latin-letter-in-word-context",
+                    "metadata": metadata,
+                },
+                ensure_ascii=False,
+            ),
+        )
+
+    if metadata["is_bom"]:
+        return (
+            "review-needed",
+            json.dumps(
+                {
+                    "layer": "metadata",
+                    "reason": "bom-character",
+                    "metadata": metadata,
+                },
+                ensure_ascii=False,
+            ),
+        )
+
+    if metadata["is_odd_space"] or metadata["is_combining"]:
+        return (
+            "review-needed",
+            json.dumps(
+                {
+                    "layer": "metadata",
+                    "reason": "odd-space-or-combining",
+                    "metadata": metadata,
+                },
+                ensure_ascii=False,
+            ),
+        )
 
     return (
         "suspicious-unicode",
-        f"unicode_category={unicodedata.category(ch)}; non-ascii outside allowlist",
+        json.dumps(
+            {
+                "layer": "residual-review",
+                "reason": "non-ascii-outside-likely-good-and-known-repairs",
+                "metadata": metadata,
+            },
+            ensure_ascii=False,
+        ),
     )
 
 
@@ -204,15 +330,38 @@ def iter_special_character_rows(
     context: int,
     name_width: int,
 ):
-    """Yield per-occurrence TSV rows for each flagged character in input text."""
+    """Yield per-occurrence TSV rows for each Unicode QA finding in text."""
     occurrence_counts = {}
+    covered_offsets = set()
+
+    for candidate in _scan_repair_sequences(text):
+        offset = candidate["offset"]
+        sequence = candidate["sequence"]
+        for idx in range(offset, offset + len(sequence)):
+            covered_offsets.add(idx)
+        occurrence_counts[sequence] = occurrence_counts.get(sequence, 0) + 1
+        row = [
+            path,
+            f"U+{ord(sequence[0]):04X}",
+            escape_for_tsv(sequence),
+            truncate_text("KNOWN MOJIBAKE SEQUENCE", name_width),
+            str(occurrence_counts[sequence]),
+            str(offset),
+            escape_for_tsv(get_context_snippet(text, offset, context)),
+            "repair-candidate",
+            escape_for_tsv(json.dumps(candidate["evidence"], ensure_ascii=False)),
+        ]
+        yield "\t".join(row)
 
     for offset, ch in enumerate(text):
         if not is_flagged(ch, allow_smart, excluded, allowlist):
             continue
 
+        classification, evidence = classify_character(text, offset, ch, covered_offsets)
+        if not classification:
+            continue
+
         occurrence_counts[ch] = occurrence_counts.get(ch, 0) + 1
-        classification, evidence = classify_character(text, offset, ch)
         row = [
             path,
             f"U+{ord(ch):04X}",

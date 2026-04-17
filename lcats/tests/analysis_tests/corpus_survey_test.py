@@ -333,6 +333,25 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.assertEqual("U+00A9", rows[0]["codepoint"])
         self.assertEqual("mojibake", rows[0]["classification"])
 
+    def test_parse_special_character_rows_maps_unicode_qa_classifications(self):
+        output = (
+            "U+00F1\tñ\tLATIN SMALL LETTER N WITH TILDE\t1\t2\tctx\t"
+            "likely-good-unicode\t{}\n"
+            "U+221A\t√\tSQUARE ROOT\t1\t8\tctx\trepair-candidate\t{}\n"
+            "U+FEFF\t\ufeff\tZERO WIDTH NO-BREAK SPACE\t1\t0\tctx\treview-needed\t{}"
+        )
+
+        rows = corpus_survey.parse_special_character_rows(
+            output, pathlib.Path("story.json"), "Story Title"
+        )
+
+        self.assertEqual("good-unicode", rows[0]["classification"])
+        self.assertEqual("info", rows[0]["severity"])
+        self.assertEqual("repair", rows[1]["classification"])
+        self.assertEqual("error", rows[1]["severity"])
+        self.assertEqual("review", rows[2]["classification"])
+        self.assertEqual("warning", rows[2]["severity"])
+
     def test_main_tsv_output_has_stable_columns_for_multiple_checks(self):
         rows = [
             {

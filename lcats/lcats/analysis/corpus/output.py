@@ -24,10 +24,10 @@ TSV_COLUMNS = [
     "classification",
     "evidence",
     "message",
-    # "story_title",
-    # "story_file",
-    # "path",
-    "story_identifier",
+    "story_title",
+    "story_file",
+    "path",
+    "identifier",
 ]
 IDENTIFIER_FIELDS = ("path", "filename", "title")
 DEFAULT_IDENTIFIER_FIELD = "path"
@@ -46,8 +46,11 @@ KIND_VALUE_MAP = {
 }
 CLASSIFICATION_VALUE_MAP = {
     "valid-typography": "valid-typo",
+    "likely-good-unicode": "good-unicode",
     "suspicious-unicode": "sus-unicode",
     "mojibake-pattern": "mojibake",
+    "repair-candidate": "repair",
+    "review-needed": "review",
 }
 TSV_VALUE_LEGEND = (
     "Compact TSV values: "
@@ -55,8 +58,9 @@ TSV_VALUE_LEGEND = (
     "kind(spchar=special-character, start-contam=start-contamination, "
     "end-contam=end-contamination, rare-char=rare-review-character, "
     "mojibake=mojibake-sequence); "
-    "classification(valid-typo=valid-typography, "
-    "sus-unicode=suspicious-unicode, mojibake=mojibake-pattern)."
+    "classification(valid-typo=valid-typography, good-unicode=likely-good-unicode, "
+    "sus-unicode=suspicious-unicode, mojibake=mojibake-pattern, "
+    "repair=repair-candidate, review=review-needed)."
 )
 
 
@@ -73,10 +77,12 @@ def compact_value(value: str, mapping: Mapping[str, str]) -> str:
 def severity_from_classification(classification: str) -> str:
     """Map special-character classification to severity."""
     lowered = classification.lower()
-    if "mojibake" in lowered:
+    if "mojibake" in lowered or "repair" in lowered:
         return "error"
-    if "rare" in lowered:
+    if "rare" in lowered or "good" in lowered:
         return "info"
+    if "review" in lowered:
+        return "warning"
     if lowered:
         return "warning"
     return "warning"
@@ -171,11 +177,11 @@ def with_identifier(
     """Return row with selected identifier value and stable schema."""
     mutable = dict(row)
     if identifier == "filename":
-        mutable["story_identifier"] = mutable.get("story_file", "")
+        mutable["identifier"] = mutable.get("story_file", "")
     elif identifier == "title":
-        mutable["story_identifier"] = mutable.get("story_title", "")
+        mutable["identifier"] = mutable.get("story_title", "")
     else:
-        mutable["story_identifier"] = mutable.get("path", "")
+        mutable["identifier"] = mutable.get("path", "")
     return mutable
 
 
