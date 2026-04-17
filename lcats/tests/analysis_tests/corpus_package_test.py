@@ -109,6 +109,23 @@ class TestCli(test_utils.TestCaseWithData):
         self.assertEqual(0, status)
         mock_survey_file.assert_called_once()
 
+    @mock.patch("lcats.analysis.corpus.cli.survey_file")
+    @mock.patch("lcats.analysis.corpus.cli.discovery.find_json_files")
+    def test_run_survey_specials_mode_defaults_to_special_characters(
+        self, mock_find_json_files, mock_survey_file
+    ):
+        path = pathlib.Path(self.test_temp_dir) / "story.json"
+        path.write_text("{}", encoding="utf-8")
+        mock_find_json_files.return_value = [path]
+        mock_survey_file.return_value = []
+
+        with capture.suppress_output():
+            status = cli.run_survey(["specials", str(path)])
+
+        self.assertEqual(0, status)
+        called_args = mock_survey_file.call_args.args[1]
+        self.assertEqual(["special-characters"], called_args.check_for)
+
     @mock.patch("lcats.analysis.corpus.cli.stats.compute_corpus_stats")
     def test_run_stats(self, mock_compute):
         import pandas as pd

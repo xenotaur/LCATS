@@ -4,7 +4,6 @@ import argparse
 import csv
 import json
 import pathlib
-import subprocess
 import sys
 
 from typing import Optional, Sequence
@@ -15,6 +14,7 @@ import tqdm
 from lcats.analysis.corpus import discovery
 from lcats.analysis.corpus import output
 from lcats.analysis.corpus import qa
+from lcats.analysis.corpus import specials
 from lcats.analysis.corpus import stats
 from lcats.analysis.corpus.detectors import boundary
 from lcats.analysis.corpus.detectors import unicode
@@ -65,38 +65,19 @@ def run_special_characters_check(
     header: bool,
 ) -> str:
     """Run the special-character extractor and return its TSV output."""
-    command = [extract_script]
-    if allow_smart:
-        command.append("--allow-smart")
-    if allowlist_config:
-        command.append(f"--allowlist-config={allowlist_config}")
-    if excluded_codepoints:
-        command.append("--exclude-codepoint=" + ",".join(excluded_codepoints))
-    if excluded_chars:
-        command.append("--exclude-char=" + ",".join(excluded_chars))
-    if nocontext:
-        command.append("--nocontext")
-    else:
-        command.append(f"--context={context}")
-    if name_width > 0:
-        command.append(f"--name-width={name_width}")
-    if header:
-        command.append("--header")
-
-    result = subprocess.run(
-        command,
-        input=displayed_text,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
+    _ = extract_script
+    effective_context = 0 if nocontext else context
+    excluded = specials.build_excluded_set(excluded_chars, excluded_codepoints)
+    allowlist = specials.load_allowlist_config(allowlist_config)
+    return specials.build_special_character_report(
+        text=displayed_text,
+        allow_smart=allow_smart,
+        excluded=excluded,
+        allowlist=allowlist,
+        context=effective_context,
+        name_width=name_width,
+        header=header,
     )
-    if result.returncode not in (0, 141):
-        raise RuntimeError(
-            "special-character check failed:\n"
-            f"stdout:\n{result.stdout}\n"
-            f"stderr:\n{result.stderr}"
-        )
-    return result.stdout.strip()
 
 
 def parse_csv_args(values):
@@ -119,10 +100,19 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
+        "mode_or_directory",
+        nargs="?",
+        default="",
+        help=(
+            "Optional mode or first directory. Use 'specials' to run only "
+            "special-character extraction."
+        ),
+    )
+    parser.add_argument(
         "directories",
         nargs="*",
-        default=["data/"],
-        help="Directories or files to survey.",
+        default=[],
+        help="Additional directories or files to survey.",
     )
     parser.add_argument(
         "--check-for",
@@ -135,7 +125,9 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
     )
     parser.add_argument("--print-clean-filenames", action="store_true")
     parser.add_argument(
-        "--extract-script", default="scripts/utils/extract_special_chars.py"
+        "--extract-script",
+        default="scripts/utils/extract_special_chars.py",
+        help="Legacy compatibility option; modern survey uses in-process extraction.",
     )
     parser.add_argument("--allowlist-config", default="")
     parser.add_argument("--allow-smart", dest="allow_smart", action="store_true")
@@ -250,6 +242,15 @@ def run_survey(
         parser.error("--name-width must be >= 0")
     if args.unicode_name_width < 0:
         parser.error("--unicode-name-width must be >= 0")
+
+    directories = list(args.directories)
+    if args.mode_or_directory:
+        if args.mode_or_directory == "specials":
+            if not args.check_for:
+                args.check_for = ["special-characters"]
+        else:
+            directories = [args.mode_or_directory, *directories]
+    args.directories = directories or ["data/"]
 
     args.check_for = parse_csv_args(args.check_for) or list(qa.DEFAULT_CHECKS)
     args.exclude_codepoint = list(unicode.DEFAULT_EXCLUDED_CODEPOINTS) + parse_csv_args(

@@ -116,6 +116,7 @@ class TestCli(unittest.TestCase):
                 cli.main(["survey", "--help"])
         output = captured.stdout.getvalue()
         self.assertIn("Examples:", output)
+        self.assertIn("lcats survey specials corpora/sherlock", output)
         self.assertIn("lcats survey data/ --format tsv --output findings.tsv", output)
 
     def test_stats_help_contains_examples(self):
