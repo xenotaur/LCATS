@@ -6,6 +6,7 @@ import pathlib
 import unittest
 from unittest import mock
 
+from lcats.analysis.corpus import models
 from lcats.utils import test_utils
 from lcats.analysis.corpus import cli
 from lcats.analysis.corpus import discovery
@@ -94,6 +95,28 @@ class TestStatsAndProcessing(test_utils.TestCaseWithData):
 
 class TestCli(test_utils.TestCaseWithData):
     """Tests for corpus cli subcommands."""
+
+    def test_finding_to_row_copies_boundary_line_into_context(self):
+        finding = models.Finding(
+            kind="start-contamination",
+            severity="warning",
+            span=(1, 24),
+            message="Likely title heading at story start.",
+            evidence={"line": "FIRST STORY", "type": "title-line"},
+        )
+
+        row = output.finding_to_row(
+            pathlib.Path("story.json"),
+            "Story",
+            "boundary-contamination",
+            finding,
+        )
+
+        self.assertEqual("FIRST STORY", row["context"])
+        self.assertEqual(
+            '{"line": "FIRST STORY", "type": "title-line"}',
+            row["evidence"],
+        )
 
     def test_write_human_rows_prints_context_lines(self):
         stream = io.StringIO()
