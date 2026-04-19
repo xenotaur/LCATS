@@ -20,6 +20,12 @@ from lcats.analysis.corpus.detectors import boundary
 from lcats.analysis.corpus.detectors import unicode
 
 
+def read_story_data(file_path: pathlib.Path) -> dict:
+    """Read one corpus JSON file and return its parsed data."""
+    with file_path.open("r", encoding="utf-8") as json_file:
+        return json.load(json_file)
+
+
 def run_lcats_display(file_path: pathlib.Path) -> str:
     """Render one corpus JSON file using the same formatter as lcats display."""
     rendered, _ = run_lcats_display_and_title(file_path)
@@ -28,9 +34,14 @@ def run_lcats_display(file_path: pathlib.Path) -> str:
 
 def read_story_title(file_path: pathlib.Path) -> str:
     """Read one corpus JSON file and return a display title."""
-    with file_path.open("r", encoding="utf-8") as json_file:
-        data = json.load(json_file)
+    data = read_story_data(file_path)
     return infer_story_title(data, file_path)
+
+
+def read_story_text(file_path: pathlib.Path) -> str:
+    """Read one corpus JSON file and return the normalized story body text."""
+    data = read_story_data(file_path)
+    return coerce_story_text(data.get("body", ""))
 
 
 def infer_story_title(data: dict, file_path: pathlib.Path) -> str:
@@ -43,10 +54,18 @@ def infer_story_title(data: dict, file_path: pathlib.Path) -> str:
     return story_title
 
 
+def coerce_story_text(value) -> str:
+    """Return normalized story body text without importing heavier analysis modules."""
+    if isinstance(value, (bytes, bytearray)):
+        return bytes(value).decode("utf-8", errors="replace")
+    if isinstance(value, str):
+        return lcats.inspect._decode_possible_bytes_literal(value)
+    return str(value)
+
+
 def run_lcats_display_and_title(file_path: pathlib.Path) -> tuple[str, str]:
     """Render one corpus JSON file and return display text plus story title."""
-    with file_path.open("r", encoding="utf-8") as json_file:
-        data = json.load(json_file)
+    data = read_story_data(file_path)
     story_title = infer_story_title(data, file_path)
     rendered = lcats.inspect.format_story_json(data, max_body_chars=None, width=80)
     return f"{rendered}\n", story_title
@@ -192,13 +211,15 @@ def _show_progress(progress_arg: Optional[bool]) -> bool:
 
 def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
     """Run enabled checks on a single corpus file and return report rows."""
-    displayed_text, story_title = run_lcats_display_and_title(file_path)
+    data = read_story_data(file_path)
+    story_title = infer_story_title(data, file_path)
+    story_text = coerce_story_text(data.get("body", ""))
     rows = []
     for check_name in args.check_for:
         if check_name == "special-characters":
             parsed = output.parse_special_character_rows(
                 run_special_characters_check(
-                    displayed_text=displayed_text,
+                    displayed_text=story_text,
                     extract_script=args.extract_script,
                     allow_smart=args.allow_smart,
                     allowlist_config=args.allowlist_config,
@@ -215,7 +236,7 @@ def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
             rows.extend(parsed)
         elif check_name == "boundary-contamination":
             findings = qa.run_detectors(
-                displayed_text,
+                story_text,
                 config={
                     "detectors": [boundary.StartDetector(), boundary.EndDetector()]
                 },
