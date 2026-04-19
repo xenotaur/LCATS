@@ -130,6 +130,11 @@ def finding_to_row(
     finding: models.Finding,
 ) -> dict[str, str]:
     """Convert one finding into a stable TSV row."""
+    context = ""
+    evidence_line = finding.evidence.get("line")
+    if isinstance(evidence_line, str):
+        context = evidence_line
+
     row = empty_tsv_row()
     row.update(
         {
@@ -141,6 +146,7 @@ def finding_to_row(
             "severity": finding.severity,
             "span_start": str(finding.span[0]),
             "span_end": str(finding.span[1]),
+            "context": context,
             "evidence": json.dumps(dict(finding.evidence), ensure_ascii=False),
             "message": finding.message,
         }
