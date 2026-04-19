@@ -224,12 +224,12 @@ scripts/test tests.gatherers.downloaders_test
 
 _Run a specific test class:_
 ```bash
-scripts/test tests.gatherers.downloaders_test.TestDownloader
+scripts/test tests.gatherers.downloaders_test.TestLoadPage
 ```
 
 _Run a single test method:_
 ```bash
-scripts/test tests.gatherers.downloaders_test.TestDownloader.test_detect_encoding
+scripts/test tests.gatherers.downloaders_test.TestLoadPage.test_load_page_success_utf8
 ```
 
 **Test Discovery:**

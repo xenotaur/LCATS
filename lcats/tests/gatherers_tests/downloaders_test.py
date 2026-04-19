@@ -141,6 +141,25 @@ class TestLoadPage(unittest.TestCase):
         mock_get.assert_called_once_with("http://example.com", timeout=10)
         mock_response.raise_for_status.assert_called_once_with()
 
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_prefers_apparent_encoding_over_response_encoding(self, mock_get):
+        """Test load_page prefers apparent_encoding over response.encoding."""
+        raw = "Price €10".encode("cp1252")
+
+        mock_response = Mock()
+        mock_response.content = raw
+        mock_response.raise_for_status = Mock()
+        mock_response.apparent_encoding = "cp1252"
+        mock_response.encoding = "iso-8859-1"
+        mock_get.return_value = mock_response
+
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
+
+        self.assertEqual(result, "Price €10")
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
+        mock_response.raise_for_status.assert_called_once_with()
+
 
 class TestLambdaResourceCache(test_utils.TestCaseWithData):
 
@@ -189,7 +208,7 @@ class TestLambdaResourceCache(test_utils.TestCaseWithData):
     def test_ensure(self):
         """Test the ensure method."""
         cache = downloaders.LambdaResourceCache(
-            canonicalizer=lambda x: x, acquirer=lambda x: x
+            canonicalizer=lambda x: x, acquirer=lambda x: x, root=self.test_temp_dir
         )
         file_name = "bar.baz"
         full_path = cache.full_path(file_name)
