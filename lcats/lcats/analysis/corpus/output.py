@@ -221,3 +221,7 @@ def write_human_rows(
             f"  [{row.get('check', '')}] {row.get('severity', '')}: {row.get('message', '')}{suffix}",
             file=output_stream,
         )
+        context = row.get("context", "")
+        if context:
+            for line in context.splitlines():
+                print(f"    context: {line}", file=output_stream)

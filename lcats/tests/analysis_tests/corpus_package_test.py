@@ -1,5 +1,6 @@
 """Tests for unified lcats.analysis.corpus package."""
 
+import io
 import json
 import pathlib
 import unittest
@@ -8,6 +9,7 @@ from unittest import mock
 from lcats.utils import test_utils
 from lcats.analysis.corpus import cli
 from lcats.analysis.corpus import discovery
+from lcats.analysis.corpus import output
 from lcats.analysis.corpus import processing
 from lcats.analysis.corpus import qa
 from lcats.analysis.corpus import stats
@@ -92,6 +94,36 @@ class TestStatsAndProcessing(test_utils.TestCaseWithData):
 
 class TestCli(test_utils.TestCaseWithData):
     """Tests for corpus cli subcommands."""
+
+    def test_write_human_rows_prints_context_lines(self):
+        stream = io.StringIO()
+        file_path = pathlib.Path("story.json")
+        rows = [
+            {
+                "check": "boundary",
+                "severity": "warning",
+                "message": "Likely title heading at story start.",
+                "span_start": "1",
+                "span_end": "52",
+                "context": (
+                    '{"line": "1. HOW THEY WENT TO THE MOUNTAINS TO EAT NUTS", '
+                    '"type": "title-line"}'
+                ),
+            }
+        ]
+
+        output.write_human_rows(stream, file_path, rows)
+
+        rendered = stream.getvalue()
+        self.assertIn("story.json", rendered)
+        self.assertIn(
+            "[boundary] warning: Likely title heading at story start. (span=1:52)",
+            rendered,
+        )
+        self.assertIn(
+            '    context: {"line": "1. HOW THEY WENT TO THE MOUNTAINS',
+            rendered,
+        )
 
     @mock.patch("lcats.analysis.corpus.cli.survey_file")
     @mock.patch("lcats.analysis.corpus.cli.discovery.find_json_files")
