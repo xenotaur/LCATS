@@ -191,6 +191,31 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         )
         self.assertEqual("rendered\n", output)
 
+    def test_survey_file_uses_raw_story_body_not_display_output(self):
+        sample_story = {
+            "name": "A Title That Looks Suspicious",
+            "author": ["By Someone"],
+            "metadata": {"source": "unit-test"},
+            "body": "Plain body text with no special markers.",
+        }
+        args = corpus_survey.build_parser().parse_args(
+            ["--check-for", "boundary-contamination"]
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            story_path = pathlib.Path(temp_dir) / "story.json"
+            with story_path.open("w", encoding="utf-8") as story_file:
+                json.dump(sample_story, story_file)
+
+            with unittest.mock.patch.object(
+                corpus_survey.lcats.inspect,
+                "format_story_json",
+                return_value="📖 Title: A Title That Looks Suspicious\nBy Someone\nTHE END",
+            ):
+                rows = corpus_survey.survey_file(story_path, args)
+
+        self.assertEqual([], rows)
+
     def test_bad_start_and_bad_end_report_precise_spans(self):
         cases = [
             (self.bad_start_text, 0),
