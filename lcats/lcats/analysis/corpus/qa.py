@@ -7,7 +7,7 @@ from lcats.analysis.corpus.detectors import boundary
 from lcats.analysis.corpus.detectors import structural
 from lcats.analysis.corpus.detectors import unicode
 
-DEFAULT_CHECKS = ["special-characters"]
+DEFAULT_CHECKS = ["special-characters", "boundary-contamination"]
 
 
 def build_default_detectors() -> list[models.Detector]:
