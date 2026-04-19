@@ -13,15 +13,21 @@ from lcats.utils import names
 
 
 def load_page(url, timeout=10, preferred_encoding="utf-8"):
-    """Load a page from a URL and return decoded text content.
+    """Load a page from a URL and decode the response bytes to text.
 
     Args:
         url (str): The URL to load.
         timeout (int): The number of seconds to wait for a response.
-        preferred_encoding (str): The encoding to try first when decoding.
+        preferred_encoding (str): The encoding to try first when decoding
+            ``response.content``.
 
     Returns:
         str: The decoded text content of the page.
+
+    Raises:
+        requests.exceptions.RequestException: If the HTTP request fails.
+        UnicodeDecodeError: If the response bytes cannot be decoded with the
+            preferred encoding or the response-provided fallback encodings.
     """
     response = requests.get(url, timeout=timeout)
     response.raise_for_status()

@@ -211,7 +211,6 @@ def write_human_rows(
     rows: Sequence[Mapping[str, str]],
 ) -> None:
     """Write human-readable findings for one file."""
-    print(str(file_path), file=output_stream)
     for row in rows:
         details = []
         if row.get("codepoint", ""):

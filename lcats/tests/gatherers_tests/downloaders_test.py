@@ -18,6 +18,26 @@ from lcats.utils import names
 class TestLoadPage(unittest.TestCase):
     """Tests for the load_page function."""
 
+    class ResponseStub:
+        """Minimal response stub for deterministic downloader tests."""
+
+        def __init__(
+            self,
+            content,
+            apparent_encoding=None,
+            encoding=None,
+            status_code=200,
+        ):
+            self.content = content
+            self.apparent_encoding = apparent_encoding
+            self.encoding = encoding
+            self.status_code = status_code
+
+        def raise_for_status(self):
+            """Raise an HTTP error when the stub status is not successful."""
+            if self.status_code >= 400:
+                raise requests.exceptions.HTTPError(f"{self.status_code} Client Error")
+
     @patch("lcats.gatherers.downloaders.requests.get")
     def test_load_page_success_utf8(self, mock_get):
         """Test load_page with content that decodes using the preferred encoding."""
@@ -140,6 +160,23 @@ class TestLoadPage(unittest.TestCase):
         self.assertEqual(result, text)
         mock_get.assert_called_once_with("http://example.com", timeout=10)
         mock_response.raise_for_status.assert_called_once_with()
+
+    @patch("lcats.gatherers.downloaders.requests.get")
+    def test_load_page_prefers_apparent_encoding_over_response_encoding(self, mock_get):
+        """Test load_page uses apparent_encoding before response.encoding."""
+        raw = "Price €10".encode("cp1252")
+        response = self.ResponseStub(
+            content=raw,
+            apparent_encoding="cp1252",
+            encoding="iso-8859-1",
+        )
+        mock_get.return_value = response
+
+        with capture.suppress_output():
+            result = downloaders.load_page("http://example.com")
+
+        self.assertEqual(result, "Price €10")
+        mock_get.assert_called_once_with("http://example.com", timeout=10)
 
 
 class TestLambdaResourceCache(test_utils.TestCaseWithData):

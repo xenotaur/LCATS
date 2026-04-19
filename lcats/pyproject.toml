@@ -15,7 +15,6 @@ authors = [
 license = {text = "MIT"}
 dependencies = [
    "unidecode",
-   "chardet",
    "beautifulsoup4",
    "PyYAML",
    "tiktoken",

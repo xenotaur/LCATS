@@ -10,8 +10,8 @@ README_FILE = "README.md"  # Used in setup.py
 LICENSE_FILE = "LICENSE"  # Used in downloaders.py
 
 # File encodings
-GUTENBERG_ENCODING = "ISO-8859-1"  # used by Gutenberg.  # TODO(centaur): still needed?
-TEXT_ENCODING = "utf-8"  # standard used for storage.
+GUTENBERG_ENCODING = "ISO-8859-1"  # Legacy Gutenberg source encoding.
+TEXT_ENCODING = "utf-8"  # Standard encoding for cached and stored text.
 
 # File formats
 FILE_SUFFIX = ".json"  # Standard suffix for story files.
