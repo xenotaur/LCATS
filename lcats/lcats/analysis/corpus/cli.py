@@ -145,8 +145,11 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
     parser.add_argument("--print-clean-filenames", action="store_true")
     parser.add_argument(
         "--extract-script",
-        default="scripts/utils/extract_special_chars.py",
-        help="Legacy compatibility option; modern survey uses in-process extraction.",
+        default="lcats.analysis.corpus.specials_cli",
+        help=(
+            "Legacy compatibility option; special-character extraction now lives "
+            "in lcats.analysis.corpus.specials_cli and survey runs in-process."
+        ),
     )
     parser.add_argument("--allowlist-config", default="")
     parser.add_argument("--allow-smart", dest="allow_smart", action="store_true")
