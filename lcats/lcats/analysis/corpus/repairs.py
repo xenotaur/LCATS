@@ -31,6 +31,21 @@ class RepairSuggestion:
     rationale: str = ""
 
 
+@dataclass(frozen=True)
+class SpanRepairOperation:
+    """Explicit span-based text operation for conservative repair workflows."""
+
+    operation: str
+    start: int
+    end: int
+    original_text: str
+    replacement_text: str
+    rule_id: str
+    evidence: str
+    rationale: str = ""
+    confidence: str = "high"
+
+
 DEFAULT_REPAIR_RULES = (
     RepairRule(
         rule_id="mojibake-right-single-quote",
@@ -160,18 +175,70 @@ def suggest_repairs(
 
 
 def apply_repair_suggestions(text: str, suggestions: Sequence[RepairSuggestion]) -> str:
-    """Apply suggestions in reverse order when original spans still match."""
+    """Apply suggestions using explicit span operations."""
+    operations = suggestions_to_span_operations(suggestions)
+    return apply_span_operations(text, operations)
+
+
+def suggestions_to_span_operations(
+    suggestions: Sequence[RepairSuggestion],
+) -> list[SpanRepairOperation]:
+    """Convert suggestions to explicit span-replace operations."""
+    operations = [
+        SpanRepairOperation(
+            operation="replace",
+            start=suggestion.start,
+            end=suggestion.end,
+            original_text=suggestion.original_text,
+            replacement_text=suggestion.replacement_text,
+            rule_id=suggestion.rule_id,
+            evidence=suggestion.evidence,
+            rationale=suggestion.rationale,
+            confidence=suggestion.confidence,
+        )
+        for suggestion in suggestions
+    ]
+    operations.sort(
+        key=lambda operation: (operation.start, operation.end, operation.rule_id)
+    )
+    return operations
+
+
+def _has_overlapping_spans(operations: Sequence[SpanRepairOperation]) -> bool:
+    """Return True when any sorted operation span overlaps."""
+    sorted_operations = sorted(
+        operations, key=lambda current: (current.start, current.end)
+    )
+    for left, right in zip(sorted_operations, sorted_operations[1:]):
+        if left.end > right.start:
+            return True
+    return False
+
+
+def apply_span_operations(text: str, operations: Sequence[SpanRepairOperation]) -> str:
+    """Apply non-overlapping span operations in deterministic order.
+
+    Operations are treated as spans into the original input text. If any spans
+    overlap, no changes are applied and the original text is returned.
+    """
+    ordered = sorted(
+        (operation for operation in operations if operation.operation == "replace"),
+        key=lambda current: (current.start, current.end),
+    )
+    if _has_overlapping_spans(ordered):
+        return text
+
     updated = text
-    for suggestion in sorted(
-        suggestions, key=lambda current: (current.start, current.end), reverse=True
-    ):
-        current_original = updated[suggestion.start : suggestion.end]
-        if current_original != suggestion.original_text:
+    for operation in reversed(ordered):
+        if operation.operation != "replace":
+            continue
+        current_original = updated[operation.start : operation.end]
+        if current_original != operation.original_text:
             continue
         updated = (
-            updated[: suggestion.start]
-            + suggestion.replacement_text
-            + updated[suggestion.end :]
+            updated[: operation.start]
+            + operation.replacement_text
+            + updated[operation.end :]
         )
     return updated
 
