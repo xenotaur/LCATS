@@ -2,6 +2,7 @@
 
 import unittest
 
+from lcats.analysis.corpus import review
 from lcats.analysis.corpus import specials
 
 
@@ -131,6 +132,31 @@ class SpecialsTest(unittest.TestCase):
 
         self.assertEqual("review_needed", classification)
         self.assertIn("residual-review", evidence)
+
+    def test_build_special_character_report_applies_review_allow_rules(self):
+        decision_store = review.ReviewDecisionStore(
+            allowed_special_cases=(
+                review.AllowedSpecialCase(
+                    character="√",
+                    classification="review_needed",
+                    evidence_contains="residual-review",
+                ),
+            )
+        )
+
+        report = specials.build_special_character_report(
+            text="A √ and ©",
+            allow_smart=False,
+            excluded=set(),
+            allowlist=specials.AllowlistConfig(),
+            context=4,
+            name_width=0,
+            header=False,
+            decision_store=decision_store,
+        )
+
+        self.assertIn("©", report)
+        self.assertNotIn("√", report)
 
 
 if __name__ == "__main__":
