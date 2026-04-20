@@ -60,6 +60,18 @@ class TestCli(unittest.TestCase):
         self.assertEqual(0, actual_status)
         mock_run_stats.assert_called_once()
 
+    @mock.patch("lcats.analysis.corpus.repairs_cli.run")
+    def test_dispatch_repair_specials(self, mock_run):
+        """Ensure the repair-specials command delegates to repairs_cli."""
+        mock_run.return_value = 0
+
+        actual_message, actual_status = cli.dispatch(
+            "repair-specials", ["--header", "sample.txt"]
+        )
+        self.assertEqual("", actual_message)
+        self.assertEqual(0, actual_status)
+        mock_run.assert_called_once()
+
     @parameterized.parameterized.expand(
         [
             ("index", "Indexing data files is not yet implemented."),
@@ -98,8 +110,10 @@ class TestCli(unittest.TestCase):
         [
             (["survey", "--help"], "usage: lcats survey"),
             (["stats", "--help"], "usage: lcats stats"),
+            (["repair-specials", "--help"], "usage: lcats repair-specials"),
             (["help", "survey"], "usage: lcats survey"),
             (["help", "stats"], "usage: lcats stats"),
+            (["help", "repair-specials"], "usage: lcats repair-specials"),
         ]
     )
     def test_command_help(self, argv, expected_usage):

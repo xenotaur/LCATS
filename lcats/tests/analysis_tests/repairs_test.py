@@ -99,6 +99,22 @@ class RepairsTest(unittest.TestCase):
 
         self.assertEqual([], suggestions)
 
+    def test_suggest_repairs_ignores_review_needed_cases(self):
+        finding = specials.SpecialCharacter(
+            character="√",
+            codepoint="U+221A",
+            unicode_name="SQUARE ROOT",
+            occurrence_index=1,
+            offset=3,
+            context="a√b",
+            classification="review_needed",
+            evidence="rule=residual-review; unicode_name=SQUARE ROOT",
+        )
+
+        suggestions = repairs.suggest_repairs("a√b", [finding])
+
+        self.assertEqual([], suggestions)
+
     def test_apply_repair_suggestions_applies_only_matching_spans(self):
         text = "Broken â€™ and â€¦"
         suggestions = [
@@ -125,6 +141,15 @@ class RepairsTest(unittest.TestCase):
         updated = repairs.apply_repair_suggestions(text, suggestions)
 
         self.assertEqual("Broken ’ and â€¦", updated)
+
+    def test_suggest_repairs_for_text_uses_classifier_and_rules(self):
+        suggestions = repairs.suggest_repairs_for_text("Text â€” sample")
+
+        self.assertEqual(1, len(suggestions))
+        suggestion = suggestions[0]
+        self.assertEqual("â€”", suggestion.original_text)
+        self.assertEqual("—", suggestion.replacement_text)
+        self.assertEqual("high", suggestion.confidence)
 
 
 if __name__ == "__main__":
