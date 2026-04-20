@@ -221,7 +221,10 @@ def apply_span_operations(text: str, operations: Sequence[SpanRepairOperation]) 
     Operations are treated as spans into the original input text. If any spans
     overlap, no changes are applied and the original text is returned.
     """
-    ordered = sorted(operations, key=lambda current: (current.start, current.end))
+    ordered = sorted(
+        (operation for operation in operations if operation.operation == "replace"),
+        key=lambda current: (current.start, current.end),
+    )
     if _has_overlapping_spans(ordered):
         return text
 

@@ -222,6 +222,33 @@ class RepairsTest(unittest.TestCase):
 
         self.assertEqual(text, updated)
 
+    def test_apply_span_operations_ignores_non_replace_in_overlap_precheck(self):
+        text = "â€™"
+        operations = [
+            repairs.SpanRepairOperation(
+                operation="delete",
+                start=0,
+                end=2,
+                original_text="â€",
+                replacement_text="",
+                rule_id="unsupported-delete",
+                evidence="unsupported-op",
+            ),
+            repairs.SpanRepairOperation(
+                operation="replace",
+                start=0,
+                end=3,
+                original_text="â€™",
+                replacement_text="’",
+                rule_id="mojibake-right-single-quote",
+                evidence="rule=mojibake-pattern; fragment=â€™",
+            ),
+        ]
+
+        updated = repairs.apply_span_operations(text, operations)
+
+        self.assertEqual("’", updated)
+
     def test_suggest_repairs_for_text_uses_classifier_and_rules(self):
         suggestions = repairs.suggest_repairs_for_text("Text â€” sample")
 
