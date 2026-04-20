@@ -5,6 +5,7 @@ from lcats.analysis.corpus import discovery
 from lcats.analysis.corpus import models
 from lcats.analysis.corpus import output
 from lcats.analysis.corpus import processing
+from lcats.analysis.corpus import repairs
 from lcats.analysis.corpus import qa
 from lcats.analysis.corpus import specials
 from lcats.analysis.corpus import stats
@@ -15,6 +16,7 @@ __all__ = [
     "models",
     "output",
     "processing",
+    "repairs",
     "qa",
     "specials",
     "stats",
