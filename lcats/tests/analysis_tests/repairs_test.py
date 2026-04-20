@@ -5,6 +5,7 @@ import unittest
 from parameterized import parameterized
 
 from lcats.analysis.corpus import repairs
+from lcats.analysis.corpus import review
 from lcats.analysis.corpus import specials
 
 
@@ -257,6 +258,52 @@ class RepairsTest(unittest.TestCase):
         self.assertEqual("â€”", suggestion.original_text)
         self.assertEqual("—", suggestion.replacement_text)
         self.assertEqual("high", suggestion.confidence)
+
+    def test_suggest_repairs_for_text_applies_allowed_special_review_rules(self):
+        text = "Text â€” sample"
+        decision_store = review.ReviewDecisionStore(
+            allowed_special_cases=(
+                review.AllowedSpecialCase(
+                    classification="likely_repairable",
+                    evidence_contains="fragment=â€”",
+                ),
+            )
+        )
+
+        suggestions = repairs.suggest_repairs_for_text(
+            text,
+            decision_store=decision_store,
+        )
+
+        self.assertEqual([], suggestions)
+
+    def test_suggest_reviewed_repairs_for_text_groups_decision_states(self):
+        text = "Text â€” and â€¦ sample"
+        decision_store = review.ReviewDecisionStore(
+            repair_decisions=(
+                review.RepairReviewDecision(
+                    rule_id="mojibake-em-dash",
+                    original_text="â€”",
+                    replacement_text="—",
+                    decision=review.APPROVED,
+                ),
+                review.RepairReviewDecision(
+                    rule_id="mojibake-ellipsis",
+                    original_text="â€¦",
+                    replacement_text="…",
+                    decision=review.REJECTED,
+                ),
+            )
+        )
+
+        grouped = repairs.suggest_reviewed_repairs_for_text(
+            text,
+            decision_store=decision_store,
+        )
+
+        self.assertEqual(1, len(grouped.approved))
+        self.assertEqual(1, len(grouped.rejected))
+        self.assertEqual(0, len(grouped.unresolved))
 
 
 if __name__ == "__main__":

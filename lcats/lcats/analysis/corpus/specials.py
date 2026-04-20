@@ -319,16 +319,23 @@ def iter_special_character_rows(
     allowlist: AllowlistConfig,
     context: int,
     name_width: int,
+    decision_store=None,
 ):
     """Yield stable TSV rows for each extracted special character."""
-    for result in iter_special_characters(
+    findings = iter_special_characters(
         text=text,
         allow_smart=allow_smart,
         excluded=excluded,
         allowlist=allowlist,
         context=context,
         name_width=name_width,
-    ):
+    )
+    if decision_store is not None:
+        from lcats.analysis.corpus import review
+
+        findings = review.apply_review_to_specials(findings, decision_store)
+
+    for result in findings:
         yield special_character_to_tsv_row(result)
 
 
@@ -340,6 +347,7 @@ def build_special_character_report(
     context: int,
     name_width: int,
     header: bool,
+    decision_store=None,
 ) -> str:
     """Return full TSV report for extracted special characters."""
     lines = []
@@ -353,6 +361,7 @@ def build_special_character_report(
             allowlist=allowlist,
             context=context,
             name_width=name_width,
+            decision_store=decision_store,
         )
     )
     return "\n".join(lines)

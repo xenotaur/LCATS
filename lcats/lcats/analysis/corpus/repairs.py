@@ -123,6 +123,7 @@ def suggest_repairs(
     text: str,
     findings: Iterable[specials.SpecialCharacter],
     rules: Sequence[RepairRule] = DEFAULT_REPAIR_RULES,
+    decision_store=None,
 ) -> list[RepairSuggestion]:
     """Convert likely-repairable findings into conservative suggestions.
 
@@ -138,7 +139,16 @@ def suggest_repairs(
     suggestions: list[RepairSuggestion] = []
     seen_spans: set[tuple[int, int]] = set()
 
-    for finding in findings:
+    filtered_findings = list(findings)
+    if decision_store is not None:
+        from lcats.analysis.corpus import review
+
+        filtered_findings = review.apply_review_to_specials(
+            filtered_findings,
+            decision_store,
+        )
+
+    for finding in filtered_findings:
         if finding.classification != "likely_repairable":
             continue
 
@@ -252,6 +262,7 @@ def suggest_repairs_for_text(
     context: int = 12,
     name_width: int = 0,
     rules: Sequence[RepairRule] = DEFAULT_REPAIR_RULES,
+    decision_store=None,
 ) -> list[RepairSuggestion]:
     """Extract findings from text and propose conservative repairs.
 
@@ -269,7 +280,39 @@ def suggest_repairs_for_text(
         context=context,
         name_width=name_width,
     )
-    return suggest_repairs(text, findings, rules=rules)
+    return suggest_repairs(
+        text,
+        findings,
+        rules=rules,
+        decision_store=decision_store,
+    )
+
+
+def suggest_reviewed_repairs_for_text(
+    text: str,
+    *,
+    allow_smart: bool = False,
+    excluded: Optional[set[str]] = None,
+    allowlist: Optional[specials.AllowlistConfig] = None,
+    context: int = 12,
+    name_width: int = 0,
+    rules: Sequence[RepairRule] = DEFAULT_REPAIR_RULES,
+    decision_store=None,
+):
+    """Return grouped repair suggestions after applying review decisions."""
+    from lcats.analysis.corpus import review
+
+    suggestions = suggest_repairs_for_text(
+        text,
+        allow_smart=allow_smart,
+        excluded=excluded,
+        allowlist=allowlist,
+        context=context,
+        name_width=name_width,
+        rules=rules,
+        decision_store=decision_store,
+    )
+    return review.apply_review_to_repairs(suggestions, decision_store)
 
 
 def build_dry_run_report(
