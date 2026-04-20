@@ -9,8 +9,13 @@
 - Use the project Python environment, not a global or base interpreter.
 - Run the full test suite with: `scripts/test`
 - Do not claim tests passed unless you ran `scripts/test` successfully.
-- Before reporting a missing-package failure for `scripts/test`, `scripts/lint`, `scripts/format`, or `lcats ...`, verify you are using the project environment.
+- Before reporting a missing-package failure for `scripts/test`, `scripts/lint`, `scripts/format`, or `lcats ...`, verify you are using the project environment and run `scripts/develop`.
 - If tests fail, fix the implementation or the test. Do not suppress or skip failing tests.
+
+## Agent Environment Setup
+- Before running `scripts/test`, `scripts/lint`, `scripts/format`, or `lcats ...`, verify you are using the project Python environment.
+- If dependencies are missing, run `scripts/develop` before concluding the command is unavailable in this repository.
+- Treat missing packages in a global or base interpreter as an environment-selection problem first, not a project failure.
 
 ## Python style
 - If formatting changes are needed, run Black.
