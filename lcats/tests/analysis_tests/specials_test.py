@@ -85,6 +85,45 @@ class SpecialsTest(unittest.TestCase):
         self.assertEqual("likely_repairable", classification)
         self.assertIn("mojibake-pattern", evidence)
 
+    def test_classify_character_mojibake_sequences_out_rank_lexical_diacritics(self):
+        cases = [
+            ("ÃŸ", "Ã"),
+            ("Ã©", "Ã"),
+            ("seÃ±or", "Ã"),
+            ("coÃ¶rdinate", "Ã"),
+        ]
+        for text, character in cases:
+            with self.subTest(text=text):
+                index = text.index(character)
+                classification, evidence = specials.classify_character(
+                    text, index, character
+                )
+                self.assertEqual("likely_repairable", classification)
+                self.assertIn("mojibake-pattern", evidence)
+
+    def test_classify_character_valid_lexical_diacritics_remain_likely_good(self):
+        cases = [
+            ("Muñoz", "ñ"),
+            ("façade", "ç"),
+            ("naïve", "ï"),
+            ("Zoë", "ë"),
+        ]
+        for text, character in cases:
+            with self.subTest(text=text):
+                index = text.index(character)
+                classification, evidence = specials.classify_character(
+                    text, index, character
+                )
+                self.assertEqual("likely_good", classification)
+                self.assertIn("lexical-latin-diacritic", evidence)
+
+    def test_classify_character_prefers_mojibake_over_lexical_rule(self):
+        classification, evidence = specials.classify_character("ÃŸ", 0, "Ã")
+
+        self.assertEqual("likely_repairable", classification)
+        self.assertIn("mojibake-pattern", evidence)
+        self.assertNotIn("lexical-latin-diacritic", evidence)
+
     def test_classify_character_review_needed_for_uncommon_symbol(self):
         classification, evidence = specials.classify_character(
             "Contains √ symbol", 9, "√"
