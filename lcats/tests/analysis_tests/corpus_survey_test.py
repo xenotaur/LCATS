@@ -139,6 +139,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         first_row = output.splitlines()[0].split("\t")
         self.assertEqual("U+221A", first_row[0])
         self.assertEqual("2", first_row[4])
+        self.assertEqual("review_needed", first_row[6])
 
     def test_run_special_characters_check_uses_nocontext_flag(self):
         output = corpus_survey.run_special_characters_check(
@@ -328,7 +329,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         output = (
             "codepoint\tchar\tunicode_name\toccurrence_index\t"
             "offset\tcontext\tclassification\tevidence\n"
-            "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tmojibake-pattern\tliteral"
+            "U+00A9\t©\tCOPYRIGHT SIGN\t1\t2\tctx\tlikely_repairable\tliteral"
         )
 
         rows = corpus_survey.parse_special_character_rows(
@@ -337,7 +338,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
 
         self.assertEqual(1, len(rows))
         self.assertEqual("U+00A9", rows[0]["codepoint"])
-        self.assertEqual("mojibake", rows[0]["classification"])
+        self.assertEqual("lrepair", rows[0]["classification"])
 
     def test_main_tsv_output_has_stable_columns_for_multiple_checks(self):
         rows = [

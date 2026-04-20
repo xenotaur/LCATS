@@ -45,9 +45,9 @@ KIND_VALUE_MAP = {
     "mojibake-sequence": "mojibake",
 }
 CLASSIFICATION_VALUE_MAP = {
-    "valid-typography": "valid-typo",
-    "suspicious-unicode": "sus-unicode",
-    "mojibake-pattern": "mojibake",
+    "likely_good": "lgood",
+    "likely_repairable": "lrepair",
+    "review_needed": "review",
 }
 TSV_VALUE_LEGEND = (
     "Compact TSV values: "
@@ -55,8 +55,8 @@ TSV_VALUE_LEGEND = (
     "kind(spchar=special-character, start-contam=start-contamination, "
     "end-contam=end-contamination, rare-char=rare-review-character, "
     "mojibake=mojibake-sequence); "
-    "classification(valid-typo=valid-typography, "
-    "sus-unicode=suspicious-unicode, mojibake=mojibake-pattern)."
+    "classification("
+    "lgood=likely_good, lrepair=likely_repairable, review=review_needed)."
 )
 
 
@@ -73,9 +73,9 @@ def compact_value(value: str, mapping: Mapping[str, str]) -> str:
 def severity_from_classification(classification: str) -> str:
     """Map special-character classification to severity."""
     lowered = classification.lower()
-    if "mojibake" in lowered:
+    if lowered == "likely_repairable":
         return "error"
-    if "rare" in lowered:
+    if lowered == "likely_good":
         return "info"
     if lowered:
         return "warning"

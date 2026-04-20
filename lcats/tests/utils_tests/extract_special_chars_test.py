@@ -168,8 +168,8 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
         self.assertEqual(2, len(lines))
         self.assertEqual("", lines[0].split("\t")[6])
 
-    def test_classification_distinguishes_typography_mojibake_and_suspicious(self):
-        text = "‘quote’ Ã© ©"
+    def test_classification_distinguishes_good_repairable_and_review(self):
+        text = "‘quote’ Ã©      √"
         rows = list(
             self.module.iter_special_character_rows(
                 path="stdin",
@@ -183,9 +183,9 @@ class ExtractSpecialCharsScriptTest(unittest.TestCase):
         )
 
         classifications = [row.split("\t")[7] for row in rows]
-        self.assertIn("valid-typography", classifications)
-        self.assertIn("mojibake-pattern", classifications)
-        self.assertIn("suspicious-unicode", classifications)
+        self.assertIn("likely_good", classifications)
+        self.assertIn("likely_repairable", classifications)
+        self.assertIn("review_needed", classifications)
 
     def test_allowlist_config_allows_configured_character(self):
         with tempfile.TemporaryDirectory() as tmpdir:
