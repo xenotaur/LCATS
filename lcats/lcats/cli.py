@@ -4,6 +4,7 @@ import argparse
 import sys
 
 from lcats.analysis.corpus import cli as corpus_cli
+from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
 
@@ -40,6 +41,10 @@ def _handle_survey(args):
 
 def _handle_stats(args):
     return "", corpus_cli.run_stats(parsed_args=args)
+
+
+def _handle_repair_specials(args):
+    return "", repairs_cli.run(parsed_args=args)
 
 
 def _handle_index(_args):
@@ -163,6 +168,19 @@ def build_parser() -> argparse.ArgumentParser:
     )
     stats_parser.set_defaults(handler=_handle_stats)
     command_parsers["stats"] = stats_parser
+
+    repair_specials_parent = repairs_cli.build_parser(add_help=False)
+    repair_specials_parser = subparsers.add_parser(
+        "repair-specials",
+        parents=[repair_specials_parent],
+        help="Generate dry-run Unicode/special-character repair proposals.",
+        description=(
+            "Generate conservative repair proposals for known mojibake "
+            "fragments. This command is non-destructive."
+        ),
+    )
+    repair_specials_parser.set_defaults(handler=_handle_repair_specials)
+    command_parsers["repair-specials"] = repair_specials_parser
 
     index_parser = subparsers.add_parser(
         "index",
