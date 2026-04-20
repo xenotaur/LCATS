@@ -71,6 +71,28 @@ class SpecialsTest(unittest.TestCase):
         self.assertEqual("U+00A9", lines[1].split("\t")[0])
         self.assertEqual("", lines[1].split("\t")[5])
 
+    def test_classify_character_likely_good_for_lexical_diacritic(self):
+        classification, evidence = specials.classify_character("naïve", 2, "ï")
+
+        self.assertEqual("likely_good", classification)
+        self.assertIn("lexical-latin-diacritic", evidence)
+
+    def test_classify_character_likely_repairable_for_mojibake_sequence(self):
+        text = "Broken punctuation â€™ in corpus text."
+        index = text.index("â")
+        classification, evidence = specials.classify_character(text, index, "â")
+
+        self.assertEqual("likely_repairable", classification)
+        self.assertIn("mojibake-pattern", evidence)
+
+    def test_classify_character_review_needed_for_uncommon_symbol(self):
+        classification, evidence = specials.classify_character(
+            "Contains √ symbol", 9, "√"
+        )
+
+        self.assertEqual("review_needed", classification)
+        self.assertIn("residual-review", evidence)
+
 
 if __name__ == "__main__":
     unittest.main()

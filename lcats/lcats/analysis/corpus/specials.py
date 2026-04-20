@@ -25,6 +25,15 @@ TSV_COLUMNS = [
     "evidence",
 ]
 MOJIBAKE_RE = re.compile(r"(?:Ã.|Â.|â.|ð.|�)")
+MOJIBAKE_SEQUENCES = (
+    "â€™",
+    "â€œ",
+    "â€\u009d",
+    "â€“",
+    "â€”",
+    "â€¦",
+)
+MOJIBAKE_NEIGHBOR_MARKERS = {"Ã", "Â", "â", "ð", "�"}
 
 
 @dataclass
@@ -158,23 +167,75 @@ def is_flagged(
     return not is_allowed(character, allow_smart, allowlist)
 
 
-def classify_character(text: str, offset: int, character: str) -> tuple[str, str]:
-    """Classify one character with a compact evidence string."""
-    if character in SMART_ALLOWED:
-        return ("valid-typography", "common typographic punctuation")
+def _is_latin_letter(character: str) -> bool:
+    """Return True when character is a letter with a Latin Unicode name."""
+    if not unicodedata.category(character).startswith("L"):
+        return False
+    return "LATIN" in get_unicode_name(character)
 
-    window_start = max(0, offset - 2)
-    window_end = min(len(text), offset + 3)
+
+def _is_likely_lexical_diacritic(text: str, offset: int, character: str) -> bool:
+    """Return True when a Latin diacritic appears in a word-like context."""
+    if not _is_latin_letter(character):
+        return False
+    normalized = unicodedata.normalize("NFD", character)
+    if len(normalized) <= 1:
+        return False
+    left = text[offset - 1] if offset > 0 else ""
+    right = text[offset + 1] if offset + 1 < len(text) else ""
+    return bool(left.isalpha() or right.isalpha())
+
+
+def _has_mojibake_pattern(text: str, offset: int, character: str) -> tuple[bool, str]:
+    """Return mojibake match status and deterministic evidence snippet."""
+    window_start = max(0, offset - 4)
+    window_end = min(len(text), offset + 5)
     window = text[window_start:window_end]
+
+    for sequence in MOJIBAKE_SEQUENCES:
+        if sequence in window:
+            return True, sequence
+
     match = MOJIBAKE_RE.search(window)
     if match:
-        return ("mojibake-pattern", f"matched mojibake fragment '{match.group(0)}'")
+        return True, match.group(0)
+    if character in MOJIBAKE_NEIGHBOR_MARKERS:
+        return True, character
+    return False, ""
+
+
+def classify_character(text: str, offset: int, character: str) -> tuple[str, str]:
+    """Classify one character into likely-good, repairable, or review-needed."""
+    unicode_category = unicodedata.category(character)
+    unicode_name = get_unicode_name(character)
+
+    if character in SMART_ALLOWED:
+        return (
+            "likely_good",
+            f"rule=smart-typography; unicode_category={unicode_category}",
+        )
+
+    if _is_likely_lexical_diacritic(text, offset, character):
+        return (
+            "likely_good",
+            (
+                "rule=lexical-latin-diacritic; "
+                f"unicode_name={unicode_name}; normalized={unicodedata.normalize('NFD', character)}"
+            ),
+        )
+
+    has_mojibake, fragment = _has_mojibake_pattern(text, offset, character)
+    if has_mojibake:
+        return (
+            "likely_repairable",
+            f"rule=mojibake-pattern; fragment={fragment}; unicode_category={unicode_category}",
+        )
 
     return (
-        "suspicious-unicode",
+        "review_needed",
         (
-            "unicode_category="
-            f"{unicodedata.category(character)}; non-ascii outside allowlist"
+            "rule=residual-review; "
+            f"unicode_name={unicode_name}; unicode_category={unicode_category}"
         ),
     )
 
