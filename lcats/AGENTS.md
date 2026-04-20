@@ -5,8 +5,11 @@
 - Avoid drive-by refactors. If a refactor is required for testability, keep it minimal and justify it in the PR description.
 
 ## Commands (source of truth)
+- Run LCATS package commands from the repository's `lcats/` directory.
+- Use the project Python environment, not a global or base interpreter.
 - Run the full test suite with: `scripts/test`
 - Do not claim tests passed unless you ran `scripts/test` successfully.
+- Before reporting a missing-package failure for `scripts/test`, `scripts/lint`, `scripts/format`, or `lcats ...`, verify you are using the project environment.
 - If tests fail, fix the implementation or the test. Do not suppress or skip failing tests.
 
 ## Python style
