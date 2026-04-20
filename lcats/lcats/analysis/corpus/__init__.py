@@ -8,6 +8,7 @@ from lcats.analysis.corpus import processing
 from lcats.analysis.corpus import repairs
 from lcats.analysis.corpus import qa
 from lcats.analysis.corpus import specials
+from lcats.analysis.corpus import specials_cli
 from lcats.analysis.corpus import stats
 
 __all__ = [
@@ -19,5 +20,6 @@ __all__ = [
     "repairs",
     "qa",
     "specials",
+    "specials_cli",
     "stats",
 ]

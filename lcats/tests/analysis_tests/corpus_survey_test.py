@@ -125,7 +125,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
     def test_run_special_characters_check_forwards_context(self):
         output = corpus_survey.run_special_characters_check(
             displayed_text="pi√©ce",
-            extract_script="scripts/utils/extract_special_chars.py",
+            extract_script="lcats.analysis.corpus.specials_cli",
             allow_smart=True,
             allowlist_config="",
             excluded_codepoints=["00A0"],
@@ -144,7 +144,7 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
     def test_run_special_characters_check_uses_nocontext_flag(self):
         output = corpus_survey.run_special_characters_check(
             displayed_text="pi√©ce",
-            extract_script="scripts/utils/extract_special_chars.py",
+            extract_script="lcats.analysis.corpus.specials_cli",
             allow_smart=True,
             allowlist_config="",
             excluded_codepoints=[],
