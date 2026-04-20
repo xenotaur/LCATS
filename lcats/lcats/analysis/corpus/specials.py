@@ -209,6 +209,13 @@ def classify_character(text: str, offset: int, character: str) -> tuple[str, str
     unicode_category = unicodedata.category(character)
     unicode_name = get_unicode_name(character)
 
+    has_mojibake, fragment = _has_mojibake_pattern(text, offset, character)
+    if has_mojibake:
+        return (
+            "likely_repairable",
+            f"rule=mojibake-pattern; fragment={fragment}; unicode_category={unicode_category}",
+        )
+
     if character in SMART_ALLOWED:
         return (
             "likely_good",
@@ -222,13 +229,6 @@ def classify_character(text: str, offset: int, character: str) -> tuple[str, str
                 "rule=lexical-latin-diacritic; "
                 f"unicode_name={unicode_name}; normalized={unicodedata.normalize('NFD', character)}"
             ),
-        )
-
-    has_mojibake, fragment = _has_mojibake_pattern(text, offset, character)
-    if has_mojibake:
-        return (
-            "likely_repairable",
-            f"rule=mojibake-pattern; fragment={fragment}; unicode_category={unicode_category}",
         )
 
     return (
