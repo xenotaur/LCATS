@@ -11,6 +11,7 @@ This directory tracks actionable execution units aligned to the current roadmap.
 - `WI-REPAIR-0001.md`
 - `WI-SPANOPS-0002.md`
 - `WI-REVIEW-0003.md`
+- `WI-APPLY-0005.md`
 
 ## Planned Items
 - `WI-PERSIST-0004.md`
