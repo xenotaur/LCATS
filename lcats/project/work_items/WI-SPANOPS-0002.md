@@ -1,0 +1,23 @@
+---
+id: WI-SPANOPS-0002
+title: Build span operation system for precise text edits
+status: active
+priority: high
+owner: unassigned
+linked_focus: FOCUS-REPAIR-REVIEW
+---
+
+# Work Item: WI-SPANOPS-0002
+
+## Objective
+Create span-based transformation primitives used by the repair engine.
+
+## Scope
+- Define span operation schema (start/end, replacement, reason).
+- Support composition of multiple operations per file.
+- Ensure operation ordering and conflict handling are explicit.
+
+## Acceptance Criteria
+- Span operations can represent planned repairs without ambiguity.
+- Operation application order is deterministic.
+- Operation metadata supports review traceability.
