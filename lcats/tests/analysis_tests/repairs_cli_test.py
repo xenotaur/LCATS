@@ -1,6 +1,7 @@
 """Unit tests for lcats.analysis.corpus.repairs_cli."""
 
 import io
+import json
 import pathlib
 import tempfile
 import unittest
@@ -59,6 +60,22 @@ class RepairsCliTest(unittest.TestCase):
         self.assertIn("before=â€™", report)
         self.assertIn("after=’", report)
         self.assertIn("confidence=high", report)
+
+    def test_jsonl_output_is_machine_parseable(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            file_path = pathlib.Path(tmpdir) / "sample.txt"
+            file_path.write_text("Example â€¦ token", encoding="utf-8")
+
+            output = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output):
+                repairs_cli.run(["--format", "jsonl", str(file_path)])
+
+            lines = output.getvalue().strip().splitlines()
+            self.assertEqual(1, len(lines))
+            payload = json.loads(lines[0])
+            self.assertEqual(str(file_path), payload["path"])
+            self.assertEqual("â€¦", payload["original_text"])
+            self.assertEqual("…", payload["replacement_text"])
 
 
 if __name__ == "__main__":

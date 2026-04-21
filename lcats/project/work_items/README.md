@@ -8,10 +8,12 @@ This directory tracks actionable execution units aligned to the current roadmap.
 - Completed bootstrap and early correctness items are moved out of this directory and recorded in `project/memory/decision_log.md`.
 
 ## Active Items
-- `WI-REPAIR-0001.md`
 - `WI-SPANOPS-0002.md`
 - `WI-REVIEW-0003.md`
 - `WI-APPLY-0005.md`
 
 ## Planned Items
 - `WI-PERSIST-0004.md`
+
+## Completed Items
+- `WI-REPAIR-0001.md`

@@ -1,7 +1,7 @@
 ---
 id: WI-REPAIR-0001
 title: Implement conservative repair engine
-status: active
+status: completed
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
@@ -21,3 +21,13 @@ Implement a deterministic repair engine that converts classification findings in
 - Repair plan is deterministic for identical input.
 - Dry-run output is human-readable and machine-parseable.
 - No corpus content is mutated unless explicitly approved through review flow.
+
+## Completion Notes
+- Implemented conservative repair proposal generation in
+  `lcats.analysis.corpus.repairs` with explicit rule mapping from
+  `likely_repairable` classification evidence fragments to high-confidence
+  replacements.
+- Added deterministic dry-run plan models and reporting helpers for both human
+  TSV inspection and machine-parseable JSONL output.
+- Preserved non-destructive-by-default behavior. Repair application helpers
+  remain library-level utilities and are not used by default CLI dry-run paths.

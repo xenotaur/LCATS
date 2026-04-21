@@ -1,5 +1,6 @@
 """Unit tests for lcats.analysis.corpus.repairs."""
 
+import json
 import unittest
 
 from parameterized import parameterized
@@ -276,6 +277,59 @@ class RepairsTest(unittest.TestCase):
         )
 
         self.assertEqual([], suggestions)
+
+    def test_build_dry_run_plan_entries_preserves_rationale_and_location(self):
+        suggestions = [
+            repairs.RepairSuggestion(
+                rule_id="mojibake-ellipsis",
+                start=12,
+                end=15,
+                original_text="â€¦",
+                replacement_text="…",
+                finding_offset=13,
+                evidence="rule=mojibake-pattern; fragment=â€¦",
+                confidence="high",
+                rationale="Broken UTF-8 ellipsis sequence.",
+            )
+        ]
+
+        entries = repairs.build_dry_run_plan_entries(suggestions)
+
+        self.assertEqual(1, len(entries))
+        entry = entries[0]
+        self.assertEqual(12, entry.start)
+        self.assertEqual(15, entry.end)
+        self.assertEqual("â€¦", entry.original_text)
+        self.assertEqual("…", entry.replacement_text)
+        self.assertEqual("mojibake-ellipsis", entry.rule_id)
+        self.assertIn("fragment=â€¦", entry.evidence)
+        self.assertEqual("Broken UTF-8 ellipsis sequence.", entry.rationale)
+        self.assertEqual(13, entry.finding_offset)
+
+    def test_build_dry_run_jsonl_report_is_machine_parseable(self):
+        suggestions = [
+            repairs.RepairSuggestion(
+                rule_id="mojibake-em-dash",
+                start=5,
+                end=8,
+                original_text="â€”",
+                replacement_text="—",
+                finding_offset=6,
+                evidence="rule=mojibake-pattern; fragment=â€”",
+                confidence="high",
+                rationale="Broken UTF-8 em dash sequence.",
+            )
+        ]
+
+        report = repairs.build_dry_run_jsonl_report(suggestions, path="story.txt")
+
+        lines = report.splitlines()
+        self.assertEqual(1, len(lines))
+        payload = json.loads(lines[0])
+        self.assertEqual("story.txt", payload["path"])
+        self.assertEqual("â€”", payload["original_text"])
+        self.assertEqual("—", payload["replacement_text"])
+        self.assertEqual("mojibake-em-dash", payload["rule_id"])
 
     def test_suggest_reviewed_repairs_for_text_groups_decision_states(self):
         text = "Text â€” and â€¦ sample"
