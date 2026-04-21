@@ -1,6 +1,6 @@
 ---
 id: GOAL-CORE
-title: LCATS Story Corpora and RAG/CBR System Goal
+title: LCATS Narrative Reasoning Goal on a Trustworthy Corpus Substrate
 status: active
 owner: unassigned
 time_horizon: long
@@ -9,28 +9,38 @@ time_horizon: long
 # Project Goal
 
 ## Objective
-Develop a story corpora / RAG system based on LLMs and case-based reasoning.
+Build LCATS as a narrative reasoning system grounded in a trustworthy, auditable literary corpus substrate.
+
+## Near-Term Goal (Now)
+Establish corpus correctness and operational trust through a conservative, non-destructive repair/review pipeline.
+
+### Near-Term Emphasis
+- Corpus correctness and encoding hygiene.
+- Auditability for every corpus-changing operation.
+- Repair + review workflows that preserve provenance and allow human override.
+
+## Long-Term Goal (Later)
+Layer structured narrative representation and reasoning capabilities on top of the trustworthy corpus substrate.
+
+### Long-Term Emphasis
+- Structured narrative representation (scene/sequence/case oriented).
+- Reasoning frameworks and methods:
+  - Propp-inspired narrative functions.
+  - Greimas-inspired actant/role structures.
+  - Case-Based Reasoning (CBR).
+  - Retrieval-Augmented Generation (RAG).
 
 ## Intended Outcome
-- A maintainable system that can gather, normalize, and manage story corpora from multiple literary sources.
-- A retrieval workflow that can surface relevant story fragments/cases for downstream reasoning tasks.
-- LLM-assisted extraction/analysis capabilities that are reproducible enough for ongoing research and tool-building.
-
-## Intended Users / Stakeholders
-- Repository maintainers and contributors building LCATS tooling.
-- Researchers/practitioners experimenting with literary corpora, retrieval, and case-based reasoning workflows.
+- A corpus that is inspectable, repairable, and safe to evolve.
+- A reproducible pipeline where proposed corpus changes are explainable before application.
+- A foundation that supports higher-order narrative reasoning without sacrificing data integrity.
 
 ## In Scope
-- Corpus gathering and structured storage workflows.
-- Story inspection/chunking/extraction pipelines in the existing Python package.
-- Incremental introduction of LRH control-plane artifacts to improve interpretability, validation, and execution discipline.
+- Corpus survey and classification-driven repair planning.
+- Repair engine, span operations, and human review loop.
+- Evidence-backed project governance via LRH artifacts.
 
-## Out of Scope (Initial)
-- Claims of production-grade deployment hardening.
-- Commitments to specific model providers, benchmark targets, or SLA-style guarantees.
-- Reworking existing repository architecture outside LRH bootstrap artifacts.
-
-## Success Direction
-- Contributors can align work to explicit goals/focus and cite evidence for status.
-- Work items and status updates become easier to validate against repository signals.
-- LRH artifacts remain useful without constraining legitimate research iteration.
+## Out of Scope (Current Horizon)
+- Full narrative reasoning engine implementation in the current focus window.
+- Production SLAs or model-provider lock-in.
+- Unreviewed destructive corpus rewrites.

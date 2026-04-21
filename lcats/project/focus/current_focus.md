@@ -1,6 +1,6 @@
 ---
-id: FOCUS-BOOTSTRAP
-title: Initial project bootstrap focus
+id: FOCUS-REPAIR-REVIEW
+title: Repair and review pipeline execution
 status: active
 priority: high
 owner: unassigned
@@ -9,21 +9,23 @@ owner: unassigned
 # Current Focus
 
 ## Active Priority
-- Establish an initial LRH control plane with grounded artifacts.
+Build the repair and review pipeline.
 
-## Why This Appears Current
-- Repository documentation emphasizes evolving capabilities (corpora gathering, extraction, analysis) and ongoing maturation.
-- No pre-existing `project/` LRH control-plane directory was present, indicating bootstrap is a prerequisite for LRH interpretation.
+## Focus Scope (Now)
+1. Conservative repair engine.
+2. Dry-run-first workflows.
+3. Span-based transformations.
+4. Human review and override system.
 
-## Priorities
-1. Create complete baseline authoritative artifacts with conservative, evidence-linked content.
-2. Capture known unknowns (especially RAG/CBR architecture specifics) without introducing speculative commitments.
+## Why This Is Current
+- Survey/classification and immediate correctness fixes are complete.
+- The next critical capability is safe correction with auditable human control.
 
 ## Non-Goals
-- Re-architecting LCATS runtime/package code during bootstrap.
-- Declaring completion of RAG/CBR capabilities without explicit evidence.
+- Narrative reasoning feature development in this phase.
+- Persistence layer implementation beyond design decisions needed for current work.
 
 ## Exit Criteria
-- Standard LRH scaffold exists under `project/` with required categories/files.
-- Derived context files are aligned to authoritative artifacts and clearly marked non-authoritative.
-- Initial status and evidence are present and traceable.
+- Repair plans can be generated and previewed without mutation.
+- Span operations support precise, explainable text changes.
+- Review decisions can approve, reject, or override proposed repairs with rationale.

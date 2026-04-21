@@ -1,25 +1,52 @@
 ---
-id: ROADMAP-INITIAL
-title: Initial LRH Roadmap (Bootstrap)
+id: ROADMAP-CORE
+title: LCATS Corpus-to-Narrative Roadmap
 status: active
 ---
 
 # Roadmap
 
-## Horizon Framing
-This roadmap is intentionally conservative and only reflects grounded near-term structure inferred from repository evidence.
+## Status Legend
+- **Completed**: finished and recorded.
+- **Active**: currently being executed.
+- **Planned**: approved next steps, not yet active.
+- **Future**: downstream direction after planned phases.
 
-## Phase 0 — Bootstrap (Current)
-- Establish LRH authoritative artifacts and derived context.
-- Record baseline evidence and initial risk profile.
+## Phase 1 — Corpus Ingestion (**Completed**)
+- Build ingestion and corpus organization workflows.
+- Establish baseline corpus handling paths and CLI entry points.
 
-## Phase 1 — Baseline Consolidation (Proposed)
-- Map existing corpus, gatherer, analysis, and extraction capabilities to explicit work items.
-- Define evidence expectations for quality and behavior claims.
+## Phase 2 — Survey + Classification (**Completed**)
+- Deliver corpus survey workflow.
+- Add classification outputs to identify Unicode/encoding/corpus quality states.
 
-## Phase 2 — RAG/CBR Operationalization (Proposed, Uncertain)
-- Introduce explicit retrieval/case representation milestones once repository-level architecture decisions are documented.
-- Track evaluation criteria when benchmarks or acceptance tests are defined.
+## Phase 3 — Correctness Foundations (**Completed**)
+- Apply mojibake precedence fix in classification.
+- Tighten correctness interpretation to reduce false-safe classifications.
 
-## Notes on Uncertainty
-- The repository shows strong corpus and analysis foundations, but explicit case-based reasoning interfaces and formal RAG evaluation targets are not yet clearly documented in top-level artifacts.
+## Phase 4 — Repair + Review Pipeline (**Active**)
+Focus: move from diagnosis to conservative correction.
+
+### Phase 4A: Repair Engine
+- Build deterministic, conservative repair planner/executor.
+- Require dry-run output before any apply path.
+
+### Phase 4B: Span Operations
+- Add span-based transformation primitives for precise edits.
+- Ensure operations are composable and traceable.
+
+### Phase 4C: Review Loop
+- Add human review/override checkpoints.
+- Record decision rationale for accepted/rejected changes.
+
+## Phase 5 — Persistence / Corpus State (**Planned**)
+- Define persistent corpus state and operation history model.
+- Support replay/audit across runs and contributors.
+
+## Phase 6 — Narrative Structure + Reasoning (**Future**)
+- Introduce structured narrative representations.
+- Add reasoning workflows integrating Propp, Greimas, CBR, and RAG techniques.
+
+## Alignment Notes
+- Completed phases are logged in `project/memory/decision_log.md`.
+- Active work is constrained to Phase 4 work items.

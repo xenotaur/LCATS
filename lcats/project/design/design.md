@@ -1,28 +1,37 @@
 # Design
 
 ## Purpose
-- Provide an LRH-compatible control plane for LCATS, a toolkit for story corpora management and LLM-assisted analysis/extraction.
+Define the LCATS corpus-quality pipeline design for the current execution horizon.
 
-## Scope
-- Define interpretation and execution artifacts without changing existing source implementation.
-- Capture currently observable architecture and boundaries from repository documentation and layout.
+## Pipeline Model
+`classification -> repair -> span_ops -> review`
 
-## Core Structure
-- Intent layer: principles/goal/roadmap
-- Execution layer: focus/work_items/contributors
-- Constraint layer: guardrails
-- Truth layer: evidence/status/memory
+### 1) Classification
+- Input: surveyed corpus files with diagnostics.
+- Output: normalized issue classes and repair candidates.
+- Constraint: classification remains diagnostic; it does not mutate corpus content.
 
-## Precedence and Interpretation Notes
-- `principles → goal → roadmap → focus → work_items → guardrails/runtime context`
-- Evidence, status, and memory provide auditable state but should not override higher-level intent.
+### 2) Repair
+- Input: classification output and conservative rules.
+- Output: proposed change set with dry-run preview.
+- Constraint: default behavior is non-destructive.
 
-## Current Implementation Boundary
-- Existing implementation includes a Python package (`lcats/`) with CLI/tooling, gatherers, chunking, extraction, analysis utilities, and scripts for test/lint/format workflows.
-- Corpus assets and experiments exist at repository root (`corpora/`, `experiments/`).
-- Current LRH bootstrap does not define runtime orchestration code; it defines project-level governance artifacts.
+### 3) Span Operations
+- Input: repair intents.
+- Output: precise text span edits and operation metadata.
+- Constraint: operations must be reversible or re-computable from logged inputs.
 
-## Future Extensions (Non-binding)
-- Add explicit artifact links from work items to concrete modules/tests as priorities stabilize.
-- Add clearer RAG/CBR architecture sections once repository docs include canonical component contracts.
-- Add contributor-role mapping after maintainers/ownership metadata is explicitly documented.
+### 4) Review
+- Input: proposed edits and rationale.
+- Output: approved/rejected/overridden actions with recorded decision basis.
+- Constraint: human review gates apply-path mutation.
+
+## Design Principles
+- **Non-destructive by default**: no silent corpus mutation.
+- **Auditability first**: each proposal and action has provenance.
+- **Explainability**: each repair maps to a known issue class and rule path.
+- **Separation of concerns**: diagnosis, proposal, edit mechanics, and approval stay distinct.
+
+## State and Persistence Boundary
+- Current active design emphasizes in-run audit records.
+- Durable persistence model is tracked as planned work (Phase 5) and is intentionally separated from the active repair/review implementation.
