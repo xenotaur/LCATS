@@ -15,5 +15,7 @@ This `project/` directory is the LRH planning and memory layer for LCATS.
 - `work_items/`: actionable items (active/planned only).
 - `memory/`: durable decision log for retired/completed work.
 
+- Migration planning: `design/flat_story_layout_migration_impact_report.md` documents code/test/doc dependencies on the current flat story JSON layout.
+
 ## Operating Rule
 If work is complete, move it out of active `work_items/` and record it in `memory/decision_log.md`.
