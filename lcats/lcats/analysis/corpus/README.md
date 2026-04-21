@@ -1,69 +1,196 @@
-# Corpus Analysis Documentation
+# Corpus Analysis Subsystem
 
-## Unicode / special-character human review decisions (library usage)
+## 1. Overview
 
-The corpus analysis package now includes a library-first decision model for
-human-reviewed Unicode/special-character findings and conservative repair
-proposals.
+The corpus analysis subsystem is LCATS's text-quality and artifact-detection layer
+for raw story corpora.
 
-### What this supports
+It exists to answer a practical question before deeper narrative reasoning begins:
 
-- Mark a repair proposal as:
-  - `approved`
-  - `rejected`
-  - `unresolved`
-- Mark repeated special-character findings as allowed/expected so they are
-  suppressed in later reporting/proposal generation.
-- Keep decisions serializable (`to_dict` / `from_dict`) for future config or
-  persistence workflows.
+- Is this story text structurally usable?
+- If not, where are the likely defects?
+- Which issues can be repaired safely, and which require human judgment?
 
-### Modules
+Within LCATS, this subsystem sits between corpus ingestion and higher-level
+narrative/case reasoning. It produces inspectable findings and conservative repair
+proposals without mutating source text by default.
 
-- `lcats.analysis.corpus.review`: decision model + application helpers
-- `lcats.analysis.corpus.specials`: optional decision-aware suppression in
-  reporting helpers
-- `lcats.analysis.corpus.repairs`: optional decision-aware suppression and
-  reviewed suggestion grouping
+In short, corpus analysis is designed to make downstream narrative intelligence
+more reliable by making preprocessing explicit, reviewable, and deterministic.
 
-### Minimal example
+## 2. Design Principles
 
-```python
-from lcats.analysis.corpus import repairs
-from lcats.analysis.corpus import review
+The subsystem follows four core design rules:
 
-text = "Broken token â€™ and accepted symbol √"
+- **Non-destructive by default**
+  - Detection and proposal generation never require rewriting source corpora.
+  - Repair logic is expressed as suggestions/operations first.
 
-decision_store = review.ReviewDecisionStore(
-    repair_decisions=(
-        review.RepairReviewDecision(
-            rule_id="mojibake-right-single-quote",
-            original_text="â€™",
-            replacement_text="’",
-            decision=review.APPROVED,
-            rationale="Known encoding fix in this corpus.",
-        ),
-    ),
-    allowed_special_cases=(
-        review.AllowedSpecialCase(
-            character="√",
-            classification="review_needed",
-            evidence_contains="residual-review",
-            rationale="Expected in mathematical excerpts.",
-        ),
-    ),
-)
+- **Auditability and explainability**
+  - Findings include spans, evidence, and human-readable rationale fields.
+  - Review decisions are explicit and serializable.
 
-# Conservative: suggestions are still non-destructive proposals only.
-grouped = repairs.suggest_reviewed_repairs_for_text(
-    text,
-    decision_store=decision_store,
-)
+- **Deterministic transformations**
+  - Detector execution and repair suggestion ordering are deterministic.
+  - Span operations are sorted and overlap-checked before apply.
 
-print(len(grouped.approved), len(grouped.rejected), len(grouped.unresolved))
-```
+- **Separation of responsibilities**
+  - Detection finds suspicious patterns.
+  - Classification assigns likely-good/repairable/review-needed status.
+  - Transformation represents proposed edits as explicit span operations.
+  - Review/override captures human decisions without hidden side effects.
 
-### Notes
+## 3. System Architecture
 
-- Review decisions do **not** rewrite corpora by default.
-- Decisions are applied in-memory to findings/reports/proposals.
-- Interactive UI/editor workflows are intentionally deferred.
+The architecture is intentionally modular and centered around explicit data
+contracts.
+
+### 3.1 Classification system
+
+Two related paths are implemented:
+
+- **Detector-oriented QA findings**
+  - Protocol + finding model: `models.Detector`, `models.Finding`.
+  - Orchestration: `qa.run_detectors(...)` with a default detector stack.
+  - Detector families:
+    - Unicode/special character anomalies (`detectors/unicode.py`)
+    - Boundary contamination near file start/end (`detectors/boundary.py`)
+    - Structural artifacts such as chapter headings/ToC remnants
+      (`detectors/structural.py`)
+
+- **Special-character classification for repair pipeline**
+  - `specials.classify_character(...)` assigns one of:
+    - `likely_good`
+    - `likely_repairable`
+    - `review_needed`
+  - Classification includes evidence strings describing why a character was
+    bucketed.
+
+### 3.2 Repair proposal system
+
+Repair generation is conservative and rule-based:
+
+- `repairs.DEFAULT_REPAIR_RULES` defines known high-confidence mojibake fixes.
+- `repairs.suggest_repairs(...)` maps `likely_repairable` findings to
+  `RepairSuggestion` objects when an unambiguous source span is identified.
+- Duplicate or ambiguous spans are intentionally ignored rather than guessed.
+
+### 3.3 Span operation model
+
+Proposed edits are represented as explicit operations:
+
+- `SpanRepairOperation` captures operation type, span, original text,
+  replacement text, rule id, evidence, and rationale.
+- Suggestions can be converted into operations via
+  `suggestions_to_span_operations(...)`.
+- `apply_span_operations(...)` applies operations deterministically and refuses
+  overlapping edits (returns original text unchanged if overlap is detected).
+
+### 3.4 Review / override system
+
+Human decision support is library-first and data-structured:
+
+- `ReviewDecisionStore` stores:
+  - `repair_decisions` (`approved`, `rejected`, `unresolved`)
+  - `allowed_special_cases` for recurring expected special characters
+- Review application utilities:
+  - `apply_review_to_specials(...)` suppresses findings covered by allowed cases.
+  - `apply_review_to_repairs(...)` partitions suggestions into approved/rejected/
+    unresolved groups.
+- Decisions support `to_dict()` / `from_dict()` for JSON-serializable payloads.
+
+## 4. Data Flow
+
+The current end-to-end flow is:
+
+1. **Raw corpus input**
+   - Text is read from corpus/story sources by analysis CLI and processing
+     utilities.
+
+2. **Detection**
+   - Detector stack scans text for boundary, structural, and unicode anomalies.
+
+3. **Classification**
+   - Special-character findings are classified into likely-good,
+     likely-repairable, or review-needed buckets with evidence.
+
+4. **Repair proposal generation**
+   - Only likely-repairable findings that match known conservative rules and
+     unique spans become `RepairSuggestion` records.
+
+5. **Span operations**
+   - Suggestions can be translated into explicit replace operations and
+     optionally applied in deterministic order.
+
+6. **Human review**
+   - Review decisions can suppress expected findings and group repair proposals
+     by approval state.
+
+7. **Future persistence**
+   - Decision models are serializable today; first-class persisted review stores
+     and workflow tooling are planned but not yet integrated as a complete
+     product workflow.
+
+## 5. Current Capabilities (Implemented)
+
+Implemented today:
+
+- Deterministic detector orchestration with a default suite of boundary,
+  structural, and unicode checks.
+- Structured finding model (`kind`, `severity`, `span`, `message`, `evidence`).
+- Special-character reporting with classification and evidence annotations.
+- Conservative mojibake repair-rule mapping for known broken punctuation
+  sequences.
+- Repair suggestions with stable span references and rationale metadata.
+- Explicit span operation conversion and deterministic apply semantics.
+- Overlap-safe operation handling (no partial/unsafe application).
+- Human review decision model for repairs and allowed special cases.
+- Decision-aware suppression and grouped reviewed repair outputs.
+- JSON-serializable review decision payload support (`to_dict`/`from_dict`).
+
+## 6. Planned Features (Near-term Roadmap)
+
+Planned near-term enhancements:
+
+- First-class persistence conventions for review decisions (e.g., standard
+  on-disk location and lifecycle in corpus workflows).
+- Tighter CLI integration for loading/applying decision stores during survey and
+  repair reporting flows.
+- Expanded conservative repair rule coverage where precision can be maintained.
+- Stronger reporting ergonomics for reviewer handoff (clear unresolved queues,
+  rule-level summaries, and artifact outputs).
+
+## 7. Not Yet Implemented / Intentionally Deferred
+
+The following are explicitly not implemented in the current subsystem:
+
+- **Automatic in-place corpus rewriting as a default behavior**
+  - Current design prioritizes proposal generation and controlled application.
+
+- **Interactive review UI/editor experience**
+  - Review is currently library/data-model driven, not UI-driven.
+
+- **Comprehensive persistence workflow productization**
+  - Serialization exists, but full persistence orchestration is still pending.
+
+- **Learning-based/opaque repair generation**
+  - Repair logic remains deterministic and rule-based; no probabilistic model is
+    used.
+
+- **Broad auto-correction beyond high-confidence rules**
+  - Ambiguous or low-confidence transformations are intentionally deferred to
+    human review paths.
+
+## 8. Relationship to Future LCATS Goals
+
+LCATS aims to support narrative intelligence, case-based reasoning, and
+inspectable retrieval pipelines. Corpus analysis is foundational to that goal:
+
+- It improves narrative signal quality before scene/sequence/case reasoning.
+- It provides transparent provenance for preprocessing decisions.
+- It supports reproducible ingestion so retrieval and adaptation stages can rely
+  on stable, explainable input text.
+
+As LCATS evolves toward richer narrative reasoning workflows, this subsystem is
+intended to remain the conservative gatekeeper: detect clearly, propose safely,
+and make human overrides explicit.
