@@ -77,14 +77,19 @@ Repair generation is conservative and rule-based:
 
 ### 3.3 Span operation model
 
-Proposed edits are represented as explicit operations:
+Proposed edits are represented as canonical, deterministic span operations:
 
-- `SpanRepairOperation` captures operation type, span, original text,
-  replacement text, rule id, evidence, and rationale.
-- Suggestions can be converted into operations via
-  `suggestions_to_span_operations(...)`.
-- `apply_span_operations(...)` applies operations deterministically and refuses
-  overlapping edits (returns original text unchanged if overlap is detected).
+- `span_ops.SpanOperation` captures operation identity, type, start/end offsets,
+  original text, replacement text, and provenance metadata.
+- `span_ops.SpanOperationProvenance` preserves rule id, source, evidence,
+  rationale, confidence, and finding offset for review traceability.
+- `span_ops.from_repair_suggestions(...)` and
+  `repairs.suggestions_to_canonical_span_operations(...)` provide deterministic
+  conversion from repair proposals into canonical operations.
+- `span_ops.validate_operation_set(...)` enforces valid ranges, explicit
+  operation semantics, deterministic ordering, and non-overlapping spans.
+- `span_ops.serialize_operations(...)` / `deserialize_operations(...)` provide
+  stable JSON interchange for downstream review and application stages.
 
 ### 3.4 Review / override system
 
@@ -119,8 +124,8 @@ The current end-to-end flow is:
      unique spans become `RepairSuggestion` records.
 
 5. **Span operations**
-   - Suggestions can be translated into explicit replace operations and
-     optionally applied in deterministic order.
+   - Suggestions are translated into canonical span operations for later review
+     and application.
 
 6. **Human review**
    - Review decisions can suppress expected findings and group repair proposals
@@ -142,8 +147,8 @@ Implemented today:
 - Conservative mojibake repair-rule mapping for known broken punctuation
   sequences.
 - Repair suggestions with stable span references and rationale metadata.
-- Explicit span operation conversion and deterministic apply semantics.
-- Overlap-safe operation handling (no partial/unsafe application).
+- Canonical span operation conversion with deterministic ordering semantics.
+- Span-set validation with explicit overlap and structural checks.
 - Human review decision model for repairs and allowed special cases.
 - Decision-aware suppression and grouped reviewed repair outputs.
 - JSON-serializable review decision payload support (`to_dict`/`from_dict`).
