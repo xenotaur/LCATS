@@ -1,5 +1,7 @@
 """Conservative repair proposal helpers for special-character findings."""
 
+import json
+
 from dataclasses import dataclass
 from typing import Iterable, Optional, Sequence
 
@@ -44,6 +46,21 @@ class SpanRepairOperation:
     evidence: str
     rationale: str = ""
     confidence: str = "high"
+
+
+@dataclass(frozen=True)
+class RepairPlanEntry:
+    """One machine-serializable dry-run plan entry."""
+
+    start: int
+    end: int
+    original_text: str
+    replacement_text: str
+    rule_id: str
+    confidence: str
+    evidence: str
+    rationale: str
+    finding_offset: int
 
 
 DEFAULT_REPAIR_RULES = (
@@ -321,17 +338,64 @@ def build_dry_run_report(
     file_label: str = "",
 ) -> str:
     """Return a deterministic dry-run report for review/audit."""
+    plan_entries = build_dry_run_plan_entries(suggestions)
     lines = []
-    for suggestion in suggestions:
+    for entry in plan_entries:
         prefix = f"{file_label}:" if file_label else ""
         lines.append(
             (
-                f"{prefix}{suggestion.start}-{suggestion.end}\t"
-                f"{suggestion.rule_id}\t"
-                f"confidence={suggestion.confidence}\t"
-                f"before={suggestion.original_text}\t"
-                f"after={suggestion.replacement_text}\t"
-                f"reason={suggestion.rationale}"
+                f"{prefix}{entry.start}-{entry.end}\t"
+                f"{entry.rule_id}\t"
+                f"confidence={entry.confidence}\t"
+                f"before={entry.original_text}\t"
+                f"after={entry.replacement_text}\t"
+                f"reason={entry.rationale}"
             )
         )
+    return "\n".join(lines)
+
+
+def build_dry_run_plan_entries(
+    suggestions: Sequence[RepairSuggestion],
+) -> list[RepairPlanEntry]:
+    """Convert suggestions into deterministic plan entries for dry-run use."""
+    entries = [
+        RepairPlanEntry(
+            start=suggestion.start,
+            end=suggestion.end,
+            original_text=suggestion.original_text,
+            replacement_text=suggestion.replacement_text,
+            rule_id=suggestion.rule_id,
+            confidence=suggestion.confidence,
+            evidence=suggestion.evidence,
+            rationale=suggestion.rationale,
+            finding_offset=suggestion.finding_offset,
+        )
+        for suggestion in suggestions
+    ]
+    entries.sort(key=lambda entry: (entry.start, entry.end, entry.rule_id))
+    return entries
+
+
+def build_dry_run_jsonl_report(
+    suggestions: Sequence[RepairSuggestion],
+    *,
+    path: str = "",
+) -> str:
+    """Return deterministic JSONL report for machine parsing."""
+    lines = []
+    for entry in build_dry_run_plan_entries(suggestions):
+        payload = {
+            "path": path,
+            "start": entry.start,
+            "end": entry.end,
+            "original_text": entry.original_text,
+            "replacement_text": entry.replacement_text,
+            "rule_id": entry.rule_id,
+            "confidence": entry.confidence,
+            "evidence": entry.evidence,
+            "rationale": entry.rationale,
+            "finding_offset": entry.finding_offset,
+        }
+        lines.append(json.dumps(payload, ensure_ascii=False, sort_keys=True))
     return "\n".join(lines)

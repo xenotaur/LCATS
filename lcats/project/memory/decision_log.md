@@ -1,5 +1,24 @@
 # Decision Log
 
+## 2026-04-21: WI-REPAIR-0001 conservative repair engine completed
+
+### Summary
+- Completed Phase 4A conservative repair engine work item with a deterministic,
+  dry-run-first proposal workflow.
+
+### Decisions
+- Keep repair planning in the new `lcats.analysis.corpus` tree.
+- Preserve conservative scope: only `likely_repairable` findings with explicit,
+  known repair rules produce proposals.
+- Add machine-parseable dry-run output (`jsonl`) alongside human-readable TSV
+  output for audit/review tooling.
+- Keep mutation non-default. No CLI apply path was introduced in this item.
+
+### Status
+- Accepted
+
+---
+
 ## 2026-04-20: Bootstrap decision
 
 ### Summary

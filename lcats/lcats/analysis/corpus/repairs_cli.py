@@ -19,6 +19,12 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
     )
     parser.add_argument("files", nargs="+")
     parser.add_argument("--header", action="store_true")
+    parser.add_argument(
+        "--format",
+        choices=["tsv", "jsonl"],
+        default="tsv",
+        help="Dry-run report format (human TSV or machine JSONL).",
+    )
     return parser
 
 
@@ -27,25 +33,34 @@ def run(argv=None, parsed_args=None) -> int:
     parser = build_parser()
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
 
-    if args.header:
+    if args.header and args.format == "tsv":
         print("path\tstart\tend\trule\tconfidence\tbefore\tafter\treason")
 
     for file_name in args.files:
         file_path = pathlib.Path(file_name)
         text = file_path.read_text(encoding="utf-8")
         suggestions = repairs.suggest_repairs_for_text(text)
-        for suggestion in suggestions:
+        if args.format == "jsonl":
+            report = repairs.build_dry_run_jsonl_report(
+                suggestions,
+                path=str(file_path),
+            )
+            if report:
+                print(report)
+            continue
+
+        for entry in repairs.build_dry_run_plan_entries(suggestions):
             print(
                 "\t".join(
                     [
                         str(file_path),
-                        str(suggestion.start),
-                        str(suggestion.end),
-                        suggestion.rule_id,
-                        suggestion.confidence,
-                        suggestion.original_text,
-                        suggestion.replacement_text,
-                        suggestion.rationale,
+                        str(entry.start),
+                        str(entry.end),
+                        entry.rule_id,
+                        entry.confidence,
+                        entry.original_text,
+                        entry.replacement_text,
+                        entry.rationale,
                     ]
                 )
             )
