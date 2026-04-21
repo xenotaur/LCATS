@@ -16,6 +16,8 @@ Implement a review loop that allows humans to approve, reject, or override propo
 - Define review decision states and required rationale.
 - Connect repair proposals and span ops to reviewable units.
 - Record reviewer decisions as auditable artifacts.
+- Ensure only approved operations are eligible for application.
+- Define interface between review outputs and application stage.
 
 ## Acceptance Criteria
 - Every proposed change has an explicit review outcome.

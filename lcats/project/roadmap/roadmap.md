@@ -24,7 +24,7 @@ status: active
 - Apply mojibake precedence fix in classification.
 - Tighten correctness interpretation to reduce false-safe classifications.
 
-## Phase 4 — Repair + Review Pipeline (**Active**)
+## Phase 4 — Repair + Review + Application Pipeline (**Active**)
 Focus: move from diagnosis to conservative correction.
 
 ### Phase 4A: Repair Engine
@@ -38,6 +38,12 @@ Focus: move from diagnosis to conservative correction.
 ### Phase 4C: Review Loop
 - Add human review/override checkpoints.
 - Record decision rationale for accepted/rejected changes.
+
+### Phase 4D: Approved Application
+- Apply reviewed and approved span operations to corpus text.
+- Ensure deterministic, non-destructive transformation workflow.
+- Produce transformed outputs separate from original source.
+- Validate that applied operations match reviewed decisions exactly.
 
 ## Phase 5 — Persistence / Corpus State (**Planned**)
 - Define persistent corpus state and operation history model.

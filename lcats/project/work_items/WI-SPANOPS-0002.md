@@ -16,6 +16,8 @@ Create span-based transformation primitives used by the repair engine.
 - Define span operation schema (start/end, replacement, reason).
 - Support composition of multiple operations per file.
 - Ensure operation ordering and conflict handling are explicit.
+- Support deterministic application of non-overlapping operations to text.
+- Define behavior for overlapping/conflicting operations.
 
 ## Acceptance Criteria
 - Span operations can represent planned repairs without ambiguity.

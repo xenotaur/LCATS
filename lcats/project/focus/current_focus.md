@@ -16,6 +16,7 @@ Build the repair and review pipeline.
 2. Dry-run-first workflows.
 3. Span-based transformations.
 4. Human review and override system.
+5. Deterministic application of approved repairs.
 
 ## Why This Is Current
 - Survey/classification and immediate correctness fixes are complete.
