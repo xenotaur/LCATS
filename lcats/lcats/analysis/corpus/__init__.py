@@ -11,6 +11,7 @@ from lcats.analysis.corpus import review
 from lcats.analysis.corpus import qa
 from lcats.analysis.corpus import specials
 from lcats.analysis.corpus import specials_cli
+from lcats.analysis.corpus import span_ops
 from lcats.analysis.corpus import stats
 
 __all__ = [
@@ -25,5 +26,6 @@ __all__ = [
     "qa",
     "specials",
     "specials_cli",
+    "span_ops",
     "stats",
 ]

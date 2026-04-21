@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Iterable, Optional, Sequence
 
 from lcats.analysis.corpus import specials
+from lcats.analysis.corpus import span_ops
 
 
 @dataclass(frozen=True)
@@ -229,6 +230,19 @@ def suggestions_to_span_operations(
         key=lambda operation: (operation.start, operation.end, operation.rule_id)
     )
     return operations
+
+
+def suggestions_to_canonical_span_operations(
+    suggestions: Sequence[RepairSuggestion],
+) -> list[span_ops.SpanOperation]:
+    """Convert repair suggestions to canonical span operations.
+
+    This conversion is representational only and does not apply edits.
+    """
+    return span_ops.from_repair_suggestions(
+        suggestions,
+        source="repair_suggestion",
+    )
 
 
 def _has_overlapping_spans(operations: Sequence[SpanRepairOperation]) -> bool:
