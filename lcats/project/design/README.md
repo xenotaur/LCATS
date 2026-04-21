@@ -9,3 +9,4 @@ This directory captures architectural decisions for the active LCATS roadmap pha
 
 ## Files
 - `design.md`: canonical design for the active repair/review horizon.
+- `flat_story_layout_migration_impact_report.md`: audit of flat `data/<collection>/<story>.json` assumptions and migration impact.
