@@ -25,7 +25,8 @@ status: active
 - Tighten correctness interpretation to reduce false-safe classifications.
 
 ## Phase 4 — Repair + Review + Application Pipeline (**Active**)
-Focus: move from diagnosis to conservative correction.
+Focus: move from diagnosis to conservative correction and controlled
+application.
 
 ### Phase 4A: Repair Engine
 - Build deterministic, conservative repair planner/executor.
