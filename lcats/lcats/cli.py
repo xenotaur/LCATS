@@ -1,12 +1,14 @@
 """Command-line interface for the Literary Captain's Advisory Tool System (LCATS)."""
 
 import argparse
+import pathlib
 import sys
 
 from lcats.analysis.corpus import cli as corpus_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
+from lcats import meta_registry
 
 
 TOP_LEVEL_DESCRIPTION = (
@@ -45,6 +47,22 @@ def _handle_stats(args):
 
 def _handle_repair_specials(args):
     return "", repairs_cli.run(parsed_args=args)
+
+
+def _handle_meta_register(args):
+    try:
+        record = meta_registry.register_project(
+            workspace_root=pathlib.Path.cwd(),
+            repo_locator=args.repo_locator,
+            force=args.force,
+        )
+    except ValueError as error:
+        return str(error), 1
+
+    return (
+        f"Registered project {record['id']} as projects/{record['directory_name']}.toml",
+        0,
+    )
 
 
 def _handle_index(_args):
@@ -181,6 +199,26 @@ def build_parser() -> argparse.ArgumentParser:
     )
     repair_specials_parser.set_defaults(handler=_handle_repair_specials)
     command_parsers["repair-specials"] = repair_specials_parser
+
+    meta_parser = subparsers.add_parser(
+        "meta",
+        help="Manage LRH workspace project metadata records.",
+        description="Manage LRH workspace project metadata records.",
+    )
+    meta_subparsers = meta_parser.add_subparsers(dest="meta_command")
+
+    meta_register_parser = meta_subparsers.add_parser(
+        "register",
+        help="Register a repository locator in the local workspace registry.",
+    )
+    meta_register_parser.add_argument("repo_locator")
+    meta_register_parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Allow duplicate repo_locator entries.",
+    )
+    meta_register_parser.set_defaults(handler=_handle_meta_register)
+    command_parsers["meta"] = meta_parser
 
     index_parser = subparsers.add_parser(
         "index",
