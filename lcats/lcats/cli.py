@@ -273,6 +273,8 @@ def dispatch(command, args):
         parsed = parser.parse_args(argv)
     handler = getattr(parsed, "handler", None)
     if handler is None:
+        if command in parser.command_parsers:
+            return parser.command_parsers[command].format_help(), 1
         return parser.format_help(), 1
     return handler(parsed)
 
@@ -292,7 +294,15 @@ def main(argv=None):
     else:
         parsed = parser.parse_args(argv)
 
-    result, status = parsed.handler(parsed)
+    handler = getattr(parsed, "handler", None)
+    if handler is None:
+        if argv and argv[0] in parser.command_parsers:
+            print(parser.command_parsers[argv[0]].format_help())
+        else:
+            print(parser.format_help())
+        sys.exit(1)
+
+    result, status = handler(parsed)
     if result:
         print(result)
     sys.exit(status)

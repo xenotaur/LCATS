@@ -5,6 +5,11 @@ import pathlib
 import tempfile
 import unittest
 
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - Python < 3.11 fallback
+    import tomli as tomllib
+
 from lcats import meta_registry
 
 
@@ -67,6 +72,20 @@ class TestMetaRegistry(unittest.TestCase):
                 repo_locator=str(repo_dir),
             )
             self.assertEqual(record["setup_state"], "not_set_up")
+
+    def test_register_project_escapes_toml_string_values(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = pathlib.Path(tmp)
+            locator = 'C:\\repos\\my"proj'
+
+            record = meta_registry.register_project(
+                workspace_root=workspace,
+                repo_locator=locator,
+            )
+            record_path = workspace / "projects" / f"{record['directory_name']}.toml"
+
+            parsed = tomllib.loads(record_path.read_text(encoding="utf-8"))
+            self.assertEqual(parsed["identity"]["repo_locator"], locator)
 
     def test_project_ids_increment_for_same_day(self):
         with tempfile.TemporaryDirectory() as tmp:

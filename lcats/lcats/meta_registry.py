@@ -11,6 +11,20 @@ PROJECTS_DIR_NAME = "projects"
 PROJECT_DIR_DEFAULT = "project"
 
 
+def _toml_string(value: str) -> str:
+    """Return a TOML basic string literal for the supplied value."""
+    escaped = (
+        value.replace("\\", "\\\\")
+        .replace('"', '\\"')
+        .replace("\b", "\\b")
+        .replace("\t", "\\t")
+        .replace("\n", "\\n")
+        .replace("\f", "\\f")
+        .replace("\r", "\\r")
+    )
+    return f'"{escaped}"'
+
+
 def _normalise_slug(value: str) -> str:
     """Return a lowercase slug suitable for registry directory naming."""
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
@@ -126,16 +140,16 @@ def register_project(
 
     text = (
         "[project]\n"
-        f"id = \"{record['id']}\"\n"
-        f"display_name = \"{record['display_name']}\"\n"
-        f"short_name = \"{record['short_name']}\"\n"
-        f"status = \"{record['status']}\"\n"
-        f"setup_state = \"{record['setup_state']}\"\n\n"
+        f"id = {_toml_string(record['id'])}\n"
+        f"display_name = {_toml_string(record['display_name'])}\n"
+        f"short_name = {_toml_string(record['short_name'])}\n"
+        f"status = {_toml_string(record['status'])}\n"
+        f"setup_state = {_toml_string(record['setup_state'])}\n\n"
         "[identity]\n"
-        f"repo_locator = \"{record['repo_locator']}\"\n"
-        f"project_dir = \"{record['project_dir']}\"\n\n"
+        f"repo_locator = {_toml_string(record['repo_locator'])}\n"
+        f"project_dir = {_toml_string(record['project_dir'])}\n\n"
         "[registry]\n"
-        f"directory_name = \"{record['directory_name']}\"\n"
+        f"directory_name = {_toml_string(record['directory_name'])}\n"
     )
 
     (projects_dir / f"{directory_name}.toml").write_text(text, encoding="utf-8")

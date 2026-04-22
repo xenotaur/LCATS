@@ -121,6 +121,14 @@ class TestCli(unittest.TestCase):
         self.assertEqual(expected_code, cm.exception.code)
         self.assertIn("usage: lcats", captured.stdout.getvalue())
 
+    def test_meta_requires_subcommand_without_crashing(self):
+        """Running lcats meta should show meta help and exit with code 1."""
+        with capture.capture_output() as captured:
+            with self.assertRaises(SystemExit) as cm:
+                cli.main(["meta"])
+        self.assertEqual(1, cm.exception.code)
+        self.assertIn("usage: lcats meta", captured.stdout.getvalue())
+
     @parameterized.parameterized.expand(
         [
             (["survey", "--help"], "usage: lcats survey"),
