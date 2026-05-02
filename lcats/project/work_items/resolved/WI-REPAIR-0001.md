@@ -1,7 +1,7 @@
 ---
 id: WI-REPAIR-0001
 title: Implement conservative repair engine
-status: completed
+status: resolved
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
