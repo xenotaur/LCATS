@@ -16,8 +16,10 @@ temp
 tmp
 lcats/tmp
 lcats/temp
+lcats/tempspace
 *.log
 *.tmp
+
 
 # Ignore output files used for debugging
 *.out
