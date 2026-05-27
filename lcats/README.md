@@ -36,6 +36,17 @@ lcats meta register <repo_locator>
 ```
 Publishing this package to PyPI is not yet supported because we don't yet have extensive enough tests.
 
+
+## Documentation
+
+LCATS documentation is being organized under `docs/`.
+
+- Docs hub: [`docs/index.md`](docs/index.md)
+- CLI implementation status reference: [`docs/reference/cli-status.md`](docs/reference/cli-status.md)
+- LRH control-plane docs: [`project/README.md`](project/README.md)
+
+The execution root remains `lcats/` (for example: `cd LCATS/lcats`).
+
 ## Optional pre-commit checks (local convenience only)
 
 `pre-commit` runs lightweight checks automatically before each commit. In LCATS, this is only a local convenience layer.
