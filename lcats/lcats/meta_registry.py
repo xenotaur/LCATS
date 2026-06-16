@@ -6,7 +6,6 @@ import re
 from typing import Any
 from urllib import parse
 
-
 PROJECTS_DIR_NAME = "projects"
 PROJECT_DIR_DEFAULT = "project"
 

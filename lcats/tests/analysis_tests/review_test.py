@@ -6,6 +6,7 @@ import unittest
 from lcats.analysis.corpus import repairs
 from lcats.analysis.corpus import review
 from lcats.analysis.corpus import specials
+from lcats.analysis.corpus import span_ops
 
 
 class ReviewTest(unittest.TestCase):
@@ -131,6 +132,115 @@ class ReviewTest(unittest.TestCase):
 
         self.assertEqual(1, len(filtered))
         self.assertEqual("©", filtered[0].character)
+
+
+class SpanOperationReviewTest(unittest.TestCase):
+    """Tests for span-operation review decision semantics."""
+
+    def _operation(self, operation_id="spanop-demo", replacement_text="’"):
+        return span_ops.SpanOperation(
+            operation_id=operation_id,
+            operation_type=span_ops.REPLACE_SPAN,
+            start=1,
+            end=4,
+            replacement_text=replacement_text,
+            original_text="â€™",
+            provenance=span_ops.SpanOperationProvenance(
+                rule_id="mojibake-right-single-quote",
+                source="repair_suggestion",
+                finding_offset=1,
+                evidence="rule=mojibake-pattern; fragment=â€™",
+                rationale="Broken UTF-8 right single quote sequence.",
+            ),
+        )
+
+    def _decision(self, state, override=None):
+        operation = self._operation()
+        return review.SpanOperationReviewDecision(
+            decision_id=f"review-{state}",
+            span_operation_id=operation.operation_id,
+            state=state,
+            reviewer="reviewer@example.test",
+            rationale=f"Decision rationale for {state}",
+            reviewed_operation=operation,
+            audit_metadata=review.ReviewAuditMetadata(
+                created_at="2026-06-16T00:00:00Z",
+                updated_at="2026-06-16T00:00:00Z",
+                source="unit_test",
+                notes="deterministic audit metadata",
+            ),
+            override=override,
+        )
+
+    def test_decision_state_application_eligibility(self):
+        replacement = self._operation("spanop-demo-override", "'")
+        override = review.SpanOperationOverride(
+            replacement_operation=replacement,
+            rationale="Prefer ASCII apostrophe for this source.",
+        )
+        cases = [
+            (review.PENDING, None, False),
+            (review.APPROVED, None, True),
+            (review.REJECTED, None, False),
+            (review.OVERRIDDEN, override, True),
+        ]
+
+        for state, override_details, expected in cases:
+            with self.subTest(state=state):
+                decision = self._decision(state, override_details)
+
+                actual = review.is_span_operation_review_eligible_for_application(
+                    decision
+                )
+
+                self.assertEqual(expected, actual)
+
+    def test_operation_for_application_uses_override_replacement(self):
+        replacement = self._operation("spanop-demo-override", "'")
+        decision = self._decision(
+            review.OVERRIDDEN,
+            review.SpanOperationOverride(
+                replacement_operation=replacement,
+                rationale="Reviewer supplied replacement operation.",
+            ),
+        )
+
+        application_operation = review.operation_for_application(decision)
+
+        self.assertEqual(self._operation(), decision.reviewed_operation)
+        self.assertEqual(replacement, decision.override.replacement_operation)
+        self.assertEqual(replacement, application_operation)
+
+    def test_pending_and_rejected_operations_cannot_be_selected_for_application(self):
+        for state in (review.PENDING, review.REJECTED):
+            with self.subTest(state=state):
+                decision = self._decision(state)
+
+                with self.assertRaises(ValueError):
+                    review.operation_for_application(decision)
+
+    def test_span_operation_review_round_trip_preserves_auditability(self):
+        replacement = self._operation("spanop-demo-override", "'")
+        decision = self._decision(
+            review.OVERRIDDEN,
+            review.SpanOperationOverride(
+                replacement_operation=replacement,
+                rationale="Reviewer supplied replacement operation.",
+            ),
+        )
+
+        payload = review.serialize_span_operation_review_decisions([decision])
+        loaded = review.deserialize_span_operation_review_decisions(payload)
+
+        json.loads(payload)
+        self.assertEqual([decision], loaded)
+        self.assertEqual("reviewer@example.test", loaded[0].reviewer)
+        self.assertEqual(
+            "Decision rationale for overridden",
+            loaded[0].rationale,
+        )
+        self.assertEqual(self._operation(), loaded[0].reviewed_operation)
+        self.assertEqual(replacement, loaded[0].override.replacement_operation)
 
 
 if __name__ == "__main__":

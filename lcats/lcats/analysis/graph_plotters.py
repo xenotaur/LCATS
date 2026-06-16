@@ -102,7 +102,7 @@ def plot_tokens_per_story_by_author(
     grouped = [df[df["author"] == a]["body_tokens"].to_numpy() for a in order]
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax.boxplot(grouped, showfliers=False, labels=label_order, vert=True)
+    ax.boxplot(grouped, showfliers=False, tick_labels=label_order, vert=True)
 
     if log_tokens:
         ax.set_yscale("log")

@@ -5,7 +5,6 @@ import json
 from dataclasses import dataclass
 from typing import Iterable, Sequence
 
-
 REPLACE_SPAN = "replace_span"
 REMOVE_SPAN = "remove_span"
 INSERT_SPAN = "insert_span"
