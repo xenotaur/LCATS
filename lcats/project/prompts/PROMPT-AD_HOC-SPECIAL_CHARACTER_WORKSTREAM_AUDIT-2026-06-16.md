@@ -2,7 +2,7 @@
 
 - Prompt ID: `PROMPT(AD_HOC:SPECIAL_CHARACTER_WORKSTREAM_AUDIT)[2026-06-16T00:00:00+00:00]`
 - Requested prompt ID: `LCATS-2026-06-16-special-character-workstream-audit`
-- Normalization: converted to the observed `PROMPT(AD_HOC:REQUEST)[timestamp]` convention used by existing records.
+- Normalization: converted to the observed `PROMPT(AD_HOC:<REQUEST_NAME>)[timestamp]` convention used by existing records.
 - Date: 2026-06-16
 - Work item: `AD_HOC`
 - Audit document: `project/audits/2026-06-16-special-character-cleanup-workstream-audit.md`

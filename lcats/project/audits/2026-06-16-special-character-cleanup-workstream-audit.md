@@ -1,7 +1,7 @@
 # Special-character cleanup workstream audit — LCATS
 
 - Prompt ID used: `PROMPT(AD_HOC:SPECIAL_CHARACTER_WORKSTREAM_AUDIT)[2026-06-16T00:00:00+00:00]`
-- Prompt ID normalization: requested `LCATS-2026-06-16-special-character-workstream-audit`; normalized to the observed `PROMPT(AD_HOC:REQUEST)[timestamp]` convention used by existing prompt records.
+- Prompt ID normalization: requested `LCATS-2026-06-16-special-character-workstream-audit`; normalized to the observed `PROMPT(AD_HOC:<REQUEST_NAME>)[timestamp]` convention used by existing prompt records.
 - Audit date: 2026-06-16
 - Scope: `project/`, `lcats/`, `lcats/lcats/`, `lcats/scripts/`, `lcats/tools/`, `lcats/tests/`, and related README/control-plane files.
 
@@ -114,7 +114,7 @@ Important distinction: the current specials TSV is occurrence-oriented and may r
 ### PR A: correction ledger / manifest for known special-character cases
 
 Expected files/modules:
-- Add a small manifest under a project-controlled location, for example `lcats/analysis/corpus/special_character_manifest.json` or `project/evidence/special-character-cleanup-manifest.md`.
+- Add a small manifest under a project-controlled location, for example `lcats/lcats/analysis/corpus/special_character_manifest.json` or `project/evidence/special-character-cleanup-manifest.md`.
 - Update `lcats/lcats/analysis/corpus/README.md` only if needed to document the manifest's role.
 - Add tests under `lcats/tests/analysis_tests/` if the manifest parser is code-backed.
 
