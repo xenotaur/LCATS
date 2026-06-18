@@ -86,6 +86,31 @@ class TestTokensPerStoryByAuthorFrame(unittest.TestCase):
         self.assertEqual(list(story_stats.columns), original_columns)
 
 
+class TestBoxplotLabelKeyword(unittest.TestCase):
+    """Tests for Matplotlib boxplot keyword compatibility."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_supports_current_matplotlib(self):
+        """Current Matplotlib boxplot label keyword is detected."""
+        _, ax = plt.subplots()
+
+        keyword = graph_plotters._boxplot_label_keyword(ax.boxplot)
+
+        self.assertIn(keyword, {"tick_labels", "labels"})
+
+    def test_supports_legacy_matplotlib_signature(self):
+        """Older Matplotlib boxplot labels keyword remains supported."""
+
+        def legacy_boxplot(values, labels=None):
+            return values, labels
+
+        keyword = graph_plotters._boxplot_label_keyword(legacy_boxplot)
+
+        self.assertEqual("labels", keyword)
+
+
 class TestPlotAuthorStoriesVsTokens(unittest.TestCase):
     """Tests for plot_author_stories_vs_tokens."""
 

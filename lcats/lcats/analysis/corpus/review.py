@@ -128,6 +128,11 @@ class SpanOperationReviewDecision:
         return decision
 
 
+def _has_review_text(value: str) -> bool:
+    """Return True when a review text field contains non-whitespace text."""
+    return value.strip() != ""
+
+
 def validate_span_operation_review_decision(
     decision: SpanOperationReviewDecision,
 ) -> None:
@@ -138,9 +143,14 @@ def validate_span_operation_review_decision(
         raise ValueError("span_operation_id must match reviewed operation")
     span_ops.validate_operation(decision.reviewed_operation)
 
+    if not _has_review_text(decision.rationale):
+        raise ValueError("review rationale is required")
+
     if decision.state == OVERRIDDEN:
         if decision.override is None:
             raise ValueError("overridden decisions require override details")
+        if not _has_review_text(decision.override.rationale):
+            raise ValueError("override rationale is required")
         span_ops.validate_operation(decision.override.replacement_operation)
     elif decision.override is not None:
         raise ValueError("only overridden decisions may include override details")

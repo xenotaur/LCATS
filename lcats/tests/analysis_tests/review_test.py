@@ -219,6 +219,50 @@ class SpanOperationReviewTest(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     review.operation_for_application(decision)
 
+    def test_review_decision_requires_rationale(self):
+        for state in review.SPAN_OPERATION_REVIEW_STATES:
+            with self.subTest(state=state):
+                override = None
+                if state == review.OVERRIDDEN:
+                    override = review.SpanOperationOverride(
+                        replacement_operation=self._operation(
+                            "spanop-demo-override", "'"
+                        ),
+                        rationale="Override rationale.",
+                    )
+                decision = review.SpanOperationReviewDecision(
+                    decision_id=f"review-{state}",
+                    span_operation_id="spanop-demo",
+                    state=state,
+                    reviewer="reviewer@example.test",
+                    rationale="",
+                    reviewed_operation=self._operation(),
+                    override=override,
+                )
+
+                with self.assertRaises(ValueError):
+                    review.validate_span_operation_review_decision(decision)
+
+    def test_overridden_decision_requires_override_rationale(self):
+        decision = self._decision(
+            review.OVERRIDDEN,
+            review.SpanOperationOverride(
+                replacement_operation=self._operation("spanop-demo-override", "'"),
+                rationale="",
+            ),
+        )
+
+        with self.assertRaises(ValueError):
+            review.validate_span_operation_review_decision(decision)
+
+    def test_deserialize_rejects_missing_rationale(self):
+        decision = self._decision(review.APPROVED)
+        payload = decision.to_dict()
+        del payload["rationale"]
+
+        with self.assertRaises(ValueError):
+            review.SpanOperationReviewDecision.from_dict(payload)
+
     def test_span_operation_review_round_trip_preserves_auditability(self):
         replacement = self._operation("spanop-demo-override", "'")
         decision = self._decision(
