@@ -108,6 +108,11 @@ Human decision support is library-first and data-structured:
     unresolved groups.
   - `operation_for_application(...)` returns approved operations or override
     replacements while rejecting pending/rejected decisions.
+- Approved application is handled by `application.apply_reviewed_operations(...)`,
+  which audits every considered decision, applies only `approved` and
+  `overridden` operations, skips `pending`/`rejected` decisions, validates spans
+  and overlaps before transformation, and returns transformed text separately
+  from the original input.
 - Decisions support deterministic JSON-serializable payloads through `to_dict()` /
   `from_dict()` and serialization helpers.
 
@@ -138,7 +143,13 @@ The current end-to-end flow is:
    - Review decisions can suppress expected findings and group repair proposals
      by approval state.
 
-7. **Future persistence**
+7. **Approved application**
+   - Reviewed span operations are applied only after eligibility filtering.
+   - Deterministic ordering follows canonical span-operation sort semantics.
+   - Conflicts, invalid spans, and source-text mismatches fail without partial
+     output, preserving the original text in the result.
+
+8. **Future persistence**
    - Decision models are serializable today; first-class persisted review stores
      and workflow tooling are planned but not yet integrated as a complete
      product workflow.
@@ -160,6 +171,9 @@ Implemented today:
   span operations.
 - Decision-aware suppression, grouped reviewed repair outputs, and
   application-eligibility helpers for span operation reviews.
+- Non-destructive approved application from review decisions to transformed text,
+  including structured reports for considered, applied, skipped, and failed
+  operations.
 - Deterministic JSON-serializable review decision payload support (`to_dict`/
   `from_dict` plus serialization helpers).
 
@@ -167,7 +181,8 @@ Implemented today:
 
 Planned near-term enhancements:
 
-- First-class persistence conventions for review decisions (e.g., standard
+- First-class persistence conventions for review decisions and application
+  outputs (e.g., standard
   on-disk location and lifecycle in corpus workflows).
 - Tighter CLI integration for loading/applying decision stores during survey and
   repair reporting flows.
