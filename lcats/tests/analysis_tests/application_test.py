@@ -114,6 +114,36 @@ class ApplicationTest(unittest.TestCase):
             ["quote", "ellipsis"], [r.operation_id for r in second.applied]
         )
 
+    def test_override_ordering_uses_replacement_operation_span(self):
+        text = "A â€™ B â€¦ C"
+        later_reviewed = self._operation("later-reviewed", 8, 11, "â€¦", "…")
+        earlier_replacement = self._operation("earlier-replacement", 2, 5, "â€™", "'")
+        middle = self._operation("middle", 8, 11, "â€¦", "…")
+
+        result = application.apply_reviewed_operations(
+            text,
+            [
+                self._decision(middle, review.APPROVED),
+                self._decision(
+                    later_reviewed,
+                    review.OVERRIDDEN,
+                    review.SpanOperationOverride(
+                        replacement_operation=earlier_replacement,
+                        rationale="Move override to actual reviewed span.",
+                    ),
+                ),
+            ],
+        )
+
+        self.assertTrue(result.success)
+        self.assertEqual(
+            ["earlier-replacement", "middle"], [r.operation_id for r in result.applied]
+        )
+        self.assertEqual(
+            ["earlier-replacement", "middle"],
+            [r.operation_id for r in result.considered],
+        )
+
     def test_overlapping_operations_fail_without_partial_output(self):
         text = "abcdef"
         first = self._operation("first", 1, 4, "bcd", "BCD")
@@ -125,6 +155,7 @@ class ApplicationTest(unittest.TestCase):
         )
 
         self.assertFalse(result.success)
+        self.assertEqual((), result.applied)
         self.assertEqual(text, result.transformed_text)
         self.assertIn("overlapping spans", result.failures[0].message)
 
@@ -137,7 +168,10 @@ class ApplicationTest(unittest.TestCase):
         )
 
         self.assertFalse(result.success)
+        self.assertEqual((), result.applied)
         self.assertEqual(text, result.transformed_text)
+        self.assertEqual("invalid", result.failures[0].operation_id)
+        self.assertEqual("decision-invalid-approved", result.failures[0].decision_id)
         self.assertIn("exceeds text length", result.failures[0].message)
 
     def test_original_text_mismatch_fails_without_partial_output(self):

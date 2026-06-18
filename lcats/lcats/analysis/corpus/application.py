@@ -7,8 +7,8 @@ from lcats.analysis.corpus import review
 from lcats.analysis.corpus import span_ops
 
 APPLIED = "applied"
+ELIGIBLE = "eligible"
 SKIPPED = "skipped"
-FAILED = "failed"
 
 
 @dataclass(frozen=True)
@@ -85,7 +85,7 @@ class ApplicationResult:
 def _failure_result(
     text: str,
     considered: list[ApplicationDecisionReport],
-    applied: list[ApplicationDecisionReport],
+    applied: Sequence[ApplicationDecisionReport],
     skipped: list[ApplicationDecisionReport],
     failure: ApplicationFailure,
 ) -> ApplicationResult:
@@ -117,10 +117,11 @@ def _validate_operation_against_text(
 
 def _application_sort_key(
     decision: review.SpanOperationReviewDecision,
+    operation: span_ops.SpanOperation,
 ) -> tuple[object, ...]:
     """Return deterministic ordering key for decisions entering application."""
     return (
-        span_ops.operation_sort_key(decision.reviewed_operation),
+        span_ops.operation_sort_key(operation),
         decision.decision_id,
         decision.span_operation_id,
         decision.state,
@@ -157,17 +158,42 @@ def apply_reviewed_operations(
     partial output.
     """
     considered: list[ApplicationDecisionReport] = []
-    applied: list[ApplicationDecisionReport] = []
     skipped: list[ApplicationDecisionReport] = []
+    eligible_reports: list[ApplicationDecisionReport] = []
     eligible_operations: list[span_ops.SpanOperation] = []
+    operation_decisions: dict[str, str] = {}
+    ordered_items: list[
+        tuple[
+            tuple[object, ...],
+            review.SpanOperationReviewDecision,
+            span_ops.SpanOperation,
+            bool,
+        ]
+    ] = []
 
-    for decision in sorted(decisions, key=_application_sort_key):
+    for decision in decisions:
         try:
             review.validate_span_operation_review_decision(decision)
         except ValueError as error:
             failure = ApplicationFailure(str(error), decision_id=decision.decision_id)
-            return _failure_result(text, considered, applied, skipped, failure)
+            return _failure_result(text, considered, (), skipped, failure)
 
+        if review.is_span_operation_review_eligible_for_application(decision):
+            operation = review.operation_for_application(decision)
+            override_used = decision.state == review.OVERRIDDEN
+        else:
+            operation = decision.reviewed_operation
+            override_used = False
+        ordered_items.append(
+            (
+                _application_sort_key(decision, operation),
+                decision,
+                operation,
+                override_used,
+            )
+        )
+
+    for _sort_key, decision, operation, override_used in sorted(ordered_items):
         if not review.is_span_operation_review_eligible_for_application(decision):
             report = ApplicationDecisionReport(
                 decision_id=decision.decision_id,
@@ -175,7 +201,7 @@ def apply_reviewed_operations(
                 state=decision.state,
                 outcome=SKIPPED,
                 reason="review state is not eligible for application",
-                operation_id=decision.reviewed_operation.operation_id,
+                operation_id=operation.operation_id,
                 reviewer=decision.reviewer,
                 rationale=decision.rationale,
             )
@@ -183,35 +209,58 @@ def apply_reviewed_operations(
             skipped.append(report)
             continue
 
-        operation = review.operation_for_application(decision)
         report = ApplicationDecisionReport(
             decision_id=decision.decision_id,
             span_operation_id=decision.span_operation_id,
             state=decision.state,
-            outcome=APPLIED,
+            outcome=ELIGIBLE,
             reason="review state is eligible for application",
             operation_id=operation.operation_id,
-            override_used=decision.state == review.OVERRIDDEN,
+            override_used=override_used,
             reviewer=decision.reviewer,
             rationale=decision.rationale,
         )
         considered.append(report)
-        applied.append(report)
+        eligible_reports.append(report)
         eligible_operations.append(operation)
+        operation_decisions[operation.operation_id] = decision.decision_id
 
     try:
         span_ops.validate_operation_set(eligible_operations)
         for operation in span_ops.sort_operations(eligible_operations):
-            _validate_operation_against_text(text, operation)
+            try:
+                _validate_operation_against_text(text, operation)
+            except ValueError as error:
+                failure = ApplicationFailure(
+                    str(error),
+                    operation_id=operation.operation_id,
+                    decision_id=operation_decisions.get(operation.operation_id, ""),
+                )
+                return _failure_result(text, considered, (), skipped, failure)
     except ValueError as error:
         failure = ApplicationFailure(str(error))
-        return _failure_result(text, considered, applied, skipped, failure)
+        return _failure_result(text, considered, (), skipped, failure)
+
+    applied = tuple(
+        ApplicationDecisionReport(
+            decision_id=report.decision_id,
+            span_operation_id=report.span_operation_id,
+            state=report.state,
+            outcome=APPLIED,
+            reason="operation applied after validation",
+            operation_id=report.operation_id,
+            override_used=report.override_used,
+            reviewer=report.reviewer,
+            rationale=report.rationale,
+        )
+        for report in eligible_reports
+    )
 
     return ApplicationResult(
         success=True,
         original_text=text,
         transformed_text=_apply_operations(text, eligible_operations),
         considered=tuple(considered),
-        applied=tuple(applied),
+        applied=applied,
         skipped=tuple(skipped),
     )
