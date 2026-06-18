@@ -82,3 +82,24 @@
 
 ### Status
 - Accepted
+
+---
+
+## 2026-06-18: Approved application layer completed
+
+### Summary
+- Implemented WI-APPLY-0005 with a deterministic, non-destructive application
+  layer for reviewed span operations.
+
+### Decisions
+- Apply only `approved` decisions as proposed and `overridden` decisions via
+  reviewer replacement operations.
+- Treat `pending` and `rejected` decisions as ineligible and audit them as
+  skipped.
+- Validate operation sets, overlaps, span bounds, and source-text matches before
+  returning any successful transformed output.
+- Keep persistence, CLI application workflows, and in-place corpus rewriting out
+  of scope for this work item.
+
+### Status
+- Accepted
