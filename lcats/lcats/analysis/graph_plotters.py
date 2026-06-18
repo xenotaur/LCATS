@@ -1,9 +1,18 @@
 """Plotting functions for LCATS corpus analysis."""
 
+import inspect
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+
+
+def _boxplot_label_keyword(boxplot_callable) -> str:
+    """Return the supported Matplotlib boxplot label keyword."""
+    if "tick_labels" in inspect.signature(boxplot_callable).parameters:
+        return "tick_labels"
+    return "labels"
 
 
 def plot_author_stories_vs_tokens(
@@ -102,7 +111,9 @@ def plot_tokens_per_story_by_author(
     grouped = [df[df["author"] == a]["body_tokens"].to_numpy() for a in order]
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax.boxplot(grouped, showfliers=False, labels=label_order, vert=True)
+    boxplot_kwargs = {"showfliers": False, "vert": True}
+    boxplot_kwargs[_boxplot_label_keyword(ax.boxplot)] = label_order
+    ax.boxplot(grouped, **boxplot_kwargs)
 
     if log_tokens:
         ax.set_yscale("log")

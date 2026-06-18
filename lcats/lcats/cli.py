@@ -10,7 +10,6 @@ import lcats.gatherers.main
 import lcats.inspect
 from lcats import meta_registry
 
-
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
     "surveying, and analyzing corpora."

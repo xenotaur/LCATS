@@ -9,7 +9,6 @@ import unicodedata
 from dataclasses import dataclass
 from typing import Iterable, Optional
 
-
 SMART_ALLOWED = {"–", "—", "‘", "’", "“", "”", "…"}
 ASCII_PUNCT = {chr(index) for index in range(32, 127)} - set(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
