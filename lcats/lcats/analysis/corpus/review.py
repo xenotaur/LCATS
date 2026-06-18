@@ -1,4 +1,4 @@
-"""Human review decisions for special-character findings and repairs."""
+"""Human review models for findings, repairs, and span operations."""
 
 import json
 
@@ -175,13 +175,27 @@ def operation_for_application(
     return decision.reviewed_operation
 
 
+def _span_operation_review_decision_sort_key(
+    decision: SpanOperationReviewDecision,
+) -> tuple[object, ...]:
+    """Return deterministic ordering key for span operation review decisions."""
+    return (
+        span_ops.operation_sort_key(decision.reviewed_operation),
+        decision.decision_id,
+        decision.span_operation_id,
+        decision.state,
+        decision.reviewer,
+    )
+
+
 def serialize_span_operation_review_decisions(
     decisions: Sequence[SpanOperationReviewDecision],
 ) -> str:
     """Serialize validated span operation review decisions to stable JSON."""
     for decision in decisions:
         validate_span_operation_review_decision(decision)
-    payload = [decision.to_dict() for decision in decisions]
+    ordered = sorted(decisions, key=_span_operation_review_decision_sort_key)
+    payload = [decision.to_dict() for decision in ordered]
     return json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2)
 
 

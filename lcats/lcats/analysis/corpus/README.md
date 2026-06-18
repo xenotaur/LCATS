@@ -98,11 +98,18 @@ Human decision support is library-first and data-structured:
 - `ReviewDecisionStore` stores:
   - `repair_decisions` (`approved`, `rejected`, `unresolved`)
   - `allowed_special_cases` for recurring expected special characters
+- Span-operation review models store one decision per span operation with
+  `pending`, `approved`, `rejected`, and `overridden` states.
+- Overrides preserve the reviewed operation and reviewer-specified replacement
+  operation plus required rationale.
 - Review application utilities:
   - `apply_review_to_specials(...)` suppresses findings covered by allowed cases.
   - `apply_review_to_repairs(...)` partitions suggestions into approved/rejected/
     unresolved groups.
-- Decisions support `to_dict()` / `from_dict()` for JSON-serializable payloads.
+  - `operation_for_application(...)` returns approved operations or override
+    replacements while rejecting pending/rejected decisions.
+- Decisions support deterministic JSON-serializable payloads through `to_dict()` /
+  `from_dict()` and serialization helpers.
 
 ## 4. Data Flow
 
@@ -149,9 +156,12 @@ Implemented today:
 - Repair suggestions with stable span references and rationale metadata.
 - Canonical span operation conversion with deterministic ordering semantics.
 - Span-set validation with explicit overlap and structural checks.
-- Human review decision model for repairs and allowed special cases.
-- Decision-aware suppression and grouped reviewed repair outputs.
-- JSON-serializable review decision payload support (`to_dict`/`from_dict`).
+- Human review decision model for repairs, allowed special cases, and canonical
+  span operations.
+- Decision-aware suppression, grouped reviewed repair outputs, and
+  application-eligibility helpers for span operation reviews.
+- Deterministic JSON-serializable review decision payload support (`to_dict`/
+  `from_dict` plus serialization helpers).
 
 ## 6. Planned Features (Near-term Roadmap)
 

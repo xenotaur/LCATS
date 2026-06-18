@@ -263,6 +263,53 @@ class SpanOperationReviewTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             review.SpanOperationReviewDecision.from_dict(payload)
 
+    def test_span_operation_review_serialization_is_deterministically_ordered(self):
+        first_operation = self._operation("spanop-a", "’")
+        second_operation = span_ops.SpanOperation(
+            operation_id="spanop-b",
+            operation_type=span_ops.REPLACE_SPAN,
+            start=8,
+            end=11,
+            replacement_text="…",
+            original_text="â€¦",
+            provenance=span_ops.SpanOperationProvenance(
+                rule_id="mojibake-ellipsis",
+                source="repair_suggestion",
+                finding_offset=8,
+                evidence="rule=mojibake-pattern; fragment=â€¦",
+                rationale="Broken UTF-8 ellipsis sequence.",
+            ),
+        )
+        first_decision = review.SpanOperationReviewDecision(
+            decision_id="review-a",
+            span_operation_id=first_operation.operation_id,
+            state=review.APPROVED,
+            reviewer="reviewer@example.test",
+            rationale="Approve first operation.",
+            reviewed_operation=first_operation,
+        )
+        second_decision = review.SpanOperationReviewDecision(
+            decision_id="review-b",
+            span_operation_id=second_operation.operation_id,
+            state=review.APPROVED,
+            reviewer="reviewer@example.test",
+            rationale="Approve second operation.",
+            reviewed_operation=second_operation,
+        )
+
+        run_one = review.serialize_span_operation_review_decisions(
+            [second_decision, first_decision]
+        )
+        run_two = review.serialize_span_operation_review_decisions(
+            [first_decision, second_decision]
+        )
+
+        self.assertEqual(run_one, run_two)
+        loaded = review.deserialize_span_operation_review_decisions(run_one)
+        self.assertEqual(
+            ["review-a", "review-b"], [item.decision_id for item in loaded]
+        )
+
     def test_span_operation_review_round_trip_preserves_auditability(self):
         replacement = self._operation("spanop-demo-override", "'")
         decision = self._decision(
