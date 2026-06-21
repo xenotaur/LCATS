@@ -44,7 +44,7 @@ created_at: 2026-06-18T00:00:00+00:00
 - `test -f project/audits/2026-06-16-special-character-cleanup-workstream-audit.md`
 - `test -f project/executions/2026-06-18-AD_HOC-PHASE_4_INTEGRATION_AUDIT.md`
 - `python -m unittest tests.analysis_tests.application_test`
-- `python - <<'PY' ... PY` path-reference check allowing the documented missing `scripts/prompts/record-execution` helper
+- Performed a scripted path-reference check allowing the documented missing `scripts/prompts/record-execution` helper.
 - `rg -n "PHASE_4_INTEGRATION_AUDIT|phase 4.*integration|repair-review-application" project lcats tests scripts --glob '!output/**'`
 - `rg -n "√©|√®|√∂|√≤|√º|√±|Ã©|Ã«|Ãª|Ã¶|Ã¯|Â¢|째|FEFF|mojibake_sequence|mojibake-sequence|source_confirmed|allowed_unicode|before/after|snapshot" tests lcats/analysis/corpus project/audits/2026-06-16-special-character-cleanup-workstream-audit.md`
 
