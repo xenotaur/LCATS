@@ -13,7 +13,12 @@ from typing import Optional, Sequence
 import tqdm
 
 from lcats.analysis.corpus import discovery
-from lcats.analysis.corpus.assess import VALID_GENRES, AssessmentResult, assess_story
+from lcats.analysis.corpus.assess import (
+    VALID_GENRES,
+    AssessmentResult,
+    assess_story,
+    run_preflight,
+)
 
 TSV_COLUMNS = [
     "file_path",
@@ -125,6 +130,24 @@ def _result_to_tsv_row(result: AssessmentResult) -> dict:
     }
 
 
+def _dry_run_preview(file_path: pathlib.Path, genre: str, out) -> None:
+    try:
+        title, author, url, findings, _body = run_preflight(file_path)
+        print(f"[dry-run] {file_path}", file=out)
+        print(f"  Title:    {title}", file=out)
+        print(f"  Author:   {author}", file=out)
+        print(f"  Genre:    {genre}", file=out)
+        if findings:
+            print(f"  QA findings ({len(findings)}):", file=out)
+            for f in findings:
+                print(f"    [{f.severity.upper()}] {f.kind}: {f.message}", file=out)
+        else:
+            print("  QA findings: none", file=out)
+    except Exception as exc:
+        print(f"[dry-run] {file_path} — ERROR: {exc}", file=out)
+    print(file=out)
+
+
 def _write_human(out, result: AssessmentResult) -> None:
     symbol = {"include": "✓", "exclude": "✗", "review": "?"}.get(result.verdict, "?")
     print(f"{symbol} [{result.verdict.upper()}] {result.title}", file=out)
@@ -155,6 +178,13 @@ def run(
     """Run the assess subcommand."""
     parser = build_parser()
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
+
+    if args.max_body_chars < 0:
+        print(
+            "error: --max-body-chars must be >= 0 (use 0 for no truncation)",
+            file=sys.stderr,
+        )
+        return 1
 
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not args.dry_run and not api_key:
@@ -204,7 +234,7 @@ def run(
         all_results = []
         for file_path in tqdm.tqdm(files, disable=not _show_progress(args.progress)):
             if args.dry_run:
-                print(f"[dry-run] {file_path}", file=sys.stderr)
+                _dry_run_preview(file_path, args.genre, output_stream)
                 continue
 
             result = assess_story(

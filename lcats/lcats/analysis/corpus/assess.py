@@ -168,14 +168,14 @@ def _format_findings(findings: list) -> str:
     )
 
 
-def assess_story(
+def run_preflight(
     file_path: pathlib.Path,
-    genre: str,
-    client,
-    model: str = "claude-opus-4-8",
-    max_body_chars: int = 100_000,
-) -> AssessmentResult:
-    """Assess a single corpus JSON file for quality and genre fit."""
+) -> tuple[str, str, str, list, str]:
+    """Read a story file and run QA detectors without calling the API.
+
+    Returns (title, author, url, findings, full_body). Raises on file or parse
+    errors.
+    """
     from lcats.analysis.corpus.cli import (
         coerce_story_text,
         infer_story_title,
@@ -188,27 +188,42 @@ def assess_story(
     metadata = data.get("metadata") or {}
     author = metadata.get("author", "Unknown")
     url = metadata.get("url", "")
-
     full_body = coerce_story_text(data.get("body", ""))
     findings = qa.run_detectors(full_body)
-    findings_text = _format_findings(findings)
+    return title, author, url, findings, full_body
 
-    body = full_body
-    if max_body_chars and len(body) > max_body_chars:
-        body = body[:max_body_chars] + "\n\n[... text truncated ...]"
 
-    system_prompt = SYSTEM_PROMPT_TEMPLATE.format(genre=genre)
-    user_message = (
-        f"STORY METADATA:\n"
-        f"Title: {title}\n"
-        f"Author: {author}\n"
-        f"Source URL: {url}\n"
-        f"Claimed genre: {genre}\n"
-        f"\nPRE-FLIGHT QA FINDINGS:\n{findings_text}\n"
-        f"\nSTORY TEXT:\n{body}"
-    )
+def assess_story(
+    file_path: pathlib.Path,
+    genre: str,
+    client,
+    model: str = "claude-opus-4-8",
+    max_body_chars: int = 100_000,
+) -> AssessmentResult:
+    """Assess a single corpus JSON file for quality and genre fit."""
+    title = file_path.stem
+    author = "Unknown"
+    url = ""
 
     try:
+        title, author, url, findings, full_body = run_preflight(file_path)
+        findings_text = _format_findings(findings)
+
+        body = full_body
+        if max_body_chars and len(body) > max_body_chars:
+            body = body[:max_body_chars] + "\n\n[... text truncated ...]"
+
+        system_prompt = SYSTEM_PROMPT_TEMPLATE.format(genre=genre)
+        user_message = (
+            f"STORY METADATA:\n"
+            f"Title: {title}\n"
+            f"Author: {author}\n"
+            f"Source URL: {url}\n"
+            f"Claimed genre: {genre}\n"
+            f"\nPRE-FLIGHT QA FINDINGS:\n{findings_text}\n"
+            f"\nSTORY TEXT:\n{body}"
+        )
+
         with client.messages.stream(
             model=model,
             max_tokens=2048,
