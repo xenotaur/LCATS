@@ -4,6 +4,7 @@ import argparse
 import pathlib
 import sys
 
+from lcats.analysis.corpus import assess_cli
 from lcats.analysis.corpus import cli as corpus_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
@@ -42,6 +43,10 @@ def _handle_survey(args):
 
 def _handle_stats(args):
     return "", corpus_cli.run_stats(parsed_args=args)
+
+
+def _handle_assess(args):
+    return "", assess_cli.run(parsed_args=args)
 
 
 def _handle_repair_specials(args):
@@ -165,6 +170,28 @@ def build_parser() -> argparse.ArgumentParser:
     )
     survey_parser.set_defaults(handler=_handle_survey)
     command_parsers["survey"] = survey_parser
+
+    assess_parent = assess_cli.build_parser(add_help=False)
+    assess_parser = subparsers.add_parser(
+        "assess",
+        parents=[assess_parent],
+        help="Assess corpus stories for quality and genre fit using the Claude API.",
+        description=(
+            "Assess LCATS corpus JSON files for quality and genre fit. "
+            "Calls the Claude API to produce structured include/exclude/review verdicts, "
+            "genre confidence scores, issue lists, and story summaries."
+        ),
+        epilog=(
+            "Examples:\n"
+            "  lcats assess corpora/sherlock --genre 'science fiction'\n"
+            "  lcats assess data/ --genre horror --format tsv --output horror.tsv\n"
+            "  lcats assess data/ --genre western --dry-run\n"
+            "  ANTHROPIC_API_KEY=sk-... lcats assess corpora/ --genre romance --progress"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    assess_parser.set_defaults(handler=_handle_assess)
+    command_parsers["assess"] = assess_parser
 
     stats_parent = corpus_cli.build_stats_parser(add_help=False)
     stats_parser = subparsers.add_parser(
