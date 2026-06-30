@@ -51,6 +51,29 @@ application.
 - Support replay/audit across runs and contributors.
 - Deliver initial workspace meta registry slice (`meta register`) as an entry point into persistent project identity.
 
+## Phase 5.5 — Unified LLM Backend + Scientific Assessment (**Planned**)
+Focus: enable model-to-model comparison experiments by unifying all LLM API
+calls behind a single injectable `LLMBackend` Protocol, and deliver the
+first full corpus quality and genre assessment pipeline.
+
+### Phase 5.5A: LLM Backend Package (WI-LLM-0007)
+- Create `lcats/llm/` with `LLMBackend` Protocol, `BackendResponse`,
+  `OpenAIBackend`, `AnthropicBackend`, and `FakeBackend`.
+- Full unit tests; no existing code changes.
+
+### Phase 5.5B: JSONPromptExtractor Migration (WI-LLM-0008)
+- Migrate `llm_extractor.py` to `LLMBackend`; update test mocks.
+- Covers `scene_analysis.py` and `story_analysis.py` by transitivity.
+
+### Phase 5.5C: Assess Pipeline Migration (WI-LLM-0009)
+- Migrate `assess.py` and `assess_cli.py` to `LLMBackend`.
+- `assess.py` gains no direct SDK dependency.
+
+### Phase 5.5D: Side-by-Side Comparison Dry Run (WI-LLM-0010)
+- Run `assess` pipeline on 5–10 stories per genre with both backends.
+- Confirm identical output schema; record baseline agreement rates.
+- Commit results to `experiments/llm_backend_comparison/`.
+
 ## Phase 6 — Narrative Structure + Reasoning (**Future**)
 - Introduce structured narrative representations.
 - Add reasoning workflows integrating Propp, Greimas, CBR, and RAG techniques.

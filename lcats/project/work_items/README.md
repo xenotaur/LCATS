@@ -17,6 +17,10 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md`
+- `proposed/WI-LLM-0007.md` — Create `lcats/llm/` package (Protocol + backends)
+- `proposed/WI-LLM-0008.md` — Migrate `JSONPromptExtractor` to `LLMBackend`
+- `proposed/WI-LLM-0009.md` — Migrate `assess.py` / `assess_cli.py` to `LLMBackend`
+- `proposed/WI-LLM-0010.md` — Side-by-side model comparison dry run
 
 ## Resolved Items
 - `resolved/WI-REPAIR-0001.md`
