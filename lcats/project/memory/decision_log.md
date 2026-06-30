@@ -1,5 +1,58 @@
 # Decision Log
 
+## 2026-06-29: Adopt unified LLMBackend Protocol for model-comparison experiments
+
+### Summary
+- Designed and adopted a custom thin `LLMBackend` Protocol abstraction for all
+  LLM API calls in LCATS. Motivated by the need for model-to-model comparison
+  experiments for the WorldCon 2026 science fiction analysis paper.
+
+### Decisions
+- **Custom thin adapter (Option 3), not LiteLLM**: LiteLLM was evaluated and
+  rejected because transparency over the exact wire format sent to each provider
+  is a scientific requirement. LiteLLM performs request transformations that are
+  not always transparent and adds a large transitive dependency.
+- **`typing.Protocol`, not ABC**: structural subtyping avoids inheritance
+  coupling; `FakeBackend` test double needs zero imports from production code.
+- **One `complete()` method**: single method with `tool: dict | None` to signal
+  mode. One mock per test; minimal Protocol surface.
+- **Two-field `BackendResponse`**: `text: str` and `tool_result: dict | None`
+  are explicit; no union type that requires runtime narrowing.
+- **`KMo/` and notebooks excluded**: exploratory scripts are not in scope for
+  migration; their results are not cited in the paper.
+- **Streaming default for Anthropic**: `messages.stream` avoids gateway timeouts
+  on 40–100K character story bodies; transparent to callers.
+
+### Rationale
+- Single injectable backend makes the model an experiment parameter, not a
+  code change.
+- Pinned model version strings in both backends satisfy reproducibility
+  requirements (Bender et al., FAccT 2021; Hutchinson et al., NeurIPS 2021).
+- `JSONPromptExtractor` already accepts `client: Any`; the migration is a
+  parameter rename + one call site change.
+
+### Status
+- Proposed (work items WI-LLM-0007 through WI-LLM-0010 created)
+
+---
+
+## 2026-06-29: Add lcats assess command using Anthropic API
+
+### Summary
+- Added `lcats assess` subcommand (PR #98) that uses the Anthropic Claude API
+  to assess corpus stories for quality and genre fit.
+
+### Decisions
+- Use Anthropic tool use (not `response_format`) to enforce structured output.
+- Pre-flight QA runs on the full body before truncation.
+- Four target genres confirmed: science fiction, horror, western, romance.
+- Default model: `claude-opus-4-8`; configurable via `--model`.
+
+### Status
+- Landed (PR #98)
+
+---
+
 ## 2026-04-21: WI-REPAIR-0001 conservative repair engine completed
 
 ### Summary
