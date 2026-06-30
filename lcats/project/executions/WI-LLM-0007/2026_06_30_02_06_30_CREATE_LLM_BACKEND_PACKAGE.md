@@ -4,7 +4,7 @@ prompt_id: PROMPT(WI-LLM-0007:CREATE_LLM_BACKEND_PACKAGE)[2026-06-30T02:06:15-04
 work_item: WI-LLM-0007
 status: in_progress
 rerun_of: 
-pr: 
+pr: https://github.com/xenotaur/LCATS/pull/100
 commit: 
 created_at: 2026-06-30T02:06:30-04:00
 agent: claude_app
