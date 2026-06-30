@@ -24,6 +24,7 @@ dependencies = [
    "seaborn",
    "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
    "anthropic",
+   "openai>=1.0.0",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

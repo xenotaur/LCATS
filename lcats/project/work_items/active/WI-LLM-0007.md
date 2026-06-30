@@ -1,7 +1,7 @@
 ---
 id: WI-LLM-0007
 title: Create lcats/llm package with LLMBackend Protocol and provider implementations
-status: proposed
+status: active
 priority: high
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
@@ -20,8 +20,12 @@ existing code is changed in this PR.
 ## Scope
 
 New files:
-- `lcats/lcats/llm/__init__.py` — re-exports `LLMBackend`, `BackendResponse`,
-  `OpenAIBackend`, `AnthropicBackend`, `FakeBackend`
+- `lcats/lcats/llm/__init__.py` — module docstring only, no symbol
+  re-exports. **Deviation from original plan:** `STYLE.md` §3 requires
+  "always import modules, not symbols" for LCATS code (e.g.
+  `from lcats.llm import backend` then `backend.LLMBackend`, not
+  `from lcats.llm import LLMBackend`). The originally planned re-export
+  list would have violated this; callers import each submodule directly.
 - `lcats/lcats/llm/backend.py` — `LLMBackend` Protocol + `BackendResponse`
   dataclass (see DESIGN-LLM-BACKEND for signatures)
 - `lcats/lcats/llm/openai_backend.py` — `OpenAIBackend` implementation
@@ -29,10 +33,13 @@ New files:
   defaults to streaming (`use_streaming=True`)
 - `lcats/lcats/llm/fake_backend.py` — `FakeBackend` with `self.calls` list
   for test assertion
-- `tests/llm_tests/test_backend.py` — Protocol isinstance check, FakeBackend
-  call recording
-- `tests/llm_tests/test_openai_backend.py` — unit tests mocking `openai.OpenAI`
-- `tests/llm_tests/test_anthropic_backend.py` — unit tests mocking
+- `tests/llm_tests/backend_test.py` — Protocol isinstance check, FakeBackend
+  call recording. **Deviation from original plan:** filename uses the
+  project's `*_test.py` suffix convention (`tests/AGENTS.md`), not the
+  `test_*.py` prefix originally specified.
+- `tests/llm_tests/openai_backend_test.py` — unit tests stubbing
+  `openai.OpenAI`
+- `tests/llm_tests/anthropic_backend_test.py` — unit tests stubbing
   `anthropic.Anthropic`
 
 Modified files:
