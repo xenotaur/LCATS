@@ -13,8 +13,9 @@ linked_design: DESIGN-LLM-BACKEND
 ## Objective
 Create the `lcats/lcats/llm/` package containing the `LLMBackend` Protocol,
 `BackendResponse` dataclass, `FakeBackend` test double, `OpenAIBackend`, and
-`AnthropicBackend` — with full unit tests. No existing code is changed in
-this PR.
+`AnthropicBackend` — with full unit tests. The only existing file touched is
+`pyproject.toml`, to declare the new `openai` runtime dependency; no other
+existing code is changed in this PR.
 
 ## Scope
 
@@ -34,7 +35,12 @@ New files:
 - `tests/llm_tests/test_anthropic_backend.py` — unit tests mocking
   `anthropic.Anthropic`
 
-No existing files are modified.
+Modified files:
+- `pyproject.toml` — add `"openai"` to `dependencies`. This is the only
+  existing-file edit in this work item; it is required because
+  `OpenAIBackend.__init__` imports `openai` and would otherwise be merged
+  without a declared runtime dependency, causing import/construction failures
+  in any environment installed strictly from `pyproject.toml`.
 
 ## Acceptance Criteria
 - `isinstance(FakeBackend(), LLMBackend)` is `True` (runtime_checkable)
@@ -49,9 +55,9 @@ No existing files are modified.
   provider-specific field names
 - `FakeBackend.calls` records each call's kwargs for assertion
 - All tests pass; no live API calls in tests (mocked SDKs throughout)
+- `"openai"` is present in `pyproject.toml`'s `dependencies` list
 
 ## Notes
-- `openai` is not currently in `pyproject.toml` dependencies; add it.
 - `anthropic` was added in PR #98 and is already present.
 - `FakeBackend` is a test utility; keep it in `lcats/llm/` (not `tests/`) so
   downstream test files can import it without test-path hacks.

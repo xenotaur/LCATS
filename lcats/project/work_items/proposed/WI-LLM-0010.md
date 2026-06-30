@@ -6,7 +6,7 @@ priority: medium
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
 linked_design: DESIGN-LLM-BACKEND
-depends_on: WI-LLM-0008, WI-LLM-0009
+depends_on: [WI-LLM-0008, WI-LLM-0009]
 ---
 
 # Work Item: WI-LLM-0010

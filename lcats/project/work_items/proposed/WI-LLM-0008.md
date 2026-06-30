@@ -1,21 +1,25 @@
 ---
 id: WI-LLM-0008
-title: Migrate JSONPromptExtractor to LLMBackend
+title: Migrate JSONPromptExtractor and extraction.py to LLMBackend
 status: proposed
 priority: high
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
 linked_design: DESIGN-LLM-BACKEND
-depends_on: WI-LLM-0007
+depends_on: [WI-LLM-0007]
 ---
 
 # Work Item: WI-LLM-0008
 
 ## Objective
-Migrate `lcats/lcats/analysis/llm_extractor.py` to accept and use an
-`LLMBackend` instead of a raw OpenAI-compatible client. Update test mocks
-to use `FakeBackend`. This is the highest-leverage migration: it covers
-`scene_analysis.py` and `story_analysis.py` by transitivity.
+Migrate `lcats/lcats/analysis/llm_extractor.py` (Pattern B) and
+`lcats/lcats/extraction.py` (Pattern A2) to accept and use an `LLMBackend`
+instead of a raw OpenAI-compatible client. Update test mocks to use
+`FakeBackend`. The `llm_extractor.py` migration is the highest-leverage
+piece: it covers `scene_analysis.py` and `story_analysis.py` by
+transitivity. `extraction.py` is included because it is packaged library
+code (not an exploratory `KMo/` script) and is part of the public `lcats`
+package surface — see DESIGN-LLM-BACKEND, "Existing Call Patterns."
 
 ## Scope
 
@@ -46,9 +50,28 @@ Modified files:
 - `tests/analysis_tests/story_processors_test.py`
   - Replace client mock with `FakeBackend`
 
+- `lcats/lcats/extraction.py`
+  - `extract_from_story(story_text, template, client, model_name=..., temperature=...)`
+    → `extract_from_story(story_text, template, backend: LLMBackend, model_name=..., temperature=...)`
+  - Call site (`client.chat.completions.create(...)`) updated to
+    `backend.complete(...)` (see DESIGN-LLM-BACKEND)
+  - `ExtractionResult.response` (currently the raw OpenAI response object)
+    becomes the raw `BackendResponse.raw` value — same field, normalized source
+
+- `tests/extraction_test.py`
+  - Replace `Mock()` / `client.chat.completions.create` mocks with `FakeBackend`
+  - Existing assertions on `result.model_name`, `result.extracted_output`,
+    `result.parsing_error`, `result.summary()` remain unchanged
+
 No changes to `scene_analysis.py` or `story_analysis.py` themselves — they
 pass `client` through to `JSONPromptExtractor`; renaming the parameter to
 `backend` is a non-breaking keyword rename that can be done here or deferred.
+
+`KMo/analyze.py`, the only current caller of `extract_from_story`, is **not**
+modified in this work item (it remains out of scope per the design's
+Non-Goals) and will break if run against the new signature until it is
+separately updated or retired. This is acceptable because `KMo/analyze.py`
+is exploratory and not part of any tested or scheduled pipeline run.
 
 ## Acceptance Criteria
 - All existing tests pass after mock replacement
@@ -59,6 +82,12 @@ pass `client` through to `JSONPromptExtractor`; renaming the parameter to
 - `BackendResponse.model` flows into `result["model_name"]`
 - `BackendResponse.input_tokens` / `output_tokens` flow into `result["usage"]`
   (normalized form: `{"input_tokens": N, "output_tokens": N}`)
+- `extraction.extract_from_story(..., backend=FakeBackend(...))` works
+  end-to-end and all tests in `tests/extraction_test.py` pass after mock
+  replacement
+- `rg "chat.completions.create" lcats/lcats/` returns no matches outside
+  `lcats/lcats/llm/openai_backend.py` (confirms no packaged-library call site
+  was missed)
 
 ## Notes
 - The `_normalize_api_error` logic in `JSONPromptExtractor` remains in place

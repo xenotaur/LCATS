@@ -43,14 +43,24 @@ experiment parameter.
 
 | Pattern | File(s) | API method | JSON enforcement |
 |---|---|---|---|
-| A — direct | `KMo/scenes.py`, `extraction.py` | `chat.completions.create` | None (prompted) |
+| A1 — direct, exploratory | `KMo/scenes.py`, `KMo/analyze.py` | `chat.completions.create` | None (prompted) |
+| A2 — direct, packaged | `lcats/lcats/extraction.py` | `chat.completions.create` | None (prompted) |
 | B — wrapped | `llm_extractor.py` via `scene_analysis.py`, `story_analysis.py` | `chat.completions.create` | `response_format=json_object` |
 | C — tool use | `analysis/corpus/assess.py` | `messages.stream` + tool | Tool use schema |
 
 Pattern B already accepts `client: Any` by duck typing; replacing it is the
 smallest possible change. Pattern C constructs its own client internally and
-must be updated to accept an injected backend. Pattern A lives in exploratory
-`KMo/` scripts and is intentionally excluded from this migration.
+must be updated to accept an injected backend.
+
+Pattern A1 lives in exploratory `KMo/` scripts and is intentionally excluded
+from this migration (see Non-Goals). Pattern A2 (`extraction.py`) is
+distinct from A1: it lives in the packaged `lcats` library, ships with its
+own unit tests (`tests/extraction_test.py`), and is importable independently
+of `KMo/`. Even though its only current caller is `KMo/analyze.py`, it is
+part of the public package surface and is **in scope** for migration — see
+WI-LLM-0008. Excluding it would leave a packaged, production-reachable LLM
+call path outside the unified backend, silently defeating model-comparison
+runs that happen to exercise it.
 
 ## High-Level Design
 
@@ -165,6 +175,27 @@ streaming → use messages.stream(...).get_final_message() to avoid timeouts
 - Add `max_tokens: int = 4096` to the extractor constructor; passed through
   to `backend.complete`.
 
+### `lcats/lcats/extraction.py`
+
+- `extract_from_story(story_text, template, client, model_name=..., temperature=...)`
+  → `extract_from_story(story_text, template, backend: LLMBackend, model_name=..., temperature=...)`
+- Call site (currently `client.chat.completions.create(...)`) changes the
+  same way as `llm_extractor.py`:
+  ```python
+  # after
+  result = backend.complete(
+      system=template.system_template,
+      messages=[{"role": "user", "content": ...}],
+      model=model_name, temperature=temperature,
+  )
+  raw_output = result.text
+  ```
+- `tests/extraction_test.py` mocks replaced with `FakeBackend`.
+- `KMo/analyze.py` (the only current caller) is out of scope per Non-Goals;
+  it continues to construct its own `openai.OpenAI()` client directly and is
+  unaffected by this migration. If `KMo/analyze.py` is later migrated, it
+  would construct an `OpenAIBackend` and call the updated `extract_from_story`.
+
 ### `lcats/lcats/analysis/corpus/assess.py`
 
 - `assess_story(file_path, genre, client, ...)` → `assess_story(file_path, genre, backend: LLMBackend, ...)`
@@ -200,8 +231,9 @@ merging:
    FakeBackend, OpenAIBackend, AnthropicBackend, `__init__.py`, full unit tests.
    No existing code changes in this PR.
 
-2. **WI-LLM-0008** — Migrate `JSONPromptExtractor` to `LLMBackend`. Update
-   test mocks. Deprecate `force_json`. Depends on WI-LLM-0007.
+2. **WI-LLM-0008** — Migrate `JSONPromptExtractor` (Pattern B) and
+   `extraction.py` (Pattern A2) to `LLMBackend`. Update test mocks. Deprecate
+   `force_json`. Depends on WI-LLM-0007.
 
 3. **WI-LLM-0009** — Migrate `assess.py` and `assess_cli.py` to `LLMBackend`.
    Depends on WI-LLM-0007.
@@ -221,7 +253,18 @@ with a constructor flag `use_streaming: bool = True` for opt-out.
 ## Non-Goals
 
 - LiteLLM, LangChain, or any third-party routing layer.
-- Migration of `KMo/analyze.py` or `KMo/scenes.py` (exploratory scripts).
+- Migration of `KMo/analyze.py` or `KMo/scenes.py` (exploratory scripts;
+  **note:** `extraction.py`, which `KMo/analyze.py` imports, is in scope —
+  see "Existing Call Patterns" and WI-LLM-0008).
 - Migration of `notebooks/` scripts.
 - Replacing `tiktoken` usage (local token counting; no API call).
 - Adding new LLM providers beyond OpenAI and Anthropic in this work.
+
+## Dependency Scope
+
+This migration introduces a runtime dependency on `openai` (currently absent
+from `pyproject.toml`; `anthropic` was added in PR #98). The `pyproject.toml`
+edit is explicitly in scope for WI-LLM-0007 — see that work item's Scope
+section. Without it, `OpenAIBackend` can be merged without a declared
+dependency, and any environment that installs from `pyproject.toml` alone
+would fail at `OpenAIBackend` construction time.
