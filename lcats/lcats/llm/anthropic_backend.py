@@ -49,7 +49,7 @@ class AnthropicBackend:
             max_tokens=max_tokens,
             temperature=temperature,
         )
-        if tool:
+        if tool is not None:
             kwargs["tools"] = [tool]
             kwargs["tool_choice"] = {"type": "tool", "name": tool["name"]}
 
@@ -59,10 +59,17 @@ class AnthropicBackend:
         else:
             message = self._client.messages.create(**kwargs)
 
-        if tool:
+        if tool is not None:
             tool_block = next(
-                block for block in message.content if block.type == "tool_use"
+                (block for block in message.content if block.type == "tool_use"),
+                None,
             )
+            if tool_block is None:
+                content_types = [b.type for b in message.content]
+                raise ValueError(
+                    f"API returned no tool_use block for tool {tool['name']!r}; "
+                    f"content types: {content_types}"
+                )
             tool_result = tool_block.input
             text = ""
         else:

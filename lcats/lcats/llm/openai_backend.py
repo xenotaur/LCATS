@@ -44,7 +44,7 @@ class OpenAIBackend:
             temperature=temperature,
             max_tokens=max_tokens,
         )
-        if tool:
+        if tool is not None:
             kwargs["tools"] = [
                 {
                     "type": "function",
@@ -65,8 +65,14 @@ class OpenAIBackend:
         response = self._client.chat.completions.create(**kwargs)
         choice = response.choices[0]
 
-        if tool:
-            raw_arguments = choice.message.tool_calls[0].function.arguments
+        if tool is not None:
+            tool_calls = choice.message.tool_calls
+            if not tool_calls:
+                raise ValueError(
+                    f"API returned no tool calls for tool {tool['name']!r}; "
+                    f"finish_reason: {choice.finish_reason!r}"
+                )
+            raw_arguments = tool_calls[0].function.arguments
             tool_result = json.loads(raw_arguments)
             text = ""
         else:
