@@ -1,7 +1,7 @@
 ---
 id: WI-LLM-0009
 title: Migrate assess.py and assess_cli.py to LLMBackend
-status: proposed
+status: active
 priority: high
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
