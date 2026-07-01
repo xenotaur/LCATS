@@ -1,10 +1,14 @@
 ---
 id: WI-PERSIST-0004
 title: Design persistence layer for corpus state and operation history
+type: investigation
 status: proposed
 priority: medium
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
+blocked: false
+blocked_reason: null
+resolution: null
 ---
 
 # Work Item: WI-PERSIST-0004

@@ -1,10 +1,14 @@
 ---
 id: WI-APPLY-0005
 title: Apply approved repair operations safely and deterministically
+type: deliverable
 status: active
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
+blocked: false
+blocked_reason: null
+resolution: null
 ---
 
 # Work Item: WI-APPLY-0005

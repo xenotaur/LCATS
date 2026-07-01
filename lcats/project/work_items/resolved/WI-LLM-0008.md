@@ -1,6 +1,7 @@
 ---
 id: WI-LLM-0008
 title: Migrate JSONPromptExtractor and extraction.py to LLMBackend
+type: operation
 status: resolved
 resolution: "Implemented and merged in PR #101 (commit d998b2e)"
 priority: high
@@ -8,6 +9,8 @@ owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
 linked_design: DESIGN-LLM-BACKEND
 depends_on: [WI-LLM-0007]
+blocked: false
+blocked_reason: null
 ---
 
 # Work Item: WI-LLM-0008

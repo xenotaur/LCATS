@@ -1,12 +1,16 @@
 ---
 id: WI-LLM-0010
 title: Side-by-side model comparison dry run for assess pipeline
+type: evaluation
 status: proposed
 priority: medium
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
 linked_design: DESIGN-LLM-BACKEND
 depends_on: [WI-LLM-0008, WI-LLM-0009]
+blocked: false
+blocked_reason: null
+resolution: null
 ---
 
 # Work Item: WI-LLM-0010

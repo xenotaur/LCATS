@@ -1,12 +1,15 @@
 ---
 id: WI-LLM-0007
 title: Create lcats/llm package with LLMBackend Protocol and provider implementations
+type: deliverable
 status: resolved
 resolution: "Implemented and merged in PR #100 (commit b81431b)"
 priority: high
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
 linked_design: DESIGN-LLM-BACKEND
+blocked: false
+blocked_reason: null
 ---
 
 # Work Item: WI-LLM-0007

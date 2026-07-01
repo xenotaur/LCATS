@@ -1,10 +1,14 @@
 ---
 id: WI-META-0006
 title: Implement Meta CLI register slice for workspace project registry
+type: deliverable
 status: active
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
+blocked: false
+blocked_reason: null
+resolution: null
 ---
 
 # Work Item: WI-META-0006

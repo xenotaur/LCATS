@@ -1,10 +1,14 @@
 ---
 id: WI-REPAIR-0001
 title: Implement conservative repair engine
+type: deliverable
 status: resolved
+resolution: "Implemented conservative repair proposal generation in lcats.analysis.corpus.repairs with deterministic dry-run plan models and TSV/JSONL reporting helpers; non-destructive-by-default behavior preserved."
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
+blocked: false
+blocked_reason: null
 ---
 
 # Work Item: WI-REPAIR-0001

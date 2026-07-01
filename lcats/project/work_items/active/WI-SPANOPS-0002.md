@@ -1,10 +1,14 @@
 ---
 id: WI-SPANOPS-0002
 title: Build span operation system for precise text edits
+type: deliverable
 status: active
 priority: high
 owner: unassigned
 linked_focus: FOCUS-REPAIR-REVIEW
+blocked: false
+blocked_reason: null
+resolution: null
 ---
 
 # Work Item: WI-SPANOPS-0002
