@@ -395,23 +395,24 @@ STORY:
 """
 
 
-def make_doc_classification_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
+def make_doc_classification_extractor(
+    backend: Any,
+) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor for whole-text document classification.
 
     Args:
-        client: OpenAI-like client (e.g., openai.OpenAI()).
+        backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
         Configured JSONPromptExtractor that emits a dict under key "classification".
     """
     return llm_extractor.JSONPromptExtractor(
-        client,
+        backend,
         system_prompt=DOC_CLASSIFY_SYSTEM_PROMPT,
-        user_prompt_template=DOC_CLASSIFY_USER_PROMPT_TEMPLATE,  # uses {story_text}
+        user_prompt_template=DOC_CLASSIFY_USER_PROMPT_TEMPLATE,
         output_key="classification",
         default_model="gpt-4o",
         temperature=0.1,
-        force_json=True,
-        text_indexer=None,  # not needed for whole-text classification
-        result_aligner=None,  # no offsets to align
+        text_indexer=None,
+        result_aligner=None,
     )

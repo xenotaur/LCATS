@@ -1,7 +1,7 @@
 ---
 id: WI-LLM-0008
 title: Migrate JSONPromptExtractor and extraction.py to LLMBackend
-status: proposed
+status: active
 priority: high
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND

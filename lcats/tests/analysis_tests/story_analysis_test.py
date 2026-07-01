@@ -3,6 +3,7 @@
 import unittest
 import unittest.mock
 from lcats.analysis import story_analysis
+from lcats.llm import fake_backend
 import lcats.utils.tokenizer_test_utils as tokenizer_test_utils
 
 # ---------------------------------------------------------------------------
@@ -554,27 +555,27 @@ class TestMakeDocClassificationExtractor(unittest.TestCase):
     def test_returns_json_prompt_extractor(self):
         from lcats.analysis import llm_extractor
 
-        client = unittest.mock.MagicMock()
+        client = fake_backend.FakeBackend()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsInstance(extractor, llm_extractor.JSONPromptExtractor)
 
     def test_output_key_is_classification(self):
-        client = unittest.mock.MagicMock()
+        client = fake_backend.FakeBackend()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertEqual(extractor.output_key, "classification")
 
     def test_default_model_is_gpt4o(self):
-        client = unittest.mock.MagicMock()
+        client = fake_backend.FakeBackend()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertEqual(extractor.default_model, "gpt-4o")
 
     def test_text_indexer_is_none(self):
-        client = unittest.mock.MagicMock()
+        client = fake_backend.FakeBackend()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsNone(extractor.text_indexer)
 
     def test_result_aligner_is_none(self):
-        client = unittest.mock.MagicMock()
+        client = fake_backend.FakeBackend()
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsNone(extractor.result_aligner)
 

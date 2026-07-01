@@ -183,23 +183,22 @@ STORY (with paragraph ids; DO NOT include [P####] markers in anchors):
 """
 
 
-def make_segment_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
+def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor configured for scene/sequel extraction.
 
     Args:
-        client: OpenAI-like client (supports chat.completions.create).
+        backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
         Configured JSONPromptExtractor that returns a dict under key "segments".
     """
     return llm_extractor.JSONPromptExtractor(
-        client,
+        backend,
         system_prompt=SCENE_SEQUEL_SYSTEM_PROMPT,
         user_prompt_template=SCENE_SEQUEL_USER_PROMPT_TEMPLATE,
         output_key="segments",
         default_model="gpt-4o",
         temperature=0.2,
-        force_json=True,
         text_indexer=text_segmenter.paragraph_text_indexer,
         result_aligner=text_segmenter.segments_result_aligner,
         result_validator=text_segmenter.segments_auditor,
@@ -464,26 +463,25 @@ SEGMENT:
 """
 
 
-def make_semantics_extractor(client: Any) -> llm_extractor.JSONPromptExtractor:
+def make_semantics_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor configured for per-segment semantics.
 
     Args:
-        client: OpenAI-like client (supports chat.completions.create).
+        backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
         Configured JSONPromptExtractor that returns a dict under key "judgment".
     """
     return llm_extractor.JSONPromptExtractor(
-        client=client,
+        backend,
         system_prompt=SCENE_SEMANTICS_SYSTEM_PROMPT,
         user_prompt_template=SCENE_SEMANTICS_USER_PROMPT_TEMPLATE,
         output_key="judgment",
         default_model="gpt-4o",
         temperature=0.2,
-        force_json=True,
-        text_indexer=None,  # segment-level: no indexing
-        result_aligner=None,  # segment-level: no alignment
-        result_validator=None,  # optional: add later if desired
+        text_indexer=None,
+        result_aligner=None,
+        result_validator=None,
     )
 
 

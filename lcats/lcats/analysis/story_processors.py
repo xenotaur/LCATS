@@ -47,7 +47,7 @@ def story_summarizer(data: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def make_annotated_segment_extractor(
-    client: Any,
+    backend: Any,
     *,
     segment_model: str = "gpt-4o",
     semantic_model: str = "gpt-4o",
@@ -60,7 +60,7 @@ def make_annotated_segment_extractor(
     per-segment semantic judgment.
 
     Args:
-        client: OpenAI-like client (supports chat.completions.create).
+        backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
         segment_model: Model name to use for story-level segmentation.
         semantic_model: Model name to use for per-segment semantic labeling.
         include_validation: If True, include segmentation validation report.
@@ -73,8 +73,8 @@ def make_annotated_segment_extractor(
         None at factory time. Runtime exceptions inside the processor are
         captured into an `"error"` string in the returned payload.
     """
-    seg_extractor = scene_analysis.make_segment_extractor(client)
-    sem_extractor = scene_analysis.make_semantics_extractor(client)
+    seg_extractor = scene_analysis.make_segment_extractor(backend)
+    sem_extractor = scene_analysis.make_semantics_extractor(backend)
 
     def processor_function(data: Dict[str, Any]) -> Dict[str, Any]:
         """Produce annotated segments for a single story JSON.
