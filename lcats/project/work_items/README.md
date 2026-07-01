@@ -14,7 +14,6 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `active/WI-REVIEW-0003.md`
 - `active/WI-APPLY-0005.md`
 - `active/WI-META-0006.md`
-- `active/WI-LLM-0007.md` — Create `lcats/llm/` package (Protocol + backends)
 
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md`
@@ -24,3 +23,4 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Resolved Items
 - `resolved/WI-REPAIR-0001.md`
+- `resolved/WI-LLM-0007.md` — Create `lcats/llm/` package (Protocol + backends)
