@@ -6,6 +6,7 @@ from unittest.mock import MagicMock, patch
 from parameterized import parameterized
 
 from lcats.analysis import scene_analysis
+from lcats.llm import fake_backend
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -214,34 +215,34 @@ class TestMakeSegmentExtractor(unittest.TestCase):
     def test_returns_json_prompt_extractor(self):
         from lcats.analysis import llm_extractor
 
-        client = MagicMock()
-        extractor = scene_analysis.make_segment_extractor(client)
+        fb = fake_backend.FakeBackend()
+        extractor = scene_analysis.make_segment_extractor(fb)
         self.assertIsInstance(extractor, llm_extractor.JSONPromptExtractor)
 
     def test_output_key_is_segments(self):
-        extractor = scene_analysis.make_segment_extractor(MagicMock())
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertEqual(extractor.output_key, "segments")
 
     def test_default_model_is_gpt4o(self):
-        extractor = scene_analysis.make_segment_extractor(MagicMock())
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertEqual(extractor.default_model, "gpt-4o")
 
     def test_text_indexer_is_set(self):
         from lcats.analysis import text_segmenter
 
-        extractor = scene_analysis.make_segment_extractor(MagicMock())
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertIs(extractor.text_indexer, text_segmenter.paragraph_text_indexer)
 
     def test_result_aligner_is_set(self):
         from lcats.analysis import text_segmenter
 
-        extractor = scene_analysis.make_segment_extractor(MagicMock())
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertIs(extractor.result_aligner, text_segmenter.segments_result_aligner)
 
     def test_result_validator_is_set(self):
         from lcats.analysis import text_segmenter
 
-        extractor = scene_analysis.make_segment_extractor(MagicMock())
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertIs(extractor.result_validator, text_segmenter.segments_auditor)
 
 
@@ -256,24 +257,24 @@ class TestMakeSemanticsExtractor(unittest.TestCase):
     def test_returns_json_prompt_extractor(self):
         from lcats.analysis import llm_extractor
 
-        client = MagicMock()
-        extractor = scene_analysis.make_semantics_extractor(client)
+        fb = fake_backend.FakeBackend()
+        extractor = scene_analysis.make_semantics_extractor(fb)
         self.assertIsInstance(extractor, llm_extractor.JSONPromptExtractor)
 
     def test_output_key_is_judgment(self):
-        extractor = scene_analysis.make_semantics_extractor(MagicMock())
+        extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
         self.assertEqual(extractor.output_key, "judgment")
 
     def test_text_indexer_is_none(self):
-        extractor = scene_analysis.make_semantics_extractor(MagicMock())
+        extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
         self.assertIsNone(extractor.text_indexer)
 
     def test_result_aligner_is_none(self):
-        extractor = scene_analysis.make_semantics_extractor(MagicMock())
+        extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
         self.assertIsNone(extractor.result_aligner)
 
     def test_default_model_is_gpt4o(self):
-        extractor = scene_analysis.make_semantics_extractor(MagicMock())
+        extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
         self.assertEqual(extractor.default_model, "gpt-4o")
 
 

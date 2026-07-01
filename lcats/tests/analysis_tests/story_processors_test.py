@@ -6,6 +6,7 @@ import unittest.mock
 from unittest.mock import MagicMock, patch
 
 from lcats.analysis import story_processors
+from lcats.llm import fake_backend
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -149,13 +150,13 @@ class TestMakeAnnotatedSegmentExtractorFactory(unittest.TestCase):
     """Tests for make_annotated_segment_extractor factory (not the inner callable)."""
 
     def test_returns_callable(self):
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
         processor = story_processors.make_annotated_segment_extractor(client)
         self.assertTrue(callable(processor))
 
     def test_default_models_stored(self):
         """Returned processor captures default model names from factory."""
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
         with patch("lcats.analysis.scene_analysis.make_segment_extractor") as ms, patch(
             "lcats.analysis.scene_analysis.make_semantics_extractor"
         ) as mm:
@@ -168,14 +169,14 @@ class TestMakeAnnotatedSegmentExtractorFactory(unittest.TestCase):
         self.assertTrue(callable(processor))
 
     def test_custom_model_names_accepted(self):
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
         processor = story_processors.make_annotated_segment_extractor(
             client, segment_model="gpt-3.5", semantic_model="gpt-3.5"
         )
         self.assertTrue(callable(processor))
 
     def test_include_validation_false_accepted(self):
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
         processor = story_processors.make_annotated_segment_extractor(
             client, include_validation=False
         )
@@ -218,7 +219,7 @@ class TestProcessorFunction(unittest.TestCase):
         mock_sem_extractor = MagicMock()
         mock_encoder = _make_mock_encoder()
 
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
 
         if raise_in_annotate is not None:
             annotate_kwargs = {"side_effect": raise_in_annotate}
@@ -289,7 +290,7 @@ class TestProcessorFunction(unittest.TestCase):
         mock_sem = MagicMock()
         mock_enc = _make_mock_encoder()
 
-        client = MagicMock()
+        client = fake_backend.FakeBackend()
         with patch(
             "lcats.analysis.scene_analysis.make_segment_extractor",
             return_value=mock_seg,

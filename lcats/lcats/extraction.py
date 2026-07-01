@@ -35,7 +35,7 @@ class ExtractionResult:  # pylint: disable=too-many-instance-attributes
     model_name: str
     template: ExtractionTemplate
     messages: List[Dict[str, str]]
-    response: Optional[object]  # raw OpenAI response object
+    response: Optional[object]  # raw provider response (BackendResponse.raw)
     raw_output: Optional[str]  # raw text output from the LLM
     parsed_output: Optional[Dict]
     parsing_error: Optional[str]
@@ -60,18 +60,20 @@ class ExtractionResult:  # pylint: disable=too-many-instance-attributes
 def extract_from_story(
     story_text: str,
     template: ExtractionTemplate,
-    client,
+    backend,
     model_name: str = "gpt-3.5-turbo",
     temperature: float = 0.2,
 ) -> ExtractionResult:
     """Perform structured extraction from a story using an LLM and a prompt template."""
     messages = template.build_prompt(story_text)
-    response = client.chat.completions.create(
+    # messages[0] is the system turn; messages[1:] are user/assistant turns.
+    backend_response = backend.complete(
+        system=messages[0]["content"],
+        messages=messages[1:],
         model=model_name,
-        messages=messages,
         temperature=temperature,
     )
-    raw_output = response.choices[0].message.content
+    raw_output = backend_response.text
 
     try:
         parsed_output = utils.extract_json(raw_output)
@@ -94,10 +96,10 @@ def extract_from_story(
 
     return ExtractionResult(
         story_text=story_text,
-        model_name=model_name,
+        model_name=backend_response.model,
         template=template,
         messages=messages,
-        response=response,
+        response=backend_response.raw,
         raw_output=raw_output,
         parsed_output=parsed_output,
         parsing_error=parsing_error,

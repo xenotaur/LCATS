@@ -1,10 +1,14 @@
 """Generic JSON-focused LLM extractor."""
 
 import json
+import warnings
 
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from lcats import utils
+from lcats.llm import backend as llm_backend
+
+_UNSET = object()
 
 
 class JSONPromptExtractor:
@@ -14,7 +18,8 @@ class JSONPromptExtractor:
 
     Parameters
     ----------
-    client : OpenAI-like client
+    backend : LLMBackend
+        Backend satisfying the lcats.llm.backend.LLMBackend Protocol.
     system_prompt : str
     user_prompt_template : str
         May reference either `{indexed_story_text}` or `{story_text}`.
@@ -25,8 +30,15 @@ class JSONPromptExtractor:
         Key in the returned JSON object to extract (e.g., "segments").
     default_model : str
     temperature : float
-    force_json : bool
-        If True, pass response_format={"type": "json_object"} when supported.
+    max_tokens : int
+        Max tokens to request from the backend (default 4096).
+    client : deprecated
+        Legacy alias for `backend`. Pass the backend as the first positional
+        argument or use `backend=` instead. Emits DeprecationWarning on use.
+    force_json : deprecated
+        Formerly controlled response_format. Now ignored — the backend
+        requests JSON-friendly text; callers are still responsible for parsing.
+        Emits DeprecationWarning on use.
     text_indexer : Optional[Callable[[str], Tuple[str, Any]]]
         If provided, called as (indexed_text, index_meta) = text_indexer(story_text).
     result_aligner : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
@@ -37,39 +49,67 @@ class JSONPromptExtractor:
 
     def __init__(
         self,
-        client: Any,
+        backend=_UNSET,
         *,
         system_prompt: str,
         user_prompt_template: str,
         output_key: str = "segments",
         default_model: str = "gpt-4o",
         temperature: float = 0.2,
-        force_json: bool = True,
+        client=_UNSET,
+        force_json=_UNSET,
+        max_tokens: int = 4096,
         text_indexer: Optional[Callable[[str], Tuple[str, Any]]] = None,
         result_aligner: Optional[
             Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
         ] = None,
         result_validator: Optional[
             Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
-        ] = None,  # << NEW
+        ] = None,
     ):
-        self.client = client
+        if client is not _UNSET:
+            if backend is not _UNSET:
+                raise TypeError(
+                    "Pass the backend as the first positional argument or use "
+                    "backend=, not both backend= and the deprecated client=."
+                )
+            warnings.warn(
+                "client= is deprecated; pass the backend as the first positional "
+                "argument or use backend= instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            backend = client
+        if backend is _UNSET:
+            raise TypeError(
+                "JSONPromptExtractor() missing required argument: 'backend'"
+            )
+        if force_json is not _UNSET:
+            warnings.warn(
+                "force_json is deprecated and will be removed in a future release. "
+                "The backend requests JSON-friendly text; callers are responsible "
+                "for parsing the response.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        self.backend = backend
         self.system_prompt = system_prompt
         self.user_prompt_template = user_prompt_template
         self.output_key = output_key
         self.default_model = default_model
         self.temperature = temperature
-        self.force_json = force_json
+        self.force_json = force_json if force_json is not _UNSET else True
+        self.max_tokens = max_tokens
         self.text_indexer = text_indexer
         self.result_aligner = result_aligner
-        self.result_validator = result_validator  # << NEW
+        self.result_validator = result_validator
 
         # Debug/inspection hooks
         self.last_messages: Optional[List[Dict[str, str]]] = None
         self.last_response: Any = None
         self.last_raw_output: Optional[str] = None
         self.last_index_meta: Any = None
-        self.last_validation_report: Optional[Dict[str, Any]] = None  # << NEW
+        self.last_validation_report: Optional[Dict[str, Any]] = None
 
     # ---------- helpers ----------
 
@@ -95,7 +135,7 @@ class JSONPromptExtractor:
         return content, None
 
     def build_messages(self, story_text: str) -> List[Dict[str, str]]:
-        """Public: build messages without invoking the client."""
+        """Public: build messages without invoking the backend."""
         content, _ = self._prepare_user_content(story_text)
         return [
             {"role": "system", "content": self.system_prompt},
@@ -184,7 +224,7 @@ class JSONPromptExtractor:
         """Turn an arbitrary client exception into a normalized api_error dict.
 
         Args:
-            exc: Exception from the client.
+            exc: Exception from the backend.
 
         Returns:
             A normalized error dict.
@@ -249,30 +289,29 @@ class JSONPromptExtractor:
         ]
         self.last_messages = messages
 
-        # Call model (now guarded)
+        # Call backend
         api_error: Optional[Dict[str, Any]] = None
-        response = None
+        backend_response: Optional[llm_backend.BackendResponse] = None
         raw_output = ""
 
         try:
-            kwargs = dict(model=model, messages=messages, temperature=self.temperature)
-            if self.force_json:
-                kwargs["response_format"] = {"type": "json_object"}
-            response = self.client.chat.completions.create(**kwargs)
-            self.last_response = response
+            backend_response = self.backend.complete(
+                system=self.system_prompt,
+                messages=[{"role": "user", "content": user_content}],
+                model=model,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
+            )
+            self.last_response = backend_response
+            raw_output = backend_response.text
 
-            # Defensive read of response
-            choices = getattr(response, "choices", None) or []
-            if choices and getattr(choices[0], "message", None):
-                raw_output = choices[0].message.content or ""
-            else:
-                # Treat as an API error-like condition
+            if not raw_output:
                 api_error = {
-                    "status": getattr(response, "status_code", None),
+                    "status": None,
                     "code": "empty_response",
                     "type": "client_or_server",
-                    "message": "No choices/content returned by API.",
-                    "raw": str(getattr(response, "__dict__", response)),
+                    "message": "No content returned by backend.",
+                    "raw": repr(backend_response),
                     "category": "unknown",
                     "can_retry": True,
                     "needs_smaller_request": False,
@@ -282,14 +321,13 @@ class JSONPromptExtractor:
 
         except Exception as exc:
             api_error = self._normalize_api_error(exc)
-            # Early return with surfaced error; keep structure consistent.
             return {
                 "story_text": story_text,
                 "model_name": model,
                 "messages": messages,
-                "response": response,
-                "response_id": getattr(response, "id", None) if response else None,
-                "usage": getattr(response, "usage", None) if response else None,
+                "response": None,
+                "response_id": None,
+                "usage": None,
                 "raw_output": "",
                 "parsed_output": None,
                 "extracted_output": None,
@@ -299,7 +337,7 @@ class JSONPromptExtractor:
                 "index_meta": index_meta,
                 "validation_report": None,
                 "validation_error": None,
-                "api_error": api_error,  # << surfaced, actionable
+                "api_error": api_error,
             }
 
         self.last_raw_output = raw_output
@@ -349,15 +387,23 @@ class JSONPromptExtractor:
             else:
                 extraction_error = f"Expected '{self.output_key}' key in JSON response."
 
-        # Pull out optional metadata when available
-        response_id = getattr(response, "id", None)
-        usage = getattr(response, "usage", None)
+        raw_response = backend_response.raw if backend_response else None
+        response_id = getattr(raw_response, "id", None)
+        usage = (
+            {
+                "input_tokens": backend_response.input_tokens,
+                "output_tokens": backend_response.output_tokens,
+            }
+            if backend_response
+            else None
+        )
+        result_model_name = backend_response.model if backend_response else model
 
         return {
             "story_text": story_text,
-            "model_name": model,
+            "model_name": result_model_name,
             "messages": messages,
-            "response": response,  # non-serializable; strip with make_serializable()
+            "response": raw_response,
             "response_id": response_id,
             "usage": usage,
             "raw_output": raw_output,
@@ -369,5 +415,5 @@ class JSONPromptExtractor:
             "index_meta": index_meta,
             "validation_report": validation_report,
             "validation_error": validation_error,
-            "api_error": api_error,  # None on success; dict on failure/empty
+            "api_error": api_error,
         }
