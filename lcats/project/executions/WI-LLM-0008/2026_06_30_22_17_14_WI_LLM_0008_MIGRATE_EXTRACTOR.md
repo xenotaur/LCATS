@@ -2,10 +2,10 @@
 execution_id: 2026_06_30_22_17_14_WI_LLM_0008_MIGRATE_EXTRACTOR
 prompt_id: PROMPT(WI-LLM-0008:WI_LLM_0008_MIGRATE_EXTRACTOR)[2026-06-30T22:16:01-04:00]
 work_item: WI-LLM-0008
-status: in_progress
+status: landed
 rerun_of: 
-pr: 101
-commit: 72e4897
+pr: https://github.com/xenotaur/LCATS/pull/101
+commit: d998b2e
 created_at: 2026-06-30T22:17:14-04:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-LLM-0008.md

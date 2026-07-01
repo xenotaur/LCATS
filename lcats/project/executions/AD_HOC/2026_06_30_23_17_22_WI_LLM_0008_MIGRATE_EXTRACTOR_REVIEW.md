@@ -2,10 +2,10 @@
 execution_id: 2026_06_30_23_17_22_WI_LLM_0008_MIGRATE_EXTRACTOR_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_LLM_0008_MIGRATE_EXTRACTOR_REVIEW)[2026-06-30T23:01:57-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_06_30_22_17_14_WI_LLM_0008_MIGRATE_EXTRACTOR
-pr: 101
-commit: 2e5544e
+pr: https://github.com/xenotaur/LCATS/pull/101
+commit: d998b2e
 created_at: 2026-06-30T23:17:22-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/101
