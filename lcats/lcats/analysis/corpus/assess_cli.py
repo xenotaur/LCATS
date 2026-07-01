@@ -202,7 +202,14 @@ def run(
 
             backend = anthropic_backend.AnthropicBackend(api_key=api_key)
         except ImportError as exc:
-            print(f"error: {exc}", file=sys.stderr)
+            if exc.name == "anthropic":
+                print(
+                    "error: 'anthropic' package is not installed.\n"
+                    "       Run: pip install anthropic",
+                    file=sys.stderr,
+                )
+            else:
+                print(f"error: {exc}", file=sys.stderr)
             return 1
 
     files = list(discovery.find_json_files(args.directories))
