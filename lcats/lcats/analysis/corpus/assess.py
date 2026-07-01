@@ -196,7 +196,7 @@ def run_preflight(
 def assess_story(
     file_path: pathlib.Path,
     genre: str,
-    client,
+    backend,
     model: str = "claude-opus-4-8",
     max_body_chars: int = 100_000,
 ) -> AssessmentResult:
@@ -224,21 +224,16 @@ def assess_story(
             f"\nSTORY TEXT:\n{body}"
         )
 
-        with client.messages.stream(
-            model=model,
-            max_tokens=2048,
+        backend_response = backend.complete(
             system=system_prompt,
-            tools=[ASSESSMENT_TOOL],
-            tool_choice={"type": "tool", "name": "record_story_assessment"},
             messages=[{"role": "user", "content": user_message}],
-        ) as stream:
-            message = stream.get_final_message()
-
-        tool_block = next(
-            (b for b in message.content if b.type == "tool_use"),
-            None,
+            model=model,
+            temperature=0.2,
+            max_tokens=2048,
+            tool=ASSESSMENT_TOOL,
         )
-        if tool_block is None:
+        a = backend_response.tool_result
+        if a is None:
             return AssessmentResult(
                 file_path=str(file_path),
                 title=title,
@@ -246,10 +241,9 @@ def assess_story(
                 url=url,
                 target_genre=genre,
                 verdict="review",
-                error="No tool_use block in API response",
+                error="Backend returned no tool result",
             )
 
-        a = tool_block.input
         return AssessmentResult(
             file_path=str(file_path),
             title=title,

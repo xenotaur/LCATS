@@ -195,18 +195,21 @@ def run(
         )
         return 1
 
-    client = None
+    backend = None
     if not args.dry_run:
         try:
-            import anthropic
+            from lcats.llm import anthropic_backend
 
-            client = anthropic.Anthropic(api_key=api_key)
-        except ImportError:
-            print(
-                "error: 'anthropic' package is not installed.\n"
-                "       Run: pip install anthropic",
-                file=sys.stderr,
-            )
+            backend = anthropic_backend.AnthropicBackend(api_key=api_key)
+        except ImportError as exc:
+            if exc.name == "anthropic":
+                print(
+                    "error: 'anthropic' package is not installed.\n"
+                    "       Run: pip install anthropic",
+                    file=sys.stderr,
+                )
+            else:
+                print(f"error: {exc}", file=sys.stderr)
             return 1
 
     files = list(discovery.find_json_files(args.directories))
@@ -240,7 +243,7 @@ def run(
             result = assess_story(
                 file_path=file_path,
                 genre=args.genre,
-                client=client,
+                backend=backend,
                 model=args.model,
                 max_body_chars=args.max_body_chars,
             )
