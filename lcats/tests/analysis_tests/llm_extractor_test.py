@@ -120,6 +120,40 @@ class TestJSONPromptExtractorInit(unittest.TestCase):
                 user_prompt_template="tmpl {story_text}",
             )
 
+    def test_client_kwarg_deprecated_alias(self):
+        """Passing client= as keyword arg emits DeprecationWarning and stores as backend."""
+        fb = fake_backend.FakeBackend()
+        with self.assertWarns(DeprecationWarning):
+            ext = llm_extractor.JSONPromptExtractor(
+                client=fb,
+                system_prompt="sys",
+                user_prompt_template="tmpl {story_text}",
+            )
+        self.assertIs(ext.backend, fb)
+
+    def test_client_and_backend_together_raises(self):
+        """Passing both client= and backend= positionally raises TypeError."""
+        fb = fake_backend.FakeBackend()
+        import warnings
+
+        with self.assertRaises(TypeError):
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", DeprecationWarning)
+                llm_extractor.JSONPromptExtractor(
+                    fb,
+                    client=fb,
+                    system_prompt="sys",
+                    user_prompt_template="tmpl {story_text}",
+                )
+
+    def test_missing_backend_raises(self):
+        """Calling without backend= or client= raises TypeError."""
+        with self.assertRaises(TypeError):
+            llm_extractor.JSONPromptExtractor(
+                system_prompt="sys",
+                user_prompt_template="tmpl {story_text}",
+            )
+
     def test_optional_hooks_default_to_none(self):
         """text_indexer, result_aligner, result_validator default to None."""
         ext = _make_extractor()

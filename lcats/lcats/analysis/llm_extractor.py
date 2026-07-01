@@ -32,9 +32,13 @@ class JSONPromptExtractor:
     temperature : float
     max_tokens : int
         Max tokens to request from the backend (default 4096).
+    client : deprecated
+        Legacy alias for `backend`. Pass the backend as the first positional
+        argument or use `backend=` instead. Emits DeprecationWarning on use.
     force_json : deprecated
-        Formerly controlled response_format. Now ignored — the backend always
-        returns JSON when no tool is provided. Emits DeprecationWarning on use.
+        Formerly controlled response_format. Now ignored — the backend
+        requests JSON-friendly text; callers are still responsible for parsing.
+        Emits DeprecationWarning on use.
     text_indexer : Optional[Callable[[str], Tuple[str, Any]]]
         If provided, called as (indexed_text, index_meta) = text_indexer(story_text).
     result_aligner : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
@@ -45,13 +49,14 @@ class JSONPromptExtractor:
 
     def __init__(
         self,
-        backend,
+        backend=_UNSET,
         *,
         system_prompt: str,
         user_prompt_template: str,
         output_key: str = "segments",
         default_model: str = "gpt-4o",
         temperature: float = 0.2,
+        client=_UNSET,
         force_json=_UNSET,
         max_tokens: int = 4096,
         text_indexer: Optional[Callable[[str], Tuple[str, Any]]] = None,
@@ -62,10 +67,28 @@ class JSONPromptExtractor:
             Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
         ] = None,
     ):
+        if client is not _UNSET:
+            if backend is not _UNSET:
+                raise TypeError(
+                    "Pass the backend as the first positional argument or use "
+                    "backend=, not both backend= and the deprecated client=."
+                )
+            warnings.warn(
+                "client= is deprecated; pass the backend as the first positional "
+                "argument or use backend= instead.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            backend = client
+        if backend is _UNSET:
+            raise TypeError(
+                "JSONPromptExtractor() missing required argument: 'backend'"
+            )
         if force_json is not _UNSET:
             warnings.warn(
                 "force_json is deprecated and will be removed in a future release. "
-                "The LLMBackend always returns JSON when no tool is provided.",
+                "The backend requests JSON-friendly text; callers are responsible "
+                "for parsing the response.",
                 DeprecationWarning,
                 stacklevel=2,
             )

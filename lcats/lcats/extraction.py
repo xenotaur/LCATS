@@ -65,8 +65,6 @@ def extract_from_story(
     temperature: float = 0.2,
 ) -> ExtractionResult:
     """Perform structured extraction from a story using an LLM and a prompt template."""
-    from lcats.llm import backend as llm_backend  # noqa: F401 (Protocol reference)
-
     messages = template.build_prompt(story_text)
     # messages[0] is the system turn; messages[1:] are user/assistant turns.
     backend_response = backend.complete(
