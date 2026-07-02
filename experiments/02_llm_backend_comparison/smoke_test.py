@@ -17,8 +17,9 @@ Optional flags:
 
 Requires:
     - lcats installed (run scripts/develop if not)
-    - ANTHROPIC_API_KEY set in environment
-    - OPENAI_API_KEY set in environment
+    - ANTHROPIC_API_KEY and OPENAI_API_KEY set in environment OR present in
+      .secrets/anthropic_api_keys.env and .secrets/openai_api_keys.env
+      (see lcats/docs/secrets-setup.md)
 
 Exit codes:
     0   all legs completed (individual story errors are noted, not fatal)
@@ -54,6 +55,10 @@ except ImportError:
         "error: lcats package not found.\n"
         "       Activate your conda environment and run: scripts/develop"
     )
+
+from lcats.utils.secrets import load_secrets  # noqa: E402
+
+load_secrets()  # no-op if .secrets/ absent or keys already exported
 
 import run_comparison  # noqa: E402  (local module, after path bootstrap)
 import compare_results  # noqa: E402
