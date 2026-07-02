@@ -3,6 +3,7 @@ id: WI-INFRA-0011
 title: Add secrets utility and contributor guide for .secrets/ pattern
 type: deliverable
 status: proposed
+priority: medium
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -31,7 +32,7 @@ acceptance:
   - "load_secrets() does not override already-exported shell variables"
   - "smoke_test.py calls load_secrets() instead of inlining dotenv calls"
   - "python-dotenv is in pyproject.toml main dependencies (not only dev)"
-  - "tests/utils/test_secrets.py passes using tmp_path; no real .secrets/ required"
+  - "lcats/tests/utils_tests/secrets_test.py passes; no real .secrets/ directory required"
   - "docs/secrets-setup.md explains the pattern and how to populate .secrets/"
   - "lrh validate reports 0 errors"
   - "scripts/test passes"
@@ -41,7 +42,7 @@ required_evidence:
   - manual_review
 artifacts_expected:
   - lcats/lcats/utils/secrets.py
-  - tests/utils/test_secrets.py
+  - lcats/tests/utils_tests/secrets_test.py
   - lcats/pyproject.toml
   - experiments/02_llm_backend_comparison/smoke_test.py
   - lcats/docs/secrets-setup.md
@@ -58,17 +59,19 @@ the `.secrets/` pattern.
 
 ## Problem / Context
 
-The project stores API keys in a gitignored `.secrets/` directory
-(`.secrets/anthropic_api_keys.env`, `.secrets/openai_api_keys.env`) loaded by
-notebooks via `dotenv.load_dotenv()`. Experiment scripts such as
-`experiments/02_llm_backend_comparison/smoke_test.py` do not share this
-mechanism: they require the user to `export` each key in their shell before
-running, which is non-obvious and error-prone (sourcing a `.env` file without
-`export` sets shell variables that child Python processes cannot see).
+The project stores API keys in a gitignored `.secrets/` directory.
+Notebooks currently load the OpenAI key via `dotenv.load_dotenv()` on
+`.secrets/openai_api_keys.env`; the Anthropic key is loaded separately via
+shell `export`. Experiment scripts such as
+`experiments/02_llm_backend_comparison/smoke_test.py` do not use dotenv at all:
+they require the user to `export` both keys before running, which is
+non-obvious and error-prone (sourcing a `.env` file without `export` sets shell
+variables that child Python processes cannot see).
 
 The pattern is also undocumented: new contributors have no guide explaining
-what `.secrets/` is, how to populate it, or that it works for both scripts and
-notebooks. The fix is a small shared utility and a committed documentation file.
+what `.secrets/` is, how to populate it, or that it should work uniformly for
+both scripts and notebooks. The fix is a small shared utility that loads all
+`*.env` files from `.secrets/` and a committed documentation file.
 
 ## Scope
 
@@ -78,7 +81,7 @@ notebooks. The fix is a small shared utility and a committed documentation file.
 - Update `smoke_test.py` to call `load_secrets()` before the key check.
 - Write `lcats/docs/secrets-setup.md` documenting the `.secrets/` pattern for
   contributors.
-- Add `tests/utils/test_secrets.py` covering the utility.
+- Add `lcats/tests/utils_tests/secrets_test.py` covering the utility.
 
 ## Required Changes
 
@@ -93,7 +96,8 @@ notebooks. The fix is a small shared utility and a committed documentation file.
      on each (default: does not override already-exported variables).
    - No-op silently if `secrets_dir` does not exist (clean CI/CD behaviour).
 
-3. **`tests/utils/test_secrets.py`** (new) — tests using `tmp_path`:
+3. **`lcats/tests/utils_tests/secrets_test.py`** (new) — unittest-based tests
+   using `tempfile.TemporaryDirectory`:
    - Keys not already in environment are loaded from `.env` files.
    - Keys already exported in the environment are not overridden.
    - Missing `secrets_dir` silently no-ops rather than raising.
@@ -131,7 +135,7 @@ notebooks. The fix is a small shared utility and a committed documentation file.
 - `smoke_test.py` works end-to-end without `export` when `.secrets/` is
   populated with valid keys.
 - `python-dotenv` appears in `pyproject.toml` `[project.dependencies]`.
-- `tests/utils/test_secrets.py` passes without a real `.secrets/` directory.
+- `lcats/tests/utils_tests/secrets_test.py` passes without a real `.secrets/` directory.
 - `lcats/docs/secrets-setup.md` exists and covers creation, usage, and the
   relationship to the `export` fallback.
 - `lrh validate` reports 0 errors.
@@ -148,8 +152,10 @@ notebooks. The fix is a small shared utility and a committed documentation file.
 
 ## Risk Notes
 
-- `python-dotenv` moves from `dev` extras to main dependencies. It is
-  MIT-licensed, stdlib-only, and ~50 KB — minimal risk for a research package.
+- `python-dotenv` is added as a new runtime dependency (it was not previously
+  declared in `pyproject.toml` at all, only present in the conda env via
+  notebook use). It is MIT-licensed, stdlib-only, and ~50 KB — minimal risk
+  for a research package.
 - The utility uses `Path(__file__)` traversal to find the repo root. This
   assumes `lcats/lcats/utils/secrets.py` is always three levels below the
   `lcats/` package root. A future repo restructure could break this; document
