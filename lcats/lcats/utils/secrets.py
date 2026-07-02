@@ -6,7 +6,7 @@ control. Each provider has its own .env file:
     .secrets/anthropic_api_keys.env   — ANTHROPIC_API_KEY=sk-ant-...
     .secrets/openai_api_keys.env      — OPENAI_API_KEY=sk-proj-...
 
-call load_secrets() early in any script that needs API keys. It does not
+Call load_secrets() early in any script that needs API keys. It does not
 override keys that are already set in the environment, so shell exports and
 CI/CD secrets managers take precedence automatically.
 
@@ -37,10 +37,10 @@ def load_secrets(secrets_dir: pathlib.Path | None = None) -> None:
         secrets_dir: directory containing .env files. Defaults to
             <repo_root>/.secrets/ relative to this file's location.
     """
-    import dotenv
-
     target = secrets_dir if secrets_dir is not None else _DEFAULT_SECRETS_DIR
     if not target.is_dir():
         return
+    import dotenv
+
     for env_file in sorted(target.glob("*.env")):
-        dotenv.load_dotenv(env_file)
+        dotenv.load_dotenv(env_file, override=False)

@@ -4,6 +4,7 @@ import os
 import pathlib
 import tempfile
 import unittest
+import unittest.mock
 
 from lcats.utils import secrets
 
@@ -65,6 +66,24 @@ class TestLoadSecretsMultipleFiles(unittest.TestCase):
             finally:
                 for key in ("TEST_LCATS_A", "TEST_LCATS_B"):
                     os.environ.pop(key, None)
+
+
+class TestLoadSecretsDefaultDir(unittest.TestCase):
+    """load_secrets() with no args uses _DEFAULT_SECRETS_DIR."""
+
+    def test_default_dir_is_used_when_no_arg_given(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            env_file = pathlib.Path(tmpdir) / "default.env"
+            env_file.write_text("TEST_LCATS_DEFAULT=default-val\n")
+            os.environ.pop("TEST_LCATS_DEFAULT", None)
+            try:
+                with unittest.mock.patch.object(
+                    secrets, "_DEFAULT_SECRETS_DIR", pathlib.Path(tmpdir)
+                ):
+                    secrets.load_secrets()
+                self.assertEqual(os.environ.get("TEST_LCATS_DEFAULT"), "default-val")
+            finally:
+                os.environ.pop("TEST_LCATS_DEFAULT", None)
 
 
 class TestLoadSecretsExplicitDir(unittest.TestCase):

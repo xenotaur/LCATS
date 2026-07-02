@@ -65,6 +65,7 @@ load_secrets()  # loads from <repo_root>/.secrets/ by default
 Or point it at a different directory:
 
 ```python
+import pathlib
 load_secrets(secrets_dir=pathlib.Path("/path/to/my/keys"))
 ```
 
