@@ -2,7 +2,7 @@
 id: WI-LLM-0010
 title: Side-by-side model comparison dry run for assess pipeline
 type: evaluation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 linked_workstream: WORKSTREAM-LLM-BACKEND
@@ -10,7 +10,7 @@ linked_design: DESIGN-LLM-BACKEND
 depends_on: [WI-LLM-0008, WI-LLM-0009]
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #103 (commit 5182c870)"
 ---
 
 # Work Item: WI-LLM-0010

@@ -8,7 +8,7 @@ instruction_source: lcats/project/work_items/proposed/WI-LLM-0010.md
 session_transcript: claude-app:d400d14b-0041-4827-8ef9-a8da8fdba9d6
 rerun_of: 
 pr: "103"
-commit: 7865324
+commit: 5182c870a1ed4565ed2f83791d4578a9dbef925d
 created_at: 2026-07-02T12:49:29-04:00
 ---
 

@@ -2,8 +2,8 @@
 id: WORKSTREAM-LLM-BACKEND
 kind: planning_node
 title: Unified LLM Backend Abstraction
-status: proposed
-stage: executing
+status: resolved
+stage: closed
 related_design:
   - DESIGN-LLM-BACKEND
 work_items:

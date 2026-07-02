@@ -2,13 +2,13 @@
 execution_id: 2026_07_02_14_00_47_WI_LLM_0010_BACKEND_COMPARISON_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_LLM_0010_BACKEND_COMPARISON_REVIEW)[2026-07-02T13:03:27-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/103
 session_transcript: claude-app:d400d14b-0041-4827-8ef9-a8da8fdba9d6
 rerun_of: 2026_07_02_12_49_29_WI_LLM_0010_BACKEND_COMPARISON
-pr: "103"
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/103
+commit: 5182c870a1ed4565ed2f83791d4578a9dbef925d
 created_at: 2026-07-02T14:00:47-04:00
 ---
 
