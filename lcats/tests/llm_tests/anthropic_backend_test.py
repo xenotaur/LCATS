@@ -169,5 +169,72 @@ class TestAnthropicBackend(unittest.TestCase):
         self.assertEqual(result.output_tokens, 29)
 
 
+class TestTemperatureDeprecated(unittest.TestCase):
+    """Verify _temperature_deprecated() identifies models that reject temperature."""
+
+    def _check(self, model: str, expected: bool) -> None:
+        self.assertEqual(
+            anthropic_backend._temperature_deprecated(model),
+            expected,
+            msg=f"_temperature_deprecated({model!r}) should be {expected}",
+        )
+
+    def test_opus_4_8_deprecated(self):
+        self._check("claude-opus-4-8", True)
+
+    def test_opus_4_7_deprecated(self):
+        self._check("claude-opus-4-7", True)
+
+    def test_fable_5_deprecated(self):
+        self._check("claude-fable-5", True)
+
+    def test_mythos_5_deprecated(self):
+        self._check("claude-mythos-5", True)
+
+    def test_opus_4_6_not_deprecated(self):
+        self._check("claude-opus-4-6", False)
+
+    def test_sonnet_4_6_not_deprecated(self):
+        self._check("claude-sonnet-4-6", False)
+
+    def test_haiku_4_5_not_deprecated(self):
+        self._check("claude-haiku-4-5", False)
+
+    def test_future_major_5_versioned_deprecated(self):
+        self._check("claude-opus-5-0", True)
+
+
+class TestTemperatureOmittedInRequest(unittest.TestCase):
+    """Verify temperature is included/omitted in the API call kwargs."""
+
+    def _kwargs_for(self, model: str) -> dict:
+        stub_client = _StubAnthropicClient(_make_message(text="ok", model=model))
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model=model,
+                temperature=0.5,
+            )
+        return stub_client.last_kwargs
+
+    def test_temperature_omitted_for_opus_4_8(self):
+        self.assertNotIn("temperature", self._kwargs_for("claude-opus-4-8"))
+
+    def test_temperature_omitted_for_opus_4_7(self):
+        self.assertNotIn("temperature", self._kwargs_for("claude-opus-4-7"))
+
+    def test_temperature_omitted_for_fable_5(self):
+        self.assertNotIn("temperature", self._kwargs_for("claude-fable-5"))
+
+    def test_temperature_included_for_opus_4_6(self):
+        self.assertIn("temperature", self._kwargs_for("claude-opus-4-6"))
+        self.assertAlmostEqual(self._kwargs_for("claude-opus-4-6")["temperature"], 0.5)
+
+    def test_temperature_included_for_sonnet_4_6(self):
+        self.assertIn("temperature", self._kwargs_for("claude-sonnet-4-6"))
+
+
 if __name__ == "__main__":
     unittest.main()
