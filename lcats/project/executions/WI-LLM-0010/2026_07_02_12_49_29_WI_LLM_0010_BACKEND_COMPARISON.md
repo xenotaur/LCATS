@@ -2,13 +2,13 @@
 execution_id: 2026_07_02_12_49_29_WI_LLM_0010_BACKEND_COMPARISON
 prompt_id: PROMPT(WI-LLM-0010:WI_LLM_0010_BACKEND_COMPARISON)[2026-07-02T12:49:14-04:00]
 work_item: WI-LLM-0010
-status: in_progress
+status: landed
 agent: claude_app
 instruction_source: lcats/project/work_items/proposed/WI-LLM-0010.md
 session_transcript: claude-app:d400d14b-0041-4827-8ef9-a8da8fdba9d6
 rerun_of: 
-pr: 
-commit: 
+pr: "103"
+commit: 7865324
 created_at: 2026-07-02T12:49:29-04:00
 ---
 

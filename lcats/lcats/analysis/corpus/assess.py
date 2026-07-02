@@ -155,6 +155,9 @@ class AssessmentResult:
     summary: str = ""
     issues: list = field(default_factory=list)
     error: str = ""
+    input_tokens: int = 0
+    output_tokens: int = 0
+    backend_model: str = ""
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -259,6 +262,9 @@ def assess_story(
             specials_verdict=a.get("specials_verdict", "none"),
             summary=a.get("summary", ""),
             issues=list(a.get("issues", [])),
+            input_tokens=backend_response.input_tokens,
+            output_tokens=backend_response.output_tokens,
+            backend_model=backend_response.model,
         )
 
     except Exception as exc:

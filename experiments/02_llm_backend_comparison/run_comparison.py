@@ -75,12 +75,17 @@ def run(args: argparse.Namespace) -> int:
     out_path = output_dir / _output_filename(
         args.backend, args.model, args.genre, len(stories)
     )
+    cwd = pathlib.Path.cwd()
     written = 0
     with out_path.open("w", encoding="utf-8") as fh:
         for story_path in stories:
             print(f"  assessing {story_path.name} ...", file=sys.stderr)
+            try:
+                rel_path = story_path.relative_to(cwd)
+            except ValueError:
+                rel_path = story_path
             result = assess.assess_story(
-                file_path=story_path,
+                file_path=rel_path,
                 genre=args.genre,
                 backend=backend,
                 model=args.model,

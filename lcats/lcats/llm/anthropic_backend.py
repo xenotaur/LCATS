@@ -2,9 +2,28 @@
 
 from __future__ import annotations
 
+import re
 from typing import Optional
 
 from lcats.llm import backend
+
+
+def _temperature_deprecated(model: str) -> bool:
+    """Return True if this Anthropic model rejects the temperature parameter.
+
+    claude-opus-4-7, claude-opus-4-8, claude-fable-5, and all subsequent
+    Anthropic models return HTTP 400 when temperature is passed. Older models
+    (claude-opus-4-6, claude-sonnet-4-6, claude-haiku-4-5) still accept it.
+
+    The rule: versioned models matching claude-<name>-<major>-<minor> suppress
+    temperature when major > 4 or (major == 4 and minor >= 7). Non-versioned
+    model IDs (claude-fable-5, claude-mythos-5) always suppress.
+    """
+    m = re.search(r"claude-[a-z]+-(\d+)-(\d+)$", model)
+    if not m:
+        return True
+    major, minor = int(m.group(1)), int(m.group(2))
+    return major > 4 or (major == 4 and minor >= 7)
 
 
 class AnthropicBackend:
@@ -42,15 +61,13 @@ class AnthropicBackend:
         tool: Optional[dict] = None,
     ) -> backend.BackendResponse:
         """See lcats.llm.backend.LLMBackend.complete."""
-        # temperature is deprecated (→ HTTP 400) on Opus 4.7+, Fable 5, and later.
-        _no_temperature = ("4-7", "4-8", "fable-5")
         kwargs: dict = dict(
             model=model,
             system=system,
             messages=messages,
             max_tokens=max_tokens,
         )
-        if not any(s in model for s in _no_temperature):
+        if not _temperature_deprecated(model):
             kwargs["temperature"] = temperature
         if tool is not None:
             kwargs["tools"] = [tool]

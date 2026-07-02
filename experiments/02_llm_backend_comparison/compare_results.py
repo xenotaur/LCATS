@@ -52,6 +52,7 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
     genre_match_agree = 0
     errors_a = 0
     errors_b = 0
+    n_valid = 0
 
     header = f"{'Story':<45} {'Verdict-A':<10} {'Verdict-B':<10} {'V-agree':<9} {'GM-A':<12} {'GM-B':<12} {'GM-agree'}"
     print(header)
@@ -64,6 +65,21 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
         title_a = a.get("title") or pathlib.Path(a.get("file_path", "")).stem
         title = title_a[:44]
 
+        err_a = bool(a.get("error"))
+        err_b = bool(b.get("error"))
+        is_error = err_a or err_b
+
+        if err_a:
+            errors_a += 1
+        if err_b:
+            errors_b += 1
+
+        if is_error:
+            err_label = f"ERROR({'A' if err_a else ''}{'B' if err_b else ''})"
+            print(f"{title:<45} {err_label}")
+            continue
+
+        n_valid += 1
         v_a = a.get("verdict", "?")
         v_b = b.get("verdict", "?")
         gm_a = a.get("genre_match", "?")
@@ -76,10 +92,6 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
             verdict_agree += 1
         if gm_ok:
             genre_match_agree += 1
-        if a.get("error"):
-            errors_a += 1
-        if b.get("error"):
-            errors_b += 1
 
         print(
             f"{title:<45} {v_a:<10} {v_b:<10} {'✓' if v_ok else '✗':<9} "
@@ -88,11 +100,19 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
 
     print()
     print(f"Files compared:     {label_a}  vs  {label_b}")
-    print(f"Stories compared:   {n}")
-    print(f"Verdict agreement:  {verdict_agree}/{n} ({100*verdict_agree/n:.0f}%)")
-    print(
-        f"Genre-match agree:  {genre_match_agree}/{n} ({100*genre_match_agree/n:.0f}%)"
-    )
+    print(f"Stories compared:   {n}  (valid: {n_valid}  errors: {errors_a + errors_b})")
+    if n_valid:
+        print(
+            f"Verdict agreement:  {verdict_agree}/{n_valid} "
+            f"({100*verdict_agree/n_valid:.0f}%)"
+        )
+        print(
+            f"Genre-match agree:  {genre_match_agree}/{n_valid} "
+            f"({100*genre_match_agree/n_valid:.0f}%)"
+        )
+    else:
+        print("Verdict agreement:  n/a (no valid rows)")
+        print("Genre-match agree:  n/a (no valid rows)")
     if errors_a or errors_b:
         print(f"Errors (A / B):     {errors_a} / {errors_b}")
 

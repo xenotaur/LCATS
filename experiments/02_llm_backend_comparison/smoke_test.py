@@ -99,6 +99,11 @@ _RUNS = [
 ]
 
 
+def _actual_sample(corpus_dir: pathlib.Path, requested: int) -> int:
+    """Return the number of stories that run_comparison will actually assess."""
+    return min(requested, len(sorted(corpus_dir.glob("*.json"))))
+
+
 def _result_path(
     output_dir: pathlib.Path, backend: str, model: str, genre: str, n: int
 ) -> pathlib.Path:
@@ -175,6 +180,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  {run_cfg['label']} — {args.sample} stories")
         print(f"{'='*60}\n")
 
+        actual_n = _actual_sample(corpus_dir, args.sample)
         result_files: list[pathlib.Path] = []
         for backend, model in backends:
             print(f"--- {backend} / {model} ---")
@@ -185,7 +191,7 @@ def main(argv: list[str] | None = None) -> int:
                 failed_legs.append(msg)
             else:
                 result_files.append(
-                    _result_path(args.output_dir, backend, model, genre, args.sample)
+                    _result_path(args.output_dir, backend, model, genre, actual_n)
                 )
 
         if len(result_files) == 2:
