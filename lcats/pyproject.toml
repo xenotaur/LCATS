@@ -25,6 +25,7 @@ dependencies = [
    "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
    "anthropic",
    "openai>=1.0.0",
+   "python-dotenv",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
