@@ -6,6 +6,7 @@ id: WI-ASSESS-0012
 title: Extend lcats assess with optional --genre and always-on genre detection
 type: deliverable
 status: proposed
+priority: medium
 owner: xenotaur
 contributors:
   - xenotaur
@@ -30,7 +31,7 @@ acceptance:
   - "lcats assess <files> (without --genre) returns detected_genre and detected_genre_confidence in every result with genre_verdict: detected"
   - "lcats assess <files> --genre horror returns genre_verdict in [confirmed, disputed, wrong] plus detected_genre and detected_genre_confidence"
   - "TSV output column headers are identical whether or not --genre is passed"
-  - "detected_genre values are constrained to VALID_GENRES + [other]"
+  - "detected_genre values are constrained to VALID_GENRES + [\"other\"]"
   - "genre_verdict enum is [confirmed, disputed, wrong, detected]"
   - "detected_genre_confidence replaces genre_confidence as the sole numeric genre confidence field"
   - "scripts/test passes with no new failures"
@@ -104,7 +105,10 @@ framing.
      is non-empty.
    - Update `AssessmentResult` dataclass: rename `genre_match` → `genre_verdict`
      (default `"detected"`), rename `genre_confidence` → `detected_genre_confidence`
-     (default `0.0`), add `detected_genre: str = ""`.
+     (default `0.0`), add `detected_genre: str = "other"`. Use `"other"` (not
+     `""`) as the default so error-path results (preflight failure, backend
+     exception, missing tool result) satisfy the always-required enum constraint
+     without special-casing every call site.
    - Update `assess_story()` result-building code to use new field names.
 
 2. **`lcats/lcats/analysis/corpus/assess_cli.py`** — CLI surface:
@@ -122,8 +126,14 @@ framing.
   explicitly rejected this for model self-contradiction reasons.
 - Do not add new genres to `VALID_GENRES`. The four target genres are fixed for
   WorldCon 2026.
-- Do not update `experiments/02_llm_backend_comparison/` for renamed fields —
-  those are historical records.
+- Do not update historical result artifacts in
+  `experiments/02_llm_backend_comparison/results/` for renamed fields — those
+  JSONL files are point-in-time records and should remain unchanged.
+  **Note:** `experiments/02_llm_backend_comparison/compare_results.py` currently
+  reads `genre_match` when computing agreement rates; after the rename it will
+  silently report incorrect results. The implementor should update
+  `compare_results.py` to use `genre_verdict` as part of this work item, or
+  file a follow-up if out of scope.
 - Do not run a full corpus re-assessment with the new schema — that is a future
   activity.
 - Do not modify `lcats/llm/` or the backend abstraction layer.
