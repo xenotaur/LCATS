@@ -2,7 +2,7 @@
 id: WI-INFRA-0011
 title: Add secrets utility and contributor guide for .secrets/ pattern
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -15,7 +15,7 @@ depends_on: []
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #105 (commit f6a00c8)"
 expected_actions:
   - create_file
   - edit_file
