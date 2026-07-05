@@ -82,8 +82,8 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
         n_valid += 1
         v_a = a.get("verdict", "?")
         v_b = b.get("verdict", "?")
-        gm_a = a.get("genre_verdict", "?")
-        gm_b = b.get("genre_verdict", "?")
+        gm_a = a.get("genre_verdict") or a.get("genre_match", "?")
+        gm_b = b.get("genre_verdict") or b.get("genre_match", "?")
 
         v_ok = v_a == v_b
         gm_ok = gm_a == gm_b

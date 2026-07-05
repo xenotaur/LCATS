@@ -68,6 +68,8 @@ ASSESSMENT_TOOL = {
             },
             "detected_genre_confidence": {
                 "type": "number",
+                "minimum": 0.0,
+                "maximum": 1.0,
                 "description": "Confidence in the detected genre, 0.0 to 1.0.",
             },
             "genre_verdict": {
@@ -195,9 +197,9 @@ a longer work?
 {_QUALITY_SECTION}
 
 VERDICT RULES:
-  - include: wellformed + genre_verdict confirmed or disputed + no disqualifying issues
+  - include: wellformed + genre_verdict confirmed + no disqualifying issues
   - exclude: incomplete story, genre_verdict wrong, or serious quality problems
-  - review: borderline case — reasonable people could disagree
+  - review: borderline case or genre_verdict disputed — reasonable people could disagree
 
 Record your assessment using the record_story_assessment tool. \
 Keep the summary to one or two sentences.\
@@ -277,6 +279,9 @@ def assess_story(
     runs in lens mode: the model detects genre independently then evaluates
     whether the story matches the claimed genre.
     """
+    if backend is None:
+        raise ValueError("assess_story requires a backend instance")
+
     title = file_path.stem
     author = "Unknown"
     url = ""
