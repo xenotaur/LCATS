@@ -4,7 +4,7 @@ Usage:
     python compare_results.py results/anthropic-*.jsonl results/openai-*.jsonl
 
 Prints a per-story comparison table and summary agreement rates for
-`verdict` and `genre_match`.
+`verdict` and `genre_verdict`.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
     label_b = _short(file_b)
 
     verdict_agree = 0
-    genre_match_agree = 0
+    genre_verdict_agree = 0
     errors_a = 0
     errors_b = 0
     n_valid = 0
@@ -82,8 +82,8 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
         n_valid += 1
         v_a = a.get("verdict", "?")
         v_b = b.get("verdict", "?")
-        gm_a = a.get("genre_match", "?")
-        gm_b = b.get("genre_match", "?")
+        gm_a = a.get("genre_verdict") or a.get("genre_match", "?")
+        gm_b = b.get("genre_verdict") or b.get("genre_match", "?")
 
         v_ok = v_a == v_b
         gm_ok = gm_a == gm_b
@@ -91,7 +91,7 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
         if v_ok:
             verdict_agree += 1
         if gm_ok:
-            genre_match_agree += 1
+            genre_verdict_agree += 1
 
         print(
             f"{title:<45} {v_a:<10} {v_b:<10} {'✓' if v_ok else '✗':<9} "
@@ -107,12 +107,12 @@ def compare(file_a: pathlib.Path, file_b: pathlib.Path) -> int:
             f"({100*verdict_agree/n_valid:.0f}%)"
         )
         print(
-            f"Genre-match agree:  {genre_match_agree}/{n_valid} "
-            f"({100*genre_match_agree/n_valid:.0f}%)"
+            f"Genre-verdict agree: {genre_verdict_agree}/{n_valid} "
+            f"({100*genre_verdict_agree/n_valid:.0f}%)"
         )
     else:
-        print("Verdict agreement:  n/a (no valid rows)")
-        print("Genre-match agree:  n/a (no valid rows)")
+        print("Verdict agreement:   n/a (no valid rows)")
+        print("Genre-verdict agree: n/a (no valid rows)")
     if errors_a or errors_b:
         print(f"Errors (A / B):     {errors_a} / {errors_b}")
 

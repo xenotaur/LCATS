@@ -26,8 +26,9 @@ TSV_COLUMNS = [
     "author",
     "target_genre",
     "verdict",
-    "genre_match",
-    "genre_confidence",
+    "detected_genre",
+    "detected_genre_confidence",
+    "genre_verdict",
     "wellformed",
     "specials_verdict",
     "summary",
@@ -51,7 +52,9 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "  lcats assess corpora/sherlock --genre 'science fiction'\n"
             "  lcats assess data/ --genre horror --format tsv --output horror_assessment.tsv\n"
             "  lcats assess corpora/sherlock --genre western --dry-run\n"
-            "  ANTHROPIC_API_KEY=sk-... lcats assess data/ --genre romance --model claude-haiku-4-5"
+            "  ANTHROPIC_API_KEY=sk-... lcats assess data/ --genre romance --model claude-haiku-4-5\n"
+            "  lcats assess data/ --format tsv --output detected.tsv  # detect mode (no --genre)\n"
+            "  lcats assess data/ --dry-run  # detect mode dry-run"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -63,12 +66,13 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--genre",
-        required=True,
+        default="",
         choices=list(VALID_GENRES),
         metavar="GENRE",
         help=(
-            f"Target genre for assessment. Choices: {', '.join(VALID_GENRES)}. "
-            "Quote multi-word genres: --genre 'science fiction'."
+            f"Target genre for curation (lens mode). Choices: {', '.join(VALID_GENRES)}. "
+            "Quote multi-word genres: --genre 'science fiction'. "
+            "Omit to detect genre automatically (detect mode)."
         ),
     )
     parser.add_argument(
@@ -117,8 +121,9 @@ def _result_to_tsv_row(result: AssessmentResult) -> dict:
         "author": result.author,
         "target_genre": result.target_genre,
         "verdict": result.verdict,
-        "genre_match": result.genre_match,
-        "genre_confidence": f"{result.genre_confidence:.2f}",
+        "detected_genre": result.detected_genre,
+        "detected_genre_confidence": f"{result.detected_genre_confidence:.2f}",
+        "genre_verdict": result.genre_verdict,
         "wellformed": "yes" if result.wellformed else "no",
         "specials_verdict": result.specials_verdict,
         "summary": result.summary,
@@ -136,7 +141,7 @@ def _dry_run_preview(file_path: pathlib.Path, genre: str, out) -> None:
         print(f"[dry-run] {file_path}", file=out)
         print(f"  Title:    {title}", file=out)
         print(f"  Author:   {author}", file=out)
-        print(f"  Genre:    {genre}", file=out)
+        print(f"  Genre:    {genre if genre else '(detect mode)'}", file=out)
         if findings:
             print(f"  QA findings ({len(findings)}):", file=out)
             for f in findings:
@@ -153,10 +158,15 @@ def _write_human(out, result: AssessmentResult) -> None:
     print(f"{symbol} [{result.verdict.upper()}] {result.title}", file=out)
     print(f"  Author:  {result.author}", file=out)
     print(
-        f"  Genre:   {result.target_genre} → {result.genre_match} "
-        f"({result.genre_confidence:.0%})",
+        f"  Detected: {result.detected_genre} "
+        f"({result.detected_genre_confidence:.0%})",
         file=out,
     )
+    if result.target_genre:
+        print(
+            f"  Claimed:  {result.target_genre} → {result.genre_verdict}",
+            file=out,
+        )
     if result.summary:
         print(f"  Summary: {result.summary}", file=out)
     for issue in result.issues:
