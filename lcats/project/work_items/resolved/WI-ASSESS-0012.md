@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: Implemented and merged in PR #107 (commit aa66417)
 blocked_reason: null
 blocked: false
 id: WI-ASSESS-0012
 title: Extend lcats assess with optional --genre and always-on genre detection
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: xenotaur
 contributors:
