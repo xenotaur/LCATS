@@ -7,6 +7,27 @@ from dataclasses import asdict, dataclass, field
 
 VALID_GENRES = ("science fiction", "horror", "western", "romance")
 
+_GENRE_DEFINITIONS = """\
+  - science fiction: speculative technology, space, aliens, time travel, future societies
+  - horror: dread, supernatural threat, psychological terror, monsters, dark atmosphere
+  - western: frontier American West, cowboys, outlaws, settlers, frontier justice
+  - romance: central love story with emotional relationship development as the primary plot
+  - other: does not fit any of the four target genres"""
+
+_SPECIALS_SECTION = """\
+SPECIAL CHARACTERS: If the story contains non-ASCII or unusual characters, are they:
+  - author_intentional: dialect spelling, verse, period typography, accented names
+  - extraction_artifact: mojibake, garbled encoding, OCR errors, encoding artifacts
+  - error: clearly corrupted, unreadable text passages
+  - none: no unusual characters"""
+
+_QUALITY_SECTION = """\
+QUALITY ISSUES: Flag any:
+  - Transcriber notes, editor commentary, or Project Gutenberg boilerplate inside the body
+  - Copyright notices, disclaimers, or legal text embedded in the story body
+  - Tables of contents, chapter listings, or front matter inside the text
+  - Significant formatting artifacts (stray markup, repeated separators, etc.)"""
+
 ASSESSMENT_TOOL = {
     "name": "record_story_assessment",
     "description": "Record a structured quality and genre assessment for a story.",
@@ -36,20 +57,35 @@ ASSESSMENT_TOOL = {
                     "as a complete standalone narrative."
                 ),
             },
-            "genre_match": {
+            "detected_genre": {
                 "type": "string",
-                "enum": ["confirmed", "disputed", "wrong"],
-                "description": "Whether the story belongs to the claimed target genre.",
+                "enum": list(VALID_GENRES) + ["other"],
+                "description": (
+                    "The genre this story most likely belongs to, determined by "
+                    "independent analysis without reference to any claimed genre. "
+                    "Use 'other' if the story does not fit any of the four target genres."
+                ),
             },
-            "genre_confidence": {
+            "detected_genre_confidence": {
                 "type": "number",
-                "description": "Confidence in the genre assessment, 0.0 to 1.0.",
+                "description": "Confidence in the detected genre, 0.0 to 1.0.",
+            },
+            "genre_verdict": {
+                "type": "string",
+                "enum": ["confirmed", "disputed", "wrong", "detected"],
+                "description": (
+                    "confirmed: story belongs to the claimed target genre. "
+                    "disputed: story has genre elements but is borderline or mixed. "
+                    "wrong: story does not belong to the claimed genre. "
+                    "detected: no genre was claimed; use this value in detect-only mode."
+                ),
             },
             "genre_suggestion": {
                 "type": "string",
                 "description": (
-                    "If genre_match is wrong or disputed, the most likely actual genre. "
-                    "Omit or leave empty otherwise."
+                    "If genre_verdict is wrong or disputed, any additional nuance "
+                    "about the actual genre beyond the detected_genre enum value "
+                    "(e.g. 'Gothic mystery-horror hybrid'). Omit or leave empty otherwise."
                 ),
             },
             "specials_verdict": {
@@ -93,8 +129,9 @@ ASSESSMENT_TOOL = {
         "required": [
             "verdict",
             "wellformed",
-            "genre_match",
-            "genre_confidence",
+            "detected_genre",
+            "detected_genre_confidence",
+            "genre_verdict",
             "specials_verdict",
             "summary",
             "issues",
@@ -102,35 +139,64 @@ ASSESSMENT_TOOL = {
     },
 }
 
-SYSTEM_PROMPT_TEMPLATE = """\
-You are a literary corpus quality assessor for a {genre} fiction research project.
+# Detect mode: no claimed genre; model identifies genre independently.
+DETECT_SYSTEM_PROMPT = f"""\
+You are a literary corpus quality assessor identifying genre and quality \
+for a mixed research corpus.
+
+The corpus targets four genres: science fiction, horror, western, and romance.
 
 Assess the provided story for inclusion in a curated corpus:
 
-WELLFORMEDNESS: Does the story have a clear beginning and ending? Is it a complete \
-standalone narrative — not a chapter fragment, excerpt, or part of a longer work?
+GENRE DETECTION: Identify which of the four target genres best describes \
+this story, or "other" if none fits.
+{_GENRE_DEFINITIONS}
 
-GENRE ACCURACY: Does the story actually belong to the genre "{genre}"?
-  - science fiction: speculative technology, space, aliens, time travel, future societies
-  - horror: dread, supernatural threat, psychological terror, monsters, dark atmosphere
-  - western: frontier American West, cowboys, outlaws, settlers, frontier justice
-  - romance: central love story with emotional relationship development as the primary plot
+WELLFORMEDNESS: Does the story have a clear beginning and ending? Is it a \
+complete standalone narrative — not a chapter fragment, excerpt, or part of \
+a longer work?
 
-SPECIAL CHARACTERS: If the story contains non-ASCII or unusual characters, are they:
-  - author_intentional: dialect spelling, verse, period typography, accented names
-  - extraction_artifact: mojibake, garbled encoding, OCR errors, encoding artifacts
-  - error: clearly corrupted, unreadable text passages
-  - none: no unusual characters
+{_SPECIALS_SECTION}
 
-QUALITY ISSUES: Flag any:
-  - Transcriber notes, editor commentary, or Project Gutenberg boilerplate inside the body
-  - Copyright notices, disclaimers, or legal text embedded in the story body
-  - Tables of contents, chapter listings, or front matter inside the text
-  - Significant formatting artifacts (stray markup, repeated separators, etc.)
+{_QUALITY_SECTION}
 
 VERDICT RULES:
-  - include: wellformed + correct genre + no disqualifying issues
-  - exclude: incomplete story, wrong genre, or serious quality problems
+  - include: wellformed + detected genre is one of the four targets + no disqualifying issues
+  - exclude: story does not fit any target genre (detected_genre: other), \
+incomplete, or serious quality problems
+  - review: borderline case — reasonable people could disagree
+
+Record your assessment using the record_story_assessment tool. \
+Set genre_verdict to "detected". Keep the summary to one or two sentences.\
+"""
+
+# Lens mode: a genre is claimed; model detects independently then evaluates the claim.
+SYSTEM_PROMPT_TEMPLATE = f"""\
+You are a literary corpus quality assessor for a {{genre}} fiction research project.
+
+Assess the provided story for inclusion in a curated corpus:
+
+GENRE DETECTION: First, independently identify which of the four target genres \
+best describes this story — without reference to the claimed genre.
+{_GENRE_DEFINITIONS}
+
+GENRE ACCURACY: Having made your independent detection above, now evaluate \
+the claimed genre "{{genre}}". Does the story actually belong to that genre?
+  - confirmed: story clearly belongs to the claimed genre
+  - disputed: story has some genre elements but is borderline or mixed
+  - wrong: story does not belong to the claimed genre
+
+WELLFORMEDNESS: Does the story have a clear beginning and ending? Is it a \
+complete standalone narrative — not a chapter fragment, excerpt, or part of \
+a longer work?
+
+{_SPECIALS_SECTION}
+
+{_QUALITY_SECTION}
+
+VERDICT RULES:
+  - include: wellformed + genre_verdict confirmed or disputed + no disqualifying issues
+  - exclude: incomplete story, genre_verdict wrong, or serious quality problems
   - review: borderline case — reasonable people could disagree
 
 Record your assessment using the record_story_assessment tool. \
@@ -148,8 +214,9 @@ class AssessmentResult:
     verdict: str
     exclude_reason: str = ""
     wellformed: bool = True
-    genre_match: str = "confirmed"
-    genre_confidence: float = 1.0
+    detected_genre: str = "other"
+    detected_genre_confidence: float = 0.0
+    genre_verdict: str = "detected"
     genre_suggestion: str = ""
     specials_verdict: str = "none"
     summary: str = ""
@@ -198,12 +265,18 @@ def run_preflight(
 
 def assess_story(
     file_path: pathlib.Path,
-    genre: str,
-    backend,
+    genre: str = "",
+    backend=None,
     model: str = "claude-opus-4-8",
     max_body_chars: int = 100_000,
 ) -> AssessmentResult:
-    """Assess a single corpus JSON file for quality and genre fit."""
+    """Assess a single corpus JSON file for quality and genre fit.
+
+    When genre is empty, runs in detect mode: the model identifies the genre
+    independently and sets genre_verdict to "detected". When genre is provided,
+    runs in lens mode: the model detects genre independently then evaluates
+    whether the story matches the claimed genre.
+    """
     title = file_path.stem
     author = "Unknown"
     url = ""
@@ -216,13 +289,19 @@ def assess_story(
         if max_body_chars and len(body) > max_body_chars:
             body = body[:max_body_chars] + "\n\n[... text truncated ...]"
 
-        system_prompt = SYSTEM_PROMPT_TEMPLATE.format(genre=genre)
+        if genre:
+            system_prompt = SYSTEM_PROMPT_TEMPLATE.format(genre=genre)
+            genre_line = f"Claimed genre: {genre}\n"
+        else:
+            system_prompt = DETECT_SYSTEM_PROMPT
+            genre_line = ""
+
         user_message = (
             f"STORY METADATA:\n"
             f"Title: {title}\n"
             f"Author: {author}\n"
             f"Source URL: {url}\n"
-            f"Claimed genre: {genre}\n"
+            f"{genre_line}"
             f"\nPRE-FLIGHT QA FINDINGS:\n{findings_text}\n"
             f"\nSTORY TEXT:\n{body}"
         )
@@ -256,8 +335,9 @@ def assess_story(
             verdict=a.get("verdict", "review"),
             exclude_reason=a.get("exclude_reason", ""),
             wellformed=bool(a.get("wellformed", True)),
-            genre_match=a.get("genre_match", "confirmed"),
-            genre_confidence=float(a.get("genre_confidence", 1.0)),
+            detected_genre=a.get("detected_genre", "other"),
+            detected_genre_confidence=float(a.get("detected_genre_confidence", 0.0)),
+            genre_verdict=a.get("genre_verdict", "detected"),
             genre_suggestion=a.get("genre_suggestion", ""),
             specials_verdict=a.get("specials_verdict", "none"),
             summary=a.get("summary", ""),

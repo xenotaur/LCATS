@@ -10,8 +10,9 @@ from lcats.llm import fake_backend
 _SAMPLE_TOOL_RESULT = {
     "verdict": "include",
     "wellformed": True,
-    "genre_match": "confirmed",
-    "genre_confidence": 0.95,
+    "detected_genre": "science fiction",
+    "detected_genre_confidence": 0.95,
+    "genre_verdict": "confirmed",
     "specials_verdict": "none",
     "summary": "A complete story about frontier life.",
     "issues": [],
@@ -56,7 +57,9 @@ class TestAssessStorySuccess(unittest.TestCase):
         self.assertEqual(result.verdict, "include")
         self.assertEqual(result.title, "The Test Story")
         self.assertEqual(result.author, "Test Author")
-        self.assertAlmostEqual(result.genre_confidence, 0.95)
+        self.assertEqual(result.detected_genre, "science fiction")
+        self.assertAlmostEqual(result.detected_genre_confidence, 0.95)
+        self.assertEqual(result.genre_verdict, "confirmed")
         self.assertTrue(result.wellformed)
         self.assertEqual(result.error, "")
 
