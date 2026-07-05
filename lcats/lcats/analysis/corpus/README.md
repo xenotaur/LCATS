@@ -211,6 +211,20 @@ The following are explicitly not implemented in the current subsystem:
   - Ambiguous or low-confidence transformations are intentionally deferred to
     human review paths.
 
+## 8. Relationship to Future LCATS Goals
+
+LCATS aims to support narrative intelligence, case-based reasoning, and
+inspectable retrieval pipelines. Corpus analysis is foundational to that goal:
+
+- It improves narrative signal quality before scene/sequence/case reasoning.
+- It provides transparent provenance for preprocessing decisions.
+- It supports reproducible ingestion so retrieval and adaptation stages can rely
+  on stable, explainable input text.
+
+As LCATS evolves toward richer narrative reasoning workflows, this subsystem is
+intended to remain the conservative gatekeeper: detect clearly, propose safely,
+and make human overrides explicit.
+
 ## 9. Story Assessment (`lcats assess`)
 
 `lcats assess` is the LLM-powered curation layer that sits on top of the
@@ -269,17 +283,3 @@ API calls:
 lcats assess data/ --dry-run                     # detect mode
 lcats assess data/ --genre western --dry-run     # lens mode
 ```
-
-## 8. Relationship to Future LCATS Goals
-
-LCATS aims to support narrative intelligence, case-based reasoning, and
-inspectable retrieval pipelines. Corpus analysis is foundational to that goal:
-
-- It improves narrative signal quality before scene/sequence/case reasoning.
-- It provides transparent provenance for preprocessing decisions.
-- It supports reproducible ingestion so retrieval and adaptation stages can rely
-  on stable, explainable input text.
-
-As LCATS evolves toward richer narrative reasoning workflows, this subsystem is
-intended to remain the conservative gatekeeper: detect clearly, propose safely,
-and make human overrides explicit.
