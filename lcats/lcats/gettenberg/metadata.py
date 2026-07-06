@@ -123,7 +123,7 @@ def split_into_consecutive_chunks(arr):
 
 def convert_to_name(cache, number):
     return cache.native_query(
-        "Select * from authors where id=" + str(number)
+        "Select * from authors where id=" + str(int(number))
     ).fetchall()[0][1]
 
 
