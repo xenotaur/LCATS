@@ -284,9 +284,7 @@ class ConvertToNameTests(unittest.TestCase):
 
     def test_convert_to_names_returns_list_of_names(self):
         """convert_to_names returns a list of names for each given id."""
-        cache = self._make_fetchall_cache(
-            {1: [("Doe, Jane",)], 2: [("Doe, John",)]}
-        )
+        cache = self._make_fetchall_cache({1: [("Doe, Jane",)], 2: [("Doe, John",)]})
         result = metadata.convert_to_names(cache, [1, 2])
         self.assertEqual(result, ["Doe, Jane", "Doe, John"])
 
