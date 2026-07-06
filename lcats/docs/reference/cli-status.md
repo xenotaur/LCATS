@@ -12,6 +12,7 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 - `survey`
 - `stats`
 - `repair-specials`
+- `assess`
 - `meta register`
 
 ## Placeholder commands (declared, not implemented)
