@@ -122,9 +122,12 @@ def split_into_consecutive_chunks(arr):
 
 
 def convert_to_name(cache, number):
-    return cache.native_query(
-        "Select * from authors where id=" + str(int(number))
-    ).fetchall()[0][1]
+    rows = cache.native_query(
+        "SELECT name FROM authors WHERE id=" + str(int(number))
+    ).fetchall()
+    if not rows:
+        raise ValueError(f"Author not found for id: {number}")
+    return rows[0][0]
 
 
 def convert_to_names(cache, numbers):
