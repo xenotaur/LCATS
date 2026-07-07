@@ -13,7 +13,7 @@ import json
 import os
 import sys
 import pandas as pd
-
+import tiktoken
 
 # Third-party modules
 
@@ -145,7 +145,11 @@ def build_scene_sequel_prompt(story_text: str) -> list:
 
 
 def extract_scenes_and_sequels(story_text: str, model_name="gpt-3.5-turbo"):
+    global foo_ro, foo_ro2
+
     messages = build_scene_sequel_prompt(story_text)
+
+    foo_ro2 = messages
     
     # Provide your API key, then:
     response = client.chat.completions.create(
@@ -154,8 +158,11 @@ def extract_scenes_and_sequels(story_text: str, model_name="gpt-3.5-turbo"):
         temperature=0.2,  # slightly creative but mostly deterministic
     )
 
+    
     # The assistant response is in response.choices[0].message["content"]
     raw_output = response.choices[0].message.content
+
+    foo_ro = raw_output
     
     # Attempt to parse the JSON
     try:
@@ -225,6 +232,7 @@ def extract_all_and_write(corpora, extractor, model_name, output_dir, file_namer
             print(f"Processing story: {story.name}")
             result = extractor(story.body, model_name=model_name)
             serialized_result = serializer(result)
+            
             with open(filepath, "w") as f:
                 json.dump(serialized_result, f, indent=2)
         except Exception as e:
@@ -233,6 +241,8 @@ def extract_all_and_write(corpora, extractor, model_name, output_dir, file_namer
     print("Scene extraction complete.")
 
 def extract_one_and_write(corpora, number, extractor, model_name, output_dir, file_namer, serializer):
+    result = None
+    
     # Create the output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
 
@@ -252,24 +262,60 @@ def extract_one_and_write(corpora, number, extractor, model_name, output_dir, fi
 
     try:
         print(f"Processing story: {story.name}")
+        token_count = count_tokens(story.body, model_name)
+        
         result = extractor(story.body, model_name=model_name)
         serialized_result = serializer(result)
         with open(filepath, "w") as f:
             json.dump(serialized_result, f, indent=2)
     except Exception as e:
         print(f"Error processing {story.name}: {e}")
+        print(result)
 
     print("Scene extraction complete.")
 
+    return result
+
 def testOne(number):
-    extract_one_and_write(
+    return(extract_one_and_write(
         corpora,
         number,
         extract_scenes_and_sequels,
         model_name="gpt-4o",
         output_dir=DEV_OUTPUT,
         file_namer=extractors.title_to_filename,
-        serializer=make_serializable)
+        serializer=make_serializable))
+
+def testTwo(number):
+    return(extract_one_and_write(
+        corpora,
+        number,
+        extract_scenes_and_sequels,
+        model_name="gpt-3.5-turbo",
+        output_dir=DEV_OUTPUT,
+        file_namer=extractors.title_to_filename,
+        serializer=make_serializable))
+
+def testName(i, name):
+    if name in corpora.stories[i].name:
+        print(name + " found at " + str(i))
+
+
+def count_paragraphs(text):
+    count = 0
+
+    for possible_paragraph in text.split("\n\n"):
+        if len(possible_paragraph.strip()) == 0:
+            continue
+        count = count + 1
+
+    return (count)
+
+
+        
+def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
+    encoding = tiktoken.encoding_for_model(model)
+    return len(encoding.encode(text))
 
 def fetch_story_extraction(
     story,
@@ -374,6 +420,16 @@ def collate_story_extractions(corpora, model_name, output_dir):
         })
     return extractions, pd.DataFrame(statistics)
 
+#for i in range(0,1900):
+#    testTwo(i)
+
+def findByName (name):
+    for i in range(0, 1901):
+        if corpora.stories[i].name == name:
+            print(name + " found at " + str(i))
+
+            
+    
 #example_prompt = build_scene_sequel_prompt(example_story.body)
 #example_prompt
 
@@ -461,8 +517,19 @@ def collate_story_extractions(corpora, model_name, output_dir):
 #gpt_35_data[example_story.name]['parsed_output']['events'][:5]
 
 
+#print("Trying 3 *********************************")
+#for i in range(0,1893):
+#    testTwo(i)
+
+#print("Trying 4 *********************************")
+#for i in range(0,1893):
+#    testOne(i)
 
 
+
+
+foo_ro = "Unset"
+foo_ro2 = "Unset"
 
 
 

@@ -1,0 +1,19 @@
+# .coveragerc
+[run]
+# Measure branch coverage only when you're ready; start with line coverage.
+branch = False
+source =
+    lcats
+omit =
+    */tests/*
+    */__pycache__/*
+    */.venv/*
+    */venv/*
+
+[report]
+show_missing = True
+skip_covered = False
+# Common exclusions (adjust as desired)
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:

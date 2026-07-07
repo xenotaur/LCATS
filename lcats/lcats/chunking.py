@@ -8,10 +8,10 @@ import tiktoken
 
 @dataclass
 class Chunk:
-    index: int           # sequential index of the chunk
-    text: str            # text content of the chunk
-    start_token: int     # index in tokenized list
-    start_char: int      # index in original story string
+    index: int  # sequential index of the chunk
+    text: str  # text content of the chunk
+    start_token: int  # index in tokenized list
+    start_char: int  # index in original story string
 
 
 def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
@@ -26,7 +26,7 @@ def chunk_story(
     overlap_tokens: int = 0,
     model_name: str = "gpt-3.5-turbo",
     end_token_limit: Optional[int] = None,
-    max_chunks: Optional[int] = None
+    max_chunks: Optional[int] = None,
 ) -> List[Chunk]:
     """
     Token-aware chunking using tiktoken. Produces structured chunks with
@@ -67,12 +67,14 @@ def chunk_story(
         chunk_text = enc.decode(chunk_tokens)
         start_char = len(enc.decode(tokens[:start_token]))
 
-        chunks.append(Chunk(
-            index=chunk_count,
-            text=chunk_text,
-            start_token=start_token,
-            start_char=start_char
-        ))
+        chunks.append(
+            Chunk(
+                index=chunk_count,
+                text=chunk_text,
+                start_token=start_token,
+                start_char=start_char,
+            )
+        )
 
         current_token += step
         chunk_count += 1

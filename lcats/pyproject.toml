@@ -13,7 +13,20 @@ authors = [
     {name = "Kenneth Moorman", email = "kmoorman@transy.edu"},
 ]
 license = {text = "MIT"}
-dependencies = []
+dependencies = [
+   "unidecode",
+   "beautifulsoup4",
+   "PyYAML",
+   "tiktoken",
+   "pandas",
+   "tqdm",
+   "matplotlib",
+   "seaborn",
+   "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
+   "anthropic",
+   "openai>=1.0.0",
+   "python-dotenv",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -22,3 +35,17 @@ classifiers = [
 
 [project.scripts]
 lcats = "lcats.cli:main"
+
+[project.optional-dependencies]
+test = [
+    "ruff",
+    "black",
+    "coverage",
+    "parameterized",
+]
+dev = [
+    "ruff",
+    "black",
+    "coverage",
+    "parameterized",
+]

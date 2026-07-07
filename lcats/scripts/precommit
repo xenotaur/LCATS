@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run from the repository root relative to this script.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "${script_dir}/.." && pwd)"
+cd "${repo_root}"
+
+if ! command -v pre-commit >/dev/null 2>&1; then
+    echo "pre-commit not found; installing with pip..."
+    python -m pip install pre-commit
+fi
+
+echo "Installing pre-commit git hooks..."
+pre-commit install
+
+if [[ $# -gt 0 ]]; then
+    echo "Running: pre-commit run $*"
+    pre-commit run "$@"
+else
+    echo "Done."
+    echo "Optionally run:"
+    echo "  pre-commit run --all-files"
+fi

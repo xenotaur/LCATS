@@ -1,0 +1,42 @@
+"""The End boundary contamination detectors."""
+
+import re
+
+from lcats.analysis.corpus import models
+
+BOUNDARY_WINDOW_LINES = 12
+
+
+def line_offsets(text: str) -> list[tuple[int, str]]:
+    """Return (start_index, line_text_without_newline) for each line."""
+    offsets = []
+    position = 0
+    for raw_line in text.splitlines(keepends=True):
+        line = raw_line.rstrip("\r\n")
+        offsets.append((position, line))
+        position += len(raw_line)
+
+    if not offsets and text:
+        offsets.append((0, text))
+    return offsets
+
+
+def make_line_finding(
+    *,
+    kind: str,
+    severity: str,
+    line_start: int,
+    line_text: str,
+    message: str,
+    evidence: dict[str, str],
+) -> models.Finding:
+    """Build a finding from one line-based match."""
+    return models.Finding(
+        kind=kind,
+        severity=severity,
+        span=(line_start, line_start + len(line_text)),
+        message=message,
+        evidence=evidence,
+    )
+
+

@@ -2,7 +2,7 @@
 echo "Installing lcats in develop mode..."
 set -x
 
-pip install -e .
+python -m pip install -e ".[dev]"
 
 # Turn off logging and print a blank line
 { set +x; } 2>/dev/null

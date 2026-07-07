@@ -14,6 +14,7 @@ env/
 # Ignore logs and temporary files
 *.log
 *.tmp
+*.out
 
 # Ignore database files
 *.db

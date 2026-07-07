@@ -20,19 +20,22 @@ class ExtractionTemplate:
         """Create the prompt messages for the LLM with the given story text."""
         return [
             {"role": "system", "content": self.system_template},
-            {"role": "user", "content": self.user_template.format(
-                story_text=story_text)}
+            {
+                "role": "user",
+                "content": self.user_template.format(story_text=story_text),
+            },
         ]
 
 
 @dataclass
 class ExtractionResult:  # pylint: disable=too-many-instance-attributes
     """Result of structured extraction from a story using an LLM and a prompt template."""
+
     story_text: str
     model_name: str
     template: ExtractionTemplate
     messages: List[Dict[str, str]]
-    response: Optional[object]  # raw OpenAI response object
+    response: Optional[object]  # raw provider response (BackendResponse.raw)
     raw_output: Optional[str]  # raw text output from the LLM
     parsed_output: Optional[Dict]
     parsing_error: Optional[str]
@@ -45,7 +48,8 @@ class ExtractionResult:  # pylint: disable=too-many-instance-attributes
         output.append(f"Model: {self.model_name}")
         output.append(f"Template: {self.template.name}")
         output.append(
-            f"Events extracted: {len(self.extracted_output) if self.extracted_output else 0}")
+            f"Events extracted: {len(self.extracted_output) if self.extracted_output else 0}"
+        )
         if self.parsing_error:
             output.append(f"Parsing error: {self.parsing_error}")
         if self.extraction_error:
@@ -56,18 +60,20 @@ class ExtractionResult:  # pylint: disable=too-many-instance-attributes
 def extract_from_story(
     story_text: str,
     template: ExtractionTemplate,
-    client,
+    backend,
     model_name: str = "gpt-3.5-turbo",
-    temperature: float = 0.2
+    temperature: float = 0.2,
 ) -> ExtractionResult:
     """Perform structured extraction from a story using an LLM and a prompt template."""
     messages = template.build_prompt(story_text)
-    response = client.chat.completions.create(
+    # messages[0] is the system turn; messages[1:] are user/assistant turns.
+    backend_response = backend.complete(
+        system=messages[0]["content"],
+        messages=messages[1:],
         model=model_name,
-        messages=messages,
         temperature=temperature,
     )
-    raw_output = response.choices[0].message.content
+    raw_output = backend_response.text
 
     try:
         parsed_output = utils.extract_json(raw_output)
@@ -78,21 +84,22 @@ def extract_from_story(
 
     if not parsed_output:
         extracted_output = None
-        extraction_error = f"No parsed JSON found in raw output (length: {len(raw_output)} chars)"
+        extraction_error = (
+            f"No parsed JSON found in raw output (length: {len(raw_output)} chars)"
+        )
     elif isinstance(parsed_output, dict) and "events" in parsed_output:
         extracted_output = parsed_output["events"]
         extraction_error = None
     else:
         extracted_output = None
-        extraction_error = (
-            f"Parsed output missing 'events' key. Found keys: {list(parsed_output.keys())}")
+        extraction_error = f"Parsed output missing 'events' key. Found keys: {list(parsed_output.keys())}"
 
     return ExtractionResult(
         story_text=story_text,
-        model_name=model_name,
+        model_name=backend_response.model,
         template=template,
         messages=messages,
-        response=response,
+        response=backend_response.raw,
         raw_output=raw_output,
         parsed_output=parsed_output,
         parsing_error=parsing_error,
