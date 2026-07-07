@@ -76,8 +76,8 @@ print(f"Story type: {type(example_story)} with a body of {len(example_story.body
 
 
 
-sfStories = find_all_stories_for_genre(corpora.stories, "SF")
-horrorStories = find_all_stories_for_genre(corpora.stories, "Horror")
-mysteryStories = find_all_stories_for_genre(corpora.stories, "Mystery")
-romanceStories = find_all_stories_for_genre(corpora.stories, "Romance")
-westernStories = find_all_stories_for_genre(corpora.stories, "Western")
+sfStories = genre.find_all_stories_for_genre(corpora.stories, "SF")
+horrorStories = genre.find_all_stories_for_genre(corpora.stories, "Horror")
+mysteryStories = genre.find_all_stories_for_genre(corpora.stories, "Mystery")
+romanceStories = genre.find_all_stories_for_genre(corpora.stories, "Romance")
+westernStories = genre.find_all_stories_for_genre(corpora.stories, "Western")

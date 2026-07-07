@@ -1,6 +1,7 @@
 # code modified from OpenAI suggested
 
 import re
+from lcats.gettenberg import api
 
 GENRE_RULES = [
     (
@@ -264,7 +265,7 @@ def get_genre_by_id (id):
         string:   Canonical genre 
     """
     
-    return genre.classify_exclusive(api.get_metadata("subject", id))[0]
+    return classify_exclusive(api.get_metadata("subject", id))[0]
 
 
 def get_genre_for_story (story):
