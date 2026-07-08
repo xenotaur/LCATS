@@ -81,5 +81,5 @@ first full corpus quality and genre assessment pipeline.
 ## Alignment Notes
 - Completed phases are logged in `project/memory/decision_log.md`.
 - Active work spans Phase 4 (repair/review), story-analysis-pipeline foundations feeding the
-  Medium-Term Goal, and the WORKSTREAM-DOCS documentation cleanup — see
+  Medium-Term Goal, and the WS-DOCS documentation cleanup — see
   `project/focus/current_focus.md` for the current multi-priority focus.

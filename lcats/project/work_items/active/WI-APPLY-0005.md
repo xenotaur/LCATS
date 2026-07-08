@@ -5,7 +5,7 @@ type: deliverable
 status: active
 priority: high
 owner: unassigned
-linked_focus: FOCUS-REPAIR-REVIEW
+linked_focus: FOCUS-WORLDCON-2026
 blocked: false
 blocked_reason: null
 resolution: null

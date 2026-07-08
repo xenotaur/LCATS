@@ -11,7 +11,7 @@ work_items:
   - WI-DOCS-0014
   - WI-DOCS-0015
 exit_criteria:
-  - Repo-root README.md's CLI command table and LLM-provider description match current lcats/lcats/cli.py and lcats/llm/ (WI-DOCS-0013)
+  - Repo-root README.md's CLI command table and LLM-provider description match current lcats/lcats/cli.py and lcats/lcats/llm/ (WI-DOCS-0013)
   - lcats/README.md's Requirements section matches STYLE.md's unittest-only testing framework and accurate Python version wording (WI-DOCS-0013)
   - docs/how-to/run-assess.md exists with Section 9 content extracted from the corpus README (WI-DOCS-0014)
   - docs/reference/cli-commands.md exists, verified against `lcats <command> --help` for every implemented command (WI-DOCS-0014)

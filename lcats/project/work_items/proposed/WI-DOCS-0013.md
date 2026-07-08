@@ -27,7 +27,7 @@ forbidden_actions:
   - implement_wi_docs_0015
   - overhaul_unrelated_sections
 acceptance:
-  - "/README.md's CLI command table lists all 13 implemented commands (help, info, gather, inspect, display, survey, assess, stats, repair-specials, meta register) plus the 3 placeholders (index, advise, eval), matching lcats/docs/reference/cli-status.md"
+  - "/README.md's CLI command table lists all 10 implemented commands (help, info, gather, inspect, display, survey, assess, stats, repair-specials, meta register) plus the 3 placeholders (index, advise, eval), 13 total, matching lcats/docs/reference/cli-status.md"
   - "/README.md's LLM Integration section mentions both Anthropic and OpenAI backends"
   - "lcats/README.md's Requirements section states an unambiguous Python version and does not reference installing pytest via conda"
   - "project/executions/README.md no longer references scripts/prompts/record-execution as if it exists, or explicitly notes it is intentionally deferred"
@@ -61,7 +61,7 @@ PR #111; this item is Phase 2b (accuracy fixes), the next item in the `WS-DOCS` 
 
 ## Scope
 - Correct factual claims in `/README.md` (repo root) and `lcats/README.md` against current source
-  (`lcats/lcats/cli.py`, `lcats/llm/`, `STYLE.md`).
+  (`lcats/lcats/cli.py`, `lcats/lcats/llm/`, `STYLE.md`).
 - Note the deferred helper-script gap in `project/executions/README.md` rather than leaving it
   silently wrong.
 - Do not touch any other documentation file — that is Phase 3 (`WI-DOCS-0014`).
@@ -89,8 +89,8 @@ PR #111; this item is Phase 2b (accuracy fixes), the next item in the `WS-DOCS` 
   example, Project Structure, etc.).
 
 ## Acceptance Criteria
-- `/README.md`'s CLI command table lists all 13 implemented commands, matching
-  `lcats/docs/reference/cli-status.md`.
+- `/README.md`'s CLI command table lists all 10 implemented commands plus the 3 placeholders
+  (13 total), matching `lcats/docs/reference/cli-status.md`.
 - `/README.md` mentions both Anthropic and OpenAI as supported LLM providers.
 - `lcats/README.md`'s Requirements section has unambiguous Python-version wording and no longer
   instructs installing `pytest`.
