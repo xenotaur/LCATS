@@ -55,6 +55,7 @@ build/
 # Ignore cache directories
 __pycache__/
 .cache/
+cache/
 
 # Ignore coverage reports
 .coverage

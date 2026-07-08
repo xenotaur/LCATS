@@ -163,14 +163,6 @@ def chaptered(text):
         ]:
             result = result + 1
 
-    if possible_titles > 1:
-        print(
-            "Chapter check "
-            + str(possible_titles)
-            + " vs "
-            + "Results = "
-            + str(result)
-        )
     # A single I or II might be an anomoly so this is to see if both exist
 
     if result == 0 and possible_titles == 2:
@@ -1462,7 +1454,6 @@ def gather_story(gatherer, story):
     body = body_of_text(clean_text, author, alias, title)
 
     if chaptered(body):
-        print("Chaptered")
         return story, None, "Story has chapters, skipping."
 
     if len(body.split("\n\n")) > 10:
