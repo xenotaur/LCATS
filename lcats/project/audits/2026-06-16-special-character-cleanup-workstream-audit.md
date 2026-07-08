@@ -78,7 +78,7 @@ Important distinction: the current specials TSV is occurrence-oriented and may r
 
 - `project/work_items/proposed/WI-PERSIST-0004.md` proposes persistence for corpus state, repair plans, and review outcomes. It should inform manifest schema, but the release cleanup should not wait for a full persistence system.
 - `project/work_items/active/WI-META-0006.md` is metadata/control-plane related and not a direct blocker unless follow-up PRs formalize a new work item.
-- `project/audits/2026-05-26-docs-audit.md` and `project/prompts/PROMPT-AD_HOC-REQUEST_ORGANIZE_DOCS-2026-05-27-scaffold.md` are useful precedent for audit structure and prompt-record naming, but they are documentation-organization work rather than corpus cleanup implementation.
+- `project/audits/docs/2026-05-26-docs-audit.md` and `project/prompts/PROMPT-AD_HOC-REQUEST_ORGANIZE_DOCS-2026-05-27-scaffold.md` are useful precedent for audit structure and prompt-record naming, but they are documentation-organization work rather than corpus cleanup implementation.
 - `lcats/docs/reference/` is a documentation hub scaffold, but this PR adds the audit under `project/audits/` because the deliverable is control-plane planning rather than user-facing docs.
 
 ## 5. Gap analysis
