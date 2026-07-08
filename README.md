@@ -118,6 +118,16 @@ LCATS/
 └── experiments/           # Research experiments
 ```
 
+## Documentation
+
+LCATS documentation is being organized under `lcats/docs/`.
+
+- Docs hub: [`lcats/docs/index.md`](lcats/docs/index.md)
+- CLI implementation status reference: [`lcats/docs/reference/cli-status.md`](lcats/docs/reference/cli-status.md)
+- LRH control-plane docs: [`lcats/project/README.md`](lcats/project/README.md)
+
+The execution root is `lcats/` (for example: `cd LCATS/lcats`).
+
 ## Corpora
 
 LCATS includes a substantial collection of public domain literature:
