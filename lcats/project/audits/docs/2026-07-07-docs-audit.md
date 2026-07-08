@@ -26,8 +26,9 @@ added directly to `lcats/lcats/analysis/corpus/README.md`. That content is not l
 docs hub.
 
 Key findings:
-- 78 Markdown files discovered across the repository. 0 broken internal links (verified by
-  filesystem check against every non-HTTP link target).
+- 78 Markdown files existed in the repository at the start of this audit's discovery pass (before
+  this artifact was written); the repository now contains 79 including this file. 0 broken
+  internal links (verified by filesystem check against every non-HTTP link target).
 - **Tutorial quadrant is empty** — `docs/index.md` explicitly states tutorials are not scaffolded.
   This matches actual repository state (no `docs/tutorials/` directory exists).
 - **The top-level repository README (`/README.md`) is stale and disconnected** from the
@@ -62,9 +63,10 @@ Key findings:
   project-authored documentation).
 
 Discovery method: recursive filesystem walk for `*.md`, cross-checked against the discovery
-checklist in `references/audit-requirements.md` (docs directories, top-level meta files,
-package READMEs, examples/notebooks, CLI surface via `lcats/lcats/cli.py` source inspection,
-docstring presence via AST walk, control-plane directory).
+checklist in the `lrh-doc-audit` skill's `references/audit-requirements.md` (this is the invoking
+skill's own reference material — not a path inside this repository) covering docs directories,
+top-level meta files, package READMEs, examples/notebooks, CLI surface via `lcats/lcats/cli.py`
+source inspection, docstring presence via AST walk, and the control-plane directory.
 
 ## Current documentation inventory
 
@@ -97,14 +99,17 @@ docstring presence via AST walk, control-plane directory).
 | `lcats/STYLE.md` | 1 | Canonical style guide |
 | `lcats/project/` (control plane, all subdirectories) | ~54 | `README.md`, `audits/*` (3), `context/*` (2), `contributors/*` (2), `design/*` (4), `evidence/*` (1), `executions/*` (12), `focus/*`, `goal/*`, `guardrails/*` (4), `memory/*`, `principles/*`, `prompts/*` (2), `roadmap/*`, `status/*`, `work_items/*` (12), `workstreams/*` (1) |
 
-Total Markdown files discovered: 78. Total classified into Diataxis quadrants (including Mixed):
-17. Remainder (~61) is control-plane Meta content, consistent with this skill's guardrail to not
-force `project/` into the four quadrants.
+Total Markdown files discovered: 78 (pre-existing state, before this audit artifact was written;
+the repository now contains 79 including this file). Total classified into Diataxis quadrants
+(including Mixed): 17. Remainder (~61) is control-plane Meta content, consistent with this skill's
+guardrail to not force `project/` into the four quadrants.
 
 Not discovered anywhere in the repository: a `docs/reference/docs-audit-artifact-convention.md`
-file. `references/audit-requirements.md` names this as the authoritative source for the v1 artifact
-schema, but no such file exists in this repository (searched full tree). This audit follows the
-schema as summarized directly in `audit-requirements.md` instead. Flagged under Risks and Cautions.
+file. The `lrh-doc-audit` skill's own `references/audit-requirements.md` (not a file in this
+repository) names `docs/reference/docs-audit-artifact-convention.md` as the authoritative in-repo
+source for the v1 artifact schema, but no such file exists here (searched full tree). This audit
+follows the schema as summarized directly in the skill's `audit-requirements.md` instead. Flagged
+under Risks and Cautions.
 
 ## Current project and package layout
 
@@ -228,9 +233,11 @@ close — noted, not flagged as a gap.
 
 ## Stale or ambiguous links
 
-None found. Every non-HTTP `[text](path)` link across all 78 Markdown files was checked against
-the filesystem (fragment-only links skipped, `file.md#section` links checked against `file.md`
-only, paths resolved relative to the containing file's directory). Zero broken targets.
+None found. Every non-HTTP `[text](path)` link across all Markdown files in the repository (78 at
+the time of the discovery pass) was checked against the filesystem (fragment-only links skipped,
+`file.md#section` links checked against `file.md` only, paths resolved relative to the containing
+file's directory). Zero broken targets. The check was re-run after this file was added to the
+tree, against all 79 files, with the same result.
 
 This is a change from what an audit of this repository might have found before: the Phase 1 docs
 work introduced correct relative links (e.g., `lcats/docs/index.md` → `../project/README.md`),
@@ -340,12 +347,13 @@ cli-status.md`, `lcats/README.md`'s documentation-links section stay as-is).
 
 ## Risks and cautions
 
-- **Missing convention source file.** `references/audit-requirements.md` names `docs/reference/
-  docs-audit-artifact-convention.md` as the authoritative v1 schema source; it does not exist
-  anywhere in this repository. This audit followed the schema as summarized in
-  `audit-requirements.md` itself. If that file is expected to exist in this repo (rather than only
-  in the skill's own reference material), its absence is itself a documentation gap worth raising
-  separately — not fixed here, per this skill's "do not create content" guardrail.
+- **Missing convention source file.** The `lrh-doc-audit` skill's `references/audit-requirements.md`
+  — part of the skill installed at `~/.claude/skills/lrh-doc-audit/`, not a path in this repository
+  — names `docs/reference/docs-audit-artifact-convention.md` as the authoritative in-repo v1 schema
+  source. No such file exists anywhere in this repository. This audit followed the schema as
+  summarized directly in the skill's own `audit-requirements.md` instead. If a repo-local copy of
+  the convention file is expected to exist here, its absence is itself a documentation gap worth
+  raising separately — not fixed here, per this skill's "do not create content" guardrail.
 - **Audit output path adopts a new subdirectory convention, scoped to `audit_type: docs`.**
   `project/audits/docs/` now holds this audit and the relocated `2026-05-26-docs-audit.md`. Non-
   docs audits (2026-06-16, 2026-06-18) intentionally remain in the flat `project/audits/*.md`
