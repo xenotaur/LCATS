@@ -19,7 +19,7 @@ work_items:
 exit_criteria:
   - lcats survey --mode specials over freshly regenerated data/ reports zero unaddressed mojibake findings — every measured residual occurrence is repaired by rule, covered by a per-story override, or explicitly allowlisted
   - Repair rules and per-story overrides are versioned repo inputs applied during gathering, so clearing the cache and regenerating data/ reproduces the same repaired output deterministically
-  - DEFAULT_REPAIR_RULES in lcats/analysis/corpus/repairs.py targets the encoding families measured in the live corpus, with tests against real sampled story contexts (the unmatched cp1252-form rules are replaced)
+  - DEFAULT_REPAIR_RULES in lcats/lcats/analysis/corpus/repairs.py targets the encoding families measured in the live corpus, with tests against real sampled story contexts (the unmatched cp1252-form rules are replaced)
   - Promotion from data/ to corpora/ is gated by a passing specials survey, and the stale corpora/ snapshot is superseded by promotion at the next release rather than repaired in place
   - project/memory/decision_log.md and design.md's State and Persistence Boundary section record the pivot from offset-keyed span-op persistence to rule/override-keyed replayable repairs
 ---
@@ -32,7 +32,7 @@ Coordinate the work that takes LCATS from "known encoding damage in the
 corpus" to "regenerated data/ passes the specials survey and can be promoted
 to corpora/ at release." This workstream connects the already-built detection,
 classification, repair-proposal, span-operation, and review machinery
-(`lcats/analysis/corpus/`) to the gather pipeline, so repairs are replayable
+(`lcats/lcats/analysis/corpus/`) to the gather pipeline, so repairs are replayable
 inputs to regeneration rather than one-off edits to stored files.
 
 ## Background / Rationale
