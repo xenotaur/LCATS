@@ -7,7 +7,12 @@ from lcats.analysis.corpus.detectors import boundary
 from lcats.analysis.corpus.detectors import structural
 from lcats.analysis.corpus.detectors import unicode
 
-DEFAULT_CHECKS = ["special-characters", "boundary-contamination"]
+DEFAULT_CHECKS = [
+    "special-characters",
+    "boundary-contamination",
+    "the_end-contamination",
+]
+# DEFAULT_CHECKS = ["boundary-contamination"]
 
 
 def build_default_detectors() -> list[models.Detector]:
@@ -20,6 +25,7 @@ def build_default_detectors() -> list[models.Detector]:
         ),
         boundary.StartDetector(),
         boundary.EndDetector(),
+        boundary.TheEndDetector(),
         structural.ChapterHeadingDetector(),
         structural.TocRemnantsDetector(),
         structural.SectionBreakDetector(),

@@ -139,7 +139,7 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
         default=[],
         help=(
             "Check(s) to run. Repeatable or comma-separated. "
-            "Currently supported: special-characters,boundary-contamination"
+            "Currently supported: special-characters,boundary-contamination, the_end-contamination"
         ),
     )
     parser.add_argument("--print-clean-filenames", action="store_true")
@@ -243,6 +243,15 @@ def survey_file(file_path: pathlib.Path, args) -> list[dict[str, str]]:
                 config={
                     "detectors": [boundary.StartDetector(), boundary.EndDetector()]
                 },
+            )
+            rows.extend(
+                output.finding_to_row(file_path, story_title, check_name, finding)
+                for finding in findings
+            )
+        elif check_name == "the_end-contamination":
+            findings = qa.run_detectors(
+                story_text,
+                config={"detectors": [boundary.TheEndDetector()]},
             )
             rows.extend(
                 output.finding_to_row(file_path, story_title, check_name, finding)
