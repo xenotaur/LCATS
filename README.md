@@ -27,7 +27,7 @@ LCATS consists of several key components:
 - **Pipeline**: Configurable multi-stage processing workflows
 
 ### 🤖 LLM Integration
-- OpenAI API integration for text analysis and extraction
+- Anthropic and OpenAI API integration for text analysis, extraction, and assessment
 - Template-based prompt engineering for consistent results
 - Structured output parsing and error handling
 - Configurable models and parameters
@@ -260,15 +260,31 @@ All developers should ensure:
 
 ## CLI Commands
 
+Implemented:
+
 | Command | Description |
 |---------|-------------|
 | `lcats help` | Show usage information |
 | `lcats info` | Display system information |
 | `lcats gather [gatherers]` | Collect corpus data |
 | `lcats inspect <file>` | Examine story JSON files |
+| `lcats display <file>` | Display full story JSON content |
+| `lcats survey` | Survey corpus files for quality issues |
+| `lcats assess <files>` | Assess corpus stories for quality and genre fit using the Claude API |
+| `lcats stats` | Compute corpus-level statistics |
+| `lcats repair-specials` | Generate dry-run Unicode/special-character repair proposals |
+| `lcats meta register <repo_locator>` | Register a repository locator in the local workspace registry |
+
+Placeholder (declared, not yet implemented):
+
+| Command | Description |
+|---------|-------------|
 | `lcats index` | Preprocess corpus (planned) |
 | `lcats advise` | AI advisory interface (planned) |
 | `lcats eval` | Benchmark evaluation (planned) |
+
+See [`lcats/docs/reference/cli-status.md`](lcats/docs/reference/cli-status.md) for the
+authoritative status matrix.
 
 ## API Reference
 
