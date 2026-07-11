@@ -2,10 +2,10 @@
 execution_id: 2026_07_09_16_30_56_WS_SPECIALS_CLEANUP_REVIEW
 prompt_id: PROMPT(AD_HOC:WS_SPECIALS_CLEANUP_REVIEW)[2026-07-09T16:25:31-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/116
-commit: b1d7a0e
+commit: 7f973e977851bd0d1133ab2ba2d18baebc9df442
 created_at: 2026-07-09T16:30:56-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/116
