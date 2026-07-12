@@ -16,6 +16,11 @@ work_items:
   - WI-SPANOPS-0002
   - WI-REVIEW-0003
   - WI-APPLY-0005
+  - WI-RULES-0016
+  - WI-NORMALIZE-0017
+  - WI-OVERRIDES-0018
+  - WI-RESIDUAL-0019
+  - WI-PROMOTE-0020
 exit_criteria:
   - lcats survey --mode specials over freshly regenerated data/ reports zero unaddressed mojibake findings — every measured residual occurrence is repaired by rule, covered by a per-story override, or explicitly allowlisted
   - Repair rules and per-story overrides are versioned repo inputs applied during gathering, so clearing the cache and regenerating data/ reproduces the same repaired output deterministically
@@ -85,10 +90,18 @@ Existing active items to re-scope under this workstream:
   but the item is still active; remaining scope is pipeline integration, or
   resolve it and open a successor.
 
-New items to be created via /lrh-work-item (IDs assigned at creation):
-the gather-time normalization hook; the measured rule table; the per-story
-overrides file; the residual review pass and regeneration; the survey-gated
-promotion step.
+New items created 2026-07-10:
+
+- **WI-RULES-0016** — replace the dead repair-rule table with the three
+  measured encoding families, tested against real corpus bytes.
+- **WI-NORMALIZE-0017** — apply repair rules at gather time with provenance
+  metadata (depends on WI-RULES-0016).
+- **WI-OVERRIDES-0018** — versioned per-story overrides consumed by the
+  normalization hook (depends on WI-NORMALIZE-0017).
+- **WI-RESIDUAL-0019** — human review of residual defects and clean
+  regeneration of data/ (depends on WI-RULES-0016..WI-OVERRIDES-0018).
+- **WI-PROMOTE-0020** — survey-gated promotion from data/ to corpora/
+  (depends on WI-RESIDUAL-0019).
 
 ## Exit Criteria
 
