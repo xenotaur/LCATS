@@ -118,7 +118,7 @@ class StartDetector:
 class EndDetector:
     """Detect likely non-story footer content near the story end."""
 
-    _GUTENBERG_RE = re.compile(
+    _GUTENBERG_FOOTER_RE = re.compile(
         r"(project gutenberg|gutenberg (ebook|license)|\*\*\* end of)",
         re.IGNORECASE,
     )
@@ -136,7 +136,7 @@ class EndDetector:
             if not trimmed:
                 continue
 
-            if self._GUTENBERG_RE.search(trimmed):
+            if self._GUTENBERG_FOOTER_RE.search(trimmed):
                 findings.append(
                     make_line_finding(
                         kind="end-contamination",
@@ -153,11 +153,6 @@ class EndDetector:
 
 class TheEndDetector:
     """Detect likely "The End" footer content near the story end."""
-
-    _GUTENBERG_RE = re.compile(
-        r"(project gutenberg|gutenberg (ebook|license)|\*\*\* end of)",
-        re.IGNORECASE,
-    )
 
     def run(self, text: str) -> list[models.Finding]:
         lines = line_offsets(text)

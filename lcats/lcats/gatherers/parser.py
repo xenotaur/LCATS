@@ -744,8 +744,8 @@ def split_title(title):
     elif title.find(":") > -1:
         return title.split(":")
     else:
-        return title
-
+        return [title]      # ensures all returns are indeed lists
+ 
 
 def line_contains_title(original_line, title):
     """Detect whether the line contains the title of the story.
@@ -867,41 +867,6 @@ def find_gutenberg_line(text_array):
     return location
 
 
-def determine_limit_for_author_location(text_array):
-    """What is the highest spot to consider an author to be valid?
-    Args:
-        text_array (array):  The broken up story text.
-    Returns:
-        int:  Highest location to consider valid
-    """
-
-    length = len(text_array)
-
-    if length <= 10:
-        return 0.90 * length
-    elif length <= 20:
-        return 0.70 * length
-    else:
-        return 0.04 * length
-
-
-def determine_limit_for_title_location(text_array):
-    """What is the highest spot to consider a title to be valid?
-    Args:
-        text_array (array):  The broken up story text.
-    Returns:
-        int:  Highest location to consider valid
-    """
-
-    length = len(text_array)
-
-    return length
-    if length <= 10:
-        return 0.90 * length
-    elif length <= 20:
-        return 0.80 * length
-    else:
-        return 0.04 * length
 
 
 def find_author_line(text_array, authors, alias, title, three_newlines_flag=False):
@@ -986,7 +951,7 @@ def find_end_line(text_array):
     return location
 
 
-def line_contains_author(line, authors, alias, limit=8):
+def line_contains_author(line, authors, alias, limit=6):
     """Detect whether the line contains the author of the story or other author-like content.
 
     We limit the size of the line so we do not find this in a longer line of text.
