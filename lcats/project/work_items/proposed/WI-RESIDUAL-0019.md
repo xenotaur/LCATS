@@ -66,7 +66,7 @@ This is the execution pass that turns the WI-RULES-0016/0017/0018 machinery into
 
 ## Validation
 - `lcats survey --mode specials data/ --no-progress`
-- `lcats repair-specials data/mass_quantities/*.json --format jsonl`
+- `lcats repair-specials data/mass_quantities/*.json --format jsonl` (requires the story-JSON decoding extension from WI-RULES-0016; raw story files store defects as `\uXXXX` escapes, so raw-text scans are false negatives)
 - `lrh validate`
 
 ## Risk Notes
