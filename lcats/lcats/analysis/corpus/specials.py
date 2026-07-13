@@ -31,6 +31,14 @@ MOJIBAKE_SEQUENCES = (
     "â€“",
     "â€”",
     "â€¦",
+    # UTF-8 bytes decoded as Mac-Roman upstream; exact sequences only, so a
+    # bare mathematical "√" still classifies as review_needed.
+    "√©",
+    "√®",
+    "√±",
+    "√º",
+    "√∂",
+    "√≤",
 )
 MOJIBAKE_NEIGHBOR_MARKERS = {"Ã", "Â", "â", "ð", "�"}
 
