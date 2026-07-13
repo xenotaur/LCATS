@@ -139,7 +139,9 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         first_row = output.splitlines()[0].split("\t")
         self.assertEqual("U+221A", first_row[0])
         self.assertEqual("2", first_row[4])
-        self.assertEqual("review_needed", first_row[6])
+        # "√©" is a measured Mac-Roman mojibake sequence (WI-RULES-0016), so
+        # this classifies repairable rather than review_needed.
+        self.assertEqual("likely_repairable", first_row[6])
 
     def test_run_special_characters_check_uses_nocontext_flag(self):
         output = corpus_survey.run_special_characters_check(

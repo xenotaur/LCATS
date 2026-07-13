@@ -133,6 +133,26 @@ class SpecialsTest(unittest.TestCase):
         self.assertEqual("review_needed", classification)
         self.assertIn("residual-review", evidence)
 
+    def test_classify_character_likely_repairable_for_macroman_sequences(self):
+        """Measured Mac-Roman mojibake pairs (√ + specific second char) must
+        classify repairable, while bare mathematical √ stays review_needed
+        (previous test)."""
+        cases = [
+            ("blas√© eyes", "√©"),
+            ("fin de si√®cle", "√®"),
+            ("se√±orita", "√±"),
+            ("Tha√ºle?", "√º"),
+            ("Ragnar√∂k.", "√∂"),
+            ("Niccol√≤ Tartaglia", "√≤"),
+            ("hypnop√¶dic language", "√¶"),
+        ]
+        for text, sequence in cases:
+            with self.subTest(sequence=sequence):
+                index = text.index("√")
+                classification, evidence = specials.classify_character(text, index, "√")
+                self.assertEqual("likely_repairable", classification)
+                self.assertIn(f"fragment={sequence}", evidence)
+
     def test_build_special_character_report_applies_review_allow_rules(self):
         decision_store = review.ReviewDecisionStore(
             allowed_special_cases=(
