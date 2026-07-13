@@ -335,9 +335,9 @@ def title_ok(title):
     """
 
     result = True
-    if len(list(title)) > 1:  # multiple titles
-        for a_title in list(title):
-            result = result and title_ok(a_title)
+    if len(title) > 1:  # multiple titles
+        for a_title in title:
+            result = result and title_ok([a_title])
 
         return result
 
@@ -347,14 +347,14 @@ def title_ok(title):
     if ", and" in title[0].split("\n")[0].strip().lower():
         return False
 
-    if "index of the project gutenberg" in list(title)[0].lower():
+    if "index of the project gutenberg" in title[0].lower():
         return False
 
     for part_indicator in storymap.EXCLUDED_TITLE_PART_WORDS:
-        if re.search(rf"{part_indicator}\s*\d+", str(list(title)[0]), re.IGNORECASE):
+        if re.search(rf"{part_indicator}\s*\d+", title[0], re.IGNORECASE):
             return False
 
-    for piece in list(title)[0].split(" "):
+    for piece in title[0].split(" "):
         piece = piece.lower()
 
         if piece in storymap.EXCLUDED_TITLE_WORDS:
@@ -744,8 +744,8 @@ def split_title(title):
     elif title.find(":") > -1:
         return title.split(":")
     else:
-        return [title]      # ensures all returns are indeed lists
- 
+        return [title]  # ensures all returns are indeed lists
+
 
 def line_contains_title(original_line, title):
     """Detect whether the line contains the title of the story.
@@ -865,8 +865,6 @@ def find_gutenberg_line(text_array):
             break
 
     return location
-
-
 
 
 def find_author_line(text_array, authors, alias, title, three_newlines_flag=False):
