@@ -51,6 +51,11 @@ def chunk_story(
 
     step = max_tokens if overlap_tokens == 0 else max_tokens - overlap_tokens
 
+    # ⚡ Bolt: Fast start_char computation tracker to avoid O(N^2) decoding
+    # We maintain a running bytearray to avoid drift from multi-byte character splits.
+    last_token = 0
+    running_bytes = bytearray()
+
     while current_token < len(tokens):
         if max_chunks is not None and chunk_count >= max_chunks:
             break
@@ -65,7 +70,20 @@ def chunk_story(
         end_token = min(current_token + max_tokens, len(tokens))
         chunk_tokens = tokens[start_token:end_token]
         chunk_text = enc.decode(chunk_tokens)
-        start_char = len(enc.decode(tokens[:start_token]))
+
+        # ⚡ Bolt: Incrementally compute character offset using previous state
+        if start_token > last_token:
+            running_bytes.extend(
+                b"".join(enc.decode_tokens_bytes(tokens[last_token:start_token]))
+            )
+        elif start_token < last_token:
+            drop_len = len(
+                b"".join(enc.decode_tokens_bytes(tokens[start_token:last_token]))
+            )
+            del running_bytes[-drop_len:]
+
+        start_char = len(running_bytes.decode("utf-8", errors="replace"))
+        last_token = start_token
 
         chunks.append(
             Chunk(
