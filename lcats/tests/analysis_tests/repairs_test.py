@@ -32,6 +32,7 @@ class RepairsTest(unittest.TestCase):
             ("them, Tha√ºle?", "√º", "ü", "mojibake-macroman-u-diaeresis"),
             ("trumpets of Ragnar√∂k.", "√∂", "ö", "mojibake-macroman-o-diaeresis"),
             ("work on Niccol√≤ Tartaglia", "√≤", "ò", "mojibake-macroman-o-grave"),
+            ("adapting a hypnop√¶dic language", "√¶", "æ", "mojibake-macroman-ae"),
         ]
     )
     def test_suggest_repairs_maps_known_fragments(

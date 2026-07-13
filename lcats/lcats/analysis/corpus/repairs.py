@@ -153,6 +153,12 @@ DEFAULT_REPAIR_RULES = (
         replacement_text="ò",
         description="UTF-8 'ò' decoded as Mac-Roman (Niccol√≤).",
     ),
+    RepairRule(
+        rule_id="mojibake-macroman-ae",
+        source_text="√¶",
+        replacement_text="æ",
+        description="UTF-8 'æ' decoded as Mac-Roman (hypnop√¶dic).",
+    ),
 )
 
 

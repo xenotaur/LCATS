@@ -39,6 +39,7 @@ MOJIBAKE_SEQUENCES = (
     "√º",
     "√∂",
     "√≤",
+    "√¶",
 )
 MOJIBAKE_NEIGHBOR_MARKERS = {"Ã", "Â", "â", "ð", "�"}
 

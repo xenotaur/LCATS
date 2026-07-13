@@ -144,6 +144,7 @@ class SpecialsTest(unittest.TestCase):
             ("Tha√ºle?", "√º"),
             ("Ragnar√∂k.", "√∂"),
             ("Niccol√≤ Tartaglia", "√≤"),
+            ("hypnop√¶dic language", "√¶"),
         ]
         for text, sequence in cases:
             with self.subTest(sequence=sequence):
