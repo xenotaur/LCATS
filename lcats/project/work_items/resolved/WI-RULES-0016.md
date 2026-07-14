@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #120 (commit ddc4585). Replaced the six dead cp1252-form rules with 15 rules measured against real corpus bytes (8 Latin-1-form, 7 Mac-Roman-form incl. √¶); repair-specials now scans decoded story JSON bodies; dry run over live data/ yields 34 proposals (was 0)."
 blocked_reason: null
 blocked: false
 id: WI-RULES-0016
 title: Replace dead repair rules with measured mojibake encoding families
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
@@ -71,3 +71,21 @@ The 2026-07-09 assessment found the six existing rules target a cp1252-decoded f
 - The same wrong-byte-assumption mistake could recur: every rule's `source_text` must be verified against actual corpus bytes, not typed from memory.
 - Evidence must come from decoded story bodies: raw story JSON stores defects as `\uXXXX` escapes, so a zero-proposal dry-run over raw file text is a false negative, not a clean corpus.
 - Over-broad rules risk corrupting legitimate text (e.g. genuine `Ã` in rare loanwords); prefer sequence-anchored rules.
+
+## Completion Notes
+- Resolved via PR #120 (commit ddc4585). All 15 rules and their
+  `MOJIBAKE_SEQUENCES` classifier entries were verified byte-for-byte
+  against real corpus occurrences before authoring.
+- **Correction to the Problem/Context above:** the `√¶`-form (æ) is **not**
+  present in the live `data/` tree — it occurs only once in the stale
+  `corpora/` snapshot (`massQuantities/lost_in_translation.json`,
+  "hypnop√¶dic"). The Problem/Context list conflated the earlier `corpora/`
+  scan with the `data/` scan. The `√¶`→æ rule (`mojibake-macroman-ae`) was
+  still added during review (Codex r3573505208) because it is a correct,
+  conservative Mac-Roman decode and is forward-useful once `corpora/` is
+  regenerated. This is exactly the `data/`-vs-`corpora/` distinction the
+  workstream turns on: rules are measured against both trees, but the live
+  `data/` acceptance dry-run yields 34 proposals (the `√¶` rule is exercised
+  against the `corpora/` context in tests, not the `data/` dry-run).
+- The 35th live-`data/` defect (`Ângstrom`, an ambiguous non-family case) is
+  deliberately deferred to WI-OVERRIDES-0018.
