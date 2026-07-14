@@ -17,12 +17,16 @@ import collections
 from lcats.analysis.corpus import repairs
 
 # Identifies which rule set produced a story's normalization provenance, so a
-# regenerated corpus can be traced back to the rules that shaped it.
-RULE_SOURCE = "lcats.analysis.corpus.repairs.DEFAULT_REPAIR_RULES"
+# regenerated corpus can be traced back to the rules that shaped it. Derived
+# from the imported module so it stays accurate if the module path changes.
+RULE_SOURCE = f"{repairs.__name__}.DEFAULT_REPAIR_RULES"
 
 
-def normalize_body(body, rules=repairs.DEFAULT_REPAIR_RULES):
+def normalize_body(body):
     """Return ``(normalized_body, applied)`` for one story body.
+
+    Repairs use the measured ``repairs.DEFAULT_REPAIR_RULES`` table, applied via
+    the same suggestion/apply path as ``lcats repair-specials``.
 
     ``applied`` is a deterministic list of ``{"rule_id", "replacement",
     "count"}`` dicts, one per rule that fired, sorted by ``rule_id``. When no
@@ -31,7 +35,6 @@ def normalize_body(body, rules=repairs.DEFAULT_REPAIR_RULES):
 
     Args:
         body: The extracted story body text.
-        rules: Repair rules to apply (defaults to the measured rule table).
 
     Returns:
         A tuple of the normalized body and the applied-rule provenance list.
@@ -39,7 +42,7 @@ def normalize_body(body, rules=repairs.DEFAULT_REPAIR_RULES):
     if not isinstance(body, str):
         return body, []
 
-    suggestions = repairs.suggest_repairs_for_text(body, rules=rules)
+    suggestions = repairs.suggest_repairs_for_text(body)
     if not suggestions:
         return body, []
 
@@ -62,7 +65,7 @@ def normalize_body(body, rules=repairs.DEFAULT_REPAIR_RULES):
     return normalized, applied
 
 
-def normalize_story_dict(data_to_save, rules=repairs.DEFAULT_REPAIR_RULES):
+def normalize_story_dict(data_to_save):
     """Normalize the ``body`` field of a story dict in place, recording provenance.
 
     The story ``body`` is replaced with its normalized form. When one or more
@@ -73,13 +76,12 @@ def normalize_story_dict(data_to_save, rules=repairs.DEFAULT_REPAIR_RULES):
     Args:
         data_to_save: The story dict (``name``/``body``/``metadata``) about to
             be written to JSON.
-        rules: Repair rules to apply (defaults to the measured rule table).
 
     Returns:
         The same ``data_to_save`` dict, mutated in place.
     """
     body = data_to_save.get("body")
-    normalized, applied = normalize_body(body, rules=rules)
+    normalized, applied = normalize_body(body)
     if not applied:
         return data_to_save
 
