@@ -79,27 +79,23 @@ def get_metadata_from_header(field: str, header: Iterable[str]) -> Set[str]:
 
 def titles_for(cache, bid: int) -> Set[str]:
     """Return set of title strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT t.name AS v
         FROM titles t
         JOIN books b ON t.bookid = b.id
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
     return values.strings_from_sql(rows)
 
 
 def languages_for(cache, bid: int) -> Set[str]:
     """Return set of language strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT l.name AS v
         FROM languages l
         JOIN books b ON l.id = b.languageid
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
     return values.strings_from_sql(rows)
 
 
@@ -123,7 +119,7 @@ def split_into_consecutive_chunks(arr):
 
 def convert_to_name(cache, number):
     return cache.native_query(
-        "Select * from authors where id=" + str(number)
+        "Select * from authors where id=" + str(int(number))
     ).fetchall()[0][1]
 
 
@@ -135,15 +131,13 @@ def convert_to_names(cache, numbers):
 
 def authors_split(cache, bid: int) -> Set[str]:
     """Return set of author strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT a.id AS v
         FROM authors a
         JOIN book_authors ba ON a.id = ba.authorid
         JOIN books b         ON ba.bookid = b.id
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
 
     number_list = [
         int(number_str) for number_str in list(values.strings_from_sql(rows))
@@ -159,43 +153,37 @@ def authors_split(cache, bid: int) -> Set[str]:
 
 def authors_for(cache, bid: int) -> Set[str]:
     """Return set of author strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT a.name AS v
         FROM authors a
         JOIN book_authors ba ON a.id = ba.authorid
         JOIN books b         ON ba.bookid = b.id
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
 
     return values.strings_from_sql(rows)
 
 
 def aliases_for(cache, bid: int) -> Set[str]:
     """Return set of alias strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT a.name AS v
         FROM aliases a
         JOIN book_aliases ba ON a.id = ba.authorid
         JOIN books b         ON ba.bookid = b.id
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
 
     return values.strings_from_sql(rows)
 
 
 def subjects_for(cache, bid: int) -> Set[str]:
     """Return set of subject strings for a given Gutenberg book ID."""
-    rows = cache.native_query(
-        f"""
+    rows = cache.native_query(f"""
         SELECT s.name AS v
         FROM subjects s
         JOIN book_subjects bs ON s.id = bs.subjectid
         JOIN books b          ON bs.bookid = b.id
         WHERE b.gutenbergbookid = {int(bid)}
-        """
-    )
+        """)
     return values.strings_from_sql(rows)
