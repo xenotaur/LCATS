@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #121 (commit ac1857a). Added lcats/gatherers/normalization.py applying measured repair rules at gather time via the shared repair-specials path, wired into both write paths before json.dump, with rule-id provenance in story metadata; decision-log + design.md persistence-boundary amended."
 blocked_reason: null
 blocked: false
 id: WI-NORMALIZE-0017
 title: Apply repair rules at gather time with provenance metadata
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
