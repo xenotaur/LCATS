@@ -10,6 +10,7 @@ import csv
 
 from lcats import constants
 from lcats.utils import names
+from lcats.gatherers import normalization
 from lcats.gettenberg import api
 from lcats.gettenberg import headers
 from lcats.gatherers.mass_quantities import storymap
@@ -941,6 +942,10 @@ def gather_story(gatherer, story):
             "name": file_name,
         },
     }
+
+    # Apply replayable gather-time repairs before the first write so the fix is
+    # reproduced on every regeneration, not stored as a one-off.
+    normalization.normalize_story_dict(data_to_save)
 
     # Move all of this code up into the API so it is done consistently.
     # Ensure the data directory exists
