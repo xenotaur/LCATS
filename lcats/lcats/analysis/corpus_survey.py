@@ -28,6 +28,7 @@ Finding = models.Finding
 SpecialCharactersDetector = unicode.SpecialCharactersDetector
 StartDetector = boundary.StartDetector
 EndDetector = boundary.EndDetector
+TheEndDetector = boundary.TheEndDetector
 ChapterHeadingDetector = structural.ChapterHeadingDetector
 TocRemnantsDetector = structural.TocRemnantsDetector
 SectionBreakDetector = structural.SectionBreakDetector

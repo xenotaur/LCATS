@@ -36,15 +36,23 @@ class TestQa(test_utils.TestCaseWithData):
     """Tests for QA detector orchestration."""
 
     def test_boundary_detectors_via_qa(self):
-        text = "A Tale\nBy Someone\n\nBody\nTHE END"
+        text = "A Tale\nBy Someone\n\nBody\n\nTHE END\n\n*** END OF THE PROJECT GUTENBERG EBOOK A TALE ***"
         findings = qa.run_detectors(
             text,
-            config={"detectors": [boundary.StartDetector(), boundary.EndDetector()]},
+            config={
+                "detectors": [
+                    boundary.StartDetector(),
+                    boundary.EndDetector(),
+                    boundary.TheEndDetector(),
+                ]
+            },
         )
 
         finding_kinds = [finding.kind for finding in findings]
+
         self.assertIn("start-contamination", finding_kinds)
         self.assertIn("end-contamination", finding_kinds)
+        self.assertIn("the_end-contamination", finding_kinds)
 
 
 class TestStatsAndProcessing(test_utils.TestCaseWithData):
