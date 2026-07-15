@@ -6,7 +6,7 @@ status: resolved
 resolution: "Implemented conservative repair proposal generation in lcats.analysis.corpus.repairs with deterministic dry-run plan models and TSV/JSONL reporting helpers; non-destructive-by-default behavior preserved."
 priority: high
 owner: unassigned
-linked_focus: FOCUS-WORLDCON-2026
+linked_focus: FOCUS-REPAIR-REVIEW
 blocked: false
 blocked_reason: null
 ---

@@ -64,100 +64,42 @@ class RepairPlanEntry:
     finding_offset: int
 
 
-# Every source_text below was verified byte-for-byte against the live data/
-# tree (2026-07-13 scan); do not add rules from memory — measure first.
 DEFAULT_REPAIR_RULES = (
-    # UTF-8 bytes decoded as Latin-1 upstream (é stored as C3 A9 -> "Ã©").
     RepairRule(
-        rule_id="mojibake-latin1-e-acute",
-        source_text="Ã©",
-        replacement_text="é",
-        description="UTF-8 'é' decoded as Latin-1 (resumÃ©, clichÃ©).",
+        rule_id="mojibake-right-single-quote",
+        source_text="â€™",
+        replacement_text="’",
+        description="Broken UTF-8 right single quote sequence.",
     ),
     RepairRule(
-        rule_id="mojibake-latin1-e-diaeresis",
-        source_text="Ã«",
-        replacement_text="ë",
-        description="UTF-8 'ë' decoded as Latin-1 (aÃ«rial).",
+        rule_id="mojibake-left-double-quote",
+        source_text="â€œ",
+        replacement_text="“",
+        description="Broken UTF-8 left double quote sequence.",
     ),
     RepairRule(
-        rule_id="mojibake-latin1-e-circumflex",
-        source_text="Ãª",
-        replacement_text="ê",
-        description="UTF-8 'ê' decoded as Latin-1 (vÃªtements).",
+        rule_id="mojibake-right-double-quote",
+        source_text="â€\u009d",
+        replacement_text="”",
+        description="Broken UTF-8 right double quote sequence.",
     ),
     RepairRule(
-        rule_id="mojibake-latin1-o-diaeresis",
-        source_text="Ã¶",
-        replacement_text="ö",
-        description="UTF-8 'ö' decoded as Latin-1 (uncoÃ¶rdinated).",
+        rule_id="mojibake-en-dash",
+        source_text="â€“",
+        replacement_text="–",
+        description="Broken UTF-8 en dash sequence.",
     ),
     RepairRule(
-        rule_id="mojibake-latin1-i-diaeresis",
-        source_text="Ã¯",
-        replacement_text="ï",
-        description="UTF-8 'ï' decoded as Latin-1 (naÃ¯vely).",
+        rule_id="mojibake-em-dash",
+        source_text="â€”",
+        replacement_text="—",
+        description="Broken UTF-8 em dash sequence.",
     ),
     RepairRule(
-        rule_id="mojibake-latin1-a-grave",
-        source_text="Ã ",
-        replacement_text="à",
-        description="UTF-8 'à' decoded as Latin-1 (Ã la; second byte is NBSP).",
-    ),
-    RepairRule(
-        rule_id="mojibake-latin1-degree-sign",
-        source_text="Â°",
-        replacement_text="°",
-        description="UTF-8 '°' decoded as Latin-1 (60Â° below).",
-    ),
-    RepairRule(
-        rule_id="mojibake-latin1-cent-sign",
-        source_text="Â¢",
-        replacement_text="¢",
-        description="UTF-8 '¢' decoded as Latin-1 (90Â¢).",
-    ),
-    # UTF-8 bytes decoded as Mac-Roman upstream (é stored as C3 A9 -> "√©").
-    RepairRule(
-        rule_id="mojibake-macroman-e-acute",
-        source_text="√©",
-        replacement_text="é",
-        description="UTF-8 'é' decoded as Mac-Roman (blas√©, Merop√©).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-e-grave",
-        source_text="√®",
-        replacement_text="è",
-        description="UTF-8 'è' decoded as Mac-Roman (fin de si√®cle).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-n-tilde",
-        source_text="√±",
-        replacement_text="ñ",
-        description="UTF-8 'ñ' decoded as Mac-Roman (se√±orita).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-u-diaeresis",
-        source_text="√º",
-        replacement_text="ü",
-        description="UTF-8 'ü' decoded as Mac-Roman (Tha√ºle).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-o-diaeresis",
-        source_text="√∂",
-        replacement_text="ö",
-        description="UTF-8 'ö' decoded as Mac-Roman (Ragnar√∂k).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-o-grave",
-        source_text="√≤",
-        replacement_text="ò",
-        description="UTF-8 'ò' decoded as Mac-Roman (Niccol√≤).",
-    ),
-    RepairRule(
-        rule_id="mojibake-macroman-ae",
-        source_text="√¶",
-        replacement_text="æ",
-        description="UTF-8 'æ' decoded as Mac-Roman (hypnop√¶dic).",
+        rule_id="mojibake-ellipsis",
+        source_text="â€¦",
+        replacement_text="…",
+        description="Broken UTF-8 ellipsis sequence.",
     ),
 )
 
@@ -167,14 +109,9 @@ def _rule_map(rules: Sequence[RepairRule]) -> dict[str, RepairRule]:
 
 
 def _extract_evidence_fragment(evidence: str) -> str:
-    """Return fragment value from semicolon-delimited evidence string.
-
-    Only leading whitespace is removed: fragments may legitimately end in
-    Unicode whitespace (e.g. "Ã" + NBSP for mojibake 'à'), which .strip()
-    would silently delete.
-    """
+    """Return fragment value from semicolon-delimited evidence string."""
     for part in evidence.split(";"):
-        segment = part.lstrip()
+        segment = part.strip()
         if segment.startswith("fragment="):
             return segment.split("=", 1)[1]
     return ""

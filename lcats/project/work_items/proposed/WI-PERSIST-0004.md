@@ -5,7 +5,7 @@ type: investigation
 status: proposed
 priority: medium
 owner: unassigned
-linked_focus: FOCUS-WORLDCON-2026
+linked_focus: FOCUS-REPAIR-REVIEW
 blocked: false
 blocked_reason: null
 resolution: null

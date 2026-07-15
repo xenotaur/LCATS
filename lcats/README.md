@@ -6,17 +6,13 @@ sophisticated tools built on top of these corpora.
 
 ## Requirements
 Right now, some requirements are via pip and others via conda. :-/
-- Python >= 3.10 (several modules use `X | None` union-type syntax evaluated at import time,
-  which requires 3.10+; `pyproject.toml` and `setup.py` still declare `>=3.6` — that's stale and
-  not fixed here, since this is a docs-only change)
+- Python > 3.6(ish)
 - pip install build  # can be conda installed: conda install conda-forge::python-build
 - pip install twine  # can be conda installed: conda install conda-forge::twine
 - pip install beautifulsoup4
 - pip install lxml
+- conda install -c anaconda pytest
 - conda install conda-forge::parameterized
-
-Tests use Python's built-in `unittest` (see `STYLE.md`), not `pytest` — no `pytest` install is
-required. CI runs Python 3.11.
 
 
 ## Building

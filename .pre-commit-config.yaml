@@ -44,7 +44,7 @@ repos:
         files: ^lcats/(lcats|tests|tools)/.*\.py$
 
   - repo: https://github.com/psf/black
-    rev: 25.11.0
+    rev: 24.10.0
     hooks:
       - id: black
         files: ^lcats/(lcats|tests|tools)/.*\.py$

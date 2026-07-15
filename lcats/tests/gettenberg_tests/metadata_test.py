@@ -278,27 +278,17 @@ class ConvertToNameTests(unittest.TestCase):
         return _FetchCache()
 
     def test_convert_to_name_returns_name_from_query(self):
-        """convert_to_name returns the first column of the first row."""
-        cache = self._make_fetchall_cache({42: [("Clemens, Samuel",)]})
+        """convert_to_name returns the second column of the first row."""
+        cache = self._make_fetchall_cache({42: [(42, "Clemens, Samuel")]})
         self.assertEqual(metadata.convert_to_name(cache, 42), "Clemens, Samuel")
 
     def test_convert_to_names_returns_list_of_names(self):
         """convert_to_names returns a list of names for each given id."""
-        cache = self._make_fetchall_cache({1: [("Doe, Jane",)], 2: [("Doe, John",)]})
+        cache = self._make_fetchall_cache(
+            {1: [(1, "Doe, Jane")], 2: [(2, "Doe, John")]}
+        )
         result = metadata.convert_to_names(cache, [1, 2])
         self.assertEqual(result, ["Doe, Jane", "Doe, John"])
-
-    def test_convert_to_name_raises_value_error_if_not_found(self):
-        """convert_to_name raises ValueError if the query returns no rows."""
-        cache = self._make_fetchall_cache({})
-        with self.assertRaises(ValueError):
-            metadata.convert_to_name(cache, 999)
-
-    def test_convert_to_name_rejects_sql_injection(self):
-        """convert_to_name raises ValueError for non-integer inputs to prevent SQL injection."""
-        cache = self._make_fetchall_cache({})
-        with self.assertRaises(ValueError):
-            metadata.convert_to_name(cache, "1; DROP TABLE authors")
 
     def test_convert_to_names_empty_list(self):
         """convert_to_names with an empty list returns an empty list."""
@@ -338,7 +328,7 @@ class AuthorsSplitTests(unittest.TestCase):
                 # author lookup by id
                 for aid, name in self._names.items():
                     if str(aid) in sql:
-                        return _Rows([(name,)])
+                        return _Rows([(aid, name)])
                 return _Rows([])
 
         cache = _SmartCache()

@@ -3,7 +3,7 @@
 - Prompt ID: `PROMPT(AD_HOC:REQUEST_ORGANIZE_DOCS)[2026-05-27T00:00:00+00:00]`
 - Phase: `scaffold`
 - Date: 2026-05-27
-- Scope source: `project/audits/docs/2026-05-26-docs-audit.md`
+- Scope source: `project/audits/2026-05-26-docs-audit.md`
 
 ## Soft idempotence check
 

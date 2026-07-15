@@ -8,7 +8,6 @@ import shutil
 import requests
 
 from lcats import constants
-from lcats.gatherers import normalization
 from lcats.utils import env
 from lcats.utils import names
 
@@ -242,10 +241,6 @@ class DataGatherer:
                 "body": body_text,
                 "metadata": additional_data,
             }
-
-            # Apply replayable gather-time repairs before the first write so the
-            # fix is reproduced on every regeneration, not stored as a one-off.
-            normalization.normalize_story_dict(data_to_save)
 
             # Write data to JSON file
             with open(file_path, "w", encoding="utf-8") as json_file:

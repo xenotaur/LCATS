@@ -150,22 +150,24 @@ class TestTitleOk(unittest.TestCase):
     """Tests for parser.title_ok."""
 
     def test_simple_title(self):
-        self.assertTrue(parser.title_ok(["The Bell"]))
+        self.assertTrue(parser.title_ok(frozenset(["The Bell"])))
 
     def test_gutenberg_index_title(self):
-        self.assertFalse(parser.title_ok(["Index of the Project Gutenberg Works"]))
+        self.assertFalse(
+            parser.title_ok(frozenset(["Index of the Project Gutenberg Works"]))
+        )
 
     def test_excluded_word_volume(self):
-        self.assertFalse(parser.title_ok(["Complete Works Volume 2"]))
+        self.assertFalse(parser.title_ok(frozenset(["Complete Works Volume 2"])))
 
     def test_excluded_word_part(self):
-        self.assertFalse(parser.title_ok(["Stories Part 1"]))
+        self.assertFalse(parser.title_ok(frozenset(["Stories Part 1"])))
 
     def test_excluded_word_poem(self):
-        self.assertFalse(parser.title_ok(["The poem"]))
+        self.assertFalse(parser.title_ok(frozenset(["The poem"])))
 
     def test_multiple_good_titles(self):
-        self.assertTrue(parser.title_ok(["The Bell", "The Shadow"]))
+        self.assertTrue(parser.title_ok(frozenset(["The Bell", "The Shadow"])))
 
 
 class TestMakeTitle(unittest.TestCase):
@@ -198,31 +200,31 @@ class TestChaptered(unittest.TestCase):
     """Tests for parser.chaptered."""
 
     def test_has_contents(self):
-        text = "Some text\n\ncontents\n\nmore text"
+        text = "Some text\ncontents\nmore text"
         self.assertTrue(parser.chaptered(text))
 
     def test_has_contents_with_period(self):
-        text = "Some text\n\ncontents.\n\nmore text"
+        text = "Some text\ncontents.\nmore text"
         self.assertTrue(parser.chaptered(text))
 
     def test_chapter_i_and_ii(self):
-        text = "Chapter I\n\nsome content\n\nChapter II\n\nmore content"
+        text = "Chapter I\nsome content\nChapter II\nmore content"
         self.assertTrue(parser.chaptered(text))
 
     def test_roman_numerals_i_and_ii(self):
-        text = "Some text\n\ni\n\nmore text\n\nii\n\neven more"
+        text = "Some text\ni\nmore text\nii\neven more"
         self.assertTrue(parser.chaptered(text))
 
     def test_only_one_chapter_marker(self):
-        text = "Some text\n\ni\n\nno second marker"
+        text = "Some text\ni\nno second marker"
         self.assertFalse(parser.chaptered(text))
 
     def test_no_chapters(self):
-        text = "Just some plain text\n\nwith no chapters"
+        text = "Just some plain text\nwith no chapters"
         self.assertFalse(parser.chaptered(text))
 
     def test_part_i_and_part_ii(self):
-        text = "Part I\n\nsome content\n\nPart II\n\nmore"
+        text = "Part I\nsome content\nPart II\nmore"
         self.assertTrue(parser.chaptered(text))
 
 
@@ -231,15 +233,29 @@ class TestHowManyTitles(unittest.TestCase):
 
     def test_no_title(self):
         text = "Some paragraph.\n\nAnother paragraph."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 0)
+        self.assertEqual(parser.how_many_titles(text, "The Bell"), 0)
 
     def test_one_title(self):
         text = "Some paragraph.\n\nThe Bell\n\nAnother paragraph."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 1)
+        self.assertEqual(parser.how_many_titles(text, "The Bell"), 1)
 
     def test_two_titles(self):
         text = "The Bell\n\nSome text.\n\nThe Bell\n\nMore text."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 2)
+        self.assertEqual(parser.how_many_titles(text, "The Bell"), 2)
+
+
+class TestTitleInBody(unittest.TestCase):
+    """Tests for parser.title_in_body."""
+
+    def test_title_found(self):
+        text = "Some text\nTHE BELL\nMore text"
+        result = parser.title_in_body(text, frozenset(["The Bell"]))
+        self.assertGreater(result, 0)
+
+    def test_title_not_found(self):
+        text = "Some text without the title\nMore text"
+        result = parser.title_in_body(text, frozenset(["The Bell"]))
+        self.assertEqual(result, -1)
 
 
 class TestIntrusiveParagraph(unittest.TestCase):
@@ -254,6 +270,11 @@ class TestIntrusiveParagraph(unittest.TestCase):
 
     def test_normal_prose(self):
         self.assertFalse(parser.intrusive_paragraph("This is a normal paragraph."))
+
+    def test_indented_non_space(self):
+        """Lines with 4 spaces then non-space trigger continue, result stays True."""
+        paragraph = "    regular indented text"
+        self.assertTrue(parser.intrusive_paragraph(paragraph))
 
     def test_quoted_indented(self):
         """Lines with 4 spaces then a curly quote set result=False."""
@@ -299,38 +320,38 @@ class TestLineContainsTitle(unittest.TestCase):
     """Tests for parser.line_contains_title."""
 
     def test_exact_match(self):
-        self.assertTrue(parser.line_contains_title("The Bell", ["The Bell"]))
+        self.assertTrue(parser.line_contains_title("The Bell", "The Bell"))
 
     def test_with_underscore_wrapping(self):
-        self.assertTrue(parser.line_contains_title("_the bell_", ["The Bell"]))
+        self.assertTrue(parser.line_contains_title("_the bell_", "The Bell"))
 
     def test_with_trailing_period(self):
-        self.assertTrue(parser.line_contains_title("The Bell.", ["The Bell"]))
+        self.assertTrue(parser.line_contains_title("The Bell.", "The Bell"))
 
     def test_too_different_length(self):
         self.assertFalse(
-            parser.line_contains_title("The Bell is ringing loudly", ["The Bell"])
+            parser.line_contains_title("The Bell is ringing loudly", "The Bell")
         )
 
     def test_no_match(self):
-        self.assertFalse(parser.line_contains_title("Some other line", ["The Bell"]))
+        self.assertFalse(parser.line_contains_title("Some other line", "The Bell"))
 
     def test_fuzzy_match(self):
-        self.assertTrue(parser.line_contains_title("The Bell!", ["The Bell"]))
+        self.assertTrue(parser.line_contains_title("The Bell!", "The Bell"))
 
     def test_title_starts_with_the(self):
         """Lines without 'the' can match titles that start with 'the '."""
-        self.assertTrue(parser.line_contains_title("Bell", ["the Bell"]))
+        self.assertTrue(parser.line_contains_title("Bell", "the Bell"))
 
     def test_multiline_rn(self):
         """Lines with rn\\n in the middle are joined before matching."""
         line = "The Bellrn\nsome text"
-        self.assertTrue(parser.line_contains_title(line, ["the bell some text"]))
+        self.assertTrue(parser.line_contains_title(line, "the bell some text"))
 
     def test_multiline_newline(self):
         """Lines with \\n (not rn\\n) are joined."""
         line = "The\nBell"
-        self.assertTrue(parser.line_contains_title(line, ["The Bell"]))
+        self.assertTrue(parser.line_contains_title(line, "The Bell"))
 
 
 class TestLineContainsAuthor(unittest.TestCase):
@@ -418,19 +439,17 @@ class TestInBody(unittest.TestCase):
         )
 
     def test_title_line_not_in_body(self):
-        self.assertFalse(parser.in_body("The Bell", ["The Bell"], ["Smith, John"], []))
+        self.assertFalse(parser.in_body("The Bell", "The Bell", ["Smith, John"], []))
 
     def test_author_line_not_in_body(self):
-        self.assertFalse(
-            parser.in_body("John Smith", ["The Bell"], ["Smith, John"], [])
-        )
+        self.assertFalse(parser.in_body("John Smith", "The Bell", ["Smith, John"], []))
 
     def test_blank_line_not_in_body(self):
-        self.assertFalse(parser.in_body("", ["The Bell"], ["Smith, John"], []))
+        self.assertFalse(parser.in_body("", "The Bell", ["Smith, John"], []))
 
     def test_illustration_line_not_in_body(self):
         self.assertFalse(
-            parser.in_body("Illustration: A drawing", ["The Bell"], ["Smith, John"], [])
+            parser.in_body("Illustration: A drawing", "The Bell", ["Smith, John"], [])
         )
 
 
@@ -453,37 +472,42 @@ class TestFixBody(unittest.TestCase):
 
     def test_removes_transcriber_info_from_start(self):
         text = "Transcriber's note: some note\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertNotIn("Transcriber", result)
         self.assertIn("Actual story begins here.", result)
 
     def test_removes_illustration_from_start(self):
         text = "Illustration: A drawing\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertNotIn("Illustration", result)
         self.assertIn("Actual story begins here.", result)
 
     def test_removes_etext_produced_from_start(self):
         text = "This etext was produced by volunteers\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertNotIn("This etext was produced", result)
         self.assertIn("Actual story begins here.", result)
 
     def test_removes_author_from_start(self):
         text = "John Smith\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertNotIn("John Smith", result)
         self.assertIn("Actual story begins here.", result)
 
     def test_preserves_normal_body(self):
         text = "First paragraph.\n\nSecond paragraph."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertIn("First paragraph.", result)
         self.assertIn("Second paragraph.", result)
 
+    def test_does_not_remove_transcriber_from_body(self):
+        text = "First paragraph.\n\nTranscriber's note: late note\n\nSecond paragraph."
+        result = parser.fix_body(text, ["Smith, John"], [])
+        self.assertIn("Transcriber", result)
+
     def test_does_remove_transcriber_in_last_paragraph(self):
         text = "First paragraph.\n\nSecond paragraph.\n\nTranscriber's note: late note"
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
+        result = parser.fix_body(text, ["Smith, John"], [])
         self.assertNotIn("Transcriber", result)
 
 
@@ -530,12 +554,12 @@ class TestLineContainsTitleAdditional(unittest.TestCase):
         """Line w/high similarity to title triggers fuzzy-match when no exact match exists."""
         # "The Bel" vs "The Bell": no exact match variant fires,
         # but SequenceMatcher ratio ~0.93 > 0.90 so the fuzzy branch returns True.
-        self.assertTrue(parser.line_contains_title("The Bel", ["The Bell"]))
+        self.assertTrue(parser.line_contains_title("The Bel", "The Bell"))
 
     def test_no_match_returns_false_for_non_the_title(self):
         """A line with no similarity and title not starting with 'the ' returns False."""
         # len diff = 3 (<=5), no exact match, low fuzzy ratio, title[:4] != "the "
-        self.assertFalse(parser.line_contains_title("abcde", ["my story"]))
+        self.assertFalse(parser.line_contains_title("abcde", "my story"))
 
 
 class TestLineContainsAuthorAdditional(unittest.TestCase):
@@ -556,10 +580,10 @@ class TestFixBodyAdditional(unittest.TestCase):
     """Additional tests for fix_body covering the intrusive-paragraph branch."""
 
     def test_removes_intrusive_paragraph_at_start(self):
-        """An intrusive paragraph (Classic reprint) at the start is skipped."""
-        text = "classic reprint from SuperScienceStories\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("Classic reprint", result)
+        """An intrusive paragraph (4-space-indented non-quoted lines) at the start is skipped."""
+        text = "    X\n\nActual story begins here."
+        result = parser.fix_body(text, ["Smith, John"], [])
+        self.assertNotIn("    X", result)
         self.assertIn("Actual story begins here.", result)
 
 
@@ -639,9 +663,9 @@ class TestGatherStory(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PQ", "poetry"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         with mock.patch(
             "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
@@ -658,9 +682,9 @@ class TestGatherStory(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         with mock.patch(
             "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
@@ -679,11 +703,11 @@ class TestGatherStory(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
-        chaptered_bytes = b"Chapter I\n\nmore\n\n\n\nmore\n\nmore\n\nmore\n\nmore\n\nsome content\n\nChapter II\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content"
+        chaptered_bytes = b"Chapter I\nsome content\nChapter II\nmore content"
         with mock.patch(
             "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
         ):
@@ -696,7 +720,6 @@ class TestGatherStory(unittest.TestCase):
                 ):
                     with capture.suppress_output():
                         result = parser.gather_story(gatherer, 42)
-
         self.assertIn("chapters", result[2])
 
     def test_short_story_returns_early(self):
@@ -705,9 +728,9 @@ class TestGatherStory(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         short_text = b"The Bell\n\nJohn Smith\n\nA short story."
         with mock.patch(
@@ -730,9 +753,9 @@ class TestGatherStory(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         body_paragraphs = "\n\n".join(["Paragraph {}.".format(i) for i in range(15)])
         story_text = "The Bell\n\nJohn Smith\n\n{}".format(body_paragraphs)
@@ -849,11 +872,11 @@ class TestTestStoryGet(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
-        chaptered_bytes = b"Chapter I\n\nmore\n\n\n\nmore\n\nmore\n\nmore\n\nmore\n\nsome content\n\nChapter II\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content"
+        chaptered_bytes = b"Chapter I\nsome content\nChapter II\nmore content"
         with mock.patch(
             "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
         ):
@@ -873,9 +896,9 @@ class TestTestStoryGet(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         short_bytes = b"The Bell\n\nJohn Smith\n\nA"
         with mock.patch(
@@ -897,9 +920,9 @@ class TestTestStoryGet(unittest.TestCase):
         side_effect = _make_metadata_side_effect(
             subject=["PS", "Short stories"],
             language=["en"],
-            title=["The Bell"],
-            author=["Smith, John"],
-            alias=[],
+            title=frozenset(["The Bell"]),
+            author=frozenset(["Smith, John"]),
+            alias=frozenset([]),
         )
         story_text = b"The Bell\n\nJohn Smith\n\nOnce upon a time there was a story."
         with mock.patch(

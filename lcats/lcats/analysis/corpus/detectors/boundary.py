@@ -118,7 +118,7 @@ class StartDetector:
 class EndDetector:
     """Detect likely non-story footer content near the story end."""
 
-    _GUTENBERG_FOOTER_RE = re.compile(
+    _GUTENBERG_RE = re.compile(
         r"(project gutenberg|gutenberg (ebook|license)|\*\*\* end of)",
         re.IGNORECASE,
     )
@@ -136,7 +136,20 @@ class EndDetector:
             if not trimmed:
                 continue
 
-            if self._GUTENBERG_FOOTER_RE.search(trimmed):
+            if trimmed.upper() == "THE END":
+                findings.append(
+                    make_line_finding(
+                        kind="end-contamination",
+                        severity="warning",
+                        line_start=start,
+                        line_text=line,
+                        message="Likely explicit ending marker.",
+                        evidence={"line": trimmed, "type": "the-end"},
+                    )
+                )
+                continue
+
+            if self._GUTENBERG_RE.search(trimmed):
                 findings.append(
                     make_line_finding(
                         kind="end-contamination",
@@ -147,37 +160,5 @@ class EndDetector:
                         evidence={"line": trimmed, "type": "gutenberg-footer"},
                     )
                 )
-
-        return findings
-
-
-class TheEndDetector:
-    """Detect likely "The End" footer content near the story end."""
-
-    def run(self, text: str) -> list[models.Finding]:
-        lines = line_offsets(text)
-        if not lines:
-            return []
-
-        findings = []
-        start_index = max(0, len(lines) - BOUNDARY_WINDOW_LINES)
-        for line_no in range(start_index, len(lines)):
-            start, line = lines[line_no]
-            trimmed = line.strip()
-            if not trimmed:
-                continue
-
-            if trimmed.upper() == "THE END":
-                findings.append(
-                    make_line_finding(
-                        kind="the_end-contamination",
-                        severity="warning",
-                        line_start=start,
-                        line_text=line,
-                        message="Likely explicit ending marker.",
-                        evidence={"line": trimmed, "type": "the-end"},
-                    )
-                )
-                continue
 
         return findings

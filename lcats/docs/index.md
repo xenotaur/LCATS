@@ -18,8 +18,7 @@ Tutorials are not scaffolded in this phase.
 
 ### How-to guides
 
-- [Set up API keys](secrets-setup.md)
-- [Run `lcats assess`](../lcats/analysis/corpus/README.md#9-story-assessment-lcats-assess) — usage, manual prompt validation, and dry-run guidance (interim location; pending extraction into `docs/how-to/` in a future phase)
+How-to guides are not scaffolded in this phase.
 
 ### Reference
 

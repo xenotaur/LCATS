@@ -39,13 +39,13 @@ lcats = "lcats.cli:main"
 [project.optional-dependencies]
 test = [
     "ruff",
-    "black==25.11.0",
+    "black",
     "coverage",
     "parameterized",
 ]
 dev = [
     "ruff",
-    "black==25.11.0",
+    "black",
     "coverage",
     "parameterized",
 ]

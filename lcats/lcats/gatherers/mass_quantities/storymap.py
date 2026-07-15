@@ -4,11 +4,7 @@ TARGET_DIRECTORY = "mass_quantities"
 
 
 # Pen names of authors
-PEN_NAMES = {
-    "Garrett, Randall": ["Gordon, David", "Langart, Darrel T.", "McKettrig, Seaton"],
-    "Marks, Winston K. (Winston Kinney)": ["Marks, Win"],
-    "Pohl, Frederik": ["Flehr, Paul"],
-}
+PEN_NAMES = {"Garrett, Randall": ["Gordon, David"]}
 
 # Publishers
 PUBLISHERS = [
@@ -18,46 +14,17 @@ PUBLISHERS = [
     "FLEMING H. REVELL COMPANY",
     "George W Jacobs and Company",
     "George W Jacobs & Company",
-    "The Westminster Company Limited",
-    "Charles Scribner's Sons",
-    "Boston And New York Houghton Mifflin Company",
-    "Frederick A. Stokes Company Publishers",
-    "Dodd, Mead & Company",
-    "T. FISHER UNWIN",
-    "PAUL ELDER & COMPANY",
 ]
-
-# Publisher cities
-PUBLISHER_CITIES = [
-    ["HARPER & BROTHERS", None],
-    ["THE Q AND C CO", None],
-    ["FLEMING H REVELL COMPANY", None],
-    ["FLEMING H. REVELL COMPANY", None],
-    ["George W Jacobs and Company", None],
-    ["George W Jacobs & Company", None],
-    ["The Westminster Company Limited", None],
-    ["Charles Scribner's Sons", None],
-    ["Boston And New York Houghton Mifflin Company", None],
-    ["Frederick A. Stokes Company Publishers", None],
-    ["Dodd, Mead & Company", None],
-    ["T. FISHER UNWIN", "london"],
-    ["PAUL ELDER & COMPANY", None],
-]
-
 
 # Exceptions to internal chapter names
-TITLE_EXCEPTIONS = ["SIR,", "FINIS.", "THE END", "THE END.", "END", "--ANONYMOUS"]
+TITLE_EXCEPTIONS = ["SIR,", "FINIS.", "THE END", "END"]
 
 # Bad subjects we currently want to exclude from the corpus.
 EXCLUDED_SUBJECTS = [
     "epistolary",
-    "zines",
 ]
 
-# 64092 -- the christmas dinner by washington irving has a wacky line set
-STORIES_TO_EXCLUDE = [64092]
-
-# (original) Subjects we want to exclude from our corps.
+# (original) Subjects we want to exclude from our corpus.
 BAD_SUBJECTS = [
     # Known bad general subjects for our purposes
     "poetry",
