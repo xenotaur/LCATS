@@ -1,5 +1,35 @@
 # Decision Log
 
+## 2026-07-13: Repairs are gather-time replayable inputs, keyed by rule not offset
+
+### Summary
+- Implemented WI-NORMALIZE-0017: a deterministic normalization step in the
+  gather pipeline (`lcats/lcats/gatherers/normalization.py`) that applies the
+  measured repair rules to each extracted story body before its first JSON
+  write, stamping applied rule ids into `metadata["normalization"]`.
+
+### Decisions
+- **Repairs live in the pipeline, not in stored files.** Because `data/` is
+  cleared and regenerated after major changes (and users regenerate with their
+  own customizations), a durable fix must be a replayable input to
+  regeneration. Applying rules at gather time reproduces the fix on every run;
+  editing stored JSON would be wiped by the next regeneration.
+- **The reviewable/durable unit is the rule id, not a byte offset.** Offsets
+  are recomputed each run by the shared suggestion path and are an ephemeral
+  execution detail; provenance is recorded as applied rule ids + counts.
+- **Reuse the dry-run code path.** Normalization calls
+  `repairs.suggest_repairs_for_text` + `apply_repair_suggestions`, so what
+  `lcats repair-specials` reports is exactly what normalization applies.
+- **Non-destructive and idempotent.** Clean bodies pass through byte-identical
+  with no metadata change; re-normalizing an already-clean body is a no-op.
+- This supersedes the 2026-06-18 decision to keep application workflows out of
+  scope, and amends the State and Persistence Boundary in
+  `project/design/design.md`. Span-op review persistence (WI-REVIEW-0003) and
+  per-story overrides (WI-OVERRIDES-0018) build on this replayable model.
+
+### Status
+- Accepted
+
 ## 2026-06-29: Adopt unified LLMBackend Protocol for model-comparison experiments
 
 ### Summary

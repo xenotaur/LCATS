@@ -36,13 +36,17 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
         self.assertIn("author-line", types)
         self.assertIn("editor-note", types)
 
-    def test_end_detector_finds_the_end_and_gutenberg_footer(self):
+    def test_end_detector_finds_gutenberg_footer(self):
         text = self._fixture_text("bad_end_markers.txt")
         findings = corpus_survey.EndDetector().run(text)
+        types = [finding.evidence["type"] for finding in findings]
+        self.assertIn("gutenberg-footer", types)
 
+    def test_theend_detector_finds_the_end(self):
+        text = self._fixture_text("bad_end_markers.txt")
+        findings = corpus_survey.TheEndDetector().run(text)
         types = [finding.evidence["type"] for finding in findings]
         self.assertIn("the-end", types)
-        self.assertIn("gutenberg-footer", types)
 
     def test_structural_detectors_find_expected_artifacts(self):
         text = self._fixture_text("structural_artifacts.txt")
@@ -98,7 +102,6 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
 
     def test_end_detector_fixtures(self):
         cases = [
-            ("boundary_contamination/end_the_end.txt", "the-end"),
             ("boundary_contamination/end_gutenberg.txt", "gutenberg-footer"),
         ]
 
@@ -112,6 +115,22 @@ class CorpusSurveyArchitectureTest(unittest.TestCase):
                 self.assertIn(expected_type, types)
                 for finding in findings:
                     self.assertEqual("end-contamination", finding.kind)
+
+    def test_the_end_detector_fixtures(self):
+        cases = [
+            ("boundary_contamination/end_the_end.txt", "the-end"),
+        ]
+
+        for fixture_name, expected_type in cases:
+            with self.subTest(fixture_name=fixture_name):
+                findings = corpus_survey.TheEndDetector().run(
+                    self._fixture_text(fixture_name)
+                )
+                self.assertGreaterEqual(len(findings), 1)
+                types = [finding.evidence["type"] for finding in findings]
+                self.assertIn(expected_type, types)
+                for finding in findings:
+                    self.assertEqual("the_end-contamination", finding.kind)
 
 
 class CorpusSurveyCliHelpersTest(unittest.TestCase):
@@ -139,7 +158,9 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         first_row = output.splitlines()[0].split("\t")
         self.assertEqual("U+221A", first_row[0])
         self.assertEqual("2", first_row[4])
-        self.assertEqual("review_needed", first_row[6])
+        # "√©" is a measured Mac-Roman mojibake sequence (WI-RULES-0016), so
+        # this classifies repairable rather than review_needed.
+        self.assertEqual("likely_repairable", first_row[6])
 
     def test_run_special_characters_check_uses_nocontext_flag(self):
         output = corpus_survey.run_special_characters_check(

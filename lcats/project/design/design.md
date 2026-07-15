@@ -35,3 +35,4 @@ Define the LCATS corpus-quality pipeline design for the current execution horizo
 ## State and Persistence Boundary
 - Current active design emphasizes in-run audit records.
 - Durable persistence model is tracked as planned work (Phase 5) and is intentionally separated from the active repair/review implementation.
+- **Gather-time repairs are the exception (WI-NORMALIZE-0017, 2026-07-13).** Special-character repairs are applied during gathering as a replayable step, not stored as edits to `data/`/`corpora/` JSON: because `data/` regenerates from cache, the durable artifact is the rule table (plus per-story overrides), and provenance is recorded as applied rule ids in story `metadata`, keyed by rule rather than byte offset. Byte offsets remain an ephemeral per-run execution detail. See `project/memory/decision_log.md` (2026-07-13).
