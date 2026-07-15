@@ -243,9 +243,14 @@ class DataGatherer:
                 "metadata": additional_data,
             }
 
-            # Apply replayable gather-time repairs before the first write so the
-            # fix is reproduced on every regeneration, not stored as a one-off.
-            normalization.normalize_story_dict(data_to_save)
+            # Apply replayable gather-time repairs (rules + per-story overrides)
+            # before the first write so the fix is reproduced on every
+            # regeneration, not stored as a one-off.
+            normalization.normalize_story_dict(
+                data_to_save,
+                collection=self.name,
+                story_id=os.path.splitext(filename)[0],
+            )
 
             # Write data to JSON file
             with open(file_path, "w", encoding="utf-8") as json_file:

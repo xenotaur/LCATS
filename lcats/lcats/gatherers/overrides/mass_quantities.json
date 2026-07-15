@@ -1,0 +1,10 @@
+{
+    "f_o_b_venus__bond": [
+        {
+            "find": "Ângstrom",
+            "replace": "Ångstrom",
+            "rationale": "Stray 'Â' (U+00C2) before 'ngstrom' is not a clean encoding-family decode, so it is a judgment call rather than a repair rule; a human reads the intended unit as 'Ångstrom'.",
+            "reviewer": "WI-OVERRIDES-0018 seed"
+        }
+    ]
+}
