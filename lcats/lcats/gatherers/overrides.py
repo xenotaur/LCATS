@@ -31,6 +31,7 @@ RESIDUAL-0019 populates these files during human review; this module provides
 the mechanism and one canonical seed entry.
 """
 
+import functools
 import json
 import pathlib
 import warnings
@@ -48,10 +49,17 @@ def overrides_path(collection: str) -> pathlib.Path:
     return OVERRIDES_DIR / f"{collection}.json"
 
 
+@functools.lru_cache(maxsize=None)
 def load_overrides(collection: str) -> dict:
     """Return the ``{story_id: [entry, ...]}`` overrides map for a collection.
 
     Returns an empty dict when the collection has no overrides file.
+
+    The result is cached per collection for the lifetime of the process: the
+    files are versioned inputs and effectively immutable during a gather run,
+    and ``normalize_story_dict`` is called once per story. Callers must treat
+    the returned dict as read-only; use ``load_overrides.cache_clear()`` if a
+    file changes on disk within a process (e.g. in a test).
 
     Args:
         collection: The collection (target directory) name, e.g.
@@ -70,11 +78,14 @@ def load_overrides(collection: str) -> dict:
 def apply_overrides(body, entries):
     """Apply override entries to a story body, returning ``(body, applied)``.
 
-    Each entry is a literal ``find`` -> ``replace`` substitution. An entry whose
-    ``find`` text is absent from the body is skipped with a visible warning
-    rather than a silent no-op, since a stale override usually signals a
-    story-text change that needs re-review. When no entry matches, the original
-    ``body`` object is returned unchanged and ``applied`` is empty.
+    Each entry is a literal ``find`` -> ``replace`` substitution. An entry is
+    skipped with a visible warning rather than silently, since a stale override
+    usually signals a story-text change that needs re-review, when its ``find``
+    is empty, equals its ``replace`` (a no-op that would otherwise stamp
+    provenance without changing the body), or is absent from the body. Only
+    entries that actually change the body are recorded in ``applied``; when none
+    do, the original ``body`` object is returned unchanged and ``applied`` is
+    empty.
 
     Args:
         body: The story body text (already rule-normalized).
@@ -93,8 +104,14 @@ def apply_overrides(body, entries):
     for entry in entries:
         find = entry.get("find", "")
         replace = entry.get("replace", "")
-        count = updated.count(find) if find else 0
-        if not find or count == 0:
+        if not find or find == replace:
+            warnings.warn(
+                f"override is empty or a no-op (find == replace), skipping: {find!r}",
+                stacklevel=2,
+            )
+            continue
+        count = updated.count(find)
+        if count == 0:
             warnings.warn(
                 f"override find text not present, skipping: {find!r}",
                 stacklevel=2,

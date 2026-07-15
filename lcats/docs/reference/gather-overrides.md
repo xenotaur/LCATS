@@ -53,9 +53,12 @@ where `<collection>` is the collection / target-directory name, e.g.
   when it is called with both `collection` and `story_id` (the two gather write
   paths pass these). They run after rule-based repairs, so an override sees
   already-rule-normalized text.
-- A `find` that is absent from the body is **skipped with a warning**, not a
-  silent no-op — a stale override usually means the story text changed and the
-  entry needs re-review.
+- An entry is **skipped with a warning** — never silently — when its `find` is
+  empty, equals its `replace` (a no-op that would otherwise stamp provenance
+  onto an unchanged body), or is absent from the body. A stale override usually
+  means the story text changed and the entry needs re-review.
+- Per-collection override files are parsed once and cached for the process
+  lifetime (they are versioned, effectively immutable during a run).
 - Application is deterministic and idempotent in the sense that regenerating
   from the same cached source produces identical output.
 

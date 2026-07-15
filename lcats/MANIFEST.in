@@ -1,0 +1,4 @@
+# Versioned gather-time override tables (see lcats/gatherers/overrides.py).
+# Ensures the JSON files ship in sdists and, with include_package_data=True,
+# in wheels built via setup.py.
+recursive-include lcats/gatherers/overrides *.json
