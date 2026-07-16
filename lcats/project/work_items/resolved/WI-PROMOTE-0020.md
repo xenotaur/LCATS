@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #125 (commit 526264f). Added 'lcats promote': per-collection survey gate on likely_repairable mojibake findings, wholesale-replace on promotion, identity collection-name mapping (resolved: data/'s current names canonical everywhere). Review hardened against source/dest path collisions and unhandled CLI exceptions. Last of the five WS-SPECIALS-CLEANUP burn-down items."
 blocked_reason: null
 blocked: false
 id: WI-PROMOTE-0020
 title: Survey-gated promotion from data/ to corpora/
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
