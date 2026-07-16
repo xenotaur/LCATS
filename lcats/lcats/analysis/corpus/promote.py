@@ -125,6 +125,34 @@ class PromotionReport:
         return not self.blocked
 
 
+def _validate_distinct_roots(
+    source_root: pathlib.Path, dest_root: pathlib.Path
+) -> None:
+    """Raise ValueError if source_root and dest_root are equal or nested.
+
+    ``_copy_collection`` removes the destination before copying; if source and
+    destination resolve to the same directory (or one contains the other), a
+    per-collection ``rmtree`` would delete source data before ``copytree`` can
+    run it, destroying the collection with no recovery path.
+    """
+    resolved_source = source_root.resolve()
+    resolved_dest = dest_root.resolve()
+    if resolved_source == resolved_dest:
+        raise ValueError(
+            f"--source and --dest resolve to the same directory "
+            f"({resolved_source}); refusing to promote to avoid deleting "
+            "the source before copying."
+        )
+    if (
+        resolved_dest in resolved_source.parents
+        or resolved_source in resolved_dest.parents
+    ):
+        raise ValueError(
+            f"--source ({resolved_source}) and --dest ({resolved_dest}) are "
+            "nested inside one another; refusing to promote."
+        )
+
+
 def _copy_collection(source_dir: pathlib.Path, dest_dir: pathlib.Path) -> None:
     """Wholesale-replace dest_dir with a copy of source_dir's contents."""
     if dest_dir.exists():
@@ -140,9 +168,15 @@ def promote_collections(
 ) -> PromotionReport:
     """Survey and promote data/ collections into corpora/.
 
-    Each requested collection is surveyed independently; a collection with any
-    blocking (mojibake) finding is skipped and reported, all others are
-    promoted. Promotion wholesale-replaces the destination collection
+    Every requested collection is surveyed first; only once all surveys are
+    complete does copying begin, so a mid-run error cannot leave a collection
+    half-copied. Each collection is still gated **independently**: a
+    collection with any blocking (mojibake) finding is skipped and reported,
+    while every other clean collection is still promoted -- this is a
+    deliberate, documented mode (see docs/reference/corpus-promotion.md), not
+    an all-or-nothing whole-corpus gate, so that already-clean collections
+    are not held hostage by an unrelated collection that still needs
+    regeneration. Promotion wholesale-replaces the destination collection
     directory under its identity-mapped name (see ``destination_name``) so
     stale files from a prior promotion cannot linger.
 
@@ -158,25 +192,33 @@ def promote_collections(
     Returns:
         A PromotionReport listing promoted collection names and blocked
         CollectionSurveyResult entries.
+
+    Raises:
+        ValueError: If source_root and dest_root are the same or nested.
     """
+    _validate_distinct_roots(source_root, dest_root)
+
     if collection_names is None:
         collection_names = sorted(
             entry.name for entry in source_root.iterdir() if entry.is_dir()
         )
 
-    promoted: list[str] = []
-    blocked: list[CollectionSurveyResult] = []
     allowlist = specials.load_allowlist_config(specials.default_allowlist_config_path())
 
-    for name in collection_names:
-        collection_dir = source_root / name
-        result = survey_collection(collection_dir, allowlist=allowlist)
+    results = [
+        survey_collection(source_root / name, allowlist=allowlist)
+        for name in collection_names
+    ]
+
+    promoted: list[str] = []
+    blocked: list[CollectionSurveyResult] = []
+    for name, result in zip(collection_names, results):
         if not result.clean:
             blocked.append(result)
             continue
 
         if not dry_run:
-            _copy_collection(collection_dir, dest_root / destination_name(name))
+            _copy_collection(source_root / name, dest_root / destination_name(name))
         promoted.append(name)
 
     return PromotionReport(promoted=tuple(promoted), blocked=tuple(blocked))

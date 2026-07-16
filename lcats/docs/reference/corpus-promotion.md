@@ -16,15 +16,23 @@ lcats promote [collection ...] [--source data/] [--dest ../corpora] [--dry-run]
 
 - With no `collection` arguments, every subdirectory under `--source` is
   considered.
-- Each collection is surveyed and promoted **independently**: a collection
-  with any mojibake (`likely_repairable`) finding is skipped and its findings
-  are printed to stderr; every other requested collection still promotes.
+- Every requested collection is surveyed first, as one complete phase; only
+  once all surveys finish does copying begin. Each collection is still gated
+  **independently** (a deliberate, documented mode — not an all-or-nothing
+  whole-corpus gate): a collection with any mojibake (`likely_repairable`)
+  finding is skipped and its findings are printed to stderr, while every
+  other clean collection is still promoted, so an unrelated collection that
+  still needs regeneration doesn't hold the rest hostage.
 - A clean collection **wholesale-replaces** its `corpora/` counterpart (the
   destination directory is removed, then the source directory is copied), so
   files removed from `data/` since the last promotion don't linger in
   `corpora/`.
-- Exit code is `0` only when every considered collection promoted; `1` if any
-  collection was blocked.
+- Refuses to run (exit `2`) if `--source` and `--dest` resolve to the same
+  directory or are nested inside one another — this would otherwise delete
+  the source before the copy could run.
+- Exit code is `0` when every considered collection promoted, `1` if any
+  collection was blocked, `2` on a usage/environment error (missing source
+  directory, unknown collection name, unsafe source/dest paths).
 - `--dry-run` surveys and reports without copying any files.
 
 This tool builds and gates promotion; it does not decide *when* to promote —

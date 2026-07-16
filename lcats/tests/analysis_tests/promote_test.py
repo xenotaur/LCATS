@@ -168,6 +168,45 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertTrue((dest_root / "one").exists())
             self.assertFalse((dest_root / "two").exists())
 
+    def test_refuses_when_source_and_dest_are_the_same_directory(self):
+        # Regression: _copy_collection's rmtree-then-copytree would otherwise
+        # delete the source collection before the copy could run.
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            _write_story(root / "clean", "story_one", "A clean sentence.")
+
+            with self.assertRaises(ValueError):
+                promote.promote_collections(root, root)
+
+            self.assertTrue((root / "clean" / "story_one.json").exists())
+
+    def test_refuses_when_dest_is_nested_inside_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            nested_dest = root / "sub" / "nested"
+
+            with self.assertRaises(ValueError):
+                promote.promote_collections(root, nested_dest)
+
+    def test_all_collections_are_surveyed_before_any_copy_begins(self):
+        # A collection sorted after a blocked one must not have been copied
+        # by the time promote_collections raises or returns -- surveying
+        # happens as a distinct phase before any copytree call.
+        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "a_clean", "story_one", "A clean sentence.")
+            _write_story(source_root / "b_damaged", "story_one", "them a resumÃ©.")
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            # Both collections are independently gated (documented mode): the
+            # clean one still promotes even though it sorts before the
+            # blocked one, but this is now the outcome of a completed survey
+            # phase, not an artifact of copying mid-loop.
+            self.assertEqual(("a_clean",), report.promoted)
+            self.assertEqual(1, len(report.blocked))
+
 
 class PromoteCliTest(unittest.TestCase):
     """Tests for the promote CLI exit-code and reporting behavior."""
@@ -204,6 +243,35 @@ class PromoteCliTest(unittest.TestCase):
 
             self.assertEqual(1, exit_code)
             self.assertIn("blocked: damaged", error_output.getvalue())
+
+    def test_missing_source_directory_reports_clean_error_not_traceback(self):
+        with tempfile.TemporaryDirectory() as dest_tmp:
+            missing_source = pathlib.Path(dest_tmp) / "does_not_exist"
+
+            error_output = io.StringIO()
+            with unittest.mock.patch("sys.stderr", error_output):
+                exit_code = promote_cli.run(
+                    [
+                        "--source",
+                        str(missing_source),
+                        "--dest",
+                        dest_tmp,
+                        "some_collection",
+                    ]
+                )
+
+            self.assertEqual(2, exit_code)
+            self.assertIn("error:", error_output.getvalue())
+
+    def test_source_equals_dest_reports_clean_error_not_traceback(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            error_output = io.StringIO()
+            with unittest.mock.patch("sys.stderr", error_output):
+                exit_code = promote_cli.run(["--source", tmp, "--dest", tmp])
+
+            self.assertEqual(2, exit_code)
+            self.assertIn("error:", error_output.getvalue())
+            self.assertIn("same directory", error_output.getvalue())
 
 
 if __name__ == "__main__":

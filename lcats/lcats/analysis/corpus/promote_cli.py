@@ -49,32 +49,38 @@ def run(argv=None, parsed_args=None) -> int:
     parser = build_parser()
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
 
-    collection_names = args.collections or None
-    report = promote.promote_collections(
-        source_root=args.source,
-        dest_root=args.dest,
-        collection_names=collection_names,
-        dry_run=args.dry_run,
-    )
-
-    for name in report.promoted:
-        verb = "would promote" if args.dry_run else "promoted"
-        print(f"{verb}: {name} -> {promote.destination_name(name)}")
-
-    for result in report.blocked:
-        print(
-            f"blocked: {result.collection} "
-            f"({len(result.findings)} finding(s) across {result.story_count} stories)",
-            file=sys.stderr,
+    try:
+        collection_names = args.collections or None
+        report = promote.promote_collections(
+            source_root=args.source,
+            dest_root=args.dest,
+            collection_names=collection_names,
+            dry_run=args.dry_run,
         )
-        for finding in result.findings:
+
+        for name in report.promoted:
+            verb = "would promote" if args.dry_run else "promoted"
+            print(f"{verb}: {name} -> {promote.destination_name(name)}")
+
+        for result in report.blocked:
             print(
-                f"  {finding.story_path}: {finding.codepoint} {finding.character!r} "
-                f"context={finding.context!r}",
+                f"blocked: {result.collection} "
+                f"({len(result.findings)} finding(s) across {result.story_count} stories)",
                 file=sys.stderr,
             )
+            for finding in result.findings:
+                print(
+                    f"  {finding.story_path}: {finding.codepoint} {finding.character!r} "
+                    f"context={finding.context!r}",
+                    file=sys.stderr,
+                )
 
-    return 0 if report.all_promoted else 1
+        return 0 if report.all_promoted else 1
+    except BrokenPipeError:
+        return 141
+    except Exception as exc:  # noqa: BLE001
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
 
 
 if __name__ == "__main__":
