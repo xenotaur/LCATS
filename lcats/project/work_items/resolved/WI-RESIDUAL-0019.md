@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #124 (commit 35c8d88). Fixed the overbroad 'â.' mojibake pattern (classifier now requires UTF-8 continuation-byte adjacency); added the '째->°' override and a 48-codepoint corpus allowlist wired as CLI default; captured EV-0002 evidence. Simulated regeneration over all 1,971 stories yields zero mojibake findings."
 blocked_reason: null
 blocked: false
 id: WI-RESIDUAL-0019
 title: Review residual defects and regenerate a clean data/ tree
 type: operation
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
