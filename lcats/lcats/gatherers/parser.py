@@ -1454,9 +1454,14 @@ def gather_story(gatherer, story):
         },
     }
 
-    # Apply replayable gather-time repairs before the first write so the fix is
-    # reproduced on every regeneration, not stored as a one-off.
-    normalization.normalize_story_dict(data_to_save)
+    # Apply replayable gather-time repairs (rules + per-story overrides) before
+    # the first write so the fix is reproduced on every regeneration, not stored
+    # as a one-off.
+    normalization.normalize_story_dict(
+        data_to_save,
+        collection=storymap.TARGET_DIRECTORY,
+        story_id=os.path.splitext(file_name)[0],
+    )
 
     # Move all of this code up into the API so it is done consistently.
     # Ensure the data directory exists

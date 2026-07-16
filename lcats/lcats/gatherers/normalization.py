@@ -15,6 +15,7 @@ suggestions and is returned unchanged.
 import collections
 
 from lcats.analysis.corpus import repairs
+from lcats.gatherers import overrides
 
 # Identifies which rule set produced a story's normalization provenance, so a
 # regenerated corpus can be traced back to the rules that shaped it. Derived
@@ -65,31 +66,48 @@ def normalize_body(body):
     return normalized, applied
 
 
-def normalize_story_dict(data_to_save):
+def normalize_story_dict(data_to_save, collection=None, story_id=None):
     """Normalize the ``body`` field of a story dict in place, recording provenance.
 
-    The story ``body`` is replaced with its normalized form. When one or more
-    rules fire and ``metadata`` is a dict, a ``normalization`` provenance block
-    is added under ``metadata``. Stories with no findings are left untouched,
-    including their metadata, so clean output stays byte-identical.
+    The story ``body`` is first repaired by the measured rule table, then, when
+    ``collection`` and ``story_id`` are given, by any versioned per-story
+    overrides for that story (applied after the rules). When either step changes
+    the body and ``metadata`` is a dict, a ``normalization`` provenance block is
+    added under ``metadata`` recording what fired. Stories that neither a rule
+    nor an override touches are left untouched, including their metadata, so
+    clean output stays byte-identical.
 
     Args:
         data_to_save: The story dict (``name``/``body``/``metadata``) about to
             be written to JSON.
+        collection: The collection (target directory) name, used to look up
+            per-story overrides. When ``None``, overrides are skipped.
+        story_id: The story's filename stem, used to look up per-story
+            overrides. When ``None``, overrides are skipped.
 
     Returns:
         The same ``data_to_save`` dict, mutated in place.
     """
     body = data_to_save.get("body")
-    normalized, applied = normalize_body(body)
-    if not applied:
+    normalized, rules_applied = normalize_body(body)
+
+    overrides_applied = []
+    if collection is not None and story_id is not None:
+        entries = overrides.load_overrides(collection).get(story_id, [])
+        normalized, overrides_applied = overrides.apply_overrides(normalized, entries)
+
+    if not rules_applied and not overrides_applied:
         return data_to_save
 
     data_to_save["body"] = normalized
     metadata = data_to_save.get("metadata")
     if isinstance(metadata, dict):
-        metadata["normalization"] = {
-            "rule_source": RULE_SOURCE,
-            "rules_applied": applied,
-        }
+        provenance = {}
+        if rules_applied:
+            provenance["rule_source"] = RULE_SOURCE
+            provenance["rules_applied"] = rules_applied
+        if overrides_applied:
+            provenance["override_source"] = overrides.OVERRIDE_SOURCE
+            provenance["overrides_applied"] = overrides_applied
+        metadata["normalization"] = provenance
     return data_to_save
