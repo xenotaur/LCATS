@@ -6,6 +6,7 @@ import sys
 
 from lcats.analysis.corpus import assess_cli
 from lcats.analysis.corpus import cli as corpus_cli
+from lcats.analysis.corpus import promote_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
@@ -51,6 +52,10 @@ def _handle_assess(args):
 
 def _handle_repair_specials(args):
     return "", repairs_cli.run(parsed_args=args)
+
+
+def _handle_promote(args):
+    return "", promote_cli.run(parsed_args=args)
 
 
 def _handle_meta_register(args):
@@ -225,6 +230,20 @@ def build_parser() -> argparse.ArgumentParser:
     )
     repair_specials_parser.set_defaults(handler=_handle_repair_specials)
     command_parsers["repair-specials"] = repair_specials_parser
+
+    promote_parent = promote_cli.build_parser(add_help=False)
+    promote_parser = subparsers.add_parser(
+        "promote",
+        parents=[promote_parent],
+        help="Promote data/ collections into corpora/, gated on a passing specials survey.",
+        description=(
+            "Promote data/ collections into corpora/. A collection with any "
+            "mojibake finding is skipped and reported rather than promoted; "
+            "clean collections wholesale-replace their corpora/ counterpart."
+        ),
+    )
+    promote_parser.set_defaults(handler=_handle_promote)
+    command_parsers["promote"] = promote_parser
 
     meta_parser = subparsers.add_parser(
         "meta",
