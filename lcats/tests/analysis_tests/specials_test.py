@@ -1,9 +1,33 @@
 """Unit tests for lcats.analysis.corpus.specials."""
 
+import pathlib
 import unittest
 
 from lcats.analysis.corpus import review
 from lcats.analysis.corpus import specials
+
+CORPUS_ALLOWLIST = (
+    pathlib.Path(specials.__file__).parent / "allowlists" / "corpus_specials.json"
+)
+
+
+class CorpusAllowlistTest(unittest.TestCase):
+    """Tests for the seeded corpus special-character allowlist (WI-RESIDUAL-0019)."""
+
+    def setUp(self):
+        self.config = specials.load_allowlist_config(str(CORPUS_ALLOWLIST))
+
+    def test_allows_legitimate_accented_letters_and_symbols(self):
+        for char in ["é", "ñ", "æ", "ō", "ç", "£", "°", "¢", "½", " "]:
+            with self.subTest(char=char):
+                self.assertTrue(self.config.is_allowed(char))
+
+    def test_does_not_allow_defect_or_boundary_artifacts(self):
+        # The corrupted degree sign (override) and boundary artifacts stay
+        # flagged rather than being allowlisted.
+        for char in ["째", "﻿", "■"]:
+            with self.subTest(char=char):
+                self.assertFalse(self.config.is_allowed(char))
 
 
 class SpecialsTest(unittest.TestCase):
@@ -87,9 +111,10 @@ class SpecialsTest(unittest.TestCase):
         self.assertIn("mojibake-pattern", evidence)
 
     def test_classify_character_mojibake_sequences_out_rank_lexical_diacritics(self):
+        # Real Latin-1 mojibake: a marker (Ã) followed by a UTF-8 continuation
+        # char (U+0080-U+00BF). "resumÃ©"/"seÃ±or"/"coÃ¶rdinate" are sampled forms.
         cases = [
-            ("ÃŸ", "Ã"),
-            ("Ã©", "Ã"),
+            ("resumÃ©", "Ã"),
             ("seÃ±or", "Ã"),
             ("coÃ¶rdinate", "Ã"),
         ]
@@ -119,11 +144,31 @@ class SpecialsTest(unittest.TestCase):
                 self.assertIn("lexical-latin-diacritic", evidence)
 
     def test_classify_character_prefers_mojibake_over_lexical_rule(self):
-        classification, evidence = specials.classify_character("ÃŸ", 0, "Ã")
+        # "Ã©" is a marker + continuation char, so mojibake wins over the
+        # lexical-diacritic rule even though Ã is itself a Latin letter.
+        classification, evidence = specials.classify_character("Ã©", 0, "Ã")
 
         self.assertEqual("likely_repairable", classification)
         self.assertIn("mojibake-pattern", evidence)
         self.assertNotIn("lexical-latin-diacritic", evidence)
+
+    def test_classify_character_lexical_a_circumflex_is_not_mojibake(self):
+        # Regression (WI-RESIDUAL-0019): a-circumflex followed by an ASCII
+        # letter is a legitimate diacritic (French "pâle", the name "Atlaanât"),
+        # not mojibake -- the old broad "â." pattern flagged these as repairable.
+        for text, index in [("pâle", 1), ("Atlaanât", 7)]:
+            with self.subTest(text=text):
+                classification, evidence = specials.classify_character(text, index, "â")
+                self.assertEqual("likely_good", classification)
+                self.assertIn("lexical-latin-diacritic", evidence)
+
+    def test_classify_character_marker_plus_continuation_is_mojibake(self):
+        # The trailing continuation char of a corrupted sequence classifies as
+        # mojibake via its preceding marker.
+        classification, evidence = specials.classify_character("Â°", 1, "°")
+
+        self.assertEqual("likely_repairable", classification)
+        self.assertIn("mojibake-pattern", evidence)
 
     def test_classify_character_review_needed_for_uncommon_symbol(self):
         classification, evidence = specials.classify_character(

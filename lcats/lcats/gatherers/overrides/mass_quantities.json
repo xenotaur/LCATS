@@ -6,5 +6,13 @@
             "rationale": "Stray 'Â' (U+00C2) before 'ngstrom' is not a clean encoding-family decode, so it is a judgment call rather than a repair rule; a human reads the intended unit as 'Ångstrom'.",
             "reviewer": "WI-OVERRIDES-0018 seed"
         }
+    ],
+    "jinx_ship_to_the_rescue__coppel": [
+        {
+            "find": "째",
+            "replace": "°",
+            "rationale": "U+C9F8 (Hangul 'JJAE') is a corrupted degree sign; all occurrences are temperatures (102째F, 135째, 140째, 145째). Not a clean encoding-family decode, so dispositioned as a per-story override rather than a rule.",
+            "reviewer": "WI-RESIDUAL-0019 residual review"
+        }
     ]
 }
