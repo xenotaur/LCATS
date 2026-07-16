@@ -48,7 +48,15 @@ def build_parser() -> argparse.ArgumentParser:
         )
     )
     parser.add_argument("files", nargs="*")
-    parser.add_argument("--allowlist-config", default="")
+    parser.add_argument(
+        "--allowlist-config",
+        default=specials.default_allowlist_config_path(),
+        help=(
+            "Path to an allowlist config JSON. Defaults to the packaged "
+            "corpus allowlist (seeded legitimate characters); pass an empty "
+            "string to disable."
+        ),
+    )
     parser.add_argument("--allow-smart", action="store_true")
     parser.add_argument("--names", action="store_true")
     parser.add_argument("--counts", action="store_true")

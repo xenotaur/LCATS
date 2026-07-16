@@ -18,14 +18,14 @@ class CorpusAllowlistTest(unittest.TestCase):
         self.config = specials.load_allowlist_config(str(CORPUS_ALLOWLIST))
 
     def test_allows_legitimate_accented_letters_and_symbols(self):
-        for char in ["é", "ñ", "æ", "ō", "ç", "£", "°", "¢", "½", " "]:
+        for char in ["é", "ñ", "æ", "ō", "ç", "£", "°", "¢", "½", "\xa0"]:
             with self.subTest(char=char):
                 self.assertTrue(self.config.is_allowed(char))
 
     def test_does_not_allow_defect_or_boundary_artifacts(self):
         # The corrupted degree sign (override) and boundary artifacts stay
         # flagged rather than being allowlisted.
-        for char in ["째", "﻿", "■"]:
+        for char in ["째", "\ufeff", "■"]:
             with self.subTest(char=char):
                 self.assertFalse(self.config.is_allowed(char))
 

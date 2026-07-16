@@ -123,6 +123,26 @@ def build_excluded_set(
     return excluded
 
 
+PACKAGED_ALLOWLIST_PATH = (
+    pathlib.Path(__file__).parent / "allowlists" / "corpus_specials.json"
+)
+
+
+def default_allowlist_config_path() -> str:
+    """Return the packaged corpus allowlist path as a CLI default, or "".
+
+    Used as the ``--allowlist-config`` default for ``lcats survey`` and the
+    standalone ``specials_cli`` extraction tool, so the seeded corpus allowlist
+    (WI-RESIDUAL-0019) is applied automatically -- callers no longer need to
+    know or pass the package-internal path. Falls back to "" (no allowlist,
+    matching the prior default) rather than raising if the packaged file is
+    somehow missing, e.g. a broken install; an explicitly passed
+    ``--allowlist-config`` path still raises on a missing file via
+    ``load_allowlist_config``.
+    """
+    return str(PACKAGED_ALLOWLIST_PATH) if PACKAGED_ALLOWLIST_PATH.exists() else ""
+
+
 def load_allowlist_config(config_path: str | None) -> AllowlistConfig:
     """Load allowlist config JSON, returning an empty config when unset."""
     config = AllowlistConfig()

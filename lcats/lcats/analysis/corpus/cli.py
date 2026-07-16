@@ -151,7 +151,15 @@ def build_survey_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "in lcats.analysis.corpus.specials_cli and survey runs in-process."
         ),
     )
-    parser.add_argument("--allowlist-config", default="")
+    parser.add_argument(
+        "--allowlist-config",
+        default=specials.default_allowlist_config_path(),
+        help=(
+            "Path to an allowlist config JSON. Defaults to the packaged "
+            "corpus allowlist (seeded legitimate characters); pass an empty "
+            "string to disable."
+        ),
+    )
     parser.add_argument("--allow-smart", dest="allow_smart", action="store_true")
     parser.add_argument("--no-allow-smart", dest="allow_smart", action="store_false")
     parser.set_defaults(allow_smart=True)

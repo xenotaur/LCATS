@@ -1,5 +1,6 @@
 """Unit tests for lcats.analysis.corpus_survey architecture."""
 
+import io
 import json
 import pathlib
 import tempfile
@@ -188,6 +189,37 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
         self.assertEqual("qa", args.mode)
         self.assertEqual("path", args.identifier)
         self.assertEqual(48, args.unicode_name_width)
+
+    def test_parser_defaults_allowlist_config_to_packaged_corpus_allowlist(self):
+        # WI-RESIDUAL-0019 review: the survey acceptance command
+        # (`lcats survey --mode specials data/`) must pick up the seeded
+        # allowlist without the caller knowing the package-internal path.
+        parser = corpus_survey.build_parser()
+        args = parser.parse_args([])
+        self.assertEqual(
+            str(corpus_survey.specials.PACKAGED_ALLOWLIST_PATH),
+            args.allowlist_config,
+        )
+
+    def test_default_allowlist_suppresses_reviewer_cited_characters(self):
+        # Regression for review comment r3592134963/r3592135546: allowlisted-
+        # but-not-default-excluded chars (cent sign, pilcrow, middle dot) must
+        # not produce findings under the CLI's actual default, not just an
+        # explicitly passed --allowlist-config path.
+        with tempfile.TemporaryDirectory() as tmpdir:
+            story_path = pathlib.Path(tmpdir) / "story.json"
+            story_path.write_text(
+                json.dumps({"name": "T", "body": "5¢ ¶ ·", "metadata": {}}),
+                encoding="utf-8",
+            )
+            output_buffer = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output_buffer):
+                status = corpus_survey.cli.run_survey(
+                    argv=[str(story_path), "--mode", "specials", "--no-progress"]
+                )
+
+        self.assertEqual(0, status)
+        self.assertEqual("", output_buffer.getvalue())
 
     def test_run_lcats_display_uses_internal_formatter_api(self):
         sample_story = {
