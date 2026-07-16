@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #123 (commit b335ecc). Added lcats/gatherers/overrides.py + per-collection overrides/<collection>.json applied after the rule pass with metadata provenance; seeded the Ângstrom->Ångstrom judgment call; packaged the override data in wheel/sdist; documented in docs/reference/gather-overrides.md."
 blocked_reason: null
 blocked: false
 id: WI-OVERRIDES-0018
 title: Versioned per-story overrides consumed at gather time
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
