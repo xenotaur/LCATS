@@ -103,6 +103,26 @@ class LoadOverridesTest(unittest.TestCase):
         self.assertEqual("Ångstrom", entry["replace"])
         self.assertTrue(entry["rationale"])
 
+    def test_degree_sign_override_is_present(self):
+        # WI-RESIDUAL-0019: U+C9F8 (Hangul) is a corrupted degree sign.
+        loaded = overrides.load_overrides("mass_quantities")
+
+        self.assertIn("jinx_ship_to_the_rescue__coppel", loaded)
+        entry = loaded["jinx_ship_to_the_rescue__coppel"][0]
+        self.assertEqual("째", entry["find"])
+        self.assertEqual("°", entry["replace"])
+
+    def test_degree_sign_override_repairs_temperature(self):
+        updated, applied = overrides.apply_overrides(
+            "meter stood at 102째F, then 135째",
+            overrides.load_overrides("mass_quantities")[
+                "jinx_ship_to_the_rescue__coppel"
+            ],
+        )
+
+        self.assertEqual("meter stood at 102°F, then 135°", updated)
+        self.assertEqual(2, applied[0]["count"])
+
     def test_override_files_are_valid_json_keyed_by_story(self):
         for path in overrides.OVERRIDES_DIR.glob("*.json"):
             with self.subTest(path=path.name):

@@ -3,7 +3,6 @@
 import argparse
 import json
 import pathlib
-import re
 import unicodedata
 
 from dataclasses import dataclass
@@ -23,7 +22,6 @@ TSV_COLUMNS = [
     "classification",
     "evidence",
 ]
-MOJIBAKE_RE = re.compile(r"(?:Ã.|Â.|â.|ð.|�)")
 MOJIBAKE_SEQUENCES = (
     "â€™",
     "â€œ",
@@ -125,6 +123,26 @@ def build_excluded_set(
     return excluded
 
 
+PACKAGED_ALLOWLIST_PATH = (
+    pathlib.Path(__file__).parent / "allowlists" / "corpus_specials.json"
+)
+
+
+def default_allowlist_config_path() -> str:
+    """Return the packaged corpus allowlist path as a CLI default, or "".
+
+    Used as the ``--allowlist-config`` default for ``lcats survey`` and the
+    standalone ``specials_cli`` extraction tool, so the seeded corpus allowlist
+    (WI-RESIDUAL-0019) is applied automatically -- callers no longer need to
+    know or pass the package-internal path. Falls back to "" (no allowlist,
+    matching the prior default) rather than raising if the packaged file is
+    somehow missing, e.g. a broken install; an explicitly passed
+    ``--allowlist-config`` path still raises on a missing file via
+    ``load_allowlist_config``.
+    """
+    return str(PACKAGED_ALLOWLIST_PATH) if PACKAGED_ALLOWLIST_PATH.exists() else ""
+
+
 def load_allowlist_config(config_path: str | None) -> AllowlistConfig:
     """Load allowlist config JSON, returning an empty config when unset."""
     config = AllowlistConfig()
@@ -194,21 +212,53 @@ def _is_likely_lexical_diacritic(text: str, offset: int, character: str) -> bool
     return bool(left.isalpha() or right.isalpha())
 
 
+def _is_utf8_continuation_char(character: str) -> bool:
+    """Return True for a char in the UTF-8 continuation-byte range (U+0080-U+00BF).
+
+    When a multi-byte UTF-8 sequence is mis-decoded as Latin-1, its trailing
+    bytes surface as characters in this range (e.g. 'é' -> 'Ã' + '©', '°' ->
+    'Â' + '°'). A neighbor marker adjacent to such a char is genuine mojibake;
+    a marker followed by ordinary text (an ASCII letter) is a legitimate Latin
+    diacritic such as French 'pâle' or the name 'Atlaanât'.
+    """
+    return len(character) == 1 and 0x80 <= ord(character) <= 0xBF
+
+
 def _has_mojibake_pattern(text: str, offset: int, character: str) -> tuple[bool, str]:
-    """Return mojibake match status and deterministic evidence snippet."""
+    """Return mojibake match status and deterministic evidence snippet.
+
+    A bare neighbor marker (Ã/Â/â/ð) is only treated as mojibake when it sits
+    next to a UTF-8 continuation-range character, so legitimate diacritics in
+    ordinary words are not flagged (the overbroad-exclusion fix for
+    WI-RESIDUAL-0019).
+    """
     window_start = max(0, offset - 4)
     window_end = min(len(text), offset + 5)
     window = text[window_start:window_end]
 
+    # Exact known corrupted sequences: the Mac-Roman "√" family and the literal
+    # smart-punctuation sequences that embed U+20AC.
     for sequence in MOJIBAKE_SEQUENCES:
         if sequence in window:
             return True, sequence
 
-    match = MOJIBAKE_RE.search(window)
-    if match:
-        return True, match.group(0)
-    if character in MOJIBAKE_NEIGHBOR_MARKERS:
+    # The Unicode replacement character is always a decode failure.
+    if character == "�":
         return True, character
+
+    following = text[offset + 1] if offset + 1 < len(text) else ""
+    preceding = text[offset - 1] if offset > 0 else ""
+
+    # A marker immediately before a continuation-range char is a corrupted
+    # multi-byte sequence (Ã©, Â°, â + control); followed by ordinary text it is
+    # a legitimate diacritic.
+    if character in MOJIBAKE_NEIGHBOR_MARKERS and _is_utf8_continuation_char(following):
+        return True, character + following
+
+    # The trailing continuation-range char of that same corrupted sequence.
+    if _is_utf8_continuation_char(character) and preceding in MOJIBAKE_NEIGHBOR_MARKERS:
+        return True, preceding + character
+
     return False, ""
 
 

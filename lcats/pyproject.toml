@@ -37,9 +37,10 @@ classifiers = [
 lcats = "lcats.cli:main"
 
 [tool.setuptools.package-data]
-# Ship the versioned gather-time override tables so they are present in
-# wheel/sdist installs, not only in source checkouts.
+# Ship the versioned gather-time override tables and survey allowlist config so
+# they are present in wheel/sdist installs, not only in source checkouts.
 "lcats.gatherers" = ["overrides/*.json"]
+"lcats.analysis.corpus" = ["allowlists/*.json"]
 
 [project.optional-dependencies]
 test = [
