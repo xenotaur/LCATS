@@ -2,14 +2,14 @@
 execution_id: 2026_07_17_14_12_37_RUNBOOK_SYMLINK_SAFETY_REVIEW
 prompt_id: PROMPT(AD_HOC:RUNBOOK_SYMLINK_SAFETY_REVIEW)[2026-07-17T14:09:53-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_07_17_13_00_45_RUNBOOK_SYMLINK_SAFETY
 pr: https://github.com/xenotaur/LCATS/pull/128
-commit: 
+commit: c97e3e2331ea1c1664fdc85bca76c6684b24ee84
 created_at: 2026-07-17T14:12:37-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/128
-session_transcript: pending
+session_transcript: claude-app:ff20b6b0-c572-4847-9c89-034d6aa827cd
 ---
 
 # Summary
