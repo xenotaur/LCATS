@@ -14,5 +14,21 @@
             "rationale": "U+C9F8 (Hangul 'JJAE') is a corrupted degree sign; all occurrences are temperatures (102째F, 135째, 140째, 145째). Not a clean encoding-family decode, so dispositioned as a per-story override rather than a rule.",
             "reviewer": "WI-RESIDUAL-0019 residual review"
         }
+    ],
+    "has_anyone_here_seen_kelly__walton": [
+        {
+            "find": "иии",
+            "replace": "* * * * *",
+            "rationale": "Cyrillic 'и' (U+0438) x3 used as the story's final scene-break marker, immediately before 'THE END'. Confirmed against the Project Gutenberg source (ebook #30086) that this is present verbatim upstream, not LCATS-introduced corruption -- almost certainly a transcription artifact, since the rest of the story renders its other scene breaks as '* * * * *'. Trusting the author's original structural intent (a scene break belongs there) over the transcriber's choice of glyph, normalized to match the story's own established convention rather than allowlisted as-is or treated as a repair-rule mojibake decode.",
+            "reviewer": "dogfood run of prepare-corpora-release.md, 2026-07-17"
+        }
+    ],
+    "rough_beast__aycock": [
+        {
+            "find": "■",
+            "replace": "* * * * *",
+            "rationale": "U+25A0 black square used as the story's opening scene-break marker, appearing exactly once, before the story's very first sentence. Confirmed against the Project Gutenberg source (ebook #48880) that this is present verbatim upstream; the same story renders its other, mid-story scene breaks as '* * * * *'. Previously flagged in WI-RESIDUAL-0019 as a deferred boundary artifact ('candidate for a boundary-cleanup WI'); normalized here to the story's own convention rather than allowlisted as-is.",
+            "reviewer": "dogfood run of prepare-corpora-release.md, 2026-07-17"
+        }
     ]
 }
