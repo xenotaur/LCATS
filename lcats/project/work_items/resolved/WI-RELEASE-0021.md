@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: Implemented and merged in PR #127 (commit c2d1137)
 blocked_reason: null
 blocked: false
 id: WI-RELEASE-0021
 title: Document a manual corpora-release runbook for independent verification
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:

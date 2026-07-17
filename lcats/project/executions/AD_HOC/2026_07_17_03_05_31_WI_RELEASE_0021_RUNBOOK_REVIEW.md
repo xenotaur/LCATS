@@ -2,14 +2,14 @@
 execution_id: 2026_07_17_03_05_31_WI_RELEASE_0021_RUNBOOK_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_RELEASE_0021_RUNBOOK_REVIEW)[2026-07-17T02:58:05-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_07_17_02_47_54_WI_RELEASE_0021
 pr: https://github.com/xenotaur/LCATS/pull/127
-commit: 
+commit: c2d1137c1d91e7ecb8c1d20a154d67862bcb3ba8
 created_at: 2026-07-17T03:05:31-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/127
-session_transcript: pending
+session_transcript: claude-app:ff20b6b0-c572-4847-9c89-034d6aa827cd
 ---
 
 # Summary
