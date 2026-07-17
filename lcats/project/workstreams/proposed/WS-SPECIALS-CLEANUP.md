@@ -21,6 +21,7 @@ work_items:
   - WI-OVERRIDES-0018
   - WI-RESIDUAL-0019
   - WI-PROMOTE-0020
+  - WI-RELEASE-0021
 exit_criteria:
   - lcats survey --mode specials over freshly regenerated data/ reports zero unaddressed mojibake findings — every measured residual occurrence is repaired by rule, covered by a per-story override, or explicitly allowlisted
   - Repair rules and per-story overrides are versioned repo inputs applied during gathering, so clearing the cache and regenerating data/ reproduces the same repaired output deterministically
