@@ -52,11 +52,32 @@ source list (or renamed) leaves a stale file behind that `lcats survey` and
 `corpora/`, nothing here is precious):
 
 ```bash
-rm -rf data && mkdir -p data
+sh -c 'rm -rf data/* data/.[!.]* data/..?*'
 ```
 
+`data/` and `cache/` are plain directories for most setups, but some
+machines point them at symlinks to a scratch/tempspace location (to keep
+large regenerated data out of a backup system, for instance) — every
+clear command in this runbook removes the *contents* of the directory
+without touching the directory (or symlink) itself, so a symlinked setup
+survives a clear-and-regenerate cycle intact. The three glob patterns
+together (`data/*`, `data/.[!.]*`, `data/..?*`) are the standard portable
+idiom for "every entry, dotfiles included, excluding `.`/`..` themselves"
+— a bare `data/*` misses dotfiles (e.g. a stray `.DS_Store` or a leftover
+`.ipynb_checkpoints/` directory), which `lcats survey`'s recursive
+discovery and `lcats promote`'s directory-level scan would otherwise still
+pick up despite the runbook saying the local corpus was cleared. Running
+the globs under `sh -c '...'` rather than directly is deliberate, not
+stylistic: zsh's default options abort with `no matches found` if *any one*
+of the three globs doesn't match anything (e.g. there are no dotfiles
+present, or the directory is empty or doesn't exist yet), while `/bin/sh`
+doesn't have that behavior — `sh -c '...'` makes the command copy-pasteable
+regardless of which shell you run it in, and regardless of which subset of
+the three patterns happens to match.
+
 To re-check a single collection instead of the whole corpus, clear only
-that one directory, e.g. `rm -rf data/mass_quantities && mkdir -p data/mass_quantities`.
+that one directory, e.g.
+`sh -c 'rm -rf data/mass_quantities/* data/mass_quantities/.[!.]* data/mass_quantities/..?*'`.
 This is a diagnostic shortcut, not a release step: scope every command in
 the rest of this runbook to that same collection name (`lcats survey
 --mode specials data/mass_quantities --no-progress`, `lcats promote
@@ -64,11 +85,17 @@ mass_quantities --dry-run`, `lcats promote mass_quantities`) rather than
 running the unscoped forms — those consider every collection under
 `data/`, including ones you did not just regenerate.
 
-(Optional, for a fully from-network run: `rm -rf cache/resources` also
-clears the cached raw Project Gutenberg pages, so extraction re-runs against
-freshly downloaded source text rather than a locally cached copy. This
-isn't required to verify the repair pipeline — the JSON write step above is
-what actually re-triggers the repair logic — but it's the strictest form of
+(Optional, for a fully from-network run: `rm -rf cache/resources cache/texts`
+also clears the cached raw Project Gutenberg pages, so extraction re-runs
+against freshly downloaded source text rather than a locally cached copy.
+Both directories are recreated automatically on the next `lcats gather`, so
+removing them outright — no glob, no `sh -c` needed — is safe. Most
+gatherers cache through `cache/resources`, but `mass_quantities` caches raw
+text separately through `cache/texts` (`lcats/gettenberg/cache.py:30`, via
+`lcats/gettenberg/api.py:37`), so a from-network run of `mass_quantities`
+specifically needs both cleared, not just `cache/resources`. This isn't
+required to verify the repair pipeline — the JSON write step above is what
+actually re-triggers the repair logic — but it's the strictest form of
 "fresh.")
 
 ## 3. Regenerate
