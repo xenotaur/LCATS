@@ -41,18 +41,28 @@ re-activate the conda environment and re-run `scripts/develop`.
 
 **Directory:** `lcats/`.
 
-`lcats gather` skips any story file that already exists on disk and has no
-`--force` flag — if you skip this step, "regenerate" below will silently do
-nothing and you will end up surveying old files while believing you tested
-a fresh run. `data/` is a regenerable cache (unlike `corpora/`, nothing here
-is precious):
+Most gatherers skip any story file that already exists on disk (no
+`--force` flag exists to override this), so without this step "regenerate"
+below can silently leave old files in place. `mass_quantities` is the one
+exception — it always overwrites its story files — but the real risk this
+step guards against applies to every collection either way: `lcats gather`
+never *deletes* outputs it no longer produces, so a story dropped from the
+source list (or renamed) leaves a stale file behind that `lcats survey` and
+`lcats promote` will still scan. `data/` is a regenerable cache (unlike
+`corpora/`, nothing here is precious):
 
 ```bash
-rm -rf data/*
+rm -rf data && mkdir -p data
 ```
 
 To re-check a single collection instead of the whole corpus, clear only
-that one directory, e.g. `rm -rf data/mass_quantities`.
+that one directory, e.g. `rm -rf data/mass_quantities && mkdir -p data/mass_quantities`.
+This is a diagnostic shortcut, not a release step: scope every command in
+the rest of this runbook to that same collection name (`lcats survey
+--mode specials data/mass_quantities --no-progress`, `lcats promote
+mass_quantities --dry-run`, `lcats promote mass_quantities`) rather than
+running the unscoped forms — those consider every collection under
+`data/`, including ones you did not just regenerate.
 
 (Optional, for a fully from-network run: `rm -rf cache/resources` also
 clears the cached raw Project Gutenberg pages, so extraction re-runs against
@@ -80,9 +90,12 @@ whole corpus. The full list of gatherer names, if you want to target one:
 lcats gather mass_quantities
 ```
 
-This re-downloads source text from Project Gutenberg and is
-network-dependent; expect it to take a while for the full corpus,
-`mass_quantities` in particular (it's by far the largest collection).
+This reads from the `cache/resources` cache when a source page is already
+cached there, and only hits Project Gutenberg over the network for pages
+that aren't. Expect it to take a while for the full corpus either way,
+`mass_quantities` in particular (it's by far the largest collection). To
+force a genuinely fresh, fully-networked run, clear the cache too (see the
+optional note above).
 
 ## 4. Verify
 
@@ -140,13 +153,15 @@ from `lcats/`.
 This step changes tracked files in `corpora/`. Everything above this line is
 read-only.
 
-You should still be in `lcats/` from the previous steps.
+The `cd` commands below use `git rev-parse --show-toplevel` rather than a
+relative `cd ..`/`cd lcats`, so they work regardless of whether you run 7a,
+skip it, or run these steps out of order.
 
 **7a. One-time historical cleanup — directory: repo root** (`corpora/` does
 not exist under `lcats/`, so this fails if run from there):
 
 ```bash
-cd ..
+cd "$(git rev-parse --show-toplevel)"
 git rm -r corpora/ohenry corpora/wilde
 ```
 
@@ -158,7 +173,7 @@ Skip this step if it's already been done (i.e. `corpora/ohenry` and
 **7b. Promote — directory:** `lcats/`:
 
 ```bash
-cd lcats
+cd "$(git rev-parse --show-toplevel)/lcats"
 lcats promote
 ```
 
