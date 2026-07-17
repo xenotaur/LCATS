@@ -2,14 +2,14 @@
 execution_id: 2026_07_17_15_55_52_MASS_QUANTITIES_RESIDUAL_OVERRIDES_REVIEW
 prompt_id: PROMPT(AD_HOC:MASS_QUANTITIES_RESIDUAL_OVERRIDES_REVIEW)[2026-07-17T15:55:16-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_07_17_14_07_32_MASS_QUANTITIES_RESIDUAL_OVERRIDES
 pr: https://github.com/xenotaur/LCATS/pull/129
-commit: 
+commit: b8d8854cdc6411116e8206f34262a2002efdda70
 created_at: 2026-07-17T15:55:52-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/129
-session_transcript: pending
+session_transcript: claude-app:ff20b6b0-c572-4847-9c89-034d6aa827cd
 ---
 
 # Summary
