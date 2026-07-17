@@ -21,9 +21,9 @@ forbidden_actions:
   - delete_branch
   - modify_data_or_corpora_contents
 acceptance:
-  - lcats.utils.paths.makedirs() exists and is unit-tested for all four cases -- path missing, path already a valid directory (incl. via a live symlink), path is a dangling symlink, path is blocked by a plain file
+  - lcats.utils.paths.makedirs() exists and is unit-tested for at least five cases -- path missing, path already a valid directory (incl. via a live symlink), path itself is a dangling symlink (leaf case), path is blocked by a plain file, and a nested path whose ancestor (not the leaf) is a dangling symlink (e.g. cache/resources when cache/ itself is dangling)
   - All five existing os.makedirs/Path.mkdir call sites for data/cache directories (downloaders.py ResourceCache.ensure(), DataGatherer.ensure() x2, gettenberg/cache.py's two module-level mkdir calls) use the new utility
-  - DataGatherer.clear()'s per-entry check uses the loop variable instead of the constant parent path, with test_clear_removes_path's existing assertion unchanged
+  - DataGatherer.clear() is simplified to a direct shutil.rmtree(self.path) call with no behavior change; test_clear_removes_path passes completely unmodified
   - gettenberg/cache.py gains a symlink-safe clear function for cache/texts and cache/tmp, unit-tested
   - lcats clean CLI subcommand exists, clears data/ and cache/ contents while preserving symlinks, and is documented in --help
   - prepare-corpora-release.md's "Clear stale local state" step is updated to use lcats clean as the primary path
@@ -85,29 +85,47 @@ no `clear()` method at all today.
 - A new `lcats clean` CLI subcommand and a runbook update to use it.
 
 ## Required Changes
-1. Create `lcats/utils/paths.py` with a `makedirs()` function: no-op if the
-   path already resolves to a real directory (symlink or not); if the path
-   is a dangling symlink, recreate the symlink's target directory (`data/`
-   and `cache/` are both documented, in this same runbook, as disposable
-   regenerable caches, so auto-healing is consistent with their existing
-   contract — the proposed default, per this WI's own Risk Notes); if the
-   path is blocked by a plain file or anything else non-directory, raise a
-   clear `NotADirectoryError`-style message naming the exact conflict,
-   instead of letting a bare `FileExistsError` propagate.
-2. Update `lcats/gatherers/downloaders.py`: `ResourceCache.ensure()`
+1. Create `lcats/lcats/utils/paths.py` with a `makedirs()` function: no-op
+   if the path already resolves to a real directory (symlink or not); if
+   the path or any ancestor in it is a dangling symlink, recreate the
+   missing target directory (`data/` and `cache/` are both documented, in
+   this same runbook, as disposable regenerable caches, so auto-healing is
+   consistent with their existing contract — the proposed default, per
+   this WI's own Risk Notes); if the path is blocked by a plain file or
+   anything else non-directory, raise a clear `NotADirectoryError`-style
+   message naming the exact conflict, instead of letting a bare
+   `FileExistsError`/`FileNotFoundError` propagate. Must handle both a
+   dangling *leaf* (e.g. `data` itself, which raises `FileExistsError` from
+   plain `os.makedirs`) and a dangling *ancestor* of a nested path (e.g.
+   `cache/resources` when `cache` itself is the dangling symlink, which
+   raises the differently-shaped `FileNotFoundError` instead) — these are
+   confirmed to be genuinely different underlying failures, not variants
+   of the same one.
+2. Update `lcats/lcats/gatherers/downloaders.py`: `ResourceCache.ensure()`
    (line ~71) and `DataGatherer.ensure()` (lines ~204, ~208) to call
    `paths.makedirs()` instead of `os.makedirs()`.
-3. Fix `DataGatherer.clear()` (lines ~272-287): change the per-entry
-   `if os.path.isfile(self.path)...` checks to check `file_path` (the loop
-   variable), not `self.path`. `test_clear_removes_path`'s assertion (the
-   whole gatherer directory is gone afterward) must still pass unchanged.
-4. Update `lcats/gettenberg/cache.py`'s module-level
+3. Simplify `DataGatherer.clear()` (lines ~272-287) to a direct
+   `shutil.rmtree(self.path)` when `self.path` exists, removing the
+   current per-entry `os.listdir()` loop and its file/symlink/directory
+   branching — that branching is currently dead code (every check tests
+   the constant `self.path`, not the loop variable, so it always takes the
+   same branch regardless of what's actually in the directory) that
+   happens to produce today's tested result by accident. This is a
+   clarity fix with **no behavior change**: `test_clear_removes_path`'s
+   existing assertion (the whole gatherer directory, e.g. `data/sherlock`,
+   is gone afterward) must continue to pass completely unmodified. Do not
+   change this method to clear contents while preserving `self.path`
+   itself — `self.path` (e.g. `data/sherlock`) is always a real
+   subdirectory *inside* whatever `data/` resolves to, never the `data/`
+   symlink itself, so removing it wholesale is already symlink-safe and
+   requires no further change here.
+4. Update `lcats/lcats/gettenberg/cache.py`'s module-level
    `GUTENBERG_TEXTS.mkdir(...)`/`GUTENBERG_TMP.mkdir(...)` (lines ~31, ~33)
    to use `paths.makedirs()`, and add a new `clear()`-equivalent function
    for both directories, symlink-safe by construction.
-5. Create `lcats/analysis/corpus/clean_cli.py` (following the
+5. Create `lcats/lcats/analysis/corpus/clean_cli.py` (following the
    `promote_cli.py`/`assess_cli.py` pattern) and wire a `clean` subcommand
-   into `lcats/cli.py`, clearing `data/` (all gatherers) and `cache/`
+   into `lcats/lcats/cli.py`, clearing `data/` (all gatherers) and `cache/`
    (both cache mechanisms) via the functions above.
 6. Update `lcats/docs/reference/prepare-corpora-release.md`'s "Clear stale
    local state" section to recommend `lcats clean` as the primary path,
@@ -126,8 +144,11 @@ no `clear()` method at all today.
   `lcats` on `PATH` yet.
 
 ## Acceptance Criteria
-- `lcats.utils.paths.makedirs()` is unit-tested for all four cases listed
-  in the frontmatter `acceptance` list.
+- `lcats.utils.paths.makedirs()` is unit-tested for all five cases listed
+  in the frontmatter `acceptance` list, including the ancestor-dangling
+  case distinct from the leaf-dangling case (they raise different
+  underlying exceptions -- `FileNotFoundError` vs. `FileExistsError` --
+  and a fix for one does not imply a fix for the other).
 - All five call sites use the new utility; no remaining unsafe
   `os.makedirs`/`Path.mkdir` calls for these two directory trees.
 - `lcats clean` clears `data/`/`cache/` contents while preserving a
