@@ -205,10 +205,12 @@ Once `corpora/` is promoted, `lcats assess` can score the release for
 quality and genre fit using the Claude API. This is a separate, optional
 step from the promotion above — not part of the release itself — and,
 unlike everything above, it is **not free**: it calls a real model on every
-story you point it at. Always preview first:
+story you point it at. Always preview first. `corpora/` is a sibling of
+`lcats/`, not under it, so from this section's `lcats/` working directory
+the path is `../corpora/`:
 
 ```bash
-lcats assess corpora/ --genre "science fiction" --dry-run
+lcats assess ../corpora/ --genre "science fiction" --dry-run
 ```
 
 `--dry-run` runs the same pre-flight checks (file discovery, body-length
@@ -218,9 +220,9 @@ detect mode instead of genre-lens mode. A real run needs an API key and
 your explicit go-ahead:
 
 ```bash
-ANTHROPIC_API_KEY=sk-... lcats assess corpora/ --genre "science fiction" --format tsv --output sf_assessment.tsv
+ANTHROPIC_API_KEY=sk-... lcats assess ../corpora/ --genre "science fiction" --format tsv --output sf_assessment.tsv
 ```
 
-See [`lcats assess`'s how-to guide](../lcats/analysis/corpus/README.md#9-story-assessment-lcats-assess)
+See [`lcats assess`'s how-to guide](../../lcats/analysis/corpus/README.md#9-story-assessment-lcats-assess)
 for the full option reference, output formats, and manual prompt-validation
 guidance.
