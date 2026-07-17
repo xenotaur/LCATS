@@ -123,6 +123,53 @@ class LoadOverridesTest(unittest.TestCase):
         self.assertEqual("meter stood at 102°F, then 135°", updated)
         self.assertEqual(2, applied[0]["count"])
 
+    def test_cyrillic_scene_break_override_is_present(self):
+        # Dogfood run of prepare-corpora-release.md: 'и' (U+0438) x3 used as
+        # the story's final scene-break marker, confirmed against the
+        # Project Gutenberg source (ebook #30086) as verbatim upstream text.
+        loaded = overrides.load_overrides("mass_quantities")
+
+        self.assertIn("has_anyone_here_seen_kelly__walton", loaded)
+        entry = loaded["has_anyone_here_seen_kelly__walton"][0]
+        self.assertEqual("иии", entry["find"])
+        self.assertEqual("* * * * *", entry["replace"])
+        self.assertTrue(entry["rationale"])
+
+    def test_cyrillic_scene_break_override_applies(self):
+        updated, applied = overrides.apply_overrides(
+            "...and so it ended.\n\n          иии THE END",
+            overrides.load_overrides("mass_quantities")[
+                "has_anyone_here_seen_kelly__walton"
+            ],
+        )
+
+        self.assertEqual("...and so it ended.\n\n          * * * * * THE END", updated)
+        self.assertEqual(1, applied[0]["count"])
+
+    def test_black_square_scene_break_override_is_present(self):
+        # Dogfood run of prepare-corpora-release.md: U+25A0 was previously
+        # flagged in WI-RESIDUAL-0019 as a deferred boundary artifact,
+        # confirmed against the Project Gutenberg source (ebook #48880) as
+        # verbatim upstream text (the story's opening scene-break marker).
+        loaded = overrides.load_overrides("mass_quantities")
+
+        self.assertIn("rough_beast__aycock", loaded)
+        entry = loaded["rough_beast__aycock"][0]
+        self.assertEqual("■", entry["find"])
+        self.assertEqual("* * * * *", entry["replace"])
+        self.assertTrue(entry["rationale"])
+
+    def test_black_square_scene_break_override_applies(self):
+        updated, applied = overrides.apply_overrides(
+            "■ The field of the experimental Telethink station",
+            overrides.load_overrides("mass_quantities")["rough_beast__aycock"],
+        )
+
+        self.assertEqual(
+            "* * * * * The field of the experimental Telethink station", updated
+        )
+        self.assertEqual(1, applied[0]["count"])
+
     def test_override_files_are_valid_json_keyed_by_story(self):
         for path in overrides.OVERRIDES_DIR.glob("*.json"):
             with self.subTest(path=path.name):
