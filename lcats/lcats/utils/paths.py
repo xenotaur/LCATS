@@ -53,6 +53,13 @@ def makedirs(path):
         if ancestor.is_dir():
             continue  # already a valid directory (a live symlink counts)
         if ancestor.is_symlink():
+            if ancestor.exists():
+                # Resolves to something real, just not a directory (e.g.
+                # a file) -- not dangling, and not fixable by healing.
+                raise NotADirectoryError(
+                    f"{ancestor} is a symlink to a non-directory; "
+                    f"refusing to create {target}"
+                )
             # Dangling: os.path.exists()/is_dir() are False, but a
             # directory entry with this name already exists, so plain
             # os.makedirs can't create it. Heal by recreating whatever

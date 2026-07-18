@@ -99,6 +99,21 @@ class MakedirsTest(unittest.TestCase):
         with self.assertRaises(NotADirectoryError):
             paths.makedirs(blocker)
 
+    def test_raises_when_symlink_resolves_to_a_file(self):
+        """A symlink to an existing file is not dangling and not healable.
+
+        This is a different case from a dangling symlink: is_dir() is
+        False either way, but exists() distinguishes "nothing there yet"
+        (heal it) from "something real, just not a directory" (refuse).
+        """
+        blocker_file = self.tmp_dir / "blocker_file.txt"
+        blocker_file.touch()
+        link = self.tmp_dir / "data"
+        link.symlink_to(blocker_file)
+
+        with self.assertRaises(NotADirectoryError):
+            paths.makedirs(link)
+
     def test_raises_when_ancestor_blocked_by_plain_file(self):
         """A plain file occupying an ancestor of the target path raises."""
         blocker = self.tmp_dir / "cache"

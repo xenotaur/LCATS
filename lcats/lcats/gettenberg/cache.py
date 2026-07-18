@@ -32,18 +32,29 @@ GUTENBERG_TEXTS = GUTENBERG_ROOT / "texts"
 paths.makedirs(GUTENBERG_TEXTS)  # makes root too, healing a dangling symlink.
 GUTENBERG_TMP = GUTENBERG_ROOT / "tmp"
 paths.makedirs(GUTENBERG_TMP)
+GUTENBERG_INDEX_DB = GUTENBERG_ROOT / "gutenbergindex.db"
+GUTENBERG_RDF_ARCHIVE = GUTENBERG_ROOT / "rdf-files.tar.bz2"
 
 
-def clear_texts_and_tmp():
-    """Clear the contents of the texts/tmp caches, preserving any symlinks."""
+def clear_all():
+    """Clear every Gutenberg cache artifact: texts, tmp, index DB, archive.
+
+    Symlink-safe for the texts/tmp directories -- only contents are
+    removed, never the directory itself. The index DB and RDF archive are
+    individual files directly under cache/, not directories; both are
+    removed outright if present, and are recreated automatically the next
+    time the Gutenberg cache is (re)built.
+    """
     paths.clear_directory_contents(GUTENBERG_TEXTS)
     paths.clear_directory_contents(GUTENBERG_TMP)
+    GUTENBERG_INDEX_DB.unlink(missing_ok=True)
+    GUTENBERG_RDF_ARCHIVE.unlink(missing_ok=True)
 
 
 gc.GutenbergCacheSettings.set(
-    CacheFilename=str(GUTENBERG_ROOT / "gutenbergindex.db"),
+    CacheFilename=str(GUTENBERG_INDEX_DB),
     # CacheUnpackDir=str(_GUTENBERG_TMP),  # Don't override, changes aren't respected.
-    CacheArchiveName=str(GUTENBERG_ROOT / "rdf-files.tar.bz2"),
+    CacheArchiveName=str(GUTENBERG_RDF_ARCHIVE),
     TextFilesCacheFolder=str(GUTENBERG_TEXTS),
 )
 

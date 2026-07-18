@@ -271,7 +271,7 @@ class DataGatherer:
         if os.path.exists(self.path):
             try:
                 shutil.rmtree(self.path)
-                print(f"Cleared all contents in {self.path}")
+                print(f"Removed {self.path}")
             except Exception as e:
                 print(f"Failed to delete {self.path}. Reason: {e}")
         else:

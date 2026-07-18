@@ -50,7 +50,14 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
 
 
 def _clean_data(gatherer_names):
-    """Clear data/, either entirely or scoped to specific gatherer names."""
+    """Clear data/, either entirely or scoped to specific gatherer names.
+
+    Heals a dangling data/ symlink first (paths.makedirs is a no-op when
+    data/ is already fine) -- clear_directory_contents alone can't do this,
+    since it no-ops on a path that isn't currently a valid directory.
+    """
+    paths.makedirs(env.data_root())
+
     if not gatherer_names:
         paths.clear_directory_contents(env.data_root())
         print(f"cleared: {env.data_root()}")
@@ -66,12 +73,14 @@ def _clean_data(gatherer_names):
 
 
 def _clean_cache():
-    """Clear both cache mechanisms: resources, and texts/tmp."""
+    """Clear every cache mechanism: resources, and the Gutenberg cache."""
+    paths.makedirs(env.cache_resources_dir())
     paths.clear_directory_contents(env.cache_resources_dir())
     print(f"cleared: {env.cache_resources_dir()}")
-    gettenberg_cache.clear_texts_and_tmp()
+    gettenberg_cache.clear_all()
     print(f"cleared: {gettenberg_cache.GUTENBERG_TEXTS}")
     print(f"cleared: {gettenberg_cache.GUTENBERG_TMP}")
+    print(f"cleared: {gettenberg_cache.GUTENBERG_ROOT} (index DB, RDF archive)")
 
 
 def run(argv=None, parsed_args=None) -> int:
