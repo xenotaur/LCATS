@@ -55,15 +55,23 @@ source list (or renamed) leaves a stale file behind that `lcats survey` and
 lcats clean
 ```
 
-`lcats clean` clears every `data/<gatherer>` directory and both cache
-mechanisms (`cache/resources`, and `mass_quantities`'s separate
-`cache/texts`/`cache/tmp`). It's safe on a symlinked `data/`/`cache/`
-setup (some machines point these at a scratch/tempspace location, to keep
-large regenerated data out of a backup system) — only contents are ever
-removed, never the directory or symlink itself — and it self-heals a
-dangling symlink it encounters along the way (one whose target directory
-no longer exists), rather than crashing on the next `lcats gather` the way
-a bare `os.makedirs` does.
+`lcats clean` clears every `data/<gatherer>` directory and every cache
+mechanism: `cache/resources`, plus `mass_quantities`'s separate
+`cache/texts`/`cache/tmp` and its Gutenberg metadata cache
+(`cache/gutenbergindex.db`, `cache/rdf-files.tar.bz2`). It's safe on a
+symlinked `data/`/`cache/` setup (some machines point these at a
+scratch/tempspace location, to keep large regenerated data out of a
+backup system) — only contents are ever removed, never the directory or
+symlink itself — and it self-heals a dangling symlink it encounters along
+the way (one whose target directory no longer exists), rather than
+crashing on the next `lcats gather` the way a bare `os.makedirs` does.
+
+Clearing the Gutenberg metadata cache means the *first* metadata lookup
+in the next `lcats gather mass_quantities` rebuilds it from scratch —
+downloading and parsing the whole Gutenberg RDF catalog, not just the
+per-story text this section already warns about. Expect that one rebuild
+to take a while, regardless of how small a subset of `mass_quantities`
+you're regenerating.
 
 To re-check a single collection instead of the whole corpus, scope the
 clear to just that gatherer, e.g. `lcats clean mass_quantities`. This
