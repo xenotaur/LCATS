@@ -11,6 +11,7 @@ from lcats import constants
 from lcats.gatherers import normalization
 from lcats.utils import env
 from lcats.utils import names
+from lcats.utils import paths
 
 
 def load_page(url, timeout=10, preferred_encoding="utf-8"):
@@ -66,9 +67,7 @@ class ResourceCache(abc.ABC):
     def ensure(self, filename):
         """Ensure the directory tree exists and whether the file is there."""
         # Create the root directory if it doesn't exist
-
-        if not os.path.exists(self.root):
-            os.makedirs(self.root)
+        paths.makedirs(self.root)
 
         # Check if the file exists
         full_path = self.full_path(filename)
@@ -200,12 +199,10 @@ class DataGatherer:
     def ensure(self, filename):
         """Ensure the directory tree exists and whether the file is there."""
         # Create the root directory if it doesn't exist
-        if not os.path.exists(self.root):
-            os.makedirs(self.root)
+        paths.makedirs(self.root)
 
         # Create the subdirectory if provided and doesn't exist
-        if not os.path.exists(self.path):
-            os.makedirs(self.path)
+        paths.makedirs(self.path)
 
         # Create the license file if it doesn't exist
         license_path = os.path.join(self.path, constants.LICENSE_FILE)
@@ -270,19 +267,13 @@ class DataGatherer:
                 return json.load(json_file)
 
     def clear(self):
-        """Clear the contents of the gatherer's directory."""
+        """Remove the gatherer's directory (and everything in it)."""
         if os.path.exists(self.path):
-            # Remove all contents of the directory
-            for filename in os.listdir(self.path):
-                file_path = os.path.join(self.path, filename)
-                try:
-                    if os.path.isfile(self.path) or os.path.islink(self.path):
-                        os.unlink(file_path)  # Remove the file or link
-                    elif os.path.isdir(self.path):
-                        shutil.rmtree(self.path)  # Remove the directory
-                except Exception as e:
-                    print(f"Failed to delete {self.path}. Reason: {e}")
-            print(f"Cleared all contents in {self.path}")
+            try:
+                shutil.rmtree(self.path)
+                print(f"Cleared all contents in {self.path}")
+            except Exception as e:
+                print(f"Failed to delete {self.path}. Reason: {e}")
         else:
             print(f"Directory {self.path} does not exist, nothing to clear.")
 

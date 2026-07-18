@@ -10,6 +10,7 @@ from typing import Optional
 
 from gutenbergpy import gutenbergcache as gc
 from lcats.utils import env
+from lcats.utils import paths
 
 # ------------ cache helpers ------------
 # Whether to auto-create the cache if missing.
@@ -28,9 +29,15 @@ if GUTENBERG_ROOT.exists() and not GUTENBERG_ROOT.is_dir():
     )  # pragma: no cover
 
 GUTENBERG_TEXTS = GUTENBERG_ROOT / "texts"
-GUTENBERG_TEXTS.mkdir(parents=True, exist_ok=True)  # makes root too.
+paths.makedirs(GUTENBERG_TEXTS)  # makes root too, healing a dangling symlink.
 GUTENBERG_TMP = GUTENBERG_ROOT / "tmp"
-GUTENBERG_TMP.mkdir(parents=True, exist_ok=True)
+paths.makedirs(GUTENBERG_TMP)
+
+
+def clear_texts_and_tmp():
+    """Clear the contents of the texts/tmp caches, preserving any symlinks."""
+    paths.clear_directory_contents(GUTENBERG_TEXTS)
+    paths.clear_directory_contents(GUTENBERG_TMP)
 
 
 gc.GutenbergCacheSettings.set(

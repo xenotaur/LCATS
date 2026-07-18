@@ -6,6 +6,7 @@ import sys
 
 from lcats.analysis.corpus import assess_cli
 from lcats.analysis.corpus import cli as corpus_cli
+from lcats.analysis.corpus import clean_cli
 from lcats.analysis.corpus import promote_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
@@ -56,6 +57,10 @@ def _handle_repair_specials(args):
 
 def _handle_promote(args):
     return "", promote_cli.run(parsed_args=args)
+
+
+def _handle_clean(args):
+    return "", clean_cli.run(parsed_args=args)
 
 
 def _handle_meta_register(args):
@@ -244,6 +249,20 @@ def build_parser() -> argparse.ArgumentParser:
     )
     promote_parser.set_defaults(handler=_handle_promote)
     command_parsers["promote"] = promote_parser
+
+    clean_parent = clean_cli.build_parser(add_help=False)
+    clean_parser = subparsers.add_parser(
+        "clean",
+        parents=[clean_parent],
+        help="Clear data/ and/or cache/ contents, symlink-safe.",
+        description=(
+            "Clear data/ and/or cache/ contents without shell-glob reasoning. "
+            "Safe for a symlinked data/ or cache/ setup: only contents are "
+            "removed, never the directory (or symlink) itself."
+        ),
+    )
+    clean_parser.set_defaults(handler=_handle_clean)
+    command_parsers["clean"] = clean_parser
 
     meta_parser = subparsers.add_parser(
         "meta",

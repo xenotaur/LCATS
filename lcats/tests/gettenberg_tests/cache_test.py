@@ -266,5 +266,52 @@ class GettenbergCacheTests(unittest.TestCase):
             p_create.assert_called_once()
 
 
+class ClearTextsAndTmpTest(unittest.TestCase):
+    """Tests for clear_texts_and_tmp."""
+
+    def setUp(self):
+        self.td = tempfile.TemporaryDirectory()
+        self.tmp_dir = pathlib.Path(self.td.name)
+        self.texts_dir = self.tmp_dir / "texts"
+        self.tmp_unpack = self.tmp_dir / "tmp"
+        self.texts_dir.mkdir()
+        self.tmp_unpack.mkdir()
+        (self.texts_dir / "30086.txt").touch()
+        (self.tmp_unpack / "leftover.tmp").touch()
+
+        self._p_texts = mock.patch.object(cache, "GUTENBERG_TEXTS", self.texts_dir)
+        self._p_tmp = mock.patch.object(cache, "GUTENBERG_TMP", self.tmp_unpack)
+        self._p_texts.start()
+        self._p_tmp.start()
+
+    def tearDown(self):
+        self._p_tmp.stop()
+        self._p_texts.stop()
+        self.td.cleanup()
+
+    def test_clears_both_directories_contents(self):
+        """clear_texts_and_tmp empties both caches without removing them."""
+        cache.clear_texts_and_tmp()
+
+        self.assertTrue(self.texts_dir.is_dir())
+        self.assertTrue(self.tmp_unpack.is_dir())
+        self.assertEqual(list(self.texts_dir.iterdir()), [])
+        self.assertEqual(list(self.tmp_unpack.iterdir()), [])
+
+    def test_preserves_symlinked_texts_dir(self):
+        """A symlinked cache/texts survives clearing intact."""
+        real_target = self.tmp_dir / "real_texts_target"
+        real_target.mkdir()
+        (real_target / "30086.txt").touch()
+        link = self.tmp_dir / "texts_link"
+        link.symlink_to(real_target)
+
+        with mock.patch.object(cache, "GUTENBERG_TEXTS", link):
+            cache.clear_texts_and_tmp()
+
+        self.assertTrue(link.is_symlink())
+        self.assertEqual(list(real_target.iterdir()), [])
+
+
 if __name__ == "__main__":
     unittest.main()
