@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: Implemented and merged in PR #131 (commit 368a23c)
 blocked_reason: null
 blocked: false
 id: WI-CLEAN-0022
 title: Harden data/cache directory creation against dangling symlinks; add lcats clean
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 related_focus:
