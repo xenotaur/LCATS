@@ -2,14 +2,14 @@
 execution_id: 2026_07_18_14_26_12_RUNBOOK_CACHE_CLEAN_DOC_GAP
 prompt_id: PROMPT(AD_HOC:RUNBOOK_CACHE_CLEAN_DOC_GAP)[2026-07-18T14:23:01-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/132
-commit: 
+commit: 9c768bb3ee0d48f626b04c239bfe889a44d5c88e
 created_at: 2026-07-18T14:26:12-04:00
 agent: claude_app
 instruction_source: user request to re-verify prepare-corpora-release.md against current code after WI-CLEAN-0022 (PR #131) merged
-session_transcript: pending
+session_transcript: claude-app:ff20b6b0-c572-4847-9c89-034d6aa827cd
 ---
 
 # Summary
