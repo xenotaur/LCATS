@@ -266,5 +266,78 @@ class GettenbergCacheTests(unittest.TestCase):
             p_create.assert_called_once()
 
 
+class ClearAllTest(unittest.TestCase):
+    """Tests for clear_all."""
+
+    def setUp(self):
+        self.td = tempfile.TemporaryDirectory()
+        self.tmp_dir = pathlib.Path(self.td.name)
+        self.texts_dir = self.tmp_dir / "texts"
+        self.tmp_unpack = self.tmp_dir / "tmp"
+        self.index_db = self.tmp_dir / "gutenbergindex.db"
+        self.rdf_archive = self.tmp_dir / "rdf-files.tar.bz2"
+        self.texts_dir.mkdir()
+        self.tmp_unpack.mkdir()
+        (self.texts_dir / "30086.txt").touch()
+        (self.tmp_unpack / "leftover.tmp").touch()
+        self.index_db.touch()
+        self.rdf_archive.touch()
+
+        self._p_texts = mock.patch.object(cache, "GUTENBERG_TEXTS", self.texts_dir)
+        self._p_tmp = mock.patch.object(cache, "GUTENBERG_TMP", self.tmp_unpack)
+        self._p_index_db = mock.patch.object(cache, "GUTENBERG_INDEX_DB", self.index_db)
+        self._p_rdf_archive = mock.patch.object(
+            cache, "GUTENBERG_RDF_ARCHIVE", self.rdf_archive
+        )
+        self._p_texts.start()
+        self._p_tmp.start()
+        self._p_index_db.start()
+        self._p_rdf_archive.start()
+
+    def tearDown(self):
+        self._p_rdf_archive.stop()
+        self._p_index_db.stop()
+        self._p_tmp.stop()
+        self._p_texts.stop()
+        self.td.cleanup()
+
+    def test_clears_both_directories_contents(self):
+        """clear_all empties both cache directories without removing them."""
+        cache.clear_all()
+
+        self.assertTrue(self.texts_dir.is_dir())
+        self.assertTrue(self.tmp_unpack.is_dir())
+        self.assertEqual(list(self.texts_dir.iterdir()), [])
+        self.assertEqual(list(self.tmp_unpack.iterdir()), [])
+
+    def test_removes_index_db_and_rdf_archive(self):
+        """clear_all removes the root-level index DB and RDF archive files."""
+        cache.clear_all()
+
+        self.assertFalse(self.index_db.exists())
+        self.assertFalse(self.rdf_archive.exists())
+
+    def test_missing_index_db_and_rdf_archive_is_not_an_error(self):
+        """clear_all tolerates a cache that never built these files yet."""
+        self.index_db.unlink()
+        self.rdf_archive.unlink()
+
+        cache.clear_all()  # must not raise
+
+    def test_preserves_symlinked_texts_dir(self):
+        """A symlinked cache/texts survives clearing intact."""
+        real_target = self.tmp_dir / "real_texts_target"
+        real_target.mkdir()
+        (real_target / "30086.txt").touch()
+        link = self.tmp_dir / "texts_link"
+        link.symlink_to(real_target)
+
+        with mock.patch.object(cache, "GUTENBERG_TEXTS", link):
+            cache.clear_all()
+
+        self.assertTrue(link.is_symlink())
+        self.assertEqual(list(real_target.iterdir()), [])
+
+
 if __name__ == "__main__":
     unittest.main()

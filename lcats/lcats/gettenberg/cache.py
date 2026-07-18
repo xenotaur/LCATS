@@ -10,6 +10,7 @@ from typing import Optional
 
 from gutenbergpy import gutenbergcache as gc
 from lcats.utils import env
+from lcats.utils import paths
 
 # ------------ cache helpers ------------
 # Whether to auto-create the cache if missing.
@@ -28,15 +29,32 @@ if GUTENBERG_ROOT.exists() and not GUTENBERG_ROOT.is_dir():
     )  # pragma: no cover
 
 GUTENBERG_TEXTS = GUTENBERG_ROOT / "texts"
-GUTENBERG_TEXTS.mkdir(parents=True, exist_ok=True)  # makes root too.
+paths.makedirs(GUTENBERG_TEXTS)  # makes root too, healing a dangling symlink.
 GUTENBERG_TMP = GUTENBERG_ROOT / "tmp"
-GUTENBERG_TMP.mkdir(parents=True, exist_ok=True)
+paths.makedirs(GUTENBERG_TMP)
+GUTENBERG_INDEX_DB = GUTENBERG_ROOT / "gutenbergindex.db"
+GUTENBERG_RDF_ARCHIVE = GUTENBERG_ROOT / "rdf-files.tar.bz2"
+
+
+def clear_all():
+    """Clear every Gutenberg cache artifact: texts, tmp, index DB, archive.
+
+    Symlink-safe for the texts/tmp directories -- only contents are
+    removed, never the directory itself. The index DB and RDF archive are
+    individual files directly under cache/, not directories; both are
+    removed outright if present, and are recreated automatically the next
+    time the Gutenberg cache is (re)built.
+    """
+    paths.clear_directory_contents(GUTENBERG_TEXTS)
+    paths.clear_directory_contents(GUTENBERG_TMP)
+    GUTENBERG_INDEX_DB.unlink(missing_ok=True)
+    GUTENBERG_RDF_ARCHIVE.unlink(missing_ok=True)
 
 
 gc.GutenbergCacheSettings.set(
-    CacheFilename=str(GUTENBERG_ROOT / "gutenbergindex.db"),
+    CacheFilename=str(GUTENBERG_INDEX_DB),
     # CacheUnpackDir=str(_GUTENBERG_TMP),  # Don't override, changes aren't respected.
-    CacheArchiveName=str(GUTENBERG_ROOT / "rdf-files.tar.bz2"),
+    CacheArchiveName=str(GUTENBERG_RDF_ARCHIVE),
     TextFilesCacheFolder=str(GUTENBERG_TEXTS),
 )
 
