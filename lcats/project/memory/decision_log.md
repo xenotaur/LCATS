@@ -6,8 +6,8 @@
 - WI-SPANOPS-0002 (span operation model), WI-REVIEW-0003 (human review and
   override model), and WI-APPLY-0005 (safe application of approved
   operations) are resolved. Their acceptance criteria are fully met by
-  existing, tested code (`lcats/analysis/corpus/span_ops.py`, `review.py`,
-  `application.py`, 24 passing tests) — the resolution is not "we decided
+  existing, tested code (`lcats/lcats/analysis/corpus/span_ops.py`,
+  `review.py`, `application.py`, 24 passing tests) — the resolution is not "we decided
   not to do this," it's "this was already built, and the shipped pipeline
   took a different, simpler path instead."
 
