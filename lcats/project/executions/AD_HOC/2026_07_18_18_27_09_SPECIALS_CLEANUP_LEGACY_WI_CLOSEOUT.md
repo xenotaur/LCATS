@@ -2,14 +2,14 @@
 execution_id: 2026_07_18_18_27_09_SPECIALS_CLEANUP_LEGACY_WI_CLOSEOUT
 prompt_id: PROMPT(AD_HOC:SPECIALS_CLEANUP_LEGACY_WI_CLOSEOUT)[2026-07-18T18:20:33-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/133
-commit: 
+commit: 6bf005b6ded69ad5efd19df7b96378780c61c733
 created_at: 2026-07-18T18:27:09-04:00
 agent: claude_app
 instruction_source: user request following a clean lcats survey / lcats promote --dry-run result from their manual dogfood run of prepare-corpora-release.md
-session_transcript: pending
+session_transcript: claude-app:ff20b6b0-c572-4847-9c89-034d6aa827cd
 ---
 
 # Summary
