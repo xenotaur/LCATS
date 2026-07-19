@@ -2,7 +2,7 @@
 id: WI-DOCS-0013
 title: Fix accuracy issues in repo-root README.md and lcats/README.md
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -16,7 +16,7 @@ depends_on: []
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #114 (commit e075b637), including a review-response round that corrected the documented Python-version floor to 3.10."
 expected_actions:
   - edit_file
   - write_docs
