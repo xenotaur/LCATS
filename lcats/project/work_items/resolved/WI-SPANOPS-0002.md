@@ -8,7 +8,7 @@ owner: unassigned
 linked_focus: FOCUS-WORLDCON-2026
 blocked: false
 blocked_reason: null
-resolution: Acceptance criteria met by existing, tested lcats/analysis/corpus/span_ops.py (24 passing tests across span_ops/review/application). Confirmed superseded, not unfinished, by the shipped gather-time rule/override/allowlist pipeline -- see decision log 2026-07-18 and EV-0003.
+resolution: Acceptance criteria met by existing, tested lcats/lcats/analysis/corpus/span_ops.py (24 passing tests across span_ops/review/application). Confirmed superseded, not unfinished, by the shipped gather-time rule/override/allowlist pipeline -- see decision log 2026-07-18 and EV-0003.
 ---
 
 # Work Item: WI-SPANOPS-0002
