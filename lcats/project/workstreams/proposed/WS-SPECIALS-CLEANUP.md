@@ -82,15 +82,17 @@ strategy with the corrected facts.
 
 ## Work Items
 
-Existing active items to re-scope under this workstream:
+Legacy items originally adopted under this workstream, since resolved
+(2026-07-18) as superseded rather than integrated -- the shipped
+gather-time rule/override/allowlist pipeline never needed them, and
+EV-0003 confirms that pipeline works end to end on a real run. See the
+2026-07-18 decision log entry for the full rationale; the code
+(`span_ops.py`/`review.py`/`application.py`) remains in the repo as
+tested, unused-until-needed infrastructure, not deleted:
 
-- **WI-SPANOPS-0002** — span-operation library work is complete; remaining
-  scope is its role as the ephemeral execution layer under replayable rules.
-- **WI-REVIEW-0003** — review decision models are complete; remaining scope is
-  persisting decisions as rule/override-keyed versioned files.
-- **WI-APPLY-0005** — the application library landed 2026-06-18 (decision log)
-  but the item is still active; remaining scope is pipeline integration, or
-  resolve it and open a successor.
+- **WI-SPANOPS-0002** — span-operation library, resolved.
+- **WI-REVIEW-0003** — review decision models, resolved.
+- **WI-APPLY-0005** — safe application library, resolved.
 
 New items created 2026-07-10:
 

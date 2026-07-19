@@ -10,9 +10,6 @@ This directory tracks actionable execution units aligned to the current roadmap.
 YAML frontmatter is authoritative for metadata, and directory buckets are kept aligned with the `status` field.
 
 ## Active Items
-- `active/WI-SPANOPS-0002.md`
-- `active/WI-REVIEW-0003.md`
-- `active/WI-APPLY-0005.md`
 - `active/WI-META-0006.md`
 
 ## Proposed Items
@@ -23,6 +20,9 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Resolved Items
 - `resolved/WI-REPAIR-0001.md`
+- `resolved/WI-SPANOPS-0002.md` — span-op model; superseded by the shipped rule/override/allowlist pipeline (2026-07-18 decision log)
+- `resolved/WI-REVIEW-0003.md` — human review/override model; superseded, see above
+- `resolved/WI-APPLY-0005.md` — safe span-op application; superseded, see above
 - `resolved/WI-LLM-0007.md` — Create `lcats/llm/` package (Protocol + backends)
 - `resolved/WI-LLM-0008.md` — Migrate `JSONPromptExtractor` to `LLMBackend`
 - `resolved/WI-LLM-0009.md` — Migrate `assess.py` / `assess_cli.py` to `LLMBackend`

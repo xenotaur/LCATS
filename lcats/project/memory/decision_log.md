@@ -1,5 +1,45 @@
 # Decision Log
 
+## 2026-07-18: Span-op/review/apply infrastructure resolved as superseded, not unfinished
+
+### Summary
+- WI-SPANOPS-0002 (span operation model), WI-REVIEW-0003 (human review and
+  override model), and WI-APPLY-0005 (safe application of approved
+  operations) are resolved. Their acceptance criteria are fully met by
+  existing, tested code (`lcats/lcats/analysis/corpus/span_ops.py`,
+  `review.py`, `application.py`, 24 passing tests) — the resolution is not "we decided
+  not to do this," it's "this was already built, and the shipped pipeline
+  took a different, simpler path instead."
+
+### Decisions
+- **The offset-keyed span-op/review/apply system is confirmed superseded,
+  not dead code awaiting completion.** The 2026-07-13 decision (this log)
+  already established that gather-time, rule-keyed replayable repairs are
+  the durable mechanism; this entry closes the loop with real evidence
+  (EV-0003) that the simpler mechanism actually works end-to-end on a
+  literal, non-simulated regeneration — not just in the abstract or in
+  simulation (EV-0002).
+- **Do not delete `span_ops.py`/`review.py`/`application.py`.** They
+  remain a complete, tested, well-designed model for a *future* need this
+  pipeline does not currently have: per-instance human review of
+  individual proposed edits with audit trails, overrides, and
+  non-destructive application. If a future defect class can't be
+  disposed of by rule/override/allowlist alone (this workstream's three
+  disposition categories), this is where that work resumes — it is not
+  wasted effort, it's unused-until-needed infrastructure.
+- **The "bucket" idea (richer per-story metadata, keyed at the story ID
+  level) raised earlier in this workstream's design discussion remains
+  unimplemented and is not addressed by this decision.** It's a separate,
+  still-open architectural question or a follow-up.
+
+### Evidence
+- EV-0003: literal, non-simulated `lcats gather` + `lcats survey` +
+  `lcats promote --dry-run` run, all clean, both independent survey gates
+  agreeing. See `project/evidence/EV-0003.md`.
+
+### Status
+- Accepted
+
 ## 2026-07-13: Repairs are gather-time replayable inputs, keyed by rule not offset
 
 ### Summary
