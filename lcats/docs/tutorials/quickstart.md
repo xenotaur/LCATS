@@ -119,8 +119,10 @@ Expected output:
     [ERROR] mojibake-sequence: Likely mojibake sequence.
 ```
 
-Exit code `0` — a dry run always succeeds; it's reporting the same two findings `survey` found,
-just as a curation pre-check rather than a standalone report.
+Exit code `0` on this run — a dry run doesn't call the API, so it succeeds for any valid input
+(it can still exit non-zero for invalid arguments or an unexpected runtime error, just not for QA
+findings). Here it's reporting the same two findings `survey` found, just as a curation pre-check
+rather than a standalone report.
 
 ## 5. Next steps
 
