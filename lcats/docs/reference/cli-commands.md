@@ -32,7 +32,7 @@ lcats gather [--dry-run] [gatherers ...]
 
 Gather one or more configured corpora.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `gatherers` | Optional gatherer names. Defaults to all gatherers. |
 | `--dry-run` | Show which gatherers would run without executing downloads. |
@@ -72,7 +72,7 @@ lcats survey [--mode {qa,specials}] [--check-for CHECK_FOR]
 Survey LCATS corpus JSON files for quality issues such as special characters
 and boundary contamination.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `directories` | Directories or files to survey. |
 | `--mode {qa,specials}` | Survey mode. `qa` (default) for normal checks, or `specials` to default to special-character extraction. |
@@ -116,7 +116,7 @@ Assess LCATS corpus JSON files for quality and genre fit. Calls the Claude
 API to produce structured include/exclude/review verdicts, genre confidence
 scores, issue lists, and story summaries.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `directories` | Directories or JSON files to assess (default: `data/`). |
 | `--genre GENRE` | Target genre for curation (lens mode): `science fiction`, `horror`, `western`, `romance`. Quote multi-word genres. Omit to detect genre automatically (detect mode). |
@@ -148,7 +148,7 @@ lcats stats [--dedupe] [--no-dedupe] [--story-output STORY_OUTPUT]
 Compute story-level and author-level statistics for one or more corpus
 directories or JSON files.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `directories` | Directories or files to compute statistics for. |
 | `--dedupe` / `--no-dedupe` | Toggle deduplication by story identity. |
@@ -170,7 +170,7 @@ lcats repair-specials [--header] [--format {tsv,jsonl}] files [files ...]
 Generate conservative repair proposals for known mojibake fragments. This
 command is non-destructive — it never modifies the input files.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `files` | Story JSON files to generate repair proposals for. |
 | `--header` | Include a header row (TSV format only). |
@@ -186,7 +186,7 @@ Promote `data/` collections into `corpora/`. A collection with any mojibake
 finding is skipped and reported rather than promoted; clean collections
 wholesale-replace their `corpora/` counterpart.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
 | `collections` | Collection names to consider. Defaults to every collection under `--source`. |
 | `--source SOURCE` | Root directory of source collections (default: `data/`). |
@@ -206,9 +206,9 @@ Clear `data/` and/or `cache/` contents without shell-glob reasoning. Safe for
 a symlinked `data/` or `cache/` setup: only contents are removed, never the
 directory (or symlink) itself.
 
-| Flag | Description |
+| Argument / Flag | Description |
 |---|---|
-| `gatherers` | Gatherer names to clean under `data/`. Defaults to every gatherer. |
+| `gatherers` | Gatherer names to clean under `data/`. **With no names given, this does not scope to "every configured gatherer" one by one — it wholesale-clears everything under `data/`, including any custom or unregistered directories that aren't a known gatherer.** Naming specific gatherers instead removes only those subdirectories. |
 | `--data-only` | Clean only `data/`; leave `cache/` untouched. |
 | `--cache-only` | Clean only `cache/`; leave `data/` untouched. |
 

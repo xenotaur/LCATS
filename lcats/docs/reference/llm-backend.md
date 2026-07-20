@@ -13,12 +13,17 @@ argument, not a code change. Derived from
 
 ```
 lcats/lcats/llm/
-├── __init__.py           re-exports all public names
+├── __init__.py           module docstring only; no re-exports
 ├── backend.py             LLMBackend Protocol + BackendResponse dataclass
 ├── openai_backend.py       OpenAIBackend
 ├── anthropic_backend.py    AnthropicBackend
 └── fake_backend.py         FakeBackend (test double)
 ```
+
+`lcats.llm.__init__` does not re-export any of these names. Import the
+submodule directly, e.g. `from lcats.llm import anthropic_backend` then
+`anthropic_backend.AnthropicBackend(...)` — `from lcats.llm import
+LLMBackend` or `BackendResponse` will fail.
 
 ## `LLMBackend` Protocol
 
@@ -61,7 +66,7 @@ class BackendResponse:
     model: str
     input_tokens: int
     output_tokens: int
-    raw: Any = field(repr=False)
+    raw: Any = field(repr=False, default=None)
 ```
 
 | Field | Description |
