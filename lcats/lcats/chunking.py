@@ -51,6 +51,11 @@ def chunk_story(
 
     step = max_tokens if overlap_tokens == 0 else max_tokens - overlap_tokens
 
+    # Pre-fetch token bytes to reduce the high constant-factor overhead of repeated tiktoken decodes
+    token_bytes = enc.decode_tokens_bytes(tokens)
+    current_bytes = bytearray()
+    last_idx = 0
+
     while current_token < len(tokens):
         if max_chunks is not None and chunk_count >= max_chunks:
             break
@@ -62,10 +67,25 @@ def chunk_story(
         else:
             # For the first chunk, start from the current token
             start_token = current_token
+
         end_token = min(current_token + max_tokens, len(tokens))
         chunk_tokens = tokens[start_token:end_token]
         chunk_text = enc.decode(chunk_tokens)
-        start_char = len(enc.decode(tokens[:start_token]))
+
+        # Incrementally build the byte representation up to start_token
+        if start_token > last_idx:
+            for i in range(last_idx, start_token):
+                current_bytes.extend(token_bytes[i])
+            last_idx = start_token
+        elif start_token < last_idx:
+            # Should not happen with positive step and valid overlap, but handle it gracefully
+            current_bytes = bytearray()
+            for i in range(0, start_token):
+                current_bytes.extend(token_bytes[i])
+            last_idx = start_token
+
+        # Decode with 'replace' to exactly match tiktoken's len(enc.decode(tokens[:start_token]))
+        start_char = len(current_bytes.decode("utf-8", errors="replace"))
 
         chunks.append(
             Chunk(
