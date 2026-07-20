@@ -14,7 +14,6 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md`
-- `proposed/WI-DOCS-0014.md` — Normalize CLI, LLM-backend, and assess reference docs
 - `proposed/WI-DOCS-0015.md` — Add a quickstart tutorial
 
 ## Resolved Items
@@ -29,3 +28,4 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `resolved/WI-INFRA-0011.md` — Add secrets utility and contributor guide for `.secrets/` pattern
 - `resolved/WI-ASSESS-0012.md` — Extend `lcats assess` with optional `--genre` and always-on genre detection
 - `resolved/WI-DOCS-0013.md` — Fix accuracy issues in repo-root README.md and lcats/README.md
+- `resolved/WI-DOCS-0014.md` — Normalize CLI, LLM-backend, and assess reference docs

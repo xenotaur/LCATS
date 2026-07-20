@@ -2,7 +2,7 @@
 id: WI-DOCS-0014
 title: Normalize CLI, LLM-backend, and assess reference docs
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -18,7 +18,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #135 (commit 7773fa7), including a review-response round that fixed 11 accuracy comments and a confirm-fixes pass that independently verified the fixes and resolved all 3 remaining threads."
 expected_actions:
   - create_file
   - edit_file
