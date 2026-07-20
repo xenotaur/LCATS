@@ -16,7 +16,29 @@ cd LCATS/lcats
 LCATS's execution root is the nested `lcats/` directory, not the repository root — every command
 in this tutorial (and everywhere else in LCATS's docs) assumes you're standing in `LCATS/lcats/`.
 
-Set up a local editable install:
+### Prerequisites
+
+Before building, make sure you're on **Python 3.10 or later**. Several LCATS modules use `X |
+None` union-type syntax evaluated at import time, which raises an error on import before 3.10 —
+including `lcats/lcats/meta_registry.py`, which `lcats/cli.py` imports directly, so this isn't a
+theoretical edge case: an unsupported interpreter breaks `lcats info` in the very next step, not
+just some rarely-used command. (`pyproject.toml` and `setup.py` still declare `>=3.6`; that's
+stale — see [`lcats/README.md`](../../README.md#requirements) for the full explanation.)
+
+Install the packages `scripts/build` and `scripts/develop` need (from
+[`lcats/README.md`](../../README.md#requirements)):
+
+```bash
+pip install build    # can be conda installed: conda install conda-forge::python-build
+pip install twine     # can be conda installed: conda install conda-forge::twine
+pip install beautifulsoup4
+pip install lxml
+conda install conda-forge::parameterized
+```
+
+If you're using conda, make sure your environment is activated first.
+
+### Build and install
 
 ```bash
 scripts/clean && scripts/build && scripts/develop
@@ -27,9 +49,8 @@ touch any corpus data, and is unrelated to the [`lcats clean` CLI command](../re
 `scripts/build` builds the package; `scripts/develop` installs it in editable mode, so further
 edits to the source are picked up without reinstalling.
 
-If you're using conda, make sure your environment is activated first — if `scripts/develop` fails
-with a missing-package error, you're likely running a system or Homebrew Python rather than the
-conda environment LCATS expects.
+If `scripts/develop` fails with a missing-package error even after the prerequisites step above,
+you're likely running a system or Homebrew Python rather than the conda environment LCATS expects.
 
 ## 2. Verify the install
 
