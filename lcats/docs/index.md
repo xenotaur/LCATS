@@ -14,7 +14,7 @@ cd LCATS/lcats
 
 ### Tutorials
 
-Tutorials are not scaffolded in this phase.
+- [Quickstart](tutorials/quickstart.md) — from a fresh clone to your first working `lcats` command
 
 ### How-to guides
 
