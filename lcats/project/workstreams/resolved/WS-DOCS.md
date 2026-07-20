@@ -2,8 +2,8 @@
 id: WS-DOCS
 kind: planning_node
 title: LCATS Documentation Completion (Docs Audit Phase 2b-4)
-status: active
-stage: planned
+status: resolved
+stage: closed
 related_focus:
   - FOCUS-WORLDCON-2026
 work_items:
@@ -36,9 +36,9 @@ fixes) already landed in PR #110 and PR #111.
 
 | ID | Title | Status | Audit Phase |
 |---|---|---|---|
-| WI-DOCS-0013 | Fix accuracy issues in repo-root and lcats/README.md | proposed | Phase 2b |
-| WI-DOCS-0014 | Normalize CLI, LLM-backend, and assess reference docs | proposed | Phase 3 |
-| WI-DOCS-0015 | Add a quickstart tutorial | proposed | Phase 4 |
+| WI-DOCS-0013 | Fix accuracy issues in repo-root and lcats/README.md | resolved | Phase 2b |
+| WI-DOCS-0014 | Normalize CLI, LLM-backend, and assess reference docs | resolved | Phase 3 |
+| WI-DOCS-0015 | Add a quickstart tutorial | resolved | Phase 4 |
 
 ## Governing Audit
 

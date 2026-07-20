@@ -2,7 +2,7 @@
 id: WI-DOCS-0015
 title: Add a quickstart tutorial
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -18,7 +18,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #136 (commit 0ba5e85), including two review-response rounds (5 comments total) and two confirm-fixes passes that independently verified all fixes before merge."
 expected_actions:
   - create_file
   - edit_file
