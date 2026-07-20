@@ -22,8 +22,8 @@ Before building, make sure you're on **Python 3.10 or later**. Several LCATS mod
 None` union-type syntax evaluated at import time, which raises an error on import before 3.10 —
 including `lcats/lcats/meta_registry.py`, which `lcats/cli.py` imports directly, so this isn't a
 theoretical edge case: an unsupported interpreter breaks `lcats info` in the very next step, not
-just some rarely-used command. (`pyproject.toml` and `setup.py` still declare `>=3.6`; that's
-stale — see [`lcats/README.md`](../../README.md#requirements) for the full explanation.)
+just some rarely-used command. (See [`lcats/README.md`](../../README.md#requirements) for the
+full explanation.)
 
 Install the packages `scripts/build` and `scripts/develop` need (from
 [`lcats/README.md`](../../README.md#requirements)):
