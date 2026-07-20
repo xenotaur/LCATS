@@ -13,6 +13,8 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 - `stats`
 - `repair-specials`
 - `assess`
+- `promote`
+- `clean`
 - `meta register`
 
 ## Placeholder commands (declared, not implemented)
@@ -25,3 +27,4 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 
 - This is a status reference page, not a tutorial.
 - Command options and examples should be verified against `lcats <command> --help` when writing detailed command references.
+- For full flag/argument documentation, see [`cli-commands.md`](cli-commands.md).
