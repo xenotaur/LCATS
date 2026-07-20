@@ -23,7 +23,7 @@ scripts/clean && scripts/build && scripts/develop
 ```
 
 `scripts/clean` removes previous build artifacts (`build/`, `dist/`, `*.egg-info`) — it does not
-touch any corpus data, and is unrelated to the `lcats clean` CLI command described below.
+touch any corpus data, and is unrelated to the [`lcats clean` CLI command](../reference/cli-commands.md#clean).
 `scripts/build` builds the package; `scripts/develop` installs it in editable mode, so further
 edits to the source are picked up without reinstalling.
 
