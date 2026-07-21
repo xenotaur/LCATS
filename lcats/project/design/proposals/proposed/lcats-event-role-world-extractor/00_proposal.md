@@ -61,6 +61,19 @@ This proposal does not:
 7. Defer graph databases and deep case-based-reasoning adaptation until the
    extracted data justifies them.
 
+## Implementation prerequisites
+
+Design principle 5 (strict schemas over unconstrained JSON) is not yet
+supported by the current LLM backend. `OpenAIBackend.complete` only ever
+requests `{"type": "json_object"}` mode, which guarantees valid JSON but not
+conformance to any particular schema; it does not yet request JSON Schema or
+tool/function-based structured output. Before any Event-Role-World object
+(`Event`, `EntityMention`, `EventRelation`, etc.) is treated as schema-valid
+rather than best-effort-parsed, the implementation must add JSON Schema or
+tool-based structured-output support to the backend. This is a stage-0
+blocking task for the first implementation work item, not an optional later
+upgrade.
+
 ## High-level architecture
 
 ```text
@@ -228,6 +241,20 @@ resolve aliases and cross-segment references without losing segment evidence.
 Metrics must report relevant denominators, extraction versions, and validation
 coverage so genre comparisons remain auditable.
 
+### Cost and baseline requirements
+
+- Each annotator pass must document whether it is LLM-backed or NLP-only, and
+  the pipeline must report total LLM calls per segment and per story so cost
+  and latency at corpus scale are visible before a full run is committed to.
+- A fixed-chunk baseline and a segment-only (no event/relation/SF-tag)
+  baseline must be run and exported alongside every SF-vs-other-genre
+  comparison metric. Genre-comparison claims are not reportable in the paper
+  without an accompanying baseline showing the effect is not an artifact of
+  chunking or story length.
+- A stratified sample across genres, eras, and extraction-confidence bands
+  must receive human review before any comparison metric is treated as
+  publication-quality.
+
 ## Risks and mitigations
 
 | Risk | Mitigation |
@@ -239,10 +266,7 @@ coverage so genre comparisons remain auditable.
 | Graph-extraction overreach | Keep JSON canonical, validate IDs first, and defer graph-database adoption. |
 | Confusing interpretive hypotheses with extractive facts | Separate hypothesis fields, certainty, and confidence; exclude optional hypotheses from primary quantitative claims unless validated. |
 | Duplicating prior scene/sequel work | Make existing segments the input contract and retain the stated non-goals. |
-
-Lexical and segment-only baselines should accompany evaluation. A stratified
-sample across genres, eras, and extraction-confidence bands should receive
-human review.
+| LLM cost/latency at corpus scale from up to seven annotator passes per segment | Report LLM calls per segment/story; identify which annotators can run as NLP-only; gate a full-corpus run behind a cost estimate from the pilot sample. |
 
 ## Resulting scientific claim
 
