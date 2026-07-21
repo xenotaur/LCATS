@@ -9,6 +9,9 @@ This directory captures architectural decisions for the active LCATS roadmap pha
 
 ## Files
 - `design.md`: canonical design for the active repair/review horizon.
+- `proposals/`: lifecycle-organized, reviewable design proposals that do not
+  imply implementation; currently includes the proposed LCATS Event-Role-World
+  extractor.
 - `unified-llm-backend-design.md`: design for the unified `LLMBackend` Protocol
   and provider implementations (Phase 5.5, DESIGN-LLM-BACKEND).
 - `flat_story_layout_migration_impact_report.md`: audit of flat `data/<collection>/<story>.json` assumptions and migration impact.
