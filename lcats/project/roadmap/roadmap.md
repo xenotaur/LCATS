@@ -49,7 +49,6 @@ application.
 ## Phase 5 — Persistence / Corpus State (**Planned**)
 - Define persistent corpus state and operation history model.
 - Support replay/audit across runs and contributors.
-- Deliver initial workspace meta registry slice (`meta register`) as an entry point into persistent project identity.
 
 ## Phase 5.5 — Unified LLM Backend + Scientific Assessment (**Planned**)
 Focus: enable model-to-model comparison experiments by unifying all LLM API

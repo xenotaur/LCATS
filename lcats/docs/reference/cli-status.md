@@ -15,7 +15,6 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 - `assess`
 - `promote`
 - `clean`
-- `meta register`
 
 ## Placeholder commands (declared, not implemented)
 

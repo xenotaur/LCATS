@@ -215,19 +215,6 @@ directory (or symlink) itself.
 See [Preparing a corpora release](prepare-corpora-release.md) step 2 for a
 worked walkthrough of when and why to use `lcats clean`.
 
-## `meta register`
-
-```
-lcats meta register [--force] repo_locator
-```
-
-Register a repository locator in the local workspace registry.
-
-| Argument / Flag | Description |
-|---|---|
-| `repo_locator` | The repository locator to register. |
-| `--force` | Allow duplicate `repo_locator` entries. |
-
 ## Placeholder commands
 
 These commands are declared but not yet implemented — running them prints a

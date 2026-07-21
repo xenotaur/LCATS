@@ -72,21 +72,6 @@ class TestCli(unittest.TestCase):
         self.assertEqual(0, actual_status)
         mock_run.assert_called_once()
 
-    @mock.patch("lcats.meta_registry.register_project")
-    def test_dispatch_meta_register(self, mock_register_project):
-        """Ensure meta register delegates to meta_registry."""
-        mock_register_project.return_value = {
-            "id": "proj-20260422-001",
-            "directory_name": "example",
-        }
-
-        actual_message, actual_status = cli.dispatch(
-            "meta", ["register", "https://example.com/repo.git"]
-        )
-        self.assertEqual(0, actual_status)
-        self.assertIn("proj-20260422-001", actual_message)
-        mock_register_project.assert_called_once()
-
     @parameterized.parameterized.expand(
         [
             ("index", "Indexing data files is not yet implemented."),
@@ -121,24 +106,14 @@ class TestCli(unittest.TestCase):
         self.assertEqual(expected_code, cm.exception.code)
         self.assertIn("usage: lcats", captured.stdout.getvalue())
 
-    def test_meta_requires_subcommand_without_crashing(self):
-        """Running lcats meta should show meta help and exit with code 1."""
-        with capture.capture_output() as captured:
-            with self.assertRaises(SystemExit) as cm:
-                cli.main(["meta"])
-        self.assertEqual(1, cm.exception.code)
-        self.assertIn("usage: lcats meta", captured.stdout.getvalue())
-
     @parameterized.parameterized.expand(
         [
             (["survey", "--help"], "usage: lcats survey"),
             (["stats", "--help"], "usage: lcats stats"),
             (["repair-specials", "--help"], "usage: lcats repair-specials"),
-            (["meta", "register", "--help"], "usage: lcats meta register"),
             (["help", "survey"], "usage: lcats survey"),
             (["help", "stats"], "usage: lcats stats"),
             (["help", "repair-specials"], "usage: lcats repair-specials"),
-            (["help", "meta"], "usage: lcats meta"),
         ]
     )
     def test_command_help(self, argv, expected_usage):

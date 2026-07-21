@@ -273,7 +273,6 @@ Implemented:
 | `lcats assess <files>` | Assess corpus stories for quality and genre fit using the Claude API |
 | `lcats stats` | Compute corpus-level statistics |
 | `lcats repair-specials` | Generate dry-run Unicode/special-character repair proposals |
-| `lcats meta register <repo_locator>` | Register a repository locator in the local workspace registry |
 
 Placeholder (declared, not yet implemented):
 

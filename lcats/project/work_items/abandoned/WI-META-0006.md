@@ -2,13 +2,13 @@
 id: WI-META-0006
 title: Implement Meta CLI register slice for workspace project registry
 type: deliverable
-status: active
+status: abandoned
 priority: high
 owner: unassigned
 linked_focus: FOCUS-WORLDCON-2026
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: Superseded by native LRH functionality (`lrh meta register`); the LCATS-side duplicate this item delivered is being removed by WI-META-0023.
 ---
 
 # Work Item: WI-META-0006
