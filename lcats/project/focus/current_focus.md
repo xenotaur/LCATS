@@ -1,6 +1,6 @@
 ---
 id: FOCUS-WORLDCON-2026
-title: WorldCon 2026 readiness — repair/review, story analysis foundations, and docs cleanup
+title: WorldCon 2026 readiness — repair/review and story analysis foundations
 status: active
 priority: high
 owner: unassigned
@@ -9,14 +9,16 @@ owner: unassigned
 # Current Focus
 
 ## Active Priorities
-LCATS is tracking three parallel active priorities on the way to WorldCon 2026:
+LCATS is tracking two parallel active priorities on the way to WorldCon 2026:
 
 1. **Repair and review pipeline** (roadmap Phase 4) — conservative repair engine, span operations,
    human review/override, and approved application.
 2. **Story analysis pipeline foundations** — `lcats assess` and scene/story analysis modules, in
    support of the Medium-Term Goal in `goal/project_goal.md`.
-3. **Documentation cleanup** (`WS-DOCS`) — bring `lcats/docs/` and the repo-root README up
-   to date with everything already implemented, to speed up team collaboration.
+
+A third priority, **documentation cleanup** (`WS-DOCS`), was active from 2026-07-08 through
+2026-07-20 and is now fully resolved — see `project/workstreams/resolved/WS-DOCS.md` and
+`project/memory/decision_log.md`.
 
 ## Focus Scope (Now)
 
@@ -31,14 +33,10 @@ LCATS is tracking three parallel active priorities on the way to WorldCon 2026:
 - Continue exercising `lcats assess` across corpora.
 - No new design or work items until the feature-extraction library is decided.
 
-### 3. Documentation cleanup
-- Execute `WS-DOCS` (Phase 2b/3/4 of the 2026-07-07 docs audit).
-
 ## Why This Is Current
 - Survey/classification and immediate correctness fixes are complete; repair/review is the next
   critical capability for corpus trust.
-- WorldCon 2026 submission needs a working story-analysis foundation and documentation solid
-  enough for collaborators to build on.
+- WorldCon 2026 submission needs a working story-analysis foundation.
 
 ## Non-Goals
 - Full narrative reasoning engine implementation (`project_goal.md` Long-Term Goal) in this phase.
@@ -51,6 +49,3 @@ LCATS is tracking three parallel active priorities on the way to WorldCon 2026:
 - Repair plans can be generated and previewed without mutation.
 - Span operations support precise, explainable text changes.
 - Review decisions can approve, reject, or override proposed repairs with rationale.
-
-### Documentation cleanup
-- `WS-DOCS` exit criteria met (see workstream file).

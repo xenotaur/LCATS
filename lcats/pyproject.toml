@@ -7,7 +7,7 @@ name = "lcats"
 version = "0.1"
 description = "Literary Captain's Advisory Tool System."
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.10"
 authors = [
     {name = "Anthony Francis", email = "centaur@logicalrobotics.com"},
     {name = "Kenneth Moorman", email = "kmoorman@transy.edu"},

@@ -1,5 +1,30 @@
 # Decision Log
 
+## 2026-07-20: WS-DOCS documentation cleanup workstream completed
+
+### Summary
+- Closed `WS-DOCS`, the workstream executing Phases 2b-4 of the 2026-07-07 docs audit
+  (`project/audits/docs/2026-07-07-docs-audit.md`). All three work items resolved:
+  `WI-DOCS-0013` (accuracy fixes, PR #114), `WI-DOCS-0014` (CLI/LLM-backend reference docs,
+  PR #135), `WI-DOCS-0015` (quickstart tutorial, PR #136). `lcats/docs/` now has content in all
+  four Diataxis quadrants — tutorial, how-to, reference, and explanation.
+
+### Decisions
+- **Retired as priority 3 from `project/focus/current_focus.md`.** The active-focus file tracks
+  in-progress work, not a historical record; this entry is that record.
+- **`pyproject.toml`/`setup.py`'s Python version requirement was bumped to `>=3.10` in the same
+  cleanup pass** that retired this priority, closing the last flagged-but-deferred item from the
+  `WS-DOCS` audit trail (the actual runtime floor, evidenced by `X | None` union syntax in
+  `meta_registry.py`/`text_segmenter.py`/`graph_plotters.py`, was already documented in
+  `lcats/README.md` since `WI-DOCS-0013` but not reflected in packaging metadata until now).
+
+### Evidence
+- `project/workstreams/resolved/WS-DOCS.md` — closed `status: resolved`, `stage: closed`.
+- PRs #110, #111, #113, #114, #135, #136 — the full workstream arc, 2026-07-08 to 2026-07-20.
+
+### Status
+- Accepted
+
 ## 2026-07-18: Span-op/review/apply infrastructure resolved as superseded, not unfinished
 
 ### Summary
