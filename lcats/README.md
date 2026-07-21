@@ -33,9 +33,6 @@ scripts/test
 scripts/clean && scripts/build && scripts/develop
 lcats info
 lcats gather
-
-# Register a repository in the workspace meta registry
-lcats meta register <repo_locator>
 ```
 Publishing this package to PyPI is not yet supported because we don't yet have extensive enough tests.
 

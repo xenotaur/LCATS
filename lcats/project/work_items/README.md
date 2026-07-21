@@ -6,14 +6,19 @@ This directory tracks actionable execution units aligned to the current roadmap.
 - `active/` contains currently in-progress items (`status: active`).
 - `proposed/` contains planned/future items (`status: proposed`).
 - `resolved/` contains completed items (`status: resolved`).
+- `abandoned/` contains items that will not be pursued (`status: abandoned`).
 
 YAML frontmatter is authoritative for metadata, and directory buckets are kept aligned with the `status` field.
 
 ## Active Items
-- `active/WI-META-0006.md`
+- (none)
 
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md`
+- `proposed/WI-META-0023.md` — Remove LRH meta-registry duplication from LCATS codebase and docs
+
+## Abandoned Items
+- `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
 
 ## Resolved Items
 - `resolved/WI-REPAIR-0001.md`
