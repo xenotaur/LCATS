@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: Implemented and merged in PR #141 (commit c535452a5bbea35da825d257f6251d81bc55002f).
 blocked_reason: null
 blocked: false
 id: WI-META-0023
 title: Remove LRH meta-registry duplication from LCATS codebase and docs
 type: operation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
