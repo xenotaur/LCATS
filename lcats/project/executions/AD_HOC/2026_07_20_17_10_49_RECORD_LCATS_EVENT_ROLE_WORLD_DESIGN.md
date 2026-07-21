@@ -4,12 +4,12 @@ prompt_id: PROMPT(AD_HOC:RECORD_LCATS_EVENT_ROLE_WORLD_DESIGN)[2026-07-20T17:10:
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
-commit: 1baeb44
+pr: https://github.com/xenotaur/LCATS/pull/140
+commit:
 created_at: 2026-07-20T17:10:49-04:00
 agent: codex
 instruction_source: ad_hoc_user_prompt
-session_transcript:
+session_transcript: pending
 ---
 
 # Summary
@@ -25,8 +25,7 @@ documentation-only; it adds no extractor schema or runtime behavior.
 - Updated the proposal and design indexes.
 - Implementation remains `not_started`; later review should validate the
   controlled inventories and evaluation plan before implementation planning.
-- Documentation commit: `1baeb44`.
-- PR reference is pending creation at the time this record was written.
+- Opened as PR #140; the merge commit remains pending closeout.
 
 # Validation
 
@@ -41,5 +40,3 @@ documentation-only; it adds no extractor schema or runtime behavior.
 # Follow-up
 
 - Run the package-owned LRH validator in an LRH-equipped environment.
-- Add the PR URL to this record during closeout when it is available.
-
