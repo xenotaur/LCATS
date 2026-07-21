@@ -2,14 +2,14 @@
 execution_id: 2026_07_20_17_32_53_DOCS_CLEANUP_FOCUS_PYTHON_VERSION_REVIEW
 prompt_id: PROMPT(AD_HOC:DOCS_CLEANUP_FOCUS_PYTHON_VERSION_REVIEW)[2026-07-20T17:12:39-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_07_20_16_57_25_DOCS_CLEANUP_FOCUS_PYTHON_VERSION
 pr: https://github.com/xenotaur/LCATS/pull/139
-commit: d8d4411
+commit: 7848b555b15a4d4c7b0f1d0cb8baa030639e3303
 created_at: 2026-07-20T17:32:53-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/139
-session_transcript: pending
+session_transcript: claude-app:e7662f75-a730-4630-9960-4a2694b28500
 ---
 
 # Summary
