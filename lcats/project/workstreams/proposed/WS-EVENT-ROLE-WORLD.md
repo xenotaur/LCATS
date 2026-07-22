@@ -12,14 +12,15 @@ related_design:
   - project/design/proposals/proposed/lcats-event-role-world-extractor/00_proposal.md
 work_items: []
 exit_criteria:
-  - v0.1 seed extractor implemented per the proposal's staged pipeline (paragraph indexing through per-segment semantic audit), reusing the existing segment/evidence substrate without reimplementing it
+  - The proposal's Recommended staged pipeline stages 1-7 and 9 (input contract, surface feature pass, entity participant pass, event-role pass, anchor pass, relation pass, discourse/SF tag pass, and validation/export) are implemented, reusing the existing segment/evidence substrate without reimplementing scene/sequel extraction
+  - The optional hypothesis pass (stage 8) is implemented, or explicitly deferred with a follow-up work item recorded
   - New Event-Role-World object schemas (Event, EntityMention, EventRelation, etc.) are called through the backend's existing tool= structured-output path, not json_object mode
   - Validation and metrics export (per-story JSON, JSONL/CSV analysis tables) implemented and passes the proposal's artifact-validation checks
   - Cost/baseline reporting (token counts, model, elapsed time per pass; fixed-chunk-vs-segment comparison) implemented per the proposal's Cost and baseline requirements section
   - All work items under this workstream resolved and lrh validate reports 0 errors
 ---
 
-# WS-EVENT-ROLE-WORLD
+# Workstream: SF Event-Role-World Extractor Implementation
 
 ## Purpose
 
@@ -33,10 +34,11 @@ that has already been through two rounds of reviewer feedback.
 
 ## Scope
 
-- Implement the v0.1 seed extractor described in the proposal's "Proposed
-  v0.1 deliverable" section: segment metadata, GACD/ERAC reuse, cohesion
-  fields, confidence/rationale, per-segment audit, validation report, and
-  optional SF feature tags.
+- Implement the proposal's Recommended staged pipeline (stages 1-9): input
+  contract, surface feature pass, entity participant pass, event-role pass,
+  anchor pass, relation pass, discourse/SF tag pass, optional hypothesis
+  pass, and validation/export — reusing the existing segment/evidence
+  substrate as the input contract rather than reimplementing it.
 - Wire new Event-Role-World object schemas through the backend's existing
   `tool=` structured-output path (per the proposal's Implementation
   prerequisites section) rather than the current scene/sequel prompts'
@@ -50,9 +52,12 @@ that has already been through two rounds of reviewer feedback.
 ## Prior Art Check
 
 ### Duplication search
-- In-repo: No existing implementation found (no `EventRoleWorld`/
-  `event_role_world` module or references anywhere in `lcats/` or
-  `.claude/skills/`).
+- In-repo: No existing implementation found in `lcats/lcats/`. The
+  governing proposal's own architecture sketch names an
+  `EventRoleWorldProcessor` and a suggested `event_role_world/` module
+  layout (`00_proposal.md:91`, `00_proposal.md:132`) — these are design
+  sketches, not code; no implementation exists under `lcats/lcats/`. (This
+  repo has no `.claude/skills/` directory to check.)
 - Sibling repos: None identified.
 - External libraries: None identified.
 - Recommendation: Proceed.
@@ -65,13 +70,22 @@ that has already been through two rounds of reviewer feedback.
 
 ## Work Items
 
-No work items exist yet. The recommended first work item covers the
-proposal's own "Proposed v0.1 deliverable" scope: stage 0 (story loading)
-through stage 5 (agreement and quality metrics), reusing the existing
-`make_annotated_segment_extractor` two-pass extractor, plus the backend
-`tool=` schema-wiring fix and the cost/baseline reporting requirements.
-Later annotator layers (relation, discourse/SF-tag, hypothesis passes) are
-expected as follow-up work items once v0.1 lands. To be created via
+No work items exist yet. The proposal's own Recommended staged pipeline
+(stages 1-9) does not define an early/late split — stages 1-7 and 9 are
+presented as the main pipeline, with only stage 8 (optional hypothesis
+pass) marked explicitly optional. The following phasing is a
+workstream-level scoping decision, not something the proposal itself
+prescribes:
+
+The recommended first work item covers stages 1-5 (input contract through
+anchor pass): reusing the existing segment/evidence substrate as input,
+extracting entities/participants/actant roles and events/semantic roles,
+and anchoring them temporally and spatially — plus the backend `tool=`
+schema-wiring fix and the cost/baseline reporting requirements. Stages 6-7
+(relation, discourse/SF tag) and stage 9 (validation/export) are expected
+as closely-following follow-up work items, since validation/export is
+required to check any of the earlier stages' output; stage 8 (hypothesis
+pass) remains optional per the proposal itself. To be created via
 `/lrh-work-item` after this workstream is confirmed.
 
 ## Exit Criteria
