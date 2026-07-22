@@ -63,16 +63,21 @@ This proposal does not:
 
 ## Implementation prerequisites
 
-Design principle 5 (strict schemas over unconstrained JSON) is not yet
-supported by the current LLM backend. `OpenAIBackend.complete` only ever
-requests `{"type": "json_object"}` mode, which guarantees valid JSON but not
-conformance to any particular schema; it does not yet request JSON Schema or
-tool/function-based structured output. Before any Event-Role-World object
-(`Event`, `EntityMention`, `EventRelation`, etc.) is treated as schema-valid
-rather than best-effort-parsed, the implementation must add JSON Schema or
-tool-based structured-output support to the backend. This is a stage-0
-blocking task for the first implementation work item, not an optional later
-upgrade.
+`OpenAIBackend.complete` and `AnthropicBackend.complete` already support
+tool/function-based structured output: when a caller passes `tool`, both
+backends convert `tool["input_schema"]` into the provider's function/tool
+schema, force the model to call that tool, and return parsed, schema-checked
+arguments (`OpenAIBackend.complete`, `AnthropicBackend.complete`). Only the
+no-`tool` path falls back to unconstrained `{"type": "json_object"}` mode.
+No backend engineering is required as a stage-0 blocker.
+
+The actual requirement for design principle 5 (strict schemas over
+unconstrained JSON) is narrower: the Event-Role-World extractor implementation
+must define a JSON Schema for each output object (`Event`, `EntityMention`,
+`EventRelation`, etc.) and call the backend through the existing `tool=`
+path instead of the current scene/sequel prompts' unconstrained
+`json_object` mode. This is extractor-side schema and call-site work, not a
+backend capability gap.
 
 ## High-level architecture
 
@@ -243,14 +248,24 @@ coverage so genre comparisons remain auditable.
 
 ### Cost and baseline requirements
 
-- Each annotator pass must document whether it is LLM-backed or NLP-only, and
-  the pipeline must report total LLM calls per segment and per story so cost
-  and latency at corpus scale are visible before a full run is committed to.
-- A fixed-chunk baseline and a segment-only (no event/relation/SF-tag)
-  baseline must be run and exported alongside every SF-vs-other-genre
-  comparison metric. Genre-comparison claims are not reportable in the paper
-  without an accompanying baseline showing the effect is not an artifact of
-  chunking or story length.
+- Each annotator pass must document whether it is LLM-backed or NLP-only. For
+  LLM-backed passes, the pipeline must record input/output token counts,
+  model, and elapsed time per pass, not just a call count, since segments and
+  annotators vary enough in output volume that call counts alone do not make
+  cost or latency visible before a full run is committed to. The backend
+  already returns token counts and model per call (`BackendResponse`), so
+  this is a reporting requirement, not new backend capability.
+- Every SF-vs-other-genre comparison metric must be accompanied by a
+  fixed-chunk-vs-segment comparison: run the same full Event-Role-World
+  extractor over both scene/sequel segments and fixed-token chunks,
+  controlling for segment/story length, so genre differences are not
+  confounded with the chunking strategy. A segment-only baseline (scene/sequel
+  labels without event/relation/SF-tag enrichment) is a separate, narrower
+  control and only applies to metrics it can compute directly from segment
+  structure (segment-type distribution, segment length, coverage) — it cannot
+  be used for metrics that require the event/relation/SF-tag layers (event-type
+  distributions, causal-link density, SF-tag counts), since those layers are
+  exactly what the segment-only baseline omits.
 - A stratified sample across genres, eras, and extraction-confidence bands
   must receive human review before any comparison metric is treated as
   publication-quality.
@@ -266,7 +281,7 @@ coverage so genre comparisons remain auditable.
 | Graph-extraction overreach | Keep JSON canonical, validate IDs first, and defer graph-database adoption. |
 | Confusing interpretive hypotheses with extractive facts | Separate hypothesis fields, certainty, and confidence; exclude optional hypotheses from primary quantitative claims unless validated. |
 | Duplicating prior scene/sequel work | Make existing segments the input contract and retain the stated non-goals. |
-| LLM cost/latency at corpus scale from up to seven annotator passes per segment | Report LLM calls per segment/story; identify which annotators can run as NLP-only; gate a full-corpus run behind a cost estimate from the pilot sample. |
+| LLM cost/latency at corpus scale from up to seven annotator passes per segment | Report token counts, model, and elapsed time per pass (not just call counts); identify which annotators can run as NLP-only; gate a full-corpus run behind a cost estimate from the pilot sample. |
 
 ## Resulting scientific claim
 
