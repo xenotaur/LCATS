@@ -149,15 +149,91 @@ NLTK's standard tagger is trained on a narrow, dated news corpus with no
 demonstrated advantage over the alternatives for this project's text.
 
 **If adoption becomes justified later, spaCy is the best-positioned
-candidate**: MIT-licensed (matches LCATS), a footprint comparable to NLTK's
-and UDPipe's — not categorically smaller, per the table above — no heavy
-ML framework requirement, and the most actively maintained, feature-rich
-API of the three lightweight options (tokenization, POS tagging,
-dependency parsing, and lemmatization in one package). Adoption should not
-proceed, however, without first running a small stratified accuracy sample
-against this corpus's actual prose — the governing proposal's own
-validation principle (span-grounded, evidence-backed claims) applies as
-much to a tooling decision as to an extraction result.
+candidate under an English-only assumption**: MIT-licensed (matches
+LCATS), a footprint comparable to NLTK's and UDPipe's — not categorically
+smaller, per the table above — no heavy ML framework requirement, and the
+most actively maintained, feature-rich API of the three lightweight
+options (tokenization, POS tagging, dependency parsing, and lemmatization
+in one package). Adoption should not proceed, however, without first
+running a small stratified accuracy sample against this corpus's actual
+prose — the governing proposal's own validation principle (span-grounded,
+evidence-backed claims) applies as much to a tooling decision as to an
+extraction result. **This "best-positioned" judgment assumes the corpus
+stays English-only — see the follow-up discussion below, which reopens
+that assumption.**
+
+## Follow-up discussion: multilingual direction and dependency cost
+
+After this document's initial recommendation, the team discussed it
+further and raised two points that revise — without overturning — the
+analysis above.
+
+**Multilingual direction.** The original Stanza assessment reasoned that
+"the multilingual breadth is not a requirement for LCATS's English-only
+corpus" (Candidates surveyed, above) and weighed its PyTorch dependency as
+a disproportionate cost on that basis. If a multilingual corpus is an
+actual near-term direction for LCATS rather than a distant possibility,
+that premise no longer holds — but the choice is not narrowly "Stanza or
+nothing." UDPipe also provides genuine multilingual support: its
+Universal Dependencies 2.15 release covers 93 languages across 169 models,
+each exposing the same tokenizer/tagger/lemmatizer/parser interface, so
+adding a language is a model download, not a separate code integration —
+comparable in kind to Stanza's approach. spaCy and NLTK, by contrast,
+would each need real per-language integration work (spaCy ships
+per-language pipelines with varying feature completeness; NLTK has no
+comparable unified multilingual tagging/parsing interface). If
+multilingual support drives the decision, the live comparison is between
+Stanza and UDPipe on their respective merits (Stanza: PyTorch dependency,
+broader active development, arguably stronger accuracy; UDPipe: no heavy
+framework, smaller footprint, but the CC BY-NC-SA model-license question
+already raised above) — not a foregone conclusion in Stanza's favor.
+[UDPipe 2 models](https://ufal.mff.cuni.cz/udpipe/2/models)
+
+**PyTorch cost reconsideration.** The team's view is that the PyTorch
+dependency may be less disqualifying than this document originally
+treated it, on the expectation that LCATS may need something like PyTorch
+for other future work regardless of this decision. Checking the repo for
+supporting evidence: this document originally claimed
+`lcats/lcats/datasets/torchdata.py:5` (which imports `from
+torch.utils.data import Dataset`) was unused elsewhere in the repo — that
+claim was wrong. A broader search (beyond just the installable
+`lcats/lcats/` package) finds real consumers: `lcats/KMo/scenes.py:33` and
+`lcats/KMo/analyze.py:29` both import it directly
+(`from lcats.datasets import torchdata`), and four notebooks
+(`notebooks/03_datasets.ipynb`, `07_project_reboot.ipynb`,
+`08_cbr_rag_reboot.ipynb`, `09_scene_analysis.ipynb`) also use it. `torch`
+itself is still not declared in `lcats/pyproject.toml`'s dependencies, so
+these consumers depend on a manually-installed, undeclared package — but
+this is meaningfully stronger evidence for the team's point than the
+original single-unused-import framing: PyTorch has been reached for
+repeatedly across scripts and notebooks, not once. It remains true that no
+part of the installable `lcats` package itself depends on it today, and
+formalizing it as a declared dependency is still a decision to make, not
+something already done.
+
+**Team familiarity.** Separately, the team has more hands-on experience
+with NLTK than with spaCy. This does not change the factual concerns
+raised above about NLTK's tagger (Penn Treebank training domain, dated
+API) but is a legitimate practical factor — implementation speed and
+risk — that the original evaluation did not weigh at all.
+
+**What this changes:** the core recommendation is unchanged — defer
+adoption until a stratified accuracy sample is run against LCATS's actual
+prose, since no candidate (including Stanza and UDPipe) has demonstrated
+accuracy on comparable text, and a multilingual direction raises the bar
+for that validation rather than lowering it. What changes is the "if
+adoption is justified later, spaCy is best" sub-recommendation: it now
+depends on whether the multilingual direction is near-term (favors
+reconsidering Stanza and UDPipe against each other, with Stanza's
+dependency cost weighed against the team's other anticipated PyTorch
+needs and UDPipe's model-license question) or remains a longer-term
+possibility (favors the original English-only reasoning, in which case
+NLTK's team familiarity is a legitimate tie-breaking factor against spaCy
+alongside the accuracy question). This document does not resolve which
+branch applies, nor does it pick a winner between Stanza and UDPipe for
+the multilingual case — those are corpus-roadmap and further-evaluation
+decisions for the team to make, not ones this document is positioned to
+make on its own.
 
 ## Tension with WI-EVENT-0024's acceptance criteria
 
@@ -181,10 +257,14 @@ complete:
    and structural features the heuristic approach actually produces,
    explicitly deferring "syntactic, morphological" to a future work item
    contingent on this document's adoption conditions being met; or
-2. **Adopt a lightweight library now** (spaCy, per the recommendation
-   above) rather than deferring, accepting the unverified-accuracy risk on
-   this corpus in exchange for satisfying the literal acceptance criterion
-   today.
+2. **Adopt a library now** rather than deferring, accepting the
+   unverified-accuracy risk on this corpus in exchange for satisfying the
+   literal acceptance criterion today. Which library depends on the
+   corpus-roadmap decision raised in the Follow-up discussion above
+   (spaCy for an English-only future; Stanza or UDPipe if multilingual
+   support is near-term) — this is no longer a settled choice, and the
+   implementer should not default to spaCy without first checking whether
+   that roadmap decision has been made.
 
 This document's own recommendation (defer) implies option 1 is the
 consistent path, but that is `WI-EVENT-0024`'s decision to make, not one
