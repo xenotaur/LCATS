@@ -2,14 +2,14 @@
 execution_id: 2026_07_23_12_09_25_WI_EVENT_0025_INVESTIGATION_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_EVENT_0025_INVESTIGATION_REVIEW)[2026-07-23T11:47:50-04:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_07_23_04_21_57_WI_EVENT_0025
 pr: https://github.com/xenotaur/LCATS/pull/146
-commit: a4c218d
+commit: d3236eaebe7f0c353c0353ae744fdf95d89a9894
 created_at: 2026-07-23T12:09:25-04:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/146
-session_transcript: pending
+session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
 ---
 
 # Summary

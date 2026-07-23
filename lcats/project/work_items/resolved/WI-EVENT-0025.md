@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Investigation complete — evaluated spaCy, NLTK, Stanza, and UDPipe for stage-2 surface-feature extraction; recommended deferring adoption (no candidate has demonstrated accuracy on this corpus, and each has a real cost). Delivered as project/design/event-role-world-surface-feature-nlp-evaluation.md, merged in PR #146 (commit d3236ea). Flagged an open tension with WI-EVENT-0024's acceptance criteria for that work item to resolve."
 blocked_reason: null
 blocked: false
 id: WI-EVENT-0025
 title: Evaluate NLP library for Event-Role-World surface-feature extraction
 type: investigation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
