@@ -45,6 +45,14 @@ class JSONPromptExtractor:
         If provided, called to post-process the parsed JSON and fill canonical offsets.
     result_validator : Optional[Callable[[Dict[str, Any], str, Any], Dict[str, Any]]]
         If provided, runs AFTER alignment and attaches a 'validation_report' to the result.
+    tool_schema : Optional[Dict[str, Any]]
+        If provided, passed as `tool=` to the backend's `complete()` call
+        (see lcats.llm.backend.LLMBackend), forcing schema-checked
+        structured output instead of json_object mode. When set, the
+        backend's `tool_result` is used directly as both `parsed_output`
+        and `extracted_output` — `output_key`/text-JSON parsing are not
+        used. Callers still get alignment/validation hooks applied to the
+        tool result if `result_aligner`/`result_validator` are provided.
     """
 
     def __init__(
@@ -66,6 +74,7 @@ class JSONPromptExtractor:
         result_validator: Optional[
             Callable[[Dict[str, Any], str, Any], Dict[str, Any]]
         ] = None,
+        tool_schema: Optional[Dict[str, Any]] = None,
     ):
         if client is not _UNSET:
             if backend is not _UNSET:
@@ -103,6 +112,7 @@ class JSONPromptExtractor:
         self.text_indexer = text_indexer
         self.result_aligner = result_aligner
         self.result_validator = result_validator
+        self.tool_schema = tool_schema
 
         # Debug/inspection hooks
         self.last_messages: Optional[List[Dict[str, str]]] = None
@@ -301,16 +311,30 @@ class JSONPromptExtractor:
                 model=model,
                 temperature=self.temperature,
                 max_tokens=self.max_tokens,
+                tool=self.tool_schema,
             )
             self.last_response = backend_response
             raw_output = backend_response.text
 
-            if not raw_output:
+            if not raw_output and self.tool_schema is None:
                 api_error = {
                     "status": None,
                     "code": "empty_response",
                     "type": "client_or_server",
                     "message": "No content returned by backend.",
+                    "raw": repr(backend_response),
+                    "category": "unknown",
+                    "can_retry": True,
+                    "needs_smaller_request": False,
+                    "should_abort_batch": False,
+                    "suggested_action": "retry_with_backoff",
+                }
+            elif self.tool_schema is not None and backend_response.tool_result is None:
+                api_error = {
+                    "status": None,
+                    "code": "empty_tool_result",
+                    "type": "client_or_server",
+                    "message": "No tool_result returned by backend for tool_schema call.",
                     "raw": repr(backend_response),
                     "category": "unknown",
                     "can_retry": True,
@@ -342,6 +366,66 @@ class JSONPromptExtractor:
 
         self.last_raw_output = raw_output
 
+        extraction_error = None
+        alignment_error = None
+        validation_error = None
+        validation_report = None
+        extracted = None
+
+        if self.tool_schema is not None:
+            # Tool/function-calling path: the backend already validated the
+            # arguments against tool_schema, so there is no JSON-text parse
+            # step. `tool_result` stands in for both `parsed` and `extracted`.
+            parsing_error = None
+            parsed = backend_response.tool_result if backend_response else None
+            if api_error:
+                extraction_error = "api_error"
+            elif parsed is not None:
+                if self.result_aligner and index_meta is not None:
+                    try:
+                        parsed = self.result_aligner(parsed, story_text, index_meta)
+                    except Exception as exc:
+                        alignment_error = f"alignment failed: {exc!r}"
+                if self.result_validator and index_meta is not None:
+                    try:
+                        validation_report = self.result_validator(
+                            parsed, story_text, index_meta
+                        )
+                    except Exception as exc:
+                        validation_error = f"validation failed: {exc!r}"
+                self.last_validation_report = validation_report
+                extracted = parsed
+            else:
+                extraction_error = "No tool_result returned by backend."
+
+            return {
+                "story_text": story_text,
+                "model_name": (backend_response.model if backend_response else model),
+                "messages": messages,
+                "response": backend_response.raw if backend_response else None,
+                "response_id": getattr(
+                    backend_response.raw if backend_response else None, "id", None
+                ),
+                "usage": (
+                    {
+                        "input_tokens": backend_response.input_tokens,
+                        "output_tokens": backend_response.output_tokens,
+                    }
+                    if backend_response
+                    else None
+                ),
+                "raw_output": raw_output,
+                "parsed_output": parsed,
+                "extracted_output": extracted,
+                "parsing_error": parsing_error,
+                "extraction_error": extraction_error,
+                "alignment_error": alignment_error,
+                "index_meta": index_meta,
+                "validation_report": validation_report,
+                "validation_error": validation_error,
+                "api_error": api_error,
+            }
+
         # Parse (only if we got raw_output and no api_error)
         parsing_error = None
         try:
@@ -349,12 +433,6 @@ class JSONPromptExtractor:
         except json.JSONDecodeError as exc:
             parsed = None
             parsing_error = str(exc)
-
-        extraction_error = None
-        alignment_error = None
-        validation_error = None
-        validation_report = None
-        extracted = None
 
         if api_error:
             extraction_error = "api_error"

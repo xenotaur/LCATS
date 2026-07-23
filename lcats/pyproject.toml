@@ -26,6 +26,8 @@ dependencies = [
    "anthropic",
    "openai>=1.0.0",
    "python-dotenv",
+   "stanza",
+   "spacy",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",

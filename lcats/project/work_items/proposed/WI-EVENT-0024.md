@@ -35,7 +35,7 @@ forbidden_actions:
 acceptance:
   - New Event-Role-World object schemas (EvidenceSpan, EntityMention, Entity, SemanticRole, Event, TemporalAnchor, SpatialAnchor) are defined and validated
   - Extraction calls for these schemas use the backend's existing tool= structured-output path, not json_object mode
-  - Given existing LCATS story JSON plus segments, the extractor produces surface-feature (lexical, syntactic, morphological), entity/participant, event/semantic-role, and temporal/spatial anchor annotations per segment
+  - Given existing LCATS story JSON plus segments, the extractor produces real syntactic/morphological surface features via a swappable NLPBackend (Stanza and spaCy both supported), plus entity/participant, event/semantic-role, and temporal/spatial anchor annotations per segment
   - Per-pass LLM-backed calls record token counts, model, and elapsed time (not just call counts)
   - A fixed-chunk-vs-segment comparison is produced by running the same extractor over both scene/sequel segments and fixed-token chunks, per the proposal's Cost and baseline requirements section
   - lrh validate reports 0 errors and scripts/test passes after all files are written
@@ -46,12 +46,15 @@ required_evidence:
 artifacts_expected:
   - lcats/lcats/analysis/event_role_world/__init__.py
   - lcats/lcats/analysis/event_role_world/schema.py
+  - lcats/lcats/analysis/event_role_world/nlp_backend.py
   - lcats/lcats/analysis/event_role_world/processor.py
   - lcats/lcats/analysis/event_role_world/surface_feature_extractor.py
   - lcats/lcats/analysis/event_role_world/entity_extractor.py
   - lcats/lcats/analysis/event_role_world/event_extractor.py
   - lcats/lcats/analysis/event_role_world/baseline.py
   - lcats/tests/analysis_tests/event_role_world_test.py
+  - lcats/lcats/analysis/llm_extractor.py (extended, not new)
+  - lcats/pyproject.toml (adds stanza, spacy dependencies)
 ---
 
 ## Summary
@@ -107,20 +110,39 @@ whenever the workstream chooses to pick it up.
   running the same extractor over both scene/sequel segments and
   fixed-token chunks, per the proposal's "Cost and baseline requirements"
   section.
+- **Stage 2 surface features (revised from the original scope):**
+  `WI-EVENT-0025`'s NLP-library evaluation
+  (`project/design/event-role-world-surface-feature-nlp-evaluation.md`)
+  recommended deferring library adoption, which created a real tension with
+  this WI's own literal acceptance criterion requiring "syntactic,
+  morphological" output — a dependency-free heuristic cannot produce that.
+  Per an explicit follow-up decision, this work item resolves that tension
+  by **adopting real NLP libraries now** (Stanza first, for near-term
+  multilingual direction; spaCy also supported) rather than narrowing the
+  acceptance criterion. Both libraries are hidden behind a swappable
+  `NLPBackend` Protocol (`nlp_backend.py`), mirroring
+  `lcats.llm.backend.LLMBackend`'s existing pattern
+  (`lcats/lcats/llm/backend.py:31-68`), so the library choice remains
+  swappable rather than locked in.
 
 ## Required Changes
 
 1. Create `lcats/lcats/analysis/event_role_world/` package (`__init__.py`,
-   `schema.py` for the object definitions, `processor.py` for pipeline
-   orchestration, `surface_feature_extractor.py` for stage 2,
-   `entity_extractor.py` for stage 3, `event_extractor.py` for stages 4-5,
-   `baseline.py` for the fixed-chunk-vs-segment comparison) — following the
-   proposal's "Suggested downstream module layout" as a starting point, not
-   a requirement (the proposal itself notes this is "a future LCATS
-   implementation sketch, not an LRH implementation requirement").
+   `schema.py` for the object definitions, `nlp_backend.py` for the
+   swappable NLP-toolkit Protocol (`StanzaBackend`, `SpacyBackend`,
+   `FakeNLPBackend`), `processor.py` for pipeline orchestration,
+   `surface_feature_extractor.py` for stage 2, `entity_extractor.py` for
+   stage 3, `event_extractor.py` for stages 4-5, `baseline.py` for the
+   fixed-chunk-vs-segment comparison) — following the proposal's "Suggested
+   downstream module layout" as a starting point, not a requirement (the
+   proposal itself notes this is "a future LCATS implementation sketch, not
+   an LRH implementation requirement").
 2. Wire extraction calls through the backend's existing `tool=` parameter
    with a JSON Schema per object type, per `00_proposal.md`'s
-   "Implementation prerequisites" section.
+   "Implementation prerequisites" section. Extends
+   `lcats.analysis.llm_extractor.JSONPromptExtractor` with an optional
+   `tool_schema` parameter (backward-compatible; existing callers unaffected)
+   rather than writing a separate extractor class, per design decision.
 3. Add token/model/elapsed-time capture to each LLM-backed pass, using the
    `input_tokens`/`output_tokens`/`model` fields already returned by
    `BackendResponse` (`lcats/lcats/llm/backend.py`).
@@ -132,9 +154,11 @@ whenever the workstream chooses to pick it up.
 5. Implement the fixed-chunk-vs-segment baseline comparison required by the
    proposal's "Cost and baseline requirements" section.
 6. Add `lcats/tests/analysis_tests/event_role_world_test.py` covering
-   schema validation and each extraction pass, including surface features
-   and the baseline comparison.
-7. Add `WI-EVENT-0024` to `WS-EVENT-ROLE-WORLD`'s `work_items:` list.
+   schema validation, each extraction pass, the baseline comparison, and
+   both real `NLPBackend` implementations (each skipped independently, not
+   failed, if its model isn't downloaded locally).
+7. Add `stanza` and `spacy` to `lcats/pyproject.toml` dependencies.
+8. Add `WI-EVENT-0024` to `WS-EVENT-ROLE-WORLD`'s `work_items:` list.
 
 ## Non-Goals
 
@@ -155,17 +179,21 @@ whenever the workstream chooses to pick it up.
 - Extraction calls for these schemas use the backend's existing `tool=`
   structured-output path, not `json_object` mode.
 - Given existing LCATS story JSON plus segments, the extractor produces
-  surface-feature (lexical, syntactic, morphological), entity/participant,
-  event/semantic-role, and temporal/spatial anchor annotations per segment
-  — an implementation that skips stage 2 (surface features) does not
-  satisfy this item.
+  real syntactic/morphological surface features (POS tags, dependency
+  relations, morphological features — not a lexical-only heuristic) via a
+  swappable `NLPBackend`, with both Stanza and spaCy implementations
+  available, plus entity/participant, event/semantic-role, and
+  temporal/spatial anchor annotations per segment — an implementation that
+  skips stage 2 (surface features) does not satisfy this item.
 - Per-pass LLM-backed calls record token counts, model, and elapsed time
   (not just call counts).
 - A fixed-chunk-vs-segment comparison is produced by running the same
   extractor over both scene/sequel segments and fixed-token chunks, per the
   proposal's Cost and baseline requirements section.
 - `lrh validate` reports 0 errors and `scripts/test` passes after all files
-  are written.
+  are written. Tests requiring a downloaded NLP model skip (not fail) when
+  the model isn't present, so `scripts/test` stays runnable in a clean
+  checkout per LCATS's offline/no-network-CI constraint.
 
 ## Validation
 
@@ -182,6 +210,13 @@ whenever the workstream chooses to pick it up.
 - The backend `tool=` path has not previously been exercised for this many
   distinct object schemas in one pipeline; watch for schema-size or
   tool-choice-forcing limits during implementation.
+- Adopting Stanza adds a real PyTorch dependency (not the hypothetical
+  discussed in `WI-EVENT-0025`'s evaluation), meaningfully increasing
+  install size and download time. Neither Stanza's nor spaCy's accuracy on
+  this corpus's older/translated prose has been benchmarked — the
+  evaluation's own recommendation to run a stratified accuracy sample
+  before treating the output as reliable still applies and was not part of
+  this work item's scope.
 
 ## Related Workstream and Designs
 
