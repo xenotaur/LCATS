@@ -10,7 +10,8 @@ related_focus: []
 related_roadmap: []
 related_design:
   - project/design/proposals/proposed/lcats-event-role-world-extractor/00_proposal.md
-work_items: []
+work_items:
+  - WI-EVENT-0024
 exit_criteria:
   - The proposal's Recommended staged pipeline stages 1-7 and 9 (input contract, surface feature pass, entity participant pass, event-role pass, anchor pass, relation pass, discourse/SF tag pass, and validation/export) are implemented, reusing the existing segment/evidence substrate without reimplementing scene/sequel extraction
   - The optional hypothesis pass (stage 8) is implemented, or explicitly deferred with a follow-up work item recorded
@@ -70,23 +71,23 @@ that has already been through two rounds of reviewer feedback.
 
 ## Work Items
 
-No work items exist yet. The proposal's own Recommended staged pipeline
-(stages 1-9) does not define an early/late split — stages 1-7 and 9 are
-presented as the main pipeline, with only stage 8 (optional hypothesis
-pass) marked explicitly optional. The following phasing is a
-workstream-level scoping decision, not something the proposal itself
-prescribes:
+The proposal's own Recommended staged pipeline (stages 1-9) does not define
+an early/late split — stages 1-7 and 9 are presented as the main pipeline,
+with only stage 8 (optional hypothesis pass) marked explicitly optional.
+The following phasing is a workstream-level scoping decision, not something
+the proposal itself prescribes:
 
-The recommended first work item covers stages 1-5 (input contract through
-anchor pass): reusing the existing segment/evidence substrate as input,
-extracting entities/participants/actant roles and events/semantic roles,
-and anchoring them temporally and spatially — plus the backend `tool=`
-schema-wiring fix and the cost/baseline reporting requirements. Stages 6-7
-(relation, discourse/SF tag) and stage 9 (validation/export) are expected
-as closely-following follow-up work items, since validation/export is
-required to check any of the earlier stages' output; stage 8 (hypothesis
+- **WI-EVENT-0024** — covers stages 1-5 (input contract through anchor
+  pass): reusing the existing segment/evidence substrate as input,
+  extracting entities/participants/actant roles and events/semantic roles,
+  and anchoring them temporally and spatially — plus the backend `tool=`
+  schema-wiring fix and the cost/baseline reporting requirements.
+
+Stages 6-7 (relation, discourse/SF tag) and stage 9 (validation/export) are
+expected as closely-following follow-up work items, since validation/export
+is required to check any of the earlier stages' output; stage 8 (hypothesis
 pass) remains optional per the proposal itself. To be created via
-`/lrh-work-item` after this workstream is confirmed.
+`/lrh-work-item` once WI-EVENT-0024 is underway.
 
 ## Exit Criteria
 
