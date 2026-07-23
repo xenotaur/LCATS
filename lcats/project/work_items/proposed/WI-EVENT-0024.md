@@ -6,6 +6,7 @@ id: WI-EVENT-0024
 title: Implement Event-Role-World extractor stages 1-5 (input contract through anchor pass)
 type: deliverable
 status: proposed
+priority: medium
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -34,8 +35,9 @@ forbidden_actions:
 acceptance:
   - New Event-Role-World object schemas (EvidenceSpan, EntityMention, Entity, SemanticRole, Event, TemporalAnchor, SpatialAnchor) are defined and validated
   - Extraction calls for these schemas use the backend's existing tool= structured-output path, not json_object mode
-  - Given existing LCATS story JSON plus segments, the extractor produces entity/participant, event/semantic-role, and temporal/spatial anchor annotations per segment
+  - Given existing LCATS story JSON plus segments, the extractor produces surface-feature (lexical, syntactic, morphological), entity/participant, event/semantic-role, and temporal/spatial anchor annotations per segment
   - Per-pass LLM-backed calls record token counts, model, and elapsed time (not just call counts)
+  - A fixed-chunk-vs-segment comparison is produced by running the same extractor over both scene/sequel segments and fixed-token chunks, per the proposal's Cost and baseline requirements section
   - lrh validate reports 0 errors and scripts/test passes after all files are written
 required_evidence:
   - lrh_validate
@@ -45,8 +47,10 @@ artifacts_expected:
   - lcats/lcats/analysis/event_role_world/__init__.py
   - lcats/lcats/analysis/event_role_world/schema.py
   - lcats/lcats/analysis/event_role_world/processor.py
+  - lcats/lcats/analysis/event_role_world/surface_feature_extractor.py
   - lcats/lcats/analysis/event_role_world/entity_extractor.py
   - lcats/lcats/analysis/event_role_world/event_extractor.py
+  - lcats/lcats/analysis/event_role_world/baseline.py
   - lcats/tests/analysis_tests/event_role_world_test.py
 ---
 
@@ -99,17 +103,20 @@ whenever the workstream chooses to pick it up.
   (`lcats/lcats/llm/openai_backend.py`, `lcats/lcats/llm/anthropic_backend.py`),
   not `json_object` mode.
 - Cost/baseline reporting: record token counts, model, and elapsed time per
-  LLM-backed pass, per the proposal's "Cost and baseline requirements"
+  LLM-backed pass, and produce a fixed-chunk-vs-segment comparison by
+  running the same extractor over both scene/sequel segments and
+  fixed-token chunks, per the proposal's "Cost and baseline requirements"
   section.
 
 ## Required Changes
 
 1. Create `lcats/lcats/analysis/event_role_world/` package (`__init__.py`,
    `schema.py` for the object definitions, `processor.py` for pipeline
-   orchestration, `entity_extractor.py` for stages 2-3,
-   `event_extractor.py` for stages 4-5) — following the proposal's
-   "Suggested downstream module layout" as a starting point, not a
-   requirement (the proposal itself notes this is "a future LCATS
+   orchestration, `surface_feature_extractor.py` for stage 2,
+   `entity_extractor.py` for stage 3, `event_extractor.py` for stages 4-5,
+   `baseline.py` for the fixed-chunk-vs-segment comparison) — following the
+   proposal's "Suggested downstream module layout" as a starting point, not
+   a requirement (the proposal itself notes this is "a future LCATS
    implementation sketch, not an LRH implementation requirement").
 2. Wire extraction calls through the backend's existing `tool=` parameter
    with a JSON Schema per object type, per `00_proposal.md`'s
@@ -122,9 +129,12 @@ whenever the workstream chooses to pick it up.
    `lcats/lcats/analysis/text_segmenter.py`) as the stage-1 input contract
    — do not reimplement segmentation, paragraph indexing, or GACD/ERAC
    classification.
-5. Add `lcats/tests/analysis_tests/event_role_world_test.py` covering
-   schema validation and each extraction pass.
-6. Add `WI-EVENT-0024` to `WS-EVENT-ROLE-WORLD`'s `work_items:` list.
+5. Implement the fixed-chunk-vs-segment baseline comparison required by the
+   proposal's "Cost and baseline requirements" section.
+6. Add `lcats/tests/analysis_tests/event_role_world_test.py` covering
+   schema validation and each extraction pass, including surface features
+   and the baseline comparison.
+7. Add `WI-EVENT-0024` to `WS-EVENT-ROLE-WORLD`'s `work_items:` list.
 
 ## Non-Goals
 
@@ -145,16 +155,20 @@ whenever the workstream chooses to pick it up.
 - Extraction calls for these schemas use the backend's existing `tool=`
   structured-output path, not `json_object` mode.
 - Given existing LCATS story JSON plus segments, the extractor produces
-  entity/participant, event/semantic-role, and temporal/spatial anchor
-  annotations per segment.
+  surface-feature (lexical, syntactic, morphological), entity/participant,
+  event/semantic-role, and temporal/spatial anchor annotations per segment
+  — an implementation that skips stage 2 (surface features) does not
+  satisfy this item.
 - Per-pass LLM-backed calls record token counts, model, and elapsed time
   (not just call counts).
+- A fixed-chunk-vs-segment comparison is produced by running the same
+  extractor over both scene/sequel segments and fixed-token chunks, per the
+  proposal's Cost and baseline requirements section.
 - `lrh validate` reports 0 errors and `scripts/test` passes after all files
   are written.
 
 ## Validation
 
-- `scripts/version tools`
 - `scripts/format --check --diff`
 - `scripts/lint`
 - `scripts/test`
