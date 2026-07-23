@@ -219,7 +219,19 @@ class SurfaceFeatures:
 
 @dataclasses.dataclass
 class SegmentWorldAnnotation:
-    """Collects all Event-Role-World annotations for one segment."""
+    """Collects all Event-Role-World annotations for one segment.
+
+    Attributes:
+        extraction_errors: Backend/API-level failures (e.g. a transient
+            provider error, an empty tool result) for any LLM-backed pass
+            on this segment. Distinct from validation_errors: an
+            extraction_error means a pass may not have run at all — its
+            "zero results" must not be read as "the pass ran and found
+            nothing."
+        validation_errors: ID-resolution and evidence-alignment failures
+            found by validate_segment_annotation, given whatever entities/
+            events/anchors were actually extracted.
+    """
 
     segment_id: Any
     surface_features: Optional[SurfaceFeatures] = None
@@ -228,6 +240,7 @@ class SegmentWorldAnnotation:
     events: List[Event] = dataclasses.field(default_factory=list)
     temporal_anchors: List[TemporalAnchor] = dataclasses.field(default_factory=list)
     spatial_anchors: List[SpatialAnchor] = dataclasses.field(default_factory=list)
+    extraction_errors: List[str] = dataclasses.field(default_factory=list)
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -241,12 +254,16 @@ class SegmentWorldAnnotation:
             "events": [e.to_dict() for e in self.events],
             "temporal_anchors": [a.to_dict() for a in self.temporal_anchors],
             "spatial_anchors": [a.to_dict() for a in self.spatial_anchors],
+            "extraction_errors": self.extraction_errors,
             "validation_errors": self.validation_errors,
         }
 
 
 def resolve_evidence(
-    quote: str, segment_text: str, source: str = "segment"
+    quote: str,
+    segment_text: str,
+    source: str = "segment",
+    search_from: int = 0,
 ) -> Optional[EvidenceSpan]:
     """Locate `quote` in `segment_text` and build an EvidenceSpan.
 
@@ -254,18 +271,51 @@ def resolve_evidence(
         quote: Exact substring an LLM extraction claimed as evidence.
         segment_text: The text to search within.
         source: EvidenceSpan.source value.
+        search_from: Character offset to start searching from. When a
+            segment repeats the same quote (e.g. "he" mentioned several
+            times), passing the previous match's end_char here resolves
+            each successive claim to the next occurrence instead of
+            silently collapsing every claim onto occurrence 0. Callers
+            resolving multiple evidence spans for the same segment should
+            track a per-quote cursor (see EvidenceCursor).
 
     Returns:
-        An EvidenceSpan if `quote` is found (first occurrence), else None.
+        An EvidenceSpan if `quote` is found at or after `search_from`, else
+        None.
     """
     if not quote:
         return None
-    start = segment_text.find(quote)
+    start = segment_text.find(quote, search_from)
     if start < 0:
         return None
     return EvidenceSpan(
         start_char=start, end_char=start + len(quote), quote=quote, source=source
     )
+
+
+class EvidenceCursor:
+    """Tracks per-quote search positions so repeated quotes within one
+    segment resolve to successive occurrences rather than all collapsing
+    onto the first match.
+
+    Usage: construct one EvidenceCursor per segment (not shared across
+    segments — each segment's text is searched independently), and call
+    `.resolve(quote, segment_text)` for every evidence claim in that
+    segment, in the order the extraction produced them.
+    """
+
+    def __init__(self) -> None:
+        self._next_search_from: Dict[str, int] = {}
+
+    def resolve(
+        self, quote: str, segment_text: str, source: str = "segment"
+    ) -> Optional[EvidenceSpan]:
+        """Resolve `quote`, advancing this cursor's position for `quote`."""
+        search_from = self._next_search_from.get(quote, 0)
+        evidence = resolve_evidence(quote, segment_text, source, search_from)
+        if evidence is not None:
+            self._next_search_from[quote] = evidence.end_char
+        return evidence
 
 
 def validate_segment_annotation(

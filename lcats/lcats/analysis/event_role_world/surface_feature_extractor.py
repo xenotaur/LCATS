@@ -29,10 +29,17 @@ def extract_surface_features(
     sentences = backend.analyze(text) if text.strip() else []
 
     all_tokens = [tok for sent in sentences for tok in sent.tokens]
-    word_count = len(all_tokens)
+    # word_count and avg_word_length are word-rate denominators (used by
+    # baseline.py for entities/events-per-1000-words comparisons), so they
+    # must exclude punctuation tokens (upos == "PUNCT") — otherwise
+    # punctuation density skews the rate rather than word count driving it.
+    # `tokens`/token_count itself still includes punctuation: downstream
+    # consumers of the full token list need it for syntactic analysis.
+    word_tokens = [tok for tok in all_tokens if tok.upos != "PUNCT"]
+    word_count = len(word_tokens)
     sentence_count = len(sentences)
     avg_sentence_length = word_count / sentence_count if sentence_count else 0.0
-    total_word_chars = sum(len(tok.text) for tok in all_tokens)
+    total_word_chars = sum(len(tok.text) for tok in word_tokens)
     avg_word_length = total_word_chars / word_count if word_count else 0.0
 
     return schema.SurfaceFeatures(

@@ -128,16 +128,21 @@ def build_entities(
     Returns:
         (entities, mentions) — mentions whose quote cannot be located in
         `segment_text` are dropped (not fabricated with a guessed span).
+        An entity whose every mention was dropped this way is itself
+        dropped: an entity with zero grounded mentions is ungrounded and
+        would otherwise inflate entity-rate metrics for output the
+        evidence check already rejected. Repeated identical quotes within
+        one entity's mentions resolve to successive occurrences via a
+        per-segment EvidenceCursor, not all onto the first match.
     """
     entities: List[schema.Entity] = []
     mentions: List[schema.EntityMention] = []
+    cursor = schema.EvidenceCursor()
 
     for raw_entity in tool_result.get("entities") or []:
         mention_ids: List[str] = []
         for raw_mention in raw_entity.get("mentions") or []:
-            evidence = schema.resolve_evidence(
-                raw_mention.get("quote", ""), segment_text
-            )
+            evidence = cursor.resolve(raw_mention.get("quote", ""), segment_text)
             if evidence is None:
                 continue
             mention = schema.EntityMention(
@@ -150,6 +155,12 @@ def build_entities(
             )
             mentions.append(mention)
             mention_ids.append(mention.mention_id)
+
+        if not mention_ids:
+            # Every mention's quote was unresolvable: this entity has no
+            # grounded evidence at all. Drop it rather than keep an
+            # ungrounded entity that would inflate entity-rate metrics.
+            continue
 
         entities.append(
             schema.Entity(

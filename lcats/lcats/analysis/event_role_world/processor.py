@@ -87,12 +87,22 @@ def process_segment(
         )
     )
 
+    extraction_errors: List[str] = []
+
     # Stage 3: entities/participants (LLM-backed).
     t0 = time.monotonic()
     entity_result = entity_llm_extractor.extract(segment_text)
     usage_records.append(
         _pass_usage_from_extraction(segment_id, "entity", entity_result, t0)
     )
+    entity_error = entity_result.get("api_error") or entity_result.get(
+        "extraction_error"
+    )
+    if entity_error:
+        # A failed entity pass must not silently read as "zero entities
+        # found" — an empty result here is meaningfully different from an
+        # extraction that never ran/succeeded.
+        extraction_errors.append(f"entity extraction failed: {entity_error}")
     entities, mentions = entity_extractor_module.build_entities(
         entity_result.get("extracted_output") or {}, segment_text
     )
@@ -100,8 +110,11 @@ def process_segment(
     # Stages 4-5: events/semantic-roles + temporal/spatial anchors (LLM-backed).
     # JSONPromptExtractor.extract() only substitutes {story_text}/
     # {indexed_story_text}; entity IDs are interpolated via a dedicated
-    # helper rather than extract() itself, so this makes exactly one
-    # backend call, not two.
+    # helper that still routes through extract() (see
+    # _extract_events_with_entity_ids), so this makes exactly one backend
+    # call, not two, and keeps extract()'s exception/api_error handling
+    # intact rather than letting a transient failure abort process_segments
+    # for every remaining segment.
     entity_ids = [e.entity_id for e in entities]
     t0 = time.monotonic()
     event_result = _extract_events_with_entity_ids(
@@ -110,6 +123,9 @@ def process_segment(
     usage_records.append(
         _pass_usage_from_extraction(segment_id, "event_anchor", event_result, t0)
     )
+    event_error = event_result.get("api_error") or event_result.get("extraction_error")
+    if event_error:
+        extraction_errors.append(f"event/anchor extraction failed: {event_error}")
     events, temporal_anchors, spatial_anchors = (
         event_extractor_module.build_events_and_anchors(
             event_result.get("extracted_output") or {}, segment_text
@@ -124,6 +140,7 @@ def process_segment(
         events=events,
         temporal_anchors=temporal_anchors,
         spatial_anchors=spatial_anchors,
+        extraction_errors=extraction_errors,
     )
     annotation.validation_errors = schema.validate_segment_annotation(
         annotation, segment_text
@@ -154,39 +171,25 @@ def _extract_events_with_entity_ids(
     """Run the event extractor with entity IDs interpolated into the prompt.
 
     JSONPromptExtractor.extract() only substitutes {story_text}/
-    {indexed_story_text} into user_prompt_template; {entity_ids} is
-    resolved here by temporarily formatting the template with both story
-    text and entity IDs, then calling the backend directly with the
-    resulting content — bypassing extract()'s own template formatting for
-    this one extra placeholder.
+    {indexed_story_text} into user_prompt_template. {entity_ids} is
+    resolved by temporarily replacing that one placeholder in the template
+    with a literal string (leaving {story_text}/{indexed_story_text}
+    intact for extract() to fill in as usual), then calling
+    extract() itself — not the backend directly — so a transient provider
+    failure or missing tool_result produces the same normalized
+    api_error/extraction_error result extract() gives every other call,
+    instead of an uncaught exception that would abort process_segments()
+    for every remaining segment.
     """
-    content = event_llm_extractor.user_prompt_template.format(
-        story_text=segment_text,
-        indexed_story_text=segment_text,
-        entity_ids=", ".join(entity_ids) if entity_ids else "(none known yet)",
+    original_template = event_llm_extractor.user_prompt_template
+    entity_ids_text = ", ".join(entity_ids) if entity_ids else "(none known yet)"
+    event_llm_extractor.user_prompt_template = original_template.replace(
+        "{entity_ids}", entity_ids_text
     )
-    messages = [
-        {"role": "system", "content": event_llm_extractor.system_prompt},
-        {"role": "user", "content": content},
-    ]
-    event_llm_extractor.last_messages = messages
-    backend_response = event_llm_extractor.backend.complete(
-        system=event_llm_extractor.system_prompt,
-        messages=[{"role": "user", "content": content}],
-        model=event_llm_extractor.default_model,
-        temperature=event_llm_extractor.temperature,
-        max_tokens=event_llm_extractor.max_tokens,
-        tool=event_llm_extractor.tool_schema,
-    )
-    event_llm_extractor.last_response = backend_response
-    return {
-        "extracted_output": backend_response.tool_result,
-        "model_name": backend_response.model,
-        "usage": {
-            "input_tokens": backend_response.input_tokens,
-            "output_tokens": backend_response.output_tokens,
-        },
-    }
+    try:
+        return event_llm_extractor.extract(segment_text)
+    finally:
+        event_llm_extractor.user_prompt_template = original_template
 
 
 def process_segments(

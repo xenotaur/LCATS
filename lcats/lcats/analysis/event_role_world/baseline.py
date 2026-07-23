@@ -39,23 +39,30 @@ def make_fixed_token_chunks(
     tokens = encoder.encode(text)
     chunks: List[Dict[str, Any]] = []
 
+    # Char offsets are derived by decoding a token-index prefix starting
+    # from token 0 (not per-chunk anchor search): decode(tokens[:0]) == "",
+    # and decode(tokens[:len(tokens)]) round-trips to `text` exactly, since
+    # `tokens` was produced by encoding `text` itself. Anchoring every
+    # offset at index 0 this way keeps offsets correct even when a token
+    # boundary falls in the middle of a multi-byte Unicode character —
+    # decoding a prefix that ends mid-character resolves the same way each
+    # time it's computed, so consecutive chunks' start/end stay consistent
+    # with each other rather than drifting from an independent per-chunk
+    # anchor search.
+    prefix_char_len_cache: Dict[int, int] = {0: 0}
+
+    def _char_len_of_prefix(token_index: int) -> int:
+        if token_index not in prefix_char_len_cache:
+            prefix_char_len_cache[token_index] = len(
+                encoder.decode(tokens[:token_index])
+            )
+        return prefix_char_len_cache[token_index]
+
     chunk_id = 1
     for token_start in range(0, len(tokens), chunk_size_tokens):
         token_end = min(token_start + chunk_size_tokens, len(tokens))
-        chunk_tokens = tokens[token_start:token_end]
-        chunk_text = encoder.decode(chunk_tokens)
-
-        # Locate this decoded chunk's char span within the original text.
-        # tiktoken decode/encode round-trips are not always byte-identical
-        # to a naive substring search, so anchor on the first token's
-        # decoded text (short and reliably findable) rather than the full
-        # chunk, then extend by the chunk's decoded length.
-        anchor = encoder.decode(chunk_tokens[:1]) if chunk_tokens else ""
-        search_from = chunks[-1]["end_char"] if chunks else 0
-        start_char = text.find(anchor, search_from) if anchor else search_from
-        if start_char < 0:
-            start_char = search_from
-        end_char = min(len(text), start_char + len(chunk_text))
+        start_char = _char_len_of_prefix(token_start)
+        end_char = _char_len_of_prefix(token_end)
 
         chunks.append(
             {

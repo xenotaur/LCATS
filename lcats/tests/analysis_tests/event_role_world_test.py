@@ -1,6 +1,7 @@
 """Unit tests for lcats.analysis.event_role_world."""
 
 import unittest
+import unittest.mock
 
 from lcats.llm import backend as llm_backend
 from lcats.analysis.event_role_world import baseline
@@ -352,8 +353,11 @@ class TestBuildEntities(unittest.TestCase):
 
         entities, mentions = entity_extractor.build_entities(tool_result, text)
 
+        # The entity's only mention failed to resolve, leaving it with no
+        # grounded evidence at all - it must be dropped entirely rather than
+        # surfaced as an ungrounded "ghost" entity with an empty mention list.
         self.assertEqual(mentions, [])
-        self.assertEqual(entities[0].mention_ids, [])
+        self.assertEqual(entities, [])
 
     def test_empty_tool_result_produces_no_entities(self):
         entities, mentions = entity_extractor.build_entities({}, "some text")
@@ -448,7 +452,47 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
+class _CharEncoder:
+    """Deterministic, network-free fake tiktoken.Encoding test double.
+
+    Operates at the Python-codepoint level (one "token" per character):
+    exactly reversible, so make_fixed_token_chunks' contiguous-coverage
+    invariants can be tested without depending on tiktoken's real vocab
+    data, per tests/AGENTS.md's determinism guidance.
+    """
+
+    def encode(self, text, **kwargs):
+        return [ord(c) for c in text]
+
+    def decode(self, tokens):
+        return "".join(chr(t) for t in tokens)
+
+
+class _ByteEncoder:
+    """Fake encoder operating at the UTF-8 byte level (one token per byte).
+
+    Mirrors real BPE tokenizers closely enough to test that chunk
+    boundaries falling mid-character (a multi-byte UTF-8 character split
+    across two chunks) still produce correct, non-overlapping,
+    non-duplicated char offsets - the exact failure mode a naive
+    per-chunk-decode approach is vulnerable to.
+    """
+
+    def encode(self, text, **kwargs):
+        return list(text.encode("utf-8"))
+
+    def decode(self, tokens):
+        return bytes(tokens).decode("utf-8", errors="ignore")
+
+
 class TestMakeFixedTokenChunks(unittest.TestCase):
+    def setUp(self):
+        self._encoder_patcher = unittest.mock.patch(
+            "lcats.analysis.story_analysis.get_encoder", return_value=_CharEncoder()
+        )
+        self._encoder_patcher.start()
+        self.addCleanup(self._encoder_patcher.stop)
+
     def test_empty_text_produces_no_chunks(self):
         self.assertEqual(baseline.make_fixed_token_chunks(""), [])
 
@@ -467,6 +511,24 @@ class TestMakeFixedTokenChunks(unittest.TestCase):
             "some short text here", chunk_size_tokens=2
         )
         self.assertTrue(all(c["segment_type"] == "fixed_chunk" for c in chunks))
+
+    def test_offsets_stay_contiguous_when_boundary_splits_a_multibyte_char(self):
+        with unittest.mock.patch(
+            "lcats.analysis.story_analysis.get_encoder", return_value=_ByteEncoder()
+        ):
+            # Each of these characters is multi-byte in UTF-8 (é: 2 bytes,
+            # 世/界: 3 bytes each, 🎉: 4 bytes), so a small chunk_size_tokens
+            # (byte count) is very likely to split at least one character's
+            # bytes across two chunks.
+            text = "café 世界 🎉 more plain text after the emoji to pad it out"
+            chunks = baseline.make_fixed_token_chunks(text, chunk_size_tokens=3)
+
+            self.assertGreater(len(chunks), 1)
+            self.assertEqual(chunks[0]["start_char"], 0)
+            self.assertEqual(chunks[-1]["end_char"], len(text))
+            for prev, nxt in zip(chunks, chunks[1:]):
+                self.assertEqual(prev["end_char"], nxt["start_char"])
+                self.assertLessEqual(prev["end_char"], nxt["end_char"])
 
 
 class TestSummarizeAndCompare(unittest.TestCase):
@@ -522,11 +584,25 @@ class TestSummarizeAndCompare(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 
-@unittest.skipUnless(
-    _SPACY_AVAILABLE,
-    "en_core_web_sm not installed; run `python -m spacy download en_core_web_sm`",
-)
 class TestProcessSegments(unittest.TestCase):
+    """End-to-end processor tests using entirely faked LLM and NLP backends.
+
+    Runs deterministically in any environment, including a clean checkout
+    with no NLP models downloaded: make_nlp_backend is patched to return
+    FakeNLPBackend regardless of the requested backend name, so these tests
+    exercise process_segments' own logic (error propagation, entity-ID
+    threading, usage capture) without depending on a real model. Real
+    NLPBackend integration coverage lives in TestRealNLPBackends instead.
+    """
+
+    def setUp(self):
+        self._nlp_backend_patcher = unittest.mock.patch(
+            "lcats.analysis.event_role_world.surface_feature_extractor.make_nlp_backend",
+            return_value=nlp_backend.FakeNLPBackend(),
+        )
+        self._nlp_backend_patcher.start()
+        self.addCleanup(self._nlp_backend_patcher.stop)
+
     def test_end_to_end_pipeline_with_fakes(self):
         segment_text = "The old machine hummed in the pit. It had run for decades."
 
@@ -640,6 +716,111 @@ class TestProcessSegments(unittest.TestCase):
 
         self.assertEqual(result["segments"], [])
         self.assertEqual(fake.calls, [])
+
+    def test_entity_extraction_failure_is_recorded_not_silently_empty(self):
+        """A failed entity pass must not read as 'zero entities found'."""
+        segment_text = "The machine hummed."
+
+        class _NoToolResultBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                if self.calls == 1:
+                    # Simulate a tool-call failure on the entity pass: no
+                    # tool_result, which JSONPromptExtractor.extract()
+                    # turns into an "empty_tool_result" api_error.
+                    return llm_backend.BackendResponse(
+                        text="",
+                        tool_result=None,
+                        model="fake-1.0",
+                        input_tokens=5,
+                        output_tokens=0,
+                        raw=None,
+                    )
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result={"events": []},
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _NoToolResultBackend()
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        seg = result["segments"][0]
+        self.assertEqual(seg["entities"], [])
+        self.assertTrue(
+            any("entity extraction failed" in e for e in seg["extraction_errors"]),
+            seg["extraction_errors"],
+        )
+
+    def test_event_pass_failure_does_not_abort_remaining_segments(self):
+        """A transient failure on one segment's event pass must not lose
+        every other segment's already-processed results (the bug: bypassing
+        JSONPromptExtractor.extract()'s exception handling let a raised
+        exception propagate out of process_segments entirely)."""
+        segment_text_1 = "The machine hummed."
+        segment_text_2 = "It stopped."
+
+        entity_result_empty = {"entities": []}
+
+        class _RaisesOnSecondCallBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                # Call order per segment: entity, event. Raise only on
+                # segment 1's event call (call #2).
+                if self.calls == 2:
+                    raise RuntimeError("simulated transient provider failure")
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result=(
+                        entity_result_empty if self.calls % 2 == 1 else {"events": []}
+                    ),
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _RaisesOnSecondCallBackend()
+        segments = [
+            {"segment_id": 1, "start_char": 0, "end_char": len(segment_text_1)},
+            {
+                "segment_id": 2,
+                "start_char": len(segment_text_1) + 1,
+                "end_char": len(segment_text_1) + 1 + len(segment_text_2),
+            },
+        ]
+        story_text = segment_text_1 + " " + segment_text_2
+
+        # Must not raise - the transient failure on segment 1's event call
+        # is caught and recorded, not propagated out of process_segments.
+        result = processor.process_segments(
+            story_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        self.assertEqual(len(result["segments"]), 2)
+        seg1 = result["segments"][0]
+        self.assertTrue(
+            any(
+                "event/anchor extraction failed" in e for e in seg1["extraction_errors"]
+            ),
+            seg1["extraction_errors"],
+        )
+        # Segment 2 still got processed despite segment 1's failure.
+        seg2 = result["segments"][1]
+        self.assertEqual(seg2["extraction_errors"], [])
 
 
 if __name__ == "__main__":

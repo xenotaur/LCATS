@@ -174,11 +174,16 @@ def build_events_and_anchors(
     Returns:
         (events, temporal_anchors, spatial_anchors). Events, semantic roles,
         and anchors whose quote cannot be located in `segment_text` are
-        dropped (not fabricated with a guessed span).
+        dropped (not fabricated with a guessed span). Repeated identical
+        quotes across anchors/events/roles resolve to successive
+        occurrences via a per-segment EvidenceCursor shared across all
+        three, not all onto the first match.
     """
+    cursor = schema.EvidenceCursor()
+
     temporal_anchors: List[schema.TemporalAnchor] = []
     for raw in tool_result.get("temporal_anchors") or []:
-        evidence = schema.resolve_evidence(raw.get("quote", ""), segment_text)
+        evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
         temporal_anchors.append(
@@ -196,7 +201,7 @@ def build_events_and_anchors(
 
     spatial_anchors: List[schema.SpatialAnchor] = []
     for raw in tool_result.get("spatial_anchors") or []:
-        evidence = schema.resolve_evidence(raw.get("quote", ""), segment_text)
+        evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
         spatial_anchors.append(
@@ -212,17 +217,13 @@ def build_events_and_anchors(
 
     events: List[schema.Event] = []
     for raw_event in tool_result.get("events") or []:
-        event_evidence = schema.resolve_evidence(
-            raw_event.get("quote", ""), segment_text
-        )
+        event_evidence = cursor.resolve(raw_event.get("quote", ""), segment_text)
         if event_evidence is None:
             continue
 
         semantic_roles: List[schema.SemanticRole] = []
         for raw_role in raw_event.get("semantic_roles") or []:
-            role_evidence = schema.resolve_evidence(
-                raw_role.get("quote", ""), segment_text
-            )
+            role_evidence = cursor.resolve(raw_role.get("quote", ""), segment_text)
             if role_evidence is None:
                 continue
             semantic_roles.append(
