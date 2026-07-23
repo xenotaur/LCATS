@@ -12,6 +12,7 @@ related_design:
   - project/design/proposals/proposed/lcats-event-role-world-extractor/00_proposal.md
 work_items:
   - WI-EVENT-0024
+  - WI-EVENT-0025
 exit_criteria:
   - The proposal's Recommended staged pipeline stages 1-7 and 9 (input contract, surface feature pass, entity participant pass, event-role pass, anchor pass, relation pass, discourse/SF tag pass, and validation/export) are implemented, reusing the existing segment/evidence substrate without reimplementing scene/sequel extraction
   - The optional hypothesis pass (stage 8) is implemented, or explicitly deferred with a follow-up work item recorded
@@ -81,7 +82,13 @@ the proposal itself prescribes:
   pass): reusing the existing segment/evidence substrate as input,
   extracting entities/participants/actant roles and events/semantic roles,
   and anchoring them temporally and spatially — plus the backend `tool=`
-  schema-wiring fix and the cost/baseline reporting requirements.
+  schema-wiring fix and the cost/baseline reporting requirements. Stage 2
+  (surface features) is implemented as a lightweight, dependency-free
+  lexical/structural pass; see WI-EVENT-0025.
+- **WI-EVENT-0025** — investigation (not implementation): evaluates
+  whether a real NLP library (spaCy, NLTK, Stanza, UDPipe) should be
+  adopted for stage 2's syntactic/morphological features, since this repo
+  has no such dependency today. Produces a design recommendation only.
 
 Stages 6-7 (relation, discourse/SF tag) and stage 9 (validation/export) are
 expected as closely-following follow-up work items, since validation/export
