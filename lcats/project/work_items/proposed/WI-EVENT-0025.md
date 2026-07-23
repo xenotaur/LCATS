@@ -50,19 +50,20 @@ recommendation — not an implementation.
 
 ## Problem / Context
 
-`WI-EVENT-0024` implements stage 2 (surface features) as a lightweight,
+`WI-EVENT-0024` (still `status: proposed`, no implementation exists yet —
+there is no `lcats/lcats/analysis/event_role_world/` package in the repo)
+plans to implement stage 2 (surface features) as a lightweight,
 dependency-free lexical/structural pass (word/sentence counts, average
 word/sentence length, punctuation density) rather than true syntactic or
-morphological parsing, since this repo has no POS-tagging dependency today
-(`pyproject.toml` dependencies: `unidecode`, `beautifulsoup4`, `PyYAML`,
-`tiktoken`, `pandas`, `tqdm`, `matplotlib`, `seaborn`, `gutenbergpy`,
-`anthropic`, `openai`, `python-dotenv` — no NLP/parsing library). The
-governing proposal's own "Low-level choices and tradeoffs" table already
-states the general direction — "Use inspectable NLP features plus
-constrained normalization where useful"
-(`00_proposal.md:198`) — but never commits to a specific library or
+morphological parsing, since this repo has no NLP/parsing dependency in
+`pyproject.toml` today. The governing proposal's own "Low-level choices and
+tradeoffs" table already states the general direction — "Use inspectable
+NLP features plus constrained normalization where useful"
+(`00_proposal.md:216`) — but never commits to a specific library or
 integration depth. This work item closes that gap with a concrete
-recommendation before any dependency is added.
+recommendation before any dependency is added, and should be coordinated
+with `WI-EVENT-0024`'s implementation ordering rather than assumed to run
+strictly after it.
 
 ### Duplication search
 - In-repo: No existing NLP library integration or evaluation found. A
