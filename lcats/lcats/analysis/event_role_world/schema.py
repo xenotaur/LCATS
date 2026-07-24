@@ -1,11 +1,13 @@
-"""Event-Role-World object schemas for extractor stages 1-5.
+"""Event-Role-World object schemas for extractor stages 1-7 and 9.
 
 Implements the object responsibilities sketched in the governing proposal's
 "Core schema sketch" (project/design/proposals/proposed/
-lcats-event-role-world-extractor/00_proposal.md), scoped to the stages this
-work item covers: entities/participants, events/semantic roles, and
-temporal/spatial anchors. Relation, discourse, SF-tag, and hypothesis
-objects are out of scope (WI-EVENT-0024 forbidden_actions).
+lcats-event-role-world-extractor/00_proposal.md): entities/participants,
+events/semantic roles, temporal/spatial anchors (WI-EVENT-0024), plus
+relations, speech acts, explanation discourse, and SF world-model tags
+(WI-EVENT-0026). The stage-8 hypothesis object (belief/uncertainty/
+perspective/emotion) remains out of scope (WI-EVENT-0026 forbidden_actions:
+implement_stage_8_hypothesis_pass).
 """
 
 from __future__ import annotations
@@ -188,6 +190,119 @@ class SpatialAnchor:
 
 
 @dataclasses.dataclass
+class EventRelation:
+    """Links two events with a controlled causal/temporal relation type.
+
+    Attributes:
+        certainty: One of "explicit", "strongly_implied", or
+            "weakly_inferred". Per the proposal's causality tradeoff table,
+            explicit/strongly_implied relations belong in the main relations
+            layer; weakly_inferred relations are partitioned into a
+            separate list (see SegmentWorldAnnotation.weakly_inferred_relations)
+            rather than the stage-8 Hypothesis dataclass — this is a storage
+            split on EventRelation itself, not a stage-8 concept.
+    """
+
+    relation_id: str
+    source_event_id: str
+    target_event_id: str
+    relation_type: str
+    evidence: EvidenceSpan
+    certainty: str = "explicit"
+    confidence: float = 1.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "relation_id": self.relation_id,
+            "source_event_id": self.source_event_id,
+            "target_event_id": self.target_event_id,
+            "relation_type": self.relation_type,
+            "evidence": self.evidence.to_dict(),
+            "certainty": self.certainty,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass
+class SpeechAct:
+    """A speech act: who said what to whom, and its function."""
+
+    speech_act_id: str
+    act_type: str
+    evidence: EvidenceSpan
+    speaker_entity_id: Optional[str] = None
+    addressee_entity_ids: List[str] = dataclasses.field(default_factory=list)
+    linked_event_id: Optional[str] = None
+    confidence: float = 1.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "speech_act_id": self.speech_act_id,
+            "act_type": self.act_type,
+            "evidence": self.evidence.to_dict(),
+            "speaker_entity_id": self.speaker_entity_id,
+            "addressee_entity_ids": self.addressee_entity_ids,
+            "linked_event_id": self.linked_event_id,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass
+class ExplanationDiscourse:
+    """Marks an explanatory passage (mechanism or rationale)."""
+
+    explanation_id: str
+    topic: str
+    mechanism_or_rationale_type: str
+    evidence: EvidenceSpan
+    linked_entity_ids: List[str] = dataclasses.field(default_factory=list)
+    linked_event_ids: List[str] = dataclasses.field(default_factory=list)
+    confidence: float = 1.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "explanation_id": self.explanation_id,
+            "topic": self.topic,
+            "mechanism_or_rationale_type": self.mechanism_or_rationale_type,
+            "evidence": self.evidence.to_dict(),
+            "linked_entity_ids": self.linked_entity_ids,
+            "linked_event_ids": self.linked_event_ids,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass
+class SFWorldModelTag:
+    """A controlled SF world-model tag (e.g. anomaly_or_novum, ontological_rule).
+
+    Attributes:
+        status: "extractive" if the text states the tag explicitly,
+            "hypothesis" if inferred — per the proposal's fact/hypothesis
+            distinction, interpretive tags are hypotheses unless the text
+            states them explicitly.
+    """
+
+    tag_id: str
+    tag: str
+    evidence: EvidenceSpan
+    linked_entity_ids: List[str] = dataclasses.field(default_factory=list)
+    linked_event_ids: List[str] = dataclasses.field(default_factory=list)
+    status: str = "hypothesis"
+    confidence: float = 1.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "tag_id": self.tag_id,
+            "tag": self.tag,
+            "evidence": self.evidence.to_dict(),
+            "linked_entity_ids": self.linked_entity_ids,
+            "linked_event_ids": self.linked_event_ids,
+            "status": self.status,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass
 class SurfaceFeatures:
     """Lexical, syntactic, and morphological features for a segment.
 
@@ -222,6 +337,16 @@ class SegmentWorldAnnotation:
     """Collects all Event-Role-World annotations for one segment.
 
     Attributes:
+        relations: EventRelation instances with certainty "explicit" or
+            "strongly_implied" — the main causal/relation layer.
+        weakly_inferred_relations: EventRelation instances with certainty
+            "weakly_inferred", stored separately per the proposal's
+            causality tradeoff table. This is a storage partition on
+            EventRelation itself, not the stage-8 Hypothesis dataclass.
+        speech_acts: SpeechAct instances extracted by the discourse pass.
+        explanations: ExplanationDiscourse instances extracted by the
+            discourse pass.
+        sf_tags: SFWorldModelTag instances extracted by the discourse pass.
         extraction_errors: Backend/API-level failures (e.g. a transient
             provider error, an empty tool result) for any LLM-backed pass
             on this segment. Distinct from validation_errors: an
@@ -230,7 +355,7 @@ class SegmentWorldAnnotation:
             nothing."
         validation_errors: ID-resolution and evidence-alignment failures
             found by validate_segment_annotation, given whatever entities/
-            events/anchors were actually extracted.
+            events/anchors/relations/discourse were actually extracted.
     """
 
     segment_id: Any
@@ -240,6 +365,13 @@ class SegmentWorldAnnotation:
     events: List[Event] = dataclasses.field(default_factory=list)
     temporal_anchors: List[TemporalAnchor] = dataclasses.field(default_factory=list)
     spatial_anchors: List[SpatialAnchor] = dataclasses.field(default_factory=list)
+    relations: List[EventRelation] = dataclasses.field(default_factory=list)
+    weakly_inferred_relations: List[EventRelation] = dataclasses.field(
+        default_factory=list
+    )
+    speech_acts: List[SpeechAct] = dataclasses.field(default_factory=list)
+    explanations: List[ExplanationDiscourse] = dataclasses.field(default_factory=list)
+    sf_tags: List[SFWorldModelTag] = dataclasses.field(default_factory=list)
     extraction_errors: List[str] = dataclasses.field(default_factory=list)
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
@@ -254,6 +386,13 @@ class SegmentWorldAnnotation:
             "events": [e.to_dict() for e in self.events],
             "temporal_anchors": [a.to_dict() for a in self.temporal_anchors],
             "spatial_anchors": [a.to_dict() for a in self.spatial_anchors],
+            "relations": [r.to_dict() for r in self.relations],
+            "weakly_inferred_relations": [
+                r.to_dict() for r in self.weakly_inferred_relations
+            ],
+            "speech_acts": [s.to_dict() for s in self.speech_acts],
+            "explanations": [e.to_dict() for e in self.explanations],
+            "sf_tags": [t.to_dict() for t in self.sf_tags],
             "extraction_errors": self.extraction_errors,
             "validation_errors": self.validation_errors,
         }
@@ -337,6 +476,7 @@ def validate_segment_annotation(
     anchor_ids = {a.anchor_id for a in annotation.temporal_anchors} | {
         a.anchor_id for a in annotation.spatial_anchors
     }
+    event_ids = {e.event_id for e in annotation.events}
 
     for mention in annotation.mentions:
         if mention.entity_id not in entity_ids:
@@ -385,5 +525,255 @@ def validate_segment_annotation(
         span_error = anchor.evidence.validate(segment_text)
         if span_error:
             errors.append(f"spatial anchor {anchor.anchor_id!r}: {span_error}")
+
+    relation_buckets = [
+        (annotation.relations, False),
+        (annotation.weakly_inferred_relations, True),
+    ]
+    for bucket, is_weakly_inferred_bucket in relation_buckets:
+        for relation in bucket:
+            span_error = relation.evidence.validate(segment_text)
+            if span_error:
+                errors.append(f"relation {relation.relation_id!r}: {span_error}")
+            if relation.source_event_id not in event_ids:
+                errors.append(
+                    f"relation {relation.relation_id!r} references unknown "
+                    f"source event {relation.source_event_id!r}"
+                )
+            if relation.target_event_id not in event_ids:
+                errors.append(
+                    f"relation {relation.relation_id!r} references unknown "
+                    f"target event {relation.target_event_id!r}"
+                )
+            is_weakly_inferred_certainty = relation.certainty == "weakly_inferred"
+            if is_weakly_inferred_certainty != is_weakly_inferred_bucket:
+                errors.append(
+                    f"relation {relation.relation_id!r} has certainty "
+                    f"{relation.certainty!r} but is stored in the "
+                    f"{'weakly_inferred_relations' if is_weakly_inferred_bucket else 'relations'} "
+                    "list"
+                )
+
+    for speech_act in annotation.speech_acts:
+        span_error = speech_act.evidence.validate(segment_text)
+        if span_error:
+            errors.append(f"speech act {speech_act.speech_act_id!r}: {span_error}")
+        if (
+            speech_act.speaker_entity_id
+            and speech_act.speaker_entity_id not in entity_ids
+        ):
+            errors.append(
+                f"speech act {speech_act.speech_act_id!r} references unknown "
+                f"speaker entity {speech_act.speaker_entity_id!r}"
+            )
+        for addressee_id in speech_act.addressee_entity_ids:
+            if addressee_id not in entity_ids:
+                errors.append(
+                    f"speech act {speech_act.speech_act_id!r} references "
+                    f"unknown addressee entity {addressee_id!r}"
+                )
+        if speech_act.linked_event_id and speech_act.linked_event_id not in event_ids:
+            errors.append(
+                f"speech act {speech_act.speech_act_id!r} references unknown "
+                f"linked event {speech_act.linked_event_id!r}"
+            )
+
+    for explanation in annotation.explanations:
+        span_error = explanation.evidence.validate(segment_text)
+        if span_error:
+            errors.append(f"explanation {explanation.explanation_id!r}: {span_error}")
+        for eid in explanation.linked_entity_ids:
+            if eid not in entity_ids:
+                errors.append(
+                    f"explanation {explanation.explanation_id!r} references "
+                    f"unknown entity {eid!r}"
+                )
+        for evid in explanation.linked_event_ids:
+            if evid not in event_ids:
+                errors.append(
+                    f"explanation {explanation.explanation_id!r} references "
+                    f"unknown event {evid!r}"
+                )
+
+    for tag in annotation.sf_tags:
+        span_error = tag.evidence.validate(segment_text)
+        if span_error:
+            errors.append(f"SF tag {tag.tag_id!r}: {span_error}")
+        for eid in tag.linked_entity_ids:
+            if eid not in entity_ids:
+                errors.append(
+                    f"SF tag {tag.tag_id!r} references unknown entity {eid!r}"
+                )
+        for evid in tag.linked_event_ids:
+            if evid not in event_ids:
+                errors.append(
+                    f"SF tag {tag.tag_id!r} references unknown event {evid!r}"
+                )
+
+    return errors
+
+
+@dataclasses.dataclass
+class StoryWorldAnnotation:
+    """Story-level reconciliation of per-segment Event-Role-World annotations.
+
+    Reconciles entities across segment boundaries (same canonical name,
+    case-insensitively, is treated as the same real-world entity) and
+    re-qualifies relations with story-scoped event IDs, since Event IDs are
+    only unique within one segment. This is the executable story-level
+    reconciliation the proposal requires beyond just holding per-segment
+    results in a list — see reconcile_story_annotations().
+
+    Attributes:
+        story_id: Identifier for the story these segments belong to.
+        segment_annotations: The per-segment annotations, in segment order.
+        entities: Reconciled entities, one per distinct canonical name
+            (case-insensitive) observed across all segments. entity_id on
+            each is a story-scoped global ID (e.g. "global_e0").
+        entity_alias_map: Maps "{segment_id}:{local_entity_id}" to the
+            reconciled global entity_id, so callers can translate a
+            per-segment entity reference into the story-level entity.
+        relations: All relations (main + weakly_inferred) across every
+            segment, with source_event_id/target_event_id re-qualified to
+            "{segment_id}:{local_event_id}" so they remain unambiguous at
+            story scope (event IDs are otherwise only unique per segment).
+        validation_errors: Story-level validation failures (see
+            validate_story_annotation).
+    """
+
+    story_id: Any
+    segment_annotations: List[SegmentWorldAnnotation] = dataclasses.field(
+        default_factory=list
+    )
+    entities: List[Entity] = dataclasses.field(default_factory=list)
+    entity_alias_map: Dict[str, str] = dataclasses.field(default_factory=dict)
+    relations: List[EventRelation] = dataclasses.field(default_factory=list)
+    validation_errors: List[str] = dataclasses.field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "story_id": self.story_id,
+            "segment_annotations": [a.to_dict() for a in self.segment_annotations],
+            "entities": [e.to_dict() for e in self.entities],
+            "entity_alias_map": dict(self.entity_alias_map),
+            "relations": [r.to_dict() for r in self.relations],
+            "validation_errors": self.validation_errors,
+        }
+
+
+def reconcile_story_annotations(
+    story_id: Any, segment_annotations: List[SegmentWorldAnnotation]
+) -> StoryWorldAnnotation:
+    """Reconcile per-segment annotations into one story-level annotation.
+
+    Args:
+        story_id: Identifier for the story.
+        segment_annotations: Per-segment annotations, in segment order.
+
+    Returns:
+        A StoryWorldAnnotation with entities merged across segments by
+        case-insensitive canonical_name (a simple, deterministic alias
+        heuristic — not full coreference resolution, which remains the
+        existing scene/sequel substrate's job, not this pipeline's), and
+        every relation re-qualified with segment-scoped event IDs.
+
+    Merging is deterministic given the same input: entities are visited in
+    segment order, then within-segment list order, and the first-seen
+    canonical_name (case-insensitively) for a given normalized key becomes
+    the reconciled entity's canonical_name. Running this function twice on
+    the same input produces identical global_entity_ids and ordering.
+    """
+    entities_by_key: Dict[str, Entity] = {}
+    entity_alias_map: Dict[str, str] = {}
+    relations: List[EventRelation] = []
+
+    for segment in segment_annotations:
+        for entity in segment.entities:
+            key = entity.canonical_name.strip().lower()
+            if key not in entities_by_key:
+                global_id = f"global_e{len(entities_by_key)}"
+                entities_by_key[key] = Entity(
+                    entity_id=global_id,
+                    canonical_name=entity.canonical_name,
+                    entity_type=entity.entity_type,
+                    aliases=list(entity.aliases),
+                    actant_roles=list(entity.actant_roles),
+                    confidence=entity.confidence,
+                )
+            else:
+                merged = entities_by_key[key]
+                for alias in entity.aliases:
+                    if alias not in merged.aliases:
+                        merged.aliases.append(alias)
+                for role in entity.actant_roles:
+                    if role not in merged.actant_roles:
+                        merged.actant_roles.append(role)
+                merged.confidence = max(merged.confidence, entity.confidence)
+            entity_alias_map[f"{segment.segment_id}:{entity.entity_id}"] = (
+                entities_by_key[key].entity_id
+            )
+
+        for relation in segment.relations + segment.weakly_inferred_relations:
+            relations.append(
+                dataclasses.replace(
+                    relation,
+                    source_event_id=f"{segment.segment_id}:{relation.source_event_id}",
+                    target_event_id=f"{segment.segment_id}:{relation.target_event_id}",
+                )
+            )
+
+    story = StoryWorldAnnotation(
+        story_id=story_id,
+        segment_annotations=list(segment_annotations),
+        entities=list(entities_by_key.values()),
+        entity_alias_map=entity_alias_map,
+        relations=relations,
+    )
+    story.validation_errors = validate_story_annotation(story)
+    return story
+
+
+def validate_story_annotation(story: StoryWorldAnnotation) -> List[str]:
+    """Validate story-level ID resolution for a StoryWorldAnnotation.
+
+    Per the proposal's Artifact validation section: all entity/event/
+    relation IDs must resolve, and causal links must carry evidence and
+    certainty (already enforced by EventRelation's required fields — this
+    checks that every relation's referenced qualified event ID actually
+    corresponds to a real event in some segment).
+
+    Args:
+        story: The StoryWorldAnnotation to validate.
+
+    Returns:
+        A list of human-readable error strings; empty if valid.
+    """
+    errors: List[str] = []
+
+    qualified_event_ids = {
+        f"{segment.segment_id}:{event.event_id}"
+        for segment in story.segment_annotations
+        for event in segment.events
+    }
+    global_entity_ids = {e.entity_id for e in story.entities}
+
+    for relation in story.relations:
+        if relation.source_event_id not in qualified_event_ids:
+            errors.append(
+                f"story relation {relation.relation_id!r} references unknown "
+                f"source event {relation.source_event_id!r}"
+            )
+        if relation.target_event_id not in qualified_event_ids:
+            errors.append(
+                f"story relation {relation.relation_id!r} references unknown "
+                f"target event {relation.target_event_id!r}"
+            )
+
+    for alias_key, global_id in story.entity_alias_map.items():
+        if global_id not in global_entity_ids:
+            errors.append(
+                f"entity_alias_map entry {alias_key!r} references unknown "
+                f"global entity {global_id!r}"
+            )
 
     return errors
