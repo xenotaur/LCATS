@@ -5,10 +5,13 @@ import unittest.mock
 
 from lcats.llm import backend as llm_backend
 from lcats.analysis.event_role_world import baseline
+from lcats.analysis.event_role_world import discourse_extractor
 from lcats.analysis.event_role_world import entity_extractor
 from lcats.analysis.event_role_world import event_extractor
+from lcats.analysis.event_role_world import export
 from lcats.analysis.event_role_world import nlp_backend
 from lcats.analysis.event_role_world import processor
+from lcats.analysis.event_role_world import relation_extractor
 from lcats.analysis.event_role_world import schema
 from lcats.analysis.event_role_world import surface_feature_extractor
 
@@ -448,6 +451,494 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
+# Tests: relation_extractor (stage 6)
+# ---------------------------------------------------------------------------
+
+
+class TestBuildRelations(unittest.TestCase):
+    def test_builds_explicit_relation_in_main_list(self):
+        text = "The machine hummed, which caused the lights to flicker."
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "ev1",
+                    "target_event_id": "ev2",
+                    "relation_type": "causes",
+                    "quote": "hummed",
+                    "certainty": "explicit",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+        relations, weakly_inferred = relation_extractor.build_relations(
+            tool_result, text
+        )
+        self.assertEqual(len(relations), 1)
+        self.assertEqual(relations[0].relation_id, "r1")
+        self.assertEqual(relations[0].certainty, "explicit")
+        self.assertEqual(weakly_inferred, [])
+
+    def test_partitions_weakly_inferred_relation_into_separate_list(self):
+        text = "The machine hummed."
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "ev1",
+                    "target_event_id": "ev2",
+                    "relation_type": "motivates",
+                    "quote": "hummed",
+                    "certainty": "weakly_inferred",
+                }
+            ]
+        }
+        relations, weakly_inferred = relation_extractor.build_relations(
+            tool_result, text
+        )
+        self.assertEqual(relations, [])
+        self.assertEqual(len(weakly_inferred), 1)
+        self.assertEqual(weakly_inferred[0].certainty, "weakly_inferred")
+
+    def test_drops_relation_with_unresolvable_quote(self):
+        text = "The machine hummed."
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "ev1",
+                    "target_event_id": "ev2",
+                    "relation_type": "causes",
+                    "quote": "not present in text",
+                }
+            ]
+        }
+        relations, weakly_inferred = relation_extractor.build_relations(
+            tool_result, text
+        )
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+
+    def test_empty_tool_result_produces_no_relations(self):
+        relations, weakly_inferred = relation_extractor.build_relations({}, "some text")
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+
+
+# ---------------------------------------------------------------------------
+# Tests: discourse_extractor (stage 7)
+# ---------------------------------------------------------------------------
+
+
+class TestBuildDiscourse(unittest.TestCase):
+    def test_builds_speech_act_explanation_and_sf_tag(self):
+        text = (
+            '"Reroute the plasma conduits," she said, since the core was overheating.'
+        )
+        tool_result = {
+            "speech_acts": [
+                {
+                    "speech_act_id": "sp1",
+                    "act_type": "command",
+                    "quote": "Reroute the plasma conduits",
+                    "speaker_entity_id": "e1",
+                    "addressee_entity_ids": ["e2"],
+                }
+            ],
+            "explanations": [
+                {
+                    "explanation_id": "ex1",
+                    "topic": "overheating core",
+                    "mechanism_or_rationale_type": "technical_operation",
+                    "quote": "the core was overheating",
+                    "linked_entity_ids": ["e2"],
+                }
+            ],
+            "sf_tags": [
+                {
+                    "tag_id": "sf1",
+                    "tag": "technology_as_agent",
+                    "quote": "plasma conduits",
+                    "linked_entity_ids": ["e2"],
+                    "status": "extractive",
+                }
+            ],
+        }
+        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+            tool_result, text
+        )
+        self.assertEqual(len(speech_acts), 1)
+        self.assertEqual(speech_acts[0].speaker_entity_id, "e1")
+        self.assertEqual(len(explanations), 1)
+        self.assertEqual(
+            explanations[0].mechanism_or_rationale_type, "technical_operation"
+        )
+        self.assertEqual(len(sf_tags), 1)
+        self.assertEqual(sf_tags[0].status, "extractive")
+
+    def test_defaults_sf_tag_status_to_hypothesis(self):
+        text = "The old machine hummed."
+        tool_result = {
+            "sf_tags": [
+                {"tag_id": "sf1", "tag": "anomaly_or_novum", "quote": "machine"}
+            ]
+        }
+        _, _, sf_tags = discourse_extractor.build_discourse(tool_result, text)
+        self.assertEqual(sf_tags[0].status, "hypothesis")
+
+    def test_drops_items_with_unresolvable_quotes(self):
+        text = "The machine hummed."
+        tool_result = {
+            "speech_acts": [
+                {"speech_act_id": "sp1", "act_type": "assertion", "quote": "nowhere"}
+            ],
+            "explanations": [
+                {
+                    "explanation_id": "ex1",
+                    "topic": "x",
+                    "mechanism_or_rationale_type": "x",
+                    "quote": "nowhere",
+                }
+            ],
+            "sf_tags": [{"tag_id": "sf1", "tag": "x", "quote": "nowhere"}],
+        }
+        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+            tool_result, text
+        )
+        self.assertEqual(speech_acts, [])
+        self.assertEqual(explanations, [])
+        self.assertEqual(sf_tags, [])
+
+    def test_empty_tool_result_produces_nothing(self):
+        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+            {}, "some text"
+        )
+        self.assertEqual(speech_acts, [])
+        self.assertEqual(explanations, [])
+        self.assertEqual(sf_tags, [])
+
+    def test_same_quote_can_be_claimed_by_multiple_layers(self):
+        """A single passage can legitimately be both a speech act AND an
+        explanation AND an SF tag at once. A shared cursor across layers
+        would let the first layer's claim consume the only occurrence of
+        the quote, silently dropping the later layers' otherwise-valid
+        claims on that same span."""
+        text = '"Reroute the plasma conduits," she said.'
+        tool_result = {
+            "speech_acts": [
+                {
+                    "speech_act_id": "sp1",
+                    "act_type": "command",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+            "explanations": [
+                {
+                    "explanation_id": "ex1",
+                    "topic": "plasma routing",
+                    "mechanism_or_rationale_type": "technical_operation",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+            "sf_tags": [
+                {
+                    "tag_id": "sf1",
+                    "tag": "technology_as_agent",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+        }
+        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+            tool_result, text
+        )
+        self.assertEqual(len(speech_acts), 1)
+        self.assertEqual(len(explanations), 1)
+        self.assertEqual(len(sf_tags), 1)
+
+
+# ---------------------------------------------------------------------------
+# Tests: schema.reconcile_story_annotations / validate_story_annotation (stage 9)
+# ---------------------------------------------------------------------------
+
+
+class TestReconcileStoryAnnotations(unittest.TestCase):
+    def _entity(self, entity_id, canonical_name, aliases=None, mention_ids=None):
+        return schema.Entity(
+            entity_id=entity_id,
+            canonical_name=canonical_name,
+            entity_type="x",
+            aliases=list(aliases or []),
+            mention_ids=list(mention_ids or []),
+        )
+
+    def test_merges_entities_with_same_canonical_name_case_insensitively(self):
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "the machine")]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2, entities=[self._entity("e1", "The Machine")]
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 1)
+        self.assertEqual(
+            story.entity_alias_map,
+            {"1:e1": story.entities[0].entity_id, "2:e1": story.entities[0].entity_id},
+        )
+        self.assertEqual(story.validation_errors, [])
+
+    def test_merges_entities_via_alias_overlap_not_just_canonical_name(self):
+        """Two segments give the same participant different canonical
+        names ("Elizabeth" vs "Liz"), but the second segment's alias list
+        overlaps the first segment's canonical name — matching on
+        canonical_name alone would never notice this and would fragment
+        the participant into two global entities."""
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "Elizabeth")]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            entities=[self._entity("e1", "Liz", aliases=["Elizabeth"])],
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 1)
+        merged = story.entities[0]
+        self.assertEqual(merged.canonical_name, "Elizabeth")
+        self.assertIn("Liz", merged.aliases)
+        self.assertEqual(
+            story.entity_alias_map, {"1:e1": merged.entity_id, "2:e1": merged.entity_id}
+        )
+
+    def test_preserves_segment_qualified_mention_ids_on_merge(self):
+        """Story-level merged entities must not drop Entity.mention_ids —
+        they should be segment-qualified so they stay traceable back to
+        segment_annotations[*].mentions without colliding across segments
+        that both use e.g. mention_id "m1"."""
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            entities=[self._entity("e1", "the machine", mention_ids=["m1"])],
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            entities=[self._entity("e1", "The Machine", mention_ids=["m1"])],
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 1)
+        self.assertEqual(sorted(story.entities[0].mention_ids), ["1:m1", "2:m1"])
+
+    def test_keeps_distinct_entities_separate(self):
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "the machine")]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2, entities=[self._entity("e1", "the captain")]
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 2)
+
+    def test_qualifies_relation_event_ids_with_segment_id(self):
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        relation = schema.EventRelation(
+            relation_id="r1",
+            source_event_id="ev1",
+            target_event_id="ev2",
+            relation_type="causes",
+            evidence=evidence,
+            certainty="explicit",
+        )
+        seg = schema.SegmentWorldAnnotation(segment_id=7, relations=[relation])
+
+        story = schema.reconcile_story_annotations("s1", [seg])
+
+        self.assertEqual(len(story.relations), 1)
+        self.assertEqual(story.relations[0].source_event_id, "7:ev1")
+        self.assertEqual(story.relations[0].target_event_id, "7:ev2")
+
+    def test_entity_alias_merge_across_segments_does_not_disturb_relation_qualification(
+        self,
+    ):
+        """Entity reconciliation (which does span segments) and relation
+        qualification (which does not — see the "Known limitation" note on
+        StoryWorldAnnotation) are independent: merging the same entity seen
+        under different segments must not affect how a same-segment
+        relation's event IDs get qualified. This is NOT a test of a
+        genuinely cross-segment relation (source event in one segment,
+        target event in another) — the current per-segment stage-6
+        relation_extractor cannot produce one, since it only ever sees its
+        own segment's event IDs."""
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        event = schema.Event(
+            event_id="ev1", predicate="p", event_type="x", evidence=evidence
+        )
+        relation = schema.EventRelation(
+            relation_id="r1",
+            source_event_id="ev1",
+            target_event_id="ev1",
+            relation_type="precedes",
+            evidence=evidence,
+            certainty="weakly_inferred",
+        )
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "the machine")], events=[event]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            entities=[self._entity("e1", "The Machine")],
+            events=[event],
+            weakly_inferred_relations=[relation],
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        # Entities from both segments merged into one global entity.
+        self.assertEqual(len(story.entities), 1)
+        global_id = story.entities[0].entity_id
+        self.assertEqual(story.entity_alias_map["1:e1"], global_id)
+        self.assertEqual(story.entity_alias_map["2:e1"], global_id)
+        # The weakly_inferred relation (from segment 2) is qualified with
+        # segment 2's ID, not segment 1's — entirely local to segment 2,
+        # unaffected by the cross-segment entity merge above.
+        self.assertEqual(len(story.relations), 1)
+        self.assertEqual(story.relations[0].source_event_id, "2:ev1")
+        self.assertEqual(story.validation_errors, [])
+
+    def test_validate_story_annotation_flags_dangling_relation(self):
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        relation = schema.EventRelation(
+            relation_id="r1",
+            source_event_id="does_not_exist",
+            target_event_id="also_missing",
+            relation_type="causes",
+            evidence=evidence,
+        )
+        story = schema.StoryWorldAnnotation(story_id="s1", relations=[relation])
+        errors = schema.validate_story_annotation(story)
+        self.assertTrue(any("does_not_exist" in e for e in errors))
+        self.assertTrue(any("also_missing" in e for e in errors))
+
+    def test_reconciliation_is_deterministic(self):
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "the machine")]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2, entities=[self._entity("e1", "The Machine")]
+        )
+
+        story_a = schema.reconcile_story_annotations("s1", [seg1, seg2])
+        story_b = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(story_a.to_dict(), story_b.to_dict())
+
+
+# ---------------------------------------------------------------------------
+# Tests: export (stage 9)
+# ---------------------------------------------------------------------------
+
+
+class TestExport(unittest.TestCase):
+    def _story_with_one_of_everything(self):
+        evidence = schema.EvidenceSpan(start_char=0, end_char=7, quote="machine")
+        entity = schema.Entity(
+            entity_id="e1",
+            canonical_name="the machine",
+            entity_type="x",
+            mention_ids=["m1"],
+        )
+        mention = schema.EntityMention(
+            mention_id="m1", entity_id="e1", text="machine", evidence=evidence
+        )
+        event = schema.Event(
+            event_id="ev1", predicate="hummed", event_type="x", evidence=evidence
+        )
+        relation = schema.EventRelation(
+            relation_id="r1",
+            source_event_id="ev1",
+            target_event_id="ev1",
+            relation_type="causes",
+            evidence=evidence,
+            certainty="explicit",
+        )
+        speech_act = schema.SpeechAct(
+            speech_act_id="sp1", act_type="assertion", evidence=evidence
+        )
+        explanation = schema.ExplanationDiscourse(
+            explanation_id="ex1",
+            topic="t",
+            mechanism_or_rationale_type="x",
+            evidence=evidence,
+        )
+        sf_tag = schema.SFWorldModelTag(
+            tag_id="sf1", tag="novum", evidence=evidence, status="extractive"
+        )
+        seg = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            entities=[entity],
+            mentions=[mention],
+            events=[event],
+            relations=[relation],
+            speech_acts=[speech_act],
+            explanations=[explanation],
+            sf_tags=[sf_tag],
+        )
+        return schema.reconcile_story_annotations("s1", [seg])
+
+    def test_validate_artifacts_passes_for_clean_story(self):
+        story = self._story_with_one_of_everything()
+        self.assertEqual(export.validate_artifacts(story), [])
+
+    def test_validate_artifacts_flags_invalid_sf_tag_status(self):
+        story = self._story_with_one_of_everything()
+        story.segment_annotations[0].sf_tags[0].status = "not_a_valid_status"
+        errors = export.validate_artifacts(story)
+        self.assertTrue(any("invalid status" in e for e in errors))
+
+    def test_validate_artifacts_flags_invalid_relation_certainty(self):
+        story = self._story_with_one_of_everything()
+        story.segment_annotations[0].relations[0].certainty = "not_a_valid_certainty"
+        errors = export.validate_artifacts(story)
+        self.assertTrue(any("invalid certainty" in e for e in errors))
+
+    def test_to_canonical_json_is_deterministic(self):
+        story = self._story_with_one_of_everything()
+        self.assertEqual(
+            export.to_canonical_json(story), export.to_canonical_json(story)
+        )
+
+    def test_build_analysis_tables_covers_every_layer(self):
+        story = self._story_with_one_of_everything()
+        tables = export.build_analysis_tables(story)
+        for table_name in (
+            "entities",
+            "events",
+            "relations",
+            "speech_acts",
+            "explanations",
+            "sf_tags",
+        ):
+            self.assertEqual(len(tables[table_name]), 1, table_name)
+
+    def test_rows_to_jsonl_produces_one_line_per_row(self):
+        rows = [{"a": 1}, {"a": 2}]
+        lines = export.rows_to_jsonl(rows).splitlines()
+        self.assertEqual(len(lines), 2)
+
+    def test_rows_to_csv_handles_empty_rows(self):
+        self.assertEqual(export.rows_to_csv([]), "")
+
+    def test_rows_to_csv_json_encodes_nested_values(self):
+        rows = [{"evidence": {"quote": "x"}, "linked_entity_ids": ["e1"]}]
+        csv_text = export.rows_to_csv(rows)
+        self.assertIn('"quote"', csv_text)
+
+
+# ---------------------------------------------------------------------------
 # Tests: baseline
 # ---------------------------------------------------------------------------
 
@@ -532,7 +1023,18 @@ class TestMakeFixedTokenChunks(unittest.TestCase):
 
 
 class TestSummarizeAndCompare(unittest.TestCase):
-    def _annotation(self, word_count, n_entities, n_events):
+    def _annotation(
+        self,
+        word_count,
+        n_entities,
+        n_events,
+        n_relations=0,
+        n_weakly_inferred_relations=0,
+        n_speech_acts=0,
+        n_explanations=0,
+        n_sf_tags=0,
+    ):
+        evidence = schema.EvidenceSpan(0, 1, "x")
         return schema.SegmentWorldAnnotation(
             segment_id=1,
             surface_features=schema.SurfaceFeatures(
@@ -556,6 +1058,33 @@ class TestSummarizeAndCompare(unittest.TestCase):
                 )
                 for i in range(n_events)
             ],
+            relations=[
+                schema.EventRelation(f"r{i}", "ev0", "ev0", "causes", evidence)
+                for i in range(n_relations)
+            ],
+            weakly_inferred_relations=[
+                schema.EventRelation(
+                    f"wr{i}",
+                    "ev0",
+                    "ev0",
+                    "causes",
+                    evidence,
+                    certainty="weakly_inferred",
+                )
+                for i in range(n_weakly_inferred_relations)
+            ],
+            speech_acts=[
+                schema.SpeechAct(f"sp{i}", "assertion", evidence)
+                for i in range(n_speech_acts)
+            ],
+            explanations=[
+                schema.ExplanationDiscourse(f"ex{i}", "t", "x", evidence)
+                for i in range(n_explanations)
+            ],
+            sf_tags=[
+                schema.SFWorldModelTag(f"sf{i}", "x", evidence)
+                for i in range(n_sf_tags)
+            ],
         )
 
     def test_summarize_computes_per_1000_word_rates(self):
@@ -569,6 +1098,26 @@ class TestSummarizeAndCompare(unittest.TestCase):
         annotations = [self._annotation(word_count=0, n_entities=0, n_events=0)]
         summary = baseline.summarize_annotations(annotations)
         self.assertEqual(summary["entities_per_1000_words"], 0.0)
+
+    def test_summarize_covers_relation_discourse_and_sf_tag_layers(self):
+        annotations = [
+            self._annotation(
+                word_count=500,
+                n_entities=0,
+                n_events=0,
+                n_relations=1,
+                n_weakly_inferred_relations=2,
+                n_speech_acts=3,
+                n_explanations=4,
+                n_sf_tags=5,
+            )
+        ]
+        summary = baseline.summarize_annotations(annotations)
+        self.assertEqual(summary["relations_per_1000_words"], 2.0)
+        self.assertEqual(summary["weakly_inferred_relations_per_1000_words"], 4.0)
+        self.assertEqual(summary["speech_acts_per_1000_words"], 6.0)
+        self.assertEqual(summary["explanations_per_1000_words"], 8.0)
+        self.assertEqual(summary["sf_tags_per_1000_words"], 10.0)
 
     def test_compare_returns_both_strategies(self):
         seg = [self._annotation(word_count=500, n_entities=1, n_events=1)]
@@ -652,7 +1201,37 @@ class TestProcessSegments(unittest.TestCase):
                 }
             ],
         }
-        fake = _SequencedFakeBackend([entity_tool_result, event_tool_result])
+        relation_tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "ev1",
+                    "target_event_id": "ev1",
+                    "relation_type": "enables",
+                    "quote": "hummed",
+                    "certainty": "explicit",
+                }
+            ]
+        }
+        discourse_tool_result = {
+            "sf_tags": [
+                {
+                    "tag_id": "sf1",
+                    "tag": "nonhuman_actant",
+                    "quote": "machine",
+                    "linked_entity_ids": ["e1"],
+                    "status": "extractive",
+                }
+            ]
+        }
+        fake = _SequencedFakeBackend(
+            [
+                entity_tool_result,
+                event_tool_result,
+                relation_tool_result,
+                discourse_tool_result,
+            ]
+        )
         segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
 
         result = processor.process_segments(
@@ -665,10 +1244,13 @@ class TestProcessSegments(unittest.TestCase):
         self.assertEqual(len(seg["events"]), 1)
         self.assertEqual(len(seg["temporal_anchors"]), 1)
         self.assertEqual(len(seg["spatial_anchors"]), 1)
+        self.assertEqual(len(seg["relations"]), 1)
+        self.assertEqual(seg["weakly_inferred_relations"], [])
+        self.assertEqual(len(seg["sf_tags"]), 1)
         self.assertEqual(seg["validation_errors"], [])
 
-        # Exactly one LLM call for entities, one for events - not more.
-        self.assertEqual(len(fake.calls), 2)
+        # Exactly one LLM call each for entities, events, relations, discourse.
+        self.assertEqual(len(fake.calls), 4)
 
         # Cost/usage reporting: token counts, model, and elapsed time per
         # pass - not just call counts (WI-EVENT-0024 acceptance criterion).
@@ -676,10 +1258,17 @@ class TestProcessSegments(unittest.TestCase):
         self.assertIn("surface_feature", usage_by_pass)
         self.assertIn("entity", usage_by_pass)
         self.assertIn("event_anchor", usage_by_pass)
+        self.assertIn("relation", usage_by_pass)
+        self.assertIn("discourse", usage_by_pass)
         self.assertFalse(usage_by_pass["surface_feature"]["is_llm_backed"])
         self.assertTrue(usage_by_pass["entity"]["is_llm_backed"])
         self.assertEqual(usage_by_pass["entity"]["input_tokens"], 10)
         self.assertEqual(usage_by_pass["entity"]["model"], "fake-1.0")
+
+        # Stage 9: story-level reconciliation is included in the result.
+        self.assertIn("story", result)
+        self.assertEqual(len(result["story"]["entities"]), 1)
+        self.assertEqual(result["story"]["entity_alias_map"], {"1:e1": "global_e0"})
 
     def test_entity_ids_from_stage_3_are_passed_to_stage_4_5_prompt(self):
         segment_text = "The machine hummed."
@@ -696,7 +1285,9 @@ class TestProcessSegments(unittest.TestCase):
             ]
         }
         event_tool_result = {"events": []}
-        fake = _SequencedFakeBackend([entity_tool_result, event_tool_result])
+        fake = _SequencedFakeBackend(
+            [entity_tool_result, event_tool_result, {"relations": []}, {}]
+        )
         segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
 
         processor.process_segments(
@@ -821,6 +1412,96 @@ class TestProcessSegments(unittest.TestCase):
         # Segment 2 still got processed despite segment 1's failure.
         seg2 = result["segments"][1]
         self.assertEqual(seg2["extraction_errors"], [])
+
+    def test_relation_extraction_failure_is_recorded_not_silently_empty(self):
+        """A failed relation pass must not read as 'zero relations found'."""
+        segment_text = "The machine hummed."
+
+        class _NoToolResultOnThirdCallBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                if self.calls == 3:
+                    # Call order per segment: entity, event, relation,
+                    # discourse. Simulate a tool-call failure on the
+                    # relation pass (call #3).
+                    return llm_backend.BackendResponse(
+                        text="",
+                        tool_result=None,
+                        model="fake-1.0",
+                        input_tokens=5,
+                        output_tokens=0,
+                        raw=None,
+                    )
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result={},
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _NoToolResultOnThirdCallBackend()
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        seg = result["segments"][0]
+        self.assertEqual(seg["relations"], [])
+        self.assertTrue(
+            any("relation extraction failed" in e for e in seg["extraction_errors"]),
+            seg["extraction_errors"],
+        )
+
+    def test_discourse_extraction_failure_is_recorded_not_silently_empty(self):
+        """A failed discourse pass must not read as 'nothing found'."""
+        segment_text = "The machine hummed."
+
+        class _NoToolResultOnFourthCallBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                if self.calls == 4:
+                    # Call order per segment: entity, event, relation,
+                    # discourse. Simulate a tool-call failure on the
+                    # discourse pass (call #4).
+                    return llm_backend.BackendResponse(
+                        text="",
+                        tool_result=None,
+                        model="fake-1.0",
+                        input_tokens=5,
+                        output_tokens=0,
+                        raw=None,
+                    )
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result={},
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _NoToolResultOnFourthCallBackend()
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        seg = result["segments"][0]
+        self.assertEqual(seg["sf_tags"], [])
+        self.assertTrue(
+            any("discourse extraction failed" in e for e in seg["extraction_errors"]),
+            seg["extraction_errors"],
+        )
 
 
 if __name__ == "__main__":

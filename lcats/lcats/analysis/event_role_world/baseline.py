@@ -95,7 +95,16 @@ def summarize_annotations(
 
     Returns:
         A dict with unit_count, total_word_count, and per-1000-word rates
-        for entities, events, temporal_anchors, and spatial_anchors.
+        for entities, events, temporal_anchors, spatial_anchors, relations
+        (main layer only — weakly_inferred relations are reported
+        separately, since they are a distinct, lower-confidence layer per
+        the proposal's causality tradeoff table, and mixing them into the
+        main relation-density metric would understate how much of that
+        density is speculative), speech_acts, explanations, and sf_tags —
+        the new relation/discourse/SF-tag layers WI-EVENT-0026 introduces,
+        alongside the existing entity/event/anchor ones, so genre-
+        comparison metrics built on these new layers are covered by the
+        same fixed-chunk-vs-segment control as the original layers.
     """
     total_words = sum(
         (a.surface_features.word_count if a.surface_features else 0)
@@ -105,6 +114,13 @@ def summarize_annotations(
     total_events = sum(len(a.events) for a in annotations)
     total_temporal = sum(len(a.temporal_anchors) for a in annotations)
     total_spatial = sum(len(a.spatial_anchors) for a in annotations)
+    total_relations = sum(len(a.relations) for a in annotations)
+    total_weakly_inferred_relations = sum(
+        len(a.weakly_inferred_relations) for a in annotations
+    )
+    total_speech_acts = sum(len(a.speech_acts) for a in annotations)
+    total_explanations = sum(len(a.explanations) for a in annotations)
+    total_sf_tags = sum(len(a.sf_tags) for a in annotations)
 
     return {
         "unit_count": len(annotations),
@@ -117,6 +133,17 @@ def summarize_annotations(
         "spatial_anchors_per_1000_words": _rate_per_1000_words(
             total_spatial, total_words
         ),
+        "relations_per_1000_words": _rate_per_1000_words(total_relations, total_words),
+        "weakly_inferred_relations_per_1000_words": _rate_per_1000_words(
+            total_weakly_inferred_relations, total_words
+        ),
+        "speech_acts_per_1000_words": _rate_per_1000_words(
+            total_speech_acts, total_words
+        ),
+        "explanations_per_1000_words": _rate_per_1000_words(
+            total_explanations, total_words
+        ),
+        "sf_tags_per_1000_words": _rate_per_1000_words(total_sf_tags, total_words),
     }
 
 
