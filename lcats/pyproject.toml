@@ -43,6 +43,10 @@ lcats = "lcats.cli:main"
 "lcats.analysis.corpus" = ["allowlists/*.json"]
 
 [project.optional-dependencies]
+nlp = [
+    "stanza",
+    "spacy",
+]
 test = [
     "ruff",
     "black==25.11.0",
