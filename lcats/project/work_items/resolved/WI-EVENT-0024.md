@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #148 (commit 0a0da98); adds the Event-Role-World extractor stages 1-5 with a swappable Stanza/spaCy NLPBackend."
 blocked_reason: null
 blocked: false
 id: WI-EVENT-0024
 title: Implement Event-Role-World extractor stages 1-5 (input contract through anchor pass)
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
