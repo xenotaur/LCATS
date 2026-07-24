@@ -179,15 +179,22 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
     Returns:
         (speech_acts, explanations, sf_tags) — any item whose quote cannot
         be located in `segment_text` is dropped (not fabricated with a
-        guessed span). Repeated identical quotes across all three resolve
-        to successive occurrences via a per-segment EvidenceCursor shared
-        across all three, not all onto the first match.
+        guessed span). Each layer gets its own EvidenceCursor rather than
+        sharing one: a single passage can legitimately be claimed by more
+        than one layer at once (e.g. the same quoted line is both a speech
+        act and an SF-tagged phrase), and a shared cursor would let the
+        first layer's claim consume the only occurrence, silently starving
+        a later layer's otherwise-valid claim on that same span. Within one
+        layer, repeated identical quotes still resolve to successive
+        occurrences via that layer's own cursor.
     """
-    cursor = schema.EvidenceCursor()
+    speech_act_cursor = schema.EvidenceCursor()
+    explanation_cursor = schema.EvidenceCursor()
+    sf_tag_cursor = schema.EvidenceCursor()
 
     speech_acts: List[schema.SpeechAct] = []
     for raw in tool_result.get("speech_acts") or []:
-        evidence = cursor.resolve(raw.get("quote", ""), segment_text)
+        evidence = speech_act_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
         speech_acts.append(
@@ -204,7 +211,7 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
 
     explanations: List[schema.ExplanationDiscourse] = []
     for raw in tool_result.get("explanations") or []:
-        evidence = cursor.resolve(raw.get("quote", ""), segment_text)
+        evidence = explanation_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
         explanations.append(
@@ -223,7 +230,7 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
 
     sf_tags: List[schema.SFWorldModelTag] = []
     for raw in tool_result.get("sf_tags") or []:
-        evidence = cursor.resolve(raw.get("quote", ""), segment_text)
+        evidence = sf_tag_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
         sf_tags.append(

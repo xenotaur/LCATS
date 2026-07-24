@@ -617,6 +617,44 @@ class TestBuildDiscourse(unittest.TestCase):
         self.assertEqual(explanations, [])
         self.assertEqual(sf_tags, [])
 
+    def test_same_quote_can_be_claimed_by_multiple_layers(self):
+        """A single passage can legitimately be both a speech act AND an
+        explanation AND an SF tag at once. A shared cursor across layers
+        would let the first layer's claim consume the only occurrence of
+        the quote, silently dropping the later layers' otherwise-valid
+        claims on that same span."""
+        text = '"Reroute the plasma conduits," she said.'
+        tool_result = {
+            "speech_acts": [
+                {
+                    "speech_act_id": "sp1",
+                    "act_type": "command",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+            "explanations": [
+                {
+                    "explanation_id": "ex1",
+                    "topic": "plasma routing",
+                    "mechanism_or_rationale_type": "technical_operation",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+            "sf_tags": [
+                {
+                    "tag_id": "sf1",
+                    "tag": "technology_as_agent",
+                    "quote": "Reroute the plasma conduits",
+                }
+            ],
+        }
+        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+            tool_result, text
+        )
+        self.assertEqual(len(speech_acts), 1)
+        self.assertEqual(len(explanations), 1)
+        self.assertEqual(len(sf_tags), 1)
+
 
 # ---------------------------------------------------------------------------
 # Tests: schema.reconcile_story_annotations / validate_story_annotation (stage 9)
@@ -624,9 +662,13 @@ class TestBuildDiscourse(unittest.TestCase):
 
 
 class TestReconcileStoryAnnotations(unittest.TestCase):
-    def _entity(self, entity_id, canonical_name):
+    def _entity(self, entity_id, canonical_name, aliases=None, mention_ids=None):
         return schema.Entity(
-            entity_id=entity_id, canonical_name=canonical_name, entity_type="x"
+            entity_id=entity_id,
+            canonical_name=canonical_name,
+            entity_type="x",
+            aliases=list(aliases or []),
+            mention_ids=list(mention_ids or []),
         )
 
     def test_merges_entities_with_same_canonical_name_case_insensitively(self):
@@ -645,6 +687,49 @@ class TestReconcileStoryAnnotations(unittest.TestCase):
             {"1:e1": story.entities[0].entity_id, "2:e1": story.entities[0].entity_id},
         )
         self.assertEqual(story.validation_errors, [])
+
+    def test_merges_entities_via_alias_overlap_not_just_canonical_name(self):
+        """Two segments give the same participant different canonical
+        names ("Elizabeth" vs "Liz"), but the second segment's alias list
+        overlaps the first segment's canonical name — matching on
+        canonical_name alone would never notice this and would fragment
+        the participant into two global entities."""
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1, entities=[self._entity("e1", "Elizabeth")]
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            entities=[self._entity("e1", "Liz", aliases=["Elizabeth"])],
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 1)
+        merged = story.entities[0]
+        self.assertEqual(merged.canonical_name, "Elizabeth")
+        self.assertIn("Liz", merged.aliases)
+        self.assertEqual(
+            story.entity_alias_map, {"1:e1": merged.entity_id, "2:e1": merged.entity_id}
+        )
+
+    def test_preserves_segment_qualified_mention_ids_on_merge(self):
+        """Story-level merged entities must not drop Entity.mention_ids —
+        they should be segment-qualified so they stay traceable back to
+        segment_annotations[*].mentions without colliding across segments
+        that both use e.g. mention_id "m1"."""
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            entities=[self._entity("e1", "the machine", mention_ids=["m1"])],
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            entities=[self._entity("e1", "The Machine", mention_ids=["m1"])],
+        )
+
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        self.assertEqual(len(story.entities), 1)
+        self.assertEqual(sorted(story.entities[0].mention_ids), ["1:m1", "2:m1"])
 
     def test_keeps_distinct_entities_separate(self):
         seg1 = schema.SegmentWorldAnnotation(
@@ -676,11 +761,18 @@ class TestReconcileStoryAnnotations(unittest.TestCase):
         self.assertEqual(story.relations[0].source_event_id, "7:ev1")
         self.assertEqual(story.relations[0].target_event_id, "7:ev2")
 
-    def test_cross_segment_relation_targets_a_different_segments_event_via_alias(self):
-        """A cross-segment reference: the story-level view must keep a
-        relation's segment-qualified event ID resolvable even though the
-        relation was extracted within one segment's local ID space and the
-        referenced entity is reconciled across a different segment."""
+    def test_entity_alias_merge_across_segments_does_not_disturb_relation_qualification(
+        self,
+    ):
+        """Entity reconciliation (which does span segments) and relation
+        qualification (which does not — see the "Known limitation" note on
+        StoryWorldAnnotation) are independent: merging the same entity seen
+        under different segments must not affect how a same-segment
+        relation's event IDs get qualified. This is NOT a test of a
+        genuinely cross-segment relation (source event in one segment,
+        target event in another) — the current per-segment stage-6
+        relation_extractor cannot produce one, since it only ever sees its
+        own segment's event IDs."""
         evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
         event = schema.Event(
             event_id="ev1", predicate="p", event_type="x", evidence=evidence
@@ -711,8 +803,8 @@ class TestReconcileStoryAnnotations(unittest.TestCase):
         self.assertEqual(story.entity_alias_map["1:e1"], global_id)
         self.assertEqual(story.entity_alias_map["2:e1"], global_id)
         # The weakly_inferred relation (from segment 2) is qualified with
-        # segment 2's ID, not segment 1's, and resolves against segment 2's
-        # own event list.
+        # segment 2's ID, not segment 1's — entirely local to segment 2,
+        # unaffected by the cross-segment entity merge above.
         self.assertEqual(len(story.relations), 1)
         self.assertEqual(story.relations[0].source_event_id, "2:ev1")
         self.assertEqual(story.validation_errors, [])

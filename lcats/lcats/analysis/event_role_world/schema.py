@@ -617,19 +617,32 @@ def validate_segment_annotation(
 class StoryWorldAnnotation:
     """Story-level reconciliation of per-segment Event-Role-World annotations.
 
-    Reconciles entities across segment boundaries (same canonical name,
-    case-insensitively, is treated as the same real-world entity) and
-    re-qualifies relations with story-scoped event IDs, since Event IDs are
-    only unique within one segment. This is the executable story-level
+    Reconciles entities across segment boundaries (matching on canonical
+    name OR any alias, case-insensitively — see reconcile_story_annotations)
+    and re-qualifies relations with story-scoped event IDs, since Event IDs
+    are only unique within one segment. This is the executable story-level
     reconciliation the proposal requires beyond just holding per-segment
     results in a list — see reconcile_story_annotations().
+
+    Known limitation (tracked in WS-EVENT-ROLE-WORLD as a follow-up, not
+    fixed by this WI): relation qualification here only makes segment-local
+    relations safely representable at story scope — it does not, and
+    cannot, discover genuinely cross-segment causal relations (cause in one
+    segment, effect in another). Stage 6's relation_extractor only ever
+    receives its own segment's event IDs, so a relation's source_event_id/
+    target_event_id can never actually reference a different segment's
+    event today; every relation this function qualifies is, by
+    construction, entirely local to the one segment it came from. Real
+    cross-segment relation extraction would require giving stage 6 broader
+    (multi-segment or full-story) context, which is out of this WI's scope.
 
     Attributes:
         story_id: Identifier for the story these segments belong to.
         segment_annotations: The per-segment annotations, in segment order.
-        entities: Reconciled entities, one per distinct canonical name
-            (case-insensitive) observed across all segments. entity_id on
-            each is a story-scoped global ID (e.g. "global_e0").
+        entities: Reconciled entities, one per distinct real-world entity
+            inferred by matching canonical names/aliases across segments
+            (see reconcile_story_annotations). entity_id on each is a
+            story-scoped global ID (e.g. "global_e0").
         entity_alias_map: Maps "{segment_id}:{local_entity_id}" to the
             reconciled global entity_id, so callers can translate a
             per-segment entity reference into the story-level entity.
@@ -672,47 +685,102 @@ def reconcile_story_annotations(
 
     Returns:
         A StoryWorldAnnotation with entities merged across segments by
-        case-insensitive canonical_name (a simple, deterministic alias
+        case-insensitive name matching (a simple, deterministic alias
         heuristic — not full coreference resolution, which remains the
         existing scene/sequel substrate's job, not this pipeline's), and
         every relation re-qualified with segment-scoped event IDs.
 
+    Merging matches an incoming entity against any *previously seen* name
+    for an existing global entity — its own canonical_name or any of its
+    aliases, case-insensitively — not canonical_name alone. This handles
+    the case where the same participant is given a different canonical
+    name across segments (e.g. canonical "Elizabeth" in one segment, then
+    canonical "Liz" with alias "Elizabeth" in another): matching on
+    canonical_name alone would never notice the alias overlap and would
+    fragment the two into separate global entities.
+
+    Every alias/canonical name an entity has ever been merged under is
+    registered so later segments can match through any of them — this
+    only extends transitively forward (a name becomes matchable once
+    something using it has been merged), it does not retroactively
+    reconcile two already-created global entities that turn out to share
+    a name only discovered later.
+
+    Merged entities also carry segment-qualified mention IDs
+    ("{segment_id}:{local_mention_id}") rather than dropping them, so
+    story.entities[i].mention_ids stays traceable back to
+    segment_annotations[*].mentions — the qualification avoids collisions
+    since mention IDs, like entity/event IDs, are only unique per segment.
+
     Merging is deterministic given the same input: entities are visited in
-    segment order, then within-segment list order, and the first-seen
-    canonical_name (case-insensitively) for a given normalized key becomes
-    the reconciled entity's canonical_name. Running this function twice on
-    the same input produces identical global_entity_ids and ordering.
+    segment order, then within-segment list order, name-lookup order is a
+    list (canonical_name first, then aliases in order) rather than set
+    iteration, and the first-seen canonical_name for a given matched global
+    entity becomes its canonical_name. Running this function twice on the
+    same input produces identical global_entity_ids and ordering.
     """
-    entities_by_key: Dict[str, Entity] = {}
+    entities_by_global_id: Dict[str, Entity] = {}
+    name_to_global_id: Dict[str, str] = {}
     entity_alias_map: Dict[str, str] = {}
     relations: List[EventRelation] = []
 
     for segment in segment_annotations:
         for entity in segment.entities:
-            key = entity.canonical_name.strip().lower()
-            if key not in entities_by_key:
-                global_id = f"global_e{len(entities_by_key)}"
-                entities_by_key[key] = Entity(
+            candidate_names = [entity.canonical_name.strip().lower()] + [
+                alias.strip().lower() for alias in entity.aliases
+            ]
+
+            global_id = None
+            for name in candidate_names:
+                if name in name_to_global_id:
+                    global_id = name_to_global_id[name]
+                    break
+
+            qualified_mention_ids = [
+                f"{segment.segment_id}:{mid}" for mid in entity.mention_ids
+            ]
+
+            if global_id is None:
+                global_id = f"global_e{len(entities_by_global_id)}"
+                entities_by_global_id[global_id] = Entity(
                     entity_id=global_id,
                     canonical_name=entity.canonical_name,
                     entity_type=entity.entity_type,
                     aliases=list(entity.aliases),
+                    mention_ids=list(qualified_mention_ids),
                     actant_roles=list(entity.actant_roles),
                     confidence=entity.confidence,
                 )
             else:
-                merged = entities_by_key[key]
-                for alias in entity.aliases:
+                merged = entities_by_global_id[global_id]
+                new_aliases = list(entity.aliases)
+                if entity.canonical_name != merged.canonical_name:
+                    new_aliases.append(entity.canonical_name)
+                for alias in new_aliases:
                     if alias not in merged.aliases:
                         merged.aliases.append(alias)
+                for mid in qualified_mention_ids:
+                    if mid not in merged.mention_ids:
+                        merged.mention_ids.append(mid)
                 for role in entity.actant_roles:
                     if role not in merged.actant_roles:
                         merged.actant_roles.append(role)
                 merged.confidence = max(merged.confidence, entity.confidence)
-            entity_alias_map[f"{segment.segment_id}:{entity.entity_id}"] = (
-                entities_by_key[key].entity_id
-            )
 
+            for name in candidate_names:
+                name_to_global_id[name] = global_id
+            entity_alias_map[f"{segment.segment_id}:{entity.entity_id}"] = global_id
+
+        # Every relation qualified here is, by construction, entirely
+        # local to `segment`: stage 6's relation_extractor only ever
+        # receives this segment's own event IDs (see relation_extractor.py
+        # and processor.py's per-segment placeholder interpolation), so
+        # relation.source_event_id/target_event_id can never actually
+        # reference a different segment's event. Qualifying both endpoints
+        # with `segment.segment_id` is therefore correct for every relation
+        # this pipeline can produce today — see the "Known limitation" note
+        # on StoryWorldAnnotation for what this does not do (discover
+        # genuinely cross-segment causal relations).
         for relation in segment.relations + segment.weakly_inferred_relations:
             relations.append(
                 dataclasses.replace(
@@ -725,7 +793,7 @@ def reconcile_story_annotations(
     story = StoryWorldAnnotation(
         story_id=story_id,
         segment_annotations=list(segment_annotations),
-        entities=list(entities_by_key.values()),
+        entities=list(entities_by_global_id.values()),
         entity_alias_map=entity_alias_map,
         relations=relations,
     )

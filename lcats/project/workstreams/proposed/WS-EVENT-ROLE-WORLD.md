@@ -99,6 +99,26 @@ the proposal itself prescribes:
 
 (see frontmatter `exit_criteria:` above)
 
+## Known Follow-ups
+
+- **Cross-segment relation extraction is not implemented.** WI-EVENT-0026's
+  stage-6 relation pass (and the story-level reconciliation that qualifies
+  its output) only operate within one segment at a time:
+  `relation_extractor.py` only ever receives its own segment's event IDs,
+  so a relation's source/target event can never actually reference a
+  different segment's event today. Story-level reconciliation
+  (`schema.reconcile_story_annotations`) correctly qualifies every
+  same-segment relation for safe story-scoped representation, but it
+  cannot discover or represent a genuinely cross-segment causal link
+  (e.g. a cause established in one scene and its effect appearing several
+  segments later). Raised during WI-EVENT-0026's review
+  (`chatgpt-codex-connector`, PR #150); see the "Known limitation" note on
+  `schema.StoryWorldAnnotation`. If the paper's analysis needs
+  cross-segment causal relations, a follow-up work item should design how
+  stage 6 gets broader (multi-segment or full-story) context — likely a
+  meaningfully different extraction strategy than the current per-segment
+  `tool=` call, so it is not a small addition to WI-EVENT-0026's scope.
+
 ## Non-Goals
 
 - Does not reimplement scene/sequel extraction, GACD/ERAC classification,
