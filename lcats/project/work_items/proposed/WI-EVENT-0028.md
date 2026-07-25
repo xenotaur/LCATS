@@ -22,7 +22,6 @@ depends_on:
 blocked_by: []
 expected_actions:
   - create_file
-  - run_tests
   - create_pr
 forbidden_actions:
   - implement_cross_segment_relation_extraction
