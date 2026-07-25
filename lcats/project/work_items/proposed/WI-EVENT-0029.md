@@ -19,6 +19,7 @@ related_design:
   - project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
   - project/design/event-role-world-cross-segment-relations-evaluation.md
 depends_on:
+  - WI-EVENT-0026
   - WI-EVENT-0028
 blocked_by: []
 expected_actions:
@@ -36,7 +37,9 @@ acceptance:
   - A new PassUsage entry (e.g. "story_relation") records the pass's cost per the existing cost/baseline reporting pattern
   - Story-level relations are held in StoryWorldAnnotation (or an equivalent story-level container), distinct from per-segment relations
   - export.build_analysis_tables includes story-level relations in its "relations" table
-  - baseline.summarize_annotations includes story-level relations in relations_per_1000_words, with defensive de-duplication by relation ID against per-segment relations
+  - Story-level relation IDs are made globally unique (segment-qualified, e.g. "{segment_id}:{relation_id}", mirroring how reconcile_story_annotations already qualifies event IDs) before any deduplication is attempted, since raw relation_id values are not unique across segments today and reusing them for dedup would silently discard unrelated relations
+  - baseline.summarize_annotations includes story-level relations in relations_per_1000_words, with deduplication keyed on the new globally-unique relation identity against per-segment relations
+  - Story-level relations preserve the weakly_inferred/explicit/strongly_implied certainty partition into their reporting: weakly_inferred story-level relations are counted under weakly_inferred_relations_per_1000_words (as per-segment weakly_inferred relations already are), not mixed into the primary relations_per_1000_words density metric
   - The corpus's actual story-length distribution is checked to decide whether option A's long-story windowing caveat (hierarchical chapter-then-story pass) must be built now, with the decision and rationale documented
   - lrh validate reports 0 errors and scripts/test passes
 required_evidence:
@@ -112,17 +115,36 @@ comparison, and recommended option A as the architecture to fix it.
   stage-6a per-segment pass.
 - Reuse `EventRelation.certainty` (`explicit`/`strongly_implied`/
   `weakly_inferred`) unchanged for these new relations — no new schema
-  field is needed to keep speculative cross-segment links partitioned,
-  mirroring how WI-EVENT-0026 already handles same-segment ones.
+  field is needed to keep speculative cross-segment links identifiable.
+  Downstream reporting must still route `weakly_inferred` story-level
+  relations into the same separate density bucket
+  (`weakly_inferred_relations_per_1000_words`) that per-segment
+  weakly-inferred relations already use, rather than aggregating both
+  certainty layers into the primary metric.
 - New `PassUsage` entry (e.g. `"story_relation"`) for cost/token visibility,
   consistent with the existing cost/baseline reporting pattern.
 - Extend `export.py`'s `build_analysis_tables()` to include story-level
   relations in the `"relations"` table.
+- Qualify story-level relation IDs to be globally unique before any
+  deduplication is attempted — `schema.reconcile_story_annotations()`
+  today qualifies each relation's event endpoints but leaves `relation_id`
+  itself unchanged, and separate segment-level LLM calls can both emit a
+  common ID such as `r1`; deduplicating on the raw ID would discard
+  unrelated relations and silently undercount density. Extend the ID
+  qualification to relations themselves (e.g. `"{segment_id}:{relation_id}"`
+  for the story-level pass's own new relations), or use an equivalent
+  composite identity.
 - Extend `baseline.py`'s `summarize_annotations()` to include story-level
-  relations in `relations_per_1000_words`, de-duplicating defensively by
-  relation ID against relations already present in a segment's own
-  `relations` list (do not assume the same-segment-exclusion rule alone
-  prevents double-counting).
+  relations in `relations_per_1000_words`, de-duplicating by the new
+  globally-unique relation identity against relations already present in
+  a segment's own `relations` list (do not assume the same-segment-
+  exclusion rule alone prevents double-counting).
+- Preserve the `weakly_inferred`/`explicit`/`strongly_implied` certainty
+  partition for story-level relations in `baseline.py`'s output: today
+  `summarize_annotations()` reports `weakly_inferred_relations_per_1000_words`
+  separately from the primary `relations_per_1000_words` for per-segment
+  relations, and story-level relations must follow the same split rather
+  than aggregating both certainty layers into one bucket.
 - Check the corpus's actual story-length distribution before deciding
   whether option A's long-story windowing caveat (a hierarchical,
   chapter-level then story-level pass) needs to be built in this item, or
@@ -139,7 +161,11 @@ comparison, and recommended option A as the architecture to fix it.
 2. Extend `lcats/lcats/analysis/event_role_world/schema.py` to hold the
    new story-level relations (on `StoryWorldAnnotation` or an equivalent
    container) and validate them (ID resolution against the global entity/
-   event index, evidence-span alignment, same-segment-link exclusion).
+   event index, evidence-span alignment, same-segment-link exclusion,
+   globally-unique/segment-qualified relation IDs). Keep `weakly_inferred`
+   story-level relations distinguishable from `explicit`/`strongly_inferred`
+   ones (e.g. via separate buckets or certainty-based filtering) so
+   downstream reporting can preserve the existing certainty partition.
 3. Extend `processor.py` (or the story-level orchestration point that
    calls `reconcile_story_annotations`) to run this pass once per story,
    after reconciliation, with its own `PassUsage`/token-tracking entry and
@@ -148,8 +174,11 @@ comparison, and recommended option A as the architecture to fix it.
 4. Extend `export.py`'s `build_analysis_tables()` and `validate_artifacts()`
    to cover story-level relations.
 5. Extend `baseline.py`'s `summarize_annotations()` to include story-level
-   relations in `relations_per_1000_words`, with de-duplication by
-   relation ID.
+   relations in `relations_per_1000_words`, with de-duplication by the new
+   globally-unique relation identity, and route `weakly_inferred`
+   story-level relations into `weakly_inferred_relations_per_1000_words`
+   rather than the primary density metric, matching how per-segment
+   relations are already reported.
 6. Check story-length distribution across the corpus (`lcats/data/`) and
    document the finding and windowing decision in the PR description or a
    short note in this work item's execution record.
@@ -197,7 +226,15 @@ comparison, and recommended option A as the architecture to fix it.
   hierarchical windowing mitigation now rather than deferring it further.
 - Double-counting risk: export and baseline changes must not assume the
   same-segment-exclusion rule alone prevents a relation from being counted
-  twice; de-duplicate defensively by relation ID.
+  twice; raw `relation_id` values are not globally unique across segments
+  today, so dedup must key on a qualified, globally-unique relation
+  identity, not the raw ID.
+- Certainty-partition risk: `weakly_inferred` story-level relations must
+  not be silently merged into the primary `relations_per_1000_words`
+  metric — they need the same separate-bucket treatment
+  `weakly_inferred_relations_per_1000_words` already gives per-segment
+  weakly-inferred relations, or the paper's primary density figure would
+  be contaminated with speculative links.
 
 ## Related Workstream and Designs
 
