@@ -9,6 +9,7 @@ from lcats.analysis.event_role_world import discourse_extractor
 from lcats.analysis.event_role_world import entity_extractor
 from lcats.analysis.event_role_world import event_extractor
 from lcats.analysis.event_role_world import export
+from lcats.analysis.event_role_world import hypothesis_extractor
 from lcats.analysis.event_role_world import nlp_backend
 from lcats.analysis.event_role_world import processor
 from lcats.analysis.event_role_world import relation_extractor
@@ -162,6 +163,24 @@ class TestValidateSegmentAnnotation(unittest.TestCase):
         annotation = schema.SegmentWorldAnnotation(segment_id=1, events=[event])
         errors = schema.validate_segment_annotation(annotation, text)
         self.assertTrue(any("mismatch" in e for e in errors))
+
+    def test_dangling_hypothesis_subject_reference_is_an_error(self):
+        text = "Maria believed the machine was alive."
+        evidence = schema.EvidenceSpan(
+            start_char=6, end_char=38, quote="believed the machine was alive"
+        )
+        hypothesis = schema.Hypothesis(
+            hypothesis_id="h1",
+            hypothesis_type="belief",
+            proposition_or_target="the machine is alive",
+            evidence=evidence,
+            subject_entity_id="unknown_entity",
+        )
+        annotation = schema.SegmentWorldAnnotation(
+            segment_id=1, hypotheses=[hypothesis]
+        )
+        errors = schema.validate_segment_annotation(annotation, text)
+        self.assertTrue(any("unknown subject entity" in e for e in errors))
 
 
 # ---------------------------------------------------------------------------
@@ -657,6 +676,76 @@ class TestBuildDiscourse(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
+# Tests: hypothesis_extractor (stage 8, optional)
+# ---------------------------------------------------------------------------
+
+
+class TestBuildHypotheses(unittest.TestCase):
+    def test_builds_hypothesis_with_subject_and_linked_entity(self):
+        text = "Maria believed the machine was alive."
+        tool_result = {
+            "hypotheses": [
+                {
+                    "hypothesis_id": "h1",
+                    "hypothesis_type": "belief",
+                    "proposition_or_target": "the machine is alive",
+                    "quote": "believed the machine was alive",
+                    "subject_entity_id": "e2",
+                    "linked_entity_ids": ["e1"],
+                    "confidence": 0.7,
+                }
+            ]
+        }
+        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        self.assertEqual(len(hypotheses), 1)
+        self.assertEqual(hypotheses[0].hypothesis_type, "belief")
+        self.assertEqual(hypotheses[0].subject_entity_id, "e2")
+        self.assertEqual(hypotheses[0].linked_entity_ids, ["e1"])
+
+    def test_drops_hypothesis_with_unresolvable_quote(self):
+        text = "Maria believed the machine was alive."
+        tool_result = {
+            "hypotheses": [
+                {
+                    "hypothesis_id": "h1",
+                    "hypothesis_type": "belief",
+                    "proposition_or_target": "x",
+                    "quote": "not present in text",
+                }
+            ]
+        }
+        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        self.assertEqual(hypotheses, [])
+
+    def test_empty_tool_result_produces_no_hypotheses(self):
+        self.assertEqual(hypothesis_extractor.build_hypotheses({}, "some text"), [])
+
+    def test_repeated_quote_resolves_to_successive_occurrences(self):
+        text = "First she feared it. Later, she feared it again."
+        tool_result = {
+            "hypotheses": [
+                {
+                    "hypothesis_id": "h1",
+                    "hypothesis_type": "emotion_appraisal",
+                    "proposition_or_target": "fear, first instance",
+                    "quote": "she feared it",
+                },
+                {
+                    "hypothesis_id": "h2",
+                    "hypothesis_type": "emotion_appraisal",
+                    "proposition_or_target": "fear, second instance",
+                    "quote": "she feared it",
+                },
+            ]
+        }
+        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        self.assertEqual(len(hypotheses), 2)
+        self.assertLess(
+            hypotheses[0].evidence.start_char, hypotheses[1].evidence.start_char
+        )
+
+
+# ---------------------------------------------------------------------------
 # Tests: schema.reconcile_story_annotations / validate_story_annotation (stage 9)
 # ---------------------------------------------------------------------------
 
@@ -877,6 +966,12 @@ class TestExport(unittest.TestCase):
         sf_tag = schema.SFWorldModelTag(
             tag_id="sf1", tag="novum", evidence=evidence, status="extractive"
         )
+        hypothesis = schema.Hypothesis(
+            hypothesis_id="h1",
+            hypothesis_type="belief",
+            proposition_or_target="p",
+            evidence=evidence,
+        )
         seg = schema.SegmentWorldAnnotation(
             segment_id=1,
             entities=[entity],
@@ -886,6 +981,7 @@ class TestExport(unittest.TestCase):
             speech_acts=[speech_act],
             explanations=[explanation],
             sf_tags=[sf_tag],
+            hypotheses=[hypothesis],
         )
         return schema.reconcile_story_annotations("s1", [seg])
 
@@ -905,6 +1001,12 @@ class TestExport(unittest.TestCase):
         errors = export.validate_artifacts(story)
         self.assertTrue(any("invalid certainty" in e for e in errors))
 
+    def test_validate_artifacts_flags_invalid_hypothesis_type(self):
+        story = self._story_with_one_of_everything()
+        story.segment_annotations[0].hypotheses[0].hypothesis_type = "not_a_valid_type"
+        errors = export.validate_artifacts(story)
+        self.assertTrue(any("invalid" in e and "hypothesis_type" in e for e in errors))
+
     def test_to_canonical_json_is_deterministic(self):
         story = self._story_with_one_of_everything()
         self.assertEqual(
@@ -921,6 +1023,7 @@ class TestExport(unittest.TestCase):
             "speech_acts",
             "explanations",
             "sf_tags",
+            "hypotheses",
         ):
             self.assertEqual(len(tables[table_name]), 1, table_name)
 
@@ -1033,6 +1136,7 @@ class TestSummarizeAndCompare(unittest.TestCase):
         n_speech_acts=0,
         n_explanations=0,
         n_sf_tags=0,
+        n_hypotheses=0,
     ):
         evidence = schema.EvidenceSpan(0, 1, "x")
         return schema.SegmentWorldAnnotation(
@@ -1085,6 +1189,10 @@ class TestSummarizeAndCompare(unittest.TestCase):
                 schema.SFWorldModelTag(f"sf{i}", "x", evidence)
                 for i in range(n_sf_tags)
             ],
+            hypotheses=[
+                schema.Hypothesis(f"h{i}", "belief", "p", evidence)
+                for i in range(n_hypotheses)
+            ],
         )
 
     def test_summarize_computes_per_1000_word_rates(self):
@@ -1118,6 +1226,13 @@ class TestSummarizeAndCompare(unittest.TestCase):
         self.assertEqual(summary["speech_acts_per_1000_words"], 6.0)
         self.assertEqual(summary["explanations_per_1000_words"], 8.0)
         self.assertEqual(summary["sf_tags_per_1000_words"], 10.0)
+
+    def test_summarize_covers_hypotheses_layer(self):
+        annotations = [
+            self._annotation(word_count=500, n_entities=0, n_events=0, n_hypotheses=3)
+        ]
+        summary = baseline.summarize_annotations(annotations)
+        self.assertEqual(summary["hypotheses_per_1000_words"], 6.0)
 
     def test_compare_returns_both_strategies(self):
         seg = [self._annotation(word_count=500, n_entities=1, n_events=1)]
@@ -1224,12 +1339,24 @@ class TestProcessSegments(unittest.TestCase):
                 }
             ]
         }
+        hypothesis_tool_result = {
+            "hypotheses": [
+                {
+                    "hypothesis_id": "h1",
+                    "hypothesis_type": "perspective",
+                    "proposition_or_target": "the machine seemed alive",
+                    "quote": "old machine",
+                    "subject_entity_id": "e1",
+                }
+            ]
+        }
         fake = _SequencedFakeBackend(
             [
                 entity_tool_result,
                 event_tool_result,
                 relation_tool_result,
                 discourse_tool_result,
+                hypothesis_tool_result,
             ]
         )
         segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
@@ -1247,10 +1374,12 @@ class TestProcessSegments(unittest.TestCase):
         self.assertEqual(len(seg["relations"]), 1)
         self.assertEqual(seg["weakly_inferred_relations"], [])
         self.assertEqual(len(seg["sf_tags"]), 1)
+        self.assertEqual(len(seg["hypotheses"]), 1)
         self.assertEqual(seg["validation_errors"], [])
 
-        # Exactly one LLM call each for entities, events, relations, discourse.
-        self.assertEqual(len(fake.calls), 4)
+        # Exactly one LLM call each for entities, events, relations,
+        # discourse, hypotheses.
+        self.assertEqual(len(fake.calls), 5)
 
         # Cost/usage reporting: token counts, model, and elapsed time per
         # pass - not just call counts (WI-EVENT-0024 acceptance criterion).
@@ -1260,6 +1389,7 @@ class TestProcessSegments(unittest.TestCase):
         self.assertIn("event_anchor", usage_by_pass)
         self.assertIn("relation", usage_by_pass)
         self.assertIn("discourse", usage_by_pass)
+        self.assertIn("hypothesis", usage_by_pass)
         self.assertFalse(usage_by_pass["surface_feature"]["is_llm_backed"])
         self.assertTrue(usage_by_pass["entity"]["is_llm_backed"])
         self.assertEqual(usage_by_pass["entity"]["input_tokens"], 10)
@@ -1286,7 +1416,7 @@ class TestProcessSegments(unittest.TestCase):
         }
         event_tool_result = {"events": []}
         fake = _SequencedFakeBackend(
-            [entity_tool_result, event_tool_result, {"relations": []}, {}]
+            [entity_tool_result, event_tool_result, {"relations": []}, {}, {}]
         )
         segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
 
@@ -1500,6 +1630,51 @@ class TestProcessSegments(unittest.TestCase):
         self.assertEqual(seg["sf_tags"], [])
         self.assertTrue(
             any("discourse extraction failed" in e for e in seg["extraction_errors"]),
+            seg["extraction_errors"],
+        )
+
+    def test_hypothesis_extraction_failure_is_recorded_not_silently_empty(self):
+        """A failed hypothesis pass must not read as 'no hypotheses found'."""
+        segment_text = "The machine hummed."
+
+        class _NoToolResultOnFifthCallBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                if self.calls == 5:
+                    # Call order per segment: entity, event, relation,
+                    # discourse, hypothesis. Simulate a tool-call failure
+                    # on the hypothesis pass (call #5).
+                    return llm_backend.BackendResponse(
+                        text="",
+                        tool_result=None,
+                        model="fake-1.0",
+                        input_tokens=5,
+                        output_tokens=0,
+                        raw=None,
+                    )
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result={},
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _NoToolResultOnFifthCallBackend()
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        seg = result["segments"][0]
+        self.assertEqual(seg["hypotheses"], [])
+        self.assertTrue(
+            any("hypothesis extraction failed" in e for e in seg["extraction_errors"]),
             seg["extraction_errors"],
         )
 

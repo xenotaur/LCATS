@@ -1,9 +1,9 @@
-"""Pipeline orchestration for Event-Role-World extractor stages 1-7 and 9.
+"""Pipeline orchestration for Event-Role-World extractor stages 1-9.
 
 Stage 1 (input contract) reuses the existing segment/evidence substrate
 (lcats.analysis.story_processors, lcats.analysis.text_segmenter) rather than
 reimplementing segmentation — this module accepts already-produced segments
-(scene/sequel, or fixed_chunk from baseline.py) and runs stages 2-7 over
+(scene/sequel, or fixed_chunk from baseline.py) and runs stages 2-8 over
 each one's sliced text, then stage 9's story-level reconciliation over the
 resulting segment annotations.
 """
@@ -20,6 +20,9 @@ from lcats.analysis.event_role_world import (
 )
 from lcats.analysis.event_role_world import entity_extractor as entity_extractor_module
 from lcats.analysis.event_role_world import event_extractor as event_extractor_module
+from lcats.analysis.event_role_world import (
+    hypothesis_extractor as hypothesis_extractor_module,
+)
 from lcats.analysis.event_role_world import nlp_backend as nlp_backend_module
 from lcats.analysis.event_role_world import (
     relation_extractor as relation_extractor_module,
@@ -60,8 +63,9 @@ def process_segment(
     event_llm_extractor: Any,
     relation_llm_extractor: Any,
     discourse_llm_extractor: Any,
+    hypothesis_llm_extractor: Any,
 ) -> "tuple[schema.SegmentWorldAnnotation, List[PassUsage]]":
-    """Run stages 2-7 over one segment's text.
+    """Run stages 2-8 over one segment's text.
 
     Args:
         segment_id: The segment's ID, carried through to the annotation.
@@ -78,6 +82,8 @@ def process_segment(
             relation_extractor.make_relation_extractor.
         discourse_llm_extractor: A JSONPromptExtractor configured via
             discourse_extractor.make_discourse_extractor.
+        hypothesis_llm_extractor: A JSONPromptExtractor configured via
+            hypothesis_extractor.make_hypothesis_extractor.
 
     Returns:
         (annotation, usage_records) — annotation.validation_errors is
@@ -184,6 +190,27 @@ def process_segment(
         discourse_result.get("extracted_output") or {}, segment_text
     )
 
+    # Stage 8 (optional): belief, uncertainty, perspective, and emotion/
+    # appraisal hypotheses (LLM-backed). Same routed-through-extract()
+    # pattern as every other pass.
+    t0 = time.monotonic()
+    hypothesis_result = _extract_with_placeholders(
+        hypothesis_llm_extractor,
+        segment_text,
+        {"entity_ids": entity_ids, "event_ids": event_ids},
+    )
+    usage_records.append(
+        _pass_usage_from_extraction(segment_id, "hypothesis", hypothesis_result, t0)
+    )
+    hypothesis_error = hypothesis_result.get("api_error") or hypothesis_result.get(
+        "extraction_error"
+    )
+    if hypothesis_error:
+        extraction_errors.append(f"hypothesis extraction failed: {hypothesis_error}")
+    hypotheses = hypothesis_extractor_module.build_hypotheses(
+        hypothesis_result.get("extracted_output") or {}, segment_text
+    )
+
     annotation = schema.SegmentWorldAnnotation(
         segment_id=segment_id,
         surface_features=surface_features,
@@ -197,6 +224,7 @@ def process_segment(
         speech_acts=speech_acts,
         explanations=explanations,
         sf_tags=sf_tags,
+        hypotheses=hypotheses,
         extraction_errors=extraction_errors,
     )
     annotation.validation_errors = schema.validate_segment_annotation(
@@ -272,7 +300,7 @@ def process_segments(
     llm_backend: Any,
     story_id: Any = None,
 ) -> Dict[str, Any]:
-    """Run stages 2-7 over every segment in `segments`, then reconcile stage 9.
+    """Run stages 2-8 over every segment in `segments`, then reconcile stage 9.
 
     Args:
         story_text: Full story text; segments are sliced from this by
@@ -281,8 +309,8 @@ def process_segments(
             produced by story_processors.make_annotated_segment_extractor,
             or baseline.make_fixed_token_chunks).
         nlp_backend_name: "stanza" or "spacy".
-        llm_backend: LLMBackend for the entity/event/relation/discourse
-            extraction passes.
+        llm_backend: LLMBackend for the entity/event/relation/discourse/
+            hypothesis extraction passes.
         story_id: Identifier carried onto the reconciled StoryWorldAnnotation.
             Defaults to None if the caller has no natural story ID.
 
@@ -300,6 +328,9 @@ def process_segments(
         llm_backend
     )
     discourse_llm_extractor = discourse_extractor_module.make_discourse_extractor(
+        llm_backend
+    )
+    hypothesis_llm_extractor = hypothesis_extractor_module.make_hypothesis_extractor(
         llm_backend
     )
 
@@ -322,6 +353,7 @@ def process_segments(
             event_llm_extractor=event_llm_extractor,
             relation_llm_extractor=relation_llm_extractor,
             discourse_llm_extractor=discourse_llm_extractor,
+            hypothesis_llm_extractor=hypothesis_llm_extractor,
         )
         annotations.append(annotation)
         all_usage.extend(usage_records)

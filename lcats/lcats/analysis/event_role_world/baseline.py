@@ -100,11 +100,16 @@ def summarize_annotations(
         separately, since they are a distinct, lower-confidence layer per
         the proposal's causality tradeoff table, and mixing them into the
         main relation-density metric would understate how much of that
-        density is speculative), speech_acts, explanations, and sf_tags —
-        the new relation/discourse/SF-tag layers WI-EVENT-0026 introduces,
-        alongside the existing entity/event/anchor ones, so genre-
-        comparison metrics built on these new layers are covered by the
-        same fixed-chunk-vs-segment control as the original layers.
+        density is speculative), speech_acts, explanations, sf_tags, and
+        hypotheses — the new relation/discourse/SF-tag layers WI-EVENT-0026
+        introduces and the optional hypothesis layer WI-EVENT-0027
+        introduces, alongside the existing entity/event/anchor ones, so
+        genre-comparison metrics built on these new layers are covered by
+        the same fixed-chunk-vs-segment control as the original layers.
+        Per the proposal's fact/hypothesis distinction, hypotheses_per_
+        1000_words is reported separately and must never be folded into
+        any extractive-layer rate — it is never primary quantitative
+        evidence on its own.
     """
     total_words = sum(
         (a.surface_features.word_count if a.surface_features else 0)
@@ -121,6 +126,7 @@ def summarize_annotations(
     total_speech_acts = sum(len(a.speech_acts) for a in annotations)
     total_explanations = sum(len(a.explanations) for a in annotations)
     total_sf_tags = sum(len(a.sf_tags) for a in annotations)
+    total_hypotheses = sum(len(a.hypotheses) for a in annotations)
 
     return {
         "unit_count": len(annotations),
@@ -144,6 +150,9 @@ def summarize_annotations(
             total_explanations, total_words
         ),
         "sf_tags_per_1000_words": _rate_per_1000_words(total_sf_tags, total_words),
+        "hypotheses_per_1000_words": _rate_per_1000_words(
+            total_hypotheses, total_words
+        ),
     }
 
 

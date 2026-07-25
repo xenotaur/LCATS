@@ -20,6 +20,12 @@ from lcats.analysis.event_role_world import schema
 
 _VALID_RELATION_CERTAINTIES = {"explicit", "strongly_implied", "weakly_inferred"}
 _VALID_SF_TAG_STATUSES = {"extractive", "hypothesis"}
+_VALID_HYPOTHESIS_TYPES = {
+    "belief",
+    "uncertainty",
+    "perspective",
+    "emotion_appraisal",
+}
 
 
 def validate_artifacts(story: schema.StoryWorldAnnotation) -> List[str]:
@@ -59,6 +65,14 @@ def validate_artifacts(story: schema.StoryWorldAnnotation) -> List[str]:
                     f"has invalid status {tag.status!r}"
                 )
 
+        for hypothesis in segment.hypotheses:
+            if hypothesis.hypothesis_type not in _VALID_HYPOTHESIS_TYPES:
+                errors.append(
+                    f"segment {segment.segment_id!r} hypothesis "
+                    f"{hypothesis.hypothesis_id!r} has invalid "
+                    f"hypothesis_type {hypothesis.hypothesis_type!r}"
+                )
+
     errors.extend(story.validation_errors)
 
     return errors
@@ -96,8 +110,9 @@ def build_analysis_tables(
     Returns:
         A dict of table_name -> list of flat row dicts, one table per
         annotation layer (entities, events, relations, speech_acts,
-        explanations, sf_tags, temporal_anchors, spatial_anchors), each row
-        tagged with segment_id (or "story" for story-level entities).
+        explanations, sf_tags, hypotheses, temporal_anchors,
+        spatial_anchors), each row tagged with segment_id (or "story" for
+        story-level entities).
     """
     tables: Dict[str, List[Dict[str, Any]]] = {
         "entities": [],
@@ -106,6 +121,7 @@ def build_analysis_tables(
         "speech_acts": [],
         "explanations": [],
         "sf_tags": [],
+        "hypotheses": [],
         "temporal_anchors": [],
         "spatial_anchors": [],
     }
@@ -146,6 +162,11 @@ def build_analysis_tables(
             row = tag.to_dict()
             row["segment_id"] = segment.segment_id
             tables["sf_tags"].append(row)
+
+        for hypothesis in segment.hypotheses:
+            row = hypothesis.to_dict()
+            row["segment_id"] = segment.segment_id
+            tables["hypotheses"].append(row)
 
         for anchor in segment.temporal_anchors:
             row = anchor.to_dict()

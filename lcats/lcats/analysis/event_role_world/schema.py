@@ -1,13 +1,12 @@
-"""Event-Role-World object schemas for extractor stages 1-7 and 9.
+"""Event-Role-World object schemas for extractor stages 1-9.
 
 Implements the object responsibilities sketched in the governing proposal's
 "Core schema sketch" (project/design/proposals/proposed/
 lcats-event-role-world-extractor/00_proposal.md): entities/participants,
-events/semantic roles, temporal/spatial anchors (WI-EVENT-0024), plus
-relations, speech acts, explanation discourse, and SF world-model tags
-(WI-EVENT-0026). The stage-8 hypothesis object (belief/uncertainty/
-perspective/emotion) remains out of scope (WI-EVENT-0026 forbidden_actions:
-implement_stage_8_hypothesis_pass).
+events/semantic roles, temporal/spatial anchors (WI-EVENT-0024); relations,
+speech acts, explanation discourse, and SF world-model tags (WI-EVENT-0026);
+and the optional stage-8 hypothesis object (belief/uncertainty/perspective/
+emotion) (WI-EVENT-0027).
 """
 
 from __future__ import annotations
@@ -303,6 +302,53 @@ class SFWorldModelTag:
 
 
 @dataclasses.dataclass
+class Hypothesis:
+    """An optional belief, uncertainty, perspective, or emotion/appraisal claim.
+
+    Per the proposal's fact/hypothesis distinction and risk table
+    ("confusing interpretive hypotheses with extractive facts"), a
+    Hypothesis is never an extractive fact even when confidently stated —
+    it is kept in its own field on SegmentWorldAnnotation
+    (`hypotheses`), separate from every extractive layer, and callers must
+    opt in explicitly to include it in any quantitative reporting (see
+    baseline.py's own hypotheses_per_1000_words, reported alongside but
+    never merged into the extractive-layer rates).
+
+    Attributes:
+        hypothesis_type: One of "belief", "uncertainty", "perspective", or
+            "emotion_appraisal".
+        subject_entity_id: Optional entity ID the hypothesis is about or
+            attributed to (e.g. who holds the belief/perspective).
+        proposition_or_target: The claim's content in free text — a
+            proposition (for belief/uncertainty) or a target (for
+            perspective/emotion_appraisal).
+        linked_entity_ids: Other entities referenced by the hypothesis.
+        linked_event_ids: Events referenced by the hypothesis.
+    """
+
+    hypothesis_id: str
+    hypothesis_type: str
+    proposition_or_target: str
+    evidence: EvidenceSpan
+    subject_entity_id: Optional[str] = None
+    linked_entity_ids: List[str] = dataclasses.field(default_factory=list)
+    linked_event_ids: List[str] = dataclasses.field(default_factory=list)
+    confidence: float = 1.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "hypothesis_id": self.hypothesis_id,
+            "hypothesis_type": self.hypothesis_type,
+            "proposition_or_target": self.proposition_or_target,
+            "evidence": self.evidence.to_dict(),
+            "subject_entity_id": self.subject_entity_id,
+            "linked_entity_ids": self.linked_entity_ids,
+            "linked_event_ids": self.linked_event_ids,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass
 class SurfaceFeatures:
     """Lexical, syntactic, and morphological features for a segment.
 
@@ -347,6 +393,9 @@ class SegmentWorldAnnotation:
         explanations: ExplanationDiscourse instances extracted by the
             discourse pass.
         sf_tags: SFWorldModelTag instances extracted by the discourse pass.
+        hypotheses: Hypothesis instances extracted by the optional stage-8
+            hypothesis pass — belief, uncertainty, perspective, or
+            emotion/appraisal claims, never extractive facts.
         extraction_errors: Backend/API-level failures (e.g. a transient
             provider error, an empty tool result) for any LLM-backed pass
             on this segment. Distinct from validation_errors: an
@@ -372,6 +421,7 @@ class SegmentWorldAnnotation:
     speech_acts: List[SpeechAct] = dataclasses.field(default_factory=list)
     explanations: List[ExplanationDiscourse] = dataclasses.field(default_factory=list)
     sf_tags: List[SFWorldModelTag] = dataclasses.field(default_factory=list)
+    hypotheses: List[Hypothesis] = dataclasses.field(default_factory=list)
     extraction_errors: List[str] = dataclasses.field(default_factory=list)
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
@@ -393,6 +443,7 @@ class SegmentWorldAnnotation:
             "speech_acts": [s.to_dict() for s in self.speech_acts],
             "explanations": [e.to_dict() for e in self.explanations],
             "sf_tags": [t.to_dict() for t in self.sf_tags],
+            "hypotheses": [h.to_dict() for h in self.hypotheses],
             "extraction_errors": self.extraction_errors,
             "validation_errors": self.validation_errors,
         }
@@ -608,6 +659,31 @@ def validate_segment_annotation(
             if evid not in event_ids:
                 errors.append(
                     f"SF tag {tag.tag_id!r} references unknown event {evid!r}"
+                )
+
+    for hypothesis in annotation.hypotheses:
+        span_error = hypothesis.evidence.validate(segment_text)
+        if span_error:
+            errors.append(f"hypothesis {hypothesis.hypothesis_id!r}: {span_error}")
+        if (
+            hypothesis.subject_entity_id
+            and hypothesis.subject_entity_id not in entity_ids
+        ):
+            errors.append(
+                f"hypothesis {hypothesis.hypothesis_id!r} references unknown "
+                f"subject entity {hypothesis.subject_entity_id!r}"
+            )
+        for eid in hypothesis.linked_entity_ids:
+            if eid not in entity_ids:
+                errors.append(
+                    f"hypothesis {hypothesis.hypothesis_id!r} references "
+                    f"unknown entity {eid!r}"
+                )
+        for evid in hypothesis.linked_event_ids:
+            if evid not in event_ids:
+                errors.append(
+                    f"hypothesis {hypothesis.hypothesis_id!r} references "
+                    f"unknown event {evid!r}"
                 )
 
     return errors
