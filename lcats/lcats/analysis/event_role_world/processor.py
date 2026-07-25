@@ -64,6 +64,7 @@ def process_segment(
     relation_llm_extractor: Any,
     discourse_llm_extractor: Any,
     hypothesis_llm_extractor: Any,
+    include_hypotheses: bool = True,
 ) -> "tuple[schema.SegmentWorldAnnotation, List[PassUsage]]":
     """Run stages 2-8 over one segment's text.
 
@@ -84,6 +85,13 @@ def process_segment(
             discourse_extractor.make_discourse_extractor.
         hypothesis_llm_extractor: A JSONPromptExtractor configured via
             hypothesis_extractor.make_hypothesis_extractor.
+        include_hypotheses: Whether to run stage 8 at all. Stage 8 is
+            optional per the proposal — defaulting this to True preserves
+            this function's existing behavior for current callers, but
+            callers that only need the extractive pipeline can pass False
+            to skip the extra LLM request, its cost/latency, and having a
+            hypothesis-provider failure appear in extraction_errors for a
+            layer they never opted into.
 
     Returns:
         (annotation, usage_records) — annotation.validation_errors is
@@ -192,24 +200,31 @@ def process_segment(
 
     # Stage 8 (optional): belief, uncertainty, perspective, and emotion/
     # appraisal hypotheses (LLM-backed). Same routed-through-extract()
-    # pattern as every other pass.
-    t0 = time.monotonic()
-    hypothesis_result = _extract_with_placeholders(
-        hypothesis_llm_extractor,
-        segment_text,
-        {"entity_ids": entity_ids, "event_ids": event_ids},
-    )
-    usage_records.append(
-        _pass_usage_from_extraction(segment_id, "hypothesis", hypothesis_result, t0)
-    )
-    hypothesis_error = hypothesis_result.get("api_error") or hypothesis_result.get(
-        "extraction_error"
-    )
-    if hypothesis_error:
-        extraction_errors.append(f"hypothesis extraction failed: {hypothesis_error}")
-    hypotheses = hypothesis_extractor_module.build_hypotheses(
-        hypothesis_result.get("extracted_output") or {}, segment_text
-    )
+    # pattern as every other pass. Only runs at all if the caller opted in
+    # via include_hypotheses — stage 8 is optional per the proposal, so a
+    # caller that never requested it should not pay its LLM cost/latency,
+    # nor have a hypothesis-provider failure surface in extraction_errors.
+    hypotheses: List[schema.Hypothesis] = []
+    if include_hypotheses:
+        t0 = time.monotonic()
+        hypothesis_result = _extract_with_placeholders(
+            hypothesis_llm_extractor,
+            segment_text,
+            {"entity_ids": entity_ids, "event_ids": event_ids},
+        )
+        usage_records.append(
+            _pass_usage_from_extraction(segment_id, "hypothesis", hypothesis_result, t0)
+        )
+        hypothesis_error = hypothesis_result.get("api_error") or hypothesis_result.get(
+            "extraction_error"
+        )
+        if hypothesis_error:
+            extraction_errors.append(
+                f"hypothesis extraction failed: {hypothesis_error}"
+            )
+        hypotheses = hypothesis_extractor_module.build_hypotheses(
+            hypothesis_result.get("extracted_output") or {}, segment_text
+        )
 
     annotation = schema.SegmentWorldAnnotation(
         segment_id=segment_id,
@@ -299,6 +314,7 @@ def process_segments(
     nlp_backend_name: str,
     llm_backend: Any,
     story_id: Any = None,
+    include_hypotheses: bool = True,
 ) -> Dict[str, Any]:
     """Run stages 2-8 over every segment in `segments`, then reconcile stage 9.
 
@@ -313,6 +329,12 @@ def process_segments(
             hypothesis extraction passes.
         story_id: Identifier carried onto the reconciled StoryWorldAnnotation.
             Defaults to None if the caller has no natural story ID.
+        include_hypotheses: Whether to run the optional stage-8 hypothesis
+            pass at all. Defaults to True to preserve existing behavior for
+            current callers; pass False to skip the extra LLM request per
+            segment entirely (no cost/latency, no hypothesis-provider
+            failures in extraction_errors) when only the extractive
+            pipeline (stages 1-7 and 9) is needed.
 
     Returns:
         {"segments": [SegmentWorldAnnotation.to_dict(), ...],
@@ -330,8 +352,10 @@ def process_segments(
     discourse_llm_extractor = discourse_extractor_module.make_discourse_extractor(
         llm_backend
     )
-    hypothesis_llm_extractor = hypothesis_extractor_module.make_hypothesis_extractor(
-        llm_backend
+    hypothesis_llm_extractor = (
+        hypothesis_extractor_module.make_hypothesis_extractor(llm_backend)
+        if include_hypotheses
+        else None
     )
 
     annotations: List[schema.SegmentWorldAnnotation] = []
@@ -354,6 +378,7 @@ def process_segments(
             relation_llm_extractor=relation_llm_extractor,
             discourse_llm_extractor=discourse_llm_extractor,
             hypothesis_llm_extractor=hypothesis_llm_extractor,
+            include_hypotheses=include_hypotheses,
         )
         annotations.append(annotation)
         all_usage.extend(usage_records)

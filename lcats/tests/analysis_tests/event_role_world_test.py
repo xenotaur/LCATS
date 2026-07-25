@@ -1400,6 +1400,46 @@ class TestProcessSegments(unittest.TestCase):
         self.assertEqual(len(result["story"]["entities"]), 1)
         self.assertEqual(result["story"]["entity_alias_map"], {"1:e1": "global_e0"})
 
+    def test_include_hypotheses_false_skips_stage_8_entirely(self):
+        """Stage 8 is optional per the proposal: a caller that opts out via
+        include_hypotheses=False must not pay for the extra LLM request, and
+        must not see a hypothesis-provider failure in extraction_errors for
+        a layer it never asked for."""
+        segment_text = "The old machine hummed."
+        entity_tool_result = {
+            "entities": [
+                {
+                    "entity_id": "e1",
+                    "canonical_name": "the machine",
+                    "entity_type": "machine_or_artifact",
+                    "mentions": [
+                        {"mention_id": "m1", "text": "the machine", "quote": "machine"}
+                    ],
+                }
+            ]
+        }
+        fake = _SequencedFakeBackend(
+            [entity_tool_result, {"events": []}, {"relations": []}, {}]
+        )
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text,
+            segments,
+            nlp_backend_name="spacy",
+            llm_backend=fake,
+            include_hypotheses=False,
+        )
+
+        # Exactly 4 calls (entity, event, relation, discourse) - no
+        # hypothesis call was ever made.
+        self.assertEqual(len(fake.calls), 4)
+        seg = result["segments"][0]
+        self.assertEqual(seg["hypotheses"], [])
+        self.assertEqual(seg["extraction_errors"], [])
+        usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
+        self.assertNotIn("hypothesis", usage_by_pass)
+
     def test_entity_ids_from_stage_3_are_passed_to_stage_4_5_prompt(self):
         segment_text = "The machine hummed."
         entity_tool_result = {
