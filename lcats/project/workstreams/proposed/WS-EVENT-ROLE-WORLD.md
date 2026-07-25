@@ -14,6 +14,7 @@ work_items:
   - WI-EVENT-0024
   - WI-EVENT-0025
   - WI-EVENT-0026
+  - WI-EVENT-0027
 exit_criteria:
   - The proposal's Recommended staged pipeline stages 1-7 and 9 (input contract, surface feature pass, entity participant pass, event-role pass, anchor pass, relation pass, discourse/SF tag pass, and validation/export) are implemented, reusing the existing segment/evidence substrate without reimplementing scene/sequel extraction
   - The optional hypothesis pass (stage 8) is implemented, or explicitly deferred with a follow-up work item recorded
@@ -94,6 +95,11 @@ the proposal itself prescribes:
   stage 9 (validation/export), building on WI-EVENT-0024's entity/event/
   anchor output. Stage 8 (hypothesis pass) remains optional per the
   proposal itself and is out of scope for this item.
+- **WI-EVENT-0027** — covers stage 8 (optional hypothesis pass), the last
+  deferred pipeline stage, building on WI-EVENT-0026's schema/processor/
+  export substrate. This is the recorded follow-up work item required by
+  the exit criterion below — its existence satisfies "recorded," and its
+  completion satisfies "implemented."
 
 ## Exit Criteria
 
