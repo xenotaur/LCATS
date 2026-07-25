@@ -79,7 +79,10 @@ recorded follow-up, and implements the pass itself.
   or `Hypothesis` dataclass anywhere in `lcats/`. The proposal's own schema
   sketch (`00_proposal.md:175-177`) names `Hypothesis` as a design sketch,
   not code. `implement_stage_8_hypothesis_pass`/`implement_hypothesis_pass`
-  appear only as `forbidden_actions` in `WI-EVENT-0024`/`WI-EVENT-0026`.
+  are used in `WI-EVENT-0024`/`WI-EVENT-0026` as `forbidden_actions` scope-
+  control markers deferring stage 8 (they also appear referentially in
+  `schema.py`'s docstrings, alongside those markers, not as an
+  implementation).
 - Sibling repos: None identified.
 - External libraries: None identified.
 - Recommendation: Proceed.
