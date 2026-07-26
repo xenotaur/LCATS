@@ -41,3 +41,4 @@ existing experiments.
 |---|---|---|
 | 01 | `01_classify_corpora` | Classify stories across corpora by genre and quality |
 | 02 | `02_llm_backend_comparison` | Side-by-side Anthropic vs. OpenAI backend comparison on the assess pipeline |
+| 03 | `03_cross_segment_relation_pilot` | Stratified cross-genre pilot measuring Event-Role-World cross-segment relation density (WI-EVENT-0030) |
