@@ -5,7 +5,9 @@ Stage 1 (input contract) reuses the existing segment/evidence substrate
 reimplementing segmentation — this module accepts already-produced segments
 (scene/sequel, or fixed_chunk from baseline.py) and runs stages 2-8 over
 each one's sliced text, then stage 9's story-level reconciliation over the
-resulting segment annotations.
+resulting segment annotations, followed by the optional story-level
+cross-segment relation pass (WI-EVENT-0029) that runs once per story rather
+than once per segment.
 """
 
 from __future__ import annotations
@@ -29,6 +31,9 @@ from lcats.analysis.event_role_world import (
 )
 from lcats.analysis.event_role_world import schema
 from lcats.analysis.event_role_world import surface_feature_extractor
+from lcats.analysis.event_role_world import (
+    story_relation_extractor as story_relation_extractor_module,
+)
 
 
 @dataclasses.dataclass
@@ -315,6 +320,7 @@ def process_segments(
     llm_backend: Any,
     story_id: Any = None,
     include_hypotheses: bool = True,
+    include_cross_segment_relations: bool = True,
 ) -> Dict[str, Any]:
     """Run stages 2-8 over every segment in `segments`, then reconcile stage 9.
 
@@ -326,7 +332,7 @@ def process_segments(
             or baseline.make_fixed_token_chunks).
         nlp_backend_name: "stanza" or "spacy".
         llm_backend: LLMBackend for the entity/event/relation/discourse/
-            hypothesis extraction passes.
+            hypothesis/story-relation extraction passes.
         story_id: Identifier carried onto the reconciled StoryWorldAnnotation.
             Defaults to None if the caller has no natural story ID.
         include_hypotheses: Whether to run the optional stage-8 hypothesis
@@ -335,13 +341,26 @@ def process_segments(
             segment entirely (no cost/latency, no hypothesis-provider
             failures in extraction_errors) when only the extractive
             pipeline (stages 1-7 and 9) is needed.
+        include_cross_segment_relations: Whether to run the story-level
+            cross-segment relation pass (WI-EVENT-0029) after reconciliation.
+            Defaults to True; pass False to skip the extra LLM request per
+            story entirely when only per-segment relations are needed (e.g.
+            a fixed-chunk baseline run where cross-segment context is not
+            comparable to the segment run being controlled against). Even
+            when True, the pass is skipped (no LLM call, no PassUsage
+            record) if fewer than 2 events exist across every segment,
+            since a cross-segment relation needs at least two events by
+            definition.
 
     Returns:
         {"segments": [SegmentWorldAnnotation.to_dict(), ...],
          "usage": [PassUsage.to_dict(), ...],
          "story": StoryWorldAnnotation.to_dict()} — "story" is the stage-9
          story-level reconciliation (alias resolution, cross-segment
-         relation qualification) over every segment annotation produced.
+         relation qualification) over every segment annotation produced,
+         plus the story-level cross-segment relation pass's own output if
+         include_cross_segment_relations is True and at least 2 events
+         exist.
     """
     nlp_backend = surface_feature_extractor.make_nlp_backend(nlp_backend_name)
     entity_llm_extractor = entity_extractor_module.make_entity_extractor(llm_backend)
@@ -355,6 +374,11 @@ def process_segments(
     hypothesis_llm_extractor = (
         hypothesis_extractor_module.make_hypothesis_extractor(llm_backend)
         if include_hypotheses
+        else None
+    )
+    story_relation_llm_extractor = (
+        story_relation_extractor_module.make_story_relation_extractor(llm_backend)
+        if include_cross_segment_relations
         else None
     )
 
@@ -384,6 +408,45 @@ def process_segments(
         all_usage.extend(usage_records)
 
     story = schema.reconcile_story_annotations(story_id, annotations)
+
+    # Story-level cross-segment relation pass (optional, WI-EVENT-0029).
+    # Runs once per story, after reconciliation has produced the global
+    # event index the pass needs — never per segment, since the whole
+    # point is discovering links this segment loop cannot see. Skipped
+    # entirely (no LLM call, no PassUsage record) when fewer than 2 events
+    # exist across every segment — a cross-segment relation needs at least
+    # two events by definition, so calling the pass on 0 or 1 events would
+    # spend an LLM call on a result that can only ever be empty.
+    total_event_count = sum(len(segment.events) for segment in annotations)
+    if include_cross_segment_relations and total_event_count >= 2:
+        t0 = time.monotonic()
+        event_index_text = story_relation_extractor_module.build_event_index(story)
+        story_relation_result = story_relation_llm_extractor.extract(event_index_text)
+        all_usage.append(
+            _pass_usage_from_extraction(
+                "story", "story_relation", story_relation_result, t0
+            )
+        )
+        story_relation_error = story_relation_result.get(
+            "api_error"
+        ) or story_relation_result.get("extraction_error")
+        if story_relation_error:
+            # A failed story-relation pass must not silently read as "zero
+            # cross-segment relations found" — mirrors the segment-level
+            # extraction_errors/validation_errors distinction.
+            story.extraction_errors.append(
+                f"story relation extraction failed: {story_relation_error}"
+            )
+        cross_segment_relations, weakly_inferred_cross_segment_relations = (
+            story_relation_extractor_module.build_story_relations(
+                story_relation_result.get("extracted_output") or {}, story
+            )
+        )
+        story.cross_segment_relations = cross_segment_relations
+        story.weakly_inferred_cross_segment_relations = (
+            weakly_inferred_cross_segment_relations
+        )
+        story.validation_errors = schema.validate_story_annotation(story)
 
     return {
         "segments": [a.to_dict() for a in annotations],

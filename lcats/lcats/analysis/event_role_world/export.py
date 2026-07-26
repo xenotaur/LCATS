@@ -73,6 +73,15 @@ def validate_artifacts(story: schema.StoryWorldAnnotation) -> List[str]:
                     f"hypothesis_type {hypothesis.hypothesis_type!r}"
                 )
 
+    for relation in (
+        story.cross_segment_relations + story.weakly_inferred_cross_segment_relations
+    ):
+        if relation.certainty not in _VALID_RELATION_CERTAINTIES:
+            errors.append(
+                f"story cross-segment relation {relation.relation_id!r} has "
+                f"invalid certainty {relation.certainty!r}"
+            )
+
     errors.extend(story.validation_errors)
 
     return errors
@@ -112,7 +121,11 @@ def build_analysis_tables(
         annotation layer (entities, events, relations, speech_acts,
         explanations, sf_tags, hypotheses, temporal_anchors,
         spatial_anchors), each row tagged with segment_id (or "story" for
-        story-level entities).
+        story-level entities and cross-segment relations). The "relations"
+        table includes both per-segment relations and the story-level
+        cross-segment relations (WI-EVENT-0029) — the two are disjoint by
+        construction (see StoryWorldAnnotation.cross_segment_relations), so
+        no deduplication is needed to combine them in one table.
     """
     tables: Dict[str, List[Dict[str, Any]]] = {
         "entities": [],
@@ -177,6 +190,13 @@ def build_analysis_tables(
             row = anchor.to_dict()
             row["segment_id"] = segment.segment_id
             tables["spatial_anchors"].append(row)
+
+    for relation in (
+        story.cross_segment_relations + story.weakly_inferred_cross_segment_relations
+    ):
+        row = relation.to_dict()
+        row["segment_id"] = "story"
+        tables["relations"].append(row)
 
     return tables
 

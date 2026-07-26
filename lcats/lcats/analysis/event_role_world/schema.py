@@ -5,8 +5,9 @@ Implements the object responsibilities sketched in the governing proposal's
 lcats-event-role-world-extractor/00_proposal.md): entities/participants,
 events/semantic roles, temporal/spatial anchors (WI-EVENT-0024); relations,
 speech acts, explanation discourse, and SF world-model tags (WI-EVENT-0026);
-and the optional stage-8 hypothesis object (belief/uncertainty/perspective/
-emotion) (WI-EVENT-0027).
+the optional stage-8 hypothesis object (belief/uncertainty/perspective/
+emotion) (WI-EVENT-0027); and the story-level cross-segment relation pass
+(WI-EVENT-0029).
 """
 
 from __future__ import annotations
@@ -700,17 +701,20 @@ class StoryWorldAnnotation:
     reconciliation the proposal requires beyond just holding per-segment
     results in a list — see reconcile_story_annotations().
 
-    Known limitation (tracked in WS-EVENT-ROLE-WORLD as a follow-up, not
-    fixed by this WI): relation qualification here only makes segment-local
-    relations safely representable at story scope — it does not, and
-    cannot, discover genuinely cross-segment causal relations (cause in one
-    segment, effect in another). Stage 6's relation_extractor only ever
-    receives its own segment's event IDs, so a relation's source_event_id/
-    target_event_id can never actually reference a different segment's
-    event today; every relation this function qualifies is, by
-    construction, entirely local to the one segment it came from. Real
-    cross-segment relation extraction would require giving stage 6 broader
-    (multi-segment or full-story) context, which is out of this WI's scope.
+    Known limitation, now resolved by WI-EVENT-0029's story-level relation
+    pass: prior to that work item, relation qualification here only made
+    segment-local relations safely representable at story scope — it did
+    not, and could not, discover genuinely cross-segment causal relations
+    (cause in one segment, effect in another), since stage 6's
+    relation_extractor only ever receives its own segment's event IDs, so
+    a relation's source_event_id/target_event_id could never actually
+    reference a different segment's event. Every relation this function
+    qualifies is, by construction, entirely local to the one segment it
+    came from — genuinely cross-segment relations are discovered by a
+    separate story-level pass (see cross_segment_relations below) and kept
+    in their own field rather than merged into `relations`, so the two
+    lists can never collide on relation_id and no deduplication logic is
+    needed to combine their counts.
 
     Attributes:
         story_id: Identifier for the story these segments belong to.
@@ -722,10 +726,27 @@ class StoryWorldAnnotation:
         entity_alias_map: Maps "{segment_id}:{local_entity_id}" to the
             reconciled global entity_id, so callers can translate a
             per-segment entity reference into the story-level entity.
-        relations: All relations (main + weakly_inferred) across every
-            segment, with source_event_id/target_event_id re-qualified to
-            "{segment_id}:{local_event_id}" so they remain unambiguous at
-            story scope (event IDs are otherwise only unique per segment).
+        relations: All same-segment relations (main + weakly_inferred)
+            across every segment, with source_event_id/target_event_id
+            re-qualified to "{segment_id}:{local_event_id}" so they remain
+            unambiguous at story scope (event IDs are otherwise only
+            unique per segment).
+        cross_segment_relations: Genuinely cross-segment relations
+            (certainty "explicit" or "strongly_implied") discovered by the
+            story-level pass (WI-EVENT-0029), whose source_event_id and
+            target_event_id belong to two different segments. Kept
+            separate from `relations` — never merged into it — so the two
+            lists are disjoint by construction and can be summed for a
+            density metric without any relation_id deduplication.
+        weakly_inferred_cross_segment_relations: The weakly_inferred-
+            certainty counterpart to cross_segment_relations, partitioned
+            separately per the same causality tradeoff table that splits
+            `relations`/`weakly_inferred_relations` at segment scope.
+        extraction_errors: Backend/API-level failures for the story-level
+            pass (e.g. a transient provider error, an empty tool result).
+            Distinct from validation_errors: an extraction_error means the
+            story-level pass may not have run at all — its "zero results"
+            must not be read as "the pass ran and found nothing."
         validation_errors: Story-level validation failures (see
             validate_story_annotation).
     """
@@ -737,6 +758,13 @@ class StoryWorldAnnotation:
     entities: List[Entity] = dataclasses.field(default_factory=list)
     entity_alias_map: Dict[str, str] = dataclasses.field(default_factory=dict)
     relations: List[EventRelation] = dataclasses.field(default_factory=list)
+    cross_segment_relations: List[EventRelation] = dataclasses.field(
+        default_factory=list
+    )
+    weakly_inferred_cross_segment_relations: List[EventRelation] = dataclasses.field(
+        default_factory=list
+    )
+    extraction_errors: List[str] = dataclasses.field(default_factory=list)
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -746,6 +774,13 @@ class StoryWorldAnnotation:
             "entities": [e.to_dict() for e in self.entities],
             "entity_alias_map": dict(self.entity_alias_map),
             "relations": [r.to_dict() for r in self.relations],
+            "cross_segment_relations": [
+                r.to_dict() for r in self.cross_segment_relations
+            ],
+            "weakly_inferred_cross_segment_relations": [
+                r.to_dict() for r in self.weakly_inferred_cross_segment_relations
+            ],
+            "extraction_errors": self.extraction_errors,
             "validation_errors": self.validation_errors,
         }
 
@@ -884,7 +919,16 @@ def validate_story_annotation(story: StoryWorldAnnotation) -> List[str]:
     relation IDs must resolve, and causal links must carry evidence and
     certainty (already enforced by EventRelation's required fields — this
     checks that every relation's referenced qualified event ID actually
-    corresponds to a real event in some segment).
+    corresponds to a real event in some segment). Also validates
+    cross_segment_relations/weakly_inferred_cross_segment_relations (the
+    story-level pass's own output, WI-EVENT-0029): endpoint ID resolution,
+    certainty/bucket consistency (mirroring validate_segment_annotation's
+    same check for segment-level relations), relation_id uniqueness against
+    every other relation on this story (defense in depth — the two fields
+    are populated from a disjoint source and should never collide), and
+    that source/target genuinely belong to different segments, since a
+    same-segment link here would indicate the story-level pass violated its
+    own scope.
 
     Args:
         story: The StoryWorldAnnotation to validate.
@@ -919,5 +963,48 @@ def validate_story_annotation(story: StoryWorldAnnotation) -> List[str]:
                 f"entity_alias_map entry {alias_key!r} references unknown "
                 f"global entity {global_id!r}"
             )
+
+    seen_relation_ids = {r.relation_id for r in story.relations}
+    cross_segment_buckets = [
+        (story.cross_segment_relations, False),
+        (story.weakly_inferred_cross_segment_relations, True),
+    ]
+    for bucket, is_weakly_inferred_bucket in cross_segment_buckets:
+        for relation in bucket:
+            if relation.relation_id in seen_relation_ids:
+                errors.append(
+                    f"cross-segment relation {relation.relation_id!r} collides "
+                    "with another relation ID on this story"
+                )
+            seen_relation_ids.add(relation.relation_id)
+
+            if relation.source_event_id not in qualified_event_ids:
+                errors.append(
+                    f"cross-segment relation {relation.relation_id!r} references "
+                    f"unknown source event {relation.source_event_id!r}"
+                )
+            if relation.target_event_id not in qualified_event_ids:
+                errors.append(
+                    f"cross-segment relation {relation.relation_id!r} references "
+                    f"unknown target event {relation.target_event_id!r}"
+                )
+
+            source_segment_id = relation.source_event_id.split(":", 1)[0]
+            target_segment_id = relation.target_event_id.split(":", 1)[0]
+            if source_segment_id == target_segment_id:
+                errors.append(
+                    f"cross-segment relation {relation.relation_id!r} has "
+                    f"source and target both in segment {source_segment_id!r} "
+                    "— not a genuine cross-segment link"
+                )
+
+            is_weakly_inferred_certainty = relation.certainty == "weakly_inferred"
+            if is_weakly_inferred_certainty != is_weakly_inferred_bucket:
+                errors.append(
+                    f"cross-segment relation {relation.relation_id!r} has "
+                    f"certainty {relation.certainty!r} but is stored in the "
+                    f"{'weakly_inferred_cross_segment_relations' if is_weakly_inferred_bucket else 'cross_segment_relations'} "
+                    "list"
+                )
 
     return errors

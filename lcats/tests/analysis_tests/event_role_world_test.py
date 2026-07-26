@@ -14,6 +14,7 @@ from lcats.analysis.event_role_world import nlp_backend
 from lcats.analysis.event_role_world import processor
 from lcats.analysis.event_role_world import relation_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.analysis.event_role_world import story_relation_extractor
 from lcats.analysis.event_role_world import surface_feature_extractor
 
 
@@ -746,6 +747,202 @@ class TestBuildHypotheses(unittest.TestCase):
 
 
 # ---------------------------------------------------------------------------
+# Tests: story_relation_extractor (WI-EVENT-0029, story-level cross-segment)
+# ---------------------------------------------------------------------------
+
+
+class TestBuildEventIndex(unittest.TestCase):
+    def test_builds_one_line_per_event_across_segments(self):
+        evidence1 = schema.EvidenceSpan(0, 6, "hummed")
+        evidence2 = schema.EvidenceSpan(0, 8, "shut off")
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            events=[
+                schema.Event(
+                    event_id="ev1",
+                    predicate="hummed",
+                    event_type="sound_emission",
+                    evidence=evidence1,
+                )
+            ],
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            events=[
+                schema.Event(
+                    event_id="ev1",
+                    predicate="shut off",
+                    event_type="mechanical_failure",
+                    evidence=evidence2,
+                )
+            ],
+        )
+        story = schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+        index_text = story_relation_extractor.build_event_index(story)
+
+        self.assertIn("1:ev1", index_text)
+        self.assertIn("2:ev1", index_text)
+        self.assertIn("hummed", index_text)
+        self.assertIn("shut off", index_text)
+
+    def test_empty_story_produces_empty_index(self):
+        story = schema.StoryWorldAnnotation(story_id="s1")
+        self.assertEqual(story_relation_extractor.build_event_index(story), "")
+
+
+class TestBuildStoryRelations(unittest.TestCase):
+    def _story_with_two_segment_events(self):
+        evidence1 = schema.EvidenceSpan(0, 6, "hummed")
+        evidence2 = schema.EvidenceSpan(0, 8, "shut off")
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            events=[
+                schema.Event(
+                    event_id="ev1",
+                    predicate="hummed",
+                    event_type="sound_emission",
+                    evidence=evidence1,
+                )
+            ],
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            events=[
+                schema.Event(
+                    event_id="ev1",
+                    predicate="shut off",
+                    event_type="mechanical_failure",
+                    evidence=evidence2,
+                )
+            ],
+        )
+        return schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+    def test_builds_cross_segment_relation_reusing_source_evidence(self):
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                    "certainty": "explicit",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+
+        self.assertEqual(len(relations), 1)
+        self.assertEqual(relations[0].relation_id, "story:r1")
+        self.assertEqual(relations[0].source_event_id, "1:ev1")
+        self.assertEqual(relations[0].target_event_id, "2:ev1")
+        # Evidence is reused directly from the source event's own span.
+        self.assertEqual(relations[0].evidence.quote, "hummed")
+        self.assertEqual(weakly_inferred, [])
+
+    def test_partitions_weakly_inferred_relation_into_separate_list(self):
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "motivates",
+                    "certainty": "weakly_inferred",
+                }
+            ]
+        }
+
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+
+        self.assertEqual(relations, [])
+        self.assertEqual(len(weakly_inferred), 1)
+        self.assertEqual(weakly_inferred[0].certainty, "weakly_inferred")
+
+    def test_drops_relation_referencing_unknown_event_id(self):
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "9:does_not_exist",
+                    "relation_type": "causes",
+                }
+            ]
+        }
+
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+
+    def test_drops_relation_whose_endpoints_are_in_the_same_segment(self):
+        """This pass's contract is cross-segment only; a same-segment claim
+        (the model violating its own instructions) must be discarded rather
+        than silently accepted, since same-segment links are already
+        covered by the existing per-segment pass."""
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "1:ev1",
+                    "relation_type": "precedes",
+                }
+            ]
+        }
+
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+
+    def test_empty_tool_result_produces_no_relations(self):
+        story = self._story_with_two_segment_events()
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            {}, story
+        )
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+
+    def test_relation_id_is_qualified_with_story_prefix(self):
+        """Qualifying the ID this way means cross_segment_relations can
+        never collide with a per-segment relation's raw ID once both
+        appear in the same exported table — no runtime deduplication is
+        needed (see StoryWorldAnnotation.cross_segment_relations)."""
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                }
+            ]
+        }
+        relations, _ = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+        self.assertTrue(relations[0].relation_id.startswith("story:"))
+
+
+# ---------------------------------------------------------------------------
 # Tests: schema.reconcile_story_annotations / validate_story_annotation (stage 9)
 # ---------------------------------------------------------------------------
 
@@ -912,6 +1109,119 @@ class TestReconcileStoryAnnotations(unittest.TestCase):
         self.assertTrue(any("does_not_exist" in e for e in errors))
         self.assertTrue(any("also_missing" in e for e in errors))
 
+    def _story_with_two_segment_events(self):
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        seg1 = schema.SegmentWorldAnnotation(
+            segment_id=1,
+            events=[
+                schema.Event(
+                    event_id="ev1", predicate="p", event_type="x", evidence=evidence
+                )
+            ],
+        )
+        seg2 = schema.SegmentWorldAnnotation(
+            segment_id=2,
+            events=[
+                schema.Event(
+                    event_id="ev1", predicate="p", event_type="x", evidence=evidence
+                )
+            ],
+        )
+        return schema.reconcile_story_annotations("s1", [seg1, seg2])
+
+    def test_validate_story_annotation_accepts_valid_cross_segment_relation(self):
+        story = self._story_with_two_segment_events()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r1",
+                source_event_id="1:ev1",
+                target_event_id="2:ev1",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        errors = schema.validate_story_annotation(story)
+        self.assertEqual(errors, [])
+
+    def test_validate_story_annotation_flags_cross_segment_relation_dangling_endpoint(
+        self,
+    ):
+        story = self._story_with_two_segment_events()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r1",
+                source_event_id="1:ev1",
+                target_event_id="9:does_not_exist",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        errors = schema.validate_story_annotation(story)
+        self.assertTrue(any("does_not_exist" in e for e in errors))
+
+    def test_validate_story_annotation_flags_same_segment_cross_segment_relation(self):
+        """A same-segment link in cross_segment_relations would indicate the
+        story-level pass violated its own scope — this must be flagged as
+        an error, not silently accepted."""
+        story = self._story_with_two_segment_events()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r1",
+                source_event_id="1:ev1",
+                target_event_id="1:ev1",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        errors = schema.validate_story_annotation(story)
+        self.assertTrue(any("not a genuine cross-segment link" in e for e in errors))
+
+    def test_validate_story_annotation_flags_relation_id_collision(self):
+        """Defense in depth: cross_segment_relations and relations should
+        never share a relation_id (they come from disjoint sources by
+        construction), but validation still checks for it explicitly."""
+        story = self._story_with_two_segment_events()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        story.relations = [
+            schema.EventRelation(
+                relation_id="dup",
+                source_event_id="1:ev1",
+                target_event_id="1:ev1",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="dup",
+                source_event_id="1:ev1",
+                target_event_id="2:ev1",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        errors = schema.validate_story_annotation(story)
+        self.assertTrue(any("collides" in e for e in errors))
+
+    def test_validate_story_annotation_flags_certainty_bucket_mismatch(self):
+        story = self._story_with_two_segment_events()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=1, quote="x")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r1",
+                source_event_id="1:ev1",
+                target_event_id="2:ev1",
+                relation_type="causes",
+                evidence=evidence,
+                certainty="weakly_inferred",
+            )
+        ]
+        errors = schema.validate_story_annotation(story)
+        self.assertTrue(any("has certainty" in e for e in errors))
+
     def test_reconciliation_is_deterministic(self):
         seg1 = schema.SegmentWorldAnnotation(
             segment_id=1, entities=[self._entity("e1", "the machine")]
@@ -1007,6 +1317,22 @@ class TestExport(unittest.TestCase):
         errors = export.validate_artifacts(story)
         self.assertTrue(any("invalid" in e and "hypothesis_type" in e for e in errors))
 
+    def test_validate_artifacts_flags_invalid_cross_segment_relation_certainty(self):
+        story = self._story_with_one_of_everything()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=7, quote="machine")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r1",
+                source_event_id="1:ev1",
+                target_event_id="1:ev1",
+                relation_type="causes",
+                evidence=evidence,
+                certainty="not_a_valid_certainty",
+            )
+        ]
+        errors = export.validate_artifacts(story)
+        self.assertTrue(any("invalid certainty" in e for e in errors))
+
     def test_to_canonical_json_is_deterministic(self):
         story = self._story_with_one_of_everything()
         self.assertEqual(
@@ -1026,6 +1352,38 @@ class TestExport(unittest.TestCase):
             "hypotheses",
         ):
             self.assertEqual(len(tables[table_name]), 1, table_name)
+
+    def test_build_analysis_tables_includes_cross_segment_relations(self):
+        story = self._story_with_one_of_everything()
+        evidence = schema.EvidenceSpan(start_char=0, end_char=7, quote="machine")
+        story.cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r2",
+                source_event_id="1:ev1",
+                target_event_id="1:ev1",
+                relation_type="causes",
+                evidence=evidence,
+            )
+        ]
+        story.weakly_inferred_cross_segment_relations = [
+            schema.EventRelation(
+                relation_id="story:r3",
+                source_event_id="1:ev1",
+                target_event_id="1:ev1",
+                relation_type="motivates",
+                evidence=evidence,
+                certainty="weakly_inferred",
+            )
+        ]
+        tables = export.build_analysis_tables(story)
+        # 1 per-segment relation (from _story_with_one_of_everything) + 2
+        # story-level cross-segment relations, with no deduplication needed
+        # since the two sources are disjoint by construction.
+        self.assertEqual(len(tables["relations"]), 3)
+        story_rows = [r for r in tables["relations"] if r["segment_id"] == "story"]
+        self.assertEqual(len(story_rows), 2)
+        self.assertIn("story:r2", [r["relation_id"] for r in story_rows])
+        self.assertIn("story:r3", [r["relation_id"] for r in story_rows])
 
     def test_rows_to_jsonl_produces_one_line_per_row(self):
         rows = [{"a": 1}, {"a": 2}]
@@ -1233,6 +1591,51 @@ class TestSummarizeAndCompare(unittest.TestCase):
         ]
         summary = baseline.summarize_annotations(annotations)
         self.assertEqual(summary["hypotheses_per_1000_words"], 6.0)
+
+    def test_summarize_without_story_omits_cross_segment_relations(self):
+        """Backward compatibility: omitting `story` must produce identical
+        rates to before WI-EVENT-0029 - existing callers with only
+        per-segment annotations must not be affected."""
+        annotations = [
+            self._annotation(word_count=500, n_entities=0, n_events=0, n_relations=1)
+        ]
+        summary = baseline.summarize_annotations(annotations)
+        self.assertEqual(summary["relations_per_1000_words"], 2.0)
+
+    def test_summarize_folds_cross_segment_relations_into_relations_rate(self):
+        evidence = schema.EvidenceSpan(0, 1, "x")
+        annotations = [
+            self._annotation(word_count=500, n_entities=0, n_events=0, n_relations=1)
+        ]
+        story = schema.StoryWorldAnnotation(
+            story_id="s1",
+            cross_segment_relations=[
+                schema.EventRelation("story:r1", "1:ev0", "2:ev0", "causes", evidence)
+            ],
+        )
+        summary = baseline.summarize_annotations(annotations, story)
+        # 1 per-segment relation + 1 cross-segment relation, per 500 words.
+        self.assertEqual(summary["relations_per_1000_words"], 4.0)
+
+    def test_summarize_folds_weakly_inferred_cross_segment_relations_separately(self):
+        evidence = schema.EvidenceSpan(0, 1, "x")
+        annotations = [self._annotation(word_count=500, n_entities=0, n_events=0)]
+        story = schema.StoryWorldAnnotation(
+            story_id="s1",
+            weakly_inferred_cross_segment_relations=[
+                schema.EventRelation(
+                    "story:r1",
+                    "1:ev0",
+                    "2:ev0",
+                    "motivates",
+                    evidence,
+                    certainty="weakly_inferred",
+                )
+            ],
+        )
+        summary = baseline.summarize_annotations(annotations, story)
+        self.assertEqual(summary["relations_per_1000_words"], 0.0)
+        self.assertEqual(summary["weakly_inferred_relations_per_1000_words"], 2.0)
 
     def test_compare_returns_both_strategies(self):
         seg = [self._annotation(word_count=500, n_entities=1, n_events=1)]
@@ -1716,6 +2119,188 @@ class TestProcessSegments(unittest.TestCase):
         self.assertTrue(
             any("hypothesis extraction failed" in e for e in seg["extraction_errors"]),
             seg["extraction_errors"],
+        )
+
+    def _two_segment_setup(self):
+        """Two segments, each with exactly one event, so the story-level
+        cross-segment relation pass (WI-EVENT-0029) has something to work
+        with (its guard requires at least 2 events total)."""
+        segment_text_1 = "The old machine hummed."
+        segment_text_2 = "It shut off forever."
+        story_text = segment_text_1 + " " + segment_text_2
+        segments = [
+            {"segment_id": 1, "start_char": 0, "end_char": len(segment_text_1)},
+            {
+                "segment_id": 2,
+                "start_char": len(segment_text_1) + 1,
+                "end_char": len(segment_text_1) + 1 + len(segment_text_2),
+            },
+        ]
+        seg1_results = [
+            {"entities": []},
+            {
+                "events": [
+                    {
+                        "event_id": "ev1",
+                        "predicate": "hummed",
+                        "event_type": "sound_emission",
+                        "quote": "hummed",
+                    }
+                ]
+            },
+            {"relations": []},
+            {},
+            {},
+        ]
+        seg2_results = [
+            {"entities": []},
+            {
+                "events": [
+                    {
+                        "event_id": "ev1",
+                        "predicate": "shut off",
+                        "event_type": "mechanical_failure",
+                        "quote": "shut off",
+                    }
+                ]
+            },
+            {"relations": []},
+            {},
+            {},
+        ]
+        return story_text, segments, seg1_results + seg2_results
+
+    def test_story_relation_pass_discovers_cross_segment_relation(self):
+        story_text, segments, per_segment_results = self._two_segment_setup()
+        story_relation_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                    "certainty": "explicit",
+                }
+            ]
+        }
+        fake = _SequencedFakeBackend(per_segment_results + [story_relation_result])
+
+        result = processor.process_segments(
+            story_text, segments, nlp_backend_name="spacy", llm_backend=fake
+        )
+
+        # 5 calls per segment x 2 segments + 1 story-level call.
+        self.assertEqual(len(fake.calls), 11)
+        usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
+        self.assertIn("story_relation", usage_by_pass)
+        self.assertTrue(usage_by_pass["story_relation"]["is_llm_backed"])
+
+        story = result["story"]
+        self.assertEqual(len(story["cross_segment_relations"]), 1)
+        relation = story["cross_segment_relations"][0]
+        self.assertEqual(relation["relation_id"], "story:r1")
+        self.assertEqual(relation["source_event_id"], "1:ev1")
+        self.assertEqual(relation["target_event_id"], "2:ev1")
+        self.assertEqual(story["weakly_inferred_cross_segment_relations"], [])
+        self.assertEqual(story["validation_errors"], [])
+
+    def test_include_cross_segment_relations_false_skips_story_pass(self):
+        story_text, segments, per_segment_results = self._two_segment_setup()
+        fake = _SequencedFakeBackend(per_segment_results)
+
+        result = processor.process_segments(
+            story_text,
+            segments,
+            nlp_backend_name="spacy",
+            llm_backend=fake,
+            include_cross_segment_relations=False,
+        )
+
+        # Exactly 10 calls (5 per segment) - no story-level call was made.
+        self.assertEqual(len(fake.calls), 10)
+        usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
+        self.assertNotIn("story_relation", usage_by_pass)
+        self.assertEqual(result["story"]["cross_segment_relations"], [])
+
+    def test_cross_segment_relation_pass_skipped_when_fewer_than_two_events(self):
+        """A cross-segment relation needs at least two events by
+        definition - the pass must not spend an LLM call on a story that
+        cannot possibly produce one."""
+        segment_text = "The machine hummed."
+        fake = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {
+                    "events": [
+                        {
+                            "event_id": "ev1",
+                            "predicate": "hummed",
+                            "event_type": "x",
+                            "quote": "hummed",
+                        }
+                    ]
+                },
+                {"relations": []},
+                {},
+                {},
+            ]
+        )
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=fake
+        )
+
+        # Exactly 5 calls - the story-level pass was never invoked despite
+        # include_cross_segment_relations defaulting to True.
+        self.assertEqual(len(fake.calls), 5)
+        usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
+        self.assertNotIn("story_relation", usage_by_pass)
+
+    def test_story_relation_extraction_failure_is_recorded_not_silently_empty(self):
+        """A failed story-relation pass must not read as 'no cross-segment
+        relations found'."""
+        story_text, segments, per_segment_results = self._two_segment_setup()
+
+        class _FailsOnEleventhCallBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **kwargs):
+                self.calls += 1
+                if self.calls == 11:
+                    return llm_backend.BackendResponse(
+                        text="",
+                        tool_result=None,
+                        model="fake-1.0",
+                        input_tokens=5,
+                        output_tokens=0,
+                        raw=None,
+                    )
+                result = per_segment_results[self.calls - 1]
+                return llm_backend.BackendResponse(
+                    text="",
+                    tool_result=result,
+                    model="fake-1.0",
+                    input_tokens=5,
+                    output_tokens=2,
+                    raw=None,
+                )
+
+        backend = _FailsOnEleventhCallBackend()
+
+        result = processor.process_segments(
+            story_text, segments, nlp_backend_name="spacy", llm_backend=backend
+        )
+
+        story = result["story"]
+        self.assertEqual(story["cross_segment_relations"], [])
+        self.assertTrue(
+            any(
+                "story relation extraction failed" in e
+                for e in story["extraction_errors"]
+            ),
+            story["extraction_errors"],
         )
 
 

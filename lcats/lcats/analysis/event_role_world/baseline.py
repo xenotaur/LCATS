@@ -11,7 +11,7 @@ two chunking strategies.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from lcats.analysis import story_analysis
 from lcats.analysis.event_role_world import schema
@@ -86,12 +86,22 @@ def _rate_per_1000_words(count: int, word_count: int) -> float:
 
 def summarize_annotations(
     annotations: List[schema.SegmentWorldAnnotation],
+    story: Optional[schema.StoryWorldAnnotation] = None,
 ) -> Dict[str, Any]:
     """Compute normalized rates for a list of segment/chunk annotations.
 
     Args:
         annotations: SegmentWorldAnnotation instances produced by running
             the pipeline over either scene/sequel segments or fixed chunks.
+        story: Optional StoryWorldAnnotation for the same run (WI-EVENT-0029).
+            When given, its cross_segment_relations/weakly_inferred_cross_
+            segment_relations counts are folded into relations_per_1000_words/
+            weakly_inferred_relations_per_1000_words alongside the per-segment
+            counts. Safe to combine without deduplication: cross_segment_
+            relations is populated from a disjoint source (the story-level
+            pass) and is never also present in any segment's own relations
+            list. Defaults to None for callers that only have per-segment
+            annotations (e.g. existing callers predating WI-EVENT-0029).
 
     Returns:
         A dict with unit_count, total_word_count, and per-1000-word rates
@@ -123,6 +133,11 @@ def summarize_annotations(
     total_weakly_inferred_relations = sum(
         len(a.weakly_inferred_relations) for a in annotations
     )
+    if story is not None:
+        total_relations += len(story.cross_segment_relations)
+        total_weakly_inferred_relations += len(
+            story.weakly_inferred_cross_segment_relations
+        )
     total_speech_acts = sum(len(a.speech_acts) for a in annotations)
     total_explanations = sum(len(a.explanations) for a in annotations)
     total_sf_tags = sum(len(a.sf_tags) for a in annotations)
@@ -159,6 +174,8 @@ def summarize_annotations(
 def compare_chunking_strategies(
     segment_annotations: List[schema.SegmentWorldAnnotation],
     chunk_annotations: List[schema.SegmentWorldAnnotation],
+    segment_story: Optional[schema.StoryWorldAnnotation] = None,
+    chunk_story: Optional[schema.StoryWorldAnnotation] = None,
 ) -> Dict[str, Any]:
     """Compare normalized rates between segment-based and fixed-chunk runs.
 
@@ -167,6 +184,11 @@ def compare_chunking_strategies(
             scene/sequel segments.
         chunk_annotations: Annotations from running the same pipeline over
             fixed-token chunks of the same story.
+        segment_story: Optional StoryWorldAnnotation for the segment run
+            (WI-EVENT-0029), so its cross-segment relations are folded into
+            the "segment" summary. Defaults to None.
+        chunk_story: Optional StoryWorldAnnotation for the fixed_chunk run,
+            folded into the "fixed_chunk" summary. Defaults to None.
 
     Returns:
         A dict with "segment" and "fixed_chunk" summaries (see
@@ -174,6 +196,6 @@ def compare_chunking_strategies(
         anchor rates diverge between chunking strategies.
     """
     return {
-        "segment": summarize_annotations(segment_annotations),
-        "fixed_chunk": summarize_annotations(chunk_annotations),
+        "segment": summarize_annotations(segment_annotations, segment_story),
+        "fixed_chunk": summarize_annotations(chunk_annotations, chunk_story),
     }
