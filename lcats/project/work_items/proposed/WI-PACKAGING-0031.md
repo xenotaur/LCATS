@@ -21,6 +21,7 @@ blocked_by: []
 expected_actions:
   - edit_file
   - run_tests
+  - create_pr
 forbidden_actions:
   - force_push
   - delete_branch
@@ -134,7 +135,6 @@ src-layout work item, per the workstream's documented ordering constraint.
 
 ## Validation
 
-- `scripts/version tools`
 - `lrh validate`
 - `scripts/format --check --diff`
 - `scripts/lint`

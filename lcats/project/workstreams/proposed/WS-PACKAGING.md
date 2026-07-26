@@ -10,7 +10,8 @@ related_focus: []
 related_roadmap: []
 related_design:
   - project/design/proposals/proposed/lcats-packaging-modernization/00_proposal.md
-work_items: []
+work_items:
+  - WI-PACKAGING-0031
 exit_criteria:
   - lcats/pyproject.toml declares license via PEP 639 (license = "MIT" + license-files), pins setuptools>=77 (the version that added PEP 639 support), sets required-version for tool.ruff and tool.black, has no duplicate test/dev extras, and pins gutenbergpy to a commit SHA
   - lcats package code lives at lcats/src/lcats/ with scripts/lint, scripts/format, secrets.py, and all lcats/lcats path literals updated accordingly, and the full test suite passes against the new layout
@@ -59,12 +60,9 @@ item couldn't express.
 
 ## Work Items
 
-Not yet created; `work_items:` will be populated as each is drafted via
-`/lrh-work-item`.
-
-- *(planned)* Metadata/config fixes — PEP 639 license, `setuptools>=77`
-  build-system pin, tool `required-version` pins, dedupe extras, pin
-  `gutenbergpy` to a commit SHA, `project.urls`/classifiers.
+- **WI-PACKAGING-0031** — Metadata/config fixes: PEP 639 license,
+  `setuptools>=77` build-system pin, tool `required-version` pins, dedupe
+  extras, pin `gutenbergpy` to a commit SHA, `project.urls`/classifiers.
 - *(planned)* src-layout move — `lcats/lcats/` → `lcats/src/lcats/`, update
   `scripts/lint`/`scripts/format`, `secrets.py`, path-literal audit,
   reinstall, full test run.
