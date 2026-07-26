@@ -35,11 +35,16 @@ gaps:
 4. A deprecated `license = {text = "MIT"}` table; PEP 639 wants the SPDX
    string form plus `license-files`.
 5. An old `setuptools>=42` build-system pin, predating reliable PEP 621
-   `[project]` table support.
-6. No `[tool.ruff]` / `[tool.black] required-version` self-enforcement —
-   tool versions are pinned only in CI (`lint.yml`), which is the documented
-   root cause of the version-skew symptom already on file as
-   `feedback_precommit_hook_rewrite_version_skew` in project memory.
+   `[project]` table support and, more strictly, predating PEP 639
+   `license`/`license-files` support (added in setuptools 77.0.0 per the
+   [setuptools changelog](https://setuptools.pypa.io/en/latest/history.html)).
+6. No `[tool.ruff]` / `[tool.black] required-version` self-enforcement.
+   `pyproject.toml` pins `black==25.11.0` in the `test`/`dev` extras
+   (matching `lint.yml`'s CI pin) but leaves `ruff` unpinned there, and
+   neither tool has a `required-version` declared in `pyproject.toml`
+   itself — so a local `ruff`/`black` invocation has no way to fail fast on
+   version skew; the version only gets checked, and can silently diverge,
+   in CI.
 7. Byte-identical duplicate `test` and `dev` optional-dependency lists.
 8. `gutenbergpy` pinned to a mutable branch ref
    (`git+...@LCATS/TitleFix`) rather than a commit SHA or tag.
@@ -155,21 +160,30 @@ removal lands only once it is unambiguously redundant.
 Multi-stage; delivered as three sequential work items against a governing
 workstream:
 
-1. **Metadata/config fixes** — PEP 639 license form, `setuptools>=68` build
-   pin, `[tool.ruff]`/`[tool.black] required-version` pins (and pinning
-   `ruff` in the `test`/`dev` extras to match CI), dedupe `test`/`dev`
-   extras, pin `gutenbergpy` to a commit SHA, add `project.urls` and
-   classifiers. No code or CI changes.
+1. **Metadata/config fixes** — PEP 639 license form, bumping the
+   `build-system.requires` pin to `setuptools>=77` (the version that added
+   PEP 639 `license`/`license-files` support — `setuptools>=68` is
+   insufficient for this specific change), `[tool.ruff]`/`[tool.black]
+   required-version` pins (and pinning `ruff` in the `test`/`dev` extras to
+   match CI), dedupe `test`/`dev` extras, pin `gutenbergpy` to a commit SHA,
+   add `project.urls` and classifiers. No code or CI changes.
 2. **src-layout move** — `lcats/lcats/` → `lcats/src/lcats/`;
    `[tool.setuptools] package-dir`/`[tool.setuptools.packages.find] where`;
    update `scripts/lint` and `scripts/format` default targets; update
    `secrets.py`'s `parents[N]` depth count; audit `.pre-commit-config.yaml`,
-   `tools/sourcetree_surveyor.py`, `tools/create_request.py` for
-   `lcats/lcats` path literals; reinstall editable package; run the full
-   test suite.
+   `tools/sourcetree_surveyor.py`, `tools/create_request.py`,
+   `experiments/02_llm_backend_comparison/run_comparison.py`, and
+   `experiments/03_cross_segment_relation_pilot/run_pilot.py` for
+   `lcats/lcats` path literals or `sys.path` bootstraps that assume the
+   package lives at `<repo>/lcats` (the two `experiments/*/run_*.py` scripts
+   each do `sys.path.insert(0, ... / "lcats")` to support direct execution
+   without an editable install, and must point at `.../lcats/src` instead);
+   reinstall editable package; run the full test suite.
 3. **Dynamic versioning + `setup.py` removal** — `dynamic = ["version"]`,
-   `[tool.setuptools_scm]` with `fallback_version`, cut a first git tag,
-   delete `lcats/setup.py`.
+   adding `setuptools-scm` to `build-system.requires` (required so the PEP
+   517 isolated build environment can actually invoke the SCM plugin — it
+   is not implied by `[tool.setuptools_scm]` alone), `[tool.setuptools_scm]`
+   with `fallback_version`, cut a first git tag, delete `lcats/setup.py`.
 
 Given three sequential, individually-scoped work items with cross-item
 ordering constraints, this is medium/large scope: a governing workstream is
@@ -179,5 +193,8 @@ recommended, with one work item per phase.
 
 - Reference implementation pattern:
   `logical_robotics_harness/pyproject.toml` (sibling `lrh` project).
-- Related project memory: `feedback_precommit_hook_rewrite_version_skew`,
-  `project_ci_pins_formatting_source_of_truth`.
+- The version-skew rationale in gap 6 above is drawn from prior first-hand
+  observation of a pre-commit hook reformatting files because the local
+  `black`/`ruff` install diverged from CI's pinned versions — not from a
+  repo-discoverable artifact, so it is stated inline rather than
+  cross-referenced.
