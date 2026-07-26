@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:WORLDCON_GENRE_RECONCILIATION)[2026-07-26T03:49:46-04:0
 work_item: AD_HOC
 status: in_progress
 rerun_of: 
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/161
+commit: e22e5030
 agent: claude_app
 instruction_source: user prompt (this session) — "Reconcile genre representation and coverage for Worldcon 2026"
 session_transcript: pending
