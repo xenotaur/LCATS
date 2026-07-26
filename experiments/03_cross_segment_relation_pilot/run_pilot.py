@@ -299,8 +299,8 @@ def _make_nlp_backend(nlp_backend_name: str) -> Any:
 def _run_erw_pipeline(
     body: str,
     segments: List[Dict[str, Any]],
-    backend: Any,
-    model: str,
+    extractors: Dict[str, Any],
+    nlp_backend: Any,
     nlp_backend_name: str,
     story_id: str,
 ) -> Dict[str, Any]:
@@ -312,7 +312,13 @@ def _run_erw_pipeline(
     story-level cross-segment relation pass gated on events existing in at
     least 2 distinct segments) but built from extractors this script
     constructs itself, so their default_model can be overridden - see
-    _build_erw_extractors(). Returns
+    _build_erw_extractors(). `extractors` and `nlp_backend` are built ONCE
+    by the caller (main()) and reused across every story in the sample -
+    constructing a fresh nlp_backend per story here previously reloaded
+    Stanza's full neural pipeline (tokenize/mwt/pos/lemma/depparse, ~15-30s)
+    on every single story, since StanzaBackend.__init__ builds a real
+    stanza.Pipeline; spaCy's per-story reload was smaller (~1-5s) but the
+    same waste. Returns
     {"segments": [...], "usage": [...], "story": {...},
     "processed_segment_count": int} - the last key is the number of
     segments actually processed (process_segments() silently skips any
@@ -320,8 +326,6 @@ def _run_erw_pipeline(
     overstate how many were really run and disagree with relation
     counts/densities computed from them).
     """
-    extractors = _build_erw_extractors(backend, model)
-    nlp_backend = _make_nlp_backend(nlp_backend_name)
 
     annotations: List[erw_schema.SegmentWorldAnnotation] = []
     all_usage: List[erw_processor.PassUsage] = []
@@ -394,6 +398,8 @@ def run_story(
     genre: str,
     backend: Any,
     model: str,
+    extractors: Dict[str, Any],
+    nlp_backend: Any,
     nlp_backend_name: str,
     dry_run: bool = False,
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
@@ -451,7 +457,7 @@ def run_story(
             return row, []
 
     pipeline_result = _run_erw_pipeline(
-        body, segments, backend, model, nlp_backend_name, path.stem
+        body, segments, extractors, nlp_backend, nlp_backend_name, path.stem
     )
     usage_rows = [
         {"story_id": path.stem, "genre": genre, **usage}
@@ -586,6 +592,13 @@ def main() -> int:
             file=sys.stderr,
         )
 
+    # Built ONCE and reused across every story - constructing these per
+    # story previously reloaded Stanza's full neural pipeline (~15-30s) or
+    # spaCy's model (~1-5s) on every single story. See _run_erw_pipeline's
+    # docstring.
+    extractors = _build_erw_extractors(backend, model)
+    nlp_backend = _make_nlp_backend(args.nlp_backend)
+
     rows: List[Dict[str, Any]] = []
     usage_rows: List[Dict[str, Any]] = []
     for genre in GENRES:
@@ -593,7 +606,14 @@ def main() -> int:
             print(f"Running pipeline: [{genre}] {path.name}")
             t0 = time.monotonic()
             row, story_usage_rows = run_story(
-                path, genre, backend, model, args.nlp_backend, dry_run=args.dry_run
+                path,
+                genre,
+                backend,
+                model,
+                extractors,
+                nlp_backend,
+                args.nlp_backend,
+                dry_run=args.dry_run,
             )
             row["elapsed_seconds"] = time.monotonic() - t0
             rows.append(row)

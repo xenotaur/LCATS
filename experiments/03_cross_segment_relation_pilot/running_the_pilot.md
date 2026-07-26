@@ -93,10 +93,15 @@ on real segment text (LLM calls are still faked). If this fails with
 `ModuleNotFoundError: No module named 'spacy'`, see Troubleshooting below.
 
 ```bash
-cat /tmp/pilot_dry_run_spacy/pilot_stories.jsonl   # word_count should be
-                                                     # nonzero and real now
+cat /tmp/pilot_dry_run_spacy/pilot_stories.jsonl
 rm -rf /tmp/pilot_dry_run_spacy
 ```
+
+`word_count` is computed directly from the story text regardless of NLP
+backend, so it won't change from 2a — the real evidence spaCy ran for real
+is each row's `elapsed_seconds`: expect roughly 1-5 real seconds per story
+(spaCy loading the pipeline and running its tokenizer/tagger/parser),
+versus microseconds in 2a's fake-backend run.
 
 ### 2c. Test your Stanza install
 
