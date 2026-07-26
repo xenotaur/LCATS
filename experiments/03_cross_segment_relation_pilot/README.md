@@ -108,13 +108,15 @@ python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
     --sample-size 2 --output /tmp/pilot_dry_run
 ```
 
-This exercises the full script (sample selection, segmentation call sites,
-pipeline invocation, output writing) with a `FakeBackend` and **no real API
-calls**, so you can confirm the script runs end to end in your environment
-before spending real cost on the full sample. Every dry-run story will show
-up `excluded` (a fake backend can't produce a real segmentation), which is
-expected — the point is verifying the control flow and output files, not
-producing real numbers.
+This exercises the full script — sample selection, a stubbed single-segment
+stage-1 segmentation, the actual Event-Role-World pipeline invocation, and
+output writing — with a `FakeBackend` and **no real API calls**, so you can
+confirm the script runs end to end in your environment before spending
+real cost on the full sample. Dry-run stories are not excluded (a fake
+backend's fixed response parses as valid-but-empty extraction output at
+every stage), so you'll see real output rows with zero counts everywhere —
+the point is verifying the control flow and output files, not producing
+real numbers.
 
 ## Cost note
 
@@ -163,7 +165,8 @@ WI-EVENT-0030's scope).
   `included_count`, `excluded_count`,
   `mean_cross_segment_density_per_1000_words`,
   `mean_weakly_inferred_cross_segment_density_per_1000_words`,
-  `mean_folded_relations_per_1000_words`.
+  `mean_folded_relations_per_1000_words`,
+  `mean_folded_weakly_inferred_relations_per_1000_words`.
 
 ## Expected Results Format
 

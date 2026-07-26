@@ -18,10 +18,12 @@ Optional flags:
     --nlp-backend NAME      "spacy" (default) or "stanza", for stage-2 surface features
     --output DIR            Results directory (default: ./results next to this script)
     --dry-run               Skip real genre detection and use a FakeBackend for the
-                            whole pipeline, so the script's control flow and output
-                            files can be exercised with zero API cost. Produces
-                            meaningless (empty) extraction results - never use its
-                            output as a real finding.
+                            whole pipeline (including a stubbed single-segment
+                            stage-1 segmentation, so the Event-Role-World pipeline
+                            itself is genuinely invoked), so the script's control
+                            flow and output files can be exercised with zero API
+                            cost. Produces meaningless (empty) extraction results -
+                            never use its output as a real finding.
 
 Genre strata are fixed to the four genres lcats assess --genre actually
 classifies (science fiction, horror, western, romance - see
@@ -280,21 +282,27 @@ def _run_erw_pipeline(
     story-level cross-segment relation pass gated on events existing in at
     least 2 distinct segments) but built from extractors this script
     constructs itself, so their default_model can be overridden - see
-    _build_erw_extractors(). Returns the same
-    {"segments": [...], "usage": [...], "story": {...}} shape
-    process_segments() returns, so downstream code needs no changes.
+    _build_erw_extractors(). Returns
+    {"segments": [...], "usage": [...], "story": {...},
+    "processed_segment_count": int} - the last key is the number of
+    segments actually processed (process_segments() silently skips any
+    segment missing start_char/end_char, so `len(segments)` alone can
+    overstate how many were really run and disagree with relation
+    counts/densities computed from them).
     """
     extractors = _build_erw_extractors(backend, model)
     nlp_backend = erw_surface.make_nlp_backend(nlp_backend_name)
 
     annotations: List[erw_schema.SegmentWorldAnnotation] = []
     all_usage: List[erw_processor.PassUsage] = []
+    processed_segment_count = 0
 
     for segment in segments:
         start_char = segment.get("start_char")
         end_char = segment.get("end_char")
         if start_char is None or end_char is None:
             continue
+        processed_segment_count += 1
         segment_text = body[start_char:end_char]
         annotation, usage_records = erw_processor.process_segment(
             segment.get("segment_id"),
@@ -347,6 +355,7 @@ def _run_erw_pipeline(
         "segments": [a.to_dict() for a in annotations],
         "usage": [u.to_dict() for u in all_usage],
         "story": story.to_dict(),
+        "processed_segment_count": processed_segment_count,
     }
 
 
@@ -356,6 +365,7 @@ def run_story(
     backend: Any,
     model: str,
     nlp_backend_name: str,
+    dry_run: bool = False,
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Run the full pipeline for one story.
 
@@ -363,6 +373,14 @@ def run_story(
     pilot_stories.jsonl; usage_rows is one dict per PassUsage record (tagged
     with story_id/genre) for pilot_usage.jsonl, preserved even for excluded
     stories so cost/latency on a failed paid run is not lost.
+
+    In --dry-run mode, real stage-1 segmentation is skipped (a FakeBackend
+    cannot produce one - its single fixed response can't satisfy the
+    segmentation extractor's JSON-text parsing) and a single dummy segment
+    spanning the whole body is used instead, so _run_erw_pipeline() (and
+    thus the Event-Role-World pipeline itself) is genuinely exercised end
+    to end even in the zero-cost smoke test, rather than every dry-run
+    story returning early at segmentation.
     """
     row: Dict[str, Any] = {
         "path": str(path),
@@ -388,11 +406,16 @@ def run_story(
         row["exclude_reason"] = "empty story body"
         return row, []
 
-    segments, seg_error = _segment_story(body, backend, model)
-    if seg_error or not segments:
-        row["excluded"] = True
-        row["exclude_reason"] = f"segmentation failed: {seg_error}"
-        return row, []
+    if dry_run:
+        segments: List[Dict[str, Any]] = [
+            {"segment_id": 1, "start_char": 0, "end_char": len(body)}
+        ]
+    else:
+        segments, seg_error = _segment_story(body, backend, model)
+        if seg_error or not segments:
+            row["excluded"] = True
+            row["exclude_reason"] = f"segmentation failed: {seg_error}"
+            return row, []
 
     pipeline_result = _run_erw_pipeline(
         body, segments, backend, model, nlp_backend_name, path.stem
@@ -409,7 +432,7 @@ def run_story(
         return row, usage_rows
 
     row.update(_compute_story_metrics(pipeline_result, word_count))
-    row["segment_count"] = len(segments)
+    row["segment_count"] = pipeline_result["processed_segment_count"]
     return row, usage_rows
 
 
@@ -431,14 +454,18 @@ def summarize_by_genre(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
             mean_folded = sum(
                 r["folded_relations_per_1000_words"] for r in included
             ) / len(included)
+            mean_folded_weak = sum(
+                r["folded_weakly_inferred_relations_per_1000_words"] for r in included
+            ) / len(included)
         else:
-            mean_cross = mean_weak_cross = mean_folded = 0.0
+            mean_cross = mean_weak_cross = mean_folded = mean_folded_weak = 0.0
         summary[genre] = {
             "included_count": len(included),
             "excluded_count": len(excluded),
             "mean_cross_segment_density_per_1000_words": mean_cross,
             "mean_weakly_inferred_cross_segment_density_per_1000_words": mean_weak_cross,
             "mean_folded_relations_per_1000_words": mean_folded,
+            "mean_folded_weakly_inferred_relations_per_1000_words": mean_folded_weak,
         }
     return summary
 
@@ -519,7 +546,7 @@ def main() -> int:
             print(f"Running pipeline: [{genre}] {path.name}")
             t0 = time.monotonic()
             row, story_usage_rows = run_story(
-                path, genre, backend, model, args.nlp_backend
+                path, genre, backend, model, args.nlp_backend, dry_run=args.dry_run
             )
             row["elapsed_seconds"] = time.monotonic() - t0
             rows.append(row)
@@ -561,7 +588,8 @@ def main() -> int:
             f"excluded={stats['excluded_count']} "
             f"cross_segment={stats['mean_cross_segment_density_per_1000_words']:.3f} "
             f"weakly_inferred_cross_segment={stats['mean_weakly_inferred_cross_segment_density_per_1000_words']:.3f} "
-            f"folded_total={stats['mean_folded_relations_per_1000_words']:.3f}"
+            f"folded_total={stats['mean_folded_relations_per_1000_words']:.3f} "
+            f"folded_weakly_inferred={stats['mean_folded_weakly_inferred_relations_per_1000_words']:.3f}"
         )
     print(f"\nWrote {stories_path}")
     print(f"Wrote {usage_path}")
