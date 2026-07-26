@@ -304,8 +304,12 @@ def _run_erw_pipeline(
     nlp_backend_name: str,
     story_id: str,
 ) -> Dict[str, Any]:
-    """Run stages 2-9 (+ the cross-segment pass) with `model` correctly
-    propagated to every ERW extractor.
+    """Run stages 2-9 (+ the cross-segment pass) for one story.
+
+    `extractors` (built by _build_erw_extractors(), with `model` already
+    overriding each extractor's own hardcoded default) and `nlp_backend`
+    are passed in already-built rather than constructed here - this
+    function itself takes no `model` parameter.
 
     Mirrors processor.process_segments()'s own orchestration (per-segment
     process_segment() calls, schema.reconcile_story_annotations(), then the
@@ -595,9 +599,14 @@ def main() -> int:
     # Built ONCE and reused across every story - constructing these per
     # story previously reloaded Stanza's full neural pipeline (~15-30s) or
     # spaCy's model (~1-5s) on every single story. See _run_erw_pipeline's
-    # docstring.
+    # docstring. Model/pipeline loading now happens here, before the
+    # per-story timer starts below, so per-story elapsed_seconds no longer
+    # includes it - print an explicit confirmation instead, since spaCy
+    # (unlike Stanza) prints no loading banner of its own.
     extractors = _build_erw_extractors(backend, model)
+    print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
+    print(f"NLP backend ready: {args.nlp_backend}")
 
     rows: List[Dict[str, Any]] = []
     usage_rows: List[Dict[str, Any]] = []

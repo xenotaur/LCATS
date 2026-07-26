@@ -98,10 +98,15 @@ rm -rf /tmp/pilot_dry_run_spacy
 ```
 
 `word_count` is computed directly from the story text regardless of NLP
-backend, so it won't change from 2a — the real evidence spaCy ran for real
-is each row's `elapsed_seconds`: expect roughly 1-5 real seconds per story
-(spaCy loading the pipeline and running its tokenizer/tagger/parser),
-versus microseconds in 2a's fake-backend run.
+backend, so it won't change from 2a. The NLP backend is loaded once,
+before any story runs — look for the script's own
+`Loading NLP backend: spacy...` / `NLP backend ready: spacy` console lines
+(printed once, near the start) as confirmation, rather than inferring it
+from `elapsed_seconds`: since loading now happens outside the per-story
+timer, each row's `elapsed_seconds` reflects only real inference time
+(typically well under a second per story for spaCy), not a multi-second
+load — a small number here is expected and does **not** mean spaCy didn't
+run.
 
 ### 2c. Test your Stanza install
 
@@ -118,6 +123,11 @@ python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
 cat /tmp/pilot_dry_run_stanza/pilot_stories.jsonl
 rm -rf /tmp/pilot_dry_run_stanza
 ```
+
+Stanza's own "Loading these models..." banner prints once, near the start
+of the run (before any story is processed), not once per story — if you
+see it repeated once per story, something has regressed (the NLP backend
+should be built once and reused across the whole sample).
 
 You only need one of 2b/2c working for Step 4 (whichever `--nlp-backend`
 you plan to use for real) — running both is just extra confidence.
