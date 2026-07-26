@@ -121,14 +121,25 @@ producing real numbers.
 This script makes real LLM API calls for genre detection (one call per
 candidate story scanned — could be well more than the final sample size,
 depending on how the corpus's genre distribution lines up with the four
-target strata), scene/sequel segmentation (one or two calls per sampled
-story), and the full Event-Role-World pipeline (roughly 5-6 calls per
-segment, plus one story-level cross-segment-relation call per story).
-Across 4 genres x 5-10 stories each (WI-EVENT-0030's target), this is a
-real cost and latency expenditure — size toward the lower end of the
-5-10 range first if cost is a concern, and note the actual sample size
-used in the Results section rather than silently shrinking it without
-comment.
+target strata), scene/sequel segmentation (one call per sampled story),
+and the full Event-Role-World pipeline (4 calls per segment — entities,
+events, relations, discourse; the optional stage-8 hypothesis pass is
+disabled since this pilot doesn't use hypothesis data — plus one
+story-level cross-segment-relation call per story). Across 4 genres x
+5-10 stories each (WI-EVENT-0030's target), this is a real cost and
+latency expenditure — size toward the lower end of the 5-10 range first
+if cost is a concern, and note the actual sample size used in the Results
+section rather than silently shrinking it without comment.
+
+`--model` (and the `--backend`-specific default) is propagated to every
+call the script makes, including the Event-Role-World pipeline's own
+extractors — those extractors normally hardcode `default_model="gpt-4o"`
+internally when built by `processor.process_segments()`, which would send
+an invalid model ID to a non-OpenAI backend; this script instead builds
+the same extractors itself (see `_build_erw_extractors`/`_run_erw_pipeline`
+in `run_pilot.py`) so their model can be overridden, without modifying
+`processor.py` or any `event_role_world` module (forbidden by
+WI-EVENT-0030's scope).
 
 ## Output files
 
@@ -141,6 +152,12 @@ comment.
   `folded_relations_per_1000_words`,
   `folded_weakly_inferred_relations_per_1000_words`, `excluded`,
   `exclude_reason`, `elapsed_seconds`.
+- `results/pilot_usage.jsonl` — one row per pipeline `PassUsage` record
+  (model, input/output tokens, elapsed time), tagged with `story_id` and
+  `genre`, preserved even for excluded stories so cost/latency on a failed
+  paid run is never lost. This is the raw data needed for the proposal's
+  Cost and baseline reporting requirement — `pilot_summary.json` does not
+  aggregate cost, only density.
 - `results/pilot_summary.json` — run metadata (sample size target,
   candidates scanned, backend/model, dry-run flag) plus a `by_genre` dict:
   `included_count`, `excluded_count`,

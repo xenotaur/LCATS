@@ -36,12 +36,19 @@ Requires:
       (see docs/secrets-setup.md) - not required for --dry-run.
 
 Cost note: this script makes real LLM API calls for genre detection (one
-call per candidate story scanned), scene/sequel segmentation (one or two
-calls per sampled story), and the full Event-Role-World pipeline (roughly
-5-6 calls per segment plus one story-level cross-segment-relation call per
-story). Across 4 genres x 5-10 stories each, this is a real cost and
-latency expenditure - see the Risk Notes in WI-EVENT-0030 and the README
-in this directory before running against the full target sample size.
+call per candidate story scanned), scene/sequel segmentation (one call per
+sampled story), and the full Event-Role-World pipeline (4 calls per
+segment - entities, events, relations, discourse; the optional stage-8
+hypothesis pass is disabled since this pilot doesn't use hypothesis data -
+plus one story-level cross-segment-relation call per story). Across 4
+genres x 5-10 stories each, this is a real cost and latency expenditure -
+see the Risk Notes in WI-EVENT-0030 and the README in this directory
+before running against the full target sample size. --model and the
+--backend-specific default are propagated to every call, including the
+ERW pipeline's own extractors (see _build_erw_extractors/_run_erw_pipeline
+below) - processor.process_segments() itself hardcodes gpt-4o for these
+regardless of backend, which would send an invalid model ID to a
+non-OpenAI backend.
 
 Exit codes:
     0   pilot completed (individual story exclusions are noted, not fatal)
@@ -69,7 +76,16 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats"))
 from lcats.analysis import scene_analysis
 from lcats.analysis import story_analysis
 from lcats.analysis.corpus import assess as corpus_assess
+from lcats.analysis.event_role_world import discourse_extractor as erw_discourse
+from lcats.analysis.event_role_world import entity_extractor as erw_entity
+from lcats.analysis.event_role_world import event_extractor as erw_event
 from lcats.analysis.event_role_world import processor as erw_processor
+from lcats.analysis.event_role_world import relation_extractor as erw_relation
+from lcats.analysis.event_role_world import schema as erw_schema
+from lcats.analysis.event_role_world import (
+    story_relation_extractor as erw_story_relation,
+)
+from lcats.analysis.event_role_world import surface_feature_extractor as erw_surface
 from lcats.utils.secrets import load_secrets
 
 GENRES = (
@@ -218,14 +234,136 @@ def _compute_story_metrics(
     }
 
 
+def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
+    """Build the Event-Role-World extractors, with `model` overriding each
+    factory's own hardcoded default_model (e.g. "gpt-4o").
+
+    processor.process_segments() has no model parameter - it builds these
+    same extractors internally with each factory's hardcoded default,
+    which sends an invalid model ID whenever the caller's backend/model
+    choice differs (e.g. --backend anthropic with the default gpt-4o
+    baked into every ERW extractor). Building them here instead, then
+    driving processor.process_segment() (singular - it accepts pre-built
+    extractor instances) per segment ourselves, fixes this without
+    touching processor.py or any event_role_world module (forbidden by
+    this work item).
+    """
+    entity = erw_entity.make_entity_extractor(backend)
+    event = erw_event.make_event_extractor(backend)
+    relation = erw_relation.make_relation_extractor(backend)
+    discourse = erw_discourse.make_discourse_extractor(backend)
+    story_relation = erw_story_relation.make_story_relation_extractor(backend)
+    for extractor in (entity, event, relation, discourse, story_relation):
+        extractor.default_model = model
+    return {
+        "entity": entity,
+        "event": event,
+        "relation": relation,
+        "discourse": discourse,
+        "story_relation": story_relation,
+    }
+
+
+def _run_erw_pipeline(
+    body: str,
+    segments: List[Dict[str, Any]],
+    backend: Any,
+    model: str,
+    nlp_backend_name: str,
+    story_id: str,
+) -> Dict[str, Any]:
+    """Run stages 2-9 (+ the cross-segment pass) with `model` correctly
+    propagated to every ERW extractor.
+
+    Mirrors processor.process_segments()'s own orchestration (per-segment
+    process_segment() calls, schema.reconcile_story_annotations(), then the
+    story-level cross-segment relation pass gated on events existing in at
+    least 2 distinct segments) but built from extractors this script
+    constructs itself, so their default_model can be overridden - see
+    _build_erw_extractors(). Returns the same
+    {"segments": [...], "usage": [...], "story": {...}} shape
+    process_segments() returns, so downstream code needs no changes.
+    """
+    extractors = _build_erw_extractors(backend, model)
+    nlp_backend = erw_surface.make_nlp_backend(nlp_backend_name)
+
+    annotations: List[erw_schema.SegmentWorldAnnotation] = []
+    all_usage: List[erw_processor.PassUsage] = []
+
+    for segment in segments:
+        start_char = segment.get("start_char")
+        end_char = segment.get("end_char")
+        if start_char is None or end_char is None:
+            continue
+        segment_text = body[start_char:end_char]
+        annotation, usage_records = erw_processor.process_segment(
+            segment.get("segment_id"),
+            segment_text,
+            nlp_backend=nlp_backend,
+            nlp_backend_name=nlp_backend_name,
+            entity_llm_extractor=extractors["entity"],
+            event_llm_extractor=extractors["event"],
+            relation_llm_extractor=extractors["relation"],
+            discourse_llm_extractor=extractors["discourse"],
+            hypothesis_llm_extractor=None,
+            include_hypotheses=False,  # this pilot does not use hypothesis data
+        )
+        annotations.append(annotation)
+        all_usage.extend(usage_records)
+
+    story = erw_schema.reconcile_story_annotations(story_id, annotations)
+
+    segment_ids_with_events = {
+        segment.segment_id for segment in annotations if segment.events
+    }
+    if len(segment_ids_with_events) >= 2:
+        t0 = time.monotonic()
+        event_index_text = erw_story_relation.build_event_index(story)
+        story_relation_result = extractors["story_relation"].extract(event_index_text)
+        all_usage.append(
+            erw_processor._pass_usage_from_extraction(  # noqa: SLF001 - reuse pipeline's own usage-record logic
+                "story", "story_relation", story_relation_result, t0
+            )
+        )
+        story_relation_error = story_relation_result.get(
+            "api_error"
+        ) or story_relation_result.get("extraction_error")
+        if story_relation_error:
+            story.extraction_errors.append(
+                f"story relation extraction failed: {story_relation_error}"
+            )
+        cross_segment_relations, weakly_inferred_cross_segment_relations = (
+            erw_story_relation.build_story_relations(
+                story_relation_result.get("extracted_output") or {}, story
+            )
+        )
+        story.cross_segment_relations = cross_segment_relations
+        story.weakly_inferred_cross_segment_relations = (
+            weakly_inferred_cross_segment_relations
+        )
+        story.validation_errors = erw_schema.validate_story_annotation(story)
+
+    return {
+        "segments": [a.to_dict() for a in annotations],
+        "usage": [u.to_dict() for u in all_usage],
+        "story": story.to_dict(),
+    }
+
+
 def run_story(
     path: pathlib.Path,
     genre: str,
     backend: Any,
     model: str,
     nlp_backend_name: str,
-) -> Dict[str, Any]:
-    """Run the full pipeline for one story; return a result row dict."""
+) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    """Run the full pipeline for one story.
+
+    Returns (row, usage_rows) - row is the per-story result dict for
+    pilot_stories.jsonl; usage_rows is one dict per PassUsage record (tagged
+    with story_id/genre) for pilot_usage.jsonl, preserved even for excluded
+    stories so cost/latency on a failed paid run is not lost.
+    """
     row: Dict[str, Any] = {
         "path": str(path),
         "story_id": path.stem,
@@ -239,7 +377,7 @@ def run_story(
     except Exception as exc:  # noqa: BLE001
         row["excluded"] = True
         row["exclude_reason"] = f"could not read/parse story JSON: {exc}"
-        return row
+        return row, []
 
     body = story_analysis.coerce_text(data.get("body", ""))
     word_count = story_analysis.word_count(body)
@@ -248,32 +386,31 @@ def run_story(
     if not body.strip():
         row["excluded"] = True
         row["exclude_reason"] = "empty story body"
-        return row
+        return row, []
 
     segments, seg_error = _segment_story(body, backend, model)
     if seg_error or not segments:
         row["excluded"] = True
         row["exclude_reason"] = f"segmentation failed: {seg_error}"
-        return row
+        return row, []
 
-    pipeline_result = erw_processor.process_segments(
-        body,
-        segments,
-        nlp_backend_name=nlp_backend_name,
-        llm_backend=backend,
-        story_id=path.stem,
-        include_cross_segment_relations=True,
+    pipeline_result = _run_erw_pipeline(
+        body, segments, backend, model, nlp_backend_name, path.stem
     )
+    usage_rows = [
+        {"story_id": path.stem, "genre": genre, **usage}
+        for usage in pipeline_result["usage"]
+    ]
 
     extraction_errors = _has_extraction_errors(pipeline_result)
     if extraction_errors:
         row["excluded"] = True
         row["exclude_reason"] = "; ".join(extraction_errors)
-        return row
+        return row, usage_rows
 
     row.update(_compute_story_metrics(pipeline_result, word_count))
     row["segment_count"] = len(segments)
-    return row
+    return row, usage_rows
 
 
 def summarize_by_genre(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
@@ -376,13 +513,17 @@ def main() -> int:
         )
 
     rows: List[Dict[str, Any]] = []
+    usage_rows: List[Dict[str, Any]] = []
     for genre in GENRES:
         for path in sample[genre]:
             print(f"Running pipeline: [{genre}] {path.name}")
             t0 = time.monotonic()
-            row = run_story(path, genre, backend, model, args.nlp_backend)
+            row, story_usage_rows = run_story(
+                path, genre, backend, model, args.nlp_backend
+            )
             row["elapsed_seconds"] = time.monotonic() - t0
             rows.append(row)
+            usage_rows.extend(story_usage_rows)
             if row["excluded"]:
                 print(f"  excluded: {row['exclude_reason']}")
 
@@ -390,6 +531,11 @@ def main() -> int:
     with stories_path.open("w", encoding="utf-8") as f:
         for row in rows:
             f.write(json.dumps(row, sort_keys=True) + "\n")
+
+    usage_path = output_dir / "pilot_usage.jsonl"
+    with usage_path.open("w", encoding="utf-8") as f:
+        for usage_row in usage_rows:
+            f.write(json.dumps(usage_row, sort_keys=True) + "\n")
 
     summary = summarize_by_genre(rows)
     summary_path = output_dir / "pilot_summary.json"
@@ -418,6 +564,7 @@ def main() -> int:
             f"folded_total={stats['mean_folded_relations_per_1000_words']:.3f}"
         )
     print(f"\nWrote {stories_path}")
+    print(f"Wrote {usage_path}")
     print(f"Wrote {summary_path}")
 
     if incomplete_genres and not args.dry_run:
