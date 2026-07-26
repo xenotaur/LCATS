@@ -15,6 +15,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md`
+- `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
