@@ -23,7 +23,7 @@ multi-segment text blob) almost entirely.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Set, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
@@ -96,9 +96,9 @@ Only propose relations whose source and target events belong to DIFFERENT
 segments — same-segment relations are already handled by a separate pass and
 must not be repeated here. Only use the exact qualified event IDs given; do
 not invent new ones. For each relation, classify its certainty: "explicit" if
-the text directly implies the link across the events described, "strongly_
-implied" if a careful reader would confidently infer it, or "weakly_inferred"
-if it is a plausible but speculative reading."""
+the text directly implies the link across the events described,
+"strongly_implied" if a careful reader would confidently infer it, or
+"weakly_inferred" if it is a plausible but speculative reading."""
 
 STORY_RELATION_USER_PROMPT_TEMPLATE = """Known events across the story
 (qualified_event_id | predicate [event_type] | segment=segment_id | "quote"):
@@ -175,16 +175,22 @@ def build_story_relations(
         whose source and target resolve to the SAME segment (the model may
         occasionally violate its instructions; this pass's contract is
         cross-segment only, so such a claim is discarded rather than
-        silently accepted). Each surviving relation's relation_id is
-        qualified with a "story:" prefix so it can never collide with a
-        per-segment relation's raw ID once both appear in exported tables
-        — this pass's output is kept in its own StoryWorldAnnotation fields
-        entirely separate from `relations`, so no runtime deduplication is
-        needed to combine their counts. Evidence is reused directly from
-        the source event's own already-resolved EvidenceSpan (the
-        "already-resolved evidence spans" reuse WI-EVENT-0028's evaluation
-        recommended), not a fresh quote search — there is no single text
-        blob to search across segments against.
+        silently accepted). The tool schema does not forbid the model from
+        returning the same relation_id more than once in a single call, so
+        a raw relation_id already seen earlier in this same tool_result is
+        also dropped — deduplicated here, before storing or counting,
+        rather than merely detected later by validate_story_annotation.
+        Each surviving relation's relation_id is qualified with a "story:"
+        prefix so it can never collide with a per-segment relation's raw ID
+        once both appear in exported tables — this pass's output is kept
+        in its own StoryWorldAnnotation fields entirely separate from
+        `relations`, so no cross-source deduplication is needed to combine
+        their counts (only the within-this-call dedup above is needed).
+        Evidence is reused directly from the source event's own
+        already-resolved EvidenceSpan (the "already-resolved evidence
+        spans" reuse WI-EVENT-0028's evaluation recommended), not a fresh
+        quote search — there is no single text blob to search across
+        segments against.
     """
     event_by_qualified_id: Dict[str, schema.Event] = {
         f"{segment.segment_id}:{event.event_id}": event
@@ -194,6 +200,7 @@ def build_story_relations(
 
     cross_segment_relations: List[schema.EventRelation] = []
     weakly_inferred_cross_segment_relations: List[schema.EventRelation] = []
+    seen_raw_relation_ids: Set[str] = set()
 
     for raw in tool_result.get("relations") or []:
         source_id = raw.get("source_event_id", "")
@@ -208,9 +215,14 @@ def build_story_relations(
         if source_segment_id == target_segment_id:
             continue
 
+        raw_relation_id = raw["relation_id"]
+        if raw_relation_id in seen_raw_relation_ids:
+            continue
+        seen_raw_relation_ids.add(raw_relation_id)
+
         certainty = raw.get("certainty", "explicit")
         relation = schema.EventRelation(
-            relation_id=f"story:{raw['relation_id']}",
+            relation_id=f"story:{raw_relation_id}",
             source_event_id=source_id,
             target_event_id=target_id,
             relation_type=raw.get("relation_type", "other"),

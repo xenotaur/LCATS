@@ -941,6 +941,35 @@ class TestBuildStoryRelations(unittest.TestCase):
         )
         self.assertTrue(relations[0].relation_id.startswith("story:"))
 
+    def test_deduplicates_repeated_raw_relation_id_within_one_call(self):
+        """The tool schema does not forbid the model from returning the same
+        relation_id twice in one call; a naive qualify-and-store would
+        produce two "story:r1" entries, inflating the density count. This
+        must be deduplicated before storing/counting, not merely flagged
+        later by validate_story_annotation."""
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                },
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                },
+            ]
+        }
+        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+            tool_result, story
+        )
+        self.assertEqual(len(relations), 1)
+        self.assertEqual(weakly_inferred, [])
+
 
 # ---------------------------------------------------------------------------
 # Tests: schema.reconcile_story_annotations / validate_story_annotation (stage 9)
@@ -2253,6 +2282,49 @@ class TestProcessSegments(unittest.TestCase):
 
         # Exactly 5 calls - the story-level pass was never invoked despite
         # include_cross_segment_relations defaulting to True.
+        self.assertEqual(len(fake.calls), 5)
+        usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
+        self.assertNotIn("story_relation", usage_by_pass)
+
+    def test_cross_segment_relation_pass_skipped_for_single_segment_story(self):
+        """Two events in the SAME segment cannot produce a genuinely
+        cross-segment relation - build_story_relations would discard every
+        candidate as same-segment, so the pass must be skipped even though
+        total event count is >= 2 (a naive "at least 2 events" guard would
+        incorrectly let this one through)."""
+        segment_text = "The machine hummed. It shut off."
+        fake = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {
+                    "events": [
+                        {
+                            "event_id": "ev1",
+                            "predicate": "hummed",
+                            "event_type": "x",
+                            "quote": "hummed",
+                        },
+                        {
+                            "event_id": "ev2",
+                            "predicate": "shut off",
+                            "event_type": "x",
+                            "quote": "shut off",
+                        },
+                    ]
+                },
+                {"relations": []},
+                {},
+                {},
+            ]
+        )
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        result = processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=fake
+        )
+
+        # Exactly 5 calls - both events are in segment 1, so no distinct
+        # second segment exists for a cross-segment relation to span.
         self.assertEqual(len(fake.calls), 5)
         usage_by_pass = {u["pass_name"]: u for u in result["usage"]}
         self.assertNotIn("story_relation", usage_by_pass)

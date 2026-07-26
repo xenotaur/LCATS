@@ -348,9 +348,9 @@ def process_segments(
             a fixed-chunk baseline run where cross-segment context is not
             comparable to the segment run being controlled against). Even
             when True, the pass is skipped (no LLM call, no PassUsage
-            record) if fewer than 2 events exist across every segment,
-            since a cross-segment relation needs at least two events by
-            definition.
+            record) unless events exist in at least 2 distinct segments,
+            since a genuinely cross-segment relation needs events from two
+            different segments by definition.
 
     Returns:
         {"segments": [SegmentWorldAnnotation.to_dict(), ...],
@@ -359,8 +359,8 @@ def process_segments(
          story-level reconciliation (alias resolution, cross-segment
          relation qualification) over every segment annotation produced,
          plus the story-level cross-segment relation pass's own output if
-         include_cross_segment_relations is True and at least 2 events
-         exist.
+         include_cross_segment_relations is True and events exist in at
+         least 2 distinct segments.
     """
     nlp_backend = surface_feature_extractor.make_nlp_backend(nlp_backend_name)
     entity_llm_extractor = entity_extractor_module.make_entity_extractor(llm_backend)
@@ -413,12 +413,17 @@ def process_segments(
     # Runs once per story, after reconciliation has produced the global
     # event index the pass needs — never per segment, since the whole
     # point is discovering links this segment loop cannot see. Skipped
-    # entirely (no LLM call, no PassUsage record) when fewer than 2 events
-    # exist across every segment — a cross-segment relation needs at least
-    # two events by definition, so calling the pass on 0 or 1 events would
-    # spend an LLM call on a result that can only ever be empty.
-    total_event_count = sum(len(segment.events) for segment in annotations)
-    if include_cross_segment_relations and total_event_count >= 2:
+    # entirely (no LLM call, no PassUsage record) unless events exist in at
+    # least 2 distinct segments — a genuinely cross-segment relation needs
+    # events from two different segments by definition, so a single-segment
+    # story (or a multi-segment story where extraction only succeeded in
+    # one segment) would guarantee every candidate relation gets discarded
+    # by build_story_relations' same-segment check, wasting an LLM call on
+    # a result that can only ever be empty.
+    segment_ids_with_events = {
+        segment.segment_id for segment in annotations if segment.events
+    }
+    if include_cross_segment_relations and len(segment_ids_with_events) >= 2:
         t0 = time.monotonic()
         event_index_text = story_relation_extractor_module.build_event_index(story)
         story_relation_result = story_relation_llm_extractor.extract(event_index_text)
