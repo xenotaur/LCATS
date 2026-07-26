@@ -32,7 +32,7 @@ acceptance:
   - "_GENRE_DEFINITIONS includes a defining line for each of the 4 new genres (humor, mystery, fantasy, adventure), matching the existing style"
   - "All 'four genres'/'four target genres' wording in assess.py's prompts and schema descriptions is updated to reflect 8"
   - "A new open (non-enum) secondary-genre field exists on the assessment schema and AssessmentResult, populated regardless of genre_verdict - not just for wrong/disputed lens results like genre_suggestion"
-  - "tests/analysis_tests/assess_test.py is updated for the 8-genre list and the new field, with no hardcoded 4-genre assumptions remaining"
+  - "lcats/tests/analysis_tests/assess_test.py is updated for the 8-genre list and the new field, with no hardcoded 4-genre assumptions remaining"
   - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
 required_evidence:
@@ -148,20 +148,21 @@ user's 2026-07-26 decision recorded in the reconciliation doc.
   no remaining "four genres"/"four target genres" wording.
 - A new open secondary-genre field exists on the schema, `AssessmentResult`,
   and TSV/human output, populated regardless of `genre_verdict`.
-- `tests/analysis_tests/assess_test.py` passes with updated fixtures/
+- `lcats/tests/analysis_tests/assess_test.py` passes with updated fixtures/
   assertions for 8 genres and the new field.
 - `scripts/test` passes with no new failures.
 - `lrh validate` reports 0 errors.
 
 ## Validation
 
-- `scripts/version tools`
+Run from the repository's `lcats/` directory, per `AGENTS.md`:
+
 - `scripts/format --check --diff`
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `lcats assess lcats/tests/ --dry-run`
-- `lcats assess lcats/tests/ --genre mystery --dry-run`
+- `lcats assess tests/ --dry-run`
+- `lcats assess tests/ --genre mystery --dry-run`
 
 ## Risk Notes
 

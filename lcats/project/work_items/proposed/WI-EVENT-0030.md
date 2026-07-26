@@ -19,6 +19,7 @@ related_design:
   - project/design/event-role-world-cross-segment-relations-evaluation.md
 depends_on:
   - WI-EVENT-0029
+  - WI-ASSESS-0031
 blocked_by: []
 expected_actions:
   - create_file
@@ -130,6 +131,17 @@ to size the effect precisely across genres.
 - Report findings plainly: confirm, weaken, or contradict WI-EVENT-0028's
   smaller-sample finding, with the density numbers to support whichever
   conclusion the data shows.
+
+## Dependencies / Order
+
+**Added 2026-07-26 (via `depends_on`):** this item now also depends on
+`WI-ASSESS-0031`, which extends `VALID_GENRES` from 4 to 8 genres per
+`project/design/event-role-world-genre-target-reconciliation.md` (PR #161).
+The four-genre framing throughout this item's Scope, Summary, and Required
+Changes sections (below) is stale as written and should be re-scoped to the
+8-genre list once `WI-ASSESS-0031` lands — do **not** execute this item's
+pilot against the current four-genre set in the meantime, since that would
+spend real API budget producing an obsolete four-genre experiment.
 
 ## Required Changes
 
