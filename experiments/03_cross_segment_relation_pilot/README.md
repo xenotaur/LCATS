@@ -10,8 +10,9 @@ convenience sample with a properly stratified measurement.
 script and this usage doc. No results exist yet: the session that wrote this
 tooling had no `ANTHROPIC_API_KEY`/`OPENAI_API_KEY` configured, and this
 pilot's headline findings require real LLM pipeline output, not a fake
-backend. Whoever runs this pilot for real should append a "Results"
-section below this one, following the format sketched in
+backend. Whoever runs this pilot for real should follow
+[`running_the_pilot.md`](running_the_pilot.md)'s step-by-step runbook and
+append a "Results" section below this one, following the format sketched in
 [Expected Results Format](#expected-results-format).
 
 ## Purpose
@@ -98,8 +99,8 @@ Key flags:
 | `--seed` | 42 | Shuffle seed for candidate scan order (reproducibility) |
 | `--backend` | `anthropic` | `anthropic` or `openai` |
 | `--model` | provider default | Model string |
-| `--nlp-backend` | `spacy` | Stage-2 surface-feature NLP backend |
-| `--dry-run` | off | Zero-cost smoke test using a fake backend — produces meaningless (empty) results, never a real finding |
+| `--nlp-backend` | `spacy` (`fake` under `--dry-run`) | Stage-2 surface-feature NLP backend: `spacy`, `stanza`, or `fake` (zero dependencies) |
+| `--dry-run` | off | Zero-cost smoke test using fake LLM and (by default) fake NLP backends — produces meaningless (empty) results, never a real finding |
 
 ### Try it with zero API cost first
 
@@ -110,13 +111,19 @@ python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
 
 This exercises the full script — sample selection, a stubbed single-segment
 stage-1 segmentation, the actual Event-Role-World pipeline invocation, and
-output writing — with a `FakeBackend` and **no real API calls**, so you can
-confirm the script runs end to end in your environment before spending
-real cost on the full sample. Dry-run stories are not excluded (a fake
-backend's fixed response parses as valid-but-empty extraction output at
-every stage), so you'll see real output rows with zero counts everywhere —
-the point is verifying the control flow and output files, not producing
-real numbers.
+output writing — with fake LLM and NLP backends and **no real API calls or
+extra dependencies**, so you can confirm the script runs end to end in your
+environment before installing anything or spending real cost. Dry-run
+stories are not excluded, so you'll see real output rows with zero counts
+everywhere — the point is verifying the control flow and output files, not
+producing real numbers.
+
+**For the full developer runbook** — environment setup, smoke-testing a
+real spaCy or Stanza install with zero API cost, the real run, and closing
+out `WI-EVENT-0030` — see
+[`running_the_pilot.md`](running_the_pilot.md) in this directory. This
+README is the reference for what the pilot measures and how to interpret
+its output; that runbook is for actually executing it.
 
 ## Cost note
 

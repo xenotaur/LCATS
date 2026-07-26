@@ -15,7 +15,13 @@ Optional flags:
     --seed N                Shuffle seed for candidate order (default: 42)
     --backend NAME          "anthropic" (default) or "openai"
     --model NAME            Model string (default: claude-opus-4-8 / gpt-4o)
-    --nlp-backend NAME      "spacy" (default) or "stanza", for stage-2 surface features
+    --nlp-backend NAME      "spacy", "stanza", or "fake", for stage-2 surface
+                            features. Defaults to "spacy" for a real run, or
+                            "fake" (nlp_backend.FakeNLPBackend - zero
+                            dependencies, no spacy/stanza import at all) for
+                            --dry-run. Pass --nlp-backend spacy/stanza
+                            explicitly alongside --dry-run to smoke-test a
+                            real NLP toolkit install with zero API cost.
     --output DIR            Results directory (default: ./results next to this script)
     --dry-run               Skip real genre detection and use a FakeBackend for the
                             whole pipeline (including a stubbed single-segment
@@ -23,7 +29,8 @@ Optional flags:
                             itself is genuinely invoked), so the script's control
                             flow and output files can be exercised with zero API
                             cost. Produces meaningless (empty) extraction results -
-                            never use its output as a real finding.
+                            never use its output as a real finding. Defaults
+                            --nlp-backend to "fake" (see above) unless overridden.
 
 Genre strata are fixed to the four genres lcats assess --genre actually
 classifies (science fiction, horror, western, romance - see
@@ -81,6 +88,7 @@ from lcats.analysis.corpus import assess as corpus_assess
 from lcats.analysis.event_role_world import discourse_extractor as erw_discourse
 from lcats.analysis.event_role_world import entity_extractor as erw_entity
 from lcats.analysis.event_role_world import event_extractor as erw_event
+from lcats.analysis.event_role_world import nlp_backend as erw_nlp_backend
 from lcats.analysis.event_role_world import processor as erw_processor
 from lcats.analysis.event_role_world import relation_extractor as erw_relation
 from lcats.analysis.event_role_world import schema as erw_schema
@@ -266,6 +274,23 @@ def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     }
 
 
+def _make_nlp_backend(nlp_backend_name: str) -> Any:
+    """Construct the stage-2 NLP backend, including the "fake" pseudo-name.
+
+    "fake" (nlp_backend.FakeNLPBackend, zero dependencies - no spacy/stanza
+    import at all) is this script's own addition on top of
+    erw_surface.make_nlp_backend()'s "spacy"/"stanza" - main() defaults
+    --nlp-backend to "fake" under --dry-run so the zero-cost smoke test
+    also needs zero extra dependencies installed, but an explicit
+    --nlp-backend spacy/stanza (even combined with --dry-run) still
+    selects the real backend, so a real NLP-toolkit install can be
+    smoke-tested with zero API cost. See running_the_pilot.md.
+    """
+    if nlp_backend_name == "fake":
+        return erw_nlp_backend.FakeNLPBackend()
+    return erw_surface.make_nlp_backend(nlp_backend_name)
+
+
 def _run_erw_pipeline(
     body: str,
     segments: List[Dict[str, Any]],
@@ -291,7 +316,7 @@ def _run_erw_pipeline(
     counts/densities computed from them).
     """
     extractors = _build_erw_extractors(backend, model)
-    nlp_backend = erw_surface.make_nlp_backend(nlp_backend_name)
+    nlp_backend = _make_nlp_backend(nlp_backend_name)
 
     annotations: List[erw_schema.SegmentWorldAnnotation] = []
     all_usage: List[erw_processor.PassUsage] = []
@@ -482,13 +507,27 @@ def main() -> int:
         "--backend", choices=["anthropic", "openai"], default="anthropic"
     )
     parser.add_argument("--model", default=None)
-    parser.add_argument("--nlp-backend", choices=["spacy", "stanza"], default="spacy")
+    parser.add_argument(
+        "--nlp-backend",
+        choices=["spacy", "stanza", "fake"],
+        default=None,
+        help=(
+            "Stage-2 surface-feature NLP backend. Defaults to 'spacy' for a "
+            "real run, or 'fake' (zero-dependency, no spacy/stanza import at "
+            "all) for --dry-run. Pass --nlp-backend spacy/stanza explicitly "
+            "with --dry-run to test a real NLP backend install with zero "
+            "API cost (LLM calls still use a FakeBackend)."
+        ),
+    )
     parser.add_argument(
         "--output",
         default=str(pathlib.Path(__file__).resolve().parent / "results"),
     )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
+
+    if args.nlp_backend is None:
+        args.nlp_backend = "fake" if args.dry_run else "spacy"
 
     load_secrets()
 
