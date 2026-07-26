@@ -78,8 +78,9 @@ claim genres for a decision. This document is that escalation.
 
 ### No Gutenberg bookshelf/category metadata exists in the pipeline
 
-Grepping every gatherer (`lcats/gatherers/*/gatherer.py`) and the ingestion
-library (`gatherlib.py`, `parser.py`) for "genre" or "bookshelf" found
+Grepping every gatherer (`lcats/lcats/gatherers/*/gatherer.py`) and the
+ingestion library (`lcats/lcats/gatherers/gatherlib.py`,
+`lcats/lcats/gatherers/parser.py`) for "genre" or "bookshelf" found
 nothing. Genre is assigned exclusively by `lcats assess`'s own LLM
 classifier — there is no Gutenberg-native genre/category signal anywhere
 upstream of it to reconcile against.
@@ -90,9 +91,11 @@ upstream of it to reconcile against.
 predates `VALID_GENRES` as it stands today) ran an older ad-hoc
 `story_classifier` with a much larger, open `genre_primary` vocabulary —
 not the current closed 4-genre set. Its counts (`fiction` rows only, out
-of 1,815 fiction-typed rows / 1,868 total corpus stories) are useful as a
+of 1,815 fiction-typed rows, out of 1,879 total classified rows in that
+2025-10-19 run — a different, older snapshot than the corpus's current
+1,868 on-disk stories, and not directly comparable to it) are useful as a
 rough compositional signal but are **not** directly comparable to what
-`lcats assess --genre` would produce today:
+`lcats assess` would produce today:
 
 | genre_primary | count |
 |---|---|
@@ -197,16 +200,29 @@ classifier will draw them.
   tolerate the 4 new enum values (schema changes to a `tool=` structured
   output enum are additive and should not break existing callers, but this
   should be verified, not assumed).
+- **A closed 8-genre enum alone is not sufficient.** `detected_genre` would
+  remain `VALID_GENRES + ["other"]` — an 8-way closed enum plus a catch-all
+  — which collapses every non-priority category (war, medical, etc.) into
+  `other` and loses exactly the classificatory-value representation the
+  user asked to keep. The existing `genre_suggestion` field does not cover
+  this: its schema only populates it for `wrong`/`disputed` lens-mode
+  verdicts, while a corpus-wide survey runs in detect mode
+  (`genre_verdict="detected"`). Gap 1 must also add an open (non-enum)
+  primary/secondary genre-tag field — populated regardless of verdict —
+  before the Gap 2 survey runs, or the survey itself will silently discard
+  the non-priority genre data it's meant to capture.
 
 ### Gap 2 — corpus representation needs a current-classifier survey, not just the 2025-10 one
 
-Before sizing any real annotation work, run `lcats assess --genre` (once
-extended to 8 genres) in detect-only mode across the full corpus to get an
-authoritative current per-genre count — the 2025-10 numbers above are a
-different classifier's output and should not be trusted as the basis for
-sourcing decisions. This is itself a real LLM-API-cost operation across
-~1,868 stories and should be scoped and estimated in its own work item
-(see below), not run speculatively.
+Before sizing any real annotation work, run `lcats assess` **without**
+`--genre` (once extended to 8 genres) — omitting `--genre` is what puts
+the command in detect mode; passing it switches to lens mode against a
+single claimed genre instead, per `lcats assess --help`'s own text — across
+the full corpus to get an authoritative current per-genre count. The
+2025-10 numbers above are a different classifier's output and should not be
+trusted as the basis for sourcing decisions. This is itself a real
+LLM-API-cost operation across ~1,868 stories and should be scoped and
+estimated in its own work item (see below), not run speculatively.
 
 Once that survey exists, the likely-thin genres flagged by the per-source
 table above — **western and romance**, and possibly **humor** depending on
@@ -231,14 +247,15 @@ resolved genres before any genre-comparison claim is publishable. Concrete
 follow-up:
 
 **Follow-up work item A — corpus-wide current-classifier genre survey.**
-Run `lcats assess --genre` (post-Gap-1) across the full corpus
-(~1,868 stories) in detect-only mode (no curation/lens decisions needed,
-just `detected_genre` + confidence). Cost estimate: detect-only assessment
-is one LLM call per story with the story body (capped at 100k chars per
-`assess_cli.py`'s default `--max-chars`); at ~1,868 stories this is the
-single largest-volume call in this reconciliation's follow-up plan and
-should get its own token/cost estimate from a small timed sample (e.g. 20
-stories) before committing to the full run, per the existing cost/baseline
+Run `lcats assess` **without** `--genre` (post-Gap-1) across the full
+corpus (~1,868 stories) — detect mode, not lens mode, since no curation/
+lens decisions are needed, just `detected_genre` + confidence. Cost
+estimate: detect-only assessment is one LLM call per story with the story
+body (capped at 100k chars per `assess_cli.py`'s default
+`--max-body-chars`); at ~1,868 stories this is the single largest-volume
+call in this reconciliation's follow-up plan and should get its own
+token/cost estimate from a small timed sample (e.g. 20 stories) before
+committing to the full run, per the existing cost/baseline
 reporting pattern already used elsewhere in this workstream.
 
 **Follow-up work item B — re-scope WI-EVENT-0030's stratified pilot to 8
