@@ -31,9 +31,11 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - A stratified sample of 5-10 stories per genre (SF, mystery, romance, adventure - the proposal's comparison genres) is run through the Event-Role-World pipeline with the story-level cross-segment relation pass (WI-EVENT-0029) enabled
-  - Per-genre cross-segment relation density (relations_per_1000_words, computed via baseline.summarize_annotations with the story parameter) is reported, superseding WI-EVENT-0028's 4-story convenience sample with a larger, stratified one
-  - Findings state plainly whether the larger sample confirms, weakens, or contradicts WI-EVENT-0028's finding that SF/horror shows materially more long-range cross-segment causal chains than mystery/romance/adventure
+  - A stratified sample of 5-10 stories per genre is run through the Event-Role-World pipeline with the story-level cross-segment relation pass (WI-EVENT-0029) enabled, using the exact four genres lcats assess --genre already classifies (science fiction, horror, western, romance) - no genre outside this set is used as a stratum
+  - Per-genre cross-segment-only relation density is reported as a metric computed directly from each story's cross_segment_relations and weakly_inferred_cross_segment_relations lists (count per 1000 words), kept separate from - not folded into - the existing total relations_per_1000_words baseline.summarize_annotations already reports, since that total mixes cross-segment and same-segment counts and cannot by itself confirm or contradict a cross-segment-specific claim
+  - The relation types counted toward the headline cross-segment density figure are stated explicitly (all relation_type values are counted, matching how the existing total relations_per_1000_words already counts every type without filtering)
+  - Findings state plainly whether the larger sample confirms, weakens, or contradicts WI-EVENT-0028's finding that science fiction/horror shows materially more long-range cross-segment causal chains than the other strata
+  - Stories whose run produced any segment- or story-level extraction_errors are excluded from the aggregated density figures (not silently counted as zero/partial) and are reported separately as excluded/failed runs, with a count and reason
   - Results and methodology are recorded under experiments/03_cross_segment_relation_pilot/, per the experiments/README.md numbering convention
   - lrh validate reports 0 errors
 required_evidence:
@@ -47,12 +49,15 @@ artifacts_expected:
 
 ## Summary
 
-Run a larger, stratified empirical pilot (5-10 stories per genre) measuring
-cross-segment relation density across genres, using the story-level
-relation pass WI-EVENT-0029 implemented. This supersedes WI-EVENT-0028's
-4-story convenience sample (2 Lovecraft SF/horror stories vs. 1 mystery, 1
-general-fiction story) with a properly stratified measurement, sizing the
-effect precisely enough to support a paper-facing density figure.
+Run a larger, stratified empirical pilot (5-10 stories per genre, across
+the four genres `lcats assess --genre` classifies: science fiction,
+horror, western, romance) measuring cross-segment-only relation density
+across genres, using the story-level relation pass WI-EVENT-0029
+implemented. This supersedes WI-EVENT-0028's 4-story convenience sample (2
+Lovecraft science-fiction/horror stories vs. 1 mystery, 1 general-fiction
+story — neither a validated genre stratum) with a properly stratified
+measurement using the corpus's actual genre-classification tooling, sizing
+the effect precisely enough to support a paper-facing density figure.
 
 ## Problem / Context
 
@@ -90,17 +95,34 @@ to size the effect precisely across genres.
 ## Scope
 
 - Select a stratified sample of 5-10 stories per genre from `lcats/data/`
-  (or `corpora/` if a released equivalent exists), covering SF/horror and
-  at least the mystery, romance, and adventure comparison genres already
-  used elsewhere in the governing proposal.
+  (or `corpora/` if a released equivalent exists), covering the four
+  genres `lcats assess --genre` supports (`science fiction`, `horror`,
+  `western`, `romance` — see `assess.py`'s `VALID_GENRES`). Mystery and
+  adventure are not classifiable genres in this tooling today (detect mode
+  falls back to `"other"` for both) and are explicitly not used as strata;
+  if a finer split within a genre (e.g. isolating mystery-adjacent stories)
+  is wanted later, that requires extending genre classification first, out
+  of scope for this item.
 - Run the full Event-Role-World pipeline (`processor.process_segments`,
   with `include_cross_segment_relations=True`) over each sampled story
   using a real LLM backend — this pilot requires actual pipeline output,
   not a manual reading exercise like WI-EVENT-0028's.
-- Compute per-genre cross-segment relation density via
-  `baseline.summarize_annotations(annotations, story)`, comparing genres on
-  `relations_per_1000_words` (and `weakly_inferred_relations_per_1000_words`
-  separately, per the existing certainty partition).
+- Compute the headline metric — cross-segment-only relation density — by
+  counting each story's `cross_segment_relations` and
+  `weakly_inferred_cross_segment_relations` entries directly (all
+  `relation_type` values counted, no filtering) and normalizing per 1000
+  words, **not** via `baseline.summarize_annotations(annotations, story)`
+  alone, since that function's `relations_per_1000_words` folds
+  cross-segment relations into the same total as same-segment ones and
+  cannot isolate the cross-segment-specific effect this pilot measures.
+  Report the existing folded total alongside the cross-segment-only figure
+  for context, clearly labeled as two different metrics.
+- Detect and exclude stories whose run produced any segment- or
+  story-level `extraction_errors` from the aggregated per-genre figures —
+  `processor.process_segments` deliberately catches and records API/
+  extraction failures rather than raising, so a transient failure must not
+  silently become an undercounted zero in the genre mean. Report excluded/
+  failed runs (count and reason) alongside the results.
 - Record cost/latency (`PassUsage` records, particularly the
   `"story_relation"` pass) alongside the density findings, since the
   proposal's Cost and baseline requirements apply to this pilot's own run
@@ -112,15 +134,24 @@ to size the effect precisely across genres.
 ## Required Changes
 
 1. Create `experiments/03_cross_segment_relation_pilot/run_pilot.py` (or
-   equivalently named script) that selects the stratified sample, runs the
-   pipeline over each story, and writes per-story and per-genre summary
-   results.
+   equivalently named script) that selects the stratified sample (using
+   `lcats assess --genre`'s four supported genres as strata), runs the
+   pipeline over each story, detects and excludes any story with
+   segment- or story-level `extraction_errors` from the aggregate, and
+   writes per-story and per-genre summary results — computing the
+   cross-segment-only density directly from each story's
+   `cross_segment_relations`/`weakly_inferred_cross_segment_relations`
+   fields, not from `baseline.summarize_annotations`'s folded total alone.
 2. Create `experiments/03_cross_segment_relation_pilot/results/` holding
    the raw run output (JSONL/CSV, per the existing `export.py` table
-   conventions) needed to reproduce the reported figures.
+   conventions) needed to reproduce the reported figures, including which
+   stories were excluded and why.
 3. Create `experiments/03_cross_segment_relation_pilot/README.md`
-   documenting the sample selection methodology, the per-genre density
-   findings, and the comparison against WI-EVENT-0028's smaller sample.
+   documenting the sample selection methodology (genre strata, why
+   mystery/adventure are not used), the metric definitions (cross-segment-
+   only density vs. the existing folded total, reported side by side), the
+   per-genre density findings, and the comparison against WI-EVENT-0028's
+   smaller sample.
 4. No changes to `lcats/lcats/analysis/event_role_world/` — this item
    consumes the existing pipeline, it does not modify it.
 
@@ -153,10 +184,17 @@ to size the effect precisely across genres.
   sample toward the lower end (5 per genre) if cost becomes a concern,
   and say so plainly in the results README rather than silently shrinking
   the sample.
-- Genre labels must align with the corpus's existing genre-detection
-  conventions (`lcats assess --genre`) rather than an ad hoc labeling
-  scheme, so results are comparable to any other genre-stratified
-  measurement already in the corpus.
+- Genre strata are fixed to what `lcats assess --genre` actually supports
+  (science fiction, horror, western, romance) — WI-EVENT-0028's original
+  mystery/general-fiction comparison stories are not representable in this
+  stratification and are not part of this pilot's sample; the results
+  README should note this explicitly so a reader does not assume identical
+  comparison genres across the two work items.
+- Conflating the cross-segment-only density metric with the existing
+  folded `relations_per_1000_words` total would make the pilot's headline
+  finding unable to confirm or contradict WI-EVENT-0028's cross-segment-
+  specific claim — the two metrics must be computed and reported
+  separately, as this item's acceptance criteria require.
 - If the larger sample contradicts WI-EVENT-0028's smaller-sample finding,
   that is a valid, complete, and important result — report it plainly
   rather than treating it as a failed pilot.

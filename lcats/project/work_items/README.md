@@ -14,7 +14,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - (none)
 
 ## Proposed Items
-- `proposed/WI-PERSIST-0004.md`
+- `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
 
 ## Abandoned Items
