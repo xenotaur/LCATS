@@ -35,22 +35,34 @@ segmentation, and the full Event-Role-World pipeline), so nothing in this
 step costs money or requires API credentials. It's split into three
 scenarios depending on what you want to verify.
 
+On a fresh checkout, `lcats/data` (the script's default `--data-dir`) does
+not exist yet — it's gitignored working-corpus state, not tracked in git
+(see `.gitignore`'s `lcats/data` entry). `corpora/` is the tracked,
+released snapshot and is always present, so every command below passes
+`--data-dir corpora` explicitly. (If you'd rather use `lcats/data`,
+generate it first via `lcats gather` — see
+`lcats/docs/reference/prepare-corpora-release.md`.)
+
 ### 2a. Zero-dependency smoke test (recommended first)
 
 ```bash
 cd ..   # repo root, if you're still in lcats/
 python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
-    --sample-size 2 --output /tmp/pilot_dry_run
+    --data-dir corpora --sample-size 2 --output /tmp/pilot_dry_run
 ```
 
 `--dry-run` alone defaults `--nlp-backend` to `"fake"`
 (`nlp_backend.FakeNLPBackend`) — this genuinely needs **nothing** beyond
 the base `lcats` install from Step 1: no `spacy`, no `stanza`, no model
 downloads. It confirms the script's control flow (sample selection, the
-stubbed single-segment stage-1 segmentation, the full pipeline invocation
-including the story-level cross-segment pass, and output-file writing) all
+stubbed single-segment stage-1 segmentation, and output-file writing) all
 work in your environment before you touch any NLP toolkit or spend a
-dollar.
+dollar. It does **not** exercise the story-level cross-segment relation
+pass specifically — that pass only runs when events exist in at least 2
+distinct segments (see `_run_erw_pipeline`'s guard in `run_pilot.py`), and
+the dry-run's single stubbed segment with a fake (empty) LLM response
+never produces any events at all. Treat this step as a control-flow and
+output-format smoke test, not coverage of every pipeline stage.
 
 Expect every row to show `excluded: false` with all-zero counts (a fake
 backend can't produce real content) — that's correct, not a bug:
@@ -69,10 +81,10 @@ run), verify the toolkit itself works — still with zero API cost, by
 combining `--dry-run` with an explicit `--nlp-backend spacy`:
 
 ```bash
-pip install -e ".[dev,nlp]"
-python -m spacy download en_core_web_sm
+cd lcats && pip install -e ".[dev,nlp]" && python -m spacy download en_core_web_sm && cd ..
 python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
-    --nlp-backend spacy --sample-size 2 --output /tmp/pilot_dry_run_spacy
+    --data-dir corpora --nlp-backend spacy --sample-size 2 \
+    --output /tmp/pilot_dry_run_spacy
 ```
 
 An explicit `--nlp-backend spacy` overrides the `--dry-run` default of
@@ -91,10 +103,10 @@ rm -rf /tmp/pilot_dry_run_spacy
 Same idea, for Stanza:
 
 ```bash
-pip install -e ".[dev,nlp]"   # if not already done in 2b
-python -c "import stanza; stanza.download('en')"
+cd lcats && pip install -e ".[dev,nlp]" && python -c "import stanza; stanza.download('en')" && cd ..
 python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
-    --nlp-backend stanza --sample-size 2 --output /tmp/pilot_dry_run_stanza
+    --data-dir corpora --nlp-backend stanza --sample-size 2 \
+    --output /tmp/pilot_dry_run_stanza
 ```
 
 ```bash
@@ -120,6 +132,13 @@ committed. A real shell-exported key (e.g. a CI secrets manager) always
 takes precedence over `.secrets/` files.
 
 ## 4. The real run
+
+This defaults to `--data-dir lcats/data`, the live working corpus — not
+`corpora/`, the frozen release snapshot used for the smoke tests in Step 2.
+If `lcats/data` isn't populated yet in your checkout, generate it first
+(`lcats/docs/reference/prepare-corpora-release.md`'s "Regenerate" step,
+`lcats gather`), or pass `--data-dir corpora` here too if the released
+snapshot is sufficient for your purposes.
 
 ```bash
 python experiments/03_cross_segment_relation_pilot/run_pilot.py \
@@ -212,9 +231,11 @@ This happens if you run a real (non-`--dry-run`) pilot, or `--dry-run
 extra first:
 
 ```bash
+cd lcats   # pyproject.toml lives here, not at the repo root
 pip install -e ".[dev,nlp]"
 python -m spacy download en_core_web_sm      # if using spaCy
 python -c "import stanza; stanza.download('en')"   # if using Stanza
+cd ..
 ```
 
 Root cause: `lcats/pyproject.toml`'s `[project.optional-dependencies]`

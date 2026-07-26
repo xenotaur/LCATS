@@ -87,6 +87,11 @@ python experiments/03_cross_segment_relation_pilot/run_pilot.py \
     --output experiments/03_cross_segment_relation_pilot/results
 ```
 
+Defaults to `--data-dir lcats/data` — populate it first via `lcats gather`
+if your checkout doesn't have it yet, or pass `--data-dir corpora` to use
+the released snapshot instead (see `running_the_pilot.md` for full
+environment-setup detail).
+
 Full flag reference is documented in `run_pilot.py`'s module docstring
 (`python experiments/03_cross_segment_relation_pilot/run_pilot.py --help`).
 Key flags:
@@ -106,17 +111,22 @@ Key flags:
 
 ```bash
 python experiments/03_cross_segment_relation_pilot/run_pilot.py --dry-run \
-    --sample-size 2 --output /tmp/pilot_dry_run
+    --data-dir corpora --sample-size 2 --output /tmp/pilot_dry_run
 ```
 
+(`--data-dir corpora` is needed on a fresh checkout — `lcats/data`, the
+default, is gitignored working-corpus state and won't exist until you
+generate it. See `running_the_pilot.md` for details.)
+
 This exercises the full script — sample selection, a stubbed single-segment
-stage-1 segmentation, the actual Event-Role-World pipeline invocation, and
+stage-1 segmentation (stages 2-7 of the Event-Role-World pipeline), and
 output writing — with fake LLM and NLP backends and **no real API calls or
 extra dependencies**, so you can confirm the script runs end to end in your
-environment before installing anything or spending real cost. Dry-run
-stories are not excluded, so you'll see real output rows with zero counts
-everywhere — the point is verifying the control flow and output files, not
-producing real numbers.
+environment before installing anything or spending real cost. It does
+**not** exercise the story-level cross-segment relation pass, which needs
+events in at least 2 distinct segments. Dry-run stories are not excluded,
+so you'll see real output rows with zero counts everywhere — the point is
+verifying the control flow and output files, not producing real numbers.
 
 **For the full developer runbook** — environment setup, smoke-testing a
 real spaCy or Stanza install with zero API cost, the real run, and closing

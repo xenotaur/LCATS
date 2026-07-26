@@ -25,12 +25,17 @@ Optional flags:
     --output DIR            Results directory (default: ./results next to this script)
     --dry-run               Skip real genre detection and use a FakeBackend for the
                             whole pipeline (including a stubbed single-segment
-                            stage-1 segmentation, so the Event-Role-World pipeline
-                            itself is genuinely invoked), so the script's control
-                            flow and output files can be exercised with zero API
-                            cost. Produces meaningless (empty) extraction results -
-                            never use its output as a real finding. Defaults
-                            --nlp-backend to "fake" (see above) unless overridden.
+                            stage-1 segmentation, so stages 2-7 of the
+                            Event-Role-World pipeline run for real). Does NOT
+                            exercise the story-level cross-segment relation
+                            pass - that needs events in >= 2 distinct
+                            segments, which a single stubbed segment with an
+                            empty fake LLM response can never produce.
+                            Exercises the script's control flow and output
+                            files with zero API cost. Produces meaningless
+                            (empty) extraction results - never use its output
+                            as a real finding. Defaults --nlp-backend to
+                            "fake" (see above) unless overridden.
 
 Genre strata are fixed to the four genres lcats assess --genre actually
 classifies (science fiction, horror, western, romance - see
@@ -402,10 +407,13 @@ def run_story(
     In --dry-run mode, real stage-1 segmentation is skipped (a FakeBackend
     cannot produce one - its single fixed response can't satisfy the
     segmentation extractor's JSON-text parsing) and a single dummy segment
-    spanning the whole body is used instead, so _run_erw_pipeline() (and
-    thus the Event-Role-World pipeline itself) is genuinely exercised end
-    to end even in the zero-cost smoke test, rather than every dry-run
-    story returning early at segmentation.
+    spanning the whole body is used instead, so _run_erw_pipeline()'s
+    stages 2-7 run for real in the zero-cost smoke test, rather than every
+    dry-run story returning early at segmentation. This does NOT reach the
+    story-level cross-segment relation pass: that pass only fires when
+    events exist in >= 2 distinct segments, and a single stubbed segment
+    with an empty fake LLM response never produces any events at all - see
+    running_the_pilot.md's Step 2a for the same caveat.
     """
     row: Dict[str, Any] = {
         "path": str(path),
