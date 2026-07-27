@@ -61,11 +61,20 @@ one-off bugs:
    error information (`should_abort_batch`/`category`/`can_retry`)
    discarded into a plain string before it reaches any caller.
 
-PR #166/#167/#168 fixed the two crashes that were actually hit, via
-runtime overrides in `run_pilot.py` (the only file WI-EVENT-0030 permits
-editing for ERW-adjacent behavior). This audit is the enumeration of what
-those overrides did *not* fix at the source, for scoping as real work once
-the current run finishes.
+PR #166 and #168 fixed their respective issues via runtime overrides local
+to `run_pilot.py` (the only file WI-EVENT-0030 permits editing for
+ERW-adjacent behavior) - Category A/D-style gaps that remain unfixed at
+the source. PR #167 is different in kind: it fixed the segmentation
+JSON-parsing crash at the actual source, in the shared
+`lcats/analysis/llm_extractor.py` parser (commit `abf8282`, widening a
+bare `except json.JSONDecodeError` to `except ValueError`, with a
+regression test) - not a caller-local workaround. That crash class is
+genuinely fixed for every caller, not just `run_pilot.py`; this audit's
+Category C findings are about a *different* gap (no `tool_schema` at all
+for those three extractors), not a reopening of what PR #167 already
+closed. This audit is the enumeration of what PR #166's and #168's
+overrides did *not* fix at the source, for scoping as real work once the
+current run finishes.
 
 ## 2. Scope and source material
 
@@ -143,9 +152,21 @@ item with no `isinstance(item, dict)` guard:
 - `hypothesis_extractor.py:146` (`hypotheses`)
 
 Eleven sites total. Strict mode (Category A) reduces the odds any of these
-fire, but does not make the code defensive - a belt-and-suspenders
-`isinstance` check at each site is the complete fix regardless of schema
-strictness.
+fire, but does not make the code defensive.
+
+**Correction (review, PR #169):** an `isinstance` check alone is not a
+complete fix if it merely skips the malformed item and continues -
+`processor.process_segment()` (`lcats/analysis/event_role_world/processor.py`)
+only records an extraction error when the extractor result reports one, so
+silently dropping a malformed entity/event/relation would make that
+segment look like a *successful* partial extraction rather than a failed
+one, biasing the pilot's density figures exactly the way WI-EVENT-0030's
+own acceptance criteria warn against ("stories whose run produced any
+extraction_errors are excluded ... not silently counted as zero/partial").
+The correct remedy at each of the eleven sites is to detect the malformed
+item, preserve the raw payload for diagnosis, and explicitly surface an
+extraction error for that segment/story (so it is excluded and reported,
+not silently treated as clean) - not just guard-and-skip.
 
 #### Update 2026-07-27: a second, later real run crashed at `entity_extractor.py:144`, with strict mode confirmed genuinely active
 
@@ -194,12 +215,16 @@ the actual raw tool-call payload from a failing case, which the debug log
 does not retain. **Regardless of which is true, this materially raises the
 priority of two fixes already identified:**
 
-1. Category B's defensive `isinstance(item, dict)` checks are not optional
-   belt-and-suspenders anymore - they are the *only* thing that would have
-   prevented this specific crash, since strict mode alone demonstrably did
-   not. Should also log the raw offending item to a file when tripped, so
-   a future recurrence is fully diagnosable without another expensive full
-   run or debug-log archaeology.
+1. Category B's defensive checks are not optional belt-and-suspenders
+   anymore - detecting a malformed item is the *only* thing that would
+   have prevented this specific crash, since strict mode alone
+   demonstrably did not. Per the correction above, detection alone is not
+   sufficient either: the fix must also surface an explicit extraction
+   error for the affected segment/story (not just skip-and-continue) and
+   log the raw offending item to a file when tripped, so a future
+   recurrence is both correctly excluded from density figures and fully
+   diagnosable without another expensive full run or debug-log
+   archaeology.
 2. `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s `main()`
    per-story loop only catches `FatalPilotError` around `run_story()` - any
    other exception (like this one) propagates uncaught, and the code that
@@ -299,7 +324,7 @@ cost-visible and budget-enforceable by default rather than opt-in.
 
 | Option | Fit | Tradeoff |
 |---|---|---|
-| Custom checkpoint file (skip any `story_id` already present in `pilot_stories.jsonl` on re-run) | Cheapest possible fix; ~80% already built - `FatalPilotError`'s partial-write-on-abort (PR #166) already gives a durable record of what completed | Not a general "workflow" tool, just this script, unless generalized into a small shared helper |
+| Custom checkpoint file, keyed on a success/failure predicate (not mere presence) | Cheapest possible fix; ~80% already built - `FatalPilotError`'s partial-write-on-abort (PR #166) already gives a durable record of what completed | Not a general "workflow" tool, just this script, unless generalized into a small shared helper |
 | `joblib.Memory` | Trivial dependency, near-zero learning curve | Call-level memoization only, not real pause/resume/monitor semantics for a running multi-stage job |
 | Prefect (open-source core, no server required for local use) | Purpose-built for this: `@flow`/`@task` decorators, built-in retries, result caching/resume, runs entirely locally | Real new dependency and a framework to learn |
 | Luigi | Similar niche to Prefect, target-based resumability (skip a task if its output file exists) | Older, less actively developed than Prefect |
@@ -309,6 +334,19 @@ Recommendation floated in discussion: start with the custom checkpoint
 approach given how much is already built; only reach for Prefect if
 checkpointing needs to generalize across several experiments with genuinely
 independent stages needing real pause/resume/monitor semantics.
+
+**Correction (review, PR #169):** mere presence of a `story_id` in
+`pilot_stories.jsonl` is not a valid completion marker on its own -
+`run_story()` (`experiments/03_cross_segment_relation_pilot/run_pilot.py`)
+writes a row with `excluded: true` for exactly the transient
+parsing/extraction failures this audit is about (including the ones this
+audit proposes fixing). Treating any recorded `story_id` as "done" would
+mean a resumed run - after switching models or repairing an extractor -
+preserves or skips those recoverable failures instead of recomputing them,
+silently under-filling or biasing the sample. Any checkpoint design needs
+a success/failure predicate (e.g. only skip rows where `excluded` is
+false, or where the failure reason is known non-transient), not bare
+presence.
 
 **E2 (design proposal): break the pipeline into staged, inspectable steps.**
 Proposed after the second real crash (see the Category B update above):
@@ -398,7 +436,7 @@ parallel."
 
 Two artifacts already in the repo turned out to be directly relevant:
 
-- `lcats/lcats/pipeline.py` (97 lines, last touched only by a
+- `lcats/lcats/pipeline.py` (last touched only by a
   formatter-only commit - confirms "aborted, unfinished"): a minimal
   `Stage`/`Pipeline`/`RunResult` dataclass trio that threads named values
   through a sequence of callables in memory, with simple retry-with-sleep

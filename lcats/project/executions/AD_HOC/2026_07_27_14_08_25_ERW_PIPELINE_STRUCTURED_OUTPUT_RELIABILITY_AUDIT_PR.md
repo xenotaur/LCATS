@@ -37,8 +37,7 @@ no new edits.
 
 # Validation
 
-- `lrh validate` - to be confirmed 0 errors after this record's frontmatter
-  is finalized.
+- `lrh validate` - confirmed 0 errors, 43 pre-existing unrelated warnings.
 - Documentation-only change; no code touched, no tests applicable.
 
 # Follow-up
