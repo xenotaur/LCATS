@@ -68,6 +68,9 @@ Exit codes:
     0   pilot completed (individual story exclusions are noted, not fatal)
     1   prerequisite check failed (missing install, missing key)
     2   could not fill every genre stratum before exhausting --max-candidates
+    3   aborted early on a fatal API error (bad credentials or exhausted
+        account balance/quota) - see FatalPilotError below. Any story
+        results gathered before the abort are still written out.
 """
 
 from __future__ import annotations
@@ -106,6 +109,42 @@ from lcats.utils.secrets import load_secrets
 GENRES = (
     corpus_assess.VALID_GENRES
 )  # ("science fiction", "horror", "western", "romance")
+
+# Substrings of an API error message that mean "stop the whole run", not
+# "skip this one story": bad/expired credentials or an exhausted account
+# balance/quota. Every remaining candidate would fail identically, so
+# continuing just burns time (and, with real credentials, still-billable
+# request attempts) for no new information. Matches both providers' actual
+# wording: Anthropic's "Your credit balance is too low..." (a 400
+# invalid_request_error, not the OpenAI-shaped insufficient_quota/402 that
+# lcats.analysis.llm_extractor.LLMExtractor._classify_api_error already
+# recognized) and common auth-failure phrasing.
+_FATAL_ERROR_SUBSTRINGS = (
+    "credit balance",
+    "insufficient_quota",
+    "invalid x-api-key",
+    "invalid api key",
+    "authentication_error",
+)
+
+
+class FatalPilotError(RuntimeError):
+    """Raised to abort the whole run on a non-retryable, account-level API
+    error, mirroring the should_abort_batch convention already used by
+    lcats.analysis.corpus.processing.process_corpus_directory (see
+    api_error.get("should_abort_batch") there) - this pilot script predates
+    that convention and previously had no equivalent, so a single exhausted
+    API key/balance silently produced a full sample of "excluded" stories
+    with no top-level indication of why.
+    """
+
+
+def _check_fatal(message: str, context: str) -> None:
+    """Raise FatalPilotError if `message` names a fatal, account-level
+    failure rather than a per-story problem."""
+    lowered = message.lower()
+    if any(s in lowered for s in _FATAL_ERROR_SUBSTRINGS):
+        raise FatalPilotError(f"{context}: {message}")
 
 
 def _build_backend(backend_name: str, model: Optional[str]):
@@ -171,6 +210,19 @@ def build_stratified_sample(
             result = corpus_assess.assess_story(path, backend=backend, model=model)
         except Exception as exc:  # noqa: BLE001 - skip this candidate on failure
             print(f"  [genre-detect] {path}: failed ({exc}), skipping", file=sys.stderr)
+            continue
+        if result.error:
+            # assess_story() catches API exceptions internally and reports
+            # them via AssessmentResult.error rather than raising, so a
+            # fatal error here would otherwise never reach the except above
+            # - it would just silently fail to classify every remaining
+            # candidate (detected_genre defaults to "other", which isn't in
+            # GENRES, so nothing prints and nothing is added to any bucket).
+            _check_fatal(result.error, context=f"genre-detect {path.name}")
+            print(
+                f"  [genre-detect] {path.name}: failed ({result.error}), skipping",
+                file=sys.stderr,
+            )
             continue
         genre = result.detected_genre
         if genre in sample and len(sample[genre]) < sample_size:
@@ -456,8 +508,17 @@ def run_story(
     else:
         segments, seg_error = _segment_story(body, backend, model)
         if seg_error or not segments:
+            # seg_error may be the classified api_error dict (see
+            # LLMExtractor._classify_api_error) or a plain string, depending
+            # on where in extract() the failure occurred.
+            seg_error_text = (
+                seg_error.get("message", str(seg_error))
+                if isinstance(seg_error, dict)
+                else str(seg_error)
+            )
+            _check_fatal(seg_error_text, context=f"segmentation {path.name}")
             row["excluded"] = True
-            row["exclude_reason"] = f"segmentation failed: {seg_error}"
+            row["exclude_reason"] = f"segmentation failed: {seg_error_text}"
             return row, []
 
     pipeline_result = _run_erw_pipeline(
@@ -470,6 +531,8 @@ def run_story(
 
     extraction_errors = _has_extraction_errors(pipeline_result)
     if extraction_errors:
+        for err in extraction_errors:
+            _check_fatal(err, context=f"pipeline {path.name}")
         row["excluded"] = True
         row["exclude_reason"] = "; ".join(extraction_errors)
         return row, usage_rows
@@ -574,15 +637,25 @@ def main() -> int:
             return 1
 
     print(f"Building stratified sample (target {args.sample_size} per genre)...")
-    sample, scanned = build_stratified_sample(
-        data_dir,
-        backend,
-        model,
-        args.sample_size,
-        args.max_candidates,
-        args.seed,
-        args.dry_run,
-    )
+    try:
+        sample, scanned = build_stratified_sample(
+            data_dir,
+            backend,
+            model,
+            args.sample_size,
+            args.max_candidates,
+            args.seed,
+            args.dry_run,
+        )
+    except FatalPilotError as exc:
+        print(f"\nfatal: {exc}", file=sys.stderr)
+        print(
+            "Aborting - this looks like a bad/expired API key or an "
+            "exhausted account balance/quota, not a per-story problem. "
+            "Every remaining candidate would fail identically.",
+            file=sys.stderr,
+        )
+        return 3
     print(f"Scanned {scanned} candidates.")
 
     incomplete_genres = [g for g in GENRES if len(sample[g]) < args.sample_size]
@@ -610,20 +683,35 @@ def main() -> int:
 
     rows: List[Dict[str, Any]] = []
     usage_rows: List[Dict[str, Any]] = []
+    aborted = False
     for genre in GENRES:
+        if aborted:
+            break
         for path in sample[genre]:
             print(f"Running pipeline: [{genre}] {path.name}")
             t0 = time.monotonic()
-            row, story_usage_rows = run_story(
-                path,
-                genre,
-                backend,
-                model,
-                extractors,
-                nlp_backend,
-                args.nlp_backend,
-                dry_run=args.dry_run,
-            )
+            try:
+                row, story_usage_rows = run_story(
+                    path,
+                    genre,
+                    backend,
+                    model,
+                    extractors,
+                    nlp_backend,
+                    args.nlp_backend,
+                    dry_run=args.dry_run,
+                )
+            except FatalPilotError as exc:
+                print(f"\nfatal: {exc}", file=sys.stderr)
+                print(
+                    "Aborting - this looks like a bad/expired API key or an "
+                    "exhausted account balance/quota, not a per-story "
+                    "problem. Every remaining story would fail identically. "
+                    "Results gathered so far are still written out below.",
+                    file=sys.stderr,
+                )
+                aborted = True
+                break
             row["elapsed_seconds"] = time.monotonic() - t0
             rows.append(row)
             usage_rows.extend(story_usage_rows)
@@ -671,6 +759,8 @@ def main() -> int:
     print(f"Wrote {usage_path}")
     print(f"Wrote {summary_path}")
 
+    if aborted:
+        return 3
     if incomplete_genres and not args.dry_run:
         return 2
     return 0

@@ -186,7 +186,12 @@ class JSONPromptExtractor:
         suggested_action = "inspect_and_decide"
 
         # Quota/billing — abort batch
-        if "insufficient_quota" in code or "quota" in message or status == 402:
+        if (
+            "insufficient_quota" in code
+            or "quota" in message
+            or "credit balance" in message
+            or status == 402
+        ):
             category = "quota_exceeded"
             should_abort_batch = True
             suggested_action = "stop_job_fix_billing"
