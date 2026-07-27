@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:ERW_PIPELINE_STRUCTURED_OUTPUT_RELIABILITY_AUDIT_PR)[20
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/169
+commit: 4cdbe941
 agent: claude_app
 instruction_source: chat session (packaging the local-branch audit draft as a reviewable PR)
 session_transcript: pending
