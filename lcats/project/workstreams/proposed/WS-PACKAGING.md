@@ -12,6 +12,7 @@ related_design:
   - project/design/proposals/proposed/lcats-packaging-modernization/00_proposal.md
 work_items:
   - WI-PACKAGING-0031
+  - WI-PACKAGING-0032
 exit_criteria:
   - lcats/pyproject.toml declares license via PEP 639 (license = "MIT" + license-files), pins setuptools>=77 (the version that added PEP 639 support), sets required-version for tool.ruff and tool.black, has no duplicate test/dev extras, and pins gutenbergpy to a commit SHA
   - lcats package code lives at lcats/src/lcats/ with scripts/lint, scripts/format, secrets.py, and all lcats/lcats path literals updated accordingly, and the full test suite passes against the new layout
@@ -63,9 +64,10 @@ item couldn't express.
 - **WI-PACKAGING-0031** — Metadata/config fixes: PEP 639 license,
   `setuptools>=77` build-system pin, tool `required-version` pins, dedupe
   extras, pin `gutenbergpy` to a commit SHA, `project.urls`/classifiers.
-- *(planned)* src-layout move — `lcats/lcats/` → `lcats/src/lcats/`, update
-  `scripts/lint`/`scripts/format`, `secrets.py`, path-literal audit,
-  reinstall, full test run.
+- **WI-PACKAGING-0032** — src-layout move: `lcats/lcats/` →
+  `lcats/src/lcats/`, update `scripts/lint`/`scripts/format`, `secrets.py`,
+  path-literal audit, reinstall, full test run. `depends_on:
+  WI-PACKAGING-0031`.
 - *(planned)* Dynamic versioning + `setup.py` removal — `setuptools-scm`,
   first git tag, delete `setup.py`.
 
