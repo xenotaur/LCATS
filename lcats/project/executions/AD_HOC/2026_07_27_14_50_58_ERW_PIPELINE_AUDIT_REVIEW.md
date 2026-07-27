@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_07_27_14_08_25_ERW_PIPELINE_STRUCTURED_OUTPUT_RELIABILITY_AUDIT_PR
 pr: https://github.com/xenotaur/LCATS/pull/169
-commit: 11b32b84
+commit: 9b2a9c10
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/169
 session_transcript: pending
