@@ -323,6 +323,17 @@ class TestClassifyApiError(unittest.TestCase):
                 "quota_exceeded",
             ),
             ("status_402", {"status": 402}, "quota_exceeded"),
+            (
+                "anthropic_credit_balance",
+                {
+                    "status": 400,
+                    "type": "invalid_request_error",
+                    "message": "Your credit balance is too low to access "
+                    "the Anthropic API. Please go to Plans & Billing to "
+                    "upgrade or purchase credits.",
+                },
+                "quota_exceeded",
+            ),
             ("rate_limit_code", {"code": "rate_limit_exceeded"}, "rate_limit"),
             ("rate_limit_message", {"message": "rate limit reached"}, "rate_limit"),
             ("status_429", {"status": 429}, "rate_limit"),
@@ -362,6 +373,17 @@ class TestClassifyApiError(unittest.TestCase):
         result = self._classify(code="insufficient_quota")
         self.assertTrue(result["should_abort_batch"])
         self.assertFalse(result["can_retry"])
+
+    def test_anthropic_credit_balance_sets_abort_batch(self):
+        """Anthropic's "credit balance too low" 400 (not OpenAI's
+        insufficient_quota/402 shape) should also abort the batch."""
+        result = self._classify(
+            status=400,
+            type="invalid_request_error",
+            message="Your credit balance is too low to access the " "Anthropic API.",
+        )
+        self.assertEqual(result["category"], "quota_exceeded")
+        self.assertTrue(result["should_abort_batch"])
 
     def test_rate_limit_sets_can_retry(self):
         """Rate-limit errors should set can_retry=True."""
