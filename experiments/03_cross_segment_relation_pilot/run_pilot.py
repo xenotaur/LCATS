@@ -328,11 +328,23 @@ def _close_schema_objects(node: Any) -> Any:
     additionalProperties: false set on every object (top-level and
     nested) - required by Anthropic's strict tool use before strict: true
     takes effect. See _strict_tool_schema()'s docstring for why this is
-    needed."""
+    needed.
+
+    Sets additionalProperties unconditionally (not via setdefault) so an
+    existing, looser value (e.g. additionalProperties: true, or a schema
+    rather than a bare bool) can't silently defeat the requirement this
+    exists to enforce. Also matches "object" inside a union `type` list
+    (e.g. `type: ["object", "null"]`), not just a bare `type: "object"`
+    string, since JSON Schema permits either form.
+    """
     if isinstance(node, dict):
         closed = {key: _close_schema_objects(value) for key, value in node.items()}
-        if closed.get("type") == "object":
-            closed.setdefault("additionalProperties", False)
+        node_type = closed.get("type")
+        is_object = node_type == "object" or (
+            isinstance(node_type, list) and "object" in node_type
+        )
+        if is_object:
+            closed["additionalProperties"] = False
         return closed
     if isinstance(node, list):
         return [_close_schema_objects(item) for item in node]
@@ -366,11 +378,13 @@ def _strict_tool_schema(tool_schema: Dict[str, Any]) -> Dict[str, Any]:
     return schema
 
 
-def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
+def _build_erw_extractors(
+    backend: Any, model: str, backend_name: str
+) -> Dict[str, Any]:
     """Build the Event-Role-World extractors, with `model` overriding each
-    factory's own hardcoded default_model (e.g. "gpt-4o") and each
-    extractor's tool_schema upgraded to strict: true (see
-    _strict_tool_schema()).
+    factory's own hardcoded default_model (e.g. "gpt-4o") and, for
+    --backend anthropic only, each extractor's tool_schema upgraded to
+    strict: true (see _strict_tool_schema()).
 
     processor.process_segments() has no model parameter - it builds these
     same extractors internally with each factory's hardcoded default,
@@ -381,6 +395,15 @@ def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     extractor instances) per segment ourselves, fixes this without
     touching processor.py or any event_role_world module (forbidden by
     this work item).
+
+    The strict-schema override is gated to backend_name == "anthropic"
+    because it is not a no-op for OpenAI: AnthropicBackend.complete()
+    forwards the whole tool dict verbatim, so an added top-level `strict`
+    key is inert there unless read, but OpenAIBackend.complete() forwards
+    `tool["input_schema"]` directly as its function `parameters` - the
+    `additionalProperties: false` this same override adds to input_schema
+    would reach OpenAI's schema too and could change its behavior in ways
+    this fix was never intended to touch or test.
     """
     entity = erw_entity.make_entity_extractor(backend)
     event = erw_event.make_event_extractor(backend)
@@ -389,7 +412,7 @@ def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     story_relation = erw_story_relation.make_story_relation_extractor(backend)
     for extractor in (entity, event, relation, discourse, story_relation):
         extractor.default_model = model
-        if extractor.tool_schema is not None:
+        if backend_name == "anthropic" and extractor.tool_schema is not None:
             extractor.tool_schema = _strict_tool_schema(extractor.tool_schema)
     return {
         "entity": entity,
@@ -775,7 +798,7 @@ def main() -> int:
     # per-story timer starts below, so per-story elapsed_seconds no longer
     # includes it - print an explicit confirmation instead, since spaCy
     # (unlike Stanza) prints no loading banner of its own.
-    extractors = _build_erw_extractors(backend, model)
+    extractors = _build_erw_extractors(backend, model, args.backend)
     print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
     print(f"NLP backend ready: {args.nlp_backend}")
