@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:WI_EVENT_0030_STRICT_TOOL_SCHEMAS)[2026-07-27T03:18:35-
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/168
+commit: 2771fcd5
 agent: claude_app
 instruction_source: chat session (real Step-4 run, second crash after PR #167 landed)
 session_transcript: pending
