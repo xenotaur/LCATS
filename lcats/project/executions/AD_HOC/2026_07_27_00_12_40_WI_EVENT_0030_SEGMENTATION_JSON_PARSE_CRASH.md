@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:WI_EVENT_0030_SEGMENTATION_JSON_PARSE_CRASH)[2026-07-27
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/167
+commit: 017346f1
 agent: claude_app
 instruction_source: chat session (real Step-4 run with --model haiku after PR #166 landed)
 session_transcript: pending
