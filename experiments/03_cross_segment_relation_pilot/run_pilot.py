@@ -323,9 +323,54 @@ def _compute_story_metrics(
     }
 
 
+def _close_schema_objects(node: Any) -> Any:
+    """Recursively return a deep copy of a JSON Schema fragment with
+    additionalProperties: false set on every object (top-level and
+    nested) - required by Anthropic's strict tool use before strict: true
+    takes effect. See _strict_tool_schema()'s docstring for why this is
+    needed."""
+    if isinstance(node, dict):
+        closed = {key: _close_schema_objects(value) for key, value in node.items()}
+        if closed.get("type") == "object":
+            closed.setdefault("additionalProperties", False)
+        return closed
+    if isinstance(node, list):
+        return [_close_schema_objects(item) for item in node]
+    return node
+
+
+def _strict_tool_schema(tool_schema: Dict[str, Any]) -> Dict[str, Any]:
+    """Return a deep copy of `tool_schema` with strict: true enabled.
+
+    Without strict: true, Anthropic's tool use does not guarantee the
+    model's tool_use input matches input_schema - "Claude might return
+    incompatible types ... or omit required fields, breaking your
+    functions and causing runtime errors" (Anthropic docs, Strict tool
+    use). This is exactly what happened live: a relations array item came
+    back as a plain string instead of the required object, crashing
+    relation_extractor.build_relations()'s `raw.get("quote", ...)` with
+    AttributeError. Enabling strict: true constrains the model's token
+    sampling to schema-valid output via grammar-constrained sampling,
+    which would have prevented that malformed item outright.
+
+    strict: true additionally requires additionalProperties: false on
+    every object in the schema, including nested ones inside array items
+    (Anthropic docs, JSON Schema limitations) - none of the ERW tool
+    schemas set this today, so _close_schema_objects() adds it here rather
+    than editing each schema's module (forbidden by this work item; see
+    _build_erw_extractors()'s docstring for the same constraint applied to
+    default_model).
+    """
+    schema = _close_schema_objects(tool_schema)
+    schema["strict"] = True
+    return schema
+
+
 def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     """Build the Event-Role-World extractors, with `model` overriding each
-    factory's own hardcoded default_model (e.g. "gpt-4o").
+    factory's own hardcoded default_model (e.g. "gpt-4o") and each
+    extractor's tool_schema upgraded to strict: true (see
+    _strict_tool_schema()).
 
     processor.process_segments() has no model parameter - it builds these
     same extractors internally with each factory's hardcoded default,
@@ -344,6 +389,8 @@ def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     story_relation = erw_story_relation.make_story_relation_extractor(backend)
     for extractor in (entity, event, relation, discourse, story_relation):
         extractor.default_model = model
+        if extractor.tool_schema is not None:
+            extractor.tool_schema = _strict_tool_schema(extractor.tool_schema)
     return {
         "entity": entity,
         "event": event,
