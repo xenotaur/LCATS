@@ -27,11 +27,11 @@ cheaper model ignores the requested JSON format and returns prose instead.
 
 # Result
 
-- `lcats/analysis/llm_extractor.py`'s parse step (`except
-  json.JSONDecodeError`) widened to `except ValueError` - this still catches
-  `json.JSONDecodeError` (it's a `ValueError` subclass) and additionally
-  catches the "no JSON found at all" / "multiple code blocks" / "wrong
-  fence format" cases raised by `lcats/utils/compat.py::extract_json`. A
+- `lcats.analysis.llm_extractor.JSONPromptExtractor.extract()`'s parse step
+  (`except json.JSONDecodeError`) widened to `except ValueError` - this
+  still catches `json.JSONDecodeError` (it's a `ValueError` subclass) and
+  additionally catches the "no JSON found at all" / "multiple code blocks"
+  / "wrong fence format" cases raised by `lcats.utils.compat.extract_json`. A
   bad model response now falls through to the existing `parsing_error`
   path (already fully supported downstream - `run_story` already turns a
   non-empty `extraction_error` into a per-story exclusion) instead of

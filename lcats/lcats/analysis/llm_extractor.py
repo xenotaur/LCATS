@@ -439,7 +439,7 @@ class JSONPromptExtractor:
             # utils.extract_json raises plain ValueError (not just its
             # json.JSONDecodeError subclass) when raw_output has no JSON at
             # all, or has multiple/mis-fenced code blocks - see
-            # lcats/utils/compat.py's extract_json. A model response that
+            # lcats.utils.compat.extract_json. A model response that
             # ignores the requested JSON format entirely (seen in practice:
             # a cheaper model returning prose instead of the segmentation
             # tool's expected structure) must fall through to the
