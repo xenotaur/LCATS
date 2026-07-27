@@ -33,10 +33,11 @@ forbidden_actions:
 acceptance:
   - lcats/lcats/ no longer exists; the package lives at lcats/src/lcats/ with the same module contents
   - lcats/pyproject.toml has [tool.setuptools] package-dir = {"" = "src"} and [tool.setuptools.packages.find] where = ["src"]
-  - scripts/lint and scripts/format default targets reference src instead of lcats
+  - lcats/scripts/lint and lcats/scripts/format default targets reference src instead of lcats
   - lcats/src/lcats/utils/secrets.py's parents[N] depth count is updated for the new path depth and still resolves .secrets/ at the repo root
-  - .pre-commit-config.yaml, tools/sourcetree_surveyor.py, tools/create_request.py, experiments/02_llm_backend_comparison/run_comparison.py, and experiments/03_cross_segment_relation_pilot/run_pilot.py are audited for lcats/lcats path literals or sys.path bootstraps, and updated to point at lcats/src where they assumed the old layout
-  - pip install -e ".[dev]" succeeds from lcats/ against the new layout
+  - lcats/src/lcats/utils/test_utils.py's TestCaseWithData test_data_dir calculation is updated for the new path depth and still resolves lcats/tests/data, not lcats/src/tests/data
+  - .pre-commit-config.yaml, lcats/tools/sourcetree_surveyor.py, lcats/tools/create_request.py, experiments/02_llm_backend_comparison/run_comparison.py, and experiments/03_cross_segment_relation_pilot/run_pilot.py are audited for lcats/lcats path literals or sys.path bootstraps, and updated to point at lcats/src where they assumed the old layout
+  - python -m pip install -e ".[dev]" succeeds from lcats/ against the new layout
   - the full test suite (scripts/test) passes against the new layout
   - lrh validate reports 0 errors
 required_evidence:
@@ -48,6 +49,7 @@ artifacts_expected:
   - lcats/scripts/lint
   - lcats/scripts/format
   - lcats/src/lcats/utils/secrets.py
+  - lcats/src/lcats/utils/test_utils.py
   - .pre-commit-config.yaml
   - lcats/tools/sourcetree_surveyor.py
   - lcats/tools/create_request.py
@@ -109,16 +111,23 @@ constraint — encoded here via `depends_on`.
 4. `lcats/src/lcats/utils/secrets.py`: update the `parents[N]` depth-count
    comment and index (shifts by one level since the package moved one
    directory deeper).
-5. Audit and update `.pre-commit-config.yaml`,
+5. `lcats/src/lcats/utils/test_utils.py`: `TestCaseWithData.setUp`'s
+   `os.path.join(os.path.dirname(__file__), "../../tests/data")`
+   calculation resolves to `lcats/src/tests/data` after the move instead of
+   the actual `lcats/tests/data` — update the relative path (or the
+   depth-counting approach) so `test_data_dir` still resolves correctly.
+   Numerous tests inherit `TestCaseWithData`, so this must be fixed before
+   the full test run in step 8 can pass.
+6. Audit and update `.pre-commit-config.yaml`,
    `lcats/tools/sourcetree_surveyor.py`, `lcats/tools/create_request.py`
    for `lcats/lcats` path literals.
-6. Update `experiments/02_llm_backend_comparison/run_comparison.py` and
+7. Update `experiments/02_llm_backend_comparison/run_comparison.py` and
    `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s
    `sys.path.insert(0, ... / "lcats")` bootstraps to point at
    `.../lcats/src` instead.
-7. `rm -rf lcats/lcats.egg-info && pip install -e ".[dev]"` from `lcats/`
-   to regenerate the editable install against the new layout.
-8. Run `scripts/test` and confirm the full suite passes.
+8. `rm -rf lcats/lcats.egg-info && python -m pip install -e ".[dev]"` from
+   `lcats/` to regenerate the editable install against the new layout.
+9. Run `scripts/test` and confirm the full suite passes.
 
 ## Non-Goals
 
@@ -142,17 +151,21 @@ constraint — encoded here via `depends_on`.
 - `lcats/pyproject.toml` has
   `[tool.setuptools] package-dir = {"" = "src"}` and
   `[tool.setuptools.packages.find] where = ["src"]`.
-- `scripts/lint` and `scripts/format` default targets reference `src`
-  instead of `lcats`.
+- `lcats/scripts/lint` and `lcats/scripts/format` default targets
+  reference `src` instead of `lcats`.
 - `lcats/src/lcats/utils/secrets.py`'s `parents[N]` depth count is updated
   for the new path depth and still resolves `.secrets/` at the repo root.
-- `.pre-commit-config.yaml`, `tools/sourcetree_surveyor.py`,
-  `tools/create_request.py`,
+- `lcats/src/lcats/utils/test_utils.py`'s `TestCaseWithData` `test_data_dir`
+  calculation is updated for the new path depth and still resolves
+  `lcats/tests/data`, not `lcats/src/tests/data`.
+- `.pre-commit-config.yaml`, `lcats/tools/sourcetree_surveyor.py`,
+  `lcats/tools/create_request.py`,
   `experiments/02_llm_backend_comparison/run_comparison.py`, and
   `experiments/03_cross_segment_relation_pilot/run_pilot.py` are audited
   for `lcats/lcats` path literals or `sys.path` bootstraps, and updated to
   point at `lcats/src` where they assumed the old layout.
-- `pip install -e ".[dev]"` succeeds from `lcats/` against the new layout.
+- `python -m pip install -e ".[dev]"` succeeds from `lcats/` against the
+  new layout.
 - The full test suite (`scripts/test`) passes against the new layout.
 - `lrh validate` reports 0 errors.
 
@@ -171,10 +184,12 @@ constraint — encoded here via `depends_on`.
   since they're outside `lcats/` entirely — the proposal's review cycle
   already caught this once; double-check both files specifically before
   calling this item done.
-- `secrets.py`'s hardcoded `parents[N]` depth count is exactly the kind of
-  off-by-one that passes review by inspection but fails at runtime —
-  verify by actually invoking a code path that reads `.secrets/`, not
-  just by reading the diff.
+- `secrets.py` and `test_utils.py` both hardcode `parents[N]`/relative-path
+  depth counts that pass review by inspection but fail at runtime — verify
+  each by actually invoking a code path that reads `.secrets/` and by
+  running the full test suite (not just reading the diff), since
+  `test_utils.py`'s bug specifically only surfaces when tests that inherit
+  `TestCaseWithData` try to load fixture data.
 - Deleting `lcats/lcats.egg-info` before reinstalling is safe (it's
   untracked/gitignored, confirmed during the design phase), but skipping
   that step risks a stale editable-install pointing at the old path.
