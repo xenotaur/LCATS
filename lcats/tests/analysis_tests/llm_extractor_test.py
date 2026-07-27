@@ -633,6 +633,20 @@ class TestExtractErrorPaths(unittest.TestCase):
         self.assertEqual(result["extraction_error"], "parsing_error")
         self.assertIsNone(result["extracted_output"])
 
+    def test_no_json_at_all_sets_parsing_error(self):
+        """When the model ignores the requested format entirely and returns
+        plain prose (no JSON, no fenced code block at all), extract_json
+        raises a plain ValueError rather than json.JSONDecodeError - this
+        must be caught and turned into parsing_error like any other bad
+        response, not propagate and crash the caller."""
+        ext = _make_extractor(
+            response_text="Sure, here is a summary of the story you asked about."
+        )
+        result = ext.extract("story")
+        self.assertEqual(result["extraction_error"], "parsing_error")
+        self.assertIsNone(result["extracted_output"])
+        self.assertIn("No JSON found", result["parsing_error"])
+
     def test_empty_response_text_sets_api_error(self):
         """When backend returns empty text, api_error is set."""
         ext = _make_extractor(response_text="")

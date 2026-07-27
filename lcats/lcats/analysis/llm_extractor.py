@@ -435,7 +435,16 @@ class JSONPromptExtractor:
         parsing_error = None
         try:
             parsed = utils.extract_json(raw_output) if raw_output else None
-        except json.JSONDecodeError as exc:
+        except ValueError as exc:
+            # utils.extract_json raises plain ValueError (not just its
+            # json.JSONDecodeError subclass) when raw_output has no JSON at
+            # all, or has multiple/mis-fenced code blocks - see
+            # lcats/utils/compat.py's extract_json. A model response that
+            # ignores the requested JSON format entirely (seen in practice:
+            # a cheaper model returning prose instead of the segmentation
+            # tool's expected structure) must fall through to the
+            # parsing_error path below like any other bad response, not
+            # crash the whole batch.
             parsed = None
             parsing_error = str(exc)
 
