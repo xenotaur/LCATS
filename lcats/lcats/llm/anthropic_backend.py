@@ -88,6 +88,8 @@ class AnthropicBackend:
                     "generating; its input may be incomplete or invalid.",
                     stop_reason=message.stop_reason,
                     max_tokens=max_tokens,
+                    input_tokens=message.usage.input_tokens,
+                    output_tokens=message.usage.output_tokens,
                 )
             tool_block = next(
                 (block for block in message.content if block.type == "tool_use"),

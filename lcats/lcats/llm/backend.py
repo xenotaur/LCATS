@@ -15,12 +15,28 @@ class TruncatedResponseError(RuntimeError):
     or holding malformed JSON (e.g. a string field cut off mid-value with no
     closing quote/bracket). Callers should retry the same request with a
     higher `max_tokens`, not attempt to parse or repair the existing result.
+
+    input_tokens/output_tokens carry the usage the provider already reported
+    for this (truncated) call, so callers with cost/usage tracking don't
+    silently undercount a call that was billed despite failing - the
+    response that hit max_tokens still consumed and was charged for those
+    output tokens.
     """
 
-    def __init__(self, message: str, *, stop_reason: str, max_tokens: int):
+    def __init__(
+        self,
+        message: str,
+        *,
+        stop_reason: str,
+        max_tokens: int,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+    ):
         super().__init__(message)
         self.stop_reason = stop_reason
         self.max_tokens = max_tokens
+        self.input_tokens = input_tokens
+        self.output_tokens = output_tokens
 
 
 @dataclasses.dataclass

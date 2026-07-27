@@ -155,6 +155,36 @@ class TestOpenAIBackend(unittest.TestCase):
         self.assertEqual(ctx.exception.stop_reason, "length")
         self.assertEqual(ctx.exception.max_tokens, 4096)
 
+    def test_truncation_error_preserves_billed_usage(self):
+        """TruncatedResponseError carries the usage the provider already billed."""
+        from lcats.llm import backend
+
+        tool_schema = {
+            "name": "record_thing",
+            "description": "Record a thing.",
+            "input_schema": {"type": "object", "properties": {}},
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(
+                tool_call_arguments='{"verdict": "incl',
+                finish_reason="length",
+                prompt_tokens=88,
+                completion_tokens=4096,
+            )
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            with self.assertRaises(backend.TruncatedResponseError) as ctx:
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="gpt-4o-2024-08-06",
+                    max_tokens=4096,
+                    tool=tool_schema,
+                )
+        self.assertEqual(ctx.exception.input_tokens, 88)
+        self.assertEqual(ctx.exception.output_tokens, 4096)
+
     def test_complete_without_tool_does_not_raise_on_length(self):
         """Truncation is only checked when a tool call was requested."""
         stub_client = _StubOpenAIClient(

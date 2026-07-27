@@ -617,6 +617,23 @@ class TestExtractErrorPaths(unittest.TestCase):
         self.assertEqual(result["extraction_error"], "api_error")
         self.assertIsNone(result["extracted_output"])
 
+    def test_truncated_response_error_preserves_billed_usage_in_result(self):
+        """A TruncatedResponseError's usage flows through to result['usage'],
+        instead of being discarded to None like other backend exceptions."""
+        from lcats.llm import backend as llm_backend
+
+        exc = llm_backend.TruncatedResponseError(
+            "truncated",
+            stop_reason="max_tokens",
+            max_tokens=4096,
+            input_tokens=250,
+            output_tokens=4096,
+        )
+        ext = _make_extractor(backend=_RaisingBackend(exc))
+        result = ext.extract("story")
+        self.assertEqual(result["extraction_error"], "api_error")
+        self.assertEqual(result["usage"], {"input_tokens": 250, "output_tokens": 4096})
+
     def test_api_exception_result_has_all_keys(self):
         """Even on backend exception, result dict has all expected keys."""
         ext = _make_extractor(backend=_RaisingBackend(Exception("fail")))

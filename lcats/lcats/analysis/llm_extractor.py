@@ -262,6 +262,12 @@ class JSONPromptExtractor:
                     "stop_reason": exc.stop_reason,
                     "max_tokens": exc.max_tokens,
                 },
+                # The provider already billed these output tokens despite
+                # the call failing - surfaced so callers with usage/cost
+                # tracking (e.g. event_role_world.processor) don't silently
+                # record zero tokens for a truncated-but-charged call.
+                "input_tokens": exc.input_tokens,
+                "output_tokens": exc.output_tokens,
             }
             return self._classify_api_error(payload)
 
@@ -371,13 +377,19 @@ class JSONPromptExtractor:
 
         except Exception as exc:
             api_error = self._normalize_api_error(exc)
+            usage = None
+            if "input_tokens" in api_error and "output_tokens" in api_error:
+                usage = {
+                    "input_tokens": api_error["input_tokens"],
+                    "output_tokens": api_error["output_tokens"],
+                }
             return {
                 "story_text": story_text,
                 "model_name": model,
                 "messages": messages,
                 "response": None,
                 "response_id": None,
-                "usage": None,
+                "usage": usage,
                 "raw_output": "",
                 "parsed_output": None,
                 "extracted_output": None,

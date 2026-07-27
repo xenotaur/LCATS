@@ -67,6 +67,7 @@ class OpenAIBackend:
 
         if tool is not None:
             if choice.finish_reason == "length":
+                usage = response.usage
                 raise backend.TruncatedResponseError(
                     f"OpenAI response for model {model!r} was truncated at "
                     f"the max_tokens limit ({max_tokens}) before the tool "
@@ -74,6 +75,8 @@ class OpenAIBackend:
                     "arguments may be incomplete or invalid JSON.",
                     stop_reason=choice.finish_reason,
                     max_tokens=max_tokens,
+                    input_tokens=usage.prompt_tokens if usage else 0,
+                    output_tokens=usage.completion_tokens if usage else 0,
                 )
             tool_calls = choice.message.tool_calls
             if not tool_calls:
