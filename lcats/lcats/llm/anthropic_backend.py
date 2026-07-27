@@ -80,6 +80,15 @@ class AnthropicBackend:
             message = self._client.messages.create(**kwargs)
 
         if tool is not None:
+            if message.stop_reason == "max_tokens":
+                raise backend.TruncatedResponseError(
+                    f"Anthropic response for model {model!r} was truncated "
+                    f"at the max_tokens limit ({max_tokens}) before the "
+                    f"tool_use block for {tool['name']!r} finished "
+                    "generating; its input may be incomplete or invalid.",
+                    stop_reason=message.stop_reason,
+                    max_tokens=max_tokens,
+                )
             tool_block = next(
                 (block for block in message.content if block.type == "tool_use"),
                 None,

@@ -360,6 +360,11 @@ class TestClassifyApiError(unittest.TestCase):
             ("server_503", {"status": 503}, "server"),
             ("server_504", {"status": 504}, "server"),
             ("server_overloaded", {"message": "the server is overloaded"}, "server"),
+            (
+                "truncated_output_code",
+                {"code": "truncated_output"},
+                "truncated_output",
+            ),
             ("unknown", {}, "unknown"),
         ]
     )
@@ -415,6 +420,13 @@ class TestClassifyApiError(unittest.TestCase):
         self.assertEqual(result["message"], "some msg")
         self.assertEqual(result["status"], 999)
 
+    def test_truncated_output_is_not_retryable_as_is(self):
+        """truncated_output should not set can_retry or should_abort_batch."""
+        result = self._classify(code="truncated_output")
+        self.assertFalse(result["can_retry"])
+        self.assertFalse(result["should_abort_batch"])
+        self.assertEqual(result["suggested_action"], "retry_with_higher_max_tokens")
+
 
 # ---------------------------------------------------------------------------
 # Tests: _normalize_api_error
@@ -453,6 +465,19 @@ class TestNormalizeApiError(unittest.TestCase):
         exc.code = "rate_limit_exceeded"
         result = self.ext._normalize_api_error(exc)
         self.assertEqual(result["code"], "rate_limit_exceeded")
+
+    def test_recognizes_truncated_response_error(self):
+        """TruncatedResponseError is classified as truncated_output directly,
+        bypassing the generic status/code/message inference path."""
+        from lcats.llm import backend as llm_backend
+
+        exc = llm_backend.TruncatedResponseError(
+            "response truncated", stop_reason="max_tokens", max_tokens=4096
+        )
+        result = self.ext._normalize_api_error(exc)
+        self.assertEqual(result["category"], "truncated_output")
+        self.assertEqual(result["raw"]["stop_reason"], "max_tokens")
+        self.assertEqual(result["raw"]["max_tokens"], 4096)
 
     def test_extracts_embedded_json_error_block(self):
         """When exc string contains JSON with an 'error' block, fields are extracted."""

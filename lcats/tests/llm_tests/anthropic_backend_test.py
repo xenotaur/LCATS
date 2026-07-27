@@ -9,7 +9,12 @@ from lcats.llm import anthropic_backend
 
 
 def _make_message(
-    text=None, tool_input=None, model="claude-opus-4-8", input_tokens=5, output_tokens=7
+    text=None,
+    tool_input=None,
+    model="claude-opus-4-8",
+    input_tokens=5,
+    output_tokens=7,
+    stop_reason="end_turn",
 ):
     """Build a stub object shaped like an Anthropic Messages API response."""
     content = []
@@ -20,7 +25,9 @@ def _make_message(
     usage = types.SimpleNamespace(
         input_tokens=input_tokens, output_tokens=output_tokens
     )
-    return types.SimpleNamespace(content=content, usage=usage, model=model)
+    return types.SimpleNamespace(
+        content=content, usage=usage, model=model, stop_reason=stop_reason
+    )
 
 
 class _StubStream:
@@ -122,6 +129,41 @@ class TestAnthropicBackend(unittest.TestCase):
         )
         self.assertEqual(result.tool_result, {"verdict": "include"})
         self.assertEqual(result.text, "")
+
+    def test_complete_with_tool_raises_on_max_tokens_truncation(self):
+        """complete(tool=...) raises TruncatedResponseError on stop_reason='max_tokens'."""
+        from lcats.llm import backend
+
+        tool_schema = {"name": "record_thing", "input_schema": {"type": "object"}}
+        stub_client = _StubAnthropicClient(
+            _make_message(tool_input={"verdict": "incl"}, stop_reason="max_tokens")
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            with self.assertRaises(backend.TruncatedResponseError) as ctx:
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="claude-opus-4-8",
+                    max_tokens=4096,
+                    tool=tool_schema,
+                )
+        self.assertEqual(ctx.exception.stop_reason, "max_tokens")
+        self.assertEqual(ctx.exception.max_tokens, 4096)
+
+    def test_complete_without_tool_does_not_raise_on_max_tokens(self):
+        """Truncation is only checked when a tool_use block was requested."""
+        stub_client = _StubAnthropicClient(
+            _make_message(text="partial tex", stop_reason="max_tokens")
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            result = backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertEqual(result.text, "partial tex")
 
     def test_complete_uses_streaming_by_default(self):
         """complete() uses messages.stream() by default."""

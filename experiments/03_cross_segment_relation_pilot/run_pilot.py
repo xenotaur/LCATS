@@ -110,6 +110,17 @@ GENRES = (
     corpus_assess.VALID_GENRES
 )  # ("science fiction", "horror", "western", "romance")
 
+# JSONPromptExtractor's own default (4096) is far below what a content-dense
+# segment can need for entity/event/relation extraction, and silently
+# truncating mid-tool-call now raises TruncatedResponseError (see
+# lcats.llm.backend) instead of returning malformed JSON - so a request that
+# used to fail data-integrity checks downstream now fails loudly and
+# immediately unless given real headroom. 16384 is well under
+# claude-opus-4-8's 128k output ceiling and costs nothing extra for calls
+# that finish early (Anthropic bills actual output tokens generated, not
+# this ceiling).
+_ERW_MAX_TOKENS = 16384
+
 # Substrings of an API error message that mean "stop the whole run", not
 # "skip this one story": bad/expired credentials or an exhausted account
 # balance/quota. Every remaining candidate would fail identically, so
@@ -382,9 +393,11 @@ def _build_erw_extractors(
     backend: Any, model: str, backend_name: str
 ) -> Dict[str, Any]:
     """Build the Event-Role-World extractors, with `model` overriding each
-    factory's own hardcoded default_model (e.g. "gpt-4o") and, for
-    --backend anthropic only, each extractor's tool_schema upgraded to
-    strict: true (see _strict_tool_schema()).
+    factory's own hardcoded default_model (e.g. "gpt-4o"), max_tokens raised
+    to _ERW_MAX_TOKENS (each factory's own default of 4096 is too low for
+    content-dense segments and risks TruncatedResponseError - see
+    lcats.llm.backend), and, for --backend anthropic only, each extractor's
+    tool_schema upgraded to strict: true (see _strict_tool_schema()).
 
     processor.process_segments() has no model parameter - it builds these
     same extractors internally with each factory's hardcoded default,
@@ -412,6 +425,7 @@ def _build_erw_extractors(
     story_relation = erw_story_relation.make_story_relation_extractor(backend)
     for extractor in (entity, event, relation, discourse, story_relation):
         extractor.default_model = model
+        extractor.max_tokens = _ERW_MAX_TOKENS
         if backend_name == "anthropic" and extractor.tool_schema is not None:
             extractor.tool_schema = _strict_tool_schema(extractor.tool_schema)
     return {

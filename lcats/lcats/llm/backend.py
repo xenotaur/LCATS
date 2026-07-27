@@ -7,6 +7,22 @@ import dataclasses
 from typing import Any, Optional, Protocol, runtime_checkable
 
 
+class TruncatedResponseError(RuntimeError):
+    """Raised when a backend's response was cut off before completion.
+
+    Typically caused by hitting the max_tokens ceiling mid-generation while a
+    tool_use block was still being produced, leaving `tool_result` incomplete
+    or holding malformed JSON (e.g. a string field cut off mid-value with no
+    closing quote/bracket). Callers should retry the same request with a
+    higher `max_tokens`, not attempt to parse or repair the existing result.
+    """
+
+    def __init__(self, message: str, *, stop_reason: str, max_tokens: int):
+        super().__init__(message)
+        self.stop_reason = stop_reason
+        self.max_tokens = max_tokens
+
+
 @dataclasses.dataclass
 class BackendResponse:
     """Normalized result of an LLMBackend.complete() call.

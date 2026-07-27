@@ -15,6 +15,7 @@ def _make_response(
     model="gpt-4o-2024-08-06",
     prompt_tokens=5,
     completion_tokens=7,
+    finish_reason="stop",
 ):
     """Build a stub object shaped like an OpenAI chat completion response."""
     if tool_call_arguments is not None:
@@ -23,7 +24,7 @@ def _make_response(
         message = types.SimpleNamespace(content=None, tool_calls=[tool_call])
     else:
         message = types.SimpleNamespace(content=content, tool_calls=None)
-    choice = types.SimpleNamespace(message=message)
+    choice = types.SimpleNamespace(message=message, finish_reason=finish_reason)
     usage = types.SimpleNamespace(
         prompt_tokens=prompt_tokens, completion_tokens=completion_tokens
     )
@@ -125,6 +126,48 @@ class TestOpenAIBackend(unittest.TestCase):
         self.assertNotIn("response_format", stub_client.last_kwargs)
         self.assertEqual(result.tool_result, {"verdict": "include"})
         self.assertEqual(result.text, "")
+
+    def test_complete_with_tool_raises_on_length_truncation(self):
+        """complete(tool=...) raises TruncatedResponseError on finish_reason='length'."""
+        from lcats.llm import backend
+
+        tool_schema = {
+            "name": "record_thing",
+            "description": "Record a thing.",
+            "input_schema": {"type": "object", "properties": {}},
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(
+                tool_call_arguments='{"verdict": "incl',
+                finish_reason="length",
+            )
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            with self.assertRaises(backend.TruncatedResponseError) as ctx:
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="gpt-4o-2024-08-06",
+                    max_tokens=4096,
+                    tool=tool_schema,
+                )
+        self.assertEqual(ctx.exception.stop_reason, "length")
+        self.assertEqual(ctx.exception.max_tokens, 4096)
+
+    def test_complete_without_tool_does_not_raise_on_length(self):
+        """Truncation is only checked when a tool call was requested."""
+        stub_client = _StubOpenAIClient(
+            _make_response(content="partial tex", finish_reason="length")
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            result = backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="gpt-4o-2024-08-06",
+            )
+        self.assertEqual(result.text, "partial tex")
 
     def test_complete_normalizes_token_usage_and_model(self):
         """input_tokens/output_tokens/model are normalized from the API response."""

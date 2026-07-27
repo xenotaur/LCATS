@@ -226,6 +226,14 @@ class JSONPromptExtractor:
             can_retry = True
             suggested_action = "retry_with_backoff"
 
+        # Truncated tool-use output — max_tokens hit mid-generation. Not
+        # retryable with the same request (would truncate identically);
+        # the caller must raise max_tokens and retry.
+        elif code == "truncated_output":
+            category = "truncated_output"
+            can_retry = False
+            suggested_action = "retry_with_higher_max_tokens"
+
         return {
             **payload,
             "category": category,
@@ -244,6 +252,19 @@ class JSONPromptExtractor:
         Returns:
             A normalized error dict.
         """
+        if isinstance(exc, llm_backend.TruncatedResponseError):
+            payload = {
+                "status": None,
+                "code": "truncated_output",
+                "type": "truncated_output",
+                "message": str(exc),
+                "raw": {
+                    "stop_reason": exc.stop_reason,
+                    "max_tokens": exc.max_tokens,
+                },
+            }
+            return self._classify_api_error(payload)
+
         # Best-effort defaults
         status = getattr(exc, "status_code", None) or getattr(exc, "http_status", None)
         code = getattr(exc, "code", None)
