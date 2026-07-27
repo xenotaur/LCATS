@@ -17,6 +17,9 @@ class FakeCharacterEncoding:
     def decode(self, tokens):
         return "".join(chr(token) for token in tokens)
 
+    def decode_tokens_bytes(self, tokens):
+        return [chr(token).encode("utf-8") for token in tokens]
+
 
 def fake_encoding_for_model(_model):
     """Return a fake encoder for model lookup patches."""
