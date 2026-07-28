@@ -1,8 +1,16 @@
 #!/bin/bash
+# Regenerates environment.yml from whichever conda env is currently
+# active when this script is run — activate the intended env (e.g.
+# "LCATS") first, or this will silently export the wrong environment.
 echo "Updating the Anaconda dependency listing..."
 set -x
 
 conda env export | egrep -v "^name:" | egrep -v "^prefix:" > environment.yml
+
+# `conda env export` drops VCS pins for pip-installed packages (renders
+# them as a bare "name==version"), so splice the accurate "name @ url"
+# specifier back in from `pip freeze` for any such package.
+python "$(dirname "$0")/utils/fix_pip_vcs_pins.py" environment.yml
 
 # Turn off logging and print a blank line
 { set +x; } 2>/dev/null

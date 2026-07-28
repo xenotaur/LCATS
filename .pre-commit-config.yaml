@@ -1,5 +1,14 @@
 # Optional local checks for contributors.
 # CI and scripts/* remain the source of truth.
+#
+# Known limitation: the black hook may self-report a bogus dev version
+# (e.g. "0.1.dev1+g<hash>") regardless of the `rev:` pin below. This is a
+# pre-commit + setuptools_scm interaction, not a config issue here: black
+# computes its own version from git tags via setuptools_scm, and
+# pre-commit's git clone for building the hook's environment does not
+# fetch tags. If the black hook fails on a version mismatch while
+# `scripts/format`/`scripts/lint` (the real source of truth) pass clean,
+# treat it as this known limitation rather than a real formatting problem.
 default_language_version:
   python: python3.11
 

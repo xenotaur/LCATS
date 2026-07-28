@@ -25,7 +25,6 @@ dependencies:
   - executing=2.0.1=pyhd8ed1ab_0
   - expat=2.7.0=h286801f_0
   - ffmpeg=7.1.1=gpl_h20db955_106
-  - filelock=3.15.4=pyhd8ed1ab_0
   - font-ttf-dejavu-sans-mono=2.37=hab24e00_0
   - font-ttf-inconsolata=3.000=h77eed37_0
   - font-ttf-source-code-pro=2.038=h77eed37_0
@@ -158,7 +157,6 @@ dependencies:
   - pickleshare=0.7.5=py_1003
   - pillow=11.2.1=py311hb9ba9e9_0
   - pixman=0.46.2=h2f9eb0b_0
-  - platformdirs=4.2.2=pyhd8ed1ab_0
   - pluggy=1.0.0=py311hca03da5_1
   - prompt-toolkit=3.0.47=pyha770c72_0
   - psutil=6.0.0=py311hd3f4193_0
@@ -185,7 +183,6 @@ dependencies:
   - sdl3=3.2.14=hf196eef_0
   - seaborn=0.13.2=hd8ed1ab_3
   - seaborn-base=0.13.2=pyhd8ed1ab_3
-  - setuptools=72.1.0=pyhd8ed1ab_0
   - six=1.16.0=pyh6c4a22f_0
   - sleef=3.8=h8391f65_0
   - snappy=1.2.1=h98b9ce2_1
@@ -197,8 +194,6 @@ dependencies:
   - tk=8.6.13=h5083fa2_1
   - tornado=6.4.1=py311hd3f4193_0
   - traitlets=5.14.3=pyhd8ed1ab_0
-  - typing-extensions=4.12.2=hd8ed1ab_0
-  - typing_extensions=4.12.2=pyha770c72_0
   - unicodedata2=16.0.0=py311h917b07b_0
   - unidecode=1.3.8=pyh29332c3_1
   - wcwidth=0.2.13=pyhd8ed1ab_0
@@ -218,7 +213,9 @@ dependencies:
       - aiohttp==3.10.5
       - aiosignal==1.3.1
       - alembic==1.16.5
+      - annotated-doc==0.0.4
       - annotated-types==0.7.0
+      - anthropic==0.113.0
       - anyio==4.4.0
       - argon2-cffi==23.1.0
       - argon2-cffi-bindings==21.2.0
@@ -231,32 +228,46 @@ dependencies:
       - beautifulsoup4==4.12.3
       - black==25.11.0
       - bleach==6.2.0
+      - blis==1.3.3
       - build==1.2.1
+      - catalogue==2.0.10
       - certifi==2024.7.4
       - cffi==1.17.1
+      - cfgv==3.5.0
+      - chardet==5.2.0
       - charset-normalizer==3.3.2
       - click==8.3.1
+      - cloudpathlib==0.24.0
+      - colorama==0.4.6
+      - confection==1.3.3
       - construct==2.5.3
       - coverage==7.13.4
+      - cymem==2.0.13
       - datasets==2.21.0
       - defusedxml==0.7.1
       - deprecated==1.2.14
       - dill==0.3.8
+      - distlib==0.4.0
       - distro==1.9.0
       - dnspython==2.6.1
+      - docstring-parser==0.18.0
       - docutils==0.21.2
+      - emoji==2.15.0
+      - en-core-web-sm==3.8.0
       - faiss-cpu==1.8.0.post1
       - fastjsonschema==2.20.0
+      - filelock==3.25.2
       - fqdn==1.5.1
       - frozenlist==1.4.1
       - future==1.0.0
-      - gutenbergpy==0.3.6
+      - gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@60ca548232f470e7aa7c22e8fde636db644cd80e
       - h11==0.14.0
       - haystack==0.42
       - httpcore==1.0.5
       - httpsproxy-urllib2==1.0
       - httpx==0.27.2
       - huggingface-hub==0.24.6
+      - identify==2.6.18
       - idna==3.7
       - ipynbname==2025.8.0.0
       - ipywidgets==8.1.5
@@ -299,6 +310,7 @@ dependencies:
       - more-itertools==10.3.0
       - multidict==6.0.5
       - multiprocess==0.70.16
+      - murmurhash==1.0.15
       - mypy-extensions==1.1.0
       - nbclient==0.10.0
       - nbconvert==7.16.4
@@ -329,8 +341,12 @@ dependencies:
       - pinecone-plugin-interface==0.0.7
       - pip==26.0.1
       - pkginfo==1.10.0
+      - platformdirs==4.9.6
       - prance==23.6.21.0
+      - pre-commit==4.5.1
+      - preshed==3.0.13
       - prometheus-client==0.21.0
+      - protobuf==7.35.1
       - pyarrow==17.0.0
       - pybars4==0.9.13
       - pycparser==2.22
@@ -343,11 +359,12 @@ dependencies:
       - pyparsing==2.4.7
       - pyproject-hooks==1.1.0
       - pyright==1.1.408
+      - python-discovery==1.2.2
       - python-dotenv==1.0.1
       - python-json-logger==2.0.7
       - python-ptrace==0.9.9
       - pytokens==0.3.0
-      - pytz==2024.1
+      - pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1742920838005/work
       - pyyaml==6.0.2
       - rdflib==4.2.2
       - rdflib-sqlalchemy==0.5.4
@@ -359,7 +376,7 @@ dependencies:
       - rfc3339-validator==0.1.4
       - rfc3986==2.0.0
       - rfc3986-validator==0.1.1
-      - rich==13.7.1
+      - rich==15.0.0
       - rpds-py==0.20.0
       - ruamel-yaml==0.18.6
       - ruamel-yaml-clib==0.2.8
@@ -367,12 +384,22 @@ dependencies:
       - safetensors==0.4.4
       - semantic-kernel==1.8.2
       - send2trash==1.8.3
+      - setuptools==83.0.0
+      - shellingham==1.5.4
+      - smart-open==8.0.1
       - sniffio==1.3.1
       - soupsieve==2.5
+      - spacy==3.8.14
+      - spacy-legacy==3.0.12
+      - spacy-loggers==1.0.5
       - sparqlwrapper==1.8.5
       - sqlalchemy==1.4.54
+      - srsly==2.5.3
+      - stanza==1.14.0
       - tenacity==8.5.0
+      - termcolor==3.3.0
       - terminado==0.18.1
+      - thinc==8.3.13
       - tiktoken==0.8.0
       - tinycss2==1.4.0
       - tinydb==4.8.0
@@ -382,10 +409,17 @@ dependencies:
       - tqdm==4.66.5
       - transformers==4.44.2
       - twine==5.1.1
+      - typer==0.27.0
       - types-python-dateutil==2.9.0.20241003
+      - typing-extensions==4.15.0
       - tzdata==2024.1
+      - udapi==0.5.2
+      - udtools==0.2.8
       - uri-template==1.3.0
       - urllib3==2.2.2
+      - virtualenv==21.2.0
+      - wasabi==1.1.3
+      - weasel==1.0.0
       - webcolors==24.11.1
       - webencodings==0.5.1
       - websocket-client==1.8.0
