@@ -88,7 +88,7 @@ from typing import Any, Dict, List, Optional, Tuple
 # Path bootstrap - allow running as `python experiments/.../run_pilot.py` from
 # the repo root without requiring a prior `pip install -e .`.
 # ---------------------------------------------------------------------------
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats"))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats" / "src"))
 
 from lcats.analysis import scene_analysis
 from lcats.analysis import story_analysis

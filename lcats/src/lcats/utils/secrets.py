@@ -17,13 +17,14 @@ from __future__ import annotations
 
 import pathlib
 
-# .secrets/ is three package dirs above this file, then one more to the repo root:
-#   lcats/lcats/utils/secrets.py
-#       parents[0] = lcats/lcats/utils/
-#       parents[1] = lcats/lcats/
-#       parents[2] = lcats/        (package root, contains pyproject.toml)
-#       parents[3] = LCATS/LCATS/  (repo root, contains .secrets/)
-_DEFAULT_SECRETS_DIR = pathlib.Path(__file__).resolve().parents[3] / ".secrets"
+# .secrets/ is four package dirs above this file, then one more to the repo root:
+#   lcats/src/lcats/utils/secrets.py
+#       parents[0] = lcats/src/lcats/utils/
+#       parents[1] = lcats/src/lcats/
+#       parents[2] = lcats/src/
+#       parents[3] = lcats/        (package root, contains pyproject.toml)
+#       parents[4] = LCATS/LCATS/  (repo root, contains .secrets/)
+_DEFAULT_SECRETS_DIR = pathlib.Path(__file__).resolve().parents[4] / ".secrets"
 
 
 def load_secrets(secrets_dir: pathlib.Path | None = None) -> None:

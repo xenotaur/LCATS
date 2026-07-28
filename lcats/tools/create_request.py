@@ -42,12 +42,13 @@ def _load_template(template_name: str) -> Tuple[Path, str]:
 def _normalize_target_for_gha(target_input: str) -> str:
     """
     Normalize an input path into repo-root style module path:
-        lcats/lcats/<...>.py
+        lcats/src/lcats/<...>.py
 
     Accepts inputs like:
-        lcats/analysis/foo.py         -> lcats/lcats/analysis/foo.py
-        lcats/lcats/analysis/foo.py   -> lcats/lcats/analysis/foo.py
-        analysis/foo.py               -> lcats/lcats/analysis/foo.py  (assumed relative to lcats/)
+        lcats/analysis/foo.py             -> lcats/src/lcats/analysis/foo.py
+        lcats/src/lcats/analysis/foo.py   -> lcats/src/lcats/analysis/foo.py
+        lcats/lcats/analysis/foo.py       -> lcats/src/lcats/analysis/foo.py  (pre-src-layout form, still accepted)
+        analysis/foo.py                   -> lcats/src/lcats/analysis/foo.py  (assumed relative to lcats/)
     """
     s = target_input.strip().replace("\\", "/")
     s = s.lstrip("./")
@@ -56,13 +57,17 @@ def _normalize_target_for_gha(target_input: str) -> str:
     if not s.startswith("lcats/"):
         s = f"lcats/{s}"
 
-    # If already includes lcats/lcats, keep as-is
-    if s.startswith("lcats/lcats/"):
+    # If already includes lcats/src/lcats, keep as-is
+    if s.startswith("lcats/src/lcats/"):
         return s
 
-    # If starts with lcats/ but not lcats/lcats/, insert the second lcats/
+    # Accept the pre-src-layout "lcats/lcats/" form and correct it
+    if s.startswith("lcats/lcats/"):
+        return "lcats/src/lcats/" + s[len("lcats/lcats/") :]
+
+    # If starts with lcats/ but not lcats/src/lcats/, insert the "src/lcats/"
     if s.startswith("lcats/"):
-        return "lcats/lcats/" + s[len("lcats/") :]
+        return "lcats/src/lcats/" + s[len("lcats/") :]
 
     # Should be unreachable, but keep safe
     return s
@@ -71,30 +76,35 @@ def _normalize_target_for_gha(target_input: str) -> str:
 def _compute_suggested_test_path(target_module_gha: str) -> str:
     """
     Given:
-        lcats/lcats/<subdir>/<...>/<name>.py
+        lcats/src/lcats/<subdir>/<...>/<name>.py
     Suggest:
         lcats/tests/<subdir>_tests/<...>/<name>_test.py
 
     Example:
-        lcats/lcats/analysis/llm_extractor.py
+        lcats/src/lcats/analysis/llm_extractor.py
             -> lcats/tests/analysis_tests/llm_extractor_test.py
 
-        lcats/lcats/analysis/nlp/foo.py
+        lcats/src/lcats/analysis/nlp/foo.py
             -> lcats/tests/analysis_tests/nlp/foo_test.py
     """
     p = Path(target_module_gha)
 
-    # Expect: lcats / lcats / <subdir> / ... / <file>
+    # Expect: lcats / src / lcats / <subdir> / ... / <file>
     parts = p.parts
-    if len(parts) < 4 or parts[0] != "lcats" or parts[1] != "lcats":
+    if (
+        len(parts) < 5
+        or parts[0] != "lcats"
+        or parts[1] != "src"
+        or parts[2] != "lcats"
+    ):
         # Fall back: place in lcats/tests/misc_tests/
         stem = p.stem
         return str(Path("lcats/tests/misc_tests") / f"{stem}_test.py").replace(
             "\\", "/"
         )
 
-    subdir = parts[2]
-    rest_dirs = parts[3:-1]  # dirs after subdir, before file
+    subdir = parts[3]
+    rest_dirs = parts[4:-1]  # dirs after subdir, before file
     stem = p.stem
 
     test_dir = Path("lcats/tests") / f"{subdir}_tests"
@@ -144,7 +154,7 @@ def _parse_args(argv) -> argparse.Namespace:
     )
     parser.add_argument(
         "target",
-        help="Target module path (e.g. lcats/analysis/llm_extractor.py or lcats/lcats/analysis/llm_extractor.py)",
+        help="Target module path (e.g. lcats/analysis/llm_extractor.py or lcats/src/lcats/analysis/llm_extractor.py)",
     )
     parser.add_argument(
         "--show-vars",

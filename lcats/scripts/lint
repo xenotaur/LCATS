@@ -25,7 +25,7 @@ done
 if [[ "$#" -gt 0 ]]; then
     targets=("$@")
 else
-    targets=(lcats tests tools)
+    targets=(src tests tools)
 fi
 
 # Ruff rule sets

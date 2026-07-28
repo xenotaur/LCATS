@@ -6,9 +6,9 @@ Inventory a Python source tree and summarize "public-ish surface area" per file
 to help humans or agents assess testability and plan unit tests.
 
 Examples:
-  python tools/sourcetree_surveyor.py lcats/lcats/utils --format md
-  python tools/sourcetree_surveyor.py lcats/lcats/utils --format json
-  python tools/sourcetree_surveyor.py lcats/lcats/utils --tests-root lcats/tests/utils_tests --format md
+  python tools/sourcetree_surveyor.py lcats/src/lcats/utils --format md
+  python tools/sourcetree_surveyor.py lcats/src/lcats/utils --format json
+  python tools/sourcetree_surveyor.py lcats/src/lcats/utils --tests-root lcats/tests/utils_tests --format md
 """
 
 from __future__ import annotations
@@ -251,7 +251,7 @@ def to_json(reports: list[FileReport]) -> str:
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser()
-    p.add_argument("root", help="Root directory to scan (e.g., lcats/lcats/utils)")
+    p.add_argument("root", help="Root directory to scan (e.g., lcats/src/lcats/utils)")
     p.add_argument(
         "--tests-root",
         default=None,

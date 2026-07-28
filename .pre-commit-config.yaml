@@ -23,7 +23,7 @@ exclude: |
     lcats/output/|
     lcats/dist/|
     lcats/htmlcov/|
-    lcats/lcats\.egg-info/
+    lcats/src/lcats\.egg-info/
   )
 
 repos:
@@ -31,29 +31,29 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
-        files: ^lcats/(lcats|tests|tools)/.*$
+        files: ^lcats/(src|tests|tools)/.*$
 
       - id: end-of-file-fixer
-        files: ^lcats/(lcats|tests|tools)/.*$
+        files: ^lcats/(src|tests|tools)/.*$
 
       - id: check-merge-conflict
-        files: ^lcats/(lcats|tests|tools)/.*$
+        files: ^lcats/(src|tests|tools)/.*$
 
       - id: check-yaml
-        files: ^lcats/(lcats|tests|tools)/.*\.(ya?ml)$
+        files: ^lcats/(src|tests|tools)/.*\.(ya?ml)$
 
       - id: check-json
-        files: ^lcats/(lcats|tests|tools)/.*\.json$
+        files: ^lcats/(src|tests|tools)/.*\.json$
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.0
     hooks:
       - id: ruff
         args: [--fix]
-        files: ^lcats/(lcats|tests|tools)/.*\.py$
+        files: ^lcats/(src|tests|tools)/.*\.py$
 
   - repo: https://github.com/psf/black
     rev: 25.11.0
     hooks:
       - id: black
-        files: ^lcats/(lcats|tests|tools)/.*\.py$
+        files: ^lcats/(src|tests|tools)/.*\.py$

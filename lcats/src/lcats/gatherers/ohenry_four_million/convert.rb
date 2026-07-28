@@ -1,4 +1,4 @@
-def passWord(word) 
+def passWord(word)
   if word == "is" or
     word == "a" or
     word == "the" then return true else return false
@@ -12,16 +12,13 @@ end
 titles = IO.readlines("4mil.txt")
 
 titles.each do |title|
-  if startWord(title.downcase.split()[0]) then 
+  if startWord(title.downcase.split()[0]) then
     shortForm = title.downcase.split()[1..-1].map{|word| word}.join("_")
   else
     shortForm = title.downcase.split().map{|word| word}.join("_")
   end
-  
+
   convertedTitle = title.downcase.split().map{|word| if !passWord(word) then word.capitalize() else word end}.join(" ")
 
   puts ("('" + shortForm + "', '" + title.strip + "', '" + "OHenry - " + convertedTitle + "')")
 end
-
-
-  

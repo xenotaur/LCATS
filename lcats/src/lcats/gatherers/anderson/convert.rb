@@ -1,4 +1,4 @@
-def passWord(word) 
+def passWord(word)
   if word == "is" or
     word == "a" or
     word == "the" then return true else return false
@@ -9,10 +9,10 @@ def startWord(word)
   if word == "a" or word == "an" or word == "the" or word == "from" then return true else false end
 end
 
-titles = IO.readlines("london.txt")
+titles = IO.readlines("anderson.txt")
 
 titles.each do |title|
-  if startWord(title.downcase.split()[0]) then 
+  if startWord(title.downcase.split()[0]) then
     shortForm = title.downcase.split()[1..-1].map{|word| word}.join("_")
   else
     shortForm = title.downcase.split().map{|word| word}.join("_")
@@ -23,8 +23,5 @@ titles.each do |title|
   tempWords[0] = tempWords[0].capitalize()
   convertedTitle = tempWords.join(" ")
 
-  puts ('("' + shortForm + '", "' + title.strip + '", "' + 'London - ' + convertedTitle + '"),')
+  puts ("('" + shortForm + "', '" + title.strip + "', '" + "Anderson - " + convertedTitle + "'),")
 end
-
-
-  

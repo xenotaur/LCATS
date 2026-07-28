@@ -46,6 +46,12 @@ Issues = "https://github.com/xenotaur/LCATS/issues"
 [project.scripts]
 lcats = "lcats.cli:main"
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [tool.setuptools.package-data]
 # Ship the versioned gather-time override tables and survey allowlist config so
 # they are present in wheel/sdist installs, not only in source checkouts.

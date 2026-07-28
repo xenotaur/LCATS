@@ -2,7 +2,7 @@
 set -euo pipefail
 
 black_args=()
-targets=(lcats tests tools)
+targets=(src tests tools)
 
 while [[ $# -gt 0 ]]; do
     case "$1" in

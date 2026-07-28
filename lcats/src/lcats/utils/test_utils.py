@@ -10,9 +10,11 @@ class TestCaseWithData(unittest.TestCase):
 
     def setUp(self):
         """Find the local test data directory, and create a temp dir."""
-        # Assumes tests are being run from the root of the workspace.
+        # lcats/src/lcats/utils/test_utils.py -> ../../../tests/data
+        #   walks up to lcats/src/lcats/, lcats/src/, lcats/ (package root,
+        #   contains pyproject.toml), then into tests/data.
         self.test_data_dir = os.path.normpath(
-            os.path.join(os.path.dirname(__file__), "../../tests/data")
+            os.path.join(os.path.dirname(__file__), "../../../tests/data")
         )
         self.test_temp_dir = tempfile.mkdtemp()
 
