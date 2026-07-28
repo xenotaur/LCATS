@@ -109,7 +109,9 @@ reason it's safe and correct to delete rather than fix.
 4. Cut a first annotated git tag (e.g. `v0.1.0`) and push it — confirm
    with the user before pushing, since tagging affects shared repo state.
 5. Delete `lcats/setup.py`.
-6. `rm -rf src/lcats.egg-info && pip install -e ".[dev]"` in the `LCATS`
+6. From `lcats/` (the package root — the `egg-info` path is relative to
+   it, matching the convention already used throughout `lcats/scripts/*`):
+   `rm -rf src/lcats.egg-info && pip install -e ".[dev]"` in the `LCATS`
    conda env to regenerate against dynamic versioning.
 7. Verify the installed version reflects the git tag: `pip show lcats` or
    `python -c "import importlib.metadata; print(importlib.metadata.version('lcats'))"`.

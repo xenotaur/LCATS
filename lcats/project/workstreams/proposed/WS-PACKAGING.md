@@ -13,6 +13,7 @@ related_design:
 work_items:
   - WI-PACKAGING-0031
   - WI-PACKAGING-0032
+  - WI-PACKAGING-0035
 exit_criteria:
   - lcats/pyproject.toml declares license via PEP 639 (license = "MIT" + license-files), pins setuptools>=77 (the version that added PEP 639 support), sets required-version for tool.ruff and tool.black, has no duplicate test/dev extras, and pins gutenbergpy to a commit SHA
   - lcats package code lives at lcats/src/lcats/ with scripts/lint, scripts/format, secrets.py, and all lcats/lcats path literals updated accordingly, and the full test suite passes against the new layout
@@ -68,8 +69,9 @@ item couldn't express.
   `lcats/src/lcats/`, update `scripts/lint`/`scripts/format`, `secrets.py`,
   path-literal audit, reinstall, full test run. `depends_on:
   WI-PACKAGING-0031`.
-- *(planned)* Dynamic versioning + `setup.py` removal — `setuptools-scm`,
-  first git tag, delete `setup.py`.
+- **WI-PACKAGING-0035** — Dynamic versioning + `setup.py` removal:
+  `setuptools-scm`, first git tag, delete `setup.py`. `depends_on:
+  WI-PACKAGING-0032`.
 
 ## Exit Criteria
 
