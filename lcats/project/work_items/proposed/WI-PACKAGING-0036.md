@@ -95,7 +95,9 @@ rather than the anchor approach — so this WI covers both, not just
    without finding one.
 2. `secrets.py`: replace
    `pathlib.Path(__file__).resolve().parents[4] / ".secrets"` with
-   `find_pyproject_root(__file__).parent / ".secrets"`.
+   `find_pyproject_root(__file__).parent / ".secrets"`, guarding the
+   module-level assignment so a non-editable install (no `pyproject.toml`
+   ancestor on disk) doesn't raise at import time — see Risk Notes.
 3. `test_utils.py`: replace the `../../../tests/data` relative-path join
    with `find_pyproject_root(__file__) / "tests" / "data"`.
 4. `paths.py`: correct the header comment path from
@@ -133,15 +135,33 @@ rather than the anchor approach — so this WI covers both, not just
 - `scripts/lint`
 - `scripts/test`
 - `python -c "from lcats.utils.secrets import _DEFAULT_SECRETS_DIR; print(_DEFAULT_SECRETS_DIR)"`
+- A non-editable install check: `pip install .` (not `-e`) into a
+  throwaway venv outside the checkout, then confirm
+  `import lcats.utils.secrets` succeeds and `load_secrets()` still
+  no-ops rather than raising.
 
 ## Risk Notes
 
 - The new helper must correctly handle both editable-install and
-  non-editable-install cases — verify with the actual `pip install -e .`
-  state already in use, not just a fresh checkout.
+  non-editable-install cases — verify with an actual non-editable install
+  (e.g. `pip install .` into a separate venv, or a built wheel), not just
+  `pip install -e .`.
+- `secrets.py`'s `_DEFAULT_SECRETS_DIR` is computed at module import time.
+  A wheel or `pip install .` install outside the checkout has no
+  `pyproject.toml` ancestor on disk, so calling `find_pyproject_root`
+  unguarded at module scope would raise `FileNotFoundError` on every
+  `import lcats.utils.secrets` — breaking `load_secrets()` entirely,
+  including calls that pass an explicit `secrets_dir=...` and don't need
+  the default at all. Today's behavior is a silent no-op when
+  `.secrets/` doesn't exist (see `load_secrets`'s docstring); the fallback
+  must preserve that: catch the "not found" case at import time and set
+  `_DEFAULT_SECRETS_DIR` to `None` (or similar), so `load_secrets()`
+  continues to no-op gracefully in non-editable installs instead of
+  failing to import.
 - Keep the walk-up bounded (stop at filesystem root) so a misconfigured
-  environment fails loudly with a clear error rather than looping or
-  raising an unrelated exception.
+  environment fails loudly with a clear error only when the lookup is
+  actually invoked with no explicit override — not as an import-time
+  side effect.
 
 ## Related Workstream and Designs
 
