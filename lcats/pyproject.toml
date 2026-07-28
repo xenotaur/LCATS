@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=77", "wheel"]
+requires = ["setuptools>=77", "setuptools-scm>=8", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "lcats"
-version = "0.1"
+dynamic = ["version"]
 description = "Literary Captain's Advisory Tool System."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -80,3 +80,11 @@ required-version = "==0.15.0"
 
 [tool.black]
 required-version = "25.11.0"
+
+[tool.setuptools_scm]
+# lcats/ is a subdirectory of the git repo (the repo root, one level up,
+# is where .git actually lives) -- without this, setuptools_scm can't
+# find the git checkout and silently falls back to fallback_version on
+# every build, never actually deriving a version from tags.
+root = ".."
+fallback_version = "0.1.0"
