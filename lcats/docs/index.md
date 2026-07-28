@@ -33,4 +33,4 @@ cd LCATS/lcats
 ### Explanation
 
 - Control-plane concepts live in [`project/README.md`](../project/README.md).
-- Corpus-analysis architecture details live in [`lcats/analysis/corpus/README.md`](../lcats/analysis/corpus/README.md).
+- Corpus-analysis architecture details live in [`lcats/analysis/corpus/README.md`](../src/lcats/analysis/corpus/README.md).

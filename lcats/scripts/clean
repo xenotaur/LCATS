@@ -2,7 +2,7 @@
 echo "Cleaning lcats build..."
 set -x
 
-rm -rf build dist lcats.egg-info
+rm -rf build dist src/lcats.egg-info
 
 # Turn off logging and print a blank line
 { set +x; } 2>/dev/null

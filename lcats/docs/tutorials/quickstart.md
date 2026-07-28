@@ -134,4 +134,4 @@ rather than a standalone report.
 - For the `LLMBackend` abstraction `lcats assess` is built on, see
   [`docs/reference/llm-backend.md`](../reference/llm-backend.md).
 - To understand the corpus analysis subsystem `survey` belongs to, see
-  [`lcats/analysis/corpus/README.md`](../../lcats/analysis/corpus/README.md).
+  [`lcats/analysis/corpus/README.md`](../../src/lcats/analysis/corpus/README.md).

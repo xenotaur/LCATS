@@ -36,7 +36,7 @@ scripts/clean
 **Removes:**
 - `build/` directory
 - `dist/` directory  
-- `lcats.egg-info/` directory
+- `src/lcats.egg-info/` directory
 
 #### `publish`
 Publishes the LCATS package to PyPI using twine.
@@ -81,7 +81,7 @@ scripts/format
 ```
 
 **Applies formatting to:**
-- `lcats/` directory
+- `src/` directory
 - `tests/` directory
 - `tools/` directory
 
@@ -101,14 +101,14 @@ By default, this is a **fast check** intended for frequent use during developmen
 - Black formatting (check-only, no modifications)
 
 **Targets (default):**
-- `lcats/`
+- `src/`
 - `tests/`
 - `tools/`
 
 You may optionally specify paths:
 
 ```bash
-scripts/lint lcats/gatherers/downloaders.py
+scripts/lint src/lcats/gatherers/downloaders.py
 ```
 
 ---

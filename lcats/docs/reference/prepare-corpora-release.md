@@ -249,6 +249,6 @@ your explicit go-ahead:
 ANTHROPIC_API_KEY=sk-... lcats assess ../corpora/ --genre "science fiction" --format tsv --output sf_assessment.tsv
 ```
 
-See [`lcats assess`'s how-to guide](../../lcats/analysis/corpus/README.md#9-story-assessment-lcats-assess)
+See [`lcats assess`'s how-to guide](../../src/lcats/analysis/corpus/README.md#9-story-assessment-lcats-assess)
 for the full option reference, output formats, and manual prompt-validation
 guidance.
