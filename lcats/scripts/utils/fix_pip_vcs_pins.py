@@ -15,7 +15,11 @@ import subprocess
 import sys
 
 BARE_LINE = re.compile(r"^(\s*-\s*)([A-Za-z0-9._-]+)==")
-VCS_LINE = re.compile(r"^([A-Za-z0-9._-]+) @ ")
+# Match only genuine VCS URLs (git+/hg+/bzr+/svn+), not `pip freeze`'s
+# other direct-reference forms like `file:///...` local build-artifact
+# paths, which conda-forge-built packages can report and which are not
+# portable to another machine.
+VCS_LINE = re.compile(r"^([A-Za-z0-9._-]+) @ (?:git|hg|bzr|svn)\+")
 
 
 def vcs_pins_by_name(python):

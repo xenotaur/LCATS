@@ -364,7 +364,7 @@ dependencies:
       - python-json-logger==2.0.7
       - python-ptrace==0.9.9
       - pytokens==0.3.0
-      - pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1742920838005/work
+      - pytz==2024.1
       - pyyaml==6.0.2
       - rdflib==4.2.2
       - rdflib-sqlalchemy==0.5.4

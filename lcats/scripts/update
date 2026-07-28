@@ -2,6 +2,7 @@
 # Regenerates environment.yml from whichever conda env is currently
 # active when this script is run — activate the intended env (e.g.
 # "LCATS") first, or this will silently export the wrong environment.
+set -euo pipefail
 echo "Updating the Anaconda dependency listing..."
 set -x
 
