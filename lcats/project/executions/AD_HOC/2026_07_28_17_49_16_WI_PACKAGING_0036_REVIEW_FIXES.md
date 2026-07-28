@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/178
-commit: 
+commit: e5c42e4b
 created_at: 2026-07-28T17:49:16-04:00
 ---
 
