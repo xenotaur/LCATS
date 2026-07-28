@@ -41,9 +41,10 @@ class GettenbergApiTests(unittest.TestCase):
         fp = self.texts_dir / f"{bid}.txt"
         fp.write_bytes(b"CACHED")
 
-        with mock.patch.object(textget, "get_text_by_id") as p_get, mock.patch.object(
-            cache, "download_raw_text"
-        ) as p_raw:
+        with (
+            mock.patch.object(textget, "get_text_by_id") as p_get,
+            mock.patch.object(cache, "download_raw_text") as p_raw,
+        ):
             out = api.load_etext(bid)
             self.assertEqual(out, b"CACHED")
             p_get.assert_not_called()
@@ -55,9 +56,10 @@ class GettenbergApiTests(unittest.TestCase):
         expect = b"BODY"
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(
-            textget, "get_text_by_id", return_value=expect
-        ) as p_get, mock.patch.object(cache, "download_raw_text") as p_raw:
+        with (
+            mock.patch.object(textget, "get_text_by_id", return_value=expect) as p_get,
+            mock.patch.object(cache, "download_raw_text") as p_raw,
+        ):
             out = api.load_etext(bid)
             self.assertEqual(out, expect)
             p_get.assert_called_once_with(bid)
@@ -70,9 +72,10 @@ class GettenbergApiTests(unittest.TestCase):
         bid = 101
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(
-            textget, "get_text_by_id", return_value="héllo"
-        ) as p_get, mock.patch.object(cache, "download_raw_text") as p_raw:
+        with (
+            mock.patch.object(textget, "get_text_by_id", return_value="héllo") as p_get,
+            mock.patch.object(cache, "download_raw_text") as p_raw,
+        ):
             out = api.load_etext(bid)
             self.assertIsInstance(out, (bytes, bytearray))
             self.assertIn(b"h\xc3\xa9llo", out)  # UTF-8 encoding
@@ -85,11 +88,12 @@ class GettenbergApiTests(unittest.TestCase):
         bid = 102
         fp = self.texts_dir / f"{bid}.txt"
 
-        with mock.patch.object(
-            textget, "get_text_by_id", side_effect=RuntimeError("boom")
-        ) as p_get, mock.patch.object(
-            cache, "download_raw_text", return_value=b"RAW"
-        ) as p_raw:
+        with (
+            mock.patch.object(
+                textget, "get_text_by_id", side_effect=RuntimeError("boom")
+            ) as p_get,
+            mock.patch.object(cache, "download_raw_text", return_value=b"RAW") as p_raw,
+        ):
             out = api.load_etext(bid)
             self.assertEqual(out, b"RAW")
             p_get.assert_called_once_with(bid)
@@ -202,11 +206,14 @@ class GettenbergApiTests(unittest.TestCase):
         """When skip_cache=False and cache is available, get_metadata returns cache result."""
         fake_cache = object()
         expected = {"Moby Dick"}
-        with mock.patch.object(
-            cache, "ensure_gutenberg_cache", return_value=fake_cache
-        ) as p_ensure, mock.patch.object(
-            metadata, "get_metadata_from_cache", return_value=expected
-        ) as p_from_cache:
+        with (
+            mock.patch.object(
+                cache, "ensure_gutenberg_cache", return_value=fake_cache
+            ) as p_ensure,
+            mock.patch.object(
+                metadata, "get_metadata_from_cache", return_value=expected
+            ) as p_from_cache,
+        ):
             with capture.suppress_output():
                 out = api.get_metadata("title", 2701, skip_cache=False)
             p_ensure.assert_called_once()
@@ -216,11 +223,12 @@ class GettenbergApiTests(unittest.TestCase):
     def test_get_metadata_normalises_field_before_cache_lookup(self):
         """Field name is lowercased/stripped before being passed to the cache."""
         fake_cache = object()
-        with mock.patch.object(
-            cache, "ensure_gutenberg_cache", return_value=fake_cache
-        ), mock.patch.object(
-            metadata, "get_metadata_from_cache", return_value=set()
-        ) as p_from_cache:
+        with (
+            mock.patch.object(cache, "ensure_gutenberg_cache", return_value=fake_cache),
+            mock.patch.object(
+                metadata, "get_metadata_from_cache", return_value=set()
+            ) as p_from_cache,
+        ):
             with capture.suppress_output():
                 api.get_metadata("  TITLE  ", 42, skip_cache=False)
             args, _ = p_from_cache.call_args
@@ -252,11 +260,12 @@ class GettenbergApiTests(unittest.TestCase):
         """When skip_cache=True, get_metadata falls back to header parse via load_etext."""
         fake_text = b"Title: Moby Dick\nAuthor: Melville\n*** START ***"
         expected = {"Moby Dick"}
-        with mock.patch.object(
-            api, "load_etext", return_value=fake_text
-        ) as p_load, mock.patch.object(
-            metadata, "get_metadata_from_header", return_value=expected
-        ) as p_from_header:
+        with (
+            mock.patch.object(api, "load_etext", return_value=fake_text) as p_load,
+            mock.patch.object(
+                metadata, "get_metadata_from_header", return_value=expected
+            ) as p_from_header,
+        ):
             with capture.suppress_output():
                 out = api.get_metadata("title", 2701, skip_cache=True)
             p_load.assert_called_once_with(2701)
@@ -267,13 +276,15 @@ class GettenbergApiTests(unittest.TestCase):
         """With skip_cache=True, the field and parsed header lines reach get_metadata_from_header."""
         fake_text = b"Title: Foo\n*** START ***"
         fake_header = ["Title: Foo"]
-        with mock.patch.object(
-            api, "load_etext", return_value=fake_text
-        ), mock.patch.object(
-            headers, "get_text_header_lines", return_value=iter(fake_header)
-        ), mock.patch.object(
-            metadata, "get_metadata_from_header", return_value={"Foo"}
-        ) as p_from_header:
+        with (
+            mock.patch.object(api, "load_etext", return_value=fake_text),
+            mock.patch.object(
+                headers, "get_text_header_lines", return_value=iter(fake_header)
+            ),
+            mock.patch.object(
+                metadata, "get_metadata_from_header", return_value={"Foo"}
+            ) as p_from_header,
+        ):
             with capture.suppress_output():
                 out = api.get_metadata("title", 99, skip_cache=True)
             args, _ = p_from_header.call_args

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,7 +12,8 @@ authors = [
     {name = "Anthony Francis", email = "centaur@logicalrobotics.com"},
     {name = "Kenneth Moorman", email = "kmoorman@transy.edu"},
 ]
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 dependencies = [
    "unidecode",
    "beautifulsoup4",
@@ -22,16 +23,25 @@ dependencies = [
    "tqdm",
    "matplotlib",
    "seaborn",
-   "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@LCATS/TitleFix",
+   "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@60ca548232f470e7aa7c22e8fde636db644cd80e",
    "anthropic",
    "openai>=1.0.0",
    "python-dotenv",
 ]
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development",
 ]
+
+[project.urls]
+Repository = "https://github.com/xenotaur/LCATS"
+Issues = "https://github.com/xenotaur/LCATS/issues"
 
 [project.scripts]
 lcats = "lcats.cli:main"
@@ -47,15 +57,20 @@ nlp = [
     "stanza",
     "spacy",
 ]
-test = [
-    "ruff",
-    "black==25.11.0",
-    "coverage",
-    "parameterized",
-]
 dev = [
-    "ruff",
+    "ruff==0.15.0",
     "black==25.11.0",
     "coverage",
     "parameterized",
 ]
+# Kept as an alias rather than removed: CI workflows (.github/workflows/
+# coverage.yml, tests.yml, cache_maintenance.yml) install ".[test]" by name.
+test = [
+    "lcats[dev]",
+]
+
+[tool.ruff]
+required-version = "==0.15.0"
+
+[tool.black]
+required-version = "25.11.0"

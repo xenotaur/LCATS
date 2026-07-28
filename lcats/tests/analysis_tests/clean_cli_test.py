@@ -149,9 +149,10 @@ class CleanCliTest(unittest.TestCase):
         data_link = self.tmp_dir / "data_link"
         data_link.symlink_to(real_data_target)
 
-        with unittest.mock.patch.dict(
-            "os.environ", {"LCATS_DATA_DIR": str(data_link)}
-        ), capture.suppress_output():
+        with (
+            unittest.mock.patch.dict("os.environ", {"LCATS_DATA_DIR": str(data_link)}),
+            capture.suppress_output(),
+        ):
             exit_code = clean_cli.run(["--data-only"])
 
         self.assertEqual(0, exit_code)
@@ -165,9 +166,10 @@ class CleanCliTest(unittest.TestCase):
         data_link.symlink_to(real_data_target)  # target does not exist yet
         self.assertFalse(data_link.exists())  # confirm genuinely dangling
 
-        with unittest.mock.patch.dict(
-            "os.environ", {"LCATS_DATA_DIR": str(data_link)}
-        ), capture.suppress_output():
+        with (
+            unittest.mock.patch.dict("os.environ", {"LCATS_DATA_DIR": str(data_link)}),
+            capture.suppress_output(),
+        ):
             exit_code = clean_cli.run(["--data-only"])
 
         self.assertEqual(0, exit_code)
@@ -181,9 +183,12 @@ class CleanCliTest(unittest.TestCase):
         cache_link.symlink_to(real_cache_target)
         self.assertFalse(cache_link.exists())
 
-        with unittest.mock.patch.dict(
-            "os.environ", {"LCATS_CACHE_DIR": str(cache_link)}
-        ), capture.suppress_output():
+        with (
+            unittest.mock.patch.dict(
+                "os.environ", {"LCATS_CACHE_DIR": str(cache_link)}
+            ),
+            capture.suppress_output(),
+        ):
             exit_code = clean_cli.run(["--cache-only"])
 
         self.assertEqual(0, exit_code)

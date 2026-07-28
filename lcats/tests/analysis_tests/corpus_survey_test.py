@@ -441,15 +441,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             story_path = pathlib.Path(temp_dir) / "story.json"
             story_path.write_text("{}", encoding="utf-8")
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=rows
-            ), mock.patch.object(
-                corpus_survey.sys.stderr, "isatty", return_value=False
-            ), mock.patch(
-                "sys.stdout"
-            ) as fake_stdout:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=rows),
+                mock.patch.object(
+                    corpus_survey.sys.stderr, "isatty", return_value=False
+                ),
+                mock.patch("sys.stdout") as fake_stdout,
+            ):
                 exit_code = corpus_survey.main(
                     [
                         "--format",
@@ -478,15 +479,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             output_path = pathlib.Path(temp_dir) / "report.tsv"
             row = corpus_survey._clean_row(story_path)
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=[]
-            ), mock.patch.object(
-                corpus_survey.sys.stderr, "isatty", return_value=False
-            ), mock.patch(
-                "sys.stdout"
-            ) as fake_stdout:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=[]),
+                mock.patch.object(
+                    corpus_survey.sys.stderr, "isatty", return_value=False
+                ),
+                mock.patch("sys.stdout") as fake_stdout,
+            ):
                 exit_code = corpus_survey.main(
                     [
                         "--format",
@@ -534,15 +536,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             story_path = pathlib.Path(temp_dir) / "story.json"
             story_path.write_text("{}", encoding="utf-8")
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=rows
-            ), mock.patch.object(
-                corpus_survey.sys.stderr, "isatty", return_value=False
-            ), mock.patch(
-                "sys.stdout"
-            ) as fake_stdout:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=rows),
+                mock.patch.object(
+                    corpus_survey.sys.stderr, "isatty", return_value=False
+                ),
+                mock.patch("sys.stdout") as fake_stdout,
+            ):
                 corpus_survey.main(
                     [
                         "--format",
@@ -587,15 +590,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             story_path = pathlib.Path(temp_dir) / "story.json"
             story_path.write_text("{}", encoding="utf-8")
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=rows
-            ), mock.patch.object(
-                corpus_survey.sys.stderr, "isatty", return_value=False
-            ), mock.patch(
-                "sys.stdout"
-            ) as fake_stdout:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=rows),
+                mock.patch.object(
+                    corpus_survey.sys.stderr, "isatty", return_value=False
+                ),
+                mock.patch("sys.stdout") as fake_stdout,
+            ):
                 corpus_survey.main(
                     ["--format", "tsv", "--no-header", "--no-progress", temp_dir]
                 )
@@ -610,15 +614,16 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             story_path = pathlib.Path(temp_dir) / "story.json"
             story_path.write_text("{}", encoding="utf-8")
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=[]
-            ), mock.patch.object(
-                corpus_survey.sys.stderr, "isatty", return_value=False
-            ), mock.patch.object(
-                corpus_survey.tqdm, "tqdm"
-            ) as mock_tqdm:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=[]),
+                mock.patch.object(
+                    corpus_survey.sys.stderr, "isatty", return_value=False
+                ),
+                mock.patch.object(corpus_survey.tqdm, "tqdm") as mock_tqdm,
+            ):
                 mock_tqdm.side_effect = lambda items, disable: items
                 corpus_survey.main([temp_dir])
 
@@ -629,13 +634,13 @@ class CorpusSurveyCliHelpersTest(unittest.TestCase):
             story_path = pathlib.Path(temp_dir) / "story.json"
             story_path.write_text("{}", encoding="utf-8")
 
-            with mock.patch.object(
-                corpus_survey, "find_json_files", return_value=[story_path]
-            ), mock.patch.object(
-                corpus_survey, "survey_file", return_value=[]
-            ), mock.patch.object(
-                corpus_survey.tqdm, "tqdm"
-            ) as mock_tqdm:
+            with (
+                mock.patch.object(
+                    corpus_survey, "find_json_files", return_value=[story_path]
+                ),
+                mock.patch.object(corpus_survey, "survey_file", return_value=[]),
+                mock.patch.object(corpus_survey.tqdm, "tqdm") as mock_tqdm,
+            ):
                 mock_tqdm.side_effect = lambda items, disable: items
                 corpus_survey.main(["--no-progress", temp_dir])
 

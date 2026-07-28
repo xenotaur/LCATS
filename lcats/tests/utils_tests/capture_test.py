@@ -16,8 +16,9 @@ class CaptureUtilsTests(unittest.TestCase):
         outer_out = io.StringIO()
         outer_err = io.StringIO()
 
-        with contextlib.redirect_stdout(outer_out), contextlib.redirect_stderr(
-            outer_err
+        with (
+            contextlib.redirect_stdout(outer_out),
+            contextlib.redirect_stderr(outer_err),
         ):
             with capture.capture_output() as inner:
                 print("hello stdout")
@@ -36,8 +37,9 @@ class CaptureUtilsTests(unittest.TestCase):
         outer_out = io.StringIO()
         outer_err = io.StringIO()
 
-        with contextlib.redirect_stdout(outer_out), contextlib.redirect_stderr(
-            outer_err
+        with (
+            contextlib.redirect_stdout(outer_out),
+            contextlib.redirect_stderr(outer_err),
         ):
             with capture.capture_output(capture_stderr=False) as inner:
                 print("hello stdout")
@@ -56,8 +58,9 @@ class CaptureUtilsTests(unittest.TestCase):
         outer_out = io.StringIO()
         outer_err = io.StringIO()
 
-        with contextlib.redirect_stdout(outer_out), contextlib.redirect_stderr(
-            outer_err
+        with (
+            contextlib.redirect_stdout(outer_out),
+            contextlib.redirect_stderr(outer_err),
         ):
             with capture.suppress_output():
                 print("noisy stdout")
@@ -72,8 +75,9 @@ class CaptureUtilsTests(unittest.TestCase):
         outer_out = io.StringIO()
         outer_err = io.StringIO()
 
-        with contextlib.redirect_stdout(outer_out), contextlib.redirect_stderr(
-            outer_err
+        with (
+            contextlib.redirect_stdout(outer_out),
+            contextlib.redirect_stderr(outer_err),
         ):
             with capture.suppress_output(suppress_stderr=False):
                 print("noisy stdout")

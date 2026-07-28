@@ -157,9 +157,10 @@ class TestMakeAnnotatedSegmentExtractorFactory(unittest.TestCase):
     def test_default_models_stored(self):
         """Returned processor captures default model names from factory."""
         client = fake_backend.FakeBackend()
-        with patch("lcats.analysis.scene_analysis.make_segment_extractor") as ms, patch(
-            "lcats.analysis.scene_analysis.make_semantics_extractor"
-        ) as mm:
+        with (
+            patch("lcats.analysis.scene_analysis.make_segment_extractor") as ms,
+            patch("lcats.analysis.scene_analysis.make_semantics_extractor") as mm,
+        ):
             ms.return_value = MagicMock()
             mm.return_value = MagicMock()
             processor = story_processors.make_annotated_segment_extractor(client)
@@ -226,18 +227,23 @@ class TestProcessorFunction(unittest.TestCase):
         else:
             annotate_kwargs = {"return_value": annotated or []}
 
-        with patch(
-            "lcats.analysis.scene_analysis.make_segment_extractor",
-            return_value=mock_seg_extractor,
-        ), patch(
-            "lcats.analysis.scene_analysis.make_semantics_extractor",
-            return_value=mock_sem_extractor,
-        ), patch(
-            "lcats.analysis.story_analysis.get_encoder",
-            return_value=mock_encoder,
-        ), patch(
-            "lcats.analysis.scene_analysis.annotate_segments_with_semantics",
-            **annotate_kwargs,
+        with (
+            patch(
+                "lcats.analysis.scene_analysis.make_segment_extractor",
+                return_value=mock_seg_extractor,
+            ),
+            patch(
+                "lcats.analysis.scene_analysis.make_semantics_extractor",
+                return_value=mock_sem_extractor,
+            ),
+            patch(
+                "lcats.analysis.story_analysis.get_encoder",
+                return_value=mock_encoder,
+            ),
+            patch(
+                "lcats.analysis.scene_analysis.annotate_segments_with_semantics",
+                **annotate_kwargs,
+            ),
         ):
             processor = story_processors.make_annotated_segment_extractor(
                 client, include_validation=include_validation
@@ -291,18 +297,23 @@ class TestProcessorFunction(unittest.TestCase):
         mock_enc = _make_mock_encoder()
 
         client = fake_backend.FakeBackend()
-        with patch(
-            "lcats.analysis.scene_analysis.make_segment_extractor",
-            return_value=mock_seg,
-        ), patch(
-            "lcats.analysis.scene_analysis.make_semantics_extractor",
-            return_value=mock_sem,
-        ), patch(
-            "lcats.analysis.story_analysis.get_encoder",
-            return_value=mock_enc,
-        ), patch(
-            "lcats.analysis.scene_analysis.annotate_segments_with_semantics",
-            return_value=[],
+        with (
+            patch(
+                "lcats.analysis.scene_analysis.make_segment_extractor",
+                return_value=mock_seg,
+            ),
+            patch(
+                "lcats.analysis.scene_analysis.make_semantics_extractor",
+                return_value=mock_sem,
+            ),
+            patch(
+                "lcats.analysis.story_analysis.get_encoder",
+                return_value=mock_enc,
+            ),
+            patch(
+                "lcats.analysis.scene_analysis.annotate_segments_with_semantics",
+                return_value=[],
+            ),
         ):
             processor = story_processors.make_annotated_segment_extractor(
                 client,

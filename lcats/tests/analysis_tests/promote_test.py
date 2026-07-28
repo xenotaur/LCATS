@@ -81,7 +81,10 @@ class PromoteCollectionsTest(unittest.TestCase):
     def test_seeded_defect_blocks_promotion(self):
         # WI-PROMOTE-0020 acceptance: a seeded-defect test proves the gate
         # blocks promotion of damaged text.
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "damaged", "story_one", "them a resumÃ©.")
@@ -94,7 +97,10 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertFalse((dest_root / "damaged").exists())
 
     def test_clean_collection_is_promoted(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "clean", "story_one", "A clean sentence.")
@@ -112,7 +118,10 @@ class PromoteCollectionsTest(unittest.TestCase):
             )
 
     def test_mixed_collections_promote_clean_and_block_damaged_independently(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "clean", "story_one", "A clean sentence.")
@@ -127,7 +136,10 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertFalse((dest_root / "damaged").exists())
 
     def test_dry_run_does_not_copy_clean_collections(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "clean", "story_one", "A clean sentence.")
@@ -140,7 +152,10 @@ class PromoteCollectionsTest(unittest.TestCase):
     def test_promotion_wholesale_replaces_stale_destination_files(self):
         # A file present in a prior promotion but absent from the current
         # source must not survive re-promotion.
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             stale_dest = dest_root / "clean"
@@ -154,7 +169,10 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertTrue((dest_root / "clean" / "story_one.json").exists())
 
     def test_collection_names_scopes_to_requested_collections(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "one", "story_one", "A clean sentence.")
@@ -192,7 +210,10 @@ class PromoteCollectionsTest(unittest.TestCase):
         # A collection sorted after a blocked one must not have been copied
         # by the time promote_collections raises or returns -- surveying
         # happens as a distinct phase before any copytree call.
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "a_clean", "story_one", "A clean sentence.")
@@ -212,7 +233,10 @@ class PromoteCliTest(unittest.TestCase):
     """Tests for the promote CLI exit-code and reporting behavior."""
 
     def test_exit_code_zero_when_all_collections_promote(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "clean", "story_one", "A clean sentence.")
@@ -227,15 +251,19 @@ class PromoteCliTest(unittest.TestCase):
             self.assertIn("promoted: clean", output.getvalue())
 
     def test_exit_code_nonzero_when_a_collection_is_blocked(self):
-        with tempfile.TemporaryDirectory() as source_tmp, tempfile.TemporaryDirectory() as dest_tmp:
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "damaged", "story_one", "them a resumÃ©.")
 
             output = io.StringIO()
             error_output = io.StringIO()
-            with unittest.mock.patch("sys.stdout", output), unittest.mock.patch(
-                "sys.stderr", error_output
+            with (
+                unittest.mock.patch("sys.stdout", output),
+                unittest.mock.patch("sys.stderr", error_output),
             ):
                 exit_code = promote_cli.run(
                     ["--source", str(source_root), "--dest", str(dest_root)]

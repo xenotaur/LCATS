@@ -120,13 +120,17 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_ensure_gutenberg_cache_calls_create_when_not_ready(self):
         """ensure_gutenberg_cache calls GutenbergCache.create when ready=False then returns handle."""
-        with mock.patch.object(
-            cache, "gutenberg_cache_ready", side_effect=[False, True]
-        ) as p_ready, mock.patch.object(
-            cache.gc.GutenbergCache, "create", autospec=True
-        ) as p_create, mock.patch.object(
-            cache.gc.GutenbergCache, "get_cache", autospec=True
-        ) as p_get:
+        with (
+            mock.patch.object(
+                cache, "gutenberg_cache_ready", side_effect=[False, True]
+            ) as p_ready,
+            mock.patch.object(
+                cache.gc.GutenbergCache, "create", autospec=True
+            ) as p_create,
+            mock.patch.object(
+                cache.gc.GutenbergCache, "get_cache", autospec=True
+            ) as p_get,
+        ):
             fake_handle = object()
             p_get.return_value = fake_handle
 
@@ -141,13 +145,17 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_ensure_gutenberg_cache_skips_create_when_already_ready(self):
         """ensure_gutenberg_cache does not call create when DB is ready."""
-        with mock.patch.object(
-            cache, "gutenberg_cache_ready", return_value=True
-        ) as p_ready, mock.patch.object(
-            cache.gc.GutenbergCache, "create", autospec=True
-        ) as p_create, mock.patch.object(
-            cache.gc.GutenbergCache, "get_cache", autospec=True
-        ) as p_get:
+        with (
+            mock.patch.object(
+                cache, "gutenberg_cache_ready", return_value=True
+            ) as p_ready,
+            mock.patch.object(
+                cache.gc.GutenbergCache, "create", autospec=True
+            ) as p_create,
+            mock.patch.object(
+                cache.gc.GutenbergCache, "get_cache", autospec=True
+            ) as p_get,
+        ):
             fake_handle = object()
             p_get.return_value = fake_handle
 
@@ -161,11 +169,14 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_ensure_gutenberg_cache_raises_if_still_not_ready_after_create(self):
         """ensure_gutenberg_cache raises RuntimeError if cache remains unready after create."""
-        with mock.patch.object(
-            cache, "gutenberg_cache_ready", side_effect=[False, False]
-        ) as p_ready, mock.patch.object(
-            cache.gc.GutenbergCache, "create", autospec=True
-        ) as p_create:
+        with (
+            mock.patch.object(
+                cache, "gutenberg_cache_ready", side_effect=[False, False]
+            ) as p_ready,
+            mock.patch.object(
+                cache.gc.GutenbergCache, "create", autospec=True
+            ) as p_create,
+        ):
             with self.assertRaises(RuntimeError):
                 with capture.suppress_output():
                     cache.ensure_gutenberg_cache()
@@ -179,9 +190,12 @@ class GettenbergCacheTests(unittest.TestCase):
         self.assertTrue(self.db_path.exists())
         self.assertEqual(self.db_path.stat().st_size, 0)
 
-        with mock.patch.object(
-            cache, "gutenberg_cache_ready", side_effect=[False, True]
-        ), mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True):
+        with (
+            mock.patch.object(
+                cache, "gutenberg_cache_ready", side_effect=[False, True]
+            ),
+            mock.patch.object(cache.gc.GutenbergCache, "create", autospec=True),
+        ):
             with capture.suppress_output():
                 cache.ensure_gutenberg_cache()
         # Since we mocked create(), no one recreates the file; it should be gone.
@@ -200,9 +214,10 @@ class GettenbergCacheTests(unittest.TestCase):
         m_cm.__enter__.return_value = m_resp
         m_cm.__exit__.return_value = False
 
-        with mock.patch.object(
-            cache, "urlopen", return_value=m_cm
-        ) as p_open, mock.patch.object(time, "sleep") as p_sleep:
+        with (
+            mock.patch.object(cache, "urlopen", return_value=m_cm) as p_open,
+            mock.patch.object(time, "sleep") as p_sleep,
+        ):
             data = cache.download_raw_text(123)
             self.assertEqual(data, b"abc")
 
@@ -232,9 +247,10 @@ class GettenbergCacheTests(unittest.TestCase):
 
         side_effect.counter = 0
 
-        with mock.patch.object(
-            cache, "urlopen", side_effect=side_effect
-        ) as p_open, mock.patch.object(time, "sleep") as p_sleep:
+        with (
+            mock.patch.object(cache, "urlopen", side_effect=side_effect) as p_open,
+            mock.patch.object(time, "sleep") as p_sleep,
+        ):
             out = cache.download_raw_text(456)
             self.assertEqual(out, b"OK")
             self.assertGreaterEqual(p_open.call_count, 2)
@@ -242,9 +258,10 @@ class GettenbergCacheTests(unittest.TestCase):
 
     def test_download_raw_text_raises_after_all_patterns_fail(self):
         """download_raw_text raises RuntimeError if all URL patterns fail."""
-        with mock.patch.object(
-            cache, "urlopen", side_effect=cache.URLError("nope")
-        ), mock.patch.object(time, "sleep"):
+        with (
+            mock.patch.object(cache, "urlopen", side_effect=cache.URLError("nope")),
+            mock.patch.object(time, "sleep"),
+        ):
             with self.assertRaises(RuntimeError) as ctx:
                 cache.download_raw_text(789)
             self.assertIn("Could not download book 789", str(ctx.exception))
