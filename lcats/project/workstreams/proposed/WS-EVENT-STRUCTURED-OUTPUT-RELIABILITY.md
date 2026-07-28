@@ -11,15 +11,15 @@ related_focus:
 related_roadmap: []
 related_design:
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
-  - project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
 work_items:
   - WI-EVENT-0032
   - WI-EVENT-0033
 exit_criteria:
   - All seven Event-Role-World-adjacent tool schemas (the six event_role_world/ extractors plus corpus/assess.py's ASSESSMENT_TOOL) set strict:true and additionalProperties:false at every object level, at the source rather than via a caller-local runtime override
-  - All eleven array-item sites across the six event_role_world/ extractors detect a malformed (non-dict) item, preserve the raw offending payload for diagnosis, and surface an explicit extraction error for the affected segment/story instead of silently skipping it
-  - processor.py's process_segments() accepts a model override and process_segment()'s per-pass error handling preserves the structured api_error dict (category/can_retry/should_abort_batch) instead of discarding it into a plain string
-  - scene_analysis.py's make_segment_extractor and make_semantics_extractor, and story_analysis.py's make_doc_classification_extractor, use the tool= structured-output path instead of unconstrained json_object mode, with story_processors.py's two call sites (segments = seg_extraction.get("extracted_output") or []) updated to match the new extracted_output shape
+  - All twelve array-item sites across the six event_role_world/ extractors detect a malformed (non-dict) item, preserve the raw offending payload for diagnosis, and surface an explicit extraction error for the affected segment/story instead of silently skipping it
+  - processor.py's process_segments() accepts a model override and process_segment()'s per-pass error handling preserves the structured api_error dict (category/can_retry/should_abort_batch) instead of discarding it into a plain string, via an explicitly scoped extraction_errors representation change in schema.py and its callers (see WI-EVENT-0032)
+  - scene_analysis.py's make_segment_extractor and make_semantics_extractor, and story_analysis.py's make_doc_classification_extractor, use the tool= structured-output path instead of unconstrained json_object mode, with both real consumers of make_segment_extractor's bare-list output (story_processors.py:142 and run_pilot.py's _segment_story:277) updated to match the new extracted_output shape
   - Both work items resolved and lrh validate reports 0 errors
 ---
 
@@ -48,7 +48,7 @@ call-site blast radius.
 - **WI-EVENT-0032** (Categories A, B, D): harden the six
   `event_role_world/` extractors' tool schemas to `strict: true`, add
   defensive array-item type checks with explicit extraction-error surfacing
-  at all eleven identified sites, and fix `processor.py`'s hardcoded model
+  at all twelve identified sites, and fix `processor.py`'s hardcoded model
   and discarded structured error info. This item is deliberately
   unconstrained by `modify_event_role_world_extractor` — fixing at the
   source inside `event_role_world/` is the entire point.
@@ -57,7 +57,9 @@ call-site blast radius.
   (`scene_analysis.py`'s `make_segment_extractor`/`make_semantics_extractor`,
   `story_analysis.py`'s `make_doc_classification_extractor`), explicitly
   handling the `extracted_output` shape change this implies for
-  `story_processors.py`'s two call sites that currently expect a bare list.
+  its two real consumers (`story_processors.py:142` and
+  `run_pilot.py`'s `_segment_story:277`) that currently expect a bare
+  list.
 - Land both work items through the standard LRH execution lifecycle
   (`/lrh-implement` → `/lrh-review-response` → `/lrh-confirm-fixes` →
   `/lrh-closeout`).

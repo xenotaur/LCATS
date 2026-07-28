@@ -17,7 +17,7 @@ related_workstreams:
   - WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY
 related_design:
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
-  - project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
 depends_on:
   - WI-EVENT-0029
 blocked_by: []
@@ -31,10 +31,11 @@ forbidden_actions:
   - implement_new_architecture
 acceptance:
   - All seven tool schemas (entity_extractor.py's ENTITY_TOOL_SCHEMA, event_extractor.py's EVENT_TOOL_SCHEMA, relation_extractor.py's RELATION_TOOL_SCHEMA, discourse_extractor.py's DISCOURSE_TOOL_SCHEMA, story_relation_extractor.py's STORY_RELATION_TOOL_SCHEMA, hypothesis_extractor.py's HYPOTHESIS_TOOL_SCHEMA, and corpus/assess.py's ASSESSMENT_TOOL) set strict:true and additionalProperties:false on every object level, at the source, superseding run_pilot.py's PR #168 runtime override for the five it currently patches
-  - All eleven identified array-item sites across the six event_role_world/ extractors (entity_extractor.py:142,144; event_extractor.py:185,203,219,225; relation_extractor.py:131; discourse_extractor.py:196,213,232; story_relation_extractor.py:205; hypothesis_extractor.py:146) detect a non-dict item, preserve the raw offending item for diagnosis (e.g. logged or attached to the extraction error), and surface an explicit extraction error for the affected segment/story rather than silently skipping the malformed item and treating the rest as a clean success
+  - All twelve identified array-item sites across the six event_role_world/ extractors (entity_extractor.py:142,144; event_extractor.py:185,203,219,225; relation_extractor.py:131; discourse_extractor.py:196,213,232; story_relation_extractor.py:205; hypothesis_extractor.py:146) detect a non-dict item, preserve the raw offending item for diagnosis (e.g. logged or attached to the extraction error), and surface an explicit extraction error for the affected segment/story rather than silently skipping the malformed item and treating the rest as a clean success
   - processor.py's process_segments() (plural) accepts a model parameter that overrides each extractor's factory-hardcoded default, matching the override run_pilot.py's _build_erw_extractors() already applies by building extractors itself
-  - processor.py's per-pass error handling (the five _pass_usage_from_extraction call sites) preserves the structured api_error dict (category/can_retry/should_abort_batch) from llm_extractor.py's _classify_api_error instead of discarding it into a plain f-string, so callers no longer need to re-derive fatality via substring matching (as run_pilot.py's FatalPilotError/_check_fatal do today)
+  - processor.py's per-pass error handling preserves the structured api_error dict (category/can_retry/should_abort_batch) from llm_extractor.py's _classify_api_error instead of discarding it into a plain f-string, via a schema change scoped explicitly by this item (see Scope) since SegmentWorldAnnotation/StoryWorldAnnotation's extraction_errors field is currently List[str] (schema.py:426,767) and cannot hold a dict as-is; run_pilot.py:673's "; ".join(extraction_errors) caller is updated to match whatever new representation is chosen, so callers no longer need to re-derive fatality via substring matching (as run_pilot.py's FatalPilotError/_check_fatal do today)
   - run_pilot.py's _strict_tool_schema()/_close_schema_objects() runtime override and its --backend anthropic gate are removed once schemas are strict at the source, since they become redundant
+  - run_pilot.py's main() per-story loop catches any exception around run_story() (not just FatalPilotError), so an unexpected per-story failure still preserves and writes already-completed pilot_stories.jsonl/pilot_usage.jsonl/pilot_summary.json results instead of discarding the entire run's data, per the audit's Category B update finding
   - Existing ERW pipeline tests pass, and new tests cover both the strict-schema fix and at least one malformed-array-item scenario per extractor module
   - lrh validate reports 0 errors
 required_evidence:
@@ -49,6 +50,7 @@ artifacts_expected:
   - lcats/lcats/analysis/event_role_world/story_relation_extractor.py
   - lcats/lcats/analysis/event_role_world/hypothesis_extractor.py
   - lcats/lcats/analysis/event_role_world/processor.py
+  - lcats/lcats/analysis/event_role_world/schema.py
   - lcats/lcats/analysis/corpus/assess.py
   - experiments/03_cross_segment_relation_pilot/run_pilot.py
 ---
@@ -119,7 +121,7 @@ it.
   `_close_schema_objects()` runtime override and its `--backend anthropic`
   gate — it becomes dead code once the schemas it patches are already
   strict.
-- **Category B (defensive array-item checks):** at each of the eleven
+- **Category B (defensive array-item checks):** at each of the twelve
   identified sites, detect a non-dict array item, preserve the raw
   offending item (e.g. write it to a diagnosis log or attach it to the
   returned extraction error) rather than discarding it silently, and
@@ -136,11 +138,33 @@ it.
   and change each pass's error handling to preserve the structured
   `api_error` dict instead of stringifying it, so a caller can read
   `category`/`can_retry`/`should_abort_batch` directly instead of
-  re-deriving fatality via substring matching.
+  re-deriving fatality via substring matching. This requires a schema
+  change: `SegmentWorldAnnotation`/`StoryWorldAnnotation`'s
+  `extraction_errors` field is currently `List[str]`
+  (`schema.py:426,767`) and cannot hold a structured dict as-is. Decide
+  and implement one of: (a) widen `extraction_errors`' element type to
+  accept either a string or a structured-error dict, or (b) add a
+  separate, additive field (e.g. `structured_extraction_errors`) alongside
+  the existing string list, left untouched for backward compatibility.
+  Whichever is chosen, update `run_pilot.py:673`'s
+  `"; ".join(extraction_errors)` call (which assumes a list of strings)
+  to match the new representation, and confirm no other caller of
+  `extraction_errors` breaks.
+- **Uncaught-exception data loss (audit's Category B update):**
+  `run_pilot.py`'s `main()` per-story loop only catches `FatalPilotError`
+  around `run_story()` — any other exception propagates uncaught, and the
+  code that writes `pilot_stories.jsonl`/`pilot_usage.jsonl`/
+  `pilot_summary.json` never runs, discarding every already-completed,
+  already-paid-for story in the run, not just the one that failed. Wrap
+  the per-story loop to catch any exception, log/record it the same way a
+  non-fatal per-story failure is handled today, and still write out
+  whatever results completed before the failure.
 - Add test coverage for both the strict-schema change and at least one
   malformed-array-item scenario per extractor module (six extractors, one
   scenario each at minimum), plus a `process_segments(model=...)` override
-  test and a structured-error-preserved test for `processor.py`.
+  test, a structured-error-preserved test for `processor.py`, and a test
+  confirming an unexpected per-story exception still yields written
+  partial results.
 
 ## Non-Goals
 
@@ -150,9 +174,11 @@ it.
 - Does not implement Category E (cost/logging/checkpointing/local models)
   — independent of this item's reliability-bug scope per the audit's own
   "Next steps" section.
-- Does not change the Event-Role-World pipeline's architecture, stage
-  ordering, or object schemas beyond adding `strict`/`additionalProperties`
-  and defensive checks — no new passes, no new fields.
+- Does not change the Event-Role-World pipeline's architecture or stage
+  ordering — no new passes. The one explicitly scoped exception to "no
+  new/changed schema fields" is `extraction_errors`' representation (see
+  Category D above), needed to preserve structured `api_error` data; no
+  other schema field changes are in scope.
 - Does not attempt to further diagnose the unresolved "why did strict mode
   not prevent the third crash" question the audit raises — this item
   implements the defensive fix the audit concludes is needed regardless of
@@ -196,4 +222,4 @@ it.
 
 - Workstream: `project/workstreams/proposed/WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY.md`
 - Design/audit: `lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`
-- Design: `project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md`
+- Design: `lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md`
