@@ -12,7 +12,8 @@ contributors:
 assigned_agents: []
 related_focus: []
 related_roadmap: []
-related_workstreams: []
+related_workstreams:
+  - WS-RELEASE
 related_design: []
 depends_on: []
 blocked_by: []
