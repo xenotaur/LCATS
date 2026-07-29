@@ -1,4 +1,4 @@
-# lcats/lcats/utils/paths.py
+# lcats/src/lcats/utils/paths.py
 """Symlink-aware filesystem helpers for LCATS's regenerable data/cache trees.
 
 Plain ``os.makedirs`` (even with ``exist_ok=True``) does not handle a
@@ -76,6 +76,41 @@ def makedirs(path):
         # os.makedirs below will create it.
 
     os.makedirs(target, exist_ok=True)
+
+
+def find_pyproject_root(start=None):
+    """Walk upward from `start` to find the directory containing pyproject.toml.
+
+    Anchoring on pyproject.toml (rather than counting parent-directory
+    hops) survives future package-layout changes -- the layout move from
+    ``lcats/lcats/`` to ``lcats/src/lcats/`` silently broke two hardcoded
+    depth-counting lookups (see ``lcats.utils.secrets`` and
+    ``lcats.utils.test_utils``) because nothing re-derived the depth.
+
+    Args:
+        start: file or directory to begin the search from. Defaults to
+            this module's own file location.
+
+    Returns:
+        The ``pathlib.Path`` of the directory containing ``pyproject.toml``.
+
+    Raises:
+        FileNotFoundError: no ancestor of `start` contains a
+            ``pyproject.toml`` -- expected for a non-editable install
+            (wheel or ``pip install .``) run outside the checkout, since
+            no source tree exists on disk to walk.
+    """
+    current = pathlib.Path(start if start is not None else __file__).resolve()
+    if current.is_file():
+        current = current.parent
+
+    for candidate in (current, *current.parents):
+        if (candidate / "pyproject.toml").is_file():
+            return candidate
+
+    raise FileNotFoundError(
+        f"no pyproject.toml found in any ancestor directory of {start!r}"
+    )
 
 
 def clear_directory_contents(path):

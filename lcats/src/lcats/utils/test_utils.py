@@ -5,17 +5,14 @@ import shutil
 import tempfile
 import unittest
 
+from lcats.utils.paths import find_pyproject_root
+
 
 class TestCaseWithData(unittest.TestCase):
 
     def setUp(self):
         """Find the local test data directory, and create a temp dir."""
-        # lcats/src/lcats/utils/test_utils.py -> ../../../tests/data
-        #   walks up to lcats/src/lcats/, lcats/src/, lcats/ (package root,
-        #   contains pyproject.toml), then into tests/data.
-        self.test_data_dir = os.path.normpath(
-            os.path.join(os.path.dirname(__file__), "../../../tests/data")
-        )
+        self.test_data_dir = str(find_pyproject_root(__file__) / "tests" / "data")
         self.test_temp_dir = tempfile.mkdtemp()
 
     def tearDown(self):

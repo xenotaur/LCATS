@@ -101,5 +101,22 @@ class TestLoadSecretsExplicitDir(unittest.TestCase):
                 os.environ.pop("TEST_LCATS_EXPLICIT", None)
 
 
+class TestLoadSecretsNoneDefaultDir(unittest.TestCase):
+    """A None _DEFAULT_SECRETS_DIR (non-editable install) is a silent no-op.
+
+    Simulates the case find_pyproject_root can't resolve a pyproject.toml
+    ancestor -- e.g. a wheel or `pip install .` install run outside the
+    checkout -- where _DEFAULT_SECRETS_DIR falls back to None at import
+    time rather than raising.
+    """
+
+    def test_none_default_does_not_raise(self):
+        with unittest.mock.patch.object(secrets, "_DEFAULT_SECRETS_DIR", None):
+            try:
+                secrets.load_secrets()
+            except Exception as exc:  # pragma: no cover
+                self.fail(f"load_secrets raised unexpectedly: {exc}")
+
+
 if __name__ == "__main__":
     unittest.main()

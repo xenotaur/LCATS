@@ -17,14 +17,18 @@ from __future__ import annotations
 
 import pathlib
 
-# .secrets/ is four package dirs above this file, then one more to the repo root:
-#   lcats/src/lcats/utils/secrets.py
-#       parents[0] = lcats/src/lcats/utils/
-#       parents[1] = lcats/src/lcats/
-#       parents[2] = lcats/src/
-#       parents[3] = lcats/        (package root, contains pyproject.toml)
-#       parents[4] = LCATS/LCATS/  (repo root, contains .secrets/)
-_DEFAULT_SECRETS_DIR = pathlib.Path(__file__).resolve().parents[4] / ".secrets"
+from lcats.utils.paths import find_pyproject_root
+
+# .secrets/ lives one level above the package root (the directory that
+# contains pyproject.toml), at the actual git repo root. A non-editable
+# install (wheel or `pip install .` outside the checkout) has no
+# pyproject.toml ancestor on disk at all, so find_pyproject_root raises --
+# fall back to None rather than letting that propagate out of a module
+# import, and treat None the same as "directory doesn't exist" below.
+try:
+    _DEFAULT_SECRETS_DIR = find_pyproject_root(__file__).parent / ".secrets"
+except FileNotFoundError:
+    _DEFAULT_SECRETS_DIR = None
 
 
 def load_secrets(secrets_dir: pathlib.Path | None = None) -> None:
@@ -39,7 +43,7 @@ def load_secrets(secrets_dir: pathlib.Path | None = None) -> None:
             <repo_root>/.secrets/ relative to this file's location.
     """
     target = secrets_dir if secrets_dir is not None else _DEFAULT_SECRETS_DIR
-    if not target.is_dir():
+    if target is None or not target.is_dir():
         return
     import dotenv
 

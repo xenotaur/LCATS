@@ -207,5 +207,56 @@ class ClearDirectoryContentsTest(unittest.TestCase):
         self.assertTrue((outside_target / "precious.txt").exists())
 
 
+class FindPyprojectRootTest(unittest.TestCase):
+    """Tests for the find_pyproject_root function."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        # Resolved because find_pyproject_root resolves its input (macOS
+        # aliases /tmp to /private/tmp, so an unresolved comparison would
+        # spuriously fail).
+        self.tmp_dir = pathlib.Path(self._tmp.name).resolve()
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_finds_pyproject_toml_in_direct_parent(self):
+        (self.tmp_dir / "pyproject.toml").touch()
+        start_file = self.tmp_dir / "src" / "pkg" / "mod.py"
+        start_file.parent.mkdir(parents=True)
+        start_file.touch()
+
+        found = paths.find_pyproject_root(start_file)
+
+        self.assertEqual(found, self.tmp_dir)
+
+    def test_finds_pyproject_toml_several_levels_up(self):
+        (self.tmp_dir / "pyproject.toml").touch()
+        start_file = self.tmp_dir / "a" / "b" / "c" / "d" / "mod.py"
+        start_file.parent.mkdir(parents=True)
+        start_file.touch()
+
+        found = paths.find_pyproject_root(start_file)
+
+        self.assertEqual(found, self.tmp_dir)
+
+    def test_accepts_directory_as_start(self):
+        (self.tmp_dir / "pyproject.toml").touch()
+        nested_dir = self.tmp_dir / "nested"
+        nested_dir.mkdir()
+
+        found = paths.find_pyproject_root(nested_dir)
+
+        self.assertEqual(found, self.tmp_dir)
+
+    def test_raises_when_no_ancestor_has_pyproject_toml(self):
+        start_file = self.tmp_dir / "a" / "b" / "mod.py"
+        start_file.parent.mkdir(parents=True)
+        start_file.touch()
+
+        with self.assertRaises(FileNotFoundError):
+            paths.find_pyproject_root(start_file)
+
+
 if __name__ == "__main__":
     unittest.main()
