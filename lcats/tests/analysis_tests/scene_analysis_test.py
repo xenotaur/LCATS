@@ -245,6 +245,16 @@ class TestMakeSegmentExtractor(unittest.TestCase):
         extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
         self.assertIs(extractor.result_validator, text_segmenter.segments_auditor)
 
+    def test_tool_schema_is_segment_tool_schema(self):
+        """WI-EVENT-0033: uses the tool= structured-output path."""
+        extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
+        self.assertIs(extractor.tool_schema, scene_analysis.SEGMENT_TOOL_SCHEMA)
+
+    def test_tool_schema_is_strict(self):
+        schema = scene_analysis.SEGMENT_TOOL_SCHEMA
+        self.assertTrue(schema["strict"])
+        self.assertFalse(schema["input_schema"]["additionalProperties"])
+
 
 # ---------------------------------------------------------------------------
 # Tests: make_semantics_extractor
@@ -276,6 +286,137 @@ class TestMakeSemanticsExtractor(unittest.TestCase):
     def test_default_model_is_gpt4o(self):
         extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
         self.assertEqual(extractor.default_model, "gpt-4o")
+
+    def test_tool_schema_is_semantics_tool_schema(self):
+        """WI-EVENT-0033: uses the tool= structured-output path."""
+        extractor = scene_analysis.make_semantics_extractor(fake_backend.FakeBackend())
+        self.assertIs(extractor.tool_schema, scene_analysis.SEMANTICS_TOOL_SCHEMA)
+
+    def test_tool_schema_has_no_judgment_wrapper_key(self):
+        """No wrapping "judgment" key - see make_semantics_extractor's
+        docstring: this extractor has no result_aligner, so
+        extracted_output must stay a flat dict identical to today's
+        output_key="judgment" unwrap."""
+        properties = scene_analysis.SEMANTICS_TOOL_SCHEMA["input_schema"]["properties"]
+        self.assertNotIn("judgment", properties)
+        self.assertIn("label", properties)
+
+    def test_tool_schema_is_strict(self):
+        schema = scene_analysis.SEMANTICS_TOOL_SCHEMA
+        self.assertTrue(schema["strict"])
+        self.assertFalse(schema["input_schema"]["additionalProperties"])
+
+
+# ---------------------------------------------------------------------------
+# Tests: make_segment_extractor / make_semantics_extractor end-to-end
+# (real extract() calls through a FakeBackend tool_result, proving the
+# wrapper-key design in WI-EVENT-0033 actually works end-to-end, not just
+# that the constructor stores the schema)
+# ---------------------------------------------------------------------------
+
+
+class TestSegmentExtractorEndToEnd(unittest.TestCase):
+    """extract() through the tool= path, including alignment/validation."""
+
+    def test_extracted_output_is_wrapped_and_aligned(self):
+        para_1 = "Once upon a time there was a dragon."
+        para_2 = "The dragon flew away forever."
+        story_text = para_1 + "\n\n" + para_2
+
+        tool_result = {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "Once upon a time",
+                    "end_exact": "a dragon.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": None,
+                    "end_char": None,
+                    "summary": "A dragon appears.",
+                    "cohesion": {
+                        "time": "once upon a time",
+                        "place": "unspecified",
+                        "characters": ["dragon"],
+                    },
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Establishes setting.",
+                    "confidence": 0.8,
+                }
+            ]
+        }
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        extractor = scene_analysis.make_segment_extractor(fb)
+
+        result = extractor.extract(story_text)
+
+        extracted = result["extracted_output"]
+        self.assertIn("segments", extracted)
+        segment = extracted["segments"][0]
+        # The aligner fills start_char/end_char from start_par_id/
+        # start_exact - proving segments_result_aligner still receives
+        # the wrapped {"segments": [...]} dict and works unchanged.
+        self.assertIsNotNone(segment["start_char"])
+        self.assertIsNotNone(segment["end_char"])
+        self.assertTrue(
+            story_text[segment["start_char"] : segment["end_char"]].startswith(
+                "Once upon a time"
+            )
+        )
+        self.assertIsNotNone(result["validation_report"])
+
+
+class TestSemanticsExtractorEndToEnd(unittest.TestCase):
+    """extract() through the tool= path with no wrapper key."""
+
+    def test_extracted_output_is_flat_not_wrapped(self):
+        tool_result = {
+            "label": "dramatic_scene",
+            "reason": "Clear conflict and outcome.",
+            "confidence": 0.9,
+            "checks": {
+                "time_place_unity": True,
+                "gacd": {
+                    "has_goal": True,
+                    "has_action": True,
+                    "has_conflict": True,
+                    "outcome": "Success",
+                },
+                "erac": {
+                    "has_emotion": False,
+                    "has_reason": False,
+                    "has_anticipation": False,
+                    "has_choice": False,
+                },
+            },
+            "evidence": {
+                "time": "",
+                "place": "",
+                "characters": [],
+                "quotes": {
+                    "goal": "",
+                    "action": "",
+                    "conflict": "",
+                    "outcome": "",
+                    "emotion": "",
+                    "reason": "",
+                    "anticipation": "",
+                    "choice": "",
+                },
+            },
+        }
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        extractor = scene_analysis.make_semantics_extractor(fb)
+
+        result = extractor.extract("A segment of text.")
+
+        extracted = result["extracted_output"]
+        self.assertNotIn("judgment", extracted)
+        self.assertEqual(extracted["label"], "dramatic_scene")
 
 
 # ---------------------------------------------------------------------------

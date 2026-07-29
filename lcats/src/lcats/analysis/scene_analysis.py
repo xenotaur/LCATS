@@ -7,6 +7,7 @@ from typing import Any, Dict, List, Optional
 from lcats import utils
 from lcats.analysis import llm_extractor
 from lcats.analysis import text_segmenter
+from lcats.llm import tool_schema as tool_schema_module
 
 SCENE_SEQUEL_SYSTEM_PROMPT = """
 You are a narrative segmentation assistant. Your job is to segment a story
@@ -183,6 +184,111 @@ STORY (with paragraph ids; DO NOT include [P####] markers in anchors):
 """
 
 
+SEGMENT_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "record_segments",
+        "description": (
+            "Record the coarse-grained narrative segments (scenes/sequels) "
+            "identified in a story, per the Granularity Rules and Decision "
+            "Rubric."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "segments": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "segment_id": {"type": "integer"},
+                            "segment_type": {
+                                "type": "string",
+                                "enum": [
+                                    "dramatic_scene",
+                                    "dramatic_sequel",
+                                    "narrative_scene",
+                                    "other",
+                                ],
+                            },
+                            "start_par_id": {"type": "integer"},
+                            "end_par_id": {"type": "integer"},
+                            "start_exact": {"type": "string"},
+                            "end_exact": {"type": "string"},
+                            "start_prefix": {"type": "string"},
+                            "end_suffix": {"type": "string"},
+                            "start_char": {"type": ["integer", "null"]},
+                            "end_char": {"type": ["integer", "null"]},
+                            "summary": {"type": "string"},
+                            "cohesion": {
+                                "type": "object",
+                                "properties": {
+                                    "time": {"type": "string"},
+                                    "place": {"type": "string"},
+                                    "characters": {
+                                        "type": "array",
+                                        "items": {"type": "string"},
+                                    },
+                                },
+                                "required": ["time", "place", "characters"],
+                            },
+                            "gacd": {
+                                "type": ["object", "null"],
+                                "properties": {
+                                    "goal": {"type": "string"},
+                                    "action": {"type": "string"},
+                                    "conflict": {"type": "string"},
+                                    "outcome": {
+                                        "type": "string",
+                                        "enum": ["Disaster", "Success", "Unclear"],
+                                    },
+                                },
+                                "required": ["goal", "action", "conflict", "outcome"],
+                            },
+                            "erac": {
+                                "type": ["object", "null"],
+                                "properties": {
+                                    "emotion": {"type": "string"},
+                                    "reason": {"type": "string"},
+                                    "anticipation": {"type": "string"},
+                                    "choice": {"type": "string"},
+                                },
+                                "required": [
+                                    "emotion",
+                                    "reason",
+                                    "anticipation",
+                                    "choice",
+                                ],
+                            },
+                            "reason": {"type": "string"},
+                            "confidence": {"type": "number"},
+                        },
+                        "required": [
+                            "segment_id",
+                            "segment_type",
+                            "start_par_id",
+                            "end_par_id",
+                            "start_exact",
+                            "end_exact",
+                            "start_prefix",
+                            "end_suffix",
+                            "start_char",
+                            "end_char",
+                            "summary",
+                            "cohesion",
+                            "gacd",
+                            "erac",
+                            "reason",
+                            "confidence",
+                        ],
+                    },
+                }
+            },
+            "required": ["segments"],
+        },
+    }
+)
+
+
 def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor configured for scene/sequel extraction.
 
@@ -190,7 +296,14 @@ def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
         backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
-        Configured JSONPromptExtractor that returns a dict under key "segments".
+        Configured JSONPromptExtractor using the tool= structured-output
+        path (WI-EVENT-0033). extracted_output is {"segments": [...]} -
+        the "segments" wrapper key is required so
+        text_segmenter.segments_result_aligner/segments_auditor (which
+        both read parsed_output["segments"]) keep working unchanged;
+        callers must unwrap ["segments"] themselves (see
+        story_processors.py, experiments/03_cross_segment_relation_pilot/
+        run_pilot.py's _segment_story).
     """
     return llm_extractor.JSONPromptExtractor(
         backend,
@@ -202,6 +315,7 @@ def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
         text_indexer=text_segmenter.paragraph_text_indexer,
         result_aligner=text_segmenter.segments_result_aligner,
         result_validator=text_segmenter.segments_auditor,
+        tool_schema=SEGMENT_TOOL_SCHEMA,
     )
 
 
@@ -463,6 +577,115 @@ SEGMENT:
 """
 
 
+SEMANTICS_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "record_segment_semantics",
+        "description": (
+            "Record the semantic judgment (dramatic_scene/dramatic_sequel/"
+            "narrative_scene/other) for one story segment, per the Decision "
+            "Rubric and Consistency Constraints."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "label": {
+                    "type": "string",
+                    "enum": [
+                        "dramatic_scene",
+                        "dramatic_sequel",
+                        "narrative_scene",
+                        "other",
+                    ],
+                },
+                "reason": {"type": "string"},
+                "confidence": {"type": "number"},
+                "checks": {
+                    "type": "object",
+                    "properties": {
+                        "time_place_unity": {"type": "boolean"},
+                        "gacd": {
+                            "type": "object",
+                            "properties": {
+                                "has_goal": {"type": "boolean"},
+                                "has_action": {"type": "boolean"},
+                                "has_conflict": {"type": "boolean"},
+                                "outcome": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Disaster",
+                                        "Success",
+                                        "Unclear",
+                                        "None",
+                                    ],
+                                },
+                            },
+                            "required": [
+                                "has_goal",
+                                "has_action",
+                                "has_conflict",
+                                "outcome",
+                            ],
+                        },
+                        "erac": {
+                            "type": "object",
+                            "properties": {
+                                "has_emotion": {"type": "boolean"},
+                                "has_reason": {"type": "boolean"},
+                                "has_anticipation": {"type": "boolean"},
+                                "has_choice": {"type": "boolean"},
+                            },
+                            "required": [
+                                "has_emotion",
+                                "has_reason",
+                                "has_anticipation",
+                                "has_choice",
+                            ],
+                        },
+                    },
+                    "required": ["time_place_unity", "gacd", "erac"],
+                },
+                "evidence": {
+                    "type": "object",
+                    "properties": {
+                        "time": {"type": "string"},
+                        "place": {"type": "string"},
+                        "characters": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                        },
+                        "quotes": {
+                            "type": "object",
+                            "properties": {
+                                "goal": {"type": "string"},
+                                "action": {"type": "string"},
+                                "conflict": {"type": "string"},
+                                "outcome": {"type": "string"},
+                                "emotion": {"type": "string"},
+                                "reason": {"type": "string"},
+                                "anticipation": {"type": "string"},
+                                "choice": {"type": "string"},
+                            },
+                            "required": [
+                                "goal",
+                                "action",
+                                "conflict",
+                                "outcome",
+                                "emotion",
+                                "reason",
+                                "anticipation",
+                                "choice",
+                            ],
+                        },
+                    },
+                    "required": ["time", "place", "characters", "quotes"],
+                },
+            },
+            "required": ["label", "reason", "confidence", "checks", "evidence"],
+        },
+    }
+)
+
+
 def make_semantics_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor configured for per-segment semantics.
 
@@ -470,7 +693,12 @@ def make_semantics_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
         backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
-        Configured JSONPromptExtractor that returns a dict under key "judgment".
+        Configured JSONPromptExtractor using the tool= structured-output
+        path (WI-EVENT-0033). SEMANTICS_TOOL_SCHEMA's top level is the
+        judgment's own fields directly, with no wrapping key - since this
+        extractor has no result_aligner/result_validator, extracted_output
+        is unchanged from today's output_key="judgment" unwrap (a flat
+        dict with "label"/"reason"/etc. at the top level).
     """
     return llm_extractor.JSONPromptExtractor(
         backend,
@@ -482,6 +710,7 @@ def make_semantics_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
         text_indexer=None,
         result_aligner=None,
         result_validator=None,
+        tool_schema=SEMANTICS_TOOL_SCHEMA,
     )
 
 

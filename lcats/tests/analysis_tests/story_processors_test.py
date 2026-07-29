@@ -207,7 +207,9 @@ class TestProcessorFunction(unittest.TestCase):
 
         seg_errors = seg_errors or {}
         seg_extraction = {
-            "extracted_output": seg_output or [],
+            # make_segment_extractor uses the tool= path (WI-EVENT-0033);
+            # extracted_output is {"segments": [...]}, not a bare list.
+            "extracted_output": {"segments": seg_output or []},
             "parsing_error": seg_errors.get("parsing_error"),
             "extraction_error": seg_errors.get("extraction_error"),
             "alignment_error": seg_errors.get("alignment_error"),
@@ -292,7 +294,7 @@ class TestProcessorFunction(unittest.TestCase):
 
     def test_custom_model_names_reflected(self):
         mock_seg = MagicMock()
-        mock_seg.extract.return_value = {"extracted_output": []}
+        mock_seg.extract.return_value = {"extracted_output": {"segments": []}}
         mock_sem = MagicMock()
         mock_enc = _make_mock_encoder()
 

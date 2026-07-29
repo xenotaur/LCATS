@@ -144,6 +144,51 @@ class TestRunErwPipelineStoryRelationCallSite(unittest.TestCase):
         )
 
 
+class TestSegmentStoryUnwrapsSegmentsWrapperKey(unittest.TestCase):
+    """WI-EVENT-0033: make_segment_extractor now uses the tool= path, so
+    extracted_output is {"segments": [...]}, not a bare list - _segment_story
+    must unwrap it, not treat the whole dict as the segment list."""
+
+    def test_segment_story_returns_bare_list(self):
+        from lcats.llm import fake_backend
+
+        story_text = "Once upon a time.\n\nThe end."
+        tool_result = {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "Once upon a time.",
+                    "end_exact": "Once upon a time.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": None,
+                    "end_char": None,
+                    "summary": "Intro.",
+                    "cohesion": {
+                        "time": "once",
+                        "place": "",
+                        "characters": [],
+                    },
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Setup.",
+                    "confidence": 0.7,
+                }
+            ]
+        }
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+
+        segments, error = run_pilot._segment_story(story_text, fb, "fake-model")
+
+        self.assertIsNone(error)
+        self.assertIsInstance(segments, list)
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(segments[0]["segment_id"], 1)
+
+
 class TestMainUnexpectedPerStoryException(unittest.TestCase):
     """WI-EVENT-0032 (audit's Category B update finding): main()'s per-story
     loop previously caught only FatalPilotError - any other exception

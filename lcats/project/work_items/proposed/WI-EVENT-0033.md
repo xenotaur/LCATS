@@ -102,31 +102,88 @@ broader audit and scoping step.
 
 ## Scope
 
-- Design a `tool_schema` for `make_segment_extractor`'s segment output
-  (list of segments, each with the fields the existing prompt already
-  requests) and wire it through `extract()`'s `tool=` path.
-- Decide and implement how to preserve a bare-list `extracted_output` for
-  `make_segment_extractor`'s two real consumers —
-  `story_processors.py:142` and
-  `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s
-  `_segment_story` (`:277`) — despite `tool_schema` mode's
-  whole-dict-return behavior. (`story_processors.py:76` only constructs
-  the extractor; it is not itself a consumption site.) Options include
-  (a) unwrapping the single top-level key at each call site, (b) a
-  second, schema-hardened extractor variant specific to these callers, or
-  (c) another design; the chosen approach and its rationale must be
-  recorded in this item's implementation, and both callers' existing
-  tests must still pass unmodified in behavior (only in internal
-  implementation, if needed).
-- Apply the same `tool_schema=` treatment to `make_semantics_extractor`
-  (`output_key="judgment"`) and `make_doc_classification_extractor`
-  (`output_key="classification"`), auditing each for its own callers
-  before assuming the same unwrapping approach applies identically.
-- Verify the segmentation fix's real-world effect: re-run (or smoke-test)
-  the same sampled story set from the live dogfooding run that saw a 65%
-  exclusion rate, and report the new exclusion rate for comparison.
-- Add or update test coverage for all three retrofitted extractors and for
-  `story_processors.py`'s adapted call sites.
+- Design and wire a `tool_schema` through `extract()`'s `tool=` path for
+  all three extractors: `make_segment_extractor`, `make_semantics_extractor`,
+  `make_doc_classification_extractor`.
+- Preserve each extractor's existing `extracted_output` contract for its
+  real callers, verified directly against `llm_extractor.py`'s two code
+  paths (see Required Changes for the concrete design this implies).
+- Update both real consumers of segmentation's output
+  (`story_processors.py:142`, `run_pilot.py`'s `_segment_story:277`).
+- Verify the segmentation fix's real-world effect against the live 65%
+  exclusion rate.
+- Add or update test coverage for all three retrofitted extractors and
+  the two adapted call sites.
+
+## Required Changes
+
+1. **`make_segment_extractor` (Stage 1 segmentation):** add a
+   `SEGMENT_TOOL_SCHEMA` whose **top-level property is still named
+   `"segments"`** (an array of segment objects with all the fields the
+   existing prompt already requests: `segment_id`, `segment_type`,
+   `start_par_id`, `end_par_id`, `start_exact`, `end_exact`,
+   `start_prefix`, `end_suffix`, `start_char`, `end_char`, `summary`,
+   `cohesion` (nested object), `gacd`/`erac` (nested objects, nullable via
+   a `["object", "null"]` type union — see `lcats.llm.tool_schema`'s
+   `close_schema_objects`, which already supports this), `reason`,
+   `confidence`), hardened via
+   `lcats.llm.tool_schema.strict_tool_schema()` (WI-EVENT-0032's shared
+   helper). **Keeping the `"segments"` wrapper key is required, not
+   incidental**: confirmed directly against `llm_extractor.py`'s
+   tool_schema code path — `result_aligner`/`result_validator` receive
+   `parsed` (the tool_result) *before* any unwrapping, so
+   `text_segmenter.segments_result_aligner`/`segments_auditor` (which
+   both read `parsed_output.get("segments")` internally) work completely
+   unchanged only if the schema's top level still nests the array under
+   `"segments"`. The tradeoff this creates: `extracted_output` becomes
+   `{"segments": [...]}` (the whole dict) instead of today's bare list,
+   since the tool_schema path never applies the `output_key` unwrap the
+   `json_object` path does — this is the one real, unavoidable shape
+   change, addressed by item 4 below.
+2. **`make_semantics_extractor` (per-segment semantics):** add a
+   `SEMANTICS_TOOL_SCHEMA` whose top level is the judgment's own fields
+   directly (`label`, `reason`, `confidence`, `checks` (nested), `evidence`
+   (nested)) — **no wrapping `"judgment"` key**. This extractor has no
+   `result_aligner`/`result_validator` (`text_indexer=None,
+   result_aligner=None, result_validator=None`), so there is no reason to
+   preserve a wrapper key, and omitting it keeps `extracted_output`'s
+   shape byte-for-byte identical to today's `output_key="judgment"`
+   unwrap — zero consumer changes needed. Confirmed against
+   `annotate_segments_with_semantics`'s `seg_copy["segment_eval"] =
+   result.get("extracted_output")` and its consumers reading
+   `.get("label")` directly on that value.
+3. **`make_doc_classification_extractor` (whole-text classification):**
+   same treatment as item 2 — a `DOC_CLASSIFICATION_TOOL_SCHEMA` with the
+   classification's own fields at the top level (`integrity`,
+   `integrity_evidence`, `completeness`, `completeness_evidence`, `type`,
+   `type_evidence`, `series`, `series_title`, `series_evidence`,
+   `genre_primary`, `genre_secondary`, `genre_evidence`, `confidence`
+   (nested)), no wrapper key. This extractor has no production caller
+   today (only direct test usage), so risk here is minimal either way,
+   but the same no-wrapper design keeps it consistent with item 2 and
+   with a future caller's expectations.
+4. **Update segmentation's two real consumers** for the now-wrapped
+   `extracted_output`: `story_processors.py:142`
+   (`segments = seg_extraction.get("extracted_output") or []` →
+   `segments = (seg_extraction.get("extracted_output") or {}).get("segments") or []`)
+   and `run_pilot.py`'s `_segment_story` (`:277`, same change). No other
+   behavior in either function changes.
+5. Add/update tests: `scene_analysis_test.py`'s
+   `TestMakeSegmentExtractor`/`TestMakeSemanticsExtractor` gain a
+   `tool_schema` assertion each; `story_analysis_test.py`'s
+   `TestMakeDocClassificationExtractor` likewise. Add a real
+   `extract()`-level test per extractor exercising a stubbed tool-call
+   response through the full path (aligner/validator included for
+   segmentation) to prove the wrapper-key design actually works, not
+   just that the constructor stores the schema. Update
+   `story_processors_test.py`'s existing segmentation-consuming tests'
+   fixtures to return `{"segments": [...]}` instead of a bare list where
+   they stub `seg_extractor.extract()`'s return value directly. Add or
+   update a `run_pilot_test.py` case covering `_segment_story`'s adapted
+   unwrap.
+6. Re-run or smoke-test the same sampled story set from the live
+   dogfooding run that saw the 65% `parsing_error` exclusion rate, and
+   report the new rate for comparison — per the acceptance criteria.
 
 ## Non-Goals
 

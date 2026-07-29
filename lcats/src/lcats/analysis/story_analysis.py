@@ -7,6 +7,7 @@ import re
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from lcats.analysis import llm_extractor
+from lcats.llm import tool_schema as tool_schema_module
 
 import tiktoken
 
@@ -395,6 +396,113 @@ STORY:
 """
 
 
+DOC_CLASSIFICATION_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "record_document_classification",
+        "description": (
+            "Record a whole-text integrity/completeness/type/series/genre "
+            "classification for a document, with evidence and per-dimension "
+            "confidence."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "integrity": {
+                    "type": "string",
+                    "enum": ["intact", "corrupted"],
+                },
+                "integrity_evidence": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "completeness": {
+                    "type": "string",
+                    "enum": [
+                        "complete",
+                        "missing_start",
+                        "missing_end",
+                        "missing_middle",
+                        "unknown",
+                    ],
+                },
+                "completeness_evidence": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "fiction",
+                        "poetry",
+                        "nonfiction",
+                        "drama",
+                        "mixed",
+                        "paratext",
+                        "other",
+                    ],
+                },
+                "type_evidence": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "series": {
+                    "type": "string",
+                    "enum": [
+                        "standalone",
+                        "series_entry",
+                        "collection",
+                        "unknown",
+                    ],
+                },
+                "series_title": {"type": "string"},
+                "series_evidence": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "genre_primary": {"type": "string"},
+                "genre_secondary": {"type": "string"},
+                "genre_evidence": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "confidence": {
+                    "type": "object",
+                    "properties": {
+                        "integrity": {"type": "number"},
+                        "completeness": {"type": "number"},
+                        "type": {"type": "number"},
+                        "series": {"type": "number"},
+                        "genre": {"type": "number"},
+                    },
+                    "required": [
+                        "integrity",
+                        "completeness",
+                        "type",
+                        "series",
+                        "genre",
+                    ],
+                },
+            },
+            "required": [
+                "integrity",
+                "integrity_evidence",
+                "completeness",
+                "completeness_evidence",
+                "type",
+                "type_evidence",
+                "series",
+                "series_title",
+                "series_evidence",
+                "genre_primary",
+                "genre_secondary",
+                "genre_evidence",
+                "confidence",
+            ],
+        },
+    }
+)
+
+
 def make_doc_classification_extractor(
     backend: Any,
 ) -> llm_extractor.JSONPromptExtractor:
@@ -404,7 +512,12 @@ def make_doc_classification_extractor(
         backend: LLMBackend satisfying lcats.llm.backend.LLMBackend Protocol.
 
     Returns:
-        Configured JSONPromptExtractor that emits a dict under key "classification".
+        Configured JSONPromptExtractor using the tool= structured-output
+        path (WI-EVENT-0033). DOC_CLASSIFICATION_TOOL_SCHEMA's top level
+        is the classification's own fields directly, with no wrapping
+        key - this extractor has no result_aligner/result_validator, so
+        extracted_output is unchanged from today's
+        output_key="classification" unwrap.
     """
     return llm_extractor.JSONPromptExtractor(
         backend,
@@ -415,4 +528,5 @@ def make_doc_classification_extractor(
         temperature=0.1,
         text_indexer=None,
         result_aligner=None,
+        tool_schema=DOC_CLASSIFICATION_TOOL_SCHEMA,
     )

@@ -139,7 +139,11 @@ def make_annotated_segment_extractor(
         try:
             # 1) Story-level segmentation (with alignment + optional validation).
             seg_extraction = seg_extractor.extract(body, model_name=segment_model)
-            segments = seg_extraction.get("extracted_output") or []
+            # make_segment_extractor uses the tool= path (WI-EVENT-0033);
+            # extracted_output is {"segments": [...]}, not a bare list.
+            segments = (seg_extraction.get("extracted_output") or {}).get(
+                "segments"
+            ) or []
             result["segmentation"]["parsing_error"] = seg_extraction.get(
                 "parsing_error"
             )

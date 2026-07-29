@@ -579,6 +579,63 @@ class TestMakeDocClassificationExtractor(unittest.TestCase):
         extractor = story_analysis.make_doc_classification_extractor(client)
         self.assertIsNone(extractor.result_aligner)
 
+    def test_tool_schema_is_doc_classification_tool_schema(self):
+        """WI-EVENT-0033: uses the tool= structured-output path."""
+        client = fake_backend.FakeBackend()
+        extractor = story_analysis.make_doc_classification_extractor(client)
+        self.assertIs(
+            extractor.tool_schema, story_analysis.DOC_CLASSIFICATION_TOOL_SCHEMA
+        )
+
+    def test_tool_schema_has_no_classification_wrapper_key(self):
+        """No wrapping "classification" key - this extractor has no
+        result_aligner, so extracted_output must stay a flat dict
+        identical to today's output_key="classification" unwrap."""
+        properties = story_analysis.DOC_CLASSIFICATION_TOOL_SCHEMA["input_schema"][
+            "properties"
+        ]
+        self.assertNotIn("classification", properties)
+        self.assertIn("integrity", properties)
+
+    def test_tool_schema_is_strict(self):
+        schema = story_analysis.DOC_CLASSIFICATION_TOOL_SCHEMA
+        self.assertTrue(schema["strict"])
+        self.assertFalse(schema["input_schema"]["additionalProperties"])
+
+    def test_extract_returns_flat_extracted_output(self):
+        """extract() end-to-end through the tool= path proves the
+        no-wrapper design actually works, not just that the constructor
+        stores the schema."""
+        tool_result = {
+            "integrity": "intact",
+            "integrity_evidence": [],
+            "completeness": "complete",
+            "completeness_evidence": [],
+            "type": "fiction",
+            "type_evidence": [],
+            "series": "standalone",
+            "series_title": "",
+            "series_evidence": [],
+            "genre_primary": "science fiction",
+            "genre_secondary": "",
+            "genre_evidence": [],
+            "confidence": {
+                "integrity": 0.9,
+                "completeness": 0.9,
+                "type": 0.9,
+                "series": 0.9,
+                "genre": 0.9,
+            },
+        }
+        client = fake_backend.FakeBackend(tool_result=tool_result)
+        extractor = story_analysis.make_doc_classification_extractor(client)
+
+        result = extractor.extract("Some story text.")
+
+        extracted = result["extracted_output"]
+        self.assertNotIn("classification", extracted)
+        self.assertEqual(extracted["type"], "fiction")
+
 
 # ---------------------------------------------------------------------------
 # Tests: Prompt constants
