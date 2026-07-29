@@ -1,7 +1,7 @@
 """Unit tests for run_pilot.py.
 
 Not part of the installed lcats package (this script lives under
-experiments/, not lcats/lcats/), so it is not discovered by lcats'
+experiments/, not lcats/src/lcats/), so it is not discovered by lcats'
 scripts/test (which only walks tests/) - run explicitly:
 
     python -m unittest experiments/03_cross_segment_relation_pilot/run_pilot_test.py
@@ -24,6 +24,124 @@ from unittest.mock import patch
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import run_pilot  # noqa: E402 - see sys.path.insert above
+
+from lcats.llm import backend as llm_backend  # noqa: E402
+
+
+class _SequencedFakeBackend:
+    """Returns a fixed sequence of tool results, one per complete() call -
+    same pattern as tests/analysis_tests/event_role_world_test.py's own
+    double, needed here since a single story's pipeline makes several
+    distinct LLM-backed passes in order."""
+
+    def __init__(self, tool_results):
+        self._results = list(tool_results)
+        self.calls = []
+
+    def complete(self, **kwargs):
+        self.calls.append(kwargs)
+        return llm_backend.BackendResponse(
+            text="",
+            tool_result=self._results.pop(0),
+            model="fake-1.0",
+            input_tokens=5,
+            output_tokens=2,
+            raw=None,
+        )
+
+
+class TestRunErwPipelineStoryRelationCallSite(unittest.TestCase):
+    """Regression test for a real review finding on PR #187: this script's
+    own _run_erw_pipeline() has a second, separate call site for
+    build_story_relations() (distinct from processor.process_segments()'s
+    own call site, already covered by
+    tests/analysis_tests/event_role_world_test.py) - widening
+    build_story_relations()'s return signature to a 3-tuple broke this
+    site's 2-value unpack with ValueError: too many values to unpack,
+    which would have silently excluded every story reaching the
+    cross-segment relation pass."""
+
+    def test_cross_segment_pass_does_not_raise_on_widened_return(self):
+        segment_1_text = "The old machine hummed."
+        segment_2_text = "It shut off forever."
+        body = segment_1_text + " " + segment_2_text
+
+        entity_result = {"entities": []}
+        event_result_1 = {
+            "events": [
+                {
+                    "event_id": "ev1",
+                    "predicate": "hummed",
+                    "event_type": "sound_emission",
+                    "quote": "hummed",
+                }
+            ]
+        }
+        event_result_2 = {
+            "events": [
+                {
+                    "event_id": "ev2",
+                    "predicate": "shut off",
+                    "event_type": "mechanical_failure",
+                    "quote": "shut off",
+                }
+            ]
+        }
+        empty_result = {}
+        story_relation_result = {
+            "relations": [
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev2",
+                    "relation_type": "causes",
+                    "certainty": "explicit",
+                }
+            ]
+        }
+
+        fake = _SequencedFakeBackend(
+            [
+                entity_result,  # segment 1: entity
+                event_result_1,  # segment 1: event
+                empty_result,  # segment 1: relation
+                empty_result,  # segment 1: discourse
+                # No hypothesis call: _run_erw_pipeline always passes
+                # include_hypotheses=False (this pilot does not use
+                # hypothesis data), so process_segment skips stage 8
+                # entirely for both segments.
+                entity_result,  # segment 2: entity
+                event_result_2,  # segment 2: event
+                empty_result,  # segment 2: relation
+                empty_result,  # segment 2: discourse
+                story_relation_result,  # story-level cross-segment pass
+            ]
+        )
+        extractors = run_pilot._build_erw_extractors(fake, "fake-model")
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+        segments = [
+            {
+                "segment_id": 1,
+                "start_char": 0,
+                "end_char": len(segment_1_text),
+            },
+            {
+                "segment_id": 2,
+                "start_char": len(segment_1_text) + 1,
+                "end_char": len(body),
+            },
+        ]
+
+        # Must not raise ValueError: too many values to unpack.
+        result = run_pilot._run_erw_pipeline(
+            body, segments, extractors, nlp_backend, "fake", "test_story"
+        )
+
+        self.assertEqual(len(result["story"]["cross_segment_relations"]), 1)
+        self.assertEqual(
+            result["story"]["cross_segment_relations"][0]["relation_id"],
+            "story:r1",
+        )
 
 
 class TestMainUnexpectedPerStoryException(unittest.TestCase):

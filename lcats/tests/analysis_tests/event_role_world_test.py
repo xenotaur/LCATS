@@ -2183,6 +2183,42 @@ class TestProcessSegments(unittest.TestCase):
             seg["structured_extraction_errors"][0]["code"], "empty_tool_result"
         )
         self.assertIn("category", seg["structured_extraction_errors"][0])
+        # Tagged with which pass produced it - a review finding on PR #187:
+        # without this, multiple failed passes would be indistinguishable
+        # in structured_extraction_errors.
+        self.assertEqual(seg["structured_extraction_errors"][0]["pass"], "entity")
+
+    def test_record_extraction_error_does_not_flood_plain_string_with_raw_payload(
+        self,
+    ):
+        """Another PR #187 review finding: a dict error's own "raw" field
+        can be large (llm_extractor._normalize_api_error sets it to
+        repr(backend_response), which can include a full tool_result) -
+        the plain-string extraction_errors entry must use only "message",
+        not the whole dict, so one failed pass can't flood
+        extraction_errors/a caller's exclude_reason. The full dict is
+        still preserved as-is in structured_extraction_errors."""
+        extraction_errors = []
+        structured_extraction_errors = []
+        large_raw = "x" * 10_000
+        error = {
+            "status": None,
+            "code": "empty_tool_result",
+            "message": "No tool_result returned by backend.",
+            "raw": large_raw,
+            "category": "unknown",
+        }
+
+        processor._record_extraction_error(
+            extraction_errors, structured_extraction_errors, "entity", error
+        )
+
+        self.assertEqual(len(extraction_errors), 1)
+        self.assertIn("No tool_result returned by backend.", extraction_errors[0])
+        self.assertNotIn(large_raw, extraction_errors[0])
+        self.assertEqual(len(structured_extraction_errors), 1)
+        self.assertEqual(structured_extraction_errors[0]["raw"], large_raw)
+        self.assertEqual(structured_extraction_errors[0]["pass"], "entity")
 
     def test_model_override_applies_to_every_extractor(self):
         """process_segments(model=...) must override every extractor's

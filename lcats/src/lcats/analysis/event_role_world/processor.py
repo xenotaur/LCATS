@@ -317,10 +317,25 @@ def _record_extraction_error(
     `error` may be a plain string (e.g. "No tool_result returned by
     backend...") or the classified api_error dict; only the latter is
     structured enough to preserve as-is.
+
+    A dict error's own "raw" field can be large (e.g.
+    llm_extractor._normalize_api_error sets it to repr(backend_response),
+    which can include a full tool_result) - the plain-string
+    extraction_errors entry uses only the dict's "message" field, not the
+    whole dict, so a single failed pass cannot flood extraction_errors/a
+    caller's exclude_reason with megabytes of noise. The full dict
+    (including "raw") is still preserved in structured_extraction_errors
+    for anyone who needs it. Each structured_extraction_errors entry is
+    also tagged with which pass it came from ("pass": pass_label), since
+    multiple passes can each contribute an entry and the dict itself
+    carries no pass identity of its own.
     """
-    extraction_errors.append(f"{pass_label} extraction failed: {error}")
     if isinstance(error, dict):
-        structured_extraction_errors.append(error)
+        message = error.get("message") or repr(error)
+        extraction_errors.append(f"{pass_label} extraction failed: {message}")
+        structured_extraction_errors.append({"pass": pass_label, **error})
+    else:
+        extraction_errors.append(f"{pass_label} extraction failed: {error}")
 
 
 def _extract_with_placeholders(

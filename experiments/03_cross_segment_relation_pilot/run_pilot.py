@@ -485,15 +485,18 @@ def _run_erw_pipeline(
                 context=f"pipeline {story_id} story-relation",
                 usage_rows=[u.to_dict() for u in all_usage],
             )
-        cross_segment_relations, weakly_inferred_cross_segment_relations = (
-            erw_story_relation.build_story_relations(
-                story_relation_result.get("extracted_output") or {}, story
-            )
+        (
+            cross_segment_relations,
+            weakly_inferred_cross_segment_relations,
+            story_relation_item_errors,
+        ) = erw_story_relation.build_story_relations(
+            story_relation_result.get("extracted_output") or {}, story
         )
         story.cross_segment_relations = cross_segment_relations
         story.weakly_inferred_cross_segment_relations = (
             weakly_inferred_cross_segment_relations
         )
+        story.extraction_errors.extend(story_relation_item_errors)
         story.validation_errors = erw_schema.validate_story_annotation(story)
 
     return {
