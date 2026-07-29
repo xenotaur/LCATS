@@ -95,10 +95,14 @@ internal to gutenbergpy's own pipeline:
 `gutenbergpy/parse/cachefields.py`, `gutenbergpy/caches/sqlitecache.py`,
 and `gutenbergpy/caches/gutenbergindex.db.sql`. Because there is no seam
 to attach a small patch to, both vendoring and forking-and-publishing
-mean owning a modified copy of these five files going forward — they
-differ in *where* that fork lives and how it's packaged, not in whether
-a fork is required. See Required Changes 3 and 4 below, revised
-accordingly.
+mean owning a modified copy of gutenbergpy's cache-construction
+dependency closure going forward — a closure larger than just these
+five diffed files, since the orchestrating `GutenbergCache` class and
+several further transitive dependencies live outside the diff (see
+Required Change 3 for the fuller, still-provisional list). Vendoring
+and forking-and-publishing differ in *where* that fork lives and how
+it's packaged, not in whether a fork is required. See Required Changes
+3 and 4 below, revised accordingly.
 
 ### Duplication search
 - In-repo: No existing implementation or decision record found (grepped
@@ -109,7 +113,8 @@ accordingly.
 - Sibling repos: None identified — this is LCATS-specific.
 - External libraries: None identified as an alternative; the two
   realistic implementation paths (vendoring in-tree vs. publishing a
-  maintained fork) both require forking the same five upstream files —
+  maintained fork) both require forking the same gutenbergpy
+  cache-construction dependency closure —
   see Problem/Context.
 - Recommendation: Proceed.
 
@@ -122,11 +127,12 @@ accordingly.
 ## Scope
 
 - Decide among: (a) wait for upstream to cut a new PyPI release (contact
-  already made, response pending), (b) fork the five affected
-  gutenbergpy internals into LCATS's own tree and point
+  already made, response pending), (b) fork gutenbergpy's cache-
+  construction dependency closure into LCATS's own tree and point
   `lcats/src/lcats/gettenberg/cache.py` at that local copy instead of
   the installed package, (c) publish and maintain a distinct-named
-  LCATS-controlled PyPI fork of the same five files.
+  LCATS-controlled PyPI fork of the same closure. That closure is
+  larger than just the two PRs' diff — see Required Change 3.
 - Update `lcats/pyproject.toml`'s and `lcats/environment.yml`'s
   dependency declarations to remove the direct VCS reference, per
   whichever path is chosen.
@@ -150,23 +156,42 @@ accordingly.
    contributors recreating the documented conda environment continue
    pulling the old fork commit, and tests run in that environment could
    mask a broken vendored or PyPI dependency.
-3. If vendoring: copy the five affected upstream files
+3. If vendoring: the two upstream PRs' diff touches five files
    (`gutenbergpy/parse/rdfparser.py`, `gutenbergpy/parse/book.py`,
    `gutenbergpy/parse/cachefields.py`, `gutenbergpy/caches/sqlitecache.py`,
-   `gutenbergpy/caches/gutenbergindex.db.sql`), with the merged fixes
-   already applied, into a local module tree under
-   `lcats/src/lcats/gettenberg/` (e.g. a `_vendor_gutenbergpy/`
-   subpackage), attributing the source PRs in a header comment. Update
-   `lcats/src/lcats/gettenberg/cache.py:11,128,144` to call the
-   vendored copy's `GutenbergCache.create()`/`.get_cache()` instead of
-   the installed `gutenbergpy` package's — there is no constructor
-   parameter or other extension point on `GutenbergCache.create()` to
-   substitute a patched `RdfParser`/`SQLiteCache` without doing this,
-   since it imports and instantiates both by name internally. This is
-   an in-tree fork of gutenbergpy's cache-construction subsystem, not a
-   small patch file; treat future upstream changes to these five files
-   as needing manual re-porting (see Risk Notes). Add a real
-   parser/cache-writer regression test alongside the fork —
+   `gutenbergpy/caches/gutenbergindex.db.sql`), but the file list
+   actually needed to run the cache-construction pipeline standalone is
+   larger, since `SQLiteCache.create_cache()` also reads
+   `gutenbergpy/caches/gutenbergindex_indices.db.sql` (a second SQL
+   resource, not part of the PR diff), and the orchestrating
+   `GutenbergCache` class referenced below lives in a sixth file,
+   `gutenbergpy/gutenbergcache.py`, not in the diff either. A closer
+   read of `gutenbergpy/caches/sqlitecache.py`'s own imports turns up
+   further transitive dependencies not yet enumerated here —
+   `gutenbergpy/caches/cache.py` (the abstract `Cache` base class
+   `SQLiteCache` extends), `gutenbergpy/gutenbergcachesettings.py`, and
+   `gutenbergpy/utils.py`. Do not treat any file list in this work item
+   as complete: at implementation time, trace gutenbergpy's actual
+   import graph from `GutenbergCache.create()` (e.g. via
+   `python -m py_compile` / `importlib` tooling, or by reading each
+   module's imports transitively) to determine the real vendoring
+   closure, rather than trusting a hand-enumerated list — this list has
+   already grown twice from independent review, which is itself
+   evidence hand-enumeration is unreliable here. Vendor that verified
+   closure, with the merged fixes already applied, into a local module
+   tree under `lcats/src/lcats/gettenberg/` (e.g. a
+   `_vendor_gutenbergpy/` subpackage), attributing the source PRs in a
+   header comment. Update `lcats/src/lcats/gettenberg/cache.py:11,128,144`
+   to call the vendored copy's `GutenbergCache.create()`/`.get_cache()`
+   instead of the installed `gutenbergpy` package's — there is no
+   constructor parameter or other extension point on
+   `GutenbergCache.create()` to substitute a patched
+   `RdfParser`/`SQLiteCache` without doing this, since it imports and
+   instantiates both by name internally. This is an in-tree fork of
+   gutenbergpy's cache-construction subsystem, not a small patch file;
+   treat future upstream changes to this closure as needing manual
+   re-porting (see Risk Notes). Add a real parser/cache-writer
+   regression test alongside the fork —
    `tests/gettenberg_tests/cache_test.py` mocks `GutenbergCache.create`
    and `metadata_test.py` injects fake query rows via `_FakeCache`, so
    rerunning the existing suite alone cannot demonstrate the forked
@@ -221,16 +246,19 @@ accordingly.
   `environment.yml:263`) is updated to the same replacement, so the
   documented conda environment doesn't silently keep installing the old
   fork.
-- If vendoring: the five affected upstream files (`rdfparser.py`,
-  `book.py`, `cachefields.py`, `sqlitecache.py`,
-  `gutenbergindex.db.sql`), with the merged fixes applied, are present
-  as a local module tree under `lcats/src/lcats/gettenberg/` with clear
-  attribution pointing at PR #25/#26; `cache.py:11,128,144` call the
-  vendored copy, not the installed `gutenbergpy` package, for cache
-  construction; and a new regression test exercises the real
-  parser/cache-writer path (not the mocked `GutenbergCache.create` or
-  fake-row `_FakeCache` paths already in the suite) and asserts on the
-  resulting title associations and alias tables.
+- If vendoring: gutenbergpy's actual, traced (not hand-guessed) import
+  closure for `GutenbergCache.create()` — starting from the two PRs'
+  five diffed files but confirmed to also include at least
+  `gutenbergcache.py`, `gutenbergindex_indices.db.sql`, `cache.py`,
+  `gutenbergcachesettings.py`, and `utils.py` — with the merged fixes
+  applied, is present as a local module tree under
+  `lcats/src/lcats/gettenberg/` with clear attribution pointing at PR
+  #25/#26; `cache.py:11,128,144` call the vendored copy, not the
+  installed `gutenbergpy` package, for cache construction; and a new
+  regression test exercises the real parser/cache-writer path (not the
+  mocked `GutenbergCache.create` or fake-row `_FakeCache` paths already
+  in the suite) and asserts on the resulting title associations and
+  alias tables.
 - If re-fork-and-publish: a distinct PyPI project name is reserved (not
   `gutenbergpy`, to avoid squatting the upstream maintainer's
   namespace); the fork's own packaging (upstream's legacy `setup.py`/
@@ -263,9 +291,13 @@ accordingly.
   private inside LCATS's own tree; re-fork-and-publish makes it a
   second, independently versioned, installable PyPI project. Neither
   option is a small patch.
-- Vendoring permanently diverges LCATS's copy from upstream; future
-  upstream fixes to those five files must be manually re-ported by
-  diffing against a moving GitHub repo rather than a real git history.
+- Vendoring permanently diverges LCATS's copy from upstream. The
+  vendored files, copied in rather than pulled via a git dependency,
+  won't carry upstream's own commit history or tags with them into
+  LCATS's tree — so any future upstream fix to this closure has to be
+  found and manually compared against upstream (e.g. via `git blame`/
+  `git log` on the upstream repo directly) and re-applied by hand, not
+  picked up by a version bump the way a real dependency would be.
 - A separate LCATS-controlled PyPI fork adds an ongoing maintenance and
   security surface (a second package to keep current) plus a second,
   independent release pipeline (Trusted Publishing, versioning, a
