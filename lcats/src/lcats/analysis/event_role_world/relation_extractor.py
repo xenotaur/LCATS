@@ -11,58 +11,65 @@ from typing import Any, Dict, List, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-RELATION_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_relations",
-    "description": (
-        "Extract causal, enabling, preventing, temporal, motivational, and "
-        "explanatory links between events already identified in a story "
-        "segment."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "relations": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "relation_id": {"type": "string"},
-                        "source_event_id": {"type": "string"},
-                        "target_event_id": {"type": "string"},
-                        "relation_type": {
-                            "type": "string",
-                            "description": (
-                                "e.g. causes, enables, prevents, precedes, "
-                                "motivates, explains"
-                            ),
+RELATION_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_relations",
+        "description": (
+            "Extract causal, enabling, preventing, temporal, motivational, and "
+            "explanatory links between events already identified in a story "
+            "segment."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "relations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "relation_id": {"type": "string"},
+                            "source_event_id": {"type": "string"},
+                            "target_event_id": {"type": "string"},
+                            "relation_type": {
+                                "type": "string",
+                                "description": (
+                                    "e.g. causes, enables, prevents, precedes, "
+                                    "motivates, explains"
+                                ),
+                            },
+                            "quote": {
+                                "type": "string",
+                                "description": (
+                                    "Exact substring of the segment text that "
+                                    "grounds this relation."
+                                ),
+                            },
+                            "certainty": {
+                                "type": "string",
+                                "enum": [
+                                    "explicit",
+                                    "strongly_implied",
+                                    "weakly_inferred",
+                                ],
+                            },
+                            "confidence": {"type": "number"},
                         },
-                        "quote": {
-                            "type": "string",
-                            "description": (
-                                "Exact substring of the segment text that "
-                                "grounds this relation."
-                            ),
-                        },
-                        "certainty": {
-                            "type": "string",
-                            "enum": ["explicit", "strongly_implied", "weakly_inferred"],
-                        },
-                        "confidence": {"type": "number"},
+                        "required": [
+                            "relation_id",
+                            "source_event_id",
+                            "target_event_id",
+                            "relation_type",
+                            "quote",
+                        ],
                     },
-                    "required": [
-                        "relation_id",
-                        "source_event_id",
-                        "target_event_id",
-                        "relation_type",
-                        "quote",
-                    ],
-                },
-            }
+                }
+            },
+            "required": ["relations"],
         },
-        "required": ["relations"],
-    },
-}
+    }
+)
 
 RELATION_SYSTEM_PROMPT = """You are extracting causal and temporal relations
 between events from a segment of a story for structured narrative analysis.
@@ -106,7 +113,7 @@ def make_relation_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
 
 def build_relations(
     tool_result: Dict[str, Any], segment_text: str
-) -> Tuple[List[schema.EventRelation], List[schema.EventRelation]]:
+) -> Tuple[List[schema.EventRelation], List[schema.EventRelation], List[str]]:
     """Convert a raw extract_relations tool result into schema objects.
 
     Args:
@@ -114,21 +121,28 @@ def build_relations(
         segment_text: The segment text quotes are resolved against.
 
     Returns:
-        (relations, weakly_inferred_relations) — relations whose quote
-        cannot be located in `segment_text` are dropped (not fabricated
-        with a guessed span). Relations with certainty "explicit" or
-        "strongly_implied" go in the first list (the main relations
-        layer); "weakly_inferred" relations are partitioned into the
-        second list per the proposal's causality tradeoff table. Repeated
-        identical quotes resolve to successive occurrences via a
-        per-segment EvidenceCursor.
+        (relations, weakly_inferred_relations, item_errors) — relations
+        whose quote cannot be located in `segment_text` are dropped (not
+        fabricated with a guessed span). Relations with certainty
+        "explicit" or "strongly_implied" go in the first list (the main
+        relations layer); "weakly_inferred" relations are partitioned into
+        the second list per the proposal's causality tradeoff table.
+        Repeated identical quotes resolve to successive occurrences via a
+        per-segment EvidenceCursor. item_errors describes any
+        "relations" array item that was not a dict - skipped rather than
+        crashing (the AttributeError this pattern originally crashed
+        with), but surfaced explicitly (see schema.describe_malformed_item).
     """
     cursor = schema.EvidenceCursor()
 
     relations: List[schema.EventRelation] = []
     weakly_inferred_relations: List[schema.EventRelation] = []
+    item_errors: List[str] = []
 
-    for raw in tool_result.get("relations") or []:
+    for i, raw in enumerate(tool_result.get("relations") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(schema.describe_malformed_item(f"relations[{i}]", raw))
+            continue
         evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -147,4 +161,4 @@ def build_relations(
         else:
             relations.append(relation)
 
-    return relations, weakly_inferred_relations
+    return relations, weakly_inferred_relations, item_errors

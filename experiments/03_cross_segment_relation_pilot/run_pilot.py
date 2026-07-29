@@ -334,89 +334,23 @@ def _compute_story_metrics(
     }
 
 
-def _close_schema_objects(node: Any) -> Any:
-    """Recursively return a deep copy of a JSON Schema fragment with
-    additionalProperties: false set on every object (top-level and
-    nested) - required by Anthropic's strict tool use before strict: true
-    takes effect. See _strict_tool_schema()'s docstring for why this is
-    needed.
-
-    Sets additionalProperties unconditionally (not via setdefault) so an
-    existing, looser value (e.g. additionalProperties: true, or a schema
-    rather than a bare bool) can't silently defeat the requirement this
-    exists to enforce. Also matches "object" inside a union `type` list
-    (e.g. `type: ["object", "null"]`), not just a bare `type: "object"`
-    string, since JSON Schema permits either form.
-    """
-    if isinstance(node, dict):
-        closed = {key: _close_schema_objects(value) for key, value in node.items()}
-        node_type = closed.get("type")
-        is_object = node_type == "object" or (
-            isinstance(node_type, list) and "object" in node_type
-        )
-        if is_object:
-            closed["additionalProperties"] = False
-        return closed
-    if isinstance(node, list):
-        return [_close_schema_objects(item) for item in node]
-    return node
-
-
-def _strict_tool_schema(tool_schema: Dict[str, Any]) -> Dict[str, Any]:
-    """Return a deep copy of `tool_schema` with strict: true enabled.
-
-    Without strict: true, Anthropic's tool use does not guarantee the
-    model's tool_use input matches input_schema - "Claude might return
-    incompatible types ... or omit required fields, breaking your
-    functions and causing runtime errors" (Anthropic docs, Strict tool
-    use). This is exactly what happened live: a relations array item came
-    back as a plain string instead of the required object, crashing
-    relation_extractor.build_relations()'s `raw.get("quote", ...)` with
-    AttributeError. Enabling strict: true constrains the model's token
-    sampling to schema-valid output via grammar-constrained sampling,
-    which would have prevented that malformed item outright.
-
-    strict: true additionally requires additionalProperties: false on
-    every object in the schema, including nested ones inside array items
-    (Anthropic docs, JSON Schema limitations) - none of the ERW tool
-    schemas set this today, so _close_schema_objects() adds it here rather
-    than editing each schema's module (forbidden by this work item; see
-    _build_erw_extractors()'s docstring for the same constraint applied to
-    default_model).
-    """
-    schema = _close_schema_objects(tool_schema)
-    schema["strict"] = True
-    return schema
-
-
-def _build_erw_extractors(
-    backend: Any, model: str, backend_name: str
-) -> Dict[str, Any]:
+def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     """Build the Event-Role-World extractors, with `model` overriding each
-    factory's own hardcoded default_model (e.g. "gpt-4o"), max_tokens raised
-    to _ERW_MAX_TOKENS (each factory's own default of 4096 is too low for
-    content-dense segments and risks TruncatedResponseError - see
-    lcats.llm.backend), and, for --backend anthropic only, each extractor's
-    tool_schema upgraded to strict: true (see _strict_tool_schema()).
+    factory's own hardcoded default_model (e.g. "gpt-4o") and max_tokens
+    raised to _ERW_MAX_TOKENS (each factory's own default of 4096 is too
+    low for content-dense segments and risks TruncatedResponseError - see
+    lcats.llm.backend). Each extractor's tool_schema is already strict at
+    the source (WI-EVENT-0032) - this function used to additionally apply
+    a runtime strict-schema override for --backend anthropic only, now
+    removed as redundant.
 
-    processor.process_segments() has no model parameter - it builds these
-    same extractors internally with each factory's hardcoded default,
-    which sends an invalid model ID whenever the caller's backend/model
-    choice differs (e.g. --backend anthropic with the default gpt-4o
-    baked into every ERW extractor). Building them here instead, then
-    driving processor.process_segment() (singular - it accepts pre-built
-    extractor instances) per segment ourselves, fixes this without
-    touching processor.py or any event_role_world module (forbidden by
-    this work item).
-
-    The strict-schema override is gated to backend_name == "anthropic"
-    because it is not a no-op for OpenAI: AnthropicBackend.complete()
-    forwards the whole tool dict verbatim, so an added top-level `strict`
-    key is inert there unless read, but OpenAIBackend.complete() forwards
-    `tool["input_schema"]` directly as its function `parameters` - the
-    `additionalProperties: false` this same override adds to input_schema
-    would reach OpenAI's schema too and could change its behavior in ways
-    this fix was never intended to touch or test.
+    processor.process_segments() now accepts a model= override too
+    (WI-EVENT-0032), but not a per-extractor max_tokens override, which
+    this pilot also needs (see the comment above _ERW_MAX_TOKENS).
+    Building the extractors here and driving processor.process_segment()
+    (singular - it accepts pre-built extractor instances) per segment
+    ourselves keeps both overrides available, without waiting on
+    process_segments() to grow a max_tokens parameter of its own.
     """
     entity = erw_entity.make_entity_extractor(backend)
     event = erw_event.make_event_extractor(backend)
@@ -426,8 +360,6 @@ def _build_erw_extractors(
     for extractor in (entity, event, relation, discourse, story_relation):
         extractor.default_model = model
         extractor.max_tokens = _ERW_MAX_TOKENS
-        if backend_name == "anthropic" and extractor.tool_schema is not None:
-            extractor.tool_schema = _strict_tool_schema(extractor.tool_schema)
     return {
         "entity": entity,
         "event": event,
@@ -812,7 +744,7 @@ def main() -> int:
     # per-story timer starts below, so per-story elapsed_seconds no longer
     # includes it - print an explicit confirmation instead, since spaCy
     # (unlike Stanza) prints no loading banner of its own.
-    extractors = _build_erw_extractors(backend, model, args.backend)
+    extractors = _build_erw_extractors(backend, model)
     print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
     print(f"NLP backend ready: {args.nlp_backend}")
@@ -852,6 +784,32 @@ def main() -> int:
                 )
                 aborted = True
                 break
+            except Exception as exc:  # noqa: BLE001 - see docstring below
+                # Any exception other than FatalPilotError is an
+                # unexpected, per-story failure - not an account-level
+                # one. Previously this propagated straight out of main(),
+                # skipping the write block below entirely and discarding
+                # every already-completed, already-paid-for story's
+                # results, not just this one's (WI-EVENT-0032, audit's
+                # Category B update finding). Record a minimal excluded
+                # row (matching run_story()'s own row shape - see its
+                # "could not read/parse story JSON" branch) and continue
+                # to the next story instead.
+                print(
+                    f"  error: unexpected failure on {path.name}: {exc}",
+                    file=sys.stderr,
+                )
+                rows.append(
+                    {
+                        "path": str(path),
+                        "story_id": path.stem,
+                        "genre": genre,
+                        "excluded": True,
+                        "exclude_reason": f"unexpected error: {exc!r}",
+                        "elapsed_seconds": time.monotonic() - t0,
+                    }
+                )
+                continue
             row["elapsed_seconds"] = time.monotonic() - t0
             rows.append(row)
             usage_rows.extend(story_usage_rows)

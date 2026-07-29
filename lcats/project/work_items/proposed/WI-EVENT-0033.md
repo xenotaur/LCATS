@@ -40,9 +40,9 @@ required_evidence:
   - lrh_validate
   - test_output
 artifacts_expected:
-  - lcats/lcats/analysis/scene_analysis.py
-  - lcats/lcats/analysis/story_analysis.py
-  - lcats/lcats/analysis/story_processors.py
+  - lcats/src/lcats/analysis/scene_analysis.py
+  - lcats/src/lcats/analysis/story_analysis.py
+  - lcats/src/lcats/analysis/story_processors.py
   - experiments/03_cross_segment_relation_pilot/run_pilot.py
 ---
 

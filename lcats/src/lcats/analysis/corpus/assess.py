@@ -5,6 +5,8 @@ from __future__ import annotations
 import pathlib
 from dataclasses import asdict, dataclass, field
 
+from lcats.llm import tool_schema as tool_schema_module
+
 VALID_GENRES = ("science fiction", "horror", "western", "romance")
 
 _GENRE_DEFINITIONS = """\
@@ -28,118 +30,125 @@ QUALITY ISSUES: Flag any:
   - Tables of contents, chapter listings, or front matter inside the text
   - Significant formatting artifacts (stray markup, repeated separators, etc.)"""
 
-ASSESSMENT_TOOL = {
-    "name": "record_story_assessment",
-    "description": "Record a structured quality and genre assessment for a story.",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "verdict": {
-                "type": "string",
-                "enum": ["include", "exclude", "review"],
-                "description": (
-                    "include: wellformed + correct genre + no disqualifying issues. "
-                    "exclude: incomplete story, wrong genre, or serious quality problems. "
-                    "review: borderline — reasonable people could disagree."
-                ),
-            },
-            "exclude_reason": {
-                "type": "string",
-                "description": (
-                    "If verdict is exclude or review, a brief explanation. "
-                    "Omit or leave empty for include."
-                ),
-            },
-            "wellformed": {
-                "type": "boolean",
-                "description": (
-                    "True if the story has a clear beginning and ending and reads "
-                    "as a complete standalone narrative."
-                ),
-            },
-            "detected_genre": {
-                "type": "string",
-                "enum": list(VALID_GENRES) + ["other"],
-                "description": (
-                    "The genre this story most likely belongs to, determined by "
-                    "independent analysis without reference to any claimed genre. "
-                    "Use 'other' if the story does not fit any of the four target genres."
-                ),
-            },
-            "detected_genre_confidence": {
-                "type": "number",
-                "minimum": 0.0,
-                "maximum": 1.0,
-                "description": "Confidence in the detected genre, 0.0 to 1.0.",
-            },
-            "genre_verdict": {
-                "type": "string",
-                "enum": ["confirmed", "disputed", "wrong", "detected"],
-                "description": (
-                    "confirmed: story belongs to the claimed target genre. "
-                    "disputed: story has genre elements but is borderline or mixed. "
-                    "wrong: story does not belong to the claimed genre. "
-                    "detected: no genre was claimed; use this value in detect-only mode."
-                ),
-            },
-            "genre_suggestion": {
-                "type": "string",
-                "description": (
-                    "If genre_verdict is wrong or disputed, any additional nuance "
-                    "about the actual genre beyond the detected_genre enum value "
-                    "(e.g. 'Gothic mystery-horror hybrid'). Omit or leave empty otherwise."
-                ),
-            },
-            "specials_verdict": {
-                "type": "string",
-                "enum": ["author_intentional", "extraction_artifact", "error", "none"],
-                "description": (
-                    "Assessment of any non-ASCII or unusual characters in the text. "
-                    "author_intentional: dialect, verse, period typography, accented names. "
-                    "extraction_artifact: mojibake, garbled encoding, OCR errors. "
-                    "error: clearly corrupted, unreadable passages. "
-                    "none: no unusual characters present."
-                ),
-            },
-            "summary": {
-                "type": "string",
-                "description": "One to two sentence plot summary of the story.",
-            },
-            "issues": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "description": (
-                                "Issue category: transcriber_note, copyright_notice, "
-                                "toc_remnant, formatting_artifact, incomplete_text, or other."
-                            ),
-                        },
-                        "severity": {
-                            "type": "string",
-                            "enum": ["low", "medium", "high"],
-                        },
-                        "description": {"type": "string"},
-                    },
-                    "required": ["type", "severity", "description"],
+ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
+    {
+        "name": "record_story_assessment",
+        "description": "Record a structured quality and genre assessment for a story.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "verdict": {
+                    "type": "string",
+                    "enum": ["include", "exclude", "review"],
+                    "description": (
+                        "include: wellformed + correct genre + no disqualifying issues. "
+                        "exclude: incomplete story, wrong genre, or serious quality problems. "
+                        "review: borderline — reasonable people could disagree."
+                    ),
                 },
-                "description": "Quality issues found in the story text.",
+                "exclude_reason": {
+                    "type": "string",
+                    "description": (
+                        "If verdict is exclude or review, a brief explanation. "
+                        "Omit or leave empty for include."
+                    ),
+                },
+                "wellformed": {
+                    "type": "boolean",
+                    "description": (
+                        "True if the story has a clear beginning and ending and reads "
+                        "as a complete standalone narrative."
+                    ),
+                },
+                "detected_genre": {
+                    "type": "string",
+                    "enum": list(VALID_GENRES) + ["other"],
+                    "description": (
+                        "The genre this story most likely belongs to, determined by "
+                        "independent analysis without reference to any claimed genre. "
+                        "Use 'other' if the story does not fit any of the four target genres."
+                    ),
+                },
+                "detected_genre_confidence": {
+                    "type": "number",
+                    "minimum": 0.0,
+                    "maximum": 1.0,
+                    "description": "Confidence in the detected genre, 0.0 to 1.0.",
+                },
+                "genre_verdict": {
+                    "type": "string",
+                    "enum": ["confirmed", "disputed", "wrong", "detected"],
+                    "description": (
+                        "confirmed: story belongs to the claimed target genre. "
+                        "disputed: story has genre elements but is borderline or mixed. "
+                        "wrong: story does not belong to the claimed genre. "
+                        "detected: no genre was claimed; use this value in detect-only mode."
+                    ),
+                },
+                "genre_suggestion": {
+                    "type": "string",
+                    "description": (
+                        "If genre_verdict is wrong or disputed, any additional nuance "
+                        "about the actual genre beyond the detected_genre enum value "
+                        "(e.g. 'Gothic mystery-horror hybrid'). Omit or leave empty otherwise."
+                    ),
+                },
+                "specials_verdict": {
+                    "type": "string",
+                    "enum": [
+                        "author_intentional",
+                        "extraction_artifact",
+                        "error",
+                        "none",
+                    ],
+                    "description": (
+                        "Assessment of any non-ASCII or unusual characters in the text. "
+                        "author_intentional: dialect, verse, period typography, accented names. "
+                        "extraction_artifact: mojibake, garbled encoding, OCR errors. "
+                        "error: clearly corrupted, unreadable passages. "
+                        "none: no unusual characters present."
+                    ),
+                },
+                "summary": {
+                    "type": "string",
+                    "description": "One to two sentence plot summary of the story.",
+                },
+                "issues": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "description": (
+                                    "Issue category: transcriber_note, copyright_notice, "
+                                    "toc_remnant, formatting_artifact, incomplete_text, or other."
+                                ),
+                            },
+                            "severity": {
+                                "type": "string",
+                                "enum": ["low", "medium", "high"],
+                            },
+                            "description": {"type": "string"},
+                        },
+                        "required": ["type", "severity", "description"],
+                    },
+                    "description": "Quality issues found in the story text.",
+                },
             },
+            "required": [
+                "verdict",
+                "wellformed",
+                "detected_genre",
+                "detected_genre_confidence",
+                "genre_verdict",
+                "specials_verdict",
+                "summary",
+                "issues",
+            ],
         },
-        "required": [
-            "verdict",
-            "wellformed",
-            "detected_genre",
-            "detected_genre_confidence",
-            "genre_verdict",
-            "specials_verdict",
-            "summary",
-            "issues",
-        ],
-    },
-}
+    }
+)
 
 # Detect mode: no claimed genre; model identifies genre independently.
 DETECT_SYSTEM_PROMPT = f"""\

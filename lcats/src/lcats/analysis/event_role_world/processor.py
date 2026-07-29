@@ -15,7 +15,7 @@ from __future__ import annotations
 import dataclasses
 import time
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from lcats.analysis.event_role_world import (
     discourse_extractor as discourse_extractor_module,
@@ -120,6 +120,7 @@ def process_segment(
     )
 
     extraction_errors: List[str] = []
+    structured_extraction_errors: List[Dict[str, Any]] = []
 
     # Stage 3: entities/participants (LLM-backed).
     t0 = time.monotonic()
@@ -134,10 +135,13 @@ def process_segment(
         # A failed entity pass must not silently read as "zero entities
         # found" — an empty result here is meaningfully different from an
         # extraction that never ran/succeeded.
-        extraction_errors.append(f"entity extraction failed: {entity_error}")
-    entities, mentions = entity_extractor_module.build_entities(
+        _record_extraction_error(
+            extraction_errors, structured_extraction_errors, "entity", entity_error
+        )
+    entities, mentions, entity_item_errors = entity_extractor_module.build_entities(
         entity_result.get("extracted_output") or {}, segment_text
     )
+    extraction_errors.extend(entity_item_errors)
 
     # Stages 4-5: events/semantic-roles + temporal/spatial anchors (LLM-backed).
     # JSONPromptExtractor.extract() only substitutes {story_text}/
@@ -157,12 +161,18 @@ def process_segment(
     )
     event_error = event_result.get("api_error") or event_result.get("extraction_error")
     if event_error:
-        extraction_errors.append(f"event/anchor extraction failed: {event_error}")
-    events, temporal_anchors, spatial_anchors = (
+        _record_extraction_error(
+            extraction_errors,
+            structured_extraction_errors,
+            "event/anchor",
+            event_error,
+        )
+    events, temporal_anchors, spatial_anchors, event_item_errors = (
         event_extractor_module.build_events_and_anchors(
             event_result.get("extracted_output") or {}, segment_text
         )
     )
+    extraction_errors.extend(event_item_errors)
 
     # Stage 6: relations between events (LLM-backed). Same routed-through-
     # extract() pattern as the event/anchor pass, so a transient failure is
@@ -179,10 +189,18 @@ def process_segment(
         "extraction_error"
     )
     if relation_error:
-        extraction_errors.append(f"relation extraction failed: {relation_error}")
-    relations, weakly_inferred_relations = relation_extractor_module.build_relations(
-        relation_result.get("extracted_output") or {}, segment_text
+        _record_extraction_error(
+            extraction_errors,
+            structured_extraction_errors,
+            "relation",
+            relation_error,
+        )
+    relations, weakly_inferred_relations, relation_item_errors = (
+        relation_extractor_module.build_relations(
+            relation_result.get("extracted_output") or {}, segment_text
+        )
     )
+    extraction_errors.extend(relation_item_errors)
 
     # Stage 7: speech acts, explanations, and SF world-model tags (LLM-backed).
     t0 = time.monotonic()
@@ -198,10 +216,18 @@ def process_segment(
         "extraction_error"
     )
     if discourse_error:
-        extraction_errors.append(f"discourse extraction failed: {discourse_error}")
-    speech_acts, explanations, sf_tags = discourse_extractor_module.build_discourse(
-        discourse_result.get("extracted_output") or {}, segment_text
+        _record_extraction_error(
+            extraction_errors,
+            structured_extraction_errors,
+            "discourse",
+            discourse_error,
+        )
+    speech_acts, explanations, sf_tags, discourse_item_errors = (
+        discourse_extractor_module.build_discourse(
+            discourse_result.get("extracted_output") or {}, segment_text
+        )
     )
+    extraction_errors.extend(discourse_item_errors)
 
     # Stage 8 (optional): belief, uncertainty, perspective, and emotion/
     # appraisal hypotheses (LLM-backed). Same routed-through-extract()
@@ -224,12 +250,18 @@ def process_segment(
             "extraction_error"
         )
         if hypothesis_error:
-            extraction_errors.append(
-                f"hypothesis extraction failed: {hypothesis_error}"
+            _record_extraction_error(
+                extraction_errors,
+                structured_extraction_errors,
+                "hypothesis",
+                hypothesis_error,
             )
-        hypotheses = hypothesis_extractor_module.build_hypotheses(
-            hypothesis_result.get("extracted_output") or {}, segment_text
+        hypotheses, hypothesis_item_errors = (
+            hypothesis_extractor_module.build_hypotheses(
+                hypothesis_result.get("extracted_output") or {}, segment_text
+            )
         )
+        extraction_errors.extend(hypothesis_item_errors)
 
     annotation = schema.SegmentWorldAnnotation(
         segment_id=segment_id,
@@ -246,6 +278,7 @@ def process_segment(
         sf_tags=sf_tags,
         hypotheses=hypotheses,
         extraction_errors=extraction_errors,
+        structured_extraction_errors=structured_extraction_errors,
     )
     annotation.validation_errors = schema.validate_segment_annotation(
         annotation, segment_text
@@ -268,6 +301,26 @@ def _pass_usage_from_extraction(
         output_tokens=usage.get("output_tokens", 0),
         elapsed_seconds=time.monotonic() - t0,
     )
+
+
+def _record_extraction_error(
+    extraction_errors: List[str],
+    structured_extraction_errors: List[Dict[str, Any]],
+    pass_label: str,
+    error: Any,
+) -> None:
+    """Append a pass failure to both extraction_errors and, when the error
+    is a structured api_error dict (from llm_extractor._classify_api_error),
+    also to structured_extraction_errors - see
+    SegmentWorldAnnotation.structured_extraction_errors (WI-EVENT-0032).
+
+    `error` may be a plain string (e.g. "No tool_result returned by
+    backend...") or the classified api_error dict; only the latter is
+    structured enough to preserve as-is.
+    """
+    extraction_errors.append(f"{pass_label} extraction failed: {error}")
+    if isinstance(error, dict):
+        structured_extraction_errors.append(error)
 
 
 def _extract_with_placeholders(
@@ -318,6 +371,7 @@ def process_segments(
     *,
     nlp_backend_name: str,
     llm_backend: Any,
+    model: Optional[str] = None,
     story_id: Any = None,
     include_hypotheses: bool = True,
     include_cross_segment_relations: bool = True,
@@ -333,6 +387,15 @@ def process_segments(
         nlp_backend_name: "stanza" or "spacy".
         llm_backend: LLMBackend for the entity/event/relation/discourse/
             hypothesis/story-relation extraction passes.
+        model: Optional model override applied to every extractor built
+            here, replacing each factory's own hardcoded default (e.g.
+            "gpt-4o"). Defaults to None, preserving each factory's own
+            default for existing callers. Any non-OpenAI llm_backend
+            combined with the default None previously sent an invalid
+            model ID on every request (WI-EVENT-0032) -
+            experiments/03_cross_segment_relation_pilot/run_pilot.py
+            worked around this by building extractors itself; this
+            parameter is the source-level fix.
         story_id: Identifier carried onto the reconciled StoryWorldAnnotation.
             Defaults to None if the caller has no natural story ID.
         include_hypotheses: Whether to run the optional stage-8 hypothesis
@@ -381,6 +444,18 @@ def process_segments(
         if include_cross_segment_relations
         else None
     )
+
+    if model is not None:
+        for extractor in (
+            entity_llm_extractor,
+            event_llm_extractor,
+            relation_llm_extractor,
+            discourse_llm_extractor,
+            hypothesis_llm_extractor,
+            story_relation_llm_extractor,
+        ):
+            if extractor is not None:
+                extractor.default_model = model
 
     annotations: List[schema.SegmentWorldAnnotation] = []
     all_usage: List[PassUsage] = []
@@ -439,18 +514,24 @@ def process_segments(
             # A failed story-relation pass must not silently read as "zero
             # cross-segment relations found" — mirrors the segment-level
             # extraction_errors/validation_errors distinction.
-            story.extraction_errors.append(
-                f"story relation extraction failed: {story_relation_error}"
+            _record_extraction_error(
+                story.extraction_errors,
+                story.structured_extraction_errors,
+                "story relation",
+                story_relation_error,
             )
-        cross_segment_relations, weakly_inferred_cross_segment_relations = (
-            story_relation_extractor_module.build_story_relations(
-                story_relation_result.get("extracted_output") or {}, story
-            )
+        (
+            cross_segment_relations,
+            weakly_inferred_cross_segment_relations,
+            story_relation_item_errors,
+        ) = story_relation_extractor_module.build_story_relations(
+            story_relation_result.get("extracted_output") or {}, story
         )
         story.cross_segment_relations = cross_segment_relations
         story.weakly_inferred_cross_segment_relations = (
             weakly_inferred_cross_segment_relations
         )
+        story.extraction_errors.extend(story_relation_item_errors)
         story.validation_errors = schema.validate_story_annotation(story)
 
     return {

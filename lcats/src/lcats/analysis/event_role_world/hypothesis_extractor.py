@@ -7,79 +7,83 @@ per the governing proposal's Implementation prerequisites section.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-HYPOTHESIS_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_hypotheses",
-    "description": (
-        "Extract optional belief, uncertainty, perspective, or emotion/"
-        "appraisal annotations from a story segment. These are never "
-        "extractive facts, even when confidently stated."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "hypotheses": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "hypothesis_id": {"type": "string"},
-                        "hypothesis_type": {
-                            "type": "string",
-                            "enum": [
-                                "belief",
-                                "uncertainty",
-                                "perspective",
-                                "emotion_appraisal",
-                            ],
+HYPOTHESIS_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_hypotheses",
+        "description": (
+            "Extract optional belief, uncertainty, perspective, or emotion/"
+            "appraisal annotations from a story segment. These are never "
+            "extractive facts, even when confidently stated."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "hypotheses": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "hypothesis_id": {"type": "string"},
+                            "hypothesis_type": {
+                                "type": "string",
+                                "enum": [
+                                    "belief",
+                                    "uncertainty",
+                                    "perspective",
+                                    "emotion_appraisal",
+                                ],
+                            },
+                            "proposition_or_target": {
+                                "type": "string",
+                                "description": (
+                                    "The claim's content: a proposition (for "
+                                    "belief/uncertainty) or a target (for "
+                                    "perspective/emotion_appraisal)."
+                                ),
+                            },
+                            "quote": {
+                                "type": "string",
+                                "description": (
+                                    "Exact substring of the segment text that "
+                                    "grounds this hypothesis."
+                                ),
+                            },
+                            "subject_entity_id": {
+                                "type": "string",
+                                "description": (
+                                    "Entity who holds the belief/perspective, "
+                                    "if known."
+                                ),
+                            },
+                            "linked_entity_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "linked_event_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "confidence": {"type": "number"},
                         },
-                        "proposition_or_target": {
-                            "type": "string",
-                            "description": (
-                                "The claim's content: a proposition (for "
-                                "belief/uncertainty) or a target (for "
-                                "perspective/emotion_appraisal)."
-                            ),
-                        },
-                        "quote": {
-                            "type": "string",
-                            "description": (
-                                "Exact substring of the segment text that "
-                                "grounds this hypothesis."
-                            ),
-                        },
-                        "subject_entity_id": {
-                            "type": "string",
-                            "description": (
-                                "Entity who holds the belief/perspective, " "if known."
-                            ),
-                        },
-                        "linked_entity_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "linked_event_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "confidence": {"type": "number"},
+                        "required": [
+                            "hypothesis_id",
+                            "hypothesis_type",
+                            "proposition_or_target",
+                            "quote",
+                        ],
                     },
-                    "required": [
-                        "hypothesis_id",
-                        "hypothesis_type",
-                        "proposition_or_target",
-                        "quote",
-                    ],
-                },
-            }
+                }
+            },
+            "required": ["hypotheses"],
         },
-        "required": ["hypotheses"],
-    },
-}
+    }
+)
 
 HYPOTHESIS_SYSTEM_PROMPT = """You are extracting optional interpretive
 hypotheses from a segment of a story for structured narrative analysis:
@@ -126,7 +130,7 @@ def make_hypothesis_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor
 
 def build_hypotheses(
     tool_result: Dict[str, Any], segment_text: str
-) -> List[schema.Hypothesis]:
+) -> Tuple[List[schema.Hypothesis], List[str]]:
     """Convert a raw extract_hypotheses tool result into schema objects.
 
     Args:
@@ -134,16 +138,23 @@ def build_hypotheses(
         segment_text: The segment text quotes are resolved against.
 
     Returns:
-        Hypotheses whose quote cannot be located in `segment_text` are
-        dropped (not fabricated with a guessed span). Repeated identical
-        quotes resolve to successive occurrences via a per-segment
-        EvidenceCursor, private to this pass — not shared with any other
-        stage's cursor.
+        (hypotheses, item_errors) — hypotheses whose quote cannot be
+        located in `segment_text` are dropped (not fabricated with a
+        guessed span). Repeated identical quotes resolve to successive
+        occurrences via a per-segment EvidenceCursor, private to this
+        pass — not shared with any other stage's cursor. item_errors
+        describes any "hypotheses" array item that was not a dict -
+        skipped rather than crashing, but surfaced explicitly (see
+        schema.describe_malformed_item).
     """
     cursor = schema.EvidenceCursor()
 
     hypotheses: List[schema.Hypothesis] = []
-    for raw in tool_result.get("hypotheses") or []:
+    item_errors: List[str] = []
+    for i, raw in enumerate(tool_result.get("hypotheses") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(schema.describe_malformed_item(f"hypotheses[{i}]", raw))
+            continue
         evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -160,4 +171,4 @@ def build_hypotheses(
             )
         )
 
-    return hypotheses
+    return hypotheses, item_errors

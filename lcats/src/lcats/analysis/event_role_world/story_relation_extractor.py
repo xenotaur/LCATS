@@ -27,64 +27,71 @@ from typing import Any, Dict, List, Set, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-STORY_RELATION_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_story_relations",
-    "description": (
-        "Extract causal, enabling, preventing, temporal, motivational, and "
-        "explanatory links between events that belong to DIFFERENT segments "
-        "of the same story. Same-segment relations are already handled by a "
-        "separate pass and must not be repeated here."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "relations": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "relation_id": {"type": "string"},
-                        "source_event_id": {
-                            "type": "string",
-                            "description": (
-                                'Qualified event ID ("segment_id:event_id") '
-                                "from the known events list."
-                            ),
+STORY_RELATION_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_story_relations",
+        "description": (
+            "Extract causal, enabling, preventing, temporal, motivational, and "
+            "explanatory links between events that belong to DIFFERENT segments "
+            "of the same story. Same-segment relations are already handled by a "
+            "separate pass and must not be repeated here."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "relations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "relation_id": {"type": "string"},
+                            "source_event_id": {
+                                "type": "string",
+                                "description": (
+                                    'Qualified event ID ("segment_id:event_id") '
+                                    "from the known events list."
+                                ),
+                            },
+                            "target_event_id": {
+                                "type": "string",
+                                "description": (
+                                    'Qualified event ID ("segment_id:event_id") '
+                                    "from the known events list, in a DIFFERENT "
+                                    "segment than source_event_id."
+                                ),
+                            },
+                            "relation_type": {
+                                "type": "string",
+                                "description": (
+                                    "e.g. causes, enables, prevents, precedes, "
+                                    "motivates, explains"
+                                ),
+                            },
+                            "certainty": {
+                                "type": "string",
+                                "enum": [
+                                    "explicit",
+                                    "strongly_implied",
+                                    "weakly_inferred",
+                                ],
+                            },
+                            "confidence": {"type": "number"},
                         },
-                        "target_event_id": {
-                            "type": "string",
-                            "description": (
-                                'Qualified event ID ("segment_id:event_id") '
-                                "from the known events list, in a DIFFERENT "
-                                "segment than source_event_id."
-                            ),
-                        },
-                        "relation_type": {
-                            "type": "string",
-                            "description": (
-                                "e.g. causes, enables, prevents, precedes, "
-                                "motivates, explains"
-                            ),
-                        },
-                        "certainty": {
-                            "type": "string",
-                            "enum": ["explicit", "strongly_implied", "weakly_inferred"],
-                        },
-                        "confidence": {"type": "number"},
+                        "required": [
+                            "relation_id",
+                            "source_event_id",
+                            "target_event_id",
+                            "relation_type",
+                        ],
                     },
-                    "required": [
-                        "relation_id",
-                        "source_event_id",
-                        "target_event_id",
-                        "relation_type",
-                    ],
-                },
-            }
+                }
+            },
+            "required": ["relations"],
         },
-        "required": ["relations"],
-    },
-}
+    }
+)
 
 STORY_RELATION_SYSTEM_PROMPT = """You are extracting cross-segment causal and
 temporal relations between events from different segments of the same story,
@@ -158,7 +165,7 @@ def build_event_index(story: schema.StoryWorldAnnotation) -> str:
 
 def build_story_relations(
     tool_result: Dict[str, Any], story: schema.StoryWorldAnnotation
-) -> Tuple[List[schema.EventRelation], List[schema.EventRelation]]:
+) -> Tuple[List[schema.EventRelation], List[schema.EventRelation], List[str]]:
     """Convert a raw extract_story_relations tool result into schema objects.
 
     Args:
@@ -169,8 +176,9 @@ def build_story_relations(
             after schema.reconcile_story_annotations.
 
     Returns:
-        (cross_segment_relations, weakly_inferred_cross_segment_relations)
-        — relations whose source_event_id/target_event_id do not both
+        (cross_segment_relations, weakly_inferred_cross_segment_relations,
+        item_errors) — relations whose source_event_id/target_event_id do
+        not both
         resolve to known qualified event IDs are dropped, as are relations
         whose source and target resolve to the SAME segment (the model may
         occasionally violate its instructions; this pass's contract is
@@ -190,7 +198,9 @@ def build_story_relations(
         already-resolved EvidenceSpan (the "already-resolved evidence
         spans" reuse WI-EVENT-0028's evaluation recommended), not a fresh
         quote search — there is no single text blob to search across
-        segments against.
+        segments against. item_errors describes any "relations" array
+        item that was not a dict - skipped rather than crashing, but
+        surfaced explicitly (see schema.describe_malformed_item).
     """
     event_by_qualified_id: Dict[str, schema.Event] = {
         f"{segment.segment_id}:{event.event_id}": event
@@ -201,8 +211,12 @@ def build_story_relations(
     cross_segment_relations: List[schema.EventRelation] = []
     weakly_inferred_cross_segment_relations: List[schema.EventRelation] = []
     seen_raw_relation_ids: Set[str] = set()
+    item_errors: List[str] = []
 
-    for raw in tool_result.get("relations") or []:
+    for i, raw in enumerate(tool_result.get("relations") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(schema.describe_malformed_item(f"relations[{i}]", raw))
+            continue
         source_id = raw.get("source_event_id", "")
         target_id = raw.get("target_event_id", "")
         source_event = event_by_qualified_id.get(source_id)
@@ -235,4 +249,4 @@ def build_story_relations(
         else:
             cross_segment_relations.append(relation)
 
-    return cross_segment_relations, weakly_inferred_cross_segment_relations
+    return cross_segment_relations, weakly_inferred_cross_segment_relations, item_errors

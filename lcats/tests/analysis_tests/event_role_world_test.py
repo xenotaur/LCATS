@@ -351,7 +351,7 @@ class TestBuildEntities(unittest.TestCase):
             ]
         }
 
-        entities, mentions = entity_extractor.build_entities(tool_result, text)
+        entities, mentions, _ = entity_extractor.build_entities(tool_result, text)
 
         self.assertEqual(len(entities), 1)
         self.assertEqual(entities[0].entity_id, "e1")
@@ -374,7 +374,7 @@ class TestBuildEntities(unittest.TestCase):
             ]
         }
 
-        entities, mentions = entity_extractor.build_entities(tool_result, text)
+        entities, mentions, _ = entity_extractor.build_entities(tool_result, text)
 
         # The entity's only mention failed to resolve, leaving it with no
         # grounded evidence at all - it must be dropped entirely rather than
@@ -383,9 +383,72 @@ class TestBuildEntities(unittest.TestCase):
         self.assertEqual(entities, [])
 
     def test_empty_tool_result_produces_no_entities(self):
-        entities, mentions = entity_extractor.build_entities({}, "some text")
+        entities, mentions, _ = entity_extractor.build_entities({}, "some text")
         self.assertEqual(entities, [])
         self.assertEqual(mentions, [])
+
+    def test_malformed_entity_item_is_skipped_and_reported(self):
+        """A non-dict entities[] item (WI-EVENT-0032) must not crash - it is
+        skipped and reported in item_errors, while a valid sibling entity in
+        the same list is still processed normally."""
+        text = "The old machine hummed."
+        tool_result = {
+            "entities": [
+                "not an object",
+                {
+                    "entity_id": "e1",
+                    "canonical_name": "the machine",
+                    "entity_type": "machine_or_artifact",
+                    "mentions": [
+                        {
+                            "mention_id": "m1",
+                            "text": "the machine",
+                            "quote": "old machine",
+                        }
+                    ],
+                },
+            ]
+        }
+
+        entities, mentions, item_errors = entity_extractor.build_entities(
+            tool_result, text
+        )
+
+        self.assertEqual(len(entities), 1)
+        self.assertEqual(entities[0].entity_id, "e1")
+        self.assertEqual(len(mentions), 1)
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities[0]", item_errors[0])
+        self.assertIn("not an object", item_errors[0])
+
+    def test_malformed_mention_item_is_skipped_and_reported(self):
+        text = "The old machine hummed."
+        tool_result = {
+            "entities": [
+                {
+                    "entity_id": "e1",
+                    "canonical_name": "the machine",
+                    "entity_type": "machine_or_artifact",
+                    "mentions": [
+                        {
+                            "mention_id": "m1",
+                            "text": "the machine",
+                            "quote": "old machine",
+                        },
+                        "not an object",
+                    ],
+                }
+            ]
+        }
+
+        entities, mentions, item_errors = entity_extractor.build_entities(
+            tool_result, text
+        )
+
+        self.assertEqual(len(entities), 1)
+        self.assertEqual(len(mentions), 1)
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities[0].mentions[1]", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -424,7 +487,7 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
             ],
         }
 
-        events, temporal_anchors, spatial_anchors = (
+        events, temporal_anchors, spatial_anchors, _ = (
             event_extractor.build_events_and_anchors(tool_result, text)
         )
 
@@ -447,7 +510,7 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
                 }
             ]
         }
-        events, _, _ = event_extractor.build_events_and_anchors(tool_result, text)
+        events, _, _, _ = event_extractor.build_events_and_anchors(tool_result, text)
         self.assertEqual(events, [])
 
     def test_drops_semantic_role_with_unresolvable_quote_but_keeps_event(self):
@@ -465,9 +528,57 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
                 }
             ]
         }
-        events, _, _ = event_extractor.build_events_and_anchors(tool_result, text)
+        events, _, _, _ = event_extractor.build_events_and_anchors(tool_result, text)
         self.assertEqual(len(events), 1)
         self.assertEqual(events[0].semantic_roles, [])
+
+    def test_malformed_items_are_skipped_and_reported(self):
+        """A non-dict item in temporal_anchors/spatial_anchors/events/
+        semantic_roles (WI-EVENT-0032) must not crash - each is skipped and
+        reported in item_errors, while valid siblings are still processed."""
+        text = "The machine hummed in the pit for decades."
+        tool_result = {
+            "temporal_anchors": [
+                "not an object",
+                {"anchor_id": "t1", "text": "decades", "quote": "for decades"},
+            ],
+            "spatial_anchors": [
+                "not an object",
+                {"anchor_id": "s1", "text": "the pit", "quote": "in the pit"},
+            ],
+            "events": [
+                "not an object",
+                {
+                    "event_id": "ev1",
+                    "predicate": "hummed",
+                    "event_type": "sound_emission",
+                    "quote": "hummed",
+                    "semantic_roles": [
+                        "not an object",
+                        {
+                            "role": "agent",
+                            "filler_entity_id": "e1",
+                            "quote": "The machine",
+                        },
+                    ],
+                },
+            ],
+        }
+
+        events, temporal_anchors, spatial_anchors, item_errors = (
+            event_extractor.build_events_and_anchors(tool_result, text)
+        )
+
+        self.assertEqual(len(temporal_anchors), 1)
+        self.assertEqual(len(spatial_anchors), 1)
+        self.assertEqual(len(events), 1)
+        self.assertEqual(len(events[0].semantic_roles), 1)
+        self.assertEqual(len(item_errors), 4)
+        joined = "\n".join(item_errors)
+        self.assertIn("temporal_anchors[0]", joined)
+        self.assertIn("spatial_anchors[0]", joined)
+        self.assertIn("events[0]", joined)
+        self.assertIn("events[1].semantic_roles[0]", joined)
 
 
 # ---------------------------------------------------------------------------
@@ -491,7 +602,7 @@ class TestBuildRelations(unittest.TestCase):
                 }
             ]
         }
-        relations, weakly_inferred = relation_extractor.build_relations(
+        relations, weakly_inferred, _ = relation_extractor.build_relations(
             tool_result, text
         )
         self.assertEqual(len(relations), 1)
@@ -513,7 +624,7 @@ class TestBuildRelations(unittest.TestCase):
                 }
             ]
         }
-        relations, weakly_inferred = relation_extractor.build_relations(
+        relations, weakly_inferred, _ = relation_extractor.build_relations(
             tool_result, text
         )
         self.assertEqual(relations, [])
@@ -533,16 +644,46 @@ class TestBuildRelations(unittest.TestCase):
                 }
             ]
         }
-        relations, weakly_inferred = relation_extractor.build_relations(
+        relations, weakly_inferred, _ = relation_extractor.build_relations(
             tool_result, text
         )
         self.assertEqual(relations, [])
         self.assertEqual(weakly_inferred, [])
 
     def test_empty_tool_result_produces_no_relations(self):
-        relations, weakly_inferred = relation_extractor.build_relations({}, "some text")
+        relations, weakly_inferred, _ = relation_extractor.build_relations(
+            {}, "some text"
+        )
         self.assertEqual(relations, [])
         self.assertEqual(weakly_inferred, [])
+
+    def test_malformed_relation_item_is_skipped_and_reported(self):
+        """A non-dict relations[] item is the exact site that crashed live
+        with AttributeError: 'str' object has no attribute 'get'
+        (WI-EVENT-0032) - must not crash, and must surface in item_errors."""
+        text = "The machine hummed, which caused the lights to flicker."
+        tool_result = {
+            "relations": [
+                "not an object",
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "ev1",
+                    "target_event_id": "ev2",
+                    "relation_type": "causes",
+                    "quote": "hummed",
+                    "certainty": "explicit",
+                },
+            ]
+        }
+
+        relations, weakly_inferred, item_errors = relation_extractor.build_relations(
+            tool_result, text
+        )
+
+        self.assertEqual(len(relations), 1)
+        self.assertEqual(weakly_inferred, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("relations[0]", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -584,7 +725,7 @@ class TestBuildDiscourse(unittest.TestCase):
                 }
             ],
         }
-        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+        speech_acts, explanations, sf_tags, _ = discourse_extractor.build_discourse(
             tool_result, text
         )
         self.assertEqual(len(speech_acts), 1)
@@ -603,7 +744,7 @@ class TestBuildDiscourse(unittest.TestCase):
                 {"tag_id": "sf1", "tag": "anomaly_or_novum", "quote": "machine"}
             ]
         }
-        _, _, sf_tags = discourse_extractor.build_discourse(tool_result, text)
+        _, _, sf_tags, _ = discourse_extractor.build_discourse(tool_result, text)
         self.assertEqual(sf_tags[0].status, "hypothesis")
 
     def test_drops_items_with_unresolvable_quotes(self):
@@ -622,7 +763,7 @@ class TestBuildDiscourse(unittest.TestCase):
             ],
             "sf_tags": [{"tag_id": "sf1", "tag": "x", "quote": "nowhere"}],
         }
-        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+        speech_acts, explanations, sf_tags, _ = discourse_extractor.build_discourse(
             tool_result, text
         )
         self.assertEqual(speech_acts, [])
@@ -630,7 +771,7 @@ class TestBuildDiscourse(unittest.TestCase):
         self.assertEqual(sf_tags, [])
 
     def test_empty_tool_result_produces_nothing(self):
-        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+        speech_acts, explanations, sf_tags, _ = discourse_extractor.build_discourse(
             {}, "some text"
         )
         self.assertEqual(speech_acts, [])
@@ -668,12 +809,46 @@ class TestBuildDiscourse(unittest.TestCase):
                 }
             ],
         }
-        speech_acts, explanations, sf_tags = discourse_extractor.build_discourse(
+        speech_acts, explanations, sf_tags, _ = discourse_extractor.build_discourse(
             tool_result, text
         )
         self.assertEqual(len(speech_acts), 1)
         self.assertEqual(len(explanations), 1)
         self.assertEqual(len(sf_tags), 1)
+
+    def test_malformed_items_are_skipped_and_reported(self):
+        """A non-dict item in speech_acts/explanations/sf_tags (WI-EVENT-0032)
+        must not crash - each is skipped and reported in item_errors."""
+        text = "Reroute the plasma conduits, the captain commanded."
+        tool_result = {
+            "speech_acts": [
+                "not an object",
+                {
+                    "speech_act_id": "sa1",
+                    "act_type": "command",
+                    "quote": "Reroute the plasma conduits",
+                },
+            ],
+            "explanations": [
+                "not an object",
+            ],
+            "sf_tags": [
+                "not an object",
+            ],
+        }
+
+        speech_acts, explanations, sf_tags, item_errors = (
+            discourse_extractor.build_discourse(tool_result, text)
+        )
+
+        self.assertEqual(len(speech_acts), 1)
+        self.assertEqual(explanations, [])
+        self.assertEqual(sf_tags, [])
+        self.assertEqual(len(item_errors), 3)
+        joined = "\n".join(item_errors)
+        self.assertIn("speech_acts[0]", joined)
+        self.assertIn("explanations[0]", joined)
+        self.assertIn("sf_tags[0]", joined)
 
 
 # ---------------------------------------------------------------------------
@@ -697,7 +872,7 @@ class TestBuildHypotheses(unittest.TestCase):
                 }
             ]
         }
-        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        hypotheses, _ = hypothesis_extractor.build_hypotheses(tool_result, text)
         self.assertEqual(len(hypotheses), 1)
         self.assertEqual(hypotheses[0].hypothesis_type, "belief")
         self.assertEqual(hypotheses[0].subject_entity_id, "e2")
@@ -715,11 +890,12 @@ class TestBuildHypotheses(unittest.TestCase):
                 }
             ]
         }
-        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        hypotheses, _ = hypothesis_extractor.build_hypotheses(tool_result, text)
         self.assertEqual(hypotheses, [])
 
     def test_empty_tool_result_produces_no_hypotheses(self):
-        self.assertEqual(hypothesis_extractor.build_hypotheses({}, "some text"), [])
+        hypotheses, _ = hypothesis_extractor.build_hypotheses({}, "some text")
+        self.assertEqual(hypotheses, [])
 
     def test_repeated_quote_resolves_to_successive_occurrences(self):
         text = "First she feared it. Later, she feared it again."
@@ -739,11 +915,33 @@ class TestBuildHypotheses(unittest.TestCase):
                 },
             ]
         }
-        hypotheses = hypothesis_extractor.build_hypotheses(tool_result, text)
+        hypotheses, _ = hypothesis_extractor.build_hypotheses(tool_result, text)
         self.assertEqual(len(hypotheses), 2)
         self.assertLess(
             hypotheses[0].evidence.start_char, hypotheses[1].evidence.start_char
         )
+
+    def test_malformed_hypothesis_item_is_skipped_and_reported(self):
+        text = "She feared it would never work again."
+        tool_result = {
+            "hypotheses": [
+                "not an object",
+                {
+                    "hypothesis_id": "h1",
+                    "hypothesis_type": "emotion_appraisal",
+                    "proposition_or_target": "fear",
+                    "quote": "feared it",
+                },
+            ]
+        }
+
+        hypotheses, item_errors = hypothesis_extractor.build_hypotheses(
+            tool_result, text
+        )
+
+        self.assertEqual(len(hypotheses), 1)
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("hypotheses[0]", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -834,7 +1032,7 @@ class TestBuildStoryRelations(unittest.TestCase):
             ]
         }
 
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
 
@@ -860,7 +1058,7 @@ class TestBuildStoryRelations(unittest.TestCase):
             ]
         }
 
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
 
@@ -881,7 +1079,7 @@ class TestBuildStoryRelations(unittest.TestCase):
             ]
         }
 
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
 
@@ -905,7 +1103,7 @@ class TestBuildStoryRelations(unittest.TestCase):
             ]
         }
 
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
 
@@ -914,7 +1112,7 @@ class TestBuildStoryRelations(unittest.TestCase):
 
     def test_empty_tool_result_produces_no_relations(self):
         story = self._story_with_two_segment_events()
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             {}, story
         )
         self.assertEqual(relations, [])
@@ -936,7 +1134,7 @@ class TestBuildStoryRelations(unittest.TestCase):
                 }
             ]
         }
-        relations, _ = story_relation_extractor.build_story_relations(
+        relations, _, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
         self.assertTrue(relations[0].relation_id.startswith("story:"))
@@ -964,11 +1162,35 @@ class TestBuildStoryRelations(unittest.TestCase):
                 },
             ]
         }
-        relations, weakly_inferred = story_relation_extractor.build_story_relations(
+        relations, weakly_inferred, _ = story_relation_extractor.build_story_relations(
             tool_result, story
         )
         self.assertEqual(len(relations), 1)
         self.assertEqual(weakly_inferred, [])
+
+    def test_malformed_relation_item_is_skipped_and_reported(self):
+        story = self._story_with_two_segment_events()
+        tool_result = {
+            "relations": [
+                "not an object",
+                {
+                    "relation_id": "r1",
+                    "source_event_id": "1:ev1",
+                    "target_event_id": "2:ev1",
+                    "relation_type": "causes",
+                    "certainty": "explicit",
+                },
+            ]
+        }
+
+        relations, weakly_inferred, item_errors = (
+            story_relation_extractor.build_story_relations(tool_result, story)
+        )
+
+        self.assertEqual(len(relations), 1)
+        self.assertEqual(weakly_inferred, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("relations[0]", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -1954,6 +2176,65 @@ class TestProcessSegments(unittest.TestCase):
             any("entity extraction failed" in e for e in seg["extraction_errors"]),
             seg["extraction_errors"],
         )
+        # The api_error is also preserved structured, not just stringified
+        # into extraction_errors (WI-EVENT-0032, Category D).
+        self.assertEqual(len(seg["structured_extraction_errors"]), 1)
+        self.assertEqual(
+            seg["structured_extraction_errors"][0]["code"], "empty_tool_result"
+        )
+        self.assertIn("category", seg["structured_extraction_errors"][0])
+
+    def test_model_override_applies_to_every_extractor(self):
+        """process_segments(model=...) must override every extractor's
+        factory-hardcoded default_model (e.g. "gpt-4o"), matching the
+        override run_pilot.py previously had to apply itself by building
+        extractors directly (WI-EVENT-0032, Category D)."""
+        segment_text = "The machine hummed."
+        fake = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {"events": []},
+                {"relations": []},
+                {},
+                {"hypotheses": []},
+            ]
+        )
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        processor.process_segments(
+            segment_text,
+            segments,
+            nlp_backend_name="spacy",
+            llm_backend=fake,
+            model="claude-opus-4-8",
+        )
+
+        self.assertEqual(len(fake.calls), 5)
+        for call in fake.calls:
+            self.assertEqual(call["model"], "claude-opus-4-8")
+
+    def test_model_none_preserves_each_factorys_own_default(self):
+        """The default (model=None) must not change existing behavior -
+        each extractor keeps its own factory-hardcoded default_model."""
+        segment_text = "The machine hummed."
+        fake = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {"events": []},
+                {"relations": []},
+                {},
+                {"hypotheses": []},
+            ]
+        )
+        segments = [{"segment_id": 1, "start_char": 0, "end_char": len(segment_text)}]
+
+        processor.process_segments(
+            segment_text, segments, nlp_backend_name="spacy", llm_backend=fake
+        )
+
+        self.assertEqual(len(fake.calls), 5)
+        for call in fake.calls:
+            self.assertEqual(call["model"], "gpt-4o")
 
     def test_event_pass_failure_does_not_abort_remaining_segments(self):
         """A transient failure on one segment's event pass must not lose

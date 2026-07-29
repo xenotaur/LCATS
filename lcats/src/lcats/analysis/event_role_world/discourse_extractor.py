@@ -13,113 +13,117 @@ from typing import Any, Dict, List, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-DISCOURSE_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_discourse",
-    "description": (
-        "Extract speech acts, explanatory passages, and SF world-model "
-        "tags from a story segment."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "speech_acts": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "speech_act_id": {"type": "string"},
-                        "act_type": {
-                            "type": "string",
-                            "description": (
-                                "e.g. assertion, question, command, promise, " "warning"
-                            ),
+DISCOURSE_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_discourse",
+        "description": (
+            "Extract speech acts, explanatory passages, and SF world-model "
+            "tags from a story segment."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "speech_acts": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "speech_act_id": {"type": "string"},
+                            "act_type": {
+                                "type": "string",
+                                "description": (
+                                    "e.g. assertion, question, command, promise, "
+                                    "warning"
+                                ),
+                            },
+                            "quote": {"type": "string"},
+                            "speaker_entity_id": {"type": "string"},
+                            "addressee_entity_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "linked_event_id": {"type": "string"},
+                            "confidence": {"type": "number"},
                         },
-                        "quote": {"type": "string"},
-                        "speaker_entity_id": {"type": "string"},
-                        "addressee_entity_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "linked_event_id": {"type": "string"},
-                        "confidence": {"type": "number"},
+                        "required": ["speech_act_id", "act_type", "quote"],
                     },
-                    "required": ["speech_act_id", "act_type", "quote"],
+                },
+                "explanations": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "explanation_id": {"type": "string"},
+                            "topic": {"type": "string"},
+                            "mechanism_or_rationale_type": {
+                                "type": "string",
+                                "description": (
+                                    "e.g. scientific_mechanism, technical_operation, "
+                                    "personal_rationale, historical_cause"
+                                ),
+                            },
+                            "quote": {"type": "string"},
+                            "linked_entity_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "linked_event_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "confidence": {"type": "number"},
+                        },
+                        "required": [
+                            "explanation_id",
+                            "topic",
+                            "mechanism_or_rationale_type",
+                            "quote",
+                        ],
+                    },
+                },
+                "sf_tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tag_id": {"type": "string"},
+                            "tag": {
+                                "type": "string",
+                                "description": (
+                                    "Controlled tag, e.g. anomaly_or_novum, "
+                                    "ontological_rule, technology_as_agent, "
+                                    "nonhuman_actant"
+                                ),
+                            },
+                            "quote": {"type": "string"},
+                            "linked_entity_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "linked_event_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "status": {
+                                "type": "string",
+                                "enum": ["extractive", "hypothesis"],
+                                "description": (
+                                    "extractive if the text states the tag "
+                                    "explicitly, hypothesis if inferred"
+                                ),
+                            },
+                            "confidence": {"type": "number"},
+                        },
+                        "required": ["tag_id", "tag", "quote"],
+                    },
                 },
             },
-            "explanations": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "explanation_id": {"type": "string"},
-                        "topic": {"type": "string"},
-                        "mechanism_or_rationale_type": {
-                            "type": "string",
-                            "description": (
-                                "e.g. scientific_mechanism, technical_operation, "
-                                "personal_rationale, historical_cause"
-                            ),
-                        },
-                        "quote": {"type": "string"},
-                        "linked_entity_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "linked_event_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "confidence": {"type": "number"},
-                    },
-                    "required": [
-                        "explanation_id",
-                        "topic",
-                        "mechanism_or_rationale_type",
-                        "quote",
-                    ],
-                },
-            },
-            "sf_tags": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "tag_id": {"type": "string"},
-                        "tag": {
-                            "type": "string",
-                            "description": (
-                                "Controlled tag, e.g. anomaly_or_novum, "
-                                "ontological_rule, technology_as_agent, "
-                                "nonhuman_actant"
-                            ),
-                        },
-                        "quote": {"type": "string"},
-                        "linked_entity_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "linked_event_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "status": {
-                            "type": "string",
-                            "enum": ["extractive", "hypothesis"],
-                            "description": (
-                                "extractive if the text states the tag "
-                                "explicitly, hypothesis if inferred"
-                            ),
-                        },
-                        "confidence": {"type": "number"},
-                    },
-                    "required": ["tag_id", "tag", "quote"],
-                },
-            },
+            "required": [],
         },
-        "required": [],
-    },
-}
+    }
+)
 
 DISCOURSE_SYSTEM_PROMPT = """You are extracting discourse-level features from
 a segment of a story for structured narrative analysis: speech acts
@@ -169,6 +173,7 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
     List[schema.SpeechAct],
     List[schema.ExplanationDiscourse],
     List[schema.SFWorldModelTag],
+    List[str],
 ]:
     """Convert a raw extract_discourse tool result into schema objects.
 
@@ -177,23 +182,31 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
         segment_text: The segment text quotes are resolved against.
 
     Returns:
-        (speech_acts, explanations, sf_tags) — any item whose quote cannot
-        be located in `segment_text` is dropped (not fabricated with a
-        guessed span). Each layer gets its own EvidenceCursor rather than
-        sharing one: a single passage can legitimately be claimed by more
-        than one layer at once (e.g. the same quoted line is both a speech
-        act and an SF-tagged phrase), and a shared cursor would let the
-        first layer's claim consume the only occurrence, silently starving
-        a later layer's otherwise-valid claim on that same span. Within one
-        layer, repeated identical quotes still resolve to successive
-        occurrences via that layer's own cursor.
+        (speech_acts, explanations, sf_tags, item_errors) — any item whose
+        quote cannot be located in `segment_text` is dropped (not
+        fabricated with a guessed span). Each layer gets its own
+        EvidenceCursor rather than sharing one: a single passage can
+        legitimately be claimed by more than one layer at once (e.g. the
+        same quoted line is both a speech act and an SF-tagged phrase),
+        and a shared cursor would let the first layer's claim consume the
+        only occurrence, silently starving a later layer's otherwise-valid
+        claim on that same span. Within one layer, repeated identical
+        quotes still resolve to successive occurrences via that layer's
+        own cursor. item_errors describes any "speech_acts"/
+        "explanations"/"sf_tags" array item that was not a dict - skipped
+        rather than crashing, but surfaced explicitly (see
+        schema.describe_malformed_item).
     """
     speech_act_cursor = schema.EvidenceCursor()
     explanation_cursor = schema.EvidenceCursor()
     sf_tag_cursor = schema.EvidenceCursor()
+    item_errors: List[str] = []
 
     speech_acts: List[schema.SpeechAct] = []
-    for raw in tool_result.get("speech_acts") or []:
+    for i, raw in enumerate(tool_result.get("speech_acts") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(schema.describe_malformed_item(f"speech_acts[{i}]", raw))
+            continue
         evidence = speech_act_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -210,7 +223,12 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
         )
 
     explanations: List[schema.ExplanationDiscourse] = []
-    for raw in tool_result.get("explanations") or []:
+    for i, raw in enumerate(tool_result.get("explanations") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(
+                schema.describe_malformed_item(f"explanations[{i}]", raw)
+            )
+            continue
         evidence = explanation_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -229,7 +247,10 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
         )
 
     sf_tags: List[schema.SFWorldModelTag] = []
-    for raw in tool_result.get("sf_tags") or []:
+    for i, raw in enumerate(tool_result.get("sf_tags") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(schema.describe_malformed_item(f"sf_tags[{i}]", raw))
+            continue
         evidence = sf_tag_cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -245,4 +266,4 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
             )
         )
 
-    return speech_acts, explanations, sf_tags
+    return speech_acts, explanations, sf_tags, item_errors

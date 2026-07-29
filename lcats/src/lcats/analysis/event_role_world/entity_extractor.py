@@ -11,74 +11,77 @@ from typing import Any, Dict, List, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-ENTITY_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_entities",
-    "description": (
-        "Extract salient entities, participants, and aliases from a story "
-        "segment, with actant roles and quoted evidence for each mention."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "entities": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "entity_id": {"type": "string"},
-                        "canonical_name": {"type": "string"},
-                        "entity_type": {
-                            "type": "string",
-                            "description": (
-                                "e.g. human, nonhuman_animal, alien, "
-                                "machine_or_artifact, institution, "
-                                "environment, abstract_force"
-                            ),
-                        },
-                        "aliases": {"type": "array", "items": {"type": "string"}},
-                        "actant_roles": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": (
-                                "e.g. protagonist, opponent, helper, "
-                                "instrument, victim, observer"
-                            ),
-                        },
-                        "confidence": {"type": "number"},
-                        "mentions": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "mention_id": {"type": "string"},
-                                    "text": {"type": "string"},
-                                    "quote": {
-                                        "type": "string",
-                                        "description": (
-                                            "Exact substring of the segment "
-                                            "text this mention refers to."
-                                        ),
+ENTITY_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_entities",
+        "description": (
+            "Extract salient entities, participants, and aliases from a story "
+            "segment, with actant roles and quoted evidence for each mention."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "entities": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "entity_id": {"type": "string"},
+                            "canonical_name": {"type": "string"},
+                            "entity_type": {
+                                "type": "string",
+                                "description": (
+                                    "e.g. human, nonhuman_animal, alien, "
+                                    "machine_or_artifact, institution, "
+                                    "environment, abstract_force"
+                                ),
+                            },
+                            "aliases": {"type": "array", "items": {"type": "string"}},
+                            "actant_roles": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": (
+                                    "e.g. protagonist, opponent, helper, "
+                                    "instrument, victim, observer"
+                                ),
+                            },
+                            "confidence": {"type": "number"},
+                            "mentions": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "mention_id": {"type": "string"},
+                                        "text": {"type": "string"},
+                                        "quote": {
+                                            "type": "string",
+                                            "description": (
+                                                "Exact substring of the segment "
+                                                "text this mention refers to."
+                                            ),
+                                        },
+                                        "mention_form": {"type": "string"},
+                                        "grammatical_role": {"type": "string"},
                                     },
-                                    "mention_form": {"type": "string"},
-                                    "grammatical_role": {"type": "string"},
+                                    "required": ["mention_id", "text", "quote"],
                                 },
-                                "required": ["mention_id", "text", "quote"],
                             },
                         },
+                        "required": [
+                            "entity_id",
+                            "canonical_name",
+                            "entity_type",
+                            "mentions",
+                        ],
                     },
-                    "required": [
-                        "entity_id",
-                        "canonical_name",
-                        "entity_type",
-                        "mentions",
-                    ],
-                },
-            }
+                }
+            },
+            "required": ["entities"],
         },
-        "required": ["entities"],
-    },
-}
+    }
+)
 
 ENTITY_SYSTEM_PROMPT = """You are extracting entities and participants from a
 segment of a story for structured narrative analysis. Identify every salient
@@ -117,7 +120,7 @@ def make_entity_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
 
 def build_entities(
     tool_result: Dict[str, Any], segment_text: str
-) -> Tuple[List[schema.Entity], List[schema.EntityMention]]:
+) -> Tuple[List[schema.Entity], List[schema.EntityMention], List[str]]:
     """Convert a raw extract_entities tool result into schema objects.
 
     Args:
@@ -126,22 +129,38 @@ def build_entities(
         segment_text: The segment text mention quotes are resolved against.
 
     Returns:
-        (entities, mentions) — mentions whose quote cannot be located in
-        `segment_text` are dropped (not fabricated with a guessed span).
-        An entity whose every mention was dropped this way is itself
-        dropped: an entity with zero grounded mentions is ungrounded and
-        would otherwise inflate entity-rate metrics for output the
-        evidence check already rejected. Repeated identical quotes within
-        one entity's mentions resolve to successive occurrences via a
-        per-segment EvidenceCursor, not all onto the first match.
+        (entities, mentions, item_errors) — mentions whose quote cannot be
+        located in `segment_text` are dropped (not fabricated with a
+        guessed span). An entity whose every mention was dropped this way
+        is itself dropped: an entity with zero grounded mentions is
+        ungrounded and would otherwise inflate entity-rate metrics for
+        output the evidence check already rejected. Repeated identical
+        quotes within one entity's mentions resolve to successive
+        occurrences via a per-segment EvidenceCursor, not all onto the
+        first match. item_errors describes any "entities"/"mentions"
+        array item that was not a dict - skipped rather than crashing,
+        but surfaced explicitly (see schema.describe_malformed_item).
     """
     entities: List[schema.Entity] = []
     mentions: List[schema.EntityMention] = []
+    item_errors: List[str] = []
     cursor = schema.EvidenceCursor()
 
-    for raw_entity in tool_result.get("entities") or []:
+    for i, raw_entity in enumerate(tool_result.get("entities") or []):
+        if not isinstance(raw_entity, dict):
+            item_errors.append(
+                schema.describe_malformed_item(f"entities[{i}]", raw_entity)
+            )
+            continue
         mention_ids: List[str] = []
-        for raw_mention in raw_entity.get("mentions") or []:
+        for j, raw_mention in enumerate(raw_entity.get("mentions") or []):
+            if not isinstance(raw_mention, dict):
+                item_errors.append(
+                    schema.describe_malformed_item(
+                        f"entities[{i}].mentions[{j}]", raw_mention
+                    )
+                )
+                continue
             evidence = cursor.resolve(raw_mention.get("quote", ""), segment_text)
             if evidence is None:
                 continue
@@ -174,4 +193,4 @@ def build_entities(
             )
         )
 
-    return entities, mentions
+    return entities, mentions, item_errors

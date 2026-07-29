@@ -12,116 +12,119 @@ from typing import Any, Dict, List, Tuple
 
 from lcats.analysis import llm_extractor
 from lcats.analysis.event_role_world import schema
+from lcats.llm import tool_schema as tool_schema_module
 
-EVENT_TOOL_SCHEMA: Dict[str, Any] = {
-    "name": "extract_events_and_anchors",
-    "description": (
-        "Extract salient events with semantic roles, and the temporal/"
-        "spatial anchors those events occur within, from a story segment."
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "temporal_anchors": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "anchor_id": {"type": "string"},
-                        "text": {"type": "string"},
-                        "quote": {"type": "string"},
-                        "normalized": {"type": "string"},
-                        "granularity": {"type": "string"},
-                        "relative_or_absolute": {
-                            "type": "string",
-                            "enum": ["relative", "absolute"],
+EVENT_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
+    {
+        "name": "extract_events_and_anchors",
+        "description": (
+            "Extract salient events with semantic roles, and the temporal/"
+            "spatial anchors those events occur within, from a story segment."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "temporal_anchors": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "anchor_id": {"type": "string"},
+                            "text": {"type": "string"},
+                            "quote": {"type": "string"},
+                            "normalized": {"type": "string"},
+                            "granularity": {"type": "string"},
+                            "relative_or_absolute": {
+                                "type": "string",
+                                "enum": ["relative", "absolute"],
+                            },
+                            "scale": {"type": "string"},
+                            "confidence": {"type": "number"},
                         },
-                        "scale": {"type": "string"},
-                        "confidence": {"type": "number"},
+                        "required": ["anchor_id", "text", "quote"],
                     },
-                    "required": ["anchor_id", "text", "quote"],
                 },
-            },
-            "spatial_anchors": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "anchor_id": {"type": "string"},
-                        "text": {"type": "string"},
-                        "quote": {"type": "string"},
-                        "linked_entity_id": {"type": "string"},
-                        "containment_or_scale": {"type": "string"},
-                        "confidence": {"type": "number"},
+                "spatial_anchors": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "anchor_id": {"type": "string"},
+                            "text": {"type": "string"},
+                            "quote": {"type": "string"},
+                            "linked_entity_id": {"type": "string"},
+                            "containment_or_scale": {"type": "string"},
+                            "confidence": {"type": "number"},
+                        },
+                        "required": ["anchor_id", "text", "quote"],
                     },
-                    "required": ["anchor_id", "text", "quote"],
                 },
-            },
-            "events": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "event_id": {"type": "string"},
-                        "predicate": {"type": "string"},
-                        "lemma": {"type": "string"},
-                        "event_type": {"type": "string"},
-                        "quote": {
-                            "type": "string",
-                            "description": (
-                                "Exact substring of the segment text this "
-                                "event's predicate occurs in."
-                            ),
-                        },
-                        "modality": {
-                            "type": "string",
-                            "enum": [
-                                "actual",
-                                "hypothetical",
-                                "negated",
-                                "future",
-                                "counterfactual",
-                            ],
-                        },
-                        "confidence": {"type": "number"},
-                        "temporal_anchor_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "spatial_anchor_ids": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                        },
-                        "semantic_roles": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "role": {
-                                        "type": "string",
-                                        "description": (
-                                            "e.g. agent, patient, theme, "
-                                            "experiencer, instrument, "
-                                            "source, goal, location, "
-                                            "cause, result"
-                                        ),
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "event_id": {"type": "string"},
+                            "predicate": {"type": "string"},
+                            "lemma": {"type": "string"},
+                            "event_type": {"type": "string"},
+                            "quote": {
+                                "type": "string",
+                                "description": (
+                                    "Exact substring of the segment text this "
+                                    "event's predicate occurs in."
+                                ),
+                            },
+                            "modality": {
+                                "type": "string",
+                                "enum": [
+                                    "actual",
+                                    "hypothetical",
+                                    "negated",
+                                    "future",
+                                    "counterfactual",
+                                ],
+                            },
+                            "confidence": {"type": "number"},
+                            "temporal_anchor_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "spatial_anchor_ids": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                            },
+                            "semantic_roles": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "role": {
+                                            "type": "string",
+                                            "description": (
+                                                "e.g. agent, patient, theme, "
+                                                "experiencer, instrument, "
+                                                "source, goal, location, "
+                                                "cause, result"
+                                            ),
+                                        },
+                                        "filler_entity_id": {"type": "string"},
+                                        "filler_text": {"type": "string"},
+                                        "quote": {"type": "string"},
+                                        "confidence": {"type": "number"},
                                     },
-                                    "filler_entity_id": {"type": "string"},
-                                    "filler_text": {"type": "string"},
-                                    "quote": {"type": "string"},
-                                    "confidence": {"type": "number"},
+                                    "required": ["role", "quote"],
                                 },
-                                "required": ["role", "quote"],
                             },
                         },
+                        "required": ["event_id", "predicate", "event_type", "quote"],
                     },
-                    "required": ["event_id", "predicate", "event_type", "quote"],
                 },
             },
+            "required": ["events"],
         },
-        "required": ["events"],
-    },
-}
+    }
+)
 
 EVENT_SYSTEM_PROMPT = """You are extracting events, semantic roles, and
 temporal/spatial anchors from a segment of a story for structured narrative
@@ -161,9 +164,12 @@ def make_event_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     )
 
 
-def build_events_and_anchors(
-    tool_result: Dict[str, Any], segment_text: str
-) -> Tuple[List[schema.Event], List[schema.TemporalAnchor], List[schema.SpatialAnchor]]:
+def build_events_and_anchors(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
+    List[schema.Event],
+    List[schema.TemporalAnchor],
+    List[schema.SpatialAnchor],
+    List[str],
+]:
     """Convert a raw extract_events_and_anchors tool result into schema objects.
 
     Args:
@@ -172,17 +178,27 @@ def build_events_and_anchors(
         segment_text: The segment text quotes are resolved against.
 
     Returns:
-        (events, temporal_anchors, spatial_anchors). Events, semantic roles,
-        and anchors whose quote cannot be located in `segment_text` are
-        dropped (not fabricated with a guessed span). Repeated identical
-        quotes across anchors/events/roles resolve to successive
-        occurrences via a per-segment EvidenceCursor shared across all
-        three, not all onto the first match.
+        (events, temporal_anchors, spatial_anchors, item_errors). Events,
+        semantic roles, and anchors whose quote cannot be located in
+        `segment_text` are dropped (not fabricated with a guessed span).
+        Repeated identical quotes across anchors/events/roles resolve to
+        successive occurrences via a per-segment EvidenceCursor shared
+        across all three, not all onto the first match. item_errors
+        describes any "temporal_anchors"/"spatial_anchors"/"events"/
+        "semantic_roles" array item that was not a dict - skipped rather
+        than crashing, but surfaced explicitly (see
+        schema.describe_malformed_item).
     """
     cursor = schema.EvidenceCursor()
+    item_errors: List[str] = []
 
     temporal_anchors: List[schema.TemporalAnchor] = []
-    for raw in tool_result.get("temporal_anchors") or []:
+    for i, raw in enumerate(tool_result.get("temporal_anchors") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(
+                schema.describe_malformed_item(f"temporal_anchors[{i}]", raw)
+            )
+            continue
         evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -200,7 +216,12 @@ def build_events_and_anchors(
         )
 
     spatial_anchors: List[schema.SpatialAnchor] = []
-    for raw in tool_result.get("spatial_anchors") or []:
+    for i, raw in enumerate(tool_result.get("spatial_anchors") or []):
+        if not isinstance(raw, dict):
+            item_errors.append(
+                schema.describe_malformed_item(f"spatial_anchors[{i}]", raw)
+            )
+            continue
         evidence = cursor.resolve(raw.get("quote", ""), segment_text)
         if evidence is None:
             continue
@@ -216,13 +237,25 @@ def build_events_and_anchors(
         )
 
     events: List[schema.Event] = []
-    for raw_event in tool_result.get("events") or []:
+    for i, raw_event in enumerate(tool_result.get("events") or []):
+        if not isinstance(raw_event, dict):
+            item_errors.append(
+                schema.describe_malformed_item(f"events[{i}]", raw_event)
+            )
+            continue
         event_evidence = cursor.resolve(raw_event.get("quote", ""), segment_text)
         if event_evidence is None:
             continue
 
         semantic_roles: List[schema.SemanticRole] = []
-        for raw_role in raw_event.get("semantic_roles") or []:
+        for j, raw_role in enumerate(raw_event.get("semantic_roles") or []):
+            if not isinstance(raw_role, dict):
+                item_errors.append(
+                    schema.describe_malformed_item(
+                        f"events[{i}].semantic_roles[{j}]", raw_role
+                    )
+                )
+                continue
             role_evidence = cursor.resolve(raw_role.get("quote", ""), segment_text)
             if role_evidence is None:
                 continue
@@ -251,4 +284,4 @@ def build_events_and_anchors(
             )
         )
 
-    return events, temporal_anchors, spatial_anchors
+    return events, temporal_anchors, spatial_anchors, item_errors

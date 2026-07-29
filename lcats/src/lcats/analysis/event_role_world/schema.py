@@ -16,6 +16,39 @@ import dataclasses
 
 from typing import Any, Dict, List, Optional
 
+_MALFORMED_ITEM_REPR_MAX_CHARS = 200
+
+
+def describe_malformed_item(path: str, item: Any) -> str:
+    """Return a one-line description of a non-dict tool-result array item.
+
+    Used by every build_*() function in this package (entity_extractor,
+    event_extractor, relation_extractor, discourse_extractor,
+    story_relation_extractor, hypothesis_extractor) at each array-item
+    site where the tool result is iterated - see WI-EVENT-0032. A
+    malformed item is skipped rather than crashing (the
+    AttributeError: 'str' object has no attribute 'get' class of bug this
+    guards against), but the skip must still surface as an explicit
+    extraction error, not silently read as a clean, complete result -
+    see this repo's ERW pipeline structured-output reliability audit,
+    Category B.
+
+    Args:
+        path: Dotted/bracketed location of the item, e.g.
+            "entities[2]" or "entities[0].mentions[1]".
+        item: The malformed item itself (any non-dict value).
+
+    Returns:
+        A single-line string naming the path, the item's actual type, and
+        a truncated repr - long enough to diagnose, short enough not to
+        flood a log with a multi-kilobyte truncated-JSON string (the
+        actual failure mode this was built to describe).
+    """
+    item_repr = repr(item)
+    if len(item_repr) > _MALFORMED_ITEM_REPR_MAX_CHARS:
+        item_repr = item_repr[:_MALFORMED_ITEM_REPR_MAX_CHARS] + "...<truncated>"
+    return f"{path} is not an object (got {type(item).__name__}): {item_repr}"
+
 
 @dataclasses.dataclass
 class EvidenceSpan:
@@ -403,6 +436,16 @@ class SegmentWorldAnnotation:
             extraction_error means a pass may not have run at all — its
             "zero results" must not be read as "the pass ran and found
             nothing."
+        structured_extraction_errors: The subset of extraction_errors that
+            originated as a structured api_error dict (from
+            llm_extractor.JSONPromptExtractor._classify_api_error) rather
+            than an item-level string description - carrying its
+            category/can_retry/should_abort_batch fields so a caller can
+            act on them directly instead of re-deriving fatality by
+            substring-matching extraction_errors' plain-text messages
+            (WI-EVENT-0032). Purely additive: extraction_errors keeps
+            every failure as a human-readable string as before; this list
+            is a parallel, structured view of the ones that have one.
         validation_errors: ID-resolution and evidence-alignment failures
             found by validate_segment_annotation, given whatever entities/
             events/anchors/relations/discourse were actually extracted.
@@ -424,6 +467,9 @@ class SegmentWorldAnnotation:
     sf_tags: List[SFWorldModelTag] = dataclasses.field(default_factory=list)
     hypotheses: List[Hypothesis] = dataclasses.field(default_factory=list)
     extraction_errors: List[str] = dataclasses.field(default_factory=list)
+    structured_extraction_errors: List[Dict[str, Any]] = dataclasses.field(
+        default_factory=list
+    )
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -446,6 +492,7 @@ class SegmentWorldAnnotation:
             "sf_tags": [t.to_dict() for t in self.sf_tags],
             "hypotheses": [h.to_dict() for h in self.hypotheses],
             "extraction_errors": self.extraction_errors,
+            "structured_extraction_errors": self.structured_extraction_errors,
             "validation_errors": self.validation_errors,
         }
 
@@ -747,6 +794,10 @@ class StoryWorldAnnotation:
             Distinct from validation_errors: an extraction_error means the
             story-level pass may not have run at all — its "zero results"
             must not be read as "the pass ran and found nothing."
+        structured_extraction_errors: The subset of extraction_errors that
+            originated as a structured api_error dict, mirroring
+            SegmentWorldAnnotation.structured_extraction_errors at story
+            scope (WI-EVENT-0032).
         validation_errors: Story-level validation failures (see
             validate_story_annotation).
     """
@@ -765,6 +816,9 @@ class StoryWorldAnnotation:
         default_factory=list
     )
     extraction_errors: List[str] = dataclasses.field(default_factory=list)
+    structured_extraction_errors: List[Dict[str, Any]] = dataclasses.field(
+        default_factory=list
+    )
     validation_errors: List[str] = dataclasses.field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -781,6 +835,7 @@ class StoryWorldAnnotation:
                 r.to_dict() for r in self.weakly_inferred_cross_segment_relations
             ],
             "extraction_errors": self.extraction_errors,
+            "structured_extraction_errors": self.structured_extraction_errors,
             "validation_errors": self.validation_errors,
         }
 

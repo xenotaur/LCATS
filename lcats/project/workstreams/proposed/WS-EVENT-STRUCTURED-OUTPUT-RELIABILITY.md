@@ -5,7 +5,7 @@ title: Event-Role-World pipeline structured-output reliability
 status: proposed
 stage: designed
 origin: design_review
-summary: Fix the systemic structured-output reliability gaps found by the 2026-07-27 ERW pipeline audit — missing strict-mode tool schemas, unguarded array-item type assumptions, unconstrained extractors with no tool schema at all, and processor.py's model/error-handling gaps — across two work items split by whether the fix touches lcats/lcats/analysis/event_role_world/ directly.
+summary: Fix the systemic structured-output reliability gaps found by the 2026-07-27 ERW pipeline audit — missing strict-mode tool schemas, unguarded array-item type assumptions, unconstrained extractors with no tool schema at all, and processor.py's model/error-handling gaps — across two work items split by whether the fix touches lcats/src/lcats/analysis/event_role_world/ directly.
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
