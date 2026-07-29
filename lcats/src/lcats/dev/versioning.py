@@ -46,10 +46,16 @@ def _run_command(
     command: list[str], *, capture_output: bool = False
 ) -> subprocess.CompletedProcess[str]:
     try:
+        cwd = _repo_root()
+    except FileNotFoundError as error:
+        raise VersioningError(
+            f"could not resolve the LCATS package root: {error}"
+        ) from error
+    try:
         return subprocess.run(
             command,
             check=False,
-            cwd=_repo_root(),
+            cwd=cwd,
             text=True,
             capture_output=capture_output,
         )
@@ -63,6 +69,14 @@ def _ensure_command_exists(command_name: str) -> None:
 
 
 def _ensure_valid_tag(tag: str) -> None:
+    # git check-ref-format accepts a leading-dash name like "--annotate" as
+    # a syntactically valid ref -- it has no notion of CLI option parsing.
+    # "git tag <tag>" (invoked by create_tag) then interprets that same
+    # name as an option and fails, after verify_release() has already run
+    # the full lint/format/test suite. Reject it here instead, before any
+    # of that work happens.
+    if tag.startswith("-"):
+        raise VersioningError(f"invalid tag name (looks like an option): {tag}")
     result = _run_command(["git", "check-ref-format", f"refs/tags/{tag}"])
     if result.returncode != 0:
         raise VersioningError(f"invalid tag name: {tag}")
