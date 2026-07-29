@@ -13,7 +13,8 @@ assigned_agents: []
 related_focus: []
 related_roadmap: []
 related_workstreams: []
-related_design: []
+related_design:
+  - project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md
 depends_on: []
 blocked_by: []
 expected_actions:

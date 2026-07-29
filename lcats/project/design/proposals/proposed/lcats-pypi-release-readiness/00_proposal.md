@@ -12,8 +12,6 @@ supersedes: []
 superseded_by: null
 related_design:
   - project/design/proposals/adopted/lcats-packaging-modernization/00_proposal.md
-  - project/work_items/proposed/WI-RELEASE-0037.md
-  - project/work_items/resolved/WI-RELEASE-0038.md
 ---
 
 ## Summary
