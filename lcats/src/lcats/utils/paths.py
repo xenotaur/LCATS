@@ -100,7 +100,8 @@ def find_pyproject_root(start=None):
             (wheel or ``pip install .``) run outside the checkout, since
             no source tree exists on disk to walk.
     """
-    current = pathlib.Path(start if start is not None else __file__).resolve()
+    origin = start if start is not None else __file__
+    current = pathlib.Path(origin).resolve()
     if current.is_file():
         current = current.parent
 
@@ -109,7 +110,7 @@ def find_pyproject_root(start=None):
             return candidate
 
     raise FileNotFoundError(
-        f"no pyproject.toml found in any ancestor directory of {start!r}"
+        f"no pyproject.toml found in any ancestor directory of {origin!r}"
     )
 
 

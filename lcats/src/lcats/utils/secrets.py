@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import pathlib
 
-from lcats.utils.paths import find_pyproject_root
+from lcats.utils import paths
 
 # .secrets/ lives one level above the package root (the directory that
 # contains pyproject.toml), at the actual git repo root. A non-editable
@@ -26,7 +26,7 @@ from lcats.utils.paths import find_pyproject_root
 # fall back to None rather than letting that propagate out of a module
 # import, and treat None the same as "directory doesn't exist" below.
 try:
-    _DEFAULT_SECRETS_DIR = find_pyproject_root(__file__).parent / ".secrets"
+    _DEFAULT_SECRETS_DIR = paths.find_pyproject_root(__file__).parent / ".secrets"
 except FileNotFoundError:
     _DEFAULT_SECRETS_DIR = None
 
