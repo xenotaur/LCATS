@@ -16,7 +16,7 @@ work_items:
 exit_criteria:
   - WI-RELEASE-0037 is resolved -- lcats/pyproject.toml's and lcats/environment.yml's gutenbergpy dependency no longer contains a direct URL/VCS reference
   - WI-RELEASE-0038 is resolved (already true) -- lcats.version, --version, and scripts/version exist and pass validation
-  - A pre-launch verification work item (not yet created -- see Work Items) is resolved by actually being run, confirming the gutenbergpy resolution is still current, immediately before any real LCATS PyPI publish is attempted
+  - WI-RELEASE-0039 is resolved by actually being run, confirming the gutenbergpy resolution is still current, immediately before any real LCATS PyPI publish is attempted -- not resolved merely as a formality shortly after WI-RELEASE-0037
   - PROP-LCATS-PYPI-RELEASE-READINESS's implementation_status is updated to implemented once all three work items are resolved
 ---
 
@@ -39,8 +39,8 @@ express.
 - Resolve `WI-RELEASE-0037` (the `gutenbergpy` dependency blocker).
 - `WI-RELEASE-0038` (version tooling) — already resolved, tracked here for
   completeness.
-- Scope and create a new pre-launch verification work item once this
-  workstream lands.
+- Run `WI-RELEASE-0039` (pre-launch verification) immediately before any
+  real PyPI publish attempt.
 - Update `PROP-LCATS-PYPI-RELEASE-READINESS`'s `implementation_status`
   once all three work items are resolved.
 
@@ -70,11 +70,11 @@ express.
   open.
 - **WI-RELEASE-0038** — `lcats.version` module, `--version` CLI flag,
   `scripts/version` helper. Resolved, merged (PR #183).
-- **Pre-launch verification gate** (not yet created) — re-checks the
+- **WI-RELEASE-0039** — Pre-launch verification gate: re-checks the
   `gutenbergpy` dependency-blocker's resolution status (upstream release
   state, or the continued validity of whatever fix `WI-RELEASE-0037`
   lands on) immediately before any real LCATS PyPI publish is attempted.
-  To be scoped via `/lrh-work-item` after this workstream lands.
+  `depends_on: WI-RELEASE-0037`. Proposed.
 
 ## Exit Criteria
 
