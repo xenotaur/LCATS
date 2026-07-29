@@ -349,36 +349,36 @@ EVIDENCE & CONFIDENCE
   unless the entire file is paratext.
 - Use only the provided text; do not rely on external knowledge.
 
-OUTPUT SHAPE (JSON ONLY)
-Return exactly:
+OUTPUT SHAPE
+Record via the record_document_classification tool, matching its schema
+exactly (no extra top-level wrapper key):
 {
-  "classification": {
-    "integrity": "intact | corrupted",
-    "integrity_evidence": ["..."],
-    "completeness": "complete | missing_start | missing_end | missing_middle | unknown",
-    "completeness_evidence": ["..."],
-    "type": "fiction | poetry | nonfiction | drama | mixed | paratext | other",
-    "type_evidence": ["..."],
-    "series": "standalone | series_entry | collection | unknown",
-    "series_title": "",
-    "series_evidence": ["..."],
-    "genre_primary": "fantasy | science fiction | ... | unknown",
-    "genre_secondary": "",
-    "genre_evidence": ["..."],
-    "confidence": {
-      "integrity": 0.0,
-      "completeness": 0.0,
-      "type": 0.0,
-      "series": 0.0,
-      "genre": 0.0
-    }
+  "integrity": "intact | corrupted",
+  "integrity_evidence": ["..."],
+  "completeness": "complete | missing_start | missing_end | missing_middle | unknown",
+  "completeness_evidence": ["..."],
+  "type": "fiction | poetry | nonfiction | drama | mixed | paratext | other",
+  "type_evidence": ["..."],
+  "series": "standalone | series_entry | collection | unknown",
+  "series_title": "",
+  "series_evidence": ["..."],
+  "genre_primary": "fantasy | science fiction | ... | unknown",
+  "genre_secondary": "",
+  "genre_evidence": ["..."],
+  "confidence": {
+    "integrity": 0.0,
+    "completeness": 0.0,
+    "type": 0.0,
+    "series": 0.0,
+    "genre": 0.0
   }
 }
 """
 
 DOC_CLASSIFY_USER_PROMPT_TEMPLATE = """
-You will receive a STORY. Read ONLY the text and produce the JSON object
-described in the system instructions under the single key "classification".
+You will receive a STORY. Read ONLY the text and record the classification
+described in the system instructions via the record_document_classification
+tool.
 
 Procedure (internally):
 1) Skim for obvious encoding/OCR issues; decide integrity (with evidence).

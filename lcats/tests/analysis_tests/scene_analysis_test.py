@@ -234,16 +234,21 @@ class TestMakeSegmentExtractor(unittest.TestCase):
         self.assertIs(extractor.text_indexer, text_segmenter.paragraph_text_indexer)
 
     def test_result_aligner_is_set(self):
-        from lcats.analysis import text_segmenter
-
+        """WI-EVENT-0033: wraps text_segmenter.segments_result_aligner so
+        extracted_output stays a bare list under the tool= path (see
+        scene_analysis._segment_result_aligner's docstring)."""
         extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
-        self.assertIs(extractor.result_aligner, text_segmenter.segments_result_aligner)
+        self.assertIs(extractor.result_aligner, scene_analysis._segment_result_aligner)
 
     def test_result_validator_is_set(self):
-        from lcats.analysis import text_segmenter
-
+        """WI-EVENT-0033: wraps text_segmenter.segments_auditor so it still
+        receives the wrapped {"segments": [...]} shape it expects, even
+        though the aligner's own output (what result_validator receives)
+        is by then a bare list."""
         extractor = scene_analysis.make_segment_extractor(fake_backend.FakeBackend())
-        self.assertIs(extractor.result_validator, text_segmenter.segments_auditor)
+        self.assertIs(
+            extractor.result_validator, scene_analysis._segment_result_validator
+        )
 
     def test_tool_schema_is_segment_tool_schema(self):
         """WI-EVENT-0033: uses the tool= structured-output path."""
@@ -318,7 +323,7 @@ class TestMakeSemanticsExtractor(unittest.TestCase):
 class TestSegmentExtractorEndToEnd(unittest.TestCase):
     """extract() through the tool= path, including alignment/validation."""
 
-    def test_extracted_output_is_wrapped_and_aligned(self):
+    def test_extracted_output_is_bare_list_and_aligned(self):
         para_1 = "Once upon a time there was a dragon."
         para_2 = "The dragon flew away forever."
         story_text = para_1 + "\n\n" + para_2
@@ -355,11 +360,14 @@ class TestSegmentExtractorEndToEnd(unittest.TestCase):
         result = extractor.extract(story_text)
 
         extracted = result["extracted_output"]
-        self.assertIn("segments", extracted)
-        segment = extracted["segments"][0]
+        self.assertIsInstance(extracted, list)
+        segment = extracted[0]
         # The aligner fills start_char/end_char from start_par_id/
-        # start_exact - proving segments_result_aligner still receives
-        # the wrapped {"segments": [...]} dict and works unchanged.
+        # start_exact - proving _segment_result_aligner still passes the
+        # wrapped {"segments": [...]} dict through to
+        # segments_result_aligner internally, then unwraps it, so
+        # extracted_output ends up a bare list rather than the dict
+        # shape the schema itself requires.
         self.assertIsNotNone(segment["start_char"])
         self.assertIsNotNone(segment["end_char"])
         self.assertTrue(

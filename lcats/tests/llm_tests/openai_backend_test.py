@@ -115,6 +115,7 @@ class TestOpenAIBackend(unittest.TestCase):
                         "name": "record_thing",
                         "description": "Record a thing.",
                         "parameters": {"type": "object", "properties": {}},
+                        "strict": False,
                     },
                 }
             ],
@@ -126,6 +127,31 @@ class TestOpenAIBackend(unittest.TestCase):
         self.assertNotIn("response_format", stub_client.last_kwargs)
         self.assertEqual(result.tool_result, {"verdict": "include"})
         self.assertEqual(result.text, "")
+
+    def test_complete_with_tool_forwards_strict_flag(self):
+        """A tool schema's top-level strict:true is forwarded to OpenAI's
+        function-level strict flag (WI-EVENT-0033 review finding) - without
+        this, schemas hardened via lcats.llm.tool_schema.strict_tool_schema()
+        were not actually enforced for OpenAI-backed extractors, silently
+        defeating the hardening for any extractor defaulting to gpt-4o."""
+        tool_schema = {
+            "name": "record_thing",
+            "description": "Record a thing.",
+            "input_schema": {"type": "object", "properties": {}},
+            "strict": True,
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(tool_call_arguments=json.dumps({"verdict": "include"}))
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="gpt-4o-2024-08-06",
+                tool=tool_schema,
+            )
+        self.assertTrue(stub_client.last_kwargs["tools"][0]["function"]["strict"])
 
     def test_complete_with_tool_raises_on_length_truncation(self):
         """complete(tool=...) raises TruncatedResponseError on finish_reason='length'."""

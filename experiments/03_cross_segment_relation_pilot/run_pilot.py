@@ -274,9 +274,7 @@ def _segment_story(
     seg_extractor = scene_analysis.make_segment_extractor(backend)
     seg_result = seg_extractor.extract(body, model_name=model)
     error = seg_result.get("api_error") or seg_result.get("extraction_error")
-    # make_segment_extractor uses the tool= path (WI-EVENT-0033);
-    # extracted_output is {"segments": [...]}, not a bare list.
-    segments = (seg_result.get("extracted_output") or {}).get("segments") or []
+    segments = seg_result.get("extracted_output") or []
     if not segments:
         return [], error or "segmentation produced no segments"
     return segments, error

@@ -144,10 +144,13 @@ class TestRunErwPipelineStoryRelationCallSite(unittest.TestCase):
         )
 
 
-class TestSegmentStoryUnwrapsSegmentsWrapperKey(unittest.TestCase):
-    """WI-EVENT-0033: make_segment_extractor now uses the tool= path, so
-    extracted_output is {"segments": [...]}, not a bare list - _segment_story
-    must unwrap it, not treat the whole dict as the segment list."""
+class TestSegmentStoryStillReturnsBareList(unittest.TestCase):
+    """WI-EVENT-0033: make_segment_extractor now uses the tool= path
+    internally, but scene_analysis._segment_result_aligner unwraps the
+    schema's required "segments" wrapper key before returning, so
+    extracted_output stays a bare list and _segment_story needs no
+    changes of its own - this regression test proves that contract holds
+    end-to-end through the real extractor, not just at the schema level."""
 
     def test_segment_story_returns_bare_list(self):
         from lcats.llm import fake_backend

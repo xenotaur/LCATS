@@ -289,6 +289,41 @@ SEGMENT_TOOL_SCHEMA: Dict[str, Any] = tool_schema_module.strict_tool_schema(
 )
 
 
+def _segment_result_aligner(
+    parsed_output: Dict[str, Any], story_text: str, index_meta: Dict[str, Any]
+) -> List[Dict[str, Any]]:
+    """Align offsets via text_segmenter.segments_result_aligner, then
+    unwrap the "segments" key.
+
+    The tool_schema (SEGMENT_TOOL_SCHEMA) must keep a "segments" wrapper
+    so this function receives the same {"segments": [...]} shape
+    segments_result_aligner has always expected - but this wrapper then
+    unwraps it before returning, so extracted_output stays a bare list,
+    preserving make_segment_extractor's pre-WI-EVENT-0033 contract for
+    every existing caller (story_processors.py, run_pilot.py's
+    _segment_story, notebooks/12_extract_scenes.ipynb) with no changes
+    needed on their side.
+    """
+    aligned = text_segmenter.segments_result_aligner(
+        parsed_output, story_text, index_meta
+    )
+    return list(aligned.get("segments") or [])
+
+
+def _segment_result_validator(
+    parsed_output: List[Dict[str, Any]], story_text: str, index_meta: Dict[str, Any]
+) -> Dict[str, Any]:
+    """Re-wrap the bare list _segment_result_aligner produces before
+    calling text_segmenter.segments_auditor, which reads
+    parsed_output["segments"] internally. result_validator always runs
+    on the aligner's return value (see JSONPromptExtractor.extract()),
+    so parsed_output here is already the unwrapped list.
+    """
+    return text_segmenter.segments_auditor(
+        {"segments": parsed_output}, story_text, index_meta
+    )
+
+
 def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
     """Create a JSONPromptExtractor configured for scene/sequel extraction.
 
@@ -297,13 +332,11 @@ def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
 
     Returns:
         Configured JSONPromptExtractor using the tool= structured-output
-        path (WI-EVENT-0033). extracted_output is {"segments": [...]} -
-        the "segments" wrapper key is required so
-        text_segmenter.segments_result_aligner/segments_auditor (which
-        both read parsed_output["segments"]) keep working unchanged;
-        callers must unwrap ["segments"] themselves (see
-        story_processors.py, experiments/03_cross_segment_relation_pilot/
-        run_pilot.py's _segment_story).
+        path (WI-EVENT-0033). extracted_output is a bare list of segment
+        dicts, unchanged from before this migration - see
+        _segment_result_aligner's docstring for how the "segments"
+        wrapper SEGMENT_TOOL_SCHEMA requires is unwrapped before callers
+        ever see it.
     """
     return llm_extractor.JSONPromptExtractor(
         backend,
@@ -313,8 +346,8 @@ def make_segment_extractor(backend: Any) -> llm_extractor.JSONPromptExtractor:
         default_model="gpt-4o",
         temperature=0.2,
         text_indexer=text_segmenter.paragraph_text_indexer,
-        result_aligner=text_segmenter.segments_result_aligner,
-        result_validator=text_segmenter.segments_auditor,
+        result_aligner=_segment_result_aligner,
+        result_validator=_segment_result_validator,
         tool_schema=SEGMENT_TOOL_SCHEMA,
     )
 
@@ -529,45 +562,44 @@ OUTPUT POLICY
 """
 
 SCENE_SEMANTICS_USER_PROMPT_TEMPLATE = """
-Read the SEGMENT text below and return a JSON object under key "judgment"
-with your classification and checks. Base your decision strictly on the text.
+Read the SEGMENT text below and record your classification and checks via
+the record_segment_semantics tool. Base your decision strictly on the text.
 Apply the Decision Rubric and enforce the Consistency Constraints.
 
-Return ONLY JSON with this shape:
+Provide these fields (matching the tool's schema exactly - no extra
+top-level wrapper key):
 {{
-  "judgment": {{
-    "label": "dramatic_scene" | "dramatic_sequel" | "narrative_scene" | "other",
-    "reason": "<2–4 sentences explaining the label; cite concrete cues>",
-    "confidence": 0.0,
-    "checks": {{
-      "time_place_unity": true | false,
-      "gacd": {{
-        "has_goal": true | false,
-        "has_action": true | false,
-        "has_conflict": true | false,
-        "outcome": "Disaster" | "Success" | "Unclear" | "None"
-      }},
-      "erac": {{
-        "has_emotion": true | false,
-        "has_reason": true | false,
-        "has_anticipation": true | false,
-        "has_choice": true | false
-      }}
+  "label": "dramatic_scene" | "dramatic_sequel" | "narrative_scene" | "other",
+  "reason": "<2–4 sentences explaining the label; cite concrete cues>",
+  "confidence": 0.0,
+  "checks": {{
+    "time_place_unity": true | false,
+    "gacd": {{
+      "has_goal": true | false,
+      "has_action": true | false,
+      "has_conflict": true | false,
+      "outcome": "Disaster" | "Success" | "Unclear" | "None"
     }},
-    "evidence": {{
-      "time": "<if stated or implied, else \"\">",
-      "place": "<if stated or implied, else \"\">",
-      "characters": ["<main character(s)>"],
-      "quotes": {{
-        "goal": "<≤160 chars or \"\">",
-        "action": "<≤160 chars or \"\">",
-        "conflict": "<≤160 chars or \"\">",
-        "outcome": "<≤160 chars or \"\">",
-        "emotion": "<≤160 chars or \"\">",
-        "reason": "<≤160 chars or \"\">",
-        "anticipation": "<≤160 chars or \"\">",
-        "choice": "<≤160 chars or \"\">"
-      }}
+    "erac": {{
+      "has_emotion": true | false,
+      "has_reason": true | false,
+      "has_anticipation": true | false,
+      "has_choice": true | false
+    }}
+  }},
+  "evidence": {{
+    "time": "<if stated or implied, else \"\">",
+    "place": "<if stated or implied, else \"\">",
+    "characters": ["<main character(s)>"],
+    "quotes": {{
+      "goal": "<≤160 chars or \"\">",
+      "action": "<≤160 chars or \"\">",
+      "conflict": "<≤160 chars or \"\">",
+      "outcome": "<≤160 chars or \"\">",
+      "emotion": "<≤160 chars or \"\">",
+      "reason": "<≤160 chars or \"\">",
+      "anticipation": "<≤160 chars or \"\">",
+      "choice": "<≤160 chars or \"\">"
     }}
   }}
 }}
