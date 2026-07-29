@@ -19,6 +19,8 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-ASSESS-0031.md` — Extend VALID_GENRES from 4 to 8 target genres
 - `proposed/WI-EVENT-0032.md` — Harden Event-Role-World tool-schema reliability and processor error/model handling
 - `proposed/WI-EVENT-0033.md` — Add schema-hardened structured output to scene/story analysis extractors
+- `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker
+- `proposed/WI-RELEASE-0038.md` — Add lcats.version module, --version CLI flag, and scripts/version release helper
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
