@@ -13,8 +13,10 @@ related_design:
 work_items:
   - WI-RELEASE-0037
   - WI-RELEASE-0038
+  - WI-RELEASE-0039
 exit_criteria:
-  - WI-RELEASE-0037 is resolved -- lcats/pyproject.toml's and lcats/environment.yml's gutenbergpy dependency no longer contains a direct URL/VCS reference
+  - WI-RELEASE-0037 is resolved -- lcats/pyproject.toml's gutenbergpy dependency no longer contains a direct URL/VCS reference
+  - WI-RELEASE-0037 is resolved -- lcats/environment.yml's gutenbergpy dependency no longer contains a direct URL/VCS reference
   - WI-RELEASE-0038 is resolved (already true) -- lcats.version, --version, and scripts/version exist and pass validation
   - WI-RELEASE-0039 is resolved by actually being run, confirming the gutenbergpy resolution is still current, immediately before any real LCATS PyPI publish is attempted -- not resolved merely as a formality shortly after WI-RELEASE-0037
   - PROP-LCATS-PYPI-RELEASE-READINESS's implementation_status is updated to implemented once all three work items are resolved
@@ -78,9 +80,10 @@ express.
 
 ## Exit Criteria
 
-- `WI-RELEASE-0037` is resolved: `lcats/pyproject.toml`'s and
-  `lcats/environment.yml`'s `gutenbergpy` dependency no longer contains a
-  direct URL/VCS reference.
+- `WI-RELEASE-0037` is resolved: `lcats/pyproject.toml`'s `gutenbergpy`
+  dependency no longer contains a direct URL/VCS reference.
+- `WI-RELEASE-0037` is resolved: `lcats/environment.yml`'s `gutenbergpy`
+  dependency no longer contains a direct URL/VCS reference.
 - `WI-RELEASE-0038` is resolved (already true): `lcats.version`,
   `--version`, and `scripts/version` exist and pass validation.
 - The pre-launch verification work item is resolved — actually run,

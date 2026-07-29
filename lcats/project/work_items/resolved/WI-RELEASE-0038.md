@@ -14,7 +14,8 @@ related_focus: []
 related_roadmap: []
 related_workstreams:
   - WS-RELEASE
-related_design: []
+related_design:
+  - project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md
 depends_on: []
 blocked_by: []
 expected_actions:
