@@ -66,9 +66,10 @@ rest of release-readiness work proceeds.
 
 ### Duplication search
 - In-repo: No existing implementation or decision record found (grepped
-  `src/`, `project/design/proposals/`, `.claude/skills/` for
-  `gutenbergpy`; only hits were unrelated design/execution docs
-  referencing the dependency in passing).
+  `lcats/src/`, `lcats/project/design/proposals/` for `gutenbergpy`;
+  `.claude/skills/` does not exist in this repo, so it was skipped
+  rather than searched. Only hits in the searched paths were unrelated
+  design/execution docs referencing the dependency in passing).
 - Sibling repos: None identified — this is LCATS-specific.
 - External libraries: None identified as an alternative; the two
   realistic paths are vendoring the small diff or publishing a
@@ -113,7 +114,7 @@ rest of release-readiness work proceeds.
 - Does not update `README.md:33`'s stale "not yet supported" claim —
   separate item.
 - Does not build `scripts/version`/release-smoke tooling — that's
-  WI-RELEASE-0002.
+  WI-RELEASE-0038.
 - Does not actually publish `lcats` to PyPI.
 
 ## Acceptance Criteria
@@ -123,8 +124,8 @@ rest of release-readiness work proceeds.
   with rationale, including why "wait on upstream" is or isn't viable
   given no ETA.
 - `lcats/pyproject.toml`'s gutenbergpy dependency (currently
-  `pyproject.toml:26`, a git+https direct reference) no longer contains
-  a git+https or other direct URL reference.
+  `lcats/pyproject.toml:26`, a git+https direct reference) no longer
+  contains a git+https or other direct URL reference.
 - If vendoring: the alias-table/title-index logic from
   `raduangelescu/gutenbergpy` PR #26 is present in
   `lcats/src/lcats/gettenberg/` with clear attribution/comment pointing
@@ -143,7 +144,7 @@ rest of release-readiness work proceeds.
 - `lrh validate`
 - `scripts/test`
 - `scripts/build && twine check dist/*`
-- `unzip -p dist/*.whl '*.dist-info/METADATA' | grep -i gutenbergpy` (confirm no `git+`/URL reference remains)
+- `for whl in dist/*.whl; do unzip -p "$whl" '*.dist-info/METADATA'; done | grep -i gutenbergpy` (confirm no `git+`/URL reference remains; loops so multiple wheels in `dist/` are each checked, not just the first)
 
 ## Risk Notes
 
