@@ -10,6 +10,7 @@ from lcats.analysis.corpus import promote_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
+from lcats import version
 
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
@@ -80,6 +81,11 @@ def build_parser() -> argparse.ArgumentParser:
         description=TOP_LEVEL_DESCRIPTION,
         epilog=TOP_LEVEL_EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=version.format_cli_version(),
     )
     subparsers = parser.add_subparsers(dest="command")
 

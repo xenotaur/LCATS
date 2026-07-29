@@ -6,6 +6,7 @@ from unittest import mock
 import parameterized
 
 from lcats import cli
+from lcats import version
 from lcats.utils import capture
 
 
@@ -123,6 +124,24 @@ class TestCli(unittest.TestCase):
                 cli.main(argv)
         self.assertEqual(0, cm.exception.code)
         self.assertIn(expected_usage, captured.stdout.getvalue())
+
+    def test_version_flag_prints_installed_version(self):
+        """Ensure --version prints the real package version, not a hardcoded string."""
+        with mock.patch("lcats.version.format_cli_version", return_value="lcats 9.9.9"):
+            with capture.capture_output() as captured:
+                with self.assertRaises(SystemExit) as cm:
+                    cli.dispatch("--version", [])
+        self.assertEqual(0, cm.exception.code)
+        self.assertEqual("lcats 9.9.9", captured.stdout.getvalue().strip())
+
+    def test_version_flag_matches_lcats_version_module(self):
+        """Ensure the CLI's --version output is not a value baked in at import time."""
+        with capture.capture_output() as captured:
+            with self.assertRaises(SystemExit):
+                cli.dispatch("--version", [])
+        self.assertEqual(
+            version.format_cli_version(), captured.stdout.getvalue().strip()
+        )
 
     def test_survey_help_contains_examples(self):
         with capture.capture_output() as captured:
