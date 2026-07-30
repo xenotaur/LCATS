@@ -33,7 +33,8 @@ acceptance:
   - Checkpoint publication is atomic: writes go to a temp path in the same directory and are moved into place via os.replace/Path.replace only after the write completes, per Decision 1
   - Any checkpoint file that fails to parse (I/O error, JSON error) is treated as incomplete, never as done and never as a hard failure that aborts the caller, per Decision 1
   - The checkpoint predicate distinguishes success from recorded failure (not bare file presence), per Decision 2
-  - Each checkpoint records a configuration-identity fingerprint (at minimum model name and a version/hash of the relevant prompt template or tool schema) alongside its outcome, and a fingerprint mismatch on resume is treated as if the checkpoint did not exist, per Decision 2
+  - The helper's checkpoint API requires every caller to explicitly pass a fingerprint argument (no silent default) alongside a checkpoint's outcome, per Decision 2; the exact fingerprint contents are caller-defined (e.g. model name plus a prompt/schema version/hash), and a fingerprint mismatch on resume is treated as if the checkpoint did not exist
+  - A caller that explicitly opts out by passing an empty/no-op fingerprint gets defined, documented resume behavior (the mismatch check never invalidates that caller's checkpoints, since there is nothing to compare) rather than an undefined or silently-broken state
   - The helper's API supports per-stage granularity (independent checkpoints for distinct pipeline stages within a single run), per Decision 3
   - New unit tests cover atomic publication under simulated interruption, the success/failure predicate, and fingerprint mismatch invalidation
   - lrh validate reports 0 errors
@@ -119,11 +120,13 @@ success/failure-plus-configuration-identity checkpoint predicate
 - Does not adopt Ray, Dagster, or Prefect — per the proposal's Non-Goals.
 - Does not implement Category E1 (model-invocation logging/budget
   enforcement) — per the proposal's Non-Goals.
-- Does not decide the exact configuration-fingerprint contents for any
-  specific caller (e.g. `run_pilot.py`'s own model/schema versioning) —
-  the helper's API must make omitting a fingerprint field a deliberate
-  caller choice, not prescribe the contents itself; per-caller fingerprint
-  design is WI-PIPELINE-0041's concern.
+- Does not decide the exact *contents* of any specific caller's
+  fingerprint (e.g. `run_pilot.py`'s own model/schema versioning fields)
+  — the helper's API requires a fingerprint argument on every call (never
+  silently defaulted) but leaves what goes inside it to each caller;
+  per-caller fingerprint design is WI-PIPELINE-0041's concern. A caller
+  may still choose an empty/no-op fingerprint, but that is an explicit,
+  visible argument at the call site, not an omitted parameter.
 
 ## Acceptance Criteria
 

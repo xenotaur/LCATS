@@ -85,9 +85,10 @@ attempted.
 
 - **WI-PIPELINE-0040** — Shared checkpoint helper: implement and
   unit-test the helper described above (Decisions 1, 2, 4).
-- **WI-PIPELINE-0041** — `run_pilot.py` migration + re-vetting (not yet
-  created): migrate the script to use the helper (Decision 3) and
-  re-run this session's 8-criteria vetting against the migrated version.
+- A second work item is expected next: migrate `run_pilot.py` to use the
+  helper (Decision 3) and re-run this session's 8-criteria vetting against
+  the migrated version. Not yet assigned an ID — will be added to this
+  list once its file exists, per convention.
 
 ## Exit Criteria
 
