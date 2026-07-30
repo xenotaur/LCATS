@@ -32,7 +32,7 @@ forbidden_actions:
 acceptance:
   - run_pilot.py uses the WI-PIPELINE-0040 checkpoint helper for staged execution, with separate checkpointed artifacts for genre-detection, segmentation, ERW-extraction, and cross-segment-relation (per Decision 3 and WS-PIPELINE-CHECKPOINTING's exit criteria), not the whole per-story pipeline collapsed into one checkpointed unit
   - A bounded small-scale trial (at most a few dozen LLM calls) can be run end to end, verified without spending real API money via a fake-backend harness
-  - A crash or Ctrl-C mid-run preserves every already-completed stage's checkpointed output, verified via a fake-backend harness that simulates interruption after partial completion
+  - A crash or Ctrl-C mid-run preserves every already-completed stage's checkpointed output, verified via a fake-backend harness that actually raises KeyboardInterrupt (or terminates a subprocess) after partial completion — not merely an ordinary Exception, which run_pilot.py's existing except Exception block would catch and continue past without ever exercising the real interruption path
   - A resumed run after interruption skips already-checkpointed, successfully-completed stages and does not re-issue their LLM calls
   - The migrated script is re-vetted against the same 8 operational criteria used to freeze it this session (unit tested, bounded small-scale trial, pipelined/resumable, stronger validation, stronger error detection, call estimation, logging, call counting), with both hard blockers (bounded trial, crash/interrupt recovery) confirmed resolved
   - lrh validate reports 0 errors
@@ -89,9 +89,14 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
   WI-PIPELINE-0040 checkpoint helper, per Decision 3's per-stage
   granularity.
 - Define this script's own configuration-fingerprint contents (model
-  name plus whatever prompt/schema/extractor-version fields are
-  relevant), per Decision 2 — left open by WI-PIPELINE-0040 as a
-  per-caller choice.
+  name, prompt/schema/extractor-version fields, and a hash/version of
+  each stage's actual upstream input), per Decision 2 — left open by
+  WI-PIPELINE-0040 as a per-caller choice. A downstream stage's
+  checkpoint identity must include or derive from its upstream input, so
+  correcting an earlier stage's output under an unchanged model
+  configuration still invalidates dependent checkpoints rather than
+  silently combining stale downstream results with corrected upstream
+  ones.
 - Re-vet the migrated script against this session's 8 operational
   criteria, using a fake-backend harness for the bounded-trial and
   crash-recovery checks (no real API spend required to verify these).
@@ -102,10 +107,16 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
    to checkpoint through the WI-PIPELINE-0040 helper, replacing the
    current write-at-the-end `.open("w")` sites.
 2. Define and wire up this script's configuration fingerprint (model,
-   prompt/schema version) into every checkpoint call.
+   prompt/schema version, and a hash/version of each stage's upstream
+   input) into every checkpoint call, so a downstream checkpoint is
+   invalidated if its upstream input changes even under an unchanged
+   model configuration.
 3. Add or extend `run_pilot_test.py` with fake-backend-harness tests
-   proving: a bounded small-scale trial completes without full-run cost,
-   an interruption mid-run preserves already-checkpointed stages, and a
+   proving: a bounded small-scale trial completes without full-run cost;
+   an interruption that actually raises `KeyboardInterrupt` (or
+   terminates a subprocess) mid-run preserves already-checkpointed
+   stages, not merely an ordinary `Exception` that the script's existing
+   `except Exception` block would already catch and continue past; and a
    resumed run skips already-successful, fingerprint-matching stages.
 4. Re-run this session's 8-criteria vetting against the migrated script
    and document the result (e.g. in the PR description or a short
@@ -138,15 +149,24 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
 - `scripts/lint`
 - `scripts/test`
 - Fake-backend harness run demonstrating bounded trial, interrupt
-  recovery, and resume-skip behavior (no real API calls)
+  recovery via an actual `KeyboardInterrupt` or terminated subprocess
+  (not an ordinary caught `Exception`), and resume-skip behavior (no
+  real API calls)
 
 ## Risk Notes
 
 - A fake-backend test can pass for the wrong reason if it doesn't
   exercise the real interruption/resume code path (a confirmed recurring
   failure mode this session, e.g. `_classify_api_error` not actually
-  reached by one error branch) — tests must simulate a real exception
-  mid-run, not just assert on a mocked return value.
+  reached by one error branch) — tests must simulate the real
+  interruption mechanism (`KeyboardInterrupt` or a terminated
+  subprocess, not an ordinary caught `Exception`, per review on PR #195),
+  not just assert on a mocked return value.
+- A fingerprint scoped to model/schema version alone would miss upstream
+  input changes (e.g. a corrected source story reprocessed under the
+  same model), silently combining a stale downstream checkpoint with a
+  corrected upstream result — per review on PR #195, checkpoint identity
+  must account for upstream input, not configuration alone.
 - Re-vetting "on paper" without an actual fake-backend run would repeat
   this session's own original vetting gap.
 
