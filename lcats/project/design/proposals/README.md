@@ -6,11 +6,11 @@ short index plus the proposal document.
 
 ## Current proposal sets
 
-- [`PROP-LCATS-EVENT-ROLE-WORLD-EXTRACTOR`](proposed/lcats-event-role-world-extractor/README.md)
-  — proposed; implementation not started.
+- [`PROP-LCATS-EVENT-ROLE-WORLD-EXTRACTOR`](adopted/lcats-event-role-world-extractor/README.md)
+  — adopted; implemented (`WI-EVENT-0024`/`0025`/`0026`/`0027`).
 - [`PROP-LCATS-PYPI-RELEASE-READINESS`](proposed/lcats-pypi-release-readiness/README.md)
   — proposed; implementation partial (`WI-RELEASE-0038` delivered,
   `WI-RELEASE-0037`/`WI-RELEASE-0039` open).
-- [`PROP-LCATS-PIPELINE-CHECKPOINTING`](proposed/lcats-pipeline-checkpointing/README.md)
-  — proposed; implementation not started.
+- [`PROP-LCATS-PIPELINE-CHECKPOINTING`](adopted/lcats-pipeline-checkpointing/README.md)
+  — adopted; implementation not started (governed by `WS-PIPELINE-CHECKPOINTING`).
 

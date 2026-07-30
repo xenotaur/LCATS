@@ -2,7 +2,7 @@
 id: PROP-LCATS-PIPELINE-CHECKPOINTING
 type: design_proposal
 title: Staged, Checkpointed Pipeline Execution for LCATS Batch Scripts
-status: proposed
+status: adopted
 created_on: 2026-07-30
 updated_on: 2026-07-30
 implementation_status: not_started

@@ -10,7 +10,7 @@ related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
 related_design:
-  - lcats/project/design/proposals/proposed/lcats-pipeline-checkpointing/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/workstreams/proposed/WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY.md
 work_items: []
@@ -25,19 +25,15 @@ exit_criteria:
 
 ## Purpose
 
-This workstream will deliver `PROP-LCATS-PIPELINE-CHECKPOINTING`
-(`lcats/project/design/proposals/proposed/lcats-pipeline-checkpointing/00_proposal.md`),
-drafted and confirmed this session in response to `run_pilot.py`'s
-measured failure against 8 operational criteria (3 real runs, ~$50, zero
-surviving artifacts; no bounded small-scale trial). The proposal's own
-`status` is still `proposed`, not yet formally `adopted` — this
-workstream exists as the recommended follow-on the proposal's own
-Implementation Plan calls for, and its scoping is contingent on that
-proposal's adoption completing before implementation work items are
-picked up. It coordinates building a shared, reusable checkpoint
-pattern — not a `run_pilot.py`-only patch — and migrating `run_pilot.py`
-onto it, then re-vetting the migrated script before any further real,
-paid run is attempted.
+This workstream delivers `PROP-LCATS-PIPELINE-CHECKPOINTING`
+(`lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md`),
+drafted, confirmed, and adopted this session in response to
+`run_pilot.py`'s measured failure against 8 operational criteria (3 real
+runs, ~$50, zero surviving artifacts; no bounded small-scale trial). It
+coordinates building a shared, reusable checkpoint pattern — not a
+`run_pilot.py`-only patch — and migrating `run_pilot.py` onto it, then
+re-vetting the migrated script before any further real, paid run is
+attempted.
 
 ## Scope
 
@@ -79,9 +75,8 @@ paid run is attempted.
 - Work items: `WI-EVENT-0032` and `WI-EVENT-0033` both explicitly defer
   Category E (checkpointing/logging) as "independent and schedulable
   separately" — this workstream is exactly that follow-on.
-- Proposals: `PROP-LCATS-PIPELINE-CHECKPOINTING` (drafted and confirmed
-  this session; still `status: proposed`) requests this workstream
-  directly in its own Implementation Plan.
+- Proposals: `PROP-LCATS-PIPELINE-CHECKPOINTING` (adopted this session)
+  requests this workstream directly in its own Implementation Plan.
 - Backlog: No matching entries (no `project/design/backlog.md` exists).
 - Recommendation: Proceed.
 

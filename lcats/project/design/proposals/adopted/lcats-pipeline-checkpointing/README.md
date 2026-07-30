@@ -1,7 +1,7 @@
 ---
 id: PROP-LCATS-PIPELINE-CHECKPOINTING
 type: design_proposal_set
-status: proposed
+status: adopted
 implementation_status: not_started
 ---
 
@@ -20,5 +20,4 @@ meaning a crash or interruption discards every already-paid-for LLM call.
   decisions (checkpoint publication, staleness/identity, granularity,
   adoption path), non-goals, and implementation plan.
 
-No governing workstream exists yet; the Implementation Plan recommends
-`/lrh-workstream` once this proposal is adopted.
+Governed by [`WS-PIPELINE-CHECKPOINTING`](../../../workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md).
