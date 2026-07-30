@@ -58,7 +58,7 @@ LLM output) is written to its own file immediately as the run proceeds —
 but it is deliberately scoped to a single stage (segmentation only), not
 a general pattern for multi-stage pipelines.
 
-Existing precedent: `lcats/lcats/gatherers/downloaders.py:223-253`'s
+Existing precedent: `lcats/src/lcats/gatherers/downloaders.py:223-253`'s
 `DataGatherer.download` already does file-existence checkpointing in
 production, at real corpus scale, with zero new dependency — *"If a file
 doesn't already exist, get its resource and process it with the
@@ -80,7 +80,7 @@ same fragility this proposal exists to eliminate.
 ### Duplication search
 - In-repo: No existing implementation found. No design proposal or skill
   currently covers checkpointing, persistence, or staged pipeline
-  execution. `lcats/lcats/pipeline.py` is a related but incomplete
+  execution. `lcats/src/lcats/pipeline.py` is a related but incomplete
   skeleton (`Stage`/`Pipeline`/`RunResult`/`RunContext` dataclasses) — not
   a duplicate to extend as-is: it has no disk persistence at all (state
   lives only in the Python process, the same failure mode this proposal
@@ -145,24 +145,63 @@ migration). Prefect/Dagster/Ray remain live candidates to "graduate to"
 later, specifically once real parallelism/distributed-scale needs are
 demonstrated empirically rather than chosen speculatively ahead of need.
 
+**Requirement: atomic checkpoint publication (review finding, PR #190).**
+`DataGatherer.download`'s own precedent writes directly to its
+destination path, which is not itself sufficient here: if the process is
+interrupted after a checkpoint file is created or truncated but before
+its contents are fully written, a naive file-existence check would treat
+that torn file as a completed checkpoint on the next run — reproducing
+exactly the interruption failure this proposal exists to eliminate. The
+shared helper (Decision 4) must write to a temporary path in the same
+directory and atomically rename it into place only after the write
+completes (`os.replace`/`Path.replace`, which is atomic on the same
+filesystem), and must treat any checkpoint file that fails to parse as
+cleanly as the write's own error case (I/O error, JSON error) as
+"incomplete," never as done and never as a hard failure that blocks
+the whole run.
+
 ### Decision 2: Checkpoint predicate (what counts as "done")
 
 Options considered:
 - Bare presence of an output file for a given story/stage.
 - A success/failure predicate that distinguishes a genuinely completed
   stage from a recorded, recoverable failure.
+- A success/failure predicate plus a run-configuration identity check,
+  so a checkpoint is only honored if it was produced under a
+  configuration compatible with the current run.
 
-**Chosen: success/failure predicate.** Confirmed via review on PR #169:
-mere presence would treat `excluded: true` rows (transient
-parsing/extraction failures) as "done," silently preserving or skipping
-recoverable failures on a resumed run after a model switch or bug fix —
-exactly the failure mode a checkpoint mechanism must not introduce.
-`check_segmentation_reliability.py` (PR #189) currently treats any
-existing per-story output file as complete regardless of recorded
-outcome, which is a deliberate, narrower simplification correct only
-because that script does not retry; a general pattern intended for reuse
-must make this choice explicit and document it per use case, not bake in
-one script's simplification as the default.
+**Chosen: success/failure predicate plus configuration identity.**
+Confirmed via review on PR #169: mere presence would treat `excluded:
+true` rows (transient parsing/extraction failures) as "done," silently
+preserving or skipping recoverable failures on a resumed run — the
+success/failure distinction alone fixes that. But review on this
+proposal (PR #190, P1) correctly identified that success/failure alone
+is still insufficient for the exact scenario Decision 2 already named:
+"a resumed run after a model switch or bug fix." A checkpoint recorded
+as successful under the *old* model, prompt template, tool schema, or
+extractor code version is not actually valid evidence for a run under a
+*new* one — treating it as done would silently combine stale successful
+checkpoints with newly recomputed results, corrupting comparability
+exactly the way a bare presence check corrupts it for transient
+failures, just for a different reason. The shared helper (Decision 4)
+must therefore write, alongside each checkpoint's outcome, an identity
+fingerprint of the configuration that produced it — at minimum the model
+name and a version/hash of the relevant prompt template or tool schema;
+callers with additional relevant upstream dependencies (e.g. a specific
+extractor module version) should include those too — and a checkpoint is
+only honored on resume if that fingerprint matches the current run's
+configuration; a mismatch is treated as if the checkpoint did not exist,
+forcing recomputation. The exact fingerprint contents are caller-specific
+(left to work-item design, not this proposal - see Open Questions), but
+the helper's checkpoint API must make omitting one a deliberate choice, not
+a silent gap. `check_segmentation_reliability.py` (PR #189) currently
+treats any existing per-story output file as complete regardless of
+recorded outcome or configuration, which is a deliberate, narrower
+simplification correct only because that script does not retry and is
+typically run once per model under study; a general pattern intended for
+reuse must make both choices (success/failure, configuration identity)
+explicit and documented per use case, not bake in one script's
+simplification as the default.
 
 ### Decision 3: Staging granularity — per-item vs. per-stage
 
@@ -277,11 +316,11 @@ this proposal is adopted:
 
 - Audit: `lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`
   (Category E, E1/E2, and the grounding sources this proposal reuses)
-- Precedent: `lcats/lcats/gatherers/downloaders.py:223-253`
+- Precedent: `lcats/src/lcats/gatherers/downloaders.py:223-253`
   (`DataGatherer.download`)
 - Related, deferred design:
   `lcats/project/design/flat_story_layout_migration_impact_report.md`
-- Related, dead-code skeleton: `lcats/lcats/pipeline.py`
+- Related, dead-code skeleton: `lcats/src/lcats/pipeline.py`
 - Interim narrower tool:
   `experiments/03_cross_segment_relation_pilot/check_segmentation_reliability.py`
   (PR #189)
@@ -291,9 +330,10 @@ this proposal is adopted:
 ## Open Questions
 
 - Exact shared-helper API shape (function/class signature, directory
-  and filename naming convention, how a caller declares its own stages)
-  — left to the follow-on workstream/work-item design, not decided by
-  this proposal.
+  and filename naming convention, how a caller declares its own stages,
+  the exact configuration-fingerprint contents per Decision 2) — left to
+  the follow-on workstream/work-item design, not decided by this
+  proposal.
 - Whether Category E1 (logging/budget enforcement) should be folded into
   the same workstream as this proposal's E2 work, or proposed/scoped
   entirely separately — the Non-Goals above defer this decision, not
