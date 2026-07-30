@@ -13,7 +13,8 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/workstreams/proposed/WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY.md
-work_items: []
+work_items:
+  - WI-PIPELINE-0040
 exit_criteria:
   - A shared checkpoint helper exists (location settled during work-item scoping) implementing Decision 1's atomic temp-file + rename publication and Decision 2's success/failure predicate plus configuration-identity fingerprint, with unit tests
   - run_pilot.py is migrated to staged, checkpointed execution per Decision 3's per-stage granularity, with separate checkpointed artifacts for genre-detection, segmentation, ERW-extraction, and cross-segment-relation (not the whole per-story pipeline collapsed into one unit)
@@ -82,14 +83,11 @@ attempted.
 
 ## Work Items
 
-Not yet created. Per the proposal's Implementation Plan, this workstream
-expects two work items once scoped via `/lrh-work-item`:
-
-- **Shared checkpoint helper** — implement and unit-test the helper
-  described above (Decisions 1, 2, 4).
-- **`run_pilot.py` migration + re-vetting** — migrate the script to use
-  the helper (Decision 3) and re-run this session's 8-criteria vetting
-  against the migrated version.
+- **WI-PIPELINE-0040** — Shared checkpoint helper: implement and
+  unit-test the helper described above (Decisions 1, 2, 4).
+- **WI-PIPELINE-0041** — `run_pilot.py` migration + re-vetting (not yet
+  created): migrate the script to use the helper (Decision 3) and
+  re-run this session's 8-criteria vetting against the migrated version.
 
 ## Exit Criteria
 
