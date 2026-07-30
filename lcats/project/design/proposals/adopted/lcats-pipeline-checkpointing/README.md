@@ -20,4 +20,4 @@ meaning a crash or interruption discards every already-paid-for LLM call.
   decisions (checkpoint publication, staleness/identity, granularity,
   adoption path), non-goals, and implementation plan.
 
-Governed by [`WS-PIPELINE-CHECKPOINTING`](../../../workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md).
+Governed by [`WS-PIPELINE-CHECKPOINTING`](../../../../workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md).
