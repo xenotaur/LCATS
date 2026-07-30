@@ -16,7 +16,7 @@ related_design:
 work_items: []
 exit_criteria:
   - A shared checkpoint helper exists (location settled during work-item scoping) implementing Decision 1's atomic temp-file + rename publication and Decision 2's success/failure predicate plus configuration-identity fingerprint, with unit tests
-  - run_pilot.py is migrated to staged, checkpointed execution per Decision 3's per-stage granularity (genre-detection scan vs. per-story ERW pipeline)
+  - run_pilot.py is migrated to staged, checkpointed execution per Decision 3's per-stage granularity, with separate checkpointed artifacts for genre-detection, segmentation, ERW-extraction, and cross-segment-relation (not the whole per-story pipeline collapsed into one unit)
   - The migrated run_pilot.py is re-vetted against the same 8 operational criteria used to freeze it this session, with both hard blockers (bounded small-scale trial, crash/interrupt recovery) confirmed resolved
   - Both work items resolved and lrh validate reports 0 errors
 ---
@@ -25,14 +25,19 @@ exit_criteria:
 
 ## Purpose
 
-This workstream delivers `PROP-LCATS-PIPELINE-CHECKPOINTING`
+This workstream will deliver `PROP-LCATS-PIPELINE-CHECKPOINTING`
 (`lcats/project/design/proposals/proposed/lcats-pipeline-checkpointing/00_proposal.md`),
-adopted this session in response to `run_pilot.py`'s measured failure
-against 8 operational criteria (3 real runs, ~$50, zero surviving
-artifacts; no bounded small-scale trial). It coordinates building a
-shared, reusable checkpoint pattern — not a `run_pilot.py`-only patch —
-and migrating `run_pilot.py` onto it, then re-vetting the migrated
-script before any further real, paid run is attempted.
+drafted and confirmed this session in response to `run_pilot.py`'s
+measured failure against 8 operational criteria (3 real runs, ~$50, zero
+surviving artifacts; no bounded small-scale trial). The proposal's own
+`status` is still `proposed`, not yet formally `adopted` — this
+workstream exists as the recommended follow-on the proposal's own
+Implementation Plan calls for, and its scoping is contingent on that
+proposal's adoption completing before implementation work items are
+picked up. It coordinates building a shared, reusable checkpoint
+pattern — not a `run_pilot.py`-only patch — and migrating `run_pilot.py`
+onto it, then re-vetting the migrated script before any further real,
+paid run is attempted.
 
 ## Scope
 
@@ -41,7 +46,11 @@ script before any further real, paid run is attempted.
   predicate plus configuration-identity fingerprint), and Decision 4
   (shared pattern, not a one-script fix).
 - Migrate `run_pilot.py` to staged, checkpointed execution using the
-  helper, per Decision 3's per-stage granularity.
+  helper, per Decision 3's per-stage granularity: separate checkpointed
+  artifacts for genre-detection, segmentation, ERW-extraction, and
+  cross-segment-relation, not the whole per-story pipeline treated as one
+  checkpointed unit (an interruption mid-pipeline must not discard
+  already-succeeded earlier-stage calls for that story).
 - Re-vet the migrated `run_pilot.py` against this session's own 8
   operational criteria before it is considered safe for another real run.
 - Land both work items through the standard LRH execution lifecycle
@@ -53,10 +62,13 @@ script before any further real, paid run is attempted.
 ## Prior Art Check
 
 ### Duplication search
-- In-repo: No existing implementation. `PROP-LCATS-PIPELINE-CHECKPOINTING`
+- In-repo: No existing checkpointing implementation. `PROP-LCATS-PIPELINE-CHECKPOINTING`
   itself already ran this search in full (see the proposal's own Prior
-  Art Check) — `lcats/src/lcats/pipeline.py` is a related but dead-code
-  skeleton with no disk persistence, not something to extend as-is.
+  Art Check) — `lcats/src/lcats/pipeline.py` is a documented, tested
+  module (root `README.md`; `lcats/tests/pipeline_test.py`) but not a
+  duplicate to extend as-is for this purpose: its `Stage`/`Pipeline`/
+  `RunResult`/`RunContext` dataclasses have no disk persistence or
+  checkpointing of any kind, the exact gap this workstream exists to fill.
 - Sibling repos: None identified.
 - External libraries: Considered and deferred in the proposal (Prefect,
   Dagster, Ray, Airflow) — none adopted now; zero-dependency
@@ -67,8 +79,9 @@ script before any further real, paid run is attempted.
 - Work items: `WI-EVENT-0032` and `WI-EVENT-0033` both explicitly defer
   Category E (checkpointing/logging) as "independent and schedulable
   separately" — this workstream is exactly that follow-on.
-- Proposals: `PROP-LCATS-PIPELINE-CHECKPOINTING` (adopted this session)
-  requests this workstream directly in its own Implementation Plan.
+- Proposals: `PROP-LCATS-PIPELINE-CHECKPOINTING` (drafted and confirmed
+  this session; still `status: proposed`) requests this workstream
+  directly in its own Implementation Plan.
 - Backlog: No matching entries (no `project/design/backlog.md` exists).
 - Recommendation: Proceed.
 
