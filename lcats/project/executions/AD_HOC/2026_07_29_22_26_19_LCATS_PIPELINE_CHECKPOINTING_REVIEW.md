@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/190
-commit:
+commit: 683202a8
 agent: claude_app
 instruction_source: user request in-session ("Let's start the pipelining proposal via /lrh-proposal", confirmed draft, "Yes, proceed with review/merge/closeout.")
 session_transcript: pending
