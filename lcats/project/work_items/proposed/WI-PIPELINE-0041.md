@@ -1,0 +1,161 @@
+---
+resolution: null
+blocked_reason: null
+blocked: false
+id: WI-PIPELINE-0041
+title: Migrate run_pilot.py to staged, checkpointed execution and re-vet against operational criteria
+type: deliverable
+status: proposed
+priority: high
+owner: unassigned
+contributors: []
+assigned_agents: []
+related_focus:
+  - FOCUS-WORLDCON-2026
+related_roadmap: []
+related_workstreams:
+  - WS-PIPELINE-CHECKPOINTING
+related_design:
+  - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
+depends_on:
+  - WI-PIPELINE-0040
+blocked_by: []
+expected_actions:
+  - edit_file
+  - run_tests
+  - create_pr
+forbidden_actions:
+  - force_push
+  - delete_branch
+  - implement_new_architecture
+  - run_real_llm_calls_without_explicit_approval
+acceptance:
+  - run_pilot.py uses the WI-PIPELINE-0040 checkpoint helper for staged execution, with separate checkpointed artifacts for genre-detection, segmentation, ERW-extraction, and cross-segment-relation (per Decision 3 and WS-PIPELINE-CHECKPOINTING's exit criteria), not the whole per-story pipeline collapsed into one checkpointed unit
+  - A bounded small-scale trial (at most a few dozen LLM calls) can be run end to end, verified without spending real API money via a fake-backend harness
+  - A crash or Ctrl-C mid-run preserves every already-completed stage's checkpointed output, verified via a fake-backend harness that simulates interruption after partial completion
+  - A resumed run after interruption skips already-checkpointed, successfully-completed stages and does not re-issue their LLM calls
+  - The migrated script is re-vetted against the same 8 operational criteria used to freeze it this session (unit tested, bounded small-scale trial, pipelined/resumable, stronger validation, stronger error detection, call estimation, logging, call counting), with both hard blockers (bounded trial, crash/interrupt recovery) confirmed resolved
+  - lrh validate reports 0 errors
+required_evidence:
+  - manual_review
+  - lrh_validate
+  - test_output
+artifacts_expected:
+  - experiments/03_cross_segment_relation_pilot/run_pilot.py
+  - experiments/03_cross_segment_relation_pilot/run_pilot_test.py
+---
+
+## Summary
+
+Migrate `run_pilot.py` from its current in-memory-only, write-at-the-end
+architecture to staged, checkpointed execution using the
+WI-PIPELINE-0040 helper, then re-vet the migrated script against this
+session's own 8 operational criteria before it is considered safe for
+another real, paid run.
+
+## Problem / Context
+
+This session vetted `run_pilot.py` against 8 operational criteria after
+3 real runs (~$50) left zero surviving artifacts, and found it fails
+both hard blockers: no bounded small-scale trial (a minimal real run
+costs ~98-479 calls, not "a few dozen"), and no persistence/resume (a
+crash or Ctrl-C, which is not an `Exception` subclass and escapes the
+script's `except Exception` catch-all, discards every already-paid-for
+result). `PROP-LCATS-PIPELINE-CHECKPOINTING` (adopted) exists to fix
+this, and this item is its second Implementation Plan item — the actual
+migration, gated on WI-PIPELINE-0040's helper landing first.
+
+### Duplication search
+- In-repo: No existing migration. `check_segmentation_reliability.py`
+  (PR #189) already demonstrates per-story persistence for segmentation
+  alone, but is deliberately scoped to a single stage, not a general
+  pattern — not a duplicate of this broader migration.
+- Sibling repos: None identified.
+- External libraries: None — this item uses WI-PIPELINE-0040's helper,
+  not a new orchestration framework.
+- Recommendation: Proceed.
+
+### Demand search
+- Work items: None found beyond this proposal's own request.
+- Proposals: `PROP-LCATS-PIPELINE-CHECKPOINTING`'s Implementation Plan
+  names this as its second item, explicitly gated on the shared helper.
+- Backlog: No matching entries.
+- Recommendation: Proceed.
+
+## Scope
+
+- Migrate `run_pilot.py`'s genre-detection scan, segmentation,
+  ERW-extraction, and cross-segment-relation stages to use the
+  WI-PIPELINE-0040 checkpoint helper, per Decision 3's per-stage
+  granularity.
+- Define this script's own configuration-fingerprint contents (model
+  name plus whatever prompt/schema/extractor-version fields are
+  relevant), per Decision 2 — left open by WI-PIPELINE-0040 as a
+  per-caller choice.
+- Re-vet the migrated script against this session's 8 operational
+  criteria, using a fake-backend harness for the bounded-trial and
+  crash-recovery checks (no real API spend required to verify these).
+
+## Required Changes
+
+1. Migrate `run_pilot.py`'s per-story loop and its genre-detection scan
+   to checkpoint through the WI-PIPELINE-0040 helper, replacing the
+   current write-at-the-end `.open("w")` sites.
+2. Define and wire up this script's configuration fingerprint (model,
+   prompt/schema version) into every checkpoint call.
+3. Add or extend `run_pilot_test.py` with fake-backend-harness tests
+   proving: a bounded small-scale trial completes without full-run cost,
+   an interruption mid-run preserves already-checkpointed stages, and a
+   resumed run skips already-successful, fingerprint-matching stages.
+4. Re-run this session's 8-criteria vetting against the migrated script
+   and document the result (e.g. in the PR description or a short
+   validation note), explicitly confirming both hard blockers are
+   resolved.
+
+## Non-Goals
+
+- Does not implement the shared checkpoint helper itself — that is
+  WI-PIPELINE-0040, a hard dependency.
+- Does not run a real, paid `run_pilot.py` execution as part of this
+  item — re-vetting must be demonstrated via a fake-backend harness, not
+  a real API spend, matching this session's own dry-run discipline.
+- Does not migrate any other batch script (`lcats/KMo/`, other
+  `experiments/` scripts) — per the proposal's Non-Goals.
+- Does not implement Category E1 (logging/budget enforcement) — per the
+  proposal's Non-Goals.
+- Does not change `check_segmentation_reliability.py`'s existing,
+  narrower persistence approach — per the proposal's Non-Goals.
+
+## Acceptance Criteria
+
+(see frontmatter `acceptance:` above)
+
+## Validation
+
+- `scripts/version tools`
+- `lrh validate`
+- `scripts/format --check --diff`
+- `scripts/lint`
+- `scripts/test`
+- Fake-backend harness run demonstrating bounded trial, interrupt
+  recovery, and resume-skip behavior (no real API calls)
+
+## Risk Notes
+
+- A fake-backend test can pass for the wrong reason if it doesn't
+  exercise the real interruption/resume code path (a confirmed recurring
+  failure mode this session, e.g. `_classify_api_error` not actually
+  reached by one error branch) — tests must simulate a real exception
+  mid-run, not just assert on a mocked return value.
+- Re-vetting "on paper" without an actual fake-backend run would repeat
+  this session's own original vetting gap.
+
+## Dependencies / Order
+
+Depends on WI-PIPELINE-0040 landing first — this item cannot start
+implementation until the shared checkpoint helper and its API exist.
+
+## Related Workstream and Designs
+
+- Workstream: `project/workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md`
+- Design: `project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md`
