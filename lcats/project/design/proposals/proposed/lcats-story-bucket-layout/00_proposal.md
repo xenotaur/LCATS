@@ -142,10 +142,26 @@ Options considered:
 - A window bounded to this migration's own staging, explicitly retracted
   once complete.
 
-**Chosen: bounded window**, retracted in Stage 3. Fowler's own caution on
-Parallel Change is that an expand phase which never contracts becomes
-permanent debt — the read-path work in Stage 1 is transitional scaffolding,
-not a standing feature.
+**Chosen: bounded window**, but **retraction is gated on the tracked corpus
+migration, not on Stage 3's code merge.** A fresh checkout currently
+contains 1,868 tracked `corpora/<collection>/<story>.json` files and zero
+nested `story.json` files (verified via `git ls-files corpora/`). This
+proposal's own Non-Goals correctly exclude the actual production `lcats
+gather` + `lcats promote` run that would convert that tracked content — it's
+a release-time human action, not something a design proposal performs. But
+that means Stage 3 cannot retract flat-layout *read* support in the same PR
+that lands its other convergence work: doing so would make `survey`/`stats`/
+`assess` stop discovering the release snapshot entirely until the separate
+corpus migration happens, an outage with no code-level trigger to prevent
+it. Stage 3 therefore ships in two parts: the convergence work (fixtures,
+tests, docs, promotion validation) lands first with dual-layout read support
+still active; retraction of that support is a distinct, explicit follow-up
+step, gated on confirming the tracked `corpora/` snapshot has actually been
+migrated (via the deferred gather+promote action) — not bundled into the
+same merge. Fowler's own caution on Parallel Change is that an expand phase
+which never contracts becomes permanent debt, so the retraction step is
+still required and tracked, just sequenced correctly against the content it
+depends on.
 
 ### Decision 5: Output schema identifier column
 
@@ -164,13 +180,25 @@ Options considered:
 - Rely on `lcats promote`'s existing mojibake survey gate
   (`lcats/src/lcats/analysis/corpus/promote.py:27`) as sufficient
   validation.
-- Add an explicit end-to-end gather-then-promote validation step, required
-  before the first real post-migration promote.
+- Add a one-time explicit end-to-end gather-then-promote validation step,
+  required before the first real post-migration promote.
+- Make canonical-layout validation a standing part of `lcats promote`
+  itself, on every run.
 
-**Chosen: add an explicit validation step**, as a Stage 3 acceptance
-criterion. The existing gate checks encoding damage only; a Stage 2 writer
-bug in layout correctness would not be caught by it and could reach the
-`corpora/` release snapshot undetected.
+**Chosen: standing validation in `lcats promote` itself**, not a one-time
+step. A one-time pre-promotion check does not close the gap on any later
+run: `CollectionSurveyResult.clean`
+(`lcats/src/lcats/analysis/corpus/promote.py:56-59`) returns `not
+self.findings`, so a collection where `discovery.find_corpus_stories`
+returns zero canonical stories has `findings=()` and is reported `clean`
+regardless — `_copy_collection` (`promote.py:156-160`) then copies it
+wholesale. A writer regression or a stale flat collection that slips past
+Stage 2/3's fixes would therefore still reach `corpora/` undetected after
+the initial one-time validation passes once. `survey_collection` must
+reject (not silently pass) a `story_count == 0` collection, and
+`promote_collections` must treat that as a blocking condition alongside
+existing mojibake findings — implemented in Stage 2 or 3 as a `promote.py`
+code change, not documented only as a Stage 3 acceptance checklist item.
 
 ### Decision 7: Overrides identity site
 
@@ -182,6 +210,24 @@ canonical story name (Decision 2's directory slug) into this call site as
 part of Stage 2, rather than letting `story_id` be re-derived from the new
 leaf filename (`"story"`) — the same collapse as Decision 2's core problem,
 at a fourth site the original impact report didn't inventory.
+
+### Decision 8: Additional flat-layout writer sites
+
+`DataGatherer.ensure`/`download` (Decision 7's site) is not the only
+production writer. `parser.gather_story()`
+(`lcats/src/lcats/gatherers/parser.py:1468-1476`) independently constructs
+`file_path = os.path.join(path, file_name)` and writes JSON directly to it
+— it calls `gatherer.ensure(file_name)` beforehand but does not use its
+return value for the write path, so migrating `DataGatherer.ensure` alone
+does not change this site's behavior.
+`lcats/src/lcats/gatherers/mass_quantities/gatherer.py:40-54`'s
+`gather_stories()` calls `parser.gather_story()` for every story in
+`storymap.SINGLE_STORIES` — LCATS's mass-quantities single-stories
+collection. Left unmigrated, this collection keeps producing flat files
+that Stage 3's canonical-only discovery (Decision 3) would then omit
+entirely. **Chosen fix:** Stage 2 migrates `parser.gather_story()`'s write
+path alongside `DataGatherer.ensure`, including updating its own parser
+tests — not treated as covered by the `downloaders.py` change alone.
 
 ## Non-Goals
 
@@ -220,14 +266,21 @@ as a `/lrh-workstream` once this proposal is adopted.
    and identity logic (Decisions 2-3); add a canonical story-file selector;
    dual-layout tests without changing writer output yet.
 2. **Stage 2 — Write-path migration.** `DataGatherer.ensure`
-   (`lcats/src/lcats/gatherers/downloaders.py:216`) writes to
-   `<collection>/<story>/story.json`; fix the overrides `story_id`
-   derivation (Decision 7, `downloaders.py:249`); update output identifier
-   semantics (Decision 5).
+   (`lcats/src/lcats/gatherers/downloaders.py:216`) **and**
+   `parser.gather_story()` (`lcats/src/lcats/gatherers/parser.py:1468-1476`,
+   Decision 8) both write to `<collection>/<story>/story.json`, with parser
+   tests updated alongside; fix the overrides `story_id` derivation
+   (Decision 7, `downloaders.py:249`); update output identifier semantics
+   (Decision 5); add standing zero-story rejection to `lcats promote`
+   (Decision 6).
 3. **Stage 3 — Convergence and validation.** Normalize tests/fixtures/docs
-   to the new layout; retract dual-layout support (Decision 4); run and
-   confirm an explicit end-to-end gather-then-promote validation pass
-   (Decision 6) before any real corpus promotion.
+   to the new layout. Ships in two parts, not one merge: (a) convergence
+   work — fixtures, tests, docs, the standing promote validation from Stage
+   2 — with dual-layout read support still active; (b) a distinct follow-up
+   that retracts dual-layout support (Decision 4), gated on confirming the
+   tracked `corpora/` snapshot (1,868 flat files, 0 nested, as of this
+   proposal) has actually been migrated via the separately-scoped
+   gather-then-promote action.
 
 ## Cross-References
 
@@ -239,9 +292,11 @@ as a `/lrh-workstream` once this proposal is adopted.
 - Key sites: `lcats/src/lcats/stories.py:51-52`,
   `lcats/src/lcats/analysis/corpus/discovery.py:65`,
   `lcats/src/lcats/gatherers/downloaders.py:216,249`,
+  `lcats/src/lcats/gatherers/parser.py:1468-1476`,
+  `lcats/src/lcats/gatherers/mass_quantities/gatherer.py:40-54`,
   `lcats/src/lcats/analysis/corpus/cli.py:53`,
   `lcats/src/lcats/analysis/corpus/output.py:105-106,180-184`,
-  `lcats/src/lcats/analysis/corpus/promote.py`
+  `lcats/src/lcats/analysis/corpus/promote.py:27,56-59,156-160`
 
 ## Open Questions
 
