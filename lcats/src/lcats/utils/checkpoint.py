@@ -43,7 +43,14 @@ entry and ``PROP-LCATS-PIPELINE-CHECKPOINTING``):
   takes an explicit ``fingerprint`` argument (never a silent default). A
   falsy fingerprint (``None``, ``{}``) is a caller's deliberate,
   visible opt-out of mismatch invalidation, not an omitted parameter --
-  see :func:`read_checkpoint`.
+  see :func:`read_checkpoint`. Fingerprints are compared after a JSON
+  round-trip on both sides (:func:`_normalize_fingerprint`), so a
+  fingerprint containing tuples or int dict keys still matches its own
+  previously-recorded form.
+- **A recorded failure is not "done."** ``read_checkpoint`` only reports
+  ``done=True`` for a recorded "success" -- a recorded "failure" is
+  recoverable and must be recomputed on resume, not silently skipped
+  just because a checkpoint file exists.
 - **Atomic publication.** Writes go to a temp file in the same directory as
   the target and are moved into place via ``os.replace`` only after the
   write completes, so an interruption mid-write never leaves a torn
@@ -90,11 +97,14 @@ class CheckpointResult:
     """The outcome of checking whether a checkpoint is already done.
 
     ``done`` is False for: no checkpoint file, a checkpoint file that
-    fails to parse (I/O error, JSON error, unexpected shape), or a
-    checkpoint whose recorded fingerprint does not match the caller's
-    current fingerprint. None of these are raised as errors -- an
-    incomplete/stale checkpoint is exactly the "not done yet" case a
-    caller should recompute for, not a hard failure.
+    fails to parse (I/O error, JSON/Unicode decode error, unexpected
+    shape), a checkpoint whose recorded fingerprint does not match the
+    caller's current fingerprint, or a checkpoint recording a "failure"
+    outcome. None of these are raised as errors -- an incomplete/stale/
+    failed checkpoint is exactly the "not done yet" case a caller should
+    recompute for, not a hard failure. ``outcome``/``data`` are still
+    populated for a recorded failure (unlike the other False cases),
+    since it does exist and may be worth inspecting.
     """
 
     done: bool
@@ -132,7 +142,18 @@ def _check_working_root_allowed(
     if allow_protected_root:
         return
     resolved = working_root.resolve()
-    for protected in _protected_roots():
+    try:
+        protected_roots = _protected_roots()
+    except FileNotFoundError as error:
+        raise RuntimeError(
+            "cannot determine the protected data/corpora roots for the "
+            "working_root write-guard: no pyproject.toml found in any "
+            "ancestor of lcats.utils.checkpoint's own file location. This "
+            "usually means lcats is installed as a non-editable package "
+            "outside its source checkout. Pass allow_protected_root=True "
+            "if you have independently confirmed working_root is safe."
+        ) from error
+    for protected in protected_roots:
         if _is_under(resolved, protected):
             raise ProtectedRootError(
                 f"working_root ({resolved}) resolves under the protected "
@@ -155,6 +176,11 @@ def resolve_roots(
     Raises:
         ProtectedRootError: working_root resolves under the canonical
             data/ or corpora/ root and allow_protected_root was not set.
+        RuntimeError: the protected data/corpora roots could not be
+            determined at all (e.g. a non-editable install with no
+            source tree to walk) -- distinct from ProtectedRootError,
+            since allow_protected_root cannot fix a situation where the
+            guard couldn't run in the first place.
     """
     working_root = pathlib.Path(working_root)
     _check_working_root_allowed(working_root, allow_protected_root)
@@ -165,6 +191,22 @@ def resolve_roots(
     return CheckpointRoots(working_root=working_root, source_root=resolved_source)
 
 
+def _validate_path_component(value: str, name: str) -> None:
+    """Raise ValueError if value is not safe to use as a single path segment.
+
+    item_id/stage are caller-supplied identifiers, not paths -- without
+    this check, a value containing a path separator, "..", or an
+    absolute path could escape working_root entirely (e.g.
+    item_id="/tmp" ignoring working_root altogether; review finding,
+    PR #213).
+    """
+    parts = pathlib.PurePath(value).parts
+    if len(parts) != 1 or value in (".", ".."):
+        raise ValueError(
+            f"{name} must be a single, relative path segment, got {value!r}"
+        )
+
+
 def checkpoint_path(working_root: PathLike, item_id: str, stage: str) -> pathlib.Path:
     """Return the path a checkpoint for (item_id, stage) is stored at.
 
@@ -173,8 +215,28 @@ def checkpoint_path(working_root: PathLike, item_id: str, stage: str) -> pathlib
     lcats.analysis.corpus.discovery's canonical story-bucket selector
     uses for a story's own bucket directory -- this module does not
     invent a second identity scheme.
+
+    Raises:
+        ValueError: item_id or stage is not a safe single path segment.
     """
+    _validate_path_component(item_id, "item_id")
+    _validate_path_component(stage, "stage")
     return pathlib.Path(working_root) / item_id / f"{stage}.json"
+
+
+def _normalize_fingerprint(fingerprint: Any) -> Any:
+    """Round-trip fingerprint through JSON so comparisons match what
+    would actually be recorded on disk.
+
+    Without this, a fingerprint containing a tuple or an int dict key
+    compares unequal to its own just-written, JSON-decoded form (tuples
+    become lists, int keys become strings), so a checkpoint would never
+    be honored and expensive stages would be recomputed on every resume
+    (review finding, PR #213).
+    """
+    if not fingerprint:
+        return fingerprint
+    return json.loads(json.dumps(fingerprint))
 
 
 def read_checkpoint(
@@ -186,13 +248,24 @@ def read_checkpoint(
     """Check whether (item_id, stage) already has a completed checkpoint
     under working_root matching fingerprint.
 
+    ``done`` is True only for a recorded "success" outcome. A recorded
+    "failure" is not done -- the governing design treats a recorded
+    failure as recoverable and requires it be recomputed on resume, not
+    silently treated as complete just because a checkpoint file exists
+    (review finding, PR #213); its outcome/data are still returned for
+    inspection, distinguishing it from a checkpoint that doesn't exist
+    at all.
+
     fingerprint here is the caller's *current* configuration identity,
-    compared against whatever was recorded when the checkpoint was
-    written. If the checkpoint was written with an empty/no-op
-    fingerprint (write_checkpoint's own opt-out -- see its docstring),
-    the recorded fingerprint is falsy and the mismatch check never
-    invalidates the checkpoint, regardless of what is passed here, since
-    there is nothing to compare against.
+    compared (after JSON-normalizing both sides -- see
+    _normalize_fingerprint) against whatever was recorded when the
+    checkpoint was written. If the checkpoint was written with an
+    empty/no-op fingerprint (write_checkpoint's own opt-out -- see its
+    docstring), the recorded fingerprint is falsy and the mismatch check
+    never invalidates the checkpoint, regardless of what is passed here,
+    since there is nothing to compare against. A fingerprint mismatch is
+    treated as if the checkpoint did not exist at all -- unlike a
+    recorded failure, no outcome/data is returned.
 
     Only working_root is consulted; source_root is never read here (see
     this module's docstring).
@@ -200,18 +273,20 @@ def read_checkpoint(
     path = checkpoint_path(working_root, item_id, stage)
     try:
         record = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
         return CheckpointResult(done=False)
 
     if not isinstance(record, dict) or record.get("outcome") not in _VALID_OUTCOMES:
         return CheckpointResult(done=False)
 
     recorded_fingerprint = record.get("fingerprint")
-    if recorded_fingerprint and recorded_fingerprint != fingerprint:
-        return CheckpointResult(done=False)
+    if recorded_fingerprint:
+        if recorded_fingerprint != _normalize_fingerprint(fingerprint):
+            return CheckpointResult(done=False)
 
+    outcome = record["outcome"]
     return CheckpointResult(
-        done=True, outcome=record["outcome"], data=record.get("data")
+        done=(outcome == _SUCCESS), outcome=outcome, data=record.get("data")
     )
 
 
@@ -253,15 +328,16 @@ def write_checkpoint(
         The path the checkpoint was written to.
 
     Raises:
-        ValueError: outcome is not "success" or "failure".
+        ValueError: outcome is not "success"/"failure", or item_id/stage
+            is not a safe single path segment (see checkpoint_path).
     """
     if outcome not in _VALID_OUTCOMES:
         raise ValueError(f"outcome must be one of {_VALID_OUTCOMES}, got {outcome!r}")
 
-    item_dir = pathlib.Path(working_root) / item_id
+    target = checkpoint_path(working_root, item_id, stage)
+    item_dir = target.parent
     paths.makedirs(item_dir)
 
-    target = item_dir / f"{stage}.json"
     record = {"outcome": outcome, "fingerprint": fingerprint, "data": data}
 
     fd, tmp_name = tempfile.mkstemp(dir=item_dir, prefix=f".{stage}.", suffix=".tmp")

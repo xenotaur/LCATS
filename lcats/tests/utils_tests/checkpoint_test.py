@@ -106,13 +106,26 @@ class ResolveRootsTest(unittest.TestCase):
         """
         working = self.tmp_dir / "data" / "mycollection"
         original_cwd = os.getcwd()
-        elsewhere = tempfile.mkdtemp()
-        try:
-            os.chdir(elsewhere)
-            with self.assertRaises(checkpoint.ProtectedRootError):
+        with tempfile.TemporaryDirectory() as elsewhere:
+            try:
+                os.chdir(elsewhere)
+                with self.assertRaises(checkpoint.ProtectedRootError):
+                    checkpoint.resolve_roots(working)
+            finally:
+                os.chdir(original_cwd)
+
+    def test_undetermined_protected_roots_raises_runtime_error(self):
+        """A FileNotFoundError from find_pyproject_root (e.g. a non-editable
+        install with no source tree) is wrapped into an actionable
+        RuntimeError, not left as an undocumented, unactionable exception
+        (review finding, PR #213)."""
+        working = self.tmp_dir / "somewhere"
+        with patch(
+            "lcats.utils.checkpoint.paths.find_pyproject_root",
+            side_effect=FileNotFoundError("no pyproject.toml found"),
+        ):
+            with self.assertRaises(RuntimeError):
                 checkpoint.resolve_roots(working)
-        finally:
-            os.chdir(original_cwd)
 
 
 class CheckpointPathTest(unittest.TestCase):
@@ -122,6 +135,23 @@ class CheckpointPathTest(unittest.TestCase):
         path = checkpoint.checkpoint_path("/working", "my_story", "segment")
 
         self.assertEqual(path, pathlib.Path("/working/my_story/segment.json"))
+
+    def test_rejects_item_id_containing_path_separator(self):
+        """item_id must not be able to escape working_root (review finding, PR #213)."""
+        with self.assertRaises(ValueError):
+            checkpoint.checkpoint_path("/working", "../escape", "segment")
+
+    def test_rejects_absolute_item_id(self):
+        with self.assertRaises(ValueError):
+            checkpoint.checkpoint_path("/working", "/tmp", "segment")
+
+    def test_rejects_dotdot_item_id(self):
+        with self.assertRaises(ValueError):
+            checkpoint.checkpoint_path("/working", "..", "segment")
+
+    def test_rejects_stage_containing_path_separator(self):
+        with self.assertRaises(ValueError):
+            checkpoint.checkpoint_path("/working", "my_story", "sub/stage")
 
 
 class WriteAndReadCheckpointTest(unittest.TestCase):
@@ -160,8 +190,11 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
         self.assertEqual(result.data, {"segments": ["a", "b"]})
 
     def test_predicate_distinguishes_success_from_failure(self):
-        """A recorded failure is still 'done' -- it's a completed, recorded
-        outcome, not bare file presence standing in for success."""
+        """A recorded failure is NOT 'done' -- the governing design requires
+        a failed stage to be recomputed on resume, not silently skipped
+        just because a checkpoint file exists (review finding, PR #213).
+        Its outcome is still surfaced, distinguishing it from a checkpoint
+        that doesn't exist at all."""
         checkpoint.write_checkpoint(
             self.working_root,
             "story_a",
@@ -174,8 +207,61 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
             self.working_root, "story_a", "segment", fingerprint={"model": "x"}
         )
 
-        self.assertTrue(result.done)
+        self.assertFalse(result.done)
         self.assertEqual(result.outcome, "failure")
+
+    def test_malformed_utf8_is_treated_as_not_done(self):
+        """Invalid UTF-8 bytes raise UnicodeDecodeError from read_text,
+        which must be treated as an incomplete checkpoint like any other
+        parse failure, not propagated as a crash (review finding, PR #213)."""
+        item_dir = self.working_root / "story_a"
+        item_dir.mkdir(parents=True)
+        (item_dir / "segment.json").write_bytes(b"\xff\xfe not valid utf-8")
+
+        result = checkpoint.read_checkpoint(
+            self.working_root, "story_a", "segment", fingerprint={"model": "x"}
+        )
+
+        self.assertFalse(result.done)
+
+    def test_fingerprint_with_tuple_value_round_trips_as_matching(self):
+        """A fingerprint containing a tuple must still match its own
+        just-written form after JSON round-tripping (tuple -> list),
+        or every resume would recompute unnecessarily (review finding,
+        PR #213)."""
+        fingerprint = {"model": "x", "versions": (1, 2, 3)}
+        checkpoint.write_checkpoint(
+            self.working_root,
+            "story_a",
+            "segment",
+            outcome="success",
+            fingerprint=fingerprint,
+        )
+
+        result = checkpoint.read_checkpoint(
+            self.working_root, "story_a", "segment", fingerprint=fingerprint
+        )
+
+        self.assertTrue(result.done)
+
+    def test_fingerprint_with_int_dict_key_round_trips_as_matching(self):
+        """A fingerprint containing an int dict key must still match its
+        own just-written form after JSON round-tripping (int key ->
+        string key)."""
+        fingerprint = {"model": "x", "stage_versions": {1: "v1"}}
+        checkpoint.write_checkpoint(
+            self.working_root,
+            "story_a",
+            "segment",
+            outcome="success",
+            fingerprint=fingerprint,
+        )
+
+        result = checkpoint.read_checkpoint(
+            self.working_root, "story_a", "segment", fingerprint=fingerprint
+        )
+
+        self.assertTrue(result.done)
 
     def test_fingerprint_mismatch_invalidates_checkpoint(self):
         checkpoint.write_checkpoint(
