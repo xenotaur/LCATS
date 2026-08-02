@@ -15,10 +15,11 @@
   sidecar files (`audit.json`, `scenes.json`, `events.json`, etc.)
   alongside `story.json` as normal content (`discovery.py:9-72`).
 - Decided **not** to reopen or rewrite `PROP-LCATS-PIPELINE-CHECKPOINTING`'s
-  Decision 1 text in place — per `proposal-schema.md:34`
-  ("`adopted`: ... edits go through new proposals or canonical doc
-  updates"), and per this repo having no precedent for post-adoption
-  amendment of an adopted proposal's decision prose (checked: both
+  Decision 1 text in place — per the `/lrh-proposal` skill's own
+  `references/proposal-schema.md:34` (a skill reference file, not an
+  LCATS repo file: "`adopted`: ... edits go through new proposals or
+  canonical doc updates"), and per this repo having no precedent for
+  post-adoption amendment of an adopted proposal's decision prose (checked: both
   `lcats-packaging-modernization` and `lcats-story-bucket-layout`'s
   `updated_on` bumps correspond to their own adoption-transition commits,
   not a later amendment). This entry is the "canonical doc update" path
@@ -48,14 +49,27 @@
   Reading from `corpora/`/`data/` as an immutable source is one of the
   two legitimate use cases motivating the dual-root split in the first
   place; guarding it would block the good case, not just the bad one.
-  If a resolved `working_root` falls under `env.data_root()` or
-  `env.corpora_root()` (`lcats/src/lcats/utils/env.py:16-33`), the
-  helper must reject the call unless an explicit override is passed —
-  modeled on `promote.py`'s existing `_validate_distinct_roots`
-  (`lcats/src/lcats/analysis/corpus/promote.py:144-170`), this repo's
-  established pattern for "resolve both paths, check containment, refuse
-  the dangerous case," even though the specific condition differs
-  (there: must-be-distinct; here: must-not-resolve-under-protected-roots).
+  If a resolved `working_root` falls under the canonical `data/` or
+  `corpora/` root, the helper must reject the call unless an explicit
+  override is passed — modeled on `promote.py`'s existing
+  `_validate_distinct_roots` (`lcats/src/lcats/analysis/corpus/promote.py:144-170`),
+  this repo's established pattern for "resolve both paths, check
+  containment, refuse the dangerous case," even though the specific
+  condition differs (there: must-be-distinct; here:
+  must-not-resolve-under-protected-roots). **The protected roots must
+  not be `env.data_root()`/`env.corpora_root()` as-is** — both resolve
+  their defaults relative to the *process's* current working directory
+  (`lcats/src/lcats/utils/env.py:16-33`), and `run_pilot.py` is
+  documented to run from the repo root with a default `--data-dir` of
+  `lcats/data` (`experiments/03_cross_segment_relation_pilot/run_pilot.py:3-4,11`)
+  — a different directory than `env.data_root()` would resolve to from
+  that same CWD. A guard built directly on `env.data_root()`/
+  `env.corpora_root()` would silently fail to recognize the real data
+  tree for the documented invocation pattern, defeating the guard.
+  Anchor the protected roots the same CWD-independent way
+  `lcats.utils.secrets`/`lcats.utils.test_utils` already do —
+  `paths.find_pyproject_root(__file__)` (`lcats/src/lcats/utils/paths.py:81-100`)
+  — rather than trusting `env.py`'s CWD-relative defaults.
   This guard exists because `lcats promote`'s `_copy_collection`
   (`promote.py:172-176`) does an unfiltered `shutil.copytree` of an
   entire bucket directory — any sidecar present in a `data/` bucket at

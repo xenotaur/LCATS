@@ -33,7 +33,7 @@ acceptance:
   - A shared checkpoint helper module exists (lcats/src/lcats/utils/checkpoint.py) providing a per-item/per-stage checkpoint API generalizing DataGatherer's dual-root bucket-directory + file-existence pattern
   - The API takes a required working_root (where checkpoint files are written) and an optional source_root (where upstream/input content lives), with source_root defaulting to working_root when omitted, per the 2026-08-02 decision_log.md entry
   - The checkpoint predicate (is this stage already done?) consults working_root only; source_root is never read by the predicate itself, keeping it a caller-facing convenience for input-reading, not a helper-internal concern
-  - If a resolved working_root falls under env.data_root() or env.corpora_root(), the helper rejects the call unless an explicit override is passed; no equivalent guard applies to source_root, since pointing source_root at corpora/ or data/ as a read-only input is an intended, legitimate use
+  - If a resolved working_root falls under the canonical data/ or corpora/ root (anchored via paths.find_pyproject_root(__file__), not env.data_root()/env.corpora_root()'s CWD-relative defaults, which do not match run_pilot.py's documented repo-root invocation and default --data-dir=lcats/data), the helper rejects the call unless an explicit override is passed; no equivalent guard applies to source_root, since pointing source_root at corpora/ or data/ as a read-only input is an intended, legitimate use
   - Checkpoint publication is atomic: writes go to a temp path in the same directory and are moved into place via os.replace/Path.replace only after the write completes, per Decision 1
   - Any checkpoint file that fails to parse (I/O error, JSON error) is treated as incomplete, never as done and never as a hard failure that aborts the caller, per Decision 1
   - The checkpoint predicate distinguishes success from recorded failure (not bare file presence), per Decision 2
@@ -41,7 +41,7 @@ acceptance:
   - A caller that explicitly opts out by passing an empty/no-op fingerprint gets defined, documented resume behavior (the mismatch check never invalidates that caller's checkpoints, since there is nothing to compare) rather than an undefined or silently-broken state
   - The helper's API supports per-stage granularity (independent checkpoints for distinct pipeline stages within a single run), per Decision 3
   - Per-story checkpoint subdirectories under working_root reuse the same directory slug discovery.py's canonical selector uses for a story's own bucket directory, and directory creation uses lcats.utils.paths.makedirs() rather than bare os.makedirs
-  - New unit tests cover atomic publication under simulated interruption, the success/failure predicate, fingerprint mismatch invalidation, the dual-root default-to-working-root behavior, and the data_root()/corpora_root() write-guard (including its override)
+  - New unit tests cover atomic publication under simulated interruption, the success/failure predicate, fingerprint mismatch invalidation, the dual-root default-to-working-root behavior, and the write-guard (including its override and a case proving the guard still fires when the process CWD differs from the checkpoint module's own file location)
   - lrh validate reports 0 errors
 required_evidence:
   - manual_review
@@ -103,7 +103,11 @@ source while writing checkpoints to its own working directory.
   (`downloaders.py:167-195`) is also the direct precedent for this item's
   dual-root (`working_root`/`source_root`) API: it already keeps two
   independently-defaulted roots, `root` (destination bucket) and `cache`
-  (resource cache).
+  (resource cache). `paths.find_pyproject_root()`
+  (`lcats/src/lcats/utils/paths.py:81-100`) is the existing precedent
+  for this item's write-guard anchor: it already walks upward from a
+  file location (not CWD) to find a stable project root, and is already
+  used this way by `lcats.utils.secrets`/`lcats.utils.test_utils`.
 - Sibling repos: None identified.
 - External libraries: Prefect/Dagster/Ray considered and deferred in the
   governing proposal — not adopted now.
@@ -128,8 +132,10 @@ source while writing checkpoints to its own working directory.
   per-item checkpoint).
 - Implement the dual-root API (`working_root` required, `source_root`
   optional and defaulting to `working_root`) and the `working_root`
-  write-guard against `env.data_root()`/`env.corpora_root()`, per the
-  2026-08-02 `decision_log.md` entry.
+  write-guard against the canonical `data/`/`corpora/` roots — anchored
+  via `paths.find_pyproject_root(__file__)`, not `env.data_root()`/
+  `env.corpora_root()`'s CWD-relative defaults — per the 2026-08-02
+  `decision_log.md` entry.
 - Unit-test the helper in isolation, with no dependency on `run_pilot.py`
   or any real LLM backend.
 
@@ -142,13 +148,17 @@ source while writing checkpoints to its own working directory.
    parameters, using `lcats.utils.paths.makedirs()` for directory
    creation and a `promote.py`-style resolved-path containment check
    (`lcats/src/lcats/analysis/corpus/promote.py:144-170`) for the
-   `working_root` write-guard.
+   `working_root` write-guard — with the protected `data/`/`corpora/`
+   roots anchored via `paths.find_pyproject_root(__file__)`
+   (`lcats/src/lcats/utils/paths.py:81-100`), the same CWD-independent
+   pattern `lcats.utils.secrets`/`lcats.utils.test_utils` already use,
+   not `env.data_root()`/`env.corpora_root()`'s CWD-relative defaults.
 2. Create `lcats/tests/utils_tests/checkpoint_test.py` covering atomic
    publication (including simulated interruption of the write), the
    success/failure predicate, configuration-fingerprint mismatch
    invalidation, the dual-root default-to-`working_root` behavior, and
-   the `data_root()`/`corpora_root()` write-guard (both triggering and
-   overriding it).
+   the write-guard (triggering it, overriding it, and confirming it
+   still fires when the test's process CWD differs from the repo root).
 
 ## Non-Goals
 
@@ -195,6 +205,13 @@ source while writing checkpoints to its own working directory.
   (`Path.resolve()`), matching `promote.py`'s own `_validate_distinct_roots`
   approach — comparing unresolved paths would let a symlink or a
   relative-path variant silently bypass the guard.
+- Building the guard on `env.data_root()`/`env.corpora_root()` directly
+  (rather than anchoring via `paths.find_pyproject_root(__file__)`)
+  would make it CWD-dependent and silently ineffective for
+  `run_pilot.py`'s own documented repo-root invocation, since
+  `env.data_root()`'s CWD-relative default does not resolve to the same
+  directory as `run_pilot.py`'s own default `--data-dir=lcats/data` when
+  launched as documented (review finding, PR #210).
 
 ## Dependencies / Order
 

@@ -36,8 +36,8 @@ acceptance:
   - A crash or Ctrl-C mid-run preserves every already-completed stage's checkpointed output, verified via a fake-backend harness that actually raises KeyboardInterrupt (or terminates a subprocess) after partial completion — not merely an ordinary Exception, which run_pilot.py's existing except Exception block would catch and continue past without ever exercising the real interruption path
   - A resumed run after interruption skips already-checkpointed, successfully-completed stages and does not re-issue their LLM calls
   - The migrated script is re-vetted against the same 8 operational criteria used to freeze it this session (unit tested, bounded small-scale trial, pipelined/resumable, stronger validation, stronger error detection, call estimation, logging, call counting), with both hard blockers (bounded trial, crash/interrupt recovery) confirmed resolved
-  - run_pilot.py's story-input discovery uses discovery.iter_collection_story_files (or an equivalent bucket-aware selector) instead of the current data_dir.rglob("*.json"), so a post-migration data/ or corpora/ source no longer has its sidecar files misread as spurious stories
-  - The checkpoint helper is invoked with working_root pointed at run_pilot.py's own results directory (never data_root()/corpora_root()) and source_root pointed at whatever data/corpora location the run reads stories from, per WI-PIPELINE-0040's dual-root API
+  - run_pilot.py's story-input discovery uses discovery.find_json_files([data_dir]) (not discovery.iter_collection_story_files, which only examines a single collection directory's immediate children and yields nothing when called on a multi-collection corpus root like the documented --data-dir default) instead of the current data_dir.rglob("*.json"), so a post-migration data/ or corpora/ source no longer has its sidecar files misread as spurious stories, and every collection under data_dir is still actually traversed
+  - The checkpoint helper is invoked with working_root pointed at run_pilot.py's own results directory (never the canonical data/corpora roots WI-PIPELINE-0040's write-guard protects) and source_root pointed at whatever data/corpora location the run reads stories from, per WI-PIPELINE-0040's dual-root API
   - lrh validate reports 0 errors
 required_evidence:
   - manual_review
@@ -146,10 +146,14 @@ never at `data/`/`corpora/` directly.
    validation note), explicitly confirming both hard blockers are
    resolved.
 5. Replace `_iter_candidate_files`'s `data_dir.rglob("*.json")`
-   (`run_pilot.py:201-202`) with a bucket-aware selector (e.g.
-   `discovery.iter_collection_story_files`), and thread `source_root`/
-   `working_root` through the script's `--data-dir`/`--output` arguments
-   so input reads and checkpoint writes go to separate roots.
+   (`run_pilot.py:201-202`) with `discovery.find_json_files([data_dir])`
+   — `data_dir` is a corpus root containing multiple collection
+   directories, and `discovery.iter_collection_story_files` only
+   examines one collection's immediate children, yielding no candidates
+   at all if called directly on `data_dir` (review finding, PR #210).
+   Thread `source_root`/`working_root` through the script's
+   `--data-dir`/`--output` arguments so input reads and checkpoint
+   writes go to separate roots.
 
 ## Non-Goals
 
@@ -200,6 +204,11 @@ never at `data/`/`corpora/` directly.
 - Verifying the discovery-selector fix requires a corpus fixture that
   actually contains a sidecar file alongside `story.json` — a fixture
   with only bare story files would not exercise the bug the fix targets.
+- Verifying the fix also requires a fixture with more than one
+  collection directory under the corpus root — a single-collection
+  fixture would not distinguish a correct multi-collection selector from
+  the broken `iter_collection_story_files`-on-`data_dir` call the
+  original scope draft mistakenly specified (review finding, PR #210).
 
 ## Dependencies / Order
 
