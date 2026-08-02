@@ -104,7 +104,7 @@ source while writing checkpoints to its own working directory.
   dual-root (`working_root`/`source_root`) API: it already keeps two
   independently-defaulted roots, `root` (destination bucket) and `cache`
   (resource cache). `paths.find_pyproject_root()`
-  (`lcats/src/lcats/utils/paths.py:81-100`) is the existing precedent
+  (`lcats/src/lcats/utils/paths.py:81-114`) is the existing precedent
   for this item's write-guard anchor: it already walks upward from a
   file location (not CWD) to find a stable project root, and is already
   used this way by `lcats.utils.secrets`/`lcats.utils.test_utils`.
@@ -150,7 +150,7 @@ source while writing checkpoints to its own working directory.
    (`lcats/src/lcats/analysis/corpus/promote.py:144-170`) for the
    `working_root` write-guard — with the protected `data/`/`corpora/`
    roots anchored via `paths.find_pyproject_root(__file__)`
-   (`lcats/src/lcats/utils/paths.py:81-100`), the same CWD-independent
+   (`lcats/src/lcats/utils/paths.py:81-114`), the same CWD-independent
    pattern `lcats.utils.secrets`/`lcats.utils.test_utils` already use,
    not `env.data_root()`/`env.corpora_root()`'s CWD-relative defaults.
 2. Create `lcats/tests/utils_tests/checkpoint_test.py` covering atomic

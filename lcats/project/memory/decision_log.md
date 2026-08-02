@@ -42,7 +42,9 @@
 - **The checkpoint predicate (is this stage already done?) checks only
   `working_root`; `source_root` is never consulted by it.** `source_root`
   exists purely for the caller's own input-reading logic (e.g. via
-  `discovery.iter_collection_story_files`) — this keeps Decision 2's
+  `discovery.iter_collection_story_files` for a single collection
+  directory, or `discovery.find_json_files` for a multi-collection
+  corpus root — see below) — this keeps Decision 2's
   already-adopted success/failure-plus-fingerprint predicate completely
   unchanged.
 - **The write-guard applies to `working_root` only, never `source_root`.**
@@ -59,7 +61,7 @@
   must-not-resolve-under-protected-roots). **The protected roots must
   not be `env.data_root()`/`env.corpora_root()` as-is** — both resolve
   their defaults relative to the *process's* current working directory
-  (`lcats/src/lcats/utils/env.py:16-33`), and `run_pilot.py` is
+  (`lcats/src/lcats/utils/env.py:21-36`), and `run_pilot.py` is
   documented to run from the repo root with a default `--data-dir` of
   `lcats/data` (`experiments/03_cross_segment_relation_pilot/run_pilot.py:3-4,11`)
   — a different directory than `env.data_root()` would resolve to from
@@ -68,7 +70,7 @@
   tree for the documented invocation pattern, defeating the guard.
   Anchor the protected roots the same CWD-independent way
   `lcats.utils.secrets`/`lcats.utils.test_utils` already do —
-  `paths.find_pyproject_root(__file__)` (`lcats/src/lcats/utils/paths.py:81-100`)
+  `paths.find_pyproject_root(__file__)` (`lcats/src/lcats/utils/paths.py:81-114`)
   — rather than trusting `env.py`'s CWD-relative defaults.
   This guard exists because `lcats promote`'s `_copy_collection`
   (`promote.py:172-176`) does an unfiltered `shutil.copytree` of an
@@ -86,9 +88,12 @@
   not bare `os.makedirs`.
 - **`run_pilot.py`'s own story-input discovery
   (`experiments/03_cross_segment_relation_pilot/run_pilot.py:201-202`,
-  `data_dir.rglob("*.json")`) needs to move to the bucket-aware selector
-  (`discovery.iter_collection_story_files`) as part of `WI-PIPELINE-0041`**,
-  not just as a checkpointing change — once `data/` is regenerated under
+  `data_dir.rglob("*.json")`) needs to move to `discovery.find_json_files([data_dir])`
+  as part of `WI-PIPELINE-0041`** — not `discovery.iter_collection_story_files`,
+  which only examines one collection directory's immediate children and
+  yields nothing when called on `data_dir` itself, a corpus root
+  containing multiple collection directories (review finding, PR #210).
+  This is not just a checkpointing change — once `data/` is regenerated under
   the new writer, the current recursive glob will pick up sidecar files
   as spurious stories, the exact over-broad-matching problem
   `PROP-LCATS-STORY-BUCKET-LAYOUT`'s Decision 3 fixed in the core
