@@ -244,6 +244,29 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
 
         self.assertTrue(result.done)
 
+    def test_non_json_serializable_fingerprint_does_not_raise(self):
+        """A fingerprint containing a non-JSON-serializable value (e.g. a
+        set) must not crash read_checkpoint -- normalization falls back
+        to the raw value instead of raising, preserving the module's
+        never-raises-on-comparison contract (independent review finding
+        after PR #213's own fix round)."""
+        checkpoint.write_checkpoint(
+            self.working_root,
+            "story_a",
+            "segment",
+            outcome="success",
+            fingerprint={"model": "x"},
+        )
+
+        result = checkpoint.read_checkpoint(
+            self.working_root,
+            "story_a",
+            "segment",
+            fingerprint={"model": "x", "tags": {1, 2, 3}},
+        )
+
+        self.assertFalse(result.done)
+
     def test_fingerprint_with_int_dict_key_round_trips_as_matching(self):
         """A fingerprint containing an int dict key must still match its
         own just-written form after JSON round-tripping (int key ->

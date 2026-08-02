@@ -233,10 +233,19 @@ def _normalize_fingerprint(fingerprint: Any) -> Any:
     become lists, int keys become strings), so a checkpoint would never
     be honored and expensive stages would be recomputed on every resume
     (review finding, PR #213).
+
+    A non-JSON-serializable fingerprint (e.g. containing a set) falls
+    back to the original value unchanged rather than raising -- it won't
+    normalize identically to a stored one, but read_checkpoint's contract
+    is that a mismatch is treated as "not done," not a crash (independent
+    review finding after PR #213's own fix round).
     """
     if not fingerprint:
         return fingerprint
-    return json.loads(json.dumps(fingerprint))
+    try:
+        return json.loads(json.dumps(fingerprint))
+    except TypeError:
+        return fingerprint
 
 
 def read_checkpoint(
