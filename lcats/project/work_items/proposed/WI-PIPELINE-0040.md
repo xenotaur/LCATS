@@ -17,6 +17,7 @@ related_workstreams:
   - WS-PIPELINE-CHECKPOINTING
 related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
 depends_on: []
 blocked_by: []
 expected_actions:
@@ -29,14 +30,18 @@ forbidden_actions:
   - implement_new_architecture
   - modify_run_pilot_script
 acceptance:
-  - A shared checkpoint helper module exists (lcats/src/lcats/utils/checkpoint.py) providing a per-item/per-stage checkpoint API generalizing DataGatherer.download's bucket-directory + file-existence pattern
+  - A shared checkpoint helper module exists (lcats/src/lcats/utils/checkpoint.py) providing a per-item/per-stage checkpoint API generalizing DataGatherer's dual-root bucket-directory + file-existence pattern
+  - The API takes a required working_root (where checkpoint files are written) and an optional source_root (where upstream/input content lives), with source_root defaulting to working_root when omitted, per the 2026-08-02 decision_log.md entry
+  - The checkpoint predicate (is this stage already done?) consults working_root only; source_root is never read by the predicate itself, keeping it a caller-facing convenience for input-reading, not a helper-internal concern
+  - If a resolved working_root falls under env.data_root() or env.corpora_root(), the helper rejects the call unless an explicit override is passed; no equivalent guard applies to source_root, since pointing source_root at corpora/ or data/ as a read-only input is an intended, legitimate use
   - Checkpoint publication is atomic: writes go to a temp path in the same directory and are moved into place via os.replace/Path.replace only after the write completes, per Decision 1
   - Any checkpoint file that fails to parse (I/O error, JSON error) is treated as incomplete, never as done and never as a hard failure that aborts the caller, per Decision 1
   - The checkpoint predicate distinguishes success from recorded failure (not bare file presence), per Decision 2
   - The helper's checkpoint API requires every caller to explicitly pass a fingerprint argument (no silent default) alongside a checkpoint's outcome, per Decision 2; the exact fingerprint contents are caller-defined (e.g. model name plus a prompt/schema version/hash), and a fingerprint mismatch on resume is treated as if the checkpoint did not exist
   - A caller that explicitly opts out by passing an empty/no-op fingerprint gets defined, documented resume behavior (the mismatch check never invalidates that caller's checkpoints, since there is nothing to compare) rather than an undefined or silently-broken state
   - The helper's API supports per-stage granularity (independent checkpoints for distinct pipeline stages within a single run), per Decision 3
-  - New unit tests cover atomic publication under simulated interruption, the success/failure predicate, and fingerprint mismatch invalidation
+  - Per-story checkpoint subdirectories under working_root reuse the same directory slug discovery.py's canonical selector uses for a story's own bucket directory, and directory creation uses lcats.utils.paths.makedirs() rather than bare os.makedirs
+  - New unit tests cover atomic publication under simulated interruption, the success/failure predicate, fingerprint mismatch invalidation, the dual-root default-to-working-root behavior, and the data_root()/corpora_root() write-guard (including its override)
   - lrh validate reports 0 errors
 required_evidence:
   - manual_review
@@ -72,13 +77,33 @@ added to the proposal: atomic publication (Decision 1) and a
 success/failure-plus-configuration-identity checkpoint predicate
 (Decision 2).
 
+**Updated 2026-08-02, see `project/memory/decision_log.md`'s
+2026-08-02 entry:** `PROP-LCATS-STORY-BUCKET-LAYOUT` landed after this
+item was scoped, changing `DataGatherer.ensure()`
+(`lcats/src/lcats/gatherers/downloaders.py:200-233`, superseding the
+earlier `:223-253` citation) to write `<collection>/<story>/story.json`
+bucket directories rather than the flat cache layout this item was
+originally written against. The helper must not write checkpoints into
+`data/` or `corpora/` by default — both are unsuitable write targets for
+arbitrary pipeline output (`data/` is a disposable, regenerable cache
+per `project/design/design.md:38`; `lcats promote`'s `_copy_collection`,
+`lcats/src/lcats/analysis/corpus/promote.py:172-176`, ships an entire
+bucket's contents to `corpora/` unfiltered). The helper's API takes a
+dual root (`working_root`/`source_root`) instead, per the decision log
+entry, so a caller can still read `corpora/`/`data/` as an immutable
+source while writing checkpoints to its own working directory.
+
 ### Duplication search
 - In-repo: No existing implementation. `lcats/src/lcats/pipeline.py` is a
   documented, tested module but has no disk persistence of any kind (see
   the proposal's own Prior Art Check) — not something to extend as-is.
-  `DataGatherer.download` (`lcats/src/lcats/gatherers/downloaders.py:223-253`)
+  `DataGatherer.ensure`/`download` (`lcats/src/lcats/gatherers/downloaders.py:200-233,239-`)
   is the closest existing precedent, but is bucket-specific, not a
-  reusable, importable helper.
+  reusable, importable helper. `DataGatherer.__init__`
+  (`downloaders.py:167-195`) is also the direct precedent for this item's
+  dual-root (`working_root`/`source_root`) API: it already keeps two
+  independently-defaulted roots, `root` (destination bucket) and `cache`
+  (resource cache).
 - Sibling repos: None identified.
 - External libraries: Prefect/Dagster/Ray considered and deferred in the
   governing proposal — not adopted now.
@@ -101,17 +126,29 @@ success/failure-plus-configuration-identity checkpoint predicate
 - Support Decision 3's per-stage granularity (the helper's API must let a
   caller checkpoint multiple distinct stages independently, not only one
   per-item checkpoint).
+- Implement the dual-root API (`working_root` required, `source_root`
+  optional and defaulting to `working_root`) and the `working_root`
+  write-guard against `env.data_root()`/`env.corpora_root()`, per the
+  2026-08-02 `decision_log.md` entry.
 - Unit-test the helper in isolation, with no dependency on `run_pilot.py`
   or any real LLM backend.
 
 ## Required Changes
 
 1. Create `lcats/src/lcats/utils/checkpoint.py` implementing the
-   checkpoint API described above.
+   checkpoint API described above: functions (matching the prevailing
+   function-based style of `lcats/src/lcats/utils/env.py`/`paths.py`,
+   not a stateful class) taking explicit `working_root`/`source_root`
+   parameters, using `lcats.utils.paths.makedirs()` for directory
+   creation and a `promote.py`-style resolved-path containment check
+   (`lcats/src/lcats/analysis/corpus/promote.py:144-170`) for the
+   `working_root` write-guard.
 2. Create `lcats/tests/utils_tests/checkpoint_test.py` covering atomic
    publication (including simulated interruption of the write), the
-   success/failure predicate, and configuration-fingerprint mismatch
-   invalidation.
+   success/failure predicate, configuration-fingerprint mismatch
+   invalidation, the dual-root default-to-`working_root` behavior, and
+   the `data_root()`/`corpora_root()` write-guard (both triggering and
+   overriding it).
 
 ## Non-Goals
 
@@ -127,6 +164,11 @@ success/failure-plus-configuration-identity checkpoint predicate
   per-caller fingerprint design is WI-PIPELINE-0041's concern. A caller
   may still choose an empty/no-op fingerprint, but that is an explicit,
   visible argument at the call site, not an omitted parameter.
+- Does not decide whether or how pipeline checkpoint sidecars should
+  ever be promoted or merged back into `data/`/`corpora/` as pipelines
+  mature — the `working_root` write-guard exists specifically so this
+  item does not silently make that decision by default; if/when that
+  integration is wanted, it is separately-scoped future design work.
 
 ## Acceptance Criteria
 
@@ -149,6 +191,10 @@ success/failure-plus-configuration-identity checkpoint predicate
 - An overly narrow configuration-fingerprint API (e.g. hardcoding "model
   name" as the only field) would force WI-PIPELINE-0041 to work around
   it rather than use it as designed.
+- The `working_root` write-guard must compare *resolved* paths
+  (`Path.resolve()`), matching `promote.py`'s own `_validate_distinct_roots`
+  approach — comparing unresolved paths would let a symlink or a
+  relative-path variant silently bypass the guard.
 
 ## Dependencies / Order
 

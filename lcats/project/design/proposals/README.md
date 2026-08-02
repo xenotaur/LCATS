@@ -13,6 +13,6 @@ short index plus the proposal document.
   `WI-RELEASE-0037`/`WI-RELEASE-0039` open).
 - [`PROP-LCATS-PIPELINE-CHECKPOINTING`](adopted/lcats-pipeline-checkpointing/README.md)
   — adopted; implementation not started (governed by `WS-PIPELINE-CHECKPOINTING`).
-- [`PROP-LCATS-STORY-BUCKET-LAYOUT`](proposed/lcats-story-bucket-layout/README.md)
-  — proposed; implementation not started.
+- [`PROP-LCATS-STORY-BUCKET-LAYOUT`](adopted/lcats-story-bucket-layout/README.md)
+  — adopted; implemented (`WI-STORY-0042`/`0043`/`0044`/`0045`).
 

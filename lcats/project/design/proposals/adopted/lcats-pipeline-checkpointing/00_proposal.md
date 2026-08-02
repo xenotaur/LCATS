@@ -4,7 +4,7 @@ type: design_proposal
 title: Staged, Checkpointed Pipeline Execution for LCATS Batch Scripts
 status: adopted
 created_on: 2026-07-30
-updated_on: 2026-07-30
+updated_on: 2026-08-02
 implementation_status: not_started
 implemented_by: []
 supersedes: []
@@ -13,6 +13,7 @@ related_design:
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/design/flat_story_layout_migration_impact_report.md
   - lcats/project/workstreams/proposed/WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY.md
+  - lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
 ---
 
 ## Summary

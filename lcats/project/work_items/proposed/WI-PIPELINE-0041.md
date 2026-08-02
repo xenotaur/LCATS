@@ -17,6 +17,7 @@ related_workstreams:
   - WS-PIPELINE-CHECKPOINTING
 related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
 depends_on:
   - WI-PIPELINE-0040
 blocked_by: []
@@ -35,6 +36,8 @@ acceptance:
   - A crash or Ctrl-C mid-run preserves every already-completed stage's checkpointed output, verified via a fake-backend harness that actually raises KeyboardInterrupt (or terminates a subprocess) after partial completion — not merely an ordinary Exception, which run_pilot.py's existing except Exception block would catch and continue past without ever exercising the real interruption path
   - A resumed run after interruption skips already-checkpointed, successfully-completed stages and does not re-issue their LLM calls
   - The migrated script is re-vetted against the same 8 operational criteria used to freeze it this session (unit tested, bounded small-scale trial, pipelined/resumable, stronger validation, stronger error detection, call estimation, logging, call counting), with both hard blockers (bounded trial, crash/interrupt recovery) confirmed resolved
+  - run_pilot.py's story-input discovery uses discovery.iter_collection_story_files (or an equivalent bucket-aware selector) instead of the current data_dir.rglob("*.json"), so a post-migration data/ or corpora/ source no longer has its sidecar files misread as spurious stories
+  - The checkpoint helper is invoked with working_root pointed at run_pilot.py's own results directory (never data_root()/corpora_root()) and source_root pointed at whatever data/corpora location the run reads stories from, per WI-PIPELINE-0040's dual-root API
   - lrh validate reports 0 errors
 required_evidence:
   - manual_review
@@ -64,6 +67,21 @@ script's `except Exception` catch-all, discards every already-paid-for
 result). `PROP-LCATS-PIPELINE-CHECKPOINTING` (adopted) exists to fix
 this, and this item is its second Implementation Plan item — the actual
 migration, gated on WI-PIPELINE-0040's helper landing first.
+
+**Updated 2026-08-02, see `project/memory/decision_log.md`'s
+2026-08-02 entry:** `PROP-LCATS-STORY-BUCKET-LAYOUT` landed after this
+item was scoped and surfaced a second, independent gap in `run_pilot.py`
+itself: its story-input discovery
+(`experiments/03_cross_segment_relation_pilot/run_pilot.py:201-202`,
+`data_dir.rglob("*.json")`) still does the same over-broad recursive
+JSON matching `discovery.py`'s Decision 3 replaced in the core package —
+once `data/` is regenerated under the new bucket-writing `DataGatherer`,
+this glob will pick up sidecar files (`audit.json`, etc.) as if they
+were separate stories. This item now also fixes that discovery path,
+using WI-PIPELINE-0040's dual-root API with `source_root` pointed at
+wherever the run reads stories from (`data/` or `corpora/`, read-only)
+and `working_root` pointed at this script's own results directory,
+never at `data/`/`corpora/` directly.
 
 ### Duplication search
 - In-repo: No existing migration. `check_segmentation_reliability.py`
@@ -100,6 +118,11 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
 - Re-vet the migrated script against this session's 8 operational
   criteria, using a fake-backend harness for the bounded-trial and
   crash-recovery checks (no real API spend required to verify these).
+- Fix `run_pilot.py`'s story-input discovery to use a bucket-aware
+  selector instead of its current recursive `*.json` glob, and invoke
+  the checkpoint helper with `source_root` (read-only input) separate
+  from `working_root` (this script's own results directory), per
+  WI-PIPELINE-0040's dual-root API.
 
 ## Required Changes
 
@@ -122,6 +145,11 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
    and document the result (e.g. in the PR description or a short
    validation note), explicitly confirming both hard blockers are
    resolved.
+5. Replace `_iter_candidate_files`'s `data_dir.rglob("*.json")`
+   (`run_pilot.py:201-202`) with a bucket-aware selector (e.g.
+   `discovery.iter_collection_story_files`), and thread `source_root`/
+   `working_root` through the script's `--data-dir`/`--output` arguments
+   so input reads and checkpoint writes go to separate roots.
 
 ## Non-Goals
 
@@ -169,6 +197,9 @@ migration, gated on WI-PIPELINE-0040's helper landing first.
   must account for upstream input, not configuration alone.
 - Re-vetting "on paper" without an actual fake-backend run would repeat
   this session's own original vetting gap.
+- Verifying the discovery-selector fix requires a corpus fixture that
+  actually contains a sidecar file alongside `story.json` — a fixture
+  with only bare story files would not exercise the bug the fix targets.
 
 ## Dependencies / Order
 
