@@ -1,0 +1,3 @@
+## 2024-05-24 - Tiktoken O(N^2) Chunking Bottleneck
+**Learning:** In `lcats/chunking.py`, calculating the character offset of chunks using `len(enc.decode(tokens[:start_token]))` is an O(N^2) operation because it repeatedly decodes increasing prefixes of the entire story. For a 100,000 token text, this takes around 60 seconds.
+**Action:** Use piecemeal decoding by accumulating the decoded bytes with `enc.decode_bytes()` (since tokens might span characters, making piecemeal string decoding unsafe) or by keeping a running string of `enc.decode_bytes(chunk).decode("utf-8", errors="replace")`. This drops the time to ~6 seconds, making chunking O(N) instead of O(N^2).
