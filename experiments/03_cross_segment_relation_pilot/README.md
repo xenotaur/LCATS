@@ -160,6 +160,32 @@ in `run_pilot.py`) so their model can be overridden, without modifying
 `processor.py` or any `event_role_world` module (forbidden by
 WI-EVENT-0030's scope).
 
+## Checkpointing and resume (WI-PIPELINE-0041)
+
+Every story's genre-detection, segmentation, ERW-extraction, and
+cross-segment-relation stages are checkpointed independently under
+`--output` (via `lcats.utils.checkpoint`), each keyed by model/backend
+configuration plus, for the two downstream stages, a hash of the upstream
+stage's own output — so correcting an earlier stage under an unchanged
+model configuration still invalidates the stages that depended on it.
+
+This means:
+
+- A crash or Ctrl-C mid-run preserves every already-completed stage's
+  output on disk, not just whatever made it into `pilot_stories.jsonl` at
+  the very end.
+- Re-running the exact same command (same `--output`, `--data-dir`,
+  `--seed`, `--model`/`--backend`) resumes rather than restarts: every
+  already-checkpointed, successfully-completed stage is served from disk
+  instead of re-issuing its LLM call. A checkpoint recording a *failed*
+  stage is not treated as done — it is retried on the next run, not
+  silently skipped.
+- Checkpoints live under `--output` only, never under `--data-dir`/`data/`/
+  `corpora/` directly — pointing `--output` at those protected roots is
+  refused (see `run_pilot.py`'s own error message) since `data/` is a
+  disposable, regenerable cache and `corpora/` is copied wholesale by
+  `lcats promote`.
+
 ## Output files
 
 - `results/pilot_stories.jsonl` — one row per sampled story: `path`,

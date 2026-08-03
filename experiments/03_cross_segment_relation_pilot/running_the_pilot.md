@@ -176,6 +176,12 @@ success, `1` on a missing/broken backend, `2` if it couldn't fill every
 genre stratum before exhausting `--max-candidates` (default 200 — raise
 this if a stratum comes up short).
 
+**If the run is interrupted (Ctrl-C, crash, closed terminal), just re-run
+the exact same command.** Every stage already checkpointed under
+`--output` is served from disk instead of re-issuing its LLM call — see
+the README's **Checkpointing and resume** section. Nothing already paid
+for is lost or repeated.
+
 ## 5. Inspect the results
 
 ```bash

@@ -64,9 +64,20 @@ below) - processor.process_segments() itself hardcodes gpt-4o for these
 regardless of backend, which would send an invalid model ID to a
 non-OpenAI backend.
 
+Checkpointing (WI-PIPELINE-0041): every story's genre-detection,
+segmentation, ERW-extraction, and cross-segment-relation stages are now
+checkpointed independently via lcats.utils.checkpoint - a crash or Ctrl-C
+preserves every already-completed stage's output, and a resumed run
+(same --output, same --data-dir) skips already-checkpointed,
+successfully-completed stages instead of re-issuing their LLM calls.
+Checkpoints are written under --output (this script's own results
+directory, never data/ or corpora/ directly - see checkpoint.resolve_roots's
+write-guard); --data-dir is read-only input.
+
 Exit codes:
     0   pilot completed (individual story exclusions are noted, not fatal)
-    1   prerequisite check failed (missing install, missing key)
+    1   prerequisite check failed (missing install, missing key, or an
+        --output pointed at the protected data/corpora roots)
     2   could not fill every genre stratum before exhausting --max-candidates
     3   aborted early on a fatal API error (bad credentials or exhausted
         account balance/quota) - see FatalPilotError below. Any story
@@ -76,6 +87,7 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import pathlib
 import random
@@ -93,6 +105,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats" / "
 from lcats.analysis import scene_analysis
 from lcats.analysis import story_analysis
 from lcats.analysis.corpus import assess as corpus_assess
+from lcats.analysis.corpus import discovery
 from lcats.analysis.event_role_world import discourse_extractor as erw_discourse
 from lcats.analysis.event_role_world import entity_extractor as erw_entity
 from lcats.analysis.event_role_world import event_extractor as erw_event
@@ -104,6 +117,7 @@ from lcats.analysis.event_role_world import (
     story_relation_extractor as erw_story_relation,
 )
 from lcats.analysis.event_role_world import surface_feature_extractor as erw_surface
+from lcats.utils import checkpoint
 from lcats.utils.secrets import load_secrets
 
 GENRES = (
@@ -180,6 +194,71 @@ def _check_fatal(
         raise exc
 
 
+# Bumped whenever a prompt/schema/extractor-version change should
+# invalidate every existing checkpoint for this pilot, even under an
+# unchanged model - there is no existing per-module version tracking
+# elsewhere in lcats to reuse, so this is a script-local proxy.
+_PIPELINE_VERSION = "v1"
+
+
+def _story_identity(path: pathlib.Path) -> str:
+    """Return a stable, flattened, checkpoint-safe identity for a canonical
+    bucket story file (<collection>/<story>/story.json).
+
+    Post PROP-LCATS-STORY-BUCKET-LAYOUT, every canonical story file's own
+    leaf filename is literally "story.json" for every story - path.stem
+    alone collapses to "story" regardless of which story it is (the exact
+    identity-collapse problem PROP-LCATS-STORY-BUCKET-LAYOUT's Decision 2
+    already fixed in the core package's own discovery/identity logic, but
+    this script builds its own row["story_id"]/checkpoint item_id
+    independently of that, so the collapse recurs here unless fixed).
+    Combines the collection name (path.parent.parent.name) with the
+    story's own bucket directory name (path.parent.name), joined with
+    "__" since checkpoint item_ids must be a single path segment (see
+    checkpoint._validate_path_component) and a bare "/" join would not be
+    a valid item_id.
+    """
+    return f"{path.parent.parent.name}__{path.parent.name}"
+
+
+def _hash_json(obj: Any) -> str:
+    """Deterministic hash of a JSON-serializable value, for checkpoint
+    fingerprints that must invalidate when an upstream pipeline stage's
+    own output changes (Decision 2) - not a security hash, just change
+    detection."""
+    return hashlib.sha256(
+        json.dumps(obj, sort_keys=True, default=str).encode("utf-8")
+    ).hexdigest()
+
+
+def _base_fingerprint(model: str, backend_name: str) -> Dict[str, Any]:
+    """Configuration-identity fingerprint shared by every stage: model,
+    backend, and this script's own pipeline version (see
+    _PIPELINE_VERSION). A stage whose only upstream is raw, unchanging
+    corpus content (genre-detection, segmentation) uses this alone; a
+    stage whose upstream is an earlier pipeline stage's own output
+    (ERW-extraction, cross-segment-relation) extends it via
+    _stage_fingerprint's upstream parameter, per Decision 2."""
+    return {
+        "model": model,
+        "backend": backend_name,
+        "pipeline_version": _PIPELINE_VERSION,
+    }
+
+
+def _stage_fingerprint(
+    model: str, backend_name: str, upstream: Optional[Any] = None
+) -> Dict[str, Any]:
+    """_base_fingerprint, extended with a hash of `upstream` (an earlier
+    pipeline stage's own output) when given - so correcting an earlier
+    stage's output under an unchanged model configuration still
+    invalidates this stage's checkpoint, per Decision 2."""
+    fingerprint = _base_fingerprint(model, backend_name)
+    if upstream is not None:
+        fingerprint["upstream_hash"] = _hash_json(upstream)
+    return fingerprint
+
+
 def _build_backend(backend_name: str, model: Optional[str]):
     if backend_name == "anthropic":
         from lcats.llm import anthropic_backend
@@ -199,7 +278,17 @@ def _build_fake_backend():
 
 
 def _iter_candidate_files(data_dir: pathlib.Path, seed: int) -> List[pathlib.Path]:
-    files = sorted(data_dir.rglob("*.json"))
+    """List and shuffle every canonical story file under data_dir.
+
+    Uses discovery.find_json_files (bucket-aware, per Decision 3/4 of
+    PROP-LCATS-STORY-BUCKET-LAYOUT) rather than a bare recursive
+    ``rglob("*.json")`` - the latter would pick up sidecar files
+    (audit.json, scenes.json, etc.) alongside a story's own story.json as
+    if they were separate stories once data_dir is populated by the
+    bucket-writing DataGatherer (review finding, PR #210).
+    """
+    files = list(discovery.find_json_files([data_dir]))
+    files.sort()
     rng = random.Random(seed)
     rng.shuffle(files)
     return files
@@ -209,6 +298,8 @@ def build_stratified_sample(
     data_dir: pathlib.Path,
     backend: Any,
     model: str,
+    backend_name: str,
+    roots: checkpoint.CheckpointRoots,
     sample_size: int,
     max_candidates: int,
     seed: int,
@@ -222,6 +313,12 @@ def build_stratified_sample(
     len(GENRES) * sample_size candidates are round-robin assigned instead,
     with zero API calls), stopping once every genre has sample_size stories
     or max_candidates is exhausted.
+
+    Each real classification is checkpointed under roots.working_root
+    (stage "genre_detect", item_id per _story_identity), so a resumed run
+    with the same --seed scans candidates in the same deterministic order
+    and serves already-classified candidates from their checkpoint instead
+    of re-issuing the LLM call.
     """
     sample: Dict[str, List[pathlib.Path]] = {g: [] for g in GENRES}
     candidates = _iter_candidate_files(data_dir, seed)
@@ -239,25 +336,60 @@ def build_stratified_sample(
         if all(len(sample[g]) >= sample_size for g in GENRES):
             break
         scanned += 1
-        try:
-            result = corpus_assess.assess_story(path, backend=backend, model=model)
-        except Exception as exc:  # noqa: BLE001 - skip this candidate on failure
-            print(f"  [genre-detect] {path}: failed ({exc}), skipping", file=sys.stderr)
-            continue
-        if result.error:
-            # assess_story() catches API exceptions internally and reports
-            # them via AssessmentResult.error rather than raising, so a
-            # fatal error here would otherwise never reach the except above
-            # - it would just silently fail to classify every remaining
-            # candidate (detected_genre defaults to "other", which isn't in
-            # GENRES, so nothing prints and nothing is added to any bucket).
-            _check_fatal(result.error, context=f"genre-detect {path.name}")
-            print(
-                f"  [genre-detect] {path.name}: failed ({result.error}), skipping",
-                file=sys.stderr,
+        item_id = _story_identity(path)
+        fingerprint = _base_fingerprint(model, backend_name)
+        cached = checkpoint.read_checkpoint(
+            roots.working_root, item_id, "genre_detect", fingerprint
+        )
+        if cached.done:
+            genre = (cached.data or {}).get("genre")
+        else:
+            try:
+                result = corpus_assess.assess_story(path, backend=backend, model=model)
+            except Exception as exc:  # noqa: BLE001 - skip this candidate on failure
+                print(
+                    f"  [genre-detect] {path}: failed ({exc}), skipping",
+                    file=sys.stderr,
+                )
+                checkpoint.write_checkpoint(
+                    roots.working_root,
+                    item_id,
+                    "genre_detect",
+                    outcome="failure",
+                    fingerprint=fingerprint,
+                    data={"error": str(exc)},
+                )
+                continue
+            if result.error:
+                # assess_story() catches API exceptions internally and reports
+                # them via AssessmentResult.error rather than raising, so a
+                # fatal error here would otherwise never reach the except above
+                # - it would just silently fail to classify every remaining
+                # candidate (detected_genre defaults to "other", which isn't in
+                # GENRES, so nothing prints and nothing is added to any bucket).
+                _check_fatal(result.error, context=f"genre-detect {path.name}")
+                print(
+                    f"  [genre-detect] {path.name}: failed ({result.error}), skipping",
+                    file=sys.stderr,
+                )
+                checkpoint.write_checkpoint(
+                    roots.working_root,
+                    item_id,
+                    "genre_detect",
+                    outcome="failure",
+                    fingerprint=fingerprint,
+                    data={"error": result.error},
+                )
+                continue
+            genre = result.detected_genre
+            checkpoint.write_checkpoint(
+                roots.working_root,
+                item_id,
+                "genre_detect",
+                outcome="success",
+                fingerprint=fingerprint,
+                data={"genre": genre},
             )
-            continue
-        genre = result.detected_genre
         if genre in sample and len(sample[genre]) < sample_size:
             sample[genre].append(path)
             print(
@@ -270,13 +402,61 @@ def build_stratified_sample(
 def _segment_story(
     body: str, backend: Any, model: str
 ) -> Tuple[List[Dict[str, Any]], Optional[str]]:
-    """Run scene/sequel segmentation; return (segments, error_or_None)."""
+    """Run scene/sequel segmentation; return (segments, error_or_None).
+
+    Not checkpointed itself - see _segment_story_cached, which wraps this
+    with the "segment" stage's checkpoint read/write. Kept as a separate,
+    un-wrapped function so existing direct tests of the raw extraction
+    behavior (see run_pilot_test.py) are unaffected by the checkpointing
+    migration.
+    """
     seg_extractor = scene_analysis.make_segment_extractor(backend)
     seg_result = seg_extractor.extract(body, model_name=model)
     error = seg_result.get("api_error") or seg_result.get("extraction_error")
     segments = seg_result.get("extracted_output") or []
     if not segments:
         return [], error or "segmentation produced no segments"
+    return segments, error
+
+
+def _segment_story_cached(
+    path: pathlib.Path,
+    body: str,
+    backend: Any,
+    model: str,
+    backend_name: str,
+    roots: checkpoint.CheckpointRoots,
+) -> Tuple[List[Dict[str, Any]], Optional[Any]]:
+    """_segment_story, checkpointed under stage "segment" (item_id per
+    _story_identity(path)) - a resumed run with an unchanged model
+    configuration skips this story's segmentation LLM call entirely."""
+    item_id = _story_identity(path)
+    fingerprint = _base_fingerprint(model, backend_name)
+    cached = checkpoint.read_checkpoint(
+        roots.working_root, item_id, "segment", fingerprint
+    )
+    if cached.done:
+        return cached.data["segments"], None
+
+    segments, error = _segment_story(body, backend, model)
+    if not segments:
+        checkpoint.write_checkpoint(
+            roots.working_root,
+            item_id,
+            "segment",
+            outcome="failure",
+            fingerprint=fingerprint,
+            data={"error": error},
+        )
+        return segments, error
+    checkpoint.write_checkpoint(
+        roots.working_root,
+        item_id,
+        "segment",
+        outcome="success",
+        fingerprint=fingerprint,
+        data={"segments": segments},
+    )
     return segments, error
 
 
@@ -386,7 +566,7 @@ def _make_nlp_backend(nlp_backend_name: str) -> Any:
     return erw_surface.make_nlp_backend(nlp_backend_name)
 
 
-def _run_erw_pipeline(
+def _run_erw_extraction(
     body: str,
     segments: List[Dict[str, Any]],
     extractors: Dict[str, Any],
@@ -394,31 +574,36 @@ def _run_erw_pipeline(
     nlp_backend_name: str,
     story_id: str,
 ) -> Dict[str, Any]:
-    """Run stages 2-9 (+ the cross-segment pass) for one story.
+    """Run stages 2-9 (per-segment entity/event/relation/discourse
+    extraction + story-level reconciliation) for one story - the
+    "ERW-extraction" checkpoint stage. Does NOT include the story-level
+    cross-segment-relation pass; see _apply_cross_segment_relations for
+    that, checkpointed as its own separate stage (WI-PIPELINE-0041,
+    Decision 3 - a resumed run must not collapse the whole per-story
+    pipeline into one checkpointed unit).
 
     `extractors` (built by _build_erw_extractors(), with `model` already
     overriding each extractor's own hardcoded default) and `nlp_backend`
     are passed in already-built rather than constructed here - this
-    function itself takes no `model` parameter.
+    function itself takes no `model` parameter. `extractors` and
+    `nlp_backend` are built ONCE by the caller (main()) and reused across
+    every story in the sample - constructing a fresh nlp_backend per story
+    here previously reloaded Stanza's full neural pipeline
+    (tokenize/mwt/pos/lemma/depparse, ~15-30s) on every single story, since
+    StanzaBackend.__init__ builds a real stanza.Pipeline; spaCy's per-story
+    reload was smaller (~1-5s) but the same waste.
 
-    Mirrors processor.process_segments()'s own orchestration (per-segment
-    process_segment() calls, schema.reconcile_story_annotations(), then the
-    story-level cross-segment relation pass gated on events existing in at
-    least 2 distinct segments) but built from extractors this script
-    constructs itself, so their default_model can be overridden - see
-    _build_erw_extractors(). `extractors` and `nlp_backend` are built ONCE
-    by the caller (main()) and reused across every story in the sample -
-    constructing a fresh nlp_backend per story here previously reloaded
-    Stanza's full neural pipeline (tokenize/mwt/pos/lemma/depparse, ~15-30s)
-    on every single story, since StanzaBackend.__init__ builds a real
-    stanza.Pipeline; spaCy's per-story reload was smaller (~1-5s) but the
-    same waste. Returns
-    {"segments": [...], "usage": [...], "story": {...},
-    "processed_segment_count": int} - the last key is the number of
-    segments actually processed (process_segments() silently skips any
-    segment missing start_char/end_char, so `len(segments)` alone can
-    overstate how many were really run and disagree with relation
-    counts/densities computed from them).
+    Returns {"segments": [...], "usage": [...], "story": {...} (no
+    cross_segment_relations/weakly_inferred_cross_segment_relations yet),
+    "processed_segment_count": int, "segment_ids_with_events": [...],
+    "_story_obj": <the real StoryWorldAnnotation, not JSON-serializable -
+    see that key's own comment on the return statement>} -
+    processed_segment_count is the number of segments actually processed
+    (process_segment() silently skips any segment missing
+    start_char/end_char, so len(segments) alone can overstate how many
+    were really run); segment_ids_with_events lets
+    _apply_cross_segment_relations decide, without recomputing, whether
+    the >= 2-segments-with-events gate for the cross-segment pass is met.
     """
 
     annotations: List[erw_schema.SegmentWorldAnnotation] = []
@@ -460,50 +645,221 @@ def _run_erw_pipeline(
             )
 
     story = erw_schema.reconcile_story_annotations(story_id, annotations)
-
-    segment_ids_with_events = {
-        segment.segment_id for segment in annotations if segment.events
-    }
-    if len(segment_ids_with_events) >= 2:
-        t0 = time.monotonic()
-        event_index_text = erw_story_relation.build_event_index(story)
-        story_relation_result = extractors["story_relation"].extract(event_index_text)
-        all_usage.append(
-            erw_processor._pass_usage_from_extraction(  # noqa: SLF001 - reuse pipeline's own usage-record logic
-                "story", "story_relation", story_relation_result, t0
-            )
-        )
-        story_relation_error = story_relation_result.get(
-            "api_error"
-        ) or story_relation_result.get("extraction_error")
-        if story_relation_error:
-            story.extraction_errors.append(
-                f"story relation extraction failed: {story_relation_error}"
-            )
-            _check_fatal(
-                str(story_relation_error),
-                context=f"pipeline {story_id} story-relation",
-                usage_rows=[u.to_dict() for u in all_usage],
-            )
-        (
-            cross_segment_relations,
-            weakly_inferred_cross_segment_relations,
-            story_relation_item_errors,
-        ) = erw_story_relation.build_story_relations(
-            story_relation_result.get("extracted_output") or {}, story
-        )
-        story.cross_segment_relations = cross_segment_relations
-        story.weakly_inferred_cross_segment_relations = (
-            weakly_inferred_cross_segment_relations
-        )
-        story.extraction_errors.extend(story_relation_item_errors)
-        story.validation_errors = erw_schema.validate_story_annotation(story)
+    segment_ids_with_events = sorted(
+        {segment.segment_id for segment in annotations if segment.events}
+    )
 
     return {
         "segments": [a.to_dict() for a in annotations],
         "usage": [u.to_dict() for u in all_usage],
         "story": story.to_dict(),
         "processed_segment_count": processed_segment_count,
+        "segment_ids_with_events": segment_ids_with_events,
+        # Not JSON-serializable - the real object, for _apply_cross_segment_
+        # relations's full-validation path when computed fresh in this same
+        # run. Callers MUST pop this before passing the rest to
+        # checkpoint.write_checkpoint (see run_story), or json.dump raises.
+        "_story_obj": story,
+    }
+
+
+class _MiniEvent:
+    """Just enough of Event's shape for build_event_index/build_story_relations."""
+
+    def __init__(self, data: Dict[str, Any]) -> None:
+        self.event_id = data["event_id"]
+        self.predicate = data["predicate"]
+        self.event_type = data["event_type"]
+        evidence = data["evidence"]
+        self.evidence = erw_schema.EvidenceSpan(
+            start_char=evidence["start_char"],
+            end_char=evidence["end_char"],
+            quote=evidence["quote"],
+            source=evidence.get("source", "segment"),
+            paragraph_ids=evidence.get("paragraph_ids"),
+        )
+
+
+class _MiniSegment:
+    """Just enough of SegmentWorldAnnotation's shape for the same two functions."""
+
+    def __init__(self, data: Dict[str, Any]) -> None:
+        self.segment_id = data["segment_id"]
+        self.events = [_MiniEvent(e) for e in data.get("events", [])]
+
+
+class _MiniStory:
+    """Just enough of StoryWorldAnnotation's shape for the same two functions."""
+
+    def __init__(self, segment_annotations: List[_MiniSegment]) -> None:
+        self.segment_annotations = segment_annotations
+
+
+def _story_for_cross_segment_pass(story_dict: Dict[str, Any]) -> _MiniStory:
+    """Build the minimal object shape
+    erw_story_relation.build_event_index/build_story_relations actually
+    dereference (story.segment_annotations[].segment_id/.events[]
+    .event_id/.predicate/.event_type/.evidence), from a checkpoint-
+    persisted plain dict (schema.StoryWorldAnnotation.to_dict()'s own
+    output shape).
+
+    Not a general StoryWorldAnnotation deserializer - schema.py has no
+    from_dict for its dataclass hierarchy, and building one for all 14
+    dataclasses would be substantially more than this stage's own resume
+    path needs. Scoped exactly to what these two story_relation_extractor
+    functions read, confirmed directly against their source. Reusing this
+    on a fresh, same-process story (not read from a checkpoint) would also
+    work, but callers should prefer the real
+    schema.reconcile_story_annotations() output when it's already in
+    memory - this exists specifically for the disk-only resume case.
+    """
+    return _MiniStory(
+        [_MiniSegment(s) for s in story_dict.get("segment_annotations", [])]
+    )
+
+
+def _apply_cross_segment_relations(
+    extraction_result: Dict[str, Any],
+    extractors: Dict[str, Any],
+    story_id: str,
+    story_obj: Optional[erw_schema.StoryWorldAnnotation] = None,
+) -> Dict[str, Any]:
+    """Run the story-level cross-segment-relation pass - the
+    "cross_segment_relation" checkpoint stage, separate from
+    _run_erw_extraction (WI-PIPELINE-0041, Decision 3).
+
+    Takes `extraction_result` (the dict _run_erw_extraction returns, or an
+    equivalent dict read back from that stage's own checkpoint) and
+    returns {"story": {...} (updated with cross_segment_relations/
+    weakly_inferred_cross_segment_relations/extraction_errors, and
+    validation_errors when story_obj is given - see below), "usage": [...]}.
+    Gated on segment_ids_with_events (from extraction_result) containing
+    at least 2 distinct segments; below that, returns the story unchanged
+    and empty usage - a no-op, not an error, matching the prior combined
+    function's own behavior.
+
+    `story_obj`: the real, in-memory schema.StoryWorldAnnotation this
+    story_id's _run_erw_extraction call just produced, when available
+    (i.e. this stage's checkpoint is being computed fresh in the same
+    run as erw_extract, not resumed from a prior process's checkpoint).
+    When given, this function updates it in place and runs the FULL
+    validate_story_annotation check, exactly matching this pipeline's
+    pre-checkpointing behavior. When not given (a resumed run whose
+    erw_extract checkpoint was already done in an earlier process, so
+    only its plain-dict form exists on disk), falls back to
+    _story_for_cross_segment_pass's minimal reconstruction - sufficient
+    for build_event_index/build_story_relations (confirmed against their
+    source: they only ever touch segment_id/events[].event_id/.predicate/
+    .event_type/.evidence), but NOT for validate_story_annotation, which
+    needs entities/relations context this minimal path doesn't
+    reconstruct. In that disk-only-resume case, story-level validation is
+    deliberately skipped rather than run against an incomplete stand-in
+    that could report misleading errors - validation_errors is left as
+    whatever _run_erw_extraction already set (empty, since that stage
+    never populates it). This is a narrow, honestly-scoped gap: it only
+    applies to a process restart landing in the specific window between
+    this story's erw_extract checkpoint being written and its own
+    cross_segment_relation checkpoint being written - not a lost
+    validation, just a deferred one that would resurface if this
+    resumed-then-cached story were later re-validated some other way.
+    """
+    story_dict = dict(extraction_result["story"])
+    all_usage: List[erw_processor.PassUsage] = []
+
+    if len(extraction_result.get("segment_ids_with_events") or []) < 2:
+        return {"story": story_dict, "usage": []}
+
+    story: Any = (
+        story_obj
+        if story_obj is not None
+        else _story_for_cross_segment_pass(story_dict)
+    )
+    t0 = time.monotonic()
+    event_index_text = erw_story_relation.build_event_index(story)
+    story_relation_result = extractors["story_relation"].extract(event_index_text)
+    all_usage.append(
+        erw_processor._pass_usage_from_extraction(  # noqa: SLF001 - reuse pipeline's own usage-record logic
+            "story", "story_relation", story_relation_result, t0
+        )
+    )
+    story_relation_error = story_relation_result.get(
+        "api_error"
+    ) or story_relation_result.get("extraction_error")
+
+    extraction_errors = list(story_dict.get("extraction_errors") or [])
+    if story_relation_error:
+        extraction_errors.append(
+            f"story relation extraction failed: {story_relation_error}"
+        )
+        _check_fatal(
+            str(story_relation_error),
+            context=f"pipeline {story_id} story-relation",
+            usage_rows=[u.to_dict() for u in all_usage],
+        )
+
+    (
+        cross_segment_relations,
+        weakly_inferred_cross_segment_relations,
+        story_relation_item_errors,
+    ) = erw_story_relation.build_story_relations(
+        story_relation_result.get("extracted_output") or {}, story
+    )
+    extraction_errors.extend(story_relation_item_errors)
+
+    story_dict["cross_segment_relations"] = [
+        r.to_dict() for r in cross_segment_relations
+    ]
+    story_dict["weakly_inferred_cross_segment_relations"] = [
+        r.to_dict() for r in weakly_inferred_cross_segment_relations
+    ]
+    story_dict["extraction_errors"] = extraction_errors
+
+    if story_obj is not None:
+        story_obj.cross_segment_relations = cross_segment_relations
+        story_obj.weakly_inferred_cross_segment_relations = (
+            weakly_inferred_cross_segment_relations
+        )
+        story_obj.extraction_errors = extraction_errors
+        story_obj.validation_errors = erw_schema.validate_story_annotation(story_obj)
+        story_dict["validation_errors"] = story_obj.validation_errors
+
+    return {"story": story_dict, "usage": [u.to_dict() for u in all_usage]}
+
+
+def _run_erw_pipeline(
+    body: str,
+    segments: List[Dict[str, Any]],
+    extractors: Dict[str, Any],
+    nlp_backend: Any,
+    nlp_backend_name: str,
+    story_id: str,
+) -> Dict[str, Any]:
+    """Backward-compatible combined entry point: run stages 2-9 plus the
+    story-level cross-segment pass for one story in a single call,
+    composing _run_erw_extraction and _apply_cross_segment_relations (with
+    the real, freshly-computed StoryWorldAnnotation, so full validation
+    runs exactly as it did before the WI-PIPELINE-0041 checkpointing
+    split). Kept for the existing direct regression test of this combined
+    behavior (run_pilot_test.py's TestRunErwPipelineStoryRelationCallSite);
+    run_story() itself calls the two stages separately, checkpointed
+    independently - see WI-PIPELINE-0041.
+
+    Returns the same combined shape this function had before the split:
+    {"segments": [...], "usage": [...] (both stages' usage combined),
+    "story": {...}, "processed_segment_count": int}.
+    """
+    extraction_result = _run_erw_extraction(
+        body, segments, extractors, nlp_backend, nlp_backend_name, story_id
+    )
+    story_obj = extraction_result.pop("_story_obj")
+    cross_segment_result = _apply_cross_segment_relations(
+        extraction_result, extractors, story_id, story_obj=story_obj
+    )
+    return {
+        "segments": extraction_result["segments"],
+        "usage": extraction_result["usage"] + cross_segment_result["usage"],
+        "story": cross_segment_result["story"],
+        "processed_segment_count": extraction_result["processed_segment_count"],
     }
 
 
@@ -512,6 +868,8 @@ def run_story(
     genre: str,
     backend: Any,
     model: str,
+    backend_name: str,
+    roots: checkpoint.CheckpointRoots,
     extractors: Dict[str, Any],
     nlp_backend: Any,
     nlp_backend_name: str,
@@ -524,20 +882,32 @@ def run_story(
     with story_id/genre) for pilot_usage.jsonl, preserved even for excluded
     stories so cost/latency on a failed paid run is not lost.
 
+    Each of this story's four stages (segmentation, ERW-extraction, and
+    cross-segment-relation - genre-detection is checkpointed separately in
+    build_stratified_sample, before this function is ever called for this
+    story) is checkpointed independently under roots.working_root, per
+    WI-PIPELINE-0041/Decision 3: a crash or Ctrl-C preserves every
+    already-completed stage's output, and a resumed run with an unchanged
+    model configuration skips re-issuing an already-checkpointed stage's
+    LLM call.
+
     In --dry-run mode, real stage-1 segmentation is skipped (a FakeBackend
     cannot produce one - its single fixed response can't satisfy the
     segmentation extractor's JSON-text parsing) and a single dummy segment
-    spanning the whole body is used instead, so _run_erw_pipeline()'s
-    stages 2-7 run for real in the zero-cost smoke test, rather than every
-    dry-run story returning early at segmentation. This does NOT reach the
-    story-level cross-segment relation pass: that pass only fires when
-    events exist in >= 2 distinct segments, and a single stubbed segment
-    with an empty fake LLM response never produces any events at all - see
-    running_the_pilot.md's Step 2a for the same caveat.
+    spanning the whole body is used instead, so stages 2-7 still run for
+    real (against the FakeBackend) in the zero-cost smoke test, rather
+    than every dry-run story returning early at segmentation - these later
+    stages are still checkpointed the same as a real run. This does NOT
+    reach the story-level cross-segment relation pass: that pass only
+    fires when events exist in >= 2 distinct segments, and a single
+    stubbed segment with an empty fake LLM response never produces any
+    events at all - see running_the_pilot.md's Step 2a for the same
+    caveat.
     """
+    item_id = _story_identity(path)
     row: Dict[str, Any] = {
         "path": str(path),
-        "story_id": path.stem,
+        "story_id": item_id,
         "genre": genre,
         "excluded": False,
         "exclude_reason": "",
@@ -564,7 +934,9 @@ def run_story(
             {"segment_id": 1, "start_char": 0, "end_char": len(body)}
         ]
     else:
-        segments, seg_error = _segment_story(body, backend, model)
+        segments, seg_error = _segment_story_cached(
+            path, body, backend, model, backend_name, roots
+        )
         if seg_error or not segments:
             # seg_error may be the classified api_error dict (see
             # LLMExtractor._classify_api_error) or a plain string, depending
@@ -587,16 +959,61 @@ def run_story(
             return row, []
 
     try:
-        pipeline_result = _run_erw_pipeline(
-            body, segments, extractors, nlp_backend, nlp_backend_name, path.stem
+        erw_fingerprint = _stage_fingerprint(model, backend_name, upstream=segments)
+        cached_erw = checkpoint.read_checkpoint(
+            roots.working_root, item_id, "erw_extract", erw_fingerprint
         )
+        if cached_erw.done:
+            extraction_result = cached_erw.data
+            story_obj: Optional[erw_schema.StoryWorldAnnotation] = None
+        else:
+            extraction_result = _run_erw_extraction(
+                body, segments, extractors, nlp_backend, nlp_backend_name, item_id
+            )
+            story_obj = extraction_result.pop("_story_obj")
+            checkpoint.write_checkpoint(
+                roots.working_root,
+                item_id,
+                "erw_extract",
+                outcome="success",
+                fingerprint=erw_fingerprint,
+                data=extraction_result,
+            )
+
+        cross_fingerprint = _stage_fingerprint(
+            model, backend_name, upstream=extraction_result["story"]
+        )
+        cached_cross = checkpoint.read_checkpoint(
+            roots.working_root, item_id, "cross_segment_relation", cross_fingerprint
+        )
+        if cached_cross.done:
+            cross_segment_result = cached_cross.data
+        else:
+            cross_segment_result = _apply_cross_segment_relations(
+                extraction_result, extractors, item_id, story_obj=story_obj
+            )
+            checkpoint.write_checkpoint(
+                roots.working_root,
+                item_id,
+                "cross_segment_relation",
+                outcome="success",
+                fingerprint=cross_fingerprint,
+                data=cross_segment_result,
+            )
     except FatalPilotError as exc:
         exc.usage_rows = [
-            {"story_id": path.stem, "genre": genre, **usage} for usage in exc.usage_rows
+            {"story_id": item_id, "genre": genre, **usage} for usage in exc.usage_rows
         ]
         raise
+
+    pipeline_result = {
+        "segments": extraction_result["segments"],
+        "usage": extraction_result["usage"] + cross_segment_result["usage"],
+        "story": cross_segment_result["story"],
+        "processed_segment_count": extraction_result["processed_segment_count"],
+    }
     usage_rows = [
-        {"story_id": path.stem, "genre": genre, **usage}
+        {"story_id": item_id, "genre": genre, **usage}
         for usage in pipeline_result["usage"]
     ]
 
@@ -691,6 +1108,12 @@ def main() -> int:
     output_dir = pathlib.Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    try:
+        roots = checkpoint.resolve_roots(working_root=output_dir, source_root=data_dir)
+    except (checkpoint.ProtectedRootError, RuntimeError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
+
     if args.dry_run:
         backend, model = _build_fake_backend()
     else:
@@ -713,6 +1136,8 @@ def main() -> int:
             data_dir,
             backend,
             model,
+            args.backend,
+            roots,
             args.sample_size,
             args.max_candidates,
             args.seed,
@@ -767,6 +1192,8 @@ def main() -> int:
                     genre,
                     backend,
                     model,
+                    args.backend,
+                    roots,
                     extractors,
                     nlp_backend,
                     args.nlp_backend,
@@ -805,7 +1232,7 @@ def main() -> int:
                 rows.append(
                     {
                         "path": str(path),
-                        "story_id": path.stem,
+                        "story_id": _story_identity(path),
                         "genre": genre,
                         "excluded": True,
                         "exclude_reason": f"unexpected error: {exc!r}",

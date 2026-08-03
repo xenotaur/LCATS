@@ -199,8 +199,13 @@ class TestMainUnexpectedPerStoryException(unittest.TestCase):
     and discarding every already-completed, already-paid-for story's
     results, not just the one that failed."""
 
-    def _write_story(self, data_dir: pathlib.Path, name: str, body: str) -> None:
-        (data_dir / f"{name}.json").write_text(
+    def _write_story(self, collection_dir: pathlib.Path, name: str, body: str) -> None:
+        # Bucket layout (PROP-LCATS-STORY-BUCKET-LAYOUT, retracted flat
+        # support): a story is <collection>/<story>/story.json, not a flat
+        # <story>.json file directly in the collection directory.
+        story_dir = collection_dir / name
+        story_dir.mkdir(parents=True)
+        (story_dir / "story.json").write_text(
             json.dumps({"name": name, "author": "Test Author", "body": body}),
             encoding="utf-8",
         )
@@ -208,14 +213,15 @@ class TestMainUnexpectedPerStoryException(unittest.TestCase):
     def test_unexpected_exception_on_one_story_preserves_other_results(self):
         with tempfile.TemporaryDirectory() as tmp:
             data_dir = pathlib.Path(tmp) / "data"
-            data_dir.mkdir()
+            collection_dir = data_dir / "test_collection"
+            collection_dir.mkdir(parents=True)
             output_dir = pathlib.Path(tmp) / "results"
-            self._write_story(data_dir, "story_a", "Story A body text.")
-            self._write_story(data_dir, "story_b", "Story B body text.")
+            self._write_story(collection_dir, "story_a", "Story A body text.")
+            self._write_story(collection_dir, "story_b", "Story B body text.")
 
             real_row = {
-                "path": str(data_dir / "story_a.json"),
-                "story_id": "story_a",
+                "path": str(collection_dir / "story_a" / "story.json"),
+                "story_id": "test_collection__story_a",
                 "genre": "science fiction",
                 "excluded": False,
                 "exclude_reason": "",
@@ -228,7 +234,7 @@ class TestMainUnexpectedPerStoryException(unittest.TestCase):
             }
 
             def fake_run_story(path, genre, *args, **kwargs):
-                if path.stem == "story_b":
+                if path.parent.name == "story_b":
                     raise RuntimeError("simulated unexpected per-story failure")
                 return dict(real_row), []
 
@@ -259,20 +265,403 @@ class TestMainUnexpectedPerStoryException(unittest.TestCase):
 
             # story_a's real, already-completed result must still be
             # written - not discarded because story_b crashed later.
-            self.assertIn("story_a", rows_by_story_id)
-            self.assertFalse(rows_by_story_id["story_a"]["excluded"])
+            self.assertIn("test_collection__story_a", rows_by_story_id)
+            self.assertFalse(rows_by_story_id["test_collection__story_a"]["excluded"])
 
             # story_b is recorded as excluded with the unexpected error,
             # not silently dropped and not aborting the whole run.
-            self.assertIn("story_b", rows_by_story_id)
-            self.assertTrue(rows_by_story_id["story_b"]["excluded"])
+            self.assertIn("test_collection__story_b", rows_by_story_id)
+            self.assertTrue(rows_by_story_id["test_collection__story_b"]["excluded"])
             self.assertIn(
-                "unexpected error", rows_by_story_id["story_b"]["exclude_reason"]
+                "unexpected error",
+                rows_by_story_id["test_collection__story_b"]["exclude_reason"],
             )
             self.assertIn(
                 "simulated unexpected per-story failure",
-                rows_by_story_id["story_b"]["exclude_reason"],
+                rows_by_story_id["test_collection__story_b"]["exclude_reason"],
             )
+
+
+class TestCheckpointedResumability(unittest.TestCase):
+    """WI-PIPELINE-0041: run_story()'s stages (segment, erw_extract,
+    cross_segment_relation) are checkpointed independently. This class
+    proves, against the real pipeline stages (not mocked returns), that:
+    a bounded small-scale trial makes only the expected number of LLM
+    calls; a KeyboardInterrupt mid-run (not an ordinary Exception, per the
+    review finding that a fake-backend test using a plain Exception does
+    not exercise the real Ctrl-C escape path - run_pilot.py's own
+    per-story except Exception in main() would otherwise swallow it)
+    preserves every already-completed stage's checkpoint; and a second,
+    resumed run does not re-issue an already-checkpointed stage's LLM
+    call.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data" / "test_collection" / "story_a"
+        self.data_dir.mkdir(parents=True)
+        self.story_path = self.data_dir / "story.json"
+        self.story_path.write_text(
+            json.dumps(
+                {
+                    "name": "story_a",
+                    "author": "Test Author",
+                    "body": "The old machine hummed. It shut off forever.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _segment_tool_result(self):
+        return {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "The old machine hummed.",
+                    "end_exact": "It shut off forever.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": 0,
+                    "end_char": 45,
+                    "summary": "A machine stops.",
+                    "cohesion": {"time": "", "place": "", "characters": []},
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Single scene.",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+
+    def _make_fake(self):
+        return _SequencedFakeBackend(
+            [
+                self._segment_tool_result(),  # segment (call 1)
+                {"entities": []},  # erw_extract: entity (call 2)
+                {"events": []},  # erw_extract: event (call 3)
+                {},  # erw_extract: relation (call 4)
+                {},  # erw_extract: discourse (call 5)
+                # No story_relation call: a single segment never satisfies
+                # the >= 2-segments-with-events gate, so the
+                # cross_segment_relation stage is a no-op here - this test
+                # is about segment/erw_extract checkpointing specifically.
+            ]
+        )
+
+    def _run_one_story(self, fake, roots=None):
+        extractors = run_pilot._build_erw_extractors(fake, "fake-model")
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+        return run_pilot.run_story(
+            self.story_path,
+            "science fiction",
+            fake,
+            "fake-model",
+            "fake",
+            roots if roots is not None else self.roots,
+            extractors,
+            nlp_backend,
+            "fake",
+            dry_run=False,
+        )
+
+    def test_bounded_small_scale_trial_makes_expected_call_count(self):
+        """A single-story, single-segment trial makes exactly the 5 LLM
+        calls this scenario needs (segment + entity/event/relation/
+        discourse) - nowhere near "a few dozen", let alone the ~98-479
+        calls this session measured for a real full-sample run."""
+        fake = self._make_fake()
+
+        row, usage_rows = self._run_one_story(fake)
+
+        self.assertFalse(row["excluded"], row.get("exclude_reason"))
+        self.assertEqual(len(fake.calls), 5)
+
+    def test_keyboard_interrupt_mid_run_preserves_completed_stage_checkpoints(self):
+        """A KeyboardInterrupt raised during the ERW-extraction stage still
+        leaves the already-completed segmentation checkpoint on disk,
+        untouched - not just "some file survives", but specifically the
+        stage that had already succeeded before the interruption."""
+        fake = self._make_fake()
+
+        with patch.object(
+            run_pilot, "_run_erw_extraction", side_effect=KeyboardInterrupt
+        ):
+            with self.assertRaises(KeyboardInterrupt):
+                self._run_one_story(fake)
+
+        item_id = run_pilot._story_identity(self.story_path)
+        segment_result = run_pilot.checkpoint.read_checkpoint(
+            self.working_root,
+            item_id,
+            "segment",
+            run_pilot._base_fingerprint("fake-model", "fake"),
+        )
+        self.assertTrue(segment_result.done)
+
+        erw_extract_path = run_pilot.checkpoint.checkpoint_path(
+            self.working_root, item_id, "erw_extract"
+        )
+        self.assertFalse(erw_extract_path.exists())
+
+        # Only the segmentation call happened before the interrupt.
+        self.assertEqual(len(fake.calls), 1)
+
+    def test_resumed_run_does_not_reissue_completed_stage_calls(self):
+        """After the KeyboardInterrupt scenario above, a second, fresh
+        run_story() call (same roots, same story - i.e. a real process
+        restart) must not re-issue the segmentation LLM call, since a
+        valid checkpoint already exists for it. The shared
+        _SequencedFakeBackend proves this directly: if segmentation were
+        wrongly re-issued, its result list (which has exactly one
+        segmentation result left) would be exhausted by the wrong call,
+        and the real entity/event/relation/discourse calls would get the
+        segmentation result instead, or the sequence would run out
+        entirely and raise IndexError.
+        """
+        fake = self._make_fake()
+
+        with patch.object(
+            run_pilot, "_run_erw_extraction", side_effect=KeyboardInterrupt
+        ):
+            with self.assertRaises(KeyboardInterrupt):
+                self._run_one_story(fake)
+
+        self.assertEqual(len(fake.calls), 1)
+
+        # Resume: a fresh call, no more patching - _run_erw_extraction runs
+        # for real this time, but segmentation must be skipped via its
+        # checkpoint, so only the 4 ERW-extraction calls should follow.
+        row, usage_rows = self._run_one_story(fake)
+
+        self.assertFalse(row["excluded"], row.get("exclude_reason"))
+        self.assertEqual(len(fake.calls), 5)
+
+        item_id = run_pilot._story_identity(self.story_path)
+        erw_extract_path = run_pilot.checkpoint.checkpoint_path(
+            self.working_root, item_id, "erw_extract"
+        )
+        self.assertTrue(erw_extract_path.exists())
+
+
+class TestSegmentationFingerprintInvalidation(unittest.TestCase):
+    """A resumed run under a DIFFERENT model configuration must not honor
+    an existing checkpoint written under the old one - Decision 2's
+    configuration-identity requirement, applied at the "segment" stage
+    specifically."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data" / "test_collection" / "story_a"
+        self.data_dir.mkdir(parents=True)
+        self.story_path = self.data_dir / "story.json"
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _segment_tool_result(self):
+        return {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "Once.",
+                    "end_exact": "Once.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": 0,
+                    "end_char": 5,
+                    "summary": "Intro.",
+                    "cohesion": {"time": "", "place": "", "characters": []},
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Setup.",
+                    "confidence": 0.7,
+                }
+            ]
+        }
+
+    def test_different_model_does_not_reuse_old_checkpoint(self):
+        from lcats.llm import fake_backend
+
+        fake_1 = fake_backend.FakeBackend(tool_result=self._segment_tool_result())
+        run_pilot._segment_story_cached(
+            self.story_path, "Once.", fake_1, "model-a", "fake", self.roots
+        )
+        self.assertEqual(len(fake_1.calls), 1)
+
+        fake_2 = fake_backend.FakeBackend(tool_result=self._segment_tool_result())
+        run_pilot._segment_story_cached(
+            self.story_path, "Once.", fake_2, "model-b", "fake", self.roots
+        )
+
+        # A different model must force a real re-issue, not reuse
+        # model-a's checkpoint.
+        self.assertEqual(len(fake_2.calls), 1)
+
+    def test_same_model_reuses_existing_checkpoint(self):
+        from lcats.llm import fake_backend
+
+        fake_1 = fake_backend.FakeBackend(tool_result=self._segment_tool_result())
+        run_pilot._segment_story_cached(
+            self.story_path, "Once.", fake_1, "model-a", "fake", self.roots
+        )
+        self.assertEqual(len(fake_1.calls), 1)
+
+        fake_2 = fake_backend.FakeBackend(tool_result=self._segment_tool_result())
+        run_pilot._segment_story_cached(
+            self.story_path, "Once.", fake_2, "model-a", "fake", self.roots
+        )
+
+        # Same model configuration - the checkpoint should be honored, so
+        # fake_2 is never actually called.
+        self.assertEqual(len(fake_2.calls), 0)
+
+
+class TestGenreDetectCheckpointing(unittest.TestCase):
+    """build_stratified_sample checkpoints each real genre-detect call
+    under stage "genre_detect", so a resumed scan (same --seed) does not
+    re-classify an already-scanned candidate."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data"
+        collection_dir = self.data_dir / "test_collection"
+        collection_dir.mkdir(parents=True)
+        for name, body in [
+            ("story_1", "A tale of science and machines."),
+            ("story_2", "A tale of ghosts and dread."),
+        ]:
+            story_dir = collection_dir / name
+            story_dir.mkdir()
+            (story_dir / "story.json").write_text(
+                json.dumps({"name": name, "author": "A", "body": body}),
+                encoding="utf-8",
+            )
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_resumed_scan_does_not_reclassify_already_scanned_candidates(self):
+        call_count = {"n": 0}
+
+        def fake_assess_story(path, backend=None, model=None):
+            call_count["n"] += 1
+            from lcats.analysis.corpus import assess as corpus_assess
+
+            return corpus_assess.AssessmentResult(
+                file_path=str(path),
+                title=path.parent.name,
+                author="Test Author",
+                url="",
+                target_genre="",
+                verdict="include",
+                detected_genre="science fiction",
+                error="",
+            )
+
+        with patch.object(
+            run_pilot.corpus_assess, "assess_story", side_effect=fake_assess_story
+        ):
+            run_pilot.build_stratified_sample(
+                self.data_dir,
+                backend=None,
+                model="model-a",
+                backend_name="fake",
+                roots=self.roots,
+                sample_size=1,
+                max_candidates=10,
+                seed=1,
+                dry_run=False,
+            )
+        first_run_calls = call_count["n"]
+        self.assertGreater(first_run_calls, 0)
+
+        # Resume: same seed (same scan order), same model - every
+        # candidate scanned the first time should now be served from its
+        # genre_detect checkpoint instead of calling assess_story again.
+        with patch.object(
+            run_pilot.corpus_assess, "assess_story", side_effect=fake_assess_story
+        ):
+            run_pilot.build_stratified_sample(
+                self.data_dir,
+                backend=None,
+                model="model-a",
+                backend_name="fake",
+                roots=self.roots,
+                sample_size=1,
+                max_candidates=10,
+                seed=1,
+                dry_run=False,
+            )
+
+        self.assertEqual(call_count["n"], first_run_calls)
+
+
+class TestFindJsonFilesDiscoverySelector(unittest.TestCase):
+    """WI-PIPELINE-0041: _iter_candidate_files uses discovery.find_json_files
+    (bucket-aware, multi-collection) instead of a bare recursive
+    data_dir.rglob("*.json") - the latter would misread sidecar files as
+    spurious stories once data/ is populated by the bucket-writing
+    DataGatherer, and discovery.iter_collection_story_files (the WI's
+    original, review-corrected scope draft) only examines a single
+    collection's immediate children, yielding nothing on a multi-
+    collection corpus root like the real --data-dir default (review
+    finding, PR #210)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.data_dir = pathlib.Path(self._tmp.name)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _write_story(self, collection: str, story: str) -> None:
+        story_dir = self.data_dir / collection / story
+        story_dir.mkdir(parents=True)
+        (story_dir / "story.json").write_text(
+            json.dumps({"name": story, "author": "A", "body": "Body text."}),
+            encoding="utf-8",
+        )
+
+    def test_discovers_stories_across_multiple_collections(self):
+        """A corpus root with more than one collection directory must have
+        every collection's stories discovered - not just the first one
+        found, and not zero, per PR #210's review finding."""
+        self._write_story("collection_a", "story_1")
+        self._write_story("collection_b", "story_2")
+
+        files = run_pilot._iter_candidate_files(self.data_dir, seed=1)
+
+        self.assertEqual(len(files), 2)
+
+    def test_ignores_sidecar_files_alongside_story_json(self):
+        """A sidecar file (e.g. audit.json) inside a story's own bucket
+        directory must not be misread as a second, separate story."""
+        self._write_story("collection_a", "story_1")
+        sidecar_path = self.data_dir / "collection_a" / "story_1" / "audit.json"
+        sidecar_path.write_text(json.dumps({"findings": []}), encoding="utf-8")
+
+        files = run_pilot._iter_candidate_files(self.data_dir, seed=1)
+
+        self.assertEqual(len(files), 1)
+        self.assertEqual(files[0].name, "story.json")
 
 
 if __name__ == "__main__":
