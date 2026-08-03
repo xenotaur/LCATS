@@ -221,6 +221,22 @@ def _story_identity(path: pathlib.Path) -> str:
     return f"{path.parent.parent.name}__{path.parent.name}"
 
 
+def _is_valid_cache_payload(data: Any, required_keys: Tuple[str, ...]) -> bool:
+    """Return True if data is a dict containing every key in required_keys.
+
+    checkpoint.read_checkpoint() reports outcome="success" for any
+    well-formed JSON record with a recognized outcome/fingerprint - it has
+    no way to know THIS script's own expected data shape. A checkpoint
+    file could still be malformed relative to that shape (hand-edited, or
+    written by a different version of this script) while passing every
+    check checkpoint.py itself performs. Treating that as an unusable
+    cache miss - never a KeyError/TypeError crash - keeps this migration's
+    integration consistent with checkpoint.py's own "never raise on an
+    incomplete/unexpected checkpoint" contract (review finding, PR #217).
+    """
+    return isinstance(data, dict) and all(key in data for key in required_keys)
+
+
 def _hash_json(obj: Any) -> str:
     """Deterministic hash of a JSON-serializable value, for checkpoint
     fingerprints that must invalidate when an upstream pipeline stage's
@@ -337,12 +353,21 @@ def build_stratified_sample(
             break
         scanned += 1
         item_id = _story_identity(path)
-        fingerprint = _base_fingerprint(model, backend_name)
+        # Hash the raw file text (not just model/backend/version) so a
+        # story corrected in place - re-edited JSON, fixed body text -
+        # invalidates its genre_detect cache instead of silently serving a
+        # classification computed against stale content (review finding,
+        # PR #217).
+        try:
+            raw_text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            raw_text = ""
+        fingerprint = _stage_fingerprint(model, backend_name, upstream=raw_text)
         cached = checkpoint.read_checkpoint(
             roots.working_root, item_id, "genre_detect", fingerprint
         )
-        if cached.done:
-            genre = (cached.data or {}).get("genre")
+        if cached.done and _is_valid_cache_payload(cached.data, ("genre",)):
+            genre = cached.data["genre"]
         else:
             try:
                 result = corpus_assess.assess_story(path, backend=backend, model=model)
@@ -431,11 +456,15 @@ def _segment_story_cached(
     _story_identity(path)) - a resumed run with an unchanged model
     configuration skips this story's segmentation LLM call entirely."""
     item_id = _story_identity(path)
-    fingerprint = _base_fingerprint(model, backend_name)
+    # Hash the segmentation input text itself, not just model/backend/
+    # version - otherwise correcting a story's body without changing the
+    # model configuration would still serve stale segments (review
+    # finding, PR #217).
+    fingerprint = _stage_fingerprint(model, backend_name, upstream=body)
     cached = checkpoint.read_checkpoint(
         roots.working_root, item_id, "segment", fingerprint
     )
-    if cached.done:
+    if cached.done and _is_valid_cache_payload(cached.data, ("segments",)):
         return cached.data["segments"], None
 
     segments, error = _segment_story(body, backend, model)
@@ -723,6 +752,7 @@ def _apply_cross_segment_relations(
     extractors: Dict[str, Any],
     story_id: str,
     story_obj: Optional[erw_schema.StoryWorldAnnotation] = None,
+    upstream_usage: Optional[List[Dict[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """Run the story-level cross-segment-relation pass - the
     "cross_segment_relation" checkpoint stage, separate from
@@ -762,6 +792,13 @@ def _apply_cross_segment_relations(
     cross_segment_relation checkpoint being written - not a lost
     validation, just a deferred one that would resurface if this
     resumed-then-cached story were later re-validated some other way.
+
+    `upstream_usage`: erw_extract's own already-accumulated usage rows
+    (plain dicts, e.g. extraction_result["usage"]), folded into the usage
+    reported to _check_fatal if the story-relation call itself hits a
+    fatal (account-level) error - otherwise that already-paid-for cost
+    data would be silently dropped from the abort's usage_rows (review
+    finding, PR #217).
     """
     story_dict = dict(extraction_result["story"])
     all_usage: List[erw_processor.PassUsage] = []
@@ -794,7 +831,7 @@ def _apply_cross_segment_relations(
         _check_fatal(
             str(story_relation_error),
             context=f"pipeline {story_id} story-relation",
-            usage_rows=[u.to_dict() for u in all_usage],
+            usage_rows=(upstream_usage or []) + [u.to_dict() for u in all_usage],
         )
 
     (
@@ -853,7 +890,11 @@ def _run_erw_pipeline(
     )
     story_obj = extraction_result.pop("_story_obj")
     cross_segment_result = _apply_cross_segment_relations(
-        extraction_result, extractors, story_id, story_obj=story_obj
+        extraction_result,
+        extractors,
+        story_id,
+        story_obj=story_obj,
+        upstream_usage=extraction_result["usage"],
     )
     return {
         "segments": extraction_result["segments"],
@@ -958,12 +999,29 @@ def run_story(
             row["exclude_reason"] = f"segmentation failed: {seg_error_text}"
             return row, []
 
+    _erw_keys = (
+        "segments",
+        "usage",
+        "story",
+        "processed_segment_count",
+        "segment_ids_with_events",
+    )
+    _cross_keys = ("story", "usage")
+
     try:
-        erw_fingerprint = _stage_fingerprint(model, backend_name, upstream=segments)
+        # nlp_backend_name is folded in explicitly (not just via
+        # `segments`) since the NLP surface-feature backend choice affects
+        # process_segment()'s output even when segmentation itself is
+        # unchanged (review finding, PR #217).
+        erw_fingerprint = _stage_fingerprint(
+            model,
+            backend_name,
+            upstream={"segments": segments, "nlp_backend": nlp_backend_name},
+        )
         cached_erw = checkpoint.read_checkpoint(
             roots.working_root, item_id, "erw_extract", erw_fingerprint
         )
-        if cached_erw.done:
+        if cached_erw.done and _is_valid_cache_payload(cached_erw.data, _erw_keys):
             extraction_result = cached_erw.data
             story_obj: Optional[erw_schema.StoryWorldAnnotation] = None
         else:
@@ -971,11 +1029,17 @@ def run_story(
                 body, segments, extractors, nlp_backend, nlp_backend_name, item_id
             )
             story_obj = extraction_result.pop("_story_obj")
+            # A transient extraction error should be retried on the next
+            # run, not served forever from a "successful" checkpoint - see
+            # _has_extraction_errors (review finding, PR #217).
+            erw_outcome = (
+                "failure" if _has_extraction_errors(extraction_result) else "success"
+            )
             checkpoint.write_checkpoint(
                 roots.working_root,
                 item_id,
                 "erw_extract",
-                outcome="success",
+                outcome=erw_outcome,
                 fingerprint=erw_fingerprint,
                 data=extraction_result,
             )
@@ -986,17 +1050,28 @@ def run_story(
         cached_cross = checkpoint.read_checkpoint(
             roots.working_root, item_id, "cross_segment_relation", cross_fingerprint
         )
-        if cached_cross.done:
+        if cached_cross.done and _is_valid_cache_payload(
+            cached_cross.data, _cross_keys
+        ):
             cross_segment_result = cached_cross.data
         else:
             cross_segment_result = _apply_cross_segment_relations(
-                extraction_result, extractors, item_id, story_obj=story_obj
+                extraction_result,
+                extractors,
+                item_id,
+                story_obj=story_obj,
+                upstream_usage=extraction_result["usage"],
+            )
+            cross_outcome = (
+                "failure"
+                if cross_segment_result["story"].get("extraction_errors")
+                else "success"
             )
             checkpoint.write_checkpoint(
                 roots.working_root,
                 item_id,
                 "cross_segment_relation",
-                outcome="success",
+                outcome=cross_outcome,
                 fingerprint=cross_fingerprint,
                 data=cross_segment_result,
             )
@@ -1106,13 +1181,19 @@ def main() -> int:
         return 1
 
     output_dir = pathlib.Path(args.output)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
+    # Guard BEFORE creating output_dir - checkpoint.resolve_roots() does
+    # not require the path to exist (pathlib.Path.resolve() works on a
+    # non-existent path), so creating the directory first would let a
+    # rejected --output still mutate the protected corpus tree before the
+    # guard ever fires (review finding, PR #217).
     try:
         roots = checkpoint.resolve_roots(working_root=output_dir, source_root=data_dir)
     except (checkpoint.ProtectedRootError, RuntimeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
+
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     if args.dry_run:
         backend, model = _build_fake_backend()

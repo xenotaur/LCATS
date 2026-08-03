@@ -399,11 +399,14 @@ class TestCheckpointedResumability(unittest.TestCase):
                 self._run_one_story(fake)
 
         item_id = run_pilot._story_identity(self.story_path)
+        body = run_pilot.story_analysis.coerce_text(
+            json.loads(self.story_path.read_text(encoding="utf-8"))["body"]
+        )
         segment_result = run_pilot.checkpoint.read_checkpoint(
             self.working_root,
             item_id,
             "segment",
-            run_pilot._base_fingerprint("fake-model", "fake"),
+            run_pilot._stage_fingerprint("fake-model", "fake", upstream=body),
         )
         self.assertTrue(segment_result.done)
 
@@ -450,6 +453,82 @@ class TestCheckpointedResumability(unittest.TestCase):
             self.working_root, item_id, "erw_extract"
         )
         self.assertTrue(erw_extract_path.exists())
+
+
+class TestErwExtractFailureIsNotCheckpointedAsDone(unittest.TestCase):
+    """A story whose ERW-extraction pass surfaces extraction_errors must
+    not be checkpointed as outcome="success" - a resumed run should retry
+    it, not serve a transient failure forever as if it were done (review
+    finding, PR #217)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data" / "test_collection" / "story_a"
+        self.data_dir.mkdir(parents=True)
+        self.story_path = self.data_dir / "story.json"
+        self.story_path.write_text(
+            json.dumps(
+                {
+                    "name": "story_a",
+                    "author": "Test Author",
+                    "body": "The old machine hummed.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _fake_extraction_result(self, with_error: bool):
+        return {
+            "segments": [{"segment_id": 1, "extraction_errors": []}],
+            "usage": [],
+            "story": {
+                "extraction_errors": ["boom: entity call failed"] if with_error else []
+            },
+            "processed_segment_count": 1,
+            "segment_ids_with_events": [],
+            "_story_obj": None,
+        }
+
+    def test_extraction_errors_write_failure_outcome_not_success(self):
+        fake = _SequencedFakeBackend([{"segments": [{"segment_id": 1}]}])
+        extractors = run_pilot._build_erw_extractors(fake, "fake-model")
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+
+        with patch.object(
+            run_pilot,
+            "_run_erw_extraction",
+            return_value=self._fake_extraction_result(with_error=True),
+        ):
+            row, _usage = run_pilot.run_story(
+                self.story_path,
+                "science fiction",
+                fake,
+                "fake-model",
+                "fake",
+                self.roots,
+                extractors,
+                nlp_backend,
+                "fake",
+                dry_run=True,
+            )
+
+        self.assertTrue(row["excluded"])
+
+        item_id = run_pilot._story_identity(self.story_path)
+        # Read back whatever was actually written - what matters is that
+        # the outcome is "failure", not the exact fingerprint shape.
+        checkpoint_path = run_pilot.checkpoint.checkpoint_path(
+            self.working_root, item_id, "erw_extract"
+        )
+        self.assertTrue(checkpoint_path.exists())
+        written = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+        self.assertEqual(written["outcome"], "failure")
 
 
 class TestSegmentationFingerprintInvalidation(unittest.TestCase):
