@@ -21,7 +21,7 @@ cd LCATS/lcats
 - [Set up API keys](secrets-setup.md)
 - [Run `lcats assess`](how-to/run-assess.md) — modes, manual prompt validation, and dry-run guidance
 - [Prepare a corpora release](reference/prepare-corpora-release.md) — manual, agent-free runbook: clear, regenerate, verify, and promote `data/` into `corpora/`
-- [Run the cross-segment relation density pilot](../../experiments/03_cross_segment_relation_pilot/running_the_pilot.md) — manual runbook: environment setup, zero-cost smoke testing (including spaCy/Stanza), the real run, and closing out the work item
+- [Run the cross-segment relation density pilot](../../experiments/03_cross_segment_relation_pilot/running_the_pilot.md) — manual runbook: environment setup, zero-cost smoke testing (including spaCy/Stanza), the real run (safely resumable after a crash or interrupt via per-stage checkpointing), and closing out the work item
 
 ### Reference
 
