@@ -13,6 +13,7 @@ related_design:
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
+  - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/project/design/backlog.md
 ---
 
@@ -296,10 +297,12 @@ cost ceiling (near-zero marginal cost) but the least validated reliability
 for this pipeline's specific tool-use/strict-schema requirements, and
 genuinely different research questions (runtime choice, hardware
 constraints, hybrid-vs-full-swap design) than the four decisions above.
-This is already scoped as a separate research effort (a dedicated
-exploration session was started 2026-08-04) and should report its own
-findings independently, cross-referenced here once available, rather than
-being folded into this proposal's implementation plan.
+This is already scoped as a separate research effort, tracked as its own
+proposal:
+`lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md`
+(`PROP-ERW-LOCAL-MODEL-EVALUATION`, still `proposed`) — that proposal
+should report its own findings independently rather than being folded
+into this proposal's implementation plan.
 
 ## Non-Goals
 
@@ -366,6 +369,9 @@ workstream, not a single work item. Proposed shape:
   evaluation (Decision 4) must reconcile with.
 - `lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md`
   — the 4-stage decomposition Decision 6 declines to revisit.
+- `lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md`
+  (`PROP-ERW-LOCAL-MODEL-EVALUATION`) — the separate local-model track
+  Decision 7 defers to.
 - `lcats/project/design/backlog.md` — "pilot_usage.jsonl doesn't track
   genre-detect or segmentation cost at all" and "Pilot's default
   parameters optimize for full genre coverage, not minimum-cost
