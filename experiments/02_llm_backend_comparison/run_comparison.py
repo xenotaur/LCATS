@@ -57,7 +57,10 @@ def run(args: argparse.Namespace) -> int:
 
     story_files = sorted(discovery.iter_collection_story_files(corpus_dir))
     if not story_files:
-        print(f"error: no .json files found in {corpus_dir}", file=sys.stderr)
+        print(
+            f"error: no <story>/story.json files found under {corpus_dir}",
+            file=sys.stderr,
+        )
         return 1
 
     stories = story_files[: args.sample]

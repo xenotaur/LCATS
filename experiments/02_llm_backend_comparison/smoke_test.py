@@ -106,10 +106,12 @@ _RUNS = [
 
 def _actual_sample(corpus_dir: pathlib.Path, requested: int) -> int:
     """Return the number of stories that run_comparison will actually assess."""
-    return min(
-        requested,
-        len(sorted(run_comparison.discovery.iter_collection_story_files(corpus_dir))),
-    )
+    count = 0
+    for _ in run_comparison.discovery.iter_collection_story_files(corpus_dir):
+        count += 1
+        if count >= requested:
+            return requested
+    return count
 
 
 def _result_path(
