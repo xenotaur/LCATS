@@ -142,11 +142,16 @@ def select_files(args) -> list[pathlib.Path]:
     """Return the story files to run, per --story-list or the shuffle sample."""
     if args.story_list:
         lines = pathlib.Path(args.story_list).read_text("utf-8").splitlines()
-        return [
-            pathlib.Path(line.strip())
+        listed = [
+            line.strip()
             for line in lines
             if line.strip() and not line.strip().startswith("#")
         ]
+        # Route through find_json_files() too, not just the sampled path:
+        # a --story-list entry could name a non-canonical sidecar (or a
+        # directory), and story_id/result_path derivation below assumes
+        # every selected path is a canonical <collection>/<story>/story.json.
+        return sorted(discovery.find_json_files(listed))
     files = sorted(discovery.find_json_files([args.data_dir]))
     random.Random(args.seed).shuffle(files)
     return files[: args.sample_size]

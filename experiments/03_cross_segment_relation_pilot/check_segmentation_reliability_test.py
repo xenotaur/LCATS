@@ -72,6 +72,27 @@ class TestSelectFilesCanonicalOnly(unittest.TestCase):
 
             self.assertEqual(len(found), 2)
 
+    def test_story_list_also_ignores_sidecar_json(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            collection_dir = data_dir / "collection_a"
+            _write_bucket_story(collection_dir, "real_story", "Some story text.")
+            sidecar = collection_dir / "real_story" / "analysis.json"
+            sidecar.write_text(
+                json.dumps({"unrelated": "sidecar data"}), encoding="utf-8"
+            )
+            story_list = pathlib.Path(tmp) / "story_list.txt"
+            story_list.write_text(
+                f"{collection_dir / 'real_story' / 'story.json'}\n{sidecar}\n",
+                encoding="utf-8",
+            )
+
+            args = _namespace(story_list=str(story_list))
+            found = check_segmentation_reliability.select_files(args)
+
+            self.assertEqual(len(found), 1)
+            self.assertEqual(found[0].name, "story.json")
+
 
 def _namespace(**kwargs):
     import argparse
