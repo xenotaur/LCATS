@@ -112,7 +112,11 @@ class TestAssessStorySuccess(unittest.TestCase):
 
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_secondary_genre_defaults_empty(self, _mock):
-        fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
+        """Exercises the a.get("secondary_genre", "") fallback, not just an
+        explicit empty string already present in the tool result."""
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        del tool_result["secondary_genre"]
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
         result = assess.assess_story(_FILE, _GENRE, fb)
         self.assertEqual(result.secondary_genre, "")
 

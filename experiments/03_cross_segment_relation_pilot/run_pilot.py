@@ -37,11 +37,17 @@ Optional flags:
                             as a real finding. Defaults --nlp-backend to
                             "fake" (see above) unless overridden.
 
-Genre strata are fixed to the four genres lcats assess --genre actually
-classifies (science fiction, horror, western, romance - see
-lcats.analysis.corpus.assess.VALID_GENRES). Genre is detected per-candidate
-story via assess_story() in detect mode (an LLM call), not read from any
-pre-existing label, since the corpus carries no genre metadata today.
+Genre strata are pinned to the original four genres this pilot (WI-EVENT-0030)
+was scoped against (science fiction, horror, western, romance) via the
+module-level GENRES constant below, deliberately independent of
+lcats.analysis.corpus.assess.VALID_GENRES, which has since grown to 8 genres
+(WI-ASSESS-0031). Re-scoping this pilot to the full genre set is its own
+separate follow-up (Gap 3 in
+project/design/event-role-world-genre-target-reconciliation.md), not
+something a VALID_GENRES change should do implicitly. Genre is detected
+per-candidate story via assess_story() in detect mode (an LLM call), not
+read from any pre-existing label, since the corpus carries no genre metadata
+today.
 
 Requires:
     - lcats installed (run scripts/develop if not)
@@ -120,9 +126,10 @@ from lcats.analysis.event_role_world import surface_feature_extractor as erw_sur
 from lcats.utils import checkpoint
 from lcats.utils.secrets import load_secrets
 
-GENRES = (
-    corpus_assess.VALID_GENRES
-)  # ("science fiction", "horror", "western", "romance")
+GENRES = ("science fiction", "horror", "western", "romance")
+# Deliberately NOT corpus_assess.VALID_GENRES (now 8 genres as of
+# WI-ASSESS-0031) - this pilot is still scoped to WI-EVENT-0030's original
+# four strata; see the module docstring above.
 
 # JSONPromptExtractor's own default (4096) is far below what a content-dense
 # segment can need for entity/event/relation extraction, and silently
