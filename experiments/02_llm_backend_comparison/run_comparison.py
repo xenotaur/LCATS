@@ -24,6 +24,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats" / "src"))
 
 from lcats.analysis.corpus import assess
+from lcats.analysis.corpus import discovery
 
 
 def _build_backend(backend_name: str, model: str):
@@ -54,7 +55,7 @@ def run(args: argparse.Namespace) -> int:
     output_dir = pathlib.Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    story_files = sorted(f for f in corpus_dir.iterdir() if f.suffix == ".json")
+    story_files = sorted(discovery.iter_collection_story_files(corpus_dir))
     if not story_files:
         print(f"error: no .json files found in {corpus_dir}", file=sys.stderr)
         return 1
@@ -79,7 +80,7 @@ def run(args: argparse.Namespace) -> int:
     written = 0
     with out_path.open("w", encoding="utf-8") as fh:
         for story_path in stories:
-            print(f"  assessing {story_path.name} ...", file=sys.stderr)
+            print(f"  assessing {story_path.parent.name} ...", file=sys.stderr)
             try:
                 rel_path = story_path.relative_to(cwd)
             except ValueError:

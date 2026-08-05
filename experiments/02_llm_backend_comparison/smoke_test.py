@@ -94,19 +94,22 @@ _RUNS = [
     {
         "label": "Horror — Lovecraft corpus",
         "genre": "horror",
-        "corpus_subdir": "data/lovecraft",
+        "corpus_subdir": "lovecraft",
     },
     {
         "label": "Western — London corpus",
         "genre": "western",
-        "corpus_subdir": "data/london",
+        "corpus_subdir": "london",
     },
 ]
 
 
 def _actual_sample(corpus_dir: pathlib.Path, requested: int) -> int:
     """Return the number of stories that run_comparison will actually assess."""
-    return min(requested, len(sorted(corpus_dir.glob("*.json"))))
+    return min(
+        requested,
+        len(sorted(run_comparison.discovery.iter_collection_story_files(corpus_dir))),
+    )
 
 
 def _result_path(
@@ -180,7 +183,7 @@ def main(argv: list[str] | None = None) -> int:
 
     for run_cfg in _RUNS:
         genre = run_cfg["genre"]
-        corpus_dir = _LCATS_ROOT / run_cfg["corpus_subdir"]
+        corpus_dir = _REPO_ROOT / "corpora" / run_cfg["corpus_subdir"]
         print(f"\n{'='*60}")
         print(f"  {run_cfg['label']} — {args.sample} stories")
         print(f"{'='*60}\n")
