@@ -70,7 +70,7 @@ That evidence, from this session's two real runs against
   disabled — `anthropic_backend.py:76-80`), not the Batch API. Anthropic's
   Batch API is documented to cut cost 50% flat for exactly this workload's
   shape (bulk, non-interactive, tolerant of async turnaround) —
-  `platform.claude.com/docs/en/docs/build-with-claude/batch-processing`.
+  `platform.claude.com/docs/en/build-with-claude/batch-processing`.
 - `lcats/project/design/backlog.md`'s own "pilot_usage.jsonl doesn't track
   genre-detect or segmentation cost at all" (P2) and "Pilot's default
   parameters optimize for full genre coverage, not minimum-cost validation"
@@ -159,7 +159,14 @@ stories) as the zero-config default; (b) a `--story
 not just the fixture set, since results are stochastic and a specific
 failing story (e.g. `calling_the_empress__smith`) needs to be reproducible
 directly; (c) explicit per-stage cost/timing reporting, closing the
-`pilot_usage.jsonl` gap (backlog P2) for at least this harness's own runs.
+`pilot_usage.jsonl` gap (backlog P2) for at least this harness's own runs;
+(d) an explicit answer for how a targeted run gets the `genre` argument
+`run_story(path, genre, ...)` requires (`run_pilot.py:907-918`) — bypassing
+`build_stratified_sample` (`run_pilot.py:313-424`) also bypasses the only
+code path that classifies a candidate and supplies that argument, so this
+needs to be decided at implementation time (e.g. an explicit `--genre`
+flag, one genre-detect call per targeted story, or an explicit
+not-yet-classified sentinel), not left implicit.
 
 ### Decision 3: Evaluate, don't yet adopt, Anthropic prompt caching
 
@@ -245,7 +252,7 @@ model for entity/event/relation/discourse/cross-segment extraction?
 - Evaluate empirically first, using the Decision 2 harness.
 
 **Chosen: evaluate first.** Anthropic's current model-comparison pricing
-(`platform.claude.com/docs/en/docs/about-claude/models/overview`) shows a
+(`platform.claude.com/docs/en/about-claude/models/overview`) shows a
 real spread (e.g. Haiku 4.5 at $1/$5 per MTok vs. legacy Opus 4.8 at
 $5/$25) that could meaningfully cut genre-detect's 200-candidate scan cost
 specifically. But this session directly observed the *top-tier* model
