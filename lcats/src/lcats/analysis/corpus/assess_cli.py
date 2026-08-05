@@ -34,6 +34,7 @@ TSV_COLUMNS = [
     "summary",
     "exclude_reason",
     "genre_suggestion",
+    "secondary_genre",
     "issues_count",
     "url",
     "error",
@@ -129,6 +130,7 @@ def _result_to_tsv_row(result: AssessmentResult) -> dict:
         "summary": result.summary,
         "exclude_reason": result.exclude_reason,
         "genre_suggestion": result.genre_suggestion,
+        "secondary_genre": result.secondary_genre,
         "issues_count": str(len(result.issues)),
         "url": result.url,
         "error": result.error,
@@ -167,6 +169,8 @@ def _write_human(out, result: AssessmentResult) -> None:
             f"  Claimed:  {result.target_genre} → {result.genre_verdict}",
             file=out,
         )
+    if result.secondary_genre:
+        print(f"  Secondary genre: {result.secondary_genre}", file=out)
     if result.summary:
         print(f"  Summary: {result.summary}", file=out)
     for issue in result.issues:

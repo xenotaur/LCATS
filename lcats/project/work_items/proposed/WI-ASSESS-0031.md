@@ -28,7 +28,7 @@ forbidden_actions:
   - implement_corpus_survey
   - implement_pilot_rescope
 acceptance:
-  - "VALID_GENRES in lcats/lcats/analysis/corpus/assess.py equals the 8-tuple (science fiction, horror, humor, western, romance, mystery, fantasy, adventure)"
+  - "VALID_GENRES in lcats/src/lcats/analysis/corpus/assess.py equals the 8-tuple (science fiction, horror, humor, western, romance, mystery, fantasy, adventure)"
   - "_GENRE_DEFINITIONS includes a defining line for each of the 4 new genres (humor, mystery, fantasy, adventure), matching the existing style"
   - "All 'four genres'/'four target genres' wording in assess.py's prompts and schema descriptions is updated to reflect 8"
   - "A new open (non-enum) secondary-genre field exists on the assessment schema and AssessmentResult, populated regardless of genre_verdict - not just for wrong/disputed lens results like genre_suggestion"
@@ -40,8 +40,8 @@ required_evidence:
   - lrh_validate
   - manual_review
 artifacts_expected:
-  - lcats/lcats/analysis/corpus/assess.py
-  - lcats/lcats/analysis/corpus/assess_cli.py
+  - lcats/src/lcats/analysis/corpus/assess.py
+  - lcats/src/lcats/analysis/corpus/assess_cli.py
   - lcats/tests/analysis_tests/assess_test.py
 ---
 
@@ -98,24 +98,27 @@ user's 2026-07-26 decision recorded in the reconciliation doc.
 
 ## Required Changes
 
-1. **`lcats/lcats/analysis/corpus/assess.py`**:
+1. **`lcats/src/lcats/analysis/corpus/assess.py`**:
    - Extend `VALID_GENRES` to `("science fiction", "horror", "humor",
      "western", "romance", "mystery", "fantasy", "adventure")`.
    - Add a definition line to `_GENRE_DEFINITIONS` for each of the 4 new
      genres, matching the existing one-line style.
    - Update the "other" description strings (currently "does not fit any
-     of the four target genres", two occurrences) and the classifier
-     prompts at `assess.py:149,153,181` (all currently say "four
-     genres"/"four target genres") to reflect 8.
+     of the four target genres", `assess.py:17,69`) and the classifier
+     prompts at `assess.py:158,162,175,190` (all currently say "four
+     genres"/"four target genres"/"four targets") to reflect 8. (Line
+     numbers current as of 2026-08-05; the file has grown since this WI
+     was first written, notably a `strict_tool_schema()` wrapper added by
+     later strict-schema work.)
    - Add a new open (non-enum) string field to `ASSESSMENT_TOOL`'s
      `input_schema` - e.g. `secondary_genre` - populated in both detect and
      lens mode regardless of `genre_verdict`, distinct from
      `genre_suggestion` (which is schema-gated to only populate for
      `wrong`/`disputed` lens results, per its existing description at
-     `assess.py:85-91`). Add the corresponding field to the
+     `assess.py:88-95`). Add the corresponding field to the
      `AssessmentResult` dataclass with a safe empty-string default, and
      populate it in `assess_story()`'s result-building code.
-2. **`lcats/lcats/analysis/corpus/assess_cli.py`**:
+2. **`lcats/src/lcats/analysis/corpus/assess_cli.py`**:
    - `--genre` choices/help text update automatically from `VALID_GENRES`;
      verify the epilog examples and help wording still read correctly for
      8 genres.
