@@ -23,10 +23,10 @@ Two real runs of the cross-segment relation pilot
 combined ($42.80 on the first, $24.74 on a second, incomplete follow-up),
 mostly discovering and fixing bugs rather than producing usable data. This
 proposal adopts a sequenced set of changes — a
-targeted single/small-story test harness first, then Anthropic prompt
-caching, then an evaluation gate (not yet an adoption) for the Batch API
-and per-stage model tiering — to make the pilot cheap enough to iterate on
-and validate before committing to a full, expensive real run.
+targeted single/small-story test harness first, then evaluation gates (not
+yet adoptions) for Anthropic prompt caching, the Batch API, and per-stage
+model tiering — to make the pilot cheap enough to iterate on and validate
+before committing to a full, expensive real run.
 
 ## Background / Motivation
 
@@ -161,7 +161,7 @@ failing story (e.g. `calling_the_empress__smith`) needs to be reproducible
 directly; (c) explicit per-stage cost/timing reporting, closing the
 `pilot_usage.jsonl` gap (backlog P2) for at least this harness's own runs.
 
-### Decision 3: Adopt Anthropic prompt caching
+### Decision 3: Evaluate, don't yet adopt, Anthropic prompt caching
 
 **Question:** Can the confirmed redundant-input pattern (identical
 `segment_text` resent 4 times per segment, `processor.py:124-220`) be
@@ -173,18 +173,43 @@ eliminated without changing model, calls, or output quality?
   `anthropic_backend.py:64-74`'s request construction, on the system
   prompt and/or the shared segment-text prefix.
 
-**Chosen: adopt caching.** Per Anthropic's current pricing docs
-(`platform.claude.com/docs/en/docs/build-with-claude/prompt-caching`), a
-cache read costs 0.1x the base input-token price after an initial 1.25x
-(5-minute TTL) write — up to a 90% reduction on the cached portion, with
-zero change to model, call count, or output. This is Anthropic's own
-documented use case for "repeated queries against the same content." The
-one real implementation risk: prompt structure must place the stable,
-cacheable prefix (segment text) before call-varying content (the
-`entity_ids`/`event_ids` interpolated per call via
-`_extract_with_placeholders`, `processor.py:149-155,196-198`) or cache
-hits won't land — this needs verification against the actual prompt
-templates, not assumed.
+**Originally chosen "adopt caching" — downgraded to "evaluate" after
+review.** The initial framing assumed caching the shared `segment_text`
+across the 4 per-segment extractor calls (entity/event/relation/discourse)
+would produce cache reads on 3 of the 4. That assumption does not hold:
+Anthropic's prompt-caching docs
+(`platform.claude.com/docs/en/build-with-claude/prompt-caching`) define
+cache prefixes in strict hierarchical order — `tools`, then `system`, then
+`messages` — and state that changing tool definitions invalidates the
+entire cache, tools/system/messages alike. `AnthropicBackend.complete`
+(`anthropic_backend.py:64-74`) sends a single, different `tool` per call
+(`ENTITY_TOOL_SCHEMA`, `EVENT_TOOL_SCHEMA`, and so on —
+`entity_extractor.py:16`, `event_extractor.py:17`, confirmed distinct per
+extractor), so the 4 per-segment calls can never share a cache hit with
+each other regardless of how identical their `segment_text` is — each
+uses a different tool, which invalidates everything downstream before
+`system`/`messages` are ever consulted.
+
+The real, narrower opportunity: caching the (comparatively small) stable
+`tools`+`system` prefix *within one extractor type*, reused across every
+call of that same extractor across different segments and different
+stories in a run — not the large, per-segment `segment_text`, which
+varies every call regardless of extractor and is therefore never a stable
+cache prefix under this pipeline's current call shape. This is a real but
+much smaller-magnitude saving than originally described, and its actual
+size is unmeasured. Separately, Anthropic's "mid-conversation tool
+changes" beta
+(`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5`) —
+"add or remove tools between turns of a conversation while preserving the
+prompt cache" — is a genuinely relevant alternative worth investigating,
+since it targets exactly this per-call-different-tool constraint, but it
+would mean restructuring the 4 independent calls into one multi-turn
+conversation per segment (a real architecture change, and still a beta
+feature) — not something to assume works today. **Deferred to a follow-on
+work item** that measures the real, narrower caching benefit (or the
+mid-conversation-tool-changes alternative) against Decision 2's fixture
+set before claiming any savings, rather than treating this as the
+zero-risk "just adopt it" item it was originally framed as.
 
 ### Decision 4: Evaluate, don't yet adopt, the Batch API
 
@@ -205,8 +230,9 @@ submission-and-poll is a real architecture change, not a flag flip, and
 would also need to solve the already-flagged "no mid-call progress
 feedback" gap (backlog P2) in a new way, since batch jobs report no interim
 status at all. This decision is deferred to a follow-on work item that
-starts with an explicit go/no-go assessment against the now-cheaper (via
-Decision 2's harness and Decision 3's caching) baseline cost.
+starts with an explicit go/no-go assessment against the baseline cost
+Decision 2's harness makes measurable (and Decision 3's caching
+evaluation, if it lands first and shows a real benefit).
 
 ### Decision 5: Evaluate, don't yet adopt, per-stage model tiering
 
@@ -270,8 +296,9 @@ being folded into this proposal's implementation plan.
 
 ## Non-Goals
 
-- Does not adopt the Batch API or model tiering outright — both are gated
-  evaluation decisions (Decisions 4, 5), not commitments.
+- Does not adopt prompt caching, the Batch API, or model tiering outright
+  — all three are gated evaluation decisions (Decisions 3, 4, 5), not
+  commitments.
 - Does not merge or redesign the entity/event/relation/discourse extraction
   sequence (Decision 6, rejected).
 - Does not implement or evaluate local-model support — a separate,
@@ -299,12 +326,15 @@ workstream, not a single work item. Proposed shape:
    after this proposal is adopted) coordinating the work items below.
 2. **WI 1 — targeted test harness** (Decision 2): `--story`/`--story-list`
    flag on `run_pilot.py`, fixture set, per-stage cost reporting.
-3. **WI 2 — prompt caching** (Decision 3): `cache_control` in
-   `anthropic_backend.py`, validated via WI 1's harness before/after cost
-   comparison.
+3. **WI 2 — prompt caching evaluation** (Decision 3): measure the real,
+   narrower caching benefit (or the mid-conversation-tool-changes
+   alternative) against WI 1's fixture set given the per-call
+   different-tool-schema constraint; only proceeds to `cache_control`
+   adoption in `anthropic_backend.py` if it shows a real, worthwhile
+   saving.
 4. **WI 3 — Batch API evaluation** (Decision 4): go/no-go assessment,
-   using WI 1+2's now-cheaper baseline; only proceeds to implementation if
-   the assessment favors it.
+   using WI 1's (and, if it lands, WI 2's) now-measurable baseline; only
+   proceeds to implementation if the assessment favors it.
 5. **WI 4 — model tiering evaluation** (Decision 5): per-stage `--model`
    support plus real output-quality comparison against WI 1's fixtures;
    only proceeds to adoption if quality holds.

@@ -276,11 +276,20 @@ spend more real API cost guessing further. **Real root cause still
 unknown** - candidate leads for a future investigation: (1) capture the
 exact outgoing request body via `ANTHROPIC_LOG=debug` on a reproduced
 failure (our own error dict has no more detail to give; Anthropic's raw
-debug log might); (2) `claude-opus-4-8` defaults `effort` to `high` and
-has adaptive thinking enabled by default (per the same docs page) -
-whether either interacts with a large `max_tokens` value plus an
-unusually long/dense segment in some request-shape-invalidating way is
-untested, not confirmed; (3) this corpus's own already-flagged unusually
+debug log might); (2) `claude-opus-4-8` defaults `effort` to `high` -
+**correction, verified against Anthropic's Opus 5 migration docs
+(`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5`):
+`claude-opus-4-8` does NOT have thinking/adaptive-thinking on by default -
+"On Claude Opus 4.8, requests run without thinking unless you set
+`thinking: {"type": "adaptive"}`"; "thinking on by default" is a Claude
+Opus 5 change, not a Opus 4.8 behavior. The earlier "Adaptive thinking:
+Yes" table entry for Opus 4.8 (`platform.claude.com`'s model overview
+page) is a capability-support column (this model *can* be given
+`thinking: {"type": "adaptive"}`), not a default-enabled one - conflating
+the two was the error here.** Whether the (real) `effort: high` default
+interacts with a large `max_tokens` value plus an unusually long/dense
+segment in some request-shape-invalidating way is untested, not
+confirmed; (3) this corpus's own already-flagged unusually
 dense segments (see the malformed-`speech_acts`-string entry above) may
 independently be producing some other request-shape problem that just
 happens to correlate with when a large `max_tokens` value is also in
