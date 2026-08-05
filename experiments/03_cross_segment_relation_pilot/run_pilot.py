@@ -205,7 +205,11 @@ def _check_fatal(
 # invalidate every existing checkpoint for this pilot, even under an
 # unchanged model - there is no existing per-module version tracking
 # elsewhere in lcats to reuse, so this is a script-local proxy.
-_PIPELINE_VERSION = "v1"
+#
+# v2: WI-ASSESS-0031 changed assess.py's classifier (VALID_GENRES 4->8,
+# new secondary_genre field, updated prompts) - a genre_detect checkpoint
+# from v1 reflects the old 4-genre classification and must not be reused.
+_PIPELINE_VERSION = "v2"
 
 
 def _story_identity(path: pathlib.Path) -> str:

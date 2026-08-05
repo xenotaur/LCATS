@@ -167,6 +167,7 @@ ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
                 "detected_genre",
                 "detected_genre_confidence",
                 "genre_verdict",
+                "secondary_genre",
                 "specials_verdict",
                 "summary",
                 "issues",

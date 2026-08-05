@@ -218,6 +218,14 @@ class TestValidGenres(unittest.TestCase):
         self.assertIn("secondary_genre", properties)
         self.assertEqual(properties["secondary_genre"]["type"], "string")
 
+    def test_secondary_genre_is_required(self):
+        """secondary_genre must always be evaluated (empty if inapplicable),
+        not silently omittable - unlike genre_suggestion, which is
+        genuinely conditional on genre_verdict."""
+        self.assertIn(
+            "secondary_genre", assess.ASSESSMENT_TOOL["input_schema"]["required"]
+        )
+
 
 class TestRunPreflight(unittest.TestCase):
     """Smoke test that run_preflight is still importable and callable (no backend)."""
