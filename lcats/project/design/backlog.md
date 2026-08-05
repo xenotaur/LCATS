@@ -161,6 +161,132 @@ wants to press on it.
 
 ## Other known gaps worth following up on
 
+### Malformed-item guards check each item's type but never the container's, exploding into thousands of bogus errors on a non-list field — P1, real and now confirmed
+
+Surfaced 2026-08-04, same re-run (against `mass_quantities/calling_the_empress__smith` or its predecessor in the pipeline - the terminal was mid-scrollback when this was noticed): a single story's discourse extraction produced **1300+ separate "speech_acts[N] is not an object (got str): '<single character>'" errors**, one per character of what was clearly a real, long natural-language string (readable prose about "the Sickness on Earth", "wanted to know the truth", etc.) - not a list of speech-act objects at all.
+
+Root cause: `schema.describe_malformed_item()` (`schema.py:22`) is a well-designed per-*item* guard (skip a malformed array element, record why, don't crash - WI-EVENT-0032's own fix for a prior `AttributeError: 'str' object has no attribute 'get'` bug), but every `build_*()` call site that uses it shares the same pattern:
+
+```python
+for i, raw in enumerate(tool_result.get("speech_acts") or []):
+```
+
+(`discourse_extractor.py:206`, and the identical shape at `relation_extractor.py:142`, `story_relation_extractor.py:216`, `entity_extractor.py:149,156`, `event_extractor.py:196,219,240,251` - this is systemic across every extractor in the package, not a discourse-specific bug). `or []` only substitutes when the value is falsy (`None`, `""`, missing key) - a **non-empty string** is truthy, so `enumerate("some long string")` iterates character-by-character, and each character correctly fails the `isinstance(raw, dict)` check and gets its own `describe_malformed_item()` call. The guard's own design (skip-and-record, don't crash) works exactly as intended per-item; the gap is that nothing checks whether the *container* itself is a list before iterating it as one.
+
+Compounding consequence: `run_pilot.py:1112`'s `row["exclude_reason"] = "; ".join(extraction_errors)` then joins all 1300+ fragments into one giant string, and `run_pilot.py:1340`'s `print(f"  excluded: {row['exclude_reason']}")` prints it with no length cap - this is what flooded the terminal. Related to, but distinct from, the mid-call-progress-feedback gap above: that one is about silence when something legitimate is slow; this is the opposite failure, an unbounded wall of text from one malformed field.
+
+**Open question, not yet answered:** `DISCOURSE_TOOL_SCHEMA` declares `speech_acts` as `"type": "array"` and goes through `strict_tool_schema()` (`discourse_extractor.py:18`) - `strict: true` is supposed to guarantee schema-valid output via grammar-constrained sampling (see that function's own docstring). A real string value coming back for a `strict: true`-constrained array field is surprising and worth understanding before assuming a quick fix covers it - either this is a genuine (rare, extreme-output-length?) violation of Anthropic's own strict-mode guarantee, or something upstream in our own tool-result handling is misassigning a value to this key. Needs investigation, not just the defensive fix below.
+
+**Next step (defensive fix, addressable regardless of the above):** add a container-type check before each of these iteration sites - if `tool_result.get(field)` is present but not a list, emit **one** clear error (e.g. `f"{field} is not an array (got {type(value).__name__})"`) instead of iterating it character-by-character. Apply uniformly across all `build_*()` call sites listed above, not just discourse. Separately, cap `run_pilot.py:1340`'s printed `exclude_reason` length (e.g. truncate with a "...N more errors" suffix) so one malformed field can't flood the console regardless of how it happened.
+
+### `pilot_usage.jsonl` doesn't track genre-detect or segmentation cost at all — P2, real cost-visibility gap
+
+Surfaced 2026-08-04 while trying to attribute the completed real run's
+$42.80 total cost between the 200-candidate genre-detect scan and the
+ERW pipeline itself. `pilot_usage.jsonl` only contains `PassUsage`
+records from `run_story`'s ERW-pipeline stages (`surface_feature`,
+`entity`, `event_anchor`, `relation`, `discourse`, `story_relation`) -
+`build_stratified_sample`'s 200 real `assess_story()` calls, and every
+`_segment_story` call (successful or truncated), are never captured
+into any usage record at all. This run's usage log shows only 6 distinct
+`story_id`s (337,503 input + 296,081 output tokens total) despite 18
+stories being sampled and 200 candidates being genre-scanned - meaning
+roughly a third of the real spend (genre-detect + segmentation) is
+completely invisible in the pilot's own cost-reporting output, the exact
+data `README.md`'s "Cost note" and `pilot_usage.jsonl` exist to surface.
+This made it materially harder to answer a direct "where did the money
+go" question with real data instead of a rough estimate. **Next step:**
+thread `PassUsage` recording through `assess_story()`'s call in
+`build_stratified_sample` and through `_segment_story`'s call, tagged
+the same way (`story_id`/`genre`/`pass_name`), so `pilot_usage.jsonl`
+reflects the pilot's *entire* real cost, not just the ERW-pipeline
+portion of it.
+
+### Pilot's default parameters optimize for full genre coverage, not minimum-cost validation — P3, decision needed
+
+Surfaced 2026-08-04 by the user during the real (non-dry-run) pilot run
+against `corpora/`, after the schema and truncation fixes below still
+left the run expensive ($22.06+ and climbing) and hitting repeated
+exclusions. `run_pilot.py`'s defaults — `--max-candidates 200` and
+`--model` defaulting to `claude-opus-4-8` (a top-tier, expensive model)
+— are tuned to guarantee full 5-per-genre stratified coverage using the
+best available model, not to do the minimum work needed to validate
+that the pipeline runs end to end. This is a real architecture/purpose
+mismatch: the whole reason `WI-PIPELINE-0040`/`0041` exist is that a
+real run is expensive and was previously unsafe to attempt more than
+once: the current defaults still point every real invocation at "get a
+complete, high-quality stratified sample" rather than "prove the
+pipeline works, cheaply, before committing to a full paid run." No
+inexpensive smoke-test path exists between `--dry-run` (zero API cost,
+fake backend, meaningless output) and a full real run at these
+defaults (real cost, real model, real coverage target). **Next step:**
+this is a design-shaped question, not a quick fix — revisit via
+`/lrh-proposal` or at minimum a scoped decision: should the pilot gain
+a cheap/bounded real-API validation mode (e.g. a smaller, faster model
+by default; a much lower `--max-candidates`; explicit opt-in flags to
+reach full coverage/quality), separate from the full-coverage run this
+corpus's real findings ultimately need?
+
+### Discourse extraction truncated even at the already-raised 16384 ceiling — P1, raise attempted and reverted same day; real cause still unknown
+
+Surfaced 2026-08-04, same run: one story was excluded with
+`"discourse extraction failed: ... truncated at the max_tokens limit
+(16384) before the tool_use block for 'extract_discourse' finished
+generating"` - this is already `_ERW_MAX_TOKENS`'s raised ceiling, not
+the un-raised default, and it still wasn't enough. This is more
+concerning than the segmentation gap above: simply raising the number
+again is a plausible fix, but it could also indicate the discourse
+extractor is generating unusually verbose or runaway output for some
+segment shapes, which a blind ceiling increase would only mask. **Next
+step:** before bumping `_ERW_MAX_TOKENS` further, inspect what this
+specific segment's discourse-extraction prompt/response actually looks
+like (is the raw output pathologically repetitive or just genuinely
+dense?) to decide whether a higher ceiling alone is the right fix, or
+whether the discourse extractor's prompt/schema needs its own look.
+
+**Update 2026-08-04 (first):** the completed full run surfaced a second
+extractor (`event_anchor`, twice, in romance) hitting the exact same
+16384 ceiling - cross-extractor recurrence in one run is stronger
+evidence for "some real segments genuinely need more headroom" than for
+a discourse-specific runaway-generation bug, so the "investigate before
+bumping" caution above was downgraded. `_ERW_MAX_TOKENS` raised from
+16384 to 32768.
+
+**Update 2026-08-04 (second) - reverted the same day.** The 32768
+raise, applied to a resumed real run, produced a new and more concerning
+failure mode: repeated `{'type': 'error', 'error': {'details': None,
+'type': 'invalid_request_error', 'message': 'Invalid request data'},
+'request_id': '...'}` rejections from Anthropic's API - across multiple
+*different* extractor types (event/anchor, relation, entity) on
+multiple different stories, and the same run's discourse extraction
+still separately truncated even at 32768 on `calling_the_empress__smith`.
+This is not a max_tokens-ceiling problem in the way it first looked:
+`platform.claude.com`'s current model-overview docs confirm
+`claude-opus-4-8`'s synchronous-Messages-API max output is **128k
+tokens**, with **no beta header required** below that (the
+`output-300k-2026-03-24` beta only applies to the Batch API's separate
+300k limit, which this pilot doesn't use) - so 32768 should not be
+anywhere near a real ceiling for this model. Checked `_normalize_api_error`
+(`llm_extractor.py:246`) to confirm our own code isn't discarding extra
+detail Anthropic sent - it isn't; `'details': None` is exactly what the
+API itself returned, no more informative detail available from our
+side. **Reverted:** `_ERW_MAX_TOKENS` back to 16384 (the one value
+confirmed to work repeatedly across this whole session) rather than
+spend more real API cost guessing further. **Real root cause still
+unknown** - candidate leads for a future investigation: (1) capture the
+exact outgoing request body via `ANTHROPIC_LOG=debug` on a reproduced
+failure (our own error dict has no more detail to give; Anthropic's raw
+debug log might); (2) `claude-opus-4-8` defaults `effort` to `high` and
+has adaptive thinking enabled by default (per the same docs page) -
+whether either interacts with a large `max_tokens` value plus an
+unusually long/dense segment in some request-shape-invalidating way is
+untested, not confirmed; (3) this corpus's own already-flagged unusually
+dense segments (see the malformed-`speech_acts`-string entry above) may
+independently be producing some other request-shape problem that just
+happens to correlate with when a large `max_tokens` value is also in
+play. Do not attempt raising `_ERW_MAX_TOKENS` above 16384 again until
+one of these leads is actually run down.
+
 ### `lcats survey` and `lcats promote` disagree on which mojibake findings to flag — P3, decision not a fix
 
 `lcats survey --mode specials` applies the legacy `unicode.DEFAULT_EXCLUDED_CHARS`

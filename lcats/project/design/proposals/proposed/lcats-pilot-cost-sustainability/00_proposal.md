@@ -10,18 +10,19 @@ implemented_by: []
 supersedes: []
 superseded_by: null
 related_design:
-  - project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
-  - project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
-  - project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
-  - project/design/backlog.md
+  - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
+  - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
+  - lcats/project/design/backlog.md
 ---
 
 ## Summary
 
 Two real runs of the cross-segment relation pilot
-(`experiments/03_cross_segment_relation_pilot/run_pilot.py`), spent $42.80
-and $67.54 respectively, mostly discovering and fixing bugs rather than
-producing usable data. This proposal adopts a sequenced set of changes — a
+(`experiments/03_cross_segment_relation_pilot/run_pilot.py`) spent $67.54
+combined ($42.80 on the first, $24.74 on a second, incomplete follow-up),
+mostly discovering and fixing bugs rather than producing usable data. This
+proposal adopts a sequenced set of changes — a
 targeted single/small-story test harness first, then Anthropic prompt
 caching, then an evaluation gate (not yet an adoption) for the Batch API
 and per-stage model tiering — to make the pilot cheap enough to iterate on
@@ -30,7 +31,7 @@ and validate before committing to a full, expensive real run.
 ## Background / Motivation
 
 This is not a new problem.
-`project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
+`lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
 Category E (lines 288-425) raised the identical concern ten days ago: "the
 real pilot run has spent roughly $15 of its ~$50 budget so far — not
 sustainable for routine dogfooding" (line 291-292), and explicitly deferred
@@ -47,8 +48,8 @@ That evidence, from this session's two real runs against
   rate (4 of 18 sampled stories survived).
 - A follow-up run, after fixing the exclusion-causing bugs, cost another
   $24.74 before being stopped mid-story over a genuinely unexplained
-  "Invalid request data" API rejection (`project/design/backlog.md`,
-  "Discourse extraction truncated..." entry, lines 272-330).
+  "Invalid request data" API rejection (`lcats/project/design/backlog.md`,
+  "Discourse extraction truncated..." entry, lines 230-288).
 - Direct inspection of `processor.py:61-230` shows the ERW-extraction
   stage issues ~4 independent LLM calls per segment (entity, event/anchor,
   relation, discourse — `processor.py:124-220`), against real per-story
@@ -60,16 +61,17 @@ That evidence, from this session's two real runs against
   confirms zero use of Anthropic's prompt caching (`cache_control`)
   anywhere in the codebase, despite each segment's 4 extractor calls
   independently resending the identical `segment_text`.
-- `run_pilot.py:1167`'s `--model` flag is single and global —
+- `run_pilot.py:1153`'s `--model` flag is single and global —
   genre-detection and segmentation (comparatively simple tasks) run on the
   same top-tier, most-expensive model as the nuanced extraction stages,
   with no code path to do otherwise.
-- The pipeline uses only the synchronous Messages API
-  (`anthropic_backend.py:76-80`); Anthropic's Batch API is documented to
-  cut cost 50% flat for exactly this workload's shape (bulk, non-interactive,
-  tolerant of async turnaround) —
+- The pipeline uses only the non-batch Messages API (streaming via
+  `messages.stream`, or blocking via `messages.create` when streaming is
+  disabled — `anthropic_backend.py:76-80`), not the Batch API. Anthropic's
+  Batch API is documented to cut cost 50% flat for exactly this workload's
+  shape (bulk, non-interactive, tolerant of async turnaround) —
   `platform.claude.com/docs/en/docs/build-with-claude/batch-processing`.
-- `project/design/backlog.md`'s own "pilot_usage.jsonl doesn't track
+- `lcats/project/design/backlog.md`'s own "pilot_usage.jsonl doesn't track
   genre-detect or segmentation cost at all" (P2) and "Pilot's default
   parameters optimize for full genre coverage, not minimum-cost validation"
   (P3) entries are direct, already-recorded instances of this same gap.
@@ -99,12 +101,12 @@ dollars each to discover this session.
 
 - Work items: None found proposing this directly.
 - Proposals: None found.
-- Backlog: Found — `project/design/backlog.md`'s "Pilot's default
+- Backlog: Found — `lcats/project/design/backlog.md`'s "Pilot's default
   parameters optimize for full genre coverage, not minimum-cost validation"
   (P3) and "pilot_usage.jsonl doesn't track genre-detect or segmentation
   cost at all" (P2) entries are both direct instances this proposal
   addresses. Also found the originating demand:
-  `project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
+  `lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
   Category E explicitly requests "the actual work item(s)/workstream/design
   proposal" (line 19) once the deferred discussion happens — this proposal
   is that discussion's output.
@@ -144,9 +146,9 @@ full sample run?
 - Extend `run_pilot.py` itself with a `--story`/`--story-list` flag that
   bypasses `build_stratified_sample` and calls `run_story()` directly.
 
-**Chosen: extend `run_pilot.py`.** `run_story()` (`run_pilot.py:882-1105`)
+**Chosen: extend `run_pilot.py`.** `run_story()` (`run_pilot.py:907-1105`)
 already operates on exactly one story at a time; `main()`'s loop
-(`run_pilot.py:1276-1330`) just calls it once per sampled story.
+(`run_pilot.py:1264-1330`) just calls it once per sampled story.
 `_build_erw_extractors`, `_make_nlp_backend`, `_build_backend`, and the
 checkpoint plumbing are already story-agnostic. A new script would
 duplicate all of this. The harness needs: (a) a small, fixed, offline,
@@ -222,10 +224,11 @@ real spread (e.g. Haiku 4.5 at $1/$5 per MTok vs. legacy Opus 4.8 at
 $5/$25) that could meaningfully cut genre-detect's 200-candidate scan cost
 specifically. But this session directly observed the *top-tier* model
 producing malformed structured output under real conditions (the
-`speech_acts`-as-string bug, `project/design/backlog.md` lines 163-179) —
-a cheaper model's reliability on the same strict-schema tool-use is an
-open, unvalidated question, not a safe assumption. `run_pilot.py:1167`'s
-single global `--model` flag also needs to become per-stage before this is
+`speech_acts`-as-string bug, `lcats/project/design/backlog.md` lines
+164-180) — a cheaper model's reliability on the same strict-schema
+tool-use is an open, unvalidated question, not a safe assumption.
+`run_pilot.py:1153`'s single global `--model` flag also needs to become
+per-stage before this is
 even testable. This decision is deferred to a follow-on work item that
 evaluates real output quality against the Decision 2 fixture set before
 any adoption.
@@ -318,15 +321,15 @@ workstream, not a single work item. Proposed shape:
 
 ## Cross-References
 
-- `project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`
+- `lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`
   — Category E, the originating, explicitly-deferred request this
   proposal fulfills.
-- `project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md`
+- `lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md`
   — the just-adopted checkpointing design this proposal's Batch API
   evaluation (Decision 4) must reconcile with.
-- `project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md`
+- `lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md`
   — the 4-stage decomposition Decision 6 declines to revisit.
-- `project/design/backlog.md` — "pilot_usage.jsonl doesn't track
+- `lcats/project/design/backlog.md` — "pilot_usage.jsonl doesn't track
   genre-detect or segmentation cost at all" and "Pilot's default
   parameters optimize for full genre coverage, not minimum-cost
   validation" entries, both addressed here.

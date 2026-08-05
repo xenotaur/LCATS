@@ -15,4 +15,6 @@ short index plus the proposal document.
   — adopted; implementation not started (governed by `WS-PIPELINE-CHECKPOINTING`).
 - [`PROP-LCATS-STORY-BUCKET-LAYOUT`](adopted/lcats-story-bucket-layout/README.md)
   — adopted; implemented (`WI-STORY-0042`/`0043`/`0044`/`0045`).
+- [`PROP-LCATS-PILOT-COST-SUSTAINABILITY`](proposed/lcats-pilot-cost-sustainability/README.md)
+  — proposed; implementation not started.
 
