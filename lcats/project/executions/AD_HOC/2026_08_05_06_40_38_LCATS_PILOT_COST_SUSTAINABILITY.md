@@ -7,7 +7,7 @@ rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/221
 commit:
 agent: claude_app
-instruction_source: project/design/proposals/proposed/lcats-pilot-cost-sustainability/00_proposal.md
+instruction_source: lcats/project/design/proposals/proposed/lcats-pilot-cost-sustainability/00_proposal.md
 session_transcript: pending
 created_at: 2026-08-05T06:40:38+00:00
 ---
@@ -17,15 +17,15 @@ created_at: 2026-08-05T06:40:38+00:00
 Created `PROP-LCATS-PILOT-COST-SUSTAINABILITY`, a design proposal to make
 the cross-segment relation pilot (`experiments/03_cross_segment_relation_pilot/run_pilot.py`)
 sustainable to run, following a design review requested by the user after
-two real runs this session cost $42.80 and $67.54 respectively without
-producing usable data.
+two real runs this session cost $67.54 combined ($42.80 on the first,
+$24.74 on a second, incomplete follow-up) without producing usable data.
 
 # Result
 
 - Ran the prior-art check: no in-repo duplication of prompt caching/Batch
   API/model-tiering; found a direct demand match in
-  `project/design/backlog.md` (two entries) and, more significantly, in
-  `project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
+  `lcats/project/design/backlog.md` (two entries) and, more significantly, in
+  `lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
   Category E, which raised this exact concern 10 days earlier and
   explicitly deferred it pending "the actual work item(s)/workstream/design
   proposal" - this proposal is that deferred follow-through.
