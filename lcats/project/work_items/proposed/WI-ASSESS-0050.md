@@ -125,8 +125,10 @@ or correctness bug: the error record already carries `file_path` and
 
 - `scripts/version tools`
 - `lrh validate`
-- `python -m pytest tests/analysis_tests/assess_test.py`
-- `python -m pytest tests/`
+- `scripts/test` (repository's declared source-of-truth full-suite
+  command, per `AGENTS.md`)
+- `python -m pytest tests/analysis_tests/assess_test.py` (targeted
+  re-run during development)
 
 ## Risk Notes
 

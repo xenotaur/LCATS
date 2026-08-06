@@ -28,6 +28,7 @@ forbidden_actions:
 acceptance:
   - "run_stats uses discovery.find_json_files, not discovery.find_corpus_stories, to select story files"
   - "A bucket sidecar JSON file (e.g. analysis.json) is never included in lcats stats output"
+  - "A cache/ subdirectory is still excluded from lcats stats output, matching the pre-existing find_corpus_stories(ignore_dir_names=(\"cache\",)) behavior"
   - "lrh validate reports 0 errors"
 required_evidence:
   - manual_review
@@ -35,7 +36,9 @@ required_evidence:
   - lrh_validate
 artifacts_expected:
   - lcats/src/lcats/analysis/corpus/cli.py
+  - lcats/src/lcats/analysis/corpus/discovery.py
   - lcats/tests/analysis_tests/corpus_cli_test.py
+  - lcats/tests/analysis_tests/discovery_test.py
 ---
 
 # Work Item: Fix lcats stats' broad story-file selector
@@ -58,21 +61,30 @@ sort=True)` — the broad recursive JSON finder. This means `lcats stats`
 can silently include bucket sidecar files (`analysis.json`, `scenes.json`,
 etc.) as if they were independent stories, inflating or corrupting
 story-level statistics. This is exactly the "wrong tool for the
-canonical-presence question" pattern documented in the
-`project_story_bucket_proposal_status` memory and confirmed at least
-four other times across the `WS-STORY-BUCKET-LAYOUT` follow-up work
-(`WI-EXPERIMENTS-0046`, `WI-EXPERIMENTS-0048`): a broad selector that is
-legitimately fine for corpus-wide listing becomes wrong once its output
-is used to answer "is this a real story."
+canonical-presence question" pattern documented in
+[`PROP-LCATS-STORY-BUCKET-LAYOUT`](lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md)'s
+Decision 3, and confirmed at least four other times across the
+`WS-STORY-BUCKET-LAYOUT` follow-up work (`WI-EXPERIMENTS-0046`,
+`WI-EXPERIMENTS-0048`): a broad selector that is legitimately fine for
+corpus-wide listing becomes wrong once its output is used to answer "is
+this a real story."
 
-**Risk checked before drafting:** `discovery.find_json_files` has no
-`ignore_dir_names` parameter, unlike `find_corpus_stories`, so a `cache/`
-subdirectory would no longer be explicitly skipped during traversal.
-Verified directly: no `cache/` directory currently exists inside
-`corpora/` or `data/` in this repo, and neither `lcats survey` nor
-`lcats assess` (both already on `find_json_files`) special-cases
-`cache/` either — so this is a consistency fix bringing `stats` in line
-with the established selector, not a newly introduced gap.
+**Cache-directory exclusion gap (found during this work item's own
+creation-PR review, Codex P2, 2026-08-06):** the original draft assumed
+`discovery.find_json_files`'s lack of an `ignore_dir_names` parameter
+was a non-issue because no `cache/` directory exists inside `corpora/`
+or `data/` in this repo today — but that check was scoped too narrowly.
+`run_stats`'s `directories` argument accepts arbitrary paths, not just
+`corpora/`/`data/`, and `cache/` directories do exist elsewhere in this
+very checkout (`lcats/cache/`, and the repo root's own `cache/`) — either
+would be a plausible (if unusual) target for a general-purpose CLI tool,
+and a user pointing `lcats stats` at an external corpus tree has no
+guarantee of a `cache/`-free layout either. The existing code's
+`ignore_dir_names=("cache",)` is real, load-bearing protection that the
+naive selector swap would silently drop. Folded into scope below: extend
+`discovery.find_json_files` with an optional `ignore_dir_names`
+parameter (matching `find_corpus_stories`'s own parameter shape) so
+`run_stats` can preserve the exclusion.
 
 ### Duplication search
 - In-repo: No existing implementation found. `run_stats` has no
@@ -94,54 +106,78 @@ with the established selector, not a newly introduced gap.
 
 ## Scope
 
+- Extend `discovery.find_json_files` with an opt-in `ignore_dir_names`
+  parameter, matching `find_corpus_stories`'s own parameter shape.
 - Switch `run_stats`'s file discovery from `discovery.find_corpus_stories`
-  to `discovery.find_json_files`.
-- Add a regression test proving sidecar files are excluded from stats
-  output.
+  to `discovery.find_json_files`, passing `ignore_dir_names=("cache",)`
+  to preserve the existing cache-exclusion behavior.
+- Add regression tests proving both sidecar files and `cache/`-directory
+  contents are excluded from stats output.
 
 ## Required Changes
 
-1. In `lcats/src/lcats/analysis/corpus/cli.py`'s `run_stats`, replace the
+1. In `lcats/src/lcats/analysis/corpus/discovery.py`, add an
+   `ignore_dir_names: Iterable[str] = ()` parameter to `find_json_files`,
+   threaded through to `_walk_canonical_story_files` (also given the
+   same parameter). Before recursing into a subdirectory, skip it if its
+   name case-folds to a match in `ignore_dir_names` (matching
+   `find_corpus_stories`'s own `casefold()` comparison). Default to an
+   empty tuple so every existing caller (`survey`, `assess`) is
+   unaffected unless it opts in.
+2. In `lcats/src/lcats/analysis/corpus/cli.py`'s `run_stats`, replace the
    per-directory loop building `files` via
    `discovery.find_corpus_stories(directory, ignore_dir_names=("cache",),
    sort=True)` with a single call to
-   `discovery.find_json_files(args.directories)` (it already accepts
-   an iterable of directories/paths and handles both directory scanning
-   and direct-file arguments, subsuming the existing loop's two branches).
-2. Add a new test class to `lcats/tests/analysis_tests/corpus_cli_test.py`
+   `discovery.find_json_files(args.directories, ignore_dir_names=("cache",))`
+   (it already accepts an iterable of directories/paths and handles both
+   directory scanning and direct-file arguments, subsuming the existing
+   loop's two branches).
+3. Add a new test class to `lcats/tests/analysis_tests/discovery_test.py`
+   asserting `find_json_files`'s new `ignore_dir_names` parameter prunes
+   a matching subdirectory (case-insensitive) and leaves other traversal
+   behavior unchanged when omitted.
+4. Add a new test class to `lcats/tests/analysis_tests/corpus_cli_test.py`
    asserting: a bucket sidecar JSON file alongside a real `story.json` is
-   never included in `run_stats`'s file selection; real bucket-layout
-   stories are still found correctly.
+   never included in `run_stats`'s file selection; a story-shaped
+   directory nested under `cache/` is excluded; real bucket-layout
+   stories elsewhere are still found correctly.
 
 ## Non-Goals
 
 - Does not change `run_stats`'s output format, CLI arguments, or
   `compute_corpus_stats`'s own logic.
-- Does not add back `cache/`-directory exclusion — not needed today, and
-  adding it here would make `stats` inconsistent with `survey`/`assess`
-  rather than consistent with them.
+- Does not change `survey`'s or `assess`'s existing `find_json_files`
+  calls to also pass `ignore_dir_names` — out of scope here; the new
+  parameter defaults to a no-op so their behavior is unchanged, and
+  whether they should adopt it is a separate question.
 
 ## Acceptance Criteria
 
 - `run_stats` uses `discovery.find_json_files`, not
   `discovery.find_corpus_stories`, to select story files.
 - A bucket sidecar JSON file is never included in `lcats stats` output.
-- A new regression test proves both the sidecar-exclusion fix and that
-  real bucket-layout stories are still found.
+- A `cache/` subdirectory's contents are still excluded from `lcats
+  stats` output, matching the pre-existing behavior.
+- New regression tests prove the sidecar exclusion, the cache exclusion,
+  and that real bucket-layout stories are still found.
 - `lrh validate` reports 0 errors.
 
 ## Validation
 
 - `scripts/version tools`
 - `lrh validate`
-- `python -m pytest tests/analysis_tests/corpus_cli_test.py`
-- `python -m pytest tests/`
+- `scripts/test` (repository's declared source-of-truth full-suite
+  command, per `AGENTS.md`)
+- `python -m pytest tests/analysis_tests/discovery_test.py
+  tests/analysis_tests/corpus_cli_test.py` (targeted re-run during
+  development)
 
 ## Risk Notes
 
-- See the cache-directory risk discussed above (Problem/Context) —
-  checked and confirmed non-issue for the current repo state.
 - `find_json_files` returns an iterator; `run_stats` currently builds a
   list via `.extend(...)` inside a loop — the replacement should collect
   the iterator into a list once, since `compute_corpus_stats` iterates
   `files` and the existing code assumes a concrete list.
+- The new `ignore_dir_names` parameter changes `_walk_canonical_story_files`'s
+  signature; verify no other internal caller depends on its exact
+  current signature before landing.
