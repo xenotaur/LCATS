@@ -217,5 +217,5 @@ implementation until the shared checkpoint helper and its API exist.
 
 ## Related Workstream and Designs
 
-- Workstream: `project/workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md`
+- Workstream: `project/workstreams/resolved/WS-PIPELINE-CHECKPOINTING.md`
 - Design: `project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md`
