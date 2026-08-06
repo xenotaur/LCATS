@@ -7,14 +7,27 @@ from dataclasses import asdict, dataclass, field
 
 from lcats.llm import tool_schema as tool_schema_module
 
-VALID_GENRES = ("science fiction", "horror", "western", "romance")
+VALID_GENRES = (
+    "science fiction",
+    "horror",
+    "humor",
+    "western",
+    "romance",
+    "mystery",
+    "fantasy",
+    "adventure",
+)
 
 _GENRE_DEFINITIONS = """\
   - science fiction: speculative technology, space, aliens, time travel, future societies
   - horror: dread, supernatural threat, psychological terror, monsters, dark atmosphere
+  - humor: comedic intent as the primary mode, farce, wit, absurdity, satire played for laughs
   - western: frontier American West, cowboys, outlaws, settlers, frontier justice
   - romance: central love story with emotional relationship development as the primary plot
-  - other: does not fit any of the four target genres"""
+  - mystery: a puzzle or crime to be solved, clues, investigation, a detective or amateur sleuth
+  - fantasy: magic, mythical creatures, invented worlds or physics not explained as technology
+  - adventure: a physical journey or quest with danger and action as the primary plot engine
+  - other: does not fit any of the eight target genres"""
 
 _SPECIALS_SECTION = """\
 SPECIAL CHARACTERS: If the story contains non-ASCII or unusual characters, are they:
@@ -66,7 +79,7 @@ ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
                     "description": (
                         "The genre this story most likely belongs to, determined by "
                         "independent analysis without reference to any claimed genre. "
-                        "Use 'other' if the story does not fit any of the four target genres."
+                        "Use 'other' if the story does not fit any of the eight target genres."
                     ),
                 },
                 "detected_genre_confidence": {
@@ -91,6 +104,18 @@ ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
                         "If genre_verdict is wrong or disputed, any additional nuance "
                         "about the actual genre beyond the detected_genre enum value "
                         "(e.g. 'Gothic mystery-horror hybrid'). Omit or leave empty otherwise."
+                    ),
+                },
+                "secondary_genre": {
+                    "type": "string",
+                    "description": (
+                        "A free-text classificatory tag for a non-priority genre or "
+                        "category the story also fits, beyond the eight target genres "
+                        "(e.g. 'war', 'medical', 'children's'). Always evaluate this "
+                        "field, in both detect and lens mode, regardless of "
+                        "genre_verdict — unlike genre_suggestion, which only applies "
+                        "to wrong/disputed lens results. Omit or leave empty if no "
+                        "additional non-priority category applies."
                     ),
                 },
                 "specials_verdict": {
@@ -142,6 +167,7 @@ ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
                 "detected_genre",
                 "detected_genre_confidence",
                 "genre_verdict",
+                "secondary_genre",
                 "specials_verdict",
                 "summary",
                 "issues",
@@ -155,13 +181,18 @@ DETECT_SYSTEM_PROMPT = f"""\
 You are a literary corpus quality assessor identifying genre and quality \
 for a mixed research corpus.
 
-The corpus targets four genres: science fiction, horror, western, and romance.
+The corpus targets eight genres: science fiction, horror, humor, western, \
+romance, mystery, fantasy, and adventure.
 
 Assess the provided story for inclusion in a curated corpus:
 
-GENRE DETECTION: Identify which of the four target genres best describes \
+GENRE DETECTION: Identify which of the eight target genres best describes \
 this story, or "other" if none fits.
 {_GENRE_DEFINITIONS}
+
+SECONDARY GENRE: Independently of the above, note any additional non-priority \
+classificatory category the story also fits (e.g. "war", "medical", \
+"children's") in secondary_genre. Leave it empty if none applies.
 
 WELLFORMEDNESS: Does the story have a clear beginning and ending? Is it a \
 complete standalone narrative — not a chapter fragment, excerpt, or part of \
@@ -172,7 +203,7 @@ a longer work?
 {_QUALITY_SECTION}
 
 VERDICT RULES:
-  - include: wellformed + detected genre is one of the four targets + no disqualifying issues
+  - include: wellformed + detected genre is one of the eight targets + no disqualifying issues
   - exclude: story does not fit any target genre (detected_genre: other), \
 incomplete, or serious quality problems
   - review: borderline case — reasonable people could disagree
@@ -187,9 +218,13 @@ You are a literary corpus quality assessor for a {{genre}} fiction research proj
 
 Assess the provided story for inclusion in a curated corpus:
 
-GENRE DETECTION: First, independently identify which of the four target genres \
+GENRE DETECTION: First, independently identify which of the eight target genres \
 best describes this story — without reference to the claimed genre.
 {_GENRE_DEFINITIONS}
+
+SECONDARY GENRE: Independently of the above, note any additional non-priority \
+classificatory category the story also fits (e.g. "war", "medical", \
+"children's") in secondary_genre. Leave it empty if none applies.
 
 GENRE ACCURACY: Having made your independent detection above, now evaluate \
 the claimed genre "{{genre}}". Does the story actually belong to that genre?
@@ -229,6 +264,7 @@ class AssessmentResult:
     detected_genre_confidence: float = 0.0
     genre_verdict: str = "detected"
     genre_suggestion: str = ""
+    secondary_genre: str = ""
     specials_verdict: str = "none"
     summary: str = ""
     issues: list = field(default_factory=list)
@@ -353,6 +389,7 @@ def assess_story(
             detected_genre_confidence=float(a.get("detected_genre_confidence", 0.0)),
             genre_verdict=a.get("genre_verdict", "detected"),
             genre_suggestion=a.get("genre_suggestion", ""),
+            secondary_genre=a.get("secondary_genre", ""),
             specials_verdict=a.get("specials_verdict", "none"),
             summary=a.get("summary", ""),
             issues=list(a.get("issues", [])),

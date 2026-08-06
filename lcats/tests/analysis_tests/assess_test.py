@@ -18,6 +18,7 @@ _SAMPLE_TOOL_RESULT = {
     "issues": [],
     "exclude_reason": "",
     "genre_suggestion": "",
+    "secondary_genre": "",
 }
 
 _PREFLIGHT_RETURN = (
@@ -102,6 +103,35 @@ class TestAssessStorySuccess(unittest.TestCase):
         self.assertIn("[... text truncated ...]", user_content)
 
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_secondary_genre_passed_through(self, _mock):
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["secondary_genre"] = "war"
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.secondary_genre, "war")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_secondary_genre_defaults_empty(self, _mock):
+        """Exercises the a.get("secondary_genre", "") fallback, not just an
+        explicit empty string already present in the tool result."""
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        del tool_result["secondary_genre"]
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.secondary_genre, "")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_new_genre_accepted_in_lens_mode(self, _mock):
+        """A genre added in the 4->8 expansion works as a --genre lens value."""
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["detected_genre"] = "mystery"
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, "mystery", fb)
+        self.assertEqual(result.target_genre, "mystery")
+        self.assertEqual(result.detected_genre, "mystery")
+        self.assertIn("mystery", fb.calls[0]["system"])
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_issues_list_passed_through(self, _mock):
         tool_result = dict(_SAMPLE_TOOL_RESULT)
         tool_result["issues"] = [
@@ -158,6 +188,43 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
         result = assess.assess_story(_FILE, _GENRE, fb)
         self.assertIn("no such file", result.error)
         self.assertEqual(result.verdict, "review")
+
+
+class TestValidGenres(unittest.TestCase):
+    """VALID_GENRES and schema coverage for the 4->8 genre expansion."""
+
+    def test_valid_genres_has_eight_entries(self):
+        self.assertEqual(len(assess.VALID_GENRES), 8)
+
+    def test_valid_genres_contains_new_genres(self):
+        for genre in ("humor", "mystery", "fantasy", "adventure"):
+            self.assertIn(genre, assess.VALID_GENRES)
+
+    def test_valid_genres_retains_original_genres(self):
+        for genre in ("science fiction", "horror", "western", "romance"):
+            self.assertIn(genre, assess.VALID_GENRES)
+
+    def test_detected_genre_enum_matches_valid_genres_plus_other(self):
+        detected_genre_schema = assess.ASSESSMENT_TOOL["input_schema"]["properties"][
+            "detected_genre"
+        ]
+        self.assertEqual(
+            set(detected_genre_schema["enum"]),
+            set(assess.VALID_GENRES) | {"other"},
+        )
+
+    def test_secondary_genre_field_in_schema(self):
+        properties = assess.ASSESSMENT_TOOL["input_schema"]["properties"]
+        self.assertIn("secondary_genre", properties)
+        self.assertEqual(properties["secondary_genre"]["type"], "string")
+
+    def test_secondary_genre_is_required(self):
+        """secondary_genre must always be evaluated (empty if inapplicable),
+        not silently omittable - unlike genre_suggestion, which is
+        genuinely conditional on genre_verdict."""
+        self.assertIn(
+            "secondary_genre", assess.ASSESSMENT_TOOL["input_schema"]["required"]
+        )
 
 
 class TestRunPreflight(unittest.TestCase):

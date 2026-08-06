@@ -22,6 +22,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker
 - `proposed/WI-RELEASE-0039.md` — Pre-launch verification of the gutenbergpy dependency resolution before real PyPI publish
 - `proposed/WI-STORY-0042.md` — Make LCATS story discovery and identity dual-layout-compatible
+- `proposed/WI-LLM-0049.md` — Add qwen3:30b-a3b (MoE) candidate to the local-model benchmark harness
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023

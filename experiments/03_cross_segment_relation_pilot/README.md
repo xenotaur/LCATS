@@ -28,14 +28,21 @@ figure.
 
 ## Genre strata
 
-Genre strata are fixed to the four genres `lcats assess --genre` actually
-classifies: `science fiction`, `horror`, `western`, `romance` (see
-`lcats.analysis.corpus.assess.VALID_GENRES`). WI-EVENT-0028's own informal
-comparison genres (mystery, general fiction) are **not** used here — they
-are not classifiable by the corpus's existing genre-detection tooling
-(detect mode falls back to `"other"` for both). This is a deliberate
-divergence from WI-EVENT-0028's sample, noted so a reader does not assume
-the two work items compare identical genre sets.
+Genre strata are pinned to the original four genres this pilot was scoped
+against: `science fiction`, `horror`, `western`, `romance` (the module-level
+`GENRES` constant in `run_pilot.py`, deliberately independent of
+`lcats.analysis.corpus.assess.VALID_GENRES`, which has since grown to 8
+genres via `WI-ASSESS-0031` — see that work item's PR for why re-scoping
+this pilot is separate follow-up, not an implicit side effect). WI-EVENT-0028's own informal
+comparison genres (mystery, general fiction) are **not** used here. This is
+a deliberate scope choice, not a classifier limitation as of
+`WI-ASSESS-0031`: `mystery` is now a classifiable `VALID_GENRES` value (it
+would no longer fall back to `"other"` in detect mode), but this pilot's
+`GENRES` constant remains pinned to the original four strata regardless —
+"general fiction" is still not classifiable by the corpus's existing
+genre-detection tooling either way. Noted so a reader does not assume the
+two work items compare identical genre sets, and does not assume `mystery`'s
+absence here means it can't be classified.
 
 Genre is detected per-candidate story via `assess_story()` in detect mode
 (one real LLM call per candidate scanned) — the corpus carries no

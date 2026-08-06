@@ -119,7 +119,7 @@ scores, issue lists, and story summaries.
 | Argument / Flag | Description |
 |---|---|
 | `directories` | Directories or JSON files to assess (default: `data/`). |
-| `--genre GENRE` | Target genre for curation (lens mode): `science fiction`, `horror`, `western`, `romance`. Quote multi-word genres. Omit to detect genre automatically (detect mode). |
+| `--genre GENRE` | Target genre for curation (lens mode): `science fiction`, `horror`, `humor`, `western`, `romance`, `mystery`, `fantasy`, `adventure`. Quote multi-word genres. Omit to detect genre automatically (detect mode). |
 | `--model MODEL` | Claude model to use (default: `claude-opus-4-8`). |
 | `--max-body-chars MAX_BODY_CHARS` | Max story body characters sent to the API (default: `100000`). |
 | `--format {jsonl,json,tsv,human}` | Output format (default: `jsonl`). |
