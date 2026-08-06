@@ -206,10 +206,24 @@ def _check_fatal(
 # unchanged model - there is no existing per-module version tracking
 # elsewhere in lcats to reuse, so this is a script-local proxy.
 #
+# Feeds into _base_fingerprint(), which every stage's _stage_fingerprint()
+# call uses - bumping this invalidates genre_detect, segment, erw_extract,
+# AND cross_segment_relation checkpoints together. Use _CLASSIFIER_VERSION
+# below instead for a change scoped to assess.py's classifier alone, so a
+# resumed run doesn't re-pay for expensive segmentation/ERW/relation calls
+# whose own upstream inputs never changed (review finding, PR #224).
+_PIPELINE_VERSION = "v1"
+
+# Bumped whenever assess.py's classifier (prompts, schema, VALID_GENRES)
+# changes in a way that should invalidate only genre_detect checkpoints -
+# folded into that stage's own fingerprint below, not _base_fingerprint(),
+# so segment/erw_extract/cross_segment_relation checkpoints stay valid
+# across a classifier-only change.
+#
 # v2: WI-ASSESS-0031 changed assess.py's classifier (VALID_GENRES 4->8,
 # new secondary_genre field, updated prompts) - a genre_detect checkpoint
 # from v1 reflects the old 4-genre classification and must not be reused.
-_PIPELINE_VERSION = "v2"
+_CLASSIFIER_VERSION = "v2"
 
 
 def _story_identity(path: pathlib.Path) -> str:
@@ -368,12 +382,19 @@ def build_stratified_sample(
         # story corrected in place - re-edited JSON, fixed body text -
         # invalidates its genre_detect cache instead of silently serving a
         # classification computed against stale content (review finding,
-        # PR #217).
+        # PR #217). Also folds in _CLASSIFIER_VERSION so an assess.py
+        # classifier change invalidates genre_detect specifically, without
+        # touching _PIPELINE_VERSION and therefore without invalidating
+        # every other stage's checkpoints too (review finding, PR #224).
         try:
             raw_text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             raw_text = ""
-        fingerprint = _stage_fingerprint(model, backend_name, upstream=raw_text)
+        fingerprint = _stage_fingerprint(
+            model,
+            backend_name,
+            upstream={"raw_text": raw_text, "classifier_version": _CLASSIFIER_VERSION},
+        )
         cached = checkpoint.read_checkpoint(
             roots.working_root, item_id, "genre_detect", fingerprint
         )
