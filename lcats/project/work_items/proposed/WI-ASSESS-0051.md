@@ -119,17 +119,28 @@ authoritative for the current 8-genre scheme.
      for the bucket-layout stem-collision problem — every bucket file is
      literally named `story.json`, so `path.stem` alone is useless as an
      identity).
-   - Fingerprint includes model, backend, and a hash of the raw story
-     text (per the existing "hash actual input, not just config" pattern
-     — see `feedback_checkpoint_fingerprint_must_hash_actual_input`), so a
-     story corrected in place invalidates its own cached classification.
+   - Fingerprint includes model, backend, a hash of the raw story text
+     (per the existing "hash actual input, not just config" pattern — see
+     `feedback_checkpoint_fingerprint_must_hash_actual_input`), so a story
+     corrected in place invalidates its own cached classification, **and**
+     a classifier-version marker analogous to `run_pilot.py`'s own
+     `_CLASSIFIER_VERSION` (`experiments/03_cross_segment_relation_pilot/run_pilot.py:226`),
+     folded in the same way its `genre_detect` fingerprint does
+     (`run_pilot.py:390-396`) — so a prompt/schema change to `assess.py`'s
+     classifier between runs correctly invalidates stale cached
+     classifications instead of silently mixing old- and new-classifier
+     results in what's supposed to be a single-classifier-version census.
    - Calls `assess.assess_story()` with `genre=""` (detect mode).
    - A `--sample-size N` mode that runs only N stories (stratified by
      collection, not just the first N encountered) and reports measured
      cost ($ and latency) extrapolated to the full corpus — this is the
      acceptance-gating output, meant to be reviewed before a full run.
-   - No `--sample-size` (or an explicit `--full` flag) runs the complete
-     corpus, resuming from any existing checkpoints.
+   - A separate, **mandatory** `--full` flag is required to run the
+     complete corpus (resuming from any existing checkpoints). Invoking
+     the script with neither `--sample-size` nor `--full` must exit
+     immediately with usage information — omitting both flags must never
+     silently default to starting the ~1,868-call paid run, since that
+     would bypass the cost gate this item exists to enforce.
    - A small, local, documented pricing constant for the model in use
      (there is no shared pricing/cost module anywhere in this codebase —
      `PROP-LCATS-PIPELINE-CHECKPOINTING`'s Category E1,
@@ -187,20 +198,25 @@ authoritative for the current 8-genre scheme.
 
 ## Validation
 
-Run from the repository's `lcats/` directory, per `AGENTS.md`:
+`scripts/format`, `scripts/lint`, `scripts/test`, and `lrh validate` run
+from the repository's `lcats/` directory, per `AGENTS.md`. `experiments/`
+is a sibling of `lcats/`, not nested inside it — the census script
+commands below are therefore given relative to the repository root, not
+the `lcats/` working directory the commands above use:
 
 - `scripts/format --check --diff`
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `python experiments/04_genre_census/run_census.py --dry-run` (zero-cost
-  smoke test of file discovery and checkpoint wiring)
+- `python experiments/04_genre_census/run_census.py --dry-run` (run from
+  the repository root; zero-cost smoke test of file discovery and
+  checkpoint wiring)
 - `python experiments/04_genre_census/run_census.py --sample-size 20`
-  (real API cost — requires `ANTHROPIC_API_KEY` and explicit go-ahead
-  before running)
+  (run from the repository root; real API cost — requires
+  `ANTHROPIC_API_KEY` and explicit go-ahead before running)
 - Full-corpus run (`python experiments/04_genre_census/run_census.py
-  --full`) only after the sample-size estimate above has been reviewed
-  and approved
+  --full`, from the repository root) only after the sample-size estimate
+  above has been reviewed and approved
 
 ## Risk Notes
 
