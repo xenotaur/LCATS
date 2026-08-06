@@ -1,0 +1,229 @@
+---
+resolution: null
+blocked_reason: null
+blocked: false
+id: WI-ASSESS-0051
+title: Run current-classifier full-corpus genre survey (Gap 2)
+type: evaluation
+status: proposed
+owner: unassigned
+contributors: []
+assigned_agents: []
+related_focus:
+  - FOCUS-WORLDCON-2026
+related_roadmap:
+  - ROADMAP-CORE
+related_workstreams: []
+related_design:
+  - project/design/event-role-world-genre-target-reconciliation.md
+depends_on: []
+blocked_by: []
+expected_actions:
+  - create_file
+  - edit_file
+  - run_tests
+  - create_pr
+forbidden_actions:
+  - force_push
+  - delete_branch
+  - implement_pilot_rescope
+  - run_full_corpus_before_cost_approval
+acceptance:
+  - "A small stratified real-API sample (~20-30 stories, spanning multiple collections and body lengths) is run through detect-mode assess_story() and per-story token counts, latency, and $ cost are measured"
+  - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
+  - "The full-corpus run proceeds only after explicit user go-ahead on the cost estimate - a human checkpoint inside this work item's own execution, not implicit"
+  - "The full-corpus survey uses a resumable, checkpointed design via lcats.utils.checkpoint, so an interruption doesn't require redoing already-completed stories"
+  - "Final output is a per-genre story count across all 8 VALID_GENRES values plus other, committed as a results artifact under experiments/04_genre_census/"
+  - "Findings state plainly whether corpus representation is adequate per genre for the paper's eventual stratified sampling needs, without deciding sourcing/ingestion follow-up"
+  - "lrh validate reports 0 errors"
+required_evidence:
+  - test_output
+  - lrh_validate
+  - manual_review
+artifacts_expected:
+  - experiments/04_genre_census/run_census.py
+  - experiments/04_genre_census/README.md
+  - experiments/04_genre_census/results/
+  - experiments/README.md
+---
+
+# Work Item: WI-ASSESS-0051
+
+## Summary
+
+Run `lcats assess`'s current (8-genre) classifier in detect mode across
+the full corpus (~1,868 stories) to get an authoritative current per-genre
+count, gated behind a real small-sample cost estimate and a resumable
+checkpointed design given the real API cost and wall-clock duration
+involved.
+
+## Problem / Context
+
+`project/design/event-role-world-genre-target-reconciliation.md`'s "Gap 2"
+identifies this survey as a prerequisite before sizing any stratified
+Event-Role-World annotation pilot for the Worldcon 2026 paper: the current
+8-genre `VALID_GENRES` classifier (landed via `WI-ASSESS-0031`, PR #224)
+has never been run at corpus scale. The one full-corpus classification
+that exists, `experiments/01_classify_corpora/results/summary.tab`
+(2025-10-19), used a different, older, open-vocabulary classifier — its
+counts are a rough compositional signal only and must not be reused as
+authoritative for the current 8-genre scheme.
+
+### Duplication search
+- In-repo: no existing full-corpus survey under the current 8-genre
+  classifier found. `experiments/01_classify_corpora/` uses a different,
+  older classifier (see above) — not a duplicate to extend, a distinct
+  historical artifact.
+- Sibling repos: none identified.
+- External libraries: none identified.
+- Recommendation: proceed.
+
+### Demand search
+- Work items: none found requesting this beyond the reconciliation
+  design doc's own Gap 2 pointer (`project/design/backlog.md`).
+- Proposals: none found.
+- Backlog: `project/design/backlog.md`'s "`VALID_GENRES` still has 4
+  genres" entry (now marked fixed) lists this as one of two genuinely
+  unscoped follow-ups. This work item resolves that backlog pointer for
+  Gap 2 specifically; Gap 3 (re-scoping `WI-EVENT-0030`'s pilot) remains
+  separately unscoped, depends on this item.
+- Recommendation: proceed; this is the backlog's own recommended next
+  step.
+
+## Scope
+
+- Build a small survey script that runs `assess.assess_story()` in detect
+  mode (no `--genre`) across the corpus, using the canonical bucket-story
+  discovery (`discovery.find_json_files`) already used by `lcats assess`
+  and `run_pilot.py`.
+- Measure real per-story cost/latency from a small sample before
+  committing to a full run.
+- Make the full run resumable via the project's existing checkpoint
+  helper, since ~1,868 sequential API calls carries real duration and
+  interruption risk.
+- Report per-genre counts across the 8 `VALID_GENRES` values plus
+  `"other"`.
+
+## Required Changes
+
+1. **`experiments/04_genre_census/run_census.py`** (new): following
+   `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s
+   established house style —
+   - Story discovery via `discovery.find_json_files`, not the broader
+     `discovery.find_corpus_stories` (per this project's own established
+     convention — the broader selector is wrong whenever "is this a real
+     story" is the actual question).
+   - One stage, `"genre_census"`, checkpointed via `lcats.utils.checkpoint`
+     (`read_checkpoint`/`write_checkpoint`), keyed by a collection-qualified
+     story identity (matching `run_pilot.py`'s own `_story_identity` fix
+     for the bucket-layout stem-collision problem — every bucket file is
+     literally named `story.json`, so `path.stem` alone is useless as an
+     identity).
+   - Fingerprint includes model, backend, and a hash of the raw story
+     text (per the existing "hash actual input, not just config" pattern
+     — see `feedback_checkpoint_fingerprint_must_hash_actual_input`), so a
+     story corrected in place invalidates its own cached classification.
+   - Calls `assess.assess_story()` with `genre=""` (detect mode).
+   - A `--sample-size N` mode that runs only N stories (stratified by
+     collection, not just the first N encountered) and reports measured
+     cost ($ and latency) extrapolated to the full corpus — this is the
+     acceptance-gating output, meant to be reviewed before a full run.
+   - No `--sample-size` (or an explicit `--full` flag) runs the complete
+     corpus, resuming from any existing checkpoints.
+   - A small, local, documented pricing constant for the model in use
+     (there is no shared pricing/cost module anywhere in this codebase —
+     `PROP-LCATS-PIPELINE-CHECKPOINTING`'s Category E1,
+     model-invocation-cost tracking, was explicitly deferred and remains
+     unbuilt) — do not build a shared pricing module as part of this item,
+     a local constant scoped to this script is sufficient.
+2. **`experiments/04_genre_census/README.md`** (new): usage, the
+   cost-estimation methodology and how to read its output, expected
+   results format, and a note that the full run must not proceed without
+   reviewing the sample-based cost estimate first.
+3. **`experiments/README.md`**: register the new `04_genre_census`
+   experiment, per the existing table's convention.
+4. **`experiments/04_genre_census/results/`**: the actual per-genre
+   census output (JSONL/TSV/summary), populated once the full run
+   executes and is committed.
+
+## Non-Goals
+
+- Do not re-scope or execute `WI-EVENT-0030`'s stratified pilot — that is
+  Gap 3, a separate follow-up item that depends on this one.
+- Do not modify `lcats assess`'s core CLI, schema, or classifier prompts
+  — those are already correct as of `WI-ASSESS-0031`.
+- Do not decide or implement any corpus-sourcing/ingestion follow-up even
+  if a genre turns out under-represented by this survey's findings — that
+  is a further, separately-scoped decision for a human to make from the
+  results.
+- Do not modify the Event-Role-World extractor pipeline.
+- Do not build a shared, reusable cost/pricing-tracking module — that is
+  `PROP-LCATS-PIPELINE-CHECKPOINTING`'s explicitly-deferred Category E1,
+  out of scope here; a script-local pricing constant is sufficient for
+  this one-off survey.
+- Do not run the full corpus survey without first presenting the
+  small-sample cost estimate to the user and getting explicit go-ahead —
+  the sample step and the full-run step are gated, not one atomic action.
+
+## Acceptance Criteria
+
+- A small stratified real-API sample (~20-30 stories across multiple
+  collections and body lengths) is run and measured for real per-story
+  token counts, latency, and $ cost.
+- The measured per-story cost/latency is extrapolated to the full
+  ~1,868-story corpus and reported as a total $ and wall-clock estimate
+  before any full-corpus run begins.
+- The full-corpus run proceeds only after explicit user go-ahead on that
+  estimate.
+- The full-corpus survey is resumable via `lcats.utils.checkpoint` —
+  an interruption does not require redoing already-completed stories.
+- Final output is a per-genre story count across all 8 `VALID_GENRES`
+  plus `"other"`, committed under `experiments/04_genre_census/results/`.
+- Findings state plainly whether corpus representation looks adequate per
+  genre for the paper's eventual stratified sampling needs, without
+  deciding sourcing/ingestion follow-up.
+- `scripts/test` passes with no new failures.
+- `lrh validate` reports 0 errors.
+
+## Validation
+
+Run from the repository's `lcats/` directory, per `AGENTS.md`:
+
+- `scripts/format --check --diff`
+- `scripts/lint`
+- `scripts/test`
+- `lrh validate`
+- `python experiments/04_genre_census/run_census.py --dry-run` (zero-cost
+  smoke test of file discovery and checkpoint wiring)
+- `python experiments/04_genre_census/run_census.py --sample-size 20`
+  (real API cost — requires `ANTHROPIC_API_KEY` and explicit go-ahead
+  before running)
+- Full-corpus run (`python experiments/04_genre_census/run_census.py
+  --full`) only after the sample-size estimate above has been reviewed
+  and approved
+
+## Risk Notes
+
+- **Real $ cost.** The small sample step itself costs real money; the
+  full run costs meaningfully more (~1,868 calls at whatever the sample
+  measures per-story). Do not run beyond the approved sample without a
+  reviewed estimate — this is the entire reason this work item exists as
+  a gated two-phase item rather than "just run `lcats assess` on
+  `corpora/`."
+- **Model choice affects cost meaningfully.** `lcats assess`'s own
+  default model is `claude-opus-4-8`. Whether a cheaper model is
+  acceptable for a classification-only census (versus the curation-lens
+  use case the default was presumably chosen for) is worth flagging in
+  the cost-estimate report, not deciding unilaterally in this item.
+- **Wall-clock duration**, not just cost, is a real risk for ~1,868
+  sequential calls (rate limits, network latency) — checkpointing
+  mitigates data loss on interruption but not total runtime. Concurrency/
+  batching is a reasonable stretch goal if the sample estimate shows
+  duration is a practical blocker, but is not required by this item's
+  acceptance criteria.
+- **No existing pricing/cost-tracking utility.** Confirmed via repo-wide
+  grep (`pricing`, `cost_per_token`, `PRICE`, `dollars_per` — zero hits
+  outside this item's own planned script). The local pricing constant
+  this item adds should be clearly documented as an approximation tied to
+  the model in use at the time, not treated as a durable, reusable source
+  of truth for future cost estimates.
