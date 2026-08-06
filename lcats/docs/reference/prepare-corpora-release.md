@@ -247,9 +247,9 @@ lcats assess ../corpora/ --genre "science fiction" --dry-run
 
 `--dry-run` runs the same pre-flight checks (file discovery, body-length
 limits) without calling the API, so it's safe to run anytime. `--genre` is
-one of `science fiction`, `horror`, `western`, `romance`; omit it to run
-detect mode instead of genre-lens mode. A real run needs an API key and
-your explicit go-ahead:
+one of `science fiction`, `horror`, `humor`, `western`, `romance`,
+`mystery`, `fantasy`, `adventure`; omit it to run detect mode instead of
+genre-lens mode. A real run needs an API key and your explicit go-ahead:
 
 ```bash
 ANTHROPIC_API_KEY=sk-... lcats assess ../corpora/ --genre "science fiction" --format tsv --output sf_assessment.tsv
