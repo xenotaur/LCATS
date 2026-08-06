@@ -1,7 +1,7 @@
 ---
 id: PROP-LCATS-PILOT-COST-SUSTAINABILITY
 type: design_proposal_set
-status: proposed
+status: adopted
 implementation_status: not_started
 ---
 

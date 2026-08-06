@@ -2,9 +2,9 @@
 id: PROP-LCATS-PILOT-COST-SUSTAINABILITY
 type: design_proposal
 title: Making the Event-Role-World Pilot Sustainable to Run — Test Harness, Caching, Batching, and Model Tiering
-status: proposed
+status: adopted
 created_on: 2026-08-05
-updated_on: 2026-08-05
+updated_on: 2026-08-06
 implementation_status: not_started
 implemented_by: []
 supersedes: []

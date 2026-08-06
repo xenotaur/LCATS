@@ -4,9 +4,11 @@ type: design_proposal
 title: Staged, Checkpointed Pipeline Execution for LCATS Batch Scripts
 status: adopted
 created_on: 2026-07-30
-updated_on: 2026-08-02
-implementation_status: not_started
-implemented_by: []
+updated_on: 2026-08-06
+implementation_status: implemented
+implemented_by:
+  - WI-PIPELINE-0040
+  - WI-PIPELINE-0041
 supersedes: []
 superseded_by: null
 related_design:

@@ -2,7 +2,7 @@
 id: PROP-LCATS-PIPELINE-CHECKPOINTING
 type: design_proposal_set
 status: adopted
-implementation_status: not_started
+implementation_status: implemented
 ---
 
 # Staged, Checkpointed Pipeline Execution for LCATS Batch Scripts
@@ -20,4 +20,5 @@ meaning a crash or interruption discards every already-paid-for LLM call.
   decisions (checkpoint publication, staleness/identity, granularity,
   adoption path), non-goals, and implementation plan.
 
-Governed by [`WS-PIPELINE-CHECKPOINTING`](../../../../workstreams/proposed/WS-PIPELINE-CHECKPOINTING.md).
+Delivered by [`WS-PIPELINE-CHECKPOINTING`](../../../../workstreams/resolved/WS-PIPELINE-CHECKPOINTING.md)
+(closed; both work items resolved).
