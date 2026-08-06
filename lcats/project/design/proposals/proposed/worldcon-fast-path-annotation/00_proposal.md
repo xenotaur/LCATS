@@ -38,8 +38,8 @@ The paper needs a real, usable dataset soon. The ERW event/relation
 extractor — the pipeline's most feature-complete output — was just shown
 (this project's own parallel session, ~$110 spent) to be too expensive,
 slow, and unreliable to finish in time. That track continues
-independently: `PROP-LCATS-PILOT-COST-SUSTAINABILITY` is under active
-review and may land soon, and a local/hybrid-model fallback is being
+independently: `PROP-LCATS-PILOT-COST-SUSTAINABILITY` has landed and
+been adopted, and a local/hybrid-model fallback is being
 built in parallel (`PROP-ERW-LOCAL-MODEL-EVALUATION`, infra merged via
 PR #219, methodology since refined via PR #222/#223 — still `proposed`,
 currently holding the `claude-opus-4-8` default). Neither of those
