@@ -4,7 +4,7 @@ type: design_proposal
 title: Fast-Path Annotation Pipeline for the Worldcon 2026 Paper Dataset
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-05
+updated_on: 2026-08-06
 implementation_status: not_started
 implemented_by: []
 supersedes: []
