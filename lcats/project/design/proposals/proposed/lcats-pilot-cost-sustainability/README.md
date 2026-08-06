@@ -22,9 +22,10 @@ explicitly held pending this discussion.
 
 - [`00_proposal.md`](00_proposal.md) — background, prior-art check, seven
   design decisions (validation-first sequencing, a targeted single/small-story
-  test harness, prompt caching, a Batch API evaluation gate, a model-tiering
-  evaluation gate, rejecting call-fusion, and local-model evaluation as a
-  separate track), non-goals, and implementation plan.
+  test harness, a prompt-caching evaluation gate, a Batch API evaluation
+  gate, a model-tiering evaluation gate, rejecting call-fusion, and
+  local-model evaluation as a separate track), non-goals, and
+  implementation plan.
 
 Not yet governed by a workstream — the Implementation Plan proposes one be
 created via `/lrh-workstream` once this proposal is adopted.
