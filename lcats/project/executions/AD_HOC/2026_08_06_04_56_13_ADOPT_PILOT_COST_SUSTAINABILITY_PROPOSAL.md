@@ -40,8 +40,9 @@ proposal-set README, and updated the top-level catalog.
 
 - `lrh validate` (from `lcats/`) - 0 errors, 73 warnings (unchanged
   baseline); confirmed no new warnings tied to either proposal's files.
-- `gh pr diff 231 --name-only` confirmed only the 5 intended files in
-  the PR diff.
+- `gh pr diff 231 --name-only` confirmed only the intended files were
+  in the PR diff at the time of this validation (the PR has since grown
+  through review-response commits).
 
 # Follow-up
 
