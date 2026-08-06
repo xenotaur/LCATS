@@ -334,7 +334,8 @@ harness and on each other's findings) — large enough for a governing
 workstream, not a single work item. Proposed shape:
 
 1. **Governing workstream** (`WS-*`, to be created via `/lrh-workstream`
-   after this proposal is adopted) coordinating the work items below.
+   — the next pending action now that this proposal is adopted)
+   coordinating the work items below.
 2. **WI 1 — targeted test harness** (Decision 2): `--story`/`--story-list`
    flag on `run_pilot.py`, fixture set, per-stage cost reporting.
 3. **WI 2 — prompt caching evaluation** (Decision 3): measure the real,
