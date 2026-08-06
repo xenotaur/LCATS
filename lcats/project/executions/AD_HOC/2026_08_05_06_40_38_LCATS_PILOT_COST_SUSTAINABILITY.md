@@ -32,9 +32,13 @@ $24.74 on a second, incomplete follow-up) without producing usable data.
 - Recorded 7 design decisions: (1) sequence validation-enabling work
   before optimization work; (2) build a targeted, retargetable
   single/small-story test harness by extending `run_pilot.py`'s existing
-  `run_story()` rather than writing a new script; (3) adopt Anthropic
-  prompt caching (zero quality tradeoff, grounded against current
-  Anthropic pricing docs - 0.1x read cost after a 1.25x write); (4)
+  `run_story()` rather than writing a new script; (3) evaluate, don't yet
+  adopt, Anthropic prompt caching (the confirm-fixes round found the
+  original "adopt, zero quality tradeoff" framing factually wrong - each
+  per-segment extractor call uses a different tool schema, and
+  Anthropic's cache hierarchy invalidates everything downstream of a tool
+  change, so the claimed cache-hit pattern across the 4 calls doesn't
+  hold; downgraded to a gated evaluation like Decisions 4/5); (4)
   evaluate, don't yet adopt, the Batch API (50% flat discount but a real
   architecture tension with the just-built synchronous checkpointing
   design); (5) evaluate, don't yet adopt, per-stage model tiering (real

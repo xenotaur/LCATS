@@ -282,9 +282,10 @@ decomposed extraction into these 4 focused stages specifically for
 reliability — larger, more complex single-call schemas need more
 `max_tokens` headroom and are exactly the shape that produced this
 session's malformed-container bug and repeated truncation failures.
-`processor.py:149-155,196-198` also shows a real extraction dependency
-(entity IDs feed event extraction, event IDs feed relation/discourse), so
-merging is a genuine redesign of the extraction sequence, not a schema
+`processor.py:149-155,180-183,207-210` also shows a real extraction
+dependency (entity IDs feed event extraction, event IDs feed
+relation/discourse), so merging is a genuine redesign of the extraction
+sequence, not a schema
 union. No new evidence has emerged to justify revisiting this.
 
 ### Decision 7: Local-model evaluation is a separate, parallel track
