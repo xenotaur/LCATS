@@ -215,6 +215,23 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
             finally:
                 os.chdir(original_cwd)
 
+    @patch(
+        "lcats.analysis.corpus.assess.run_preflight",
+        side_effect=RuntimeError("disk read error"),
+    )
+    @patch("pathlib.Path.resolve", side_effect=OSError("symlink loop"))
+    def test_preflight_error_survives_resolve_failure(self, _mock_resolve, _mock):
+        """Regression test: the bare-relative-path fallback's resolve()
+        call runs before the try/except that exists to catch exactly
+        this class of failure (unlike pure string ops, resolve() touches
+        the filesystem and can raise -- e.g. a broken symlink loop). A
+        resolve() failure must degrade to an empty title, not propagate
+        out of assess_story and crash the whole call."""
+        fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
+        result = assess.assess_story(pathlib.Path("story.json"), _GENRE, fb)
+        self.assertEqual(result.title, "")
+        self.assertIn("disk read error", result.error)
+
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_backend_exception_captured(self, _mock):
         """When backend.complete() raises, error field is set."""

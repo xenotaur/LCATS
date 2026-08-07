@@ -24,6 +24,37 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
+### Unguarded `pathlib.Path.resolve()` calls could crash callers on filesystem errors — P2, decision not a fix
+
+Surfaced 2026-08-07 during `WI-ASSESS-0050`'s review (Copilot found the
+underlying bare-relative-path edge case; self-review then found this
+follow-on robustness gap while fixing it): `assess.py`'s `assess_story`
+originally added an unguarded `file_path.resolve()` call to recover a
+story's real directory name when `file_path.parent.name` is lexically
+empty (a bare relative path like `Path("story.json")` run from inside its
+own bucket directory). `resolve()` touches the filesystem and can raise
+(e.g. `OSError` on a broken symlink loop or a permission error walking the
+path) — in `assess_story`'s case this call sat *before* the function's own
+`try/except Exception` block, so a resolve failure would have propagated
+out and crashed the whole call instead of returning an `AssessmentResult`
+with `error` set. Fixed locally in `assess_story` (guarded with a narrow
+`try/except OSError`, falling back to an empty title). The same *unguarded*
+`.resolve()` pattern exists elsewhere in the codebase — confirmed via
+`grep -rn "\.resolve()" lcats/src/lcats/` (excluding tests): 15 call sites
+across `promote.py`, `processing.py`, `output.py` (including
+`story_dir_value`, the very function `assess_story`'s fix was modeled on),
+`utils/paths.py`, and `utils/checkpoint.py`. None of these were audited as
+part of this fix — whether each one is similarly reachable from an
+unguarded code path (vs. already inside a try/except, or operating on a
+path guaranteed to exist) was not checked. **Next step:** audit each of
+the 15 call sites for whether a `resolve()` failure could propagate
+somewhere it shouldn't, and decide case-by-case whether to guard it —
+this is a decision/survey task, not a single fix, since the right
+behavior likely differs by call site (some may legitimately want to
+propagate the failure).
+
+---
+
 ## `quickstart.md` and `prepare-corpora-release.md` show mojibake examples that no longer reproduce — P2, cosmetic
 
 Surfaced during `/lrh-doc-work` on `WS-STORY-BUCKET-LAYOUT` (2026-08-02).

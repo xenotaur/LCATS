@@ -332,7 +332,19 @@ def assess_story(
     if backend is None:
         raise ValueError("assess_story requires a backend instance")
 
-    title = file_path.parent.name or file_path.resolve().parent.name
+    title = file_path.parent.name
+    if not title:
+        # Bare relative path (e.g. Path("story.json") run from inside the
+        # bucket dir itself) -- resolve to recover the real directory name.
+        # Guarded: this runs before the try/except below, and unlike pure
+        # string ops, resolve() touches the filesystem and can raise
+        # (broken symlink loop, permission error) -- fall back to ""
+        # rather than letting an unrelated fallback-title computation
+        # crash the whole call.
+        try:
+            title = file_path.resolve().parent.name
+        except OSError:
+            pass
     author = "Unknown"
     url = ""
 
