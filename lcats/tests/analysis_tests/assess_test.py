@@ -176,6 +176,20 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
         self.assertEqual(result.verdict, "review")
         self.assertEqual(len(fb.calls), 0)
 
+    @patch(
+        "lcats.analysis.corpus.assess.run_preflight",
+        side_effect=RuntimeError("disk read error"),
+    )
+    def test_preflight_error_title_falls_back_to_directory_slug(self, _mock):
+        """Regression test: the fallback title (used only when
+        run_preflight raises before it can supply the real title) must be
+        derived from file_path.parent.name, not file_path.stem -- under
+        the bucket layout every canonical leaf filename is "story.json",
+        so file_path.stem would always be the literal string "story"."""
+        fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.title, "path")
+
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_backend_exception_captured(self, _mock):
         """When backend.complete() raises, error field is set."""

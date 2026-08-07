@@ -332,7 +332,7 @@ def assess_story(
     if backend is None:
         raise ValueError("assess_story requires a backend instance")
 
-    title = file_path.stem
+    title = file_path.parent.name
     author = "Unknown"
     url = ""
 
