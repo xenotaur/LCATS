@@ -224,6 +224,62 @@ class TestOpenAIBackend(unittest.TestCase):
         self.assertEqual(ctx.exception.input_tokens, 88)
         self.assertEqual(ctx.exception.output_tokens, 4096)
 
+    def test_complete_with_tool_raises_no_tool_call_error_when_ignored(self):
+        """complete(tool=...) raises NoToolCallError when tool_choice is
+        ignored (finish_reason='stop', no tool_calls) - the same
+        `tool_choice` reliability gap WI-LLM-0051 investigates."""
+        from lcats.llm import backend
+
+        tool_schema = {
+            "name": "record_thing",
+            "description": "Record a thing.",
+            "input_schema": {"type": "object", "properties": {}},
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(content='{"verdict": "include"}', finish_reason="stop")
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            with self.assertRaises(backend.NoToolCallError):
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="gpt-4o-2024-08-06",
+                    tool=tool_schema,
+                )
+
+    def test_no_tool_call_error_preserves_billed_usage(self):
+        """NoToolCallError carries the usage the provider already billed
+        (review finding, PR #249: a forced tool_choice that a model
+        ignores still generates real output tokens, which must not be
+        silently reported as zero)."""
+        from lcats.llm import backend
+
+        tool_schema = {
+            "name": "record_thing",
+            "description": "Record a thing.",
+            "input_schema": {"type": "object", "properties": {}},
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(
+                content='{"verdict": "include"}',
+                finish_reason="stop",
+                prompt_tokens=99,
+                completion_tokens=123,
+            )
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            with self.assertRaises(backend.NoToolCallError) as ctx:
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="gpt-4o-2024-08-06",
+                    tool=tool_schema,
+                )
+        self.assertEqual(ctx.exception.input_tokens, 99)
+        self.assertEqual(ctx.exception.output_tokens, 123)
+
     def test_complete_without_tool_does_not_raise_on_length(self):
         """Truncation is only checked when a tool call was requested."""
         stub_client = _StubOpenAIClient(

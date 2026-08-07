@@ -92,23 +92,36 @@ story (`corpora/sherlock/five_orange_pips/story.json`):
 |---|---|---|---|---|---|
 | genre_detection | 1 | success | 95.8s | 566 | detected_genre=mystery |
 | genre_detection | 2 | success | 40.1s | 618 | detected_genre=mystery |
-| segmentation | 1 | **failed** | 374.1s | 0 | tool never invoked |
-| segmentation | 2 | **failed** | 257.3s | 0 | tool never invoked |
+| segmentation | 1 | **failed** | 383.0s | 5089 | tool never invoked (`no_tool_call`) |
+| segmentation | 2 | **failed** | 157.8s | 2560 | tool never invoked (`no_tool_call`) |
+
+Segmentation's output token counts are real, billed usage - not zero
+despite the failed call - via `lcats.llm.backend.NoToolCallError`
+(review finding, PR #249: `OpenAIBackend`/`AnthropicBackend`'s
+forced-`tool_choice`-ignored path previously discarded the provider's
+own usage report, which made these two runs read as "0 output tokens"
+even though the model generated thousands of tokens of free text).
 
 **Genre detection succeeded consistently (2/2)**, correctly identifying
 "mystery" both times, at latencies well below the entity-extraction
 stage. This is real evidence for the hybrid-pipeline hypothesis's
 easier-stage half.
 
-**Segmentation failed consistently (2/2)** - not a schema mismatch or a
-truncation: both responses came back as `finish_reason='stop'` with the
-model's free-text `content` containing a complete, correctly-shaped JSON
-object matching `SEGMENT_TOOL_SCHEMA` almost exactly (see
-`results_segmentation_run1.json`/`run2.json`'s `error_message` for the
-verbatim content), but the OpenAI-compatible `tool_choice` never actually
-invoked `record_segments`. This is the exact `tool_choice`
-forced-function-name gap flagged as a residual risk in
-`PROP-ERW-LOCAL-MODEL-EVALUATION`'s Decision 3 update and named as
+**Segmentation failed consistently (2/2)** - not an outright refusal or
+gibberish: both responses came back as `finish_reason='stop'` with the
+model's free-text `content` beginning a well-formed, schema-shaped JSON
+object matching `SEGMENT_TOOL_SCHEMA`'s field names/structure for its
+first two segments (see `results_segmentation_run1.json`/`run2.json`'s
+`error_message` for the captured text), but the OpenAI-compatible
+`tool_choice` never actually invoked `record_segments`. **Caveat on this
+evidence:** `OpenAIBackend.complete()` truncates the captured content to
+2000 characters before raising (visible in both files - the captured text
+cuts off mid-object, inside segment 3's fields), so neither the full
+response nor its completeness/full conformance can actually be confirmed
+from what's committed - only that the visible portion is schema-shaped,
+not that the whole response was (review finding, PR #249). This is still
+the exact `tool_choice` forced-function-name gap flagged as a residual
+risk in `PROP-ERW-LOCAL-MODEL-EVALUATION`'s Decision 3 update and named as
 `WI-LLM-0051`'s own investigation target - now reproduced directly on a
 second, harder-schema stage, not just theorized. Segmentation's tool
 schema is substantially larger/more nested (GACD/ERAC classification,

@@ -39,6 +39,32 @@ class TruncatedResponseError(RuntimeError):
         self.output_tokens = output_tokens
 
 
+class NoToolCallError(RuntimeError):
+    """Raised when a forced tool_choice call completes without calling the tool.
+
+    The model responded (often with free-text content matching or nearly
+    matching the requested schema) but the backend never invoked the
+    forced tool - a `tool_choice` reliability gap seen on some local-model
+    runtimes (see `WI-LLM-0051`). The provider still generated and billed
+    the output tokens in that free-text response even though the call
+    failed from the caller's perspective; input_tokens/output_tokens carry
+    that usage so callers with cost/usage tracking (or a benchmark harness
+    computing latency/throughput) don't silently record it as zero, the
+    same rationale as TruncatedResponseError above.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+    ):
+        super().__init__(message)
+        self.input_tokens = input_tokens
+        self.output_tokens = output_tokens
+
+
 @dataclasses.dataclass
 class BackendResponse:
     """Normalized result of an LLMBackend.complete() call.

@@ -302,12 +302,18 @@ hypothesis assumed for this stage.
 
 **Segmentation: hybrid-NOT-viable for this model, 2/2 failures.** Both
 runs came back `finish_reason='stop'` with **no tool call at all** -
-despite the model's free-text response containing a fully-formed,
-schema-conformant JSON object in the exact shape `record_segments`
-expects. This is not the entity-extraction stage's problem (wrong/empty
-content); it is the residual Ollama `tool_choice` forced-function-name
-gap this proposal already flagged as an open risk (community reports
-on [Ollama's GitHub, issue #4386](https://github.com/ollama/ollama/issues/4386)),
+despite the model's free-text response visibly beginning a well-formed,
+schema-shaped JSON object matching `record_segments`'s expected fields
+for its first two segments. (The captured evidence is truncated at 2000
+characters and cuts off mid-object - see
+`ollama_qwen3_8b/README.md`'s "Actual results: genre detection and
+segmentation" caveat - so completeness/full conformance of the whole
+response is not established, only that the visible portion is
+schema-shaped.) This is not the entity-extraction stage's problem
+(wrong/empty content); it is the residual Ollama `tool_choice`
+forced-function-name gap this proposal already flagged as an open risk
+(community reports on
+[Ollama's GitHub, issue #4386](https://github.com/ollama/ollama/issues/4386)),
 now reproduced directly on a second stage rather than left as a
 theoretical concern. `WI-LLM-0051` was already filed to investigate this
 gap specifically; these results are direct motivating evidence for it,

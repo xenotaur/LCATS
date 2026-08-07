@@ -92,12 +92,20 @@ class OpenAIBackend:
                 # OpenAI-compatible runtimes) still often produces real text
                 # explaining what it did instead, which is otherwise lost:
                 # BackendResponse is never constructed on this path, so
-                # nothing else captures choice.message.content.
+                # nothing else captures choice.message.content. This
+                # preview is truncated (2000 chars) for the error message
+                # only - it is not a substitute for a full raw-output
+                # capture, and callers should not treat it as proof the
+                # full response was schema-conformant or complete (review
+                # finding, PR #249).
                 content_preview = (choice.message.content or "")[:2000]
-                raise ValueError(
+                usage = response.usage
+                raise backend.NoToolCallError(
                     f"API returned no tool calls for tool {tool['name']!r}; "
                     f"finish_reason: {choice.finish_reason!r}; "
-                    f"content: {content_preview!r}"
+                    f"content: {content_preview!r}",
+                    input_tokens=usage.prompt_tokens if usage else 0,
+                    output_tokens=usage.completion_tokens if usage else 0,
                 )
             raw_arguments = tool_calls[0].function.arguments
             tool_result = json.loads(raw_arguments)

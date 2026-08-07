@@ -343,17 +343,54 @@ def run_segmentation(
     latency = time.monotonic() - start
 
     api_error = result.get("api_error")
+    extraction_error = result.get("extraction_error")
+    alignment_error = result.get("alignment_error")
+    validation_error = result.get("validation_error")
     extracted = result.get("extracted_output")
     usage = result.get("usage") or {}
     raw_output = result.get("raw_output") or ""
 
-    # Same principle as run_entity_extraction()'s schema_error check: a
-    # tool call can come back structurally valid (no api_error) while
-    # extracted_output still isn't the list SEGMENT_TOOL_SCHEMA/the
-    # aligner promise.
+    # A tool call can come back structurally valid (no api_error) while
+    # still not producing usable segments, in three distinct ways this
+    # harness must not conflate with success:
+    #   1. extraction_error/alignment_error/validation_error set -
+    #      JSONPromptExtractor.extract() still returns the PRE-alignment
+    #      extracted_output on an aligner/validator exception (it is
+    #      truthy and would otherwise read as a successful benchmark run)
+    #      - the exact bug corpus/annotate.py's real production scene path
+    #      was fixed for (see annotate.py:211-215), reproduced here as a
+    #      review finding (PR #249) rather than caught independently.
+    #   2. extracted_output isn't a list at all - SEGMENT_TOOL_SCHEMA/the
+    #      aligner's contract broken.
+    #   3. extracted_output is an empty list - a schema-conformant call
+    #      that segmented nothing is not a useful benchmark success,
+    #      matching annotate.py's own `if error or not segments` check.
     schema_error = None
-    if api_error is None and not isinstance(extracted, list):
-        schema_error = "malformed_tool_result"
+    if api_error is None:
+        if extraction_error or alignment_error or validation_error:
+            schema_error = "extraction_or_alignment_error"
+        elif not isinstance(extracted, list):
+            schema_error = "malformed_tool_result"
+        elif not extracted:
+            schema_error = "empty_segment_list"
+
+    if api_error:
+        error_message = (api_error or {}).get("message")
+    elif schema_error == "extraction_or_alignment_error":
+        error_message = (
+            f"extraction_error={extraction_error!r}, "
+            f"alignment_error={alignment_error!r}, "
+            f"validation_error={validation_error!r}"
+        )
+    elif schema_error == "malformed_tool_result":
+        error_message = (
+            "Tool result parsed but extracted_output was not a list "
+            f"(got {type(extracted).__name__ if extracted is not None else 'None'})."
+        )
+    elif schema_error == "empty_segment_list":
+        error_message = "Tool call succeeded but returned zero segments."
+    else:
+        error_message = None
 
     return BenchmarkResult(
         candidate=candidate,
@@ -367,16 +404,7 @@ def run_segmentation(
         output_tokens=usage.get("output_tokens", 0) or 0,
         segment_count=len(extracted) if isinstance(extracted, list) else None,
         error_type=(api_error or {}).get("code") if api_error else schema_error,
-        error_message=(
-            (api_error or {}).get("message")
-            if api_error
-            else (
-                "Tool result parsed but extracted_output was not a list "
-                f"(got {type(extracted).__name__ if extracted is not None else 'None'})."
-                if schema_error
-                else None
-            )
-        ),
+        error_message=error_message,
         raw_output_preview=(raw_output[:_RAW_OUTPUT_PREVIEW_CHARS] or None),
     )
 

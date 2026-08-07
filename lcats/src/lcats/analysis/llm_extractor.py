@@ -234,6 +234,15 @@ class JSONPromptExtractor:
             can_retry = False
             suggested_action = "retry_with_higher_max_tokens"
 
+        # Forced tool_choice completed without calling the tool - a
+        # runtime/model reliability gap (see WI-LLM-0051), not a transient
+        # server condition; retrying the identical request is unlikely to
+        # help.
+        elif code == "no_tool_call":
+            category = "no_tool_call"
+            can_retry = False
+            suggested_action = "investigate_tool_choice_reliability"
+
         return {
             **payload,
             "category": category,
@@ -266,6 +275,24 @@ class JSONPromptExtractor:
                 # the call failing - surfaced so callers with usage/cost
                 # tracking (e.g. event_role_world.processor) don't silently
                 # record zero tokens for a truncated-but-charged call.
+                "input_tokens": exc.input_tokens,
+                "output_tokens": exc.output_tokens,
+            }
+            return self._classify_api_error(payload)
+
+        if isinstance(exc, llm_backend.NoToolCallError):
+            # Same rationale as TruncatedResponseError above - the model
+            # generated (and was billed for) real output tokens even
+            # though the forced tool was never actually invoked (review
+            # finding, PR #249: this benchmark harness was reporting 0
+            # output tokens for these calls despite the model producing a
+            # substantial free-text response).
+            payload = {
+                "status": None,
+                "code": "no_tool_call",
+                "type": "no_tool_call",
+                "message": str(exc),
+                "raw": repr(exc),
                 "input_tokens": exc.input_tokens,
                 "output_tokens": exc.output_tokens,
             }

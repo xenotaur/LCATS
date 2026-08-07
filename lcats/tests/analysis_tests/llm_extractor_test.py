@@ -479,6 +479,22 @@ class TestNormalizeApiError(unittest.TestCase):
         self.assertEqual(result["raw"]["stop_reason"], "max_tokens")
         self.assertEqual(result["raw"]["max_tokens"], 4096)
 
+    def test_recognizes_no_tool_call_error(self):
+        """NoToolCallError is classified as no_tool_call directly, and its
+        billed usage is preserved in the returned payload (review finding,
+        PR #249 - this path previously fell through to plain ValueError
+        handling, losing the model's real token usage)."""
+        from lcats.llm import backend as llm_backend
+
+        exc = llm_backend.NoToolCallError(
+            "no tool call", input_tokens=99, output_tokens=123
+        )
+        result = self.ext._normalize_api_error(exc)
+        self.assertEqual(result["category"], "no_tool_call")
+        self.assertEqual(result["input_tokens"], 99)
+        self.assertEqual(result["output_tokens"], 123)
+        self.assertFalse(result["can_retry"])
+
     def test_extracts_embedded_json_error_block(self):
         """When exc string contains JSON with an 'error' block, fields are extracted."""
         embedded = json.dumps(
@@ -633,6 +649,21 @@ class TestExtractErrorPaths(unittest.TestCase):
         result = ext.extract("story")
         self.assertEqual(result["extraction_error"], "api_error")
         self.assertEqual(result["usage"], {"input_tokens": 250, "output_tokens": 4096})
+
+    def test_no_tool_call_error_preserves_billed_usage_in_result(self):
+        """A NoToolCallError's usage flows through to result['usage'] too
+        (review finding, PR #249: a forced tool_choice a model ignores
+        still generates real, billed output tokens - a benchmark harness
+        or cost tracker reading result['usage'] must not see zero)."""
+        from lcats.llm import backend as llm_backend
+
+        exc = llm_backend.NoToolCallError(
+            "no tool call", input_tokens=99, output_tokens=123
+        )
+        ext = _make_extractor(backend=_RaisingBackend(exc))
+        result = ext.extract("story")
+        self.assertEqual(result["extraction_error"], "api_error")
+        self.assertEqual(result["usage"], {"input_tokens": 99, "output_tokens": 123})
 
     def test_api_exception_result_has_all_keys(self):
         """Even on backend exception, result dict has all expected keys."""

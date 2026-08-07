@@ -101,12 +101,19 @@ class AnthropicBackend:
                 # error rather than discarding it - see OpenAIBackend's
                 # identical fix for the rationale (BackendResponse is never
                 # constructed on this path, so nothing else captures it).
+                # This preview is truncated (2000 chars) for the error
+                # message only - not a substitute for a full raw-output
+                # capture; callers should not treat it as proof the full
+                # response was schema-conformant or complete (review
+                # finding, PR #249).
                 text_preview = "".join(
                     block.text for block in message.content if block.type == "text"
                 )[:2000]
-                raise ValueError(
+                raise backend.NoToolCallError(
                     f"API returned no tool_use block for tool {tool['name']!r}; "
-                    f"content types: {content_types}; text: {text_preview!r}"
+                    f"content types: {content_types}; text: {text_preview!r}",
+                    input_tokens=message.usage.input_tokens,
+                    output_tokens=message.usage.output_tokens,
                 )
             tool_result = tool_block.input
             text = ""
