@@ -33,7 +33,7 @@ acceptance:
   - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus via the population-weighted sample mean and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
   - "The full-corpus run proceeds only after explicit user go-ahead on the cost estimate - a human checkpoint inside this work item's own execution, not implicit"
   - "The full-corpus survey uses a resumable, checkpointed design via lcats.utils.checkpoint, so an interruption doesn't require redoing already-completed stories"
-  - "Failed assessments (result.error populated) are excluded from both the cost-estimate sample and the final census counts, never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed"
+  - "Failed assessments (result.error populated) are excluded from both the cost-estimate sample's genre counts and the final census genre counts, never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed - but a failed-but-billed call's real token usage (forwarded via a narrow assess.py fix, see Non-Goals carve-out) still counts toward the cost estimate"
   - "Final output includes both an aggregate per-genre story count across all 8 VALID_GENRES values plus other, AND a per-story record (identity, detected genre, confidence, classifier/model identity, failure status), committed under experiments/04_genre_census/results/"
   - "Findings state plainly whether corpus representation is adequate per genre for the paper's eventual stratified sampling needs, without deciding sourcing/ingestion follow-up"
   - "lrh validate reports 0 errors"
@@ -46,6 +46,7 @@ artifacts_expected:
   - experiments/04_genre_census/README.md
   - experiments/04_genre_census/results/
   - experiments/README.md
+  - lcats/src/lcats/analysis/corpus/assess.py
 ---
 
 # Work Item: WI-ASSESS-0051
@@ -189,13 +190,31 @@ authoritative for the current 8-genre scheme.
    sample *from this census*, which is impossible from counts alone
    without re-running ~1,868 paid classifications or inspecting
    undocumented checkpoint internals.
+5. **`lcats/src/lcats/analysis/corpus/assess.py`** (narrow fix, see
+   Non-Goals carve-out): in `assess_story()`'s no-tool-result branch
+   (`assess.py:368-376`), forward `backend_response.input_tokens`,
+   `backend_response.output_tokens`, and `backend_response.model` into
+   the returned `AssessmentResult` instead of leaving them at their
+   zero/empty defaults — this data already exists on `backend_response`
+   at that point, since a real API call completed; only the tool-result
+   parsing failed. The `except Exception` branch is unchanged. Include a
+   test asserting the no-tool-result path preserves real usage data.
 
 ## Non-Goals
 
 - Do not re-scope or execute `WI-EVENT-0030`'s stratified pilot — that is
   Gap 3, a separate follow-up item that depends on this one.
-- Do not modify `lcats assess`'s core CLI, schema, or classifier prompts
-  — those are already correct as of `WI-ASSESS-0031`.
+- Do not modify `lcats assess`'s CLI surface, schema, or classifier
+  prompts — those are already correct as of `WI-ASSESS-0031`. **Narrow
+  carve-out:** `assess.py`'s `assess_story()` no-tool-result error branch
+  (`assess.py:368-376`) currently discards `backend_response`'s real
+  token-usage data even though a real, billed API call occurred — fixing
+  this narrow error-handling gap (forwarding `input_tokens`/
+  `output_tokens`/`backend_model` in that branch only) is in scope, since
+  this work item's own cost estimate needs that data and cannot get it
+  otherwise. This carve-out does not extend to the `except Exception`
+  branch (which may or may not represent a billed call depending on where
+  the exception occurred) or to any classifier/schema/prompt logic.
 - Do not decide or implement any corpus-sourcing/ingestion follow-up even
   if a genre turns out under-represented by this survey's findings — that
   is a further, separately-scoped decision for a human to make from the
@@ -229,7 +248,10 @@ authoritative for the current 8-genre scheme.
 - The excluded/failed story count and reasons are reported explicitly
   alongside the final census, and a high or non-random-looking exclusion
   rate is flagged as a data-quality concern, not silently absorbed into a
-  smaller total.
+  smaller total. Failed-but-billed calls' real token usage still counts
+  toward the cost estimate, even though they're excluded from genre
+  counts — `assess.py`'s no-tool-result branch is fixed to forward that
+  real usage data instead of discarding it (see Non-Goals carve-out).
 - Final output, committed under `experiments/04_genre_census/results/`,
   includes both an aggregate per-genre story count across all 8
   `VALID_GENRES` plus `"other"`, AND a per-story record (identity,
