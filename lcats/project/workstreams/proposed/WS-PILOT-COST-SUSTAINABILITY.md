@@ -15,6 +15,7 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
 work_items:
   - WI-PILOT-0051
+  - WI-PILOT-0057
 exit_criteria:
   - A targeted single/small-story test harness exists on run_pilot.py (--story/--story-list flag, fixture set, per-stage cost reporting), per Decision 2
   - Prompt caching, Batch API, and model-tiering each have a completed, measured evaluation against the harness's fixture set (adopt or reject, with real numbers) — none is a foregone commitment, per Decisions 3-5
@@ -97,11 +98,11 @@ sequence (each of WI 2-4 depends on WI 1's harness):
 - **WI-PILOT-0051 — targeted test harness** (Decision 2):
   `--story`/`--story-list` flag on `run_pilot.py`, fixture set,
   per-stage cost reporting. Resolved 2026-08-07, PR #244.
-- **WI 2 — prompt caching evaluation** (Decision 3): measure the real,
-  narrower caching benefit (or the mid-conversation-tool-changes
-  alternative) against WI 1's fixture set given the per-call
-  different-tool-schema constraint; only proceeds to `cache_control`
-  adoption if it shows a real, worthwhile saving.
+- **WI-PILOT-0057 — prompt caching evaluation** (Decision 3): measure
+  the real, narrower caching benefit against WI 1's fixture set given
+  the per-call different-tool-schema constraint; only proceeds to
+  `cache_control` adoption if it shows a real, worthwhile saving.
+  Created 2026-08-07.
 - **WI 3 — Batch API evaluation** (Decision 4): go/no-go assessment using
   WI 1's (and, if it lands, WI 2's) now-measurable baseline; only
   proceeds to implementation if the assessment favors it.
