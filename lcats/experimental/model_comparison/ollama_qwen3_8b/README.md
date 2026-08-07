@@ -116,7 +116,7 @@ first two segments (see `results_segmentation_run1.json`/`run2.json`'s
 `tool_choice` never actually invoked `record_segments`. **Caveat on this
 evidence:** `OpenAIBackend.complete()` truncates the captured content to
 2000 characters before raising (visible in both files - the captured text
-cuts off mid-object, inside segment 3's fields), so neither the full
+cuts off mid-object, inside segment 2's fields), so neither the full
 response nor its completeness/full conformance can actually be confirmed
 from what's committed - only that the visible portion is schema-shaped,
 not that the whole response was (review finding, PR #249). This is still
