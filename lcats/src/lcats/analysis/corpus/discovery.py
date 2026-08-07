@@ -87,7 +87,11 @@ def iter_collection_story_files(
                 yield nested
 
 
-def _is_leaf_story_bucket(directory: pathlib.Path) -> bool:
+def _is_leaf_story_bucket(
+    directory: pathlib.Path,
+    *,
+    ignore_dir_names: frozenset[str] = frozenset(),
+) -> bool:
     """True if ``directory`` is unambiguously one story's own bucket.
 
     A directory containing an immediate ``story.json`` is ambiguous on its
@@ -100,21 +104,28 @@ def _is_leaf_story_bucket(directory: pathlib.Path) -> bool:
     story buckets, so that sibling evidence means ``directory`` is
     actually a collection, not a leaf bucket -- its ``story.json`` is the
     stray file, not the marker.
+
+    ``ignore_dir_names`` must already be a case-folded frozenset (the
+    normalized form :func:`find_json_files` builds once) -- a subdirectory
+    matching it is excluded from this nested-bucket check entirely, so an
+    ignored child (e.g. ``cache/story.json``) can never cause a real leaf
+    bucket to be misclassified as a collection.
     """
     if not (directory / CANONICAL_STORY_FILENAME).is_file():
         return False
     for entry in directory.iterdir():
         if entry.is_symlink():
             continue
-        if entry.is_dir() and (entry / CANONICAL_STORY_FILENAME).is_file():
-            return False
+        if entry.is_dir() and entry.name.casefold() not in ignore_dir_names:
+            if (entry / CANONICAL_STORY_FILENAME).is_file():
+                return False
     return True
 
 
 def _walk_canonical_story_files(
     directory: pathlib.Path,
     *,
-    ignore_dir_names: Iterable[str] = (),
+    ignore_dir_names: frozenset[str] = frozenset(),
 ) -> Iterator[pathlib.Path]:
     """Recursively yield canonical story files under directory.
 
@@ -138,24 +149,27 @@ def _walk_canonical_story_files(
     file ever eligible is a directory's own canonical ``story.json``,
     reached via the leaf-bucket check above.
 
-    ``ignore_dir_names`` (case-insensitive, matching
-    :func:`find_corpus_stories`'s own comparison) prunes matching
-    subdirectories before recursing into them -- the top-level
-    ``directory`` argument itself is never pruned, only its descendants,
-    matching :func:`os.walk`'s own root-vs-children pruning semantics.
+    ``ignore_dir_names`` must already be a case-folded frozenset (built
+    once by :func:`find_json_files`, never a one-shot iterable like a
+    generator -- reusing the same frozenset across every recursive call
+    is what keeps pruning correct below the first traversal level).
+    Matching subdirectories are pruned before recursing into them, and
+    are also excluded from :func:`_is_leaf_story_bucket`'s own
+    nested-bucket check -- the top-level ``directory`` argument itself is
+    never pruned, only its descendants, matching :func:`os.walk`'s own
+    root-vs-children pruning semantics.
 
     Directory entries reached via a symlink are skipped, matching
     :func:`find_corpus_stories`'s default ``follow_symlinks=False``.
     """
-    if _is_leaf_story_bucket(directory):
+    if _is_leaf_story_bucket(directory, ignore_dir_names=ignore_dir_names):
         yield directory / CANONICAL_STORY_FILENAME
         return
-    ignore_set = {name.casefold() for name in ignore_dir_names}
     for entry in sorted(directory.iterdir()):
         if entry.is_symlink():
             continue
         if entry.is_dir():
-            if entry.name.casefold() in ignore_set:
+            if entry.name.casefold() in ignore_dir_names:
                 continue
             yield from _walk_canonical_story_files(
                 entry, ignore_dir_names=ignore_dir_names
@@ -188,7 +202,13 @@ def find_json_files(
     existing caller is unaffected unless it opts in; pass e.g.
     ``("cache",)`` to prune subdirectories with that name (case-insensitive)
     from the scan, matching :func:`find_corpus_stories`'s own parameter.
+    Materialized into a case-folded frozenset exactly once here, then
+    reused unchanged across every recursive call below -- ``directories``
+    and ``ignore_dir_names`` may each be one-shot iterables (e.g.
+    generators); only ``directories`` is safe to consume lazily in the
+    outer loop, since ``ignore_dir_names`` must survive many reuses.
     """
+    ignore_names = frozenset(name.casefold() for name in ignore_dir_names)
     for directory in directories:
         path = pathlib.Path(directory)
         if not path.exists():
@@ -198,4 +218,4 @@ def find_json_files(
             if path.name == CANONICAL_STORY_FILENAME:
                 yield path
             continue
-        yield from _walk_canonical_story_files(path, ignore_dir_names=ignore_dir_names)
+        yield from _walk_canonical_story_files(path, ignore_dir_names=ignore_names)
