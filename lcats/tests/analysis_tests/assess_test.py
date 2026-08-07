@@ -1,6 +1,8 @@
 """Unit tests for lcats.analysis.corpus.assess."""
 
+import os
 import pathlib
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -189,6 +191,29 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
         fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
         result = assess.assess_story(_FILE, _GENRE, fb)
         self.assertEqual(result.title, "path")
+
+    @patch(
+        "lcats.analysis.corpus.assess.run_preflight",
+        side_effect=RuntimeError("disk read error"),
+    )
+    def test_preflight_error_title_resolves_bare_relative_path(self, _mock):
+        """Regression test (Copilot review, PR #242): a bare relative
+        story.json (e.g. assess run from inside the bucket directory
+        itself) has a lexically empty parent name (Path(".").name == "")
+        -- the fallback must resolve to recover the real bucket directory
+        name instead of returning an empty title, mirroring
+        output.story_dir_value's own fallback for the same edge case."""
+        fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
+        original_cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as tmpdir:
+            bucket_dir = os.path.join(tmpdir, "my_story")
+            os.makedirs(bucket_dir)
+            os.chdir(bucket_dir)
+            try:
+                result = assess.assess_story(pathlib.Path("story.json"), _GENRE, fb)
+                self.assertEqual(result.title, "my_story")
+            finally:
+                os.chdir(original_cwd)
 
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_backend_exception_captured(self, _mock):
