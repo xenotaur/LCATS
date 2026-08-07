@@ -1,0 +1,17 @@
+{
+  "candidate": "ollama_qwen3_8b",
+  "backend_kind": "openai_compatible_local",
+  "model": "qwen3:8b",
+  "story_name": "five_orange_pips",
+  "stage": "genre_detection",
+  "success": true,
+  "latency_seconds": 95.80415987499873,
+  "input_tokens": 11155,
+  "output_tokens": 566,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": "mystery",
+  "error_type": null,
+  "error_message": null,
+  "raw_output_preview": null
+}

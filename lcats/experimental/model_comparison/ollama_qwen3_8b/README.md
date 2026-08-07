@@ -25,20 +25,33 @@ python setup.py         # verifies the above
 ## Run
 
 ```bash
-python benchmark.py
+python benchmark.py               # stage 3: entity extraction
+python benchmark_genre.py         # genre detection (detect mode)
+python benchmark_segmentation.py  # scene/sequel segmentation
 ```
 
-Runs the ERW pipeline's real stage-3 entity-extraction tool-schema call
-against a real ~600-word scene/sequel segment (`../common/sample_segment.json`
-- see `../common/generate_sample_segment.py` for how it was produced),
-`temperature=0.6` (Qwen3's own recommended value - see "Methodology fix"
-below), `max_tokens=8192`. No API cost once the model is pulled. Writes
-`results.json` in this directory (the most recent run; see
-`results_segment_run1.json`/`run2.json`/`run3.json` for three real runs
-against the corrected methodology, and `results_fullstory_run1_failed.json`/
-`results_fullstory_run2_succeeded.json` for the two runs against the prior,
-oversized whole-story input - kept for transparency, not representative of
-current results).
+`benchmark.py` runs the ERW pipeline's real stage-3 entity-extraction
+tool-schema call against a real ~600-word scene/sequel segment
+(`../common/sample_segment.json` - see `../common/generate_sample_segment.py`
+for how it was produced), `temperature=0.6` (Qwen3's own recommended value
+- see "Methodology fix" below), `max_tokens=8192`. No API cost once the
+model is pulled. Writes `results.json` in this directory (the most recent
+run; see `results_segment_run1.json`/`run2.json`/`run3.json` for three real
+runs against the corrected methodology, and
+`results_fullstory_run1_failed.json`/`results_fullstory_run2_succeeded.json`
+for the two runs against the prior, oversized whole-story input - kept for
+transparency, not representative of current results).
+
+`benchmark_genre.py` and `benchmark_segmentation.py` (`WI-LLM-0050`) cover
+the two "comparatively simple" stages the hybrid-pipeline hypothesis names
+- see "Actual results: genre detection and segmentation" below. Both run
+against the whole sample story (`../common/harness.py`'s
+`DEFAULT_SAMPLE_STORY`), not a segment - genre detection and segmentation
+both operate over a full story in the real pipeline. Write
+`results_genre.json`/`results_segmentation.json` respectively; see
+`results_genre_run1.json`/`run2.json` and
+`results_segmentation_run1.json`/`run2.json` for the real runs behind the
+table below.
 
 ## What this tests
 
@@ -69,7 +82,41 @@ reports `temperature 0.6, top_k 20, top_p 0.95` - i.e. our own explicit
 `temperature=0.2` was overriding an already-correct default). Both
 issues are fixed as of this candidate's current `benchmark.py`/`../common/harness.py`.
 
-## Actual results
+## Actual results: genre detection and segmentation (`WI-LLM-0050`)
+
+Real runs against `../common/harness.py`'s `run_genre_detection()`/
+`run_segmentation()`, both at `temperature=0.6` against the whole sample
+story (`corpora/sherlock/five_orange_pips/story.json`):
+
+| Stage | Run | Result | Latency | Output tokens | Detail |
+|---|---|---|---|---|---|
+| genre_detection | 1 | success | 95.8s | 566 | detected_genre=mystery |
+| genre_detection | 2 | success | 40.1s | 618 | detected_genre=mystery |
+| segmentation | 1 | **failed** | 374.1s | 0 | tool never invoked |
+| segmentation | 2 | **failed** | 257.3s | 0 | tool never invoked |
+
+**Genre detection succeeded consistently (2/2)**, correctly identifying
+"mystery" both times, at latencies well below the entity-extraction
+stage. This is real evidence for the hybrid-pipeline hypothesis's
+easier-stage half.
+
+**Segmentation failed consistently (2/2)** - not a schema mismatch or a
+truncation: both responses came back as `finish_reason='stop'` with the
+model's free-text `content` containing a complete, correctly-shaped JSON
+object matching `SEGMENT_TOOL_SCHEMA` almost exactly (see
+`results_segmentation_run1.json`/`run2.json`'s `error_message` for the
+verbatim content), but the OpenAI-compatible `tool_choice` never actually
+invoked `record_segments`. This is the exact `tool_choice`
+forced-function-name gap flagged as a residual risk in
+`PROP-ERW-LOCAL-MODEL-EVALUATION`'s Decision 3 update and named as
+`WI-LLM-0051`'s own investigation target - now reproduced directly on a
+second, harder-schema stage, not just theorized. Segmentation's tool
+schema is substantially larger/more nested (GACD/ERAC classification,
+per-segment anchors) than entity extraction's, which may explain why
+`tool_choice` fails here but not there - not conclusively diagnosed,
+left to `WI-LLM-0051`.
+
+## Actual results: entity extraction
 
 **Fixed methodology (real segment, `temperature=0.6`), 3 runs:**
 

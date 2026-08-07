@@ -1,19 +1,20 @@
-"""Shared single-stage benchmark harness reused by every candidate/*/benchmark.py.
+"""Shared benchmark harness reused by every candidate/*/benchmark.py.
 
 Each candidate directory (anthropic_opus/, ollama_qwen3_8b/, ...) builds its
-own LLMBackend and calls run_entity_extraction() with it, so adding a new
-model to compare means adding one new directory, not touching this file.
+own LLMBackend and calls this module's run_*() functions with it, so adding
+a new model to compare means adding one new directory, not touching this
+file.
 
-Deliberately narrow scope for now: one ERW stage (entity extraction, stage 3
-of the Event-Role-World pipeline - see
-experiments/03_cross_segment_relation_pilot/run_pilot.py), one fixed sample
-segment, one tool-schema call. This is the same call shape run_pilot.py's
-real pipeline makes (JSONPromptExtractor.extract() via
-lcats.analysis.event_role_world.entity_extractor.make_entity_extractor()),
-so a "does this backend/model handle our actual tool schema" answer here
-transfers directly - it is not a synthetic/toy schema. Widening to more
-stages (segmentation, event/relation/discourse, cross-segment) or more
-stories is a straightforward extension once single-stage numbers justify it.
+Three stages covered so far: run_entity_extraction() (stage 3 of the
+Event-Role-World pipeline - see
+experiments/03_cross_segment_relation_pilot/run_pilot.py), run_genre_detection()
+(the corpus-quality-assessor's detect mode), and run_segmentation() (the
+scene/sequel segmenter). Each reuses the exact production call path
+(JSONPromptExtractor.extract() or corpus_assess.assess_story()'s own
+backend.complete() call), not a synthetic schema, so a "does this
+backend/model handle our actual tool schema" answer here transfers
+directly. Event/relation/discourse extraction and the cross-segment pass
+remain uncovered - widen the same way if/when needed.
 
 Uses a REAL, single scene/sequel segment (see sample_segment.json,
 generated once by generate_sample_segment.py from the real stage-1
@@ -43,7 +44,9 @@ _LCATS_SRC = pathlib.Path(__file__).resolve().parents[3] / "src"
 if str(_LCATS_SRC) not in sys.path:
     sys.path.insert(0, str(_LCATS_SRC))
 
+from lcats.analysis.corpus import assess as corpus_assess  # noqa: E402
 from lcats.analysis.event_role_world import entity_extractor as erw_entity  # noqa: E402
+from lcats.analysis import scene_analysis  # noqa: E402
 from lcats.llm import backend as llm_backend  # noqa: E402
 
 # A real, single scene/sequel segment - see this module's docstring and
@@ -98,6 +101,20 @@ DEFAULT_TEMPERATURE = 0.2
 # harness discarded raw model output entirely).
 _RAW_OUTPUT_PREVIEW_CHARS = 4000
 
+# corpus_assess.assess_story()'s own factory default. A genre-detection
+# call's response (verdict/genre/summary/issues) is far smaller than an
+# entity-extraction tool call, so the entity-extraction-tuned
+# DEFAULT_MAX_TOKENS (8192) is not assumed to transfer - see this WI's
+# Risk Notes.
+DEFAULT_GENRE_MAX_TOKENS = 4096
+
+# scene_analysis.make_segment_extractor()'s own factory default, tuned
+# against real corpus stories (WI-ANNOTATE-0050) - a segmentation
+# response covers every segment in the whole story, not one segment's
+# worth of entities, so this is intentionally much higher than
+# DEFAULT_MAX_TOKENS.
+DEFAULT_SEGMENTATION_MAX_TOKENS = 16384
+
 
 @dataclasses.dataclass
 class BenchmarkResult:
@@ -113,6 +130,8 @@ class BenchmarkResult:
     input_tokens: int = 0
     output_tokens: int = 0
     entity_count: Optional[int] = None
+    segment_count: Optional[int] = None
+    detected_genre: Optional[str] = None
     error_type: Optional[str] = None
     error_message: Optional[str] = None
     raw_output_preview: Optional[str] = None
@@ -124,9 +143,10 @@ class BenchmarkResult:
 def load_sample_story(path: pathlib.Path = DEFAULT_SAMPLE_STORY) -> tuple:
     """Return (story_name, story_body) from a story.json ({name, body, metadata}).
 
-    Only used by generate_sample_segment.py to regenerate
-    DEFAULT_SAMPLE_SEGMENT - not used as direct benchmark input, see this
-    module's docstring.
+    Used by generate_sample_segment.py to regenerate DEFAULT_SAMPLE_SEGMENT,
+    and directly as benchmark input by run_genre_detection()/
+    run_segmentation() (both operate over a whole story, unlike
+    run_entity_extraction(), which correctly uses a single segment).
     """
     data = json.loads(path.read_text(encoding="utf-8"))
     return data["name"], data["body"]
@@ -231,8 +251,147 @@ def run_entity_extraction(
     )
 
 
-def save_result(result: BenchmarkResult, candidate_dir: pathlib.Path) -> pathlib.Path:
-    """Write result.to_dict() to <candidate_dir>/results.json, return the path."""
-    out_path = candidate_dir / "results.json"
+def run_genre_detection(
+    *,
+    candidate: str,
+    backend_kind: str,
+    backend: llm_backend.LLMBackend,
+    model: str,
+    story_path: pathlib.Path = DEFAULT_SAMPLE_STORY,
+    max_tokens: int = DEFAULT_GENRE_MAX_TOKENS,
+    temperature: float = DEFAULT_TEMPERATURE,
+) -> BenchmarkResult:
+    """Run the real genre-detection assessor once, in detect mode.
+
+    Uses the same corpus_assess.assess_story() path lcats assess's detect
+    mode uses - the only things a candidate substitutes are `backend`,
+    `model`, and optionally `temperature`/`max_tokens` (see this module's
+    DEFAULT_TEMPERATURE docstring - override for models with their own
+    documented sampling recommendation). assess_story() never raises; it
+    always returns an AssessmentResult, with `.error` set on any failure
+    (file/API/parsing), so no try/except is needed here.
+    """
+    start = time.monotonic()
+    result = corpus_assess.assess_story(
+        story_path,
+        genre="",
+        backend=backend,
+        model=model,
+        max_tokens=max_tokens,
+        temperature=temperature,
+    )
+    latency = time.monotonic() - start
+
+    success = not bool(result.error)
+    return BenchmarkResult(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        model=model,
+        story_name=result.title or story_path.parent.name,
+        stage="genre_detection",
+        success=success,
+        latency_seconds=latency,
+        input_tokens=result.input_tokens,
+        output_tokens=result.output_tokens,
+        detected_genre=result.detected_genre if success else None,
+        error_type="assessment_error" if not success else None,
+        error_message=result.error or None,
+    )
+
+
+def run_segmentation(
+    *,
+    candidate: str,
+    backend_kind: str,
+    backend: llm_backend.LLMBackend,
+    model: str,
+    story_path: pathlib.Path = DEFAULT_SAMPLE_STORY,
+    max_tokens: int = DEFAULT_SEGMENTATION_MAX_TOKENS,
+    temperature: float = DEFAULT_TEMPERATURE,
+) -> BenchmarkResult:
+    """Run the real scene/sequel segmenter's tool-schema call once.
+
+    Uses the same make_segment_extractor()/extract() path the real
+    stage-1 segmenter uses, against the whole sample story (segmentation
+    operates over an entire story, not a single segment - unlike
+    run_entity_extraction(), which correctly uses a single segment as its
+    input). extracted_output is a bare list of segment dicts (see
+    scene_analysis.make_segment_extractor()'s docstring).
+    """
+    story_name, story_text = load_sample_story(story_path)
+
+    extractor = scene_analysis.make_segment_extractor(backend, max_tokens=max_tokens)
+    extractor.default_model = model
+    extractor.temperature = temperature
+
+    start = time.monotonic()
+    try:
+        result = extractor.extract(story_text, model_name=model)
+    except Exception as exc:  # noqa: BLE001 - benchmark harness records, not raises
+        latency = time.monotonic() - start
+        return BenchmarkResult(
+            candidate=candidate,
+            backend_kind=backend_kind,
+            model=model,
+            story_name=story_name,
+            stage="segmentation",
+            success=False,
+            latency_seconds=latency,
+            error_type=type(exc).__name__,
+            error_message=str(exc),
+        )
+    latency = time.monotonic() - start
+
+    api_error = result.get("api_error")
+    extracted = result.get("extracted_output")
+    usage = result.get("usage") or {}
+    raw_output = result.get("raw_output") or ""
+
+    # Same principle as run_entity_extraction()'s schema_error check: a
+    # tool call can come back structurally valid (no api_error) while
+    # extracted_output still isn't the list SEGMENT_TOOL_SCHEMA/the
+    # aligner promise.
+    schema_error = None
+    if api_error is None and not isinstance(extracted, list):
+        schema_error = "malformed_tool_result"
+
+    return BenchmarkResult(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        model=model,
+        story_name=story_name,
+        stage="segmentation",
+        success=api_error is None and schema_error is None,
+        latency_seconds=latency,
+        input_tokens=usage.get("input_tokens", 0) or 0,
+        output_tokens=usage.get("output_tokens", 0) or 0,
+        segment_count=len(extracted) if isinstance(extracted, list) else None,
+        error_type=(api_error or {}).get("code") if api_error else schema_error,
+        error_message=(
+            (api_error or {}).get("message")
+            if api_error
+            else (
+                "Tool result parsed but extracted_output was not a list "
+                f"(got {type(extracted).__name__ if extracted is not None else 'None'})."
+                if schema_error
+                else None
+            )
+        ),
+        raw_output_preview=(raw_output[:_RAW_OUTPUT_PREVIEW_CHARS] or None),
+    )
+
+
+def save_result(
+    result: BenchmarkResult, candidate_dir: pathlib.Path, filename: str = "results.json"
+) -> pathlib.Path:
+    """Write result.to_dict() to <candidate_dir>/<filename>, return the path.
+
+    `filename` defaults to "results.json" (run_entity_extraction()'s
+    existing convention). Candidates covering more than one stage pass a
+    distinct filename per stage (e.g. "results_genre.json",
+    "results_segmentation.json") so results from different stages don't
+    overwrite each other in the same directory.
+    """
+    out_path = candidate_dir / filename
     out_path.write_text(json.dumps(result.to_dict(), indent=2) + "\n", encoding="utf-8")
     return out_path

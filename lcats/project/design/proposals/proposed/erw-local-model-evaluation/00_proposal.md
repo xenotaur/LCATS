@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-05
+updated_on: 2026-08-07
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -286,6 +286,50 @@ candidate than one that appeared to fail outright), but still needs the
 genre-detection/segmentation-stage spike named in the Implementation Plan
 before being adopted.
 
+### Decision 3 update (2026-08-07, genre-detection/segmentation spike, `WI-LLM-0050`)
+
+The spike named above is now done - `common/harness.py` gained
+`run_genre_detection()` and `run_segmentation()`, and `ollama_qwen3_8b`
+was run twice against each real stage (whole-story input, `temperature=0.6`,
+`corpora/sherlock/five_orange_pips/story.json`). See
+`ollama_qwen3_8b/README.md`'s "Actual results: genre detection and
+segmentation" for the full real results this section summarizes.
+
+**Genre detection: hybrid-viable, 2/2 successes.** `qwen3:8b` correctly
+identified the story's genre ("mystery") both runs, at 40-96s latency -
+comfortably within the "comparatively simple" characterization this
+hypothesis assumed for this stage.
+
+**Segmentation: hybrid-NOT-viable for this model, 2/2 failures.** Both
+runs came back `finish_reason='stop'` with **no tool call at all** -
+despite the model's free-text response containing a fully-formed,
+schema-conformant JSON object in the exact shape `record_segments`
+expects. This is not the entity-extraction stage's problem (wrong/empty
+content); it is the residual Ollama `tool_choice` forced-function-name
+gap this proposal already flagged as an open risk (community reports
+on [Ollama's GitHub, issue #4386](https://github.com/ollama/ollama/issues/4386)),
+now reproduced directly on a second stage rather than left as a
+theoretical concern. `WI-LLM-0051` was already filed to investigate this
+gap specifically; these results are direct motivating evidence for it,
+not new information requiring a new item.
+
+**Hybrid-pipeline verdict, no longer open:** the hypothesis as originally
+framed - "a cheap local model for the lighter stages, frontier model
+retained for extraction" - does **not** hold uniformly even within the
+"lighter stages" bucket. Genre detection and segmentation are not
+interchangeably easy for this model/runtime combination: one succeeds
+reliably, the other fails reliably, and the failure mode is a
+`tool_choice` gap specific to Ollama's OpenAI-compatible endpoint rather
+than a difficulty gradient in the classification task itself. A hybrid
+pipeline routing genre detection to `qwen3:8b` while keeping segmentation
+(and extraction) on the frontier model is supported by this evidence; a
+hybrid pipeline also routing segmentation to `qwen3:8b` is not, unless
+`WI-LLM-0051`'s investigation finds and fixes the underlying
+`tool_choice` gap. This proposal continues to hold the current default
+end-to-end (see the original recommendation above) - this update narrows
+*which* stages a future hybrid pipeline could safely target, it does not
+change the "not yet" answer to changing `run_pilot.py`'s default.
+
 ### Landscape context (not itself decision-grade evidence)
 
 A web survey (Aug 2026) of runtimes and models informs which candidates to
@@ -370,10 +414,16 @@ adopted):
    than `qwen3:8b` on this exact call (2 of 3 real runs returned
    essentially empty results). See
    `lcats/experimental/model_comparison/ollama_qwen3_30b_a3b/README.md`.
-2. Extend `common/harness.py` to cover the genre-detection and
+2. ~~Extend `common/harness.py` to cover the genre-detection and
    segmentation stages, and add a candidate run against those - this is
    the evidence still needed to actually assess the hybrid-pipeline
-   hypothesis, which entity-extraction results alone do not settle.
+   hypothesis, which entity-extraction results alone do not settle.~~
+   **Done (`WI-LLM-0050`).** Genre detection: hybrid-viable (2/2
+   successes). Segmentation: hybrid-NOT-viable for this model/runtime
+   (2/2 failures - `tool_choice` never invoked the tool at all, despite
+   schema-conformant free-text content). See the "Decision 3 update
+   (2026-08-07 ...)" section above and
+   `lcats/experimental/model_comparison/ollama_qwen3_8b/README.md`.
 3. Investigate the residual Ollama `tool_choice` forced-function-name gap
    (see Decision 3 update) - not reproduced here, but not ruled out;
    consider adding a retry-once-on-empty-tool-result path to the harness

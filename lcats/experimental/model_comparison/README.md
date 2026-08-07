@@ -41,6 +41,11 @@ Each candidate directory has:
   candidate's own README, not a side effect of running a check.
 - `benchmark.py` - runs `common.harness.run_entity_extraction()` with that
   candidate's backend + model, writes `results.json` in its own directory
+- Optionally `benchmark_genre.py`/`benchmark_segmentation.py` - same
+  shape, calling `common.harness.run_genre_detection()`/
+  `run_segmentation()`, writing `results_genre.json`/
+  `results_segmentation.json` (`WI-LLM-0050`; see
+  `ollama_qwen3_8b/benchmark_genre.py` for an example)
 
 ## Adding a new candidate
 
@@ -58,12 +63,14 @@ Each candidate directory has:
 
 ## Current scope (deliberately narrow - widen once this proves useful)
 
-- **One ERW stage**: stage-3 entity extraction
-  (`lcats.analysis.event_role_world.entity_extractor`) - the same real tool
-  schema and `extract()` call path `run_pilot.py`'s pipeline uses, not a
-  synthetic schema. Segmentation, event/relation/discourse extraction, and
-  the cross-segment relation pass are not yet covered; add stages to
-  `common/harness.py` the same way if/when needed.
+- **Three stages**: stage-3 entity extraction
+  (`lcats.analysis.event_role_world.entity_extractor`), genre detection
+  (`lcats.analysis.corpus.assess.assess_story()`'s detect mode), and
+  scene/sequel segmentation (`lcats.analysis.scene_analysis.make_segment_extractor()`)
+  - the same real tool schemas and call paths the real pipeline uses, not
+  synthetic schemas (`WI-LLM-0050` added the latter two). Event/relation/
+  discourse extraction and the cross-segment relation pass are not yet
+  covered; add stages to `common/harness.py` the same way if/when needed.
 - **One fixed sample segment**: `common/sample_segment.json` - a real
   ~600-word scene/sequel segment drawn from
   `corpora/sherlock/five_orange_pips/story.json` by an actual run of the
@@ -74,7 +81,11 @@ Each candidate directory has:
   system prompt, which describes its input as "a segment of a story." See
   `ollama_qwen3_8b/README.md`'s "Methodology fix" section for the before/
   after comparison this caused. Not a stratified sample; see
-  `run_pilot.py`'s own stratified genre sampling for that.
+  `run_pilot.py`'s own stratified genre sampling for that. Genre
+  detection and segmentation (`WI-LLM-0050`) correctly use the whole
+  story instead (`common.harness.DEFAULT_SAMPLE_STORY`) - unlike entity
+  extraction, both operate over an entire story in the real pipeline, so
+  a single segment would be the wrong input size for them.
 - **What's measured**: did the call succeed at all, did it return a
   well-formed `tool_result` matching the schema, latency, token counts, and
   entity count as a crude sanity signal - not extraction *quality*

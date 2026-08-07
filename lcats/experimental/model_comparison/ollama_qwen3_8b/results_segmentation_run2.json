@@ -1,0 +1,17 @@
+{
+  "candidate": "ollama_qwen3_8b",
+  "backend_kind": "openai_compatible_local",
+  "model": "qwen3:8b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "success": false,
+  "latency_seconds": 257.27261191599973,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": null,
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 2,\\n      \"start_exact\": \"When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\\\\n\u201990, I am faced by so many which present strange and interesting features\",\\n      \"end_exact\": \"and have their explanations founded rather upon conjecture and surmise than on that\\\\nabsolute logical proof which was so dear to him.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Watson introduces the collection of Holmes\\' cases and the challenge of selecting one.\",\\n      \"cohesion\": {\\n        \"time\": \"Late 19th century\",\\n        \"place\": \"London\",\\n        \"characters\": [\"Watson\", \"Sherlock Holmes\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"Narrative setup with no clear GACD or ERAC structure; time/place unity.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 3,\\n      \"end_par_id\": 10,\\n      \"start_exact\": \"It was in the latter days of September, and the equinoctial gales had set in\\\\nwith exceptional violence. All day the wind had screamed and the rain had\",\\n      \"end_exact\": \"and the splash of the rain to lengthen out into the long swash of the sea waves.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"and the splash of the rain to lengthen out into the long swash of the sea waves.\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Holmes and Watson are in Baker Street during a storm, with Watson\\'s wife away.\",\\n      \"cohesion\": {\\n        \"time\": \"September 1887\",\\n        \"place\": \"Baker Street\",\\n        \"characters\": [\"Sherlock Holmes\", \"Dr. Watson\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"Narrative scene with time/place unity; no clear GACD or ERAC structure.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n '",
+  "raw_output_preview": null
+}
