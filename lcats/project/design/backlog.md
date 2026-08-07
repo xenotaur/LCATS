@@ -410,21 +410,22 @@ wraps this command (`/lrh-review-response`, `/lrh-confirm-fixes`,
 `/lrh-land`'s inlined Steps 4-5) rather than only patching around it in
 one call site.
 
-### ERW pipeline audit's Category E (cost/checkpointing/local-model options) never promoted to a proposal — P3, decision not a fix
+~~### ERW pipeline audit's Category E (cost/checkpointing/local-model options) never promoted to a proposal~~ — **promoted and delivered, [`PROP-LCATS-PIPELINE-CHECKPOINTING`](proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md) (resolved via `WS-PIPELINE-CHECKPOINTING`) and [`PROP-LCATS-PILOT-COST-SUSTAINABILITY`](proposals/adopted/lcats-pilot-cost-sustainability/00_proposal.md) (adopted 2026-08-06, governed by `WS-PILOT-COST-SUSTAINABILITY`)**
 
 `project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md`'s
 Category E — cost/logging/checkpointing/local-model options, plus a
 corpus-wide reconsideration of workflow-orchestration options — was
 deliberately left unscoped when the audit's other categories became
-`WI-EVENT-0032`/`WI-EVENT-0033`. It still lives only as prose inside the
-audit doc. A follow-on vetting pass (of `run_pilot.py`, 2026-07-29) found
-this is now a real blocker: a minimal real Event-Role-World pilot run costs
-~98-479 LLM calls with no resume/checkpoint capability and no test coverage
-on the cost-dominant functions — not safe to run again without it. **Next
-step:** promote Category E to a real `/lrh-proposal`, incorporating the
-vetting pass's 3 additional gaps (a bounded small-scale trial, call-count
-estimation, rate-limit/retry classification) alongside the audit's original
-scope.
+`WI-EVENT-0032`/`WI-EVENT-0033`. A follow-on vetting pass (of
+`run_pilot.py`, 2026-07-29) found this was a real blocker: a minimal real
+Event-Role-World pilot run cost ~98-479 LLM calls with no resume/checkpoint
+capability and no test coverage on the cost-dominant functions — not safe
+to run again without it. Resolved in two parts: the
+crash/interrupt-recovery half became `PROP-LCATS-PIPELINE-CHECKPOINTING`
+(implemented, `WS-PIPELINE-CHECKPOINTING` closed); the cost-sustainability
+half (targeted test harness, prompt-caching/Batch-API/model-tiering
+evaluation gates) became `PROP-LCATS-PILOT-COST-SUSTAINABILITY`, now
+governed by `WS-PILOT-COST-SUSTAINABILITY` (in progress).
 
 ~~### Pre-existing masking bug in `discovery.py`'s recursive selector~~ — **fixed, [PR #208](https://github.com/xenotaur/LCATS/pull/208), merged 2026-08-02**
 
