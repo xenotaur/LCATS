@@ -425,7 +425,7 @@ crash/interrupt-recovery half became `PROP-LCATS-PIPELINE-CHECKPOINTING`
 (implemented, `WS-PIPELINE-CHECKPOINTING` closed); the cost-sustainability
 half (targeted test harness, prompt-caching/Batch-API/model-tiering
 evaluation gates) became `PROP-LCATS-PILOT-COST-SUSTAINABILITY`, now
-governed by `WS-PILOT-COST-SUSTAINABILITY` (in progress).
+governed by `WS-PILOT-COST-SUSTAINABILITY` (proposed, not yet started).
 
 ~~### Pre-existing masking bug in `discovery.py`'s recursive selector~~ — **fixed, [PR #208](https://github.com/xenotaur/LCATS/pull/208), merged 2026-08-02**
 
