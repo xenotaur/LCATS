@@ -1064,6 +1064,146 @@ class TestMainTargetedMode(unittest.TestCase):
 
         self.assertEqual(exit_code, 1)
 
+    def test_story_list_pointing_at_a_directory_errors_cleanly(self):
+        """A --story-list path that exists but is a directory must fail
+        with a clean error message and exit code 1, not an unhandled
+        OSError/IsADirectoryError stack trace (review finding, PR #244)."""
+        list_dir = self.data_dir / "not_a_file"
+        list_dir.mkdir()
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story-list",
+            str(list_dir),
+            "--data-dir",
+            str(self.data_dir),
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 1)
+        self.assertFalse((self.output_dir / "pilot_stories.jsonl").exists())
+
+    def test_story_list_file_named_like_the_internal_sentinel_is_not_misread(self):
+        """A real manifest file whose name happens to collide with the
+        internal argparse sentinel string must still be read as that real
+        file, not silently redirected to the fixture set (review finding,
+        PR #244 - the sentinel is now a distinct object(), not a string,
+        specifically so this can't happen)."""
+        list_path = self.data_dir / "__FIXTURES_DEFAULT__"
+        list_path.write_text("test_collection/story_a:horror\n", encoding="utf-8")
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story-list",
+            str(list_path),
+            "--data-dir",
+            str(self.data_dir),
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 0)
+        stories_path = self.output_dir / "pilot_stories.jsonl"
+        rows = [
+            json.loads(line)
+            for line in stories_path.read_text(encoding="utf-8").splitlines()
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["story_id"], "test_collection__story_a")
+        self.assertEqual(rows[0]["genre"], "horror")
+
+
+class TestSegmentationUsagePreservedOnUnexpectedException(unittest.TestCase):
+    """WI-PILOT-0051 review finding (PR #244): an unexpected (non-
+    FatalPilotError) exception raised after a real segmentation call
+    succeeded must not silently drop that already-paid-for cost from the
+    usage_rows _run_stories returns."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.story_dir = tmp_dir / "data" / "test_collection" / "story_a"
+        self.story_dir.mkdir(parents=True)
+        self.story_path = self.story_dir / "story.json"
+        self.story_path.write_text(
+            json.dumps(
+                {
+                    "name": "story_a",
+                    "author": "Test Author",
+                    "body": "The old machine hummed. It shut off forever.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _segment_tool_result(self):
+        return {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "The old machine hummed.",
+                    "end_exact": "It shut off forever.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": 0,
+                    "end_char": 45,
+                    "summary": "A machine stops.",
+                    "cohesion": {"time": "", "place": "", "characters": []},
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Single scene.",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+
+    def test_unexpected_exception_after_segmentation_preserves_its_usage(self):
+        fake = _SequencedFakeBackend([self._segment_tool_result()])
+        extractors = run_pilot._build_erw_extractors(fake, "fake-model")
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+
+        with patch.object(
+            run_pilot,
+            "_run_erw_extraction",
+            side_effect=RuntimeError("simulated unexpected mid-pipeline failure"),
+        ):
+            rows, usage_rows, aborted = run_pilot._run_stories(
+                [("science fiction", self.story_path)],
+                fake,
+                "fake-model",
+                "fake",
+                self.roots,
+                extractors,
+                nlp_backend,
+                "fake",
+                dry_run=False,
+            )
+
+        self.assertFalse(aborted)
+        self.assertEqual(len(rows), 1)
+        self.assertTrue(rows[0]["excluded"])
+        self.assertIn("unexpected error", rows[0]["exclude_reason"])
+
+        # The segmentation call that already succeeded (and was paid for)
+        # before the simulated failure must still be recorded, not lost.
+        segment_usages = [u for u in usage_rows if u["pass_name"] == "segment"]
+        self.assertEqual(len(segment_usages), 1)
+        self.assertEqual(segment_usages[0]["input_tokens"], 5)
+        self.assertEqual(segment_usages[0]["output_tokens"], 2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -151,8 +151,12 @@ GENRES = ("science fiction", "horror", "western", "romance")
 
 # argparse.const for --story-list given with no FILE argument - distinct
 # from `None` (flag not given at all), which argparse can't distinguish
-# from "given with no value" without nargs="?"/const (WI-PILOT-0051).
-_STORY_LIST_DEFAULT_SENTINEL = "__FIXTURES_DEFAULT__"
+# from "given with no value" without nargs="?"/const (WI-PILOT-0051). A
+# real, non-string object (not a string like "__FIXTURES_DEFAULT__") so
+# it can never collide with an actual filename a user passes as the FILE
+# argument - argparse always stores a given value as a str, so `is`
+# identity against this object is unambiguous (review finding, PR #244).
+_STORY_LIST_DEFAULT_SENTINEL = object()
 
 # JSONPromptExtractor's own default (4096) is far below what a content-dense
 # segment can need for entity/event/relation extraction, and silently
@@ -1177,6 +1181,17 @@ def run_story(
             {"story_id": item_id, "genre": genre, **usage} for usage in exc.usage_rows
         ]
         raise
+    except Exception as exc:
+        # An unexpected (non-FatalPilotError) exception here - e.g. while
+        # processing ERW stages or writing a checkpoint - must not
+        # silently drop the segmentation cost already paid for and
+        # recorded in seg_stage_usage. _run_stories's generic per-story
+        # exception handler reads this attribute back out (review
+        # finding, PR #244) - it is not part of FatalPilotError's own
+        # contract, so it is set generically here rather than requiring
+        # every caller to know about a special exception subclass.
+        exc.usage_rows = seg_stage_usage  # type: ignore[attr-defined]
+        raise
 
     pipeline_result = {
         "segments": extraction_result["segments"],
@@ -1307,6 +1322,13 @@ def _run_stories(
                 f"  error: unexpected failure on {path.name}: {exc}",
                 file=sys.stderr,
             )
+            # run_story() attaches usage_rows to any exception raised
+            # after a real segmentation call succeeded (see its own
+            # except Exception branch) - recover it here so an
+            # unexpected failure mid-pipeline doesn't silently drop
+            # already-paid-for segmentation cost from pilot_usage.jsonl
+            # (review finding, PR #244).
+            usage_rows.extend(getattr(exc, "usage_rows", None) or [])
             rows.append(
                 {
                     "path": str(path),
@@ -1516,26 +1538,31 @@ def main() -> int:
         try:
             if args.story:
                 path = _resolve_target_story(args.story, data_dir, fixtures_dir)
-                if not path.exists():
+                if not path.is_file():
                     print(f"error: story not found: {path}", file=sys.stderr)
                     return 1
                 story_genre_pairs = [(args.genre, path)]
             else:
                 list_path = (
                     fixtures_dir / "manifest.txt"
-                    if args.story_list == _STORY_LIST_DEFAULT_SENTINEL
+                    if args.story_list is _STORY_LIST_DEFAULT_SENTINEL
                     else pathlib.Path(args.story_list)
                 )
-                if not list_path.exists():
+                # is_file(), not exists() - a path that exists but is a
+                # directory (or otherwise not a readable regular file)
+                # must fail cleanly here, not crash _parse_story_list's
+                # .read_text() with an unhandled OSError (review finding,
+                # PR #244).
+                if not list_path.is_file():
                     print(f"error: story list not found: {list_path}", file=sys.stderr)
                     return 1
                 story_genre_pairs = _parse_story_list(list_path, data_dir, fixtures_dir)
-                missing = [p for _, p in story_genre_pairs if not p.exists()]
+                missing = [p for _, p in story_genre_pairs if not p.is_file()]
                 if missing:
                     for p in missing:
                         print(f"error: story not found: {p}", file=sys.stderr)
                     return 1
-        except ValueError as exc:
+        except (ValueError, OSError) as exc:
             print(f"error: {exc}", file=sys.stderr)
             return 1
         scanned = 0
