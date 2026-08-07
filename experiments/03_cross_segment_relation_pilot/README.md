@@ -113,6 +113,20 @@ Key flags:
 | `--model` | provider default | Model string |
 | `--nlp-backend` | `spacy` (`fake` under `--dry-run`) | Stage-2 surface-feature NLP backend: `spacy`, `stanza`, or `fake` (zero dependencies) |
 | `--dry-run` | off | Zero-cost smoke test using fake LLM and (by default) fake NLP backends — produces meaningless (empty) results, never a real finding |
+| `--story` | none | Target one real story (`<collection>/<name>`) directly, bypassing the stratified genre-detect scan — requires `--genre`. See `fixtures/README.md` |
+| `--story-list` | none | Target several stories from a manifest file; given with no argument, defaults to the committed `fixtures/manifest.txt` set — a cheap, zero-config smoke test against real stories, not `--dry-run`'s fake output |
+| `--genre` | none | Genre label for `--story` (one of the four `GENRES` strata) |
+
+### Try a targeted run against the committed fixture set (cheap, real)
+
+```bash
+python experiments/03_cross_segment_relation_pilot/run_pilot.py \
+    --story-list --output /tmp/pilot_fixture_run
+```
+
+Real API cost, but against a small (~2 story) committed fixture set — see
+`fixtures/README.md`. Add `--dry-run` to the same command for a zero-cost
+smoke test of the targeted-mode control flow itself.
 
 ### Try it with zero API cost first
 

@@ -445,3 +445,39 @@ inside each other). No work item was created for this fix; it landed as
 an ad hoc PR with its own backfilled execution records. Left here as a
 record of resolution rather than deleted outright, since the PR itself
 carries no pointer back to this backlog entry.
+
+---
+
+## Concurrent sessions computing "global max+1" independently produced duplicate WI numbers — P2, loud but low-frequency
+
+Surfaced 2026-08-07 while starting `/lrh-execute WI-PILOT-0051`. The
+project's WI-numbering convention treats the number as a single pool
+shared across all `WI-<PREFIX>-` namespaces (next number = global
+max+1 across every prefix, per prior session guidance) — but nothing
+enforces this except each session independently `grep`-ing the highest
+existing number before minting a new one. With several parallel
+sessions creating work items around the same window (2026-08-05
+through 2026-08-07), at least four distinct work items landed on `main`
+all numbered `0051`: `WI-LLM-0051` ("Investigate Ollama's forced
+tool_choice reliability", 2026-08-05, still `proposed`),
+`WI-ANNOTATE-0051` ("Build lcats annotate command with checkpoint-safe
+sidecar writes", 2026-08-06, `resolved`), `WI-ASSESS-0051` ("Run
+current-classifier full-corpus genre survey (Gap 2)", 2026-08-07, PR
+#235, still `proposed`), and `WI-PILOT-0051` ("Add --story/--story-list
+targeted test harness to run_pilot.py", 2026-08-07, PR #237, still
+`proposed`). No technical collision — each full ID string
+(`WI-<PREFIX>-0051`) is unique, filenames don't clash, and `lrh
+validate` reports 0 errors — but it defeats the numbering scheme's own
+intent of an unambiguous shared pool, and makes "WI-0051" alone
+(without its prefix) ambiguous across at least 4 different work items.
+**Next step:** either (a) a lightweight coordination mechanism (a
+committed "next WI number" counter file, updated atomically as part of
+each `/lrh-work-item` PR, so two concurrent sessions racing to read it
+would at least surface as a merge conflict instead of silently both
+succeeding), or (b) drop the global-pool convention in favor of
+per-prefix numbering (each `WI-<PREFIX>-*` sequence numbered
+independently), which sidesteps the race entirely at the cost of losing
+"the WI number alone tells you creation order" as a property. Does not
+block any of the four affected work items individually; no renaming
+proposed here since at least one (`WI-ANNOTATE-0051`) is already
+`resolved` and touching it would rewrite settled history.

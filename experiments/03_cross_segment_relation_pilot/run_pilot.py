@@ -36,6 +36,24 @@ Optional flags:
                             (empty) extraction results - never use its output
                             as a real finding. Defaults --nlp-backend to
                             "fake" (see above) unless overridden.
+    --story COLLECTION/NAME Target one real story directly, bypassing the
+                            stratified genre-detect scan entirely (a cheap,
+                            reproducible way to validate a change against a
+                            specific real story). Requires --genre - no
+                            implicit genre-detect call is made. Mutually
+                            exclusive with --story-list.
+    --story-list [FILE]     Target several stories from a manifest file (one
+                            "<collection>/<name>:<genre>" entry per line),
+                            bypassing the stratified genre-detect scan
+                            entirely. Given with no FILE, defaults to this
+                            script's own committed fixture set
+                            (fixtures/manifest.txt - see fixtures/README.md)
+                            - the zero-config default within targeted mode
+                            only; this script's own no-argument invocation
+                            is unchanged. Mutually exclusive with --story.
+    --genre NAME            Genre label for --story (one of GENRES below).
+                            Not used with --story-list, whose manifest
+                            carries genre per entry.
 
 Genre strata are pinned to the original four genres this pilot (WI-EVENT-0030)
 was scoped against (science fiction, horror, western, romance) via the
@@ -131,6 +149,11 @@ GENRES = ("science fiction", "horror", "western", "romance")
 # WI-ASSESS-0031) - this pilot is still scoped to WI-EVENT-0030's original
 # four strata; see the module docstring above.
 
+# argparse.const for --story-list given with no FILE argument - distinct
+# from `None` (flag not given at all), which argparse can't distinguish
+# from "given with no value" without nargs="?"/const (WI-PILOT-0051).
+_STORY_LIST_DEFAULT_SENTINEL = "__FIXTURES_DEFAULT__"
+
 # JSONPromptExtractor's own default (4096) is far below what a content-dense
 # segment can need for entity/event/relation extraction, and silently
 # truncating mid-tool-call now raises TruncatedResponseError (see
@@ -178,8 +201,10 @@ class FatalPilotError(RuntimeError):
     the abort. A quota/auth failure can happen partway through a
     multi-segment story after several earlier passes already succeeded and
     spent real tokens - raising bare would silently drop that cost/latency
-    data. Defaults to empty; callers with nothing accumulated yet (genre
-    detection, segmentation) leave it unset.
+    data. Defaults to empty; genre-detection failures (in
+    build_stratified_sample, before any per-story usage exists yet) leave
+    it unset - segmentation and ERW-extraction failures pass their own
+    already-accumulated usage_rows explicitly (WI-PILOT-0051).
     """
 
     def __init__(self, message: str) -> None:
@@ -458,8 +483,14 @@ def build_stratified_sample(
 
 def _segment_story(
     body: str, backend: Any, model: str
-) -> Tuple[List[Dict[str, Any]], Optional[str]]:
-    """Run scene/sequel segmentation; return (segments, error_or_None).
+) -> Tuple[List[Dict[str, Any]], Optional[str], Optional[Dict[str, Any]]]:
+    """Run scene/sequel segmentation; return (segments, error_or_None, usage_or_None).
+
+    usage is the extractor's raw {"input_tokens", "output_tokens"} dict
+    (None if the backend call itself never returned one, e.g. a fake
+    backend), for the caller to fold into a PassUsage-style record -
+    closes the pilot_usage.jsonl gap for this stage (backlog P2,
+    WI-PILOT-0051).
 
     Not checkpointed itself - see _segment_story_cached, which wraps this
     with the "segment" stage's checkpoint read/write. Kept as a separate,
@@ -471,9 +502,10 @@ def _segment_story(
     seg_result = seg_extractor.extract(body, model_name=model)
     error = seg_result.get("api_error") or seg_result.get("extraction_error")
     segments = seg_result.get("extracted_output") or []
+    usage = seg_result.get("usage")
     if not segments:
-        return [], error or "segmentation produced no segments"
-    return segments, error
+        return [], error or "segmentation produced no segments", usage
+    return segments, error, usage
 
 
 def _segment_story_cached(
@@ -483,10 +515,18 @@ def _segment_story_cached(
     model: str,
     backend_name: str,
     roots: checkpoint.CheckpointRoots,
-) -> Tuple[List[Dict[str, Any]], Optional[Any]]:
+) -> Tuple[List[Dict[str, Any]], Optional[Any], Optional[Dict[str, Any]]]:
     """_segment_story, checkpointed under stage "segment" (item_id per
     _story_identity(path)) - a resumed run with an unchanged model
-    configuration skips this story's segmentation LLM call entirely."""
+    configuration skips this story's segmentation LLM call entirely.
+
+    The third return value is a PassUsage-shaped dict (segment_id="story",
+    pass_name="segment") for a fresh (non-cached) call, or None on a
+    cache hit - a cache hit makes no new LLM call, so there is no new
+    cost to report, and re-reporting the original call's cost on every
+    replay would double-count it in pilot_usage.jsonl (see WI-PILOT-0051's
+    Risk Notes).
+    """
     item_id = _story_identity(path)
     # Hash the segmentation input text itself, not just model/backend/
     # version - otherwise correcting a story's body without changing the
@@ -497,9 +537,20 @@ def _segment_story_cached(
         roots.working_root, item_id, "segment", fingerprint
     )
     if cached.done and _is_valid_cache_payload(cached.data, ("segments",)):
-        return cached.data["segments"], None
+        return cached.data["segments"], None, None
 
-    segments, error = _segment_story(body, backend, model)
+    t0 = time.monotonic()
+    segments, error, usage = _segment_story(body, backend, model)
+    elapsed = time.monotonic() - t0
+    pass_usage = {
+        "segment_id": "story",
+        "pass_name": "segment",
+        "is_llm_backed": True,
+        "model": model,
+        "input_tokens": (usage or {}).get("input_tokens", 0) or 0,
+        "output_tokens": (usage or {}).get("output_tokens", 0) or 0,
+        "elapsed_seconds": elapsed,
+    }
     if not segments:
         checkpoint.write_checkpoint(
             roots.working_root,
@@ -509,7 +560,7 @@ def _segment_story_cached(
             fingerprint=fingerprint,
             data={"error": error},
         )
-        return segments, error
+        return segments, error, pass_usage
     checkpoint.write_checkpoint(
         roots.working_root,
         item_id,
@@ -518,7 +569,7 @@ def _segment_story_cached(
         fingerprint=fingerprint,
         data={"segments": segments},
     )
-    return segments, error
+    return segments, error, pass_usage
 
 
 def _has_extraction_errors(pipeline_result: Dict[str, Any]) -> List[str]:
@@ -1002,14 +1053,19 @@ def run_story(
         row["exclude_reason"] = "empty story body"
         return row, []
 
+    seg_stage_usage: List[Dict[str, Any]] = []
     if dry_run:
         segments: List[Dict[str, Any]] = [
             {"segment_id": 1, "start_char": 0, "end_char": len(body)}
         ]
     else:
-        segments, seg_error = _segment_story_cached(
+        segments, seg_error, seg_pass_usage = _segment_story_cached(
             path, body, backend, model, backend_name, roots
         )
+        if seg_pass_usage is not None:
+            seg_stage_usage.append(
+                {"story_id": item_id, "genre": genre, **seg_pass_usage}
+            )
         if seg_error or not segments:
             # seg_error may be the classified api_error dict (see
             # LLMExtractor._classify_api_error) or a plain string, depending
@@ -1025,11 +1081,20 @@ def run_story(
                 # it's available, rather than re-deriving fatality from
                 # message text (which can miss wordings the classifier
                 # already recognizes - see _FATAL_ERROR_SUBSTRINGS).
-                raise FatalPilotError(f"segmentation {path.name}: {seg_error_text}")
-            _check_fatal(seg_error_text, context=f"segmentation {path.name}")
+                exc = FatalPilotError(f"segmentation {path.name}: {seg_error_text}")
+                exc.usage_rows = seg_stage_usage
+                raise exc
+            _check_fatal(
+                seg_error_text,
+                context=f"segmentation {path.name}",
+                usage_rows=seg_stage_usage,
+            )
             row["excluded"] = True
             row["exclude_reason"] = f"segmentation failed: {seg_error_text}"
-            return row, []
+            # Preserve this stage's cost/latency for the excluded row -
+            # matches run_story()'s own docstring guarantee that usage_rows
+            # is "preserved even for excluded stories."
+            return row, seg_stage_usage
 
     _erw_keys = (
         "segments",
@@ -1108,7 +1173,7 @@ def run_story(
                 data=cross_segment_result,
             )
     except FatalPilotError as exc:
-        exc.usage_rows = [
+        exc.usage_rows = seg_stage_usage + [
             {"story_id": item_id, "genre": genre, **usage} for usage in exc.usage_rows
         ]
         raise
@@ -1119,7 +1184,7 @@ def run_story(
         "story": cross_segment_result["story"],
         "processed_segment_count": extraction_result["processed_segment_count"],
     }
-    usage_rows = [
+    usage_rows = seg_stage_usage + [
         {"story_id": item_id, "genre": genre, **usage}
         for usage in pipeline_result["usage"]
     ]
@@ -1171,6 +1236,147 @@ def summarize_by_genre(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     return summary
 
 
+def _run_stories(
+    story_genre_pairs: List[Tuple[str, pathlib.Path]],
+    backend: Any,
+    model: str,
+    backend_name: str,
+    roots: checkpoint.CheckpointRoots,
+    extractors: Dict[str, Any],
+    nlp_backend: Any,
+    nlp_backend_name: str,
+    dry_run: bool,
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], bool]:
+    """Run run_story() over every (genre, path) pair in order, handling
+    FatalPilotError (abort, preserving already-accumulated usage) and any
+    other per-story exception (record a minimal excluded row, continue) -
+    shared by both the full stratified-sample path and the targeted
+    --story/--story-list path (WI-PILOT-0051), so this error-handling
+    logic exists in exactly one place.
+
+    Returns (rows, usage_rows, aborted).
+    """
+    rows: List[Dict[str, Any]] = []
+    usage_rows: List[Dict[str, Any]] = []
+    aborted = False
+    for genre, path in story_genre_pairs:
+        if aborted:
+            break
+        print(f"Running pipeline: [{genre}] {path.name}")
+        t0 = time.monotonic()
+        try:
+            row, story_usage_rows = run_story(
+                path,
+                genre,
+                backend,
+                model,
+                backend_name,
+                roots,
+                extractors,
+                nlp_backend,
+                nlp_backend_name,
+                dry_run=dry_run,
+            )
+        except FatalPilotError as exc:
+            # Preserve cost/latency for any passes that succeeded on
+            # this story before the fatal failure - see
+            # FatalPilotError's docstring.
+            usage_rows.extend(exc.usage_rows)
+            print(f"\nfatal: {exc}", file=sys.stderr)
+            print(
+                "Aborting - this looks like a bad/expired API key or an "
+                "exhausted account balance/quota, not a per-story "
+                "problem. Every remaining story would fail identically. "
+                "Results gathered so far are still written out below.",
+                file=sys.stderr,
+            )
+            aborted = True
+            break
+        except Exception as exc:  # noqa: BLE001 - see docstring below
+            # Any exception other than FatalPilotError is an
+            # unexpected, per-story failure - not an account-level
+            # one. Previously this propagated straight out of main(),
+            # skipping the write block below entirely and discarding
+            # every already-completed, already-paid-for story's
+            # results, not just this one's (WI-EVENT-0032, audit's
+            # Category B update finding). Record a minimal excluded
+            # row (matching run_story()'s own row shape - see its
+            # "could not read/parse story JSON" branch) and continue
+            # to the next story instead.
+            print(
+                f"  error: unexpected failure on {path.name}: {exc}",
+                file=sys.stderr,
+            )
+            rows.append(
+                {
+                    "path": str(path),
+                    "story_id": _story_identity(path),
+                    "genre": genre,
+                    "excluded": True,
+                    "exclude_reason": f"unexpected error: {exc!r}",
+                    "elapsed_seconds": time.monotonic() - t0,
+                }
+            )
+            continue
+        row["elapsed_seconds"] = time.monotonic() - t0
+        rows.append(row)
+        usage_rows.extend(story_usage_rows)
+        if row["excluded"]:
+            print(f"  excluded: {row['exclude_reason']}")
+
+    return rows, usage_rows, aborted
+
+
+def _resolve_target_story(
+    spec: str, data_dir: pathlib.Path, fixtures_dir: pathlib.Path
+) -> pathlib.Path:
+    """Resolve a `<collection>/<name>` targeting spec to a real story.json
+    path (bucket layout: <root>/<collection>/<name>/story.json).
+
+    A spec starting with "fixtures/" resolves against fixtures_dir (this
+    script's own committed fixture set); anything else resolves against
+    data_dir (the normal corpus root, same as a full-sample run reads
+    from), so --story can target any real story in the corpus, not just
+    the fixture set.
+    """
+    if spec.startswith("fixtures/"):
+        rest = spec[len("fixtures/") :]
+        return fixtures_dir / rest / "story.json"
+    return data_dir / spec / "story.json"
+
+
+def _parse_story_list(
+    list_path: pathlib.Path, data_dir: pathlib.Path, fixtures_dir: pathlib.Path
+) -> List[Tuple[str, pathlib.Path]]:
+    """Parse a --story-list manifest file into (genre, path) pairs, in file
+    order. Format: one `<collection>/<name>:<genre>` entry per line; blank
+    lines and lines starting with `#` are ignored. Raises ValueError on a
+    malformed line (missing `:genre`) or an unresolvable genre (not one of
+    GENRES) - fail loudly rather than silently skip a bad manifest entry.
+    """
+    pairs: List[Tuple[str, pathlib.Path]] = []
+    for lineno, raw_line in enumerate(
+        list_path.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if ":" not in line:
+            raise ValueError(
+                f"{list_path}:{lineno}: malformed entry (expected "
+                f"'<collection>/<name>:<genre>'): {line!r}"
+            )
+        spec, genre = line.rsplit(":", 1)
+        spec = spec.strip()
+        genre = genre.strip()
+        if genre not in GENRES:
+            raise ValueError(
+                f"{list_path}:{lineno}: genre {genre!r} is not one of " f"{GENRES}"
+            )
+        pairs.append((genre, _resolve_target_story(spec, data_dir, fixtures_dir)))
+    return pairs
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -1200,17 +1406,79 @@ def main() -> int:
         default=str(pathlib.Path(__file__).resolve().parent / "results"),
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--story",
+        default=None,
+        metavar="COLLECTION/NAME",
+        help=(
+            "Target one real story directly (bucket layout: "
+            "<data-dir>/<collection>/<name>/story.json), bypassing the "
+            "stratified genre-detect scan entirely. Requires --genre "
+            "(no implicit genre-detect call is made). Mutually exclusive "
+            "with --story-list."
+        ),
+    )
+    parser.add_argument(
+        "--story-list",
+        nargs="?",
+        const=_STORY_LIST_DEFAULT_SENTINEL,
+        default=None,
+        metavar="FILE",
+        help=(
+            "Target several stories from a manifest file (one "
+            "'<collection>/<name>:<genre>' entry per line), bypassing the "
+            "stratified genre-detect scan entirely. Given with no FILE, "
+            "defaults to this script's own committed fixture set "
+            "(fixtures/manifest.txt) - the zero-config default within "
+            "targeted mode only; run_pilot.py's own no-argument invocation "
+            "(neither flag given) is unchanged. Mutually exclusive with "
+            "--story."
+        ),
+    )
+    parser.add_argument(
+        "--genre",
+        choices=GENRES,
+        default=None,
+        help="Genre label for --story (ignored/rejected with --story-list, whose manifest carries genre per entry).",
+    )
     args = parser.parse_args()
 
     if args.nlp_backend is None:
         args.nlp_backend = "fake" if args.dry_run else "spacy"
 
+    if args.story and args.story_list is not None:
+        print("error: --story and --story-list are mutually exclusive", file=sys.stderr)
+        return 1
+    if args.story and not args.genre:
+        print(
+            "error: --story requires --genre (no implicit genre-detect call is made)",
+            file=sys.stderr,
+        )
+        return 1
+    if args.story_list is not None and args.genre:
+        print(
+            "error: --genre is not used with --story-list (genre comes from the manifest file)",
+            file=sys.stderr,
+        )
+        return 1
+
     load_secrets()
 
+    targeted_mode = bool(args.story) or args.story_list is not None
+
     data_dir = pathlib.Path(args.data_dir)
-    if not data_dir.exists():
+    # Only the full stratified-sample path unconditionally scans data_dir -
+    # a targeted run against the committed fixture set never touches it,
+    # so requiring it to exist would defeat that mode's own point (a
+    # cheap, self-contained, offline smoke test). A targeted spec that
+    # does need data_dir (a non-"fixtures/"-prefixed --story, or a custom
+    # --story-list manifest referencing real corpus stories) still fails
+    # clearly below when its specific story.json can't be found.
+    if not targeted_mode and not data_dir.exists():
         print(f"error: data dir not found: {data_dir}", file=sys.stderr)
         return 1
+
+    fixtures_dir = pathlib.Path(__file__).resolve().parent / "fixtures"
 
     output_dir = pathlib.Path(args.output)
 
@@ -1243,40 +1511,76 @@ def main() -> int:
             )
             return 1
 
-    print(f"Building stratified sample (target {args.sample_size} per genre)...")
-    try:
-        sample, scanned = build_stratified_sample(
-            data_dir,
-            backend,
-            model,
-            args.backend,
-            roots,
-            args.sample_size,
-            args.max_candidates,
-            args.seed,
-            args.dry_run,
-        )
-    except FatalPilotError as exc:
-        print(f"\nfatal: {exc}", file=sys.stderr)
+    incomplete_genres: List[str] = []
+    if targeted_mode:
+        try:
+            if args.story:
+                path = _resolve_target_story(args.story, data_dir, fixtures_dir)
+                if not path.exists():
+                    print(f"error: story not found: {path}", file=sys.stderr)
+                    return 1
+                story_genre_pairs = [(args.genre, path)]
+            else:
+                list_path = (
+                    fixtures_dir / "manifest.txt"
+                    if args.story_list == _STORY_LIST_DEFAULT_SENTINEL
+                    else pathlib.Path(args.story_list)
+                )
+                if not list_path.exists():
+                    print(f"error: story list not found: {list_path}", file=sys.stderr)
+                    return 1
+                story_genre_pairs = _parse_story_list(list_path, data_dir, fixtures_dir)
+                missing = [p for _, p in story_genre_pairs if not p.exists()]
+                if missing:
+                    for p in missing:
+                        print(f"error: story not found: {p}", file=sys.stderr)
+                    return 1
+        except ValueError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        scanned = 0
         print(
-            "Aborting - this looks like a bad/expired API key or an "
-            "exhausted account balance/quota, not a per-story problem. "
-            "Every remaining candidate would fail identically.",
-            file=sys.stderr,
+            f"Targeted mode: {len(story_genre_pairs)} story/stories, no genre-detect scan."
         )
-        return 3
-    print(f"Scanned {scanned} candidates.")
+    else:
+        print(f"Building stratified sample (target {args.sample_size} per genre)...")
+        try:
+            sample, scanned = build_stratified_sample(
+                data_dir,
+                backend,
+                model,
+                args.backend,
+                roots,
+                args.sample_size,
+                args.max_candidates,
+                args.seed,
+                args.dry_run,
+            )
+        except FatalPilotError as exc:
+            print(f"\nfatal: {exc}", file=sys.stderr)
+            print(
+                "Aborting - this looks like a bad/expired API key or an "
+                "exhausted account balance/quota, not a per-story problem. "
+                "Every remaining candidate would fail identically.",
+                file=sys.stderr,
+            )
+            return 3
+        print(f"Scanned {scanned} candidates.")
 
-    incomplete_genres = [g for g in GENRES if len(sample[g]) < args.sample_size]
-    if incomplete_genres and not args.dry_run:
-        print(
-            f"warning: could not fill every stratum before exhausting "
-            f"--max-candidates ({args.max_candidates}): "
-            + ", ".join(
-                f"{g}={len(sample[g])}/{args.sample_size}" for g in incomplete_genres
-            ),
-            file=sys.stderr,
-        )
+        incomplete_genres = [g for g in GENRES if len(sample[g]) < args.sample_size]
+        if incomplete_genres and not args.dry_run:
+            print(
+                f"warning: could not fill every stratum before exhausting "
+                f"--max-candidates ({args.max_candidates}): "
+                + ", ".join(
+                    f"{g}={len(sample[g])}/{args.sample_size}"
+                    for g in incomplete_genres
+                ),
+                file=sys.stderr,
+            )
+        story_genre_pairs = [
+            (genre, path) for genre in GENRES for path in sample[genre]
+        ]
 
     # Built ONCE and reused across every story - constructing these per
     # story previously reloaded Stanza's full neural pipeline (~15-30s) or
@@ -1289,75 +1593,17 @@ def main() -> int:
     print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
     print(f"NLP backend ready: {args.nlp_backend}")
-
-    rows: List[Dict[str, Any]] = []
-    usage_rows: List[Dict[str, Any]] = []
-    aborted = False
-    for genre in GENRES:
-        if aborted:
-            break
-        for path in sample[genre]:
-            print(f"Running pipeline: [{genre}] {path.name}")
-            t0 = time.monotonic()
-            try:
-                row, story_usage_rows = run_story(
-                    path,
-                    genre,
-                    backend,
-                    model,
-                    args.backend,
-                    roots,
-                    extractors,
-                    nlp_backend,
-                    args.nlp_backend,
-                    dry_run=args.dry_run,
-                )
-            except FatalPilotError as exc:
-                # Preserve cost/latency for any passes that succeeded on
-                # this story before the fatal failure - see
-                # FatalPilotError's docstring.
-                usage_rows.extend(exc.usage_rows)
-                print(f"\nfatal: {exc}", file=sys.stderr)
-                print(
-                    "Aborting - this looks like a bad/expired API key or an "
-                    "exhausted account balance/quota, not a per-story "
-                    "problem. Every remaining story would fail identically. "
-                    "Results gathered so far are still written out below.",
-                    file=sys.stderr,
-                )
-                aborted = True
-                break
-            except Exception as exc:  # noqa: BLE001 - see docstring below
-                # Any exception other than FatalPilotError is an
-                # unexpected, per-story failure - not an account-level
-                # one. Previously this propagated straight out of main(),
-                # skipping the write block below entirely and discarding
-                # every already-completed, already-paid-for story's
-                # results, not just this one's (WI-EVENT-0032, audit's
-                # Category B update finding). Record a minimal excluded
-                # row (matching run_story()'s own row shape - see its
-                # "could not read/parse story JSON" branch) and continue
-                # to the next story instead.
-                print(
-                    f"  error: unexpected failure on {path.name}: {exc}",
-                    file=sys.stderr,
-                )
-                rows.append(
-                    {
-                        "path": str(path),
-                        "story_id": _story_identity(path),
-                        "genre": genre,
-                        "excluded": True,
-                        "exclude_reason": f"unexpected error: {exc!r}",
-                        "elapsed_seconds": time.monotonic() - t0,
-                    }
-                )
-                continue
-            row["elapsed_seconds"] = time.monotonic() - t0
-            rows.append(row)
-            usage_rows.extend(story_usage_rows)
-            if row["excluded"]:
-                print(f"  excluded: {row['exclude_reason']}")
+    rows, usage_rows, aborted = _run_stories(
+        story_genre_pairs,
+        backend,
+        model,
+        args.backend,
+        roots,
+        extractors,
+        nlp_backend,
+        args.nlp_backend,
+        args.dry_run,
+    )
 
     stories_path = output_dir / "pilot_stories.jsonl"
     with stories_path.open("w", encoding="utf-8") as f:

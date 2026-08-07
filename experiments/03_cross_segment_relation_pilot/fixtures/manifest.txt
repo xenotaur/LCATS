@@ -1,0 +1,10 @@
+# Default fixture set for run_pilot.py --story-list (given with no FILE
+# argument). One "fixtures/<name>:<genre>" entry per line; blank lines
+# and lines starting with "#" are ignored. See WI-PILOT-0051.
+#
+# Genre labels here exist to exercise the --genre plumbing and this
+# harness's own zero-config default path - they are not a validated
+# genre classification of the source text (no genre-detect call is made
+# in targeted mode; see run_pilot.py's --genre help).
+fixtures/king_of_the_hill:science fiction
+fixtures/five_o_clock_tea_farce:romance

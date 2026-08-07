@@ -184,12 +184,13 @@ class TestSegmentStoryStillReturnsBareList(unittest.TestCase):
         }
         fb = fake_backend.FakeBackend(tool_result=tool_result)
 
-        segments, error = run_pilot._segment_story(story_text, fb, "fake-model")
+        segments, error, usage = run_pilot._segment_story(story_text, fb, "fake-model")
 
         self.assertIsNone(error)
         self.assertIsInstance(segments, list)
         self.assertEqual(len(segments), 1)
         self.assertEqual(segments[0]["segment_id"], 1)
+        self.assertEqual(usage, {"input_tokens": 0, "output_tokens": 0})
 
 
 class TestMainUnexpectedPerStoryException(unittest.TestCase):
@@ -741,6 +742,327 @@ class TestFindJsonFilesDiscoverySelector(unittest.TestCase):
 
         self.assertEqual(len(files), 1)
         self.assertEqual(files[0].name, "story.json")
+
+
+class TestSegmentationUsageRecording(unittest.TestCase):
+    """WI-PILOT-0051: run_story()'s usage_rows must include a
+    pass_name="segment" PassUsage-style entry with the real (fake-backend)
+    token counts - closing backlog P2 (pilot_usage.jsonl previously had no
+    record of segmentation cost at all) - and a cache-hit replay must NOT
+    add a second entry (would double-count the original call's cost, per
+    this item's own Risk Notes)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data" / "test_collection" / "story_a"
+        self.data_dir.mkdir(parents=True)
+        self.story_path = self.data_dir / "story.json"
+        self.story_path.write_text(
+            json.dumps(
+                {
+                    "name": "story_a",
+                    "author": "Test Author",
+                    "body": "The old machine hummed. It shut off forever.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.working_root = tmp_dir / "results"
+        self.roots = run_pilot.checkpoint.resolve_roots(self.working_root)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _segment_tool_result(self):
+        return {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "The old machine hummed.",
+                    "end_exact": "It shut off forever.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": 0,
+                    "end_char": 45,
+                    "summary": "A machine stops.",
+                    "cohesion": {"time": "", "place": "", "characters": []},
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Single scene.",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+
+    def _make_fake(self):
+        return _SequencedFakeBackend(
+            [
+                self._segment_tool_result(),  # segment (call 1)
+                {"entities": []},  # erw_extract: entity (call 2)
+                {"events": []},  # erw_extract: event (call 3)
+                {},  # erw_extract: relation (call 4)
+                {},  # erw_extract: discourse (call 5)
+            ]
+        )
+
+    def _run_one_story(self, fake, roots=None):
+        extractors = run_pilot._build_erw_extractors(fake, "fake-model")
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+        return run_pilot.run_story(
+            self.story_path,
+            "science fiction",
+            fake,
+            "fake-model",
+            "fake",
+            roots if roots is not None else self.roots,
+            extractors,
+            nlp_backend,
+            "fake",
+            dry_run=False,
+        )
+
+    def test_fresh_call_records_segment_pass_usage(self):
+        fake = self._make_fake()
+
+        row, usage_rows = self._run_one_story(fake)
+
+        self.assertFalse(row["excluded"], row.get("exclude_reason"))
+        segment_usages = [u for u in usage_rows if u["pass_name"] == "segment"]
+        self.assertEqual(len(segment_usages), 1)
+        usage = segment_usages[0]
+        self.assertTrue(usage["is_llm_backed"])
+        self.assertEqual(usage["model"], "fake-model")
+        self.assertEqual(usage["input_tokens"], 5)  # _SequencedFakeBackend default
+        self.assertEqual(usage["output_tokens"], 2)
+        self.assertEqual(usage["story_id"], run_pilot._story_identity(self.story_path))
+        self.assertEqual(usage["genre"], "science fiction")
+
+    def test_cache_hit_does_not_duplicate_segment_usage(self):
+        fake_1 = self._make_fake()
+        self._run_one_story(fake_1)
+
+        # A fresh backend with only the 4 ERW-extraction results left -
+        # if segmentation were wrongly re-issued (cache miss), this would
+        # raise IndexError; if the cache is honored but a usage row is
+        # wrongly still emitted, the test below catches that instead.
+        fake_2 = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {"events": []},
+                {},
+                {},
+            ]
+        )
+        row, usage_rows = self._run_one_story(fake_2)
+
+        self.assertFalse(row["excluded"], row.get("exclude_reason"))
+        segment_usages = [u for u in usage_rows if u["pass_name"] == "segment"]
+        self.assertEqual(
+            len(segment_usages),
+            0,
+            "a cache-hit replay must not add a new segment usage row",
+        )
+
+
+class TestTargetedStoryResolution(unittest.TestCase):
+    """WI-PILOT-0051: _resolve_target_story and _parse_story_list, the
+    path-resolution and manifest-parsing helpers behind --story and
+    --story-list."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data"
+        self.fixtures_dir = tmp_dir / "fixtures"
+        (self.data_dir / "test_collection" / "story_a").mkdir(parents=True)
+        (self.fixtures_dir / "fixture_story").mkdir(parents=True)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_resolves_against_data_dir_by_default(self):
+        path = run_pilot._resolve_target_story(
+            "test_collection/story_a", self.data_dir, self.fixtures_dir
+        )
+        self.assertEqual(
+            path, self.data_dir / "test_collection" / "story_a" / "story.json"
+        )
+
+    def test_fixtures_prefix_resolves_against_fixtures_dir(self):
+        path = run_pilot._resolve_target_story(
+            "fixtures/fixture_story", self.data_dir, self.fixtures_dir
+        )
+        self.assertEqual(path, self.fixtures_dir / "fixture_story" / "story.json")
+
+    def test_parse_story_list_resolves_entries_in_order(self):
+        list_path = self.data_dir / "manifest.txt"
+        list_path.write_text(
+            "# comment\n"
+            "\n"
+            "fixtures/fixture_story:science fiction\n"
+            "test_collection/story_a:horror\n",
+            encoding="utf-8",
+        )
+
+        pairs = run_pilot._parse_story_list(list_path, self.data_dir, self.fixtures_dir)
+
+        self.assertEqual(
+            pairs,
+            [
+                (
+                    "science fiction",
+                    self.fixtures_dir / "fixture_story" / "story.json",
+                ),
+                (
+                    "horror",
+                    self.data_dir / "test_collection" / "story_a" / "story.json",
+                ),
+            ],
+        )
+
+    def test_parse_story_list_rejects_malformed_line(self):
+        list_path = self.data_dir / "manifest.txt"
+        list_path.write_text("no_colon_here\n", encoding="utf-8")
+
+        with self.assertRaises(ValueError):
+            run_pilot._parse_story_list(list_path, self.data_dir, self.fixtures_dir)
+
+    def test_parse_story_list_rejects_unknown_genre(self):
+        list_path = self.data_dir / "manifest.txt"
+        list_path.write_text("test_collection/story_a:mystery\n", encoding="utf-8")
+
+        with self.assertRaises(ValueError):
+            run_pilot._parse_story_list(list_path, self.data_dir, self.fixtures_dir)
+
+
+class TestMainTargetedMode(unittest.TestCase):
+    """WI-PILOT-0051: end-to-end --story/--story-list runs through the
+    real main() CLI path (argv patched, --dry-run for zero real API
+    cost) - not just calling internal functions directly, per this item's
+    own Risk Notes on tests needing to exercise the real targeted-story
+    code path."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        tmp_dir = pathlib.Path(self._tmp.name)
+        self.data_dir = tmp_dir / "data"
+        self.output_dir = tmp_dir / "results"
+        story_dir = self.data_dir / "test_collection" / "story_a"
+        story_dir.mkdir(parents=True)
+        (story_dir / "story.json").write_text(
+            json.dumps({"name": "story_a", "author": "A", "body": "Body text."}),
+            encoding="utf-8",
+        )
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_story_list_default_runs_committed_fixture_set(self):
+        """--story-list with no FILE argument must run this repo's own
+        committed fixtures/manifest.txt end to end, at zero real API
+        cost, and must never call build_stratified_sample (the 200-
+        candidate genre-detect scan --story/--story-list exists to
+        bypass)."""
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story-list",
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv), patch.object(
+            run_pilot,
+            "build_stratified_sample",
+            side_effect=AssertionError(
+                "build_stratified_sample must not be called in targeted mode"
+            ),
+        ):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 0)
+        stories_path = self.output_dir / "pilot_stories.jsonl"
+        rows = [
+            json.loads(line)
+            for line in stories_path.read_text(encoding="utf-8").splitlines()
+        ]
+        story_ids = {row["story_id"] for row in rows}
+        # Both fixtures/manifest.txt entries (WI-PILOT-0051).
+        self.assertEqual(
+            story_ids,
+            {"fixtures__king_of_the_hill", "fixtures__five_o_clock_tea_farce"},
+        )
+
+    def test_story_targets_exactly_one_story(self):
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story",
+            "test_collection/story_a",
+            "--genre",
+            "science fiction",
+            "--data-dir",
+            str(self.data_dir),
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv), patch.object(
+            run_pilot,
+            "build_stratified_sample",
+            side_effect=AssertionError(
+                "build_stratified_sample must not be called in targeted mode"
+            ),
+        ):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 0)
+        stories_path = self.output_dir / "pilot_stories.jsonl"
+        rows = [
+            json.loads(line)
+            for line in stories_path.read_text(encoding="utf-8").splitlines()
+        ]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["story_id"], "test_collection__story_a")
+        self.assertEqual(rows[0]["genre"], "science fiction")
+
+    def test_story_without_genre_errors_before_any_work(self):
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story",
+            "test_collection/story_a",
+            "--data-dir",
+            str(self.data_dir),
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 1)
+        self.assertFalse((self.output_dir / "pilot_stories.jsonl").exists())
+
+    def test_story_and_story_list_are_mutually_exclusive(self):
+        argv = [
+            "run_pilot.py",
+            "--dry-run",
+            "--story",
+            "test_collection/story_a",
+            "--genre",
+            "science fiction",
+            "--story-list",
+            "--data-dir",
+            str(self.data_dir),
+            "--output",
+            str(self.output_dir),
+        ]
+        with patch.object(sys, "argv", argv):
+            exit_code = run_pilot.main()
+
+        self.assertEqual(exit_code, 1)
 
 
 if __name__ == "__main__":
