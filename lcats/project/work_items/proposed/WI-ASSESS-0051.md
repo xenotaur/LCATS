@@ -130,10 +130,24 @@ authoritative for the current 8-genre scheme.
      classifier between runs correctly invalidates stale cached
      classifications instead of silently mixing old- and new-classifier
      results in what's supposed to be a single-classifier-version census.
-   - Calls `assess.assess_story()` with `genre=""` (detect mode).
-   - A `--sample-size N` mode that runs only N stories (stratified by
-     collection, not just the first N encountered) and reports measured
-     cost ($ and latency) extrapolated to the full corpus — this is the
+   - Calls `assess.assess_story()` with `genre=""` (detect mode). Checks
+     `result.error` on every call — `assess_story()` does not raise on
+     preflight/API/tool-parsing failure; it returns an `AssessmentResult`
+     with `error` populated and `detected_genre` silently defaulted to
+     `"other"` (`assess.py:368-377,401-410`). A failed call must be
+     recorded as a failure (retry candidate or excluded run, matching
+     `run_pilot.py`'s own established `extraction_errors`-exclusion
+     pattern) and must **never** be counted as a genuine `"other"`
+     classification in the per-genre census.
+   - A `--sample-size N` mode that runs only N stories, stratified by
+     collection **and population-weighted** — not an equal count per
+     collection, since `mass_quantities` alone holds 1,659 of the corpus's
+     1,868 stories (89%) with the rest split across 11 much smaller
+     collections (5-62 stories each); an equal-per-collection sample would
+     systematically misrepresent the corpus-wide average cost per story,
+     particularly given body length (and therefore token cost) varies by
+     collection. Reports measured cost ($ and latency) extrapolated to the
+     full corpus via this population-weighted mean — this is the
      acceptance-gating output, meant to be reviewed before a full run.
    - A separate, **mandatory** `--full` flag is required to run the
      complete corpus (resuming from any existing checkpoints). Invoking
@@ -178,12 +192,17 @@ authoritative for the current 8-genre scheme.
 
 ## Acceptance Criteria
 
-- A small stratified real-API sample (~20-30 stories across multiple
-  collections and body lengths) is run and measured for real per-story
-  token counts, latency, and $ cost.
+- A small, population-weighted stratified real-API sample (~20-30 stories
+  across multiple collections and body lengths, sampled proportionally to
+  each collection's real share of the corpus, not equally per collection)
+  is run and measured for real per-story token counts, latency, and $
+  cost.
 - The measured per-story cost/latency is extrapolated to the full
-  ~1,868-story corpus and reported as a total $ and wall-clock estimate
-  before any full-corpus run begins.
+  ~1,868-story corpus via the population-weighted sample mean and reported
+  as a total $ and wall-clock estimate before any full-corpus run begins.
+- Failed assessments (`result.error` populated) are excluded from both the
+  cost-estimate sample's statistics and the final per-genre census counts
+  — never silently counted as a genuine `"other"` classification.
 - The full-corpus run proceeds only after explicit user go-ahead on that
   estimate.
 - The full-corpus survey is resumable via `lcats.utils.checkpoint` —
@@ -208,9 +227,13 @@ the `lcats/` working directory the commands above use:
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `python experiments/04_genre_census/run_census.py --dry-run` (run from
-  the repository root; zero-cost smoke test of file discovery and
-  checkpoint wiring)
+- `python experiments/04_genre_census/run_census.py --sample-size 20
+  --dry-run` (run from the repository root; zero-cost smoke test of file
+  discovery and checkpoint wiring — `--dry-run` must be paired with a
+  bounded mode like `--sample-size`, since `--dry-run` alone supplies
+  neither `--sample-size` nor `--full` and the Required Changes above
+  require that exact combination to exit immediately with usage
+  information, not run anything)
 - `python experiments/04_genre_census/run_census.py --sample-size 20`
   (run from the repository root; real API cost — requires
   `ANTHROPIC_API_KEY` and explicit go-ahead before running)
