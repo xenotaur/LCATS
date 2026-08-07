@@ -28,6 +28,7 @@ forbidden_actions:
   - delete_branch
   - implement_pilot_rescope
   - run_full_corpus_before_cost_approval
+  - run_paid_sample_before_user_go_ahead
 acceptance:
   - "A small, population-weighted stratified real-API sample (~20-30 stories, sampled proportionally to each collection's real share of the corpus, not equally per collection) is run through detect-mode assess_story() and per-story token counts, latency, and $ cost are measured"
   - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus via the population-weighted sample mean and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
@@ -36,6 +37,7 @@ acceptance:
   - "Failed assessments (result.error populated) are excluded from genre/classification counts only (both the cost-estimate sample's and the final census's), never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed - but a failed-but-billed call's real token usage (forwarded via the generalized backend/assess.py fix, see Non-Goals carve-out) still counts toward the cost estimate"
   - "Final output includes both an aggregate per-genre story count across all 8 VALID_GENRES values plus other, AND a per-story record (identity, detected genre, confidence, classifier/model identity, failure status), committed under experiments/04_genre_census/results/"
   - "Findings state plainly whether corpus representation is adequate per genre for the paper's eventual stratified sampling needs, without deciding sourcing/ingestion follow-up"
+  - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
 required_evidence:
   - test_output
@@ -113,7 +115,18 @@ authoritative for the current 8-genre scheme.
 
 1. **`experiments/04_genre_census/run_census.py`** (new): following
    `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s
-   established house style —
+   established house style, **except** for its `--data-dir` default —
+   `run_pilot.py`'s own default (`"lcats/data"`) does not exist in this
+   checkout (`data/` regenerates from cache and isn't checked in). The
+   actual populated corpus (1,868 canonical `story.json` files, confirmed
+   via `find corpora -iname story.json | wc -l`) lives at `corpora/`
+   (repo-root-relative). This script's own `--data-dir` must default to
+   `corpora` (or the equivalent path from wherever it's actually invoked
+   from — see the Validation section below for the exact invocation
+   directory), and must validate the discovered story count is nonzero
+   (and roughly matches the expected ~1,868) before proceeding with any
+   paid sample or full run — a silent zero-story discovery must never be
+   allowed to "succeed" with an empty result.
    - Story discovery via `discovery.find_json_files`, not the broader
      `discovery.find_corpus_stories` (per this project's own established
      convention — the broader selector is wrong whenever "is this a real
