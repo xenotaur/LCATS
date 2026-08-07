@@ -33,7 +33,7 @@ acceptance:
   - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus via the population-weighted sample mean and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
   - "The full-corpus run proceeds only after explicit user go-ahead on the cost estimate - a human checkpoint inside this work item's own execution, not implicit"
   - "The full-corpus survey uses a resumable, checkpointed design via lcats.utils.checkpoint, so an interruption doesn't require redoing already-completed stories"
-  - "Failed assessments (result.error populated) are excluded from both the cost-estimate sample's genre counts and the final census genre counts, never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed - but a failed-but-billed call's real token usage (forwarded via a narrow assess.py fix, see Non-Goals carve-out) still counts toward the cost estimate"
+  - "Failed assessments (result.error populated) are excluded from genre/classification counts only (both the cost-estimate sample's and the final census's), never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed - but a failed-but-billed call's real token usage (forwarded via the generalized backend/assess.py fix, see Non-Goals carve-out) still counts toward the cost estimate"
   - "Final output includes both an aggregate per-genre story count across all 8 VALID_GENRES values plus other, AND a per-story record (identity, detected genre, confidence, classifier/model identity, failure status), committed under experiments/04_genre_census/results/"
   - "Findings state plainly whether corpus representation is adequate per genre for the paper's eventual stratified sampling needs, without deciding sourcing/ingestion follow-up"
   - "lrh validate reports 0 errors"
@@ -47,6 +47,9 @@ artifacts_expected:
   - experiments/04_genre_census/results/
   - experiments/README.md
   - lcats/src/lcats/analysis/corpus/assess.py
+  - lcats/src/lcats/llm/backend.py
+  - lcats/src/lcats/llm/anthropic_backend.py
+  - lcats/src/lcats/llm/openai_backend.py
 ---
 
 # Work Item: WI-ASSESS-0051
@@ -190,45 +193,56 @@ authoritative for the current 8-genre scheme.
    sample *from this census*, which is impossible from counts alone
    without re-running ~1,868 paid classifications or inspecting
    undocumented checkpoint internals.
-5. **`lcats/src/lcats/analysis/corpus/assess.py`** (narrow fix, see
-   Non-Goals carve-out): in `assess_story()`'s no-tool-result branch
-   (`assess.py:368-376`), forward `backend_response.input_tokens`,
-   `backend_response.output_tokens`, and `backend_response.model` into
-   the returned `AssessmentResult` instead of leaving them at their
-   zero/empty defaults — this data already exists on `backend_response`
-   at that point, since a real API call completed; only the tool-result
-   parsing failed. Additionally, catch `lcats.llm.backend.TruncatedResponseError`
-   specifically (before the generic `except Exception`) and forward its
-   own `input_tokens`/`output_tokens` the same way — both Anthropic and
-   OpenAI backends raise this exception *after* a real, billed response
-   comes back and hits `max_tokens` (`backend.py:10-39`,
-   `anthropic_backend.py:83-93`, `openai_backend.py:75-86`), and the
-   exception class's own docstring exists specifically so "callers with
-   cost/usage tracking don't silently undercount a call that was billed
-   despite failing." The fully generic `except Exception` branch (for
-   exceptions with no reliable usage data, e.g. network errors) remains
-   unchanged. Include tests asserting both the no-tool-result path and
-   the `TruncatedResponseError` path preserve real usage data.
+5. **`lcats/src/lcats/llm/backend.py`, `anthropic_backend.py`,
+   `openai_backend.py`, and `lcats/src/lcats/analysis/corpus/assess.py`**
+   (generalized fix, see Non-Goals carve-out): review found three separate
+   post-response failure paths that each discard already-available billed
+   usage data the same way — `assess_story()`'s no-tool-result branch
+   (`assess.py:368-376`); `TruncatedResponseError`, which both backends
+   raise after hitting `max_tokens` and which already carries
+   `input_tokens`/`output_tokens` by design (`backend.py:10-39`); and the
+   plain `ValueError` both backends raise when no tool-use block/tool call
+   comes back (`anthropic_backend.py:98-110`, `openai_backend.py:87-103`),
+   which does *not* carry usage despite a real response having already
+   been received at that point. Patching each path individually as review
+   keeps finding new ones does not converge — implement a **general**
+   fix instead: every exception the backend layer raises after a real
+   response has already come back must carry that response's
+   `input_tokens`/`output_tokens` forward (attach them to the exception
+   instance, whether via a shared base/mixin or consistent attributes —
+   exact mechanism is an implementation decision, not fixed here), and
+   `assess_story()`'s exception handling must generically check for and
+   forward usage data from *any* caught exception that carries it, rather
+   than special-casing exception types one at a time. The fully generic
+   fallback (exceptions with no reliable usage data at all, e.g. a network
+   error before any response arrived) still defaults to zero usage — this
+   fix is about not discarding data that already exists, not inventing
+   data that doesn't. Audit the backend layer for any other post-response
+   failure path beyond the three found here before considering this
+   complete. Include tests covering all three known paths plus the
+   generic forwarding mechanism itself.
 
 ## Non-Goals
 
 - Do not re-scope or execute `WI-EVENT-0030`'s stratified pilot — that is
   Gap 3, a separate follow-up item that depends on this one.
 - Do not modify `lcats assess`'s CLI surface, schema, or classifier
-  prompts — those are already correct as of `WI-ASSESS-0031`. **Narrow
-  carve-out:** `assess.py`'s `assess_story()` no-tool-result error branch
-  (`assess.py:368-376`) currently discards `backend_response`'s real
-  token-usage data even though a real, billed API call occurred, and its
-  generic exception handler discards `TruncatedResponseError`'s own
-  carried usage data the same way — fixing these two narrow
-  error-handling gaps (forwarding `input_tokens`/`output_tokens`/
-  `backend_model` in the no-tool-result branch, and catching
-  `TruncatedResponseError` specifically to do the same before it falls
-  through to the generic handler) is in scope, since this work item's own
-  cost estimate needs that data and cannot get it otherwise. This
-  carve-out does not extend to the fully generic `except Exception`
-  branch (for exceptions with no reliable usage data, e.g. network
-  errors) or to any classifier/schema/prompt logic.
+  prompts — those are already correct as of `WI-ASSESS-0031`.
+  **Generalized carve-out:** review found three separate places (and
+  possibly more not yet found) where the LLM backend layer or
+  `assess_story()` discards real, already-available billed usage data on
+  a post-response failure path — patching each one individually as review
+  keeps surfacing new instances does not converge. In scope: a general
+  fix ensuring every exception raised by the backend layer *after* a real
+  API response has already been received carries that response's
+  `input_tokens`/`output_tokens` forward, and `assess_story()`'s
+  exception handling generically forwards usage from any caught exception
+  that carries it (see Required Changes #5 for the specific known paths
+  and the audit requirement). This carve-out does not extend to the
+  fully generic no-response-at-all failure case (e.g. a network error
+  before any request completed, which genuinely has no usage data to
+  recover) or to any classifier/schema/prompt logic — it is about not
+  discarding data that already exists, not inventing new instrumentation.
 - Do not decide or implement any corpus-sourcing/ingestion follow-up even
   if a genre turns out under-represented by this survey's findings — that
   is a further, separately-scoped decision for a human to make from the
@@ -252,20 +266,20 @@ authoritative for the current 8-genre scheme.
 - The measured per-story cost/latency is extrapolated to the full
   ~1,868-story corpus via the population-weighted sample mean and reported
   as a total $ and wall-clock estimate before any full-corpus run begins.
-- Failed assessments (`result.error` populated) are excluded from both the
-  cost-estimate sample's statistics and the final per-genre census counts
-  — never silently counted as a genuine `"other"` classification.
 - The full-corpus run proceeds only after explicit user go-ahead on that
   estimate.
 - The full-corpus survey is resumable via `lcats.utils.checkpoint` —
   an interruption does not require redoing already-completed stories.
-- The excluded/failed story count and reasons are reported explicitly
-  alongside the final census, and a high or non-random-looking exclusion
-  rate is flagged as a data-quality concern, not silently absorbed into a
-  smaller total. Failed-but-billed calls' real token usage still counts
-  toward the cost estimate, even though they're excluded from genre
-  counts — `assess.py`'s no-tool-result branch is fixed to forward that
-  real usage data instead of discarding it (see Non-Goals carve-out).
+- Failed assessments (`result.error` populated) are excluded from
+  **genre/classification counts** (both the cost-estimate sample's and
+  the final census's) — never silently counted as a genuine `"other"`
+  classification. They are **not** excluded from cost statistics: a
+  failed-but-billed call's real token usage still counts toward the cost
+  estimate, per the generalized backend/`assess.py` fix (see Non-Goals
+  carve-out). The excluded/failed story count and reasons are reported
+  explicitly alongside the final census, and a high or non-random-looking
+  exclusion rate is flagged as a data-quality concern, not silently
+  absorbed into a smaller total.
 - Final output, committed under `experiments/04_genre_census/results/`,
   includes both an aggregate per-genre story count across all 8
   `VALID_GENRES` plus `"other"`, AND a per-story record (identity,
