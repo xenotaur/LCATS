@@ -90,8 +90,8 @@ story (`corpora/sherlock/five_orange_pips/story.json`):
 
 | Stage | Run | Result | Latency | Output tokens | Detail |
 |---|---|---|---|---|---|
-| genre_detection | 1 | success | 95.8s | 566 | detected_genre=mystery |
-| genre_detection | 2 | success | 40.1s | 618 | detected_genre=mystery |
+| genre_detection | 1 | success | 84.9s | 423 | detected_genre=mystery |
+| genre_detection | 2 | success | 25.4s | 498 | detected_genre=mystery |
 | segmentation | 1 | **failed** | 383.0s | 5089 | tool never invoked (`no_tool_call`) |
 | segmentation | 2 | **failed** | 157.8s | 2560 | tool never invoked (`no_tool_call`) |
 

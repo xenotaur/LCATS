@@ -296,7 +296,7 @@ was run twice against each real stage (whole-story input, `temperature=0.6`,
 segmentation" for the full real results this section summarizes.
 
 **Genre detection: hybrid-viable, 2/2 successes.** `qwen3:8b` correctly
-identified the story's genre ("mystery") both runs, at 40-96s latency -
+identified the story's genre ("mystery") both runs, at 25-85s latency -
 comfortably within the "comparatively simple" characterization this
 hypothesis assumed for this stage.
 

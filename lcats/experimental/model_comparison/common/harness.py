@@ -270,7 +270,17 @@ def run_genre_detection(
     documented sampling recommendation). assess_story() never raises; it
     always returns an AssessmentResult, with `.error` set on any failure
     (file/API/parsing), so no try/except is needed here.
+
+    `story_name` on the returned BenchmarkResult is the story.json's own
+    human-readable `name` field (via load_sample_story()), matching
+    run_segmentation()'s/run_entity_extraction()'s convention - not
+    `AssessmentResult.title`, which is derived from the corpus bucket
+    slug (`infer_story_title()`) and would otherwise make cross-stage
+    result comparisons show a different label for the identical story
+    (review finding, PR #249).
     """
+    story_name, _ = load_sample_story(story_path)
+
     start = time.monotonic()
     result = corpus_assess.assess_story(
         story_path,
@@ -287,7 +297,7 @@ def run_genre_detection(
         candidate=candidate,
         backend_kind=backend_kind,
         model=model,
-        story_name=result.title or story_path.parent.name,
+        story_name=story_name,
         stage="genre_detection",
         success=success,
         latency_seconds=latency,
