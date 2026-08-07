@@ -223,5 +223,50 @@ class TestFindJsonFiles(test_utils.TestCaseWithData):
         self.assertEqual(found, {s1, s2, other})
 
 
+class TestFindJsonFilesIgnoreDirNames(test_utils.TestCaseWithData):
+    """Unit tests for discovery.find_json_files's ignore_dir_names parameter."""
+
+    def setUp(self):
+        super().setUp()
+        self.root = pathlib.Path(self.test_temp_dir) / "corpus"
+        self.root.mkdir()
+
+    def _write(self, relpath):
+        p = self.root / relpath
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("{}", encoding="utf-8")
+        return p
+
+    def test_prunes_matching_subdirectory(self):
+        cached = self._write("cache/story1/story.json")
+        real = self._write("fantasy/story2/story.json")
+        found = set(discovery.find_json_files([self.root], ignore_dir_names=("cache",)))
+        self.assertEqual(found, {real})
+        self.assertNotIn(cached, found)
+
+    def test_prune_is_case_insensitive(self):
+        cached = self._write("Cache/story1/story.json")
+        found = set(discovery.find_json_files([self.root], ignore_dir_names=("cache",)))
+        self.assertNotIn(cached, found)
+
+    def test_omitting_ignore_dir_names_leaves_behavior_unchanged(self):
+        cached = self._write("cache/story1/story.json")
+        real = self._write("fantasy/story2/story.json")
+        found = set(discovery.find_json_files([self.root]))
+        self.assertEqual(found, {cached, real})
+
+    def test_top_level_directory_itself_is_not_pruned(self):
+        """ignore_dir_names prunes descendants encountered during traversal,
+        not the top-level directory passed in directly -- matching
+        os.walk's own root-vs-children pruning semantics."""
+        story = self._write("cache/story1/story.json")
+        found = set(
+            discovery.find_json_files(
+                [self.root / "cache"], ignore_dir_names=("cache",)
+            )
+        )
+        self.assertEqual(found, {story})
+
+
 if __name__ == "__main__":
     unittest.main()

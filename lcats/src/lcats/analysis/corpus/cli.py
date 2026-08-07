@@ -380,16 +380,9 @@ def run_stats(
     """Run stats subcommand."""
     parser = build_stats_parser()
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
-    files = []
-    for directory in args.directories:
-        if pathlib.Path(directory).is_dir():
-            files.extend(
-                discovery.find_corpus_stories(
-                    directory, ignore_dir_names=("cache",), sort=True
-                )
-            )
-        elif pathlib.Path(directory).suffix == ".json":
-            files.append(pathlib.Path(directory))
+    files = list(
+        discovery.find_json_files(args.directories, ignore_dir_names=("cache",))
+    )
 
     story_stats, author_stats = stats.compute_corpus_stats(files, dedupe=args.dedupe)
     if args.story_output:

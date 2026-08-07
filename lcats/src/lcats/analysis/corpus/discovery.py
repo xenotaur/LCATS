@@ -111,7 +111,11 @@ def _is_leaf_story_bucket(directory: pathlib.Path) -> bool:
     return True
 
 
-def _walk_canonical_story_files(directory: pathlib.Path) -> Iterator[pathlib.Path]:
+def _walk_canonical_story_files(
+    directory: pathlib.Path,
+    *,
+    ignore_dir_names: Iterable[str] = (),
+) -> Iterator[pathlib.Path]:
     """Recursively yield canonical story files under directory.
 
     First checks whether ``directory`` is unambiguously a leaf story
@@ -134,21 +138,34 @@ def _walk_canonical_story_files(directory: pathlib.Path) -> Iterator[pathlib.Pat
     file ever eligible is a directory's own canonical ``story.json``,
     reached via the leaf-bucket check above.
 
+    ``ignore_dir_names`` (case-insensitive, matching
+    :func:`find_corpus_stories`'s own comparison) prunes matching
+    subdirectories before recursing into them -- the top-level
+    ``directory`` argument itself is never pruned, only its descendants,
+    matching :func:`os.walk`'s own root-vs-children pruning semantics.
+
     Directory entries reached via a symlink are skipped, matching
     :func:`find_corpus_stories`'s default ``follow_symlinks=False``.
     """
     if _is_leaf_story_bucket(directory):
         yield directory / CANONICAL_STORY_FILENAME
         return
+    ignore_set = {name.casefold() for name in ignore_dir_names}
     for entry in sorted(directory.iterdir()):
         if entry.is_symlink():
             continue
         if entry.is_dir():
-            yield from _walk_canonical_story_files(entry)
+            if entry.name.casefold() in ignore_set:
+                continue
+            yield from _walk_canonical_story_files(
+                entry, ignore_dir_names=ignore_dir_names
+            )
 
 
 def find_json_files(
     directories: Iterable[Union[str, pathlib.Path]],
+    *,
+    ignore_dir_names: Iterable[str] = (),
 ) -> Iterator[pathlib.Path]:
     """Yield canonical story files from provided paths in deterministic order.
 
@@ -166,6 +183,11 @@ def find_json_files(
     ``story.json`` alone cannot: see :func:`_is_leaf_story_bucket` for how a
     directory is told apart from a collection whose layout happens to
     include a stray flat file literally named ``story.json``.
+
+    ``ignore_dir_names`` defaults to an empty tuple (a no-op) so every
+    existing caller is unaffected unless it opts in; pass e.g.
+    ``("cache",)`` to prune subdirectories with that name (case-insensitive)
+    from the scan, matching :func:`find_corpus_stories`'s own parameter.
     """
     for directory in directories:
         path = pathlib.Path(directory)
@@ -176,4 +198,4 @@ def find_json_files(
             if path.name == CANONICAL_STORY_FILENAME:
                 yield path
             continue
-        yield from _walk_canonical_story_files(path)
+        yield from _walk_canonical_story_files(path, ignore_dir_names=ignore_dir_names)
