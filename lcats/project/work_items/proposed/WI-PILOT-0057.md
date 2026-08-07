@@ -33,7 +33,7 @@ forbidden_actions:
 acceptance:
   - AnthropicBackend gains an opt-in cache_control mechanism scoped to the tools+system prefix (per Decision 3's "narrower opportunity" framing - not the per-segment segment_text, which can never be a stable cache prefix under the current per-call-different-tool-schema shape) - off by default
   - BackendResponse surfaces cache_creation_input_tokens/cache_read_input_tokens from message.usage (currently absent from the return path) so cache hits/misses are actually measurable, not assumed
-  - A bounded, explicitly-approved real measurement run against WI-PILOT-0051's fixture set confirms whether cache reads actually occur across same-extractor-type calls (e.g. repeated entity-extractor calls across segments/stories), with a real measured cost delta versus caching disabled
+  - A bounded, explicitly-approved real measurement run against WI-PILOT-0051's fixture set, preserving the harness's real production call ordering and timing (not an artificially same-extractor-grouped sequence), reports the observed cache_creation_input_tokens/cache_read_input_tokens for each call - including a genuine zero, if the tools+system prefix falls below Anthropic's minimum cacheable-prefix length - alongside a real measured cost delta versus caching disabled
   - A written go/no-go conclusion updates Decision 3 of the adopted proposal with the real measured numbers - "no real benefit" is a valid, complete outcome for this item, not a failure
   - Caching remains off by default in AnthropicBackend regardless of the evaluation's conclusion - adoption as the default is a separate follow-on decision, not silently flipped on as part of this evaluation
   - lrh validate and scripts/test both report 0 errors/failures
@@ -115,11 +115,20 @@ this is that item.
   `message.usage` when the Anthropic SDK returns them (they are
   `Optional[int]` on the SDK's `Usage` type - absent/`None` when caching
   isn't in use, so downstream consumers must handle that case).
-- Run a bounded, explicitly-approved real measurement: with caching
-  enabled, exercise the same extractor type across the fixture set's
-  multiple segments/stories and confirm `cache_read_input_tokens > 0` on
-  calls after the first, with a real measured `$` delta versus caching
-  disabled on the same fixture set.
+- Preflight the actual token count of the `tools`+`system` prefix for
+  each extractor before spending anything, since a prefix below
+  Anthropic's minimum cacheable-prefix length makes zero cache reads the
+  *correct*, expected result, not a signal to retry.
+- Run a bounded, explicitly-approved real measurement, with caching
+  enabled and disabled, that preserves the targeted harness's real
+  production call ordering and timing - `processor.py:124-220`
+  interleaves entity/event/relation/discourse calls per segment, and the
+  5-minute cache TTL can expire between same-extractor calls under that
+  real interleaving, so grouping same-extractor calls back-to-back would
+  measure a hit rate the real pipeline never sees and overstate the
+  cost conclusion. Report the real measured `$` delta and observed
+  cache-token values (including zero) versus caching disabled on the
+  same fixture set, in the same call order.
 - Update Decision 3 of `PROP-LCATS-PILOT-COST-SUSTAINABILITY`'s
   `00_proposal.md` with the real measured numbers and a go/no-go
   recommendation.
@@ -137,18 +146,28 @@ this is that item.
    `cache_read_input_tokens: Optional[int] = None` fields, populated
    from `usage.cache_creation_input_tokens`/`usage.cache_read_input_tokens`
    in `complete()`'s return construction (`anthropic_backend.py:118-124`).
-3. Add a small, explicitly-gated measurement script or test under
+3. Preflight the `tools`+`system` prefix token count for each extractor
+   (e.g. via the Anthropic SDK's token-counting endpoint, or an
+   equivalent local estimate) before any real call, and record it
+   alongside the measurement results - this determines whether a zero
+   `cache_read_input_tokens` result is expected (prefix below the
+   cacheable minimum) or a genuine cache miss worth investigating.
+4. Add a small, explicitly-gated measurement script or test under
    `experiments/03_cross_segment_relation_pilot/` (or a new location if
    more appropriate) that makes a bounded number of real paid calls
-   against `WI-PILOT-0051`'s fixture set with caching both enabled and
-   disabled, and reports the real cache-hit rate and cost delta. **This
-   step requires a separate, explicit human confirmation before any real
-   API call is made** - it is not covered by this work item's own
-   chain-authorization gate, matching this project's dry-run/real-spend
-   discipline for anything not already fake-backend-verifiable.
-4. Update Decision 3 in
+   against `WI-PILOT-0051`'s fixture set, with caching both enabled and
+   disabled, **preserving the fixture set's real per-segment call
+   ordering and timing as the harness itself produces it** - not an
+   artificial same-extractor-grouped sequence - and reports the observed
+   cache-token values (including zero) and real cost delta for each
+   trial. **This step requires a separate, explicit human confirmation
+   before any real API call is made** - it is not covered by this work
+   item's own chain-authorization gate, matching this project's
+   dry-run/real-spend discipline for anything not already
+   fake-backend-verifiable.
+5. Update Decision 3 in
    `lcats/project/design/proposals/adopted/lcats-pilot-cost-sustainability/00_proposal.md`
-   with the real measured numbers from step 3 and a clear go/no-go
+   with the real measured numbers from step 4 and a clear go/no-go
    recommendation for defaulting `enable_prompt_caching` on.
 
 ## Non-Goals
@@ -203,7 +222,19 @@ this is that item.
 - The 5-minute default cache TTL (`ttl: "5m"` on
   `CacheControlEphemeralParam`, extendable to `"1h"`) means measurement
   timing matters - calls spaced too far apart will show false negatives
-  (cache expired, not "caching doesn't work").
+  (cache expired, not "caching doesn't work"). This is exactly why the
+  measurement must preserve the real pipeline's interleaved call order
+  (`processor.py:124-220`) rather than grouping same-extractor calls
+  together - grouping would keep same-extractor calls closer in time
+  than production ever does, artificially inflating the observed hit
+  rate (review finding, PR #247).
+- A short `tools`+`system` prefix can fall below Anthropic's minimum
+  cacheable-prefix length, in which case zero `cache_creation_input_tokens`/
+  `cache_read_input_tokens` is the *correct* result for every call, not
+  a failed measurement - do not retry calls to try to manufacture a
+  nonzero reading (review finding, PR #247). Preflighting the actual
+  prefix token count before spending (Required Change 3) is what
+  distinguishes this expected case from a genuine cache miss.
 
 ## Dependencies / Order
 
