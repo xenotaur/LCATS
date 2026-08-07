@@ -80,7 +80,12 @@ caching, the Batch API, and per-stage model tiering).
 - Work items: None found beyond this proposal's own request.
 - Proposals: `PROP-LCATS-PILOT-COST-SUSTAINABILITY` (adopted) requests
   this workstream directly in its own Implementation Plan.
-- Backlog: No matching entries in `project/design/backlog.md`.
+- Backlog: `project/design/backlog.md` has two live entries the adopted
+  proposal itself cites as demand — "`pilot_usage.jsonl` doesn't track
+  genre-detect or segmentation cost at all" (P2, real cost-visibility
+  gap) and "Pilot's default parameters optimize for full genre coverage,
+  not minimum-cost validation" (P3, decision needed). Both are candidate
+  scope for WI 1 (the test harness) to close or explicitly defer.
 - Recommendation: Proceed.
 
 ## Work Items

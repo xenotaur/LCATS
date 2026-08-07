@@ -27,5 +27,6 @@ explicitly held pending this discussion.
   local-model evaluation as a separate track), non-goals, and
   implementation plan.
 
-Not yet governed by a workstream — adopted 2026-08-06; the Implementation
-Plan proposes one be created via `/lrh-workstream` next.
+Governed by
+[`WS-PILOT-COST-SUSTAINABILITY`](../../../../workstreams/proposed/WS-PILOT-COST-SUSTAINABILITY.md),
+created 2026-08-06 per the Implementation Plan.
