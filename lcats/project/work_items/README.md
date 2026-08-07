@@ -17,6 +17,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
 - `proposed/WI-ASSESS-0031.md` — Extend VALID_GENRES from 4 to 8 target genres
+- `proposed/WI-ASSESS-0051.md` — Run current-classifier full-corpus genre survey (Gap 2)
 - `proposed/WI-EVENT-0032.md` — Harden Event-Role-World tool-schema reliability and processor error/model handling
 - `proposed/WI-EVENT-0033.md` — Add schema-hardened structured output to scene/story analysis extractors
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker

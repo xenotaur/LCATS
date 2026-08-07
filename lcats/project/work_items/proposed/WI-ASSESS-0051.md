@@ -197,8 +197,18 @@ authoritative for the current 8-genre scheme.
    the returned `AssessmentResult` instead of leaving them at their
    zero/empty defaults — this data already exists on `backend_response`
    at that point, since a real API call completed; only the tool-result
-   parsing failed. The `except Exception` branch is unchanged. Include a
-   test asserting the no-tool-result path preserves real usage data.
+   parsing failed. Additionally, catch `lcats.llm.backend.TruncatedResponseError`
+   specifically (before the generic `except Exception`) and forward its
+   own `input_tokens`/`output_tokens` the same way — both Anthropic and
+   OpenAI backends raise this exception *after* a real, billed response
+   comes back and hits `max_tokens` (`backend.py:10-39`,
+   `anthropic_backend.py:83-93`, `openai_backend.py:75-86`), and the
+   exception class's own docstring exists specifically so "callers with
+   cost/usage tracking don't silently undercount a call that was billed
+   despite failing." The fully generic `except Exception` branch (for
+   exceptions with no reliable usage data, e.g. network errors) remains
+   unchanged. Include tests asserting both the no-tool-result path and
+   the `TruncatedResponseError` path preserve real usage data.
 
 ## Non-Goals
 
@@ -208,13 +218,17 @@ authoritative for the current 8-genre scheme.
   prompts — those are already correct as of `WI-ASSESS-0031`. **Narrow
   carve-out:** `assess.py`'s `assess_story()` no-tool-result error branch
   (`assess.py:368-376`) currently discards `backend_response`'s real
-  token-usage data even though a real, billed API call occurred — fixing
-  this narrow error-handling gap (forwarding `input_tokens`/
-  `output_tokens`/`backend_model` in that branch only) is in scope, since
-  this work item's own cost estimate needs that data and cannot get it
-  otherwise. This carve-out does not extend to the `except Exception`
-  branch (which may or may not represent a billed call depending on where
-  the exception occurred) or to any classifier/schema/prompt logic.
+  token-usage data even though a real, billed API call occurred, and its
+  generic exception handler discards `TruncatedResponseError`'s own
+  carried usage data the same way — fixing these two narrow
+  error-handling gaps (forwarding `input_tokens`/`output_tokens`/
+  `backend_model` in the no-tool-result branch, and catching
+  `TruncatedResponseError` specifically to do the same before it falls
+  through to the generic handler) is in scope, since this work item's own
+  cost estimate needs that data and cannot get it otherwise. This
+  carve-out does not extend to the fully generic `except Exception`
+  branch (for exceptions with no reliable usage data, e.g. network
+  errors) or to any classifier/schema/prompt logic.
 - Do not decide or implement any corpus-sourcing/ingestion follow-up even
   if a genre turns out under-represented by this survey's findings — that
   is a further, separately-scoped decision for a human to make from the
