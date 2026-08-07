@@ -49,6 +49,10 @@ def chunk_story(
     current_token = 0
     chunk_count = 0
 
+    current_bytes = b""
+    last_idx = 0
+    start_char_cache = {}
+
     step = max_tokens if overlap_tokens == 0 else max_tokens - overlap_tokens
 
     while current_token < len(tokens):
@@ -65,7 +69,15 @@ def chunk_story(
         end_token = min(current_token + max_tokens, len(tokens))
         chunk_tokens = tokens[start_token:end_token]
         chunk_text = enc.decode(chunk_tokens)
-        start_char = len(enc.decode(tokens[:start_token]))
+
+        if start_token not in start_char_cache:
+            current_bytes += enc.decode_bytes(tokens[last_idx:start_token])
+            last_idx = start_token
+            start_char_cache[start_token] = len(
+                current_bytes.decode("utf-8", errors="replace")
+            )
+
+        start_char = start_char_cache[start_token]
 
         chunks.append(
             Chunk(
