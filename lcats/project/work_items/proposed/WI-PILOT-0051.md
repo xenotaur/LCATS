@@ -21,6 +21,7 @@ blocked_reason: null
 resolution: null
 expected_actions:
   - edit_file
+  - create_file
   - run_tests
   - create_pr
 forbidden_actions:
@@ -32,7 +33,7 @@ forbidden_actions:
   - implement_model_tiering
 acceptance:
   - run_pilot.py gains a --story <collection/name> flag and a --story-list <file> flag that call run_story() directly on the named story/stories, bypassing build_stratified_sample's 200-candidate genre-detect scan entirely
-  - A small, fixed, offline, git-committed fixture set (1-3 real short stories) exists under experiments/03_cross_segment_relation_pilot/fixtures/ as the zero-config default target
+  - A small, fixed, offline, git-committed fixture set (1-3 real short stories) exists under experiments/03_cross_segment_relation_pilot/fixtures/; --story-list with no argument defaults to this fixture set. run_pilot.py's existing no-argument invocation (no --story/--story-list at all) is unchanged and still runs the full stratified pilot - the fixture set is a zero-config default only within targeted mode, not a change to the script's own defaults
   - A targeted run supplies run_story()'s required genre argument without going through build_stratified_sample - an explicit --genre flag, a single genre-detect call for the targeted story, or an explicit not-yet-classified sentinel (decided at implementation time per the proposal's Decision 2(d))
   - Per-stage cost/timing reporting closes the pilot_usage.jsonl gap for at least this harness's own runs - every stage (genre-detect, segmentation, and each ERW pass) that a targeted run touches gets a PassUsage-style record, not just the existing ERW-pipeline stages
   - A bounded small-scale trial (the fixture set, or a single named story) can be run end to end and verified without real API cost via a fake-backend harness
@@ -111,9 +112,12 @@ This directly closes two live entries in `project/design/backlog.md`:
   the named story/stories and bypassing `build_stratified_sample`'s
   200-candidate genre-detect scan entirely.
 - Add a small, fixed, offline, git-committed fixture set (1-3 real
-  short stories) under `experiments/03_cross_segment_relation_pilot/fixtures/`
-  as the zero-config default target when neither flag is given a
-  specific story.
+  short stories) under `experiments/03_cross_segment_relation_pilot/fixtures/`.
+  `--story-list` given with no argument defaults to this fixture set -
+  this is the zero-config default *within targeted mode* only.
+  `run_pilot.py`'s existing no-argument invocation (neither flag given
+  at all) is unchanged and still runs the full stratified pilot; this
+  item does not alter that path or its defaults.
 - Decide and implement how a targeted run supplies `run_story()`'s
   required `genre` argument without going through
   `build_stratified_sample` (which is the only existing code path that
