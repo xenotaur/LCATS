@@ -1,0 +1,1 @@
+{"outcome": "success", "fingerprint": {"model": "claude-opus-4-8", "backend": "anthropic", "pipeline_version": "v1", "upstream_hash": "68bf1b0881db8477c513b254727d239960f2869ff73d9b0b90ae94fbf69cbe3c"}, "data": {"genre": "horror"}}

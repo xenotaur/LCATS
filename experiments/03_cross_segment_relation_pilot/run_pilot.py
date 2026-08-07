@@ -129,11 +129,15 @@ GENRES = (
 # truncating mid-tool-call now raises TruncatedResponseError (see
 # lcats.llm.backend) instead of returning malformed JSON - so a request that
 # used to fail data-integrity checks downstream now fails loudly and
-# immediately unless given real headroom. 16384 is well under
-# claude-opus-4-8's 128k output ceiling and costs nothing extra for calls
-# that finish early (Anthropic bills actual output tokens generated, not
-# this ceiling).
-_ERW_MAX_TOKENS = 16384
+# immediately unless given real headroom. Raised from an original 16384 to
+# 32768 after a real run (2026-08-04) still hit the 16384 ceiling on two
+# different extractors (discourse, event/anchor) against real corpus
+# stories - cross-extractor recurrence is stronger evidence that some real
+# segments genuinely need more headroom than that discourse-specific was a
+# one-off runaway-generation bug. Still well under claude-opus-4-8's 128k
+# output ceiling and costs nothing extra for calls that finish early
+# (Anthropic bills actual output tokens generated, not this ceiling).
+_ERW_MAX_TOKENS = 32768
 
 # Substrings of an API error message that mean "stop the whole run", not
 # "skip this one story": bad/expired credentials or an exhausted account
@@ -392,9 +396,9 @@ def build_stratified_sample(
                 # - it would just silently fail to classify every remaining
                 # candidate (detected_genre defaults to "other", which isn't in
                 # GENRES, so nothing prints and nothing is added to any bucket).
-                _check_fatal(result.error, context=f"genre-detect {path.name}")
+                _check_fatal(result.error, context=f"genre-detect {path}")
                 print(
-                    f"  [genre-detect] {path.name}: failed ({result.error}), skipping",
+                    f"  [genre-detect] {path}: failed ({result.error}), skipping",
                     file=sys.stderr,
                 )
                 checkpoint.write_checkpoint(
@@ -418,7 +422,7 @@ def build_stratified_sample(
         if genre in sample and len(sample[genre]) < sample_size:
             sample[genre].append(path)
             print(
-                f"  [genre-detect] {path.name} -> {genre} ({len(sample[genre])}/{sample_size})"
+                f"  [genre-detect] {path} -> {genre} ({len(sample[genre])}/{sample_size})"
             )
 
     return sample, scanned
@@ -434,8 +438,16 @@ def _segment_story(
     un-wrapped function so existing direct tests of the raw extraction
     behavior (see run_pilot_test.py) are unaffected by the checkpointing
     migration.
+
+    max_tokens is raised to _ERW_MAX_TOKENS, the same override
+    _build_erw_extractors already applies to the five ERW extractors -
+    make_segment_extractor's own default (JSONPromptExtractor's bare
+    4096) truncates on real, longer corpus stories (confirmed live: 4
+    consecutive real-run exclusions on this exact truncation before this
+    fix, 2026-08-04).
     """
     seg_extractor = scene_analysis.make_segment_extractor(backend)
+    seg_extractor.max_tokens = _ERW_MAX_TOKENS
     seg_result = seg_extractor.extract(body, model_name=model)
     error = seg_result.get("api_error") or seg_result.get("extraction_error")
     segments = seg_result.get("extracted_output") or []
@@ -993,8 +1005,8 @@ def run_story(
                 # it's available, rather than re-deriving fatality from
                 # message text (which can miss wordings the classifier
                 # already recognizes - see _FATAL_ERROR_SUBSTRINGS).
-                raise FatalPilotError(f"segmentation {path.name}: {seg_error_text}")
-            _check_fatal(seg_error_text, context=f"segmentation {path.name}")
+                raise FatalPilotError(f"segmentation {path}: {seg_error_text}")
+            _check_fatal(seg_error_text, context=f"segmentation {path}")
             row["excluded"] = True
             row["exclude_reason"] = f"segmentation failed: {seg_error_text}"
             return row, []
@@ -1095,7 +1107,7 @@ def run_story(
     extraction_errors = _has_extraction_errors(pipeline_result)
     if extraction_errors:
         for err in extraction_errors:
-            _check_fatal(err, context=f"pipeline {path.name}", usage_rows=usage_rows)
+            _check_fatal(err, context=f"pipeline {path}", usage_rows=usage_rows)
         row["excluded"] = True
         row["exclude_reason"] = "; ".join(extraction_errors)
         return row, usage_rows
@@ -1265,7 +1277,7 @@ def main() -> int:
         if aborted:
             break
         for path in sample[genre]:
-            print(f"Running pipeline: [{genre}] {path.name}")
+            print(f"Running pipeline: [{genre}] {path}")
             t0 = time.monotonic()
             try:
                 row, story_usage_rows = run_story(
@@ -1307,7 +1319,7 @@ def main() -> int:
                 # "could not read/parse story JSON" branch) and continue
                 # to the next story instead.
                 print(
-                    f"  error: unexpected failure on {path.name}: {exc}",
+                    f"  error: unexpected failure on {path}: {exc}",
                     file=sys.stderr,
                 )
                 rows.append(

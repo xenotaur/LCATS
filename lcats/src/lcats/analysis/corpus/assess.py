@@ -71,8 +71,6 @@ ASSESSMENT_TOOL = tool_schema_module.strict_tool_schema(
                 },
                 "detected_genre_confidence": {
                     "type": "number",
-                    "minimum": 0.0,
-                    "maximum": 1.0,
                     "description": "Confidence in the detected genre, 0.0 to 1.0.",
                 },
                 "genre_verdict": {

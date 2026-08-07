@@ -1,0 +1,1 @@
+{"outcome": "success", "fingerprint": {"model": "claude-opus-4-8", "backend": "anthropic", "pipeline_version": "v1", "upstream_hash": "800ce9a7783a94d738b65a05c7b7b4c3888699323263150f9cb10c19df45886a"}, "data": {"genre": "other"}}

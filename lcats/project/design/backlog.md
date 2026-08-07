@@ -53,10 +53,12 @@ Full audit of the governing proposal's Non-Goals section re-run 2026-08-02
 items found there). Three items below have no active tracker now that the
 workstream is closed and archived
 (`project/workstreams/resolved/WS-STORY-BUCKET-LAYOUT.md`). One proposal
-Non-Goal is **not** listed here because it already has a home: "`lcats
-gather` incremental/restartable checkpointing" is tracked via
+Non-Goal is **not** listed here because it already had a home: "`lcats
+gather` incremental/restartable checkpointing" was tracked via
 `PROP-LCATS-PIPELINE-CHECKPOINTING` (adopted) → `WS-PIPELINE-CHECKPOINTING`
-+ `WI-PIPELINE-0040`/`0041` (all still `proposed`).
++ `WI-PIPELINE-0040`/`0041` — **resolved and closed 2026-08-03** (PRs
+#213, #217); `run_pilot.py` is now staged and checkpointed. No longer an
+open gap.
 
 ### Hardcoded flat-layout paths in two notebooks — P2, loud but low-frequency
 
@@ -157,6 +159,171 @@ wants to press on it.
 ---
 
 ## Other known gaps worth following up on
+
+### `pilot_usage.jsonl` doesn't track genre-detect or segmentation cost at all — P2, real cost-visibility gap
+
+Surfaced 2026-08-04 while trying to attribute the completed real run's
+$42.80 total cost between the 200-candidate genre-detect scan and the
+ERW pipeline itself. `pilot_usage.jsonl` only contains `PassUsage`
+records from `run_story`'s ERW-pipeline stages (`surface_feature`,
+`entity`, `event_anchor`, `relation`, `discourse`, `story_relation`) -
+`build_stratified_sample`'s 200 real `assess_story()` calls, and every
+`_segment_story` call (successful or truncated), are never captured
+into any usage record at all. This run's usage log shows only 6 distinct
+`story_id`s (337,503 input + 296,081 output tokens total) despite 18
+stories being sampled and 200 candidates being genre-scanned - meaning
+roughly a third of the real spend (genre-detect + segmentation) is
+completely invisible in the pilot's own cost-reporting output, the exact
+data `README.md`'s "Cost note" and `pilot_usage.jsonl` exist to surface.
+This made it materially harder to answer a direct "where did the money
+go" question with real data instead of a rough estimate. **Next step:**
+thread `PassUsage` recording through `assess_story()`'s call in
+`build_stratified_sample` and through `_segment_story`'s call, tagged
+the same way (`story_id`/`genre`/`pass_name`), so `pilot_usage.jsonl`
+reflects the pilot's *entire* real cost, not just the ERW-pipeline
+portion of it.
+
+### Pilot's default parameters optimize for full genre coverage, not minimum-cost validation — P3, decision needed
+
+Surfaced 2026-08-04 by the user during the real (non-dry-run) pilot run
+against `corpora/`, after the schema and truncation fixes below still
+left the run expensive ($22.06+ and climbing) and hitting repeated
+exclusions. `run_pilot.py`'s defaults — `--max-candidates 200` and
+`--model` defaulting to `claude-opus-4-8` (a top-tier, expensive model)
+— are tuned to guarantee full 5-per-genre stratified coverage using the
+best available model, not to do the minimum work needed to validate
+that the pipeline runs end to end. This is a real architecture/purpose
+mismatch: the whole reason `WI-PIPELINE-0040`/`0041` exist is that a
+real run is expensive and was previously unsafe to attempt more than
+once: the current defaults still point every real invocation at "get a
+complete, high-quality stratified sample" rather than "prove the
+pipeline works, cheaply, before committing to a full paid run." No
+inexpensive smoke-test path exists between `--dry-run` (zero API cost,
+fake backend, meaningless output) and a full real run at these
+defaults (real cost, real model, real coverage target). **Next step:**
+this is a design-shaped question, not a quick fix — revisit via
+`/lrh-proposal` or at minimum a scoped decision: should the pilot gain
+a cheap/bounded real-API validation mode (e.g. a smaller, faster model
+by default; a much lower `--max-candidates`; explicit opt-in flags to
+reach full coverage/quality), separate from the full-coverage run this
+corpus's real findings ultimately need?
+
+### ~~Progress output prints bare `story.json` for every story, not the collection/bucket path~~ — fixed 2026-08-04, uncommitted (collected fix PR)
+
+Surfaced 2026-08-04 during the same real run: every progress line reads
+`Running pipeline: [<genre>] story.json` regardless of which story is
+actually running, because post-bucket-layout every canonical story
+file's own leaf name is literally `story.json` (the same identity
+collapse `WI-PIPELINE-0041`'s `_story_identity()` already fixed for
+`row["story_id"]`/checkpoint keys, but not for the live progress
+output). This makes the real-time console output useless for telling
+which story an error or exclusion actually applies to, or which story
+is currently burning API cost — a real debuggability regression during
+exactly the kind of long, expensive run where a human is watching the
+output to decide whether to Ctrl-C. **Fixed:** every `path.name` site
+used for user-facing output (`[genre-detect]`, `Running pipeline:`,
+`_check_fatal` context strings, the unexpected-per-story-exception
+print) now prints the full `path` instead - matches the same path
+string `pilot_stories.jsonl`'s own `"path"` field already carries.
+Verified via `run_pilot_test.py` (12 tests, unaffected) - no test
+asserted on the truncated `.name`-only strings.
+
+### ~~Segmentation still hits the un-raised, library-default `max_tokens=4096`~~ — fixed 2026-08-04, uncommitted (collected fix PR)
+
+Surfaced 2026-08-04 during the same real run: 4 consecutive candidates
+were excluded with `"segmentation failed: ... truncated at the
+max_tokens limit (4096) before the tool_use block for 'record_segments'
+finished generating"`. `_ERW_MAX_TOKENS = 16384` (`run_pilot.py:136`)
+is applied to the five ERW extractors in `_build_erw_extractors`
+(`run_pilot.py:571`, `extractor.max_tokens = _ERW_MAX_TOKENS`) but was
+never applied to the segmentation extractor
+(`scene_analysis.make_segment_extractor`, built and used directly by
+`_segment_story`/`_segment_story_cached` without any max_tokens
+override) - it still inherits `JSONPromptExtractor`'s bare library
+default of 4096
+(`lcats/src/lcats/analysis/llm_extractor.py:69`). This is the exact
+same root cause as the already-fixed `assess_story` truncation (see
+above) and the `_ERW_MAX_TOKENS` fix itself, just not yet applied to
+this one call site. Given it triggered on 4 of the first ~6 real
+stories in this run, it is not an edge case for this corpus's real
+story lengths (2,400-9,900+ words). **Fixed:** `_segment_story` now
+sets `seg_extractor.max_tokens = _ERW_MAX_TOKENS` before calling
+`extract()`, the same treatment `_build_erw_extractors` already gives
+the five ERW extractors.
+
+### ~~Discourse extraction truncated even at the already-raised 16384 ceiling~~ — resolved as part of a broader ceiling raise, 2026-08-04, uncommitted (collected fix PR)
+
+Surfaced 2026-08-04, same run: one story was excluded with
+`"discourse extraction failed: ... truncated at the max_tokens limit
+(16384) before the tool_use block for 'extract_discourse' finished
+generating"` - this is already `_ERW_MAX_TOKENS`'s raised ceiling, not
+the un-raised default, and it still wasn't enough. This is more
+concerning than the segmentation gap above: simply raising the number
+again is a plausible fix, but it could also indicate the discourse
+extractor is generating unusually verbose or runaway output for some
+segment shapes, which a blind ceiling increase would only mask. **Next
+step:** before bumping `_ERW_MAX_TOKENS` further, inspect what this
+specific segment's discourse-extraction prompt/response actually looks
+like (is the raw output pathologically repetitive or just genuinely
+dense?) to decide whether a higher ceiling alone is the right fix, or
+whether the discourse extractor's prompt/schema needs its own look.
+
+**Update 2026-08-04:** the completed full run surfaced a second
+extractor (`event_anchor`, twice, in romance) hitting the exact same
+16384 ceiling - cross-extractor recurrence in one run is stronger
+evidence for "some real segments genuinely need more headroom" than for
+a discourse-specific runaway-generation bug, so the "investigate before
+bumping" caution above is downgraded. **Fixed:** `_ERW_MAX_TOKENS`
+raised from 16384 to 32768 (still well under Opus's ~128k output
+ceiling, costs nothing extra on calls that finish early). Whether
+32768 is itself enough for every real segment in this corpus is not
+yet confirmed - watch the next real run for recurrence before
+considering this fully closed.
+
+### `assess_story`'s hardcoded `max_tokens=2048` truncates on content-dense stories — P1, loud but non-blocking
+
+Surfaced 2026-08-04 during the real (non-dry-run) pilot run against
+`corpora/` (`WI-EVENT-0030`, first real credentialed run since
+`WI-PIPELINE-0041`). `assess.py:326`'s `assess_story()` hardcodes
+`max_tokens=2048` on its `backend.complete()` call, with no override
+parameter — one real candidate during genre-detection failed with
+`"Anthropic response ... was truncated at the max_tokens limit (2048)
+before the tool_use block for 'record_story_assessment' finished
+generating"`. This is the same root cause `_ERW_MAX_TOKENS = 16384` was
+introduced to fix for the ERW extractors in `run_pilot.py`
+(`_build_erw_extractors`'s own comment cites this exact
+`TruncatedResponseError`/`lcats.llm.backend` reasoning) - just never
+applied to `assess.py`'s genre-detect call, which also produces a
+content-dense tool result (`summary`, `issues[]` with
+type/severity/description per item, etc.) that can plausibly exceed
+2048 tokens for a longer or messier story. Not currently blocking - the
+pipeline correctly caught the error, excluded that one candidate, and
+kept scanning until every genre stratum filled to the target sample
+size - but it's a real, avoidable exclusion (and burned an API call for
+nothing) that will recur on other content-dense stories. **Next step:**
+raise `assess_story`'s `max_tokens` (mirroring `_ERW_MAX_TOKENS`'s
+16384, or add an override parameter analogous to what
+`processor.process_segments()`/`_build_erw_extractors` already support).
+
+### `running_the_pilot.md`'s spaCy timing claim is optimistic for real-size stories — P2, cosmetic
+
+Surfaced 2026-08-04 during a real re-run of the pilot's Step 2b (spaCy
+dry-run smoke test) against `corpora/`, post-`WI-PIPELINE-0041`. The
+runbook's Step 2b text claims per-story spaCy inference is "typically
+well under a second" (`running_the_pilot.md`'s note about
+`elapsed_seconds` reflecting only real inference time, not backend
+loading). The actual observed range across 8 real corpus stories
+(2,400-9,907 words each) was **1.08s-3.29s per story**, not sub-second.
+This isn't a correctness bug — the check the step exists to make
+("backend loaded once, not per-story, and actually ran") passed
+correctly either way, confirmed by the single `NLP backend ready: spacy`
+banner printed once rather than per-story — but the specific number in
+the doc is stale/optimistic once run against real, longer corpus text
+rather than whatever smaller example it was originally written against.
+**Next step:** update the claim to reflect real observed range (order of
+low single-digit seconds per story for corpus-length text), or drop the
+specific number and just describe the qualitative check (backend loaded
+once; `elapsed_seconds` excludes load time).
 
 ### `lcats survey` and `lcats promote` disagree on which mojibake findings to flag — P3, decision not a fix
 

@@ -2,31 +2,31 @@
   "backend": "anthropic",
   "by_genre": {
     "horror": {
-      "excluded_count": 4,
-      "included_count": 1,
-      "mean_cross_segment_density_per_1000_words": 2.8011204481792715,
-      "mean_folded_relations_per_1000_words": 3.5014005602240896,
-      "mean_folded_weakly_inferred_relations_per_1000_words": 0.0,
-      "mean_weakly_inferred_cross_segment_density_per_1000_words": 0.0
-    },
-    "romance": {
-      "excluded_count": 1,
-      "included_count": 4,
-      "mean_cross_segment_density_per_1000_words": 1.7612089097000934,
-      "mean_folded_relations_per_1000_words": 2.1609032353147124,
-      "mean_folded_weakly_inferred_relations_per_1000_words": 0.5827531569701545,
-      "mean_weakly_inferred_cross_segment_density_per_1000_words": 0.5827531569701545
-    },
-    "science fiction": {
-      "excluded_count": 4,
-      "included_count": 1,
+      "excluded_count": 5,
+      "included_count": 0,
       "mean_cross_segment_density_per_1000_words": 0.0,
       "mean_folded_relations_per_1000_words": 0.0,
       "mean_folded_weakly_inferred_relations_per_1000_words": 0.0,
       "mean_weakly_inferred_cross_segment_density_per_1000_words": 0.0
     },
-    "western": {
+    "romance": {
       "excluded_count": 2,
+      "included_count": 3,
+      "mean_cross_segment_density_per_1000_words": 5.2128341044997715,
+      "mean_folded_relations_per_1000_words": 15.89880377942633,
+      "mean_folded_weakly_inferred_relations_per_1000_words": 0.9280813238731781,
+      "mean_weakly_inferred_cross_segment_density_per_1000_words": 0.9280813238731781
+    },
+    "science fiction": {
+      "excluded_count": 4,
+      "included_count": 1,
+      "mean_cross_segment_density_per_1000_words": 3.3333333333333335,
+      "mean_folded_relations_per_1000_words": 26.25,
+      "mean_folded_weakly_inferred_relations_per_1000_words": 1.25,
+      "mean_weakly_inferred_cross_segment_density_per_1000_words": 0.8333333333333334
+    },
+    "western": {
+      "excluded_count": 3,
       "included_count": 0,
       "mean_cross_segment_density_per_1000_words": 0.0,
       "mean_folded_relations_per_1000_words": 0.0,
@@ -36,6 +36,6 @@
   },
   "candidates_scanned": 200,
   "dry_run": false,
-  "model": "claude-haiku-4-5-20251001",
+  "model": "claude-opus-4-8",
   "sample_size_target": 5
 }
