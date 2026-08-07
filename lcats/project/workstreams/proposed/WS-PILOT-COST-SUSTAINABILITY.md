@@ -13,7 +13,8 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pilot-cost-sustainability/00_proposal.md
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
-work_items: []
+work_items:
+  - WI-PILOT-0051
 exit_criteria:
   - A targeted single/small-story test harness exists on run_pilot.py (--story/--story-list flag, fixture set, per-stage cost reporting), per Decision 2
   - Prompt caching, Batch API, and model-tiering each have a completed, measured evaluation against the harness's fixture set (adopt or reject, with real numbers) — none is a foregone commitment, per Decisions 3-5
@@ -90,11 +91,12 @@ caching, the Batch API, and per-stage model tiering).
 
 ## Work Items
 
-Not yet created. Per the proposal's Implementation Plan, this workstream
-expects four, in sequence (each of WI 2-4 depends on WI 1's harness):
+Per the proposal's Implementation Plan, this workstream expects four, in
+sequence (each of WI 2-4 depends on WI 1's harness):
 
-- **WI 1 — targeted test harness** (Decision 2): `--story`/`--story-list`
-  flag on `run_pilot.py`, fixture set, per-stage cost reporting.
+- **WI-PILOT-0051 — targeted test harness** (Decision 2):
+  `--story`/`--story-list` flag on `run_pilot.py`, fixture set,
+  per-stage cost reporting. Created 2026-08-07.
 - **WI 2 — prompt caching evaluation** (Decision 3): measure the real,
   narrower caching benefit (or the mid-conversation-tool-changes
   alternative) against WI 1's fixture set given the per-call
