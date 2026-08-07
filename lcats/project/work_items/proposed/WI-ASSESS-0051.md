@@ -29,11 +29,12 @@ forbidden_actions:
   - implement_pilot_rescope
   - run_full_corpus_before_cost_approval
 acceptance:
-  - "A small stratified real-API sample (~20-30 stories, spanning multiple collections and body lengths) is run through detect-mode assess_story() and per-story token counts, latency, and $ cost are measured"
-  - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
+  - "A small, population-weighted stratified real-API sample (~20-30 stories, sampled proportionally to each collection's real share of the corpus, not equally per collection) is run through detect-mode assess_story() and per-story token counts, latency, and $ cost are measured"
+  - "The sample's measured per-story cost/latency is extrapolated to the full ~1,868-story corpus via the population-weighted sample mean and reported to the user as a total $ and wall-clock estimate BEFORE any full-corpus run begins"
   - "The full-corpus run proceeds only after explicit user go-ahead on the cost estimate - a human checkpoint inside this work item's own execution, not implicit"
   - "The full-corpus survey uses a resumable, checkpointed design via lcats.utils.checkpoint, so an interruption doesn't require redoing already-completed stories"
-  - "Final output is a per-genre story count across all 8 VALID_GENRES values plus other, committed as a results artifact under experiments/04_genre_census/"
+  - "Failed assessments (result.error populated) are excluded from both the cost-estimate sample and the final census counts, never counted as a genuine other classification, and the excluded count/reasons are reported explicitly rather than silently absorbed"
+  - "Final output includes both an aggregate per-genre story count across all 8 VALID_GENRES values plus other, AND a per-story record (identity, detected genre, confidence, classifier/model identity, failure status), committed under experiments/04_genre_census/results/"
   - "Findings state plainly whether corpus representation is adequate per genre for the paper's eventual stratified sampling needs, without deciding sourcing/ingestion follow-up"
   - "lrh validate reports 0 errors"
 required_evidence:
@@ -137,8 +138,18 @@ authoritative for the current 8-genre scheme.
      `"other"` (`assess.py:368-377,401-410`). A failed call must be
      recorded as a failure (retry candidate or excluded run, matching
      `run_pilot.py`'s own established `extraction_errors`-exclusion
-     pattern) and must **never** be counted as a genuine `"other"`
-     classification in the per-genre census.
+     pattern — not a hard requirement that every one of ~1,868 sequential
+     calls succeeds before the census can be finalized, which is stricter
+     than this project's own established convention for exactly this kind
+     of batch operation) and must **never** be counted as a genuine
+     `"other"` classification in the per-genre census. The excluded/failed
+     count and reasons must be reported explicitly alongside the final
+     census (not silently absorbed into a smaller total), and a high
+     exclusion rate — or any pattern suggesting failures aren't
+     reasonably random (e.g. correlated with a specific collection or
+     story length) — must itself be flagged as a data-quality concern in
+     the findings, since a biased exclusion pattern could skew the
+     per-genre counts.
    - A `--sample-size N` mode that runs only N stories, stratified by
      collection **and population-weighted** — not an equal count per
      collection, since `mass_quantities` alone holds 1,659 of the corpus's
@@ -167,9 +178,17 @@ authoritative for the current 8-genre scheme.
    reviewing the sample-based cost estimate first.
 3. **`experiments/README.md`**: register the new `04_genre_census`
    experiment, per the existing table's convention.
-4. **`experiments/04_genre_census/results/`**: the actual per-genre
-   census output (JSONL/TSV/summary), populated once the full run
-   executes and is committed.
+4. **`experiments/04_genre_census/results/`**: the actual census output,
+   populated once the full run executes and is committed. Must include
+   **both** an aggregate per-genre summary table AND a per-story record
+   (stable story identity, detected genre, confidence, classifier/model
+   identity, failure status) for every discovered story — an aggregate-only
+   summary is not sufficient, since
+   `project/design/event-role-world-genre-target-reconciliation.md:274-277`
+   requires the eventual stratified pilot (Gap 3) to draw its per-genre
+   sample *from this census*, which is impossible from counts alone
+   without re-running ~1,868 paid classifications or inspecting
+   undocumented checkpoint internals.
 
 ## Non-Goals
 
@@ -207,8 +226,16 @@ authoritative for the current 8-genre scheme.
   estimate.
 - The full-corpus survey is resumable via `lcats.utils.checkpoint` —
   an interruption does not require redoing already-completed stories.
-- Final output is a per-genre story count across all 8 `VALID_GENRES`
-  plus `"other"`, committed under `experiments/04_genre_census/results/`.
+- The excluded/failed story count and reasons are reported explicitly
+  alongside the final census, and a high or non-random-looking exclusion
+  rate is flagged as a data-quality concern, not silently absorbed into a
+  smaller total.
+- Final output, committed under `experiments/04_genre_census/results/`,
+  includes both an aggregate per-genre story count across all 8
+  `VALID_GENRES` plus `"other"`, AND a per-story record (identity,
+  detected genre, confidence, classifier/model identity, failure status)
+  for every discovered story — required so the eventual stratified pilot
+  (Gap 3) can draw its per-genre sample from this census directly.
 - Findings state plainly whether corpus representation looks adequate per
   genre for the paper's eventual stratified sampling needs, without
   deciding sourcing/ingestion follow-up.
