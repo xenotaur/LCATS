@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: Abandoned as redundant with WI-LLM-0058 (merged via PR #257, https://github.com/xenotaur/LCATS/pull/257), created independently and near-simultaneously by a concurrent session. WI-LLM-0058 is a strict superset -- consolidated 44-story evidence (this item's own WI-ANNOTATE-0054 trial plus WI-ASSESS-0051's 20-story sample), a root-cause hypothesis requirement, two fix candidates including the same output-sanitization approach this item proposed, a go/no-go recommendation for WI-ASSESS-0051's ~$435 full corpus run, and frontmatter-level depends_on wiring into WI-ASSESS-0051 already live on main. This item's one real technical contribution -- that a sanitization fix must not use AssessmentResult.error as its failure channel, verified against annotate.py:160-169 -- was ported into WI-LLM-0058 via PR #263 before this abandonment.
 blocked_reason: null
 blocked: false
 id: WI-ASSESS-0060
 title: Sanitize/reject leaked tool-call-syntax artifacts in assess.py's free-text output fields
 type: deliverable
-status: proposed
+status: abandoned
 owner: unassigned
 contributors: []
 assigned_agents: []
