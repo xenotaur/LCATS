@@ -382,7 +382,7 @@ def summarize(
         total_input_tokens += record.get("input_tokens", 0)
         total_output_tokens += record.get("output_tokens", 0)
         total_elapsed += record.get("elapsed_seconds", 0.0)
-        if not record.get("from_cache"):
+        if record.get("input_tokens", 0) > 0 or record.get("output_tokens", 0) > 0:
             billed_count += 1
         if record.get("error"):
             excluded.append({"story_id": record["story_id"], "reason": record["error"]})
@@ -552,8 +552,31 @@ def main() -> int:
     summary["corpus_story_count"] = len(files)
 
     if mode == "sample" and records:
-        mean_cost = summary["total_estimated_cost_usd"] / len(records)
-        mean_elapsed = summary["total_elapsed_seconds"] / len(records)
+        # Use only freshly-classified (non-cached) records for the
+        # extrapolation mean, not summary["total_..."] over every record: a
+        # cache hit (served from a prior interrupted/re-run sample sharing
+        # the same --output/--seed) contributes $0 new spend this run, and
+        # averaging it in with len(records) as the denominator would dilute
+        # the mean and silently understate the cost estimate this script's
+        # entire cost gate depends on. A genuine $0 story (e.g. a file-read
+        # error) is NOT excluded here - that is a real, representative
+        # zero-cost outcome the full corpus will also see at roughly the
+        # same rate, unlike a cache hit.
+        fresh_records = [r for r in records if not r.get("from_cache")]
+        if not fresh_records:
+            print(
+                "warning: every sampled story was served from a prior "
+                "checkpoint cache - this run measured $0 new spend, so the "
+                "extrapolated estimate below reflects no fresh signal. "
+                "Use --output pointed at a fresh directory for a real "
+                "cost estimate.",
+                file=sys.stderr,
+            )
+        denominator_records = fresh_records or records
+        fresh_cost = sum(r.get("estimated_cost_usd", 0.0) for r in denominator_records)
+        fresh_elapsed = sum(r.get("elapsed_seconds", 0.0) for r in denominator_records)
+        mean_cost = fresh_cost / len(denominator_records)
+        mean_elapsed = fresh_elapsed / len(denominator_records)
         summary["extrapolated_full_corpus_cost_usd"] = mean_cost * len(files)
         summary["extrapolated_full_corpus_wall_clock_seconds"] = mean_elapsed * len(
             files
