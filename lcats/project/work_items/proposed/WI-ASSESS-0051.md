@@ -16,7 +16,8 @@ related_roadmap:
 related_workstreams: []
 related_design:
   - project/design/event-role-world-genre-target-reconciliation.md
-depends_on: []
+depends_on:
+  - WI-LLM-0058
 blocked_by: []
 expected_actions:
   - create_file
@@ -356,3 +357,11 @@ the `lcats/` working directory the commands above use:
   this item adds should be clearly documented as an approximation tied to
   the model in use at the time, not treated as a durable, reusable source
   of truth for future cost estimates.
+- **`WI-LLM-0058` dependency.** A real, gated `--sample-size 20` run
+  surfaced `ASSESSMENT_TOOL` `secondary_genre`-field corruption in 7/20
+  stories (35%), consistent with an independent 24-story reproduction
+  (`WI-ANNOTATE-0054`, 10/24 = 42%). `detected_genre` was clean in both
+  runs, but a ~39% combined corruption rate on any field is a real signal
+  worth a fix/mitigation decision before scaling ~93x to the full corpus
+  — see `WI-LLM-0058` (`depends_on`), which must resolve (fix, mitigate,
+  or an explicit documented decision not to) before `--full` proceeds.
