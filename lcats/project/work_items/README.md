@@ -22,7 +22,6 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker
 - `proposed/WI-RELEASE-0039.md` — Pre-launch verification of the gutenbergpy dependency resolution before real PyPI publish
 - `proposed/WI-STORY-0042.md` — Make LCATS story discovery and identity dual-layout-compatible
-- `proposed/WI-LLM-0051.md` — Investigate Ollama's forced tool_choice reliability for the ERW benchmark harness
 - `proposed/WI-LLM-0055.md` — Capture full entity lists and diff them across benchmark candidates
 - `proposed/WI-LLM-0056.md` — Tranche 1: expand the benchmark harness to cross-provider coverage (Anthropic, OpenAI, Gemini, one open-weight family)
 - `proposed/WI-ANNOTATE-0052.md` — Validate sidecar content in lcats promote's release gate
@@ -33,6 +32,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `abandoned/WI-ANNOTATE-0053.md` — superseded by `WI-STATS-0049`, which landed the identical `lcats stats` selector fix independently
 
 ## Resolved Items
+- `resolved/WI-LLM-0051.md` — Investigate Ollama's forced tool_choice reliability; 0/5 baseline success, but a system-prompt reminder retry helps (2/5, 40%) - implemented as an automatic retry in the harness
 - `resolved/WI-LLM-0050.md` — Extend the local-model benchmark harness to genre-detection and segmentation stages; genre detection hybrid-viable (2/2), segmentation not (2/2 tool_choice failures)
 - `resolved/WI-LLM-0049.md` — Add qwen3:30b-a3b (MoE) candidate to the local-model benchmark harness; hypothesis not supported (both slower and less reliable than qwen3:8b)
 - `resolved/WI-REPAIR-0001.md`

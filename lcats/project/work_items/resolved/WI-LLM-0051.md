@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #254 (commit b51e1443). Ollama's tool_choice gap on the segmentation stage is real and reproduced at 0/5 baseline success across 2 models x 2 stories, including 3 identical-config repeats. A first draft concluded a retry had \"no observed chance of succeeding\" based only on the identical-config repeats never differing - Codex's automatic first-push review correctly flagged this as unsound (it never actually tested the WI's own named mitigation). Corrected: tested an explicit system-prompt reminder directly (5 calls, 2/5 succeeded, 40%) and implemented it as an automatic retry-once path in common/harness.py's run_segmentation(), verified end-to-end with a real successful call. See PROP-ERW-LOCAL-MODEL-EVALUATION's Decision 3 update (2026-08-08) for the full verdict."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0051
 title: Investigate Ollama's forced tool_choice reliability for the ERW benchmark harness
 type: investigation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -32,9 +32,7 @@ acceptance:
   - "A written verdict in PROP-ERW-LOCAL-MODEL-EVALUATION or a follow-on note: either the gap is reproduced and characterized (frequency, trigger conditions), or a good-faith attempt found no reproduction and that is stated plainly, not silently dropped"
   - "If reproduced: common/harness.py gains a documented retry-once-on-empty-tool-result path, or an explicit decision not to add one with rationale"
 artifacts_expected:
-  # Updated in place, or a new AD_HOC finding note - see Scope.
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
-  # Only if the gap is reproduced with meaningful frequency - see Scope.
   - lcats/experimental/model_comparison/common/harness.py
 required_evidence:
   - manual_review

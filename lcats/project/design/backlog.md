@@ -33,23 +33,48 @@ items now share the numeric suffix `0051` under different prefixes -
 and `WI-PILOT-0051` (created 2026-08-07, PR #237, resolved). Each was
 created by a different concurrent session independently computing "next
 number = global max + 1" against `main` at a moment when the other
-sessions' PRs hadn't yet merged, so all four landed on the same number.
-No technical collision resulted (`lrh validate` passes; each full ID
-string - prefix plus number - is unique), but it defeats the shared
+sessions' PRs hadn't yet merged, so multiple sessions landed on the same
+number - a true concurrency race.
+
+A second, numerically similar but mechanistically **different** incident
+surfaced 2026-08-08: `WI-PROCESSING-0057` (first commit
+2026-08-08T00:40:00Z, PR #250) shares its suffix with `WI-PILOT-0057`
+(PR #247, merged 2026-08-07T23:46:06Z). Unlike the `*-0051` incidents,
+this was **not** a same-moment race - `WI-PILOT-0057` had already merged
+to `main` roughly 54 minutes before `WI-PROCESSING-0057`'s first commit
+(review finding, PR #256 - an earlier draft of this entry misdated
+`WI-PROCESSING-0057`'s creation using its PR's `createdAt` field rather
+than its actual first commit / execution-record timestamp, and wrongly
+described this as concurrent). The `WI-PROCESSING-0057` session's "next
+number" computation must have used a checkout that hadn't picked up
+`WI-PILOT-0057`'s merge yet (a stale/non-fresh `git pull` before
+computing max+1, not simultaneous computation) - a distinct failure
+mechanism worth tracking separately even though the symptom (a
+duplicate suffix) looks identical.
+
+In total, six work items across two incidents now share a duplicate
+numeric suffix (four `*-0051` items from the concurrency race, two
+`*-0057` items from the stale-checkout case). No technical collision
+resulted in either case (`lrh validate` passes; each full ID string -
+prefix plus number - is unique), but both defeat the shared
 cross-prefix numbering pool's intent of an unambiguous sequence, and
-makes the "next number" computation itself unreliable under concurrency
-without some coordination mechanism. **Next step:** this is a
-design-shaped question, not a quick fix - decide whether to (a) accept
-occasional same-number collisions as a known limitation of the current
-"compute max+1 from `main`" convention (numbers are for uniqueness
-within a prefix's own namespace, not a global sequence, despite the
-existing "shared cross-prefix pool" convention), (b) prefix-scope the
-numbering instead (each prefix gets its own independent sequence,
-removing the cross-prefix uniqueness expectation entirely), or (c) add a
-real coordination mechanism (e.g. a reserved-numbers file, a CI check
-that fails on a newly-introduced duplicate suffix across prefixes, or a
-numbering authority). Does not retroactively rename any of the four
-existing `*-0051` items - renaming a resolved/merged item touches
+the recurrence (two separate incidents, a day apart, two distinct
+failure mechanisms) suggests this is not a rare edge case but a
+predictable consequence of how often concurrent sessions create work
+items in this project. **Next step:** this is a design-shaped question,
+not a quick fix - decide whether to (a) accept occasional same-number
+collisions as a known limitation of the current "compute max+1 from
+`main`" convention (numbers are for uniqueness within a prefix's own
+namespace, not a global sequence, despite the existing "shared
+cross-prefix pool" convention), (b) prefix-scope the numbering instead
+(each prefix gets its own independent sequence, removing the
+cross-prefix uniqueness expectation entirely), or (c) add a real
+coordination mechanism (e.g. a reserved-numbers file, a CI check that
+fails on a newly-introduced duplicate suffix across prefixes, or a
+numbering authority) - note that (c) would need to guard against both
+failure mechanisms found here, not just true concurrency. Does not
+retroactively rename any of the six existing collided items - renaming
+a resolved/merged item touches
 cross-references and git history and is a separate decision.
 
 ---

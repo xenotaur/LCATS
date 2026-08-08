@@ -1,0 +1,17 @@
+{
+  "candidate": "ollama_qwen3_8b",
+  "backend_kind": "openai_compatible_local",
+  "model": "qwen3:8b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "success": false,
+  "latency_seconds": 193.7156992079981,
+  "input_tokens": 13403,
+  "output_tokens": 1972,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 12,\\n      \"start_exact\": \"When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\\\\n\u201990, I am faced by so many which present strange and interesting features\",\\n      \"end_exact\": \"and have their explanations founded rather upon conjecture and surmise than on that\\\\nabsolute logical proof which was so dear to him.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"which was so dear to him.\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Watson reflects on Holmes\\' cases and introduces the mystery of the KKK letters.\",\\n      \"cohesion\": {\\n        \"time\": \"1880s\",\\n        \"place\": \"London\",\\n        \"characters\": [\"Watson\", \"Sherlock Holmes\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"Narrative setup with no clear GACD or ERAC structure, unified by time/place.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_scene\",\\n      \"start_par_id\": 13,\\n      \"end_par_id\": 48,\\n      \"start_exact\": \"The man who entered was young, some two-and-twenty at the outside, well-groomed\",\\n      \"end_exact\": \"and have their explanations founded rather upon conjecture and surmise than on that\\\\nabsolute logical proof which was so dear to him.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"which was so dear to him.\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"John Openshaw recounts his family\\'s mysterious deaths linked to the KKK.\",\\n      \"cohesion\": {\\n        \"time\": \"1883-1885\",\\n        \"place\": \"Horsham\",\\n        \"characters\": [\"John Openshaw\", \"Sherlock Holmes\"]\\n      },\\n      \"gacd\": {\\n        \"goal\": \"Uncover the mystery of the KKK letters and deaths\",\\n        \"action\": \"Recount family history and seek Holmes\\' help\",\\n        \"conflict\": \"Fear of KKK retaliation and uncle\\'s suicide\",\\n        \"outcome\": \"Uncle\\''",
+  "raw_output_preview": null
+}

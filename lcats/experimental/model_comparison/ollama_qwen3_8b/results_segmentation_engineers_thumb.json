@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_qwen3_8b",
+  "backend_kind": "openai_compatible_local",
+  "model": "qwen3:8b",
+  "story_name": "Sherlock Holmes - The Adventure of the Engineer's Thumb",
+  "stage": "segmentation",
+  "success": false,
+  "latency_seconds": 728.8516044589924,
+  "input_tokens": 14615,
+  "output_tokens": 2446,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"dramatic_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 3,\\n      \"start_exact\": \"Of all the problems\\\\nwhich have been submitted to my friend, Mr. Sherlock Holmes, for solution\\\\nduring the years of our intimacy, there were only two which I was the means of\\\\nintroducing to his notice\u2014that of Mr. Hatherley\u2019s thumb, and that\\\\nof Colonel Warburton\u2019s madness.\",\\n      \"end_exact\": \"I had returned to civil practice\\\\nand had finally abandoned Holmes in his Baker Street rooms, although I\\\\ncontinually visited him and occasionally even persuaded him to forgo his\\\\nBohemian habits so far as to come and visit us.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"and occasionally even persuaded him to forgo his\\\\nBohemian habits so far as to come and visit us.\",\\n      \"start_char\": 0,\\n      \"end_char\": 252,\\n      \"summary\": \"Narrator introduces Sherlock Holmes and the two cases that led to his involvement.\",\\n      \"cohesion\": {\\n        \"time\": \"Present time (after 1889)\",\\n        \"place\": \"Narrator\\'s home, Baker Street\",\\n        \"characters\": [\"Narrator\", \"Sherlock Holmes\"]\\n      },\\n      \"gacd\": {\\n        \"goal\": \"Investigate the mysterious cases of Mr. Hatherley\\'s thumb and Colonel Warburton\\'s madness\",\\n        \"action\": \"Recall and recount the events\",\\n        \"conflict\": \"The enigmatic nature of the cases\",\\n        \"outcome\": \"Unclear\"\\n      },\\n      \"reason\": \"Narrator\\'s recounting of two cases with clear goal, action, conflict, and outcome within the segment.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 4,\\n      \"end_par_id\": 13,\\n      \"start_exact\": \"I entered my consulting-room and found a gentleman seated by the table. He was\\\\nquietly dressed in a suit of heather tweed with a soft cloth cap which he had\\\\nlaid down upon my books.\",\\n      \"end_exact\": \"He laughed very heartily, with a high, ringing note, leaning back in\\\\nh'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

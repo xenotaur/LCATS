@@ -129,6 +129,54 @@ per-segment anchors) than entity extraction's, which may explain why
 `tool_choice` fails here but not there - not conclusively diagnosed,
 left to `WI-LLM-0051`.
 
+### Follow-up: `tool_choice` reliability investigation (`WI-LLM-0051`)
+
+A 3rd run at the identical `(qwen3:8b, five_orange_pips)` config, plus
+two more varying model/story (baseline, `retry_with_reminder=False`, all
+committed as real runnable evidence, not prose-only):
+
+| Config | Result | Latency | Output tokens | Detail |
+|---|---|---|---|---|
+| `qwen3:8b` / `five_orange_pips` (run 3) | **failed** | 193.7s | 1972 | `no_tool_call` |
+| `qwen3:8b` / `engineers_thumb` (`benchmark_segmentation_engineers_thumb.py`) | **failed** | 340.7s | 4518 | `no_tool_call` |
+| `qwen3:30b-a3b` / `five_orange_pips` (`../ollama_qwen3_30b_a3b/benchmark_segmentation.py`) | **failed** | 268.2s | 5459 | `no_tool_call` |
+
+**Baseline: 0/5 total segmentation attempts succeeded** across 2 models
+and 2 stories, including 3 independent samples at the identical config -
+a systemic gap, not intermittent noise.
+
+**Retry mitigation - actually tested, not inferred from resampling
+alone:** an earlier draft of this investigation reasoned from the 3
+identical-config baseline repeats that a retry had "no observed chance"
+of helping - **that reasoning was corrected after review.** Repeating
+the identical request only tests whether `temperature=0.6` resampling
+changes the outcome; it doesn't test the WI's own named mitigation - an
+explicit reminder appended to the system prompt. Tested directly: 5 live
+calls at the identical `(qwen3:8b, five_orange_pips)` config with
+`"CRITICAL INSTRUCTION: You MUST call the record_segments function/tool
+..."` appended to the system prompt. **2/5 succeeded (40%)** - real,
+substantial, though not reliable.
+
+`../common/harness.py`'s `run_segmentation()` now implements this as an
+automatic retry-once path (`retry_with_reminder=True` by default),
+triggered only when the first attempt fails with `error_type=
+"no_tool_call"`. Verified end-to-end with a real live call:
+`results_segmentation.json` (this candidate's canonical "latest run"
+file) now reflects that call - `success: true, retry_attempted: true,
+retry_succeeded: true, segment_count: 4` - the first attempt failed
+exactly as before, the automatic retry succeeded. The pre-retry-code
+baseline failures remain preserved separately in
+`results_segmentation_run1.json` through `run3.json` and the two varied-
+condition files above, so the 0/5 baseline evidence isn't lost just
+because the "latest" file now shows a retry-assisted success.
+
+See `PROP-ERW-LOCAL-MODEL-EVALUATION`'s "Decision 3 update (2026-08-08,
+`tool_choice` reliability investigation, `WI-LLM-0051`)" section for the
+full verdict, including what remains open (why the reminder only helps
+40% of the time rather than reliably, and whether it would help the real
+production `SCENE_SEQUEL_SYSTEM_PROMPT` - flagged as a candidate
+follow-up, not investigated here).
+
 ## Actual results: entity extraction
 
 **Fixed methodology (real segment, `temperature=0.6`), 3 runs:**
