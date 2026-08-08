@@ -93,3 +93,7 @@ lcats/lcats/notebooks/Output/
 
 # Ignore local secrets files (e.g. API keys).
 .secrets/
+
+# Ignore genre-census per-story checkpoint state (internal resume cache,
+# redundant with the committed census_*_stories.jsonl/summary.json).
+experiments/04_genre_census/results/*/
