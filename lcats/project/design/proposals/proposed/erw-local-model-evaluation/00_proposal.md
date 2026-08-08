@@ -436,20 +436,41 @@ sample above, since it's a different model) - it also failed, but n=1 is
 too small to say anything beyond "does not obviously behave differently
 from `qwen3:8b`."
 
-**Anthropic (`claude-opus-4-8`): no regression.** 3 paired baseline/
-modified real calls (not a single pair - see the P1 review finding on
-`WI-LLM-0059`'s own planning PR, #260) all succeeded on both sides:
-success rate 3/3 baseline, 3/3 modified; latency comparable across all 6
-calls (23.7-34.3s, no systematic shift toward the modified condition);
-segment counts varied (4, 5, 4 baseline vs. 7, 4, 4 modified). This is
-the first `anthropic_opus` segmentation-stage data recorded in this
-proposal's history (prior `anthropic_opus` results only cover the
-entity-extraction stage), so there is no prior-session baseline to
-compare this spread against - taken on its own, though, the 3 pairs show
-no systematic shift between the two conditions (no consistent
-direction of the modified condition being higher or lower than its own
-paired baseline). The reminder is neutral for this frontier path on the
-evidence available.
+**Anthropic (`claude-opus-4-8`): success/latency neutral, but a small,
+real granularity shift observed - not clean "no regression."** 3 paired
+baseline/modified real calls (not a single pair - see the P1 review
+finding on `WI-LLM-0059`'s own planning PR, #260) all succeeded on both
+sides: success rate 3/3 baseline, 3/3 modified; latency comparable across
+all 6 calls (25.4-34.7s, no systematic shift toward the modified
+condition). The initial pass through this data only recorded
+`segment_count`, not the actual segments, and declared this frontier path
+cleanly "neutral" from counts alone (4, 5, 4 baseline vs. 7, 4, 4
+modified) - a P1 review finding on this WI's own implementation PR (#266)
+correctly identified that a bare count cannot support a claim about
+output *quality* (labels, boundaries), and that the review couldn't tell
+whether the count divergence was meaningful without the actual segments.
+Re-run with the segments themselves persisted (`results_frontier_paired_
+anthropic.json`): baseline stayed at 4 segments all 3 times; modified
+produced 4, 5, 5 segments. Reading the actual content: in pairs 2 and 3,
+the modified condition split the story's closing "Holmes returns / traces
+the killers / epilogue" material into two segments (a `dramatic_scene` or
+`narrative_scene` for the return, plus a separate `narrative_scene` for
+the "Lone Star lost at sea" epilogue) where the baseline kept it as one -
+the same split pattern in both pairs, not two unrelated one-off
+divergences. This is a real, small directional signal, not pure noise:
+the reminder text appears to nudge the model toward slightly finer
+end-of-story segmentation, in mild tension with
+`SCENE_SEQUEL_SYSTEM_PROMPT`'s own "Coarse segmentation only... prefer
+FEWER, LARGER segments" rule. It is not a functional failure - every
+segment across all 6 calls used a valid `segment_type` enum value and
+read as a coherent, correctly-labeled unit - and it is far short of
+"risky" in the sense the OpenAI gap below is. But it means the honest
+characterization is "no catastrophic effect, plus one minor, real
+side effect on granularity," not "the reminder is neutral for this
+frontier path" as the first draft of this section claimed. This is the
+first `anthropic_opus` segmentation-stage data recorded in this
+proposal's history, so there is no independent prior-session baseline
+to compare either the counts or this granularity pattern against.
 
 **OpenAI (`gpt-4o`): untested - real key present, but the organization
 has zero remaining API credits.** Both the baseline and modified calls in
@@ -466,13 +487,20 @@ documented no-change outcome regardless of how the other two paths look,
 since the edit would ship to GPT users too and this session has no way to
 confirm it is safe for them. This is not a judgment call weighing risk
 against benefit - the WI's own acceptance criteria state plainly that an
-untested OpenAI path does not proceed to a production edit. The reminder
-remains implemented only as `common/harness.py`'s existing harness-scoped
-retry (`WI-LLM-0051`, unchanged by this investigation) - not added to the
-real, shared production prompt. Re-running this same investigation's
-OpenAI leg once real API credits are available (this session's other two
-legs would not need to be repeated) is a legitimate, low-cost follow-up
-that could flip this verdict without redoing the Anthropic or local work.
+untested OpenAI path does not proceed to a production edit. The Anthropic
+granularity finding above does not independently block the edit (it is
+not "risky" in the WI's sense), but it does mean that even a fully clean
+OpenAI result would not have made this an easy, obviously-safe edit - a
+future revisit should weigh the granularity side effect on its own
+merits, not treat the Anthropic leg as a clean pass. The reminder remains
+implemented only as `common/harness.py`'s existing harness-scoped retry
+(`WI-LLM-0051`, unchanged by this investigation) - not added to the real,
+shared production prompt. Re-running this same investigation's OpenAI leg
+once real API credits are available (`run_frontier_paired.py --legs
+openai`, added as a review-response fix so this doesn't require redoing
+the Anthropic or local legs) is a legitimate, low-cost follow-up that
+could revisit the OpenAI half of this verdict without new billed
+Anthropic calls.
 
 ### Landscape context (not itself decision-grade evidence)
 
@@ -614,12 +642,16 @@ adopted):
   `SCENE_SEQUEL_SYSTEM_PROMPT` in `scene_analysis.py` for other
   providers/models?~~ **Answered (`WI-LLM-0059`):** the local-model
   effect replicates for `qwen3:8b` (2/8 combined success across two
-  sessions with the identical single-call mechanism, vs. 0% without) and
-  the Anthropic
-  frontier path shows no regression (3/3 paired real calls, comparable
-  latency and segment counts) - but the OpenAI frontier path, which the
-  prompt is equally shared with, could not be verified at all (real API
-  key present, zero account credits). Per `WI-LLM-0059`'s own acceptance
+  sessions with the identical single-call mechanism, vs. 0% without).
+  The Anthropic frontier path showed no success-rate or latency
+  regression (3/3 paired real calls) but did show a small, real
+  granularity side effect - 2 of 3 modified-condition runs split the
+  story's ending into an extra segment where baseline stayed at 4 - not
+  a functional failure, but not a clean "neutral" result either (initial
+  count-only data had wrongly read as clean; segment content itself
+  showed the pattern). The OpenAI frontier path, which the prompt is
+  equally shared with, could not be verified at all (real API key
+  present, zero account credits). Per `WI-LLM-0059`'s own acceptance
   criteria, an untested OpenAI path forces a no-change verdict regardless
   of the other two results - `SCENE_SEQUEL_SYSTEM_PROMPT` was **not**
   edited. See the "Decision 3 update (2026-08-08, production system-

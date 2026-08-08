@@ -7,13 +7,17 @@ Investigation-specific scripts for `WI-LLM-0059`: does appending
 local-model segmentation reliability, and does it regress the frontier
 paths (`AnthropicBackend`, `OpenAIBackend`) that prompt is shared with?
 
-Unlike the per-candidate `benchmark*.py` scripts elsewhere in
-`model_comparison/`, these two scripts call
-`common/harness._run_segmentation_once()` directly (the same underlying
-single-call function `run_segmentation()`'s retry path already uses)
-rather than the retry-wrapped public entry point, so the reminder can be
-tested as an *eager/permanent* system-prompt suffix instead of only on a
-second attempt after a first failure.
+`run_local_reminder.py` calls `common/harness._run_segmentation_once()`
+directly (the same underlying single-call function `run_segmentation()`'s
+retry path already uses) rather than the retry-wrapped public entry
+point, so the reminder can be tested as an *eager/permanent*
+system-prompt suffix instead of only on a second attempt after a first
+failure. `run_frontier_paired.py` calls `scene_analysis.make_segment_
+extractor()` directly instead, so it can persist each call's actual
+segments (type/summary), not just `BenchmarkResult`'s bare
+`segment_count` - a P1 review finding on this WI's own implementation PR
+(#266) correctly identified that a count alone cannot support a claim
+about output *quality*.
 
 ## Scripts and results
 
@@ -28,26 +32,33 @@ second attempt after a first failure.
   this round is unsurprising noise at a true ~20-30% success rate. The
   single `qwen3:30b-a3b` call also failed but is a separate data point
   (different model, not poolable with the `qwen3:8b` figure above).
-- `run_frontier_paired.py` - real, billed calls: 3 paired baseline/
-  modified `claude-opus-4-8` calls (Anthropic), 1 paired baseline/
-  modified `gpt-4o` call (OpenAI). Result:
-  `results_frontier_paired.json` - Anthropic showed no regression (3/3
-  success both conditions, comparable latency; this is the first
-  `anthropic_opus` segmentation-stage data recorded in this proposal's
-  history, so the segment-count spread has no prior-session baseline to
-  compare against, but shows no systematic shift between the two
-  conditions on its own); OpenAI could not be verified at all in this
-  session (real API key present, but the organization had zero
-  remaining credits - both baseline and modified calls failed identically
-  with `429 insufficient_quota`).
+- `run_frontier_paired.py --legs anthropic|openai|all` - real, billed
+  calls: 3 paired baseline/modified `claude-opus-4-8` calls (Anthropic,
+  `results_frontier_paired_anthropic.json`), 1 paired baseline/modified
+  `gpt-4o` call (OpenAI, `results_frontier_paired_openai.json`), merged
+  into `results_frontier_paired.json`. Anthropic: 3/3 success both
+  conditions, comparable latency (25.4-34.7s) - but reading the actual
+  segments (not just counts) shows 2 of 3 modified-condition runs split
+  the story's ending into an extra segment (baseline stayed at 4 all 3
+  times; modified produced 4, 5, 5) - the same split pattern both times,
+  not one-off noise, in mild tension with the production prompt's own
+  "prefer FEWER, LARGER segments" rule. Not a functional failure - every
+  segment across all 6 calls used a valid label and read coherently - but
+  not a clean "neutral" result either. OpenAI could not be verified at
+  all in this session (real API key present, but the organization had
+  zero remaining credits - both baseline and modified calls failed
+  identically with `429 insufficient_quota`).
 
 ## Verdict
 
 Per `WI-LLM-0059`'s own Required Changes item 5, an untested OpenAI path
-forces the documented no-change outcome regardless of the other two
-results. `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited - see
+forces the documented no-change outcome regardless of the Anthropic
+result. `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited - see
 `PROP-ERW-LOCAL-MODEL-EVALUATION`'s "Decision 3 update (2026-08-08,
 production system-prompt reminder, `WI-LLM-0059`)" section for the full
-write-up. Re-running just `run_frontier_paired.py`'s OpenAI leg once real
-API credits are available is a legitimate, low-cost way to revisit this
-verdict without repeating the Anthropic or local legs.
+write-up. Even a fully clean OpenAI result would not have made this an
+obviously-safe edit, given the Anthropic granularity side effect above -
+a future revisit should weigh that finding on its own merits. Re-running
+just `python run_frontier_paired.py --legs openai` once real API credits
+are available is a legitimate, low-cost way to revisit the OpenAI half of
+this verdict without new billed Anthropic calls.
