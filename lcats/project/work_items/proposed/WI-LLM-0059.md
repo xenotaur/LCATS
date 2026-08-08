@@ -31,7 +31,8 @@ forbidden_actions:
   - modify_ci_pipeline
 acceptance:
   - "Several more real segmentation calls (ollama_qwen3_8b at minimum, ollama_qwen3_30b_a3b if time permits) run with the reminder text appended to the real SCENE_SEQUEL_SYSTEM_PROMPT (not just the benchmark harness's local copy), and their success/failure recorded"
-  - "A real, live claude-opus-4-8 segmentation call on the same story/segment with the modified prompt, compared against an unmodified-prompt baseline call, checking for output-quality or latency regression"
+  - "At least 3 paired baseline/modified claude-opus-4-8 segmentation calls on the same story/segment, checking for output-quality or latency regression - a single pair cannot distinguish a real prompt effect from ordinary model/API run-to-run variance"
+  - "At least one real OpenAI/GPT segmentation call with the modified prompt compared against an unmodified-prompt baseline, OR (if no OpenAI API key is available) an explicit statement that the OpenAI path is untested, which by itself forces the documented no-change outcome rather than a production edit"
   - "A written verdict recorded in PROP-ERW-LOCAL-MODEL-EVALUATION: either scene_analysis.py's SCENE_SEQUEL_SYSTEM_PROMPT is edited for real with covering tests, or a documented decision not to change it, with the evidence either way"
   - "lrh validate and the full test suite pass after any production edit"
 artifacts_expected:
@@ -110,22 +111,36 @@ without ever being decided one way or the other.
    (and `ollama_qwen3_30b_a3b` if time permits) with the reminder text
    appended via `system_prompt_suffix`, recording success/failure per
    call the same way `WI-LLM-0051` did.
-2. Run at least one real `claude-opus-4-8` segmentation call with the
-   identical modified prompt on the same story, and compare its output
-   (segment count/labels/quality) and latency against an unmodified-
-   prompt baseline call on the same story.
-3. If the reminder helps local reliability and is neutral-or-better for
-   the frontier path: edit `SCENE_SEQUEL_SYSTEM_PROMPT` in
+2. Run at least 3 paired baseline/modified `claude-opus-4-8` segmentation
+   calls (same story, same segment boundaries) - not a single pair - and
+   compare output (segment count/labels/quality) and latency across the
+   paired runs. A single pair cannot distinguish a genuine prompt effect
+   from ordinary model/API run-to-run variance on a stochastic call; only
+   a consistent pattern across multiple pairs counts as evidence of
+   regression or its absence.
+3. Attempt at least one real OpenAI/GPT segmentation call with the
+   identical modified prompt, compared against an unmodified-prompt
+   baseline, via `OpenAIBackend` (the same backend the production
+   `SCENE_SEQUEL_SYSTEM_PROMPT` is shared with). If no OpenAI API key is
+   available in the execution session, state that plainly - per item 5
+   below, an untested OpenAI path forces the no-change outcome rather
+   than being silently treated as an acceptable gap.
+4. If the reminder helps local reliability AND both the Anthropic and
+   OpenAI frontier paths are neutral-or-better (per items 2-3): edit
+   `SCENE_SEQUEL_SYSTEM_PROMPT` in
    `lcats/src/lcats/analysis/scene_analysis.py` to include the reminder
    permanently, and add covering tests (e.g. an assertion that the
    prompt text includes the reminder, plus any needed
    `scene_analysis_test.py` coverage).
-4. If the reminder is neutral-to-local-but-risky-for-frontier, or
-   otherwise not clearly net-positive: do not edit the prompt: document
-   the finding and rationale in
+5. Do not edit the prompt if any of the following hold: the reminder is
+   neutral-to-local-but-risky-for-frontier on either the Anthropic or
+   OpenAI path, the OpenAI path could not be tested at all (no API key
+   available), or the local benefit is otherwise not clearly net-positive.
+   In any of these cases, document the finding and rationale in
    `PROP-ERW-LOCAL-MODEL-EVALUATION`'s Open Questions/Decision sections
-   instead.
-5. Either way, update `PROP-ERW-LOCAL-MODEL-EVALUATION` to close out the
+   instead - an untested or ambiguous frontier path is treated as "do not
+   ship," not as a documented risk to accept.
+6. Either way, update `PROP-ERW-LOCAL-MODEL-EVALUATION` to close out the
    Open Question this work item answers.
 
 ## Non-Goals
@@ -142,17 +157,25 @@ without ever being decided one way or the other.
   eager/permanent for the *benchmark* path - this item is specifically
   about the production system prompt text itself, a separate question
   from `WI-LLM-0051`'s retry design.
-- Does not test OpenAI/GPT paths directly (no OpenAI API key assumed
-  available in this session) - if untested, state that plainly as a gap
-  rather than inferring a verdict from the Anthropic result alone.
+- Does not attempt OpenAI/GPT testing beyond a good-faith effort if no
+  API key is available - but per Required Changes items 3 and 5, an
+  untested OpenAI path is not a silently-accepted gap: it forces the
+  documented no-change outcome, since `SCENE_SEQUEL_SYSTEM_PROMPT` is
+  shared with `OpenAIBackend` and an Anthropic-only regression check
+  cannot speak to it.
 
 ## Acceptance Criteria
 
 - Several more real segmentation calls run with the reminder appended to
   the real `SCENE_SEQUEL_SYSTEM_PROMPT` against at least `ollama_qwen3_8b`.
-- A real `claude-opus-4-8` call with the modified prompt, compared against
-  an unmodified-prompt baseline on the same story, with no quality or
-  latency regression before any production edit is made.
+- At least 3 paired baseline/modified `claude-opus-4-8` calls on the same
+  story, with no consistent quality or latency regression pattern across
+  the pairs before any production edit is made - a single pair is not
+  sufficient evidence either way.
+- At least one real OpenAI/GPT call with the modified prompt compared
+  against an unmodified-prompt baseline, or an explicit statement that no
+  OpenAI API key was available - and if the latter, the production edit
+  does not proceed (see Required Changes item 5).
 - A written verdict recorded in `PROP-ERW-LOCAL-MODEL-EVALUATION`.
 - If edited: `scene_analysis.py`'s `SCENE_SEQUEL_SYSTEM_PROMPT` change is
   covered by a test, and `lrh validate` plus the full test suite pass.
@@ -178,8 +201,16 @@ without ever being decided one way or the other.
   (`AnthropicBackend`, `OpenAIBackend`, and any future `LLMBackend`
   implementation) - a permanent edit is higher blast-radius than the
   harness-only retry `WI-LLM-0051` shipped, so the frontier-model
-  regression check in Required Changes item 2 is a hard gate before any
-  edit lands, not an optional nice-to-have.
+  regression checks in Required Changes items 2-3 (both Anthropic and
+  OpenAI) are hard gates before any edit lands, not an optional
+  nice-to-have. An untested OpenAI path is treated as a blocker, not an
+  acceptable documented gap, since the edit would ship to GPT users too.
+- A single paired comparison (one baseline call, one modified call)
+  cannot distinguish a real prompt effect from ordinary stochastic
+  model/API variance on a non-deterministic call - Required Changes
+  item 2 requires at least 3 paired runs specifically to guard against a
+  false "no regression" or false "regression" verdict from one unlucky
+  or lucky pair.
 - `WI-LLM-0051` found the reminder only helps 40% of the time even in the
   benchmark harness - a permanent production edit is not expected to make
   Ollama segmentation fully reliable; the realistic best-case outcome is
