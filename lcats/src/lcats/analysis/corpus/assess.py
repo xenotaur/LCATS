@@ -388,6 +388,12 @@ def assess_story(
         )
         a = backend_response.tool_result
         if a is None:
+            # backend_response is a real, billed API response even though
+            # tool_result is None (a backend/test-double edge case, not
+            # reachable via AnthropicBackend/OpenAIBackend today - both
+            # raise TruncatedResponseError/NoToolCallError instead of
+            # returning tool_result=None). Forward its usage rather than
+            # discarding it, matching the exception-path fix below.
             return AssessmentResult(
                 file_path=str(file_path),
                 title=title,
@@ -396,6 +402,9 @@ def assess_story(
                 target_genre=genre,
                 verdict="review",
                 error="Backend returned no tool result",
+                input_tokens=backend_response.input_tokens,
+                output_tokens=backend_response.output_tokens,
+                backend_model=backend_response.model,
             )
 
         return AssessmentResult(
@@ -423,6 +432,14 @@ def assess_story(
         )
 
     except Exception as exc:
+        # backend.TruncatedResponseError and backend.NoToolCallError both
+        # carry input_tokens/output_tokens for a real, billed response
+        # that failed only at the tool-result-parsing stage (see their own
+        # docstrings) - forward that usage generically via getattr rather
+        # than special-casing each exception type, so any future backend
+        # exception carrying the same attributes is covered automatically.
+        # Exceptions with no such attributes (e.g. a network error before
+        # any response arrived) correctly default to zero usage here.
         return AssessmentResult(
             file_path=str(file_path),
             title=title,
@@ -431,4 +448,6 @@ def assess_story(
             target_genre=genre,
             verdict="review",
             error=str(exc),
+            input_tokens=getattr(exc, "input_tokens", 0),
+            output_tokens=getattr(exc, "output_tokens", 0),
         )

@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from lcats.analysis.corpus import assess
+from lcats.llm import backend as llm_backend
 from lcats.llm import fake_backend
 
 _SAMPLE_TOOL_RESULT = {
@@ -42,6 +43,23 @@ class _FailingBackend:
         self, *, system, messages, model, temperature=0.2, max_tokens=4096, tool=None
     ):
         raise RuntimeError("API unavailable")
+
+
+class _TruncatedBackend:
+    """Stub backend raising a usage-carrying backend exception (WI-ASSESS-0051:
+    assess_story must forward input_tokens/output_tokens from any caught
+    exception that carries them, generically - not just RuntimeError)."""
+
+    def complete(
+        self, *, system, messages, model, temperature=0.2, max_tokens=4096, tool=None
+    ):
+        raise llm_backend.TruncatedResponseError(
+            "truncated at max_tokens",
+            stop_reason="max_tokens",
+            max_tokens=max_tokens,
+            input_tokens=321,
+            output_tokens=99,
+        )
 
 
 class TestAssessStorySuccess(unittest.TestCase):
@@ -263,6 +281,38 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
         self.assertIsNotNone(result.error)
         self.assertIn("no tool result", result.error.lower())
         self.assertEqual(result.verdict, "review")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_none_tool_result_preserves_usage(self, _mock):
+        """WI-ASSESS-0051: a real, billed backend_response's usage must not
+        be discarded just because tool_result came back None."""
+        fb = fake_backend.FakeBackend(
+            tool_result=None, input_tokens=555, output_tokens=77
+        )
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.input_tokens, 555)
+        self.assertEqual(result.output_tokens, 77)
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_backend_exception_preserves_usage(self, _mock):
+        """WI-ASSESS-0051: TruncatedResponseError/NoToolCallError carry
+        usage for a real, billed-but-failed call; assess_story must
+        forward it generically (getattr), not discard it in the except
+        branch - required so a cost-estimate sample counts failed-but-
+        billed calls' real cost instead of silently recording zero."""
+        result = assess.assess_story(_FILE, _GENRE, _TruncatedBackend())
+        self.assertEqual(result.input_tokens, 321)
+        self.assertEqual(result.output_tokens, 99)
+        self.assertIn("truncated", result.error)
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_backend_exception_without_usage_defaults_zero(self, _mock):
+        """An exception with no input_tokens/output_tokens attributes
+        (e.g. a plain RuntimeError from a network failure before any
+        response arrived) must default to zero usage, not raise."""
+        result = assess.assess_story(_FILE, _GENRE, _FailingBackend())
+        self.assertEqual(result.input_tokens, 0)
+        self.assertEqual(result.output_tokens, 0)
 
     @patch(
         "lcats.analysis.corpus.assess.run_preflight",
