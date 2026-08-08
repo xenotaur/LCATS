@@ -129,6 +129,30 @@ per-segment anchors) than entity extraction's, which may explain why
 `tool_choice` fails here but not there - not conclusively diagnosed,
 left to `WI-LLM-0051`.
 
+### Follow-up: `tool_choice` reliability investigation (`WI-LLM-0051`)
+
+A 3rd run at the identical `(qwen3:8b, five_orange_pips)` config, plus
+two more varying model/story, all failed the same way:
+
+| Config | Result | Latency | Output tokens | Detail |
+|---|---|---|---|---|
+| `qwen3:8b` / `five_orange_pips` (run 3) | **failed** | 193.7s | 1972 | `no_tool_call` |
+| `qwen3:8b` / `engineers_thumb` (different story) | **failed** | 340.7s | 4518 | `no_tool_call` |
+| `qwen3:30b-a3b` / `five_orange_pips` (different model) | **failed** | 247.4s | 4492 | `no_tool_call` |
+
+**5/5 total segmentation attempts failed** across 2 models and 2 stories,
+including 3 independent samples at the identical config - a 100%
+reproduction rate, not intermittent noise. A bounded retry-once path was
+considered and explicitly rejected: since 3 repeated attempts at the same
+config never once succeeded, a retry has no observed chance of helping
+and would only double latency/cost. See
+`PROP-ERW-LOCAL-MODEL-EVALUATION`'s "Decision 3 update (2026-08-08,
+`tool_choice` reliability investigation, `WI-LLM-0051`)" section for the
+full verdict and reasoning. `results_segmentation_run3.json` is the 3rd
+same-config run; the cross-story/cross-model runs were exploratory
+(not committed as new candidates - out of this investigation's scope
+per its own Non-Goals) and are documented here and in the proposal only.
+
 ## Actual results: entity extraction
 
 **Fixed methodology (real segment, `temperature=0.6`), 3 runs:**
