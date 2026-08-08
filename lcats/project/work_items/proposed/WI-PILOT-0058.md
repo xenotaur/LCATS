@@ -31,8 +31,8 @@ forbidden_actions:
   - retrofit_checkpointing_for_batch_by_default
   - implement_batch_api_adoption
 acceptance:
-  - A written go/no-go assessment exists comparing the Batch API's real 50% flat discount (both input and output tokens, no quality tradeoff) against the real architecture cost of retrofitting the synchronous, per-call, stage-then-checkpoint pipeline (checkpoint.py's write_checkpoint/read_checkpoint, WI-PIPELINE-0040/0041) for asynchronous submission-and-poll
-  - The assessment accounts for WI-PILOT-0057's outcome if it has landed first (Decision 4 explicitly allows Decision 3's caching evaluation, if it shows a real benefit, to change the baseline cost the Batch API's 50% discount is compared against)
+  - A written go/no-go assessment exists comparing the Batch API's real 50% flat discount (both input and output tokens, no quality tradeoff) against the real architecture cost of retrofitting the synchronous, per-call, stage-then-checkpoint pipeline (checkpoint.py's read_checkpoint/write_checkpoint, WI-PIPELINE-0040/0041) for asynchronous submission-and-poll
+  - The assessment applies that 50% discount to a real cost baseline - either WI-PILOT-0057's real measurement numbers if landed, or a small, separately-approved real baseline run of the WI-PILOT-0051 fixture set if not (WI-PILOT-0051 itself produced no real baseline to reuse)
   - The assessment explicitly addresses the batch-jobs-report-no-interim-status property of the real Batch API (client.messages.batches.create/retrieve/results has no per-item progress signal until the whole batch completes or is polled) against this pipeline's existing per-story/per-stage progress printing
   - If the assessment concludes "adopt," this item stops at the assessment - implementation (submission/polling logic, checkpoint-architecture retrofit) is a separate follow-on item, not silently started here
   - If the assessment concludes "reject" or "defer," that is a valid, complete outcome, with the specific blocking factor(s) documented
@@ -60,8 +60,8 @@ off both input and output tokens, with no documented quality tradeoff -
 but flagged a real architectural obstacle: the pipeline's checkpointing
 was migrated to synchronous, per-call, stage-then-checkpoint semantics
 (`WI-PIPELINE-0040`/`0041`, adopted just two days before this proposal)
-via `lcats/src/lcats/utils/checkpoint.py`'s `write_checkpoint`/
-`read_checkpoint` (`checkpoint.py:251,302`). Retrofitting for batch
+via `lcats/src/lcats/utils/checkpoint.py`'s `read_checkpoint`/
+`write_checkpoint` (`checkpoint.py:251,302`). Retrofitting for batch
 submission-and-poll is a real architecture change, not a flag flip -
 Decision 4 explicitly defers this to "a follow-on work item that starts
 with an explicit go/no-go assessment against the baseline cost
@@ -82,6 +82,19 @@ independently-verifiable property of the Batch API itself (see Scope) -
 whether the original backlog citation was a stale/broken cross-reference
 is a separate, smaller documentation question, not blocking to this
 assessment.
+
+**No real cost baseline currently exists to apply the 50% discount
+to.** `WI-PILOT-0051` (resolved) explicitly forbade real, paid
+`run_pilot.py` execution as part of its own scope
+(`run_real_llm_calls_without_explicit_approval`), and its execution
+record reports only dry-run/fake-backend fixture validation - it built
+the harness but never ran it for real. This item therefore cannot
+assume a measured baseline is already available to halve; it must
+either use `WI-PILOT-0057`'s real measurement numbers (if that item has
+landed by the time this one runs - its own real-call step produces
+real cost data as a byproduct of measuring caching) or commission a
+small, separately-approved real baseline run of its own against the
+fixture set (review finding, PR #252).
 
 ### Duplication search
 - In-repo: No existing Batch API usage or assessment anywhere in
@@ -111,10 +124,14 @@ assessment.
 
 ## Scope
 
-- Assess the Batch API's real economics against `WI-PILOT-0051`'s
-  fixture-set baseline (and `WI-PILOT-0057`'s real caching numbers, if
-  landed first) - a straightforward 50% multiplier on measured cost, no
-  new measurement needed for this part.
+- Establish a real cost baseline to apply the Batch API's 50% discount
+  to: use `WI-PILOT-0057`'s real caching-evaluation numbers if that item
+  has landed by the time this one runs, or commission a small,
+  explicitly-approved real baseline run of `WI-PILOT-0051`'s fixture set
+  otherwise - `WI-PILOT-0051` itself never ran for real, so no existing
+  measured baseline can be assumed.
+- Assess the Batch API's real economics against that baseline - a
+  straightforward 50% multiplier once a real baseline exists.
 - Assess the architecture cost of retrofitting
   `experiments/03_cross_segment_relation_pilot/run_pilot.py`'s
   synchronous per-stage checkpointing for asynchronous batch
@@ -139,11 +156,14 @@ assessment.
 1. Read `checkpoint.py` (`lcats/src/lcats/utils/checkpoint.py`) in full
    to characterize its actual fingerprint/publication model precisely
    enough to assess batch-retrofit cost concretely, not abstractly.
-2. Compute the real, measured cost baseline from `WI-PILOT-0051`'s
-   fixture-set runs (and `WI-PILOT-0057`'s caching numbers, if
-   available) and apply the Batch API's documented 50% discount to
-   produce a real projected saving figure - no new API calls required
-   for this step.
+2. Obtain a real cost baseline: if `WI-PILOT-0057` has landed with real
+   measurement numbers, use those directly - no new API calls needed. If
+   not, commission a small, explicitly-approved real run of
+   `WI-PILOT-0051`'s fixture set (this requires the same separate,
+   mid-implementation confirmation gate `WI-PILOT-0057` uses for its own
+   real-call step - see Risk Notes). Apply the Batch API's documented
+   50% discount to whichever real baseline results, to produce a real
+   projected saving figure.
 3. Write the go/no-go assessment as an update to Decision 4 in
    `lcats/project/design/proposals/adopted/lcats-pilot-cost-sustainability/00_proposal.md`,
    covering: the real discount figure, the architecture-retrofit cost
@@ -188,15 +208,20 @@ assessment.
 
 ## Risk Notes
 
-- Unlike `WI-PILOT-0057`, this item's core deliverable (the assessment)
-  does not require any real, paid API calls - the Batch API's discount
-  is documented and unconditional, and the architecture-retrofit cost
-  is assessable from reading `checkpoint.py` directly. The
-  `run_real_llm_calls_without_explicit_approval` forbidden action is
-  kept defensively in case the assessment wants to spot-check real batch
-  submission latency, not because it's required for the core deliverable.
+- The architecture-retrofit cost assessment and the no-interim-status
+  comparison are both assessable without any real API calls - the
+  Batch API's discount is documented and unconditional, and
+  `checkpoint.py` can be read directly. But the *baseline cost figure*
+  the 50% discount is applied to may require real API calls if
+  `WI-PILOT-0057` hasn't landed with usable numbers by the time this
+  item runs (review finding, PR #252 - `WI-PILOT-0051` itself produced
+  no real baseline). That real-call step, if needed, requires its own
+  separate, explicit human approval before any real API call is made -
+  matching `WI-PILOT-0057`'s own real-call gate, not covered by this
+  item's chain-authorization gate.
 - A "no real numbers yet" assessment (if `WI-PILOT-0057` hasn't landed
-  and its caching numbers aren't available) is not grounds to block this
+  and its caching numbers aren't available, and no baseline run has been
+  separately approved) is not grounds to block this
   item - Decision 4 only says the assessment "may" be informed by
   Decision 3's evaluation "if it lands first," not that it must wait.
 - The Decision-4 backlog-citation discrepancy noted in Problem/Context
