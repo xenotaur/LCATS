@@ -50,8 +50,9 @@ Produce a written go/no-go assessment of adopting Anthropic's Batch API
 (a flat 50% discount, asynchronous) for the Event-Role-World pipeline,
 per Decision 4 of `PROP-LCATS-PILOT-COST-SUSTAINABILITY`. This is WI 3
 of `WS-PILOT-COST-SUSTAINABILITY`'s Implementation Plan, gated on WI 1's
-harness (`WI-PILOT-0051`, resolved, PR #244) for a measurable cost
-baseline.
+fixture-set harness (`WI-PILOT-0051`, resolved, PR #244) - the harness
+exists, but a real cost baseline against it still needs to be
+established (see Problem/Context).
 
 ## Problem / Context
 
@@ -231,8 +232,9 @@ fixture set (review finding, PR #252).
 
 ## Dependencies / Order
 
-Depends on `WI-PILOT-0051` (resolved, PR #244) for its measurable cost
-baseline. Does not depend on `WI-PILOT-0057` (prompt caching evaluation)
+Depends on `WI-PILOT-0051` (resolved, PR #244) for its fixture-set
+harness - a real cost baseline against that harness still needs
+establishing, per Scope. Does not depend on `WI-PILOT-0057` (prompt caching evaluation)
 landing first, though it should incorporate that item's real numbers if
 they exist. `WI 4` (model-tiering evaluation) may proceed independently.
 
