@@ -36,12 +36,6 @@ acceptance:
   - "A documented, reasoned decision on the second open-weight family (beyond the existing qwen3:8b) - candidate identified, its Mac-hardware fit checked, and either a real candidate landed or an explicit blocked/deferred note if nothing fits available hardware"
   - "gpt-oss-120b explicitly deferred to non-Mac hardware (Kubuntu/Linux) with a documented reason (~52-73GB minimum footprint exceeds this session's 32GB Mac), not silently dropped"
 artifacts_expected:
-  # Directory names below are provisional - see Risk Notes on
-  # re-verifying exact model IDs/sizes at implementation time; rename
-  # to match whatever model is actually selected for each cell. Each
-  # candidate follows the existing anthropic_opus/ollama_qwen3_8b
-  # shape: README.md, setup.py, benchmark.py, plus a committed
-  # results.json once actually run.
   - lcats/experimental/model_comparison/anthropic_haiku/README.md
   - lcats/experimental/model_comparison/anthropic_haiku/setup.py
   - lcats/experimental/model_comparison/anthropic_haiku/benchmark.py
@@ -62,10 +56,6 @@ artifacts_expected:
   - lcats/experimental/model_comparison/ollama_gemma4_12b/setup.py
   - lcats/experimental/model_comparison/ollama_gemma4_12b/benchmark.py
   - lcats/experimental/model_comparison/ollama_gemma4_12b/results.json
-  # Second open-weight family (DeepSeek or GLM per Scope) - exact
-  # candidate and directory name are undecided; update this entry once
-  # chosen, or remove it with a documented reason if nothing fits
-  # available hardware (see Acceptance Criteria).
   - lcats/experimental/model_comparison/<second-open-weight-family>/README.md
   - lcats/experimental/model_comparison/README.md
 required_evidence:
