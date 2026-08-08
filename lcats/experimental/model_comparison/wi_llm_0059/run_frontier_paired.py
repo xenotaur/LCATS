@@ -24,7 +24,7 @@ sys.path.insert(0, str(_MODEL_COMPARISON))
 from common import harness  # noqa: E402
 from lcats.llm import anthropic_backend  # noqa: E402
 from lcats.llm import openai_backend  # noqa: E402
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets  # noqa: E402
 
 TEMPERATURE = 0.2  # unchanged from scene_analysis.py's own default - frontier paths are not being re-tuned here
 
@@ -56,7 +56,7 @@ def run_pair(*, candidate, backend_kind, backend, model, story_name, story_text)
 
 
 def main() -> None:
-    load_secrets()
+    secrets.load_secrets()
     story_name, story_text = harness.load_sample_story()
 
     all_pairs = []
