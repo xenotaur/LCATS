@@ -24,6 +24,36 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
+### Concurrent sessions independently minted the same WI number under different prefixes — P2, decision needed
+
+Surfaced 2026-08-07 while creating `WI-PILOT-0051`: at least four work
+items now share the numeric suffix `0051` under different prefixes -
+`WI-LLM-0051` (created 2026-08-05), `WI-ANNOTATE-0051` (created
+2026-08-06, resolved), `WI-ASSESS-0051` (created 2026-08-07, PR #235),
+and `WI-PILOT-0051` (created 2026-08-07, PR #237, resolved). Each was
+created by a different concurrent session independently computing "next
+number = global max + 1" against `main` at a moment when the other
+sessions' PRs hadn't yet merged, so all four landed on the same number.
+No technical collision resulted (`lrh validate` passes; each full ID
+string - prefix plus number - is unique), but it defeats the shared
+cross-prefix numbering pool's intent of an unambiguous sequence, and
+makes the "next number" computation itself unreliable under concurrency
+without some coordination mechanism. **Next step:** this is a
+design-shaped question, not a quick fix - decide whether to (a) accept
+occasional same-number collisions as a known limitation of the current
+"compute max+1 from `main`" convention (numbers are for uniqueness
+within a prefix's own namespace, not a global sequence, despite the
+existing "shared cross-prefix pool" convention), (b) prefix-scope the
+numbering instead (each prefix gets its own independent sequence,
+removing the cross-prefix uniqueness expectation entirely), or (c) add a
+real coordination mechanism (e.g. a reserved-numbers file, a CI check
+that fails on a newly-introduced duplicate suffix across prefixes, or a
+numbering authority). Does not retroactively rename any of the four
+existing `*-0051` items - renaming a resolved/merged item touches
+cross-references and git history and is a separate decision.
+
+---
+
 ### Unguarded `pathlib.Path.resolve()` calls could crash callers on filesystem errors — P2, in progress
 
 Surfaced 2026-08-07 during `WI-ASSESS-0050`'s review (Copilot found the
@@ -577,3 +607,45 @@ independently), which sidesteps the race entirely at the cost of losing
 block any of the four affected work items individually; no renaming
 proposed here since at least one (`WI-ANNOTATE-0051`) is already
 `resolved` and touching it would rewrite settled history.
+
+---
+
+## Check back on `gutenbergpy` upstream release status for `WI-RELEASE-0037` — P3, decision blocked on external response
+
+Noted 2026-07-29, while formalizing `WS-RELEASE`/`PROP-LCATS-PYPI-RELEASE-READINESS`.
+`WI-RELEASE-0037` (resolve the `gutenbergpy` `git+https` direct-VCS-dependency
+PyPI-upload blocker) is gated on an external maintainer response: the fixes
+LCATS needs (alias tables, title-index correction) are already merged
+upstream into `raduangelescu/gutenbergpy:master`
+([PR #25](https://github.com/raduangelescu/gutenbergpy/pull/25),
+[PR #26](https://github.com/raduangelescu/gutenbergpy/pull/26)), but the
+last published PyPI release is still `0.3.5` (2023-03-27), predating that
+merge. The user contacted the maintainer directly to ask about their
+release schedule; no response yet as of this entry.
+`raduangelescu/gutenbergpy:master`'s own `setup.cfg` already shows an
+unreleased `version = 0.3.6` bump — a mildly encouraging, non-committal
+signal a release may be forthcoming, not confirmation of one.
+
+`WI-RELEASE-0039` (the pre-launch verification gate,
+`depends_on: WI-RELEASE-0037`) is the standing mechanism that re-checks
+this status immediately before any real PyPI publish attempt — but that
+only fires once a publish is imminent, not on any regular cadence in the
+meantime. This entry exists so periodic check-ins on the maintainer
+response aren't lost between now and whenever a publish attempt actually
+happens.
+
+**Next step:** periodically check
+[pypi.org/project/gutenbergpy](https://pypi.org/project/gutenbergpy/) for
+a release newer than `0.3.5`, and check in on the maintainer conversation
+status. If a new release lands containing the needed fixes, "wait on
+upstream" becomes viable for `WI-RELEASE-0037` even if a vendor/fork path
+was already chosen or in progress — surface that to the user rather than
+proceeding on stale assumptions. Remove this entry once `WI-RELEASE-0037`
+resolves (its own resolution note should record the outcome either way).
+
+**Related:** `WS-RELEASE` (`project/workstreams/proposed/WS-RELEASE.md`);
+`WI-RELEASE-0037`, `WI-RELEASE-0039`; `PROP-LCATS-PYPI-RELEASE-READINESS`
+(`project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md`);
+upstream PRs
+[raduangelescu/gutenbergpy#25](https://github.com/raduangelescu/gutenbergpy/pull/25),
+[#26](https://github.com/raduangelescu/gutenbergpy/pull/26).
