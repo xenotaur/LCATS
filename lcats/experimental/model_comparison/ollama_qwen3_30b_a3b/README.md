@@ -135,3 +135,22 @@ treated as a drop-in "quality tier" upgrade over `qwen3:8b` - it is both
 slower (148-218s vs. 74-106s) and less reliable in this session's 3 real
 runs. `qwen3:8b` remains the more dependable local candidate tested so
 far.
+
+## Segmentation stage (`WI-LLM-0051`)
+
+`benchmark_segmentation.py` runs this candidate against the scene/sequel
+segmentation stage (`../common/harness.py`'s `run_segmentation()`),
+`temperature=0.6`, `retry_with_reminder=False` (this run's purpose is
+characterizing the baseline gap across models, not re-validating the
+retry mitigation already validated on `qwen3:8b` - see
+`../ollama_qwen3_8b/README.md`'s "Follow-up: `tool_choice` reliability
+investigation" section).
+
+**Result: failed**, same way as every other segmentation attempt tested
+so far - `finish_reason='stop'`, no tool call, despite schema-shaped
+free-text content (`error_type: no_tool_call`, 268.2s, 5459 output
+tokens). See `results_segmentation.json` for the full committed result.
+This confirms the `tool_choice` gap is not specific to `qwen3:8b` - see
+`PROP-ERW-LOCAL-MODEL-EVALUATION`'s "Decision 3 update (2026-08-08,
+`tool_choice` reliability investigation, `WI-LLM-0051`)" section for the
+full cross-model/cross-story verdict.

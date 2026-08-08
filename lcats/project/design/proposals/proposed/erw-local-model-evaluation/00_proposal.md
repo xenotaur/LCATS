@@ -340,52 +340,73 @@ change the "not yet" answer to changing `run_pilot.py`'s default.
 
 `WI-LLM-0050` left the Ollama `tool_choice` forced-function-name gap as a
 reproduced-but-uncharacterized risk (2/2 segmentation failures, one
-model, one story). `WI-LLM-0051` gathered 3 more real runs varying the
+model, one story). `WI-LLM-0051` gathered more real runs varying the
 axes that could explain the 2/2 as coincidence rather than a systemic
-gap:
+gap, then tested whether the WI's own proposed mitigation actually works
+rather than inferring an answer from resampling alone.
+
+**Baseline reproduction, no mitigation: 0/5 succeeded.**
 
 - `qwen3:8b` / `five_orange_pips` (same config as `WI-LLM-0050`, 3rd
   attempt): **failed** - `no_tool_call`, 193.7s, 1972 output tokens.
 - `qwen3:8b` / `engineers_thumb` (different story, same model): **failed**
-  - `no_tool_call`, 340.7s, 4518 output tokens.
+  - `no_tool_call`, 340.7s, 4518 output tokens. Committed as
+  `ollama_qwen3_8b/results_segmentation_engineers_thumb.json` (via the
+  new `benchmark_segmentation_engineers_thumb.py`, `retry_with_reminder=
+  False`) - a real, runnable, reproducible artifact, not prose-only
+  evidence.
 - `qwen3:30b-a3b` / `five_orange_pips` (different model, same story):
-  **failed** - `no_tool_call`, 247.4s, 4492 output tokens.
+  **failed** - `no_tool_call`, 268.2s, 5459 output tokens. Committed as
+  `ollama_qwen3_30b_a3b/results_segmentation.json` (via the new
+  `benchmark_segmentation.py` in that candidate's directory, also
+  `retry_with_reminder=False`).
 
-**Verdict: reproduced at 100% frequency (5/5 total attempts across 2
-models x 2 stories, including 3 independent samples at the identical
-`(model, story)` config), not intermittent.** Every single segmentation
-attempt tried so far - regardless of model size (8B dense vs. 30B MoE) or
-story content - has failed the same way: `finish_reason='stop'`, no tool
-call, despite schema-shaped free-text content. This is strong evidence
-the gap is a structural limitation of Ollama's OpenAI-compatible
-`tool_choice` implementation against `SEGMENT_TOOL_SCHEMA`'s specific
-shape (large, deeply nested - GACD/ERAC sub-objects, per-segment text
-anchors) rather than a per-model reliability issue or content-dependent
-noise. `run_entity_extraction()`'s comparatively small/flat tool schema
-has never shown this failure mode across any candidate tested in this
-proposal's history - consistent with a schema-complexity explanation,
-though this proposal does not claim to have isolated the exact triggering
-schema feature (nesting depth, property count, or something else) -
-that would require testing intermediate schema shapes, out of this
-investigation's scope.
+Combined with `WI-LLM-0050`'s original 2/2, this is **0/5 across 2
+models and 2 stories**, including 3 independent samples at the identical
+`(model, story)` config - a systemic gap, not content-dependent noise or
+a per-model quirk. `run_entity_extraction()`'s comparatively small/flat
+tool schema has never shown this failure mode across any candidate
+tested in this proposal's history, consistent with a schema-complexity
+explanation - though this proposal does not claim to have isolated the
+exact triggering schema feature (nesting depth, property count, or
+something else); that would require testing intermediate schema shapes,
+out of this investigation's scope.
 
-**Retry path: considered, explicitly decided against.** The WI's own
-scope allowed for a bounded retry-once path if the gap reproduced "with
-meaningful frequency." It did (100%) - but the 3 repeated attempts at the
-identical `(model, story, temperature=0.6)` configuration are themselves
-empirical evidence *against* a retry helping: if resampling at
-`temperature=0.6` were enough to sometimes dodge the failure, at least
-one of those 3 identical-config attempts should plausibly have differed.
-None did. Adding a retry would double latency/cost on every segmentation
-call for a local candidate with no observed chance of the retry
-succeeding, which is worse than just failing once and reporting it. No
-change made to `common/harness.py`'s calling code as a result - this is
-the "explicit, reasoned decision not to add one" `WI-LLM-0051`'s own
-Acceptance Criteria anticipates as a valid outcome.
+**Retry mitigation, actually tested (not inferred): a real, substantial
+improvement, not a guaranteed fix.** An initial draft of this
+investigation reasoned from the 3 identical-config baseline repeats
+alone that a retry would have "no observed chance" of helping - **that
+reasoning was wrong and was corrected after review.** Repeating the
+*identical* request only tests whether `temperature=0.6` resampling
+alone changes the outcome; it does not test the WI's own named
+mitigation - an explicit reminder appended to the system prompt telling
+the model it must call the tool. Tested directly: 5 live calls at the
+identical `(qwen3:8b, five_orange_pips)` config, each with
+`"CRITICAL INSTRUCTION: You MUST call the record_segments function/tool
+..."` appended to the system prompt. **2/5 succeeded (40%)** - a real,
+substantial improvement over the 0/5 baseline, though still far from
+reliable. (Ollama's native `/api/chat` endpoint as a fallback retry
+transport - the WI's other named strategy - was not tested; left as a
+follow-up if the reminder alone proves insufficient at scale.)
+
+**Retry path: implemented, not rejected.** Given the reminder
+demonstrably helps, `common/harness.py`'s `run_segmentation()` now
+retries exactly once, automatically, whenever the first attempt fails
+specifically with `error_type="no_tool_call"` - appending the tested
+reminder to the system prompt on the retry only. Verified end-to-end
+with a real live call: first attempt failed (`no_tool_call`), automatic
+retry succeeded, final `BenchmarkResult` shows `success=True,
+retry_attempted=True, retry_succeeded=True`, 4 segments extracted. Any
+other failure mode (a genuine `api_error`, a schema/validation error, an
+empty segment list) is not retried - a reminder about calling the tool
+has no plausible mechanism to fix those, and retrying them would only
+add latency for no benefit.
 
 This does not fully settle the underlying question (whether a smaller or
-differently-shaped tool schema would succeed, or whether a future Ollama
-release fixes the gap upstream) - see Open Questions below.
+differently-shaped tool schema would succeed without any mitigation, why
+the reminder helps only 40% of the time rather than reliably, or whether
+a future Ollama release fixes the gap upstream) - see Open Questions
+below.
 
 ### Landscape context (not itself decision-grade evidence)
 
@@ -484,11 +505,13 @@ adopted):
 3. ~~Investigate the residual Ollama `tool_choice` forced-function-name
    gap (see Decision 3 update) - not reproduced here, but not ruled out;
    consider adding a retry-once-on-empty-tool-result path to the harness
-   if it recurs.~~ **Done (`WI-LLM-0051`).** Reproduced at 100% frequency
-   (5/5 across 2 models x 2 stories). A bounded retry was considered and
-   explicitly rejected - 3 repeated attempts at the identical config all
-   failed identically, so a retry has no observed chance of succeeding.
-   See the "Decision 3 update (2026-08-08 ...)" section above.
+   if it recurs.~~ **Done (`WI-LLM-0051`).** Reproduced at 0% baseline
+   success (0/5 across 2 models x 2 stories). A retry-once-with-reminder
+   path was tested directly (not just inferred) and found to meaningfully
+   help (2/5 succeeded, vs. 0/5 without) - implemented in
+   `common/harness.py`'s `run_segmentation()` and verified end-to-end
+   with a real call. See the "Decision 3 update (2026-08-08 ...)" section
+   above.
 4. Only after (1)-(3): revisit Decision 3 in a follow-on proposal or
    amendment.
 
@@ -509,13 +532,23 @@ adopted):
   support have a real gap (per community reports), and if so, would it
   recur at scale (more stories, more candidates) even though it did not
   reproduce across 3 fixed-methodology runs here?~~ **Answered
-  (`WI-LLM-0051`):** yes, reproduced at 100% frequency (5/5) across 2
+  (`WI-LLM-0051`):** yes, reproduced at 0/5 baseline success across 2
   models and 2 stories on the segmentation stage specifically -
   `run_entity_extraction()`'s smaller/flatter schema has never shown this
-  failure. Still open: which specific schema property (size, nesting
-  depth, something else) triggers it, and whether a future Ollama release
+  failure. An explicit system-prompt reminder meaningfully mitigates it
+  (2/5 succeeded vs. 0/5 without), now implemented as an automatic retry
+  in `common/harness.py`. Still open: which specific schema property
+  (size, nesting depth, something else) triggers the base gap, why the
+  reminder only helps 40% of the time rather than reliably, whether
+  Ollama's native `/api/chat` endpoint (the WI's other named retry
+  strategy, not tested) does better, and whether a future Ollama release
   fixes it upstream - not investigated (would require testing
-  intermediate schema shapes, out of `WI-LLM-0051`'s scope).
+  intermediate schema shapes, out of `WI-LLM-0051`'s scope). Also
+  unknown: whether this same reminder would help the *production*
+  `SCENE_SEQUEL_SYSTEM_PROMPT` in `scene_analysis.py` for other
+  providers/models - out of scope here (this proposal's Non-Goals
+  disclaim touching the shared backend/production prompts); flagged as a
+  candidate follow-up.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus

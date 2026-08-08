@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_qwen3_30b_a3b",
+  "backend_kind": "openai_compatible_local",
+  "model": "qwen3:30b-a3b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "success": false,
+  "latency_seconds": 268.2457555000001,
+  "input_tokens": 13403,
+  "output_tokens": 5459,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 3,\\n      \"start_exact\": \"When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\",\\n      \"end_exact\": \"the object of these papers to illustrate. Some, too, have baffled his analytical skill, and would be, as narratives, beginnings without an ending,\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"and others have not\\\\noffered a field for those peculiar qualities which my friend possessed in so\\\\nhigh a degree, and which it is the\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Watson frames the story, explaining his difficulty in selecting cases to recount.\",\\n      \"cohesion\": {\\n        \"time\": \"Evening of September 1887\",\\n        \"place\": \"Baker Street, London\",\\n        \"characters\": [\\n          \"Watson\"\\n        ]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"Time/place unity (Baker Street, stormy evening) with no GACD/ERAC elements. Watson sets up the narrative without character goals/conflict. Meets narrative_scene threshold as setting the scene.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_scene\",\\n      \"start_par_id\": 4,\\n      \"end_par_id\": 106,\\n      \"start_exact\": \"\u201cWhy,\u201d said I, glancing up at my companion, \u201cthat was surely\\\\nthe bell. Who could come to-night? Some friend of yours, perhaps?\u201d\",\\n      \"end_exact\": \"\u201cI shall take your advice in every particular.\u201d He\\\\nshook hands with us and took his leave. Outside the wind still screamed and the\\\\nrain splashed and pattered against the windows.\",\\n      \"start_prefix\": \"[P0003] \\\\nIt was in the latter days of September, and the equinoctial gales had set in\\\\nwith exceptional violence. All day the wind had screamed and the rain had\\\\nbeaten against the windows, so that even here in the heart of great, hand-made\\\\nLondon we were forced to raise our minds for th'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

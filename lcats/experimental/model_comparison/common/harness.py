@@ -115,6 +115,24 @@ DEFAULT_GENRE_MAX_TOKENS = 4096
 # DEFAULT_MAX_TOKENS.
 DEFAULT_SEGMENTATION_MAX_TOKENS = 16384
 
+# Appended to the segmentation system prompt on retry only, after a first
+# attempt fails with error_type="no_tool_call" (Ollama's tool_choice
+# silently ignored despite the model producing schema-shaped free text -
+# see WI-LLM-0051). WI-LLM-0051 tested this exact mitigation live: 0/5
+# baseline attempts succeeded, 2/5 succeeded with this reminder appended
+# - a real, substantial (not total) improvement, not a guaranteed fix.
+# Investigated but explicitly not tried: falling back to Ollama's native
+# /api/chat endpoint for the retry (WI-LLM-0051's other named strategy) -
+# out of this pass's scope, left as a follow-up if the reminder alone
+# proves insufficient at scale.
+_SEGMENTATION_RETRY_REMINDER = (
+    "\n\nCRITICAL INSTRUCTION: You MUST call the record_segments "
+    "function/tool to submit your answer. Do NOT reply with plain text "
+    "or a JSON object in your message content - your response will be "
+    "discarded and considered a failure unless it is a function/tool "
+    "call to record_segments."
+)
+
 
 @dataclasses.dataclass
 class BenchmarkResult:
@@ -135,6 +153,12 @@ class BenchmarkResult:
     error_type: Optional[str] = None
     error_message: Optional[str] = None
     raw_output_preview: Optional[str] = None
+    # Set only by run_segmentation()'s retry path (WI-LLM-0051). None
+    # when no retry was attempted (first call succeeded, or failed for a
+    # reason other than error_type="no_tool_call" that a reminder
+    # wouldn't plausibly fix).
+    retry_attempted: bool = False
+    retry_succeeded: Optional[bool] = None
 
     def to_dict(self) -> Dict[str, Any]:
         return dataclasses.asdict(self)
@@ -309,30 +333,32 @@ def run_genre_detection(
     )
 
 
-def run_segmentation(
+def _run_segmentation_once(
     *,
     candidate: str,
     backend_kind: str,
     backend: llm_backend.LLMBackend,
     model: str,
-    story_path: pathlib.Path = DEFAULT_SAMPLE_STORY,
-    max_tokens: int = DEFAULT_SEGMENTATION_MAX_TOKENS,
-    temperature: float = DEFAULT_TEMPERATURE,
+    story_name: str,
+    story_text: str,
+    max_tokens: int,
+    temperature: float,
+    system_prompt_suffix: str = "",
 ) -> BenchmarkResult:
-    """Run the real scene/sequel segmenter's tool-schema call once.
+    """One real scene/sequel segmentation tool-schema call. No retry logic.
 
     Uses the same make_segment_extractor()/extract() path the real
-    stage-1 segmenter uses, against the whole sample story (segmentation
+    stage-1 segmenter uses, against the whole story text (segmentation
     operates over an entire story, not a single segment - unlike
     run_entity_extraction(), which correctly uses a single segment as its
     input). extracted_output is a bare list of segment dicts (see
     scene_analysis.make_segment_extractor()'s docstring).
     """
-    story_name, story_text = load_sample_story(story_path)
-
     extractor = scene_analysis.make_segment_extractor(backend, max_tokens=max_tokens)
     extractor.default_model = model
     extractor.temperature = temperature
+    if system_prompt_suffix:
+        extractor.system_prompt = extractor.system_prompt + system_prompt_suffix
 
     start = time.monotonic()
     try:
@@ -417,6 +443,63 @@ def run_segmentation(
         error_message=error_message,
         raw_output_preview=(raw_output[:_RAW_OUTPUT_PREVIEW_CHARS] or None),
     )
+
+
+def run_segmentation(
+    *,
+    candidate: str,
+    backend_kind: str,
+    backend: llm_backend.LLMBackend,
+    model: str,
+    story_path: pathlib.Path = DEFAULT_SAMPLE_STORY,
+    max_tokens: int = DEFAULT_SEGMENTATION_MAX_TOKENS,
+    temperature: float = DEFAULT_TEMPERATURE,
+    retry_with_reminder: bool = True,
+) -> BenchmarkResult:
+    """Run the real scene/sequel segmenter's tool-schema call, with one
+    bounded retry on a specific, real failure mode.
+
+    If the first attempt fails with error_type="no_tool_call" (Ollama's
+    tool_choice silently ignored - see WI-LLM-0051), and
+    retry_with_reminder is True (the default), retries exactly once with
+    an explicit reminder appended to the system prompt. WI-LLM-0051
+    tested this live: 0/5 baseline attempts succeeded, 2/5 succeeded with
+    the reminder - a real, substantial improvement, not a guaranteed fix,
+    so callers should still expect and handle failure even with the
+    retry. Any other failure mode (a genuine api_error, a schema/
+    validation error, an empty segment list) is NOT retried - a reminder
+    about calling the tool has no plausible mechanism to fix those.
+    """
+    story_name, story_text = load_sample_story(story_path)
+
+    result = _run_segmentation_once(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        backend=backend,
+        model=model,
+        story_name=story_name,
+        story_text=story_text,
+        max_tokens=max_tokens,
+        temperature=temperature,
+    )
+
+    if result.success or not retry_with_reminder or result.error_type != "no_tool_call":
+        return result
+
+    retry_result = _run_segmentation_once(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        backend=backend,
+        model=model,
+        story_name=story_name,
+        story_text=story_text,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        system_prompt_suffix=_SEGMENTATION_RETRY_REMINDER,
+    )
+    retry_result.retry_attempted = True
+    retry_result.retry_succeeded = retry_result.success
+    return retry_result
 
 
 def save_result(
