@@ -57,6 +57,23 @@ class TestProcessFileResolveGuard(unittest.TestCase):
         self.assertIsNone(result["output"])
         self.assertIn("RuntimeError", result["error"])
 
+    @patch("pathlib.Path.resolve", side_effect=OSError("permission denied"))
+    def test_error_result_input_is_expanded_not_raw(self, _mock_resolve):
+        """Regression test (Copilot review, PR #262): the error result's
+        "input" field must be the expanded (~-substituted) path, matching
+        every other code path in this function, not the raw unexpanded
+        in_path argument -- expanduser() can't fail, so it must always
+        run before the guarded resolve() calls, not be skipped on error."""
+        result = processing.process_file(
+            "~/story.json",
+            corpora_root=self.corpora_root,
+            job_dir=self.output_root,
+            processor_function=_identity_processor,
+        )
+        self.assertEqual(result["status"], "error")
+        self.assertNotIn("~", str(result["input"]))
+        self.assertEqual(result["input"], pathlib.Path("~/story.json").expanduser())
+
     def test_normal_processing_unaffected(self):
         """Sanity check: the guard doesn't break the real success path."""
         result = processing.process_file(

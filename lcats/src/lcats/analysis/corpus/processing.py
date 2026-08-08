@@ -37,13 +37,16 @@ def process_file(
     verbose: bool = False,
 ) -> Dict[str, Any]:
     """Process a single JSON file and write mirrored output."""
+    input_path = pathlib.Path(in_path).expanduser()
+    corpora_root_path = pathlib.Path(corpora_root).expanduser()
+    job_dir_path = pathlib.Path(job_dir).expanduser()
     try:
-        input_path = pathlib.Path(in_path).expanduser().resolve()
-        corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
-        job_dir_path = pathlib.Path(job_dir).expanduser().resolve()
+        input_path = input_path.resolve()
+        corpora_root_path = corpora_root_path.resolve()
+        job_dir_path = job_dir_path.resolve()
     except (OSError, RuntimeError) as exception:
         return {
-            "input": in_path,
+            "input": input_path,
             "output": None,
             "status": "error",
             "error": f"{type(exception).__name__}: {exception}",
