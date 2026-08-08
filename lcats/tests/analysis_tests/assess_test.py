@@ -159,6 +159,49 @@ class TestAssessStorySuccess(unittest.TestCase):
         fb = fake_backend.FakeBackend(tool_result=tool_result)
         result = assess.assess_story(_FILE, _GENRE, fb)
         self.assertEqual(result.secondary_genre, "war")
+        self.assertFalse(result.secondary_genre_sanitized)
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_secondary_genre_corruption_sanitized(self, _mock):
+        """WI-LLM-0058: a leaked tool-call-syntax fragment in secondary_genre
+        (observed in ~39% of calls across two independent real-API runs) is
+        stripped to "" and flagged via secondary_genre_sanitized, never via
+        AssessmentResult.error - annotate.py's _annotate_genre treats any
+        .error as an unrecoverable failure and discards the whole sidecar,
+        which would turn this cosmetic single-field defect into much worse
+        data loss at the observed corruption rate."""
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["secondary_genre"] = (
+            '</antml：parameter>\n<parameter name="specials_verdict">author_intentional'
+        )
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.secondary_genre, "")
+        self.assertTrue(result.secondary_genre_sanitized)
+        self.assertEqual(result.error, "")
+        # Every other field must still be populated normally - sanitization
+        # is scoped to secondary_genre alone.
+        self.assertEqual(result.detected_genre, "science fiction")
+        self.assertEqual(result.summary, _SAMPLE_TOOL_RESULT["summary"])
+        self.assertEqual(result.verdict, "include")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_secondary_genre_sanitization_variants(self, _mock):
+        """Broad heuristic (any angle bracket) catches differently-worded
+        leaks too, not just the exact substrings observed so far."""
+        for corrupted in (
+            '</antml name="secondary_genre">',
+            '</antml="parameter> / <parameter name="specials_verdict">none',
+            "<unexpected>",
+        ):
+            with self.subTest(corrupted=corrupted):
+                tool_result = dict(_SAMPLE_TOOL_RESULT)
+                tool_result["secondary_genre"] = corrupted
+                fb = fake_backend.FakeBackend(tool_result=tool_result)
+                result = assess.assess_story(_FILE, _GENRE, fb)
+                self.assertEqual(result.secondary_genre, "")
+                self.assertTrue(result.secondary_genre_sanitized)
+                self.assertEqual(result.error, "")
 
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_secondary_genre_defaults_empty(self, _mock):
@@ -169,6 +212,7 @@ class TestAssessStorySuccess(unittest.TestCase):
         fb = fake_backend.FakeBackend(tool_result=tool_result)
         result = assess.assess_story(_FILE, _GENRE, fb)
         self.assertEqual(result.secondary_genre, "")
+        self.assertFalse(result.secondary_genre_sanitized)
 
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_new_genre_accepted_in_lens_mode(self, _mock):

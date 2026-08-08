@@ -93,16 +93,18 @@ from lcats.analysis.corpus import discovery
 from lcats.utils import checkpoint
 from lcats.utils.secrets import load_secrets
 
-# Bumped whenever assess.py's classifier (prompts, schema, VALID_GENRES)
-# changes in a way that should invalidate every cached genre_census
-# checkpoint - folded into this script's fingerprint below, mirroring
-# run_pilot.py's own _CLASSIFIER_VERSION
-# (experiments/03_cross_segment_relation_pilot/run_pilot.py, see
-# _CLASSIFIER_VERSION there). Current
-# value ("v1") reflects assess.py's classifier as of WI-ASSESS-0031 (8
-# genres, secondary_genre field) - bump this if that classifier changes
-# again before this census is re-run.
-_CLASSIFIER_VERSION = "v1"
+# Bumped whenever assess.py's classifier (prompts, schema, VALID_GENRES) OR
+# assess_story()'s own post-processing of the raw tool result changes in a
+# way that should invalidate every cached genre_census checkpoint - folded
+# into this script's fingerprint below, mirroring run_pilot.py's own
+# _CLASSIFIER_VERSION (experiments/03_cross_segment_relation_pilot/run_pilot.py,
+# see _CLASSIFIER_VERSION there).
+#
+# v2: WI-LLM-0058 added secondary_genre sanitization to assess_story() - a
+# checkpoint written under v1 may have cached a pre-fix, unsanitized
+# (corrupted) secondary_genre value; bumping forces a resumed run to
+# re-classify rather than silently serving that stale value forever.
+_CLASSIFIER_VERSION = "v2"
 
 # Approximate expected full-corpus story count (find corpora -iname
 # story.json | wc -l, per WI-ASSESS-0051's own scoping) - used only as a

@@ -263,6 +263,7 @@ class AssessmentResult:
     genre_verdict: str = "detected"
     genre_suggestion: str = ""
     secondary_genre: str = ""
+    secondary_genre_sanitized: bool = False
     specials_verdict: str = "none"
     summary: str = ""
     issues: list = field(default_factory=list)
@@ -281,6 +282,41 @@ def _format_findings(findings: list) -> str:
     return "\n".join(
         f"- [{f.severity.upper()}] {f.kind}: {f.message}" for f in findings
     )
+
+
+def _sanitize_secondary_genre(raw: str) -> tuple[str, bool]:
+    """Detect and strip a leaked tool-call-syntax fragment from secondary_genre.
+
+    WI-LLM-0058: claude-opus-4-8's forced tool-call generation intermittently
+    (observed ~39% across two independent real-API runs, see WI-LLM-0058)
+    leaks a fragment of the *next* schema field's opening tag into
+    secondary_genre's string value (ASSESSMENT_TOOL defines secondary_genre
+    immediately followed by specials_verdict) - e.g.
+    '</antml：parameter>\\n<parameter name="specials_verdict">author_intentional'
+    instead of a genre tag. Confirmed (WI-ANNOTATE-0054's real 24-story run,
+    this codebase's own 20-story sample) not a parsing bug in this codebase
+    and not prompt injection from the story text or tool schema - an
+    intermittent model/API-level structured-output reliability issue at
+    that specific field boundary.
+
+    A legitimate secondary_genre value is always a short free-text label
+    (e.g. "war", "regional/local color") and never contains "<" or ">" -
+    every corrupted example observed across both real runs does. This
+    heuristic is deliberately broad (any angle bracket, not just the exact
+    "antml"/"parameter" substrings seen so far) so it still catches a
+    differently-worded leak.
+
+    Returns (clean_value, was_sanitized). A sanitized value is replaced
+    with "" (the schema's own documented "leave empty if none applies"
+    default) rather than routed through AssessmentResult.error - callers
+    like annotate.py's _annotate_genre treat any .error as an unrecoverable
+    failure and discard the whole sidecar, which would turn this cosmetic,
+    single-field defect into much more severe data loss at the observed
+    corruption rate.
+    """
+    if "<" in raw or ">" in raw:
+        return "", True
+    return raw, False
 
 
 def run_preflight(
@@ -407,6 +443,9 @@ def assess_story(
                 backend_model=backend_response.model,
             )
 
+        _sanitized_secondary_genre = _sanitize_secondary_genre(
+            a.get("secondary_genre", "")
+        )
         return AssessmentResult(
             file_path=str(file_path),
             title=title,
@@ -422,7 +461,8 @@ def assess_story(
             ),
             genre_verdict=a.get("genre_verdict", "detected"),
             genre_suggestion=a.get("genre_suggestion", ""),
-            secondary_genre=a.get("secondary_genre", ""),
+            secondary_genre=_sanitized_secondary_genre[0],
+            secondary_genre_sanitized=_sanitized_secondary_genre[1],
             specials_verdict=a.get("specials_verdict", "none"),
             summary=a.get("summary", ""),
             issues=list(a.get("issues", [])),
