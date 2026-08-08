@@ -24,7 +24,7 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
-### Unguarded `pathlib.Path.resolve()` calls could crash callers on filesystem errors — P2, decision not a fix
+### Unguarded `pathlib.Path.resolve()` calls could crash callers on filesystem errors — P2, in progress
 
 Surfaced 2026-08-07 during `WI-ASSESS-0050`'s review (Copilot found the
 underlying bare-relative-path edge case; self-review then found this
@@ -33,25 +33,81 @@ originally added an unguarded `file_path.resolve()` call to recover a
 story's real directory name when `file_path.parent.name` is lexically
 empty (a bare relative path like `Path("story.json")` run from inside its
 own bucket directory). `resolve()` touches the filesystem and can raise
-(e.g. `OSError` on a broken symlink loop or a permission error walking the
-path) — in `assess_story`'s case this call sat *before* the function's own
+(e.g. on a broken symlink loop or a permission error walking the path) —
+in `assess_story`'s case this call sat *before* the function's own
 `try/except Exception` block, so a resolve failure would have propagated
 out and crashed the whole call instead of returning an `AssessmentResult`
-with `error` set. Fixed locally in `assess_story` (guarded with a narrow
-`try/except OSError`, falling back to an empty title). The same *unguarded*
-`.resolve()` pattern exists elsewhere in the codebase — confirmed via
-`grep -rn "\.resolve()" lcats/src/lcats/` (excluding tests): 15 call sites
-across `promote.py`, `processing.py`, `output.py` (including
-`story_dir_value`, the very function `assess_story`'s fix was modeled on),
-`utils/paths.py`, and `utils/checkpoint.py`. None of these were audited as
-part of this fix — whether each one is similarly reachable from an
-unguarded code path (vs. already inside a try/except, or operating on a
-path guaranteed to exist) was not checked. **Next step:** audit each of
-the 15 call sites for whether a `resolve()` failure could propagate
-somewhere it shouldn't, and decide case-by-case whether to guard it —
-this is a decision/survey task, not a single fix, since the right
-behavior likely differs by call site (some may legitimately want to
-propagate the failure).
+with `error` set. Fixed locally in `assess_story` (guarded with
+`except OSError`, falling back to an empty title). The same *unguarded*
+`.resolve()` pattern was confirmed to exist at 15 total call sites via
+`grep -rn "\.resolve()" lcats/src/lcats/` (excluding tests), across
+`promote.py`, `processing.py`, `output.py` (including `story_dir_value`,
+the very function `assess_story`'s fix was modeled on but never itself
+fixed), `utils/paths.py`, and `utils/checkpoint.py`.
+
+**Full audit completed 2026-08-08** (scoped as `WI-PROCESSING-0057`,
+correcting an earlier revision of this same entry that claimed the audit
+was done before it actually was — caught by review on that WI's own
+creation PR):
+
+- **3 sites needing a guard (fixed by `WI-PROCESSING-0057`):**
+  `assess.py:350` (`assess_story`, widened from `WI-ASSESS-0050`'s
+  original guard), `output.py:113` (`story_dir_value`, reachable from
+  `cli.py`'s `run_survey` per-file loop, which has no per-file exception
+  handling at all), and `processing.py`'s `process_file`
+  (lines 40-42, three per-file resolves before its own
+  `try/except Exception`) plus `process_files`' eager per-file
+  `resolve()` in its `normalized_files` list comprehension
+  (lines 121-123), which runs *before* `process_file`'s own per-file
+  loop even starts and so defeats that function's fault isolation for
+  every file in the batch, not just the one with a bad path. **All
+  three guards must catch `(OSError, RuntimeError)`, not `OSError`
+  alone** — `resolve()` raises `RuntimeError` for a symlink loop on
+  Python 3.10-3.12 (confirmed by reproducing a symlink loop and calling
+  `.resolve()` directly on Python 3.11.8, the interpreter this repo's
+  own test suite runs under), only switching to `OSError` on 3.13+; this
+  repo's `pyproject.toml` declares `python_requires = ">=3.10"`, so an
+  `OSError`-only guard leaves the motivating failure mode unhandled on
+  every currently-supported Python version except the newest — a real
+  gap Codex's review caught in `WI-ASSESS-0050`'s already-merged fix.
+- **2 sites left alone, batch-level configuration checks (also in
+  `processing.py`):** `process_files` (lines 115-116,
+  `corpora_root_path`/`output_root_path`) and `process_corpora`
+  (line 184, `corpora_root_path`) each resolve once per batch call,
+  before any per-file loop exists — a failure here means the whole
+  call's configuration is bad, not that one file among many is bad, so
+  failing fast is correct (same category as the 10 sites below), not
+  the per-item fault-isolation problem the 3 fixed sites address.
+- **6 sites left alone, pre-destructive/bootstrap safety checks:**
+  `promote.py:249-250`'s `_validate_distinct_roots` (2 calls — resolves
+  `--source`/`--dest` before comparing them to prevent a same-or-nested
+  root from causing `_copy_collection`'s `rmtree` to destroy the source
+  before `copytree` runs; confirmed by reading the function — an
+  unresolvable root here means promotion cannot safely proceed at all),
+  `utils/checkpoint.py:129-130,144`'s `_protected_roots`/
+  `_check_working_root_allowed` (3 calls — resolves the canonical
+  data/corpora roots and the caller's `working_root` before deciding
+  whether a checkpoint write is allowed to a protected location;
+  confirmed by reading the function — this is a write-protection guard
+  that must fail closed, not open, on an unresolvable path), and
+  `utils/paths.py:104`'s `find_pyproject_root` (1 call — resolves the
+  starting search path before walking ancestors for `pyproject.toml`;
+  confirmed by reading the function — this is bootstrap discovery that
+  already documents raising `FileNotFoundError` for its own expected
+  failure mode, so an unresolvable starting path is the same category
+  of expected, propagate-don't-swallow failure).
+
+Full count, re-verified against the actual code rather than restated
+from this entry's own prior (incorrect) draft: 6 calls fixed
+(`assess.py` ×1, `output.py` ×1, `processing.py`'s `process_file` ×3
+and `process_files`' per-file resolve ×1) + 3 calls left alone as
+batch-level configuration (`processing.py`'s `process_files` ×2 and
+`process_corpora` ×1) + 6 calls left alone as pre-destructive/bootstrap
+safety checks (`promote.py` ×2, `checkpoint.py` ×3, `paths.py` ×1) = 15
+total, matching the original grep count exactly.
+
+**Next step:** none — `WI-PROCESSING-0057` resolves this entry once its
+PR merges.
 
 ---
 
