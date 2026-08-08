@@ -27,9 +27,9 @@ forbidden_actions:
   - delete_branch
   - adopt_schema_validation_library
 acceptance:
-  - assess_story detects when a free-text tool-result field (secondary_genre and any other optional string field) contains leaked tool-call-syntax fragments (e.g. "</antml", "<parameter name=") and either strips the artifact or records a clear error/warning instead of silently accepting corrupted text
+  - assess_story detects when a free-text tool-result field (secondary_genre and any other optional string field) contains leaked tool-call-syntax fragments (e.g. "</antml", "<parameter name=") and either strips the artifact or records a warning through a new, non-fatal channel -- never by populating AssessmentResult.error, which annotate.py's _annotate_genre already treats as an unrecoverable failure that drops genre.json entirely
+  - A corrupted optional field never prevents genre.json's required fields (detected_genre, summary, etc.) from being written -- verified with a test asserting genre.json is still produced when only secondary_genre is corrupted
   - Regression test reproduces at least one real corrupted secondary_genre value from WI-ANNOTATE-0054's trial data and confirms it's caught, not silently passed through
-  - genre.json's existing required fields (detected_genre, summary, etc.) are unaffected -- this only targets optional free-text fields shown vulnerable to this failure mode
   - lrh validate reports 0 errors
 required_evidence:
   - manual_review
@@ -53,11 +53,11 @@ data.
 
 ## Problem / Context
 
-`assess.py`'s `ASSESSMENT_TOOL` schema includes a `secondary_genre` free
--text string field (`assess.py:107-118`), populated by the model's
-native tool-call JSON output and read directly via `a.get("secondary_genre",
-"")` (`assess.py:416`) with no validation beyond the plain `.get()`
-default. During `WI-ANNOTATE-0054`'s real API run (PR #253,
+`assess.py`'s `ASSESSMENT_TOOL` schema includes a `secondary_genre`
+free-text string field (`assess.py:107-118`), populated by the model's
+native tool-call JSON output and read directly via
+`a.get("secondary_genre", "")` (`assess.py:416`) with no validation
+beyond the plain `.get()` default. During `WI-ANNOTATE-0054`'s real API run (PR #253,
 `claude-opus-4-8`), 10 of 24 stories' `secondary_genre` values contained
 leaked tool-call-syntax fragments instead of genuine genre text.
 
@@ -107,12 +107,21 @@ values, is documented in
   `exclude_reason`, `genre_suggestion` — for the same vulnerability
   since they share the same unvalidated `.get()` pattern).
 - On detection: either strip the artifact (if a clean prefix/suffix can
-  be confidently recovered) or record a clear error/warning rather than
-  silently writing the corrupted value into `genre.json` as if it were
-  valid.
+  be confidently recovered) or flag it through a **new, non-fatal**
+  channel — **must not** use `AssessmentResult.error`/`assess_story`'s
+  existing failure path, which `annotate.py`'s `_annotate_genre`
+  treats as an unrecoverable failure and responds to by discarding
+  `genre.json` entirely (`annotate.py:160-169`). At the observed 42%
+  corruption rate, routing this optional-field defect through the
+  hard-failure channel would turn cosmetic corruption into widespread
+  loss of `genre.json`'s required fields for a large fraction of
+  stories — a materially worse outcome than the defect itself. (Review
+  finding, PR #258 — P1.)
 - Add a regression test using a real corrupted value from
   `WI-ANNOTATE-0054`'s trial data (or a synthetic equivalent) to confirm
-  detection actually fires.
+  detection actually fires, and a second test confirming `genre.json`
+  is still written with its required fields intact when only
+  `secondary_genre` is corrupted.
 
 ## Required Changes
 
@@ -120,14 +129,20 @@ values, is documented in
    sanitization/detection helper for free-text tool-result field values,
    applied at minimum to `secondary_genre` in `assess_story`
    (`assess.py:416`).
-2. Decide and implement the failure mode: strip-and-continue vs.
-   record-and-flag — whichever keeps `genre.json`'s existing required
-   fields (`detected_genre`, `summary`, etc.) unaffected and doesn't
-   introduce a new class of silently-wrong data.
+2. Decide and implement the failure mode: strip-and-continue, or
+   record-and-flag through a **new** field/channel distinct from
+   `AssessmentResult.error` — verify explicitly that neither choice
+   causes `annotate.py`'s `_annotate_genre` to treat the story as a
+   failed genre-detection call (which would discard `genre.json`
+   entirely, per `annotate.py:160-169`). Whichever is chosen must keep
+   `genre.json`'s existing required fields (`detected_genre`,
+   `summary`, etc.) unaffected and not introduce a new class of
+   silently-wrong data. (Review finding, PR #258 — P1.)
 3. Add tests to `lcats/tests/analysis_tests/assess_test.py` covering a
    corrupted `secondary_genre` value (reproducing the real pattern from
-   `WI-ANNOTATE-0054`'s trial) and confirming it no longer passes
-   through unflagged.
+   `WI-ANNOTATE-0054`'s trial), confirming it no longer passes through
+   unflagged, and confirming `genre.json`'s required fields are still
+   written when only the optional field is corrupted.
 
 ## Non-Goals
 
@@ -148,8 +163,14 @@ values, is documented in
 - `assess_story` detects when a free-text tool-result field
   (`secondary_genre` and any other optional string field found
   vulnerable) contains leaked tool-call-syntax fragments and either
-  strips the artifact or records a clear error/warning instead of
-  silently accepting corrupted text.
+  strips the artifact or records a warning through a new, non-fatal
+  channel — never by populating `AssessmentResult.error`, which
+  `annotate.py`'s `_annotate_genre` already treats as an unrecoverable
+  failure that drops `genre.json` entirely.
+- A corrupted optional field never prevents `genre.json`'s required
+  fields from being written — verified with a test asserting
+  `genre.json` is still produced when only `secondary_genre` is
+  corrupted.
 - Regression test reproduces at least one real corrupted
   `secondary_genre` value from `WI-ANNOTATE-0054`'s trial data and
   confirms it's caught, not silently passed through.
