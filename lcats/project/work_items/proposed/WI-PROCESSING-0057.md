@@ -218,12 +218,12 @@ isolation problem Sites 2-3 fix.
 8. Rewrite `project/design/backlog.md`'s "Unguarded
    `pathlib.Path.resolve()` calls..." entry to record the actual,
    re-verified per-site audit conclusions for all 15 originally-found
-   call sites: the 3 fixed here (Sites 1-3 above), the 2 batch-level
-   `processing.py` resolves left alone (Scope's "Distinguished from"
-   note above), and the 10 pre-destructive/bootstrap sites in
-   `promote.py`/`checkpoint.py`/`utils/paths.py` (Non-Goals below) --
-   replacing the prior draft's claim that this reasoning existed there
-   already, which review found to be false.
+   call sites: the 6 call sites fixed here (Sites 1-3 above), the
+   3 batch-level `processing.py` calls left alone (Scope's
+   "Distinguished from" note above), and the 6 pre-destructive/bootstrap
+   call sites in `promote.py`/`checkpoint.py`/`utils/paths.py`
+   (Non-Goals below) -- replacing the prior draft's claim that this
+   reasoning existed there already, which review found to be false.
 
 ## Non-Goals
 

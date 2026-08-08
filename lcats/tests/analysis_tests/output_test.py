@@ -4,6 +4,7 @@ import os
 import pathlib
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from lcats.analysis.corpus import models
 from lcats.analysis.corpus import output
@@ -35,6 +36,23 @@ class TestStoryDirValue(unittest.TestCase):
                 self.assertEqual("my_story", output.story_dir_value(path))
             finally:
                 os.chdir(original_cwd)
+
+    @patch("pathlib.Path.resolve", side_effect=OSError("permission denied"))
+    def test_resolve_oserror_returns_empty_string(self, _mock_resolve):
+        """Regression test (WI-PROCESSING-0057): resolve() touches the
+        filesystem and can raise OSError (e.g. a permission error) --
+        must degrade to "" instead of propagating and crashing an
+        unguarded per-file caller like cli.py's run_survey."""
+        path = pathlib.Path("story.json")
+        self.assertEqual("", output.story_dir_value(path))
+
+    @patch("pathlib.Path.resolve", side_effect=RuntimeError("symlink loop"))
+    def test_resolve_runtimeerror_returns_empty_string(self, _mock_resolve):
+        """Regression test (WI-PROCESSING-0057): resolve() raises
+        RuntimeError, not OSError, for a symlink loop on Python <3.13 --
+        the guard must catch both."""
+        path = pathlib.Path("story.json")
+        self.assertEqual("", output.story_dir_value(path))
 
 
 class TestTsvColumns(unittest.TestCase):

@@ -266,6 +266,24 @@ class TestAssessStoryErrorPaths(unittest.TestCase):
         self.assertEqual(result.title, "")
         self.assertIn("disk read error", result.error)
 
+    @patch(
+        "lcats.analysis.corpus.assess.run_preflight",
+        side_effect=RuntimeError("disk read error"),
+    )
+    @patch("pathlib.Path.resolve", side_effect=RuntimeError("symlink loop"))
+    def test_preflight_error_survives_resolve_failure_runtimeerror(
+        self, _mock_resolve, _mock
+    ):
+        """Regression test (WI-PROCESSING-0057): resolve() raises
+        RuntimeError, not OSError, for a symlink loop on Python <3.13 --
+        the guard must catch both, or this exact failure mode (the one
+        the guard exists for) still crashes the call on every
+        currently-supported Python version except the newest."""
+        fb = fake_backend.FakeBackend(tool_result=dict(_SAMPLE_TOOL_RESULT))
+        result = assess.assess_story(pathlib.Path("story.json"), _GENRE, fb)
+        self.assertEqual(result.title, "")
+        self.assertIn("disk read error", result.error)
+
     @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
     def test_backend_exception_captured(self, _mock):
         """When backend.complete() raises, error field is set."""

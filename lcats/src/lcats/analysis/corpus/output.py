@@ -104,13 +104,22 @@ def story_dir_value(file_path: pathlib.Path) -> str:
     bucket directory itself, whose ``pathlib.Path(...).parent`` is ``.``
     and therefore has an empty ``.name``. Resolving recovers the real
     directory name in that case instead of leaving the column blank.
+
+    ``resolve()`` touches the filesystem and can raise (``OSError`` on a
+    permission error, ``RuntimeError`` on a symlink loop on Python <3.13)
+    -- guarded so a single unresolvable path doesn't crash the whole
+    caller (e.g. ``cli.py``'s ``run_survey``, which has no per-file
+    exception handling of its own); falls back to ``""`` on failure.
     """
     if file_path.name != discovery.CANONICAL_STORY_FILENAME:
         return ""
     parent_name = file_path.parent.name
     if parent_name:
         return parent_name
-    return file_path.resolve().parent.name
+    try:
+        return file_path.resolve().parent.name
+    except (OSError, RuntimeError):
+        return ""
 
 
 def parse_special_character_rows(

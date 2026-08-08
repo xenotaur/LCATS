@@ -37,9 +37,17 @@ def process_file(
     verbose: bool = False,
 ) -> Dict[str, Any]:
     """Process a single JSON file and write mirrored output."""
-    input_path = pathlib.Path(in_path).expanduser().resolve()
-    corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
-    job_dir_path = pathlib.Path(job_dir).expanduser().resolve()
+    try:
+        input_path = pathlib.Path(in_path).expanduser().resolve()
+        corpora_root_path = pathlib.Path(corpora_root).expanduser().resolve()
+        job_dir_path = pathlib.Path(job_dir).expanduser().resolve()
+    except (OSError, RuntimeError) as exception:
+        return {
+            "input": in_path,
+            "output": None,
+            "status": "error",
+            "error": f"{type(exception).__name__}: {exception}",
+        }
 
     try:
         rel = input_path.relative_to(corpora_root_path)
@@ -118,8 +126,12 @@ def process_files(
     job_dir = compute_job_dir(output_root_path, job_label)
     job_dir.mkdir(parents=True, exist_ok=True)
 
+    # Only expanduser() here, not resolve() -- real resolution happens
+    # per-item inside process_file(), whose own guard means one file's
+    # unresolvable path returns an error result for that file alone
+    # instead of aborting the whole batch before the loop even starts.
     normalized_files: List[pathlib.Path] = [
-        pathlib.Path(file_path).expanduser().resolve() for file_path in files
+        pathlib.Path(file_path).expanduser() for file_path in files
     ]
     if sort:
         normalized_files.sort()

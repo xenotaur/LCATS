@@ -348,7 +348,7 @@ def assess_story(
         # crash the whole call.
         try:
             title = file_path.resolve().parent.name
-        except OSError:
+        except (OSError, RuntimeError):
             pass
     author = "Unknown"
     url = ""
