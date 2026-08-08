@@ -30,26 +30,34 @@ Surfaced 2026-08-07 while creating `WI-PILOT-0051`: at least four work
 items now share the numeric suffix `0051` under different prefixes -
 `WI-LLM-0051` (created 2026-08-05), `WI-ANNOTATE-0051` (created
 2026-08-06, resolved), `WI-ASSESS-0051` (created 2026-08-07, PR #235),
-and `WI-PILOT-0051` (created 2026-08-07, PR #237, resolved). Each was
-created by a different concurrent session independently computing "next
-number = global max + 1" against `main` at a moment when the other
-sessions' PRs hadn't yet merged, so all four landed on the same number.
-No technical collision resulted (`lrh validate` passes; each full ID
-string - prefix plus number - is unique), but it defeats the shared
-cross-prefix numbering pool's intent of an unambiguous sequence, and
-makes the "next number" computation itself unreliable under concurrency
-without some coordination mechanism. **Next step:** this is a
-design-shaped question, not a quick fix - decide whether to (a) accept
-occasional same-number collisions as a known limitation of the current
-"compute max+1 from `main`" convention (numbers are for uniqueness
-within a prefix's own namespace, not a global sequence, despite the
-existing "shared cross-prefix pool" convention), (b) prefix-scope the
-numbering instead (each prefix gets its own independent sequence,
-removing the cross-prefix uniqueness expectation entirely), or (c) add a
-real coordination mechanism (e.g. a reserved-numbers file, a CI check
-that fails on a newly-introduced duplicate suffix across prefixes, or a
-numbering authority). Does not retroactively rename any of the four
-existing `*-0051` items - renaming a resolved/merged item touches
+and `WI-PILOT-0051` (created 2026-08-07, PR #237, resolved). A second
+instance surfaced 2026-08-08: `WI-PROCESSING-0057` (created
+2026-08-08T00:43:51Z, PR #250) collided with `WI-PILOT-0057` (created
+2026-08-07T19:21:20Z, PR #247) - both concurrent sessions computed
+`0057` as the next number against `main` before either PR had merged.
+Each collision was created by a different concurrent session
+independently computing "next number = global max + 1" against `main`
+at a moment when the other sessions' PRs hadn't yet merged, so multiple
+sessions landed on the same number. No technical collision resulted
+(`lrh validate` passes; each full ID string - prefix plus number - is
+unique), but it defeats the shared cross-prefix numbering pool's intent
+of an unambiguous sequence, and makes the "next number" computation
+itself unreliable under concurrency without some coordination
+mechanism - and the recurrence (two separate incidents, a day apart,
+five work items total) suggests this is not a rare edge case but a
+predictable consequence of how often concurrent sessions create work
+items in this project. **Next step:** this is a design-shaped question,
+not a quick fix - decide whether to (a) accept occasional same-number
+collisions as a known limitation of the current "compute max+1 from
+`main`" convention (numbers are for uniqueness within a prefix's own
+namespace, not a global sequence, despite the existing "shared
+cross-prefix pool" convention), (b) prefix-scope the numbering instead
+(each prefix gets its own independent sequence, removing the
+cross-prefix uniqueness expectation entirely), or (c) add a real
+coordination mechanism (e.g. a reserved-numbers file, a CI check that
+fails on a newly-introduced duplicate suffix across prefixes, or a
+numbering authority). Does not retroactively rename any of the five
+existing collided items - renaming a resolved/merged item touches
 cross-references and git history and is a separate decision.
 
 ---
