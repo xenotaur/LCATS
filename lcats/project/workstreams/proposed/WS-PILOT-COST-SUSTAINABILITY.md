@@ -17,6 +17,7 @@ work_items:
   - WI-PILOT-0051
   - WI-PILOT-0057
   - WI-PILOT-0058
+  - WI-PILOT-0060
 exit_criteria:
   - A targeted single/small-story test harness exists on run_pilot.py (--story/--story-list flag, fixture set, per-stage cost reporting), per Decision 2
   - Prompt caching, Batch API, and model-tiering each have a completed, measured evaluation against the harness's fixture set (adopt or reject, with real numbers) — none is a foregone commitment, per Decisions 3-5
@@ -108,9 +109,10 @@ sequence (each of WI 2-4 depends on WI 1's harness):
   assessment using WI 1's (and, if it lands, WI 2's) now-measurable
   baseline; only proceeds to implementation if the assessment favors
   it. Created 2026-08-08.
-- **WI 4 — model tiering evaluation** (Decision 5): per-stage `--model`
-  support plus real output-quality comparison against WI 1's fixtures;
-  only proceeds to adoption if quality holds.
+- **WI-PILOT-0060 — model tiering evaluation** (Decision 5): per-stage
+  `--model` support plus real output-quality comparison against WI 1's
+  fixtures; only proceeds to adoption if quality holds. Created
+  2026-08-08.
 
 ## Exit Criteria
 
