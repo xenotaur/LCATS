@@ -31,9 +31,9 @@ forbidden_actions:
   - default_enable_model_tiering
   - implement_call_fusion
 acceptance:
-  - run_pilot.py gains per-stage --model support (genre-detect, segmentation, and each ERW extractor independently selectable), replacing the current single global --model flag, off by default (top-tier model remains the default for every stage)
+  - run_pilot.py gains optional per-stage --model overrides (genre-detect, segmentation, and each ERW extractor independently selectable), added alongside the existing global --model flag, which remains the default for every stage when no per-stage override is given (top-tier model stays the default unless a stage's --model is explicitly overridden)
   - A bounded, explicitly-approved real comparison run against WI-PILOT-0051's fixture set evaluates a cheaper model tier (e.g. Haiku 4.5) specifically on genre-detection and segmentation output quality against the current top-tier baseline - real output, not just cost, since this pipeline's own top-tier model has already produced malformed structured output under real conditions (project/design/backlog.md's speech_acts-as-string bug)
-  - The comparison reports concrete quality evidence (schema-validity rate, truncation rate, or another objective measure - not a subjective impression) alongside the real cost delta
+  - The comparison reports concrete quality evidence alongside the real cost delta: schema-validity rate and truncation rate for both stages, plus a semantic-accuracy check for genre-detection specifically against validated ground truth (not the fixture set's own genre labels, which experiments/03_cross_segment_relation_pilot/fixtures/README.md explicitly documents as unvalidated) or another objective adjudication - schema validity alone cannot catch a cheaper model producing structurally valid but semantically wrong genre labels
   - A written go/no-go conclusion updates Decision 5 of the adopted proposal - "quality doesn't hold, don't adopt" is a valid, complete outcome, not a failure
   - Model tiering remains off by default regardless of the evaluation's conclusion - adoption as the default is a separate follow-on decision
   - lrh validate and scripts/test both report 0 errors/failures
@@ -107,12 +107,14 @@ is that item.
 
 ## Scope
 
-- Add per-stage `--model` support to `run_pilot.py`, replacing the
-  current single global `--model` flag (`run_pilot.py:1413`) with
-  independently-selectable models for genre-detect, segmentation, and
-  each ERW extractor (entity/event/relation/discourse/cross-segment) -
-  defaulting every stage to the current top-tier model, so existing
-  behavior is unchanged unless a stage's model is explicitly overridden.
+- Add optional per-stage `--model` overrides to `run_pilot.py`,
+  alongside the current single global `--model` flag
+  (`run_pilot.py:1413`), with independently-selectable models for
+  genre-detect, segmentation, and each ERW extractor
+  (entity/event/relation/discourse/cross-segment) - the global flag
+  remains the default for every stage when no per-stage override is
+  given, so existing behavior is unchanged unless a stage's model is
+  explicitly overridden.
 - Run a bounded, explicitly-approved real comparison against
   `WI-PILOT-0051`'s fixture set: a cheaper model tier (e.g. Haiku 4.5)
   on genre-detection and segmentation specifically - the two stages
@@ -121,9 +123,15 @@ is that item.
 - Measure real output quality, not just cost: schema-validity rate
   (does the cheaper model's structured output actually conform to the
   same tool schema without malformed containers, given the top-tier
-  model's own confirmed failure on this exact class of problem?),
-  truncation rate, and any other objective quality signal available
-  from the harness's existing per-stage reporting (`WI-PILOT-0051`).
+  model's own confirmed failure on this exact class of problem?) and
+  truncation rate for both stages, plus a semantic-accuracy check for
+  genre-detection specifically - the fixture set's own genre labels
+  are documented as unvalidated
+  (`experiments/03_cross_segment_relation_pilot/fixtures/README.md`),
+  so schema validity alone cannot catch a cheaper model producing
+  structurally valid but semantically wrong genre labels; a validated
+  ground truth or another objective adjudication is required for this
+  stage specifically.
 - Update Decision 5 of `PROP-LCATS-PILOT-COST-SUSTAINABILITY`'s
   `00_proposal.md` with the real measured numbers (cost delta and
   quality evidence) and a go/no-go recommendation.
