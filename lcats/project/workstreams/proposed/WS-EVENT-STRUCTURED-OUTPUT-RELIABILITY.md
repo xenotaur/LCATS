@@ -5,7 +5,7 @@ title: Event-Role-World pipeline structured-output reliability
 status: proposed
 stage: designed
 origin: design_review
-summary: Fix the systemic structured-output reliability gaps found by the 2026-07-27 ERW pipeline audit — missing strict-mode tool schemas, unguarded array-item type assumptions, unconstrained extractors with no tool schema at all, and processor.py's model/error-handling gaps — across two work items split by whether the fix touches lcats/src/lcats/analysis/event_role_world/ directly.
+summary: Fix the systemic structured-output reliability gaps in the Event-Role-World pipeline — missing strict-mode tool schemas, unguarded array-item type assumptions and unguarded array-container type assumptions, unconstrained extractors with no tool schema at all, and processor.py's model/error-handling gaps — across three work items. WI-EVENT-0032 and WI-EVENT-0033 originate from the 2026-07-27 ERW pipeline audit; WI-EVENT-0061 was added 2026-08-08 from a distinct but topically related incident (a real pilot run's container-type gap, not covered by that audit).
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
@@ -15,12 +15,14 @@ related_design:
 work_items:
   - WI-EVENT-0032
   - WI-EVENT-0033
+  - WI-EVENT-0061
 exit_criteria:
   - All seven Event-Role-World-adjacent tool schemas (the six event_role_world/ extractors plus corpus/assess.py's ASSESSMENT_TOOL) set strict:true and additionalProperties:false at every object level, at the source rather than via a caller-local runtime override
   - All twelve array-item sites across the six event_role_world/ extractors detect a malformed (non-dict) item, preserve the raw offending payload for diagnosis, and surface an explicit extraction error for the affected segment/story instead of silently skipping it
+  - All twelve array-item sites across the six event_role_world/ extractors also detect a non-list container value (e.g. a string) before iterating it, surfacing one clear error instead of iterating it element-by-element (WI-EVENT-0061)
   - processor.py's process_segments() accepts a model override and process_segment()'s per-pass error handling preserves the structured api_error dict (category/can_retry/should_abort_batch) instead of discarding it into a plain string, via an explicitly scoped extraction_errors representation change in schema.py and its callers (see WI-EVENT-0032)
   - scene_analysis.py's make_segment_extractor and make_semantics_extractor, and story_analysis.py's make_doc_classification_extractor, use the tool= structured-output path instead of unconstrained json_object mode, with both real consumers of make_segment_extractor's bare-list output (story_processors.py:142 and run_pilot.py's _segment_story:277) updated to match the new extracted_output shape
-  - Both work items resolved and lrh validate reports 0 errors
+  - All three work items resolved and lrh validate reports 0 errors
 ---
 
 # Workstream: Event-Role-World pipeline structured-output reliability
