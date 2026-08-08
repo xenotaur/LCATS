@@ -1,0 +1,31 @@
+{
+  "backend": "anthropic",
+  "billed_call_count": 20,
+  "corpus_story_count": 1868,
+  "dry_run": false,
+  "excluded_by_collection": {},
+  "excluded_count": 0,
+  "excluded_stories": [],
+  "exclusion_rate": 0.0,
+  "extrapolated_full_corpus_cost_usd": 435.04552499999994,
+  "extrapolated_full_corpus_wall_clock_seconds": 15050.329019785931,
+  "genre_counts": {
+    "adventure": 0,
+    "fantasy": 1,
+    "horror": 1,
+    "humor": 3,
+    "mystery": 0,
+    "other": 1,
+    "romance": 0,
+    "science fiction": 14,
+    "western": 0
+  },
+  "included_count": 20,
+  "mode": "sample",
+  "model": "claude-opus-4-8",
+  "story_count": 20,
+  "total_elapsed_seconds": 161.1384263360378,
+  "total_estimated_cost_usd": 4.657874999999999,
+  "total_input_tokens": 268975,
+  "total_output_tokens": 8310
+}
