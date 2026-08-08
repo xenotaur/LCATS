@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-07
+updated_on: 2026-08-08
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -408,6 +408,72 @@ the reminder helps only 40% of the time rather than reliably, or whether
 a future Ollama release fixes the gap upstream) - see Open Questions
 below.
 
+### Decision 3 update (2026-08-08, production system-prompt reminder, `WI-LLM-0059`)
+
+`WI-LLM-0051` scoped its reminder mitigation to `common/harness.py`'s own
+`run_segmentation()` retry path only, deliberately not touching the real
+production `SCENE_SEQUEL_SYSTEM_PROMPT` in `scene_analysis.py` (shared by
+every `LLMBackend` implementation via `make_segment_extractor()`).
+`WI-LLM-0059` tested whether appending the identical reminder to that
+*production* prompt text - as if it were a permanent addition, not just a
+harness-only retry - actually helps local-model reliability without
+regressing the frontier paths the prompt is shared with.
+
+**Local models (Ollama): reminder still helps, still weakly.** 4 more
+real calls with the reminder appended eagerly (not on retry) - `qwen3:8b`
+x3, `qwen3:30b-a3b` x1 (a first test for that model) - all 4 failed
+(`no_tool_call`). Since this uses the identical single-call mechanism
+`WI-LLM-0051`'s retry path already tested (a fresh call, reminder
+appended to the system prompt, no continuation state), this session's
+3 `qwen3:8b` results are directly poolable with `WI-LLM-0051`'s prior
+5-call `qwen3:8b` sample: **2/8 (25%) combined for `qwen3:8b`**, vs. 0%
+with no reminder at all - a 0/3 result this round is unsurprising noise
+at a true ~20-30% success rate, and does not contradict `WI-LLM-0051`'s
+original 40% (2/5) finding, it just makes the combined `qwen3:8b`
+estimate more conservative. The 1 `qwen3:30b-a3b` call is a separate,
+first-ever data point for that model (not poolable with the `qwen3:8b`
+sample above, since it's a different model) - it also failed, but n=1 is
+too small to say anything beyond "does not obviously behave differently
+from `qwen3:8b`."
+
+**Anthropic (`claude-opus-4-8`): no regression.** 3 paired baseline/
+modified real calls (not a single pair - see the P1 review finding on
+`WI-LLM-0059`'s own planning PR, #260) all succeeded on both sides:
+success rate 3/3 baseline, 3/3 modified; latency comparable across all 6
+calls (23.7-34.3s, no systematic shift toward the modified condition);
+segment counts varied (4, 5, 4 baseline vs. 7, 4, 4 modified). This is
+the first `anthropic_opus` segmentation-stage data recorded in this
+proposal's history (prior `anthropic_opus` results only cover the
+entity-extraction stage), so there is no prior-session baseline to
+compare this spread against - taken on its own, though, the 3 pairs show
+no systematic shift between the two conditions (no consistent
+direction of the modified condition being higher or lower than its own
+paired baseline). The reminder is neutral for this frontier path on the
+evidence available.
+
+**OpenAI (`gpt-4o`): untested - real key present, but the organization
+has zero remaining API credits.** Both the baseline and modified calls in
+the one attempted pair failed identically with `429
+insufficient_quota` / `credit_balance_exhausted` - a billing gap, not a
+prompt-caused failure (both conditions failed the same way, so this is
+not evidence the modified prompt is worse). But it means the OpenAI path
+- the other backend `SCENE_SEQUEL_SYSTEM_PROMPT` is shared with -
+**could not be verified at all** in this session.
+
+**Verdict: do not edit `SCENE_SEQUEL_SYSTEM_PROMPT`.** Per `WI-LLM-0059`'s
+own Required Changes item 5, an untested OpenAI path forces the
+documented no-change outcome regardless of how the other two paths look,
+since the edit would ship to GPT users too and this session has no way to
+confirm it is safe for them. This is not a judgment call weighing risk
+against benefit - the WI's own acceptance criteria state plainly that an
+untested OpenAI path does not proceed to a production edit. The reminder
+remains implemented only as `common/harness.py`'s existing harness-scoped
+retry (`WI-LLM-0051`, unchanged by this investigation) - not added to the
+real, shared production prompt. Re-running this same investigation's
+OpenAI leg once real API credits are available (this session's other two
+legs would not need to be repeated) is a legitimate, low-cost follow-up
+that could flip this verdict without redoing the Anthropic or local work.
+
 ### Landscape context (not itself decision-grade evidence)
 
 A web survey (Aug 2026) of runtimes and models informs which candidates to
@@ -543,12 +609,23 @@ adopted):
   Ollama's native `/api/chat` endpoint (the WI's other named retry
   strategy, not tested) does better, and whether a future Ollama release
   fixes it upstream - not investigated (would require testing
-  intermediate schema shapes, out of `WI-LLM-0051`'s scope). Also
-  unknown: whether this same reminder would help the *production*
+  intermediate schema shapes, out of `WI-LLM-0051`'s scope).
+- ~~Would this same reminder help the *production*
   `SCENE_SEQUEL_SYSTEM_PROMPT` in `scene_analysis.py` for other
-  providers/models - out of scope here (this proposal's Non-Goals
-  disclaim touching the shared backend/production prompts); flagged as a
-  candidate follow-up.
+  providers/models?~~ **Answered (`WI-LLM-0059`):** the local-model
+  effect replicates for `qwen3:8b` (2/8 combined success across two
+  sessions with the identical single-call mechanism, vs. 0% without) and
+  the Anthropic
+  frontier path shows no regression (3/3 paired real calls, comparable
+  latency and segment counts) - but the OpenAI frontier path, which the
+  prompt is equally shared with, could not be verified at all (real API
+  key present, zero account credits). Per `WI-LLM-0059`'s own acceptance
+  criteria, an untested OpenAI path forces a no-change verdict regardless
+  of the other two results - `SCENE_SEQUEL_SYSTEM_PROMPT` was **not**
+  edited. See the "Decision 3 update (2026-08-08, production system-
+  prompt reminder, `WI-LLM-0059`)" section above. Re-testing just the
+  OpenAI leg once real credits are available is a low-cost follow-up that
+  could revisit this verdict without repeating the other two legs.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus
