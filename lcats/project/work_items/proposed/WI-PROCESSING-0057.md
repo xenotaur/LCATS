@@ -227,9 +227,10 @@ isolation problem Sites 2-3 fix.
 
 ## Non-Goals
 
-- Does not touch `promote.py`'s `_validate_distinct_roots`,
-  `checkpoint.py`'s `_protected_roots`/`_check_working_root_allowed`,
-  or `utils/paths.py`'s `find_pyproject_root` (10 call sites total) --
+- Does not touch `promote.py`'s `_validate_distinct_roots` (2 calls),
+  `checkpoint.py`'s `_protected_roots`/`_check_working_root_allowed`
+  (3 calls), or `utils/paths.py`'s `find_pyproject_root` (1 call) --
+  6 call sites total --
   all are pre-destructive or bootstrap safety checks where crashing on
   an unresolvable path is the correct, intentional behavior: each
   operates on a root path that must be valid for the surrounding
@@ -247,8 +248,14 @@ isolation problem Sites 2-3 fix.
   CLI arguments, or any other error-handling behavior beyond the
   specific `resolve()` guard.
 - Does not audit or change any `.resolve()` call site not explicitly
-  named above (the 15 sites found in the original audit are now all
-  accounted for: 3 fixed, 12 explicitly left alone with reasoning).
+  named above. The 15 call sites found in the original audit are now
+  all accounted for: 6 fixed (`assess.py` ×1, `output.py` ×1,
+  `processing.py`'s `process_file` ×3 and `process_files`' per-file
+  resolve ×1), 3 left alone as batch-level configuration
+  (`processing.py`'s `process_files` ×2 and `process_corpora` ×1), and
+  6 left alone as pre-destructive/bootstrap safety checks (`promote.py`
+  ×2, `checkpoint.py` ×3, `paths.py` ×1) -- 6 + 3 + 6 = 15, matching
+  `backlog.md`'s corrected entry exactly.
 
 ## Acceptance Criteria
 

@@ -50,9 +50,11 @@ correcting an earlier revision of this same entry that claimed the audit
 was done before it actually was — caught by review on that WI's own
 creation PR):
 
-- **3 sites needing a guard (fixed by `WI-PROCESSING-0057`):**
-  `assess.py:350` (`assess_story`, widened from `WI-ASSESS-0050`'s
-  original guard), `output.py:113` (`story_dir_value`, reachable from
+- **6 call sites across 3 functions needing a guard (fixed by
+  `WI-PROCESSING-0057`):**
+  `assess.py:350` (`assess_story`, 1 call, widened from
+  `WI-ASSESS-0050`'s original guard), `output.py:113`
+  (`story_dir_value`, 1 call, reachable from
   `cli.py`'s `run_survey` per-file loop, which has no per-file exception
   handling at all), and `processing.py`'s `process_file`
   (lines 40-42, three per-file resolves before its own
@@ -70,15 +72,17 @@ creation PR):
   `OSError`-only guard leaves the motivating failure mode unhandled on
   every currently-supported Python version except the newest — a real
   gap Codex's review caught in `WI-ASSESS-0050`'s already-merged fix.
-- **2 sites left alone, batch-level configuration checks (also in
-  `processing.py`):** `process_files` (lines 115-116,
-  `corpora_root_path`/`output_root_path`) and `process_corpora`
-  (line 184, `corpora_root_path`) each resolve once per batch call,
-  before any per-file loop exists — a failure here means the whole
-  call's configuration is bad, not that one file among many is bad, so
-  failing fast is correct (same category as the 10 sites below), not
-  the per-item fault-isolation problem the 3 fixed sites address.
-- **6 sites left alone, pre-destructive/bootstrap safety checks:**
+- **3 call sites across 2 functions left alone, batch-level
+  configuration checks (also in `processing.py`):** `process_files`
+  (lines 115-116,
+  `corpora_root_path`/`output_root_path`, 2 calls) and `process_corpora`
+  (line 184, `corpora_root_path`, 1 call) each resolve once per batch
+  call, before any per-file loop exists — a failure here means the
+  whole call's configuration is bad, not that one file among many is
+  bad, so failing fast is correct (same category as the 6 sites below),
+  not the per-item fault-isolation problem the 6 fixed sites address.
+- **6 call sites across 3 functions left alone, pre-destructive/
+  bootstrap safety checks:**
   `promote.py:249-250`'s `_validate_distinct_roots` (2 calls — resolves
   `--source`/`--dest` before comparing them to prevent a same-or-nested
   root from causing `_copy_collection`'s `rmtree` to destroy the source
