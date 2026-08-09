@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_gemma4_12b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gemma4:12b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 544.1436587909993,
+  "input_tokens": 1239,
+  "output_tokens": 7528,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '```json\\n{\\n  \"entities\": [\\n    {\\n      \"entity_id\": \"sherlock_holmes\",\\n      \"canonical_name\": \"Sherlock Holmes\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"protagonist\"\\n      ],\\n      \"mentions\": [\\n        {\\n          \"mention_id\": \"m1\",\\n          \"text\": \"Sherlock Holmes\",\\n          \"quote\": \"Sherlock Holmes\"\\n        },\\n        {\\n          \"mention_id\": \"m2\",\\n          \"text\": \"he\",\\n          \"quote\": \"said he\"\\n        },\\n        {\\n          \"mention_id\": \"m3\",\\n          \"text\": \"Holmes\",\\n          \"quote\": \"\u201cHolmes,\u201d I cried\"\\n        },\\n        {\\n          \"mention_id\": \"m4\",\\n          \"text\": \"he\",\\n          \"quote\": \"said he, laying down his cup\"\\n        },\\n        {\\n          \"mention_id\": \"m5\",\\n          \"text\": \"he\",\\n          \"quote\": \"that he was deeply moved\"\\n        },\\n        {\\n          \"mention_id\": \"m6\",\\n          \"text\": \"him\",\\n          \"quote\": \"send him away to his death\"\\n        }\\n      ]\\n    },\\n    {\\n      \"entity_id\": \"watson\",\\n      \"canonical_name\": \"Watson\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"narrator\"\\n      ],\\n      \"mentions\": [\\n        {\\n          \"mention_id\": \"m7\",\\n          \"text\": \"I\",\\n          \"quote\": \"when I came down\"\\n        },\\n        {\\n          \"mention_id\": \"m8\",\\n          \"text\": \"I\",\\n          \"quote\": \"I asked\"\\n        },\\n        {\\n          \"mention_id\": \"m9\",\\n          \"text\": \"I\",\\n          \"quote\": \"I lifted the unopened newspaper\"\\n        },\\n        {\\n          \"mention_id\": \"m10\",\\n          \"text\": \"I\",\\n          \"quote\": \"I cried\"\\n        },\\n        {\\n          \"mention_id\": \"m11\",\\n          \"text\": \"I\",\\n          \"quote\": \"I could see that he was deeply moved\"\\n        },\\n        {\\n          \"mention_id\": \"m12\",\\n          \"text\": \"Watson\",\\n          \"quote\": \"\u201cThat hurts my pride, Watson,\u201d\"\\n        }\\n      ]\\n    },\\n    {\\n      \"entity_id\": \"john_openshaw\",\\n      \"canonical_name\": \"John Openshaw\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"victim\"\\n '",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

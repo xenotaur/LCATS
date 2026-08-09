@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_deepseek_r1_14b",
+  "backend_kind": "openai_compatible_local",
+  "model": "deepseek-r1:14b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 109.8205480419856,
+  "input_tokens": 887,
+  "output_tokens": 1228,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '\\n\\nHere is the structured extraction of entities and their surface mentions from the provided text segment:\\n\\n### Entities and Surface Mentions\\n\\n1. **Sherlock Holmes**\\n   - \"Sherlock Holmes was already at breakfast when I came down.\"\\n   - \"\\'You will excuse me for not waiting for you,\\' said he;\"\\n\\n2. **Watson**\\n   - \"\\'No, I shall commence with the City. Just ring the bell and the maid will bring up your coffee.\\'\"\\n   - \"\\'Holmes,\\' I cried,\"\\n\\n3. **John Openshaw**\\n   - \"I have, I foresee, a very busy day before me in looking into this case of young Openshaw\u2019s.\"\\n   - \"My eye caught the name of Openshaw, and the heading \\'Tragedy Near Waterloo Bridge.\\'\"\\n   - \"\\'It proved to be that of a young gentleman whose name, as it appears from an envelope which was found in his pocket, was John Openshaw,\"\\n\\n4. **Police-Constable Cook**\\n   - \"Police-Constable Cook, of the H Division, on duty near Waterloo Bridge, heard a cry for help and a splash in the water.\"\\n\\n5. **Water Police**\\n   - \"the aid of the water-police, the body was eventually recovered.\"\\n\\n6. **Newspaper**\\n   - \"As I waited, I lifted the unopened newspaper from the table and glanced my eye over it.\"\\n\\n7. **Waterloo Bridge**\\n   - \"Tragedy Near Waterloo Bridge.\"\\n   - \"near Waterloo Bridge.\"\\n\\n8. **Horsham**\\n   - \"whose residence is near Horsham.\"\\n\\n9. **Embankment**\\n   - \"The Embankment is not on the direct line to the station.\"\\n\\n10. **River Steamboats**\\n    - \"walked over the edge of one of the small landing-places for river steamboats.\"\\n\\n### Notes:\\n- Abstract forces and emotions (e.g., tragedy, pride) were considered but excluded as they are not concrete entities.\\n- Institutions like the police force are included under specific mentions (e.g., Police-Constable Cook, water-police).\\n- Locations and artifacts are included based on their explicit mention in the text.'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

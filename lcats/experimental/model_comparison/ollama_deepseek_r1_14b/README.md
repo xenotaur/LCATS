@@ -39,19 +39,29 @@ Runs the ERW pipeline's actual stage-3 entity-extraction tool-schema call
 against the same real ~600-word scene/sequel segment `anthropic_opus`
 uses (`../common/sample_segment.json`), with `max_tokens=8192`.
 
-## Status (`WI-LLM-0056`)
+## Actual results (`WI-LLM-0056`)
 
-**Pending.** The `ollama pull deepseek-r1:14b` download was interrupted
-by unreliable network conditions at implementation time and has not yet
-been re-run to completion. `setup.py`/`benchmark.py` are ready; no
-`results.json` exists yet because the model was never fully pulled. Run
-`ollama pull deepseek-r1:14b` followed by `python benchmark.py` once on a
-reliable connection to produce a real result. Note: DeepSeek-R1 is a
-reasoning-distilled model (produces `<think>` chain-of-thought content
-before its final answer, similar to Qwen3's thinking mode) - if the
-default `temperature=0.2` (inherited from `entity_extractor.py`'s
-Anthropic/OpenAI-tuned default) produces unreliable results, check
-`ollama show deepseek-r1:14b --parameters` for the model's own
-recommended sampling settings before assuming a temperature override is
-needed, matching the pattern `ollama_qwen3_8b/benchmark.py` established
-for Qwen3.
+**Failed consistently (2/2).** Both runs came back `finish_reason='stop'`
+with **no tool call at all** - the same `tool_choice` gap `ollama_gemma4_12b`
+and `WI-LLM-0051`'s segmentation investigation both showed:
+
+| Run | Result | Latency | Output tokens |
+|---|---|---|---|
+| 1 | failed (`no_tool_call`) | 86.7s | 892 |
+| 2 | failed (`no_tool_call`) | 109.8s | 1228 |
+
+Unlike `gemma4:12b`'s JSON-shaped free text, both `deepseek-r1:14b`
+responses are plain prose (a numbered list of entities and quoted
+mentions, not a JSON object matching `extract_entities`'s schema at all)
+- the model understood the extraction task but did not attempt to match
+the tool's expected output shape, a different failure signature from the
+"schema-shaped but tool never called" pattern seen elsewhere in this
+tranche. Notably no `<think>` reasoning-tag content appeared in either
+response despite DeepSeek-R1 being a reasoning-distilled model family -
+this candidate's own default sampling settings (inherited from
+`entity_extractor.py`'s `temperature=0.2`) were not tuned against
+`ollama show deepseek-r1:14b --parameters`, unlike `ollama_qwen3_8b`'s
+candidate-specific override; whether a tuned temperature or the
+`WI-LLM-0051` reminder mitigation would change this outcome is untested,
+out of this tranche's own scope (Non-Goals: no quality/mitigation
+comparison).

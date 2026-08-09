@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_deepseek_r1_14b",
+  "backend_kind": "openai_compatible_local",
+  "model": "deepseek-r1:14b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 86.71925262501463,
+  "input_tokens": 887,
+  "output_tokens": 892,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '\\n\\n### Entities and Their Surface Mentions:\\n\\n1. **Sherlock Holmes**  \\n   - \"Sherlock Holmes was already at breakfast when I came down.\"  \\n   - \"\\'You will excuse me for not waiting for you,\\' said he;\"  \\n   - \"\\'It will very much depend upon the results of my first inquiries. I may have to go down to Horsham, after all.\\'\"\\n\\n2. **Watson**  \\n   - \"I\" (referred to as Watson in context)  \\n   - \"\\'What steps will you take?\\' I asked.\"  \\n   - \"\\'You will not go there first?\\'\"\\n\\n3. **John Openshaw**  \\n   - \"the case of young Openshaw\u2019s\"  \\n   - \"the name of Openshaw\"  \\n   - \"It proved to be the body of a young gentleman whose name, as it appears from an envelope which was found in his pocket, was John Openshaw.\"\\n\\n4. **Police-Constable Cook**  \\n   - \"Police-Constable Cook, of the H Division\"\\n\\n5. **H Division**  \\n   - \"of the H Division\"\\n\\n6. **Waterloo Bridge**  \\n   - \"near Waterloo Bridge\"  \\n   - \"the last train from Waterloo Station\"\\n\\n7. **Embarkment**  \\n   - \"The Embankment is not on the direct line to the station.\"\\n\\n8. **River Steamboats**  \\n   - \"one of the small landing-places for river steamboats.\"\\n\\n9. **Watson\\'s Pride**  \\n   - \"\\'That hurts my pride, Watson,\\' he said at last.\"\\n\\n10. **Gang**  \\n    - \"\\'They must be cunning devils,\\' he exclaimed at last. \\'How could they have decoyed him down there?\"\\n\\n### Explanation:\\n- Each entity is identified based on its explicit mention in the text.\\n- Surface mentions are listed with exact quoted text from the segment.\\n- No entities are inferred beyond what is explicitly mentioned in the provided text.'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}
