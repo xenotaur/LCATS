@@ -27,14 +27,14 @@ sys.path.insert(0, str(_MODEL_COMPARISON))
 
 from common import harness  # noqa: E402
 from lcats.llm import openai_backend  # noqa: E402
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets as secrets_module  # noqa: E402
 
 MODEL = "gemini-3.5-flash"
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 
 def main() -> None:
-    load_secrets()
+    secrets_module.load_secrets()
     backend = openai_backend.OpenAIBackend(
         api_key=os.environ["GEMINI_API_KEY"], base_url=GEMINI_BASE_URL
     )

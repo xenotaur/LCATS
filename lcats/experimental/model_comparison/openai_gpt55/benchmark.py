@@ -20,13 +20,13 @@ sys.path.insert(0, str(_MODEL_COMPARISON))
 
 from common import harness  # noqa: E402
 from lcats.llm import openai_backend  # noqa: E402
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets as secrets_module  # noqa: E402
 
 MODEL = "gpt-5.5"
 
 
 def main() -> None:
-    load_secrets()
+    secrets_module.load_secrets()
     backend = openai_backend.OpenAIBackend()
     result = harness.run_entity_extraction(
         candidate="openai_gpt55",

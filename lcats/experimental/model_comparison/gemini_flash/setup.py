@@ -17,7 +17,7 @@ _LCATS_SRC = pathlib.Path(__file__).resolve().parents[3] / "src"
 if str(_LCATS_SRC) not in sys.path:
     sys.path.insert(0, str(_LCATS_SRC))
 
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets as secrets_module  # noqa: E402
 
 
 def main() -> int:
@@ -27,7 +27,7 @@ def main() -> int:
         print("FAIL: `openai` package not installed (pip install openai).")
         return 1
 
-    load_secrets()
+    secrets_module.load_secrets()
     if not os.environ.get("GEMINI_API_KEY"):
         print(
             "FAIL: GEMINI_API_KEY not set. Get one from Google AI Studio "
