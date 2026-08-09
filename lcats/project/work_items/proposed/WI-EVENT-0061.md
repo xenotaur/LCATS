@@ -30,7 +30,7 @@ forbidden_actions:
   - investigate_strict_schema_violation_root_cause
 acceptance:
   - "All 12 array-item iteration sites across the six event_role_world/ extractors (entity_extractor.py:149,156; event_extractor.py:196,219,240,251; relation_extractor.py:142; discourse_extractor.py:206,226,250; story_relation_extractor.py:216; hypothesis_extractor.py:154) check that the field is a list before iterating it -- a present-but-non-list value (e.g. a string) produces exactly one clear extraction error (f\"{field} is not an array (got {type(value).__name__})\") instead of iterating it element-by-element"
-  - "experiments/03_cross_segment_relation_pilot/run_pilot.py's exclude_reason (built at line 1211 via '; '.join(extraction_errors), printed uncapped at line 1347) is length-capped when printed, truncating with a \"...N more errors\" suffix so one malformed field cannot flood the console"
+  - "experiments/03_cross_segment_relation_pilot/run_pilot.py's exclude_reason (built at line 1212 via '; '.join(extraction_errors), printed uncapped at line 1347) is length-capped when printed, truncating with a \"...N more errors\" suffix so one malformed field cannot flood the console"
   - "New unit tests cover at least one non-list-value scenario per extractor module (a string, and a non-list/non-string type such as an int or dict, for at least one site) proving a single clear error is produced, not N per-character errors"
   - "Existing per-item malformed-guard behavior (schema.describe_malformed_item(), WI-EVENT-0032) is unchanged for actual malformed list items -- this WI adds a container-level check, not a replacement for the item-level one"
   - "lrh validate reports 0 errors"
@@ -47,6 +47,7 @@ artifacts_expected:
   - lcats/src/lcats/analysis/event_role_world/hypothesis_extractor.py
   - lcats/src/lcats/analysis/event_role_world/schema.py
   - experiments/03_cross_segment_relation_pilot/run_pilot.py
+  - lcats/tests/analysis_tests/event_role_world_test.py
   - lcats/project/design/backlog.md
 ---
 
@@ -66,8 +67,8 @@ the incident that surfaced this.
 **Prior art check:**
 - *Duplication search:* No existing container-type guard exists anywhere
   in `event_role_world/` -- confirmed via `grep -rn "is not an array\|is
-  not a list\|not isinstance.*list" src/lcats/analysis/event_role_world/*.py`
-  (zero matches). `schema.describe_malformed_item()` (added by
+  not a list\|not isinstance.*list" lcats/src/lcats/analysis/event_role_world/*.py`
+  (run from the repo root; zero matches). `schema.describe_malformed_item()` (added by
   `WI-EVENT-0032`) is a per-*item* guard only; nothing checks the
   container itself.
 - *Demand search:* Requested by `lcats/project/design/backlog.md`'s
@@ -95,7 +96,7 @@ sites, not the 1 the backlog entry named); `story_relation_extractor.py:216`;
 independently documents "twelve array-item sites" for the item-level
 guard work -- a reassuring cross-check that no site is being missed.
 
-Compounding: `run_pilot.py:1211`'s `row["exclude_reason"] = "; ".join(extraction_errors)`
+Compounding: `run_pilot.py:1212`'s `row["exclude_reason"] = "; ".join(extraction_errors)`
 joins all resulting fragments into one string, and
 `run_pilot.py:1347`'s `print(f"  excluded: {row['exclude_reason']}")`
 prints it with no length cap.
@@ -156,7 +157,7 @@ defensive fix (handling it *when* it does).
 
 ## Validation
 
-- `pytest tests/analysis_tests/event_role_world_tests/ -v`
+- `pytest tests/analysis_tests/event_role_world_test.py -v`
 - `scripts/format --check --diff`
 - `scripts/lint`
 - `scripts/test`
