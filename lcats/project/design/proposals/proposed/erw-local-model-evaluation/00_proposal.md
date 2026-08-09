@@ -685,10 +685,12 @@ adopted):
   showed the pattern). The OpenAI frontier path, which the prompt is
   equally shared with, could not be verified: the original attempt hit
   zero account credits, and a 2026-08-09 follow-up re-test (after credits
-  were added) reproduced a structural failure instead - `gpt-4o` cannot
-  complete this exact call within its own hard 16384-completion-token
-  maximum, on either the baseline or modified condition, so no working
-  comparison was possible. Per `WI-LLM-0059`'s own acceptance criteria,
+  were added, 3 real attempts) found `gpt-4o` reproducibly hitting its
+  own hard 16384-completion-token maximum on the baseline condition
+  (3/3) and failing every time on the modified condition too (3/3, via
+  two different error classifications plausibly but not conclusively
+  tied to the same token ceiling) - so no working comparison was
+  possible either way. Per `WI-LLM-0059`'s own acceptance criteria,
   an unverified OpenAI path forces a no-change verdict regardless of the
   other two results - `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited.
   See the "Decision 3 update (2026-08-08, production system-prompt
