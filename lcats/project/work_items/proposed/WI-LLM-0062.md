@@ -30,7 +30,7 @@ forbidden_actions:
   - delete_branch
   - merge_pr
 acceptance:
-  - "Real, committed test results for WI-LLM-0051's reminder-retry mitigation applied to the entity-extraction stage on both ollama_gemma4_12b and ollama_deepseek_r1_14b"
+  - "At least 3 paired baseline/reminder runs per candidate (ollama_gemma4_12b, ollama_deepseek_r1_14b) for WI-LLM-0051's reminder-retry mitigation applied to entity extraction, not a single one-off attempt per model - WI-LLM-0051's own reminder has only a 40% success rate on segmentation, so one run cannot distinguish a real prompt effect from ordinary run-to-run variation"
   - "Real, committed test results characterizing whether Gemini's function_call_filter rejection is schema-shape-dependent (tested against at least one simpler tool schema, not just ENTITY_TOOL_SCHEMA)"
   - "A written verdict for each mechanism in PROP-ERW-LOCAL-MODEL-EVALUATION or a follow-on note - reproduced/characterized, or a documented good-faith 'not resolved,' not left open indefinitely"
 artifacts_expected:
@@ -74,8 +74,9 @@ misdirect either investigation.
 mechanism (a) on the segmentation stage only (`common/harness.py`'s
 `run_segmentation()`). Whether the same mitigation helps on entity
 extraction, and whether `deepseek-r1:14b`'s own recommended sampling
-settings (never checked against `ollama show deepseek-r1:14b
---parameters`, unlike `ollama_qwen3_8b`'s candidate-specific override)
+settings (never checked against
+`ollama show deepseek-r1:14b --parameters`, unlike `ollama_qwen3_8b`'s
+candidate-specific override)
 change the outcome, are both explicitly flagged as untested in
 `WI-LLM-0056`'s own follow-up notes. Mechanism (b) has no prior
 investigation at all - `gemini_flash/README.md` only documents the
@@ -103,7 +104,11 @@ work item satisfies that request.
   `WI-LLM-0051`'s reminder text appended to the system prompt (the same
   `_SEGMENTATION_RETRY_REMINDER`-style mechanism, adapted for
   `run_entity_extraction()` if it doesn't already support a retry path -
-  check before assuming it needs new code). Separately, check
+  check before assuming it needs new code) - **at least 3 paired
+  baseline/reminder runs per candidate**, not a single one-off attempt,
+  since the reminder's own known success rate (40% on segmentation)
+  means one run cannot distinguish a real effect from ordinary
+  run-to-run variation (review finding, PR #275). Separately, check
   `deepseek-r1:14b`'s own documented sampling defaults and test whether
   a tuned temperature changes its outcome, independent of the reminder.
 - **Mechanism (b):** test `gemini_flash` against a simpler tool schema
@@ -140,15 +145,19 @@ work item satisfies that request.
 
 ## Acceptance Criteria
 
-- Real, committed test results for the reminder-retry mitigation applied
-  to entity extraction on both affected candidates.
+- At least 3 paired baseline/reminder runs per candidate (not a single
+  one-off attempt) for the reminder-retry mitigation applied to entity
+  extraction on both affected candidates.
 - Real, committed test results characterizing whether Gemini's filter
   rejection is schema-shape-dependent.
 - A written verdict for each mechanism, not left open indefinitely.
 
 ## Validation
 
-- `python -m pytest tests/llm_tests -q`
+- `scripts/test` (canonical full-suite runner, not a scoped
+  `tests/llm_tests`-only invocation - this WI's own scope may touch
+  `common/harness.py` and the entity-extraction/`analysis` layer, which
+  `tests/llm_tests` alone does not cover)
 - `lrh validate`
 - Real benchmark runs for both mechanisms, with `raw_output_preview`/
   `error_message` inspected on any failure
