@@ -311,6 +311,7 @@ def _classify_story(
             "detected_genre": "other",
             "detected_genre_confidence": 0.0,
             "secondary_genre": "",
+            "secondary_genre_sanitized": False,
             "error": f"could not read file: {exc}",
             "input_tokens": 0,
             "output_tokens": 0,
@@ -345,6 +346,7 @@ def _classify_story(
         "detected_genre": result.detected_genre,
         "detected_genre_confidence": result.detected_genre_confidence,
         "secondary_genre": result.secondary_genre,
+        "secondary_genre_sanitized": result.secondary_genre_sanitized,
         "error": result.error,
         "input_tokens": result.input_tokens,
         "output_tokens": result.output_tokens,
@@ -378,6 +380,7 @@ def summarize(
     total_output_tokens = 0
     total_elapsed = 0.0
     billed_count = 0
+    secondary_genre_sanitized_count = 0
 
     for record in records:
         total_cost += record.get("estimated_cost_usd", 0.0)
@@ -386,6 +389,12 @@ def summarize(
         total_elapsed += record.get("elapsed_seconds", 0.0)
         if record.get("input_tokens", 0) > 0 or record.get("output_tokens", 0) > 0:
             billed_count += 1
+        # WI-LLM-0058: count sanitized (corrupted-then-repaired)
+        # secondary_genre values separately, so a census run reports its
+        # own observed corruption rate rather than making a sanitized "",
+        # a genuine "no secondary genre applies" "", indistinguishable.
+        if record.get("secondary_genre_sanitized"):
+            secondary_genre_sanitized_count += 1
         if record.get("error"):
             excluded.append({"story_id": record["story_id"], "reason": record["error"]})
             continue
@@ -415,6 +424,7 @@ def summarize(
         "exclusion_rate": exclusion_rate,
         "excluded_stories": excluded,
         "excluded_by_collection": dict(excluded_by_collection),
+        "secondary_genre_sanitized_count": secondary_genre_sanitized_count,
         "genre_counts": dict(genre_counts),
         "total_estimated_cost_usd": total_cost,
         "total_input_tokens": total_input_tokens,
@@ -602,6 +612,11 @@ def main() -> int:
     )
     if summary["excluded_by_collection"]:
         print(f"Excluded by collection: {summary['excluded_by_collection']}")
+    if summary["secondary_genre_sanitized_count"]:
+        print(
+            f"secondary_genre sanitized (corrupted tool-call output "
+            f"repaired, WI-LLM-0058): {summary['secondary_genre_sanitized_count']}"
+        )
     print(
         f"Measured cost: ${summary['total_estimated_cost_usd']:.4f} over "
         f"{summary['billed_call_count']} billed call(s), "

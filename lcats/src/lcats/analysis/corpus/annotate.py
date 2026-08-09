@@ -47,6 +47,20 @@ DEFAULT_SCENES_MAX_TOKENS = 16384
 GENRE_SIDECAR_FILENAME = discovery.GENRE_SIDECAR_FILENAME
 SCENES_SIDECAR_FILENAME = discovery.SCENES_SIDECAR_FILENAME
 
+# Bumped whenever assess_story()'s own post-processing of the raw tool
+# result changes in a way that should invalidate every cached "genre"
+# checkpoint, even though _genre_fingerprint's tool_schema_hash (below)
+# is unchanged - a Python-side behavior change (not a schema change) is
+# otherwise invisible to that fingerprint.
+#
+# v2: WI-LLM-0058 added secondary_genre sanitization to assess_story() (a
+# corrupted value is now stripped to "" and flagged, not left as-is) - a
+# checkpoint written under v1 may have cached a pre-fix, unsanitized
+# (corrupted) secondary_genre value; bumping forces a resumed `lcats
+# annotate` run to re-classify rather than silently rewriting a corrupted
+# genre.json forever (review finding, PR #267).
+_GENRE_POSTPROCESS_VERSION = "v2"
+
 
 class EmptyCollectionError(ValueError):
     """Raised when a requested collection directory is missing or
@@ -114,6 +128,7 @@ def _genre_fingerprint(
         "max_tokens": max_tokens,
         "system_prompt_hash": _hash_text(assess.DETECT_SYSTEM_PROMPT),
         "tool_schema_hash": _hash_json(assess.ASSESSMENT_TOOL),
+        "postprocess_version": _GENRE_POSTPROCESS_VERSION,
         "author": metadata.get("author", "Unknown"),
         "url": metadata.get("url", ""),
         "body_hash": _hash_text(body),
