@@ -60,11 +60,13 @@ def coerce_list_field(value: Any, path: str, item_errors: List[str]) -> list:
     `enumerate(tool_result.get(field) or [])` directly, which relies on
     `or []` substituting a default only when the value is falsy. A
     non-empty string is truthy, so a string returned in place of an
-    expected array was iterated character-by-character, each character
-    then failing describe_malformed_item's isinstance(item, dict) check -
-    hundreds of bogus per-character errors from one malformed field (see
-    WI-EVENT-0061). This function centralizes the fix: a present-but-non-list
-    value records one clear error here instead.
+    expected array was iterated character-by-character, and each
+    resulting character then failed the caller's own
+    `isinstance(raw, dict)` check (the guard describe_malformed_item()'s
+    message describes, but does not itself perform) - hundreds of bogus
+    per-character errors from one malformed field (see WI-EVENT-0061).
+    This function centralizes the fix: a present-but-non-list value
+    records one clear error here instead.
 
     Args:
         value: The raw field value, e.g. tool_result.get("entities") or
@@ -76,12 +78,17 @@ def coerce_list_field(value: Any, path: str, item_errors: List[str]) -> list:
             collect per-item errors from describe_malformed_item().
 
     Returns:
-        `value` itself if it is already a list; `[]` if the field is
-        absent/falsy (the prior `or []` behavior, unchanged) or if it is
-        present but not a list (the new guard - `item_errors` gains one
-        entry in this case).
+        `value` itself if it is already a list; `[]` with no error if the
+        field is genuinely absent (`None` - a missing key or an explicit
+        JSON `null`); `[]` with one error appended to `item_errors` for
+        any other non-list value, **including a falsy one** (`""`, `0`,
+        `False`, `{}`) - those are still present-but-wrong, not absent,
+        and must not silently pass as an empty-but-valid result (review
+        finding, PR #274: the prior `if not value` check conflated
+        "missing" with "falsy," letting a malformed `""`/`{}`/`0` value
+        through with no recorded error at all).
     """
-    if not value:
+    if value is None:
         return []
     if not isinstance(value, list):
         item_errors.append(f"{path} is not an array (got {type(value).__name__})")

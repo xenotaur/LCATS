@@ -1290,6 +1290,25 @@ class TestCappedExcludeReason(unittest.TestCase):
         self.assertNotRegex(capped, r"more errors?")
         self.assertTrue(capped.endswith("...(truncated)"))
 
+    def test_cutoff_within_final_segment_does_not_claim_nonexistent_more_errors(
+        self,
+    ):
+        """Regression test (Copilot review, PR #274): if the char-count cap
+        falls inside the LAST "; "-joined segment (all separators are
+        already included in the truncated text), no segment was actually
+        omitted -- only the last one's text was cut short. This must not
+        be reported as "...N more errors" for any N >= 1; a naive
+        `max(total - shown, 1)` floor previously fabricated "...1 more
+        error" here even though there is no additional error."""
+        head = "; ".join(f"error{i}" for i in range(3))
+        long_last_segment = "x" * (run_pilot._EXCLUDE_REASON_PRINT_MAX_CHARS + 100)
+        reason = f"{head}; {long_last_segment}"
+
+        capped = run_pilot._capped_exclude_reason(reason)
+
+        self.assertNotRegex(capped, r"more errors?")
+        self.assertTrue(capped.endswith("...(truncated)"))
+
 
 if __name__ == "__main__":
     unittest.main()

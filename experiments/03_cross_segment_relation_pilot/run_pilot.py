@@ -610,24 +610,28 @@ _EXCLUDE_REASON_SEPARATOR = "; "
 
 
 def _capped_exclude_reason(reason: str) -> str:
-    """Cap a printed exclude_reason so one malformed field can't flood the
-    console (WI-EVENT-0061): a container-type extraction error joins one
-    entry per array item schema.coerce_list_field() had to skip, which
-    can still be numerous for a large story. Only this console echo is
-    capped -- the row's own uncapped exclude_reason is unaffected, since
-    it is persisted to pilot_stories.jsonl for later analysis.
+    """Cap a printed exclude_reason so one malformed story can't flood the
+    console (WI-EVENT-0061): `extraction_errors` joins every item- and
+    container-level error collected across a story's extraction passes
+    (see schema.describe_malformed_item()/coerce_list_field()) into one
+    "; "-separated string, which can still be numerous for a large story.
+    Only this console echo is capped -- the row's own uncapped
+    exclude_reason is unaffected, since it is persisted to
+    pilot_stories.jsonl for later analysis.
     """
     if len(reason) <= _EXCLUDE_REASON_PRINT_MAX_CHARS:
         return reason
     truncated = reason[:_EXCLUDE_REASON_PRINT_MAX_CHARS]
     total_segments = reason.count(_EXCLUDE_REASON_SEPARATOR) + 1
-    if total_segments == 1:
-        # A single message longer than the cap, with no "; "-joined
-        # sibling errors at all -- "...N more errors" would misreport a
-        # nonexistent second error (self-review finding, WI-EVENT-0061).
-        return f"{truncated}...(truncated)"
     shown_segments = truncated.count(_EXCLUDE_REASON_SEPARATOR) + 1
-    more_count = max(total_segments - shown_segments, 1)
+    # If the cutoff fell inside the last already-counted segment rather
+    # than before a "; " boundary, no additional segment was actually
+    # omitted -- only text within one segment was cut. Report a plain
+    # truncation, not a fabricated "...0 more errors" (or, with a naive
+    # floor, a fabricated "...1 more error") (review finding, PR #274).
+    more_count = total_segments - shown_segments
+    if more_count <= 0:
+        return f"{truncated}...(truncated)"
     suffix = "s" if more_count != 1 else ""
     return f"{truncated}...{more_count} more error{suffix}"
 

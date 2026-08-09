@@ -91,6 +91,53 @@ class TestEvidenceSpan(unittest.TestCase):
         self.assertIsNotNone(span.validate("some text"))
 
 
+class TestCoerceListField(unittest.TestCase):
+    """Direct unit tests for schema.coerce_list_field() (WI-EVENT-0061)."""
+
+    def test_none_is_absent_no_error(self):
+        item_errors: list = []
+        self.assertEqual(schema.coerce_list_field(None, "entities", item_errors), [])
+        self.assertEqual(item_errors, [])
+
+    def test_valid_list_is_returned_unchanged_no_error(self):
+        item_errors: list = []
+        value = [{"a": 1}]
+        self.assertIs(schema.coerce_list_field(value, "entities", item_errors), value)
+        self.assertEqual(item_errors, [])
+
+    def test_empty_list_is_returned_unchanged_no_error(self):
+        item_errors: list = []
+        self.assertEqual(schema.coerce_list_field([], "entities", item_errors), [])
+        self.assertEqual(item_errors, [])
+
+    def test_non_empty_string_records_one_error(self):
+        item_errors: list = []
+        self.assertEqual(
+            schema.coerce_list_field("a string", "entities", item_errors), []
+        )
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities is not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
+
+    def test_falsy_but_present_non_list_values_still_record_an_error(self):
+        """Regression test (Codex review, PR #274): a present-but-falsy
+        non-list value ("", 0, False, {}) is not the same as an absent
+        field -- it is still the wrong type and must not silently pass
+        as an empty-but-valid result with no recorded error. The
+        original `if not value: return []` conflated "missing" with
+        "falsy" and let these through unflagged."""
+        for falsy_non_list in ("", 0, False, {}):
+            with self.subTest(value=falsy_non_list):
+                item_errors: list = []
+                result = schema.coerce_list_field(
+                    falsy_non_list, "entities", item_errors
+                )
+                self.assertEqual(result, [])
+                self.assertEqual(len(item_errors), 1)
+                self.assertIn("entities is not an array", item_errors[0])
+                self.assertIn(type(falsy_non_list).__name__, item_errors[0])
+
+
 class TestResolveEvidence(unittest.TestCase):
     def test_finds_quote(self):
         text = "The old machine hummed."
