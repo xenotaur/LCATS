@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_08_08_21_07_47_WI_LLM_0058_DIAGNOSIS
 pr: https://github.com/xenotaur/LCATS/pull/267
-commit: 12c56f066263539c1fc7edb92ad58975ac1431f0
+commit: e4d295668019d72c02d8e3e38fe4246ccd7d87a0
 created_at: 2026-08-09T03:44:14+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/267
@@ -52,8 +52,37 @@ resolved, 0 exceptions).
   retrigger Codex/Copilot; only the automatic first-push trigger is
   acceptable.
 
+# Round 2 (self-review substitute for REVIEW-LANDED)
+
+Per standing no-retrigger policy, dispatched a fresh independent
+subagent self-review of `HEAD` (`12c56f06`) in place of a bot retrigger.
+It surfaced a genuine new (non-thread) finding, verified independently
+before acting: `experiments/03_cross_segment_relation_pilot/run_pilot.py`
+is a **third** `assess_story()` caller with its own checkpoint cache
+(`_CLASSIFIER_VERSION`, folded into its `genre_detect` stage fingerprint)
+that this PR had missed — the same gap already fixed twice
+(`run_census.py`, `annotate.py`). Confirmed real by reading the
+fingerprint-construction code directly (`run_pilot.py:328-338,434`).
+
+Fixed: bumped `run_pilot.py`'s `_CLASSIFIER_VERSION` `v2` → `v3`
+(commit `e4d29566`). Re-ran `scripts/format`/`lint`/`test` and
+`lrh validate` (all clean; hit and fixed an unrelated `ruff` version-skew
+transient via `scripts/develop` before trusting `lint`'s result). Pushed.
+CI re-checked green on `e4d29566`. Dispatched a second independent
+self-review pass specifically to audit for a fourth missed caller
+(grepped every `assess_story()` call site repo-wide, confirmed only
+these three modules import `lcats.utils.checkpoint` at all) — confirmed
+the caller audit is now complete, no fourth caller exists. Both original
+GitHub threads re-checked and remain `isResolved: true` on this new
+`HEAD`.
+
+Final thread-resolution verdict: **green**, self-review-substituted
+REVIEW-LANDED: **clean** (2 rounds, 1 genuine finding surfaced and
+fixed).
+
 # Follow-up
 
-- Per the standing no-retrigger policy, the merge-readiness verdict is
-  reported without a REVIEW-LANDED bot re-check on this `_CONFIRM`
-  commit — flagged explicitly for the human decision at the merge gate.
+- Per the standing no-retrigger policy, no GitHub bot was manually
+  retriggered on the `run_pilot.py` fix commit either — self-review
+  substituted throughout. Flagged explicitly for the human decision at
+  the merge gate.
