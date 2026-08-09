@@ -15,7 +15,7 @@ _LCATS_SRC = pathlib.Path(__file__).resolve().parents[3] / "src"
 if str(_LCATS_SRC) not in sys.path:
     sys.path.insert(0, str(_LCATS_SRC))
 
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets  # noqa: E402
 
 
 def main() -> int:
@@ -25,7 +25,7 @@ def main() -> int:
         print("FAIL: `anthropic` package not installed (pip install anthropic).")
         return 1
 
-    load_secrets()
+    secrets.load_secrets()
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print(
             "FAIL: ANTHROPIC_API_KEY not set. Export it, or add it to "

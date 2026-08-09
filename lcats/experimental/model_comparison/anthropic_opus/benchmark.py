@@ -20,13 +20,13 @@ sys.path.insert(0, str(_MODEL_COMPARISON))
 
 from common import harness  # noqa: E402
 from lcats.llm import anthropic_backend  # noqa: E402
-from lcats.utils.secrets import load_secrets  # noqa: E402
+from lcats.utils import secrets  # noqa: E402
 
 MODEL = "claude-opus-4-8"
 
 
 def main() -> None:
-    load_secrets()
+    secrets.load_secrets()
     backend = anthropic_backend.AnthropicBackend()
     result = harness.run_entity_extraction(
         candidate="anthropic_opus",
