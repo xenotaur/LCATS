@@ -153,6 +153,32 @@ segmentation - but they likely have different root causes and would need
 different fixes, so a follow-up investigation should treat them as two
 separate questions, not one combined "tool_choice gap."
 
+**`WI-LLM-0062` investigated both, independently, with real evidence:**
+
+- **Silent ignore:** `WI-LLM-0051`'s reminder-retry mitigation (see
+  `common/harness.py`'s `run_entity_extraction(...,
+  retry_with_reminder=True)`, adapted from the segmentation-stage
+  mechanism) was tested on both affected candidates. `ollama_gemma4_12b`:
+  1 of 2 applicable retries succeeded (a real, partial mitigation, matching
+  segmentation's own "helps but doesn't fully fix it" pattern) - see its
+  README's "Follow-up" section. `ollama_deepseek_r1_14b`: 0 of 3 retries
+  succeeded, and a tuned `temperature=0.6` alone didn't help either - a
+  more robust, harder-to-mitigate instance of the same mechanism. A real
+  methodological confound (default `max_tokens=8192` genuinely
+  insufficient for `gemma4:12b`'s tool-call output, producing
+  `truncated_output` failures that aren't the `tool_choice` issue at all)
+  had to be found and corrected before the actual question could be
+  tested cleanly - see `ollama_gemma4_12b/README.md`.
+- **Active filter rejection:** the original "schema complexity triggers
+  Gemini's filter" hypothesis is **not supported** by real evidence - the
+  same, unmodified `ENTITY_TOOL_SCHEMA` succeeds reliably (3/3) once given
+  enough `max_tokens` (32000 vs. the original 8192), and a minimal flat
+  schema also succeeds (3/3) at just 2048 tokens. The real constraint
+  appears to be token budget (likely Gemini 3.x's internal
+  "thinking"/reasoning consumption sharing the same budget as the visible
+  completion), not schema shape - see `gemini_flash/README.md`'s
+  corrected finding.
+
 ## Research context (no download/execution - see individual candidates for real runs)
 
 A web survey of the local-model landscape (Aug 2026) found:

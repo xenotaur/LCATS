@@ -65,3 +65,39 @@ candidate-specific override; whether a tuned temperature or the
 `WI-LLM-0051` reminder mitigation would change this outcome is untested,
 out of this tranche's own scope (Non-Goals: no quality/mitigation
 comparison).
+
+## Follow-up: reminder-retry and temperature tested, neither helped (`WI-LLM-0062`)
+
+`WI-LLM-0062` tested both untested variables named above. Note: `ollama
+show deepseek-r1:14b --parameters` reports only `stop` tokens - Ollama's
+bundled Modelfile for this model does **not** override temperature the
+way `qwen3:8b`'s does, so the harness's `temperature=0.2`
+(Anthropic/OpenAI-tuned default, inherited from `entity_extractor.py`) was
+genuinely never overridden by anything model-specific before this test.
+
+**Reminder-retry mitigation, 3 real runs** (`benchmark_entity_reminder.py`,
+`results_entity_reminder_run{1,2,3}.json`) at the same default settings:
+
+| Run | Baseline result | Retry result | Latency |
+|---|---|---|---|
+| 1 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 547.1s |
+| 2 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 666.6s |
+| 3 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 152.3s |
+
+**Temperature test, 1 run** (`temperature=0.6`, no reminder,
+`results_entity_temperature_test.json`): also failed (`no_tool_call`,
+166.9s).
+
+**Verdict: neither mitigation helped this candidate.** 3/3 baseline
+failures, 3/3 reminder-retry failures (0% recovery, unlike
+`ollama_gemma4_12b`'s partial 1/2 recovery under the same mechanism), and
+a tuned temperature alone didn't change the outcome either. In every
+failure, the model explains its reasoning in prose (sometimes with
+Python-style pseudocode, sometimes a raw JSON code block) instead of
+actually invoking the tool - it consistently understands the task and can
+even produce schema-shaped content, but never emits a real function/tool
+call regardless of the reminder or temperature tried here. This is a
+more robust, harder-to-mitigate instance of the silent-ignore mechanism
+than `gemma4:12b` showed - a real, negative finding, not an inconclusive
+one (per this proposal lineage's evidence-quality standard: a documented
+"tried, didn't work" is a valid, complete result).

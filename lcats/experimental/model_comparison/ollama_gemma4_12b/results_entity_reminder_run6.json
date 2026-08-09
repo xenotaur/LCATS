@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_gemma4_12b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gemma4:12b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": true,
+  "latency_seconds": 1783.4581997500209,
+  "input_tokens": 1297,
+  "output_tokens": 5897,
+  "entity_count": 17,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": null,
+  "error_message": null,
+  "raw_output_preview": null,
+  "retry_attempted": true,
+  "retry_succeeded": true
+}

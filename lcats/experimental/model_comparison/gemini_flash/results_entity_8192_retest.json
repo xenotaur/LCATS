@@ -1,0 +1,19 @@
+{
+  "candidate": "gemini_flash",
+  "backend_kind": "openai_compatible_remote",
+  "model": "gemini-3.5-flash",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 56.24465091698221,
+  "input_tokens": 1215,
+  "output_tokens": 3214,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "truncated_output",
+  "error_message": "OpenAI response for model 'gemini-3.5-flash' was truncated at the max_tokens limit (8192) before the tool call for 'extract_entities' finished generating; its arguments may be incomplete or invalid JSON.",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

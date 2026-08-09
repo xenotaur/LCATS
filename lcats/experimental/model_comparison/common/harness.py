@@ -133,6 +133,19 @@ _SEGMENTATION_RETRY_REMINDER = (
     "call to record_segments."
 )
 
+# Same mechanism as _SEGMENTATION_RETRY_REMINDER above, retargeted at
+# entity extraction's actual tool name - WI-LLM-0062 tests whether this
+# same mitigation (proven on segmentation) also helps the entity-
+# extraction stage's "silent ignore" tool_choice failures
+# (ollama_gemma4_12b, ollama_deepseek_r1_14b - see WI-LLM-0056).
+_ENTITY_RETRY_REMINDER = (
+    "\n\nCRITICAL INSTRUCTION: You MUST call the extract_entities "
+    "function/tool to submit your answer. Do NOT reply with plain text "
+    "or a JSON object in your message content - your response will be "
+    "discarded and considered a failure unless it is a function/tool "
+    "call to extract_entities."
+)
+
 
 @dataclasses.dataclass
 class BenchmarkResult:
@@ -191,17 +204,19 @@ def load_sample_segment(path: pathlib.Path = DEFAULT_SAMPLE_SEGMENT) -> tuple:
     return label, data["body"]
 
 
-def run_entity_extraction(
+def _run_entity_extraction_once(
     *,
     candidate: str,
     backend_kind: str,
     backend: llm_backend.LLMBackend,
     model: str,
-    segment_path: pathlib.Path = DEFAULT_SAMPLE_SEGMENT,
-    max_tokens: int = DEFAULT_MAX_TOKENS,
-    temperature: float = DEFAULT_TEMPERATURE,
+    story_name: str,
+    segment_text: str,
+    max_tokens: int,
+    temperature: float,
+    system_prompt_suffix: str = "",
 ) -> BenchmarkResult:
-    """Run the real ERW stage-3 entity extractor's tool-schema call once.
+    """One real ERW stage-3 entity-extraction tool-schema call. No retry logic.
 
     Uses the same make_entity_extractor()/extract() path run_pilot.py's real
     pipeline uses - the only things a candidate substitutes are `backend`,
@@ -209,12 +224,12 @@ def run_entity_extraction(
     docstring - override this for models with their own documented
     sampling recommendation).
     """
-    story_name, segment_text = load_sample_segment(segment_path)
-
     extractor = erw_entity.make_entity_extractor(backend)
     extractor.default_model = model
     extractor.max_tokens = max_tokens
     extractor.temperature = temperature
+    if system_prompt_suffix:
+        extractor.system_prompt = extractor.system_prompt + system_prompt_suffix
 
     start = time.monotonic()
     try:
@@ -273,6 +288,66 @@ def run_entity_extraction(
         ),
         raw_output_preview=(raw_output[:_RAW_OUTPUT_PREVIEW_CHARS] or None),
     )
+
+
+def run_entity_extraction(
+    *,
+    candidate: str,
+    backend_kind: str,
+    backend: llm_backend.LLMBackend,
+    model: str,
+    segment_path: pathlib.Path = DEFAULT_SAMPLE_SEGMENT,
+    max_tokens: int = DEFAULT_MAX_TOKENS,
+    temperature: float = DEFAULT_TEMPERATURE,
+    retry_with_reminder: bool = False,
+) -> BenchmarkResult:
+    """Run the real ERW stage-3 entity extractor's tool-schema call, with an
+    optional bounded retry on a specific, real failure mode.
+
+    `retry_with_reminder` defaults to False, unlike
+    `run_segmentation()`'s equivalent parameter - segmentation's reminder
+    mitigation was tested and proven there first (WI-LLM-0051); whether it
+    also helps entity extraction is exactly what `WI-LLM-0062` is testing,
+    so callers must opt in explicitly rather than the harness silently
+    assuming the same fix applies to a stage it was never validated on.
+
+    When True: if the first attempt fails with error_type="no_tool_call"
+    (the model silently ignores the forced tool_choice), retries exactly
+    once with an explicit reminder appended to the system prompt. Any
+    other failure mode (a genuine api_error, a schema error) is NOT
+    retried - a reminder about calling the tool has no plausible
+    mechanism to fix those.
+    """
+    story_name, segment_text = load_sample_segment(segment_path)
+
+    result = _run_entity_extraction_once(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        backend=backend,
+        model=model,
+        story_name=story_name,
+        segment_text=segment_text,
+        max_tokens=max_tokens,
+        temperature=temperature,
+    )
+
+    if result.success or not retry_with_reminder or result.error_type != "no_tool_call":
+        return result
+
+    retry_result = _run_entity_extraction_once(
+        candidate=candidate,
+        backend_kind=backend_kind,
+        backend=backend,
+        model=model,
+        story_name=story_name,
+        segment_text=segment_text,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        system_prompt_suffix=_ENTITY_RETRY_REMINDER,
+    )
+    retry_result.retry_attempted = True
+    retry_result.retry_succeeded = retry_result.success
+    return retry_result
 
 
 def run_genre_detection(

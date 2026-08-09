@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-08
+updated_on: 2026-08-09
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -502,6 +502,72 @@ the Anthropic or local legs) is a legitimate, low-cost follow-up that
 could revisit the OpenAI half of this verdict without new billed
 Anthropic calls.
 
+### Decision 3 update (2026-08-09, `WI-LLM-0056`'s two `tool_choice` mechanisms investigated, `WI-LLM-0062`)
+
+`WI-LLM-0056`'s tranche 1 found 3 of 6 entity-extraction candidates
+failing via `tool_choice`, but review caught this was two genuinely
+different mechanisms, not one - `WI-LLM-0062` investigated both
+independently.
+
+**Silent ignore (`ollama_gemma4_12b`, `ollama_deepseek_r1_14b`) - the
+reminder mitigation transfers, partially, and inconsistently across
+models.** `WI-LLM-0051`'s reminder-retry mitigation (`common/harness.py`'s
+`run_entity_extraction(..., retry_with_reminder=True)`, newly added by
+this WI, mirroring `run_segmentation()`'s existing mechanism) was tested
+on both candidates:
+
+- `ollama_gemma4_12b`: a real methodological confound surfaced first and
+  had to be corrected - the harness's default `max_tokens=8192` genuinely
+  wasn't enough for this candidate's tool-call output (3/3 runs hit
+  `truncated_output`, not `no_tool_call` at all, meaning the retry path
+  never even fired). Raised to 16384. At the corrected setting, 3 real
+  runs: 1 baseline success (no retry needed), 1 baseline failure with a
+  successful reminder-retry recovery, 1 baseline failure whose retry
+  itself timed out (inconclusive, not a clean failure). **1 of 2
+  applicable retries succeeded** - a real, partial effect, consistent
+  with segmentation's own "helps but doesn't fully fix it" finding, on a
+  small and noisy sample (this candidate's own latency, 250-1800+ seconds
+  per call including one genuine request timeout, makes a larger sample
+  expensive).
+- `ollama_deepseek_r1_14b`: 3/3 baseline failures, **0/3 reminder-retries
+  succeeded**, and a tuned `temperature=0.6` alone (the other untested
+  variable `WI-LLM-0056` flagged) didn't help either. In every failure the
+  model explains its reasoning in prose instead of calling the tool - a
+  more robust, harder-to-mitigate instance of the same mechanism than
+  `gemma4:12b` showed. A real, negative, complete finding - not
+  inconclusive.
+
+**Active filter rejection (`gemini_flash`) - the original schema-
+complexity hypothesis was wrong; it's a token budget.** `WI-LLM-0056`
+hypothesized `ENTITY_TOOL_SCHEMA`'s nested shape was triggering Gemini's
+own `MALFORMED_FUNCTION_CALL` validation filter. Tested directly: a
+minimal, flat, single-field schema succeeded 3/3 at `max_tokens=2048`
+(consistent with either hypothesis on its own). To isolate the variable,
+re-ran the *same, unmodified* `ENTITY_TOOL_SCHEMA` at increasing
+`max_tokens`: 8192 and 16384 both failed (`truncated_output` this time,
+not even reproducing the original `MALFORMED_FUNCTION_CALL` signal);
+32000 succeeded **3/3**. The same schema that "systemically" failed in
+`WI-LLM-0056` succeeds reliably once given enough token headroom - it is
+not permanently rejected by a complexity-triggered filter. The likely
+real constraint is Gemini 3.x's internal "thinking"/reasoning token
+consumption sharing the same `max_tokens` budget as the visible
+completion; which specific API-level failure surfaces (a content-filter
+rejection vs. a plain length cutoff) may itself be non-deterministic
+depending on exactly where generation gets cut off, rather than a stable
+signature of schema rejection. This does not fully resolve *why* 8192-
+16384 is insufficient for this schema+segment specifically (out of this
+WI's own scope), but it does overturn the original "systemic filter
+rejection" framing.
+
+**Neither mechanism prompted a `common/harness.py` change beyond the new,
+opt-in `run_entity_extraction(retry_with_reminder=...)` parameter itself**
+(defaults to `False`, preserving every existing candidate's behavior
+unchanged) - no production code (`lcats.llm`, `run_pilot.py`) was touched,
+per this WI's own Non-Goals. See
+`lcats/experimental/model_comparison/ollama_gemma4_12b/README.md`,
+`ollama_deepseek_r1_14b/README.md`, and `gemini_flash/README.md` for the
+full per-candidate write-ups and committed evidence.
+
 ### Landscape context (not itself decision-grade evidence)
 
 A web survey (Aug 2026) of runtimes and models informs which candidates to
@@ -658,6 +724,24 @@ adopted):
   prompt reminder, `WI-LLM-0059`)" section above. Re-testing just the
   OpenAI leg once real credits are available is a low-cost follow-up that
   could revisit this verdict without repeating the other two legs.
+- ~~Do the 3 `tool_choice` failures `WI-LLM-0056` found on entity
+  extraction (`gemini_flash`, `ollama_gemma4_12b`,
+  `ollama_deepseek_r1_14b`) share one root cause?~~ **Answered
+  (`WI-LLM-0062`):** no - two distinct mechanisms. The Ollama silent-ignore
+  mechanism partially responds to `WI-LLM-0051`'s reminder mitigation
+  (1/2 applicable retries succeeded for `gemma4:12b`; 0/3 for
+  `deepseek-r1:14b`, where a tuned temperature didn't help either).
+  Gemini's active filter rejection is **not** schema-complexity-driven as
+  originally hypothesized - the identical, unmodified `ENTITY_TOOL_SCHEMA`
+  succeeds reliably (3/3) once given enough `max_tokens` (32000 vs. the
+  original 8192); the real constraint appears to be token budget
+  (Gemini's own "thinking" consumption), not schema shape. Still open:
+  why `deepseek-r1:14b`'s silent-ignore is fully unresponsive to mitigation
+  where `gemma4:12b`'s is partially responsive; why Gemini needs so much
+  more `max_tokens` headroom than the visible output size alone would
+  suggest; and whether Ollama's native `/api/chat` endpoint (still
+  untested, per `WI-LLM-0051`'s own open item) would do better on either
+  Ollama candidate.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus

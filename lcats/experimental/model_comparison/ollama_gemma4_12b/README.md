@@ -53,3 +53,42 @@ essentially the same (never-materializing) answer - no retry-with-reminder
 mitigation (`WI-LLM-0051`'s finding) was attempted here, out of this
 tranche's own scope (Non-Goals: no quality/mitigation comparison, only
 call-success/latency/entity-count).
+
+## Follow-up: reminder-retry mitigation and a token-budget confound (`WI-LLM-0062`)
+
+`WI-LLM-0062` tested whether `WI-LLM-0051`'s reminder-retry mitigation
+(`common/harness.py`'s `run_entity_extraction(..., retry_with_reminder=True)`,
+adapted from the segmentation-stage mechanism) helps this candidate's
+entity-extraction failures. `benchmark_entity_reminder.py` runs this.
+
+**A real methodological confound surfaced first, and had to be corrected
+before the actual question could be tested:** the first 3 real runs at
+`harness.DEFAULT_MAX_TOKENS` (8192) all failed with `error_type=
+"truncated_output"` - genuinely hitting the token ceiling mid-tool-call,
+not `no_tool_call` at all (see `results_entity_reminder_run{1,2,3}.json`).
+This is a *different* failure mode than the one `WI-LLM-0056` originally
+observed and this WI set out to test, and it masked the actual question:
+`error_type != "no_tool_call"` means the retry path never even fires. Raised
+`max_tokens` to 16384 (matching `harness.DEFAULT_SEGMENTATION_MAX_TOKENS`'s
+precedent for a larger-output stage) to get past this confound - see
+`benchmark_entity_reminder.py`'s own comment for the full rationale.
+
+**At `max_tokens=16384`, 3 real runs** (`results_entity_reminder_run{4,5,6}.json`):
+
+| Run | Baseline result | Retry attempted | Retry result | Latency |
+|---|---|---|---|---|
+| 4 | success (14 entities) | no (baseline succeeded) | - | 251.9s |
+| 5 | failed (`no_tool_call`) | yes | failed (`Request timed out`, ~30 min) | 1801.3s |
+| 6 | failed (`no_tool_call`) | yes | **succeeded (17 entities)** | 1783.5s |
+
+**Verdict: the reminder mitigation can work here too** (1 of 2 applicable
+retries succeeded, matching the same "real, substantial, not total effect"
+pattern `WI-LLM-0051` found on segmentation), but the evidence is smaller
+and noisier than segmentation's 5-sample result - this candidate's own
+latency (250-1800+ seconds per call, and one genuine request timeout) makes
+gathering a larger sample expensive. The token-budget confound found first
+is itself a real, useful finding independent of the reminder question: this
+candidate's true baseline failure rate under `DEFAULT_MAX_TOKENS` may be
+inflated by truncation rather than tool_choice being ignored - the two
+failure modes need to stay analytically separate, not conflated into one
+"tool_choice gap" statistic.
