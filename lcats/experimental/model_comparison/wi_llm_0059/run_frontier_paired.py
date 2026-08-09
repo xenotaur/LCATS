@@ -42,16 +42,18 @@ from lcats.utils import secrets  # noqa: E402
 
 TEMPERATURE = 0.2  # unchanged from scene_analysis.py's own default - frontier paths are not being re-tuned here
 
-# A real run against gpt-4o on the sample story hit truncated_output at
-# harness.DEFAULT_SEGMENTATION_MAX_TOKENS (16384). Raising it was tried
-# and rejected outright by the OpenAI API: "max_tokens is too large:
-# 24576. This model supports at most 16384 completion tokens, whereas
-# you provided 24576." - 16384 is gpt-4o's own hard maximum completion-
-# token limit, not a value this harness chose and could raise further.
-# This story/prompt combination genuinely cannot complete on gpt-4o
-# within its own maximum possible output, independent of any prompt
-# modification - a structural
-# incompatibility, not a truncation this leg's config can fix.
+# Across 3 real attempts at harness.DEFAULT_SEGMENTATION_MAX_TOKENS
+# (16384), the baseline condition hit truncated_output every time (3/3);
+# the modified condition failed every time too (3/3), but via two
+# different observed error classifications (extraction_or_alignment_error
+# x2, truncated_output x1) - see wi_llm_0059/README.md's "Scripts and
+# results" section for the full attempt-by-attempt breakdown, not just
+# the latest committed result. Raising max_tokens to work around this was
+# tried once and rejected outright by the OpenAI API: "max_tokens is too
+# large: 24576. This model supports at most 16384 completion tokens,
+# whereas you provided 24576." - 16384 is gpt-4o's own hard maximum
+# completion-token limit, not a value this harness chose and could raise
+# further.
 OPENAI_MAX_TOKENS = harness.DEFAULT_SEGMENTATION_MAX_TOKENS
 
 _ANTHROPIC_RESULTS_PATH = _HERE / "results_frontier_paired_anthropic.json"
@@ -75,12 +77,12 @@ def _call_once(
     extracted_output itself.
 
     max_tokens defaults to harness.DEFAULT_SEGMENTATION_MAX_TOKENS (tuned
-    against Claude's output verbosity - see that constant's docstring),
-    but is overridable per call: a real run against gpt-4o on this exact
-    story hit truncated_output at 16384 (GPT-4o produced more verbose
-    tool-call output than Claude did on the identical story/prompt), so
-    the OpenAI leg needs a higher ceiling to get a comparable result at
-    all.
+    against Claude's output verbosity - see that constant's docstring).
+    Overridable per call for generality, but not a usable fix for
+    gpt-4o's own truncation on this story: 16384 is already gpt-4o's
+    hard maximum completion-token limit (see OPENAI_MAX_TOKENS's comment
+    above), so raising this parameter above 16384 for that model is
+    rejected by the OpenAI API itself, not merely untried.
     """
     extractor = scene_analysis.make_segment_extractor(backend, max_tokens=max_tokens)
     extractor.default_model = model
@@ -99,13 +101,24 @@ def _call_once(
     extracted = result.get("extracted_output")
 
     schema_error = None
+    schema_error_detail = None
     if api_error is None:
         if extraction_error or alignment_error or validation_error:
             schema_error = "extraction_or_alignment_error"
+            schema_error_detail = (
+                f"extraction_error={extraction_error!r}, "
+                f"alignment_error={alignment_error!r}, "
+                f"validation_error={validation_error!r}"
+            )
         elif not isinstance(extracted, list):
             schema_error = "malformed_tool_result"
+            schema_error_detail = (
+                "Tool result parsed but extracted_output was not a list "
+                f"(got {type(extracted).__name__ if extracted is not None else 'None'})."
+            )
         elif not extracted:
             schema_error = "empty_segment_list"
+            schema_error_detail = "Tool call succeeded but returned zero segments."
 
     segments: List[Dict[str, Any]] = []
     if isinstance(extracted, list):
@@ -126,7 +139,7 @@ def _call_once(
         "segments": segments,
         "error_type": (api_error or {}).get("code") if api_error else schema_error,
         "error_message": (
-            (api_error or {}).get("message") if api_error else schema_error
+            (api_error or {}).get("message") if api_error else schema_error_detail
         ),
     }
 

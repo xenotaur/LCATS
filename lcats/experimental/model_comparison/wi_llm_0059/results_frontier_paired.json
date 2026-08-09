@@ -200,7 +200,7 @@
     "pair_index": 1,
     "baseline": {
       "success": false,
-      "latency_seconds": 106.08515479101334,
+      "latency_seconds": 101.19879020799999,
       "segment_count": null,
       "segments": [],
       "error_type": "truncated_output",
@@ -208,11 +208,11 @@
     },
     "modified": {
       "success": false,
-      "latency_seconds": 68.12995883298572,
+      "latency_seconds": 100.7979436670139,
       "segment_count": null,
       "segments": [],
-      "error_type": "extraction_or_alignment_error",
-      "error_message": "extraction_or_alignment_error"
+      "error_type": "truncated_output",
+      "error_message": "OpenAI response for model 'gpt-4o' was truncated at the max_tokens limit (16384) before the tool call for 'record_segments' finished generating; its arguments may be incomplete or invalid JSON."
     }
   }
 ]

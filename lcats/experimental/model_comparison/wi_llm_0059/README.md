@@ -48,20 +48,50 @@ about output *quality*.
   verified at all (real API key present, but the organization had zero
   remaining credits - both baseline and modified calls failed identically
   with `429 insufficient_quota`).
-- **2026-08-09 follow-up, after credits were added:** `python
-  run_frontier_paired.py --legs openai` re-run twice (once at the
-  default `max_tokens`, once after attempting to raise it to 24576 to
-  rule out a fixable truncation). Both real attempts reproduced the same
-  result: **baseline failed with `truncated_output`** (hit `gpt-4o`'s own
-  hard maximum of 16384 completion tokens before the tool call finished)
-  and **modified failed with `extraction_or_alignment_error`** (a
-  different failure mode). The OpenAI API rejected `max_tokens=24576`
-  outright ("max_tokens is too large: 24576. This model supports at most
-  16384 completion tokens, whereas you provided 24576.") - 16384 is
-  `gpt-4o`'s hard ceiling, not a value this harness chose and could
-  raise. This story/prompt combination cannot complete on `gpt-4o`
-  within its own maximum possible output at all, independent of the
-  reminder.
+- **2026-08-09 follow-up, after credits were added** - 3 distinct real
+  attempts at `harness.DEFAULT_SEGMENTATION_MAX_TOKENS` (16384), plus one
+  rejected probe that never reached the model at all (a review finding on
+  this follow-up's own PR, #272, correctly identified that the first
+  write-up conflated these into "both attempts reproduced the same
+  result," which overstated what the rejected probe actually showed -
+  nothing, since it errored before either condition could run):
+  1. First real attempt: **baseline** `truncated_output` (101.2s) -
+     **modified** `extraction_or_alignment_error` (38.4s).
+  2. Probe: attempted `max_tokens=24576` to rule out a fixable
+     truncation. Rejected outright by the OpenAI API before contacting
+     the model at all: *"max_tokens is too large: 24576. This model
+     supports at most 16384 completion tokens, whereas you provided
+     24576."* - 16384 is `gpt-4o`'s own hard ceiling, not a value this
+     harness chose and could raise. No comparable result from this
+     attempt on either condition.
+  3. Confirmation re-run at the reverted default: **baseline**
+     `truncated_output` (106.1s) - **modified**
+     `extraction_or_alignment_error` (68.1s), reproducing attempt 1.
+  4. Review-round re-run (after fixing `_call_once` to preserve real
+     `extraction_error`/`alignment_error`/`validation_error` detail
+     instead of collapsing to the bare classification string - a
+     separate review finding on PR #272): **baseline** `truncated_output`
+     (101.2s) - **modified** `truncated_output` this time (100.8s),
+     rather than the `extraction_or_alignment_error` seen in attempts 1
+     and 3. Only this latest attempt's raw data is committed in
+     `results_frontier_paired_openai.json` (the script always writes the
+     most recent run); attempts 1 and 3 are preserved here in prose since
+     the script overwrites its own output file each run.
+
+  **Baseline hit `truncated_output` in all 3 real attempts (3/3)** - a
+  reproducible, not one-off, result. **Modified failed in all 3 real
+  attempts too (3/3)**, but via two different observed error
+  classifications (`extraction_or_alignment_error` x2,
+  `truncated_output` x1) - both consistent with running out of the same
+  16384-token budget at a slightly different point in the response each
+  time, but this is an inference from the pattern, not confirmed for the
+  two `extraction_or_alignment_error` occurrences specifically (their
+  underlying detail wasn't preserved by `_call_once` until attempt 4's
+  code fix, and that attempt happened to land on `truncated_output`
+  instead). This story/prompt combination cannot reliably complete on
+  `gpt-4o` within its own maximum possible output, on either condition,
+  independent of the reminder - a structural finding, not evidence the
+  reminder specifically caused either failure.
 
 ## Verdict
 

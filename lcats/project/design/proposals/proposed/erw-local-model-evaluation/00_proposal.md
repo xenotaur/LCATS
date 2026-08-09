@@ -476,25 +476,43 @@ to compare either the counts or this granularity pattern against.
 (2026-08-09 follow-up) - still could not be verified, now for a
 structural reason rather than a billing one.** The original attempt
 failed with `429 insufficient_quota` / `credit_balance_exhausted` (zero
-account credits). Once credits were added, the identical pair was
-re-run twice (once at the harness's default `max_tokens=16384`, then
-again after attempting to raise it to 24576 to rule out a fixable
-truncation): both real attempts reproduced the same result - **baseline
-failed with `truncated_output`** (GPT-4o's response hit the `max_tokens`
-ceiling before the `record_segments` tool call finished generating) and
-**modified failed with `extraction_or_alignment_error`** (a different
-failure mode, on the same call). Raising `max_tokens` to work around the
-truncation was rejected outright by the OpenAI API itself: *"max_tokens
-is too large: 24576. This model supports at most 16384 completion
-tokens, whereas you provided 24576."* - 16384 is `gpt-4o`'s own hard
-maximum completion-token limit, not a harness-chosen value that a bigger
-budget could raise further. This
-story/prompt combination genuinely cannot complete on `gpt-4o` within
-its own maximum possible output, at all, independent of the reminder -
-a structural incompatibility, not evidence the modified prompt caused
-the failure (the two conditions failed via different mechanisms, and
-neither condition ever produced a usable result to compare against the
-other).
+account credits). Once credits were added, 3 distinct real attempts were
+made at the harness's default `max_tokens=16384`, plus one rejected
+probe that never reached the model at all (a review finding on this
+follow-up's own PR, #272, correctly identified that an earlier draft of
+this section conflated the probe with the real attempts, overstating
+what it actually showed): (1) baseline `truncated_output` (101.2s),
+modified `extraction_or_alignment_error` (38.4s); (2) a probe raising
+`max_tokens` to 24576 to rule out a fixable truncation, rejected outright
+by the OpenAI API before contacting the model at all - *"max_tokens is
+too large: 24576. This model supports at most 16384 completion tokens,
+whereas you provided 24576."* - 16384 is `gpt-4o`'s own hard maximum
+completion-token limit, not a harness-chosen value a bigger budget could
+raise; (3) a confirmation re-run at the reverted default, reproducing
+attempt 1 exactly (baseline `truncated_output`, modified
+`extraction_or_alignment_error`); (4) a further re-run after fixing a
+second review finding (`_call_once` was collapsing the real
+`extraction_error`/`alignment_error`/`validation_error` detail to a bare
+classification string instead of preserving it, diverging from
+`common/harness.py`'s own richer messaging), which this time landed on
+**both conditions failing with `truncated_output`** rather than the
+asymmetric split seen in attempts 1 and 3.
+
+**Baseline hit `truncated_output` in all 3 real attempts (3/3) -
+reproducible, not one-off.** **Modified failed in all 3 real attempts too
+(3/3)**, but via two different observed error classifications
+(`extraction_or_alignment_error` x2, `truncated_output` x1) - both
+consistent with exhausting the same 16384-token budget at a slightly
+different point each time, but this is an inference from the pattern,
+not confirmed for the two `extraction_or_alignment_error` occurrences
+specifically, since their underlying detail predates the error-message
+fix. This story/prompt combination cannot reliably complete on `gpt-4o`
+within its own maximum possible output, on either condition, independent
+of the reminder - a structural finding, not evidence the modified prompt
+specifically caused either failure (both conditions failed every time,
+via mechanisms plausibly but not conclusively traced to the same root
+cause, and neither condition ever produced a usable result to compare
+against the other).
 
 **Verdict, confirmed unchanged: do not edit `SCENE_SEQUEL_SYSTEM_PROMPT`.**
 Per `WI-LLM-0059`'s own Required Changes item 5, an unverified OpenAI
