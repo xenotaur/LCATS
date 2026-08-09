@@ -213,7 +213,9 @@ def build_story_relations(
     seen_raw_relation_ids: Set[str] = set()
     item_errors: List[str] = []
 
-    for i, raw in enumerate(tool_result.get("relations") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(tool_result.get("relations"), "relations", item_errors)
+    ):
         if not isinstance(raw, dict):
             item_errors.append(schema.describe_malformed_item(f"relations[{i}]", raw))
             continue

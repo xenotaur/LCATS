@@ -151,7 +151,11 @@ def build_hypotheses(
 
     hypotheses: List[schema.Hypothesis] = []
     item_errors: List[str] = []
-    for i, raw in enumerate(tool_result.get("hypotheses") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(
+            tool_result.get("hypotheses"), "hypotheses", item_errors
+        )
+    ):
         if not isinstance(raw, dict):
             item_errors.append(schema.describe_malformed_item(f"hypotheses[{i}]", raw))
             continue

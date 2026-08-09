@@ -605,6 +605,33 @@ def _has_extraction_errors(pipeline_result: Dict[str, Any]) -> List[str]:
     return errors
 
 
+_EXCLUDE_REASON_PRINT_MAX_CHARS = 500
+_EXCLUDE_REASON_SEPARATOR = "; "
+
+
+def _capped_exclude_reason(reason: str) -> str:
+    """Cap a printed exclude_reason so one malformed field can't flood the
+    console (WI-EVENT-0061): a container-type extraction error joins one
+    entry per array item schema.coerce_list_field() had to skip, which
+    can still be numerous for a large story. Only this console echo is
+    capped -- the row's own uncapped exclude_reason is unaffected, since
+    it is persisted to pilot_stories.jsonl for later analysis.
+    """
+    if len(reason) <= _EXCLUDE_REASON_PRINT_MAX_CHARS:
+        return reason
+    truncated = reason[:_EXCLUDE_REASON_PRINT_MAX_CHARS]
+    total_segments = reason.count(_EXCLUDE_REASON_SEPARATOR) + 1
+    if total_segments == 1:
+        # A single message longer than the cap, with no "; "-joined
+        # sibling errors at all -- "...N more errors" would misreport a
+        # nonexistent second error (self-review finding, WI-EVENT-0061).
+        return f"{truncated}...(truncated)"
+    shown_segments = truncated.count(_EXCLUDE_REASON_SEPARATOR) + 1
+    more_count = max(total_segments - shown_segments, 1)
+    suffix = "s" if more_count != 1 else ""
+    return f"{truncated}...{more_count} more error{suffix}"
+
+
 def _compute_story_metrics(
     pipeline_result: Dict[str, Any], word_count: int
 ) -> Dict[str, Any]:
@@ -1364,7 +1391,7 @@ def _run_stories(
         rows.append(row)
         usage_rows.extend(story_usage_rows)
         if row["excluded"]:
-            print(f"  excluded: {row['exclude_reason']}")
+            print(f"  excluded: {_capped_exclude_reason(row['exclude_reason'])}")
 
     return rows, usage_rows, aborted
 

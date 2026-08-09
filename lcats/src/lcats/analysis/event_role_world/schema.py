@@ -50,6 +50,45 @@ def describe_malformed_item(path: str, item: Any) -> str:
     return f"{path} is not an object (got {type(item).__name__}): {item_repr}"
 
 
+def coerce_list_field(value: Any, path: str, item_errors: List[str]) -> list:
+    """Normalize a tool-result field expected to be an array to a list.
+
+    Companion guard to describe_malformed_item(), one level up: that
+    function handles a malformed *item* inside an array; this one handles
+    a malformed *container* - the field itself not being an array at all.
+    Every build_*() call site in this package used to write
+    `enumerate(tool_result.get(field) or [])` directly, which relies on
+    `or []` substituting a default only when the value is falsy. A
+    non-empty string is truthy, so a string returned in place of an
+    expected array was iterated character-by-character, each character
+    then failing describe_malformed_item's isinstance(item, dict) check -
+    hundreds of bogus per-character errors from one malformed field (see
+    WI-EVENT-0061). This function centralizes the fix: a present-but-non-list
+    value records one clear error here instead.
+
+    Args:
+        value: The raw field value, e.g. tool_result.get("entities") or
+            raw_entity.get("mentions") - not yet defaulted with `or []`.
+        path: Dotted/bracketed location of the field, e.g. "entities" or
+            "entities[0].mentions".
+        item_errors: The caller's error-collection list; a container-level
+            error is appended to it in place, matching how callers already
+            collect per-item errors from describe_malformed_item().
+
+    Returns:
+        `value` itself if it is already a list; `[]` if the field is
+        absent/falsy (the prior `or []` behavior, unchanged) or if it is
+        present but not a list (the new guard - `item_errors` gains one
+        entry in this case).
+    """
+    if not value:
+        return []
+    if not isinstance(value, list):
+        item_errors.append(f"{path} is not an array (got {type(value).__name__})")
+        return []
+    return value
+
+
 @dataclasses.dataclass
 class EvidenceSpan:
     """Grounds a claim with a character span and quoted text.
