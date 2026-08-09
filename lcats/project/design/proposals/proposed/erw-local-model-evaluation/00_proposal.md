@@ -520,15 +520,23 @@ on both candidates:
   had to be corrected - the harness's default `max_tokens=8192` genuinely
   wasn't enough for this candidate's tool-call output (3/3 runs hit
   `truncated_output`, not `no_tool_call` at all, meaning the retry path
-  never even fired). Raised to 16384. At the corrected setting, 3 real
-  runs: 1 baseline success (no retry needed), 1 baseline failure with a
-  successful reminder-retry recovery, 1 baseline failure whose retry
-  itself timed out (inconclusive, not a clean failure). **1 of 2
-  applicable retries succeeded** - a real, partial effect, consistent
-  with segmentation's own "helps but doesn't fully fix it" finding, on a
-  small and noisy sample (this candidate's own latency, 250-1800+ seconds
-  per call including one genuine request timeout, makes a larger sample
-  expensive).
+  never even fired). Raised to 16384. At the corrected setting, 4 real
+  runs: 1 baseline success (no retry needed), 1 baseline call that timed
+  out outright (a third distinct failure mode, unaddressable by the
+  reminder since it only retries on `error_type="no_tool_call"`), 1
+  baseline failure with a successful reminder-retry recovery, 1 baseline
+  failure whose retry itself timed out. **1 of 2 applicable retries
+  succeeded** - a real, partial effect, consistent with segmentation's own
+  "helps but doesn't fully fix it" finding, on a small and noisy sample
+  (this candidate's own latency, 250-2800+ seconds per call including two
+  genuine request timeouts across 7 total runs, makes a larger sample
+  expensive). A review finding (PR #277) also caught that this harness's
+  retry wrapper was reporting only the retry call's own latency/tokens,
+  silently discarding the failed baseline's real resource use - fixed,
+  and every affected result (both candidates) was regenerated after the
+  fix except one `gemma4:12b` run whose qualitative outcome (success)
+  stands but whose exact resource numbers predate the fix - see
+  `ollama_gemma4_12b/README.md`'s own caveat.
 - `ollama_deepseek_r1_14b`: 3/3 baseline failures, **0/3 reminder-retries
   succeeded**, and a tuned `temperature=0.6` alone (the other untested
   variable `WI-LLM-0056` flagged) didn't help either. In every failure the

@@ -73,22 +73,39 @@ observed and this WI set out to test, and it masked the actual question:
 precedent for a larger-output stage) to get past this confound - see
 `benchmark_entity_reminder.py`'s own comment for the full rationale.
 
-**At `max_tokens=16384`, 3 real runs** (`results_entity_reminder_run{4,5,6}.json`):
+**At `max_tokens=16384`, 4 real runs** (`results_entity_reminder_run{4,5,6,7}.json`):
 
 | Run | Baseline result | Retry attempted | Retry result | Latency |
 |---|---|---|---|---|
 | 4 | success (14 entities) | no (baseline succeeded) | - | 251.9s |
-| 5 | failed (`no_tool_call`) | yes | failed (`Request timed out`, ~30 min) | 1801.3s |
-| 6 | failed (`no_tool_call`) | yes | **succeeded (17 entities)** | 1783.5s |
+| 5 | **baseline itself timed out** (`Request timed out`, not `no_tool_call`) | no (retry only fires on `no_tool_call` specifically) | - | 1801.5s |
+| 6 | failed (`no_tool_call`) | yes | **succeeded (17 entities)** | 1783.5s\* |
+| 7 | failed (`no_tool_call`) | yes | failed (`Request timed out`) | 2798.1s |
+
+\* Run 6 predates a review finding (PR #277) that this harness's retry
+wrapper was reporting only the *retry* call's own latency/tokens,
+silently discarding the failed baseline attempt's real resource use -
+fixed in `common/harness.py` (now sums both calls), but run 6's own
+`results_entity_reminder_run6.json` was generated before the fix and is
+a known undercount for `latency_seconds`/`input_tokens`/`output_tokens`
+specifically. Its qualitative outcome (baseline failed, retry succeeded)
+is unaffected by this bug and stands as reported. Run 7 was generated
+after the fix and its resource numbers are the true baseline+retry total.
 
 **Verdict: the reminder mitigation can work here too** (1 of 2 applicable
-retries succeeded, matching the same "real, substantial, not total effect"
-pattern `WI-LLM-0051` found on segmentation), but the evidence is smaller
-and noisier than segmentation's 5-sample result - this candidate's own
-latency (250-1800+ seconds per call, and one genuine request timeout) makes
-gathering a larger sample expensive. The token-budget confound found first
-is itself a real, useful finding independent of the reminder question: this
-candidate's true baseline failure rate under `DEFAULT_MAX_TOKENS` may be
-inflated by truncation rather than tool_choice being ignored - the two
-failure modes need to stay analytically separate, not conflated into one
-"tool_choice gap" statistic.
+retries succeeded across runs 6-7, matching the same "real, substantial,
+not total effect" pattern `WI-LLM-0051` found on segmentation) - the same
+1/2 ratio held up under a second, independently corrected sample, which is
+itself modest further evidence it's a real effect and not a one-off. Run 5
+surfaces a third distinct failure mode for this candidate beyond
+`truncated_output`/`no_tool_call`: the baseline call itself can time out
+outright, which the reminder mechanism has no way to address (it only
+retries on `error_type="no_tool_call"` specifically). The evidence remains
+smaller and noisier than segmentation's 5-sample result - this candidate's
+own latency (250-2800+ seconds per call, including two genuine request
+timeouts across 7 total runs) makes gathering a larger sample expensive.
+The token-budget confound found first is itself a real, useful finding
+independent of the reminder question: this candidate's true baseline
+failure rate under `DEFAULT_MAX_TOKENS` may be inflated by truncation
+rather than tool_choice being ignored - the two failure modes need to stay
+analytically separate, not conflated into one "tool_choice gap" statistic.

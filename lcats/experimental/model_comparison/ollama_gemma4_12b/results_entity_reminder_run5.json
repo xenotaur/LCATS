@@ -5,7 +5,7 @@
   "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
   "stage": "entity_extraction",
   "success": false,
-  "latency_seconds": 1801.3278254170145,
+  "latency_seconds": 1801.4794520829746,
   "input_tokens": 0,
   "output_tokens": 0,
   "entity_count": null,
@@ -14,6 +14,6 @@
   "error_type": null,
   "error_message": "Request timed out.",
   "raw_output_preview": null,
-  "retry_attempted": true,
-  "retry_succeeded": false
+  "retry_attempted": false,
+  "retry_succeeded": null
 }

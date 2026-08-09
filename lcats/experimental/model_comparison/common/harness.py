@@ -347,6 +347,17 @@ def run_entity_extraction(
     )
     retry_result.retry_attempted = True
     retry_result.retry_succeeded = retry_result.success
+    # Aggregate the failed baseline attempt's real resource use into the
+    # returned result - two real API calls were made regardless of which
+    # one is being reported as the outcome, and silently keeping only the
+    # retry's own numbers would underreport total latency/token
+    # consumption for every reminder-mitigated run (review finding, PR
+    # #277). run_segmentation()'s otherwise-identical retry path
+    # (WI-LLM-0051) has the same gap, not fixed here - out of this diff's
+    # scope, flagged as a separate follow-up.
+    retry_result.latency_seconds += result.latency_seconds
+    retry_result.input_tokens += result.input_tokens
+    retry_result.output_tokens += result.output_tokens
     return retry_result
 
 

@@ -76,13 +76,18 @@ way `qwen3:8b`'s does, so the harness's `temperature=0.2`
 genuinely never overridden by anything model-specific before this test.
 
 **Reminder-retry mitigation, 3 real runs** (`benchmark_entity_reminder.py`,
-`results_entity_reminder_run{1,2,3}.json`) at the same default settings:
+`results_entity_reminder_run{1,2,3}.json`) at the same default settings.
+Latency/token totals below are baseline+retry combined (a review finding,
+PR #277, caught that an earlier version of this harness's retry wrapper
+reported only the retry call's own numbers, discarding the failed
+baseline attempt's real resource use - fixed in `common/harness.py`, and
+these 3 runs were regenerated after the fix):
 
-| Run | Baseline result | Retry result | Latency |
+| Run | Baseline result | Retry result | Latency (both calls) |
 |---|---|---|---|
-| 1 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 547.1s |
-| 2 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 666.6s |
-| 3 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 152.3s |
+| 1 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 172.6s |
+| 2 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 206.6s |
+| 3 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 263.4s |
 
 **Temperature test, 1 run** (`temperature=0.6`, no reminder,
 `results_entity_temperature_test.json`): also failed (`no_tool_call`,
