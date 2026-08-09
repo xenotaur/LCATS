@@ -1,0 +1,19 @@
+{
+  "candidate": "gemini_flash",
+  "backend_kind": "openai_compatible_remote",
+  "model": "gemini-3.5-flash",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 58.95796154101845,
+  "input_tokens": 1215,
+  "output_tokens": 4021,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'function_call_filter: MALFORMED_FUNCTION_CALL'; content: ''",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

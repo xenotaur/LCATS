@@ -27,6 +27,12 @@ model_comparison/
   common/generate_sample_segment.py - regenerates sample_segment.json (real stage-1 segmentation call)
   benchmark_summary.py            - prints a comparison table across every candidate/results.json
   anthropic_opus/                 - frontier baseline (claude-opus-4-8, AnthropicBackend)
+  anthropic_haiku/                - 2nd Anthropic tier (claude-haiku-4-5, AnthropicBackend) - WI-LLM-0056
+  openai_gpt55/                   - OpenAI online (gpt-5.5, OpenAIBackend) - WI-LLM-0056; surfaced a real ENTITY_TOOL_SCHEMA bug, see its README
+  ollama_gpt_oss_20b/             - OpenAI offline (gpt-oss:20b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056
+  gemini_flash/                   - Gemini online (gemini-3.5-flash via Google's OpenAI-compat endpoint) - WI-LLM-0056; real tool_choice incompatibility found, see its README
+  ollama_gemma4_12b/              - Gemma offline (gemma4:12b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056, pending network to pull the model
+  ollama_deepseek_r1_14b/         - second open-weight family, offline (deepseek-r1:14b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056, pending network to pull the model
   ollama_qwen3_8b/                - local "cheap tier" candidate (qwen3:8b via Ollama, OpenAIBackend+base_url)
   ollama_qwen3_30b_a3b/           - local "quality tier" MoE candidate (qwen3:30b-a3b via Ollama, OpenAIBackend+base_url)
   <new_candidate>/                - add more by copying an existing candidate's shape
@@ -102,6 +108,26 @@ Each candidate directory has:
   `benchmark.py` rather than inherit this default silently - see
   `ollama_qwen3_8b/benchmark.py` for an example (Qwen3 recommends 0.6,
   not 0.2).
+
+## Tranche 1 cross-provider coverage (`WI-LLM-0056`)
+
+Real entity-extraction runs against every provider cell in scope, on the
+identical segment `anthropic_opus` uses (see each candidate's own README
+for the full write-up):
+
+| Cell | Candidate | Result |
+|---|---|---|
+| Anthropic online (2nd tier) | `anthropic_haiku` | Success - matched `anthropic_opus`'s entity count at ~half latency/tokens |
+| OpenAI online | `openai_gpt55` | Blocked, then a **real bug** - `ENTITY_TOOL_SCHEMA`'s `mentions` sub-schema is missing `grammatical_role` from its own `required` array; OpenAI's strict validator rejects it, Anthropic's does not enforce the same completeness rule |
+| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2), fast (35-38s) - one run matched `anthropic_opus`'s exact entity count |
+| Gemini online | `gemini_flash` | Failed consistently (2/2) - Gemini's own function-call filter rejects `ENTITY_TOOL_SCHEMA` as malformed, independent of the `strict` flag; a real compat-layer incompatibility, not a wiring bug |
+| Gemma offline | `ollama_gemma4_12b` | Pending - model pull interrupted by network conditions, not yet run |
+| Second open-weight family (offline) | `ollama_deepseek_r1_14b` | Pending - the WI's originally-named DeepSeek V4/GLM-5.2 turned out to be Ollama-cloud-only (no locally-runnable tag); substituted `deepseek-r1:14b` as the real, locally-runnable candidate. Model pull interrupted by network conditions, not yet run |
+
+Anthropic offline was never in scope (Anthropic has no open-weight
+release - a vendor-policy fact, not a gap this tranche could close), and
+`gpt-oss-120b` was explicitly deferred to non-Mac hardware per the WI's
+own scope (~52-73GB footprint exceeds this session's 32GB Mac).
 
 ## Research context (no download/execution - see individual candidates for real runs)
 

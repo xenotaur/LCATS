@@ -1,0 +1,19 @@
+{
+  "candidate": "openai_gpt55",
+  "backend_kind": "openai",
+  "model": "gpt-5.5",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 1.107449875009479,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "invalid_function_parameters",
+  "error_message": "Error code: 400 - {'error': {'message': \"Invalid schema for function 'extract_entities': In context=('properties', 'entities', 'items', 'properties', 'mentions', 'items'), 'required' is required to be supplied and to be an array including every key in properties. Missing 'grammatical_role'.\", 'type': 'invalid_request_error', 'param': 'tools[0].function.parameters', 'code': 'invalid_function_parameters'}}",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

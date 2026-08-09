@@ -1,0 +1,19 @@
+{
+  "candidate": "anthropic_haiku",
+  "backend_kind": "anthropic",
+  "model": "claude-haiku-4-5",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": true,
+  "latency_seconds": 27.94592129200464,
+  "input_tokens": 1928,
+  "output_tokens": 2729,
+  "entity_count": 20,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": null,
+  "error_message": null,
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}
