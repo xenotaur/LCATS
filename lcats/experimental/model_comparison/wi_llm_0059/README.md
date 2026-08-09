@@ -44,21 +44,36 @@ about output *quality*.
   not one-off noise, in mild tension with the production prompt's own
   "prefer FEWER, LARGER segments" rule. Not a functional failure - every
   segment across all 6 calls used a valid label and read coherently - but
-  not a clean "neutral" result either. OpenAI could not be verified at
-  all in this session (real API key present, but the organization had
-  zero remaining credits - both baseline and modified calls failed
-  identically with `429 insufficient_quota`).
+  not a clean "neutral" result either. OpenAI originally could not be
+  verified at all (real API key present, but the organization had zero
+  remaining credits - both baseline and modified calls failed identically
+  with `429 insufficient_quota`).
+- **2026-08-09 follow-up, after credits were added:** `python
+  run_frontier_paired.py --legs openai` re-run twice (once at the
+  default `max_tokens`, once after attempting to raise it to 24576 to
+  rule out a fixable truncation). Both real attempts reproduced the same
+  result: **baseline failed with `truncated_output`** (hit `gpt-4o`'s own
+  hard maximum of 16384 completion tokens before the tool call finished)
+  and **modified failed with `extraction_or_alignment_error`** (a
+  different failure mode). The OpenAI API rejected `max_tokens=24576`
+  outright ("max_tokens is too large: 24576. This model supports at most
+  16384 completion tokens, whereas you provided 24576.") - 16384 is
+  `gpt-4o`'s hard ceiling, not a value this harness chose and could
+  raise. This story/prompt combination cannot complete on `gpt-4o`
+  within its own maximum possible output at all, independent of the
+  reminder.
 
 ## Verdict
 
-Per `WI-LLM-0059`'s own Required Changes item 5, an untested OpenAI path
-forces the documented no-change outcome regardless of the Anthropic
-result. `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited - see
+Per `WI-LLM-0059`'s own Required Changes item 5, an unverified OpenAI
+path forces the documented no-change outcome regardless of the Anthropic
+result - now confirmed by a real, credits-enabled attempt rather than an
+absence of one. `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited - see
 `PROP-ERW-LOCAL-MODEL-EVALUATION`'s "Decision 3 update (2026-08-08,
-production system-prompt reminder, `WI-LLM-0059`)" section for the full
-write-up. Even a fully clean OpenAI result would not have made this an
-obviously-safe edit, given the Anthropic granularity side effect above -
-a future revisit should weigh that finding on its own merits. Re-running
-just `python run_frontier_paired.py --legs openai` once real API credits
-are available is a legitimate, low-cost way to revisit the OpenAI half of
-this verdict without new billed Anthropic calls.
+production system-prompt reminder, `WI-LLM-0059`)" section (updated
+2026-08-09) for the full write-up. Even a working OpenAI result would not
+have made this an obviously-safe edit, given the Anthropic granularity
+side effect above - a future revisit should weigh that finding on its
+own merits. A real OpenAI/GPT comparison for this question would now need
+a smaller/shorter test story that fits within `gpt-4o`'s 16384-completion-
+token ceiling - a methodology fix, not just a bigger API budget.

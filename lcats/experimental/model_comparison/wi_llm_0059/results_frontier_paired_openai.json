@@ -3,42 +3,20 @@
     "backend": "openai_gpt4o",
     "pair_index": 1,
     "baseline": {
-      "candidate": "openai_gpt4o",
-      "backend_kind": "openai",
-      "model": "gpt-4o",
-      "story_name": "Sherlock Holmes - The Five Orange Pips",
-      "stage": "segmentation",
       "success": false,
-      "latency_seconds": 3.464720165997278,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "entity_count": null,
+      "latency_seconds": 106.08515479101334,
       "segment_count": null,
-      "detected_genre": null,
-      "error_type": "credit_balance_exhausted",
-      "error_message": "Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
-      "raw_output_preview": null,
-      "retry_attempted": false,
-      "retry_succeeded": null
+      "segments": [],
+      "error_type": "truncated_output",
+      "error_message": "OpenAI response for model 'gpt-4o' was truncated at the max_tokens limit (16384) before the tool call for 'record_segments' finished generating; its arguments may be incomplete or invalid JSON."
     },
     "modified": {
-      "candidate": "openai_gpt4o",
-      "backend_kind": "openai",
-      "model": "gpt-4o",
-      "story_name": "Sherlock Holmes - The Five Orange Pips",
-      "stage": "segmentation",
       "success": false,
-      "latency_seconds": 1.8093013330071699,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "entity_count": null,
+      "latency_seconds": 68.12995883298572,
       "segment_count": null,
-      "detected_genre": null,
-      "error_type": "credit_balance_exhausted",
-      "error_message": "Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
-      "raw_output_preview": null,
-      "retry_attempted": false,
-      "retry_succeeded": null
+      "segments": [],
+      "error_type": "extraction_or_alignment_error",
+      "error_message": "extraction_or_alignment_error"
     }
   }
 ]

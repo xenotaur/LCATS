@@ -42,13 +42,30 @@ from lcats.utils import secrets  # noqa: E402
 
 TEMPERATURE = 0.2  # unchanged from scene_analysis.py's own default - frontier paths are not being re-tuned here
 
+# A real run against gpt-4o on the sample story hit truncated_output at
+# harness.DEFAULT_SEGMENTATION_MAX_TOKENS (16384). Raising it was tried
+# and rejected outright by the OpenAI API: "max_tokens is too large:
+# 24576. This model supports at most 16384 completion tokens, whereas
+# you provided 24576." - 16384 is gpt-4o's own hard maximum completion-
+# token limit, not a value this harness chose and could raise further.
+# This story/prompt combination genuinely cannot complete on gpt-4o
+# within its own maximum possible output, independent of any prompt
+# modification - a structural
+# incompatibility, not a truncation this leg's config can fix.
+OPENAI_MAX_TOKENS = harness.DEFAULT_SEGMENTATION_MAX_TOKENS
+
 _ANTHROPIC_RESULTS_PATH = _HERE / "results_frontier_paired_anthropic.json"
 _OPENAI_RESULTS_PATH = _HERE / "results_frontier_paired_openai.json"
 _COMBINED_RESULTS_PATH = _HERE / "results_frontier_paired.json"
 
 
 def _call_once(
-    *, backend, model: str, story_text: str, system_prompt_suffix: str = ""
+    *,
+    backend,
+    model: str,
+    story_text: str,
+    system_prompt_suffix: str = "",
+    max_tokens: int = harness.DEFAULT_SEGMENTATION_MAX_TOKENS,
 ) -> Dict[str, Any]:
     """One real segmentation call, capturing the actual segments (not just
     a count) so a reviewer can inspect labels/boundaries, not only whether
@@ -56,10 +73,16 @@ def _call_once(
     success/error classification (kept in sync manually - see that
     function's docstring) but additionally persists
     extracted_output itself.
+
+    max_tokens defaults to harness.DEFAULT_SEGMENTATION_MAX_TOKENS (tuned
+    against Claude's output verbosity - see that constant's docstring),
+    but is overridable per call: a real run against gpt-4o on this exact
+    story hit truncated_output at 16384 (GPT-4o produced more verbose
+    tool-call output than Claude did on the identical story/prompt), so
+    the OpenAI leg needs a higher ceiling to get a comparable result at
+    all.
     """
-    extractor = scene_analysis.make_segment_extractor(
-        backend, max_tokens=harness.DEFAULT_SEGMENTATION_MAX_TOKENS
-    )
+    extractor = scene_analysis.make_segment_extractor(backend, max_tokens=max_tokens)
     extractor.default_model = model
     extractor.temperature = TEMPERATURE
     if system_prompt_suffix:
@@ -108,14 +131,23 @@ def _call_once(
     }
 
 
-def run_pair(*, model: str, backend, story_text: str) -> tuple:
+def run_pair(
+    *,
+    model: str,
+    backend,
+    story_text: str,
+    max_tokens: int = harness.DEFAULT_SEGMENTATION_MAX_TOKENS,
+) -> tuple:
     """One baseline call (unmodified prompt) + one modified call (reminder appended)."""
-    baseline = _call_once(backend=backend, model=model, story_text=story_text)
+    baseline = _call_once(
+        backend=backend, model=model, story_text=story_text, max_tokens=max_tokens
+    )
     modified = _call_once(
         backend=backend,
         model=model,
         story_text=story_text,
         system_prompt_suffix=harness._SEGMENTATION_RETRY_REMINDER,  # noqa: SLF001
+        max_tokens=max_tokens,
     )
     return baseline, modified
 
@@ -147,7 +179,10 @@ def run_openai_pair(story_text: str) -> List[Dict[str, Any]]:
     openai_be = openai_backend.OpenAIBackend()
     print("--- openai_gpt4o pair 1/1 ---", flush=True)
     baseline, modified = run_pair(
-        model="gpt-4o", backend=openai_be, story_text=story_text
+        model="gpt-4o",
+        backend=openai_be,
+        story_text=story_text,
+        max_tokens=OPENAI_MAX_TOKENS,
     )
     pair = {
         "backend": "openai_gpt4o",

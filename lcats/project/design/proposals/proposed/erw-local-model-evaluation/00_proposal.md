@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-08
+updated_on: 2026-08-09
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -472,35 +472,50 @@ first `anthropic_opus` segmentation-stage data recorded in this
 proposal's history, so there is no independent prior-session baseline
 to compare either the counts or this granularity pattern against.
 
-**OpenAI (`gpt-4o`): untested - real key present, but the organization
-has zero remaining API credits.** Both the baseline and modified calls in
-the one attempted pair failed identically with `429
-insufficient_quota` / `credit_balance_exhausted` - a billing gap, not a
-prompt-caused failure (both conditions failed the same way, so this is
-not evidence the modified prompt is worse). But it means the OpenAI path
-- the other backend `SCENE_SEQUEL_SYSTEM_PROMPT` is shared with -
-**could not be verified at all** in this session.
+**OpenAI (`gpt-4o`): re-tested once real API credits were added
+(2026-08-09 follow-up) - still could not be verified, now for a
+structural reason rather than a billing one.** The original attempt
+failed with `429 insufficient_quota` / `credit_balance_exhausted` (zero
+account credits). Once credits were added, the identical pair was
+re-run twice (once at the harness's default `max_tokens=16384`, then
+again after attempting to raise it to 24576 to rule out a fixable
+truncation): both real attempts reproduced the same result - **baseline
+failed with `truncated_output`** (GPT-4o's response hit the `max_tokens`
+ceiling before the `record_segments` tool call finished generating) and
+**modified failed with `extraction_or_alignment_error`** (a different
+failure mode, on the same call). Raising `max_tokens` to work around the
+truncation was rejected outright by the OpenAI API itself: *"max_tokens
+is too large: 24576. This model supports at most 16384 completion
+tokens, whereas you provided 24576."* - 16384 is `gpt-4o`'s own hard
+maximum completion-token limit, not a harness-chosen value that a bigger
+budget could raise further. This
+story/prompt combination genuinely cannot complete on `gpt-4o` within
+its own maximum possible output, at all, independent of the reminder -
+a structural incompatibility, not evidence the modified prompt caused
+the failure (the two conditions failed via different mechanisms, and
+neither condition ever produced a usable result to compare against the
+other).
 
-**Verdict: do not edit `SCENE_SEQUEL_SYSTEM_PROMPT`.** Per `WI-LLM-0059`'s
-own Required Changes item 5, an untested OpenAI path forces the
-documented no-change outcome regardless of how the other two paths look,
-since the edit would ship to GPT users too and this session has no way to
-confirm it is safe for them. This is not a judgment call weighing risk
-against benefit - the WI's own acceptance criteria state plainly that an
-untested OpenAI path does not proceed to a production edit. The Anthropic
-granularity finding above does not independently block the edit (it is
-not "risky" in the WI's sense), but it does mean that even a fully clean
-OpenAI result would not have made this an easy, obviously-safe edit - a
-future revisit should weigh the granularity side effect on its own
-merits, not treat the Anthropic leg as a clean pass. The reminder remains
-implemented only as `common/harness.py`'s existing harness-scoped retry
-(`WI-LLM-0051`, unchanged by this investigation) - not added to the real,
-shared production prompt. Re-running this same investigation's OpenAI leg
-once real API credits are available (`run_frontier_paired.py --legs
-openai`, added as a review-response fix so this doesn't require redoing
-the Anthropic or local legs) is a legitimate, low-cost follow-up that
-could revisit the OpenAI half of this verdict without new billed
-Anthropic calls.
+**Verdict, confirmed unchanged: do not edit `SCENE_SEQUEL_SYSTEM_PROMPT`.**
+Per `WI-LLM-0059`'s own Required Changes item 5, an unverified OpenAI
+path forces the documented no-change outcome regardless of how the other
+two paths look, since the edit would ship to GPT users too and there is
+still no way to confirm it is safe for them - now confirmed by a real,
+credits-enabled attempt rather than an absence of one. This is not a
+judgment call weighing risk against benefit - the WI's own acceptance
+criteria state plainly that an unverified OpenAI path does not proceed to
+a production edit. The Anthropic granularity finding above does not
+independently block the edit (it is not "risky" in the WI's sense), but
+it does mean that even a working OpenAI result would not have made this
+an easy, obviously-safe edit - a future revisit should weigh the
+granularity side effect on its own merits, not treat the Anthropic leg as
+a clean pass. The reminder remains implemented only as
+`common/harness.py`'s existing harness-scoped retry (`WI-LLM-0051`,
+unchanged by this investigation) - not added to the real, shared
+production prompt. Getting a real OpenAI/GPT comparison for this
+question would now need a smaller/shorter test story that fits within
+`gpt-4o`'s 16384-completion-token ceiling, not just a bigger budget - a
+separate methodology fix, out of this follow-up's scope.
 
 ### Landscape context (not itself decision-grade evidence)
 
@@ -650,14 +665,20 @@ adopted):
   a functional failure, but not a clean "neutral" result either (initial
   count-only data had wrongly read as clean; segment content itself
   showed the pattern). The OpenAI frontier path, which the prompt is
-  equally shared with, could not be verified at all (real API key
-  present, zero account credits). Per `WI-LLM-0059`'s own acceptance
-  criteria, an untested OpenAI path forces a no-change verdict regardless
-  of the other two results - `SCENE_SEQUEL_SYSTEM_PROMPT` was **not**
-  edited. See the "Decision 3 update (2026-08-08, production system-
-  prompt reminder, `WI-LLM-0059`)" section above. Re-testing just the
-  OpenAI leg once real credits are available is a low-cost follow-up that
-  could revisit this verdict without repeating the other two legs.
+  equally shared with, could not be verified: the original attempt hit
+  zero account credits, and a 2026-08-09 follow-up re-test (after credits
+  were added) reproduced a structural failure instead - `gpt-4o` cannot
+  complete this exact call within its own hard 16384-completion-token
+  maximum, on either the baseline or modified condition, so no working
+  comparison was possible. Per `WI-LLM-0059`'s own acceptance criteria,
+  an unverified OpenAI path forces a no-change verdict regardless of the
+  other two results - `SCENE_SEQUEL_SYSTEM_PROMPT` was **not** edited.
+  See the "Decision 3 update (2026-08-08, production system-prompt
+  reminder, `WI-LLM-0059`)" section above for the full write-up
+  including the 2026-08-09 re-test. A real OpenAI/GPT comparison for
+  this question would need a smaller/shorter test story that fits within
+  `gpt-4o`'s token ceiling - a methodology fix, not just a bigger
+  API budget, and out of scope for this follow-up.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus
