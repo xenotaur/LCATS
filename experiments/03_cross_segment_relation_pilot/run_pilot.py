@@ -252,7 +252,16 @@ _PIPELINE_VERSION = "v1"
 # v2: WI-ASSESS-0031 changed assess.py's classifier (VALID_GENRES 4->8,
 # new secondary_genre field, updated prompts) - a genre_detect checkpoint
 # from v1 reflects the old 4-genre classification and must not be reused.
-_CLASSIFIER_VERSION = "v2"
+#
+# v3: WI-LLM-0058 added secondary_genre sanitization to assess_story() (a
+# corrupted value is now stripped to "" and flagged, not left as-is) - a
+# genre_detect checkpoint from v2 may have cached a pre-fix, unsanitized
+# (corrupted) secondary_genre value; bumping forces a resumed run to
+# re-classify rather than silently serving a stale corrupted value
+# forever (this same gap was independently found and fixed in
+# run_census.py's _CLASSIFIER_VERSION and annotate.py's
+# _GENRE_POSTPROCESS_VERSION - review finding, PR #267).
+_CLASSIFIER_VERSION = "v3"
 
 
 def _story_identity(path: pathlib.Path) -> str:
