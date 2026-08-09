@@ -1,7 +1,7 @@
 """Prerequisite check for the anthropic_haiku candidate. Run before benchmark.py.
 
 Verifies the `anthropic` package is importable and an API key is available
-(env var or .secrets/anthropic_api_keys.env - see docs/secrets-setup.md).
+(env var or .secrets/anthropic_api_keys.env - see lcats/docs/secrets-setup.md).
 Makes no API calls itself.
 """
 
@@ -29,7 +29,7 @@ def main() -> int:
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print(
             "FAIL: ANTHROPIC_API_KEY not set. Export it, or add it to "
-            ".secrets/anthropic_api_keys.env (see docs/secrets-setup.md)."
+            ".secrets/anthropic_api_keys.env (see lcats/docs/secrets-setup.md)."
         )
         return 1
 

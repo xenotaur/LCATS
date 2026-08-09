@@ -3,7 +3,7 @@
 Verifies the `openai` package is importable (used as the client SDK
 against Google's OpenAI-compatible endpoint - no separate Google SDK
 needed) and a GEMINI_API_KEY is available (env var or
-.secrets/gemini-api-key.env - see docs/secrets-setup.md). Makes no API
+.secrets/gemini-api-key.env - see lcats/docs/secrets-setup.md). Makes no API
 calls itself.
 """
 
@@ -32,7 +32,7 @@ def main() -> int:
         print(
             "FAIL: GEMINI_API_KEY not set. Get one from Google AI Studio "
             "(https://aistudio.google.com/apikey), then export it or add "
-            "it to .secrets/gemini-api-key.env (see docs/secrets-setup.md)."
+            "it to .secrets/gemini-api-key.env (see lcats/docs/secrets-setup.md)."
         )
         return 1
 
