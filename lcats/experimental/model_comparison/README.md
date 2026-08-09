@@ -129,15 +129,29 @@ release - a vendor-policy fact, not a gap this tranche could close), and
 `gpt-oss-120b` was explicitly deferred to non-Mac hardware per the WI's
 own scope (~52-73GB footprint exceeds this session's 32GB Mac).
 
-**A pattern beyond any single candidate:** 3 of 6 cells (`gemini_flash`,
-`ollama_gemma4_12b`, `ollama_deepseek_r1_14b`) failed the identical way -
-`tool_choice` never invoking the forced function - on the **entity
-extraction** stage specifically, not just the segmentation stage
-`WI-LLM-0051` already characterized. This is now reproduced across 3
-different providers/runtimes (Google's hosted Gemini, and 2 different
-local Ollama models), suggesting the gap is broader than an Ollama-only
-or segmentation-only issue - worth a dedicated follow-up investigation
-rather than treating each occurrence as an isolated candidate result.
+**Two distinct patterns beyond any single candidate - not one (review
+finding, PR #273):** an earlier draft of this section conflated 3
+failing cells into a single "tool_choice gap," but the committed evidence
+shows two genuinely different failure mechanisms, not one:
+
+- **Silent ignore (`ollama_gemma4_12b`, `ollama_deepseek_r1_14b`):**
+  `finish_reason='stop'`, real free-text content (JSON-shaped for
+  `gemma4:12b`, plain prose for `deepseek-r1:14b`) - the model never
+  attempts the forced tool call at all. This is the same mechanism
+  `WI-LLM-0051` already characterized on the segmentation stage, now
+  reproduced on entity extraction across 2 different local Ollama models.
+- **Active filter rejection (`gemini_flash` only):** `finish_reason`
+  literally contains `'function_call_filter: MALFORMED_FUNCTION_CALL'`
+  and `content` is empty (`''`) - Gemini's own compat-layer *did*
+  attempt a function call and its internal filter rejected it as
+  malformed. This is a provider-side validation rejection, not a model
+  silently ignoring `tool_choice`, and reproduces identically whether or
+  not `strict` is set (see `gemini_flash/README.md`).
+
+Both patterns are real and both recur on entity extraction, not just
+segmentation - but they likely have different root causes and would need
+different fixes, so a follow-up investigation should treat them as two
+separate questions, not one combined "tool_choice gap."
 
 ## Research context (no download/execution - see individual candidates for real runs)
 

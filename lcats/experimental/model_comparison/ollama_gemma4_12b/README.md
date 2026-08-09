@@ -36,10 +36,16 @@ on entity extraction too:
 | 1 | failed (`no_tool_call`) | 310.1s | 4208 |
 | 2 | failed (`no_tool_call`) | 544.1s | 7528 |
 
-Both runs' free-text `content` is a well-formed, schema-shaped JSON object
-matching `extract_entities`'s expected structure (visible in
-`error_message` in both committed `results_run*.json`), so the model can
-clearly do the task - the tool call itself is simply never issued. This
+Both runs' free-text `content` visibly *begins* a schema-shaped JSON
+object matching `extract_entities`'s expected structure - but
+`OpenAIBackend.complete()` truncates this content to 2000 characters
+before raising, and both committed `results_run*.json` files cut off
+mid-object (`raw_output_preview` is also `None` on this failure path, so
+no fuller capture exists). Neither committed artifact can establish that
+the *full* response would have been well-formed or complete - only that
+the visible prefix is schema-shaped (review finding, PR #273; the same
+caveat `WI-LLM-0050`'s segmentation README already applies to an
+identical truncation situation). This
 model was also markedly slower than every other candidate tested in this
 tranche (5-9x `anthropic_opus`'s latency on the identical call), and run 2
 took noticeably longer than run 1 while producing more output tokens for

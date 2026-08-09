@@ -36,17 +36,24 @@ stochastic LLM calls) via a real live local Ollama server:
   prose (a numbered entity list), a distinct failure signature. Faster
   than `gemma4:12b` (86.7s/109.8s).
 
-Both failures reproduce the exact `tool_choice` gap `WI-LLM-0051`
-characterized on the segmentation stage - now confirmed on entity
-extraction too. Combined with `gemini_flash`'s identical failure mode
-(landed in PR #270), this is now reproduced across **3 different
-providers/runtimes** (Google's hosted Gemini, and 2 different local
-Ollama models) on the pipeline's actual entity-extraction tool schema,
-not a single-candidate quirk or a segmentation-only issue. Flagged this
-pattern explicitly in `model_comparison/README.md`'s tranche 1 section as
-warranting its own dedicated follow-up investigation, per the user's
-explicit decision to resolve this WI now and file the pattern separately
-rather than block resolution on investigating it first.
+Both failures reproduce the exact `tool_choice`-silently-ignored gap
+`WI-LLM-0051` characterized on the segmentation stage - now confirmed on
+entity extraction too, across 2 different local Ollama models. The
+initial draft of this commit described this as one combined "3-provider
+tool_choice pattern" together with `gemini_flash`'s failure (landed in
+PR #270). The automatic first-push review on this PR (Codex) correctly
+caught that this conflates two genuinely different failure mechanisms:
+`gemma4:12b`/`deepseek-r1:14b` silently ignore `tool_choice` and return
+free text (`finish_reason='stop'`), while `gemini_flash`'s own compat
+layer *attempts* the call and its internal filter actively rejects it
+(`finish_reason` contains `'function_call_filter:
+MALFORMED_FUNCTION_CALL'`, empty content) - a provider-side validation
+rejection, not a silent ignore. Verified this distinction directly
+against both candidates' committed `results.json` files before applying
+the fix (not just trusting the bot's claim), then corrected
+`model_comparison/README.md`'s tranche 1 section to describe these as
+two separate patterns needing separate follow-up investigation, not one
+combined gap.
 
 Wrote real README updates for both candidates (numeric claims traced to
 committed `results.json`/`results_run{1,2}.json`), and updated the
@@ -80,10 +87,12 @@ literally) is satisfied.
 
 # Follow-up
 
-- File a dedicated investigation WI for the cross-provider `tool_choice`
-  pattern found here (Gemini, Gemma, DeepSeek-R1 all fail identically on
-  entity extraction, not just segmentation) - per the user's explicit
-  decision, separate from this evaluation WI.
+- File a dedicated investigation WI for the two distinct `tool_choice`
+  failure patterns found here (Gemma/DeepSeek-R1 silently ignoring
+  `tool_choice`, Gemini's own filter actively rejecting an attempted
+  call) - now confirmed on entity extraction, not just segmentation -
+  treating them as two separate questions, not one combined gap. Per the
+  user's explicit decision, this is separate from this evaluation WI.
 - Whether `WI-LLM-0051`'s reminder-retry mitigation (40% recovery on
   segmentation) also helps entity extraction is untested - relevant
   input for that follow-up investigation.
