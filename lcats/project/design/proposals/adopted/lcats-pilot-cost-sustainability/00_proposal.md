@@ -178,7 +178,7 @@ eliminated without changing model, calls, or output quality?
 **Options considered:**
 - Do nothing.
 - Add `cache_control: {"type": "ephemeral"}` markers in
-  `anthropic_backend.py:64-74`'s request construction, on the system
+  `AnthropicBackend.complete`'s request construction, on the system
   prompt and/or the shared segment-text prefix.
 
 **Originally chosen "adopt caching" — downgraded to "evaluate" after
@@ -190,8 +190,8 @@ Anthropic's prompt-caching docs
 cache prefixes in strict hierarchical order — `tools`, then `system`, then
 `messages` — and state that changing tool definitions invalidates the
 entire cache, tools/system/messages alike. `AnthropicBackend.complete`
-(`anthropic_backend.py:64-74`) sends a single, different `tool` per call
-(`ENTITY_TOOL_SCHEMA`, `EVENT_TOOL_SCHEMA`, and so on —
+(`lcats/src/lcats/llm/anthropic_backend.py`) sends a single, different
+`tool` per call (`ENTITY_TOOL_SCHEMA`, `EVENT_TOOL_SCHEMA`, and so on —
 `entity_extractor.py:16`, `event_extractor.py:17`, confirmed distinct per
 extractor), so the 4 per-segment calls can never share a cache hit with
 each other regardless of how identical their `segment_text` is — each
@@ -220,9 +220,10 @@ entity, relation, and story_relation correctly stayed at zero cache tokens.
 Measured costs were $0.6206 with caching disabled and $0.5702 with
 caching enabled, for an observed delta of -$0.0504 (-8.1%) on this tiny
 fixture run. Because output generation is nondeterministic and differed
-between arms, the directly attributable input/cache component was smaller
-but still positive: $0.1348 disabled input cost versus $0.1155 enabled
-input/cache cost, a -$0.0193 input-side delta.
+between arms, the directly attributable input/cache component should be
+computed from the enabled arm's identical requests: pricing its 27,033
+effective input/cache tokens as ordinary input would cost $0.1352, versus
+$0.1155 with caching, a -$0.0197 input-side delta.
 
 Recommendation: **go** for a follow-on pilot-level adoption path that
 enables prompt caching explicitly for Anthropic ERW fixture/pilot runs,

@@ -396,7 +396,6 @@ def main() -> int:
     args = parser.parse_args()
 
     output_dir = pathlib.Path(args.output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     if not args.dry_run:
         secrets.load_secrets()
@@ -421,6 +420,7 @@ def main() -> int:
     )
     report["preflight_prefix_token_counts"] = prefix_token_counts
 
+    output_dir.mkdir(parents=True, exist_ok=True)
     report_path = output_dir / "caching_comparison.json"
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"Wrote comparison report to {report_path}")
