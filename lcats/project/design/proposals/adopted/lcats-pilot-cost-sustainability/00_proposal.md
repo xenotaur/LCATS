@@ -260,12 +260,13 @@ WI-PILOT-0057's landed real baseline rather than making any new paid API
 calls. The baseline was the disabled-caching arm of
 `experiments/03_cross_segment_relation_pilot/results/caching_eval/caching_comparison.json`:
 `claude-opus-4-8`, 2 WI-PILOT-0051 fixture stories, 3 real segments, 13
-ERW calls, 26,959 input tokens, 19,431 output tokens, and $0.6206. Applying
-Anthropic's documented Batch API pricing (50% of standard API prices for
-both input and output tokens) projects that same fixture workload at about
-$0.3103, a savings of about $0.3103. The same multiplier would have saved
-about $33.77 against the $67.54 combined historical pilot spend cited in
-this proposal, before any prompt-caching or model-tiering effects.
+ERW calls, 26,959 input tokens, 19,431 output tokens, and exact recorded
+cost $0.62057. Applying Anthropic's documented Batch API pricing (50% of
+standard API prices for both input and output tokens) projects that same
+fixture workload at about $0.3103, a savings of about $0.3103. The same
+multiplier would have saved about $33.77 against the $67.54 combined
+historical pilot spend cited in this proposal, before any prompt-caching or
+model-tiering effects.
 
 The economics are therefore strong, but the architecture cost is real.
 `lcats/src/lcats/utils/checkpoint.py` is a synchronous publication helper:
