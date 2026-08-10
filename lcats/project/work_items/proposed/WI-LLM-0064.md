@@ -30,7 +30,7 @@ forbidden_actions:
   - force_push
   - delete_branch
   - merge_pr
-  - modify_shared_harness_core_paths
+  - break_shared_harness_existing_contracts
   - loosen_alignment_check_strictness
 acceptance:
   - "Segmentation diagnostic capture implemented and exercised on at least 1 real alignment failure, with the model's actual anchor text visible in a committed result"
@@ -129,13 +129,17 @@ unreliability, and are deliberately out of scope here - see Non-Goals.
 ## Required Changes
 
 1. Add a diagnostic-capture mechanism for segmentation alignment
-   failures - e.g. a new optional harness helper or candidate-local
-   wrapper that reads `parsed_output` and stores a truncated preview,
-   without changing `run_segmentation()`'s default signature/behavior
-   for other candidates.
-2. Add a grounded-entity-count helper that calls the real
-   `build_entities()` against captured raw entity/quote data and segment
-   text, reporting both raw and grounded counts.
+   failures - either a purely additive new function in
+   `common/harness.py` (e.g. a new, separately-named helper - not a
+   change to `run_segmentation()`'s existing signature, default
+   parameter values, or return contract) or a candidate-local wrapper in
+   `ollama_gpt_oss_20b/`. Either is acceptable; what's forbidden is
+   altering `run_segmentation()`'s existing behavior in a way that could
+   change results already committed for other candidates.
+2. Add a grounded-entity-count helper (new function, same additive-only
+   constraint as above) that calls the real `build_entities()` against
+   captured raw entity/quote data and segment text, reporting both raw
+   and grounded counts.
 3. Add `ollama_gpt_oss_20b/benchmark_segmentation_bestconfig.py` and
    `benchmark_entity_bestconfig.py` (or a combined variant), each
    testing `temperature=1.0` plus the diagnostic capture above; entity
