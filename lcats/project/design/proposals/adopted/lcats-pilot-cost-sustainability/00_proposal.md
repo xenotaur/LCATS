@@ -58,17 +58,18 @@ That evidence, from this session's two real runs against
   counts), for ~26 LLM calls per story — versus 1 call for segmentation
   (`run_pilot.py:427-444`). This ~26x fan-out, not merely "events are
   denser than scenes," is the primary architectural cost driver.
-- Direct inspection of `llm_extractor.py` and `anthropic_backend.py:37-100`
-  confirms zero use of Anthropic's prompt caching (`cache_control`)
-  anywhere in the codebase, despite each segment's 4 extractor calls
-  independently resending the identical `segment_text`.
+- Direct inspection of `llm_extractor.py` and `AnthropicBackend.complete`
+  confirmed zero use of Anthropic's prompt caching (`cache_control`)
+  anywhere in the codebase at the time this proposal was written, despite
+  each segment's 4 extractor calls independently resending the identical
+  `segment_text`.
 - `run_pilot.py:1153`'s `--model` flag is single and global —
   genre-detection and segmentation (comparatively simple tasks) run on the
   same top-tier, most-expensive model as the nuanced extraction stages,
   with no code path to do otherwise.
 - The pipeline uses only the non-batch Messages API (streaming via
   `messages.stream`, or blocking via `messages.create` when streaming is
-  disabled — `anthropic_backend.py:76-80`), not the Batch API. Anthropic's
+  disabled in `AnthropicBackend.complete`), not the Batch API. Anthropic's
   Batch API is documented to cut cost 50% flat for exactly this workload's
   shape (bulk, non-interactive, tolerant of async turnaround) —
   `platform.claude.com/docs/en/build-with-claude/batch-processing`.
@@ -365,7 +366,7 @@ workstream, not a single work item. Proposed shape:
    narrower caching benefit (or the mid-conversation-tool-changes
    alternative) against WI 1's fixture set given the per-call
    different-tool-schema constraint; only proceeds to `cache_control`
-   adoption in `anthropic_backend.py` if it shows a real, worthwhile
+   adoption in `AnthropicBackend.complete` if it shows a real, worthwhile
    saving.
 4. **WI 3 — Batch API evaluation** (Decision 4): go/no-go assessment,
    using WI 1's (and, if it lands, WI 2's) now-measurable baseline; only
