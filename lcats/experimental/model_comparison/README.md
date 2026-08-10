@@ -119,7 +119,7 @@ for the full write-up):
 |---|---|---|
 | Anthropic online (2nd tier) | `anthropic_haiku` | Success - matched `anthropic_opus`'s entity count at ~half latency/tokens |
 | OpenAI online | `openai_gpt55` | Blocked, then a **real bug** - `ENTITY_TOOL_SCHEMA`'s `mentions` sub-schema is missing `grammatical_role` from its own `required` array; OpenAI's strict validator rejects it, Anthropic's does not enforce the same completeness rule |
-| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2), fast (35-38s) - one run matched `anthropic_opus`'s exact entity count |
+| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2 here, 3/3 after `WI-LLM-0063`), fast (35-38s) - one run matched `anthropic_opus`'s exact entity count. Segmentation later tested and found not viable (0/3) - see below |
 | Gemini online | `gemini_flash` | Failed consistently (2/2) - Gemini's own function-call filter rejects `ENTITY_TOOL_SCHEMA` as malformed, independent of the `strict` flag; a real compat-layer incompatibility, not a wiring bug |
 | Gemma offline | `ollama_gemma4_12b` | Failed consistently (2/2) - `tool_choice` never invoked despite schema-shaped free text, slowest candidate in this tranche (310-544s) |
 | Second open-weight family (offline) | `ollama_deepseek_r1_14b` | Failed consistently (2/2) - the WI's originally-named DeepSeek V4/GLM-5.2 turned out to be Ollama-cloud-only (no locally-runnable tag); substituted `deepseek-r1:14b`. `tool_choice` never invoked; unlike `gemma4:12b`, responded in plain prose rather than JSON-shaped text |
@@ -178,6 +178,20 @@ separate questions, not one combined "tool_choice gap."
   "thinking"/reasoning consumption sharing the same budget as the visible
   completion), not schema shape - see `gemini_flash/README.md`'s
   corrected finding.
+
+**`WI-LLM-0063` fully vetted `ollama_gpt_oss_20b` across all three
+stages (3 runs each), not just its original 2-run entity-extraction
+signal:** genre detection 3/3 success; entity extraction 3/3 success but
+with real, substantial variance in latency (35-170s) and entity count
+(12-34) that the original 2-run sample didn't reveal; segmentation 0/3 -
+a **new failure mode** distinct from both patterns above: the baseline
+call ignores `tool_choice` (silent-ignore), the automatic reminder retry
+does get the tool actually invoked (unlike `gemma4:12b`/`deepseek-r1:14b`,
+where the reminder sometimes still fails to produce a call), but the
+resulting segment fails the segmenter's own downstream alignment
+validation (anchor text not found verbatim in the source story) - a
+failure in answer *quality*, not tool invocation. See
+`ollama_gpt_oss_20b/README.md`'s "Follow-up" section.
 
 ## Research context (no download/execution - see individual candidates for real runs)
 

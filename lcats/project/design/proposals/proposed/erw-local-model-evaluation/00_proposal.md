@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-09
+updated_on: 2026-08-10
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -576,6 +576,48 @@ per this WI's own Non-Goals. See
 `ollama_deepseek_r1_14b/README.md`, and `gemini_flash/README.md` for the
 full per-candidate write-ups and committed evidence.
 
+### Decision 3 update (2026-08-10, `ollama_gpt_oss_20b` fully vetted across all 3 stages, `WI-LLM-0063`)
+
+`WI-LLM-0056`'s tranche 1 tested `ollama_gpt_oss_20b` only on entity
+extraction (2/2 success, fastest local candidate) - genre detection and
+segmentation were untested. `WI-LLM-0063` ran 3 real calls per stage
+against all three, bringing this candidate up to the same evidence bar
+as `qwen3:8b`.
+
+- **Genre detection: 3/3 success**, all correctly detected `mystery`.
+  Matches `qwen3:8b`'s own "hybrid-viable" finding for this stage.
+- **Entity extraction: 3/3 success**, but the added 3rd run (169.8s,
+  5514 output tokens, 34 entities) revealed real, substantial variance
+  the original 2-run sample (35-38s, 12-21 entities) did not show - up to
+  ~4.5x latency spread and ~3x entity-count spread across 3 runs.
+  `success` never flipped to failure, but a single run's entity count
+  should not be treated as representative without a future
+  precision/recall check (out of this tranche's Non-Goals).
+- **Segmentation: 0/3 - a genuinely new failure mode.** Every run's
+  baseline call ignored `tool_choice` (the familiar silent-ignore
+  mechanism), and `WI-LLM-0051`'s automatic reminder retry did get the
+  tool actually invoked each time (unlike `gemma4:12b`/`deepseek-r1:14b`,
+  where the reminder sometimes still produces no call at all) - but the
+  resulting segment then failed the segmenter's own downstream alignment
+  validation (anchor text not found verbatim in the source story) in all
+  3 runs. This is a failure in answer *quality* after a successful tool
+  call, distinct from both mechanisms `WI-LLM-0062` characterized (silent
+  ignore, active filter rejection) and from the `qwen3:8b`/`qwen3:30b-a3b`
+  baseline segmentation failures (0/5, never even reaching a tool call
+  that passed alignment). Segmentation remains not viable for this
+  candidate, consistent with every other local model tested on this stage
+  so far.
+
+**No `common/harness.py` change was needed or made** - `run_segmentation()`'s
+existing `retry_with_reminder=True` default already covered this
+candidate; this WI only added `benchmark_genre.py`/
+`benchmark_segmentation.py` scripts for `ollama_gpt_oss_20b` (mirroring
+`ollama_qwen3_8b`'s existing shape) and a 3rd entity-extraction run. No
+production code (`lcats.llm`, `run_pilot.py`) touched, per this WI's own
+Non-Goals. See `lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md`'s
+"Follow-up" section for the full per-stage write-up and committed
+evidence.
+
 ### Landscape context (not itself decision-grade evidence)
 
 A web survey (Aug 2026) of runtimes and models informs which candidates to
@@ -750,6 +792,14 @@ adopted):
   suggest; and whether Ollama's native `/api/chat` endpoint (still
   untested, per `WI-LLM-0051`'s own open item) would do better on either
   Ollama candidate.
+- Is `ollama_gpt_oss_20b`'s segmentation-stage alignment-rejection
+  failure (`WI-LLM-0063`) - the reminder retry does get the tool called,
+  but the resulting segment fails downstream anchor-text alignment -
+  addressable by a different mitigation (e.g. instructing the model to
+  quote source text verbatim), or is it a distinct, likely-unmitigable
+  failure mode the same way `deepseek-r1:14b`'s silent-ignore proved
+  fully unresponsive? Not tested - out of this WI's own scope (Non-Goals:
+  no mitigation beyond the existing automatic reminder retry).
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus
