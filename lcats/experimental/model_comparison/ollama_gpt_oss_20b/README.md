@@ -91,7 +91,8 @@ should not be treated as representative; no ground-truth precision/recall
 check was run to determine whether run 3's 34 entities reflects genuinely
 more thorough extraction or over-generation/duplication (out of this
 tranche's Non-Goals). **Verdict: entity extraction remains reliable
-(3/3), but with real quality variance across runs** that a future
+(3/3), but with real output/entity-count variance across runs** - not a
+quality finding, since no ground-truth check was run - that a future
 precision/recall-focused item should characterize before trusting any
 single run's entity count as representative.
 
@@ -136,8 +137,8 @@ baseline) - the reminder mitigation changes *how* it fails (silent-ignore
 ### Overall verdict
 
 `gpt-oss:20b` is a strong candidate for genre detection (3/3) and entity
-extraction (3/3, with real quality variance not yet precision/recall
-characterized), but **not viable for segmentation** (0/3, same as every
+extraction (3/3, with real output/entity-count variance not yet
+precision/recall characterized), but **not viable for segmentation** (0/3, same as every
 other local model tested on this stage in this tranche) - the pipeline's
 segmentation stage remains an Anthropic-only stage for now, independent
 of which local model is chosen for the other two.
