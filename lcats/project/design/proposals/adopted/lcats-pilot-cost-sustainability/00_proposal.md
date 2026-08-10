@@ -250,21 +250,85 @@ flat, documented 50% discount?
 
 **Options considered:**
 - Adopt immediately.
+- Reject because asynchronous batch submission conflicts with the current
+  synchronous checkpointing model.
 - Evaluate first as a distinct, gated decision.
 
-**Chosen: evaluate first.** The Batch API's discount is real and applies to
-both input and output tokens with no quality tradeoff — but it is
-asynchronous, and the pipeline's whole checkpointing architecture
-(`WI-PIPELINE-0040`/`0041`, adopted `lcats-pipeline-checkpointing/00_proposal.md`)
-was built around synchronous, per-call, stage-then-checkpoint semantics
-just two days before this proposal. Retrofitting for batch
-submission-and-poll is a real architecture change, not a flag flip, and
-would also need to solve the already-flagged "no mid-call progress
-feedback" gap (backlog P2) in a new way, since batch jobs report no interim
-status at all. This decision is deferred to a follow-on work item that
-starts with an explicit go/no-go assessment against the baseline cost
-Decision 2's harness makes measurable (and Decision 3's caching
-evaluation, if it lands first and shows a real benefit).
+**Chosen: go for a follow-on batch-mode design, not immediate adoption.**
+WI-PILOT-0058 completed the gated assessment on 2026-08-10, reusing
+WI-PILOT-0057's landed real baseline rather than making any new paid API
+calls. The baseline was the disabled-caching arm of
+`experiments/03_cross_segment_relation_pilot/results/caching_eval/caching_comparison.json`:
+`claude-opus-4-8`, 2 WI-PILOT-0051 fixture stories, 3 real segments, 13
+ERW calls, 26,959 input tokens, 19,431 output tokens, and $0.6206. Applying
+Anthropic's documented Batch API pricing (50% of standard API prices for
+both input and output tokens) projects that same fixture workload at about
+$0.3103, a savings of about $0.3103. The same multiplier would have saved
+about $33.77 against the $67.54 combined historical pilot spend cited in
+this proposal, before any prompt-caching or model-tiering effects.
+
+The economics are therefore strong, but the architecture cost is real.
+`lcats/src/lcats/utils/checkpoint.py` is a synchronous publication helper:
+callers validate `(working_root, source_root)` with `resolve_roots`, compute
+one caller-defined fingerprint for one `(item_id, stage)`, check
+`read_checkpoint`, perform the expensive work if the checkpoint is not a
+matching recorded success, and immediately publish a JSON record via
+`write_checkpoint` using same-directory temp-file creation plus
+`os.replace`. A recorded failure is deliberately not treated as done, a
+fingerprint mismatch is treated as absent, and the helper does not know
+anything about outstanding remote work. That model is a good fit for
+`run_pilot.py`'s current stage-then-checkpoint flow: genre detection,
+segmentation, ERW extraction, and cross-segment relation each become
+durable as soon as the local call path returns.
+
+Anthropic's Message Batches API has a different shape. It creates a batch
+of Messages requests, processes them asynchronously, and exposes results
+only after the batch ends. A batch-aware pilot should therefore not pretend
+that `read_checkpoint`/`write_checkpoint` alone are enough. It would need a
+parallel durable batch ledger recording submitted request `custom_id`s,
+their mapped story/segment/stage identities, request fingerprints, batch
+IDs, and retry/failure state before the process exits or polls. Only after
+`client.messages.batches.results()` returns should the existing per-stage
+checkpoint records be published. Without that ledger, a crash after submit
+but before result ingestion could lose track of paid remote work; without
+the existing final checkpoint publication, a resumed run would lose the
+per-stage reproducibility and stale-fingerprint protections
+`WI-PIPELINE-0040`/`0041` intentionally added.
+
+Much of Decision 3 of `PROP-LCATS-PIPELINE-CHECKPOINTING` can survive, but
+at coarser boundaries. Dependencies still force waves: event extraction
+depends on entity extraction, relation and discourse depend on the event
+output, and cross-segment relation depends on the story's accumulated ERW
+output. A batch implementation can checkpoint after each completed wave,
+and can still preserve per-story/per-stage artifacts once results are
+ingested. It cannot preserve today's exact "one call returns, immediately
+write that stage's result" semantics while the remote batch is still in
+progress. Partial-progress recovery would move from checkpoint files to the
+new batch ledger until the batch finishes.
+
+The progress/visibility tradeoff is acceptable for this project only if it
+is explicit. The current local workflow prints concrete progress such as
+genre-detect hits, "Running pipeline: [genre] story", per-story exclusions,
+and final output paths as the synchronous loop advances. Anthropic's Batch
+API instead reports overall `processing_status` (`in_progress`,
+`canceling`, `ended`) while polling; `request_counts` can show aggregate
+batch-level counts, but the final succeeded/errored/canceled/expired
+buckets and per-request results are only usable once the batch ends, and
+results are then streamed by `custom_id` rather than submission order. For
+a single-researcher, non-interactive pilot this is a reasonable exchange
+for a flat 50% discount, especially because most runs are not
+latency-sensitive. It is still worse interactive debugging visibility than
+the current path, so the synchronous Messages API should remain the
+default/local-debug mode until a batch mode has its own clear console
+status and resumable ledger.
+
+Recommendation: **go** for a separate follow-on work item that designs and
+implements an explicit opt-in Batch API mode for fixture/pilot runs. That
+item should keep the synchronous checkpointed path intact, add a durable
+submit/poll/result-ingestion ledger rather than retrofitting
+`checkpoint.py` by default, and validate that batch-mode output
+publication preserves the existing per-stage checkpoint artifacts after
+ingestion. Do not implement Batch API adoption inside this assessment item.
 
 ### Decision 5: Evaluate, don't yet adopt, per-stage model tiering
 
