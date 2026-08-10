@@ -119,7 +119,7 @@ for the full write-up):
 |---|---|---|
 | Anthropic online (2nd tier) | `anthropic_haiku` | Success - matched `anthropic_opus`'s entity count at ~half latency/tokens |
 | OpenAI online | `openai_gpt55` | Blocked, then a **real bug** - `ENTITY_TOOL_SCHEMA`'s `mentions` sub-schema is missing `grammatical_role` from its own `required` array; OpenAI's strict validator rejects it, Anthropic's does not enforce the same completeness rule |
-| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2 here, 3/3 after `WI-LLM-0063`), fast (35-38s) - one run matched `anthropic_opus`'s exact entity count. Segmentation later tested and found not viable (0/3) - see below |
+| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2 here, 3/3 after `WI-LLM-0063`) - one run matched `anthropic_opus`'s exact entity count. Initial 2-run sample looked fast (35-38s); a 3rd run revealed real latency variance up to 35-170s (see below). Segmentation later tested and found not viable (0/3) - see below |
 | Gemini online | `gemini_flash` | Failed consistently (2/2) - Gemini's own function-call filter rejects `ENTITY_TOOL_SCHEMA` as malformed, independent of the `strict` flag; a real compat-layer incompatibility, not a wiring bug |
 | Gemma offline | `ollama_gemma4_12b` | Failed consistently (2/2) - `tool_choice` never invoked despite schema-shaped free text, slowest candidate in this tranche (310-544s) |
 | Second open-weight family (offline) | `ollama_deepseek_r1_14b` | Failed consistently (2/2) - the WI's originally-named DeepSeek V4/GLM-5.2 turned out to be Ollama-cloud-only (no locally-runnable tag); substituted `deepseek-r1:14b`. `tool_choice` never invoked; unlike `gemma4:12b`, responded in plain prose rather than JSON-shaped text |
