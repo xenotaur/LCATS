@@ -50,6 +50,12 @@ SUFFIXES = {
     "v": "V",
 }
 
+# Pre-compiled regex patterns to avoid repeated compilation overhead in tight loops
+_RE_CLEAN_TOKEN = re.compile(r"[^\w'\- ]+")
+_RE_NORMALIZE_SPACE = re.compile(r"\s+")
+_RE_SUFFIX_COMMA = re.compile(r",\s*([A-Za-z\.]+)$")
+_RE_SUFFIX_NO_COMMA = re.compile(r"\b([A-Za-z\.]+)$")
+
 
 @dataclass
 class ParsedName:
@@ -67,14 +73,14 @@ def _strip_diacritics(s: str) -> str:
 
 def _clean_token(tok: str) -> str:
     tok = tok.replace(".", "").replace("’", "'").strip()
-    tok = re.sub(
-        r"[^\w'\- ]+", "", tok
+    tok = _RE_CLEAN_TOKEN.sub(
+        "", tok
     )  # keep letters, digits, apostrophe, hyphen, space
     return tok
 
 
 def _normalize_space(s: str) -> str:
-    return re.sub(r"\s+", " ", s).strip()
+    return _RE_NORMALIZE_SPACE.sub(" ", s).strip()
 
 
 def parse_name(
@@ -107,7 +113,7 @@ def parse_name(
     # We'll capture suffix but not include it in canonical keys by default.
     suffix = None
     # Capture comma-separated suffix
-    m = re.search(r",\s*([A-Za-z\.]+)$", s)
+    m = _RE_SUFFIX_COMMA.search(s)
     if m:
         cand = _clean_token(m.group(1)).lower()
         if cand in SUFFIXES:
@@ -116,7 +122,7 @@ def parse_name(
 
     # Or suffix at end without comma
     if suffix is None:
-        m2 = re.search(r"\b([A-Za-z\.]+)$", s)
+        m2 = _RE_SUFFIX_NO_COMMA.search(s)
         if m2:
             cand = _clean_token(m2.group(1)).lower()
             if cand in SUFFIXES:
