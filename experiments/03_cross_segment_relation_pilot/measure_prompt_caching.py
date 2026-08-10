@@ -44,6 +44,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import run_pilot  # noqa: E402 - see sys.path.insert above
 
 from lcats.utils import checkpoint  # noqa: E402
+from lcats.utils import secrets  # noqa: E402
 
 
 class _RecordingBackend:
@@ -398,6 +399,7 @@ def main() -> int:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     if not args.dry_run:
+        secrets.load_secrets()
         # Preflight, per Required Change 3: a prefix below Anthropic's
         # minimum cacheable length makes a later zero cache_read result
         # expected, not a signal something is wrong - record it

@@ -4,7 +4,7 @@ type: design_proposal
 title: Making the Event-Role-World Pilot Sustainable to Run — Test Harness, Caching, Batching, and Model Tiering
 status: adopted
 created_on: 2026-08-05
-updated_on: 2026-08-06
+updated_on: 2026-08-10
 implementation_status: not_started
 implemented_by: []
 supersedes: []
@@ -198,26 +198,48 @@ each other regardless of how identical their `segment_text` is — each
 uses a different tool, which invalidates everything downstream before
 `system`/`messages` are ever consulted.
 
-The real, narrower opportunity: caching the (comparatively small) stable
+The real, narrower opportunity is caching the (comparatively small) stable
 `tools`+`system` prefix *within one extractor type*, reused across every
 call of that same extractor across different segments and different
 stories in a run — not the large, per-segment `segment_text`, which
 varies every call regardless of extractor and is therefore never a stable
-cache prefix under this pipeline's current call shape. This is a real but
-much smaller-magnitude saving than originally described, and its actual
-size is unmeasured. Separately, Anthropic's "mid-conversation tool
-changes" beta
+cache prefix under this pipeline's current call shape.
+
+WI-PILOT-0057 measured that narrower opportunity on 2026-08-10 against
+the WI-PILOT-0051 fixture set
+(`experiments/03_cross_segment_relation_pilot/results/caching_eval/caching_comparison.json`),
+using `claude-opus-4-8`, the real interleaved per-segment call order, and
+the existing 5-minute prompt-cache TTL. The run covered 2 fixture stories,
+3 real segments, and 13 measured ERW calls per comparison arm. Preflight
+`tools`+`system` prefix counts were: entity 947 tokens, event 1,333,
+relation 821, discourse 1,356, and story_relation 1,010. With Anthropic's
+current 1,024-token minimum cacheable prompt length for Opus 4.8, only the
+event and discourse prefixes were cacheable. The enabled arm observed
+2,539 `cache_creation_input_tokens` and 5,078 `cache_read_input_tokens`;
+entity, relation, and story_relation correctly stayed at zero cache tokens.
+Measured costs were $0.6206 with caching disabled and $0.5702 with
+caching enabled, for an observed delta of -$0.0504 (-8.1%) on this tiny
+fixture run. Because output generation is nondeterministic and differed
+between arms, the directly attributable input/cache component was smaller
+but still positive: $0.1348 disabled input cost versus $0.1155 enabled
+input/cache cost, a -$0.0193 input-side delta.
+
+Recommendation: **go** for a follow-on pilot-level adoption path that
+enables prompt caching explicitly for Anthropic ERW fixture/pilot runs,
+while keeping `AnthropicBackend(enable_prompt_caching=False)` as the global
+default. Do not pad short entity/relation/story_relation prefixes merely
+to force cacheability, and do not assume the originally imagined
+per-segment `segment_text` sharing exists; the measured benefit is real
+but limited to same-extractor `tools`+`system` prefix reuse.
+
+Separately, Anthropic's "mid-conversation tool changes" beta
 (`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5`) —
 "add or remove tools between turns of a conversation while preserving the
 prompt cache" — is a genuinely relevant alternative worth investigating,
 since it targets exactly this per-call-different-tool constraint, but it
 would mean restructuring the 4 independent calls into one multi-turn
 conversation per segment (a real architecture change, and still a beta
-feature) — not something to assume works today. **Deferred to a follow-on
-work item** that measures the real, narrower caching benefit (or the
-mid-conversation-tool-changes alternative) against Decision 2's fixture
-set before claiming any savings, rather than treating this as the
-zero-risk "just adopt it" item it was originally framed as.
+feature) — not something to assume works today.
 
 ### Decision 4: Evaluate, don't yet adopt, the Batch API
 
