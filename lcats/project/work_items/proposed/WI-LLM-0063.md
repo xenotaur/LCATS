@@ -13,11 +13,11 @@ related_focus: []
 related_roadmap: []
 related_workstreams: []
 related_design:
-  - project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
-  - experimental/model_comparison/README.md
-  - project/work_items/resolved/WI-LLM-0051.md
-  - project/work_items/resolved/WI-LLM-0056.md
-  - project/work_items/resolved/WI-LLM-0062.md
+  - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
+  - lcats/experimental/model_comparison/README.md
+  - lcats/project/work_items/resolved/WI-LLM-0051.md
+  - lcats/project/work_items/resolved/WI-LLM-0056.md
+  - lcats/project/work_items/resolved/WI-LLM-0062.md
 depends_on: []
 blocked_by: []
 expected_actions:
@@ -35,10 +35,11 @@ acceptance:
   - "If segmentation fails via no_tool_call, the WI-LLM-0051 reminder-retry mitigation is tested and its effect documented"
   - "A written verdict per stage in ollama_gpt_oss_20b/README.md and PROP-ERW-LOCAL-MODEL-EVALUATION, not left as an open early signal"
 artifacts_expected:
-  - experimental/model_comparison/ollama_gpt_oss_20b/README.md
-  - experimental/model_comparison/ollama_gpt_oss_20b/benchmark.py
-  - project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
+  - lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md
+  - lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark.py
+  - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
 required_evidence:
+  - lrh_validate
   - manual_review
   - test_output
 ---
