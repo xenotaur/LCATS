@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:WI_PILOT_0058_BATCH_ASSESSMENT)[2026-08-10T07:27:51+00:
 work_item: WI-PILOT-0058
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/284
 commit:
 agent: codex
 instruction_source: project/work_items/proposed/WI-PILOT-0058.md
