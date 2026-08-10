@@ -48,8 +48,9 @@ required_evidence:
 Run additional real benchmark calls against `gpt-oss:20b` (via
 `ollama_gpt_oss_20b/`) across all three ERW pipeline stages tested
 elsewhere in this tranche - genre detection, segmentation, and entity
-extraction - to bring its evidence base up to the same standard already
-applied to `qwen3:8b` (3+ runs per stage), and produce a real
+extraction - establishing a new 3-run-per-stage evidence bar for this
+candidate (matching `qwen3:8b`'s own entity-extraction sample size, the
+largest precedent in this tranche), and produce a real
 reliability/viability verdict instead of a 2-run early signal.
 
 ## Problem / Context
@@ -59,10 +60,15 @@ reliability/viability verdict instead of a 2-run early signal.
 local results in the whole tranche), and only 2 runs, well below this
 lineage's own 3-run standard for calling a candidate reliable. Genre
 detection and segmentation were never attempted for this candidate at
-all - and segmentation in particular is the stage where every other
-local model tested so far (`qwen3:8b`, `qwen3:30b-a3b`, `gemma4:12b`,
-`deepseek-r1:14b`) has shown a real `tool_choice` reliability problem, so
-it's the stage most likely to surface an issue if one exists. See
+all - and segmentation in particular is the stage where every local
+model actually tested on it so far (`qwen3:8b`, `qwen3:30b-a3b`) has
+shown a real `tool_choice` reliability problem (0/5 baseline across both
+candidates). `gemma4:12b` and `deepseek-r1:14b` have a related but
+distinct finding - a `tool_choice` silent-ignore failure on *entity
+extraction*, not segmentation, which was never run against them. Either
+failure mode could plausibly recur on `gpt-oss:20b`'s untested
+segmentation stage, so it remains the stage most likely to surface an
+issue if one exists. See
 `experimental/model_comparison/ollama_gpt_oss_20b/README.md` and
 `project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md`'s
 Decision 3.
@@ -150,11 +156,12 @@ Decision 3.
 
 ## Risk Notes
 
-- `gpt-oss:20b` could turn out to share the same `tool_choice`
-  silent-ignore problem on segmentation that every other local candidate
-  has shown - a negative result here is a valid, complete finding, not a
-  failed investigation (established precedent from `WI-LLM-0051`/
-  `WI-LLM-0062`).
+- `gpt-oss:20b` could turn out to share the segmentation-stage
+  `tool_choice` reliability problem `qwen3:8b`/`qwen3:30b-a3b` showed
+  (0/5 baseline), or the entity-extraction silent-ignore mechanism
+  `gemma4:12b`/`deepseek-r1:14b` showed on a different stage - a negative
+  result on either is a valid, complete finding, not a failed
+  investigation (established precedent from `WI-LLM-0051`/`WI-LLM-0062`).
 - The existing 2 entity-extraction runs showed real variance (12 vs 21
   entities) - a 3rd+ run could either tighten or widen that picture;
   either outcome is useful evidence.
