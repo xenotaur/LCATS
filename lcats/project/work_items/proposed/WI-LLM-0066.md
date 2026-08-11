@@ -96,11 +96,14 @@ not multi-genre accuracy or corpus-scale wall-clock behavior.
   `run_census.py`, and no existing multi-story local-model sample run
   against the genre census specifically (checked via GitHub code search
   for `base-url run_census` and `gpt-oss run_census` - no hits).
-- The governing proposal (`erw-local-model-evaluation/00_proposal.md`)
-  explicitly lists "Does not extend the benchmark harness ... to [genre
-  census] production tooling" among its own Non-Goals (`00_proposal.md`
-  Non-Goals section) - this item is exactly that follow-up, not a
-  duplicate.
+- The governing proposal (`lcats/project/design/proposals/proposed/
+  erw-local-model-evaluation/00_proposal.md:698-699`) explicitly declined
+  to add local-backend wiring to a production script as part of its own
+  scope - "Does not change `run_pilot.py`'s default model or add a
+  `--backend local`/similar flag" - leaving that as deliberately
+  unscoped future work, not something already covered elsewhere. This
+  item is the `run_census.py` analog of that same deferred wiring, not a
+  duplicate of anything the proposal itself did.
 - `WI-LLM-0065` (proposed, open) covers `gpt-oss:20b` *entity extraction*
   production-grounding specifically - a different pipeline stage,
   non-overlapping with this item's genre-only scope.
