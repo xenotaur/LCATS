@@ -36,11 +36,12 @@ forbidden_actions:
   - modify_erw_pipeline_routing
 acceptance:
   - "experiments/04_genre_census/run_census.py gains a --base-url flag (opt-in only) threaded through _build_backend so --backend openai can point at any OpenAI-compatible endpoint (e.g. Ollama's http://localhost:11434/v1) instead of api.openai.com; omitting it leaves today's default behavior (real OpenAI/Anthropic) completely unchanged"
-  - "A real gpt-oss:20b sample run analogous to WI-ASSESS-0051's --sample-size 20 (same population-weighted sampling logic, same corpus, comparable N) is executed via the new flag and its results (per-story records + summary) are committed under experiments/04_genre_census/results/"
+  - "A real gpt-oss:20b sample run uses the exact same story IDs (same --seed against the same corpus state, or an explicitly pinned story list) as the existing Claude 20-story sample - not just a comparable-N sample of possibly different stories - and its results (per-story records + summary) are committed under experiments/04_genre_census/results/"
   - "The sample's measured wall-clock/latency at multi-story scale is reported - not just extrapolated from the 3 single-story benchmark-harness latencies already on record in lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md"
-  - "The sample's detected_genre distribution is compared against the existing Claude 20-story sample (experiments/04_genre_census/results/census_sample_stories.jsonl on the xenotaur/chore/wi-assess-0051-sample-results branch) for agreement/plausibility - not just genre-schema-call success"
+  - "Per-story detected_genre agreement/disagreement against the existing Claude 20-story sample is reported story-by-story (e.g. N/20 exact matches, with each disagreement named) - matching aggregate genre-distribution counts alone is not sufficient, since two runs can have identical counts while disagreeing on every individual story"
   - "A written go/no-go recommendation is produced: is gpt-oss:20b via this wiring viable for a full local genre census, and if so, a projected full-corpus (~1,868-story) wall-clock estimate"
-  - "Zero real API dollar cost anywhere in this item - the sample run is 100% local compute"
+  - "Zero real API dollar cost anywhere in this item - the sample run is 100% local compute, and the committed summary must actually report $0 for every local-endpoint call rather than falling through to run_census.py's existing (non-local) pricing table's default price"
+  - "run_census.py's checkpoint fingerprint includes the effective endpoint (e.g. --base-url) as well as model/backend, so reusing the same --output directory against a different local endpoint cannot silently serve a cached classification from the wrong server"
   - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
 required_evidence:
@@ -126,16 +127,29 @@ not multi-genre accuracy or corpus-scale wall-clock behavior.
   local OpenAI-compatible endpoint. Omitting the flag must leave
   existing behavior (real `api.openai.com`) completely unchanged - this
   is additive, not a default-changing edit.
-- Run a population-weighted `--sample-size` run (comparable N to
-  WI-ASSESS-0051's 20-story sample) against `gpt-oss:20b` via the new
-  flag, gated on explicit go-ahead before spending any real wall-clock
-  time (see `forbidden_actions` - even though $0 API cost, a multi-story
-  local run still commits real machine time and should not start
-  silently).
-- Compare the resulting `detected_genre` distribution against the
-  existing Claude sample for plausibility/agreement, and report real
-  multi-story latency (not the single-story extrapolation this item's
-  Problem/Context section flags as thin evidence).
+- Fold the effective endpoint into `_fingerprint()` alongside
+  model/backend/classifier-version/raw-text-hash, so a checkpoint from
+  one `--base-url` is never silently reused for a different one under
+  the same `--output` directory.
+- Ensure a local-endpoint call's reported cost is genuinely $0, not
+  `run_census.py`'s existing pricing table's fallback default (currently
+  the most expensive known tier, meant for an *unrecognized real
+  provider model*, not a local/free one) - either add local model names
+  to the pricing table at `(0.0, 0.0)`, or special-case any call routed
+  through `--base-url` to report zero cost regardless of model name.
+- Run a `--sample-size` run against `gpt-oss:20b` via the new flag that
+  draws the *same* stories as the existing Claude 20-story sample (same
+  `--seed`, or an explicitly pinned story list) - a comparable-N sample
+  of different stories cannot establish per-story agreement, only
+  coincidental aggregate-count similarity - gated on explicit go-ahead
+  before spending any real wall-clock time (see `forbidden_actions` -
+  even though $0 API cost, a multi-story local run still commits real
+  machine time and should not start silently).
+- Report per-story `detected_genre` agreement/disagreement against the
+  Claude sample (not just aggregate distribution comparison, which two
+  runs can share while disagreeing on every individual story), and
+  report real multi-story latency (not the single-story extrapolation
+  this item's Problem/Context section flags as thin evidence).
 - Write a go/no-go recommendation on `gpt-oss:20b`'s viability for a
   future full local census run, including a projected full-corpus
   wall-clock estimate - explicitly not authorizing that full run itself.
@@ -151,7 +165,12 @@ not multi-genre accuracy or corpus-scale wall-clock behavior.
    sensible placeholder key when pointed at a keyless local runtime.
    Validate `--base-url` is only accepted with `--backend openai` (clear
    error otherwise, matching the script's existing fail-fast style for
-   flag combinations).
+   flag combinations). Also: (a) fold `base_url` into `_fingerprint()`'s
+   returned dict so checkpoints are endpoint-scoped, and (b) ensure any
+   call routed through `--base-url` reports $0 cost rather than falling
+   through to `_price_for_model()`'s existing default (currently the most
+   expensive known real-provider tier) - both are correctness bugs in the
+   naive implementation, not follow-up polish.
 2. `experiments/04_genre_census/README.md`: document the new flag and a
    worked example pointing at a local Ollama instance running
    `gpt-oss:20b`.
