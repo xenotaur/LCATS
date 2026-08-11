@@ -15,7 +15,7 @@ related_roadmap:
   - ROADMAP-CORE
 related_workstreams: []
 related_design:
-  - project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
+  - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md
   - lcats/project/work_items/proposed/WI-ASSESS-0051.md
   - lcats/project/work_items/resolved/WI-LLM-0058.md
@@ -86,7 +86,7 @@ README.md`'s "Genre detection - 3/3 success" section (via
 path `run_census.py` uses, against a real whole story) found genre
 detection reliable for `gpt-oss:20b`, matching `ollama_qwen3_8b`'s own
 "hybrid-viable" verdict for this stage
-(`project/design/proposals/proposed/erw-local-model-evaluation/
+(`lcats/project/design/proposals/proposed/erw-local-model-evaluation/
 00_proposal.md:298-299`). All 3 runs used the *same* single story
 (Sherlock Holmes, genre `mystery`), so this establishes reliability but
 not multi-genre accuracy or corpus-scale wall-clock behavior.
