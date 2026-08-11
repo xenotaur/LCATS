@@ -487,12 +487,16 @@ class TestNormalizeApiError(unittest.TestCase):
         from lcats.llm import backend as llm_backend
 
         exc = llm_backend.NoToolCallError(
-            "no tool call", input_tokens=99, output_tokens=123
+            "no tool call",
+            input_tokens=99,
+            output_tokens=123,
+            raw_content='{"entities": []}',
         )
         result = self.ext._normalize_api_error(exc)
         self.assertEqual(result["category"], "no_tool_call")
         self.assertEqual(result["input_tokens"], 99)
         self.assertEqual(result["output_tokens"], 123)
+        self.assertEqual(result["raw_content"], '{"entities": []}')
         self.assertFalse(result["can_retry"])
 
     def test_extracts_embedded_json_error_block(self):
@@ -658,12 +662,16 @@ class TestExtractErrorPaths(unittest.TestCase):
         from lcats.llm import backend as llm_backend
 
         exc = llm_backend.NoToolCallError(
-            "no tool call", input_tokens=99, output_tokens=123
+            "no tool call",
+            input_tokens=99,
+            output_tokens=123,
+            raw_content='{"entities": []}',
         )
         ext = _make_extractor(backend=_RaisingBackend(exc))
         result = ext.extract("story")
         self.assertEqual(result["extraction_error"], "api_error")
         self.assertEqual(result["usage"], {"input_tokens": 99, "output_tokens": 123})
+        self.assertEqual(result["api_error"]["raw_content"], '{"entities": []}')
 
     def test_api_exception_result_has_all_keys(self):
         """Even on backend exception, result dict has all expected keys."""

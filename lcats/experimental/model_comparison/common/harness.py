@@ -35,7 +35,7 @@ import pathlib
 import sys
 import time
 
-from typing import Any, Dict, Optional
+from typing import Any, Callable, Dict, Optional, Tuple
 
 # Path bootstrap - allow running `python <candidate>/benchmark.py` directly
 # without a prior `pip install -e .`, matching
@@ -47,6 +47,7 @@ if str(_LCATS_SRC) not in sys.path:
 from lcats.analysis.corpus import assess as corpus_assess  # noqa: E402
 from lcats.analysis.event_role_world import entity_extractor as erw_entity  # noqa: E402
 from lcats.analysis import scene_analysis  # noqa: E402
+from lcats import utils  # noqa: E402
 from lcats.llm import backend as llm_backend  # noqa: E402
 
 # A real, single scene/sequel segment - see this module's docstring and
@@ -744,6 +745,11 @@ def run_entity_extraction_with_grounding(
     max_tokens: int = DEFAULT_MAX_TOKENS,
     temperature: float = DEFAULT_TEMPERATURE,
     variant: str = "grounded",
+    system_prompt_suffix: str = "",
+    tool_result_adapter: Optional[
+        Callable[[Dict[str, Any], str], Tuple[Dict[str, Any], Dict[str, Any]]]
+    ] = None,
+    allow_no_tool_call_json_fallback: bool = False,
 ) -> dict[str, Any]:
     """Run one entity call and report raw vs. build_entities()-grounded counts."""
     story_name, segment_text = load_sample_segment(segment_path)
@@ -751,6 +757,8 @@ def run_entity_extraction_with_grounding(
     extractor.default_model = model
     extractor.max_tokens = max_tokens
     extractor.temperature = temperature
+    if system_prompt_suffix:
+        extractor.system_prompt = extractor.system_prompt + system_prompt_suffix
 
     start = time.monotonic()
     try:
@@ -774,24 +782,63 @@ def run_entity_extraction_with_grounding(
             "grounded_mention_count": None,
             "grounding_item_errors": [],
             "tool_result": None,
+            "normalized_tool_result": None,
+            "adapter_diagnostics": None,
+            "production_grounded_success": False,
         }
     latency = time.monotonic() - start
 
     api_error = extraction.get("api_error")
+    tool_call_success = api_error is None
     parsed = extraction.get("extracted_output") or extraction.get("parsed_output") or {}
+    json_content_fallback_applied = False
+    json_content_fallback_error = None
+    if (
+        allow_no_tool_call_json_fallback
+        and isinstance(api_error, dict)
+        and api_error.get("code") == "no_tool_call"
+    ):
+        raw_content = api_error.get("raw_content") or ""
+        try:
+            parsed = utils.extract_json(raw_content)
+            api_error = None
+            json_content_fallback_applied = True
+        except ValueError as exc:
+            json_content_fallback_error = str(exc)
     entities = parsed.get("entities") if isinstance(parsed, dict) else None
     usage = extraction.get("usage") or {}
     raw_output = extraction.get("raw_output") or ""
     grounded_entities = []
     grounded_mentions = []
     item_errors = []
+    adapter_diagnostics = None
+    grounding_error_type = None
+    grounding_error_message = None
+    parsed_for_grounding = parsed
     schema_error = None
     if api_error is None and not isinstance(entities, list):
         schema_error = "malformed_tool_result"
     if api_error is None and schema_error is None and isinstance(parsed, dict):
-        grounded_entities, grounded_mentions, item_errors = erw_entity.build_entities(
-            parsed, segment_text
-        )
+        if tool_result_adapter is not None:
+            try:
+                parsed_for_grounding, adapter_diagnostics = tool_result_adapter(
+                    parsed, segment_text
+                )
+            # Diagnostic harness records adapter failures rather than raising.
+            except Exception as exc:  # noqa: BLE001
+                grounding_error_type = type(exc).__name__
+                grounding_error_message = str(exc)
+                parsed_for_grounding = parsed
+        if grounding_error_type is None:
+            grounded_entities, grounded_mentions, item_errors = (
+                erw_entity.build_entities(parsed_for_grounding, segment_text)
+            )
+    production_grounded_success = (
+        api_error is None
+        and schema_error is None
+        and grounding_error_type is None
+        and bool(grounded_entities)
+    )
 
     return {
         "candidate": candidate,
@@ -801,6 +848,9 @@ def run_entity_extraction_with_grounding(
         "stage": "entity_extraction",
         "variant": variant,
         "success": api_error is None and schema_error is None,
+        "tool_call_success": tool_call_success,
+        "json_content_fallback_applied": json_content_fallback_applied,
+        "json_content_fallback_error": json_content_fallback_error,
         "latency_seconds": latency,
         "input_tokens": usage.get("input_tokens", 0) or 0,
         "output_tokens": usage.get("output_tokens", 0) or 0,
@@ -821,8 +871,15 @@ def run_entity_extraction_with_grounding(
         "raw_entity_count": len(entities) if isinstance(entities, list) else None,
         "grounded_entity_count": len(grounded_entities),
         "grounded_mention_count": len(grounded_mentions),
+        "production_grounded_success": production_grounded_success,
+        "grounding_error_type": grounding_error_type,
+        "grounding_error_message": grounding_error_message,
         "grounding_item_errors": item_errors,
         "tool_result": parsed if api_error is None and schema_error is None else None,
+        "normalized_tool_result": (
+            parsed_for_grounding if api_error is None and schema_error is None else None
+        ),
+        "adapter_diagnostics": adapter_diagnostics,
         "raw_output_preview": raw_output[:_RAW_OUTPUT_PREVIEW_CHARS] or None,
     }
 

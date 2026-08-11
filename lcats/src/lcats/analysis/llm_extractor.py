@@ -293,6 +293,7 @@ class JSONPromptExtractor:
                 "type": "no_tool_call",
                 "message": str(exc),
                 "raw": repr(exc),
+                "raw_content": exc.raw_content,
                 "input_tokens": exc.input_tokens,
                 "output_tokens": exc.output_tokens,
             }

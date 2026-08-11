@@ -59,10 +59,12 @@ class NoToolCallError(RuntimeError):
         *,
         input_tokens: int = 0,
         output_tokens: int = 0,
+        raw_content: str = "",
     ):
         super().__init__(message)
         self.input_tokens = input_tokens
         self.output_tokens = output_tokens
+        self.raw_content = raw_content
 
 
 @dataclasses.dataclass

@@ -240,13 +240,14 @@ class TestOpenAIBackend(unittest.TestCase):
         )
         with patch("openai.OpenAI", return_value=stub_client):
             backend_under_test = openai_backend.OpenAIBackend()
-            with self.assertRaises(backend.NoToolCallError):
+            with self.assertRaises(backend.NoToolCallError) as ctx:
                 backend_under_test.complete(
                     system="sys",
                     messages=[{"role": "user", "content": "hi"}],
                     model="gpt-4o-2024-08-06",
                     tool=tool_schema,
                 )
+        self.assertEqual(ctx.exception.raw_content, '{"verdict": "include"}')
 
     def test_no_tool_call_error_preserves_billed_usage(self):
         """NoToolCallError carries the usage the provider already billed

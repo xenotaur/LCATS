@@ -219,3 +219,50 @@ to rescue the stage through the OpenAI-compatible Ollama path.
 - **Do not consider for segmentation** under the current harness/API
   shape; the fairer best-config test stayed 0/6 usable across the two
   variants.
+
+## Production-grounded entity follow-up (`WI-LLM-0065`)
+
+`WI-LLM-0065` tested the specific malformed entity shapes committed by
+`WI-LLM-0064` against the production grounding path, rather than counting
+raw tool-call success as usable entity extraction. The follow-up added:
+
+- `entity_shape_adapter.py` - a candidate-scoped compatibility adapter
+  for observed `gpt-oss:20b` shapes only. It repairs string entities,
+  `name`/`entity` aliases, string mentions, and mention objects using
+  `text`/`surface` instead of `quote` only when the candidate text is
+  already a verbatim substring of the segment. It does not fabricate
+  spans or weaken `build_entities()`.
+- `benchmark_entity_production_grounded.py` - 3 live local
+  `gpt-oss:20b` runs at `temperature=1.0`, passing the candidate output
+  through the adapter before the unchanged production
+  `build_entities()` call. The harness also has an opt-in
+  no-tool-call JSON-content fallback for Ollama-style schema-shaped
+  message content; the final 3-run pass did not need that fallback
+  (`json_content_fallback_count=0`), but the path is unit-tested.
+
+`results_entity_production_grounded.json`,
+`results_entity_production_grounded_run{1,2,3}.json`:
+
+| Run | Tool call | Fallback used | Latency | Output tokens | Raw entities | Grounded entities | Grounded mentions |
+|---|---|---|---:|---:|---:|---:|---:|
+| 1 | yes | no | 71.8s | 2038 | 14 | 12 | 13 |
+| 2 | yes | no | 140.6s | 4196 | 13 | 11 | 12 |
+| 3 | yes | no | 70.8s | 2637 | 16 | 16 | 18 |
+
+**Verdict: entity extraction is production-grounded with the
+candidate-scoped adapter, but not strong enough to prefer as a default.**
+The adapter successfully converts known malformed shapes into real
+`build_entities()` inputs without weakening quote grounding, and the
+final pass produced 3/3 production-grounded successes. Quality and speed
+remain uneven enough to require follow-up: grounded entity counts ranged
+from 11 to 16, and latency ranged from 71s to 141s on the same segment.
+
+### Updated recommendation after `WI-LLM-0065`
+
+- **Prefer for genre detection**, where the prior 3/3 result remains the
+  cleanest local use case.
+- **Consider for entity extraction only behind the candidate-scoped
+  adapter**, with follow-up precision/recall evaluation before any
+  production default or routing change.
+- **Do not consider for segmentation** under the current harness/API
+  shape; the best-config segmentation runs remain 0/6 usable.

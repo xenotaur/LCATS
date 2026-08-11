@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-10
+updated_on: 2026-08-11
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -769,7 +769,21 @@ adopted):
    segmentation remains not viable (0/6 across plain `temperature=1.0`
    and verbatim-reminder variants). See the "Decision 3 update
    (2026-08-10 ... `WI-LLM-0064`)" section above.
-5. Only after (1)-(4): revisit Decision 3 in a follow-on proposal or
+5. ~~Determine whether `gpt-oss:20b` entity extraction can be made
+   production-grounded or should be demoted to genre-only.~~ **Done
+   (`WI-LLM-0065`).** A candidate-scoped adapter now repairs only the
+   observed malformed shapes (string entities, `name`/`entity` aliases,
+   string mentions, and grounded `text`/`surface` mention dicts missing
+   `quote`/`mention_id`) before the unchanged production
+   `build_entities()` call. Three live
+   `gpt-oss:20b` runs at `temperature=1.0` produced 3/3
+   production-grounded successes, but with uneven quality and latency:
+   grounded entity counts were 12, 11, and 16; grounded mention counts
+   were 13, 12, and 18; latency ranged 71-141 seconds. Recommendation:
+   no genre-only demotion is required, but entity extraction should be
+   considered only behind the candidate adapter and should not become a
+   production default without a precision/recall evaluation.
+6. Only after (1)-(5): revisit Decision 3 in a follow-on proposal or
    amendment.
 
 ## Cross-References
@@ -849,13 +863,15 @@ adopted):
   tool calls, but both still failed anchor alignment, and the third run
   returned no tool call/refusal. Segmentation remains not viable for this
   candidate under the current OpenAI-compatible Ollama path.
-- Is `gpt-oss:20b`'s grounded entity-extraction failure addressable by a
-  prompt/schema/output-handling follow-up? `WI-LLM-0064` showed raw
-  tool-call reliability at `temperature=1.0` (3/3) but 0 grounded
-  entities because `mentions` were emitted as strings rather than
-  production mention objects. Not yet tested: whether a schema-specific
-  reminder, stricter output validation, or a small compatibility adapter
-  can preserve grounding without weakening production semantics.
+- ~~Is `gpt-oss:20b`'s grounded entity-extraction failure addressable by
+  a prompt/schema/output-handling follow-up?~~ **Answered
+  (`WI-LLM-0065`):** yes, narrowly. A candidate-scoped compatibility
+  adapter can preserve production grounding for the observed malformed
+  shapes without fabricated spans or weakened quote checks, and the final
+  live run was 3/3 production-grounded. The answer is not a default-model
+  endorsement: grounded counts and latency remained variable, so the next
+  question is precision/recall quality under the adapter, not routing
+  adoption.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus
