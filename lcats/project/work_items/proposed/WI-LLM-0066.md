@@ -92,6 +92,14 @@ detection reliable for `gpt-oss:20b`, matching `ollama_qwen3_8b`'s own
 (Sherlock Holmes, genre `mystery`), so this establishes reliability but
 not multi-genre accuracy or corpus-scale wall-clock behavior.
 
+**The existing Claude 20-story sample this item compares against is not
+on `main`.** `census_sample_stories.jsonl`/`census_sample_summary.json`
+exist only on the unmerged `xenotaur/chore/wi-assess-0051-sample-results`
+branch (commit `8431780b`, no open PR) - an implementer must fetch that
+branch's data explicitly (or re-derive the same story set via the same
+`--seed`) before the per-story comparison acceptance criteria can be
+satisfied; it will not simply be present in a fresh checkout of `main`.
+
 ### Duplication search
 - In-repo: no existing `--base-url`/local-endpoint support in
   `run_census.py`, and no existing multi-story local-model sample run
@@ -220,6 +228,13 @@ not multi-genre accuracy or corpus-scale wall-clock behavior.
 
 ## Risk Notes
 
+- **Reference data lives on an unmerged branch, not `main`.** The
+  existing Claude sample this item compares against
+  (`xenotaur/chore/wi-assess-0051-sample-results`, commit `8431780b`) has
+  no open PR - fetch it explicitly, or note in the go/no-go finding if it
+  was re-derived instead (e.g. re-running the same `--seed` against
+  `main`'s current corpus state, which should reproduce the same story
+  set deterministically per `build_population_weighted_sample`).
 - **Real machine-time commitment, even at $0 API cost.** A ~20-story
   local sample could take significant wall-clock time depending on
   hardware (the 3 known single-story latencies ranged 8.3-40.5s) - this
