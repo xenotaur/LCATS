@@ -10,14 +10,14 @@ related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
 related_design:
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
-  - project/design/design.md
-  - project/design/event-role-world-genre-target-reconciliation.md
-  - project/design/proposals/adopted/worldcon-fast-path-annotation/00_proposal.md
-  - project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
-  - project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
-  - project/work_items/proposed/WI-ASSESS-0051.md
-  - project/work_items/proposed/WI-LLM-0066.md
+  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/design.md
+  - lcats/project/design/event-role-world-genre-target-reconciliation.md
+  - lcats/project/design/proposals/adopted/worldcon-fast-path-annotation/00_proposal.md
+  - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
+  - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
+  - lcats/project/work_items/proposed/WI-ASSESS-0051.md
+  - lcats/project/work_items/proposed/WI-LLM-0066.md
 work_items: []
 exit_criteria:
   - Gutenberg metadata cache preflight exists and refuses cache build/download unless explicitly approved
@@ -40,10 +40,12 @@ This workstream coordinates implementation of PROP-GENRE-EVIDENCE-SIDECARS. It t
 - Sync or locate the existing Gutenberg metadata cache and add a no-network preflight path.
 - Build `experiments/05_metadata_genre_prefilter` for metadata-rule evidence and a heterogeneous 40-story tooling pilot.
 - Define and validate `genre-sidecar-v1` as an append-only `assessments[]` schema keyed by LCATS story ID.
+- Define legacy flat-sidecar conversion so append mode preserves existing `AssessmentResult.to_dict()` evidence instead of replacing it.
 - Upgrade promotion semantics so selected `genre.json` sidecar tranches can be promoted without wholesale directory replacement.
 - Upgrade annotation semantics so `lcats annotate` can read existing sidecars and append new model or human assessments.
 - Expand from the 40-story pilot to the 100-200 story Worldcon sample.
 - Add local-model genre assessment as a later layer, preserving repeated runs for downstream voting.
+- Add explicit run identity for independent repeated model assessments while preserving checkpoint resumability within a run.
 - Keep event extraction and paper analysis as follow-on work once the genre evidence pipeline is stable.
 
 ## Prior Art Check
@@ -57,13 +59,14 @@ Relevant prior work includes the current genre census experiment, existing `lcat
 1. Create cache preflight and `experiments/05_metadata_genre_prefilter` scaffold.
 2. Produce the 40-story metadata-evidence pilot across heterogeneous collections.
 3. Define and validate `genre-sidecar-v1`.
-4. Add sidecar-tranche promotion support.
-5. Promote and check in the 40-story pilot sidecars.
-6. Expand metadata evidence to the 100-200 story sample.
-7. Add append-mode genre assessment support to `lcats annotate`.
-8. Add local-model genre assessment as an append-only evidence source.
-9. Add human review/adjudication support for genre evidence.
-10. Reassess event extraction and analysis work items after genre sidecars are stable.
+4. Add legacy flat-sidecar conversion and validation coverage.
+5. Add sidecar-tranche promotion support.
+6. Promote and check in the 40-story pilot sidecars.
+7. Expand metadata evidence to the 100-200 story sample.
+8. Add append-mode genre assessment support to `lcats annotate`.
+9. Add local-model genre assessment as an append-only evidence source with explicit run identity.
+10. Add human review/adjudication support for genre evidence.
+11. Reassess event extraction and analysis work items after genre sidecars are stable.
 
 ## Non-Goals
 

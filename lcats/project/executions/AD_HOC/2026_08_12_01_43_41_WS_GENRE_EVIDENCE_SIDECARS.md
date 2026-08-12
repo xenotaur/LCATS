@@ -7,6 +7,9 @@ rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/290
 commit: f503b657
 created_at: 2026-08-12T01:43:41+00:00
+agent: codex_app
+instruction_source: promptspace:PR-290-genre-evidence-sidecar-workstream
+session_transcript: pending
 ---
 
 # Summary
@@ -15,7 +18,7 @@ Create a companion LRH workstream for delivering the genre evidence sidecar prop
 
 # Result
 
-Added `WS-GENRE-EVIDENCE-SIDECARS` at `project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md`. The workstream scopes the cache preflight, metadata prefilter pilot, sidecar schema, tranche promotion, append-mode annotation, expanded sample, model evidence, and human adjudication follow-on work.
+Added `WS-GENRE-EVIDENCE-SIDECARS` at `lcats/project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md`. The workstream scopes the cache preflight, metadata prefilter pilot, sidecar schema, tranche promotion, append-mode annotation, expanded sample, model evidence, and human adjudication follow-on work.
 
 # Validation
 

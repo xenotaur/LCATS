@@ -7,6 +7,9 @@ rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/290
 commit: e986740a
 created_at: 2026-08-12T01:43:41+00:00
+agent: codex_app
+instruction_source: promptspace:PR-290-genre-evidence-sidecar-proposal
+session_transcript: pending
 ---
 
 # Summary
@@ -15,7 +18,7 @@ Create a formal LRH design proposal for append-only genre evidence sidecars supp
 
 # Result
 
-Added `PROP-GENRE-EVIDENCE-SIDECARS` at `project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`. The proposal captures the experiment-first plan, LCATS-story-ID-first identity, timestamped append-only assessments, Gutenberg metadata provenance, later model/human assessment layers, and promotion/annotation implications.
+Added `PROP-GENRE-EVIDENCE-SIDECARS` at `lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`. The proposal captures the experiment-first plan, LCATS-story-ID-first identity, timestamped append-only assessments, Gutenberg metadata provenance, later model/human assessment layers, and promotion/annotation implications.
 
 # Validation
 

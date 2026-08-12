@@ -174,6 +174,7 @@ metadata record:
 {
   "assessment_id": "model__gpt-oss-20b__run-001__2026-08-12T01:35:00Z",
   "label": "model_detect",
+  "run_id": "model-genre-pilot-2026-08-12-run-001",
   "generated_at": "2026-08-12T01:35:00Z",
   "scope": "story",
   "method": {
@@ -185,6 +186,7 @@ metadata record:
     "backend": "openai-compatible",
     "api_base_url": "http://localhost:11434/v1",
     "model": "gpt-oss:20b",
+    "checkpoint_run_id": "model-genre-pilot-2026-08-12-run-001",
     "temperature": 0.2
   },
   "result": {
@@ -284,14 +286,24 @@ Options considered:
 - Use current `lcats promote` wholesale collection replacement.
 - Add sidecar-tranche promotion and append-mode annotation.
 
-**Chosen: add sidecar-tranche promotion and append-mode annotation before
-committing persistent sample sidecars.** Direct `corpora/` edits bypass the
-project's release gate. Current promotion wholesale-replaces destination
-collections, which is too blunt for adding a tranche of `genre.json`
-sidecars to existing story buckets. A later implementation must let `lcats
-promote` safely promote selected sidecars, and `lcats annotate` must be able
-to read an existing sidecar, append a new assessment, and write a new
-version without discarding previous evidence.
+**Chosen: add sidecar-tranche promotion, legacy conversion, and append-mode
+annotation before committing persistent sample sidecars.** Direct `corpora/`
+edits bypass the project's release gate. Current promotion wholesale-replaces
+destination collections, which is too blunt for adding a tranche of
+`genre.json` sidecars to existing story buckets. A later implementation must
+let `lcats promote` safely promote selected sidecars, and `lcats annotate`
+must be able to read an existing sidecar, append a new assessment, and write a
+new version without discarding previous evidence.
+
+Append mode must explicitly handle legacy flat `genre.json` sidecars already
+produced by the current writer. When the loaded sidecar has the existing flat
+`AssessmentResult.to_dict()` shape and no `assessments` array, the upgrader
+must wrap that flat result as the first `genre-sidecar-v1` assessment with
+its original available metadata/provenance preserved, then append new
+assessments after it. Initializing an empty ledger over a legacy file is not
+acceptable because it would silently discard existing model evidence. Schema
+and promotion validation should include this legacy-to-v1 conversion case
+before append mode is used for corpus promotion.
 
 ### Decision 8: Local model genre assessment
 
@@ -301,12 +313,22 @@ Options considered:
   separate experiment/API and eventually `lcats annotate`.
 - Defer model detection entirely.
 
-**Chosen: metadata first, model second.** `gpt-oss:20b` is promising for
-genre detection, but local-model integration and repeated model runs are
-separate concerns from metadata cache access and sidecar schema validation.
-After the metadata sidecar path is proven, a follow-on experiment or API can
-append model assessments using `assess_story()` detect mode and record full
+**Chosen: metadata first, model second, with explicit run identity for
+independent repeats.** `gpt-oss:20b` is promising for genre detection, but
+local-model integration and repeated model runs are separate concerns from
+metadata cache access and sidecar schema validation. After the metadata
+sidecar path is proven, a follow-on experiment or API can append model
+assessments using `assess_story()` detect mode and record full
 backend/model/API provenance.
+
+Repeated model assessments need an explicit `run_id` or nonce in both the
+assessment record and the checkpoint/fingerprint identity. The current
+annotation path can intentionally reuse cached results for the same story,
+model, prompt, and configuration, which is correct for resumability within a
+single run but not sufficient for independent repeated assessments. The model
+assessment implementation should therefore distinguish "resume the same run"
+from "start an independent run for voting" by including the run identity in
+the cache key while still allowing checkpoint reuse inside that run.
 
 ### Decision 9: Human adjudication
 
@@ -358,8 +380,8 @@ This is a multi-stage workstream. Suggested delivery order:
 
 3. **Sidecar schema validation.** Define and test the `genre-sidecar-v1`
    parse/shape rules, including `schema_version`, LCATS identity,
-   `assessments[]`, timestamps, scope, method/provenance, and optional
-   adjudication.
+   `assessments[]`, timestamps, scope, method/provenance, legacy flat
+   sidecar conversion, and optional adjudication.
 
 4. **Sidecar-tranche promotion.** Extend `lcats promote` or add a scoped
    promotion mode so selected sidecars can be promoted into `corpora/`
@@ -375,12 +397,14 @@ This is a multi-stage workstream. Suggested delivery order:
    author/collection distribution reported.
 
 7. **Append-mode `lcats annotate`.** Teach `lcats annotate` to load an
-   existing `genre.json`, append model or human assessments, and write the
+   existing `genre.json`, convert legacy flat sidecars to the append-only v1
+   ledger when needed, append model or human assessments, and write the
    updated sidecar through checkpoint-safe/atomic publication.
 
 8. **Local model genre assessment.** Add a follow-on experiment or API to
    append `gpt-oss:20b` model assessments with full backend/model/API
-   provenance, then wire it into `lcats annotate`.
+   provenance and explicit run identity for independent repeats, then wire it
+   into `lcats annotate`.
 
 9. **Human review/adjudication support.** Add a minimal way to append human
    assessments and, when desired, set `current_adjudication`.
