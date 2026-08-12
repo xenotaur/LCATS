@@ -3,7 +3,7 @@ execution_id: 2026_08_12_01_27_35_LCATS_PILOT_IMPROVEMENTS
 prompt_id: PROMPT(AD_HOC:LCATS_PILOT_IMPROVEMENTS)[2026-08-12T01:13:11+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/289
 commit: 57ae80352677e081d8a7358769798822848603f0
 created_at: 2026-08-12T01:27:35+00:00
