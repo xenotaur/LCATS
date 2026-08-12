@@ -4,8 +4,8 @@ prompt_id: PROMPT(WI-EVENT-0030:WI_EVENT_0030_GAP3_DEPENDENCY)[2026-08-07T18:24:
 work_item: WI-EVENT-0030
 status: in_progress
 rerun_of: 
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/246
+commit: b0b100c91f0a419ff503df6f88930d01f4f2d4aa
 created_at: 2026-08-07T18:25:42+00:00
 ---
 
