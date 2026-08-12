@@ -1,0 +1,12 @@
+{
+  "five_o_clock_tea_farce": {
+    "validated_genre": "other",
+    "wellformed": false,
+    "validation_basis": "Manual adjudication for WI-PILOT-0060: the fixture body is publisher catalogue/front-matter material rather than a standalone romance narrative."
+  },
+  "king_of_the_hill": {
+    "validated_genre": "science fiction",
+    "wellformed": true,
+    "validation_basis": "Manual adjudication for WI-PILOT-0060: the story turns on a military space station, satellite weapons, and speculative strategic technology."
+  }
+}

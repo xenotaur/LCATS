@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged via PR #274 (commit 4a5a3c60): added schema.coerce_list_field(), a container-type guard companion to the existing per-item describe_malformed_item() guard, and converted all 12 array-iteration call sites across the six event_role_world/ extractors to use it. run_pilot.py's printed exclude_reason is now capped via _capped_exclude_reason(). Automatic first-push review (Codex + Copilot) found 4 real issues -- a falsy-value guard gap (coerce_list_field() silently passed \"\"/0/False/{} with no recorded error) and a truncation-count bug in _capped_exclude_reason(), plus two misleading docstrings -- all fixed and independently re-verified via /lrh-self-review (PR-mode) before merge, no bot retrigger used. See execution records project/executions/WI-EVENT-0061/2026_08_09_07_51_36_WI_EVENT_0061.md and project/executions/AD_HOC/2026_08_09_08_06_40_WI_EVENT_0061_IMPL_CONFIRM.md."
 blocked_reason: null
 blocked: false
 id: WI-EVENT-0061
 title: Guard build_*() array-field iteration against non-list values across the Event-Role-World extractors
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 contributors: []

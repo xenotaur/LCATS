@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented across PR #270 and PR #273 (final commit 551c6ea9). All 6 tranche 1 cells landed with real, committed, multi-run evidence: 3 succeeded (anthropic_haiku, ollama_gpt_oss_20b; openai_gpt55 exercised for real but surfaced a schema bug in ENTITY_TOOL_SCHEMA rather than a clean success), 3 documented failures (gemini_flash, ollama_gemma4_12b, ollama_deepseek_r1_14b). The 3 failures split into two genuinely distinct tool_choice mechanisms - gemma4/deepseek-r1 silently ignore tool_choice, gemini's own compat filter actively rejects an attempted call - both now confirmed on entity extraction, not just the segmentation stage WI-LLM-0051 characterized. Resolved per explicit user decision: the WI's deeper intent (real evidence per cell) is satisfied even though not every cell shows a working candidate. Follow-up investigation into the tool_choice patterns deferred to a separate WI."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0056
 title: "Tranche 1: expand the benchmark harness to cross-provider coverage (Anthropic, OpenAI, Gemini, one open-weight family)"
 type: evaluation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []

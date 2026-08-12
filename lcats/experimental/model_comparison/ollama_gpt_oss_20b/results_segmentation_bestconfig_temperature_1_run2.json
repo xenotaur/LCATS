@@ -1,0 +1,22 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "temperature_1",
+  "success": false,
+  "latency_seconds": 169.24284420898766,
+  "input_tokens": 12591,
+  "output_tokens": 5610,
+  "segment_count": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 7,\\n      \"start_exact\": \"When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\",\\n      \"end_exact\": \"such a day and at such an hour. But I take it that it is more likely to be some crony of the landlady\u2019s.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Watson reflects on Sherlock Holmes\u2019 cases, highlighting a remarkable case with a mysterious warning of danger.\",\\n      \"cohesion\": {\\n        \"time\": \"1870s\",\\n        \"place\": \"London (Baker Street)\",\\n        \"characters\": [\"Watson\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"This portion contains narrative exposition and sets up the context without any on\u2011stage GACD or ERAC elements.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_scene\",\\n      \"start_par_id\": 8,\\n      \"end_par_id\": 178,\\n      \"start_exact\": \"Sherlock Holmes was wrong in his conjecture, however, for there came a step in\",\\n      \"end_exact\": \"with the letters \\'L. S.\\' carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"John Openshaw arrives at Holmes\u2019 lodge seeking help after receiving a dangerous warning; Holmes investigates the KKK threat, plans actions and contends with looming danger.\",\\n      \"cohesion\": {\\n        \"time\": \"1883\u20131890s\",\\n        \"place\": \"London (Baker Street), Horsham, Atlantic shipping routes\",\\n        \"characters\": [\"Holmes\", \"Watson\", \"John Openshaw\"]\\n      },\\n      \"gacd\": {\\n        \"goal\": \"...protect John and uncover the mystery behind the alarming warning.\",\\n        \"action\": \"...Holmes invites Openshaw into his circle, investigates clues (e.g., brass box'",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": false,
+  "anchor_diagnostics": [],
+  "parsed_output": null,
+  "raw_output_preview": null,
+  "run_number": 2
+}

@@ -1,0 +1,111 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "variant": "temperature_1_grounded",
+  "success": true,
+  "latency_seconds": 49.79581383301411,
+  "input_tokens": 1024,
+  "output_tokens": 1904,
+  "entity_count": 11,
+  "error_type": null,
+  "error_message": null,
+  "temperature": 1.0,
+  "max_tokens": 8192,
+  "raw_entity_count": 11,
+  "grounded_entity_count": 0,
+  "grounded_mention_count": 0,
+  "grounding_item_errors": [
+    "entities[0].mentions[0] is not an object (got str): 'Sherlock Holmes'",
+    "entities[0].mentions[1] is not an object (got str): 'Holmes'",
+    "entities[1].mentions[0] is not an object (got str): 'Watson'",
+    "entities[2].mentions[0] is not an object (got str): 'John Openshaw'",
+    "entities[3].mentions[0] is not an object (got str): 'Police-Constable Cook'",
+    "entities[4].mentions[0] is not an object (got str): 'water-police'",
+    "entities[5].mentions[0] is not an object (got str): 'God'",
+    "entities[6].mentions[0] is not an object (got str): 'great city'",
+    "entities[6].mentions[1] is not an object (got str): 'the great city'",
+    "entities[6].mentions[2] is not an object (got str): 'City'",
+    "entities[7].mentions[0] is not an object (got str): 'Horsham'",
+    "entities[8].mentions[0] is not an object (got str): 'Waterloo Bridge'",
+    "entities[9].mentions[0] is not an object (got str): 'Waterloo Station'",
+    "entities[10].mentions[0] is not an object (got str): 'Embankment'"
+  ],
+  "tool_result": {
+    "entities": [
+      {
+        "mentions": [
+          "Sherlock Holmes",
+          "Holmes"
+        ],
+        "name": "Sherlock Holmes"
+      },
+      {
+        "mentions": [
+          "Watson"
+        ],
+        "name": "Watson"
+      },
+      {
+        "mentions": [
+          "John Openshaw"
+        ],
+        "name": "John Openshaw"
+      },
+      {
+        "mentions": [
+          "Police-Constable Cook"
+        ],
+        "name": "Police-Constable Cook"
+      },
+      {
+        "mentions": [
+          "water-police"
+        ],
+        "name": "water-police"
+      },
+      {
+        "mentions": [
+          "God"
+        ],
+        "name": "God"
+      },
+      {
+        "mentions": [
+          "great city",
+          "the great city",
+          "City"
+        ],
+        "name": "Great City"
+      },
+      {
+        "mentions": [
+          "Horsham"
+        ],
+        "name": "Horsham"
+      },
+      {
+        "mentions": [
+          "Waterloo Bridge"
+        ],
+        "name": "Waterloo Bridge"
+      },
+      {
+        "mentions": [
+          "Waterloo Station"
+        ],
+        "name": "Waterloo Station"
+      },
+      {
+        "mentions": [
+          "Embankment"
+        ],
+        "name": "Embankment"
+      }
+    ]
+  },
+  "raw_output_preview": null,
+  "run_number": 2
+}

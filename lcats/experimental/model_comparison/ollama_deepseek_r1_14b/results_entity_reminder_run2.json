@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_deepseek_r1_14b",
+  "backend_kind": "openai_compatible_local",
+  "model": "deepseek-r1:14b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 206.63197900098749,
+  "input_tokens": 1827,
+  "output_tokens": 2361,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '\\n\\nTo extract the entities and their surface mentions from the provided text segment, I will use the `extract_entities` function. This function will analyze the text and identify all relevant entities along with their exact quoted mentions.\\n\\n```json\\n{\\n  \"entities\": [\\n    {\\n      \"entity\": \"Sherlock Holmes\",\\n      \"mentions\": [\\n        \"Sherlock Holmes was already at breakfast when I came down.\",\\n        \"\\\\\"Holmes,\\\\\" I cried, \\\\\"you are too late.\\\\\"\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"Watson\",\\n      \"mentions\": [\\n        \"I asked.\",\\n        \"As I waited, I lifted the unopened newspaper from the table and glanced my eye over it.\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"John Openshaw\",\\n      \"mentions\": [\\n        \"\\\\\"the case of young Openshaw\u2019s\\\\\"\",\\n        \"It proved to be the body of a young gentleman whose name, as it appears from an envelope which was found in his pocket, was John Openshaw.\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"Police-Constable Cook\",\\n      \"mentions\": [\\n        \"Police-Constable Cook, of the H Division, on duty near Waterloo Bridge, heard a cry for help and a splash in the water.\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"H Division\",\\n      \"mentions\": [\\n        \"Police-Constable Cook, of the H Division\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"Waterloo Bridge\",\\n      \"mentions\": [\\n        \"near Waterloo Bridge\",\\n        \"The bridge, no doubt, was too crowded, even on such a night, for their purpose.\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"Horsham\",\\n      \"mentions\": [\\n        \"whose residence is near Horsham.\",\\n        \"\\\\\"if God sends me health, I shall set my hand upon this gang. That he should come to me for help, and that I should send him away to his death\u2014!\\\\\"\",\\n        \"the condition of the riverside landing-stages.\\'\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"Embarkment\",\\n      \"mentions\": [\\n        \"The Embankment is not on the direct line to the station.\"\\n      ]\\n    },\\n    {\\n      \"entity\": \"The authorities\",\\n      \"mentions\": [\\n        \"It is conjectu'",
+  "raw_output_preview": null,
+  "retry_attempted": true,
+  "retry_succeeded": false
+}

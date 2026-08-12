@@ -15,6 +15,16 @@ Optional flags:
     --seed N                Shuffle seed for candidate order (default: 42)
     --backend NAME          "anthropic" (default) or "openai"
     --model NAME            Model string (default: claude-opus-4-8 / gpt-4o)
+    --model-genre-detect NAME
+                            Override --model for genre detection only.
+    --model-segment NAME    Override --model for segmentation only.
+    --model-entity NAME     Override --model for the ERW entity extractor only.
+    --model-event NAME      Override --model for the ERW event extractor only.
+    --model-relation NAME   Override --model for the ERW relation extractor only.
+    --model-discourse NAME  Override --model for the ERW discourse extractor only.
+    --model-cross-segment NAME
+                            Override --model for the story-level cross-segment
+                            relation pass only.
     --nlp-backend NAME      "spacy", "stanza", or "fake", for stage-2 surface
                             features. Defaults to "spacy" for a real run, or
                             "fake" (nlp_backend.FakeNLPBackend - zero
@@ -118,6 +128,7 @@ import random
 import sys
 import time
 
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
 # ---------------------------------------------------------------------------
@@ -216,6 +227,67 @@ class FatalPilotError(RuntimeError):
         self.usage_rows: List[Dict[str, Any]] = []
 
 
+@dataclass(frozen=True)
+class StageModels:
+    """Resolved model choice for each LLM-backed pilot stage.
+
+    Every field defaults to the global --model value unless an explicit
+    per-stage override is supplied. Keeping this as one value avoids
+    accidentally default-enabling model tiering while still making tiered
+    experiment runs checkpoint-safe and auditable.
+    """
+
+    genre_detect: str
+    segment: str
+    entity: str
+    event: str
+    relation: str
+    discourse: str
+    cross_segment_relation: str
+
+    @classmethod
+    def from_global(
+        cls,
+        model: str,
+        *,
+        genre_detect: Optional[str] = None,
+        segment: Optional[str] = None,
+        entity: Optional[str] = None,
+        event: Optional[str] = None,
+        relation: Optional[str] = None,
+        discourse: Optional[str] = None,
+        cross_segment_relation: Optional[str] = None,
+    ) -> "StageModels":
+        return cls(
+            genre_detect=genre_detect or model,
+            segment=segment or model,
+            entity=entity or model,
+            event=event or model,
+            relation=relation or model,
+            discourse=discourse or model,
+            cross_segment_relation=cross_segment_relation or model,
+        )
+
+    def to_dict(self) -> Dict[str, str]:
+        return {
+            "genre_detect": self.genre_detect,
+            "segment": self.segment,
+            "entity": self.entity,
+            "event": self.event,
+            "relation": self.relation,
+            "discourse": self.discourse,
+            "cross_segment_relation": self.cross_segment_relation,
+        }
+
+    def erw_extract_models(self) -> Dict[str, str]:
+        return {
+            "entity": self.entity,
+            "event": self.event,
+            "relation": self.relation,
+            "discourse": self.discourse,
+        }
+
+
 def _check_fatal(
     message: str,
     context: str,
@@ -310,7 +382,7 @@ def _hash_json(obj: Any) -> str:
     ).hexdigest()
 
 
-def _base_fingerprint(model: str, backend_name: str) -> Dict[str, Any]:
+def _base_fingerprint(model: Any, backend_name: str) -> Dict[str, Any]:
     """Configuration-identity fingerprint shared by every stage: model,
     backend, and this script's own pipeline version (see
     _PIPELINE_VERSION). A stage whose only upstream is raw, unchanging
@@ -326,7 +398,7 @@ def _base_fingerprint(model: str, backend_name: str) -> Dict[str, Any]:
 
 
 def _stage_fingerprint(
-    model: str, backend_name: str, upstream: Optional[Any] = None
+    model: Any, backend_name: str, upstream: Optional[Any] = None
 ) -> Dict[str, Any]:
     """_base_fingerprint, extended with a hash of `upstream` (an earlier
     pipeline stage's own output) when given - so correcting an earlier
@@ -354,6 +426,19 @@ def _build_fake_backend():
     from lcats.llm import fake_backend
 
     return fake_backend.FakeBackend(tool_result={}), "fake-1.0"
+
+
+def _resolve_stage_models(model: str, args: argparse.Namespace) -> StageModels:
+    return StageModels.from_global(
+        model,
+        genre_detect=args.model_genre_detect,
+        segment=args.model_segment,
+        entity=args.model_entity,
+        event=args.model_event,
+        relation=args.model_relation,
+        discourse=args.model_discourse,
+        cross_segment_relation=args.model_cross_segment,
+    )
 
 
 def _iter_candidate_files(data_dir: pathlib.Path, seed: int) -> List[pathlib.Path]:
@@ -605,6 +690,37 @@ def _has_extraction_errors(pipeline_result: Dict[str, Any]) -> List[str]:
     return errors
 
 
+_EXCLUDE_REASON_PRINT_MAX_CHARS = 500
+_EXCLUDE_REASON_SEPARATOR = "; "
+
+
+def _capped_exclude_reason(reason: str) -> str:
+    """Cap a printed exclude_reason so one malformed story can't flood the
+    console (WI-EVENT-0061): `extraction_errors` joins every item- and
+    container-level error collected across a story's extraction passes
+    (see schema.describe_malformed_item()/coerce_list_field()) into one
+    "; "-separated string, which can still be numerous for a large story.
+    Only this console echo is capped -- the row's own uncapped
+    exclude_reason is unaffected, since it is persisted to
+    pilot_stories.jsonl for later analysis.
+    """
+    if len(reason) <= _EXCLUDE_REASON_PRINT_MAX_CHARS:
+        return reason
+    truncated = reason[:_EXCLUDE_REASON_PRINT_MAX_CHARS]
+    total_segments = reason.count(_EXCLUDE_REASON_SEPARATOR) + 1
+    shown_segments = truncated.count(_EXCLUDE_REASON_SEPARATOR) + 1
+    # If the cutoff fell inside the last already-counted segment rather
+    # than before a "; " boundary, no additional segment was actually
+    # omitted -- only text within one segment was cut. Report a plain
+    # truncation, not a fabricated "...0 more errors" (or, with a naive
+    # floor, a fabricated "...1 more error") (review finding, PR #274).
+    more_count = total_segments - shown_segments
+    if more_count <= 0:
+        return f"{truncated}...(truncated)"
+    suffix = "s" if more_count != 1 else ""
+    return f"{truncated}...{more_count} more error{suffix}"
+
+
 def _compute_story_metrics(
     pipeline_result: Dict[str, Any], word_count: int
 ) -> Dict[str, Any]:
@@ -650,8 +766,10 @@ def _compute_story_metrics(
     }
 
 
-def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
-    """Build the Event-Role-World extractors, with `model` overriding each
+def _build_erw_extractors(
+    backend: Any, model: str, stage_models: Optional[StageModels] = None
+) -> Dict[str, Any]:
+    """Build the Event-Role-World extractors, with model overrides replacing each
     factory's own hardcoded default_model (e.g. "gpt-4o") and max_tokens
     raised to _ERW_MAX_TOKENS (each factory's own default of 4096 is too
     low for content-dense segments and risks TruncatedResponseError - see
@@ -668,13 +786,20 @@ def _build_erw_extractors(backend: Any, model: str) -> Dict[str, Any]:
     ourselves keeps both overrides available, without waiting on
     process_segments() to grow a max_tokens parameter of its own.
     """
+    models = stage_models or StageModels.from_global(model)
     entity = erw_entity.make_entity_extractor(backend)
     event = erw_event.make_event_extractor(backend)
     relation = erw_relation.make_relation_extractor(backend)
     discourse = erw_discourse.make_discourse_extractor(backend)
     story_relation = erw_story_relation.make_story_relation_extractor(backend)
-    for extractor in (entity, event, relation, discourse, story_relation):
-        extractor.default_model = model
+    for extractor, extractor_model in (
+        (entity, models.entity),
+        (event, models.event),
+        (relation, models.relation),
+        (discourse, models.discourse),
+        (story_relation, models.cross_segment_relation),
+    ):
+        extractor.default_model = extractor_model
         extractor.max_tokens = _ERW_MAX_TOKENS
     return {
         "entity": entity,
@@ -1021,6 +1146,7 @@ def run_story(
     extractors: Dict[str, Any],
     nlp_backend: Any,
     nlp_backend_name: str,
+    stage_models: Optional[StageModels] = None,
     dry_run: bool = False,
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Run the full pipeline for one story.
@@ -1052,6 +1178,7 @@ def run_story(
     events at all - see running_the_pilot.md's Step 2a for the same
     caveat.
     """
+    models = stage_models or StageModels.from_global(model)
     item_id = _story_identity(path)
     row: Dict[str, Any] = {
         "path": str(path),
@@ -1084,7 +1211,7 @@ def run_story(
         ]
     else:
         segments, seg_error, seg_pass_usage = _segment_story_cached(
-            path, body, backend, model, backend_name, roots
+            path, body, backend, models.segment, backend_name, roots
         )
         if seg_pass_usage is not None:
             seg_stage_usage.append(
@@ -1135,7 +1262,7 @@ def run_story(
         # process_segment()'s output even when segmentation itself is
         # unchanged (review finding, PR #217).
         erw_fingerprint = _stage_fingerprint(
-            model,
+            models.erw_extract_models(),
             backend_name,
             upstream={"segments": segments, "nlp_backend": nlp_backend_name},
         )
@@ -1166,7 +1293,9 @@ def run_story(
             )
 
         cross_fingerprint = _stage_fingerprint(
-            model, backend_name, upstream=extraction_result["story"]
+            models.cross_segment_relation,
+            backend_name,
+            upstream=extraction_result["story"],
         )
         cached_cross = checkpoint.read_checkpoint(
             roots.working_root, item_id, "cross_segment_relation", cross_fingerprint
@@ -1280,6 +1409,7 @@ def _run_stories(
     extractors: Dict[str, Any],
     nlp_backend: Any,
     nlp_backend_name: str,
+    stage_models: Optional[StageModels],
     dry_run: bool,
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], bool]:
     """Run run_story() over every (genre, path) pair in order, handling
@@ -1310,6 +1440,7 @@ def _run_stories(
                 extractors,
                 nlp_backend,
                 nlp_backend_name,
+                stage_models=stage_models,
                 dry_run=dry_run,
             )
         except FatalPilotError as exc:
@@ -1364,7 +1495,7 @@ def _run_stories(
         rows.append(row)
         usage_rows.extend(story_usage_rows)
         if row["excluded"]:
-            print(f"  excluded: {row['exclude_reason']}")
+            print(f"  excluded: {_capped_exclude_reason(row['exclude_reason'])}")
 
     return rows, usage_rows, aborted
 
@@ -1431,6 +1562,41 @@ def main() -> int:
         "--backend", choices=["anthropic", "openai"], default="anthropic"
     )
     parser.add_argument("--model", default=None)
+    parser.add_argument(
+        "--model-genre-detect",
+        default=None,
+        help="Override --model for the genre-detection stage only.",
+    )
+    parser.add_argument(
+        "--model-segment",
+        default=None,
+        help="Override --model for the scene/sequel segmentation stage only.",
+    )
+    parser.add_argument(
+        "--model-entity",
+        default=None,
+        help="Override --model for the ERW entity extractor only.",
+    )
+    parser.add_argument(
+        "--model-event",
+        default=None,
+        help="Override --model for the ERW event extractor only.",
+    )
+    parser.add_argument(
+        "--model-relation",
+        default=None,
+        help="Override --model for the ERW relation extractor only.",
+    )
+    parser.add_argument(
+        "--model-discourse",
+        default=None,
+        help="Override --model for the ERW discourse extractor only.",
+    )
+    parser.add_argument(
+        "--model-cross-segment",
+        default=None,
+        help="Override --model for the story-level cross-segment relation pass only.",
+    )
     parser.add_argument(
         "--nlp-backend",
         choices=["spacy", "stanza", "fake"],
@@ -1553,6 +1719,8 @@ def main() -> int:
             )
             return 1
 
+    stage_models = _resolve_stage_models(model, args)
+
     incomplete_genres: List[str] = []
     if targeted_mode:
         try:
@@ -1595,7 +1763,7 @@ def main() -> int:
             sample, scanned = build_stratified_sample(
                 data_dir,
                 backend,
-                model,
+                stage_models.genre_detect,
                 args.backend,
                 roots,
                 args.sample_size,
@@ -1636,7 +1804,7 @@ def main() -> int:
     # per-story timer starts below, so per-story elapsed_seconds no longer
     # includes it - print an explicit confirmation instead, since spaCy
     # (unlike Stanza) prints no loading banner of its own.
-    extractors = _build_erw_extractors(backend, model)
+    extractors = _build_erw_extractors(backend, model, stage_models)
     print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
     print(f"NLP backend ready: {args.nlp_backend}")
@@ -1649,6 +1817,7 @@ def main() -> int:
         extractors,
         nlp_backend,
         args.nlp_backend,
+        stage_models,
         args.dry_run,
     )
 
@@ -1671,6 +1840,7 @@ def main() -> int:
                 "candidates_scanned": scanned,
                 "backend": args.backend,
                 "model": model,
+                "stage_models": stage_models.to_dict(),
                 "dry_run": args.dry_run,
                 "by_genre": summary,
             },

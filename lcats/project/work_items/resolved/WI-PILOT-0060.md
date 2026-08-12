@@ -2,7 +2,7 @@
 id: WI-PILOT-0060
 title: Evaluate per-stage model tiering against the WI-PILOT-0051 fixture set
 type: evaluation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -19,7 +19,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #286 (commit e1434d9daf180ec4bafc04becf684588901ed3fd)."
 expected_actions:
   - edit_file
   - run_tests

@@ -1,0 +1,245 @@
+{
+  "model": "claude-opus-4-8",
+  "stories": [
+    "fixtures__five_o_clock_tea_farce",
+    "fixtures__king_of_the_hill"
+  ],
+  "runs": {
+    "caching_disabled": {
+      "enable_prompt_caching": false,
+      "calls": [
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2432,
+          "output_tokens": 2822,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2930,
+          "output_tokens": 198,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2345,
+          "output_tokens": 34,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2991,
+          "output_tokens": 87,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1292,
+          "output_tokens": 1564,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1766,
+          "output_tokens": 2626,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1265,
+          "output_tokens": 772,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1887,
+          "output_tokens": 930,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1537,
+          "output_tokens": 3238,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2027,
+          "output_tokens": 3614,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1554,
+          "output_tokens": 936,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2192,
+          "output_tokens": 1691,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_story_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2741,
+          "output_tokens": 919,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        }
+      ],
+      "total_input_tokens": 26959,
+      "total_output_tokens": 19431,
+      "total_cache_creation_input_tokens": 0,
+      "total_cache_read_input_tokens": 0,
+      "cost_usd": 0.62057
+    },
+    "caching_enabled": {
+      "enable_prompt_caching": true,
+      "calls": [
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2432,
+          "output_tokens": 2904,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1675,
+          "output_tokens": 921,
+          "cache_creation_input_tokens": 1258,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2361,
+          "output_tokens": 34,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1729,
+          "output_tokens": 87,
+          "cache_creation_input_tokens": 1281,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1292,
+          "output_tokens": 1602,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 508,
+          "output_tokens": 2924,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 1258
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1265,
+          "output_tokens": 1110,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 606,
+          "output_tokens": 950,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 1281
+        },
+        {
+          "tool_name": "extract_entities",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1537,
+          "output_tokens": 105,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_events_and_anchors",
+          "model": "claude-opus-4-8",
+          "input_tokens": 739,
+          "output_tokens": 4391,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 1258
+        },
+        {
+          "tool_name": "extract_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 1539,
+          "output_tokens": 822,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        },
+        {
+          "tool_name": "extract_discourse",
+          "model": "claude-opus-4-8",
+          "input_tokens": 866,
+          "output_tokens": 1576,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 1281
+        },
+        {
+          "tool_name": "extract_story_relations",
+          "model": "claude-opus-4-8",
+          "input_tokens": 2867,
+          "output_tokens": 763,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0
+        }
+      ],
+      "total_input_tokens": 19416,
+      "total_output_tokens": 18189,
+      "total_cache_creation_input_tokens": 2539,
+      "total_cache_read_input_tokens": 5078,
+      "cost_usd": 0.57021275
+    }
+  },
+  "cost_delta_usd": -0.05035724999999991,
+  "preflight_prefix_token_counts": {
+    "entity": 947,
+    "event": 1333,
+    "relation": 821,
+    "discourse": 1356,
+    "story_relation": 1010
+  }
+}

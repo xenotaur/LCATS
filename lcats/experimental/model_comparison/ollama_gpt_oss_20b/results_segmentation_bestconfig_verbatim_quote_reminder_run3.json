@@ -1,0 +1,145 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "verbatim_quote_reminder",
+  "success": false,
+  "latency_seconds": 127.2214221250033,
+  "input_tokens": 12667,
+  "output_tokens": 4164,
+  "segment_count": null,
+  "error_type": "extraction_or_alignment_error",
+  "error_message": "extraction_error=None, alignment_error=\"alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')\", validation_error=None",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": true,
+  "anchor_diagnostics": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 7,
+      "start_exact": "When I glance over my",
+      "start_exact_found": true,
+      "end_exact": "The year \u201987 furnished us with a long series of cases of greater or less",
+      "end_exact_found": true,
+      "summary": "Expository introduction, narrator\u2019s reflection on Holmes and past cases."
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 8,
+      "end_par_id": 95,
+      "start_exact": "Sherlock Holmes was wrong in his conjecture, however, for there came a step in the passage and a tapping at the door.",
+      "start_exact_found": false,
+      "end_exact": "That will await him when he enters port,\u201d said he, chuckling. \u201cIt may give it as sure a precursor of his fate as Openshaw did before him.\u201d",
+      "end_exact_found": false,
+      "summary": "John Openshaw visits Holmes for help, recounts family history and K.K.K threat; Holmes decides to investigate and instructs John on how to proceed."
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 96,
+      "end_par_id": 178,
+      "start_exact": "They will be an adventure ... he saw the door and then they had a letter in the envelope when they arrived, and that this will await him when he enters port,\" said he, chuckling.",
+      "start_exact_found": false,
+      "end_exact": "We did at last hear that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.",
+      "end_exact_found": false,
+      "summary": "Holmes and the narrator analyze K.K.K clues, plan travel to London and Horsham in pursuit; John describes orange\u2011pip strategy, Holmes predicts danger; concluding with maritime speculation on the Lone Star."
+    }
+  ],
+  "parsed_output": {
+    "segments": [
+      {
+        "cohesion": {
+          "characters": [
+            "Narrator"
+          ],
+          "place": "Narrative setting; no single location",
+          "time": "Early 1890s (present)"
+        },
+        "confidence": 0.95,
+        "end_char": null,
+        "end_exact": "The year \u201987 furnished us with a long series of cases of greater or less",
+        "end_par_id": 7,
+        "end_suffix": "",
+        "erac": null,
+        "gacd": null,
+        "reason": "This segment contains background exposition and lacks a clear GACD or ERAC structure; it is unified by time (present era) but not by any plot action.",
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_char": null,
+        "start_exact": "When I glance over my",
+        "start_par_id": 1,
+        "start_prefix": "",
+        "summary": "Expository introduction, narrator\u2019s reflection on Holmes and past cases."
+      },
+      {
+        "cohesion": {
+          "characters": [
+            "John Openshaw",
+            "Sherlock Holmes",
+            "Narrator"
+          ],
+          "place": "Holmes\u2019s study at 221b Baker Street",
+          "time": "Late 1880s\u2011early 1890s (present conversation)"
+        },
+        "confidence": 0.92,
+        "end_char": null,
+        "end_exact": "That will await him when he enters port,\u201d said he, chuckling. \u201cIt may give it as sure a precursor of his fate as Openshaw did before him.\u201d",
+        "end_par_id": 95,
+        "end_suffix": "",
+        "erac": null,
+        "gacd": {
+          "action": "Dialogue, analysis, decision to investigate; Holmes instructs John to place the letter in a brass box and to put it on a sundial.",
+          "conflict": "Initial hesitation and mistrust from Holmes, threat of K.K.K, danger to Openshaw.",
+          "goal": "Openshaw seeks Holmes\u2019 assistance and safe passage.",
+          "outcome": "Success"
+        },
+        "reason": "The segment satisfies the GACD test with clear Goal (help), Action (Holmes investigates and gives instruction), Conflict (K.K.K. threat, Holmes\u2019 doubt) and Outcome (Holmes decides to help).",
+        "segment_id": 2,
+        "segment_type": "dramatic_scene",
+        "start_char": null,
+        "start_exact": "Sherlock Holmes was wrong in his conjecture, however, for there came a step in the passage and a tapping at the door.",
+        "start_par_id": 8,
+        "start_prefix": "",
+        "summary": "John Openshaw visits Holmes for help, recounts family history and K.K.K threat; Holmes decides to investigate and instructs John on how to proceed."
+      },
+      {
+        "cohesion": {
+          "characters": [
+            "Sherlock Holmes",
+            "Narrator",
+            "John Openshaw"
+          ],
+          "place": "Holmes\u2019s study; various other locales referenced",
+          "time": "Continued present narrative"
+        },
+        "confidence": 0.88,
+        "end_char": null,
+        "end_exact": "We did at last hear that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.",
+        "end_par_id": 178,
+        "end_suffix": "",
+        "erac": null,
+        "gacd": {
+          "action": "Intensive deduction, planning of travel, instructions to send orange pip letters.",
+          "conflict": "Ongoing threat from K.K.K., danger to John, uncertainty about ship\u2019s fate.",
+          "goal": "Safeguard John and uncover K.K.K plot.",
+          "outcome": "Unclear"
+        },
+        "reason": "This final large chunk features the dominant GACD pattern: Holmes and John plan actions against a perceived threat, with ongoing conflict but an outcome that remains unresolved.",
+        "segment_id": 3,
+        "segment_type": "dramatic_scene",
+        "start_char": null,
+        "start_exact": "They will be an adventure ... he saw the door and then they had a letter in the envelope when they arrived, and that this will await him when he enters port,\" said he, chuckling.",
+        "start_par_id": 96,
+        "start_prefix": "",
+        "summary": "Holmes and the narrator analyze K.K.K clues, plan travel to London and Horsham in pursuit; John describes orange\u2011pip strategy, Holmes predicts danger; concluding with maritime speculation on the Lone Star."
+      }
+    ]
+  },
+  "raw_output_preview": null,
+  "run_number": 3
+}

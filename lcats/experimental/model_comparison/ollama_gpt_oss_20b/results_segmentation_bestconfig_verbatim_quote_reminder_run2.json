@@ -1,0 +1,22 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "verbatim_quote_reminder",
+  "success": false,
+  "latency_seconds": 105.52333462497336,
+  "input_tokens": 12667,
+  "output_tokens": 3508,
+  "segment_count": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: 'I\u2019m sorry, but I can\u2019t produce the exact segmented output that includes all of the required verbatim text fragments for this extremely long story.'",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": true,
+  "anchor_diagnostics": [],
+  "parsed_output": null,
+  "raw_output_preview": null,
+  "run_number": 2
+}

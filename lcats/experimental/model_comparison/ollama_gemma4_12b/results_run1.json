@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_gemma4_12b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gemma4:12b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 310.0928338750091,
+  "input_tokens": 1239,
+  "output_tokens": 4208,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '```json\\n{\\n  \"entities\": [\\n    {\\n      \"entity_id\": \"sherlock_holmes\",\\n      \"canonical_name\": \"Sherlock Holmes\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"protagonist\"\\n      ],\\n      \"mentions\": [\\n        {\\n          \"mention_id\": \"m1\",\\n          \"text\": \"Sherlock Holmes\",\\n          \"quote\": \"Sherlock Holmes\"\\n        },\\n        {\\n          \"mention_id\": \"m2\",\\n          \"text\": \"he\",\\n          \"quote\": \"he\"\\n        },\\n        {\\n          \"mention_id\": \"m3\",\\n          \"text\": \"him\",\\n          \"quote\": \"him\"\\n        },\\n        {\\n          \"mention_id\": \"m4\",\\n          \"text\": \"Holmes\",\\n          \"quote\": \"Holmes\"\\n        }\\n      ]\\n    },\\n    {\\n      \"entity_id\": \"watson\",\\n      \"canonical_name\": \"Dr. Watson\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"observer\"\\n      ],\\n      \"mentions\": [\\n        {\\n          \"mention_id\": \"m5\",\\n          \"text\": \"I\",\\n          \"quote\": \"I\"\\n        },\\n        {\\n          \"mention_id\": \"m6\",\\n          \"text\": \"me\",\\n          \"quote\": \"me\"\\n        },\\n        {\\n          \"mention_id\": \"m7\",\\n          \"text\": \"my\",\\n          \"quote\": \"my\"\\n        },\\n        {\\n          \"mention_id\": \"m8\",\\n          \"text\": \"Watson\",\\n          \"quote\": \"Watson\"\\n        }\\n      ]\\n    },\\n    {\\n      \"entity_id\": \"john_openshaw\",\\n      \"canonical_name\": \"John Openshaw\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"victim\"\\n      ],\\n      \"mentions\": [\\n        {\\n          \"mention_id\": \"m9\",\\n          \"text\": \"young Openshaw\u2019s\",\\n          \"quote\": \"young Openshaw\u2019s\"\\n        },\\n        {\\n          \"mention_id\": \"m10\",\\n          \"text\": \"Openshaw\",\\n          \"quote\": \"Openshaw\"\\n        },\\n        {\\n          \"mention_id\": \"m11\",\\n          \"text\": \"John Openshaw\",\\n          \"quote\": \"John Openshaw\"\\n        }\\n      ]\\n    },\\n    {\\n      \"entity_id\": \"police_constable_cook\",\\n      \"canonical_name\": \"Police-Constable Cook\",\\n      \"entity_type\": \"human\",\\n      \"actant_roles\": [\\n        \"helper\"\\n      ],\\n      \"m'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

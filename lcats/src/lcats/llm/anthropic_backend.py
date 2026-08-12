@@ -34,13 +34,28 @@ class AnthropicBackend:
     `use_streaming=False` for a blocking call instead.
     """
 
-    def __init__(self, api_key: Optional[str] = None, use_streaming: bool = True):
+    def __init__(
+        self,
+        api_key: Optional[str] = None,
+        use_streaming: bool = True,
+        enable_prompt_caching: bool = False,
+    ):
         """Construct an Anthropic-backed LLMBackend.
 
         Args:
             api_key: Optional API key. When omitted, the Anthropic SDK reads
                 the ANTHROPIC_API_KEY environment variable.
             use_streaming: Whether to use the streaming call internally.
+            enable_prompt_caching: Opt-in only, off by default
+                (WI-PILOT-0057 - evaluation, not adoption; see Decision 3 of
+                PROP-LCATS-PILOT-COST-SUSTAINABILITY). When True, marks the
+                tools+system prefix with `cache_control: {"type":
+                "ephemeral"}` so repeated calls sharing that exact prefix
+                (same tool, same system prompt - e.g. the same extractor
+                type across segments/stories) can hit Anthropic's prompt
+                cache. Does NOT cache `messages`/segment_text, which varies
+                every call and is never a stable prefix under this
+                pipeline's per-call-different-tool-schema call shape.
 
         Raises:
             ImportError: If the `anthropic` package is not installed.
@@ -49,6 +64,7 @@ class AnthropicBackend:
 
         self._client = anthropic.Anthropic(api_key=api_key)
         self._use_streaming = use_streaming
+        self._enable_prompt_caching = enable_prompt_caching
 
     def complete(
         self,
@@ -63,13 +79,30 @@ class AnthropicBackend:
         """See lcats.llm.backend.LLMBackend.complete."""
         kwargs: dict = dict(
             model=model,
-            system=system,
             messages=messages,
             max_tokens=max_tokens,
         )
+        if self._enable_prompt_caching:
+            # Cache breakpoint on the tools+system prefix only - per
+            # Decision 3's scoping, never on messages/segment_text, which
+            # varies every call and can never be a stable cache prefix
+            # under this pipeline's per-call-different-tool-schema shape
+            # (WI-PILOT-0057). Anthropic's system param must become the
+            # block-list form to carry cache_control; a bare string cannot.
+            kwargs["system"] = [
+                {
+                    "type": "text",
+                    "text": system,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ]
+        else:
+            kwargs["system"] = system
         if not _temperature_deprecated(model):
             kwargs["temperature"] = temperature
         if tool is not None:
+            if self._enable_prompt_caching:
+                tool = {**tool, "cache_control": {"type": "ephemeral"}}
             kwargs["tools"] = [tool]
             kwargs["tool_choice"] = {"type": "tool", "name": tool["name"]}
 
@@ -131,5 +164,12 @@ class AnthropicBackend:
             model=message.model,
             input_tokens=usage.input_tokens,
             output_tokens=usage.output_tokens,
+            # Optional[int] on the SDK's Usage type - None when caching
+            # isn't in use or the provider omits the field; a present 0 is
+            # a genuine cache miss, not "not attempted" (WI-PILOT-0057).
+            cache_creation_input_tokens=getattr(
+                usage, "cache_creation_input_tokens", None
+            ),
+            cache_read_input_tokens=getattr(usage, "cache_read_input_tokens", None),
             raw=message,
         )

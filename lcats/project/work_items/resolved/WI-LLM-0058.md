@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Fixed via secondary_genre sanitization (PR #267) - non-fatal AssessmentResult.secondary_genre_sanitized flag, checkpoint-version bumps across all 3 assess_story() callers (run_census.py, annotate.py, run_pilot.py), consolidated 44-story finding, GO recommendation for WI-ASSESS-0051's --full run. Schema reordering deferred, no paid diagnostic spend."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0058
 title: Fix or mitigate ASSESSMENT_TOOL schema-adjacent field corruption in forced tool-call output
 type: investigation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []

@@ -2,7 +2,7 @@
 id: WI-PILOT-0058
 title: Evaluate Anthropic Batch API against the WI-PILOT-0051 fixture set
 type: evaluation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -19,7 +19,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #284 (commit 56c491a8c5efed775cad015be54c46606948a6f8): Batch API assessment completed against the WI-PILOT-0051 fixture baseline and Decision 4 updated with measured go recommendation."
 expected_actions:
   - edit_file
   - run_tests

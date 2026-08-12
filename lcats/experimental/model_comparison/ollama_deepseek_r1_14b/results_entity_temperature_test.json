@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_deepseek_r1_14b",
+  "backend_kind": "openai_compatible_local",
+  "model": "deepseek-r1:14b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 166.8866991250252,
+  "input_tokens": 887,
+  "output_tokens": 1258,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'extract_entities'; finish_reason: 'stop'; content: '\\n\\n### Entities Identified:\\n\\n1. **Sherlock Holmes**  \\n   - Surface Mention: \"Sherlock Holmes was already at breakfast when I came down.\"  \\n\\n2. **John Openshaw**  \\n   - Surface Mentions:\\n     - \"\\'It proved to be that of a young gentleman whose name, as it appears from an envelope which was found in his pocket, was John Openshaw...\\'\"\\n     - \"and if God sends me health, I shall set my hand upon this gang. That he should come to me for help, and that I should send him away to his death\u2014!\"  \\n\\n3. **Watson**  \\n   - Surface Mention: \"As I waited, I lifted the unopened newspaper from the table...\"  \\n\\n4. **Police-Constable Cook**  \\n   - Surface Mention: \"\\'Between nine and ten last night Police-Constable Cook, of the H Division...\\'\"  \\n\\n5. **Passers-by**  \\n   - Surface Mention: \"...so that, in spite of the help of several passers-by, it was quite impossible to effect a rescue.\"\\n\\n6. **Newspaper**  \\n   - Surface Mention: \"As I waited, I lifted the unopened newspaper from the table and glanced my eye over it.\"  \\n\\n7. **Waterloo Bridge**  \\n   - Surface Mentions:\\n     - \"\\'The night, however, was extremely dark and stormy, so that, in spite of the help of several passers-by, it was quite impossible to effect a rescue...\\'\"\\n     - \"It is conjectured that he may have been hurrying down to catch the last train from Waterloo Station...\"  \\n\\n8. **Embarkment**  \\n   - Surface Mention: \"...the bridge, no doubt, was too crowded, even on such a night, for their purpose.\"  \\n\\n9. **H Division (Police)**  \\n   - Surface Mention: \"Police-Constable Cook, of the H Division,\"  \\n\\n10. **Water-Police**  \\n    - Surface Mention: \"...and by the aid of the water-police, the body was eventually recovered.\"  \\n\\n11. **Riverside Landing-Stages**  \\n    - Surface Mention: \"...the condition of the riverside landing-stages.\u2019\u201d  \\n\\n12. **Fate/Unfortunate Accident**  \\n    - Surface Mention: \"It is conjectured that he may have been hurrying down to catch the last train from Waterloo Station, and that in his haste and the extre'",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}

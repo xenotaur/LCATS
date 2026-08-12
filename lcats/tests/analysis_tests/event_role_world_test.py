@@ -91,6 +91,53 @@ class TestEvidenceSpan(unittest.TestCase):
         self.assertIsNotNone(span.validate("some text"))
 
 
+class TestCoerceListField(unittest.TestCase):
+    """Direct unit tests for schema.coerce_list_field() (WI-EVENT-0061)."""
+
+    def test_none_is_absent_no_error(self):
+        item_errors: list = []
+        self.assertEqual(schema.coerce_list_field(None, "entities", item_errors), [])
+        self.assertEqual(item_errors, [])
+
+    def test_valid_list_is_returned_unchanged_no_error(self):
+        item_errors: list = []
+        value = [{"a": 1}]
+        self.assertIs(schema.coerce_list_field(value, "entities", item_errors), value)
+        self.assertEqual(item_errors, [])
+
+    def test_empty_list_is_returned_unchanged_no_error(self):
+        item_errors: list = []
+        self.assertEqual(schema.coerce_list_field([], "entities", item_errors), [])
+        self.assertEqual(item_errors, [])
+
+    def test_non_empty_string_records_one_error(self):
+        item_errors: list = []
+        self.assertEqual(
+            schema.coerce_list_field("a string", "entities", item_errors), []
+        )
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities is not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
+
+    def test_falsy_but_present_non_list_values_still_record_an_error(self):
+        """Regression test (Codex review, PR #274): a present-but-falsy
+        non-list value ("", 0, False, {}) is not the same as an absent
+        field -- it is still the wrong type and must not silently pass
+        as an empty-but-valid result with no recorded error. The
+        original `if not value: return []` conflated "missing" with
+        "falsy" and let these through unflagged."""
+        for falsy_non_list in ("", 0, False, {}):
+            with self.subTest(value=falsy_non_list):
+                item_errors: list = []
+                result = schema.coerce_list_field(
+                    falsy_non_list, "entities", item_errors
+                )
+                self.assertEqual(result, [])
+                self.assertEqual(len(item_errors), 1)
+                self.assertIn("entities is not an array", item_errors[0])
+                self.assertIn(type(falsy_non_list).__name__, item_errors[0])
+
+
 class TestResolveEvidence(unittest.TestCase):
     def test_finds_quote(self):
         text = "The old machine hummed."
@@ -450,6 +497,50 @@ class TestBuildEntities(unittest.TestCase):
         self.assertEqual(len(item_errors), 1)
         self.assertIn("entities[0].mentions[1]", item_errors[0])
 
+    def test_non_list_entities_field_is_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list "entities"
+        value (e.g. a string) must not be iterated character-by-character
+        -- that produced one bogus item_errors entry per character before
+        this fix. It must instead produce exactly one container-level
+        error, and must not crash."""
+        entities, mentions, item_errors = entity_extractor.build_entities(
+            {"entities": "not a list"}, "some text"
+        )
+        self.assertEqual(entities, [])
+        self.assertEqual(mentions, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities", item_errors[0])
+        self.assertIn("not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
+
+    def test_non_list_mentions_field_is_reported_once(self):
+        """Regression test (WI-EVENT-0061): same container-type guard,
+        nested one level down -- a non-list "mentions" field on an
+        otherwise-valid entity."""
+        tool_result = {
+            "entities": [
+                {
+                    "entity_id": "e1",
+                    "canonical_name": "the machine",
+                    "entity_type": "machine_or_artifact",
+                    "mentions": 42,
+                }
+            ]
+        }
+
+        entities, mentions, item_errors = entity_extractor.build_entities(
+            tool_result, "some text"
+        )
+
+        self.assertEqual(mentions, [])
+        # No mentions resolved -> the entity is dropped as ungrounded,
+        # same as the existing unresolvable-quote path.
+        self.assertEqual(entities, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("entities[0].mentions", item_errors[0])
+        self.assertIn("not an array", item_errors[0])
+        self.assertIn("int", item_errors[0])
+
 
 # ---------------------------------------------------------------------------
 # Tests: event_extractor
@@ -580,6 +671,60 @@ class TestBuildEventsAndAnchors(unittest.TestCase):
         self.assertIn("events[0]", joined)
         self.assertIn("events[1].semantic_roles[0]", joined)
 
+    def test_non_list_fields_are_each_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list value for
+        temporal_anchors/spatial_anchors/events (each a string here) must
+        not be iterated character-by-character -- each produces exactly
+        one container-level error, not one per character, and none of
+        them crash the call."""
+        text = "The machine hummed in the pit for decades."
+        tool_result = {
+            "temporal_anchors": "for decades",
+            "spatial_anchors": "in the pit",
+            "events": "hummed",
+        }
+
+        events, temporal_anchors, spatial_anchors, item_errors = (
+            event_extractor.build_events_and_anchors(tool_result, text)
+        )
+
+        self.assertEqual(temporal_anchors, [])
+        self.assertEqual(spatial_anchors, [])
+        self.assertEqual(events, [])
+        self.assertEqual(len(item_errors), 3)
+        joined = "\n".join(item_errors)
+        self.assertIn("temporal_anchors is not an array", joined)
+        self.assertIn("spatial_anchors is not an array", joined)
+        self.assertIn("events is not an array", joined)
+
+    def test_non_list_semantic_roles_field_is_reported_once(self):
+        """Regression test (WI-EVENT-0061): same guard nested one level
+        down -- a non-list "semantic_roles" field on an otherwise-valid
+        event."""
+        text = "The machine hummed."
+        tool_result = {
+            "events": [
+                {
+                    "event_id": "ev1",
+                    "predicate": "hummed",
+                    "event_type": "sound_emission",
+                    "quote": "hummed",
+                    "semantic_roles": {"not": "a list"},
+                }
+            ]
+        }
+
+        events, _, _, item_errors = event_extractor.build_events_and_anchors(
+            tool_result, text
+        )
+
+        self.assertEqual(len(events), 1)
+        self.assertEqual(events[0].semantic_roles, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("events[0].semantic_roles", item_errors[0])
+        self.assertIn("not an array", item_errors[0])
+        self.assertIn("dict", item_errors[0])
+
 
 # ---------------------------------------------------------------------------
 # Tests: relation_extractor (stage 6)
@@ -684,6 +829,20 @@ class TestBuildRelations(unittest.TestCase):
         self.assertEqual(weakly_inferred, [])
         self.assertEqual(len(item_errors), 1)
         self.assertIn("relations[0]", item_errors[0])
+
+    def test_non_list_relations_field_is_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list "relations"
+        value must not be iterated character-by-character -- exactly one
+        container-level error, not a crash."""
+        text = "The machine hummed, which caused the lights to flicker."
+        relations, weakly_inferred, item_errors = relation_extractor.build_relations(
+            {"relations": "caused"}, text
+        )
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("relations is not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -850,6 +1009,31 @@ class TestBuildDiscourse(unittest.TestCase):
         self.assertIn("explanations[0]", joined)
         self.assertIn("sf_tags[0]", joined)
 
+    def test_non_list_fields_are_each_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list value for
+        speech_acts/explanations/sf_tags (each a string here) must not be
+        iterated character-by-character -- each produces exactly one
+        container-level error, not a crash."""
+        text = "Reroute the plasma conduits, the captain commanded."
+        tool_result = {
+            "speech_acts": "commanded",
+            "explanations": "because reasons",
+            "sf_tags": "warp_drive",
+        }
+
+        speech_acts, explanations, sf_tags, item_errors = (
+            discourse_extractor.build_discourse(tool_result, text)
+        )
+
+        self.assertEqual(speech_acts, [])
+        self.assertEqual(explanations, [])
+        self.assertEqual(sf_tags, [])
+        self.assertEqual(len(item_errors), 3)
+        joined = "\n".join(item_errors)
+        self.assertIn("speech_acts is not an array", joined)
+        self.assertIn("explanations is not an array", joined)
+        self.assertIn("sf_tags is not an array", joined)
+
 
 # ---------------------------------------------------------------------------
 # Tests: hypothesis_extractor (stage 8, optional)
@@ -942,6 +1126,19 @@ class TestBuildHypotheses(unittest.TestCase):
         self.assertEqual(len(hypotheses), 1)
         self.assertEqual(len(item_errors), 1)
         self.assertIn("hypotheses[0]", item_errors[0])
+
+    def test_non_list_hypotheses_field_is_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list "hypotheses"
+        value must not be iterated character-by-character -- exactly one
+        container-level error, not a crash."""
+        text = "She feared it would never work again."
+        hypotheses, item_errors = hypothesis_extractor.build_hypotheses(
+            {"hypotheses": "feared"}, text
+        )
+        self.assertEqual(hypotheses, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("hypotheses is not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
 
 
 # ---------------------------------------------------------------------------
@@ -1191,6 +1388,22 @@ class TestBuildStoryRelations(unittest.TestCase):
         self.assertEqual(weakly_inferred, [])
         self.assertEqual(len(item_errors), 1)
         self.assertIn("relations[0]", item_errors[0])
+
+    def test_non_list_relations_field_is_reported_once_not_per_character(self):
+        """Regression test (WI-EVENT-0061): a truthy non-list "relations"
+        value must not be iterated character-by-character -- exactly one
+        container-level error, not a crash."""
+        story = self._story_with_two_segment_events()
+        relations, weakly_inferred, item_errors = (
+            story_relation_extractor.build_story_relations(
+                {"relations": "causes"}, story
+            )
+        )
+        self.assertEqual(relations, [])
+        self.assertEqual(weakly_inferred, [])
+        self.assertEqual(len(item_errors), 1)
+        self.assertIn("relations is not an array", item_errors[0])
+        self.assertIn("str", item_errors[0])
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,315 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "variant": "json_content_fallback_safe_shape_adapter",
+  "success": true,
+  "tool_call_success": true,
+  "json_content_fallback_applied": false,
+  "json_content_fallback_error": null,
+  "latency_seconds": 71.81752808298916,
+  "input_tokens": 1024,
+  "output_tokens": 2038,
+  "entity_count": 14,
+  "error_type": null,
+  "error_message": null,
+  "temperature": 1.0,
+  "max_tokens": 8192,
+  "raw_entity_count": 14,
+  "grounded_entity_count": 12,
+  "grounded_mention_count": 13,
+  "production_grounded_success": true,
+  "grounding_error_type": null,
+  "grounding_error_message": null,
+  "grounding_item_errors": [],
+  "tool_result": {
+    "entities": [
+      {
+        "mentions": [
+          "Sherlock Holmes"
+        ],
+        "name": "Sherlock Holmes"
+      },
+      {
+        "mentions": [
+          "Holmes,"
+        ],
+        "name": "Holmes"
+      },
+      {
+        "mentions": [
+          "Watson,"
+        ],
+        "name": "Watson"
+      },
+      {
+        "mentions": [
+          "Police-Constable Cook"
+        ],
+        "name": "Police-Constable Cook"
+      },
+      {
+        "mentions": [
+          "young Openshaw\u2019s",
+          "John Openshaw"
+        ],
+        "name": "Openshaw"
+      },
+      {
+        "mentions": [
+          "the H Division"
+        ],
+        "name": "the H Division"
+      },
+      {
+        "mentions": [
+          "Waterloo Bridge"
+        ],
+        "name": "Waterloo Bridge"
+      },
+      {
+        "mentions": [
+          "Horsham",
+          "Horsham."
+        ],
+        "name": "Horsham"
+      },
+      {
+        "mentions": [
+          "Waterloo Station"
+        ],
+        "name": "Waterloo Station"
+      },
+      {
+        "mentions": [
+          "the water-police"
+        ],
+        "name": "water-police"
+      },
+      {
+        "mentions": [
+          "newspaper"
+        ],
+        "name": "newspaper"
+      },
+      {
+        "mentions": [
+          "bell"
+        ],
+        "name": "bell"
+      },
+      {
+        "mentions": [
+          "maid"
+        ],
+        "name": "maid"
+      },
+      {
+        "mentions": [
+          "coffee"
+        ],
+        "name": "coffee"
+      }
+    ]
+  },
+  "normalized_tool_result": {
+    "entities": [
+      {
+        "mentions": [],
+        "entity_id": "gpt_oss_entity_1_sherlock_holmes",
+        "canonical_name": "Sherlock Holmes",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_2_holmes_mention_1",
+            "text": "Holmes,",
+            "quote": "Holmes,"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_2_holmes",
+        "canonical_name": "Holmes",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_3_watson_mention_1",
+            "text": "Watson,",
+            "quote": "Watson,"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_3_watson",
+        "canonical_name": "Watson",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_4_police_constable_cook_mention_1",
+            "text": "Police-Constable Cook",
+            "quote": "Police-Constable Cook"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_4_police_constable_cook",
+        "canonical_name": "Police-Constable Cook",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [],
+        "entity_id": "gpt_oss_entity_5_openshaw",
+        "canonical_name": "Openshaw",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_6_the_h_division_mention_1",
+            "text": "the H Division",
+            "quote": "the H Division"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_6_the_h_division",
+        "canonical_name": "the H Division",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_7_waterloo_bridge_mention_1",
+            "text": "Waterloo Bridge",
+            "quote": "Waterloo Bridge"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_7_waterloo_bridge",
+        "canonical_name": "Waterloo Bridge",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_8_horsham_mention_1",
+            "text": "Horsham",
+            "quote": "Horsham"
+          },
+          {
+            "mention_id": "gpt_oss_entity_8_horsham_mention_2",
+            "text": "Horsham.",
+            "quote": "Horsham."
+          }
+        ],
+        "entity_id": "gpt_oss_entity_8_horsham",
+        "canonical_name": "Horsham",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_9_waterloo_station_mention_1",
+            "text": "Waterloo Station",
+            "quote": "Waterloo Station"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_9_waterloo_station",
+        "canonical_name": "Waterloo Station",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_10_water_police_mention_1",
+            "text": "the water-police",
+            "quote": "the water-police"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_10_water_police",
+        "canonical_name": "water-police",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_11_newspaper_mention_1",
+            "text": "newspaper",
+            "quote": "newspaper"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_11_newspaper",
+        "canonical_name": "newspaper",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_12_bell_mention_1",
+            "text": "bell",
+            "quote": "bell"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_12_bell",
+        "canonical_name": "bell",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_13_maid_mention_1",
+            "text": "maid",
+            "quote": "maid"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_13_maid",
+        "canonical_name": "maid",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_14_coffee_mention_1",
+            "text": "coffee",
+            "quote": "coffee"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_14_coffee",
+        "canonical_name": "coffee",
+        "entity_type": "other"
+      }
+    ]
+  },
+  "adapter_diagnostics": {
+    "adapter_name": "gpt_oss_20b_string_mentions_to_grounded_mentions",
+    "adapter_applied": true,
+    "raw_entity_count": 14,
+    "normalized_entity_count": 14,
+    "converted_string_mentions": 13,
+    "converted_string_entities": 0,
+    "changed_dict_mentions": 0,
+    "repaired_dict_mentions": 0,
+    "dropped_string_entities": [],
+    "dropped_string_mentions": [
+      {
+        "entity_index": 0,
+        "mention_index": 0,
+        "reason": "ungrounded_string_mention:Sherlock Holmes"
+      },
+      {
+        "entity_index": 4,
+        "mention_index": 0,
+        "reason": "ungrounded_string_mention:young Openshaw\u2019s"
+      },
+      {
+        "entity_index": 4,
+        "mention_index": 1,
+        "reason": "ungrounded_string_mention:John Openshaw"
+      }
+    ],
+    "unrepaired_dict_mentions": [],
+    "unsupported_entity_shapes": [],
+    "unsupported_mention_shapes": []
+  },
+  "raw_output_preview": null,
+  "run_number": 1
+}

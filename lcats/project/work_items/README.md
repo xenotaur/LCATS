@@ -23,7 +23,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-RELEASE-0039.md` — Pre-launch verification of the gutenbergpy dependency resolution before real PyPI publish
 - `proposed/WI-STORY-0042.md` — Make LCATS story discovery and identity dual-layout-compatible
 - `proposed/WI-LLM-0055.md` — Capture full entity lists and diff them across benchmark candidates
-- `proposed/WI-LLM-0056.md` — Tranche 1: expand the benchmark harness to cross-provider coverage (Anthropic, OpenAI, Gemini, one open-weight family); 4/6 cells landed for real (PR #270), 2 pending on network (Gemma, second open-weight family)
+- `proposed/WI-LLM-0065.md` — Make gpt-oss:20b entity extraction production-grounded, or explicitly demote it to genre-only
 - `proposed/WI-ANNOTATE-0052.md` — Validate sidecar content in lcats promote's release gate
 - `proposed/WI-ANNOTATE-0054.md` — Run lcats annotate over a per-genre subset and collect statistics
 
@@ -32,6 +32,10 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `abandoned/WI-ANNOTATE-0053.md` — superseded by `WI-STATS-0049`, which landed the identical `lcats stats` selector fix independently
 
 ## Resolved Items
+- `resolved/WI-LLM-0063.md` — Thoroughly vet ollama_gpt_oss_20b across all 3 pipeline stages; genre detection 3/3, entity extraction 3/3 (real output-count variance found), segmentation 0/3 (new alignment-rejection failure mode distinct from silent-ignore)
+- `resolved/WI-LLM-0062.md` — Investigate WI-LLM-0056's two distinct tool_choice failure mechanisms; silent-ignore mitigation partially recovers gemma4:12b (1/2) but not deepseek-r1:14b (0/3); gemini_flash's filter rejection was a token-budget confound, not schema complexity (3/3 success at max_tokens=32000)
+- `resolved/WI-LLM-0056.md` — Tranche 1: expand the benchmark harness to cross-provider coverage; all 6 cells landed with real evidence (3 succeeded, 3 documented failures revealing two distinct tool_choice failure mechanisms)
+- `resolved/WI-LLM-0058.md` — Fix ASSESSMENT_TOOL secondary_genre schema-adjacent field corruption (39% combined rate across two real runs); sanitized via a new non-fatal AssessmentResult.secondary_genre_sanitized flag, checkpoint-version bumps across all 3 assess_story() callers, GO recommendation for WI-ASSESS-0051's --full run
 - `resolved/WI-LLM-0051.md` — Investigate Ollama's forced tool_choice reliability; 0/5 baseline success, but a system-prompt reminder retry helps (2/5, 40%) - implemented as an automatic retry in the harness
 - `resolved/WI-LLM-0050.md` — Extend the local-model benchmark harness to genre-detection and segmentation stages; genre detection hybrid-viable (2/2), segmentation not (2/2 tool_choice failures)
 - `resolved/WI-LLM-0049.md` — Add qwen3:30b-a3b (MoE) candidate to the local-model benchmark harness; hypothesis not supported (both slower and less reliable than qwen3:8b)

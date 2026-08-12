@@ -1,0 +1,142 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "variant": "temperature_1_grounded",
+  "success": true,
+  "latency_seconds": 110.84914683300303,
+  "input_tokens": 1024,
+  "output_tokens": 3403,
+  "entity_count": 13,
+  "error_type": null,
+  "error_message": null,
+  "temperature": 1.0,
+  "max_tokens": 8192,
+  "raw_entity_count": 13,
+  "grounded_entity_count": 0,
+  "grounded_mention_count": 0,
+  "grounding_item_errors": [
+    "entities[0].mentions[0] is not an object (got str): 'Sherlock Holmes'",
+    "entities[0].mentions[1] is not an object (got str): 'Holmes'",
+    "entities[1].mentions[0] is not an object (got str): 'Watson'",
+    "entities[2].mentions[0] is not an object (got str): 'John Openshaw'",
+    "entities[2].mentions[1] is not an object (got str): 'Openshaw'",
+    "entities[2].mentions[2] is not an object (got str): \"young Openshaw's\"",
+    "entities[3].mentions[0] is not an object (got str): 'Police-Constable Cook'",
+    "entities[3].mentions[1] is not an object (got str): 'Cook'",
+    "entities[4].mentions[0] is not an object (got str): 'H Division'",
+    "entities[5].mentions[0] is not an object (got str): 'Waterloo Bridge'",
+    "entities[6].mentions[0] is not an object (got str): 'Waterloo Station'",
+    "entities[7].mentions[0] is not an object (got str): 'Horsham'",
+    "entities[7].mentions[1] is not an object (got str): 'near Horsham'",
+    "entities[8].mentions[0] is not an object (got str): 'Embankment'",
+    "entities[9].mentions[0] is not an object (got str): 'water-police'",
+    "entities[10].mentions[0] is not an object (got str): 'unopened newspaper'",
+    "entities[11].mentions[0] is not an object (got str): 'cup'",
+    "entities[12].mentions[0] is not an object (got str): 'bell'"
+  ],
+  "tool_result": {
+    "entities": [
+      {
+        "mentions": [
+          "Sherlock Holmes",
+          "Holmes"
+        ],
+        "name": "Sherlock Holmes",
+        "type": "person"
+      },
+      {
+        "mentions": [
+          "Watson"
+        ],
+        "name": "Watson",
+        "type": "person"
+      },
+      {
+        "mentions": [
+          "John Openshaw",
+          "Openshaw",
+          "young Openshaw's"
+        ],
+        "name": "John Openshaw",
+        "type": "person"
+      },
+      {
+        "mentions": [
+          "Police-Constable Cook",
+          "Cook"
+        ],
+        "name": "Police-Constable Cook",
+        "type": "person"
+      },
+      {
+        "mentions": [
+          "H Division"
+        ],
+        "name": "H Division",
+        "type": "institution"
+      },
+      {
+        "mentions": [
+          "Waterloo Bridge"
+        ],
+        "name": "Waterloo Bridge",
+        "type": "place"
+      },
+      {
+        "mentions": [
+          "Waterloo Station"
+        ],
+        "name": "Waterloo Station",
+        "type": "place"
+      },
+      {
+        "mentions": [
+          "Horsham",
+          "near Horsham"
+        ],
+        "name": "Horsham",
+        "type": "place"
+      },
+      {
+        "mentions": [
+          "Embankment"
+        ],
+        "name": "Embankment",
+        "type": "place"
+      },
+      {
+        "mentions": [
+          "water-police"
+        ],
+        "name": "Water Police",
+        "type": "institution"
+      },
+      {
+        "mentions": [
+          "unopened newspaper"
+        ],
+        "name": "Newspaper",
+        "type": "artifact"
+      },
+      {
+        "mentions": [
+          "cup"
+        ],
+        "name": "Coffee Cup",
+        "type": "artifact"
+      },
+      {
+        "mentions": [
+          "bell"
+        ],
+        "name": "Bell",
+        "type": "artifact"
+      }
+    ]
+  },
+  "raw_output_preview": null,
+  "run_number": 3
+}

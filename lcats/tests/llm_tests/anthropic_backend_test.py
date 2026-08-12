@@ -15,15 +15,27 @@ def _make_message(
     input_tokens=5,
     output_tokens=7,
     stop_reason="end_turn",
+    cache_creation_input_tokens=None,
+    cache_read_input_tokens=None,
 ):
-    """Build a stub object shaped like an Anthropic Messages API response."""
+    """Build a stub object shaped like an Anthropic Messages API response.
+
+    cache_creation_input_tokens/cache_read_input_tokens default to None,
+    matching the real SDK's Usage type (Optional[int], absent/None when
+    caching isn't in use) - always set on the stub (not omitted) so
+    getattr(usage, "...", None) in production code exercises the real
+    attribute-access path, not its fallback, even for the default case.
+    """
     content = []
     if text is not None:
         content.append(types.SimpleNamespace(type="text", text=text))
     if tool_input is not None:
         content.append(types.SimpleNamespace(type="tool_use", input=tool_input))
     usage = types.SimpleNamespace(
-        input_tokens=input_tokens, output_tokens=output_tokens
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        cache_creation_input_tokens=cache_creation_input_tokens,
+        cache_read_input_tokens=cache_read_input_tokens,
     )
     return types.SimpleNamespace(
         content=content, usage=usage, model=model, stop_reason=stop_reason
@@ -283,6 +295,180 @@ class TestAnthropicBackend(unittest.TestCase):
         self.assertEqual(result.model, "claude-opus-4-8")
         self.assertEqual(result.input_tokens, 13)
         self.assertEqual(result.output_tokens, 29)
+
+    def test_cache_fields_none_when_present_but_null_on_usage(self):
+        """cache_creation_input_tokens/cache_read_input_tokens are None
+        when the API response reports them as null (caching not in use
+        for this call) - WI-PILOT-0057. This exercises attribute
+        access, not the getattr() fallback - see
+        test_cache_fields_default_none_when_the_sdk_omits_the_attribute_entirely
+        for the case where the SDK's Usage object doesn't even have
+        these attributes (e.g. an older installed SDK version)."""
+        stub_client = _StubAnthropicClient(_make_message(text="ok"))
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            result = backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertIsNone(result.cache_creation_input_tokens)
+        self.assertIsNone(result.cache_read_input_tokens)
+
+    def test_cache_fields_default_none_when_the_sdk_omits_the_attribute_entirely(self):
+        """AnthropicBackend.complete() reads these fields via
+        getattr(usage, "...", None) specifically so an older installed
+        SDK whose Usage object doesn't define these attributes at all
+        (not merely sets them to None) still returns None rather than
+        raising AttributeError - review finding, PR #271: the existing
+        test only covered "present but null", never true absence, so it
+        could not have caught a regression to a bare
+        usage.cache_creation_input_tokens attribute access."""
+        usage_without_cache_fields = types.SimpleNamespace(
+            input_tokens=5, output_tokens=7
+        )
+        message_without_cache_fields = types.SimpleNamespace(
+            content=[types.SimpleNamespace(type="text", text="ok")],
+            usage=usage_without_cache_fields,
+            model="claude-opus-4-8",
+            stop_reason="end_turn",
+        )
+        self.assertFalse(hasattr(usage_without_cache_fields, "cache_read_input_tokens"))
+        stub_client = _StubAnthropicClient(message_without_cache_fields)
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            result = backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertIsNone(result.cache_creation_input_tokens)
+        self.assertIsNone(result.cache_read_input_tokens)
+
+    def test_cache_fields_normalized_from_usage_when_present(self):
+        """A present cache_read_input_tokens=0 (genuine cache miss) is
+        distinguishable from None (caching not in use) - WI-PILOT-0057."""
+        stub_client = _StubAnthropicClient(
+            _make_message(
+                text="ok", cache_creation_input_tokens=150, cache_read_input_tokens=0
+            )
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            result = backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertEqual(result.cache_creation_input_tokens, 150)
+        self.assertEqual(result.cache_read_input_tokens, 0)
+        self.assertIsNotNone(result.cache_read_input_tokens)
+
+    def test_caching_disabled_by_default_sends_plain_system_string_and_no_cache_control(
+        self,
+    ):
+        """Default behavior (enable_prompt_caching not passed) is
+        unchanged: system stays a plain string, and a tool dict is sent
+        without cache_control - WI-PILOT-0057 is opt-in only."""
+        tool_schema = {"name": "record_thing", "input_schema": {"type": "object"}}
+        stub_client = _StubAnthropicClient(
+            _make_message(tool_input={"verdict": "include"})
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend()
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+                tool=tool_schema,
+            )
+        self.assertEqual(stub_client.last_kwargs["system"], "sys")
+        self.assertNotIn("cache_control", stub_client.last_kwargs["tools"][0])
+
+    def test_caching_enabled_wraps_system_in_cache_control_block(self):
+        """enable_prompt_caching=True converts system to the block-list
+        form with a cache_control breakpoint - a bare string cannot
+        carry cache_control (WI-PILOT-0057, Decision 3 scoping)."""
+        stub_client = _StubAnthropicClient(_make_message(text="ok"))
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend(
+                enable_prompt_caching=True
+            )
+            backend_under_test.complete(
+                system="be helpful",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertEqual(
+            stub_client.last_kwargs["system"],
+            [
+                {
+                    "type": "text",
+                    "text": "be helpful",
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+        )
+
+    def test_caching_enabled_adds_cache_control_to_the_tool(self):
+        """enable_prompt_caching=True attaches cache_control to the tool
+        dict sent to the API - WI-PILOT-0057, Decision 3 scoping (tools+
+        system only, never messages/segment_text)."""
+        tool_schema = {"name": "record_thing", "input_schema": {"type": "object"}}
+        stub_client = _StubAnthropicClient(
+            _make_message(tool_input={"verdict": "include"})
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend(
+                enable_prompt_caching=True
+            )
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+                tool=tool_schema,
+            )
+        sent_tool = stub_client.last_kwargs["tools"][0]
+        self.assertEqual(sent_tool["cache_control"], {"type": "ephemeral"})
+        self.assertEqual(sent_tool["name"], "record_thing")
+
+    def test_caching_enabled_does_not_mutate_the_caller_s_tool_schema_dict(self):
+        """The original tool_schema dict a caller passes in (often a
+        shared module-level constant, e.g. ENTITY_TOOL_SCHEMA) must not
+        be mutated in place - caching would otherwise silently leak into
+        every other call site sharing that same dict, including callers
+        with enable_prompt_caching=False (WI-PILOT-0057 review finding)."""
+        tool_schema = {"name": "record_thing", "input_schema": {"type": "object"}}
+        stub_client = _StubAnthropicClient(
+            _make_message(tool_input={"verdict": "include"})
+        )
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend(
+                enable_prompt_caching=True
+            )
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+                tool=tool_schema,
+            )
+        self.assertNotIn("cache_control", tool_schema)
+
+    def test_caching_enabled_does_not_add_cache_control_when_no_tool_given(self):
+        """enable_prompt_caching=True with no tool= (free-text call) must
+        not error trying to attach cache_control to a nonexistent tool -
+        only the system prefix is cached in that case."""
+        stub_client = _StubAnthropicClient(_make_message(text="ok"))
+        with patch("anthropic.Anthropic", return_value=stub_client):
+            backend_under_test = anthropic_backend.AnthropicBackend(
+                enable_prompt_caching=True
+            )
+            backend_under_test.complete(
+                system="sys",
+                messages=[{"role": "user", "content": "hi"}],
+                model="claude-opus-4-8",
+            )
+        self.assertNotIn("tools", stub_client.last_kwargs)
 
 
 class TestTemperatureDeprecated(unittest.TestCase):

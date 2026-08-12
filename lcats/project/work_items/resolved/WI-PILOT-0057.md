@@ -2,7 +2,7 @@
 id: WI-PILOT-0057
 title: Evaluate Anthropic prompt caching against the WI-PILOT-0051 fixture set
 type: evaluation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -19,7 +19,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #282 (commit f9795838e77b7232b59ffe43ce3dc92ced00da66): real Anthropic prompt-caching measurement completed and Decision 3 updated with measured go recommendation."
 expected_actions:
   - edit_file
   - run_tests

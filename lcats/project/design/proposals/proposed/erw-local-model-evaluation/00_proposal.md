@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-09
+updated_on: 2026-08-12
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -535,6 +535,161 @@ question would now need a smaller/shorter test story that fits within
 `gpt-4o`'s 16384-completion-token ceiling, not just a bigger budget - a
 separate methodology fix, out of this follow-up's scope.
 
+### Decision 3 update (2026-08-09, `WI-LLM-0056`'s two `tool_choice` mechanisms investigated, `WI-LLM-0062`)
+
+`WI-LLM-0056`'s tranche 1 found 3 of 6 entity-extraction candidates
+failing via `tool_choice`, but review caught this was two genuinely
+different mechanisms, not one - `WI-LLM-0062` investigated both
+independently.
+
+**Silent ignore (`ollama_gemma4_12b`, `ollama_deepseek_r1_14b`) - the
+reminder mitigation transfers, partially, and inconsistently across
+models.** `WI-LLM-0051`'s reminder-retry mitigation (`common/harness.py`'s
+`run_entity_extraction(..., retry_with_reminder=True)`, newly added by
+this WI, mirroring `run_segmentation()`'s existing mechanism) was tested
+on both candidates:
+
+- `ollama_gemma4_12b`: a real methodological confound surfaced first and
+  had to be corrected - the harness's default `max_tokens=8192` genuinely
+  wasn't enough for this candidate's tool-call output (3/3 runs hit
+  `truncated_output`, not `no_tool_call` at all, meaning the retry path
+  never even fired). Raised to 16384. At the corrected setting, 4 real
+  runs: 1 baseline success (no retry needed), 1 baseline call that timed
+  out outright (a third distinct failure mode, unaddressable by the
+  reminder since it only retries on `error_type="no_tool_call"`), 1
+  baseline failure with a successful reminder-retry recovery, 1 baseline
+  failure whose retry itself timed out. **1 of 2 applicable retries
+  succeeded** - a real, partial effect, consistent with segmentation's own
+  "helps but doesn't fully fix it" finding, on a small and noisy sample
+  (this candidate's own latency, 250-2800+ seconds per call including two
+  genuine request timeouts across 7 total runs, makes a larger sample
+  expensive). A review finding (PR #277) also caught that this harness's
+  retry wrapper was reporting only the retry call's own latency/tokens,
+  silently discarding the failed baseline's real resource use - fixed,
+  and every affected result (both candidates) was regenerated after the
+  fix except one `gemma4:12b` run whose qualitative outcome (success)
+  stands but whose exact resource numbers predate the fix - see
+  `ollama_gemma4_12b/README.md`'s own caveat.
+- `ollama_deepseek_r1_14b`: 3/3 baseline failures, **0/3 reminder-retries
+  succeeded**, and a tuned `temperature=0.6` alone (the other untested
+  variable `WI-LLM-0056` flagged) didn't help either. In every failure the
+  model explains its reasoning in prose instead of calling the tool - a
+  more robust, harder-to-mitigate instance of the same mechanism than
+  `gemma4:12b` showed. A real, negative, complete finding - not
+  inconclusive.
+
+**Active filter rejection (`gemini_flash`) - the original schema-
+complexity hypothesis was wrong; it's a token budget.** `WI-LLM-0056`
+hypothesized `ENTITY_TOOL_SCHEMA`'s nested shape was triggering Gemini's
+own `MALFORMED_FUNCTION_CALL` validation filter. Tested directly: a
+minimal, flat, single-field schema succeeded 3/3 at `max_tokens=2048`
+(consistent with either hypothesis on its own). To isolate the variable,
+re-ran the *same, unmodified* `ENTITY_TOOL_SCHEMA` at increasing
+`max_tokens`: 8192 and 16384 both failed (`truncated_output` this time,
+not even reproducing the original `MALFORMED_FUNCTION_CALL` signal);
+32000 succeeded **3/3**. The same schema that "systemically" failed in
+`WI-LLM-0056` succeeds reliably once given enough token headroom - it is
+not permanently rejected by a complexity-triggered filter. The likely
+real constraint is Gemini 3.x's internal "thinking"/reasoning token
+consumption sharing the same `max_tokens` budget as the visible
+completion; which specific API-level failure surfaces (a content-filter
+rejection vs. a plain length cutoff) may itself be non-deterministic
+depending on exactly where generation gets cut off, rather than a stable
+signature of schema rejection. This does not fully resolve *why* 8192-
+16384 is insufficient for this schema+segment specifically (out of this
+WI's own scope), but it does overturn the original "systemic filter
+rejection" framing.
+
+**Neither mechanism prompted a `common/harness.py` change beyond the new,
+opt-in `run_entity_extraction(retry_with_reminder=...)` parameter itself**
+(defaults to `False`, preserving every existing candidate's behavior
+unchanged) - no production code (`lcats.llm`, `run_pilot.py`) was touched,
+per this WI's own Non-Goals. See
+`lcats/experimental/model_comparison/ollama_gemma4_12b/README.md`,
+`ollama_deepseek_r1_14b/README.md`, and `gemini_flash/README.md` for the
+full per-candidate write-ups and committed evidence.
+
+### Decision 3 update (2026-08-10, `ollama_gpt_oss_20b` fully vetted across all 3 stages, `WI-LLM-0063`)
+
+`WI-LLM-0056`'s tranche 1 tested `ollama_gpt_oss_20b` only on entity
+extraction (2/2 success, fastest local candidate) - genre detection and
+segmentation were untested. `WI-LLM-0063` ran 3 real calls per stage
+against all three, bringing this candidate up to the same evidence bar
+as `qwen3:8b`.
+
+- **Genre detection: 3/3 success**, all correctly detected `mystery`.
+  Matches `qwen3:8b`'s own "hybrid-viable" finding for this stage.
+- **Entity extraction: 3/3 success**, but the added 3rd run (169.8s,
+  5514 output tokens, 34 entities) revealed real, substantial variance
+  the original 2-run sample (35-38s, 12-21 entities) did not show - up to
+  ~4.5x latency spread and ~3x entity-count spread across 3 runs.
+  `success` never flipped to failure, but a single run's entity count
+  should not be treated as representative without a future
+  precision/recall check (out of this tranche's Non-Goals).
+- **Segmentation: 0/3 - a genuinely new failure mode.** Every run's
+  baseline call ignored `tool_choice` (the familiar silent-ignore
+  mechanism), and `WI-LLM-0051`'s automatic reminder retry did get the
+  tool actually invoked each time (unlike `gemma4:12b`/`deepseek-r1:14b`,
+  where the reminder sometimes still produces no call at all) - but the
+  resulting segment then failed the segmenter's own downstream alignment
+  validation (anchor text not found verbatim in the source story) in all
+  3 runs. This is a failure in answer *quality* after a successful tool
+  call, distinct from both mechanisms `WI-LLM-0062` characterized (silent
+  ignore, active filter rejection) and from the `qwen3:8b`/`qwen3:30b-a3b`
+  baseline segmentation failures (0/5, never even reaching a tool call
+  that passed alignment). Segmentation remains not viable for this
+  candidate, consistent with every other local model tested on this stage
+  so far.
+
+**No `common/harness.py` change was needed or made** - `run_segmentation()`'s
+existing `retry_with_reminder=True` default already covered this
+candidate; this WI only added `benchmark_genre.py`/
+`benchmark_segmentation.py` scripts for `ollama_gpt_oss_20b` (mirroring
+`ollama_qwen3_8b`'s existing shape) and a 3rd entity-extraction run. No
+production code (`lcats.llm`, `run_pilot.py`) touched, per this WI's own
+Non-Goals. See `lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md`'s
+"Follow-up" section for the full per-stage write-up and committed
+evidence.
+
+### Decision 3 update (2026-08-10, `gpt-oss:20b` best-config/grounding follow-up, `WI-LLM-0064`)
+
+`WI-LLM-0064` tested whether the `WI-LLM-0063` `gpt-oss:20b` verdict was
+unfairly pessimistic because the harness was still using shared
+Anthropic/OpenAI-tuned settings, and because prior entity results counted
+raw tool-result entities rather than production-grounded entities. The
+local Ollama installation's bundled parameters for `gpt-oss:20b` report
+`temperature 1`, so this follow-up added candidate-local best-config
+scripts at `temperature=1.0` and extra diagnostics only for this
+candidate.
+
+- **Entity extraction at `temperature=1.0`: raw tool-call success 3/3,
+  grounded success 0/3.** The model still called `extract_entities`
+  reliably and returned 11, 11, and 13 raw entities, but every run emitted
+  `mentions` as plain strings rather than the mention objects expected by
+  production `build_entities()`. The new grounded diagnostic therefore
+  found 0 grounded entities and 0 grounded mentions in every run. This
+  corrects the earlier "entity extraction reliable" framing: it was
+  reliable at the API/tool-call layer, but not yet production-usable as an
+  ERW entity-extraction replacement.
+- **Segmentation at `temperature=1.0`: 0/3.** All three runs still
+  ignored the forced `record_segments` tool call and emitted
+  schema-shaped JSON in message content instead.
+- **Segmentation with `temperature=1.0` plus an explicit verbatim-anchor
+  reminder: 0/3.** The reminder changed the failure mode in 2 of 3 runs
+  by getting the model to call `record_segments`, but the captured
+  pre-alignment anchors still failed production alignment (ellipses,
+  invented/paraphrased boundary text, case drift). The third reminder run
+  returned no tool call/refusal.
+
+**Recommendation, updated:** `gpt-oss:20b` remains a good local candidate
+for genre detection only. It is a plausible follow-up target for entity
+extraction prompt/schema/output-handling work, because it reliably calls
+the tool and returns plausible raw names, but it should no longer be
+treated as production-ready for grounded ERW entity extraction. It remains
+not viable for segmentation under the current OpenAI-compatible Ollama
+harness: the fairer best-config test stayed 0/6 usable across the two
+segmentation variants.
+
 ### Landscape context (not itself decision-grade evidence)
 
 A web survey (Aug 2026) of runtimes and models informs which candidates to
@@ -639,7 +794,29 @@ adopted):
    `common/harness.py`'s `run_segmentation()` and verified end-to-end
    with a real call. See the "Decision 3 update (2026-08-08 ...)" section
    above.
-4. Only after (1)-(3): revisit Decision 3 in a follow-on proposal or
+4. ~~Test whether `gpt-oss:20b` improves under its bundled local
+   best-config (`temperature=1.0`) and a targeted verbatim-anchor
+   reminder.~~ **Done (`WI-LLM-0064`).** Genre detection remains the only
+   clean local use case. Entity extraction stays raw-tool-call reliable
+   but not production-grounded (0/3 grounded entity runs), and
+   segmentation remains not viable (0/6 across plain `temperature=1.0`
+   and verbatim-reminder variants). See the "Decision 3 update
+   (2026-08-10 ... `WI-LLM-0064`)" section above.
+5. ~~Determine whether `gpt-oss:20b` entity extraction can be made
+   production-grounded or should be demoted to genre-only.~~ **Done
+   (`WI-LLM-0065`).** A candidate-scoped adapter now repairs only the
+   observed malformed shapes (string entities, `name`/`entity` aliases,
+   string mentions, and grounded `text`/`surface` mention dicts missing
+   `quote`/`mention_id`) before the unchanged production
+   `build_entities()` call. Three live
+   `gpt-oss:20b` runs at `temperature=1.0` produced 3/3
+   production-grounded successes, but with uneven quality and latency:
+   grounded entity counts were 12, 11, and 16; grounded mention counts
+   were 13, 12, and 18; latency ranged 71-141 seconds. Recommendation:
+   no genre-only demotion is required, but entity extraction should be
+   considered only behind the candidate adapter and should not become a
+   production default without a precision/recall evaluation.
+6. Only after (1)-(5): revisit Decision 3 in a follow-on proposal or
    amendment.
 
 ## Cross-References
@@ -699,6 +876,43 @@ adopted):
   this question would need a smaller/shorter test story that fits within
   `gpt-4o`'s token ceiling - a methodology fix, not just a bigger
   API budget, and out of scope for this follow-up.
+- ~~Do the 3 `tool_choice` failures `WI-LLM-0056` found on entity
+  extraction (`gemini_flash`, `ollama_gemma4_12b`,
+  `ollama_deepseek_r1_14b`) share one root cause?~~ **Answered
+  (`WI-LLM-0062`):** no - two distinct mechanisms. The Ollama silent-ignore
+  mechanism partially responds to `WI-LLM-0051`'s reminder mitigation
+  (1/2 applicable retries succeeded for `gemma4:12b`; 0/3 for
+  `deepseek-r1:14b`, where a tuned temperature didn't help either).
+  Gemini's active filter rejection is **not** schema-complexity-driven as
+  originally hypothesized - the identical, unmodified `ENTITY_TOOL_SCHEMA`
+  succeeds reliably (3/3) once given enough `max_tokens` (32000 vs. the
+  original 8192); the real constraint appears to be token budget
+  (Gemini's own "thinking" consumption), not schema shape. Still open:
+  why `deepseek-r1:14b`'s silent-ignore is fully unresponsive to mitigation
+  where `gemma4:12b`'s is partially responsive; why Gemini needs so much
+  more `max_tokens` headroom than the visible output size alone would
+  suggest; and whether Ollama's native `/api/chat` endpoint (still
+  untested, per `WI-LLM-0051`'s own open item) would do better on either
+  Ollama candidate.
+- ~~Is `ollama_gpt_oss_20b`'s segmentation-stage alignment-rejection
+  failure (`WI-LLM-0063`) addressable by a different mitigation (e.g.
+  instructing the model to quote source text verbatim)?~~ **Answered
+  (`WI-LLM-0064`):** not by the tested best-config mitigation.
+  `temperature=1.0` alone stayed 0/3 because the model emitted
+  schema-shaped JSON in message content rather than a tool call; adding a
+  candidate-local verbatim-anchor reminder changed 2 of 3 runs into real
+  tool calls, but both still failed anchor alignment, and the third run
+  returned no tool call/refusal. Segmentation remains not viable for this
+  candidate under the current OpenAI-compatible Ollama path.
+- ~~Is `gpt-oss:20b`'s grounded entity-extraction failure addressable by
+  a prompt/schema/output-handling follow-up?~~ **Answered
+  (`WI-LLM-0065`):** yes, narrowly. A candidate-scoped compatibility
+  adapter can preserve production grounding for the observed malformed
+  shapes without fabricated spans or weakened quote checks, and the final
+  live run was 3/3 production-grounded. The answer is not a default-model
+  endorsement: grounded counts and latency remained variable, so the next
+  question is precision/recall quality under the adapter, not routing
+  adoption.
 - Is MLX (native Apple Silicon) meaningfully more reliable than
   Ollama/llama.cpp for this pipeline's tool-schema calls? Not yet tested.
 - What is the actual VRAM-bound model-size sweet spot on the Kubuntu Focus

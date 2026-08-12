@@ -193,7 +193,11 @@ def build_events_and_anchors(tool_result: Dict[str, Any], segment_text: str) -> 
     item_errors: List[str] = []
 
     temporal_anchors: List[schema.TemporalAnchor] = []
-    for i, raw in enumerate(tool_result.get("temporal_anchors") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(
+            tool_result.get("temporal_anchors"), "temporal_anchors", item_errors
+        )
+    ):
         if not isinstance(raw, dict):
             item_errors.append(
                 schema.describe_malformed_item(f"temporal_anchors[{i}]", raw)
@@ -216,7 +220,11 @@ def build_events_and_anchors(tool_result: Dict[str, Any], segment_text: str) -> 
         )
 
     spatial_anchors: List[schema.SpatialAnchor] = []
-    for i, raw in enumerate(tool_result.get("spatial_anchors") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(
+            tool_result.get("spatial_anchors"), "spatial_anchors", item_errors
+        )
+    ):
         if not isinstance(raw, dict):
             item_errors.append(
                 schema.describe_malformed_item(f"spatial_anchors[{i}]", raw)
@@ -237,7 +245,9 @@ def build_events_and_anchors(tool_result: Dict[str, Any], segment_text: str) -> 
         )
 
     events: List[schema.Event] = []
-    for i, raw_event in enumerate(tool_result.get("events") or []):
+    for i, raw_event in enumerate(
+        schema.coerce_list_field(tool_result.get("events"), "events", item_errors)
+    ):
         if not isinstance(raw_event, dict):
             item_errors.append(
                 schema.describe_malformed_item(f"events[{i}]", raw_event)
@@ -248,7 +258,13 @@ def build_events_and_anchors(tool_result: Dict[str, Any], segment_text: str) -> 
             continue
 
         semantic_roles: List[schema.SemanticRole] = []
-        for j, raw_role in enumerate(raw_event.get("semantic_roles") or []):
+        for j, raw_role in enumerate(
+            schema.coerce_list_field(
+                raw_event.get("semantic_roles"),
+                f"events[{i}].semantic_roles",
+                item_errors,
+            )
+        ):
             if not isinstance(raw_role, dict):
                 item_errors.append(
                     schema.describe_malformed_item(

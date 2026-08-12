@@ -1,0 +1,15 @@
+{
+  "model": "gemini-3.5-flash",
+  "schema": "minimal_flat",
+  "success": true,
+  "tool_result": {
+    "names": [
+      "Sherlock Holmes",
+      "John Openshaw",
+      "Cook",
+      "Watson"
+    ]
+  },
+  "input_tokens": 853,
+  "output_tokens": 34
+}

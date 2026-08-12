@@ -31,8 +31,8 @@ model_comparison/
   openai_gpt55/                   - OpenAI online (gpt-5.5, OpenAIBackend) - WI-LLM-0056; surfaced a real ENTITY_TOOL_SCHEMA bug, see its README
   ollama_gpt_oss_20b/             - OpenAI offline (gpt-oss:20b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056
   gemini_flash/                   - Gemini online (gemini-3.5-flash via Google's OpenAI-compat endpoint) - WI-LLM-0056; real tool_choice incompatibility found, see its README
-  ollama_gemma4_12b/              - Gemma offline (gemma4:12b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056, pending network to pull the model
-  ollama_deepseek_r1_14b/         - second open-weight family, offline (deepseek-r1:14b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056, pending network to pull the model
+  ollama_gemma4_12b/              - Gemma offline (gemma4:12b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056; real tool_choice failure found (2/2), see its README
+  ollama_deepseek_r1_14b/         - second open-weight family, offline (deepseek-r1:14b via Ollama, OpenAIBackend+base_url) - WI-LLM-0056; real tool_choice failure found (2/2), see its README
   ollama_qwen3_8b/                - local "cheap tier" candidate (qwen3:8b via Ollama, OpenAIBackend+base_url)
   ollama_qwen3_30b_a3b/           - local "quality tier" MoE candidate (qwen3:30b-a3b via Ollama, OpenAIBackend+base_url)
   <new_candidate>/                - add more by copying an existing candidate's shape
@@ -119,15 +119,79 @@ for the full write-up):
 |---|---|---|
 | Anthropic online (2nd tier) | `anthropic_haiku` | Success - matched `anthropic_opus`'s entity count at ~half latency/tokens |
 | OpenAI online | `openai_gpt55` | Blocked, then a **real bug** - `ENTITY_TOOL_SCHEMA`'s `mentions` sub-schema is missing `grammatical_role` from its own `required` array; OpenAI's strict validator rejects it, Anthropic's does not enforce the same completeness rule |
-| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2), fast (35-38s) - one run matched `anthropic_opus`'s exact entity count |
+| OpenAI offline | `ollama_gpt_oss_20b` | Success (2/2 here, 3/3 after `WI-LLM-0063`) - one run matched `anthropic_opus`'s exact entity count. Initial 2-run sample looked fast (35-38s); a 3rd run revealed real latency variance up to 35-170s (see below). Segmentation later tested and found not viable (0/3) - see below |
 | Gemini online | `gemini_flash` | Failed consistently (2/2) - Gemini's own function-call filter rejects `ENTITY_TOOL_SCHEMA` as malformed, independent of the `strict` flag; a real compat-layer incompatibility, not a wiring bug |
-| Gemma offline | `ollama_gemma4_12b` | Pending - model pull interrupted by network conditions, not yet run |
-| Second open-weight family (offline) | `ollama_deepseek_r1_14b` | Pending - the WI's originally-named DeepSeek V4/GLM-5.2 turned out to be Ollama-cloud-only (no locally-runnable tag); substituted `deepseek-r1:14b` as the real, locally-runnable candidate. Model pull interrupted by network conditions, not yet run |
+| Gemma offline | `ollama_gemma4_12b` | Failed consistently (2/2) - `tool_choice` never invoked despite schema-shaped free text, slowest candidate in this tranche (310-544s) |
+| Second open-weight family (offline) | `ollama_deepseek_r1_14b` | Failed consistently (2/2) - the WI's originally-named DeepSeek V4/GLM-5.2 turned out to be Ollama-cloud-only (no locally-runnable tag); substituted `deepseek-r1:14b`. `tool_choice` never invoked; unlike `gemma4:12b`, responded in plain prose rather than JSON-shaped text |
 
 Anthropic offline was never in scope (Anthropic has no open-weight
 release - a vendor-policy fact, not a gap this tranche could close), and
 `gpt-oss-120b` was explicitly deferred to non-Mac hardware per the WI's
 own scope (~52-73GB footprint exceeds this session's 32GB Mac).
+
+**Two distinct patterns beyond any single candidate - not one (review
+finding, PR #273):** an earlier draft of this section conflated 3
+failing cells into a single "tool_choice gap," but the committed evidence
+shows two genuinely different failure mechanisms, not one:
+
+- **Silent ignore (`ollama_gemma4_12b`, `ollama_deepseek_r1_14b`):**
+  `finish_reason='stop'`, real free-text content (JSON-shaped for
+  `gemma4:12b`, plain prose for `deepseek-r1:14b`) - the model never
+  attempts the forced tool call at all. This is the same mechanism
+  `WI-LLM-0051` already characterized on the segmentation stage, now
+  reproduced on entity extraction across 2 different local Ollama models.
+- **Active filter rejection (`gemini_flash` only):** `finish_reason`
+  literally contains `'function_call_filter: MALFORMED_FUNCTION_CALL'`
+  and `content` is empty (`''`) - Gemini's own compat-layer *did*
+  attempt a function call and its internal filter rejected it as
+  malformed. This is a provider-side validation rejection, not a model
+  silently ignoring `tool_choice`, and reproduces identically whether or
+  not `strict` is set (see `gemini_flash/README.md`).
+
+Both patterns are real and both recur on entity extraction, not just
+segmentation - but they likely have different root causes and would need
+different fixes, so a follow-up investigation should treat them as two
+separate questions, not one combined "tool_choice gap."
+
+**`WI-LLM-0062` investigated both, independently, with real evidence:**
+
+- **Silent ignore:** `WI-LLM-0051`'s reminder-retry mitigation (see
+  `common/harness.py`'s `run_entity_extraction(...,
+  retry_with_reminder=True)`, adapted from the segmentation-stage
+  mechanism) was tested on both affected candidates. `ollama_gemma4_12b`:
+  1 of 2 applicable retries succeeded (a real, partial mitigation, matching
+  segmentation's own "helps but doesn't fully fix it" pattern) - see its
+  README's "Follow-up" section. `ollama_deepseek_r1_14b`: 0 of 3 retries
+  succeeded, and a tuned `temperature=0.6` alone didn't help either - a
+  more robust, harder-to-mitigate instance of the same mechanism. A real
+  methodological confound (default `max_tokens=8192` genuinely
+  insufficient for `gemma4:12b`'s tool-call output, producing
+  `truncated_output` failures that aren't the `tool_choice` issue at all)
+  had to be found and corrected before the actual question could be
+  tested cleanly - see `ollama_gemma4_12b/README.md`.
+- **Active filter rejection:** the original "schema complexity triggers
+  Gemini's filter" hypothesis is **not supported** by real evidence - the
+  same, unmodified `ENTITY_TOOL_SCHEMA` succeeds reliably (3/3) once given
+  enough `max_tokens` (32000 vs. the original 8192), and a minimal flat
+  schema also succeeds (3/3) at just 2048 tokens. The real constraint
+  appears to be token budget (likely Gemini 3.x's internal
+  "thinking"/reasoning consumption sharing the same budget as the visible
+  completion), not schema shape - see `gemini_flash/README.md`'s
+  corrected finding.
+
+**`WI-LLM-0063` fully vetted `ollama_gpt_oss_20b` across all three
+stages (3 runs each), not just its original 2-run entity-extraction
+signal:** genre detection 3/3 success; entity extraction 3/3 success but
+with real, substantial variance in latency (35-170s) and entity count
+(12-34) that the original 2-run sample didn't reveal; segmentation 0/3 -
+a **new failure mode** distinct from both patterns above: the baseline
+call ignores `tool_choice` (silent-ignore), the automatic reminder retry
+does get the tool actually invoked (unlike `gemma4:12b`/`deepseek-r1:14b`,
+where the reminder sometimes still fails to produce a call), but the
+resulting segment fails the segmenter's own downstream alignment
+validation (anchor text not found verbatim in the source story) - a
+failure in answer *quality*, not tool invocation. See
+`ollama_gpt_oss_20b/README.md`'s "Follow-up" section.
 
 ## Research context (no download/execution - see individual candidates for real runs)
 

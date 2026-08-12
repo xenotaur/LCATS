@@ -144,6 +144,184 @@ class TestRunErwPipelineStoryRelationCallSite(unittest.TestCase):
         )
 
 
+class TestPerStageModelOverrides(unittest.TestCase):
+    """WI-PILOT-0060: per-stage --model overrides are opt-in plumbing only.
+
+    These tests use fake backends and recorded complete() calls, so they
+    prove wiring without spending on real LLM calls.
+    """
+
+    def test_stage_models_default_every_stage_to_global_model(self):
+        args = run_pilot.argparse.Namespace(
+            model_genre_detect=None,
+            model_segment=None,
+            model_entity=None,
+            model_event=None,
+            model_relation=None,
+            model_discourse=None,
+            model_cross_segment=None,
+        )
+
+        models = run_pilot._resolve_stage_models("global-model", args)
+
+        self.assertEqual(
+            models.to_dict(),
+            {
+                "genre_detect": "global-model",
+                "segment": "global-model",
+                "entity": "global-model",
+                "event": "global-model",
+                "relation": "global-model",
+                "discourse": "global-model",
+                "cross_segment_relation": "global-model",
+            },
+        )
+
+    def test_stage_models_apply_only_explicit_overrides(self):
+        args = run_pilot.argparse.Namespace(
+            model_genre_detect="genre-model",
+            model_segment="segment-model",
+            model_entity="entity-model",
+            model_event=None,
+            model_relation="relation-model",
+            model_discourse=None,
+            model_cross_segment="cross-model",
+        )
+
+        models = run_pilot._resolve_stage_models("global-model", args)
+
+        self.assertEqual(models.genre_detect, "genre-model")
+        self.assertEqual(models.segment, "segment-model")
+        self.assertEqual(models.entity, "entity-model")
+        self.assertEqual(models.event, "global-model")
+        self.assertEqual(models.relation, "relation-model")
+        self.assertEqual(models.discourse, "global-model")
+        self.assertEqual(models.cross_segment_relation, "cross-model")
+
+    def test_segment_stage_uses_segment_model_override(self):
+        from lcats.llm import fake_backend
+
+        tool_result = {
+            "segments": [
+                {
+                    "segment_id": 1,
+                    "segment_type": "narrative_scene",
+                    "start_par_id": 1,
+                    "end_par_id": 1,
+                    "start_exact": "Once.",
+                    "end_exact": "Once.",
+                    "start_prefix": "",
+                    "end_suffix": "",
+                    "start_char": 0,
+                    "end_char": 5,
+                    "summary": "Setup.",
+                    "cohesion": {"time": "", "place": "", "characters": []},
+                    "gacd": None,
+                    "erac": None,
+                    "reason": "Single scene.",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+        fake = fake_backend.FakeBackend(tool_result=tool_result)
+
+        segments, error, _usage = run_pilot._segment_story(
+            "Once.", fake, "segment-model"
+        )
+
+        self.assertIsNone(error)
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(fake.calls[0]["model"], "segment-model")
+
+    def test_erw_extractors_use_individual_model_overrides(self):
+        segment_1_text = "The old machine hummed."
+        segment_2_text = "It shut off forever."
+        body = segment_1_text + " " + segment_2_text
+        fake = _SequencedFakeBackend(
+            [
+                {"entities": []},
+                {
+                    "events": [
+                        {
+                            "event_id": "ev1",
+                            "predicate": "hummed",
+                            "event_type": "sound_emission",
+                            "quote": "hummed",
+                        }
+                    ]
+                },
+                {},
+                {},
+                {"entities": []},
+                {
+                    "events": [
+                        {
+                            "event_id": "ev2",
+                            "predicate": "shut off",
+                            "event_type": "mechanical_failure",
+                            "quote": "shut off",
+                        }
+                    ]
+                },
+                {},
+                {},
+                {
+                    "relations": [
+                        {
+                            "relation_id": "r1",
+                            "source_event_id": "1:ev1",
+                            "target_event_id": "2:ev2",
+                            "relation_type": "causes",
+                            "certainty": "explicit",
+                        }
+                    ]
+                },
+            ]
+        )
+        stage_models = run_pilot.StageModels.from_global(
+            "global-model",
+            entity="entity-model",
+            event="event-model",
+            relation="relation-model",
+            discourse="discourse-model",
+            cross_segment_relation="cross-model",
+        )
+        extractors = run_pilot._build_erw_extractors(fake, "global-model", stage_models)
+        nlp_backend = run_pilot._make_nlp_backend("fake")
+        segments = [
+            {
+                "segment_id": 1,
+                "start_char": 0,
+                "end_char": len(segment_1_text),
+            },
+            {
+                "segment_id": 2,
+                "start_char": len(segment_1_text) + 1,
+                "end_char": len(body),
+            },
+        ]
+
+        result = run_pilot._run_erw_pipeline(
+            body, segments, extractors, nlp_backend, "fake", "test_story"
+        )
+
+        self.assertEqual(len(result["story"]["cross_segment_relations"]), 1)
+        self.assertEqual(
+            [call["model"] for call in fake.calls],
+            [
+                "entity-model",
+                "event-model",
+                "relation-model",
+                "discourse-model",
+                "entity-model",
+                "event-model",
+                "relation-model",
+                "discourse-model",
+                "cross-model",
+            ],
+        )
+
+
 class TestSegmentStoryStillReturnsBareList(unittest.TestCase):
     """WI-EVENT-0033: make_segment_extractor now uses the tool= path
     internally, but scene_analysis._segment_result_aligner unwraps the
@@ -1240,6 +1418,7 @@ class TestSegmentationUsagePreservedOnUnexpectedException(unittest.TestCase):
                 extractors,
                 nlp_backend,
                 "fake",
+                None,
                 dry_run=False,
             )
 
@@ -1254,6 +1433,62 @@ class TestSegmentationUsagePreservedOnUnexpectedException(unittest.TestCase):
         self.assertEqual(len(segment_usages), 1)
         self.assertEqual(segment_usages[0]["input_tokens"], 5)
         self.assertEqual(segment_usages[0]["output_tokens"], 2)
+
+
+class TestCappedExcludeReason(unittest.TestCase):
+    """WI-EVENT-0061: a container-type extraction error (schema.
+    coerce_list_field) can produce many joined item_errors for one story;
+    the console print must be capped so it can't flood the terminal, while
+    the stored row value stays uncapped for later analysis."""
+
+    def test_short_reason_is_unchanged(self):
+        reason = "empty story body"
+        self.assertEqual(run_pilot._capped_exclude_reason(reason), reason)
+
+    def test_long_reason_is_truncated_with_more_count_suffix(self):
+        errors = [
+            f"speech_acts[{i}] is not an object (got str): 'x'" for i in range(50)
+        ]
+        reason = "; ".join(errors)
+        self.assertGreater(len(reason), run_pilot._EXCLUDE_REASON_PRINT_MAX_CHARS)
+
+        capped = run_pilot._capped_exclude_reason(reason)
+
+        self.assertLess(len(capped), len(reason))
+        self.assertRegex(capped, r"\.\.\.\d+ more errors?$")
+
+    def test_reason_at_exactly_the_limit_is_unchanged(self):
+        reason = "x" * run_pilot._EXCLUDE_REASON_PRINT_MAX_CHARS
+        self.assertEqual(run_pilot._capped_exclude_reason(reason), reason)
+
+    def test_single_long_message_does_not_claim_nonexistent_more_errors(self):
+        """Regression test (self-review finding, WI-EVENT-0061): a single
+        message longer than the cap, with no "; "-joined sibling errors,
+        must not be suffixed "...1 more error" -- there is no second
+        error, just one long message that got truncated."""
+        reason = "a" * (run_pilot._EXCLUDE_REASON_PRINT_MAX_CHARS + 50)
+        capped = run_pilot._capped_exclude_reason(reason)
+        self.assertNotRegex(capped, r"more errors?")
+        self.assertTrue(capped.endswith("...(truncated)"))
+
+    def test_cutoff_within_final_segment_does_not_claim_nonexistent_more_errors(
+        self,
+    ):
+        """Regression test (Copilot review, PR #274): if the char-count cap
+        falls inside the LAST "; "-joined segment (all separators are
+        already included in the truncated text), no segment was actually
+        omitted -- only the last one's text was cut short. This must not
+        be reported as "...N more errors" for any N >= 1; a naive
+        `max(total - shown, 1)` floor previously fabricated "...1 more
+        error" here even though there is no additional error."""
+        head = "; ".join(f"error{i}" for i in range(3))
+        long_last_segment = "x" * (run_pilot._EXCLUDE_REASON_PRINT_MAX_CHARS + 100)
+        reason = f"{head}; {long_last_segment}"
+
+        capped = run_pilot._capped_exclude_reason(reason)
+
+        self.assertNotRegex(capped, r"more errors?")
+        self.assertTrue(capped.endswith("...(truncated)"))
 
 
 if __name__ == "__main__":

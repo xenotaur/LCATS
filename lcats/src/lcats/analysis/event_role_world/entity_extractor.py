@@ -146,14 +146,20 @@ def build_entities(
     item_errors: List[str] = []
     cursor = schema.EvidenceCursor()
 
-    for i, raw_entity in enumerate(tool_result.get("entities") or []):
+    for i, raw_entity in enumerate(
+        schema.coerce_list_field(tool_result.get("entities"), "entities", item_errors)
+    ):
         if not isinstance(raw_entity, dict):
             item_errors.append(
                 schema.describe_malformed_item(f"entities[{i}]", raw_entity)
             )
             continue
         mention_ids: List[str] = []
-        for j, raw_mention in enumerate(raw_entity.get("mentions") or []):
+        for j, raw_mention in enumerate(
+            schema.coerce_list_field(
+                raw_entity.get("mentions"), f"entities[{i}].mentions", item_errors
+            )
+        ):
             if not isinstance(raw_mention, dict):
                 item_errors.append(
                     schema.describe_malformed_item(

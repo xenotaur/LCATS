@@ -4,7 +4,7 @@ type: design_proposal
 title: Making the Event-Role-World Pilot Sustainable to Run — Test Harness, Caching, Batching, and Model Tiering
 status: adopted
 created_on: 2026-08-05
-updated_on: 2026-08-06
+updated_on: 2026-08-10
 implementation_status: not_started
 implemented_by: []
 supersedes: []
@@ -58,17 +58,18 @@ That evidence, from this session's two real runs against
   counts), for ~26 LLM calls per story — versus 1 call for segmentation
   (`run_pilot.py:427-444`). This ~26x fan-out, not merely "events are
   denser than scenes," is the primary architectural cost driver.
-- Direct inspection of `llm_extractor.py` and `anthropic_backend.py:37-100`
-  confirms zero use of Anthropic's prompt caching (`cache_control`)
-  anywhere in the codebase, despite each segment's 4 extractor calls
-  independently resending the identical `segment_text`.
+- Direct inspection of `llm_extractor.py` and `AnthropicBackend.complete`
+  confirmed zero use of Anthropic's prompt caching (`cache_control`)
+  anywhere in the codebase at the time this proposal was written, despite
+  each segment's 4 extractor calls independently resending the identical
+  `segment_text`.
 - `run_pilot.py:1153`'s `--model` flag is single and global —
   genre-detection and segmentation (comparatively simple tasks) run on the
   same top-tier, most-expensive model as the nuanced extraction stages,
   with no code path to do otherwise.
 - The pipeline uses only the non-batch Messages API (streaming via
   `messages.stream`, or blocking via `messages.create` when streaming is
-  disabled — `anthropic_backend.py:76-80`), not the Batch API. Anthropic's
+  disabled in `AnthropicBackend.complete`), not the Batch API. Anthropic's
   Batch API is documented to cut cost 50% flat for exactly this workload's
   shape (bulk, non-interactive, tolerant of async turnaround) —
   `platform.claude.com/docs/en/build-with-claude/batch-processing`.
@@ -178,7 +179,7 @@ eliminated without changing model, calls, or output quality?
 **Options considered:**
 - Do nothing.
 - Add `cache_control: {"type": "ephemeral"}` markers in
-  `anthropic_backend.py:64-74`'s request construction, on the system
+  `AnthropicBackend.complete`'s request construction, on the system
   prompt and/or the shared segment-text prefix.
 
 **Originally chosen "adopt caching" — downgraded to "evaluate" after
@@ -190,34 +191,57 @@ Anthropic's prompt-caching docs
 cache prefixes in strict hierarchical order — `tools`, then `system`, then
 `messages` — and state that changing tool definitions invalidates the
 entire cache, tools/system/messages alike. `AnthropicBackend.complete`
-(`anthropic_backend.py:64-74`) sends a single, different `tool` per call
-(`ENTITY_TOOL_SCHEMA`, `EVENT_TOOL_SCHEMA`, and so on —
+(`lcats/src/lcats/llm/anthropic_backend.py`) sends a single, different
+`tool` per call (`ENTITY_TOOL_SCHEMA`, `EVENT_TOOL_SCHEMA`, and so on —
 `entity_extractor.py:16`, `event_extractor.py:17`, confirmed distinct per
 extractor), so the 4 per-segment calls can never share a cache hit with
 each other regardless of how identical their `segment_text` is — each
 uses a different tool, which invalidates everything downstream before
 `system`/`messages` are ever consulted.
 
-The real, narrower opportunity: caching the (comparatively small) stable
+The real, narrower opportunity is caching the (comparatively small) stable
 `tools`+`system` prefix *within one extractor type*, reused across every
 call of that same extractor across different segments and different
 stories in a run — not the large, per-segment `segment_text`, which
 varies every call regardless of extractor and is therefore never a stable
-cache prefix under this pipeline's current call shape. This is a real but
-much smaller-magnitude saving than originally described, and its actual
-size is unmeasured. Separately, Anthropic's "mid-conversation tool
-changes" beta
+cache prefix under this pipeline's current call shape.
+
+WI-PILOT-0057 measured that narrower opportunity on 2026-08-10 against
+the WI-PILOT-0051 fixture set
+(`experiments/03_cross_segment_relation_pilot/results/caching_eval/caching_comparison.json`),
+using `claude-opus-4-8`, the real interleaved per-segment call order, and
+the existing 5-minute prompt-cache TTL. The run covered 2 fixture stories,
+3 real segments, and 13 measured ERW calls per comparison arm. Preflight
+`tools`+`system` prefix counts were: entity 947 tokens, event 1,333,
+relation 821, discourse 1,356, and story_relation 1,010. With Anthropic's
+current 1,024-token minimum cacheable prompt length for Opus 4.8, only the
+event and discourse prefixes were cacheable. The enabled arm observed
+2,539 `cache_creation_input_tokens` and 5,078 `cache_read_input_tokens`;
+entity, relation, and story_relation correctly stayed at zero cache tokens.
+Measured costs were $0.6206 with caching disabled and $0.5702 with
+caching enabled, for an observed delta of -$0.0504 (-8.1%) on this tiny
+fixture run. Because output generation is nondeterministic and differed
+between arms, the directly attributable input/cache component should be
+computed from the enabled arm's identical requests: pricing its 27,033
+effective input/cache tokens as ordinary input would cost $0.1352, versus
+$0.1155 with caching, a -$0.0197 input-side delta.
+
+Recommendation: **go** for a follow-on pilot-level adoption path that
+enables prompt caching explicitly for Anthropic ERW fixture/pilot runs,
+while keeping `AnthropicBackend(enable_prompt_caching=False)` as the global
+default. Do not pad short entity/relation/story_relation prefixes merely
+to force cacheability, and do not assume the originally imagined
+per-segment `segment_text` sharing exists; the measured benefit is real
+but limited to same-extractor `tools`+`system` prefix reuse.
+
+Separately, Anthropic's "mid-conversation tool changes" beta
 (`platform.claude.com/docs/en/about-claude/models/whats-new-opus-5`) —
 "add or remove tools between turns of a conversation while preserving the
 prompt cache" — is a genuinely relevant alternative worth investigating,
 since it targets exactly this per-call-different-tool constraint, but it
 would mean restructuring the 4 independent calls into one multi-turn
 conversation per segment (a real architecture change, and still a beta
-feature) — not something to assume works today. **Deferred to a follow-on
-work item** that measures the real, narrower caching benefit (or the
-mid-conversation-tool-changes alternative) against Decision 2's fixture
-set before claiming any savings, rather than treating this as the
-zero-risk "just adopt it" item it was originally framed as.
+feature) — not something to assume works today.
 
 ### Decision 4: Evaluate, don't yet adopt, the Batch API
 
@@ -226,21 +250,86 @@ flat, documented 50% discount?
 
 **Options considered:**
 - Adopt immediately.
+- Reject because asynchronous batch submission conflicts with the current
+  synchronous checkpointing model.
 - Evaluate first as a distinct, gated decision.
 
-**Chosen: evaluate first.** The Batch API's discount is real and applies to
-both input and output tokens with no quality tradeoff — but it is
-asynchronous, and the pipeline's whole checkpointing architecture
-(`WI-PIPELINE-0040`/`0041`, adopted `lcats-pipeline-checkpointing/00_proposal.md`)
-was built around synchronous, per-call, stage-then-checkpoint semantics
-just two days before this proposal. Retrofitting for batch
-submission-and-poll is a real architecture change, not a flag flip, and
-would also need to solve the already-flagged "no mid-call progress
-feedback" gap (backlog P2) in a new way, since batch jobs report no interim
-status at all. This decision is deferred to a follow-on work item that
-starts with an explicit go/no-go assessment against the baseline cost
-Decision 2's harness makes measurable (and Decision 3's caching
-evaluation, if it lands first and shows a real benefit).
+**Chosen: go for a follow-on batch-mode design, not immediate adoption.**
+WI-PILOT-0058 completed the gated assessment on 2026-08-10, reusing
+WI-PILOT-0057's landed real baseline rather than making any new paid API
+calls. The baseline was the disabled-caching arm of
+`experiments/03_cross_segment_relation_pilot/results/caching_eval/caching_comparison.json`:
+`claude-opus-4-8`, 2 WI-PILOT-0051 fixture stories, 3 real segments, 13
+ERW calls, 26,959 input tokens, 19,431 output tokens, and exact recorded
+cost $0.62057. Applying Anthropic's documented Batch API pricing (50% of
+standard API prices for both input and output tokens) projects that same
+fixture workload at about $0.3103, a savings of about $0.3103. The same
+multiplier would have saved about $33.77 against the $67.54 combined
+historical pilot spend cited in this proposal, before any prompt-caching or
+model-tiering effects.
+
+The economics are therefore strong, but the architecture cost is real.
+`lcats/src/lcats/utils/checkpoint.py` is a synchronous publication helper:
+callers validate `(working_root, source_root)` with `resolve_roots`, compute
+one caller-defined fingerprint for one `(item_id, stage)`, check
+`read_checkpoint`, perform the expensive work if the checkpoint is not a
+matching recorded success, and immediately publish a JSON record via
+`write_checkpoint` using same-directory temp-file creation plus
+`os.replace`. A recorded failure is deliberately not treated as done, a
+fingerprint mismatch is treated as absent, and the helper does not know
+anything about outstanding remote work. That model is a good fit for
+`run_pilot.py`'s current stage-then-checkpoint flow: genre detection,
+segmentation, ERW extraction, and cross-segment relation each become
+durable as soon as the local call path returns.
+
+Anthropic's Message Batches API has a different shape. It creates a batch
+of Messages requests, processes them asynchronously, and exposes results
+only after the batch ends. A batch-aware pilot should therefore not pretend
+that `read_checkpoint`/`write_checkpoint` alone are enough. It would need a
+parallel durable batch ledger recording submitted request `custom_id`s,
+their mapped story/segment/stage identities, request fingerprints, batch
+IDs, and retry/failure state before the process exits or polls. Only after
+`client.messages.batches.results()` returns should the existing per-stage
+checkpoint records be published. Without that ledger, a crash after submit
+but before result ingestion could lose track of paid remote work; without
+the existing final checkpoint publication, a resumed run would lose the
+per-stage reproducibility and stale-fingerprint protections
+`WI-PIPELINE-0040`/`0041` intentionally added.
+
+Much of Decision 3 of `PROP-LCATS-PIPELINE-CHECKPOINTING` can survive, but
+at coarser boundaries. Dependencies still force waves: event extraction
+depends on entity extraction, relation and discourse depend on the event
+output, and cross-segment relation depends on the story's accumulated ERW
+output. A batch implementation can checkpoint after each completed wave,
+and can still preserve per-story/per-stage artifacts once results are
+ingested. It cannot preserve today's exact "one call returns, immediately
+write that stage's result" semantics while the remote batch is still in
+progress. Partial-progress recovery would move from checkpoint files to the
+new batch ledger until the batch finishes.
+
+The progress/visibility tradeoff is acceptable for this project only if it
+is explicit. The current local workflow prints concrete progress such as
+genre-detect hits, "Running pipeline: [genre] story", per-story exclusions,
+and final output paths as the synchronous loop advances. Anthropic's Batch
+API instead reports overall `processing_status` (`in_progress`,
+`canceling`, `ended`) while polling; `request_counts` can show aggregate
+batch-level counts, but the final succeeded/errored/canceled/expired
+buckets and per-request results are only usable once the batch ends, and
+results are then streamed by `custom_id` rather than submission order. For
+a single-researcher, non-interactive pilot this is a reasonable exchange
+for a flat 50% discount, especially because most runs are not
+latency-sensitive. It is still worse interactive debugging visibility than
+the current path, so the synchronous Messages API should remain the
+default/local-debug mode until a batch mode has its own clear console
+status and resumable ledger.
+
+Recommendation: **go** for a separate follow-on work item that designs and
+implements an explicit opt-in Batch API mode for fixture/pilot runs. That
+item should keep the synchronous checkpointed path intact, add a durable
+submit/poll/result-ingestion ledger rather than retrofitting
+`checkpoint.py` by default, and validate that batch-mode output
+publication preserves the existing per-stage checkpoint artifacts after
+ingestion. Do not implement Batch API adoption inside this assessment item.
 
 ### Decision 5: Evaluate, don't yet adopt, per-stage model tiering
 
@@ -252,20 +341,51 @@ model for entity/event/relation/discourse/cross-segment extraction?
 - Adopt a specific cheaper model now.
 - Evaluate empirically first, using the Decision 2 harness.
 
-**Chosen: evaluate first.** Anthropic's current model-comparison pricing
-(`platform.claude.com/docs/en/about-claude/models/overview`) shows a
-real spread (e.g. Haiku 4.5 at $1/$5 per MTok vs. legacy Opus 4.8 at
-$5/$25) that could meaningfully cut genre-detect's 200-candidate scan cost
-specifically. But this session directly observed the *top-tier* model
-producing malformed structured output under real conditions (the
-`speech_acts`-as-string bug, `lcats/project/design/backlog.md` lines
-164-180) — a cheaper model's reliability on the same strict-schema
-tool-use is an open, unvalidated question, not a safe assumption.
-`run_pilot.py:1153`'s single global `--model` flag also needs to become
-per-stage before this is
-even testable. This decision is deferred to a follow-on work item that
-evaluates real output quality against the Decision 2 fixture set before
-any adoption.
+**Chosen: go, bounded to genre-detection and segmentation, after real
+measurement.** Anthropic's current model-comparison pricing
+(`platform.claude.com/docs/en/about-claude/pricing`, verified 2026-08-10)
+shows the relevant spread: Claude Opus 4.8 at $5/$25 per MTok versus Claude
+Haiku 4.5 at $1/$5 per MTok. `WI-PILOT-0060` added per-stage model overrides
+to `run_pilot.py` so this can be evaluated without changing the global model
+default.
+
+The real bounded comparison
+(`experiments/03_cross_segment_relation_pilot/results/model_tiering_eval/model_tiering_comparison.json`)
+ran against the two `WI-PILOT-0051` fixture stories, using a separate
+validated genre ground-truth file rather than the fixture manifest's
+unvalidated plumbing labels. It made 8 real Anthropic generation calls:
+2 models x 2 stories x 2 stages. Results:
+
+- Baseline `claude-opus-4-8`: 18,748 input tokens, 2,365 output tokens,
+  measured cost $0.152865; genre-detect raw/schema validity 2/2, genre
+  accuracy 2/2, truncation 0/2, secondary-genre sanitization 0/2;
+  segmentation schema validity 1/2, truncation 0/2. The segmentation miss
+  was an alignment failure on `king_of_the_hill` (`segment_id=2` anchor text
+  not found), not truncation.
+- Candidate `claude-haiku-4-5-20251001`: 14,358 input tokens, 2,106 output
+  tokens, measured cost $0.024888; genre-detect raw/schema validity 2/2,
+  genre accuracy 2/2, truncation 0/2, secondary-genre sanitization 1/2;
+  segmentation schema validity 2/2, truncation 0/2.
+- Cost delta: -$0.127977 on the fixture set, an 83.72% reduction for these
+  two stages in this run.
+
+Caveat: both Opus 4.8 and Haiku 4.5 marked `king_of_the_hill` as
+`wellformed: false` while the WI-PILOT-0060 ground truth marks it
+wellformed. That does not change this decision's genre-detection metric,
+because `run_pilot.py`'s genre-detect scan consumes `detected_genre`, not
+`wellformed`, but it is a reminder not to treat the assessment call as a
+complete corpus-QA substitute. Haiku also produced one schema-valid but
+sanitized `secondary_genre` value containing leaked tool-call syntax; this
+did not affect the consumed `detected_genre` signal, but it is real evidence
+that cheaper-tier structured-output reliability is not perfect.
+
+Recommendation: adopt Haiku 4.5 for the pilot's genre-detection and
+segmentation stages in a follow-on configuration/defaulting change only if
+that change keeps the existing assessment sanitization/telemetry visible,
+while continuing to reserve the top-tier model for entity/event/relation/
+discourse/cross-segment extraction. This decision does **not** default model
+tiering on in `WI-PILOT-0060`; every stage still uses the global model unless
+an explicit per-stage override is supplied.
 
 ### Decision 6: Reject fusing the 4 per-segment extractor calls
 
@@ -342,7 +462,7 @@ workstream, not a single work item. Proposed shape:
    narrower caching benefit (or the mid-conversation-tool-changes
    alternative) against WI 1's fixture set given the per-call
    different-tool-schema constraint; only proceeds to `cache_control`
-   adoption in `anthropic_backend.py` if it shows a real, worthwhile
+   adoption in `AnthropicBackend.complete` if it shows a real, worthwhile
    saving.
 4. **WI 3 — Batch API evaluation** (Decision 4): go/no-go assessment,
    using WI 1's (and, if it lands, WI 2's) now-measurable baseline; only

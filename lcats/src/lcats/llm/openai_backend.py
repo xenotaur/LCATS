@@ -106,6 +106,7 @@ class OpenAIBackend:
                     f"content: {content_preview!r}",
                     input_tokens=usage.prompt_tokens if usage else 0,
                     output_tokens=usage.completion_tokens if usage else 0,
+                    raw_content=choice.message.content or "",
                 )
             raw_arguments = tool_calls[0].function.arguments
             tool_result = json.loads(raw_arguments)

@@ -1,0 +1,22 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "temperature_1",
+  "success": false,
+  "latency_seconds": 175.09091495900066,
+  "input_tokens": 12591,
+  "output_tokens": 5338,
+  "segment_count": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 15,\\n      \"start_exact\": \"When I glance over my\",\\n      \"end_exact\": \"that was so remarkable in its details and so startling in its results that I am tempted to give some account of it in spite of the fact that there are points in connection with it which never have been, and probably never will be, entirely cleared up.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Intro to Holmes\u2019 archive; stormy evening at Baker Street. Client John Openshaw arrives, hinting at a mysterious family past.\",\\n      \"cohesion\": {\\n        \"time\": \"late 1880s\",\\n        \"place\": \"Baker Street, London\",\\n        \"characters\": [\"Holmes\", \"Watson (narrator)\", \"John Openshaw\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"The first scene sets the context: it presents the setting, characters and initial encounter with the client but does not yet involve conflict or a decisive action. The paragraph span keeps time (late 1880s) and place stable.\",\\n      \"confidence\": 0.85\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_sequel\",\\n      \"start_par_id\": 16,\\n      \"end_par_id\": 180,\\n      \"start_exact\": \"John Openshaw\",\\n      \"end_exact\": \"we did at last hear that somewhere far out in the Atlantic a shattered stern\u2011post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Holmes researches KKK warnings from Openshaw\u2019s family, deduces imminent danger, decides to act by hiding evidence on a sundial and plans travel.\",\\n      \"cohesion\": {\\n        \"time\": \"late 1880s\u2010early 1890s\",\\n        \"place\": \"Baker Street (planning) then L'",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": false,
+  "anchor_diagnostics": [],
+  "parsed_output": null,
+  "raw_output_preview": null,
+  "run_number": 1
+}

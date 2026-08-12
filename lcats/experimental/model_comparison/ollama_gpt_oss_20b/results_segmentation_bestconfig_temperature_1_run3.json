@@ -1,0 +1,22 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "temperature_1",
+  "success": false,
+  "latency_seconds": 126.52613004200975,
+  "input_tokens": 12591,
+  "output_tokens": 4246,
+  "segment_count": null,
+  "error_type": "no_tool_call",
+  "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 178,\\n      \"start_exact\": \" When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\",\\n      \"end_exact\": \"There is ever a flaw, however, in the best laid of human plans, and the murderers of John Openshaw were never to receive the orange pips which would show them that another, as cunning and as resolute as themselves, was upon their track. Very long and very severe were the equinoctial gales that year. We waited long for news of the Lone Star of Savannah, but none ever reached us. We did at last heard that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"The narrator recounts a long Holmes case covering early family history, a mysterious death, and Holmes\u2019 investigation plan, culminating with an ominous cliffhanger.\",\\n      \"cohesion\": {\\n        \"time\": \"Late 19th century (1880s\u20111890s) and present day investigation\",\\n        \"place\": \"London (Baker Street) and rural Sussex/Horsham\",\\n        \"characters\": [\"Sherlock Holmes\", \"John Openshaw\", \"the narrator\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"The entire story fits within a single continuous narrative setting (mostly London), with no major time or place shift that would warrant additional coarse cuts. The text comprises continuous dialogue and exposition rather than discrete scenes of goal\u2011action conflict, so it is classified as a narrative scene.\",\\n      \"confidence\": 0.6\\n    }\\n  ]\\n}\\n```\\n'",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": false,
+  "anchor_diagnostics": [],
+  "parsed_output": null,
+  "raw_output_preview": null,
+  "run_number": 3
+}

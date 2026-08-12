@@ -1,0 +1,344 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "model": "gpt-oss:20b",
+  "stage": "segmentation",
+  "temperature": 1.0,
+  "run_count_per_variant": 3,
+  "variants": {
+    "temperature_1": [
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "temperature_1",
+        "success": false,
+        "latency_seconds": 175.09091495900066,
+        "input_tokens": 12591,
+        "output_tokens": 5338,
+        "segment_count": null,
+        "error_type": "no_tool_call",
+        "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 15,\\n      \"start_exact\": \"When I glance over my\",\\n      \"end_exact\": \"that was so remarkable in its details and so startling in its results that I am tempted to give some account of it in spite of the fact that there are points in connection with it which never have been, and probably never will be, entirely cleared up.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Intro to Holmes\u2019 archive; stormy evening at Baker Street. Client John Openshaw arrives, hinting at a mysterious family past.\",\\n      \"cohesion\": {\\n        \"time\": \"late 1880s\",\\n        \"place\": \"Baker Street, London\",\\n        \"characters\": [\"Holmes\", \"Watson (narrator)\", \"John Openshaw\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"The first scene sets the context: it presents the setting, characters and initial encounter with the client but does not yet involve conflict or a decisive action. The paragraph span keeps time (late 1880s) and place stable.\",\\n      \"confidence\": 0.85\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_sequel\",\\n      \"start_par_id\": 16,\\n      \"end_par_id\": 180,\\n      \"start_exact\": \"John Openshaw\",\\n      \"end_exact\": \"we did at last hear that somewhere far out in the Atlantic a shattered stern\u2011post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Holmes researches KKK warnings from Openshaw\u2019s family, deduces imminent danger, decides to act by hiding evidence on a sundial and plans travel.\",\\n      \"cohesion\": {\\n        \"time\": \"late 1880s\u2010early 1890s\",\\n        \"place\": \"Baker Street (planning) then L'",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": false,
+        "anchor_diagnostics": [],
+        "parsed_output": null,
+        "raw_output_preview": null,
+        "run_number": 1
+      },
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "temperature_1",
+        "success": false,
+        "latency_seconds": 169.24284420898766,
+        "input_tokens": 12591,
+        "output_tokens": 5610,
+        "segment_count": null,
+        "error_type": "no_tool_call",
+        "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 7,\\n      \"start_exact\": \"When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\",\\n      \"end_exact\": \"such a day and at such an hour. But I take it that it is more likely to be some crony of the landlady\u2019s.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"Watson reflects on Sherlock Holmes\u2019 cases, highlighting a remarkable case with a mysterious warning of danger.\",\\n      \"cohesion\": {\\n        \"time\": \"1870s\",\\n        \"place\": \"London (Baker Street)\",\\n        \"characters\": [\"Watson\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"This portion contains narrative exposition and sets up the context without any on\u2011stage GACD or ERAC elements.\",\\n      \"confidence\": 0.95\\n    },\\n    {\\n      \"segment_id\": 2,\\n      \"segment_type\": \"dramatic_scene\",\\n      \"start_par_id\": 8,\\n      \"end_par_id\": 178,\\n      \"start_exact\": \"Sherlock Holmes was wrong in his conjecture, however, for there came a step in\",\\n      \"end_exact\": \"with the letters \\'L. S.\\' carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"John Openshaw arrives at Holmes\u2019 lodge seeking help after receiving a dangerous warning; Holmes investigates the KKK threat, plans actions and contends with looming danger.\",\\n      \"cohesion\": {\\n        \"time\": \"1883\u20131890s\",\\n        \"place\": \"London (Baker Street), Horsham, Atlantic shipping routes\",\\n        \"characters\": [\"Holmes\", \"Watson\", \"John Openshaw\"]\\n      },\\n      \"gacd\": {\\n        \"goal\": \"...protect John and uncover the mystery behind the alarming warning.\",\\n        \"action\": \"...Holmes invites Openshaw into his circle, investigates clues (e.g., brass box'",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": false,
+        "anchor_diagnostics": [],
+        "parsed_output": null,
+        "raw_output_preview": null,
+        "run_number": 2
+      },
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "temperature_1",
+        "success": false,
+        "latency_seconds": 126.52613004200975,
+        "input_tokens": 12591,
+        "output_tokens": 4246,
+        "segment_count": null,
+        "error_type": "no_tool_call",
+        "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: '```json\\n{\\n  \"segments\": [\\n    {\\n      \"segment_id\": 1,\\n      \"segment_type\": \"narrative_scene\",\\n      \"start_par_id\": 1,\\n      \"end_par_id\": 178,\\n      \"start_exact\": \" When I glance over my\\\\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\",\\n      \"end_exact\": \"There is ever a flaw, however, in the best laid of human plans, and the murderers of John Openshaw were never to receive the orange pips which would show them that another, as cunning and as resolute as themselves, was upon their track. Very long and very severe were the equinoctial gales that year. We waited long for news of the Lone Star of Savannah, but none ever reached us. We did at last heard that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.\",\\n      \"start_prefix\": \"\",\\n      \"end_suffix\": \"\",\\n      \"start_char\": null,\\n      \"end_char\": null,\\n      \"summary\": \"The narrator recounts a long Holmes case covering early family history, a mysterious death, and Holmes\u2019 investigation plan, culminating with an ominous cliffhanger.\",\\n      \"cohesion\": {\\n        \"time\": \"Late 19th century (1880s\u20111890s) and present day investigation\",\\n        \"place\": \"London (Baker Street) and rural Sussex/Horsham\",\\n        \"characters\": [\"Sherlock Holmes\", \"John Openshaw\", \"the narrator\"]\\n      },\\n      \"gacd\": null,\\n      \"erac\": null,\\n      \"reason\": \"The entire story fits within a single continuous narrative setting (mostly London), with no major time or place shift that would warrant additional coarse cuts. The text comprises continuous dialogue and exposition rather than discrete scenes of goal\u2011action conflict, so it is classified as a narrative scene.\",\\n      \"confidence\": 0.6\\n    }\\n  ]\\n}\\n```\\n'",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": false,
+        "anchor_diagnostics": [],
+        "parsed_output": null,
+        "raw_output_preview": null,
+        "run_number": 3
+      }
+    ],
+    "verbatim_quote_reminder": [
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "verbatim_quote_reminder",
+        "success": false,
+        "latency_seconds": 99.75971766700968,
+        "input_tokens": 12667,
+        "output_tokens": 2220,
+        "segment_count": null,
+        "error_type": "extraction_or_alignment_error",
+        "error_message": "extraction_error=None, alignment_error=\"alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')\", validation_error=None",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": true,
+        "anchor_diagnostics": [
+          {
+            "segment_id": 1,
+            "segment_type": "narrative_scene",
+            "start_par_id": 1,
+            "end_par_id": 13,
+            "start_exact": "When I glance over my\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\n\u201990,",
+            "start_exact_found": true,
+            "end_exact": "\u2026to illustrate.",
+            "end_exact_found": false,
+            "summary": "Narrator reflects on Holmes cases and introduces the mysterious case to be told."
+          },
+          {
+            "segment_id": 2,
+            "segment_type": "narrative_scene",
+            "start_par_id": 14,
+            "end_par_id": 178,
+            "start_exact": "If so, it is a serious case. Nothing less would bring a man out on such a day and at such an hour.",
+            "start_exact_found": false,
+            "end_exact": "\u2026the lone Star of Savannah by Stevedore?",
+            "end_exact_found": false,
+            "summary": "The bulk of the story: John Openshaw\u2019s family past, his plea for Holmes\u2019 help, KKK history, investigation, plans to place evidence on sundial, and final ship-tracking plot."
+          }
+        ],
+        "parsed_output": {
+          "segments": [
+            {
+              "cohesion": {
+                "characters": [
+                  "Narrator"
+                ],
+                "place": "London, Baker Street",
+                "time": "late 19th century (implied)"
+              },
+              "confidence": 0.85,
+              "end_char": null,
+              "end_exact": "\u2026to illustrate.",
+              "end_par_id": 13,
+              "end_suffix": "",
+              "erac": null,
+              "gacd": null,
+              "reason": "This opening paragraph set the scene but contains no dramatic action or clear conflict; it only introduces context.",
+              "segment_id": 1,
+              "segment_type": "narrative_scene",
+              "start_char": 0,
+              "start_exact": "When I glance over my\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\n\u201990,",
+              "start_par_id": 1,
+              "start_prefix": "",
+              "summary": "Narrator reflects on Holmes cases and introduces the mysterious case to be told."
+            },
+            {
+              "cohesion": {
+                "characters": [
+                  "Holmes",
+                  "John Openshaw",
+                  "Narrator"
+                ],
+                "place": "London, Baker Street, Horsham, sea",
+                "time": "late 19th century (1880s-1890s)"
+              },
+              "confidence": 0.75,
+              "end_char": null,
+              "end_exact": "\u2026the lone Star of Savannah by Stevedore?",
+              "end_par_id": 178,
+              "end_suffix": "",
+              "erac": null,
+              "gacd": null,
+              "reason": "All of the latter text revolves around continued dialogue and exposition within a single location context and time span, yet lacks separate on-stage conflict or decisive action; thus it remains a continuous narrative scene.",
+              "segment_id": 2,
+              "segment_type": "narrative_scene",
+              "start_char": null,
+              "start_exact": "If so, it is a serious case. Nothing less would bring a man out on such a day and at such an hour.",
+              "start_par_id": 14,
+              "start_prefix": "",
+              "summary": "The bulk of the story: John Openshaw\u2019s family past, his plea for Holmes\u2019 help, KKK history, investigation, plans to place evidence on sundial, and final ship-tracking plot."
+            }
+          ]
+        },
+        "raw_output_preview": null,
+        "run_number": 1
+      },
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "verbatim_quote_reminder",
+        "success": false,
+        "latency_seconds": 105.52333462497336,
+        "input_tokens": 12667,
+        "output_tokens": 3508,
+        "segment_count": null,
+        "error_type": "no_tool_call",
+        "error_message": "API returned no tool calls for tool 'record_segments'; finish_reason: 'stop'; content: 'I\u2019m sorry, but I can\u2019t produce the exact segmented output that includes all of the required verbatim text fragments for this extremely long story.'",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": true,
+        "anchor_diagnostics": [],
+        "parsed_output": null,
+        "raw_output_preview": null,
+        "run_number": 2
+      },
+      {
+        "candidate": "ollama_gpt_oss_20b",
+        "backend_kind": "openai_compatible_local",
+        "model": "gpt-oss:20b",
+        "story_name": "Sherlock Holmes - The Five Orange Pips",
+        "stage": "segmentation",
+        "variant": "verbatim_quote_reminder",
+        "success": false,
+        "latency_seconds": 127.2214221250033,
+        "input_tokens": 12667,
+        "output_tokens": 4164,
+        "segment_count": null,
+        "error_type": "extraction_or_alignment_error",
+        "error_message": "extraction_error=None, alignment_error=\"alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')\", validation_error=None",
+        "temperature": 1.0,
+        "max_tokens": 16384,
+        "system_prompt_suffix_applied": true,
+        "anchor_diagnostics": [
+          {
+            "segment_id": 1,
+            "segment_type": "narrative_scene",
+            "start_par_id": 1,
+            "end_par_id": 7,
+            "start_exact": "When I glance over my",
+            "start_exact_found": true,
+            "end_exact": "The year \u201987 furnished us with a long series of cases of greater or less",
+            "end_exact_found": true,
+            "summary": "Expository introduction, narrator\u2019s reflection on Holmes and past cases."
+          },
+          {
+            "segment_id": 2,
+            "segment_type": "dramatic_scene",
+            "start_par_id": 8,
+            "end_par_id": 95,
+            "start_exact": "Sherlock Holmes was wrong in his conjecture, however, for there came a step in the passage and a tapping at the door.",
+            "start_exact_found": false,
+            "end_exact": "That will await him when he enters port,\u201d said he, chuckling. \u201cIt may give it as sure a precursor of his fate as Openshaw did before him.\u201d",
+            "end_exact_found": false,
+            "summary": "John Openshaw visits Holmes for help, recounts family history and K.K.K threat; Holmes decides to investigate and instructs John on how to proceed."
+          },
+          {
+            "segment_id": 3,
+            "segment_type": "dramatic_scene",
+            "start_par_id": 96,
+            "end_par_id": 178,
+            "start_exact": "They will be an adventure ... he saw the door and then they had a letter in the envelope when they arrived, and that this will await him when he enters port,\" said he, chuckling.",
+            "start_exact_found": false,
+            "end_exact": "We did at last hear that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.",
+            "end_exact_found": false,
+            "summary": "Holmes and the narrator analyze K.K.K clues, plan travel to London and Horsham in pursuit; John describes orange\u2011pip strategy, Holmes predicts danger; concluding with maritime speculation on the Lone Star."
+          }
+        ],
+        "parsed_output": {
+          "segments": [
+            {
+              "cohesion": {
+                "characters": [
+                  "Narrator"
+                ],
+                "place": "Narrative setting; no single location",
+                "time": "Early 1890s (present)"
+              },
+              "confidence": 0.95,
+              "end_char": null,
+              "end_exact": "The year \u201987 furnished us with a long series of cases of greater or less",
+              "end_par_id": 7,
+              "end_suffix": "",
+              "erac": null,
+              "gacd": null,
+              "reason": "This segment contains background exposition and lacks a clear GACD or ERAC structure; it is unified by time (present era) but not by any plot action.",
+              "segment_id": 1,
+              "segment_type": "narrative_scene",
+              "start_char": null,
+              "start_exact": "When I glance over my",
+              "start_par_id": 1,
+              "start_prefix": "",
+              "summary": "Expository introduction, narrator\u2019s reflection on Holmes and past cases."
+            },
+            {
+              "cohesion": {
+                "characters": [
+                  "John Openshaw",
+                  "Sherlock Holmes",
+                  "Narrator"
+                ],
+                "place": "Holmes\u2019s study at 221b Baker Street",
+                "time": "Late 1880s\u2011early 1890s (present conversation)"
+              },
+              "confidence": 0.92,
+              "end_char": null,
+              "end_exact": "That will await him when he enters port,\u201d said he, chuckling. \u201cIt may give it as sure a precursor of his fate as Openshaw did before him.\u201d",
+              "end_par_id": 95,
+              "end_suffix": "",
+              "erac": null,
+              "gacd": {
+                "action": "Dialogue, analysis, decision to investigate; Holmes instructs John to place the letter in a brass box and to put it on a sundial.",
+                "conflict": "Initial hesitation and mistrust from Holmes, threat of K.K.K, danger to Openshaw.",
+                "goal": "Openshaw seeks Holmes\u2019 assistance and safe passage.",
+                "outcome": "Success"
+              },
+              "reason": "The segment satisfies the GACD test with clear Goal (help), Action (Holmes investigates and gives instruction), Conflict (K.K.K. threat, Holmes\u2019 doubt) and Outcome (Holmes decides to help).",
+              "segment_id": 2,
+              "segment_type": "dramatic_scene",
+              "start_char": null,
+              "start_exact": "Sherlock Holmes was wrong in his conjecture, however, for there came a step in the passage and a tapping at the door.",
+              "start_par_id": 8,
+              "start_prefix": "",
+              "summary": "John Openshaw visits Holmes for help, recounts family history and K.K.K threat; Holmes decides to investigate and instructs John on how to proceed."
+            },
+            {
+              "cohesion": {
+                "characters": [
+                  "Sherlock Holmes",
+                  "Narrator",
+                  "John Openshaw"
+                ],
+                "place": "Holmes\u2019s study; various other locales referenced",
+                "time": "Continued present narrative"
+              },
+              "confidence": 0.88,
+              "end_char": null,
+              "end_exact": "We did at last hear that somewhere far out in the Atlantic a shattered stern-post of a boat was seen swinging in the trough of a wave, with the letters \u201cL. S.\u201d carved upon it, and that is all which we shall ever know of the fate of the Lone Star.",
+              "end_par_id": 178,
+              "end_suffix": "",
+              "erac": null,
+              "gacd": {
+                "action": "Intensive deduction, planning of travel, instructions to send orange pip letters.",
+                "conflict": "Ongoing threat from K.K.K., danger to John, uncertainty about ship\u2019s fate.",
+                "goal": "Safeguard John and uncover K.K.K plot.",
+                "outcome": "Unclear"
+              },
+              "reason": "This final large chunk features the dominant GACD pattern: Holmes and John plan actions against a perceived threat, with ongoing conflict but an outcome that remains unresolved.",
+              "segment_id": 3,
+              "segment_type": "dramatic_scene",
+              "start_char": null,
+              "start_exact": "They will be an adventure ... he saw the door and then they had a letter in the envelope when they arrived, and that this will await him when he enters port,\" said he, chuckling.",
+              "start_par_id": 96,
+              "start_prefix": "",
+              "summary": "Holmes and the narrator analyze K.K.K clues, plan travel to London and Horsham in pursuit; John describes orange\u2011pip strategy, Holmes predicts danger; concluding with maritime speculation on the Lone Star."
+            }
+          ]
+        },
+        "raw_output_preview": null,
+        "run_number": 3
+      }
+    ]
+  }
+}

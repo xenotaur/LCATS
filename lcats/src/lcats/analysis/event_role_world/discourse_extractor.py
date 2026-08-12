@@ -203,7 +203,11 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
     item_errors: List[str] = []
 
     speech_acts: List[schema.SpeechAct] = []
-    for i, raw in enumerate(tool_result.get("speech_acts") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(
+            tool_result.get("speech_acts"), "speech_acts", item_errors
+        )
+    ):
         if not isinstance(raw, dict):
             item_errors.append(schema.describe_malformed_item(f"speech_acts[{i}]", raw))
             continue
@@ -223,7 +227,11 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
         )
 
     explanations: List[schema.ExplanationDiscourse] = []
-    for i, raw in enumerate(tool_result.get("explanations") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(
+            tool_result.get("explanations"), "explanations", item_errors
+        )
+    ):
         if not isinstance(raw, dict):
             item_errors.append(
                 schema.describe_malformed_item(f"explanations[{i}]", raw)
@@ -247,7 +255,9 @@ def build_discourse(tool_result: Dict[str, Any], segment_text: str) -> Tuple[
         )
 
     sf_tags: List[schema.SFWorldModelTag] = []
-    for i, raw in enumerate(tool_result.get("sf_tags") or []):
+    for i, raw in enumerate(
+        schema.coerce_list_field(tool_result.get("sf_tags"), "sf_tags", item_errors)
+    ):
         if not isinstance(raw, dict):
             item_errors.append(schema.describe_malformed_item(f"sf_tags[{i}]", raw))
             continue

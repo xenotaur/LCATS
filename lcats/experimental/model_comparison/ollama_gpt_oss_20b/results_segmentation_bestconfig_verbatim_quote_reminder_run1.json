@@ -1,0 +1,98 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips",
+  "stage": "segmentation",
+  "variant": "verbatim_quote_reminder",
+  "success": false,
+  "latency_seconds": 99.75971766700968,
+  "input_tokens": 12667,
+  "output_tokens": 2220,
+  "segment_count": null,
+  "error_type": "extraction_or_alignment_error",
+  "error_message": "extraction_error=None, alignment_error=\"alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')\", validation_error=None",
+  "temperature": 1.0,
+  "max_tokens": 16384,
+  "system_prompt_suffix_applied": true,
+  "anchor_diagnostics": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 13,
+      "start_exact": "When I glance over my\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\n\u201990,",
+      "start_exact_found": true,
+      "end_exact": "\u2026to illustrate.",
+      "end_exact_found": false,
+      "summary": "Narrator reflects on Holmes cases and introduces the mysterious case to be told."
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 14,
+      "end_par_id": 178,
+      "start_exact": "If so, it is a serious case. Nothing less would bring a man out on such a day and at such an hour.",
+      "start_exact_found": false,
+      "end_exact": "\u2026the lone Star of Savannah by Stevedore?",
+      "end_exact_found": false,
+      "summary": "The bulk of the story: John Openshaw\u2019s family past, his plea for Holmes\u2019 help, KKK history, investigation, plans to place evidence on sundial, and final ship-tracking plot."
+    }
+  ],
+  "parsed_output": {
+    "segments": [
+      {
+        "cohesion": {
+          "characters": [
+            "Narrator"
+          ],
+          "place": "London, Baker Street",
+          "time": "late 19th century (implied)"
+        },
+        "confidence": 0.85,
+        "end_char": null,
+        "end_exact": "\u2026to illustrate.",
+        "end_par_id": 13,
+        "end_suffix": "",
+        "erac": null,
+        "gacd": null,
+        "reason": "This opening paragraph set the scene but contains no dramatic action or clear conflict; it only introduces context.",
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_char": 0,
+        "start_exact": "When I glance over my\nnotes and records of the Sherlock Holmes cases between the years \u201982 and\n\u201990,",
+        "start_par_id": 1,
+        "start_prefix": "",
+        "summary": "Narrator reflects on Holmes cases and introduces the mysterious case to be told."
+      },
+      {
+        "cohesion": {
+          "characters": [
+            "Holmes",
+            "John Openshaw",
+            "Narrator"
+          ],
+          "place": "London, Baker Street, Horsham, sea",
+          "time": "late 19th century (1880s-1890s)"
+        },
+        "confidence": 0.75,
+        "end_char": null,
+        "end_exact": "\u2026the lone Star of Savannah by Stevedore?",
+        "end_par_id": 178,
+        "end_suffix": "",
+        "erac": null,
+        "gacd": null,
+        "reason": "All of the latter text revolves around continued dialogue and exposition within a single location context and time span, yet lacks separate on-stage conflict or decisive action; thus it remains a continuous narrative scene.",
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_char": null,
+        "start_exact": "If so, it is a serious case. Nothing less would bring a man out on such a day and at such an hour.",
+        "start_par_id": 14,
+        "start_prefix": "",
+        "summary": "The bulk of the story: John Openshaw\u2019s family past, his plea for Holmes\u2019 help, KKK history, investigation, plans to place evidence on sundial, and final ship-tracking plot."
+      }
+    ]
+  },
+  "raw_output_preview": null,
+  "run_number": 1
+}

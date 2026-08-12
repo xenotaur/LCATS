@@ -39,19 +39,70 @@ Runs the ERW pipeline's actual stage-3 entity-extraction tool-schema call
 against the same real ~600-word scene/sequel segment `anthropic_opus`
 uses (`../common/sample_segment.json`), with `max_tokens=8192`.
 
-## Status (`WI-LLM-0056`)
+## Actual results (`WI-LLM-0056`)
 
-**Pending.** The `ollama pull deepseek-r1:14b` download was interrupted
-by unreliable network conditions at implementation time and has not yet
-been re-run to completion. `setup.py`/`benchmark.py` are ready; no
-`results.json` exists yet because the model was never fully pulled. Run
-`ollama pull deepseek-r1:14b` followed by `python benchmark.py` once on a
-reliable connection to produce a real result. Note: DeepSeek-R1 is a
-reasoning-distilled model (produces `<think>` chain-of-thought content
-before its final answer, similar to Qwen3's thinking mode) - if the
-default `temperature=0.2` (inherited from `entity_extractor.py`'s
-Anthropic/OpenAI-tuned default) produces unreliable results, check
-`ollama show deepseek-r1:14b --parameters` for the model's own
-recommended sampling settings before assuming a temperature override is
-needed, matching the pattern `ollama_qwen3_8b/benchmark.py` established
-for Qwen3.
+**Failed consistently (2/2).** Both runs came back `finish_reason='stop'`
+with **no tool call at all** - the same `tool_choice` gap `ollama_gemma4_12b`
+and `WI-LLM-0051`'s segmentation investigation both showed:
+
+| Run | Result | Latency | Output tokens |
+|---|---|---|---|
+| 1 | failed (`no_tool_call`) | 86.7s | 892 |
+| 2 | failed (`no_tool_call`) | 109.8s | 1228 |
+
+Unlike `gemma4:12b`'s JSON-shaped free text, both `deepseek-r1:14b`
+responses are plain prose (a numbered list of entities and quoted
+mentions, not a JSON object matching `extract_entities`'s schema at all)
+- the model understood the extraction task but did not attempt to match
+the tool's expected output shape, a different failure signature from the
+"schema-shaped but tool never called" pattern seen elsewhere in this
+tranche. Notably no `<think>` reasoning-tag content appeared in either
+response despite DeepSeek-R1 being a reasoning-distilled model family -
+this candidate's own default sampling settings (inherited from
+`entity_extractor.py`'s `temperature=0.2`) were not tuned against
+`ollama show deepseek-r1:14b --parameters`, unlike `ollama_qwen3_8b`'s
+candidate-specific override; whether a tuned temperature or the
+`WI-LLM-0051` reminder mitigation would change this outcome is untested,
+out of this tranche's own scope (Non-Goals: no quality/mitigation
+comparison).
+
+## Follow-up: reminder-retry and temperature tested, neither helped (`WI-LLM-0062`)
+
+`WI-LLM-0062` tested both untested variables named above. Note: `ollama
+show deepseek-r1:14b --parameters` reports only `stop` tokens - Ollama's
+bundled Modelfile for this model does **not** override temperature the
+way `qwen3:8b`'s does, so the harness's `temperature=0.2`
+(Anthropic/OpenAI-tuned default, inherited from `entity_extractor.py`) was
+genuinely never overridden by anything model-specific before this test.
+
+**Reminder-retry mitigation, 3 real runs** (`benchmark_entity_reminder.py`,
+`results_entity_reminder_run{1,2,3}.json`) at the same default settings.
+Latency/token totals below are baseline+retry combined (a review finding,
+PR #277, caught that an earlier version of this harness's retry wrapper
+reported only the retry call's own numbers, discarding the failed
+baseline attempt's real resource use - fixed in `common/harness.py`, and
+these 3 runs were regenerated after the fix):
+
+| Run | Baseline result | Retry result | Latency (both calls) |
+|---|---|---|---|
+| 1 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 172.6s |
+| 2 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 206.6s |
+| 3 | failed (`no_tool_call`) | failed (`no_tool_call` again) | 263.4s |
+
+**Temperature test, 1 run** (`temperature=0.6`, no reminder,
+`results_entity_temperature_test.json`): also failed (`no_tool_call`,
+166.9s).
+
+**Verdict: neither mitigation helped this candidate.** 3/3 baseline
+failures, 3/3 reminder-retry failures (0% recovery, unlike
+`ollama_gemma4_12b`'s partial 1/2 recovery under the same mechanism), and
+a tuned temperature alone didn't change the outcome either. In every
+failure, the model explains its reasoning in prose (sometimes with
+Python-style pseudocode, sometimes a raw JSON code block) instead of
+actually invoking the tool - it consistently understands the task and can
+even produce schema-shaped content, but never emits a real function/tool
+call regardless of the reminder or temperature tried here. This is a
+more robust, harder-to-mitigate instance of the silent-ignore mechanism
+than `gemma4:12b` showed - a real, negative finding, not an inconclusive
+one (per this proposal lineage's evidence-quality standard: a documented
+"tried, didn't work" is a valid, complete result).

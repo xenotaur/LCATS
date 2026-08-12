@@ -1,0 +1,537 @@
+{
+  "baseline_model": "claude-opus-4-8",
+  "candidate_model": "claude-haiku-4-5-20251001",
+  "stories": [
+    "fixtures__five_o_clock_tea_farce",
+    "fixtures__king_of_the_hill"
+  ],
+  "fixture_root": "experiments/03_cross_segment_relation_pilot/fixtures",
+  "ground_truth_path": "experiments/03_cross_segment_relation_pilot/fixtures/genre_ground_truth.json",
+  "runs": {
+    "baseline": {
+      "model": "claude-opus-4-8",
+      "calls": 4,
+      "total_input_tokens": 18748,
+      "total_output_tokens": 2365,
+      "cost_usd": 0.152865,
+      "stages": {
+        "genre_detect": {
+          "total": 2,
+          "schema_valid_count": 2,
+          "schema_valid_rate": 1.0,
+          "truncation_count": 0,
+          "truncation_rate": 0.0,
+          "genre_accuracy_count": 2,
+          "genre_accuracy_rate": 1.0,
+          "secondary_genre_sanitized_count": 0,
+          "secondary_genre_sanitized_rate": 0.0
+        },
+        "segment": {
+          "total": 2,
+          "schema_valid_count": 1,
+          "schema_valid_rate": 0.5,
+          "truncation_count": 0,
+          "truncation_rate": 0.0
+        }
+      },
+      "results": [
+        {
+          "story_id": "fixtures__five_o_clock_tea_farce",
+          "stage": "genre_detect",
+          "schema_valid": true,
+          "raw_schema_valid": true,
+          "raw_schema_errors": [],
+          "truncated": false,
+          "detected_genre": "other",
+          "secondary_genre_sanitized": false,
+          "validated_genre": "other",
+          "genre_matches_ground_truth": true,
+          "wellformed": false,
+          "validated_wellformed": false,
+          "error": "",
+          "input_tokens": 4029,
+          "output_tokens": 533,
+          "model": "claude-opus-4-8"
+        },
+        {
+          "story_id": "fixtures__five_o_clock_tea_farce",
+          "stage": "segment",
+          "schema_valid": true,
+          "truncated": false,
+          "segment_count": 1,
+          "error": null,
+          "input_tokens": 6103,
+          "output_tokens": 327,
+          "model": "claude-opus-4-8"
+        },
+        {
+          "story_id": "fixtures__king_of_the_hill",
+          "stage": "genre_detect",
+          "schema_valid": true,
+          "raw_schema_valid": true,
+          "raw_schema_errors": [],
+          "truncated": false,
+          "detected_genre": "science fiction",
+          "secondary_genre_sanitized": false,
+          "validated_genre": "science fiction",
+          "genre_matches_ground_truth": true,
+          "wellformed": false,
+          "validated_wellformed": true,
+          "error": "",
+          "input_tokens": 3313,
+          "output_tokens": 464,
+          "model": "claude-opus-4-8"
+        },
+        {
+          "story_id": "fixtures__king_of_the_hill",
+          "stage": "segment",
+          "schema_valid": false,
+          "truncated": false,
+          "segment_count": 0,
+          "error": "alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')",
+          "input_tokens": 5303,
+          "output_tokens": 1041,
+          "model": "claude-opus-4-8"
+        }
+      ],
+      "backend_calls": [
+        {
+          "tool_name": "record_story_assessment",
+          "requested_model": "claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "input_tokens": 4029,
+          "output_tokens": 533,
+          "tool_result": {
+            "verdict": "exclude",
+            "wellformed": false,
+            "detected_genre": "other",
+            "detected_genre_confidence": 0.95,
+            "genre_verdict": "detected",
+            "secondary_genre": "</antml name=\"secondary_genre\">",
+            "specials_verdict": "none",
+            "summary": "The text is not a story at all but a publisher's advertising catalog listing books and essayist series by Harper & Brothers, with prices and ordering information.",
+            "issues": [
+              {
+                "type": "formatting_artifact",
+                "severity": "high",
+                "description": "The entire body is a publisher's book advertisement / catalog listing, not narrative story content."
+              },
+              {
+                "type": "copyright_notice",
+                "severity": "medium",
+                "description": "Contains publisher ordering and sales boilerplate ('For sale by all booksellers... on receipt of the price')."
+              },
+              {
+                "type": "toc_remnant",
+                "severity": "medium",
+                "description": "Includes a listing of farces and essayist series that functions as front matter / catalog, not story text."
+              },
+              {
+                "type": "incomplete_text",
+                "severity": "high",
+                "description": "The actual story 'Five O'Clock Tea' is entirely absent; only surrounding advertising matter is present."
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_segments",
+          "requested_model": "claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "input_tokens": 6103,
+          "output_tokens": 327,
+          "tool_result": {
+            "segments": [
+              {
+                "segment_id": 1,
+                "segment_type": "other",
+                "start_par_id": 1,
+                "end_par_id": 32,
+                "start_exact": "THE COAST OF BOHEMIA. Illustrated. 12mo, Cloth, $1 50.",
+                "end_exact": "on receipt of the price._",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "Publisher's front/back matter: list of books by the author and Harper's American Essayists series with prices and ordering information.",
+                "cohesion": {
+                  "time": "n/a",
+                  "place": "n/a",
+                  "characters": []
+                },
+                "gacd": null,
+                "erac": null,
+                "reason": "This is entirely non-narrative publisher advertising and catalog material (book lists, prices, ordering info), not a narrative scene. Labeled 'other' per Decision Rubric C.",
+                "confidence": 0.99
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_story_assessment",
+          "requested_model": "claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "input_tokens": 3313,
+          "output_tokens": 464,
+          "tool_result": {
+            "verdict": "review",
+            "wellformed": false,
+            "detected_genre": "science fiction",
+            "detected_genre_confidence": 0.82,
+            "genre_verdict": "detected",
+            "secondary_genre": "military",
+            "specials_verdict": "none",
+            "summary": "Aboard an orbital weapons station, a narrator and his colleague Joan debrief after talking down a possibly-sleepwalking station captain from firing a bomb, then confront the unsettling possibility that the satellite's nuclear deterrent is a strategic bluff.",
+            "issues": [
+              {
+                "type": "incomplete_text",
+                "severity": "high",
+                "description": "The text appears to be only the closing portion of a longer story; it opens mid-scene ('He sat down before the bombardier board') with no established setup, and the earlier events referenced (the confrontation with Gascoigne, the bomb-duds revelation) are not depicted. This reads as a fragment/excerpt rather than a complete standalone narrative."
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_segments",
+          "requested_model": "claude-opus-4-8",
+          "model": "claude-opus-4-8",
+          "input_tokens": 5303,
+          "output_tokens": 1041,
+          "tool_result": {
+            "segments": [
+              {
+                "segment_id": 1,
+                "segment_type": "dramatic_scene",
+                "start_par_id": 1,
+                "end_par_id": 4,
+                "start_exact": "He sat down before the bombardier board and put his head in his hands.",
+                "end_exact": "was as loud\nin that cabin as any gunshot.",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "In the station cabin, the narrator (Peter) disarms and reassures a shaken, hallucinating captain, taking his gun and switching off the programmer's journal.",
+                "cohesion": {
+                  "time": "Immediate present, during the incident",
+                  "place": "The station cabin at the bombardier board",
+                  "characters": [
+                    "Peter (narrator)",
+                    "the captain/Gascoigne"
+                  ]
+                },
+                "gacd": {
+                  "goal": "Defuse the dangerous, hallucinating captain and secure his weapon before he fires it",
+                  "action": "Peter reassures him and quickly takes the automatic and the tape in careful sequence, switching off the journal",
+                  "conflict": "The captain is disoriented, armed, and could fire; the task must be done fast and in irreversible order",
+                  "outcome": "Success"
+                },
+                "erac": null,
+                "reason": "Unified time/place (the cabin during the incident). Goal, on-stage action under tension, conflict (armed unstable man), and a clear successful outcome meet the GACD threshold.",
+                "confidence": 0.72
+              },
+              {
+                "segment_id": 2,
+                "segment_type": "dramatic_sequel",
+                "start_par_id": 6,
+                "end_par_id": 15,
+                "start_exact": "\"He'll be all right,\" I told Joan afterwards.",
+                "end_exact": "\" isn't earning\nhis salary.\"",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "Afterwards, Peter and Joan discuss the incident, worry about future captains, and Peter reasons about whether the satellite bombs are actually duds and the strategy bankrupt.",
+                "cohesion": {
+                  "time": "Afterwards, following the incident",
+                  "place": "Elsewhere with Joan (post-incident conversation)",
+                  "characters": [
+                    "Peter (narrator)",
+                    "Joan"
+                  ]
+                },
+                "gacd": null,
+                "erac": {
+                  "emotion": "Relief mixed with worry; Peter is worn from a week of worries",
+                  "reason": "Peter reasons through the implications of the Joint Chiefs refusing to record the data, realizing the strategy may be bankrupt and the bombs duds",
+                  "anticipation": "Concern that the next captain may not cope; fear that 'Spatial Supremacy' is as bankrupt as 'Massive Retaliation'",
+                  "choice": "Implicit resolution/realization about the truth of the bombs; no new goal firmly stated"
+                },
+                "reason": "Signaled by 'afterwards' \u2014 a shift in time/place to post-incident reflection. Emotion and reasoning dominate with no on-stage conflict/outcome, meeting the ERAC threshold.",
+                "confidence": 0.68
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "candidate": {
+      "model": "claude-haiku-4-5-20251001",
+      "calls": 4,
+      "total_input_tokens": 14358,
+      "total_output_tokens": 2106,
+      "cost_usd": 0.024888,
+      "stages": {
+        "genre_detect": {
+          "total": 2,
+          "schema_valid_count": 2,
+          "schema_valid_rate": 1.0,
+          "truncation_count": 0,
+          "truncation_rate": 0.0,
+          "genre_accuracy_count": 2,
+          "genre_accuracy_rate": 1.0,
+          "secondary_genre_sanitized_count": 1,
+          "secondary_genre_sanitized_rate": 0.5
+        },
+        "segment": {
+          "total": 2,
+          "schema_valid_count": 2,
+          "schema_valid_rate": 1.0,
+          "truncation_count": 0,
+          "truncation_rate": 0.0
+        }
+      },
+      "results": [
+        {
+          "story_id": "fixtures__five_o_clock_tea_farce",
+          "stage": "genre_detect",
+          "schema_valid": true,
+          "raw_schema_valid": true,
+          "raw_schema_errors": [],
+          "truncated": false,
+          "detected_genre": "other",
+          "secondary_genre_sanitized": true,
+          "validated_genre": "other",
+          "genre_matches_ground_truth": true,
+          "wellformed": false,
+          "validated_wellformed": false,
+          "error": "",
+          "input_tokens": 2993,
+          "output_tokens": 275,
+          "model": "claude-haiku-4-5-20251001"
+        },
+        {
+          "story_id": "fixtures__five_o_clock_tea_farce",
+          "stage": "segment",
+          "schema_valid": true,
+          "truncated": false,
+          "segment_count": 1,
+          "error": null,
+          "input_tokens": 4608,
+          "output_tokens": 302,
+          "model": "claude-haiku-4-5-20251001"
+        },
+        {
+          "story_id": "fixtures__king_of_the_hill",
+          "stage": "genre_detect",
+          "schema_valid": true,
+          "raw_schema_valid": true,
+          "raw_schema_errors": [],
+          "truncated": false,
+          "detected_genre": "science fiction",
+          "secondary_genre_sanitized": false,
+          "validated_genre": "science fiction",
+          "genre_matches_ground_truth": true,
+          "wellformed": false,
+          "validated_wellformed": true,
+          "error": "",
+          "input_tokens": 2614,
+          "output_tokens": 328,
+          "model": "claude-haiku-4-5-20251001"
+        },
+        {
+          "story_id": "fixtures__king_of_the_hill",
+          "stage": "segment",
+          "schema_valid": true,
+          "truncated": false,
+          "segment_count": 3,
+          "error": null,
+          "input_tokens": 4143,
+          "output_tokens": 1201,
+          "model": "claude-haiku-4-5-20251001"
+        }
+      ],
+      "backend_calls": [
+        {
+          "tool_name": "record_story_assessment",
+          "requested_model": "claude-haiku-4-5-20251001",
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 2993,
+          "output_tokens": 275,
+          "tool_result": {
+            "verdict": "exclude",
+            "wellformed": false,
+            "detected_genre": "other",
+            "detected_genre_confidence": 0.0,
+            "genre_verdict": "detected",
+            "secondary_genre": "</antml parameter>\n<parameter name=\"specials_verdict\">none",
+            "specials_verdict": "none",
+            "summary": "No narrative content present; this is a publisher's catalogue page listing book titles and prices.",
+            "issues": [
+              {
+                "type": "toc_remnant",
+                "severity": "high",
+                "description": "Entire text is a publisher's catalogue/advertisement from Harper & Brothers, not a story. Contains book listings, prices, and publication details only."
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_segments",
+          "requested_model": "claude-haiku-4-5-20251001",
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 4608,
+          "output_tokens": 302,
+          "tool_result": {
+            "segments": [
+              {
+                "segment_id": 1,
+                "segment_type": "other",
+                "start_par_id": 1,
+                "end_par_id": 32,
+                "start_exact": "THE COAST OF BOHEMIA. Illustrated. 12mo, Cloth, $1 50.",
+                "end_exact": "postage prepaid, to any part of the United States, Canada, or Mexico,\non receipt of the price.",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "Publisher's book catalog listing works by William Dean Howells and other authors with prices and formats.",
+                "cohesion": {
+                  "time": "unspecified (catalog/advertising material)",
+                  "place": "Harper & Brothers publishing house",
+                  "characters": []
+                },
+                "gacd": null,
+                "erac": null,
+                "reason": "This is a book catalog/advertisement from Harper & Brothers publishers. It consists entirely of bibliographic metadata (titles, formats, prices) with no narrative content, no characters, and no dramatic action. Per the Decision Rubric, this is non-narrative material and should be labeled 'other'.",
+                "confidence": 0.99
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_story_assessment",
+          "requested_model": "claude-haiku-4-5-20251001",
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 2614,
+          "output_tokens": 328,
+          "tool_result": {
+            "verdict": "review",
+            "wellformed": false,
+            "detected_genre": "science fiction",
+            "detected_genre_confidence": 0.75,
+            "genre_verdict": "detected",
+            "secondary_genre": "military, political thriller",
+            "specials_verdict": "none",
+            "summary": "A military officer confronts a psychologically fragile station captain in space, and later learns that sensitive mission data cannot be recorded, raising questions about the failure of military deterrence doctrine and weapons systems. The narrative fragment deals with themes of space-based military technology, psychological strain, and Cold War policy contradictions.",
+            "issues": [
+              {
+                "type": "incomplete_text",
+                "severity": "high",
+                "description": "This appears to be an excerpt or fragment from a larger work, lacking a clear beginning and ending. The narrative drops the reader into the middle of action, references events not explained in this excerpt, and ends abruptly mid-dialogue. No resolution or conclusion is present."
+              }
+            ]
+          }
+        },
+        {
+          "tool_name": "record_segments",
+          "requested_model": "claude-haiku-4-5-20251001",
+          "model": "claude-haiku-4-5-20251001",
+          "input_tokens": 4143,
+          "output_tokens": 1201,
+          "tool_result": {
+            "segments": [
+              {
+                "segment_id": 1,
+                "segment_type": "dramatic_scene",
+                "start_par_id": 1,
+                "end_par_id": 4,
+                "start_exact": "He sat down before the bombardier board and put his head in his hands.",
+                "end_exact": "But the sound of the programmer's journal clicking to \"Off\" was as loud\nin that cabin as any gunshot.",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "A crisis moment in a cabin: a man on the verge of breakdown surrenders his weapon; the narrator disarms him and silences the programmer's journal.",
+                "cohesion": {
+                  "time": "present/immediate moment",
+                  "place": "cabin aboard station/satellite",
+                  "characters": [
+                    "He (bombardier)",
+                    "narrator (I)",
+                    "programmer"
+                  ]
+                },
+                "gacd": {
+                  "goal": "Secure the weapon and silence the programmer's journal before the unstable bombardier does something dangerous",
+                  "action": "The narrator takes the automatic gun first, then the tape; turns off the programmer's journal",
+                  "conflict": "The bombardier is mentally unstable, seeing things he doesn't understand; he admits he might fire and hit something; the narrator must act fast to prevent disaster",
+                  "outcome": "Success"
+                },
+                "erac": null,
+                "reason": "This segment exhibits clear GACD: Goal (prevent a dangerous act), Action (disarming and silencing the journal on-stage), Conflict (the man's mental instability and admission of danger), and Outcome (success\u2014the crisis is averted). The sound of the journal clicking off marks the completion of the action. Time/place cohesion is maintained throughout the cabin scene.",
+                "confidence": 0.92
+              },
+              {
+                "segment_id": 2,
+                "segment_type": "dramatic_sequel",
+                "start_par_id": 6,
+                "end_par_id": 12,
+                "start_exact": "\"He'll be all right,\" I told Joan afterwards. \"He pulled himself\nthrough. I wouldn't have dared to throw it at any other man that\nfast--but he's got guts.\"",
+                "end_exact": "I stared at her. At first it didn't seem to make sense. And then it\ndid--and that was worse.",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "After the crisis, the narrator assures Joan the bombardier will recover, but learning that the Joint Chiefs forbid recording the data leads to a disturbing realization about the satellite and bombs.",
+                "cohesion": {
+                  "time": "afterwards (post-crisis)",
+                  "place": "location with Joan (likely still aboard or in adjacent area)",
+                  "characters": [
+                    "narrator (I)",
+                    "Joan"
+                  ]
+                },
+                "gacd": null,
+                "erac": {
+                  "emotion": "shock and dismay (\"that was worse\")",
+                  "reason": "Reflection on what the Chiefs' refusal to record means\u2014that the satellite/bombs may be non-functional, undermining 'Spatial Supremacy' doctrine",
+                  "anticipation": "realization of strategic vulnerability and implications",
+                  "choice": "the narrator processes the new understanding; implicit commitment to grapple with this truth"
+                },
+                "reason": "This segment follows the dramatic_scene and captures the character's emotional response and reasoning. Emotion is evident (\"worse\"), reason is engaged (\"At first it didn't seem to make sense. And then it did\"), and anticipation/choice emerge through the narrator's realization and dialogue with Joan. No on-stage conflict or outcome occurs; this is reflective and deliberative.",
+                "confidence": 0.87
+              },
+              {
+                "segment_id": 3,
+                "segment_type": "narrative_scene",
+                "start_par_id": 13,
+                "end_par_id": 15,
+                "start_exact": "\"Wait a minute,\" I said. \"Joan--does that mean what I think it means?\nIs 'Spatial Supremacy' just as bankrupt as 'Massive Retaliation' was?\nIs it possible that the satellite--and the bombs.... Is it possible\nthat I was telling Gascoigne the truth about the bombs being duds?\"",
+                "end_exact": "\"He that darkeneth counsel without wisdom,\" she said, \"isn't earning\nhis salary.\"",
+                "start_prefix": "",
+                "end_suffix": "",
+                "start_char": null,
+                "end_char": null,
+                "summary": "The narrator questions Joan about the implications of the data suppression; Joan responds cryptically with a biblical reference.",
+                "cohesion": {
+                  "time": "continuing aftermath",
+                  "place": "same location with Joan",
+                  "characters": [
+                    "narrator (I)",
+                    "Joan"
+                  ]
+                },
+                "gacd": null,
+                "erac": null,
+                "reason": "This segment continues the conversational exchange with Joan but does not develop a new ERAC structure (emotion/reason/anticipation/choice are implicit in the prior segment's realization). The dialogue is exploratory rather than showing fresh emotional processing or deliberation within this segment. Time/place remains stable, so it coheres as narrative_scene rather than introducing a new dramatic phase.",
+                "confidence": 0.79
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "cost_delta_usd": -0.127977,
+  "cost_savings_usd": 0.127977
+}

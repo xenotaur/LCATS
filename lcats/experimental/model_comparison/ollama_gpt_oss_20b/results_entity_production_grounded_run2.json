@@ -1,0 +1,303 @@
+{
+  "candidate": "ollama_gpt_oss_20b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gpt-oss:20b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "variant": "json_content_fallback_safe_shape_adapter",
+  "success": true,
+  "tool_call_success": true,
+  "json_content_fallback_applied": false,
+  "json_content_fallback_error": null,
+  "latency_seconds": 140.6026341659599,
+  "input_tokens": 1024,
+  "output_tokens": 4196,
+  "entity_count": 13,
+  "error_type": null,
+  "error_message": null,
+  "temperature": 1.0,
+  "max_tokens": 8192,
+  "raw_entity_count": 13,
+  "grounded_entity_count": 11,
+  "grounded_mention_count": 12,
+  "production_grounded_success": true,
+  "grounding_error_type": null,
+  "grounding_error_message": null,
+  "grounding_item_errors": [],
+  "tool_result": {
+    "entities": [
+      {
+        "mentions": [
+          "Sherlock Holms"
+        ],
+        "name": "Sherlock Holms"
+      },
+      {
+        "mentions": [
+          "\u201cHolmes,\u201d"
+        ],
+        "name": "Holmes"
+      },
+      {
+        "mentions": [
+          "Watson,"
+        ],
+        "name": "John Watson"
+      },
+      {
+        "mentions": [
+          "young Openshaw\u2019s",
+          "John Openshaw"
+        ],
+        "name": "John Openshaw"
+      },
+      {
+        "mentions": [
+          "Police-Constable Cook,"
+        ],
+        "name": "Police-Constable Cook"
+      },
+      {
+        "mentions": [
+          "water-police"
+        ],
+        "name": "water-police"
+      },
+      {
+        "mentions": [
+          "Tragedy Near Waterloo Bridge.",
+          "near Waterloo Bridge,"
+        ],
+        "name": "Waterloo Bridge"
+      },
+      {
+        "mentions": [
+          "Waterloo Station"
+        ],
+        "name": "Waterloo Station"
+      },
+      {
+        "mentions": [
+          "Horsham",
+          "near Horsham"
+        ],
+        "name": "Horsham"
+      },
+      {
+        "mentions": [
+          "Embankment"
+        ],
+        "name": "Embankment"
+      },
+      {
+        "mentions": [
+          "great city."
+        ],
+        "name": "great city"
+      },
+      {
+        "mentions": [
+          "bell"
+        ],
+        "name": "bell"
+      },
+      {
+        "mentions": [
+          "maid"
+        ],
+        "name": "maid"
+      }
+    ]
+  },
+  "normalized_tool_result": {
+    "entities": [
+      {
+        "mentions": [],
+        "entity_id": "gpt_oss_entity_1_sherlock_holms",
+        "canonical_name": "Sherlock Holms",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_2_holmes_mention_1",
+            "text": "\u201cHolmes,\u201d",
+            "quote": "\u201cHolmes,\u201d"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_2_holmes",
+        "canonical_name": "Holmes",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_3_john_watson_mention_1",
+            "text": "Watson,",
+            "quote": "Watson,"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_3_john_watson",
+        "canonical_name": "John Watson",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [],
+        "entity_id": "gpt_oss_entity_4_john_openshaw",
+        "canonical_name": "John Openshaw",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_5_police_constable_cook_mention_1",
+            "text": "Police-Constable Cook,",
+            "quote": "Police-Constable Cook,"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_5_police_constable_cook",
+        "canonical_name": "Police-Constable Cook",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_6_water_police_mention_1",
+            "text": "water-police",
+            "quote": "water-police"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_6_water_police",
+        "canonical_name": "water-police",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_7_waterloo_bridge_mention_2",
+            "text": "near Waterloo Bridge,",
+            "quote": "near Waterloo Bridge,"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_7_waterloo_bridge",
+        "canonical_name": "Waterloo Bridge",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_8_waterloo_station_mention_1",
+            "text": "Waterloo Station",
+            "quote": "Waterloo Station"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_8_waterloo_station",
+        "canonical_name": "Waterloo Station",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_9_horsham_mention_1",
+            "text": "Horsham",
+            "quote": "Horsham"
+          },
+          {
+            "mention_id": "gpt_oss_entity_9_horsham_mention_2",
+            "text": "near Horsham",
+            "quote": "near Horsham"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_9_horsham",
+        "canonical_name": "Horsham",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_10_embankment_mention_1",
+            "text": "Embankment",
+            "quote": "Embankment"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_10_embankment",
+        "canonical_name": "Embankment",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_11_great_city_mention_1",
+            "text": "great city.",
+            "quote": "great city."
+          }
+        ],
+        "entity_id": "gpt_oss_entity_11_great_city",
+        "canonical_name": "great city",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_12_bell_mention_1",
+            "text": "bell",
+            "quote": "bell"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_12_bell",
+        "canonical_name": "bell",
+        "entity_type": "other"
+      },
+      {
+        "mentions": [
+          {
+            "mention_id": "gpt_oss_entity_13_maid_mention_1",
+            "text": "maid",
+            "quote": "maid"
+          }
+        ],
+        "entity_id": "gpt_oss_entity_13_maid",
+        "canonical_name": "maid",
+        "entity_type": "other"
+      }
+    ]
+  },
+  "adapter_diagnostics": {
+    "adapter_name": "gpt_oss_20b_string_mentions_to_grounded_mentions",
+    "adapter_applied": true,
+    "raw_entity_count": 13,
+    "normalized_entity_count": 13,
+    "converted_string_mentions": 12,
+    "converted_string_entities": 0,
+    "changed_dict_mentions": 0,
+    "repaired_dict_mentions": 0,
+    "dropped_string_entities": [],
+    "dropped_string_mentions": [
+      {
+        "entity_index": 0,
+        "mention_index": 0,
+        "reason": "ungrounded_string_mention:Sherlock Holms"
+      },
+      {
+        "entity_index": 3,
+        "mention_index": 0,
+        "reason": "ungrounded_string_mention:young Openshaw\u2019s"
+      },
+      {
+        "entity_index": 3,
+        "mention_index": 1,
+        "reason": "ungrounded_string_mention:John Openshaw"
+      },
+      {
+        "entity_index": 6,
+        "mention_index": 0,
+        "reason": "ungrounded_string_mention:Tragedy Near Waterloo Bridge."
+      }
+    ],
+    "unrepaired_dict_mentions": [],
+    "unsupported_entity_shapes": [],
+    "unsupported_mention_shapes": []
+  },
+  "raw_output_preview": null,
+  "run_number": 2
+}

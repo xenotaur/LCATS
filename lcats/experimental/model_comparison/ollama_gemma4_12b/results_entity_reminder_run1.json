@@ -1,0 +1,19 @@
+{
+  "candidate": "ollama_gemma4_12b",
+  "backend_kind": "openai_compatible_local",
+  "model": "gemma4:12b",
+  "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
+  "stage": "entity_extraction",
+  "success": false,
+  "latency_seconds": 455.06221720800386,
+  "input_tokens": 1239,
+  "output_tokens": 8192,
+  "entity_count": null,
+  "segment_count": null,
+  "detected_genre": null,
+  "error_type": "truncated_output",
+  "error_message": "OpenAI response for model 'gemma4:12b' was truncated at the max_tokens limit (8192) before the tool call for 'extract_entities' finished generating; its arguments may be incomplete or invalid JSON.",
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
+}
