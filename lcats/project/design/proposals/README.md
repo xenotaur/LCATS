@@ -21,4 +21,5 @@ short index plus the proposal document.
   `WS-WORLDCON-FAST-PATH-ANNOTATION`).
 - [`PROP-LCATS-PILOT-COST-SUSTAINABILITY`](adopted/lcats-pilot-cost-sustainability/README.md)
   — adopted; implementation not started.
-
+- [`PROP-LCATS-PILOT-IMPROVEMENTS`](proposed/lcats-pilot-improvements/README.md)
+  — proposed; implementation not started.

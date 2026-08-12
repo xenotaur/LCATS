@@ -40,9 +40,16 @@ Those evaluations have now produced useful recommendations, but they also
 clarify a remaining risk: making the pilot cheaper is not enough if the
 pilot can still produce a null or low-quality research result. The repo's
 own history includes malformed structured output, truncation failures,
-unexplained Anthropic `invalid_request_error` responses, output alignment
-failures, and at least one model-tiering result where a schema-valid field
-still needed sanitization. A cheaper bad run is still a bad run.
+unexplained Anthropic `invalid_request_error` responses, and output
+alignment failures. The most recent model-tiering measurement
+(`WI-PILOT-0060`, PR #286) strengthened that evidence rather than retiring
+it: Haiku 4.5 needed secondary-genre sanitization on one of two
+genre-detection fixture runs, the Opus 4.8 segmentation baseline produced
+one schema-invalid output from an anchor-text alignment failure, and both
+models disagreed with validated genre ground truth on `king_of_the_hill`'s
+`wellformed` flag. A cheaper bad run is still a bad run, and even the
+top-tier path still needs a small real-output gate before the project
+spends toward larger research runs.
 
 The next implementation phase should therefore separate two concerns. First,
 stabilize and validate the real end-to-end API/output path under a bounded
@@ -82,6 +89,14 @@ optimizing or scaling.
   all" and "Pilot's default parameters optimize for full genre coverage, not
   minimum-cost validation." These are partly addressed by the targeted
   harness, but the broader need for a bounded real validation path remains.
+- Evidence limits: The completed cost studies intentionally used tiny
+  bounded samples. `WI-PILOT-0057` measured 13 calls per arm, `WI-PILOT-0058`
+  reused that same real baseline, and `WI-PILOT-0060` measured eight real
+  calls total across two stories, two stages, and two models. These are
+  valid engineering gates for direction-setting, but they are not
+  statistically robust estimates for larger pilot runs; the stability gate's
+  story-set choice matters because it is the first chance to broaden that
+  evidence without returning to unbounded spend.
 - Recommendation: Link the new workstream to the resolved pilot evaluation
   WIs and offer to close or revise matching backlog entries only after the
   follow-on workstream scopes the remaining user-facing validation path.
@@ -132,6 +147,11 @@ cost or scaling. This first work item should prove:
   real run.
 - The result achieves the pilot's intended purpose, not merely "the script
   exited successfully."
+- Genre detection is exercised explicitly, either by a bounded stratified
+  selection path or by a direct real genre-detection check against validated
+  ground truth. A targeted `WI-PILOT-0051` fixture run alone is insufficient
+  for this criterion when it receives genre labels from CLI or fixture
+  metadata instead of invoking the genre-detection stage.
 - Real spend is estimated in advance, explicitly approved, and bounded.
 
 This is not another open-ended tuning loop. A negative result is valid and
@@ -162,7 +182,12 @@ sanitization and schema/quality signals.
 Batch API adoption should be a larger follow-on design/implementation item.
 It has the strongest economic signal, but it changes execution shape from
 synchronous stage-then-checkpoint to asynchronous submit-poll-ingest. It
-needs a durable batch ledger before implementation can be considered safe.
+needs a durable batch ledger before implementation can be considered safe,
+and it needs a bounded post-implementation real batch-mode validation before
+researchers treat the mode as usable. That validation should verify request
+`custom_id` mapping, artifact and checkpoint publication equivalence with
+the synchronous path, parse/schema validity, and semantic quality after
+batched results are ingested.
 
 ### Decision 4: Preserve synchronous local-debug behavior
 
@@ -237,10 +262,16 @@ This proposal should be implemented by a new workstream,
    pilot's recommended configuration, preserving telemetry for schema
    validity, truncation, sanitization, and semantic genre accuracy where
    applicable.
-4. **Batch API opt-in mode.** Design and implement an opt-in Batch API mode
-   with a durable submit/poll/result-ingestion ledger, then publish normal
-   per-stage checkpoint artifacts only after batch results are ingested.
-5. **User-facing pilot run ergonomics.** Clarify CLI/help/docs/output so a
+4. **Batch API opt-in design.** Design the opt-in Batch API mode, including
+   durable submit/poll/result-ingestion ledger shape and its interaction with
+   `checkpoint.py`. This design work can proceed after proposal/workstream
+   adoption without spending real API budget, but user-facing use still
+   depends on the stability gate and the validation item below.
+5. **Batch API opt-in implementation and validation.** If the stability gate
+   passes, implement the opt-in Batch API mode, publish normal per-stage
+   checkpoint artifacts only after batch results are ingested, and run a
+   bounded real batch-mode validation before treating the mode as usable.
+6. **User-facing pilot run ergonomics.** Clarify CLI/help/docs/output so a
    researcher can choose a cheap validation run, a synchronous high-visibility
    pilot run, or an opt-in lower-cost batch run without reverse-engineering
    individual flags.
