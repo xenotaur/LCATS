@@ -7,6 +7,9 @@ rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/246
 commit: b0b100c91f0a419ff503df6f88930d01f4f2d4aa
 created_at: 2026-08-07T18:25:42+00:00
+agent: claude_app
+instruction_source: project/work_items/proposed/WI-EVENT-0030.md
+session_transcript: claude-app:b0d48070-0faf-4a35-942d-a29ec96d603a
 ---
 
 # Summary
@@ -26,5 +29,4 @@ Scope "Gap 3" from `project/design/event-role-world-genre-target-reconciliation.
 
 # Follow-up
 
-- `session_transcript: pending` should be updated to `claude-app:<session-id>` after this session ends.
-- Once `WI-ASSESS-0051` (Gap 2) is implemented and produces real per-genre counts, re-scope `WI-EVENT-0030`'s Scope/Summary/Required Changes/Acceptance Criteria/Risk Notes using those numbers — do not execute this pilot or finalize its 8-genre content before then.
+- Once `WI-ASSESS-0051` (Gap 2) is implemented and produces real per-genre counts, re-scope `WI-EVENT-0030`'s Scope/Summary/Required Changes/Acceptance Criteria/Risk Notes using those numbers — do not execute this pilot or finalize its 8-genre content before then. As of this PR landing, `WI-ASSESS-0051`'s tooling has merged (PR #251) and its own blocking dependency `WI-LLM-0058` has resolved, but the actual `--full` corpus run itself has not yet executed — Gap 2's real per-genre counts still do not exist.
