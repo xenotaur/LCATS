@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_08_13_06_25_07_WS_PILOT_IMPROVEMENTS
 pr: https://github.com/xenotaur/LCATS/pull/295
-commit: 9df87206a3a5a2018b947fb6a1428f9af6fe086d
+commit: 2686ac88be527431827a2f705dc5863cf65392bb
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/295
 session_transcript: codex-app:019fea05-63b0-7e02-80d2-e570de36c7c3
@@ -27,12 +27,18 @@ link directly to the proposed `WS-PILOT-IMPROVEMENTS` workstream and describe
 its current relationship to the still-proposed proposal set. No comments were
 skipped; the sole reviewer finding was present, valid, and feasible.
 
+During the confirm-fixes pass, an independent verifier found that the initial
+relative README link was one directory short. The link was corrected from
+`../../../workstreams/proposed/WS-PILOT-IMPROVEMENTS.md` to
+`../../../../workstreams/proposed/WS-PILOT-IMPROVEMENTS.md`.
+
 # Validation
 
 - `python -c "import lcats; print(lcats.__file__)"`: confirmed editable
-  install points at this checkout after repairing shared-env drift.
+  install points at this checkout after repairing shared-env drift; rechecked
+  after a second drift event during the same run.
 - `scripts/version tools`: LCATS package/CLI
-  `0.1.1.dev518+g3349c55dc.d20260813`, Python `3.11.8`, Ruff `0.15.0`,
+  `0.1.1.dev520+g11f7e010b.d20260813`, Python `3.11.8`, Ruff `0.15.0`,
   Black `25.11.0`.
 - `scripts/format --check --diff`: 185 files would be left unchanged.
 - `scripts/lint`: passed.
