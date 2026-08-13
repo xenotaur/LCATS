@@ -43,3 +43,4 @@ existing experiments.
 | 02 | `02_llm_backend_comparison` | Side-by-side Anthropic vs. OpenAI backend comparison on the assess pipeline |
 | 03 | `03_cross_segment_relation_pilot` | Stratified cross-genre pilot measuring Event-Role-World cross-segment relation density (WI-EVENT-0030) |
 | 04 | `04_genre_census` | Full-corpus genre census under the current 8-genre classifier, cost-gated via a small sample first (WI-ASSESS-0051) |
+| 05 | `05_metadata_genre_prefilter` | No-network dry-run scaffold for LCATS story identity, Gutenberg ID provenance, cache readiness, and metadata-prefilter manifest output (WI-GENRE-0001) |
