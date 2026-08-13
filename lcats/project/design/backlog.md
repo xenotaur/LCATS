@@ -707,6 +707,12 @@ len(tokens)` loop condition. PR #216 added a guard for
 `overlap_tokens >= max_tokens` but that only covered the overlap-driven
 case. Fixed via a direct `max_tokens <= 0` guard (raises `ValueError`)
 plus regression tests in `lcats/src/lcats/chunking.py`'s `chunk_story`.
+The same PR also added a guard rejecting negative `overlap_tokens`
+(found by Copilot review on PR #296 itself: a negative value made
+`step = max_tokens - overlap_tokens` exceed `max_tokens`, silently
+skipping a range of tokens between chunks) — together, the three
+guards on `max_tokens`/`overlap_tokens` provably close every
+non-positive-`step` case.
 
 ~~### Pre-existing masking bug in `discovery.py`'s recursive selector~~ — **fixed, [PR #208](https://github.com/xenotaur/LCATS/pull/208), merged 2026-08-02**
 
