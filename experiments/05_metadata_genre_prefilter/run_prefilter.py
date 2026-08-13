@@ -61,6 +61,11 @@ def parse_gutenberg_id(url: str | None) -> int | None:
     return None
 
 
+def is_gutenberg_url(url: str | None) -> bool:
+    """Return whether a URL appears to point at Project Gutenberg."""
+    return bool(url and re.search(r"gutenberg\.org", url, re.IGNORECASE))
+
+
 def story_id_for_path(story_path: pathlib.Path, corpus_root: pathlib.Path) -> str:
     """Return the LCATS story ID as a corpus-root-relative story bucket path."""
     story_dir = story_path.parent
@@ -167,7 +172,11 @@ def build_summary(
     rows: list[dict[str, Any]], cache_status: dict[str, Any], corpus_root: pathlib.Path
 ) -> dict[str, Any]:
     """Build a deterministic summary for the dry-run artifact."""
-    parse_failures = [row["story_id"] for row in rows if row["gutenberg_id"] is None]
+    parse_failures = [
+        row["story_id"]
+        for row in rows
+        if row["gutenberg_id"] is None and is_gutenberg_url(row["gutenberg_url"])
+    ]
     collection_counts = collections.Counter(row["collection"] for row in rows)
     return {
         "pipeline": PIPELINE_NAME,
@@ -212,11 +221,26 @@ def _is_relative_to(path: pathlib.Path, parent: pathlib.Path) -> bool:
     return True
 
 
-def validate_output_dir(output_dir: pathlib.Path, corpus_root: pathlib.Path) -> None:
+def validate_corpus_rows(
+    corpus_root: pathlib.Path, rows: list[dict[str, Any]]
+) -> None:
+    """Reject missing, invalid, or empty corpus roots before writing artifacts."""
+    if not corpus_root.exists():
+        raise ValueError(f"Corpus root does not exist: {corpus_root}")
+    if not corpus_root.is_dir():
+        raise ValueError(f"Corpus root is not a directory: {corpus_root}")
+    if not rows:
+        raise ValueError(f"No story.json files discovered under corpus root: {corpus_root}")
+
+
+def validate_output_dir(
+    output_dir: pathlib.Path, corpus_root: pathlib.Path, cache_db: pathlib.Path
+) -> None:
     """Refuse output locations that could mutate corpus or development data."""
     resolved_output = output_dir.resolve()
     protected_roots = [
         corpus_root.resolve(),
+        cache_db.parent.resolve(),
         pathlib.Path("corpora").resolve(),
         pathlib.Path("data").resolve(),
         pathlib.Path("lcats/data").resolve(),
@@ -233,8 +257,9 @@ def run(
     cache_db: pathlib.Path,
 ) -> dict[str, Any]:
     """Run the dry-run prefilter scaffold and return the summary."""
-    validate_output_dir(output_dir, corpus_root)
+    validate_output_dir(output_dir, corpus_root, cache_db)
     rows = discover_rows(corpus_root)
+    validate_corpus_rows(corpus_root, rows)
     cache_status = cache_readiness(cache_db)
     summary = build_summary(rows, cache_status, corpus_root)
     summary["outputs"] = write_outputs(rows, summary, output_dir)

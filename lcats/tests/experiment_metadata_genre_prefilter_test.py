@@ -15,8 +15,8 @@ _TEST_PATH = (
 _SPEC = importlib.util.spec_from_file_location(
     "experiment_05_metadata_genre_prefilter_test", _TEST_PATH
 )
-experiment_tests = importlib.util.module_from_spec(_SPEC)
 assert _SPEC is not None and _SPEC.loader is not None
+experiment_tests = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(experiment_tests)
 
 

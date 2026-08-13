@@ -14,8 +14,8 @@ import unittest
 
 _RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_prefilter.py"
 _SPEC = importlib.util.spec_from_file_location("run_prefilter", _RUNNER_PATH)
-run_prefilter = importlib.util.module_from_spec(_SPEC)
 assert _SPEC is not None and _SPEC.loader is not None
+run_prefilter = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(run_prefilter)
 
 
@@ -76,6 +76,15 @@ class TestDryRunScaffold(unittest.TestCase):
                 url="https://www.gutenberg.org/cache/epub/1661/pg1661-images.html",
             )
             _write_story(corpus_root, "local", "no_url", url=None)
+            _write_story(
+                corpus_root, "external", "non_gutenberg", url="https://example.com"
+            )
+            _write_story(
+                corpus_root,
+                "broken",
+                "bad_gutenberg",
+                url="https://www.gutenberg.org/no-id-here",
+            )
 
             summary = run_prefilter.run(
                 corpus_root=corpus_root,
@@ -98,10 +107,19 @@ class TestDryRunScaffold(unittest.TestCase):
             ]
             self.assertEqual(
                 [row["story_id"] for row in rows],
-                ["local/no_url", "sherlock/five_orange_pips", "sherlock/speckled_band"],
+                [
+                    "broken/bad_gutenberg",
+                    "external/non_gutenberg",
+                    "local/no_url",
+                    "sherlock/five_orange_pips",
+                    "sherlock/speckled_band",
+                ],
             )
-            self.assertEqual(rows[1]["gutenberg_id"], 1661)
+            self.assertEqual(rows[3]["gutenberg_id"], 1661)
             self.assertEqual(summary["gutenberg_id_parse_failure_count"], 1)
+            self.assertEqual(
+                summary["gutenberg_id_parse_failures"], ["broken/bad_gutenberg"]
+            )
             self.assertEqual(summary["repeated_gutenberg_ids"][0]["gutenberg_id"], 1661)
             self.assertEqual(summary["repeated_gutenberg_ids"][0]["story_count"], 2)
 
@@ -125,15 +143,50 @@ class TestDryRunScaffold(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             corpus_root = pathlib.Path(tmp) / "corpora"
             output_dir = corpus_root / "results"
+            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
 
             with self.assertRaises(ValueError):
-                run_prefilter.validate_output_dir(output_dir, corpus_root)
+                run_prefilter.validate_output_dir(output_dir, corpus_root, cache_db)
+
+    def test_output_under_cache_root_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            cache_db = root / "cache" / "gutenbergindex.db"
+
+            with self.assertRaises(ValueError):
+                run_prefilter.validate_output_dir(cache_db.parent, corpus_root, cache_db)
+
+    def test_missing_or_empty_corpus_root_is_refused_before_writing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            cache_db = root / "cache" / "gutenbergindex.db"
+            output_dir = root / "results"
+
+            with self.assertRaises(ValueError):
+                run_prefilter.run(
+                    corpus_root=root / "missing",
+                    output_dir=output_dir,
+                    cache_db=cache_db,
+                )
+            self.assertFalse(output_dir.exists())
+
+            empty_corpus = root / "empty_corpus"
+            empty_corpus.mkdir()
+            with self.assertRaises(ValueError):
+                run_prefilter.run(
+                    corpus_root=empty_corpus,
+                    output_dir=output_dir,
+                    cache_db=cache_db,
+                )
+            self.assertFalse(output_dir.exists())
 
     def test_import_does_not_load_mutating_gettenberg_cache_module(self):
         script = (
             "import importlib.util, pathlib, sys\n"
             f"path = pathlib.Path({str(_RUNNER_PATH)!r})\n"
             "spec = importlib.util.spec_from_file_location('isolated_run_prefilter', path)\n"
+            "assert spec is not None and spec.loader is not None\n"
             "module = importlib.util.module_from_spec(spec)\n"
             "spec.loader.exec_module(module)\n"
             "print('lcats.gettenberg.cache' in sys.modules)\n"
