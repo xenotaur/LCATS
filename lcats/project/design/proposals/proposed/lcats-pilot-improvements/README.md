@@ -18,5 +18,7 @@ Batch API improvements behind explicit quality and spend gates.
 - [`00_proposal.md`](00_proposal.md) — background, prior-art check, five
   design decisions, non-goals, and an ordered implementation plan.
 
-Governed by the proposed `WS-PILOT-IMPROVEMENTS` workstream to be created
-after this proposal is adopted.
+Governed by the proposed
+[`WS-PILOT-IMPROVEMENTS`](../../../workstreams/proposed/WS-PILOT-IMPROVEMENTS.md)
+workstream, which coordinates the follow-on adoption work while this proposal
+set remains proposed.
