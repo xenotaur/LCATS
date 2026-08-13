@@ -75,7 +75,7 @@ def _clean_token(tok: str) -> str:
     tok = tok.replace(".", "").replace("’", "'").strip()
     tok = _RE_CLEAN_TOKEN.sub(
         "", tok
-    )  # keep letters, digits, apostrophe, hyphen, space
+    )  # keep word characters (\w: letters, digits, underscore), apostrophe, hyphen, space
     return tok
 
 
