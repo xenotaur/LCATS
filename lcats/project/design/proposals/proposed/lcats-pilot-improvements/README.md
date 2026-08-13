@@ -19,6 +19,6 @@ Batch API improvements behind explicit quality and spend gates.
   design decisions, non-goals, and an ordered implementation plan.
 
 Governed by the proposed
-[`WS-PILOT-IMPROVEMENTS`](../../../workstreams/proposed/WS-PILOT-IMPROVEMENTS.md)
+[`WS-PILOT-IMPROVEMENTS`](../../../../workstreams/proposed/WS-PILOT-IMPROVEMENTS.md)
 workstream, which coordinates the follow-on adoption work while this proposal
 set remains proposed.
