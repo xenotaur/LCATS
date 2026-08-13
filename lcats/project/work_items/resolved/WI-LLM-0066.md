@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged via https://github.com/xenotaur/LCATS/pull/298 (squash commit 661b878c5b8ebfca0243d6f6ea27383f8ed0077e)."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0066
 title: Wire run_census.py to a local OpenAI-compatible backend and evaluate gpt-oss:20b at genre-census scale
 type: evaluation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
