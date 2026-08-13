@@ -623,8 +623,9 @@ now both have work items, tooling landed, real cost estimates measured -
 neither is fully executed yet:
 
 - **Current-classifier full-corpus survey** under the 8-genre scheme —
-  `WI-ASSESS-0051` (`status: proposed`). Census tooling (`experiments/
-  04_genre_census/run_census.py`) landed, PR #251. A real `--sample-size 20`
+  `WI-ASSESS-0051` (`status: proposed`). Census tooling
+  (`experiments/04_genre_census/run_census.py`) landed, PR #251. A real
+  `--sample-size 20`
   run measured $4.66 for 20 stories, extrapolating to ~$435/~4.2 hours for
   the full corpus (`experiments/04_genre_census/results/`, PR #292) - the
   `--full` run itself is deliberately deferred pending a cost-free
