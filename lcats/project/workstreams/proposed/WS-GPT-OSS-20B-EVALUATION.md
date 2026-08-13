@@ -5,7 +5,7 @@ title: Evaluate and productionize gpt-oss:20b as a local model candidate
 status: proposed
 stage: executing
 origin: ad_hoc
-summary: Coordinates the WI-LLM-0063->0066 arc vetting, diagnosing, fixing, and scale-testing gpt-oss:20b as a local Ollama candidate for the ERW pipeline.
+summary: Coordinates the WI-LLM-0063->WI-LLM-0066 arc vetting, diagnosing, fixing, and scale-testing gpt-oss:20b as a local Ollama candidate for the ERW pipeline.
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap:
@@ -21,7 +21,7 @@ work_items:
   - WI-LLM-0066
 exit_criteria:
   - WI-LLM-0066 resolved with a written go/no-go recommendation for gpt-oss:20b at genre-census scale
-  - A clear, evidence-backed per-stage recommendation (genre detection / entity extraction / segmentation) exists in ollama_gpt_oss_20b/README.md and the governing proposal
+  - A clear, evidence-backed per-stage recommendation (genre detection / entity extraction / segmentation) exists in lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md and the governing proposal
   - lrh validate reports 0 errors
 ---
 
