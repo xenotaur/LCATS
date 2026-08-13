@@ -1,10 +1,11 @@
 # Metadata Genre Prefilter
 
-`WI-GENRE-0001` creates the dry-run scaffold for the genre evidence sidecar
-workstream. The scaffold validates LCATS story identity, Gutenberg ID parsing,
-cache readiness reporting, and experiment-local manifest output before any
-metadata-rule assessment, model call, human adjudication, corpus sidecar, or
-promotion behavior is added.
+`WI-GENRE-0002` extends the dry-run scaffold from `WI-GENRE-0001` into an
+experiment-local metadata-rule evidence pilot. The runner discovers LCATS story
+buckets, uses LCATS path identity as the primary story ID, reads Gutenberg
+subjects from an explicitly supplied existing SQLite cache in read-only mode,
+records all matching metadata genre-rule evidence, and writes a deterministic
+40-story pilot manifest.
 
 ## No-Network Default
 
@@ -12,6 +13,14 @@ The runner is deliberately read-only. It does not import
 `lcats.gettenberg.cache`, does not call `ensure_gutenberg_cache()`, and does
 not build, download, refresh, or repair the Gutenberg metadata cache. Missing
 cache state is reported in the summary instead of being fixed automatically.
+
+Before running a cache-backed pilot, sync or expose an existing local
+`gutenbergindex.db` and pass it with `--cache-db`. If `--cache-db` is omitted,
+the runner reports `cache.status: "not_supplied"` and does not read any default
+cache location. If an explicitly supplied cache is absent or does not match a
+supported schema, candidate rows still emit assessment-shaped metadata evidence,
+but with empty `raw_subjects`, empty rule matches, and a cache status explaining
+the readiness state.
 
 ## Usage
 
@@ -23,36 +32,82 @@ python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   --output experiments/05_metadata_genre_prefilter/results/smoke
 ```
 
-Optional inputs:
+With an existing Gutenberg metadata cache:
 
 ```bash
 python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --dry-run \
   --corpus-root corpora \
   --cache-db /path/to/existing/gutenbergindex.db \
-  --output experiments/05_metadata_genre_prefilter/results/smoke
+  --output experiments/05_metadata_genre_prefilter/results/pilot_40
 ```
 
-If `--cache-db` is omitted, the runner checks
-`$LCATS_CACHE_DIR/gutenbergindex.db`, or `cache/gutenbergindex.db` when
-`LCATS_CACHE_DIR` is unset. This is only a filesystem preflight; sync an
-existing local Gutenberg cache into place before using it for later metadata
-enrichment work.
+Optional repeated-volume cap:
+
+```bash
+python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --dry-run \
+  --cache-db /path/to/existing/gutenbergindex.db \
+  --max-per-gutenberg-id 2 \
+  --output experiments/05_metadata_genre_prefilter/results/pilot_40_capped
+```
+
+Omit `--cache-db` for no-cache readiness and shape checks. The omitted-cache
+path does not inspect `$LCATS_CACHE_DIR`, `cache/gutenbergindex.db`, or any
+other implicit cache location.
 
 ## Outputs
 
 The runner writes only under the requested output directory:
 
-- `manifest.jsonl`: one row per story, keyed by LCATS story ID. Gutenberg ID
-  and URL are provenance fields only.
+- `candidates.jsonl`: one row per discovered story, keyed by LCATS story ID.
+- `pilot_40_manifest.jsonl`: deterministic pilot rows, roughly 10 each from
+  `lovecraft`, `sherlock`, O. Henry (`ohenry-four_million` and
+  `ohenry-whirligigs`), and `mass_quantities`.
 - `summary.json`: story counts, collection counts, cache readiness,
-  Gutenberg-ID parse failures, and repeated Gutenberg-ID diagnostics.
+  target-candidate counts, secondary-signal counts, Gutenberg-ID parse
+  failures, repeated Gutenberg-ID diagnostics, and pilot-selection diagnostics.
 
 The LCATS story ID is the corpus-root-relative story bucket path, such as
-`sherlock/five_orange_pips`. Repeated Gutenberg IDs are reported as collection
-or volume-level diagnostics, not as story identity.
+`sherlock/five_orange_pips`. Gutenberg ID and URL are provenance fields only.
+Repeated Gutenberg IDs are reported as collection- or volume-level diagnostics,
+not as story identity.
+
+## Metadata Evidence
+
+Each candidate row includes a `metadata_assessment` object:
+
+- `assessment_id`: stable label plus LCATS story ID plus generation timestamp.
+- `label`: `gutenberg_metadata_rules`.
+- `generated_at`: UTC timestamp for this run.
+- `scope`: `gutenberg_volume`, because Gutenberg subjects often describe a
+  source volume that contributed multiple LCATS story buckets.
+- `method`: method name/version and pipeline name/version.
+- `provenance`: LCATS story identity plus Gutenberg/cache provenance.
+- `evidence.raw_subjects`: Gutenberg subject strings read from the cache.
+- `evidence.raw_rule_matches`: every matching rule label with matched patterns.
+- `result.target_candidates`: direct mappings into the 8 LCATS target genres.
+- `result.suggestive_target_candidates`: non-direct but useful target hints,
+  currently `Crime` as suggestive evidence for `mystery`.
+- `result.secondary_signals`: matching non-target metadata labels retained for
+  audit rather than collapsed into ground truth.
+
+Direct target-label normalization:
+
+- `SF` -> `science fiction`
+- `Fantasy` -> `fantasy`
+- `Horror` -> `horror`
+- `Mystery` -> `mystery`
+- `Western` -> `western`
+- `Adventure` -> `adventure`
+- `Romance` -> `romance`
+- `Humor / satire` -> `humor`
 
 ## Current Boundary
 
-This scaffold stops before generating metadata-rule genre assessments. The
-next work item can layer `lcats.utils.genre` rule evidence on top once the
-cache location and dry-run artifact shape are reviewed.
+This experiment does not write `genre.json` sidecars into `data/` or
+`corpora/`, promote sidecars, modify `lcats annotate`, modify `lcats promote`,
+define the final `genre-sidecar-v1` validator, run local or remote models,
+run full-corpus metadata labeling for commit, or implement the larger 100-200
+story sample. Those remain later workstream steps after the 40-story metadata
+pilot path is reviewed.
