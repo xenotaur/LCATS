@@ -1,3 +1,4 @@
+import codecs
 import contextlib
 import io
 import unittest
@@ -96,6 +97,43 @@ class TestChunking(unittest.TestCase):
         chunks = chunking.chunk_story(self.text, max_tokens=50, model_name=self.model)
         for i in range(1, len(chunks)):
             self.assertGreaterEqual(chunks[i].start_char, chunks[i - 1].start_char)
+
+    def test_chunk_story_multibyte_boundary_start_char_correct(self):
+        """Test start_char stays correct when a chunk boundary splits a
+        multi-byte character's bytes across tokens (real BPE tokenizers can
+        do this; the character-level fake tokenizer used elsewhere in this
+        file cannot exercise it)."""
+        text = "café " * 20 + "\U0001f389" * 5 + " naïve résumé " * 10
+        text_bytes = text.encode("utf-8")
+
+        # Reference char-count-by-byte-offset: decode one byte at a time so a
+        # byte offset landing mid-character contributes 0 chars for that
+        # character until its final byte arrives — this is the only
+        # unambiguous definition of "chars so far" at an arbitrary byte
+        # offset, and matches what a correct streaming decoder does.
+        decoder = codecs.getincrementaldecoder("utf-8")()
+        char_count_by_offset = [0] * (len(text_bytes) + 1)
+        running = 0
+        for i, byte in enumerate(text_bytes):
+            running += len(decoder.decode(bytes([byte])))
+            char_count_by_offset[i + 1] = running
+
+        with tokenizer_test_utils.patch_chunking_encoding_for_model_with(
+            tokenizer_test_utils.FakeByteEncoding()
+        ):
+            chunks = chunking.chunk_story(
+                text, max_tokens=7, overlap_tokens=3, model_name=self.model
+            )
+        self.assertGreater(len(chunks), 1)
+        for chunk in chunks:
+            self.assertEqual(chunk.start_char, char_count_by_offset[chunk.start_token])
+
+    def test_chunk_story_overlap_not_less_than_max_tokens_raises(self):
+        """Test overlap_tokens >= max_tokens raises instead of looping forever."""
+        with self.assertRaises(ValueError):
+            chunking.chunk_story(
+                self.text, max_tokens=10, overlap_tokens=10, model_name=self.model
+            )
 
     def test_summarize_chunks_format(self):
         """Test summarize_chunks returns a string with chunk headers."""

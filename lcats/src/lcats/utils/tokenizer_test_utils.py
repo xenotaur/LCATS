@@ -21,6 +21,25 @@ class FakeCharacterEncoding:
         return self.decode(tokens).encode("utf-8")
 
 
+class FakeByteEncoding:
+    """Byte-level fake encoder: one token per UTF-8 byte.
+
+    Unlike `FakeCharacterEncoding`, a multi-byte character's bytes can span
+    more than one token, so chunk boundaries can fall mid-character — this
+    is what real BPE tokenizers do and what `FakeCharacterEncoding` cannot
+    exercise.
+    """
+
+    def encode(self, text, **_kwargs):
+        return list(text.encode("utf-8"))
+
+    def decode(self, tokens):
+        return bytes(tokens).decode("utf-8", errors="replace")
+
+    def decode_bytes(self, tokens):
+        return bytes(tokens)
+
+
 def fake_encoding_for_model(_model):
     """Return a fake encoder for model lookup patches."""
     return FakeCharacterEncoding()
@@ -31,6 +50,14 @@ def patch_chunking_encoding_for_model():
     return unittest.mock.patch(
         "lcats.chunking.tiktoken.encoding_for_model",
         side_effect=fake_encoding_for_model,
+    )
+
+
+def patch_chunking_encoding_for_model_with(encoder):
+    """Patch chunking's tiktoken model lookup to return a specific encoder."""
+    return unittest.mock.patch(
+        "lcats.chunking.tiktoken.encoding_for_model",
+        return_value=encoder,
     )
 
 
