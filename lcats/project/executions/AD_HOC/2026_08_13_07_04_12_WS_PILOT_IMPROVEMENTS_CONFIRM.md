@@ -40,6 +40,12 @@ Surfaced exceptions: none.
 
 Thread-resolution verdict: green.
 
+The substitute self-review pass on commit
+`af0e1e426c02c5b33049400a064678c869f637f5` surfaced one follow-up finding:
+the primary execution record had trailing whitespace after a blank
+`rerun_of:` field, causing `git diff --check origin/main...HEAD` to fail.
+That whitespace was removed before merge readiness was re-evaluated.
+
 # Validation
 
 - `python -c "import lcats; print(lcats.__file__)"`: confirmed editable
@@ -53,6 +59,7 @@ Thread-resolution verdict: green.
 - `lrh validate`: 0 errors, 139 existing warnings.
 - Provisional CI before this record commit: lint passed; coverage/tests were
   pending on the latest pushed head.
+- Substitute self-review: one whitespace finding surfaced and fixed.
 
 # Follow-up
 
