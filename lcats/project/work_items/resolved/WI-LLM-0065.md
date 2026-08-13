@@ -13,7 +13,8 @@ related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap:
   - ROADMAP-CORE
-related_workstreams: []
+related_workstreams:
+  - WS-GPT-OSS-20B-EVALUATION
 related_design:
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md

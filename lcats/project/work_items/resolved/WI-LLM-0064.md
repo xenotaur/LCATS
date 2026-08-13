@@ -11,7 +11,8 @@ contributors: []
 assigned_agents: []
 related_focus: []
 related_roadmap: []
-related_workstreams: []
+related_workstreams:
+  - WS-GPT-OSS-20B-EVALUATION
 related_design:
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md
