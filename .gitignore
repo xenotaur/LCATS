@@ -96,4 +96,8 @@ lcats/lcats/notebooks/Output/
 
 # Ignore genre-census per-story checkpoint state (internal resume cache,
 # redundant with the committed census_*_stories.jsonl/summary.json).
-experiments/04_genre_census/results/*/
+# Targets the checkpoint file's own fixed name (run_census.py's
+# "genre_census" stage) rather than every subdirectory - a blanket
+# results/*/ pattern would also ignore a candidate-scoped results
+# subdirectory's own real committed output (review finding, PR #292).
+experiments/04_genre_census/results/**/genre_census.json

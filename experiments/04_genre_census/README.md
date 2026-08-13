@@ -6,12 +6,44 @@ current per-genre count, gated behind a real small-sample cost estimate.
 
 ## Status
 
-**Tooling only — not yet run for real.** This directory currently contains
-the census script and this usage doc. The `--sample-size`/`--full` real-API
-steps require explicit human go-ahead (see [Cost gate](#cost-gate) below)
-and have not been run yet. Whoever runs this census for real should append
-a "Results" section below, following the format sketched in
-[Expected Results Format](#expected-results-format).
+**Sample cost estimate has run; `--full` is deferred.** A real
+`--sample-size 20` run (see [Results](#results-2026-08-08) below) measured
+$4.66 for 20 stories, extrapolating to ~$435/~4.2 hours for the full
+~1,868-story corpus. Rather than spend that immediately, a cost-free
+local-model (`gpt-oss:20b`, `WI-LLM-0066`) pilot will run first as an
+alternative before deciding on the `--full` run. `--full` itself has not
+run — `results/` contains only the sample data. Whoever eventually runs
+`--full` should append its own "Results" section, following the format
+sketched in [Expected Results Format](#expected-results-format).
+
+## Results (2026-08-08)
+
+Sample: 20 stories, `claude-opus-4-8`, population-weighted across 12
+collections (17/20 from `mass_quantities`, matching its ~89% corpus
+share). $4.66 measured, 0 excluded, 161s wall clock (~8s/story).
+Extrapolated: **~$435 / ~251 minutes (~4.2 hours)** for the full corpus.
+
+| Genre | Count |
+|---|---|
+| science fiction | 14 |
+| humor | 3 |
+| horror | 1 |
+| fantasy | 1 |
+| other | 1 |
+| western / romance / mystery / adventure | 0 |
+
+**Note on data quality:** 7/20 records show `secondary_genre` field
+corruption (leaked tool-call-syntax fragments) — the defect `WI-LLM-0058`
+later diagnosed and fixed via output sanitization. This sample predates
+that fix, so it's preserved as the pre-fix historical data point;
+`detected_genre` (the number that matters for the counts above) was
+unaffected in all 20 records. A future `--sample-size`/`--full` run
+benefits from the fix automatically.
+
+**Finding:** heavily science-fiction-skewed, as expected given
+`mass_quantities`'s corpus dominance — not yet conclusive on whether
+smaller genres (western, romance, mystery, adventure — all 0/20 here) are
+adequately represented; that needs the full census, not a 20-story sample.
 
 ## Purpose
 
