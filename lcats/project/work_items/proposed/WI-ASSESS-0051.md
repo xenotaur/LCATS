@@ -18,6 +18,7 @@ related_design:
   - project/design/event-role-world-genre-target-reconciliation.md
 depends_on:
   - WI-LLM-0058
+  - WI-LLM-0066
 blocked_by: []
 expected_actions:
   - create_file
@@ -365,3 +366,15 @@ the `lcats/` working directory the commands above use:
   worth a fix/mitigation decision before scaling ~93x to the full corpus
   — see `WI-LLM-0058` (`depends_on`), which must resolve (fix, mitigate,
   or an explicit documented decision not to) before `--full` proceeds.
+- **`WI-LLM-0066` dependency — resolved, mixed result, still requires a
+  human go/no-go.** The sample estimate above puts Claude `--full` at
+  ~$435/~4.2 hours. `WI-LLM-0066` (PR #298) evaluated a cost-free
+  local-model (`gpt-oss:20b`) alternative against the same 20 story IDs:
+  $0.00 cost, but ~20.8 hours projected for the full corpus (vs. Claude's
+  ~4.2h), and 17/20 exact `detected_genre` agreement with the Claude
+  sample (1 of the 3 disagreements is a schema-spelling artifact, 2 are
+  substantive and both under-count humor). This is not a clean win either
+  way — free-but-slower-and-imperfect vs. paid-but-faster-and-more-tested
+  — so `--full` (on either backend) still requires an explicit human
+  decision informed by both findings, not an automatic default to
+  whichever ran first.
