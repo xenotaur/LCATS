@@ -637,7 +637,7 @@ neither is fully executed yet:
   `detected_genre` itself was unaffected in both.
 - **Re-scoping `WI-EVENT-0030`'s stratified pilot** for 8 genres instead of
   4 — `WI-EVENT-0030`'s `depends_on` now lists `WI-ASSESS-0051` (PR #246,
-  merged 2026-08-13), wiring the dependency at the frontmatter level so an
+  merged 2026-08-12), wiring the dependency at the frontmatter level so an
   executor can't miss it. The actual content re-scope (Scope/Summary/
   Required Changes/Acceptance Criteria) remains deliberately deferred -
   those sections still describe the original 4-genre pilot until

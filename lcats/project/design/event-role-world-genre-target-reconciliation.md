@@ -263,7 +263,7 @@ than folded into the survey work item.
 ### Gap 3 — Event-Role-World annotation coverage: only a 4-story pilot exists, for 4 of the 8 genres — **dependency wired, content re-scope still deferred**
 
 **Status:** `WI-EVENT-0030`'s `depends_on` now lists `WI-ASSESS-0051`
-(PR #246, merged 2026-08-13), so an executor following the work item's
+(PR #246, merged 2026-08-12), so an executor following the work item's
 own frontmatter discovers this prerequisite rather than relying on prose
 alone. The actual content re-scope (Scope/Summary/Required Changes/
 Acceptance Criteria, still describing the original 4-genre pilot) remains
