@@ -50,8 +50,9 @@ adequately represented; that needs the full census, not a 20-story sample.
 Sample: the same 20 story IDs as the Claude sample above (`--sample-size 20
 --seed 42`), `--backend openai --base-url http://localhost:11434/v1 --model
 gpt-oss:20b`, served by local Ollama. Results are committed as
-`results/census_gpt_oss_20b_sample_stories.jsonl` and
-`results/census_gpt_oss_20b_sample_summary.json`.
+`results/census_gpt_oss_20b_http_localhost_11434_v1_sample_stories.jsonl`
+and
+`results/census_gpt_oss_20b_http_localhost_11434_v1_sample_summary.json`.
 
 Measured API cost: **$0.00**. Wall clock: **801.5s** for 20 stories
 (~40.1s/story), projecting to **~74,861s / 1,247.7 minutes / 20.8 hours**
@@ -240,10 +241,12 @@ trusting a cost estimate derived from it for a real budgeting decision.
   cost/latency totals. The sample summary additionally includes
   `extrapolated_full_corpus_cost_usd` and
   `extrapolated_full_corpus_wall_clock_seconds`.
-- Local endpoint sample runs use candidate-scoped names, such as
-  `results/census_gpt_oss_20b_sample_stories.jsonl` and
-  `results/census_gpt_oss_20b_sample_summary.json`, so they do not
-  overwrite the historical Claude sample. When the historical
+- Local endpoint sample runs use model-and-endpoint-scoped names, such as
+  `results/census_gpt_oss_20b_http_localhost_11434_v1_sample_stories.jsonl`
+  and
+  `results/census_gpt_oss_20b_http_localhost_11434_v1_sample_summary.json`,
+  so they do not overwrite the historical Claude sample or another endpoint's
+  run. When the historical
   `census_sample_stories.jsonl` file is present, local sample summaries also
   include a story-by-story `detected_genre` comparison against it.
 

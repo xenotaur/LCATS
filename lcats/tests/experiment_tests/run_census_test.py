@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import pathlib
+import tempfile
 import unittest
 
 from unittest.mock import patch
@@ -77,19 +79,46 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
         self.assertFalse(run_census._is_local_base_url("https://example.test/v1"))
         self.assertFalse(run_census._is_local_base_url(None))
 
-    def test_local_output_prefix_is_model_scoped(self):
+    def test_local_output_prefix_is_model_and_endpoint_scoped(self):
         self.assertEqual(
             run_census._output_prefix(
                 "sample", "gpt-oss:20b", "http://localhost:11434/v1", False
             ),
-            "census_gpt_oss_20b_sample",
+            "census_gpt_oss_20b_http_localhost_11434_v1_sample",
         )
         self.assertEqual(
             run_census._output_prefix(
                 "sample", "gpt-oss:20b", "http://localhost:11434/v1", True
             ),
-            "census_gpt_oss_20b_dry_run_sample",
+            "census_gpt_oss_20b_http_localhost_11434_v1_dry_run_sample",
         )
+
+    def test_output_prefix_distinguishes_endpoint_urls(self):
+        self.assertNotEqual(
+            run_census._output_prefix(
+                "sample", "gpt-oss:20b", "http://localhost:11434/v1", False
+            ),
+            run_census._output_prefix(
+                "sample", "gpt-oss:20b", "http://127.0.0.1:11434/v1", False
+            ),
+        )
+        self.assertNotEqual(
+            run_census._output_prefix(
+                "sample", "gpt-oss:20b", "https://example.test/v1", False
+            ),
+            run_census._output_prefix(
+                "sample", "gpt-oss:20b", "https://other.example/v1", False
+            ),
+        )
+
+    def test_fresh_metered_call_count_excludes_cached_records(self):
+        records = [
+            {"from_cache": False, "input_tokens": 10, "output_tokens": 1},
+            {"from_cache": True, "input_tokens": 10, "output_tokens": 1},
+            {"from_cache": False, "input_tokens": 0, "output_tokens": 0},
+        ]
+
+        self.assertEqual(run_census._fresh_metered_call_count(records), 1)
 
     def test_compare_detected_genres_reports_disagreements_by_story(self):
         candidate = [
@@ -116,6 +145,43 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
                     "story_id": "b",
                     "reference_detected_genre": "mystery",
                     "candidate_detected_genre": "horror",
+                }
+            ],
+        )
+
+    def test_add_reference_comparison_omits_malformed_reference(self):
+        summary = {}
+        records = [{"story_id": "a", "detected_genre": "science fiction"}]
+        with tempfile.TemporaryDirectory() as tmp:
+            reference_path = pathlib.Path(tmp) / "census_sample_stories.jsonl"
+            reference_path.write_text("{not json}\n", encoding="utf-8")
+
+            with patch("sys.stderr"):
+                run_census._add_reference_comparison(summary, records, reference_path)
+
+        self.assertNotIn("reference_comparison", summary)
+        self.assertIn("reference_comparison_error", summary)
+
+    def test_add_reference_comparison_records_valid_reference(self):
+        summary = {}
+        records = [{"story_id": "a", "detected_genre": "science fiction"}]
+        with tempfile.TemporaryDirectory() as tmp:
+            reference_path = pathlib.Path(tmp) / "census_sample_stories.jsonl"
+            reference_path.write_text(
+                json.dumps({"story_id": "a", "detected_genre": "horror"}) + "\n",
+                encoding="utf-8",
+            )
+
+            run_census._add_reference_comparison(summary, records, reference_path)
+
+        self.assertEqual(summary["reference_comparison"]["common_story_count"], 1)
+        self.assertEqual(
+            summary["reference_comparison"]["detected_genre_disagreements"],
+            [
+                {
+                    "story_id": "a",
+                    "reference_detected_genre": "horror",
+                    "candidate_detected_genre": "science fiction",
                 }
             ],
         )

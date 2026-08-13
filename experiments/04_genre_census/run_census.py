@@ -216,8 +216,12 @@ def _fingerprint(
     }
 
 
+def _slugify_component(value: str) -> str:
+    return "".join(char if char.isalnum() else "_" for char in value.lower()).strip("_")
+
+
 def _slugify_model(model: str) -> str:
-    return "".join(char if char.isalnum() else "_" for char in model.lower()).strip("_")
+    return _slugify_component(model)
 
 
 def _is_local_base_url(base_url: Optional[str]) -> bool:
@@ -227,13 +231,25 @@ def _is_local_base_url(base_url: Optional[str]) -> bool:
     return host in {"localhost", "127.0.0.1", "::1"}
 
 
+def _endpoint_slug(base_url: str) -> str:
+    parsed = urllib.parse.urlparse(base_url)
+    pieces = [parsed.scheme or "endpoint"]
+    pieces.append(parsed.hostname or parsed.netloc or base_url)
+    if parsed.port:
+        pieces.append(str(parsed.port))
+    path = parsed.path.strip("/")
+    if path:
+        pieces.extend(part for part in path.split("/") if part)
+    return _slugify_component("_".join(pieces)) or "endpoint"
+
+
 def _output_prefix(
     mode: str, model: str, base_url: Optional[str], dry_run: bool
 ) -> str:
     if not base_url:
         return f"census_{mode}"
     run_kind = "dry_run_" if dry_run else ""
-    return f"census_{_slugify_model(model)}_{run_kind}{mode}"
+    return f"census_{_slugify_model(model)}_{_endpoint_slug(base_url)}_{run_kind}{mode}"
 
 
 def _compare_detected_genres(
@@ -274,6 +290,41 @@ def _read_jsonl(path: pathlib.Path) -> List[Dict[str, Any]]:
         for line in f:
             rows.append(json.loads(line))
     return rows
+
+
+def _fresh_metered_call_count(records: List[Dict[str, Any]]) -> int:
+    return sum(
+        1
+        for record in records
+        if not record.get("from_cache")
+        and (record.get("input_tokens", 0) > 0 or record.get("output_tokens", 0) > 0)
+    )
+
+
+def _add_reference_comparison(
+    summary: Dict[str, Any],
+    records: List[Dict[str, Any]],
+    reference_stories_path: pathlib.Path,
+) -> None:
+    try:
+        reference_records = _read_jsonl(reference_stories_path)
+    except (OSError, json.JSONDecodeError) as exc:
+        print(
+            f"warning: could not read optional reference comparison file "
+            f"{reference_stories_path}: {exc}; omitting comparison.",
+            file=sys.stderr,
+        )
+        summary["reference_comparison_error"] = str(exc)
+        return
+
+    try:
+        reference_path = reference_stories_path.relative_to(pathlib.Path.cwd())
+    except ValueError:
+        reference_path = reference_stories_path
+    summary["reference_comparison_path"] = str(reference_path)
+    summary["reference_comparison"] = _compare_detected_genres(
+        records, reference_records
+    )
 
 
 def _is_valid_cache_payload(data: Any) -> bool:
@@ -683,7 +734,7 @@ def main() -> int:
     summary["dry_run"] = args.dry_run
     summary["corpus_story_count"] = len(files)
     if local_endpoint:
-        summary["local_call_count"] = summary["billed_call_count"]
+        summary["local_call_count"] = _fresh_metered_call_count(records)
         summary["billed_call_count"] = 0
 
     if mode == "sample" and records:
@@ -725,14 +776,7 @@ def main() -> int:
 
     reference_stories_path = output_dir / f"census_{mode}_stories.jsonl"
     if args.base_url and reference_stories_path.exists():
-        try:
-            reference_path = reference_stories_path.relative_to(pathlib.Path.cwd())
-        except ValueError:
-            reference_path = reference_stories_path
-        summary["reference_comparison_path"] = str(reference_path)
-        summary["reference_comparison"] = _compare_detected_genres(
-            records, _read_jsonl(reference_stories_path)
-        )
+        _add_reference_comparison(summary, records, reference_stories_path)
 
     summary_path = output_dir / f"{prefix}_summary.json"
     with summary_path.open("w", encoding="utf-8") as f:
