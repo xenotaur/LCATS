@@ -251,6 +251,23 @@ vetting pass's 3 additional gaps (a bounded small-scale trial, call-count
 estimation, rate-limit/retry classification) alongside the audit's original
 scope.
 
+### `chunk_story` hangs on `max_tokens <= 0` — P2, pre-existing, out of scope of PR #216
+
+Found by a substitute self-review pass on [PR #216](https://github.com/xenotaur/LCATS/pull/216)
+(⚡ Bolt: Optimize `chunk_story` character offset calculation) and
+independently reproduced: `chunk_story(text, max_tokens=0, overlap_tokens=0, ...)`
+(or any `max_tokens <= 0`) never terminates, because
+`step = max_tokens - overlap_tokens` (or `max_tokens` when
+`overlap_tokens == 0`) is non-positive, so `current_token` never advances
+past the `while current_token < len(tokens)` loop condition. PR #216 added
+a guard for `overlap_tokens >= max_tokens` (per a Copilot review comment)
+but that only covers the overlap-driven case, not `max_tokens <= 0` with
+no overlap. This bug predates PR #216 and is unrelated to the O(N²) issue
+that PR set out to fix — neither review bot flagged it. **Next step:** add
+a `max_tokens <= 0` guard (raise `ValueError`, mirroring the existing
+`overlap_tokens` guard) plus a regression test, either as a small ad hoc
+fix or a thin work item — `lcats/src/lcats/chunking.py`'s `chunk_story`.
+
 ~~### Pre-existing masking bug in `discovery.py`'s recursive selector~~ — **fixed, [PR #208](https://github.com/xenotaur/LCATS/pull/208), merged 2026-08-02**
 
 Resolved: `_walk_canonical_story_files` no longer mistakes a stray flat
