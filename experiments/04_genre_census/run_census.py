@@ -327,7 +327,9 @@ def _read_jsonl(path: pathlib.Path) -> List[Dict[str, Any]]:
 def _records_by_story(records: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
     by_story = {}
     for i, record in enumerate(records, start=1):
-        if not isinstance(record, dict) or "story_id" not in record:
+        if not isinstance(record, dict):
+            raise ValueError(f"record {i} is not a JSON object")
+        if "story_id" not in record:
             raise ValueError(f"record {i} is missing story_id")
         by_story[record["story_id"]] = record
     return by_story
