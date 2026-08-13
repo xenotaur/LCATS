@@ -207,13 +207,15 @@ def _fingerprint(
     config) so a story corrected in place invalidates its own cached
     classification, plus a classifier-version marker so an assess.py
     classifier change invalidates every cached genre_census checkpoint."""
-    return {
+    fingerprint = {
         "model": model,
         "backend": backend_name,
-        "base_url": base_url or "",
         "classifier_version": _CLASSIFIER_VERSION,
         "raw_text_hash": _hash_text(raw_text),
     }
+    if base_url:
+        fingerprint["base_url"] = base_url
+    return fingerprint
 
 
 def _slugify_component(value: str) -> str:
@@ -775,7 +777,7 @@ def main() -> int:
             f.write(json.dumps(record, sort_keys=True) + "\n")
 
     reference_stories_path = output_dir / f"census_{mode}_stories.jsonl"
-    if args.base_url and reference_stories_path.exists():
+    if args.base_url and mode == "sample" and reference_stories_path.exists():
         _add_reference_comparison(summary, records, reference_stories_path)
 
     summary_path = output_dir / f"{prefix}_summary.json"

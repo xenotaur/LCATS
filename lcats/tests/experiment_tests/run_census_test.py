@@ -59,7 +59,7 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
             "gpt-oss:20b", "openai", "story", "http://localhost:11434/v1"
         )
 
-        self.assertEqual(remote["base_url"], "")
+        self.assertNotIn("base_url", remote)
         self.assertEqual(local["base_url"], "http://localhost:11434/v1")
         self.assertNotEqual(remote, local)
 
