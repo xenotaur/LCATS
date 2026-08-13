@@ -149,6 +149,16 @@ class TestChunking(unittest.TestCase):
                 self.text, max_tokens=-5, overlap_tokens=0, model_name=self.model
             )
 
+    def test_chunk_story_negative_overlap_tokens_raises(self):
+        """Test negative overlap_tokens raises instead of silently skipping
+        tokens (step = max_tokens - overlap_tokens grows past max_tokens
+        while the overlap branch only activates for overlap_tokens > 0,
+        producing a gap between chunks)."""
+        with self.assertRaises(ValueError):
+            chunking.chunk_story(
+                self.text, max_tokens=10, overlap_tokens=-5, model_name=self.model
+            )
+
     def test_summarize_chunks_format(self):
         """Test summarize_chunks returns a string with chunk headers."""
         chunks = chunking.chunk_story(self.text, max_tokens=30, model_name=self.model)

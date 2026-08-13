@@ -42,6 +42,8 @@ def chunk_story(
     """
     if max_tokens <= 0:
         raise ValueError(f"max_tokens ({max_tokens}) must be positive.")
+    if overlap_tokens < 0:
+        raise ValueError(f"overlap_tokens ({overlap_tokens}) must not be negative.")
     if overlap_tokens > 0 and overlap_tokens >= max_tokens:
         raise ValueError(
             f"overlap_tokens ({overlap_tokens}) must be less than max_tokens "
