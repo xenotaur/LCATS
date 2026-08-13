@@ -200,6 +200,22 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
         self.assertNotIn("reference_comparison", summary)
         self.assertIn("reference_comparison_error", summary)
 
+    def test_add_reference_comparison_omits_malformed_reference_record(self):
+        summary = {}
+        records = [{"story_id": "a", "detected_genre": "science fiction"}]
+        with tempfile.TemporaryDirectory() as tmp:
+            reference_path = pathlib.Path(tmp) / "census_sample_stories.jsonl"
+            reference_path.write_text(
+                json.dumps({"detected_genre": "science fiction"}) + "\n",
+                encoding="utf-8",
+            )
+
+            with patch("sys.stderr"):
+                run_census._add_reference_comparison(summary, records, reference_path)
+
+        self.assertNotIn("reference_comparison", summary)
+        self.assertIn("reference_comparison_error", summary)
+
     def test_add_reference_comparison_records_valid_reference(self):
         summary = {}
         records = [{"story_id": "a", "detected_genre": "science fiction"}]
