@@ -18,7 +18,8 @@ related_design:
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/project/work_items/proposed/WI-ASSESS-0051.md
   - lcats/project/work_items/proposed/WI-LLM-0066.md
-work_items: []
+work_items:
+  - WI-GENRE-0001
 exit_criteria:
   - Gutenberg metadata cache preflight exists and refuses cache build/download unless explicitly approved
   - experiments/05_metadata_genre_prefilter produces reviewed 40-story pilot manifests with LCATS IDs and metadata-rule assessment evidence
