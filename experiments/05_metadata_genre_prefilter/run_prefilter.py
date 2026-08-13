@@ -225,20 +225,30 @@ def has_supported_subject_schema(con: sqlite3.Connection, tables: set[str]) -> b
     subject_columns = column_names(con, "subjects")
     if has_normalized_subject_schema(tables):
         book_columns = column_names(con, "books") if "books" in tables else set()
-        return {"id", "gutenbergbookid"}.issubset(book_columns) and {
-            "id",
-            "name",
-        }.issubset(subject_columns)
+        join_columns = column_names(con, "book_subjects")
+        return (
+            {"id", "gutenbergbookid"}.issubset(book_columns)
+            and {
+                "id",
+                "name",
+            }.issubset(subject_columns)
+            and {"bookid", "subjectid"}.issubset(join_columns)
+        )
     return has_flat_subject_schema(tables) and {"bookid", "subject"}.issubset(
         subject_columns
     )
 
 
-def read_subjects_from_cache(cache_db: pathlib.Path, book_id: int | None) -> list[str]:
+def read_subjects_from_cache(
+    cache_db: pathlib.Path,
+    book_id: int | None,
+    *,
+    cache_ready: bool,
+) -> list[str]:
     """Read Gutenberg subjects for one ID from an existing cache in read-only mode."""
     if book_id is None:
         return []
-    if not cache_readiness(cache_db)["ready"]:
+    if not cache_ready:
         return []
     with sqlite3.connect(f"file:{cache_db}?mode=ro", uri=True) as con:
         tables = table_names(con)
@@ -464,7 +474,11 @@ def enrich_rows(
     enriched = []
     for row in rows:
         subjects = (
-            read_subjects_from_cache(cache_db, row["gutenberg_id"])
+            read_subjects_from_cache(
+                cache_db,
+                row["gutenberg_id"],
+                cache_ready=cache_status["ready"],
+            )
             if cache_db is not None
             else []
         )

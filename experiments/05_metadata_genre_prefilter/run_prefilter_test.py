@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import unittest.mock
 
 
 _RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_prefilter.py"
@@ -219,7 +220,9 @@ class TestMetadataEvidence(unittest.TestCase):
 
             before = cache_db.stat().st_mtime_ns
             status = run_prefilter.cache_readiness(cache_db)
-            subjects = run_prefilter.read_subjects_from_cache(cache_db, 1661)
+            subjects = run_prefilter.read_subjects_from_cache(
+                cache_db, 1661, cache_ready=status["ready"]
+            )
             after = cache_db.stat().st_mtime_ns
 
             self.assertTrue(status["ready"])
@@ -237,7 +240,7 @@ class TestMetadataEvidence(unittest.TestCase):
 
             self.assertTrue(run_prefilter.cache_readiness(cache_db)["ready"])
             self.assertEqual(
-                run_prefilter.read_subjects_from_cache(cache_db, 84),
+                run_prefilter.read_subjects_from_cache(cache_db, 84, cache_ready=True),
                 ["Gothic fiction", "Horror tales"],
             )
 
@@ -254,6 +257,61 @@ class TestMetadataEvidence(unittest.TestCase):
             self.assertFalse(status["ready"])
             self.assertEqual(status["status"], "missing_tables")
             self.assertIn("supported subjects schema", status["warnings"][0])
+
+    def test_normalized_cache_missing_join_columns_is_not_ready(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
+            cache_db.parent.mkdir()
+            with sqlite3.connect(cache_db) as con:
+                con.execute("CREATE TABLE books (id INTEGER, gutenbergbookid INTEGER)")
+                con.execute("CREATE TABLE subjects (id INTEGER, name TEXT)")
+                con.execute("CREATE TABLE book_subjects (id INTEGER)")
+
+            status = run_prefilter.cache_readiness(cache_db)
+
+            self.assertFalse(status["ready"])
+            self.assertEqual(status["status"], "missing_tables")
+            self.assertEqual(
+                run_prefilter.read_subjects_from_cache(
+                    cache_db, 1661, cache_ready=status["ready"]
+                ),
+                [],
+            )
+
+    def test_enrich_rows_reuses_existing_cache_status(self):
+        rows = [
+            {
+                "story_id": "sherlock/five_orange_pips",
+                "story_path": "sherlock/five_orange_pips/story.json",
+                "gutenberg_id": 1661,
+                "gutenberg_url": "https://www.gutenberg.org/files/1661/1661-h.htm",
+            },
+            {
+                "story_id": "sherlock/speckled_band",
+                "story_path": "sherlock/speckled_band/story.json",
+                "gutenberg_id": 1661,
+                "gutenberg_url": "https://www.gutenberg.org/files/1661/1661-h.htm",
+            },
+        ]
+        cache_status = {
+            "cache_db_path": "/missing/gutenbergindex.db",
+            "status": "missing",
+            "ready": False,
+        }
+
+        with unittest.mock.patch.object(
+            run_prefilter,
+            "cache_readiness",
+            side_effect=AssertionError("cache_readiness should not be called"),
+        ):
+            enriched = run_prefilter.enrich_rows(
+                rows,
+                pathlib.Path("/missing/gutenbergindex.db"),
+                cache_status,
+            )
+
+        self.assertEqual(len(enriched), 2)
+        self.assertEqual(enriched[0]["gutenberg_subjects"], [])
 
     def test_rule_extraction_records_all_matches_and_normalizes(self):
         subjects = [
