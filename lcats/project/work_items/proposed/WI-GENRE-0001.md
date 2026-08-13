@@ -39,10 +39,10 @@ forbidden_actions:
   - implement_40_story_metadata_pilot
 acceptance:
   - experiments/05_metadata_genre_prefilter/ exists with a documented dry-run scaffold for LCATS story discovery, Gutenberg ID parsing, cache readiness reporting, and manifest/summary output
-  - The scaffold refuses to build, download, refresh, or mutate the Gutenberg metadata cache unless a future explicitly-approved mode is added; default behavior is no-network and read-only
+  - The scaffold refuses to build, download, refresh, import a mutating cache module, or otherwise mutate the Gutenberg metadata cache unless a future explicitly-approved mode is added; default behavior is no-network and read-only
   - Dry-run output uses LCATS story identity as primary and records Gutenberg ID only as provenance/diagnostic data
   - The scaffold reports cache availability, cache path, missing-cache behavior, parse failures, repeated Gutenberg ID distribution, and story discovery counts without writing to data/ or corpora/
-  - Unit tests cover cache-missing/read-only behavior, LCATS identity construction, Gutenberg URL/ID parsing, and dry-run manifest shape without real network, model, or cache-building work
+  - Unit tests cover cache-missing/read-only behavior, LCATS identity construction, Gutenberg URL/ID parsing, dry-run manifest shape, and protection against cache-directory creation without real network, model, or cache-building work
   - experiments/README.md registers experiment 05
   - scripts/test passes with no new failures
   - lrh validate reports 0 errors
@@ -80,10 +80,14 @@ cache outside this worktree, and the runner must report missing cache state
 rather than silently downloading or rebuilding it.
 
 The existing Gutenberg cache helper has useful read-only readiness logic in
-`lcats/src/lcats/gettenberg/cache.py`, but `ensure_gutenberg_cache()` can
-auto-create the cache when missing. This work item should use/readiness-check
-cache state carefully and must not invoke any code path that builds, refreshes,
-downloads, or writes the cache by default.
+`lcats/src/lcats/gettenberg/cache.py`, but that module creates cache
+directories at import time and `ensure_gutenberg_cache()` can auto-create the
+cache when missing. This work item should use a side-effect-free readiness path
+for the default dry-run preflight, such as checking the configured cache path
+without importing `lcats.gettenberg.cache` or first refactoring the path/ready
+helpers into a non-mutating module. It must not invoke any code path that
+builds, refreshes, downloads, creates cache directories, or writes the cache by
+default.
 
 ### Duplication search
 
@@ -116,8 +120,8 @@ downloads, or writes the cache by default.
   story IDs from bucket-relative paths.
 - Parse Gutenberg IDs from story metadata/URLs for provenance and repeated-ID
   diagnostics.
-- Report Gutenberg metadata cache readiness using read-only checks and explicit
-  cache path reporting.
+- Report Gutenberg metadata cache readiness using side-effect-free checks and
+  explicit cache path reporting.
 - Write experiment-local dry-run artifacts only under
   `experiments/05_metadata_genre_prefilter/results/`.
 
@@ -129,11 +133,15 @@ downloads, or writes the cache by default.
    - Produce JSONL manifest rows keyed by LCATS story ID.
    - Include Gutenberg ID as provenance when parseable.
    - Include cache readiness fields, cache path, cache status, and warnings.
+   - Do not import `lcats.gettenberg.cache` on the default dry-run preflight
+     path unless that module has first been made import-side-effect-free.
    - Report repeated Gutenberg ID distribution as diagnostics only, not
      identity.
 2. Create `experiments/05_metadata_genre_prefilter/run_prefilter_test.py`.
    - Use temp fixtures and fake/cache-missing paths.
    - Assert no network/cache-build path is required.
+   - Assert cache-missing dry runs do not create cache root, `texts/`, `tmp/`,
+     index DB, RDF archive, or other cache artifacts.
    - Cover LCATS ID derivation, Gutenberg ID parsing, manifest row shape, and
      summary shape.
 3. Create `experiments/05_metadata_genre_prefilter/README.md`.
@@ -161,7 +169,8 @@ downloads, or writes the cache by default.
   experiment-local manifest/summary files, and leaves `data/`, `corpora/`, and
   cache files untouched.
 - Missing or unavailable Gutenberg cache is reported as a non-fatal readiness
-  state, not repaired automatically.
+  state, not repaired automatically, and not materialized merely by importing
+  the preflight code.
 - Manifest rows use LCATS story identity as primary and Gutenberg ID only as
   provenance.
 - Summary output includes story counts, cache readiness, parse-failure counts,
@@ -176,14 +185,16 @@ downloads, or writes the cache by default.
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `python experiments/05_metadata_genre_prefilter/run_prefilter.py --dry-run --output /tmp/lcats-metadata-genre-prefilter-smoke`
+- `python experiments/05_metadata_genre_prefilter/run_prefilter.py --dry-run --output experiments/05_metadata_genre_prefilter/results/smoke`
 
 ## Risk Notes
 
-- Accidentally calling `ensure_gutenberg_cache()` could trigger cache
-  creation/download because the current cache module has auto-create behavior.
-  The implementation should prefer read-only readiness checks and explicit
-  cache-path handling.
+- Accidentally importing `lcats.gettenberg.cache` can create cache directories,
+  and calling `ensure_gutenberg_cache()` can trigger cache creation/download
+  because the current cache module has auto-create behavior. The implementation
+  should use side-effect-free cache-path handling for preflight, or first
+  refactor the cache helpers so importing readiness code does not mutate the
+  filesystem.
 - Gutenberg IDs are collection-volume provenance, not story identity. The
   scaffold should report repeated IDs without using them as LCATS story IDs.
 - This item intentionally stops before metadata-rule assessment generation so
