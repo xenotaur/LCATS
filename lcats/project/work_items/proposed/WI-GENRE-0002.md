@@ -42,15 +42,16 @@ forbidden_actions:
   - run_full_corpus_metadata_labeling
   - implement_100_200_story_sample
 acceptance:
-  - experiments/05_metadata_genre_prefilter/run_prefilter.py can read subjects from an explicitly supplied existing Gutenberg metadata SQLite cache in read-only mode and still refuses to build, download, refresh, or repair the cache by default
-  - Metadata genre assessment output uses LCATS story ID as primary identity, Gutenberg ID as provenance, scope "gutenberg_volume", generated_at timestamps, pipeline/method/version provenance, raw subjects, raw rule matches, normalized target_candidates, secondary_signals, and result fields
-  - Rule handling records all matching lcats.utils.genre signals instead of only the first classify_exclusive match, and normalizes direct target labels to the 8 LCATS genres while retaining non-target labels such as Crime, Sea, Historical, War, and Children / juvenile as evidence
-  - The runner writes experiment-local candidates.jsonl, pilot_40_manifest.jsonl, and summary.json under the requested output directory, never under data/ or corpora/
-  - Pilot selection is deterministic and targets roughly 10 stories each from Lovecraft, Sherlock, O. Henry collections, and mass_quantities, reporting shortfalls, repeated Gutenberg ID distribution, and any optional Gutenberg-ID cap behavior without treating Gutenberg ID as story identity
-  - Unit tests cover read-only metadata-cache access, cache-missing behavior, all-match rule extraction, 8-genre normalization, assessment record shape, pilot selection determinism, and protected output paths without real network/model/cache-building work
+  - run_prefilter.py can read Gutenberg subjects from an explicitly supplied existing SQLite cache in read-only mode and continues to report missing cache as a non-fatal readiness state
+  - Metadata rows include an assessment-shaped metadata evidence object with LCATS story identity, Gutenberg provenance, scope "gutenberg_volume", timestamp, method/version, raw subjects, raw rule matches, normalized target candidates, secondary signals, and result fields
+  - Rule extraction records all matching metadata labels, not only the first exclusive match
+  - Normalization maps direct target labels to the 8 LCATS genres and retains non-target evidence separately
+  - The runner writes candidates.jsonl, pilot_40_manifest.jsonl, and summary.json only under the experiment output directory
+  - Pilot selection is deterministic and reports the target collection-group counts, shortfalls, repeated Gutenberg IDs, and cap behavior if a cap is used
+  - Tests cover the cache, rule, normalization, assessment-shape, sampling, and no-mutation guarantees
   - README documents cache sync expectations, metadata-rule evidence fields, pilot outputs, and the current boundary before permanent genre.json sidecars
   - scripts/test passes with no new failures
-  - lrh validate reports 0 errors
+  - lrh validate reports 0 errors when run from lcats/
 required_evidence:
   - test_output
   - lrh_validate
@@ -163,9 +164,17 @@ Extend `experiments/05_metadata_genre_prefilter` from a dry-run discovery scaffo
 - `scripts/format --check --diff`
 - `scripts/lint`
 - `scripts/test`
-- `lrh validate`
+- `cd lcats && lrh validate`
 - `python experiments/05_metadata_genre_prefilter/run_prefilter.py --dry-run --output experiments/05_metadata_genre_prefilter/results/smoke`
 - `python experiments/05_metadata_genre_prefilter/run_prefilter.py --dry-run --cache-db /path/to/existing/gutenbergindex.db --output experiments/05_metadata_genre_prefilter/results/pilot_40`
+
+Readiness check after authoring:
+
+- `cd lcats && lrh work-items readiness WI-GENRE-0002 --format md`
+
+The readiness command should report `prompt_ready: yes` and no readiness
+warnings. This is distinct from `lrh validate`, which may report existing
+repository warnings unrelated to this work item.
 
 ## Risk Notes
 
