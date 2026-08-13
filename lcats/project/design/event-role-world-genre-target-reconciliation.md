@@ -179,7 +179,21 @@ classifier will draw them.
 
 ## Gaps and follow-up plan
 
-### Gap 1 — `VALID_GENRES` must grow from 4 to 8
+**Status (updated 2026-08-13):** Gap 1 is resolved. Gap 2's tooling has
+landed and a real cost estimate has been measured, but the full survey
+itself is deferred pending a cost-free local-model pilot rather than run
+immediately. Gap 3's dependency on Gap 2 is now wired at the work-item
+level, but its content re-scope remains deliberately deferred until Gap 2
+produces real per-genre counts. See each gap's own status note below for
+specifics and the governing work items.
+
+### Gap 1 — `VALID_GENRES` must grow from 4 to 8 — **resolved**
+
+**Status:** Landed via `WI-ASSESS-0031` (`status: resolved`), PR #224,
+merged 2026-08-06. The plan below is kept as-written for historical
+record of what was actually required; it was implemented in full,
+including the open primary/secondary genre-tag field (`secondary_genre`
+on `AssessmentResult`).
 
 `assess.py` needs:
 - `VALID_GENRES` extended to `("science fiction", "horror", "humor",
@@ -212,7 +226,20 @@ classifier will draw them.
   before the Gap 2 survey runs, or the survey itself will silently discard
   the non-priority genre data it's meant to capture.
 
-### Gap 2 — corpus representation needs a current-classifier survey, not just the 2025-10 one
+### Gap 2 — corpus representation needs a current-classifier survey, not just the 2025-10 one — **tooling landed, full survey deferred**
+
+**Status:** `WI-ASSESS-0051` (`status: proposed`) built the census tooling
+(`experiments/04_genre_census/run_census.py`, PR #251) and ran a real
+`--sample-size 20` cost estimate: $4.66 for 20 stories, extrapolating to
+~$435/~4.2 hours for the full ~1,868-story corpus (results committed in
+PR #292). Along the way, a real data-quality defect was found and fixed:
+`ASSESSMENT_TOOL`'s `secondary_genre` field was corrupted (leaked
+tool-call-syntax fragments) in 39% of calls across two independent real
+runs — `detected_genre` itself, the field this survey actually reports,
+was unaffected in both — see `WI-LLM-0058` (`status: resolved`). Rather
+than spend the ~$435 immediately, a cost-free local-model (`gpt-oss:20b`)
+pilot is being scoped/run first as an alternative — see `WI-LLM-0066`
+(`status: proposed`). The `--full` survey itself has not run.
 
 Before sizing any real annotation work, run `lcats assess` **without**
 `--genre` (once extended to 8 genres) — omitting `--genre` is what puts
@@ -233,7 +260,17 @@ sourcing/ingestion (a new gatherer, similar to the existing
 per-author ones) is the likely remedy, scoped as its own follow-up rather
 than folded into the survey work item.
 
-### Gap 3 — Event-Role-World annotation coverage: only a 4-story pilot exists, for 4 of the 8 genres
+### Gap 3 — Event-Role-World annotation coverage: only a 4-story pilot exists, for 4 of the 8 genres — **dependency wired, content re-scope still deferred**
+
+**Status:** `WI-EVENT-0030`'s `depends_on` now lists `WI-ASSESS-0051`
+(PR #246, merged 2026-08-13), so an executor following the work item's
+own frontmatter discovers this prerequisite rather than relying on prose
+alone. The actual content re-scope (Scope/Summary/Required Changes/
+Acceptance Criteria, still describing the original 4-genre pilot) remains
+deliberately unwritten — correctly so, per this section's own reasoning
+below: Gap 2 hasn't produced real per-genre counts yet, and guessing at
+strata/sample-size numbers now would repeat the exact mistake this
+reconciliation effort exists to avoid.
 
 Full-pipeline (stages 2-9) annotation has been run on essentially nothing
 at corpus scale:
@@ -247,6 +284,8 @@ resolved genres before any genre-comparison claim is publishable. Concrete
 follow-up:
 
 **Follow-up work item A — corpus-wide current-classifier genre survey.**
+**Now `WI-ASSESS-0051`** — see the Gap 2 status note above; the sketch
+below is kept for historical record of the original scoping.
 Run `lcats assess` **without** `--genre` (post-Gap-1) across the full
 corpus (~1,868 stories) — detect mode, not lens mode, since no curation/
 lens decisions are needed, just `detected_genre` + confidence. Cost
@@ -259,7 +298,9 @@ committing to the full run, per the existing cost/baseline
 reporting pattern already used elsewhere in this workstream.
 
 **Follow-up work item B — re-scope WI-EVENT-0030's stratified pilot to 8
-genres.** Extend the already-landed `run_pilot.py` tooling's genre list
+genres.** This is `WI-EVENT-0030` itself (not a separate new item) — see
+the Gap 3 status note above; the sketch below is kept for historical
+record of the original scoping. Extend the already-landed `run_pilot.py` tooling's genre list
 from 4 to 8 (mechanical, since it already parameterizes on
 `lcats assess --genre`'s supported set), then actually execute the
 5-10-stories-per-genre run the work item describes — 40-80 stories total

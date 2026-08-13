@@ -614,23 +614,37 @@ follow-on robustness gap (an unguarded `resolve()` call that could have
 crashed the fallback itself) — see the new backlog entry above on
 unguarded `.resolve()` calls elsewhere in the codebase.
 
-### ~~`VALID_GENRES` still has 4 genres, not the reconciled 8~~ — **fixed, [PR #224](https://github.com/xenotaur/LCATS/pull/224), merged 2026-08-06** — two related gaps remain, P3, needs cost estimate first
+### ~~`VALID_GENRES` still has 4 genres, not the reconciled 8~~ — **fixed, [PR #224](https://github.com/xenotaur/LCATS/pull/224), merged 2026-08-06** — both related gaps now have work items, in progress
 
 Resolved: `VALID_GENRES` now has all 8 reconciled genres (science fiction,
 horror, humor, western, romance, mystery, fantasy, adventure), via
-`WI-ASSESS-0031` (`status: resolved`). Two related gaps from the same
-reconciliation genuinely still have no work item:
+`WI-ASSESS-0031` (`status: resolved`). The two related gaps flagged here
+now both have work items, tooling landed, real cost estimates measured -
+neither is fully executed yet:
 
 - **Current-classifier full-corpus survey** under the 8-genre scheme —
-  needed before sizing any stratified annotation pilot; do not reuse the
-  2025-10 `experiments/01_classify_corpora` counts, they're a different,
-  older classifier's output.
+  `WI-ASSESS-0051` (`status: proposed`). Census tooling (`experiments/
+  04_genre_census/run_census.py`) landed, PR #251. A real `--sample-size 20`
+  run measured $4.66 for 20 stories, extrapolating to ~$435/~4.2 hours for
+  the full corpus (`experiments/04_genre_census/results/`, PR #292) - the
+  `--full` run itself is deliberately deferred pending a cost-free
+  local-model (`gpt-oss:20b`) pilot, `WI-LLM-0066` (`status: proposed`,
+  in progress in a separate session as of 2026-08-13), rather than run
+  immediately. Along the way, a real data-quality defect was found and
+  fixed: `WI-LLM-0058` (`status: resolved`) - `ASSESSMENT_TOOL`'s
+  `secondary_genre` field was corrupted (leaked tool-call-syntax
+  fragments) in 39% of calls across two independent real runs;
+  `detected_genre` itself was unaffected in both.
 - **Re-scoping `WI-EVENT-0030`'s stratified pilot** for 8 genres instead of
-  4 — depends on both `WI-ASSESS-0031` and the corpus survey above.
+  4 — `WI-EVENT-0030`'s `depends_on` now lists `WI-ASSESS-0051` (PR #246,
+  merged 2026-08-13), wiring the dependency at the frontmatter level so an
+  executor can't miss it. The actual content re-scope (Scope/Summary/
+  Required Changes/Acceptance Criteria) remains deliberately deferred -
+  those sections still describe the original 4-genre pilot until
+  `WI-ASSESS-0051` produces real per-genre counts to re-scope against.
 
-Both carry real API cost and should get cost estimates before being scoped
-as work items, per `project/design/event-role-world-genre-target-reconciliation.md`'s
-own recommendation.
+See `project/design/event-role-world-genre-target-reconciliation.md`'s
+Gap 1/2/3 sections for the full picture.
 
 ### `lrh request review-response` (and the skills that call it) don't reliably surface every reviewer finding — P1, real and recurring
 
