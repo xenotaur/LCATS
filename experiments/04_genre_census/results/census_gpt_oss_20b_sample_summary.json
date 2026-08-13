@@ -1,0 +1,62 @@
+{
+  "backend": "openai",
+  "base_url": "http://localhost:11434/v1",
+  "billed_call_count": 0,
+  "corpus_story_count": 1868,
+  "dry_run": false,
+  "excluded_by_collection": {},
+  "excluded_count": 0,
+  "excluded_stories": [],
+  "exclusion_rate": 0.0,
+  "extrapolated_full_corpus_cost_usd": 0.0,
+  "extrapolated_full_corpus_wall_clock_seconds": 74861.2284159407,
+  "genre_counts": {
+    "adventure": 0,
+    "fantasy": 1,
+    "horror": 1,
+    "humor": 1,
+    "mystery": 0,
+    "other": 2,
+    "romance": 0,
+    "science fiction": 14,
+    "science_fiction": 1,
+    "western": 0
+  },
+  "included_count": 20,
+  "local_call_count": 20,
+  "local_endpoint": true,
+  "mode": "sample",
+  "model": "gpt-oss:20b",
+  "reference_comparison": {
+    "candidate_story_count": 20,
+    "common_story_count": 20,
+    "detected_genre_disagreements": [
+      {
+        "candidate_detected_genre": "science_fiction",
+        "reference_detected_genre": "science fiction",
+        "story_id": "mass_quantities__mother_america__mcclatchie"
+      },
+      {
+        "candidate_detected_genre": "science fiction",
+        "reference_detected_genre": "humor",
+        "story_id": "mass_quantities__the_princess_and_the_physicist__smith"
+      },
+      {
+        "candidate_detected_genre": "other",
+        "reference_detected_genre": "humor",
+        "story_id": "mass_quantities__una_of_the_hill_country_1911__craddock"
+      }
+    ],
+    "detected_genre_exact_matches": 17,
+    "extra_in_candidate": [],
+    "missing_from_candidate": [],
+    "reference_story_count": 20
+  },
+  "reference_comparison_path": "experiments/04_genre_census/results/census_sample_stories.jsonl",
+  "secondary_genre_sanitized_count": 0,
+  "story_count": 20,
+  "total_elapsed_seconds": 801.512081541121,
+  "total_estimated_cost_usd": 0.0,
+  "total_input_tokens": 171358,
+  "total_output_tokens": 12263
+}

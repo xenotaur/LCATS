@@ -45,6 +45,42 @@ benefits from the fix automatically.
 smaller genres (western, romance, mystery, adventure — all 0/20 here) are
 adequately represented; that needs the full census, not a 20-story sample.
 
+## Local gpt-oss:20b Sample (2026-08-13)
+
+Sample: the same 20 story IDs as the Claude sample above (`--sample-size 20
+--seed 42`), `--backend openai --base-url http://localhost:11434/v1 --model
+gpt-oss:20b`, served by local Ollama. Results are committed as
+`results/census_gpt_oss_20b_sample_stories.jsonl` and
+`results/census_gpt_oss_20b_sample_summary.json`.
+
+Measured API cost: **$0.00**. Wall clock: **801.5s** for 20 stories
+(~40.1s/story), projecting to **~74,861s / 1,247.7 minutes / 20.8 hours**
+for the full 1,868-story corpus on this machine. That is much slower than
+the Claude sample's 161s wall clock, but removes API spend entirely.
+
+Agreement against the Claude sample was **17/20 exact `detected_genre`
+matches**. One disagreement is a schema-spelling defect
+(`science_fiction` instead of `science fiction`) on
+`mass_quantities__mother_america__mcclatchie`; semantically normalizing that
+single underscore form would make the comparison 18/20. The two substantive
+disagreements are:
+
+| Story | Claude | gpt-oss:20b |
+|---|---|---|
+| `mass_quantities__the_princess_and_the_physicist__smith` | humor | science fiction |
+| `mass_quantities__una_of_the_hill_country_1911__craddock` | humor | other |
+
+No stories were excluded, and no `secondary_genre` corruption was observed.
+The genre distribution remains close to the Claude sample's heavily
+science-fiction-skewed shape, but `gpt-oss:20b` under-counted humor in this
+small sample.
+
+**Recommendation:** go for a full local genre census if a roughly one-day
+local run is acceptable and zero API spend is the priority. Treat it as a
+cost-free first-pass census, not final ground truth: before relying on the
+counts, add or apply a small detected-genre normalization/validation pass for
+schema spelling drift and review the humor disagreements.
+
 ## Purpose
 
 `project/design/event-role-world-genre-target-reconciliation.md`'s "Gap 2"
@@ -113,6 +149,17 @@ python experiments/04_genre_census/run_census.py --sample-size 20
 python experiments/04_genre_census/run_census.py --full
 ```
 
+For a local OpenAI-compatible endpoint such as Ollama, keep the backend
+explicitly opt-in:
+
+```bash
+python experiments/04_genre_census/run_census.py \
+  --sample-size 20 \
+  --backend openai \
+  --base-url http://localhost:11434/v1 \
+  --model gpt-oss:20b
+```
+
 Full flag reference is documented in `run_census.py`'s module docstring
 (`python experiments/04_genre_census/run_census.py --help`). Key flags:
 
@@ -124,6 +171,7 @@ Full flag reference is documented in `run_census.py`'s module docstring
 | `--seed` | 42 | Sample-selection shuffle seed (reproducibility) |
 | `--backend` | `anthropic` | `anthropic` or `openai` |
 | `--model` | provider default (`claude-opus-4-8`) | Model string |
+| `--base-url` | none | Optional OpenAI-compatible endpoint override for `--backend openai`, such as Ollama's `http://localhost:11434/v1`; localhost/loopback endpoint calls report `$0` API cost |
 | `--output` | `experiments/04_genre_census/results` | Results/checkpoint directory |
 | `--dry-run` | off | Zero-cost smoke test using a `FakeBackend`. Must be paired with `--sample-size` or `--full` |
 
@@ -132,10 +180,12 @@ Full flag reference is documented in `run_census.py`'s module docstring
 Every story's genre-census classification is checkpointed independently
 under `--output` (stage `"genre_census"`, via `lcats.utils.checkpoint`),
 keyed by a collection-qualified story identity and a fingerprint of
-model/backend/classifier-version plus a hash of that story's own raw text
-— so a story corrected in place invalidates its own cached classification,
-and a classifier prompt/schema change (bump `_CLASSIFIER_VERSION` in
-`run_census.py`) invalidates every cached classification at once.
+model/backend/base-url/classifier-version plus a hash of that story's own
+raw text — so a story corrected in place invalidates its own cached
+classification, switching between remote OpenAI and a local endpoint cannot
+reuse the wrong checkpoint, and a classifier prompt/schema change (bump
+`_CLASSIFIER_VERSION` in `run_census.py`) invalidates every cached
+classification at once.
 
 This means:
 
@@ -190,6 +240,12 @@ trusting a cost estimate derived from it for a real budgeting decision.
   cost/latency totals. The sample summary additionally includes
   `extrapolated_full_corpus_cost_usd` and
   `extrapolated_full_corpus_wall_clock_seconds`.
+- Local endpoint sample runs use candidate-scoped names, such as
+  `results/census_gpt_oss_20b_sample_stories.jsonl` and
+  `results/census_gpt_oss_20b_sample_summary.json`, so they do not
+  overwrite the historical Claude sample. When the historical
+  `census_sample_stories.jsonl` file is present, local sample summaries also
+  include a story-by-story `detected_genre` comparison against it.
 
 ## Expected Results Format
 
