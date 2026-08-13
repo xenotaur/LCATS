@@ -46,6 +46,12 @@ the primary execution record had trailing whitespace after a blank
 `rerun_of:` field, causing `git diff --check origin/main...HEAD` to fail.
 That whitespace was removed before merge readiness was re-evaluated.
 
+A second substitute self-review pass on commit
+`30060211447d12974ed9c10af5d1dacdaef7d892` surfaced one lifecycle wording
+finding: the primary execution record said `PROP-LCATS-PILOT-IMPROVEMENTS`
+"landed" even though that proposal remains proposed. The wording was changed
+to "was captured" to avoid implying adoption.
+
 # Validation
 
 - `python -c "import lcats; print(lcats.__file__)"`: confirmed editable
@@ -59,7 +65,8 @@ That whitespace was removed before merge readiness was re-evaluated.
 - `lrh validate`: 0 errors, 139 existing warnings.
 - Provisional CI before this record commit: lint passed; coverage/tests were
   pending on the latest pushed head.
-- Substitute self-review: one whitespace finding surfaced and fixed.
+- Substitute self-review: one whitespace finding and one lifecycle-wording
+  finding surfaced and fixed.
 
 # Follow-up
 

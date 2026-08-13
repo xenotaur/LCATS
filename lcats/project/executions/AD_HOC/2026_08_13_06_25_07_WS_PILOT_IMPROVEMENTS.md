@@ -15,7 +15,7 @@ created_at: 2026-08-13T06:25:07+00:00
 # Summary
 
 Create the `WS-PILOT-IMPROVEMENTS` planning node requested after
-`PROP-LCATS-PILOT-IMPROVEMENTS` landed. The workstream scopes follow-on ERW
+`PROP-LCATS-PILOT-IMPROVEMENTS` was captured. The workstream scopes follow-on ERW
 pilot improvements behind an explicit pilot API/output stability gate, then
 coordinates measured prompt-caching adoption, genre/segmentation model-tiering
 adoption, opt-in Batch API design and validation, and user-facing run
