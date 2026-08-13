@@ -3,6 +3,7 @@
   "base_url": "http://localhost:11434/v1",
   "billed_call_count": 0,
   "corpus_story_count": 1868,
+  "detected_genre_normalized_count": 1,
   "dry_run": false,
   "excluded_by_collection": {},
   "excluded_count": 0,
@@ -18,8 +19,7 @@
     "mystery": 0,
     "other": 2,
     "romance": 0,
-    "science fiction": 14,
-    "science_fiction": 1,
+    "science fiction": 15,
     "western": 0
   },
   "included_count": 20,
@@ -32,11 +32,6 @@
     "common_story_count": 20,
     "detected_genre_disagreements": [
       {
-        "candidate_detected_genre": "science_fiction",
-        "reference_detected_genre": "science fiction",
-        "story_id": "mass_quantities__mother_america__mcclatchie"
-      },
-      {
         "candidate_detected_genre": "science fiction",
         "reference_detected_genre": "humor",
         "story_id": "mass_quantities__the_princess_and_the_physicist__smith"
@@ -47,7 +42,7 @@
         "story_id": "mass_quantities__una_of_the_hill_country_1911__craddock"
       }
     ],
-    "detected_genre_exact_matches": 17,
+    "detected_genre_exact_matches": 18,
     "extra_in_candidate": [],
     "missing_from_candidate": [],
     "reference_story_count": 20

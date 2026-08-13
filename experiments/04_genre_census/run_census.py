@@ -149,6 +149,9 @@ _PRICING_USD_PER_MILLION_TOKENS: Dict[str, Tuple[float, float]] = {
 # above, so an unrecognized model never silently understates the cost
 # estimate.
 _DEFAULT_PRICING_USD_PER_MILLION_TOKENS: Tuple[float, float] = (15.0, 75.0)
+_DETECTED_GENRE_ALIASES = {
+    genre.replace(" ", "_"): genre for genre in corpus_assess.VALID_GENRES
+}
 
 
 class FatalCensusError(RuntimeError):
@@ -182,6 +185,29 @@ def _estimate_cost_usd(
     return (input_tokens / 1_000_000) * input_price + (
         output_tokens / 1_000_000
     ) * output_price
+
+
+def _canonical_detected_genre(value: Any) -> Tuple[str, bool, str]:
+    raw = str(value or "other").strip().lower()
+    if raw in corpus_assess.VALID_GENRES or raw == "other":
+        return raw, False, raw
+    if raw in _DETECTED_GENRE_ALIASES:
+        return _DETECTED_GENRE_ALIASES[raw], True, raw
+    return "other", True, raw
+
+
+def _normalize_record_detected_genre(record: Dict[str, Any]) -> Dict[str, Any]:
+    normalized, changed, raw = _canonical_detected_genre(
+        record.get("detected_genre", "other")
+    )
+    record["detected_genre"] = normalized
+    if changed:
+        record["detected_genre_raw"] = raw
+        record["detected_genre_normalized"] = True
+    else:
+        record.pop("detected_genre_raw", None)
+        record.pop("detected_genre_normalized", None)
+    return record
 
 
 def _story_identity(path: pathlib.Path) -> str:
@@ -263,8 +289,12 @@ def _compare_detected_genres(
     disagreements = []
     exact_matches = 0
     for story_id in common_story_ids:
-        detected_genre = by_story[story_id].get("detected_genre", "other")
-        reference_genre = reference_by_story[story_id].get("detected_genre", "other")
+        detected_genre = _canonical_detected_genre(
+            by_story[story_id].get("detected_genre", "other")
+        )[0]
+        reference_genre = _canonical_detected_genre(
+            reference_by_story[story_id].get("detected_genre", "other")
+        )[0]
         if detected_genre == reference_genre:
             exact_matches += 1
         else:
@@ -474,7 +504,7 @@ def _classify_story(
     if cached.done and _is_valid_cache_payload(cached.data):
         record = dict(cached.data)
         record["from_cache"] = True
-        return record
+        return _normalize_record_detected_genre(record)
 
     start = time.perf_counter()
     result = corpus_assess.assess_story(path, genre="", backend=backend, model=model)
@@ -504,6 +534,7 @@ def _classify_story(
         "backend_model": result.backend_model or model,
         "from_cache": False,
     }
+    _normalize_record_detected_genre(record)
     checkpoint.write_checkpoint(
         roots.working_root,
         item_id,
@@ -530,6 +561,7 @@ def summarize(
     total_elapsed = 0.0
     billed_count = 0
     secondary_genre_sanitized_count = 0
+    detected_genre_normalized_count = 0
 
     for record in records:
         total_cost += record.get("estimated_cost_usd", 0.0)
@@ -544,10 +576,15 @@ def summarize(
         # a genuine "no secondary genre applies" "", indistinguishable.
         if record.get("secondary_genre_sanitized"):
             secondary_genre_sanitized_count += 1
+        detected_genre = _canonical_detected_genre(
+            record.get("detected_genre", "other")
+        )
+        if record.get("detected_genre_normalized") or detected_genre[1]:
+            detected_genre_normalized_count += 1
         if record.get("error"):
             excluded.append({"story_id": record["story_id"], "reason": record["error"]})
             continue
-        genre_counts[record.get("detected_genre", "other")] += 1
+        genre_counts[detected_genre[0]] += 1
 
     for genre in corpus_assess.VALID_GENRES:
         genre_counts.setdefault(genre, 0)
@@ -574,6 +611,7 @@ def summarize(
         "excluded_stories": excluded,
         "excluded_by_collection": dict(excluded_by_collection),
         "secondary_genre_sanitized_count": secondary_genre_sanitized_count,
+        "detected_genre_normalized_count": detected_genre_normalized_count,
         "genre_counts": dict(genre_counts),
         "total_estimated_cost_usd": total_cost,
         "total_input_tokens": total_input_tokens,
@@ -797,6 +835,11 @@ def main() -> int:
         print(
             f"secondary_genre sanitized (corrupted tool-call output "
             f"repaired, WI-LLM-0058): {summary['secondary_genre_sanitized_count']}"
+        )
+    if summary["detected_genre_normalized_count"]:
+        print(
+            f"detected_genre normalized (non-canonical model output "
+            f"repaired): {summary['detected_genre_normalized_count']}"
         )
     if local_endpoint:
         print(

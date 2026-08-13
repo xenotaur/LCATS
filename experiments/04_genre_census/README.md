@@ -59,11 +59,10 @@ Measured API cost: **$0.00**. Wall clock: **801.5s** for 20 stories
 for the full 1,868-story corpus on this machine. That is much slower than
 the Claude sample's 161s wall clock, but removes API spend entirely.
 
-Agreement against the Claude sample was **17/20 exact `detected_genre`
-matches**. One disagreement is a schema-spelling defect
-(`science_fiction` instead of `science fiction`) on
-`mass_quantities__mother_america__mcclatchie`; semantically normalizing that
-single underscore form would make the comparison 18/20. The two substantive
+Agreement against the Claude sample was **18/20 exact `detected_genre`
+matches** after normalizing one non-canonical model output
+(`science_fiction` to `science fiction`) on
+`mass_quantities__mother_america__mcclatchie`. The two substantive
 disagreements are:
 
 | Story | Claude | gpt-oss:20b |
@@ -78,9 +77,8 @@ small sample.
 
 **Recommendation:** go for a full local genre census if a roughly one-day
 local run is acceptable and zero API spend is the priority. Treat it as a
-cost-free first-pass census, not final ground truth: before relying on the
-counts, add or apply a small detected-genre normalization/validation pass for
-schema spelling drift and review the humor disagreements.
+cost-free first-pass census, not final ground truth: review the humor
+disagreements before relying on the counts.
 
 ## Purpose
 
@@ -249,6 +247,10 @@ trusting a cost estimate derived from it for a real budgeting decision.
   run. When the historical
   `census_sample_stories.jsonl` file is present, local sample summaries also
   include a story-by-story `detected_genre` comparison against it.
+- Detected genres are normalized to the canonical genre labels before records
+  and summary counts are written. Runs report
+  `detected_genre_normalized_count`; normalized story records preserve the
+  raw model value in `detected_genre_raw`.
 
 ## Expected Results Format
 

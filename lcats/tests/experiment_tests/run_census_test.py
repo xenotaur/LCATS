@@ -120,6 +120,35 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
 
         self.assertEqual(run_census._fresh_metered_call_count(records), 1)
 
+    def test_normalize_detected_genre_alias_preserves_raw_value(self):
+        record = {"detected_genre": "science_fiction"}
+
+        normalized = run_census._normalize_record_detected_genre(record)
+
+        self.assertIs(normalized, record)
+        self.assertEqual(record["detected_genre"], "science fiction")
+        self.assertEqual(record["detected_genre_raw"], "science_fiction")
+        self.assertTrue(record["detected_genre_normalized"])
+
+    def test_summarize_counts_detected_genre_aliases_as_canonical(self):
+        summary = run_census.summarize(
+            [
+                {
+                    "story_id": "a",
+                    "detected_genre": "science_fiction",
+                    "detected_genre_normalized": True,
+                    "input_tokens": 1,
+                    "output_tokens": 1,
+                    "estimated_cost_usd": 0.0,
+                    "elapsed_seconds": 0.0,
+                }
+            ]
+        )
+
+        self.assertEqual(summary["genre_counts"]["science fiction"], 1)
+        self.assertNotIn("science_fiction", summary["genre_counts"])
+        self.assertEqual(summary["detected_genre_normalized_count"], 1)
+
     def test_compare_detected_genres_reports_disagreements_by_story(self):
         candidate = [
             {"story_id": "a", "detected_genre": "science fiction"},
@@ -148,6 +177,15 @@ class TestRunCensusLocalEndpoint(unittest.TestCase):
                 }
             ],
         )
+
+    def test_compare_detected_genres_normalizes_aliases(self):
+        comparison = run_census._compare_detected_genres(
+            [{"story_id": "a", "detected_genre": "science_fiction"}],
+            [{"story_id": "a", "detected_genre": "science fiction"}],
+        )
+
+        self.assertEqual(comparison["detected_genre_exact_matches"], 1)
+        self.assertEqual(comparison["detected_genre_disagreements"], [])
 
     def test_add_reference_comparison_omits_malformed_reference(self):
         summary = {}
