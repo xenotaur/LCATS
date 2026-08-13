@@ -135,6 +135,20 @@ class TestChunking(unittest.TestCase):
                 self.text, max_tokens=10, overlap_tokens=10, model_name=self.model
             )
 
+    def test_chunk_story_max_tokens_zero_raises(self):
+        """Test max_tokens=0 raises instead of looping forever."""
+        with self.assertRaises(ValueError):
+            chunking.chunk_story(
+                self.text, max_tokens=0, overlap_tokens=0, model_name=self.model
+            )
+
+    def test_chunk_story_max_tokens_negative_raises(self):
+        """Test a negative max_tokens raises instead of looping forever."""
+        with self.assertRaises(ValueError):
+            chunking.chunk_story(
+                self.text, max_tokens=-5, overlap_tokens=0, model_name=self.model
+            )
+
     def test_summarize_chunks_format(self):
         """Test summarize_chunks returns a string with chunk headers."""
         chunks = chunking.chunk_story(self.text, max_tokens=30, model_name=self.model)

@@ -40,6 +40,8 @@ def chunk_story(
     - end_token_limit: if set, truncate to this many tokens total
     - max_chunks: if set, return at most this many chunks
     """
+    if max_tokens <= 0:
+        raise ValueError(f"max_tokens ({max_tokens}) must be positive.")
     if overlap_tokens > 0 and overlap_tokens >= max_tokens:
         raise ValueError(
             f"overlap_tokens ({overlap_tokens}) must be less than max_tokens "
