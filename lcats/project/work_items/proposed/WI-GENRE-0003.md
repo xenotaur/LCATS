@@ -58,7 +58,7 @@ required_evidence:
   - manual_review
 artifacts_expected:
   - lcats/src/lcats/analysis/corpus/genre_sidecar.py
-  - lcats/tests/analysis/corpus/genre_sidecar_test.py
+  - lcats/tests/analysis_tests/genre_sidecar_test.py
   - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
   - experiments/05_metadata_genre_prefilter/README.md
 ---
@@ -104,7 +104,7 @@ Define and validate `genre-sidecar-v1`, the append-only `genre.json` sidecar sch
    - Require repeated model assessment records to carry enough run identity to distinguish independent runs for downstream voting.
    - Return structured validation findings rather than raising for ordinary malformed sidecars.
 
-2. Add tests, likely `lcats/tests/analysis/corpus/genre_sidecar_test.py`.
+2. Add tests, likely `lcats/tests/analysis_tests/genre_sidecar_test.py`.
    - Cover a valid metadata-rule assessment sidecar.
    - Cover a valid model assessment with model/backend/run provenance.
    - Cover a valid human assessment and optional `current_adjudication`.
