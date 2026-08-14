@@ -84,8 +84,8 @@ batch/caching/tiering support exists there either
 (`experiments/04_genre_census/run_census.py:37` still defaults to
 `claude-opus-4-8`). `WI-LLM-0066`'s cost-free local-model alternative
 (PR #298) doesn't clearly resolve this either: $0 but ~20.8h projected,
-and only 17/20 exact agreement with the Claude sample (2 of 3
-disagreements substantively under-count humor).
+and only 18/20 exact agreement with the Claude sample (the 2
+disagreements both under-count humor).
 
 Separately, `PROP-GENRE-EVIDENCE-SIDECARS` is already building toward a
 different target shape entirely: per-story append-only `genre.json`
