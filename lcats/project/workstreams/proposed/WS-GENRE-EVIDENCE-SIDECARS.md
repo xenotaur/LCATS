@@ -21,6 +21,7 @@ related_design:
 work_items:
   - WI-GENRE-0001
   - WI-GENRE-0002
+  - WI-GENRE-0003
 exit_criteria:
   - Gutenberg metadata cache preflight exists and refuses cache build/download unless explicitly approved
   - experiments/05_metadata_genre_prefilter produces reviewed 40-story pilot manifests with LCATS IDs and metadata-rule assessment evidence

@@ -378,3 +378,18 @@ the `lcats/` working directory the commands above use:
   — so `--full` (on either backend) still requires an explicit human
   decision informed by both findings, not an automatic default to
   whichever ran first.
+- **`--full`-on-Claude-alone scope superseded.** Given `run_pilot.py`'s own
+  $67.54 unwired-cost-containment precedent (`WS-PILOT-COST-SUSTAINABILITY`
+  — prompt caching, Batch API, and model tiering were each evaluated "go"
+  but none landed as an implemented change) and `run_census.py`'s identical
+  gap (no batch/caching/tiering wired in; defaults to `claude-opus-4-8`,
+  `experiments/04_genre_census/run_census.py:37`), this item's original
+  `--full`-corpus-on-Claude-alone acceptance criteria are superseded rather
+  than pending. The live plan is `WI-GENRE-0003`: a full-corpus metadata
+  scan for genre-balanced candidate selection, a bounded ~100-200 story
+  sample, and a real (small, ~$45) Opus validation run against that sample
+  only — with results landing as `genre.json` sidecar assessments per
+  `PROP-GENRE-EVIDENCE-SIDECARS`, not a standalone
+  `experiments/04_genre_census/results/` table. This item's own sample data
+  and cost measurement remain valid evidence either way; only the
+  `--full`-run acceptance criteria are retired.
