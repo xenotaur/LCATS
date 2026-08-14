@@ -152,7 +152,7 @@ Define and validate `genre-sidecar-v1`, the append-only `genre.json` sidecar sch
 - `scripts/lint`
 - `scripts/test`
 - `cd lcats && lrh validate`
-- `PATH=/Users/centaur/anaconda3/bin:$PATH python -m unittest discover -s tests -p '*_test.py'`
+- From `lcats/`: `python -m unittest discover -s tests -p '*_test.py'`
 
 Readiness check after authoring:
 
