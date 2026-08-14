@@ -693,8 +693,9 @@ segmentation variants.
 ### Decision 3 update (2026-08-13, `gpt-oss:20b` genre-census scale test, `WI-LLM-0066`)
 
 `WI-LLM-0066` tested whether `gpt-oss:20b`'s clean single-story genre
-detection result (`WI-LLM-0063`, 3/3) holds at real corpus scale, by
-adding an opt-in `--base-url` flag to
+detection result (`WI-LLM-0063`, 3/3) holds at multi-story, multi-genre
+pilot scale - a 20-story sample, not the full ~1,868-story corpus, which
+has not run for any candidate - by adding an opt-in `--base-url` flag to
 `experiments/04_genre_census/run_census.py` and running the same 20-story
 population-weighted sample already used for the Claude reference run.
 Full detail: `experiments/04_genre_census/README.md`'s "Local gpt-oss:20b
@@ -702,12 +703,18 @@ Sample (2026-08-13)" section;
 `lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md`'s
 matching follow-up section.
 
-- **18/20 exact `detected_genre` agreement** against the Claude sample,
-  $0.00 measured API cost, 801.5s wall clock (~40.1s/story) - projecting
-  to **~20.8 hours** for the full ~1,868-story corpus, versus the Claude
-  sample's ~4.2-hour/~$435 projection.
-- The 2 disagreements were both `humor` misclassified - a real, if small,
-  systematic weak spot, not a random-noise scatter.
+- **18/20 exact `detected_genre` agreement** against the Claude sample
+  (after normalizing one non-canonical `science_fiction` ->
+  `science fiction` output), $0.00 measured API cost, 801.5s wall clock
+  (~40.1s/story) - projecting to **~20.8 hours** for the full
+  ~1,868-story corpus (a projection from this pilot's per-story rate, not
+  a measured full-corpus run), versus the Claude sample's
+  ~4.2-hour/~$435 projection.
+- The 2 disagreements were both on stories the Claude sample labeled
+  `humor` - a disagreement against another model's output, not a
+  validated error, and the Claude sample itself only carried 3
+  `humor`-labeled stories total, too few to distinguish a systematic
+  weak spot from sample noise.
 
 **Recommendation:** go for a full local genre census if a roughly
 one-day local run is acceptable and zero API spend is the priority -

@@ -270,10 +270,12 @@ from 11 to 16, and latency ranged from 71s to 141s on the same segment.
 ## Genre-census scale-test follow-up (`WI-LLM-0066`)
 
 `WI-LLM-0066` tested whether genre detection's clean single-story result
-holds at corpus scale, by wiring `experiments/04_genre_census/run_census.py`
-to this candidate via a new opt-in `--base-url` flag and running the same
-20-story population-weighted sample already used for the Claude reference
-run. Full detail and per-story disagreements:
+holds at multi-story, multi-genre pilot scale (a 20-story sample, not the
+full ~1,868-story corpus, which has not run for any candidate), by
+wiring `experiments/04_genre_census/run_census.py` to this candidate via
+a new opt-in `--base-url` flag and running the same 20-story
+population-weighted sample already used for the Claude reference run.
+Full detail and per-story disagreements:
 `experiments/04_genre_census/README.md`'s "Local gpt-oss:20b Sample
 (2026-08-13)" section.
 
@@ -284,15 +286,19 @@ run. Full detail and per-story disagreements:
 - **$0.00 measured API cost**, 801.5s wall clock for 20 stories
   (~40.1s/story) - projecting to **~20.8 hours** for the full
   ~1,868-story corpus, versus the Claude sample's ~4.2-hour projection at
-  ~$435.
-- The 2 disagreements were both `humor` misclassified (once as `science
-  fiction`, once as `other`) - `gpt-oss:20b` under-counted humor in this
-  small sample.
+  ~$435 (a projection from this pilot's per-story rate, not a measured
+  full-corpus run for either candidate).
+- The 2 disagreements were both on stories the Claude sample labeled
+  `humor` (`gpt-oss:20b` said `science fiction` once and `other` once) -
+  a disagreement against another model's output, not a validated error,
+  and the Claude sample itself only carried 3 `humor`-labeled stories
+  total, too few to distinguish a systematic weak spot from sample noise.
 
 **Verdict: go for a full local genre census**, if a roughly one-day local
-run is acceptable and zero API spend is the priority - but treat it as a
-cost-free first-pass census, not final ground truth; review the humor
-disagreements before relying on the counts. This confirms the earlier
-single-story "hybrid-viable" signal holds at a real multi-story,
-multi-genre sample, closing the scale-evidence gap the original 3-run
+run is acceptable and zero API spend is the priority - but treat this
+pilot as a cost-free first-pass signal, not final ground truth; review
+the humor disagreements (against real labels, not just Claude's output)
+before relying on the counts. This confirms the earlier single-story
+"hybrid-viable" signal holds at pilot multi-story, multi-genre scale,
+closing the scale-evidence gap the original 3-run
 vetting (`WI-LLM-0063`) explicitly left open.
