@@ -24,6 +24,52 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
+### `find_anchor_in_range`'s whitespace-normalized fallback discards its own successful match — P1, in progress
+
+Surfaced 2026-08-14 during a `WI-EVENT-0033` verification smoke test
+(real API, 20 stories, `claude-haiku-4-5-20251001`): rather than the
+expected exclusion-rate improvement, the run measured a 100%
+alignment-failure rate (up from the original 65% `parsing_error`
+baseline). `WI-EVENT-0033`'s own targeted fix genuinely worked — zero
+`parsing_error` outcomes across all 20 stories — but a separate, newly
+surfaced failure mode dominated instead: 18 of 20 `alignment_error`
+outcomes, all with the identical signature ("anchor text not found in
+story text"), plus 2 `no_segments`.
+
+Root cause, confirmed by direct instrumentation against a fresh API
+response (not assumed): `text_segmenter.py`'s `find_anchor_in_range`
+already has a whitespace-normalized fallback for when an LLM-provided
+anchor quote doesn't exact-match the source text — but that fallback's
+second stage re-searches a window of the **original, non-normalized**
+text using the **original, non-normalized** anchor string, which is
+exactly as exact-match-strict as the first search it's meant to be a
+fallback for. So whenever the mismatch specifically *is* a
+whitespace/newline difference — the only case the fallback exists to
+handle — it fails identically to the first search and discards its own
+already-found correct match, returning `None`.
+
+Reproduced concretely: `mass_quantities/junior__abernathy`'s
+segment-3 `end_exact` came back as `"glowered suspiciously at Mater and
+the\nneighbors."` against real source text `"...the neighbors.\n\n"` —
+the words are 100% correct; only the line-wrap newline position differs
+(the model mis-recalled where Project Gutenberg's ~72-char hard-wrap
+falls, not a content error). This is a **newly surfaced**, not newly
+introduced, bug: `WI-SEGMENT-0059` (resolved, a distinct paragraph-
+collapse bug) made alignment failures raise instead of silently
+producing wrong offsets, which is what made this pre-existing gap
+visible for the first time — it was never actually exercised by a
+passing case before.
+
+**Next step:** scoped as [WI-SEGMENT-0068](https://github.com/xenotaur/LCATS/pull/309)
+— fix the fallback's second stage to use a whitespace-tolerant match
+(e.g. a regex built by escaping only the anchor's non-whitespace runs
+and joining them with `\s+`, not escaping the whole anchor first, which
+would itself reproduce the bug — a real review finding on that PR)
+instead of an exact re-search, with regression coverage replaying this
+exact captured case. Once implemented, mark this entry resolved.
+
+---
+
 ### `lrh work-items validate`'s custom frontmatter parser rejects comments inside YAML lists, and `lrh validate` doesn't catch it — P1, analysis delegated to LogicalRoboticsHarness
 
 Surfaced 2026-08-08 while fixing `WI-LLM-0056.md`'s `malformed-frontmatter`
