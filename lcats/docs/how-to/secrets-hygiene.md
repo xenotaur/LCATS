@@ -55,7 +55,12 @@ A live key is actively billable and exploitable for as long as it exists.
    history (`git filter-repo`, followed by a force-push and having
    collaborators re-clone) is good hygiene afterward, but do not let history
    cleanup delay revocation — a dead key in old history is harmless once
-   revoked, but a live key sitting in history is not.
+   revoked, but a live key sitting in history is not. Tooling for the
+   find-then-purge workflow lives in
+   [`lcats/experimental/secrets_hygiene/`](../../experimental/secrets_hygiene/README.md);
+   its README covers which steps are safe to automate and which must stay
+   manual, plus the blast-radius considerations before force-pushing a
+   rewritten history.
 
 ## 2. Confirming a suspicious charge matches a specific leaked key
 
