@@ -10,7 +10,9 @@ This script:
      (never touches your working checkout),
   2. runs `git-filter-repo --replace-text` against it, scoped to the refs
      you pass in,
-  3. re-scans the rewritten mirror to confirm no replaced secret remains,
+  3. re-scans the rewritten refs (only the ones just rewritten, not every
+     ref in the mirror - an intentionally out-of-scope ref may still
+     legitimately contain the secret) to confirm no replaced secret remains,
   4. prints the `git push --force` command for you to run yourself.
 
 It deliberately does NOT push. Force-pushing a rewritten history is a
@@ -32,7 +34,6 @@ import argparse
 import pathlib
 import shutil
 import subprocess
-import sys
 import tempfile
 
 
@@ -81,26 +82,42 @@ def _run_filter_repo(
     subprocess.run(cmd, check=True, cwd=mirror_path)
 
 
-def _verify_clean(mirror_path: pathlib.Path, replacements_file: pathlib.Path) -> bool:
+def _verify_clean(
+    mirror_path: pathlib.Path, replacements_file: pathlib.Path, refs: list[str]
+) -> bool:
     secrets = []
     for line in replacements_file.read_text().splitlines():
         line = line.strip()
         if not line or "==>" not in line:
             continue
         secret, _, _ = line.partition("==>")
+        if not secret:
+            continue
         secrets.append(secret)
 
     all_clean = True
     for secret in secrets:
+        # No --pickaxe-regex: -S takes the secret as a literal string here.
+        # With --pickaxe-regex, any regex metacharacter in the secret (+, .,
+        # (, etc. - common in base64-ish keys) changes what's actually being
+        # searched for, which can silently produce a false "clean" verdict
+        # and let a force-push go out with the secret still present.
+        #
+        # Checking only `refs` (not --all): verification is scoped to
+        # exactly the refs this run rewrote. A secret still present on a
+        # ref that was deliberately excluded from --refs-file is expected
+        # and must not fail verification of the refs that WERE rewritten.
         result = subprocess.run(
-            ["git", "log", "--all", "-S", secret, "--pickaxe-regex", "--oneline"],
+            ["git", "log", *refs, "-S", secret, "--oneline"],
             check=True,
             cwd=mirror_path,
             capture_output=True,
             text=True,
         )
         if result.stdout.strip():
-            print(f"STILL PRESENT: a commit still matches a secret ({secret[:12]}...)")
+            print("STILL PRESENT: a rewritten ref still matches a listed secret "
+                  "(not printing the secret itself here - check replacements.txt "
+                  "for which one, by rule/placeholder).")
             all_clean = False
     return all_clean
 
@@ -173,8 +190,8 @@ def _run_and_report(
 ) -> None:
     _run_filter_repo(mirror_path, replacements_file, refs)
 
-    print("\nVerifying no listed secret remains in the rewritten history...")
-    clean = _verify_clean(mirror_path, replacements_file)
+    print("\nVerifying no listed secret remains on the rewritten refs...")
+    clean = _verify_clean(mirror_path, replacements_file, refs)
     if not clean:
         print(
             "\nFAIL: verification found at least one secret still present. "
@@ -182,7 +199,7 @@ def _run_and_report(
         )
         raise SystemExit(1)
 
-    print("OK: none of the listed secrets remain in any scanned ref.")
+    print("OK: none of the listed secrets remain on any of the rewritten refs.")
     print(
         "\nMANUAL STEP REQUIRED - this script will not do this for you.\n"
         "Review the rewritten history in the mirror clone above, confirm the\n"

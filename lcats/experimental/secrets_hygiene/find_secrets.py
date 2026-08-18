@@ -26,7 +26,6 @@ import json
 import pathlib
 import shutil
 import subprocess
-import sys
 
 
 def _check_gitleaks_available() -> None:
@@ -87,8 +86,15 @@ def main() -> int:
     parser.add_argument(
         "--out-dir",
         type=pathlib.Path,
-        default=pathlib.Path("."),
-        help="Directory to write findings.json and replacements.txt into (default: cwd)",
+        required=True,
+        help=(
+            "Directory to write findings.json and replacements.txt into. "
+            "Required (no cwd default): these files contain real secret "
+            "values, so pick a location that is actually gitignored (e.g. "
+            "lcats/experimental/secrets_hygiene/scratch/) rather than "
+            "risking them landing somewhere a later `git add .` would pick "
+            "up."
+        ),
     )
     args = parser.parse_args()
 
