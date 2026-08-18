@@ -930,11 +930,12 @@ Surfaced 2026-08-18 closing out PR #315 (secrets-hygiene incident
 response). A real, live OpenAI key was found leaked into `main` via saved
 notebook cell output (`lcats/notebooks/04_rag_expt.ipynb`), followed by a
 second, independent live-key leak found the same way in an Azure OpenAI
-notebook (`05_prog_llm_csharp.ipynb`) while empirically testing the scan
-tooling's provider coverage. PR #315's root-cause fix added an
-`nbstripout` pre-commit hook (`.pre-commit-config.yaml`), scoped to
-`lcats/notebooks/*.ipynb`, as the backstop meant to prevent a repeat -
-but the session that authored it did not have `pre-commit` installed, so
+notebook (`lcats/notebooks/05_prog_llm_csharp.ipynb`) while empirically
+testing the scan tooling's provider coverage. PR #315's root-cause fix
+added an `nbstripout` pre-commit hook (`.pre-commit-config.yaml`), scoped
+to `lcats/notebooks/*.ipynb`, as the backstop meant to prevent a
+repeat — but the session that authored it did not have `pre-commit`
+installed, so
 the hook was only validated for YAML syntax, never actually run. An
 unverified backstop is not a backstop: if it's silently misconfigured
 (wrong `files:` pattern, hook rev pin issue, or simply never installed by
