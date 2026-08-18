@@ -51,6 +51,29 @@ A live key is actively billable and exploitable for as long as it exists.
 5. Issue a new key from the provider console, and distribute it only via the
    `.secrets/` pattern in [secrets-setup.md](../secrets-setup.md) — never by
    pasting it into a notebook, script, chat message, or commit.
+
+**OpenAI API keys do not expire on their own** — there is no native TTL or
+expiration date field. The dashboard's "Created" / "Last Used" columns are
+exactly that; there is no "Expires" column. This was confirmed against the
+OpenAI Developer Community, where the conclusion on this exact question is
+that "OpenAI does not appear to offer a native feature to set expiration
+dates on API keys themselves" (what people sometimes mistake for key
+expiration is a free-trial *credit grant* expiring, which is a billing-level
+thing, not the key) — see
+[OpenAI Developer Community: OpenAI's API Key Expiration](https://community.openai.com/t/openais-api-key-expiration/102518).
+This is unlike Azure OpenAI, whose keys do support configurable expiration
+(commonly defaulting to around 6 months) at the Azure layer.
+
+Because nothing enforces rotation for you, **periodically review
+`platform.openai.com/api-keys` (and the equivalent page for every other
+provider in use) and revoke anything old, unrecognized, or no longer in
+active use** — don't wait for a suspected leak to do this. A stale key with
+zero usage is still a live credential. If key sprawl becomes a recurring
+problem, a short-lived-credential broker in front of the provider (e.g.
+HashiCorp Vault's OpenAI secrets engine, which issues on-demand keys with an
+enforced TTL and auto-revokes them) is the closest thing to real
+expiration — likely overkill for this repo today, but worth knowing it
+exists.
 6. Rotating/revoking is the actual fix. Purging the dead key from git
    history (`git filter-repo`, followed by a force-push and having
    collaborators re-clone) is good hygiene afterward, but do not let history

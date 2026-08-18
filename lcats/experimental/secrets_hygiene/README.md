@@ -52,6 +52,21 @@ Read-only — scans the given repo/mirror and writes `findings.json` (raw
 gitleaks report) and `replacements.txt` (draft `secret==>placeholder`
 lines, deduped) into `--out-dir`. Does not touch the repo it scans.
 
+**Provider coverage, verified empirically** (fake credentials in a throwaway
+repo, tested against the `gitleaks` version installed when this was
+written — 8.30.1): OpenAI (`sk-proj-...` and legacy `sk-...`), Anthropic
+(`sk-ant-api03-...`, dedicated `anthropic-api-key` rule), and Gemini/Google
+AI Studio (`AIzaSy...`, dedicated `gcp-api-key` rule) were all caught
+reliably regardless of surrounding code. **Azure is the weak spot**: Azure
+OpenAI resource keys have no distinguishing prefix (just a 32-char hex
+string), so gitleaks can only catch them via its context-dependent
+`generic-api-key` rule, which needs a suggestive nearby variable name (e.g.
+`AZURE_OPENAI_KEY = "..."`). The identical secret assigned to a
+non-suggestive name (`value = "..."`, or nested in a dict under a generic
+key) was **not** flagged in testing. If Azure keys are in use, don't rely on
+this tool alone for those — grep explicitly for known Azure key values, or
+tighten `.gitleaks.toml` with a project-specific rule.
+
 ### 2. Review (manual — see below)
 
 ### 3. Purge
