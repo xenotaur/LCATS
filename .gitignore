@@ -94,6 +94,10 @@ lcats/lcats/notebooks/Output/
 # Ignore local secrets files (e.g. API keys).
 .secrets/
 
+# Ignore secrets_hygiene scan/purge output (contains real secret material
+# read from git history — never commit it).
+lcats/experimental/secrets_hygiene/scratch/
+
 # Ignore genre-census per-story checkpoint state (internal resume cache,
 # redundant with the committed census_*_stories.jsonl/summary.json).
 # Targets the checkpoint file's own fixed name (run_census.py's
