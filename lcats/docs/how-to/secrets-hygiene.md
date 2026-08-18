@@ -27,6 +27,19 @@ Two things made this worse than it needed to be:
   [secrets-setup.md](../secrets-setup.md) and load keys in a way that can
   leave them in saved cell output.
 
+**Update**: a second, unrelated live key was found the same way this
+tooling's coverage was being evaluated — a hardcoded Azure OpenAI key in
+`lcats/notebooks/05_prog_llm_csharp.ipynb` (committed January 2025, still on
+`main` when found). It had gone undetected because Azure keys have no
+distinguishing prefix and the notebook's JSON-escaped quoting defeated
+gitleaks' generic context rule; see
+[`lcats/experimental/secrets_hygiene/README.md`](../../experimental/secrets_hygiene/README.md)
+for the technical detail and the `.gitleaks.toml` rule added to close that
+specific gap. The key has been removed from the notebook (replaced with the
+`Environment.GetEnvironmentVariable` pattern already used elsewhere in the
+same file) — **revoke/regenerate it in the Azure portal** the same way as
+any other confirmed leak, per the runbook below.
+
 The sections below are written as reusable runbooks, not just a record of
 this one incident.
 

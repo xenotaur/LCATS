@@ -57,15 +57,32 @@ repo, tested against the `gitleaks` version installed when this was
 written — 8.30.1): OpenAI (`sk-proj-...` and legacy `sk-...`), Anthropic
 (`sk-ant-api03-...`, dedicated `anthropic-api-key` rule), and Gemini/Google
 AI Studio (`AIzaSy...`, dedicated `gcp-api-key` rule) were all caught
-reliably regardless of surrounding code. **Azure is the weak spot**: Azure
-OpenAI resource keys have no distinguishing prefix (just a 32-char hex
-string), so gitleaks can only catch them via its context-dependent
-`generic-api-key` rule, which needs a suggestive nearby variable name (e.g.
-`AZURE_OPENAI_KEY = "..."`). The identical secret assigned to a
-non-suggestive name (`value = "..."`, or nested in a dict under a generic
-key) was **not** flagged in testing. If Azure keys are in use, don't rely on
-this tool alone for those — grep explicitly for known Azure key values, or
-tighten `.gitleaks.toml` with a project-specific rule.
+reliably regardless of surrounding code. **Azure was a real gap, not just a
+theoretical one**: Azure OpenAI/Cognitive Services keys have no
+distinguishing prefix, so gitleaks can only catch them via its
+context-dependent `generic-api-key` rule — and that rule's delimiter regex
+doesn't tolerate the backslash that JSON escaping adds inside a `.ipynb`
+cell's source (`KEY = \"...\"` on disk). Running this tool against this
+repo for real found exactly that: a live Azure OpenAI key sitting in
+`lcats/notebooks/05_prog_llm_csharp.ipynb`, missed entirely despite the
+variable being named `AOAI_KEY`.
+
+A repo-root [`.gitleaks.toml`](../../../.gitleaks.toml) now extends the
+default ruleset with an `azure-openai-key-contextual` rule scoped to
+`aoai`/`azure`-flavored variable names, which catches this shape reliably.
+It's picked up automatically — `gitleaks detect` auto-discovers
+`.gitleaks.toml` at the scanned path's root, no flag needed. **Known
+remaining gap**: this rule is still context-based, so an Azure key assigned
+to a name with no `azure`/`aoai`/`key`/`secret` hint at all still won't be
+caught — there's no way around that without a distinguishing prefix in the
+key format itself. A broader fix (making the *default* `generic-api-key`
+rule itself tolerate JSON-escaped quotes, closing this gap for every
+provider inside notebooks, not just Azure) was attempted and reverted: it
+inflated findings on this repo from 7 to 59, almost all false positives
+(e.g. it matched `output_tokens=usage.completion_tokens if usage else 0,`
+in `lcats/src/lcats/llm/openai_backend.py` purely because "token" is a
+keyword). Doing that safely — e.g. scoped only to `*.ipynb` — is unresolved
+future work.
 
 ### 2. Review (manual — see below)
 

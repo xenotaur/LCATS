@@ -1,0 +1,34 @@
+# Extends gitleaks' built-in ruleset (see lcats/experimental/secrets_hygiene/
+# README.md for how this project's scan/purge tooling uses it). Auto-detected
+# by `gitleaks detect` from the target path root; no extra flag needed.
+#
+# Added here because of a real gap found in this repo: a live Azure OpenAI
+# key sat undetected in lcats/notebooks/05_prog_llm_csharp.ipynb because
+# Azure keys have no distinguishing prefix, so detection depends entirely on
+# keyword context around the assignment - and the built-in generic-api-key
+# rule's delimiter character class doesn't tolerate the backslash that JSON
+# escaping adds inside a .ipynb cell's source (`KEY = \"...\"` on disk).
+#
+# A companion rule that widened generic-api-key's own delimiter/quantifiers
+# to tolerate that escaping was tried and rejected: on this repo it inflated
+# findings from 7 to 59, almost all false positives (e.g. it matched
+# `output_tokens=usage.completion_tokens if usage else 0,` in
+# lcats/src/lcats/llm/openai_backend.py purely because "token" is a keyword
+# and a comma appeared later). Fixing that blind spot safely - e.g. scoped
+# only to *.ipynb, with tighter quantifiers - is unresolved future work; see
+# lcats/experimental/secrets_hygiene/README.md.
+
+[extend]
+useDefault = true
+
+# Azure OpenAI / Cognitive Services keys have no fixed structural signature
+# (unlike sk-proj-.../sk-ant-.../AIza...), so this is deliberately
+# context-based: requires an AOAI/Azure-flavored identifier immediately
+# before the value. Will not catch a key assigned to a name with no
+# azure/aoai/key/secret hint at all - see the "known gap" note in
+# lcats/experimental/secrets_hygiene/README.md.
+[[rules]]
+id = "azure-openai-key-contextual"
+description = "Possible Azure OpenAI / Cognitive Services key (context-based - Azure keys have no distinguishing prefix)"
+regex = '''(?i)\b(?:aoai|azure)[\w.-]{0,20}?(?:key|secret|credential)[\w.-]{0,10}?[\s'"\\]{0,6}(?:=|:|=>)[\x60'"\s\\=]{0,6}([A-Za-z0-9+/_-]{32,100})(?:[\x60'"\\\s;]|\\[nr]|$)'''
+keywords = ["aoai", "azure"]
