@@ -921,3 +921,33 @@ decision, not new engineering work. Remove this backlog entry once done.
 `PROP-LCATS-PILOT-IMPROVEMENTS`
 (`project/design/proposals/proposed/lcats-pilot-improvements/00_proposal.md`);
 `WI-PILOT-0051`, `WI-PILOT-0057`, `WI-PILOT-0058`, `WI-PILOT-0060`.
+
+---
+
+### `nbstripout` pre-commit hook was added unverified — P1, scoped as WI-INFRA-0012
+
+Surfaced 2026-08-18 closing out PR #315 (secrets-hygiene incident
+response). A real, live OpenAI key was found leaked into `main` via saved
+notebook cell output (`lcats/notebooks/04_rag_expt.ipynb`), followed by a
+second, independent live-key leak found the same way in an Azure OpenAI
+notebook (`05_prog_llm_csharp.ipynb`) while empirically testing the scan
+tooling's provider coverage. PR #315's root-cause fix added an
+`nbstripout` pre-commit hook (`.pre-commit-config.yaml`), scoped to
+`lcats/notebooks/*.ipynb`, as the backstop meant to prevent a repeat -
+but the session that authored it did not have `pre-commit` installed, so
+the hook was only validated for YAML syntax, never actually run. An
+unverified backstop is not a backstop: if it's silently misconfigured
+(wrong `files:` pattern, hook rev pin issue, or simply never installed by
+a contributor), the next raw-key-in-output leak recurs exactly as before
+while everyone believes it's covered.
+
+**Next step:** scoped as `WI-INFRA-0012`
+(`project/work_items/proposed/WI-INFRA-0012.md`) - install `pre-commit`,
+run it for real against `lcats/notebooks/*.ipynb`, confirm with a live
+test (commit a notebook with deliberately-added cell output and check the
+hook actually strips it), fix the config if it doesn't work, and replace
+`lcats/docs/how-to/secrets-hygiene.md`'s unverified caveat with the real
+outcome. Remove this backlog entry once `WI-INFRA-0012` resolves.
+
+**Related:** `lcats/docs/how-to/secrets-hygiene.md`;
+`lcats/experimental/secrets_hygiene/` (PR #315); `.gitleaks.toml`.
