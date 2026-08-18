@@ -6,13 +6,6 @@ from typing import Any, Dict, List, Tuple
 
 from lcats import utils
 
-_WS = re.compile(r"\s+")
-
-
-def _norm_ws(s: str) -> str:
-    """Normalize whitespace: collapse runs, trim ends."""
-    return _WS.sub(" ", s)
-
 
 def canonicalize_text(s: str) -> str:
     """Canonicalize newlines to \n and trim trailing whitespace."""
@@ -109,20 +102,27 @@ def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None
     if pos != -1:
         return lo + pos
 
-    # Whitespace-insensitive fallback
-    anc_n = _norm_ws(anchor)
-    seg_n = _norm_ws(segment)
-    pos_n = seg_n.find(anc_n)
-    if pos_n == -1:
+    # Whitespace-tolerant fallback: build a regex from anchor that matches
+    # any whitespace run wherever anchor itself has one, searched directly
+    # against segment. An LLM-provided anchor's internal newline placement
+    # doesn't reliably match the source's hard-wrap boundaries even when
+    # every word is correct -- e.g. an anchor's "...the\nneighbors." vs.
+    # source text's "...the neighbors." on the same line (WI-SEGMENT-0068).
+    #
+    # Escape only the non-whitespace runs, not the whole anchor: escaping
+    # anchor first via re.escape() and then substituting whitespace runs
+    # with \s+ does not work, because re.escape() itself turns a literal
+    # space into "\ " (backslash-space) on supported Python versions,
+    # leaving nothing left for a later whitespace-run substitution to
+    # match -- this exact ordering mistake was caught in review on the
+    # WI-SEGMENT-0068 PR itself, which is why the split happens before
+    # escaping, not after.
+    parts = re.split(r"(\s+)", anchor)
+    pattern = "".join(r"\s+" if part.isspace() else re.escape(part) for part in parts)
+    match = re.search(pattern, segment)
+    if match is None:
         return None
-
-    # Heuristic remap back to original indices
-    start_guess = max(0, int(pos_n * (len(segment) / max(1, len(seg_n))) - 20))
-    window = segment[start_guess : start_guess + len(anchor) + 200]
-    pos2 = window.find(anchor)
-    if pos2 != -1:
-        return lo + start_guess + pos2
-    return None
+    return lo + match.start()
 
 
 def align_segment(

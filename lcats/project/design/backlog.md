@@ -24,7 +24,7 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
-### `find_anchor_in_range`'s whitespace-normalized fallback discards its own successful match — P1, in progress
+### `find_anchor_in_range`'s whitespace-normalized fallback discards its own successful match — P1, resolved
 
 Surfaced 2026-08-14 during a `WI-EVENT-0033` verification smoke test
 (real API, 20 stories, `claude-haiku-4-5-20251001`): rather than the
@@ -60,13 +60,20 @@ producing wrong offsets, which is what made this pre-existing gap
 visible for the first time — it was never actually exercised by a
 passing case before.
 
-**Next step:** scoped as [WI-SEGMENT-0068](https://github.com/xenotaur/LCATS/pull/309)
-— fix the fallback's second stage to use a whitespace-tolerant match
-(e.g. a regex built by escaping only the anchor's non-whitespace runs
-and joining them with `\s+`, not escaping the whole anchor first, which
-would itself reproduce the bug — a real review finding on that PR)
-instead of an exact re-search, with regression coverage replaying this
-exact captured case. Once implemented, mark this entry resolved.
+**Resolved 2026-08-18:** scoped via [PR #309](https://github.com/xenotaur/LCATS/pull/309)
+and implemented via `WI-SEGMENT-0068`'s own implementation PR.
+`find_anchor_in_range`'s second stage now builds a whitespace-tolerant
+regex directly from `anchor` — splitting it into whitespace and
+non-whitespace runs, escaping only the non-whitespace runs, and joining
+them with `\s+` — searched against the full `segment` via `re.search`,
+rather than re-searching a heuristic window with the original,
+non-normalized anchor string. The now-unused `_norm_ws`/`_WS` helpers
+were removed as dead code. Regression tests replay the exact captured
+real case (`mass_quantities/junior__abernathy`'s segment-3 `end_exact`)
+against the real committed corpus text, plus edge cases for
+regex-special characters in the anchor and a genuinely-wrong anchor
+(different words, not just different whitespace) still correctly
+returning `None`.
 
 ---
 
