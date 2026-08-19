@@ -93,9 +93,14 @@ As a backstop, `nbstripout` runs as a pre-commit hook on everything under
 `lcats/notebooks/*.ipynb` (see `.pre-commit-config.yaml`) and strips all
 cell outputs before a notebook can be committed, regardless of what a cell
 printed. **Verified** (`WI-INFRA-0012`): installing the hook and running
-`pre-commit run nbstripout --all-files` for real found 15 notebooks still
-carrying unstripped output from before this hook existed — confirming both
-that the hook works and that this exact gap was live until it was run.
+`pre-commit run nbstripout --all-files` for real modified 15 notebooks, of
+which 2 (`04_rag_expt.ipynb`, `06_story_analysis.ipynb`) actually carried
+unstripped cell output from before this hook existed; the other 13 were
+only rewritten for `execution_count`/cell-ID/source-array-format
+normalization, a side effect of nbstripout re-serializing a file it
+touches at all, not evidence of a leak. This confirms both that the hook
+works and that a real (if narrower than initially reported) gap was live
+until it was run.
 A deliberate commit-time test (staging a notebook with fresh cell output)
 confirmed the hook blocks the commit and strips the output in the same
 step; re-staging and committing again then succeeds clean.
