@@ -92,7 +92,20 @@ print('OPENAI_API_KEY:', 'set' if OPENAI_API_KEY else 'MISSING')
 As a backstop, `nbstripout` runs as a pre-commit hook on everything under
 `lcats/notebooks/*.ipynb` (see `.pre-commit-config.yaml`) and strips all
 cell outputs before a notebook can be committed, regardless of what a cell
-printed.
+printed. **Verified** (`WI-INFRA-0012`): installing the hook and running
+`pre-commit run nbstripout --all-files` for real found 15 notebooks still
+carrying unstripped output from before this hook existed — confirming both
+that the hook works and that this exact gap was live until it was run.
+A deliberate commit-time test (staging a notebook with fresh cell output)
+confirmed the hook blocks the commit and strips the output in the same
+step; re-staging and committing again then succeeds clean.
+
+Because `lcats/README.md` states pre-commit is optional and CI is
+authoritative, protection does not stop at the local hook: CI
+(`.github/workflows/lint.yml`) independently runs
+`nbstripout --verify notebooks/*.ipynb`, which fails the build if any
+notebook carries output — regardless of whether a given contributor ever
+ran `pre-commit install`.
 
 ## Verifying setup
 
