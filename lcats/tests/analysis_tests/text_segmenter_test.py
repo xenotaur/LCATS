@@ -264,22 +264,57 @@ class TestFindAnchorInRangeEdgeCases(unittest.TestCase):
         )
         self.assertIsNone(result)
 
-    def test_ws_normalized_fallback_returns_none_when_not_remappable(self):
-        # Exact match fails (text has double space before "brown").
-        # WS-normalized match succeeds ("quick brown" found in normalized text).
-        # But exact anchor "quick brown" not found verbatim in original text slice
-        # → returns None from the heuristic remap branch.
+    def test_whitespace_tolerant_fallback_now_resolves_a_real_match(self):
+        """Regression test (WI-SEGMENT-0068): exact match fails (text has
+        a double space before "brown"), but the anchor "quick brown"
+        (single space) differs from the source only in whitespace -- the
+        whitespace-tolerant fallback must now actually resolve this to
+        the real position, not discard its own successful match and
+        return None (the bug this WI fixes). Previously this exact case
+        incorrectly asserted None; see WI-SEGMENT-0068 for the root
+        cause."""
         result = text_segmenter.find_anchor_in_range(
             self.text, "quick brown", 0, len(self.text)
         )
-        self.assertIsNone(result)
+        self.assertEqual(result, self.text.find("quick"))
 
-    def test_ws_normalized_fallback_not_found_returns_none(self):
-        # Neither exact nor ws-normalized match is found.
+    def test_whitespace_tolerant_fallback_not_found_returns_none(self):
+        # Neither exact nor whitespace-tolerant match is found -- a
+        # genuinely wrong anchor (different words, not just different
+        # whitespace) must still correctly return None (WI-SEGMENT-0068
+        # guard test).
         result = text_segmenter.find_anchor_in_range(
             self.text, "zebra giraffe", 0, len(self.text)
         )
         self.assertIsNone(result)
+
+    def test_ws_tolerant_match_handles_regex_special_characters(self):
+        """Regression test (WI-SEGMENT-0068): an anchor containing regex-
+        special characters (parens) with a whitespace-only difference
+        from the source must still resolve correctly -- proves the fix
+        escapes non-whitespace runs rather than passing them through
+        re.search() unescaped."""
+        text = "The (quick)  brown fox jumps."
+        result = text_segmenter.find_anchor_in_range(
+            text, "(quick) brown", 0, len(text)
+        )
+        self.assertEqual(result, text.find("(quick)"))
+
+    def test_newline_vs_space_whitespace_difference_resolves(self):
+        """Regression test (WI-SEGMENT-0068): a newline in the anchor
+        where the source has a plain space is exactly the class of
+        mismatch the fallback exists for -- must resolve, not just
+        same-character-count whitespace differences. (The anchor's
+        embedded "\\n" makes this genuinely exercise the fallback: an
+        exact search for it in the source, which uses a plain space at
+        that position, fails first.)"""
+        text = "He said the plan clearly. They listened intently."
+        anchor = "the plan clearly.\nThey"
+        self.assertEqual(
+            text.find(anchor), -1, "test setup: anchor must not exact-match"
+        )
+        result = text_segmenter.find_anchor_in_range(text, anchor, 0, len(text))
+        self.assertEqual(result, text.find("the plan"))
 
 
 class TestAlignSegmentReturnsNone(unittest.TestCase):
@@ -746,6 +781,45 @@ class TestSingleNewlineParagraphFallback(unittest.TestCase):
         self.assertNotIn("third paragraph", self.story[s:e])
 
 
+class TestAlignSegmentEndOffsetWithWhitespaceTolerantMatch(unittest.TestCase):
+    """Regression test (WI-SEGMENT-0068, review finding PR #317):
+    align_segment's end_exact branch used to compute
+    `e_idx = e_pos + len(end_exact)`, which assumes the real matched
+    text in story_text is exactly len(end_exact) characters long. That
+    assumption breaks for a whitespace-tolerant match whose matched
+    whitespace run is a different length than end_exact's own -- e.g.
+    end_exact "quick brown" (single space) matched against source text
+    "quick  brown" (double space) actually spans one character more
+    than len(end_exact), so the old formula silently truncated the
+    segment's last character."""
+
+    def setUp(self):
+        self.story = (
+            "Para one text.\n\nThe quick  brown fox jumps over the lazy dog."
+            "\n\nPara three."
+        )
+        _, self.spans = text_segmenter.build_paragraph_index(
+            self.story, splitter="\n\n"
+        )
+
+    def test_end_offset_reflects_real_matched_span_not_anchor_length(self):
+        end_exact = "quick brown"  # single space; source has a double space
+        span = text_segmenter.align_segment(
+            self.story,
+            self.spans,
+            start_par_id=2,
+            end_par_id=2,
+            start_exact="The quick",
+            end_exact=end_exact,
+        )
+        self.assertIsNotNone(span)
+        s, e = span
+        # The old buggy formula (e_pos + len(end_exact)) would have cut
+        # this one character short, truncating "brown" to "brow".
+        self.assertEqual(self.story[s:e], "The quick  brown")
+        self.assertTrue(self.story[s:e].endswith("brown"))
+
+
 class TestAlignSegmentFailsOnEitherAnchor(unittest.TestCase):
     """WI-SEGMENT-0059: a genuinely unresolvable anchor must return None
     (alignment failure), never a silent fallback to a paragraph bound --
@@ -938,6 +1012,72 @@ class TestWiAnnotate0054RealTrialDataReplay(unittest.TestCase):
                         and aligned_segments[0]["end_char"] == len(body),
                         f"{story_name}: still a single whole-document segment",
                     )
+
+
+class TestWiSegment0068RealCaseReplay(unittest.TestCase):
+    """WI-SEGMENT-0068's own acceptance criterion: deterministic replay of
+    the exact real-world failure captured 2026-08-14 during a live
+    WI-EVENT-0033 verification smoke test, against the real committed
+    story text -- following text_segmenter_test.py's own established
+    TestWiAnnotate0054RealTrialDataReplay pattern of testing against real
+    corpora/ text rather than only synthetic strings, though this case
+    needs no separate committed sidecar fixture: the failing anchor text
+    itself was captured directly from a live model response and is
+    reproduced here as a literal, against corpora/mass_quantities'
+    already-permanently-committed story file.
+
+    The model's segment-3 end_exact came back as "glowered suspiciously
+    at Mater and the\\nneighbors." -- every word correct, but with a
+    hallucinated line-wrap newline where the real source text has a
+    plain space. Before this WI's fix, find_anchor_in_range's
+    whitespace-tolerant fallback found this normalized match internally
+    but then discarded it by re-searching with the original,
+    non-normalized anchor string -- returning None and causing the
+    whole story's alignment (and therefore the whole story) to be
+    excluded, even though the model's segmentation was substantively
+    correct.
+    """
+
+    REPO_ROOT = lcats_paths.find_pyproject_root(__file__).parent
+    STORY_PATH = (
+        REPO_ROOT / "corpora" / "mass_quantities" / "junior__abernathy" / "story.json"
+    )
+
+    def _load_body(self) -> str:
+        if not self.STORY_PATH.is_file():
+            # Required regression evidence, not optional -- see class
+            # docstring and TestWiAnnotate0054RealTrialDataReplay's own
+            # identical rationale for failing loudly rather than
+            # skipping when this file is missing.
+            self.fail(
+                f"real story file not present at {self.STORY_PATH} -- "
+                "see class docstring. If this file was intentionally "
+                "moved or removed, update or remove this test explicitly."
+            )
+        from lcats.analysis import story_analysis
+
+        data = json.loads(self.STORY_PATH.read_text(encoding="utf-8"))
+        return text_segmenter.canonicalize_text(
+            story_analysis.coerce_text(data["body"])
+        )
+
+    def test_captured_anchor_with_hallucinated_newline_now_resolves(self):
+        body = self._load_body()
+        anchor = "glowered suspiciously at Mater and the\nneighbors."
+        # Confirm this replay actually exercises the fallback, not the
+        # exact-match fast path -- the whole point of this regression
+        # test is that exact matching fails here.
+        self.assertEqual(
+            body.find(anchor), -1, "test setup: anchor must not exact-match"
+        )
+
+        result = text_segmenter.find_anchor_in_range(body, anchor, 0, len(body))
+
+        expected = body.find("glowered suspiciously at Mater and the neighbors.")
+        self.assertNotEqual(
+            expected, -1, "test setup: real text must contain this span"
+        )
+        self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":

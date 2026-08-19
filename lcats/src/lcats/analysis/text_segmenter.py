@@ -6,13 +6,6 @@ from typing import Any, Dict, List, Tuple
 
 from lcats import utils
 
-_WS = re.compile(r"\s+")
-
-
-def _norm_ws(s: str) -> str:
-    """Normalize whitespace: collapse runs, trim ends."""
-    return _WS.sub(" ", s)
-
 
 def canonicalize_text(s: str) -> str:
     """Canonicalize newlines to \n and trim trailing whitespace."""
@@ -86,10 +79,23 @@ def add_paragraph_markers(paragraphs: List[str], delimiter: str = "\n\n") -> str
     )
 
 
-def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None:
-    """Exact search first; if not found, try whitespace-normalized match within [lo,hi).
+def _locate_anchor_span(
+    text: str, anchor: str, lo: int, hi: int
+) -> tuple[int, int] | None:
+    """Exact search first; if not found, try a whitespace-tolerant match
+    within [lo, hi). Returns the (start, end) absolute character span of
+    the actual matched text in `text`, or None if not found.
 
-    Returns absolute index in text, or None if not found.
+    The matched span's length can differ from len(anchor): the
+    whitespace-tolerant fallback can match a source whitespace run whose
+    length differs from the anchor's own whitespace run (e.g. anchor
+    "quick brown" against source "quick  brown"). A caller that needs
+    the real end offset of the match -- not just its start -- must use
+    this span directly rather than assuming `start + len(anchor)`
+    (WI-SEGMENT-0068, review finding, PR #317: align_segment's
+    end_exact branch originally made exactly this assumption, silently
+    producing a wrong end offset whenever the matched whitespace run's
+    length differed from the anchor's).
 
     Args:
         text: The full text to search within.
@@ -97,7 +103,8 @@ def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None
         lo: The inclusive lower bound index to start searching.
         hi: The exclusive upper bound index to stop searching.
     Returns:
-        The absolute index of the anchor in text, or None if not found.
+        The (start, end) absolute span of the anchor in text, or None if
+        not found.
     """
     # Treat empty/whitespace-only anchor as unspecified
     if not anchor or not anchor.strip():
@@ -107,22 +114,51 @@ def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None
     # Exact
     pos = segment.find(anchor)
     if pos != -1:
-        return lo + pos
+        return lo + pos, lo + pos + len(anchor)
 
-    # Whitespace-insensitive fallback
-    anc_n = _norm_ws(anchor)
-    seg_n = _norm_ws(segment)
-    pos_n = seg_n.find(anc_n)
-    if pos_n == -1:
+    # Whitespace-tolerant fallback: build a regex from anchor that matches
+    # any whitespace run wherever anchor itself has one, searched directly
+    # against segment. An LLM-provided anchor's internal newline placement
+    # doesn't reliably match the source's hard-wrap boundaries even when
+    # every word is correct -- e.g. an anchor's "...the\nneighbors." vs.
+    # source text's "...the neighbors." on the same line (WI-SEGMENT-0068).
+    #
+    # Escape only the non-whitespace runs, not the whole anchor: escaping
+    # anchor first via re.escape() and then substituting whitespace runs
+    # with \s+ does not work, because re.escape() itself turns a literal
+    # space into "\ " (backslash-space) on supported Python versions,
+    # leaving nothing left for a later whitespace-run substitution to
+    # match -- this exact ordering mistake was caught in review on the
+    # WI-SEGMENT-0068 PR itself, which is why the split happens before
+    # escaping, not after.
+    parts = re.split(r"(\s+)", anchor)
+    pattern = "".join(r"\s+" if part.isspace() else re.escape(part) for part in parts)
+    match = re.search(pattern, segment)
+    if match is None:
         return None
+    return lo + match.start(), lo + match.end()
 
-    # Heuristic remap back to original indices
-    start_guess = max(0, int(pos_n * (len(segment) / max(1, len(seg_n))) - 20))
-    window = segment[start_guess : start_guess + len(anchor) + 200]
-    pos2 = window.find(anchor)
-    if pos2 != -1:
-        return lo + start_guess + pos2
-    return None
+
+def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None:
+    """Exact search first; if not found, try a whitespace-tolerant match
+    within [lo, hi).
+
+    Returns absolute index in text, or None if not found. Returns only
+    the match's start -- a caller that also needs the match's real end
+    offset (which can differ from `start + len(anchor)` for a
+    whitespace-tolerant match, see _locate_anchor_span) should call
+    _locate_anchor_span directly instead.
+
+    Args:
+        text: The full text to search within.
+        anchor: The substring to find.
+        lo: The inclusive lower bound index to start searching.
+        hi: The exclusive upper bound index to stop searching.
+    Returns:
+        The absolute index of the anchor in text, or None if not found.
+    """
+    span = _locate_anchor_span(text, anchor, lo, hi)
+    return span[0] if span is not None else None
 
 
 def align_segment(
@@ -192,10 +228,15 @@ def align_segment(
     # segments that overlap every segment after them, with no error
     # signal (WI-SEGMENT-0059, WI-ANNOTATE-0054).
     if end_exact and end_exact.strip():
-        e_pos = find_anchor_in_range(story_text, end_exact, s_idx, hi)
-        if e_pos is None:
+        # Use the actual matched span's end, not e_pos + len(end_exact):
+        # a whitespace-tolerant match's real length in story_text can
+        # differ from len(end_exact) whenever the matched whitespace run
+        # is a different length than the anchor's own (review finding,
+        # PR #317 -- see _locate_anchor_span's docstring).
+        e_span = _locate_anchor_span(story_text, end_exact, s_idx, hi)
+        if e_span is None:
             return None
-        e_idx = e_pos + len(end_exact)
+        e_idx = e_span[1]
     else:
         e_idx = hi
 

@@ -135,6 +135,17 @@ The sidecar shape is:
 }
 ```
 
+`genre-sidecar-v1` validation is implemented in
+`lcats.analysis.corpus.genre_sidecar`. The validator is intentionally
+structural: it accepts append-only metadata/model/human assessment records
+with required identity, timestamp, scope, method/provenance/evidence/result
+fields; accepts canonical metadata/model/human labels plus category-prefixed
+future labels; requires model assessments to carry an explicit `run_id` or
+`provenance.run_id` for repeated-run voting; validates optional
+`current_adjudication`; and returns structured findings instead of raising for
+ordinary malformed inputs. Legacy flat `AssessmentResult.to_dict()` sidecars
+are detected and reported as non-v1 rather than converted in place.
+
 A metadata assessment has this approximate shape:
 
 ```json
@@ -188,6 +199,10 @@ metadata record:
     "model": "gpt-oss:20b",
     "checkpoint_run_id": "model-genre-pilot-2026-08-12-run-001",
     "temperature": 0.2
+  },
+  "evidence": {
+    "summary": "A detective investigation centered on a coded clue.",
+    "issues": []
   },
   "result": {
     "primary_genre": "mystery",

@@ -16,7 +16,8 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/audits/2026-07-27-erw-pipeline-structured-output-reliability-audit.md
   - lcats/project/design/backlog.md
-work_items: []
+work_items:
+  - WI-PILOT-0067
 exit_criteria:
   - A first pilot API/output stability gate has run against a bounded, explicitly approved real Anthropic story set and reports completion, artifact well-formedness, semantic sense, quality thresholds, intended-purpose fit, actual spend, and explicit genre-detection coverage
   - Prompt-caching adoption, if still supported after the stability gate, is implemented only as an explicit pilot-level setting with cache telemetry and no global backend default change
@@ -76,29 +77,29 @@ implements measured cost and ergonomics improvements behind that gate.
 
 ### Demand search
 
-- Work items: No proposed work item currently implements the new stability
-  gate or the follow-on adoption workstream. Related resolved items are
-  `WI-PILOT-0051`, `WI-PILOT-0057`, `WI-PILOT-0058`, and `WI-PILOT-0060`,
-  which produced the harness and evaluations this workstream builds on.
+- Work items: `WI-PILOT-0067` now scopes the new stability gate. Related
+  resolved items are `WI-PILOT-0051`, `WI-PILOT-0057`, `WI-PILOT-0058`, and
+  `WI-PILOT-0060`, which produced the harness and evaluations this
+  workstream builds on.
 - Proposals: `PROP-LCATS-PILOT-IMPROVEMENTS` explicitly requests creation of
   `WS-PILOT-IMPROVEMENTS`.
 - Backlog: Matching backlog demand exists for pilot usage visibility and
   minimum-cost validation in `lcats/project/design/backlog.md`; this
   workstream should close, revise, or explicitly defer those entries only
   after the scoped work items clarify what remains.
-- Recommendation: Proceed; offer follow-on work-item creation for the first
-  stability-gate WI after this workstream lands.
+- Recommendation: Proceed; implement `WI-PILOT-0067` before downstream
+  adoption work.
 
 ## Work Items
 
-No work items are linked yet. Per `PROP-LCATS-PILOT-IMPROVEMENTS`, this
-workstream should create and sequence work items in this order:
+Per `PROP-LCATS-PILOT-IMPROVEMENTS`, this workstream should create and
+sequence work items in this order:
 
-1. **Pilot API/output stability gate** - Define and run a bounded real
-   end-to-end validation that checks completion, artifact well-formedness,
-   semantic sense, quality thresholds, intended-purpose fit, actual spend,
-   and explicit genre-detection coverage. This is a prerequisite for all
-   later implementation work.
+1. **`WI-PILOT-0067`: Pilot API/output stability gate** - Define and run a
+   bounded real end-to-end validation that checks completion, artifact
+   well-formedness, semantic sense, quality thresholds, intended-purpose fit,
+   actual spend, and explicit genre-detection coverage. This is a
+   prerequisite for all later implementation work.
 2. **Prompt caching adoption** - If the stability gate passes, expose
    explicit pilot-level prompt caching for Anthropic fixture/pilot runs,
    preserving `AnthropicBackend(enable_prompt_caching=False)` as the global

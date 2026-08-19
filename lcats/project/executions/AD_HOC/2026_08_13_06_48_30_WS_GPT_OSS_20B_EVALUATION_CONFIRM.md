@@ -2,10 +2,10 @@
 execution_id: 2026_08_13_06_48_30_WS_GPT_OSS_20B_EVALUATION_CONFIRM
 prompt_id: PROMPT(AD_HOC:WS_GPT_OSS_20B_EVALUATION_CONFIRM)[2026-08-13T06:40:46+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_08_13_06_03_40_WS_GPT_OSS_20B_EVALUATION
 pr: https://github.com/xenotaur/LCATS/pull/293
-commit: 2d0feca4d6dd583e89f49915df406e3f81b06966
+commit: b506692eaa20178965a1d6a94ab0ca33f76da50b
 created_at: 2026-08-13T06:48:30+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/293

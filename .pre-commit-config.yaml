@@ -12,6 +12,14 @@
 default_language_version:
   python: python3.11
 
+# lcats/notebooks/ is deliberately NOT in this global exclude, unlike the
+# other non-source directories below: the nbstripout hook needs to reach it
+# to strip saved cell outputs before commit (outputs are the classic vector
+# for a secret leaking into a notebook - see
+# lcats/docs/how-to/secrets-hygiene.md). Every other hook in this file stays
+# scoped to lcats/(src|tests|tools)/ via its own `files:` pattern, so
+# removing notebooks/ from this list does not put notebooks in scope for
+# ruff/black/etc.
 exclude: |
   (?x)^(
     corpora/|
@@ -19,7 +27,6 @@ exclude: |
     Papers/|
     Resources/|
     lcats/KMo/|
-    lcats/notebooks/|
     lcats/output/|
     lcats/dist/|
     lcats/htmlcov/|
@@ -57,3 +64,9 @@ repos:
     hooks:
       - id: black
         files: ^lcats/(src|tests|tools)/.*\.py$
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.9.1
+    hooks:
+      - id: nbstripout
+        files: ^lcats/notebooks/.*\.ipynb$

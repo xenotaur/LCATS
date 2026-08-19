@@ -5,10 +5,80 @@
   "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
   "stage": "entity_extraction",
   "success": true,
-  "latency_seconds": 169.80453541700263,
+  "latency_seconds": 115.11705620901193,
   "input_tokens": 1024,
-  "output_tokens": 5514,
-  "entity_count": 34,
+  "output_tokens": 3398,
+  "entity_count": 17,
+  "entities": [
+    {
+      "canonical_name": "Sherlock Holmes",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Watson",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "John Openshaw",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Police-Constable Cook",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "H Division",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Waterloo Bridge",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "water-police",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Horsham",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Waterloo Station",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "small landing-places for river steamboats",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "riverside landing-stages",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "God",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "Embankment",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "police",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "flies",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "City",
+      "entity_type": null
+    },
+    {
+      "canonical_name": "bridge",
+      "entity_type": null
+    }
+  ],
   "segment_count": null,
   "detected_genre": null,
   "error_type": null,

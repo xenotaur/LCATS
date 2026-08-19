@@ -35,7 +35,7 @@ import pathlib
 import sys
 import time
 
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # Path bootstrap - allow running `python <candidate>/benchmark.py` directly
 # without a prior `pip install -e .`, matching
@@ -162,6 +162,7 @@ class BenchmarkResult:
     input_tokens: int = 0
     output_tokens: int = 0
     entity_count: Optional[int] = None
+    entities: Optional[List[Dict[str, Any]]] = None
     segment_count: Optional[int] = None
     detected_genre: Optional[str] = None
     error_type: Optional[str] = None
@@ -176,6 +177,38 @@ class BenchmarkResult:
 
     def to_dict(self) -> Dict[str, Any]:
         return dataclasses.asdict(self)
+
+
+def _compact_entity_list(entities: Any) -> Optional[List[Dict[str, Any]]]:
+    """Return a minimal, diff-friendly entity list for results.json."""
+    if not isinstance(entities, list):
+        return None
+
+    compacted: List[Dict[str, Any]] = []
+    for entity in entities:
+        if isinstance(entity, dict):
+            canonical_name = (
+                entity.get("canonical_name") or entity.get("name") or entity.get("entity")
+            )
+            entity_type = entity.get("entity_type") or entity.get("type")
+            entry: Dict[str, Any] = {
+                "canonical_name": canonical_name,
+                "entity_type": entity_type,
+            }
+            if entity.get("entity_id") is not None:
+                entry["entity_id"] = entity.get("entity_id")
+            compacted.append(entry)
+        elif isinstance(entity, str):
+            compacted.append({"canonical_name": entity, "entity_type": None})
+        else:
+            compacted.append(
+                {
+                    "canonical_name": None,
+                    "entity_type": None,
+                    "raw_shape": type(entity).__name__,
+                }
+            )
+    return compacted
 
 
 def load_sample_story(path: pathlib.Path = DEFAULT_SAMPLE_STORY) -> tuple:
@@ -276,6 +309,7 @@ def _run_entity_extraction_once(
         input_tokens=usage.get("input_tokens", 0) or 0,
         output_tokens=usage.get("output_tokens", 0) or 0,
         entity_count=len(entities) if isinstance(entities, list) else None,
+        entities=_compact_entity_list(entities),
         error_type=(api_error or {}).get("code") if api_error else schema_error,
         error_message=(
             (api_error or {}).get("message")

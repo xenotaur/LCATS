@@ -2,8 +2,8 @@
 id: WS-WORLDCON-FAST-PATH-ANNOTATION
 kind: planning_node
 title: Fast-path annotation pipeline for the Worldcon 2026 paper dataset
-status: proposed
-stage: planned
+status: resolved
+stage: closed
 origin: design_review
 summary: Deliver PROP-WORLDCON-FAST-PATH-ANNOTATION's lcats annotate command (genre + scene sidecars via the mature lcats assess/scene_analysis extractors), its two prerequisite max_tokens fixes, promote/stats selector fixes, and the actual per-genre annotation run for the Worldcon 2026 paper.
 related_focus:

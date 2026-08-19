@@ -2,7 +2,7 @@
 resolution: null
 blocked_reason: null
 blocked: false
-id: WI-GENRE-0003
+id: WI-GENRE-0004
 title: Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
 type: evaluation
 status: proposed
@@ -19,10 +19,13 @@ related_design:
   - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
   - project/design/event-role-world-genre-target-reconciliation.md
   - project/work_items/proposed/WI-ASSESS-0051.md
-  - project/work_items/proposed/WI-GENRE-0002.md
+  - project/work_items/resolved/WI-GENRE-0002.md
+  - project/work_items/resolved/WI-GENRE-0003.md
   - project/work_items/resolved/WI-LLM-0066.md
+  - lcats/src/lcats/analysis/corpus/genre_sidecar.py
 depends_on:
   - WI-GENRE-0002
+  - WI-GENRE-0003
 blocked_by: []
 expected_actions:
   - create_file
@@ -47,7 +50,7 @@ acceptance:
   - "A real, gated Claude Opus (or explicitly justified alternative) validation run classifies only the selected sample (not the full corpus), requires explicit user go-ahead, and reports real measured cost (expected ~$45 based on the $0.233/story rate measured in WI-ASSESS-0051's sample)"
   - "The validation run's results are compared against the metadata-rule labels for the same stories, reporting per-genre and per-story agreement/disagreement"
   - "Findings state plainly whether metadata rules + one validation pass are sufficient for the Worldcon paper's genre-balanced sampling needs, or what gap remains"
-  - "Results are written as genre.json sidecar-shaped assessment records (per PROP-GENRE-EVIDENCE-SIDECARS' schema) under the experiment output directory only - not promoted into corpora/, which remains a separately-gated later step"
+  - "Results are written as genre.json sidecar-shaped assessment records validating against genre-sidecar-v1 (lcats.analysis.corpus.genre_sidecar, landed via WI-GENRE-0003) under the experiment output directory only - not promoted into corpora/, which remains a separately-gated later step"
   - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
 required_evidence:
@@ -60,7 +63,7 @@ artifacts_expected:
   - experiments/05_metadata_genre_prefilter/results/
 ---
 
-# Work Item: WI-GENRE-0003
+# Work Item: WI-GENRE-0004
 
 ## Summary
 
@@ -90,22 +93,38 @@ disagreements both under-count humor).
 Separately, `PROP-GENRE-EVIDENCE-SIDECARS` is already building toward a
 different target shape entirely: per-story append-only `genre.json`
 sidecars combining metadata, model, and human evidence, rather than one
-classifier's standalone summary table. `WI-GENRE-0002` (not yet started)
-scopes the first real metadata-rule evidence generation, but deliberately
-stops at a 40-story pilot and explicitly forbids both
+classifier's standalone summary table. `WI-GENRE-0002` (resolved, PR #301)
+delivered the first real metadata-rule evidence generation, but
+deliberately stopped at a 40-story pilot and explicitly forbade both
 `run_full_corpus_metadata_labeling` and `implement_100_200_story_sample` -
-this item is exactly that deferred next step.
+this item is exactly that deferred next step. `WI-GENRE-0003` (resolved,
+PR #314) has since defined and landed the `genre-sidecar-v1`
+schema/validator (`lcats/src/lcats/analysis/corpus/genre_sidecar.py`) this
+item's output should conform to - its own `forbidden_actions` explicitly
+excluded `implement_100_200_story_sample` too, confirming this item as
+its deliberately-deferred next step rather than a duplicate.
+
+**Numbering note:** this item was originally drafted and opened as
+`WI-GENRE-0003` (PR #305) before `WI-GENRE-0003` was independently
+claimed and landed by a concurrent session for the sidecar-validator
+work above - renumbered to `WI-GENRE-0004` to resolve the collision. The
+two items are complementary, not competing: the validator schema landed
+first, this item is the next step that produces real data conforming to
+it.
 
 ### Duplication search
 - In-repo: `WI-ASSESS-0051` covers full-corpus Claude classification (being
   superseded by this item's targeted approach); `WI-LLM-0066` covers local
   model evaluation (resolved, informs but doesn't replace this item);
   `WI-GENRE-0001`/`0002` cover the metadata-rule scaffold and 40-story
-  pilot this item extends. No existing item combines full-corpus metadata
-  scanning, genre-balanced selection, and a bounded validation run.
+  pilot this item extends; `WI-GENRE-0003` defines the sidecar-shape
+  validator this item's output conforms to, but explicitly excludes
+  running any full-corpus scan or 100-200 story sample itself. No
+  existing item combines full-corpus metadata scanning, genre-balanced
+  selection, and a bounded validation run.
 - Sibling repos / external libraries: none identified.
-- Recommendation: proceed, extending `WI-GENRE-0002` rather than
-  duplicating it.
+- Recommendation: proceed, extending `WI-GENRE-0002`/`0003` rather than
+  duplicating either.
 
 ### Demand search
 - Work items: `WI-GENRE-0002`'s own `forbidden_actions` names both
@@ -125,7 +144,9 @@ this item is exactly that deferred next step.
 - Run one small, gated, real Claude Opus validation pass against only the
   selected sample.
 - Compare metadata-rule labels against the validation run's results.
-- Write output as sidecar-shaped assessment records, experiment-local only.
+- Write output as sidecar-shaped assessment records validated against
+  `genre_sidecar.py`'s `genre-sidecar-v1` schema (`WI-GENRE-0003`),
+  experiment-local only.
 
 ## Non-Goals
 
@@ -163,7 +184,9 @@ this item is exactly that deferred next step.
 - **Real $ cost, even if small** - the Opus validation pass still needs
   explicit go-ahead per `forbidden_actions`, same gate discipline as
   `WI-ASSESS-0051` and `WI-LLM-0066` used.
-- **Sidecar schema is still `proposed`, not adopted** - if
-  `PROP-GENRE-EVIDENCE-SIDECARS` changes before this item executes, the
-  output shape here needs to track that, not freeze against a draft
-  schema.
+- **Governing proposal still `proposed`, not adopted** - `genre-sidecar-v1`
+  itself is defined, tested, and landed (`WI-GENRE-0003`,
+  `genre_sidecar.py`), but `PROP-GENRE-EVIDENCE-SIDECARS` remains in
+  `proposals/proposed/` pending its governing workstream's closure. If the
+  schema changes again before this item executes, the output shape here
+  needs to track that.

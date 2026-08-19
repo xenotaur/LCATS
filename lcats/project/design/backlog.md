@@ -24,6 +24,59 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
+### `find_anchor_in_range`'s whitespace-normalized fallback discards its own successful match — P1, resolved
+
+Surfaced 2026-08-14 during a `WI-EVENT-0033` verification smoke test
+(real API, 20 stories, `claude-haiku-4-5-20251001`): rather than the
+expected exclusion-rate improvement, the run measured a 100%
+alignment-failure rate (up from the original 65% `parsing_error`
+baseline). `WI-EVENT-0033`'s own targeted fix genuinely worked — zero
+`parsing_error` outcomes across all 20 stories — but a separate, newly
+surfaced failure mode dominated instead: 18 of 20 `alignment_error`
+outcomes, all with the identical signature ("anchor text not found in
+story text"), plus 2 `no_segments`.
+
+Root cause, confirmed by direct instrumentation against a fresh API
+response (not assumed): `text_segmenter.py`'s `find_anchor_in_range`
+already has a whitespace-normalized fallback for when an LLM-provided
+anchor quote doesn't exact-match the source text — but that fallback's
+second stage re-searches a window of the **original, non-normalized**
+text using the **original, non-normalized** anchor string, which is
+exactly as exact-match-strict as the first search it's meant to be a
+fallback for. So whenever the mismatch specifically *is* a
+whitespace/newline difference — the only case the fallback exists to
+handle — it fails identically to the first search and discards its own
+already-found correct match, returning `None`.
+
+Reproduced concretely: `mass_quantities/junior__abernathy`'s
+segment-3 `end_exact` came back as `"glowered suspiciously at Mater and
+the\nneighbors."` against real source text `"...the neighbors.\n\n"` —
+the words are 100% correct; only the line-wrap newline position differs
+(the model mis-recalled where Project Gutenberg's ~72-char hard-wrap
+falls, not a content error). This is a **newly surfaced**, not newly
+introduced, bug: `WI-SEGMENT-0059` (resolved, a distinct paragraph-
+collapse bug) made alignment failures raise instead of silently
+producing wrong offsets, which is what made this pre-existing gap
+visible for the first time — it was never actually exercised by a
+passing case before.
+
+**Resolved 2026-08-18:** scoped via [PR #309](https://github.com/xenotaur/LCATS/pull/309)
+and implemented via `WI-SEGMENT-0068`'s own implementation PR.
+`find_anchor_in_range`'s second stage now builds a whitespace-tolerant
+regex directly from `anchor` — splitting it into whitespace and
+non-whitespace runs, escaping only the non-whitespace runs, and joining
+them with `\s+` — searched against the full `segment` via `re.search`,
+rather than re-searching a heuristic window with the original,
+non-normalized anchor string. The now-unused `_norm_ws`/`_WS` helpers
+were removed as dead code. Regression tests replay the exact captured
+real case (`mass_quantities/junior__abernathy`'s segment-3 `end_exact`)
+against the real committed corpus text, plus edge cases for
+regex-special characters in the anchor and a genuinely-wrong anchor
+(different words, not just different whitespace) still correctly
+returning `None`.
+
+---
+
 ### `lrh work-items validate`'s custom frontmatter parser rejects comments inside YAML lists, and `lrh validate` doesn't catch it — P1, analysis delegated to LogicalRoboticsHarness
 
 Surfaced 2026-08-08 while fixing `WI-LLM-0056.md`'s `malformed-frontmatter`
@@ -843,3 +896,66 @@ Remove this backlog entry once WI-RELEASE-0037 resolves.
 upstream PRs
 [raduangelescu/gutenbergpy#25](https://github.com/raduangelescu/gutenbergpy/pull/25),
 [#26](https://github.com/raduangelescu/gutenbergpy/pull/26).
+
+---
+
+### `WS-PILOT-COST-SUSTAINABILITY`'s closure trigger is now met but unacted on — P3, decision needed
+
+Surfaced 2026-08-13. All four of `WS-PILOT-COST-SUSTAINABILITY`'s work
+items (`WI-PILOT-0051/0057/0058/0060`) are resolved, and all three
+completed evaluations (prompt caching, Batch API, model tiering)
+concluded "go" - but none has landed as an implemented change, so the
+workstream's own exit criterion ("any evaluation that concludes 'adopt'
+has landed as an implemented change, not left as an open recommendation")
+is not met by WI resolution alone. `PROP-LCATS-PILOT-IMPROVEMENTS`
+(merged via PR #289) already recommends the resolution: close or
+explicitly reinterpret `WS-PILOT-COST-SUSTAINABILITY` as the completed-
+evaluation workstream once its follow-on, `WS-PILOT-IMPROVEMENTS`, exists
+to carry the implementation work forward. That trigger condition is now
+satisfied - `WS-PILOT-IMPROVEMENTS` merged via PR #295 on 2026-08-13 - but
+no session has acted on the recommendation yet.
+
+First concrete step: with a human present, either close
+`WS-PILOT-COST-SUSTAINABILITY` (move to `project/workstreams/resolved/`) or edit
+its `status`/summary to explicitly mark it as the completed-evaluation-only
+workstream, per the proposal's own recommendation - this is a housekeeping
+decision, not new engineering work. Remove this backlog entry once done.
+
+**Related:** `WS-PILOT-COST-SUSTAINABILITY`
+(`project/workstreams/proposed/WS-PILOT-COST-SUSTAINABILITY.md`);
+`WS-PILOT-IMPROVEMENTS`
+(`project/workstreams/proposed/WS-PILOT-IMPROVEMENTS.md`);
+`PROP-LCATS-PILOT-IMPROVEMENTS`
+(`project/design/proposals/proposed/lcats-pilot-improvements/00_proposal.md`);
+`WI-PILOT-0051`, `WI-PILOT-0057`, `WI-PILOT-0058`, `WI-PILOT-0060`.
+
+---
+
+### `nbstripout` pre-commit hook was added unverified — P1, scoped as WI-INFRA-0012
+
+Surfaced 2026-08-18 closing out PR #315 (secrets-hygiene incident
+response). A real, live OpenAI key was found leaked into `main` via saved
+notebook cell output (`lcats/notebooks/04_rag_expt.ipynb`), followed by a
+second, independent live-key leak found the same way in an Azure OpenAI
+notebook (`lcats/notebooks/05_prog_llm_csharp.ipynb`) while empirically
+testing the scan tooling's provider coverage. PR #315's root-cause fix
+added an `nbstripout` pre-commit hook (`.pre-commit-config.yaml`), scoped
+to `lcats/notebooks/*.ipynb`, as the backstop meant to prevent a
+repeat — but the session that authored it did not have `pre-commit`
+installed, so
+the hook was only validated for YAML syntax, never actually run. An
+unverified backstop is not a backstop: if it's silently misconfigured
+(wrong `files:` pattern, hook rev pin issue, or simply never installed by
+a contributor), the next raw-key-in-output leak recurs exactly as before
+while everyone believes it's covered.
+
+**Next step:** scoped as `WI-INFRA-0012`
+(`project/work_items/proposed/WI-INFRA-0012.md`) - install `pre-commit`,
+run it for real against `lcats/notebooks/*.ipynb`, confirm with a live
+test (commit a notebook with deliberately-added cell output and check the
+hook actually strips it), fix the config if it doesn't work, and replace
+`lcats/docs/how-to/secrets-hygiene.md`'s unverified caveat with the real
+outcome. Remove this backlog entry once `WI-INFRA-0012` resolves.
+
+**Related:** `lcats/docs/how-to/secrets-hygiene.md`;
+`lcats/experimental/secrets_hygiene/` (PR #315); `.gitleaks.toml`.

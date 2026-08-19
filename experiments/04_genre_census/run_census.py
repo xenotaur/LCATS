@@ -283,8 +283,8 @@ def _output_prefix(
 def _compare_detected_genres(
     records: List[Dict[str, Any]], reference_records: List[Dict[str, Any]]
 ) -> Dict[str, Any]:
-    by_story = {record["story_id"]: record for record in records}
-    reference_by_story = {record["story_id"]: record for record in reference_records}
+    by_story = _records_by_story(records)
+    reference_by_story = _records_by_story(reference_records)
     common_story_ids = sorted(by_story.keys() & reference_by_story.keys())
     disagreements = []
     exact_matches = 0
@@ -324,6 +324,17 @@ def _read_jsonl(path: pathlib.Path) -> List[Dict[str, Any]]:
     return rows
 
 
+def _records_by_story(records: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    by_story = {}
+    for i, record in enumerate(records, start=1):
+        if not isinstance(record, dict):
+            raise ValueError(f"record {i} is not a JSON object")
+        if "story_id" not in record:
+            raise ValueError(f"record {i} is missing story_id")
+        by_story[record["story_id"]] = record
+    return by_story
+
+
 def _fresh_metered_call_count(records: List[Dict[str, Any]]) -> int:
     return sum(
         1
@@ -339,8 +350,14 @@ def _add_reference_comparison(
     reference_stories_path: pathlib.Path,
 ) -> None:
     try:
+        reference_path = reference_stories_path.relative_to(pathlib.Path.cwd())
+    except ValueError:
+        reference_path = reference_stories_path
+
+    try:
         reference_records = _read_jsonl(reference_stories_path)
-    except (OSError, json.JSONDecodeError) as exc:
+        comparison = _compare_detected_genres(records, reference_records)
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
         print(
             f"warning: could not read optional reference comparison file "
             f"{reference_stories_path}: {exc}; omitting comparison.",
@@ -349,14 +366,8 @@ def _add_reference_comparison(
         summary["reference_comparison_error"] = str(exc)
         return
 
-    try:
-        reference_path = reference_stories_path.relative_to(pathlib.Path.cwd())
-    except ValueError:
-        reference_path = reference_stories_path
     summary["reference_comparison_path"] = str(reference_path)
-    summary["reference_comparison"] = _compare_detected_genres(
-        records, reference_records
-    )
+    summary["reference_comparison"] = comparison
 
 
 def _is_valid_cache_payload(data: Any) -> bool:

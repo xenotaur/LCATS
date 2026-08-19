@@ -1,0 +1,112 @@
+{
+  "dry_run": false,
+  "final_recommendation": "fail_no_go",
+  "mechanical_validation": {
+    "checkpointed_stages_by_story": {
+      "fixtures__king_of_the_hill": [],
+      "fixtures__unwelcomed_visitor": []
+    },
+    "completed_story_count": 1,
+    "errors": [
+      "1 story row(s) were excluded",
+      "fixtures__unwelcomed_visitor: missing usage stages ['discourse', 'entity', 'event_anchor', 'relation', 'surface_feature']",
+      "1 genre-detection result(s) failed"
+    ],
+    "excluded_story_reasons": {
+      "fixtures__unwelcomed_visitor": "segmentation failed: alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')"
+    },
+    "fatal_pilot_errors": 0,
+    "genre_correct_count": 2,
+    "genre_total_count": 2,
+    "mechanical_pass": false,
+    "missing_artifacts": [],
+    "parse_errors": [],
+    "parseable_artifacts": true,
+    "schema_invalid_or_truncation_marked_final_artifacts": 0,
+    "spend_evidence_complete": true,
+    "story_count": 2,
+    "usage_stages_by_story": {
+      "fixtures__king_of_the_hill": [
+        "segment",
+        "surface_feature",
+        "entity",
+        "event_anchor",
+        "relation",
+        "discourse",
+        "surface_feature",
+        "entity",
+        "event_anchor",
+        "relation",
+        "discourse",
+        "story_relation"
+      ],
+      "fixtures__unwelcomed_visitor": [
+        "segment"
+      ]
+    },
+    "wellformed_count": 1
+  },
+  "model": "claude-opus-4-8",
+  "pilot_run": {
+    "command": [
+      "python",
+      "experiments/03_cross_segment_relation_pilot/run_pilot.py",
+      "--backend",
+      "anthropic",
+      "--model",
+      "claude-opus-4-8",
+      "--story-list",
+      "experiments/03_cross_segment_relation_pilot/fixtures/stability_gate_manifest.txt",
+      "--nlp-backend",
+      "spacy",
+      "--output",
+      "experiments/03_cross_segment_relation_pilot/results/stability_gate"
+    ],
+    "elapsed_seconds": 280.55846879200544,
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "Targeted mode: 2 story/stories, no genre-detect scan.\nLoading NLP backend: spacy...\nNLP backend ready: spacy\nRunning pipeline: [science fiction] story.json\nRunning pipeline: [science fiction] story.json\n  excluded: segmentation failed: alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')\n\nPer-genre summary (cross-segment-only density, per 1000 words):\n  science fiction  included=1 excluded=1 cross_segment=13.158 weakly_inferred_cross_segment=6.579 folded_total=36.184 folded_weakly_inferred=6.579\n  horror           included=0 excluded=0 cross_segment=0.000 weakly_inferred_cross_segment=0.000 folded_total=0.000 folded_weakly_inferred=0.000\n  western          included=0 excluded=0 cross_segment=0.000 weakly_inferred_cross_segment=0.000 folded_total=0.000 folded_weakly_inferred=0.000\n  romance          included=0 excluded=0 cross_segment=0.000 weakly_inferred_cross_segment=0.000 folded_total=0.000 folded_weakly_inferred=0.000\n\nWrote experiments/03_cross_segment_relation_pilot/results/stability_gate/pilot_stories.jsonl\nWrote experiments/03_cross_segment_relation_pilot/results/stability_gate/pilot_usage.jsonl\nWrote experiments/03_cross_segment_relation_pilot/results/stability_gate/pilot_summary.json\n"
+  },
+  "semantic_review": {
+    "intended_purpose_fit": false,
+    "notes": [
+      "Gate failed before full semantic acceptance because only 1/2 stories completed: fixtures__unwelcomed_visitor stopped at segmentation with alignment failed for segment_id=2.",
+      "The separate real genre-detection assessment classified both stories as science fiction, but marked fixtures__king_of_the_hill wellformed=false/review because it reads as an excerpt with missing prior context.",
+      "The completed fixtures__king_of_the_hill pipeline output is broadly source-supported for inspection: it identifies the station/bombardier-board scene, Peter/Joan/Joint Chiefs/ULTIMAC entities, and relations around the gun, tape, station-captain test, and possible dud bombs. However, this single completed story cannot satisfy the gate's intended-purpose threshold."
+    ],
+    "source_supported_semantic_output": false,
+    "status": "reviewed_fail"
+  },
+  "story_set": [
+    {
+      "genre": "science fiction",
+      "manifest_spec": "fixtures/king_of_the_hill",
+      "path": "experiments/03_cross_segment_relation_pilot/fixtures/king_of_the_hill/story.json",
+      "story_id": "fixtures__king_of_the_hill"
+    },
+    {
+      "genre": "science fiction",
+      "manifest_spec": "fixtures/unwelcomed_visitor",
+      "path": "experiments/03_cross_segment_relation_pilot/fixtures/unwelcomed_visitor/story.json",
+      "story_id": "fixtures__unwelcomed_visitor"
+    }
+  ],
+  "thresholds": {
+    "fatal_pilot_errors": 0,
+    "fixture_story_completion_rate": 1.0,
+    "genre_correctness_rate": 1.0,
+    "intended_purpose_fit": true,
+    "parseable_artifacts": true,
+    "schema_invalid_or_truncation_marked_final_artifacts": 0,
+    "source_supported_semantic_output": true
+  },
+  "usage_totals": {
+    "actual_cost_usd": 0.64601,
+    "genre_input_tokens": 6890,
+    "genre_output_tokens": 830,
+    "pilot_input_tokens": 27187,
+    "pilot_output_tokens": 18195,
+    "total_input_tokens": 34077,
+    "total_output_tokens": 19025
+  }
+}

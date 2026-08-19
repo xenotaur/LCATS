@@ -2,10 +2,11 @@
 id: WS-GPT-OSS-20B-EVALUATION
 kind: planning_node
 title: Evaluate and productionize gpt-oss:20b as a local model candidate
-status: proposed
-stage: executing
+status: resolved
+stage: closed
 origin: ad_hoc
 summary: Coordinates the WI-LLM-0063->WI-LLM-0066 arc vetting, diagnosing, fixing, and scale-testing gpt-oss:20b as a local Ollama candidate for the ERW pipeline.
+closeout: "All 4 work items resolved (WI-LLM-0063/0064/0065/0066). All 3 exit criteria met: WI-LLM-0066's go/no-go recommendation (go for a full local genre census, ~20.8hr projected wall-clock, $0 cost) is written and cross-referenced into both ollama_gpt_oss_20b/README.md and the governing proposal (PR #307, fixing a gap found at closeout review); lrh validate reports 0 errors. Final recommendation: prefer gpt-oss:20b for genre detection, consider it for entity extraction only behind the WI-LLM-0065 candidate-scoped adapter, do not consider it for segmentation."
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap:

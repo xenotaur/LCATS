@@ -1,0 +1,75 @@
+{
+  "cost_usd": 0.0552,
+  "dry_run": false,
+  "model": "claude-opus-4-8",
+  "results": [
+    {
+      "author": [
+        "Blish, James"
+      ],
+      "backend_model": "claude-opus-4-8",
+      "detected_genre": "science fiction",
+      "detected_genre_confidence": 0.82,
+      "error": "",
+      "exclude_reason": "",
+      "expected_genre": "science fiction",
+      "file_path": "experiments/03_cross_segment_relation_pilot/fixtures/king_of_the_hill/story.json",
+      "genre_correct": true,
+      "genre_suggestion": "",
+      "genre_verdict": "detected",
+      "input_tokens": 3313,
+      "issues": [
+        {
+          "description": "The text appears to be only the closing scene/fragment of a longer story. It opens mid-action ('He sat down before the bombardier board') with no established beginning and relies on prior context (Gascoigne, the confrontation, ULTIMAC) that is not present, indicating this is an excerpt rather than a complete standalone narrative.",
+          "severity": "high",
+          "type": "incomplete_text"
+        }
+      ],
+      "output_tokens": 471,
+      "schema_valid": true,
+      "secondary_genre": "military/war",
+      "secondary_genre_sanitized": false,
+      "specials_verdict": "none",
+      "story_id": "fixtures__king_of_the_hill",
+      "summary": "Aboard an orbital weapons station, the narrator and Joan discuss having psychologically broken a captain who couldn't distinguish reality, and speculate whether the satellite's nuclear deterrent bombs are actually duds\u2014rendering \"Spatial Supremacy\" a bankrupt doctrine.",
+      "target_genre": "",
+      "title": "king_of_the_hill",
+      "truncation_marked": false,
+      "url": "https://www.gutenberg.org/cache/epub/67317/pg67317.txt",
+      "verdict": "review",
+      "wellformed": false
+    },
+    {
+      "author": [
+        "Samachson, Joseph"
+      ],
+      "backend_model": "claude-opus-4-8",
+      "detected_genre": "science fiction",
+      "detected_genre_confidence": 0.97,
+      "error": "",
+      "exclude_reason": "",
+      "expected_genre": "science fiction",
+      "file_path": "experiments/03_cross_segment_relation_pilot/fixtures/unwelcomed_visitor/story.json",
+      "genre_correct": true,
+      "genre_suggestion": "",
+      "genre_verdict": "detected",
+      "input_tokens": 3577,
+      "issues": [],
+      "output_tokens": 359,
+      "schema_valid": true,
+      "secondary_genre": "",
+      "secondary_genre_sanitized": true,
+      "specials_verdict": "none",
+      "story_id": "fixtures__unwelcomed_visitor",
+      "summary": "An alien visitor named Xhanph arrives on Earth to make first contact but finds humanity utterly blase and uninterested, having exhausted the novelty through their science fiction; dejected, he is finally greeted with friendship by another alien visitor.",
+      "target_genre": "",
+      "title": "unwelcomed_visitor",
+      "truncation_marked": false,
+      "url": "https://www.gutenberg.org/cache/epub/58721/pg58721.txt",
+      "verdict": "include",
+      "wellformed": true
+    }
+  ],
+  "total_input_tokens": 6890,
+  "total_output_tokens": 830
+}

@@ -94,6 +94,10 @@ lcats/lcats/notebooks/Output/
 # Ignore local secrets files (e.g. API keys).
 .secrets/
 
+# Ignore secrets_hygiene scan/purge output (contains real secret material
+# read from git history — never commit it).
+lcats/experimental/secrets_hygiene/scratch/
+
 # Ignore genre-census per-story checkpoint state (internal resume cache,
 # redundant with the committed census_*_stories.jsonl/summary.json).
 # Targets the checkpoint file's own fixed name (run_census.py's
@@ -101,3 +105,9 @@ lcats/lcats/notebooks/Output/
 # results/*/ pattern would also ignore a candidate-scoped results
 # subdirectory's own real committed output (review finding, PR #292).
 experiments/04_genre_census/results/**/genre_census.json
+
+# Ignore WI-PILOT-0067 stability-gate per-story checkpoint sidecars.
+# The committed evidence is the gate's JSON/JSONL/Markdown report files
+# directly under results/stability_gate/; checkpoint subdirectories are
+# local resume/debug state produced by run_pilot.py.
+experiments/03_cross_segment_relation_pilot/results/stability_gate/fixtures__*/

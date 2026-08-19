@@ -5,11 +5,127 @@
   "story_name": "Sherlock Holmes - The Five Orange Pips [segment 3, dramatic_sequel]",
   "stage": "entity_extraction",
   "success": true,
-  "latency_seconds": 49.268156042089686,
+  "latency_seconds": 49.21355895791203,
   "input_tokens": 2193,
-  "output_tokens": 5439,
-  "entity_count": 21,
+  "output_tokens": 5090,
+  "entity_count": 22,
+  "entities": [
+    {
+      "canonical_name": "Sherlock Holmes",
+      "entity_type": "human",
+      "entity_id": "e1"
+    },
+    {
+      "canonical_name": "Dr. Watson",
+      "entity_type": "human",
+      "entity_id": "e2"
+    },
+    {
+      "canonical_name": "John Openshaw",
+      "entity_type": "human",
+      "entity_id": "e3"
+    },
+    {
+      "canonical_name": "The gang (cunning devils)",
+      "entity_type": "institution",
+      "entity_id": "e4"
+    },
+    {
+      "canonical_name": "Police-Constable Cook",
+      "entity_type": "human",
+      "entity_id": "e5"
+    },
+    {
+      "canonical_name": "H Division",
+      "entity_type": "institution",
+      "entity_id": "e6"
+    },
+    {
+      "canonical_name": "Passers-by",
+      "entity_type": "human",
+      "entity_id": "e7"
+    },
+    {
+      "canonical_name": "Water-police",
+      "entity_type": "institution",
+      "entity_id": "e8"
+    },
+    {
+      "canonical_name": "The maid",
+      "entity_type": "human",
+      "entity_id": "e9"
+    },
+    {
+      "canonical_name": "The authorities",
+      "entity_type": "institution",
+      "entity_id": "e10"
+    },
+    {
+      "canonical_name": "The police",
+      "entity_type": "institution",
+      "entity_id": "e11"
+    },
+    {
+      "canonical_name": "The newspaper account",
+      "entity_type": "machine_or_artifact",
+      "entity_id": "e12"
+    },
+    {
+      "canonical_name": "The envelope",
+      "entity_type": "machine_or_artifact",
+      "entity_id": "e13"
+    },
+    {
+      "canonical_name": "Waterloo Bridge",
+      "entity_type": "environment",
+      "entity_id": "e14"
+    },
+    {
+      "canonical_name": "Horsham",
+      "entity_type": "environment",
+      "entity_id": "e15"
+    },
+    {
+      "canonical_name": "The City",
+      "entity_type": "environment",
+      "entity_id": "e16"
+    },
+    {
+      "canonical_name": "Waterloo Station",
+      "entity_type": "environment",
+      "entity_id": "e17"
+    },
+    {
+      "canonical_name": "The Embankment",
+      "entity_type": "environment",
+      "entity_id": "e18"
+    },
+    {
+      "canonical_name": "The great city (London)",
+      "entity_type": "environment",
+      "entity_id": "e19"
+    },
+    {
+      "canonical_name": "The river / water",
+      "entity_type": "environment",
+      "entity_id": "e20"
+    },
+    {
+      "canonical_name": "The body",
+      "entity_type": "human",
+      "entity_id": "e21"
+    },
+    {
+      "canonical_name": "God",
+      "entity_type": "abstract_force",
+      "entity_id": "e22"
+    }
+  ],
+  "segment_count": null,
+  "detected_genre": null,
   "error_type": null,
   "error_message": null,
-  "raw_output_preview": null
+  "raw_output_preview": null,
+  "retry_attempted": false,
+  "retry_succeeded": null
 }

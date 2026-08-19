@@ -1,0 +1,8 @@
+# Fixture set for the WI-PILOT-0067 stability gate. One
+# "fixtures/<name>:<genre>" entry per line; blank lines and lines
+# starting with "#" are ignored.
+#
+# Keep this separate from manifest.txt so run_pilot.py --story-list with
+# no FILE continues to exercise the original WI-PILOT-0051 fixture set.
+fixtures/king_of_the_hill:science fiction
+fixtures/unwelcomed_visitor:science fiction

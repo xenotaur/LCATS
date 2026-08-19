@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import pathlib
 import sys
+import tempfile
 import unittest
 
 _MODEL_COMPARISON = (
@@ -12,6 +13,7 @@ _MODEL_COMPARISON = (
 sys.path.insert(0, str(_MODEL_COMPARISON))
 
 from common import harness  # noqa: E402
+import entity_diff  # noqa: E402
 from lcats.llm import backend as llm_backend  # noqa: E402
 from lcats.llm import fake_backend  # noqa: E402
 from ollama_gpt_oss_20b import entity_shape_adapter  # noqa: E402
@@ -28,6 +30,184 @@ class _NoToolCallBackend:
 
 
 class TestModelComparisonDiagnostics(unittest.TestCase):
+    def test_entity_extraction_result_captures_minimal_entity_list(self):
+        backend = fake_backend.FakeBackend(
+            tool_result={
+                "entities": [
+                    {
+                        "entity_id": "e1",
+                        "canonical_name": "The Machine",
+                        "entity_type": "machine_or_artifact",
+                    },
+                    {
+                        "name": "The Ghost",
+                        "type": "abstract_force",
+                    },
+                    "loose string entity",
+                ]
+            },
+            input_tokens=10,
+            output_tokens=20,
+        )
+        segment_path = pathlib.Path(self.id()).with_suffix(".json")
+        segment_path.write_text(
+            (
+                "{\n"
+                '  "source_story": "fixture",\n'
+                '  "segment_id": 1,\n'
+                '  "segment_type": "dramatic_scene",\n'
+                '  "body": "The old machine hummed."\n'
+                "}\n"
+            ),
+            encoding="utf-8",
+        )
+        self.addCleanup(segment_path.unlink)
+
+        result = harness.run_entity_extraction(
+            candidate="test",
+            backend_kind="fake",
+            backend=backend,
+            model="fake-1.0",
+            segment_path=segment_path,
+        )
+
+        self.assertTrue(result.success)
+        self.assertEqual(result.entity_count, 3)
+        self.assertEqual(
+            result.entities,
+            [
+                {
+                    "canonical_name": "The Machine",
+                    "entity_type": "machine_or_artifact",
+                    "entity_id": "e1",
+                },
+                {
+                    "canonical_name": "The Ghost",
+                    "entity_type": "abstract_force",
+                },
+                {
+                    "canonical_name": "loose string entity",
+                    "entity_type": None,
+                },
+            ],
+        )
+
+    def test_entity_diff_reports_shared_unique_and_missing_entities(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            opus_path = root / "opus.json"
+            qwen_path = root / "qwen.json"
+            opus_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "anthropic_opus",\n'
+                    '  "entities": [\n'
+                    '    {"canonical_name": "The Machine", "entity_type": "artifact"},\n'
+                    '    {"canonical_name": "Professor X", "entity_type": "person"}\n'
+                    "  ]\n"
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+            qwen_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "ollama_qwen3_8b",\n'
+                    '  "entities": [\n'
+                    '    {"canonical_name": "the   machine", "entity_type": "device"},\n'
+                    '    {"canonical_name": "THE MACHINE", "entity_type": ""},\n'
+                    '    {"canonical_name": "Laboratory", "entity_type": "place"}\n'
+                    "  ]\n"
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+
+            candidates = [
+                entity_diff.load_candidate_entities(opus_path),
+                entity_diff.load_candidate_entities(qwen_path),
+            ]
+            report = entity_diff.build_report(candidates)
+
+        self.assertRegex(report, r"(?i:the machine) \[(artifact|device)\]")
+        self.assertIn("Professor X [person]", report)
+        self.assertIn("Laboratory [place]", report)
+        self.assertIn("### anthropic_opus", report)
+        self.assertIn("### ollama_qwen3_8b", report)
+
+    def test_entity_diff_excludes_failed_and_stale_results(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            opus_path = root / "opus.json"
+            qwen_path = root / "qwen.json"
+            failed_path = root / "failed.json"
+            stale_path = root / "stale.json"
+            opus_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "anthropic_opus",\n'
+                    '  "entities": [\n'
+                    '    {"canonical_name": "The Machine", "entity_type": "artifact"},\n'
+                    '    {"canonical_name": "Professor X", "entity_type": "person"}\n'
+                    "  ]\n"
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+            qwen_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "ollama_qwen3_8b",\n'
+                    '  "entities": [\n'
+                    '    {"canonical_name": "the machine", "entity_type": "artifact"}\n'
+                    "  ]\n"
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+            failed_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "ollama_qwen3_30b_a3b",\n'
+                    '  "success": false,\n'
+                    '  "error_type": "truncated_output",\n'
+                    '  "entities": [\n'
+                    '    {"canonical_name": "Should Not Compare", "entity_type": "artifact"}\n'
+                    "  ]\n"
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+            stale_path.write_text(
+                (
+                    "{\n"
+                    '  "candidate": "anthropic_haiku",\n'
+                    '  "success": true,\n'
+                    '  "entity_count": 22\n'
+                    "}\n"
+                ),
+                encoding="utf-8",
+            )
+
+            candidates = [
+                entity_diff.load_candidate_entities(opus_path),
+                entity_diff.load_candidate_entities(qwen_path),
+                entity_diff.load_candidate_entities(failed_path),
+                entity_diff.load_candidate_entities(stale_path),
+            ]
+            report = entity_diff.build_report(candidates)
+
+        self.assertIn("## Not Comparable", report)
+        self.assertIn("ollama_qwen3_30b_a3b: not comparable: truncated_output", report)
+        self.assertIn(
+            "anthropic_haiku: stale result: rerun benchmark to populate `entities`",
+            report,
+        )
+        self.assertNotIn("### ollama_qwen3_30b_a3b", report)
+        self.assertNotIn("### anthropic_haiku", report)
+        self.assertIn("Professor X [person]", report)
+        self.assertNotIn("Should Not Compare", report)
+
     def test_segment_anchor_diagnostics_reads_pre_alignment_wrapper(self):
         parsed_output = {
             "segments": [

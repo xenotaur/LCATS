@@ -8,5 +8,10 @@
     "validated_genre": "science fiction",
     "wellformed": true,
     "validation_basis": "Manual adjudication for WI-PILOT-0060: the story turns on a military space station, satellite weapons, and speculative strategic technology."
+  },
+  "unwelcomed_visitor": {
+    "validated_genre": "science fiction",
+    "wellformed": true,
+    "validation_basis": "Manual adjudication for WI-PILOT-0067: the story is a complete standalone narrative centered on an alien visitor, interplanetary contact, and speculative extraterrestrial society."
   }
 }

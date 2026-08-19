@@ -2,6 +2,7 @@
 
 from lcats.analysis.corpus import cli
 from lcats.analysis.corpus import discovery
+from lcats.analysis.corpus import genre_sidecar
 from lcats.analysis.corpus import models
 from lcats.analysis.corpus import output
 from lcats.analysis.corpus import processing
@@ -17,6 +18,7 @@ from lcats.analysis.corpus import stats
 __all__ = [
     "cli",
     "discovery",
+    "genre_sidecar",
     "models",
     "output",
     "processing",

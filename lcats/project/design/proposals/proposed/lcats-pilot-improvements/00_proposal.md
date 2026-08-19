@@ -157,6 +157,25 @@ cost or scaling. This first work item should prove:
 This is not another open-ended tuning loop. A negative result is valid and
 should block downstream adoption work until the named failure mode is fixed.
 
+**Measured WI-PILOT-0067 outcome (2026-08-14): fail/no-go.** The bounded
+two-story stability gate ran with explicit approval against
+`claude-opus-4-8` on `king_of_the_hill` and `unwelcomed_visitor`. The run
+spent 34,077 input tokens and 19,025 output tokens, for an estimated
+`$0.6460`. Output artifacts were parseable and there were no fatal API
+errors, but the gate did not satisfy the predeclared thresholds:
+`unwelcomed_visitor` failed segmentation alignment
+(`segment_id=2: anchor text not found in story text`) and therefore did not
+reach ERW extraction, while the separate real genre/well-formedness check
+classified both stories as science fiction but marked `king_of_the_hill`
+`wellformed: false` / `verdict: review` because it appears to be an excerpt
+with missing prior context. The one completed pipeline output was useful for
+manual inspection, but a 1/2 completion rate and 1/2 independent
+well-formedness pass do not prove the pilot can reliably produce usable
+research output. Downstream adoption work remains blocked; the next item
+should fix the fixture/pipeline stability failure and rerun a newly
+predeclared gate rather than loosening thresholds or tuning prompts inside
+this result.
+
 ### Decision 3: Adopt measured cost improvements only behind the gate
 
 **Question:** Which cost-sustainability findings should become follow-on

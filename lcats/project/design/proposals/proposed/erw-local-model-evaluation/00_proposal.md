@@ -4,7 +4,7 @@ type: design_proposal
 title: Local/Hybrid Model Evaluation Infrastructure for the Event-Role-World Pipeline
 status: proposed
 created_on: 2026-08-05
-updated_on: 2026-08-12
+updated_on: 2026-08-14
 implementation_status: partial
 implemented_by: []
 supersedes: []
@@ -689,6 +689,39 @@ treated as production-ready for grounded ERW entity extraction. It remains
 not viable for segmentation under the current OpenAI-compatible Ollama
 harness: the fairer best-config test stayed 0/6 usable across the two
 segmentation variants.
+
+### Decision 3 update (2026-08-13, `gpt-oss:20b` genre-census scale test, `WI-LLM-0066`)
+
+`WI-LLM-0066` tested whether `gpt-oss:20b`'s clean single-story genre
+detection result (`WI-LLM-0063`, 3/3) holds at multi-story, multi-genre
+pilot scale - a 20-story sample, not the full ~1,868-story corpus, which
+has not run for any candidate - by adding an opt-in `--base-url` flag to
+`experiments/04_genre_census/run_census.py` and running the same 20-story
+population-weighted sample already used for the Claude reference run.
+Full detail: `experiments/04_genre_census/README.md`'s "Local gpt-oss:20b
+Sample (2026-08-13)" section;
+`lcats/experimental/model_comparison/ollama_gpt_oss_20b/README.md`'s
+matching follow-up section.
+
+- **18/20 exact `detected_genre` agreement** against the Claude sample
+  (after normalizing one non-canonical `science_fiction` ->
+  `science fiction` output), $0.00 measured API cost, 801.5s wall clock
+  (~40.1s/story) - projecting to **~20.8 hours** for the full
+  ~1,868-story corpus (a projection from this pilot's per-story rate, not
+  a measured full-corpus run), versus the Claude sample's
+  ~4.2-hour/~$435 projection.
+- The 2 disagreements were both on stories the Claude sample labeled
+  `humor` - a disagreement against another model's output, not a
+  validated error, and the Claude sample itself only carried 3
+  `humor`-labeled stories total, too few to distinguish a systematic
+  weak spot from sample noise.
+
+**Recommendation:** go for a full local genre census if a roughly
+one-day local run is acceptable and zero API spend is the priority -
+treat it as a cost-free first-pass census, not final ground truth. This
+closes the scale-evidence gap `WI-LLM-0063`'s single-story sample
+explicitly left open, and confirms genre detection remains this
+candidate's strongest stage.
 
 ### Landscape context (not itself decision-grade evidence)
 

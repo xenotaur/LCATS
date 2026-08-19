@@ -79,6 +79,39 @@ Notebooks in `lcats/notebooks/` pre-date this utility and load the OpenAI key
 directly via `dotenv.load_dotenv()`. They continue to work without change.
 Migrating them to `load_secrets()` is welcome but not required.
 
+Do not `print()` the raw key value in a notebook cell — a printed key gets
+saved into the notebook's JSON as cell output and committed along with it.
+This is exactly how a real key ended up leaked in this repo's history; see
+[Secrets hygiene](how-to/secrets-hygiene.md). If you need to confirm a key
+loaded, check for presence only:
+
+```python
+print('OPENAI_API_KEY:', 'set' if OPENAI_API_KEY else 'MISSING')
+```
+
+As a backstop, `nbstripout` runs as a pre-commit hook on everything under
+`lcats/notebooks/*.ipynb` (see `.pre-commit-config.yaml`) and strips all
+cell outputs before a notebook can be committed, regardless of what a cell
+printed. **Verified** (`WI-INFRA-0012`): installing the hook and running
+`pre-commit run nbstripout --all-files` for real modified 15 notebooks, of
+which 2 (`04_rag_expt.ipynb`, `06_story_analysis.ipynb`) actually carried
+unstripped cell output from before this hook existed; the other 13 were
+only rewritten for `execution_count`/cell-ID/source-array-format
+normalization, a side effect of nbstripout re-serializing a file it
+touches at all, not evidence of a leak. This confirms both that the hook
+works and that a real (if narrower than initially reported) gap was live
+until it was run.
+A deliberate commit-time test (staging a notebook with fresh cell output)
+confirmed the hook blocks the commit and strips the output in the same
+step; re-staging and committing again then succeeds clean.
+
+Because `lcats/README.md` states pre-commit is optional and CI is
+authoritative, protection does not stop at the local hook: CI
+(`.github/workflows/lint.yml`) independently runs
+`nbstripout --verify notebooks/*.ipynb`, which fails the build if any
+notebook carries output — regardless of whether a given contributor ever
+ran `pre-commit install`.
+
 ## Verifying setup
 
 After populating `.secrets/`, run:

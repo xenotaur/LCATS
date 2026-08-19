@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented metadata-rule genre evidence pilot and merged in PR #301 (commit 4aee8a6ea50fc8ace4c5dc4eb61a0a6a8c07e3de)."
 blocked_reason: null
 blocked: false
 id: WI-GENRE-0002
 title: Add metadata-rule genre evidence and 40-story pilot manifest
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []

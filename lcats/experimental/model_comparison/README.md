@@ -26,6 +26,7 @@ model_comparison/
   common/sample_segment.json      - real scene/sequel segment, the actual benchmark input
   common/generate_sample_segment.py - regenerates sample_segment.json (real stage-1 segmentation call)
   benchmark_summary.py            - prints a comparison table across every candidate/results.json
+  entity_diff.py                  - diffs extracted entity identities across candidate results.json files
   anthropic_opus/                 - frontier baseline (claude-opus-4-8, AnthropicBackend)
   anthropic_haiku/                - 2nd Anthropic tier (claude-haiku-4-5, AnthropicBackend) - WI-LLM-0056
   openai_gpt55/                   - OpenAI online (gpt-5.5, OpenAIBackend) - WI-LLM-0056; surfaced a real ENTITY_TOOL_SCHEMA bug, see its README
@@ -66,6 +67,9 @@ Each candidate directory has:
    `common.harness.run_entity_extraction(candidate=..., backend_kind=..., backend=..., model=...)`
 4. `python <candidate_name>/setup.py && python <candidate_name>/benchmark.py`
 5. `python benchmark_summary.py` to compare against existing candidates
+6. `python entity_diff.py` to compare entity identities across existing
+   candidates after their `results.json` files have been regenerated with
+   the `entities` field
 
 ## Current scope (deliberately narrow - widen once this proves useful)
 
@@ -93,14 +97,17 @@ Each candidate directory has:
   extraction, both operate over an entire story in the real pipeline, so
   a single segment would be the wrong input size for them.
 - **What's measured**: did the call succeed at all, did it return a
-  well-formed `tool_result` matching the schema, latency, token counts, and
-  entity count as a crude sanity signal - not extraction *quality*
-  (precision/recall against ground-truth entities). Quality comparison
-  needs human review of the actual extracted entities, which this harness
-  surfaces via `results.json` but does not itself judge. `results.json`
-  also includes a truncated `raw_output_preview` of the model's free-text
-  response when no valid tool call was made, so a failure can be
-  diagnosed from the file alone rather than needing a live rerun.
+  well-formed `tool_result` matching the schema, latency, token counts,
+  entity count as a crude sanity signal, and the compact extracted entity
+  identities (`canonical_name`, `entity_type`, and `entity_id` when
+  present). This is still not extraction *quality* in the precision/recall
+  sense, because there is no human ground-truth entity list here. The
+  `entities` field and `entity_diff.py` instead make same-input
+  cross-candidate review possible: users can inspect which entities one
+  model found that another missed. `results.json` also includes a
+  truncated `raw_output_preview` of the model's free-text response when no
+  valid tool call was made, so a failure can be diagnosed from the file
+  alone rather than needing a live rerun.
 - **Sampling parameters**: `common.harness.DEFAULT_TEMPERATURE` (0.2)
   matches the real pipeline's own `entity_extractor.py` default, tuned for
   Anthropic/OpenAI. Candidates for a model with its own documented
@@ -108,6 +115,29 @@ Each candidate directory has:
   `benchmark.py` rather than inherit this default silently - see
   `ollama_qwen3_8b/benchmark.py` for an example (Qwen3 recommends 0.6,
   not 0.2).
+
+## Entity identity diffs
+
+`entity_diff.py` compares the compact `entities` lists written by current
+entity-extraction benchmark runs:
+
+```bash
+python lcats/experimental/model_comparison/entity_diff.py \
+  lcats/experimental/model_comparison/anthropic_opus/results.json \
+  lcats/experimental/model_comparison/ollama_qwen3_8b/results.json
+```
+
+With no arguments, it scans every candidate `*/results.json` under this
+directory. The comparison normalizes entity names by trimming, collapsing
+internal whitespace, and case-folding; `entity_type` is displayed when
+present but is not part of the comparison key. The report lists entities
+shared by all candidates, entities only one candidate found, and entities
+missing from each comparable candidate relative to the union. Failed runs
+and older result files without the compact `entities` field are listed as
+not comparable and excluded from set math, because they are not evidence
+that the model found zero entities. It is a review aid, not ground truth:
+different surface names, aliases, or entity-type choices can still require
+human judgment.
 
 ## Tranche 1 cross-provider coverage (`WI-LLM-0056`)
 

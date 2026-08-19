@@ -372,8 +372,9 @@ the `lcats/` working directory the commands above use:
   local-model (`gpt-oss:20b`) alternative against the same 20 story IDs:
   $0.00 cost, but ~20.8 hours projected for the full corpus (vs. Claude's
   ~4.2h), and 18/20 exact `detected_genre` agreement with the Claude
-  sample; the 2 remaining disagreements both under-count humor. This is
-  not a clean win either
+  sample after normalizing one non-canonical label (`science_fiction` to
+  `science fiction`); the 2 remaining disagreements both under-count
+  humor. This is not a clean win either
   way — free-but-slower-and-imperfect vs. paid-but-faster-and-more-tested
   — so `--full` (on either backend) still requires an explicit human
   decision informed by both findings, not an automatic default to
@@ -385,11 +386,12 @@ the `lcats/` working directory the commands above use:
   gap (no batch/caching/tiering wired in; defaults to `claude-opus-4-8`,
   `experiments/04_genre_census/run_census.py:37`), this item's original
   `--full`-corpus-on-Claude-alone acceptance criteria are superseded rather
-  than pending. The live plan is `WI-GENRE-0003`: a full-corpus metadata
+  than pending. The live plan is `WI-GENRE-0004`: a full-corpus metadata
   scan for genre-balanced candidate selection, a bounded ~100-200 story
   sample, and a real (small, ~$45) Opus validation run against that sample
-  only — with results landing as `genre.json` sidecar assessments per
-  `PROP-GENRE-EVIDENCE-SIDECARS`, not a standalone
+  only — with results landing as `genre.json` sidecar assessments
+  conforming to `genre-sidecar-v1` (the schema `WI-GENRE-0003` defined and
+  landed via PR #314), not a standalone
   `experiments/04_genre_census/results/` table. This item's own sample data
   and cost measurement remain valid evidence either way; only the
   `--full`-run acceptance criteria are retired.

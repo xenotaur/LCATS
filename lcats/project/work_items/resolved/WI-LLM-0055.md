@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #311 (commit b8a959b66f697641877f269928e94791a549d0e2)"
 blocked_reason: null
 blocked: false
 id: WI-LLM-0055
 title: Capture full entity lists and diff them across benchmark candidates
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
