@@ -68,12 +68,21 @@ not obviously one root cause either.
   `backlog.md` search. `WI-SEGMENT-0059` (resolved) fixed a third,
   distinct, already-closed issue (paragraph-collapse on single-newline
   source text).
-- *Demand search:* Directly requested by `WI-EVENT-0033`'s own
-  outstanding acceptance criterion (a live smoke-test verification
-  showing a "measurable reduction" in exclusion rate) -- the smoke test
-  that criterion required is what surfaced this gap. No `backlog.md`
-  entry yet; this WI's creation is the first place this finding is
-  recorded.
+- *Demand search:* Not literally required by any existing acceptance
+  criterion (review finding, PR #319): `WI-EVENT-0033`'s own criterion
+  asks specifically for a measured reduction in the `parsing_error`
+  rate, which the `tool_schema` migration guarantees structurally --
+  `parsing_error` is set to `None` unconditionally on that code path
+  (`llm_extractor.py:445`), regardless of whether alignment succeeds or
+  fails. So `WI-EVENT-0033` is not formally blocked by this
+  investigation (no `depends_on`/`blocked_by` edge links them), and
+  this item does not add one -- that is a separate, explicit decision
+  for whoever closes `WI-EVENT-0033` out, not something this WI's own
+  creation should silently impose. This item exists as an independent
+  follow-up: the live smoke test run to verify `WI-EVENT-0033`'s
+  criterion is what surfaced this gap, even though the criterion itself
+  doesn't require investigating it. No `backlog.md` entry yet; this
+  WI's creation is the first place this finding is recorded.
 
 **Evidence, gathered via live diagnostic sampling this session** (real
 API calls against `claude-haiku-4-5-20251001`, capturing each failing
@@ -141,8 +150,15 @@ which) categories have a safe fix, before anyone proposes one.
   WI-SEGMENT-0068-style narrow fixes, one per confirmed-safe category)
   is the natural next step once a category's fix is actually designed.
 - Does not re-investigate or re-verify `WI-SEGMENT-0068`'s own fix --
-  already confirmed working (`parsing_error` 65%->0%, and the specific
-  whitespace-mismatch case it targeted no longer reproduces).
+  already confirmed working: the specific whitespace-mismatch case it
+  targeted no longer reproduces, and the overall smoke-test exclusion
+  rate dropped from 100% (before the fix) to 70% (after). (Not cited as
+  evidence here: `parsing_error` dropping to 0% -- review finding, PR
+  #319 -- that metric is `None` unconditionally on the `tool_schema`
+  code path regardless of alignment outcome, so it's tautological as
+  evidence about an alignment-specific fix; it only demonstrates
+  `WI-EVENT-0033`'s own `tool_schema` migration worked, a separate
+  claim.)
 - Does not widen `find_anchor_in_range`'s search range, or reintroduce
   any form of full-document fallback search, without first confirming
   via real distribution data that doing so is safe for the specific
@@ -224,7 +240,9 @@ which) categories have a safe fix, before anyone proposes one.
 
 - Work item: `project/work_items/resolved/WI-SEGMENT-0068.md` (the
   fix whose own post-merge verification surfaced this gap)
-- Work item: `project/work_items/proposed/WI-EVENT-0033.md` (the
-  original verification criterion this investigation ultimately serves)
+- Work item: `project/work_items/proposed/WI-EVENT-0033.md` (whose own
+  verification smoke test surfaced this gap -- not a formal dependency;
+  see `## Problem / Context`'s demand-search note on why this item does
+  not gate that WI's closure)
 - Work item: `project/work_items/resolved/WI-SEGMENT-0059.md` (prior
   art on why a naive full-document fallback is unsafe)
