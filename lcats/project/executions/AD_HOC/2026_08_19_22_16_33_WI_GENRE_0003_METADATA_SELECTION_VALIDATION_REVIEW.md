@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/305
-commit: 95abf1b3a2d3ecdcd1178d61b7d05e6f4e6bcc94
+commit: 95abf1b3f05bb4449e5b21a60fcf496bad8c7eb0
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/305
 session_transcript: claude-app:b0d48070-0faf-4a35-942d-a29ec96d603a

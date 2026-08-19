@@ -196,12 +196,16 @@ authoritative for the current 8-genre scheme.
    reviewing the sample-based cost estimate first.
 3. **`experiments/README.md`**: register the new `04_genre_census`
    experiment, per the existing table's convention.
-4. **`experiments/04_genre_census/results/`**: the actual census output,
-   populated once the full run executes and is committed. Must include
-   **both** an aggregate per-genre summary table AND a per-story record
-   (stable story identity, detected genre, confidence, classifier/model
-   identity, failure status) for every discovered story — an aggregate-only
-   summary is not sufficient, since
+4. **`experiments/04_genre_census/results/`**: **DONE for the sample phase**
+   (PR #251/#292's 20-story sample output is committed here). The
+   full-corpus population of this directory described below is
+   **retired**, not pending — see Acceptance Criteria and Risk Notes; the
+   directory will not be further populated via `--full`. Kept here as the
+   historical spec for what a full run would have needed to include, in
+   case that changes: both an aggregate per-genre summary table AND a
+   per-story record (stable story identity, detected genre, confidence,
+   classifier/model identity, failure status) for every discovered story
+   — an aggregate-only summary would not have been sufficient, since
    `project/design/event-role-world-genre-target-reconciliation.md:274-277`
    requires the eventual stratified pilot (Gap 3) to draw its per-genre
    sample *from this census*, which is impossible from counts alone
