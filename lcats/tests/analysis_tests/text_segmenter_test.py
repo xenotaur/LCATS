@@ -264,7 +264,7 @@ class TestFindAnchorInRangeEdgeCases(unittest.TestCase):
         )
         self.assertIsNone(result)
 
-    def test_ws_normalized_fallback_now_resolves_a_real_match(self):
+    def test_whitespace_tolerant_fallback_now_resolves_a_real_match(self):
         """Regression test (WI-SEGMENT-0068): exact match fails (text has
         a double space before "brown"), but the anchor "quick brown"
         (single space) differs from the source only in whitespace -- the
@@ -278,10 +278,11 @@ class TestFindAnchorInRangeEdgeCases(unittest.TestCase):
         )
         self.assertEqual(result, self.text.find("quick"))
 
-    def test_ws_normalized_fallback_not_found_returns_none(self):
-        # Neither exact nor ws-normalized match is found -- a genuinely
-        # wrong anchor (different words, not just different whitespace)
-        # must still correctly return None (WI-SEGMENT-0068 guard test).
+    def test_whitespace_tolerant_fallback_not_found_returns_none(self):
+        # Neither exact nor whitespace-tolerant match is found -- a
+        # genuinely wrong anchor (different words, not just different
+        # whitespace) must still correctly return None (WI-SEGMENT-0068
+        # guard test).
         result = text_segmenter.find_anchor_in_range(
             self.text, "zebra giraffe", 0, len(self.text)
         )
@@ -778,6 +779,45 @@ class TestSingleNewlineParagraphFallback(unittest.TestCase):
         s, e = span
         # Must not spill into paragraph 4's text.
         self.assertNotIn("third paragraph", self.story[s:e])
+
+
+class TestAlignSegmentEndOffsetWithWhitespaceTolerantMatch(unittest.TestCase):
+    """Regression test (WI-SEGMENT-0068, review finding PR #317):
+    align_segment's end_exact branch used to compute
+    `e_idx = e_pos + len(end_exact)`, which assumes the real matched
+    text in story_text is exactly len(end_exact) characters long. That
+    assumption breaks for a whitespace-tolerant match whose matched
+    whitespace run is a different length than end_exact's own -- e.g.
+    end_exact "quick brown" (single space) matched against source text
+    "quick  brown" (double space) actually spans one character more
+    than len(end_exact), so the old formula silently truncated the
+    segment's last character."""
+
+    def setUp(self):
+        self.story = (
+            "Para one text.\n\nThe quick  brown fox jumps over the lazy dog."
+            "\n\nPara three."
+        )
+        _, self.spans = text_segmenter.build_paragraph_index(
+            self.story, splitter="\n\n"
+        )
+
+    def test_end_offset_reflects_real_matched_span_not_anchor_length(self):
+        end_exact = "quick brown"  # single space; source has a double space
+        span = text_segmenter.align_segment(
+            self.story,
+            self.spans,
+            start_par_id=2,
+            end_par_id=2,
+            start_exact="The quick",
+            end_exact=end_exact,
+        )
+        self.assertIsNotNone(span)
+        s, e = span
+        # The old buggy formula (e_pos + len(end_exact)) would have cut
+        # this one character short, truncating "brown" to "brow".
+        self.assertEqual(self.story[s:e], "The quick  brown")
+        self.assertTrue(self.story[s:e].endswith("brown"))
 
 
 class TestAlignSegmentFailsOnEitherAnchor(unittest.TestCase):
