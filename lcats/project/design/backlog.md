@@ -24,6 +24,54 @@ before a loud one even if the loud one blocks more use cases.
 
 ---
 
+### `_locate_anchor_span`'s whitespace-tolerant fallback never handles paragraph-marker leakage or curly-quote typography — P2, resolved
+
+Surfaced 2026-08-19 during `WI-SEGMENT-0069`'s investigation into the
+segmentation alignment failures remaining after the fix below
+(`find_anchor_in_range`'s whitespace-normalized fallback entry). A live
+30-story smoke test found the dominant remaining category,
+`anchor_absent_from_document` (15 of 21 `alignment_error` failures), was
+not one thing: manual inspection of the real captured anchors found two
+distinct, narrowly-fixable sub-patterns within it.
+
+1. **Paragraph-index marker leakage.** `paragraph_text_indexer` prefixes
+   each paragraph shown to the model with a `[PNNNN]` marker (e.g.
+   `[P0047]`), but alignment searches `canonical_text`, which never
+   contains these markers. At least 3 stories' anchors included the
+   literal marker as a prefix or (at a segment's own paragraph boundary)
+   mid-anchor — and this recurred on 3–6 segments within each affected
+   story, not as an isolated one-off.
+2. **Typographic quote/dash mismatch.** The source corpus uses Unicode
+   curly quotes/dashes; the model's anchor text uses plain ASCII
+   equivalents. Confirmed in 2 stories where the anchor resolves to an
+   exact match once typography is normalized.
+
+Findings, full evidence, and a per-category recommendation are recorded
+in `project/design/segmentation-alignment-failure-categories.md`
+(`WI-SEGMENT-0069`); the real captured anchors needed to reproduce these
+cases deterministically are committed separately as
+`experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json`.
+
+**Resolved 2026-08-20:** implemented via `WI-SEGMENT-0070`.
+`_locate_anchor_span`'s whitespace-tolerant fallback now strips a leaked
+`\[P\d{4}\]\s*` marker (the exact 4-digit zero-padded format
+`add_paragraph_markers` emits — not a looser `\d+`, which would also
+strip real story content that merely resembles a marker, e.g. a
+3-digit citation like `[P045]`) from the anchor, and normalizes Unicode
+curly quotes (`“”‘’`) and em/en dashes to their ASCII equivalents on
+both the anchor and the searched text (via a length-preserving
+`str.translate`, so a match found in the normalized copy still maps 1:1
+onto the real position in the original text) before building the
+regex. Regression tests replay all 16 real fixture segments across all
+5 cited stories end-to-end via `align_segment`, plus synthetic edge
+cases for a mid-anchor marker and a non-marker 3-digit bracket that must
+not be stripped. Two other categories from the same investigation —
+paragraph mis-numbering and the residual near-miss-quoting bucket — are
+explicitly out of scope for this fix; see `WI-SEGMENT-0069`'s design
+doc for why.
+
+---
+
 ### `find_anchor_in_range`'s whitespace-normalized fallback discards its own successful match — P1, resolved
 
 Surfaced 2026-08-14 during a `WI-EVENT-0033` verification smoke test

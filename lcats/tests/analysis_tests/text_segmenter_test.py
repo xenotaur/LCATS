@@ -1080,5 +1080,141 @@ class TestWiSegment0068RealCaseReplay(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+class TestWiSegment0070MarkerAndTypographyReplay(unittest.TestCase):
+    """WI-SEGMENT-0070: deterministic replay of every real failing anchor
+    captured during WI-SEGMENT-0069's investigation, against the real
+    committed corpus text, using the committed fixture file (not just the
+    design doc's own truncated excerpts -- see that file's own
+    docstring/_comment for why it exists as a separate committed
+    artifact).
+
+    Each fixture segment previously failed to align for one of two
+    reasons: a leaked `[PNNNN]` paragraph-index marker (add_paragraph_markers'
+    own format) as a literal prefix or mid-anchor substring of start_exact/
+    end_exact, or a Unicode curly-quote/dash vs. plain-ASCII mismatch
+    between the anchor and the real source text. Both are fixed directly
+    in _locate_anchor_span (see WI-SEGMENT-0068's own precedent for this
+    same function). This test replays every one of them via align_segment
+    end-to-end (not just _locate_anchor_span in isolation), confirming the
+    full paragraph-ID + anchor alignment succeeds, not merely that the
+    anchor text resolves somewhere.
+    """
+
+    REPO_ROOT = lcats_paths.find_pyproject_root(__file__).parent
+    FIXTURE_PATH = (
+        REPO_ROOT
+        / "experiments"
+        / "03_cross_segment_relation_pilot"
+        / "fixtures"
+        / "wi_segment_0069_alignment_cases.json"
+    )
+
+    def _load_fixture(self) -> dict:
+        if not self.FIXTURE_PATH.is_file():
+            self.fail(
+                f"fixture file not present at {self.FIXTURE_PATH} -- see "
+                "class docstring. If this file was intentionally moved or "
+                "removed, update or remove this test explicitly."
+            )
+        return json.loads(self.FIXTURE_PATH.read_text(encoding="utf-8"))
+
+    def _story_body(self, story_id: str) -> str:
+        from lcats.analysis import story_analysis
+
+        collection, slug = story_id.split("/", 1)
+        story_path = self.REPO_ROOT / "corpora" / collection / slug / "story.json"
+        if not story_path.is_file():
+            self.fail(
+                f"real story file not present at {story_path} for fixture "
+                f"story_id {story_id!r} -- see class docstring."
+            )
+        data = json.loads(story_path.read_text(encoding="utf-8"))
+        return story_analysis.coerce_text(data["body"])
+
+    def test_every_fixture_segment_now_aligns(self):
+        fixture = self._load_fixture()
+        stories = fixture["stories"]
+        self.assertTrue(stories, "test setup: fixture must list at least one story")
+
+        checked = 0
+        for story_id, segments in stories.items():
+            body = self._story_body(story_id)
+            _, index_meta = text_segmenter.paragraph_text_indexer(body)
+            text = index_meta["canonical_text"]
+            para_spans = index_meta["para_spans"]
+
+            for seg in segments:
+                checked += 1
+                result = text_segmenter.align_segment(
+                    text,
+                    para_spans,
+                    seg["start_par_id"],
+                    seg["end_par_id"],
+                    seg["start_exact"],
+                    seg["end_exact"],
+                )
+                self.assertIsNotNone(
+                    result,
+                    f"{story_id} segment_id={seg['segment_id']} failed to "
+                    "align (start_par_id="
+                    f"{seg['start_par_id']}, end_par_id={seg['end_par_id']})",
+                )
+                start_char, end_char = result
+                self.assertLess(start_char, end_char)
+
+        self.assertEqual(
+            checked,
+            16,
+            "test setup: expected exactly 16 fixture segments across 5 "
+            "stories (see WI-SEGMENT-0069's fixture file's own _comment) -- "
+            "if this fails, the fixture file itself changed and this "
+            "count should be updated deliberately, not silently",
+        )
+
+    def test_marker_leakage_case_resolves_via_locate_anchor_span(self):
+        """A minimal, synthetic case isolating just the marker-stripping
+        behavior in _locate_anchor_span, independent of any real corpus
+        file -- complements the full real-data replay above."""
+        text = "First real paragraph.\n\nSecond real paragraph starts here."
+        anchor = "[P0002] Second real paragraph starts here."
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(text[start:end], "Second real paragraph starts here.")
+
+    def test_mid_anchor_marker_also_stripped(self):
+        """A marker can appear mid-anchor at a paragraph boundary within
+        the segment (see the real perchance_to_dream__stockham fixture
+        case, segment_id=6), not only as a leading prefix."""
+        text = "Para one.\n\nPara two.\n\nPara three continues the story."
+        anchor = "Para two.\n\n[P0003] Para three continues the story."
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+
+    def test_three_digit_bracket_not_stripped_as_marker(self):
+        """A real citation-like bracket that merely resembles a marker
+        (3 digits, not add_paragraph_markers' own 4-digit format) must
+        not be treated as a leaked marker -- WI-SEGMENT-0070's own Risk
+        Notes warn against this exact over-permissive-regex failure
+        mode."""
+        text = 'She cited the paper as "[P045] a landmark result".'
+        anchor = '"[P045] a landmark result".'
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(text[start:end], anchor)
+
+    def test_typography_normalization_resolves_curly_quotes_and_dashes(self):
+        text = "She said “hello there—friend” and smiled."
+        anchor = 'She said "hello there-friend" and smiled.'
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        # The returned span indexes into the ORIGINAL text (with its real
+        # curly quotes/dash), not a normalized copy -- confirms the
+        # length-preserving translate() mapping didn't shift positions.
+        self.assertEqual(text[start:end], text)
+
+
 if __name__ == "__main__":
     unittest.main()
