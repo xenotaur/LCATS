@@ -3,7 +3,7 @@ resolution: null
 blocked_reason: null
 blocked: false
 id: WI-ASSESS-0051
-title: Run current-classifier full-corpus genre survey (Gap 2)
+title: Genre-census sample and cost-estimate tooling (Gap 2) - full-corpus run retired, see WI-GENRE-0004
 type: evaluation
 status: proposed
 owner: unassigned

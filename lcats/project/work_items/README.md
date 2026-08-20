@@ -16,13 +16,14 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
-- `proposed/WI-ASSESS-0051.md` — Run current-classifier full-corpus genre survey (Gap 2)
+- `proposed/WI-ASSESS-0051.md` — Genre-census sample and cost-estimate tooling (Gap 2) - full-corpus run retired, see WI-GENRE-0004
 - `proposed/WI-EVENT-0033.md` — Add schema-hardened structured output to scene/story analysis extractors
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker
 - `proposed/WI-RELEASE-0039.md` — Pre-launch verification of the gutenbergpy dependency resolution before real PyPI publish
 - `proposed/WI-LLM-0055.md` — Capture full entity lists and diff them across benchmark candidates
 - `proposed/WI-LLM-0066.md` — Wire run_census.py to a local OpenAI-compatible backend and evaluate gpt-oss:20b at genre-census scale
 - `proposed/WI-GENRE-0001.md` — Create metadata genre prefilter scaffold
+- `proposed/WI-GENRE-0004.md` — Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
