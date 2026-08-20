@@ -34,9 +34,9 @@ forbidden_actions:
   - fix_near_miss_quoting_bucket
   - fix_paragraph_misnumbering
 acceptance:
-  - "text_segmenter._locate_anchor_span strips a leading or embedded \\[P\\d+\\]\\s* paragraph-index marker from the anchor before the whitespace-tolerant regex fallback runs"
+  - "text_segmenter._locate_anchor_span strips a leading or embedded \\[P\\d{4}\\]\\s* paragraph-index marker from the anchor before the whitespace-tolerant regex fallback runs (four digits, matching add_paragraph_markers' actual f\"[P{idx+1:04d}]\" format exactly -- not \\d+, which would also strip real story content like a citation \"[P045]\")"
   - "_locate_anchor_span normalizes Unicode curly quotes (“”‘’) and em/en dashes to their ASCII equivalents when attempting the whitespace-tolerant match, on both the anchor and the searched text"
-  - "Regression tests replay the exact real cases WI-SEGMENT-0069 found (new_apples_in_the_garden__neville, perchance_to_dream__stockham, weak_on_square_roots__burton for marker leakage; the_hollow_lens__leverage, the_voice_in_the_fog__leverage for quote/dash mismatch), against the real committed corpus text"
+  - "Regression tests replay the exact real cases captured in experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json (new_apples_in_the_garden__neville, perchance_to_dream__stockham, weak_on_square_roots__burton for marker leakage; the_hollow_lens__leverage, the_voice_in_the_fog__leverage for quote/dash mismatch), against the real committed corpus text"
   - "A live smoke-test re-run (real API, same method as WI-SEGMENT-0069) confirms these two specific failure categories no longer reproduce for the cited example stories"
   - "lcats/project/design/backlog.md is updated to mark this fix resolved, mirroring WI-SEGMENT-0068's own convention"
   - "lrh validate reports 0 errors"
@@ -48,6 +48,7 @@ artifacts_expected:
   - lcats/src/lcats/analysis/text_segmenter.py
   - lcats/tests/analysis_tests/text_segmenter_test.py
   - lcats/project/design/backlog.md
+  - experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json
 ---
 
 ## Summary
@@ -76,10 +77,10 @@ observed in that sample:
    (`the_hollow_lens__leverage`, `the_voice_in_the_fog__leverage`) where
    the anchor resolves to an exact match once typography is normalized.
 
-This item implements both fixes in `text_segmenter._locate_anchor_span`,
-scoped the same narrow way `WI-SEGMENT-0068` was: a targeted transform
-applied before matching, not a widened search range or a fallback that
-guesses.
+This item (currently `status: proposed`, no code written yet) will
+implement both fixes in `text_segmenter._locate_anchor_span`, scoped the
+same narrow way `WI-SEGMENT-0068` was: a targeted transform applied
+before matching, not a widened search range or a fallback that guesses.
 
 ## Problem / Context
 
@@ -91,7 +92,13 @@ guesses.
 Full evidence (real story IDs, exact anchor text, real character positions)
 is in `lcats/project/design/segmentation-alignment-failure-categories.md`'s
 "`anchor_absent_from_document`, subdivided" section; this item does not
-repeat it in full, only cites it.
+repeat it in full, only cites it. The design doc's own prose quotes only
+truncated anchor excerpts, though -- the *complete* real anchors needed to
+write exact-replay regression tests are committed separately, in
+`experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json`
+(added by this WI's own creation PR, #321, in response to a review
+finding that the design doc alone wasn't enough to reproduce the exact
+cases without inventing anchors or paying for a fresh live LLM call).
 
 ## Scope
 
@@ -127,24 +134,34 @@ repeat it in full, only cites it.
 ## Required Changes
 
 1. In `_locate_anchor_span`, before the whitespace-tolerant regex
-   fallback, strip a leading or embedded `\[P\d+\]\s*` marker from the
-   anchor. The `the_hollow_lens__leverage`-adjacent example
-   (`'\n\n[P0098] \n\n[P0099] Suddenly a shaft of light...'`) shows a
-   marker can appear mid-anchor at a paragraph boundary within the
-   segment, not only at the very start -- the strip must handle any
-   occurrence, not just a leading one.
+   fallback, strip a leading or embedded `\[P\d{4}\]\s*` marker from the
+   anchor -- four digits, exactly matching `add_paragraph_markers`'
+   actual `f"[P{idx+1:04d}]"` format (`text_segmenter.py:77`), not a
+   looser `\d+` that would also strip real story content that merely
+   resembles a marker (e.g. a citation like `[P045]`, 3 digits). The
+   `perchance_to_dream__stockham` example in the committed fixture (see
+   Required Change 3) shows a marker can appear mid-anchor at a paragraph
+   boundary within the segment, not only at the very start -- the strip
+   must handle any occurrence, not just a leading one.
 2. In `_locate_anchor_span`, normalize Unicode curly quotes (`“”‘’`)
    and em/en dashes to their ASCII equivalents on both the anchor and the
    text being searched (or match against normalized copies of both),
    matching the existing whitespace-tolerant fallback's structure rather
    than replacing it.
 3. Add regression tests in `lcats/tests/analysis_tests/text_segmenter_test.py`
-   replaying the exact real cases cited above, reading the real committed
-   corpus story files (`corpora/mass_quantities/new_apples_in_the_garden__neville/story.json`,
+   replaying the exact real cases captured in
+   `experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json`
+   (committed by this WI's own creation PR, #321 -- real LLM-produced
+   `start_par_id`/`end_par_id`/`start_exact`/`end_exact` per failing
+   segment, captured during `WI-SEGMENT-0069`'s smoke test; the design
+   doc's own prose only quotes truncated excerpts, not enough to replay
+   the exact cases without inventing anchors or paying for a fresh live
+   call -- review finding, PR #321), against the real committed corpus
+   story files (`corpora/mass_quantities/new_apples_in_the_garden__neville/story.json`,
    `.../perchance_to_dream__stockham/story.json`,
    `.../weak_on_square_roots__burton/story.json`,
    `.../the_hollow_lens__leverage/story.json`,
-   `.../the_voice_in_the_fog__leverage/story.json`) and asserting the
+   `.../the_voice_in_the_fog__leverage/story.json`) and asserting each
    previously-failing anchor now resolves.
 4. Re-run `experiments/03_cross_segment_relation_pilot/check_segmentation_reliability.py`
    (real API cost -- get explicit sample-size authorization before
@@ -175,10 +192,12 @@ repeat it in full, only cites it.
   running, matching this session's established pattern.
 - The marker-stripping regex must not be so permissive that it strips
   real story content that merely resembles a marker (e.g. a story whose
-  actual text contains bracketed content like `[P045]` as dialogue or a
-  citation) -- scope the strip narrowly to the exact `[P\d{4}]`-style
-  format `paragraph_text_indexer` itself emits, not a generic bracket
-  pattern.
+  actual text contains bracketed content like `[P045]`, 3 digits, as
+  dialogue or a citation) -- scope the strip to exactly `\[P\d{4}\]`,
+  matching `add_paragraph_markers`' real 4-digit zero-padded format
+  (`text_segmenter.py:77`), not a looser `\d+` (review finding, PR #321:
+  an earlier draft of this WI's own acceptance criterion contradicted
+  this exact caution by specifying `\d+`).
 - Do not let a passing regression test on the 5 cited stories substitute
   for the live smoke-test re-run in Required Change 4 -- the regression
   tests prove the code change is correct against known cases; the smoke

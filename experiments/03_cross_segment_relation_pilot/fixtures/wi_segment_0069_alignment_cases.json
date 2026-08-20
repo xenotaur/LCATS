@@ -1,0 +1,127 @@
+{
+  "_comment": "Real LLM-produced segments captured during WI-SEGMENT-0069 (2026-08-19, claude-haiku-4-5-20251001), via check_segmentation_reliability.py after its parsed_output persistence fix. Committed here per WI-SEGMENT-0070 review finding (PR #321): the design doc only cited truncated anchor excerpts, which is not enough to replay the exact real failure cases without either inventing anchors or paying for a fresh live LLM call. story_id keys are <collection>/<story-slug>, matching corpora/<story_id>/story.json. Every listed segment_id failed to align when this data was captured: segments 4/8/9/10/11/12 (new_apples...), 3/5/6/8/9 (perchance...), 4/8/9 (weak_on_square_roots...) via paragraph-index marker leakage into start_exact; segment 1 (the_hollow_lens...) and segment 3 (the_voice_in_the_fog...) via Unicode curly-quote/dash typography mismatch.",
+  "stories": {
+    "mass_quantities/new_apples_in_the_garden__neville": [
+      {
+        "segment_id": 4,
+        "start_par_id": 47,
+        "end_par_id": 56,
+        "start_exact": "[P0047]\n\nAfter Forester left, Eddie picked up, listlessly from the top of the\nstack one of the preliminary reports submitted for his approval.",
+        "end_exact": "He turned to the next one."
+      },
+      {
+        "segment_id": 8,
+        "start_par_id": 112,
+        "end_par_id": 127,
+        "start_exact": "[P0112]\n\nEddie checked out at 7:15, when the night supervisor finally arrived.\nAs he left the building, he noted that a burglar alarm down the street\nhad gone off; probably because of a short circuit. The clanking set\nhis nerves on edge. Apprehensively he felt a rising wind against his\ncheeks.",
+        "end_exact": "The wind rattled the windows."
+      },
+      {
+        "segment_id": 9,
+        "start_par_id": 128,
+        "end_par_id": 142,
+        "start_exact": "[P0128]\n\nWhile Lois was warming dinner, his son came in.\n\n\"Hi, Eddie.\"\n\n\"Hi, Larry.\"",
+        "end_exact": "\"Daddy's tired. His dinner's on. Come on, Eddie. I'll set it right\nnow. And Larry, you've already eaten....\""
+      },
+      {
+        "segment_id": 10,
+        "start_par_id": 143,
+        "end_par_id": 162,
+        "start_exact": "[P0143]\n\nAfter dinner, Eddie got back to the paper, the evening _Times_.",
+        "end_exact": "\"Maybe after this month, that's all, and\nthe work load will level off.\""
+      },
+      {
+        "segment_id": 11,
+        "start_par_id": 163,
+        "end_par_id": 176,
+        "start_exact": "[P0163]\n\nLarry, dressed for bed, came in. \"Eddie?\"\n\n\"Your father's tired.\"",
+        "end_exact": "Again Eddie was silent for a moment. Then he rumpled his son's hair.\n\"That's science fiction, Larry.\""
+      },
+      {
+        "segment_id": 12,
+        "start_par_id": 177,
+        "end_par_id": 199,
+        "start_exact": "[P0177]\n\nLater, while they were listening to FM, there was a news break\nreporting a fire out of control in South Los Angeles.",
+        "end_exact": "In spite of the warmth of the room, she could not suppress an\ninvoluntary shudder whose cause was nameless. Suddenly, she did not\nwant to ask any more questions."
+      }
+    ],
+    "mass_quantities/perchance_to_dream__stockham": [
+      {
+        "segment_id": 3,
+        "start_par_id": 43,
+        "end_par_id": 51,
+        "start_exact": "\n\n[P0044] Twenty-three looked up at the glowing dome of the city that curved away\nto the horizon.",
+        "end_exact": "There were no winds to swirl and moan away into the distance."
+      },
+      {
+        "segment_id": 5,
+        "start_par_id": 65,
+        "end_par_id": 97,
+        "start_exact": "\n\n[P0066] Dressed in his pajamas, he stood beside the metal tube, in which for so\nmany years he had slept his regulation sleep and dreamed his regulation\ndreams.",
+        "end_exact": "feeling his body press against the softness that held him."
+      },
+      {
+        "segment_id": 6,
+        "start_par_id": 98,
+        "end_par_id": 125,
+        "start_exact": "\n\n[P0098] \n\n[P0099] Suddenly a shaft of light fell on him through the transparent square.\nOpening his eyes, he saw his wife's face staring down at him.",
+        "end_exact": "\"I burned them.\""
+      },
+      {
+        "segment_id": 8,
+        "start_par_id": 139,
+        "end_par_id": 145,
+        "start_exact": "\n\n[P0139] \n\n[P0140] For an instant--blackness, and silence, like a moment after death, or a\nmoment before birth.",
+        "end_exact": "\"Paul.\""
+      },
+      {
+        "segment_id": 9,
+        "start_par_id": 146,
+        "end_par_id": 152,
+        "start_exact": "\n\n[P0146] \n\n[P0147] Back in the city, in the room, the wife cried out.",
+        "end_exact": "it was like putting their ear to a white stone."
+      }
+    ],
+    "mass_quantities/weak_on_square_roots__burton": [
+      {
+        "segment_id": 4,
+        "start_par_id": 27,
+        "end_par_id": 29,
+        "start_exact": "[P0027] \n\nCorinne ran along. She spent most of the day shopping for week-end necessities.",
+        "end_exact": "Corinne knew that his work was going smoothly. A few minutes later she was to know how smoothly."
+      },
+      {
+        "segment_id": 8,
+        "start_par_id": 60,
+        "end_par_id": 69,
+        "start_exact": "[P0060] \n\nCorinne and Pascal spent the next two weeks going through pretty much the same routine.",
+        "end_exact": "And his wrist _was_ warm!"
+      },
+      {
+        "segment_id": 9,
+        "start_par_id": 70,
+        "end_par_id": 76,
+        "start_exact": "[P0070] \n\n\"When do they want Pascal back at the lab?\" she asked Ronald at dinner that evening,",
+        "end_exact": "She avoided looking at the aluminum figure in the chair."
+      }
+    ],
+    "mass_quantities/the_hollow_lens__leverage": [
+      {
+        "segment_id": 1,
+        "start_par_id": 1,
+        "end_par_id": 1,
+        "start_exact": "The author of \"Beyond the Wall,\" \"Whispering Wires,\"\n        and \"Peterman's Luck\" is at his best in this fascinating\n        story of underworld life.",
+        "end_exact": "The author of \"Beyond the Wall,\" \"Whispering Wires,\"\n        and \"Peterman's Luck\" is at his best in this fascinating\n        story of underworld life."
+      }
+    ],
+    "mass_quantities/the_voice_in_the_fog__leverage": [
+      {
+        "segment_id": 3,
+        "start_par_id": 16,
+        "end_par_id": 26,
+        "start_exact": "Gathright went with Richter to San Francisco. They recrossed the Bay,\nwithout seeing Henningay, Jr., and, at dusk, climbed over the shoring",
+        "end_exact": "I put you where nobody'll ever look--unless\nI give the order."
+      }
+    ]
+  }
+}
