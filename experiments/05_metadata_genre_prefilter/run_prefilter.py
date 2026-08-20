@@ -38,7 +38,6 @@ sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 from lcats.analysis.corpus import discovery  # noqa: E402
 from lcats.analysis.corpus import genre_sidecar  # noqa: E402
 
-
 CANDIDATES_FILENAME = "candidates.jsonl"
 PILOT_FILENAME = "pilot_40_manifest.jsonl"
 SUMMARY_FILENAME = "summary.json"
@@ -574,7 +573,20 @@ def select_genre_balanced_rows(
     proportional sample would under-represent the smaller target genres
     the Worldcon paper needs balanced coverage of.
     """
-    per_genre_target = target_total // len(TARGET_GENRES)
+    # Distribute target_total across TARGET_GENRES deterministically, even
+    # when it doesn't divide evenly by 8 - the base//remainder split below
+    # (rather than plain integer division) ensures selected_count matches
+    # target_total exactly whenever enough candidates exist, instead of
+    # silently under-selecting by up to 7 stories (review finding: Codex
+    # P2 + Copilot, this PR - --target-total 100 previously selected only
+    # 96). Remainder genres (first `remainder` in TARGET_GENRES' own fixed
+    # order) get one extra story each - deterministic, not data-dependent.
+    base_per_genre = target_total // len(TARGET_GENRES)
+    remainder = target_total % len(TARGET_GENRES)
+    target_counts = {
+        genre: base_per_genre + (1 if index < remainder else 0)
+        for index, genre in enumerate(TARGET_GENRES)
+    }
     selected: list[dict[str, Any]] = []
     selected_counts = {genre: 0 for genre in TARGET_GENRES}
     skipped_by_cap: collections.Counter[str] = collections.Counter()
@@ -586,7 +598,7 @@ def select_genre_balanced_rows(
         if genre is None:
             unclassified_count += 1
             continue
-        if selected_counts[genre] >= per_genre_target:
+        if selected_counts[genre] >= target_counts[genre]:
             continue
         gutenberg_id = row["gutenberg_id"]
         if (
@@ -603,7 +615,6 @@ def select_genre_balanced_rows(
         if gutenberg_id is not None:
             gutenberg_counts[gutenberg_id] += 1
 
-    target_counts = {genre: per_genre_target for genre in TARGET_GENRES}
     shortfalls = {
         genre: target_counts[genre] - selected_counts[genre]
         for genre in TARGET_GENRES
@@ -611,7 +622,7 @@ def select_genre_balanced_rows(
     }
     diagnostics = {
         "target_total": target_total,
-        "per_genre_target": per_genre_target,
+        "per_genre_target": base_per_genre,
         "target_counts": target_counts,
         "selected_counts": selected_counts,
         "selected_count": len(selected),
@@ -799,15 +810,19 @@ def _price_for_model(model: str) -> tuple[float, float]:
 def estimate_validation_cost_usd(
     selected_count: int,
     model: str,
-    avg_input_tokens: int = 2500,
-    avg_output_tokens: int = 400,
+    avg_input_tokens: int = 13_449,
+    avg_output_tokens: int = 416,
 ) -> float:
     """Rough pre-call cost estimate for the validation pass.
 
-    Default per-story token averages are carried over from
-    experiments/04_genre_census/run_census.py's own real measured sample
-    (WI-ASSESS-0051, $4.66/20 stories at claude-opus-4-8 pricing) rather
-    than invented here.
+    Default per-story token averages are the real measured values from
+    experiments/04_genre_census/results/census_sample_summary.json
+    (WI-ASSESS-0051's 20-story claude-opus-4-8 sample: 268,975 input /
+    8,310 output tokens total, i.e. 13,448.75/415.5 per story, rounded)
+    rather than invented placeholders - a review finding (Codex, P1, this
+    PR) caught an earlier draft understating the estimate by ~3.5x, which
+    would have defeated the whole point of this being the human review
+    gate before real billed calls.
     """
     input_price, output_price = _price_for_model(model)
     per_story = (avg_input_tokens / 1_000_000) * input_price + (
@@ -888,11 +903,41 @@ def run_validation(
         "agreement_rate": (
             (agreement_count / validated_count) if validated_count else None
         ),
+        # Per-genre breakdown, not just the aggregate above - an aggregate
+        # rate can conceal one genre's poor coverage behind seven good
+        # ones, exactly the gap this balanced validation exists to measure
+        # (review finding: Codex P2, this PR).
+        "agreement_by_genre": build_agreement_by_genre(results),
         "total_input_tokens": total_input_tokens,
         "total_output_tokens": total_output_tokens,
         "total_estimated_cost_usd": real_cost,
     }
     return results, summary
+
+
+def build_agreement_by_genre(results: list[dict[str, Any]]) -> dict[str, Any]:
+    """Aggregate validated/error/agreement/disagreement counts per selection_genre."""
+    by_genre: dict[str, dict[str, Any]] = {}
+    for result in results:
+        genre = result["selection_genre"]
+        bucket = by_genre.setdefault(
+            genre,
+            {"validated_count": 0, "error_count": 0, "agreement_count": 0},
+        )
+        agreement = result["model_assessment"]["result"]["agrees_with_metadata_rules"]
+        if agreement is None:
+            bucket["error_count"] += 1
+        else:
+            bucket["validated_count"] += 1
+            if agreement:
+                bucket["agreement_count"] += 1
+    for genre, bucket in by_genre.items():
+        validated = bucket["validated_count"]
+        bucket["disagreement_count"] = max(validated - bucket["agreement_count"], 0)
+        bucket["agreement_rate"] = (
+            (bucket["agreement_count"] / validated) if validated else None
+        )
+    return dict(sorted(by_genre.items()))
 
 
 def build_sidecar_records(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1132,7 +1177,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--model",
         default="claude-opus-4-8",
-        help="Model for --validate (Anthropic backend only).",
+        help=(
+            "Anthropic model used for --validate's real or estimated "
+            "validation pass, and for --full-scan's own "
+            "estimated_validation_cost_usd preview of that same estimate."
+        ),
     )
     if "--full-scan" in (argv or sys.argv[1:]) and "--validate" in (
         argv or sys.argv[1:]

@@ -116,10 +116,20 @@ append-only sidecar record per story — the metadata-rule assessment plus a
 new `model_detect` assessment, each validated against
 `lcats.analysis.corpus.genre_sidecar.validate_sidecar()` before being
 written) and `validation_summary.json` (per-story and aggregate
-agreement/disagreement between the metadata rules and the model, plus real
-measured cost). These sidecar records live under this experiment's own
-output directory only — never promoted into `corpora/`, which remains a
-separately-gated, unimplemented later step (see Current Boundary below).
+agreement/disagreement between the metadata rules and the model, an
+`agreement_by_genre` breakdown per selected genre — since an aggregate
+rate alone can hide one genre's poor coverage behind seven good ones —
+plus real measured cost). These sidecar records live under this
+experiment's own output directory only — never promoted into `corpora/`,
+which remains a separately-gated, unimplemented later step (see Current
+Boundary below).
+
+The cost estimate's default per-story token averages (13,449 input / 416
+output) are the real measured values from
+`experiments/04_genre_census/results/census_sample_summary.json`
+(`WI-ASSESS-0051`'s 20-story `claude-opus-4-8` sample), not invented
+placeholders — the estimate is the human review gate before real billed
+calls, so it must not understate expected spend.
 
 ## Outputs
 

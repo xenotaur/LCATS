@@ -12,7 +12,6 @@ import tempfile
 import unittest
 import unittest.mock
 
-
 _RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_prefilter.py"
 _SPEC = importlib.util.spec_from_file_location("run_prefilter", _RUNNER_PATH)
 assert _SPEC is not None and _SPEC.loader is not None
@@ -576,6 +575,34 @@ class TestGenreBalancedSelection(unittest.TestCase):
         self.assertEqual(len(selected), 2)
         self.assertEqual(diagnostics["skipped_by_gutenberg_cap"]["horror"], 3)
 
+    def test_target_total_not_divisible_by_8_still_selects_exactly_target_total(
+        self,
+    ):
+        # Plenty of candidates per genre so the remainder distribution is
+        # the only limiting factor, not availability.
+        rows = []
+        for genre in run_prefilter.TARGET_GENRES:
+            for index in range(20):
+                rows.append(
+                    _row_with_target_candidates(
+                        f"{genre.replace(' ', '_')}/story_{index}", [genre]
+                    )
+                )
+
+        selected, diagnostics = run_prefilter.select_genre_balanced_rows(
+            rows, target_total=100  # 100 // 8 = 12, remainder 4
+        )
+
+        self.assertEqual(len(selected), 100)
+        self.assertEqual(diagnostics["selected_count"], 100)
+        self.assertEqual(sum(diagnostics["target_counts"].values()), 100)
+        # Deterministic remainder assignment: the first 4 genres in
+        # TARGET_GENRES' own fixed order get 13, the rest get 12.
+        for index, genre in enumerate(run_prefilter.TARGET_GENRES):
+            expected = 13 if index < 4 else 12
+            self.assertEqual(diagnostics["target_counts"][genre], expected)
+            self.assertEqual(diagnostics["selected_counts"][genre], expected)
+
 
 class _FakeAssessmentResult:
     def __init__(
@@ -630,6 +657,47 @@ class TestModelAssessment(unittest.TestCase):
         self.assertIsNone(assessment["result"]["agrees_with_metadata_rules"])
         self.assertEqual(assessment["evidence"]["error"], "backend timeout")
 
+    def test_agreement_by_genre_separates_genres_and_excludes_errors_from_rate(self):
+        def _result(genre, agreement):
+            return {
+                "selection_genre": genre,
+                "model_assessment": {
+                    "result": {"agrees_with_metadata_rules": agreement}
+                },
+            }
+
+        results = [
+            _result("horror", True),
+            _result("horror", False),
+            _result("horror", None),  # error case - excluded from rate
+            _result("romance", True),
+            _result("romance", True),
+        ]
+
+        by_genre = run_prefilter.build_agreement_by_genre(results)
+
+        self.assertEqual(
+            by_genre["horror"],
+            {
+                "validated_count": 2,
+                "error_count": 1,
+                "agreement_count": 1,
+                "disagreement_count": 1,
+                "agreement_rate": 0.5,
+            },
+        )
+        self.assertEqual(
+            by_genre["romance"],
+            {
+                "validated_count": 2,
+                "error_count": 0,
+                "agreement_count": 2,
+                "disagreement_count": 0,
+                "agreement_rate": 1.0,
+            },
+        )
+        self.assertNotIn("fantasy", by_genre)
+
 
 class TestSidecarRecords(unittest.TestCase):
     def test_builds_and_validates_sidecar_records(self):
@@ -679,6 +747,17 @@ class TestSidecarRecords(unittest.TestCase):
 
 
 class TestValidationCostGate(unittest.TestCase):
+    def test_default_cost_estimate_matches_the_real_measured_sample(self):
+        # experiments/04_genre_census/results/census_sample_summary.json:
+        # 268,975 input / 8,310 output tokens over 20 real claude-opus-4-8
+        # calls ($4.657875 total) - the defaults must derive from this,
+        # not an invented placeholder (review finding: Codex P1, this PR -
+        # an earlier draft understated the estimate by ~3.5x).
+        estimate_for_20 = run_prefilter.estimate_validation_cost_usd(
+            20, "claude-opus-4-8"
+        )
+        self.assertAlmostEqual(estimate_for_20, 4.657875, places=2)
+
     def test_estimate_mode_makes_no_api_calls(self):
         with tempfile.TemporaryDirectory() as tmp:
             output_dir = pathlib.Path(tmp) / "results"
@@ -827,6 +906,16 @@ class TestValidationCostGate(unittest.TestCase):
             self.assertEqual(called_path, corpus_root / row["story_path"])
             self.assertEqual(summary["selected_count"], 1)
             self.assertEqual(summary["agreement_count"], 1)
+            self.assertEqual(
+                summary["agreement_by_genre"]["horror"],
+                {
+                    "validated_count": 1,
+                    "error_count": 0,
+                    "agreement_count": 1,
+                    "disagreement_count": 0,
+                    "agreement_rate": 1.0,
+                },
+            )
             results_path = output_dir / run_prefilter.VALIDATION_RESULTS_FILENAME
             self.assertTrue(results_path.exists())
             written = [
