@@ -215,6 +215,33 @@ directory (or symlink) itself.
 See [Preparing a corpora release](prepare-corpora-release.md) step 2 for a
 worked walkthrough of when and why to use `lcats clean`.
 
+## `linguistics`
+
+```
+lcats linguistics [--story-list STORY_LIST] [--backend {spacy,stanza,fake}]
+                  [--model MODEL] [--include-token-detail]
+                  [--existing {skip,validate,overwrite}]
+                  [--summary-output SUMMARY_OUTPUT] [--dry-run]
+                  [inputs ...]
+```
+
+Analyze LCATS stories with a local NLP backend and write compact
+`linguistics.json` sidecars.
+
+| Argument / Flag | Description |
+|---|---|
+| `inputs` | Story JSON files, story buckets, collection directories, or corpus roots. |
+| `--story-list STORY_LIST` | Text file listing story paths or bucket directories, one per line. Repeatable. |
+| `--backend {spacy,stanza,fake}` | NLP backend to use. Defaults to `spacy`; `fake` is for tests/dry plumbing only. |
+| `--model MODEL` | Backend model name or language code. Defaults to the backend default. |
+| `--include-token-detail` | Also write `linguistics.tokens.json` with normalized token records. |
+| `--existing {skip,validate,overwrite}` | Existing-output behavior. Defaults to `skip`. |
+| `--summary-output SUMMARY_OUTPUT` | Write the machine-readable JSON run summary to a file instead of stdout. |
+| `--dry-run` | Resolve inputs and report what would run without writing sidecars. |
+
+See [`../how-to/run-linguistics.md`](../how-to/run-linguistics.md) for setup,
+schema notes, and resumable-run behavior.
+
 ## Placeholder commands
 
 These commands are declared but not yet implemented — running them prints a
