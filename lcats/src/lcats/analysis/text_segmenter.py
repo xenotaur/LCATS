@@ -79,17 +79,20 @@ def add_paragraph_markers(paragraphs: List[str], delimiter: str = "\n\n") -> str
     )
 
 
-# Matches the exact marker format add_paragraph_markers emits
-# (f"[P{idx+1:04d}] ", always 4 zero-padded digits) -- not a looser
-# \[P\d+\], which would also strip real story content that merely
-# resembles a marker (e.g. a citation like "[P045]", 3 digits)
-# (WI-SEGMENT-0070, review finding on the WI's own Risk Notes text, PR
-# #321). A model quoting from the indexed (marker-prefixed) text instead
-# of the raw story text sometimes echoes this marker as a literal prefix
-# -- or, at a paragraph boundary within the segment, mid-anchor -- into
-# start_exact/end_exact; the real story text never contains it, so the
-# anchor can never resolve without stripping it first (WI-SEGMENT-0069).
-_PARAGRAPH_MARKER_RE = re.compile(r"\[P\d{4}\]\s*")
+# Matches the marker format add_paragraph_markers emits
+# (f"[P{idx+1:04d}] ") -- :04d is a MINIMUM width, not an exact one, so a
+# document with 10,000+ paragraphs produces a 5+-digit marker like
+# "[P10000]" (review finding, PR #324); \d{4,} (four or more digits)
+# matches that while still excluding a looser \d+, which would also
+# strip real story content that merely resembles a marker (e.g. a
+# citation like "[P045]", 3 digits) (WI-SEGMENT-0070, review finding on
+# the WI's own Risk Notes text, PR #321). A model quoting from the
+# indexed (marker-prefixed) text instead of the raw story text sometimes
+# echoes this marker as a literal prefix -- or, at a paragraph boundary
+# within the segment, mid-anchor -- into start_exact/end_exact; the real
+# story text never contains it, so the anchor can never resolve without
+# stripping it first (WI-SEGMENT-0069).
+_PARAGRAPH_MARKER_RE = re.compile(r"\[P\d{4,}\]\s*")
 
 # Curly quotes/dashes -> their plain-ASCII equivalents, each a single
 # character so the substitution never changes string length. Applied to

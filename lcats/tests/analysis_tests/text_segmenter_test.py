@@ -1204,6 +1204,18 @@ class TestWiSegment0070MarkerAndTypographyReplay(unittest.TestCase):
         start, end = result
         self.assertEqual(text[start:end], anchor)
 
+    def test_five_digit_marker_beyond_9999_paragraphs_also_stripped(self):
+        """Review finding, PR #324: add_paragraph_markers' f"[P{idx+1:04d}]"
+        uses :04d as a MINIMUM width, not an exact one -- a document with
+        10,000+ paragraphs produces a 5+-digit marker like "[P10000]",
+        which a stricter \\d{4} (exactly four digits) would miss."""
+        text = "First real paragraph.\n\nTen-thousandth real paragraph starts here."
+        anchor = "[P10000] Ten-thousandth real paragraph starts here."
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(text[start:end], "Ten-thousandth real paragraph starts here.")
+
     def test_typography_normalization_resolves_curly_quotes_and_dashes(self):
         text = "She said “hello there—friend” and smiled."
         anchor = 'She said "hello there-friend" and smiled.'
