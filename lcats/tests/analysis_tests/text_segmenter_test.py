@@ -1190,6 +1190,13 @@ class TestWiSegment0070MarkerAndTypographyReplay(unittest.TestCase):
         anchor = "Para two.\n\n[P0003] Para three continues the story."
         result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
         self.assertIsNotNone(result)
+        start, end = result
+        # Not just non-None (review finding, PR #324) -- the extracted
+        # span must be the real text the marker-stripped anchor actually
+        # names, not some other coincidental match.
+        self.assertEqual(
+            text[start:end], "Para two.\n\nPara three continues the story."
+        )
 
     def test_three_digit_bracket_not_stripped_as_marker(self):
         """A real citation-like bracket that merely resembles a marker
