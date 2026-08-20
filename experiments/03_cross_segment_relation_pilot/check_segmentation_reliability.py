@@ -279,6 +279,21 @@ def main() -> int:
         # extracted_output (the actual parsed tool result, useful for
         # debugging a non-"included" outcome) - so an interrupted run keeps
         # every already-paid-for result.
+        #
+        # Also persist parsed_output (WI-SEGMENT-0069, Required Change 1):
+        # on an alignment_error, extracted_output is cleared to None
+        # centrally by JSONPromptExtractor.extract() itself
+        # (WI-SEGMENT-0059), but parsed_output still holds the raw,
+        # pre-alignment {"segments": [...]} dict -- result_aligner
+        # (scene_analysis._segment_result_aligner ->
+        # text_segmenter.segments_result_aligner) raises before ever
+        # reassigning `parsed`, and segments_result_aligner itself copies
+        # rather than mutating its input, so the pre-alignment value
+        # survives untouched. This is what lets a captured alignment
+        # failure be analyzed after the fact (raw start_par_id/end_par_id/
+        # start_exact/end_exact per segment) without a fresh live call --
+        # no monkey-patching of result_aligner needed, since
+        # JSONPromptExtractor already exposes this value on every result.
         record = {
             "story_id": story_id,
             "outcome": outcome,
@@ -286,6 +301,7 @@ def main() -> int:
             "word_count": word_count,
             "segment_count": len(segments),
             "raw_output": result.get("raw_output"),
+            "parsed_output": result.get("parsed_output"),
             "extracted_output": result.get("extracted_output"),
             "api_error": api_error,
             "extraction_error": result.get("extraction_error"),

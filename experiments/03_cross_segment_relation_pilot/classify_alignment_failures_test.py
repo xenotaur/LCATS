@@ -1,0 +1,113 @@
+"""Unit tests for classify_alignment_failures.py.
+
+Not part of the installed lcats package (lives under experiments/, not
+lcats/src/lcats/) -- run explicitly:
+
+    python -m pytest experiments/03_cross_segment_relation_pilot/classify_alignment_failures_test.py
+"""
+
+from __future__ import annotations
+
+import json
+import pathlib
+import sys
+import tempfile
+import unittest
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+
+import classify_alignment_failures  # noqa: E402 - see sys.path.insert above
+
+
+def _write_story(data_dir: pathlib.Path, collection: str, slug: str, body: str) -> None:
+    story_dir = data_dir / collection / slug
+    story_dir.mkdir(parents=True)
+    (story_dir / "story.json").write_text(
+        json.dumps({"name": slug, "author": "Test Author", "body": body}),
+        encoding="utf-8",
+    )
+
+
+class TestClassifyStory(unittest.TestCase):
+    def test_anchor_absent_from_document(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            _write_story(
+                data_dir,
+                "coll",
+                "story_one",
+                "Paragraph one.\n\nParagraph two, the real text here.\n\nParagraph three.",
+            )
+            record = {
+                "story_id": "coll/story_one",
+                "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')",
+                "parsed_output": {
+                    "segments": [
+                        {
+                            "segment_id": 1,
+                            "start_par_id": 2,
+                            "end_par_id": 2,
+                            "start_exact": "This text was never in the story at all.",
+                            "end_exact": "",
+                        }
+                    ]
+                },
+            }
+            category, details = classify_alignment_failures.classify_story(
+                record, data_dir
+            )
+            self.assertEqual(category, "anchor_absent_from_document")
+            self.assertEqual(len(details), 1)
+
+    def test_paragraph_misnumbering_reports_real_span(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            _write_story(
+                data_dir,
+                "coll",
+                "story_two",
+                "Para one.\n\nPara two.\n\nThe real anchor text lives here in para three.",
+            )
+            record = {
+                "story_id": "coll/story_two",
+                "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')",
+                "parsed_output": {
+                    "segments": [
+                        {
+                            "segment_id": 1,
+                            # Claims paragraph 1, but the anchor is really in
+                            # paragraph 3 -- a mis-numbering case.
+                            "start_par_id": 1,
+                            "end_par_id": 1,
+                            "start_exact": "The real anchor text lives here",
+                            "end_exact": "",
+                        }
+                    ]
+                },
+            }
+            category, details = classify_alignment_failures.classify_story(
+                record, data_dir
+            )
+            self.assertIn(
+                category,
+                (
+                    "paragraph_misnumbering_large_margin",
+                    "paragraph_misnumbering_narrow_margin",
+                ),
+            )
+            self.assertIn("found_outside_claimed_range", details[0])
+
+    def test_no_parsed_output_captured(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            record = {
+                "story_id": "coll/story_three",
+                "outcome": "alignment_error:alignment failed: ...",
+                "parsed_output": None,
+            }
+            category, _ = classify_alignment_failures.classify_story(record, data_dir)
+            self.assertEqual(category, "no_parsed_output_captured")
+
+
+if __name__ == "__main__":
+    unittest.main()

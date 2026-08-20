@@ -97,7 +97,12 @@ class TestSelectFilesCanonicalOnly(unittest.TestCase):
 def _namespace(**kwargs):
     import argparse
 
-    defaults = {"story_list": None, "data_dir": "corpora", "sample_size": 20, "seed": 42}
+    defaults = {
+        "story_list": None,
+        "data_dir": "corpora",
+        "sample_size": 20,
+        "seed": 42,
+    }
     defaults.update(kwargs)
     return argparse.Namespace(**defaults)
 
@@ -239,6 +244,82 @@ class TestMainStoryIdCollisionAvoidance(unittest.TestCase):
             self.assertEqual(second_exit, 0)
             second_record = json.loads(result_path.read_text("utf-8"))
             self.assertEqual(first_record, second_record)
+
+
+class _FakeAlignmentFailureExtractor:
+    """Stub extractor simulating JSONPromptExtractor's real alignment_error
+    contract: extracted_output cleared to None, but parsed_output still
+    holding the raw pre-alignment segments (see the comment above
+    check_segmentation_reliability.py's `record = {...}` for why this is
+    real behavior, not a test-only assumption)."""
+
+    def extract(self, body, model_name=None):
+        return {
+            "raw_output": "",
+            "parsed_output": {
+                "segments": [
+                    {
+                        "segment_id": 1,
+                        "start_par_id": 3,
+                        "end_par_id": 5,
+                        "start_exact": "It was",
+                        "end_exact": "the end.",
+                    }
+                ]
+            },
+            "extracted_output": None,
+            "api_error": None,
+            "extraction_error": None,
+            "alignment_error": "alignment failed for segment_id=1: ...",
+            "usage": None,
+        }
+
+
+class TestParsedOutputPersistedOnAlignmentFailure(unittest.TestCase):
+    """WI-SEGMENT-0069, Required Change 1: a captured alignment_error must
+    retain enough detail (the pre-alignment parsed_output) to be analyzed
+    later without a fresh live LLM call."""
+
+    def test_parsed_output_present_when_extracted_output_is_none(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            output_dir = pathlib.Path(tmp) / "results"
+            _write_bucket_story(data_dir / "sherlock", "failing_story", "Body text.")
+
+            argv = [
+                "check_segmentation_reliability.py",
+                "--data-dir",
+                str(data_dir),
+                "--sample-size",
+                "1",
+                "--output",
+                str(output_dir),
+            ]
+            with (
+                patch.object(sys, "argv", argv),
+                patch.object(check_segmentation_reliability, "load_secrets"),
+                patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend",
+                    return_value=object(),
+                ),
+                patch.object(
+                    check_segmentation_reliability.scene_analysis,
+                    "make_segment_extractor",
+                    return_value=_FakeAlignmentFailureExtractor(),
+                ),
+            ):
+                exit_code = check_segmentation_reliability.main()
+
+            self.assertEqual(exit_code, 0)
+            record = json.loads(
+                (output_dir / "sherlock" / "failing_story.json").read_text("utf-8")
+            )
+            self.assertTrue(record["outcome"].startswith("alignment_error:"))
+            self.assertIsNone(record["extracted_output"])
+            self.assertIsNotNone(record["parsed_output"])
+            self.assertEqual(
+                record["parsed_output"]["segments"][0]["start_exact"], "It was"
+            )
 
 
 class TestClassifyAlignmentError(unittest.TestCase):
