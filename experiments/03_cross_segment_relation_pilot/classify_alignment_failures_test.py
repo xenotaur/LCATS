@@ -97,6 +97,42 @@ class TestClassifyStory(unittest.TestCase):
             )
             self.assertIn("found_outside_claimed_range", details[0])
 
+    def test_end_exact_before_resolved_start_is_not_silently_accepted(self):
+        """Review finding, PR #320: align_segment resolves start_exact
+        against [lo, hi) first, then searches end_exact only from that
+        resolved start position onward ([s_idx, hi), not [lo, hi) again)
+        -- so a segment whose end_exact text occurs BEFORE its (correctly
+        resolved) start_exact within the claimed paragraph range is a
+        real alignment failure, not a reproducible success. Checking both
+        anchors independently against the full [lo, hi) range would
+        wrongly find end_exact "in range" and report
+        no_anchor_failure_reproduced for a story whose real alignment
+        genuinely failed, corrupting the category counts."""
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            body = (
+                "END marker text. Then some filler words padding this out. "
+                "START marker text really here."
+            )
+            _write_story(data_dir, "coll", "story_four", body)
+            record = {
+                "story_id": "coll/story_four",
+                "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')",
+                "parsed_output": {
+                    "segments": [
+                        {
+                            "segment_id": 1,
+                            "start_par_id": 1,
+                            "end_par_id": 1,
+                            "start_exact": "START marker text really here.",
+                            "end_exact": "END marker text.",
+                        }
+                    ]
+                },
+            }
+            category, _ = classify_alignment_failures.classify_story(record, data_dir)
+            self.assertNotEqual(category, "no_anchor_failure_reproduced")
+
     def test_no_parsed_output_captured(self):
         with tempfile.TemporaryDirectory() as tmp:
             data_dir = pathlib.Path(tmp) / "corpora"

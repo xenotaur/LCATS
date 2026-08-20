@@ -125,29 +125,48 @@ def classify_story(record: dict, data_dir: pathlib.Path) -> tuple[str, list[str]
     ep = max(ep, sp)
     lo, hi = para_spans[sp][0], para_spans[ep][1]
 
-    failing = []
-    for anchor_name in ("start_exact", "end_exact"):
-        anchor = seg.get(anchor_name) or ""
-        result = classify_anchor(text, anchor, lo, hi)
-        if result["reason"] not in (
-            "resolves_in_claimed_range",
-            "empty_anchor_no_check_needed",
-        ):
-            failing.append((anchor_name, result))
+    start_exact = seg.get("start_exact") or ""
+    end_exact = seg.get("end_exact") or ""
 
-    if not failing:
+    # Mirror align_segment's own sequential resolution order exactly
+    # (review finding, PR #320): it resolves start_exact against
+    # [lo, hi) first and, only if that succeeds, searches end_exact
+    # against [s_idx, hi) -- the START of the resolved start_exact match,
+    # not lo. Checking both anchors independently against the full
+    # [lo, hi) range (the original version of this function) can find
+    # end_exact "in range" even when it occurs before the resolved
+    # start_exact position, a case align_segment itself would still
+    # reject -- silently reporting no_anchor_failure_reproduced for a
+    # story whose alignment genuinely failed.
+    failing_name = None
+    failing_result = None
+    if start_exact.strip():
+        start_result = classify_anchor(text, start_exact, lo, hi)
+        if start_result["reason"] != "resolves_in_claimed_range":
+            failing_name, failing_result = "start_exact", start_result
+            s_idx = None
+        else:
+            s_idx = text_segmenter._locate_anchor_span(text, start_exact, lo, hi)[0]
+    else:
+        s_idx = lo
+
+    if failing_name is None and end_exact.strip():
+        end_result = classify_anchor(text, end_exact, s_idx, hi)
+        if end_result["reason"] != "resolves_in_claimed_range":
+            failing_name, failing_result = "end_exact", end_result
+
+    if failing_name is None:
         return "no_anchor_failure_reproduced", [
             f"{story_id} seg={seg_id} n_par={n_par} claimed=[{start_par_id},{end_par_id}]"
         ]
 
     details = [
-        f"{story_id} seg={seg_id} {name}={seg.get(name)!r} n_par={n_par} "
-        f"claimed=[{start_par_id},{end_par_id}] detail={result}"
-        for name, result in failing
+        f"{story_id} seg={seg_id} {failing_name}={seg.get(failing_name)!r} "
+        f"n_par={n_par} claimed=[{start_par_id},{end_par_id}] detail={failing_result}"
     ]
-    if any(r["reason"] == "absent_from_document" for _, r in failing):
+    if failing_result["reason"] == "absent_from_document":
         return "anchor_absent_from_document", details
-    margin = min(r["margin_chars"] for _, r in failing if "margin_chars" in r)
+    margin = failing_result["margin_chars"]
     category = (
         "paragraph_misnumbering_narrow_margin"
         if margin <= _NARROW_MARGIN_CHARS

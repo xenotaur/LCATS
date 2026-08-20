@@ -140,19 +140,30 @@ the document, outside the paragraph range implied by the model's own
 correlates with anything observable — checked against paragraph count
 (`n_par`) specifically, since that's what the model is asked to count:
 
-| Category | Stories (n_par) |
-|---|---|
-| large margin (>200 chars off) | `love_among_the_robots` (302), `the_last_days_of_l_a` (193), `the_spinster_1905` (162), `way_of_a_rebel` (110) |
-| narrow margin (≤200 chars off) | `no_charge_for_alterations` (341), `peace_manoeuvres` (208) |
-| (for comparison) `included` stories | 373, 244, 195, 174, 124, 48 |
+| Story | n_par | Claimed range (par IDs → char offsets) | Real anchor position | Margin |
+|---|---:|---|---:|---:|
+| `love_among_the_robots__mcdowell` (large) | 302 | `[7,51]` → `[1306, 6255]` | 7920 | 1665 chars |
+| `the_last_days_of_l_a__smith` (large) | 193 | `[121,144]` → `[23251, 28127]` | 22930 | 321 chars |
+| `the_spinster_1905__hichens` (large) | 162 | `[44,75]` → `[4210, 8848]` | 10713 | 1865 chars |
+| `way_of_a_rebel__miller` (large) | 110 | `[5,8]` → `[1986, 3693]` | 8787 | 5094 chars |
+| `no_charge_for_alterations__gold` (narrow) | 341 | `[52,87]` → `[9053, 12984]` | 8929 | 124 chars |
+| `peace_manoeuvres__davis` (narrow) | 208 | `[37,86]` → `[6349, 14764]` | 14766 | 2 chars |
+| (for comparison) `included` stories | 373, 244, 195, 174, 124, 48 | — | — | — |
 
-**No correlation found.** Both mis-numbering categories span roughly the
-same `n_par` range (110–341) as the stories that aligned successfully
-(48–373), and the six included stories' median `n_par` (184.5) is close to
-the 21 alignment_error stories' median (175). Story length/paragraph
-density alone does not predict this failure in this sample. This is a
-genuine negative result, not an inconclusive one — it rules out the most
-obvious hypothesis rather than leaving it open.
+**No correlation observed in this small sample.** Both mis-numbering
+categories span roughly the same `n_par` range (110–341) as the stories
+that aligned successfully (48–373), and the six included stories' median
+`n_par` (184.5) is close to the 21 alignment_error stories' median (175).
+This does not *rule out* a relationship between paragraph count and
+mis-numbering — overlapping ranges and similar medians across six
+failures and six successes are weak evidence at this sample size, and
+"paragraph count" alone doesn't capture paragraph *density* (paragraphs
+per unit of text length), which wasn't measured separately here. What
+this sample does show is that the single most obvious hypothesis (longer
+paragraph-count stories systematically mis-number) isn't visibly true in
+these 21 cases; a dedicated follow-up with a larger sample and an actual
+density measure would be needed to check the hypothesis properly before
+treating it as settled either way (review finding, PR #320).
 
 ## Recommendations
 
@@ -183,11 +194,11 @@ narrow follow-up deliverable WI, structured the same way as
 ### Defer: paragraph mis-numbering (6 of 21, 29%)
 
 No safe, evidence-backed fix design emerged from this sample — the one
-hypothesis checked (correlation with paragraph count) was directly ruled
-out, and this WI's own `forbidden_actions` bars widening the search range
-without distribution data to justify it. A targeted fix isn't ruled out in
-principle, but this sample doesn't supply the evidence to design one
-safely. Recommend a follow-up round of diagnostic sampling specifically
+hypothesis checked (correlation with paragraph count) wasn't visibly
+supported, and this WI's own `forbidden_actions` bars widening the search
+range without distribution data to justify it. A targeted fix isn't ruled
+out in principle, but this sample doesn't supply the evidence to design
+one safely. Recommend a follow-up round of diagnostic sampling specifically
 targeting this category (e.g., checking whether the model's paragraph
 count drifts from a fixed offset consistently within a story, which would
 suggest an off-by-N counting habit rather than a random miss) before
