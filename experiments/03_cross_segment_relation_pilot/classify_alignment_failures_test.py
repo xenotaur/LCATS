@@ -144,6 +144,35 @@ class TestClassifyStory(unittest.TestCase):
             category, _ = classify_alignment_failures.classify_story(record, data_dir)
             self.assertEqual(category, "no_parsed_output_captured")
 
+    def test_missing_story_json_degrades_gracefully(self):
+        """Review finding, PR #320: a story.json that's gone missing since
+        the smoke test ran (or a malformed story_id) must not crash the
+        whole batch report -- it should degrade to a diagnostic category
+        for that one story, like every other malformed-input case here."""
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "corpora"
+            data_dir.mkdir(parents=True)
+            record = {
+                "story_id": "coll/story_never_written",
+                "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')",
+                "parsed_output": {
+                    "segments": [
+                        {
+                            "segment_id": 1,
+                            "start_par_id": 1,
+                            "end_par_id": 1,
+                            "start_exact": "anything",
+                            "end_exact": "",
+                        }
+                    ]
+                },
+            }
+            category, details = classify_alignment_failures.classify_story(
+                record, data_dir
+            )
+            self.assertEqual(category, "story_file_unreadable")
+            self.assertEqual(len(details), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

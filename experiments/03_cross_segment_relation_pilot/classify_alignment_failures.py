@@ -94,11 +94,19 @@ def classify_story(record: dict, data_dir: pathlib.Path) -> tuple[str, list[str]
     if not parsed or "segments" not in parsed:
         return "no_parsed_output_captured", [story_id]
 
-    collection, slug = story_id.split("/", 1)
-    story_path = data_dir / collection / slug / "story.json"
-    body = story_analysis.coerce_text(
-        json.loads(story_path.read_text("utf-8")).get("body", "")
-    )
+    # This script re-derives a story's body from --data-dir rather than
+    # trusting the smoke-dir record alone, so a malformed story_id or a
+    # story.json that's gone missing/changed since the smoke test ran
+    # must degrade to a diagnostic category -- not crash the whole batch
+    # report over one bad story (review finding, PR #320).
+    try:
+        collection, slug = story_id.split("/", 1)
+        story_path = data_dir / collection / slug / "story.json"
+        body = story_analysis.coerce_text(
+            json.loads(story_path.read_text("utf-8")).get("body", "")
+        )
+    except (ValueError, OSError, json.JSONDecodeError) as exc:
+        return "story_file_unreadable", [f"{story_id}: {type(exc).__name__}: {exc}"]
     _, index_meta = text_segmenter.paragraph_text_indexer(body)
     text = index_meta.get("canonical_text") or body
     para_spans = index_meta["para_spans"]
