@@ -148,6 +148,83 @@ it.
   `genre_sidecar.py`'s `genre-sidecar-v1` schema (`WI-GENRE-0003`),
   experiment-local only.
 
+## Required Changes
+
+1. **`experiments/05_metadata_genre_prefilter/run_prefilter.py`**:
+   - The full-corpus scan itself is largely already built:
+     `discover_rows()` already walks the whole corpus (not pilot-limited),
+     and `enrich_rows()`/`build_summary()` already compute
+     `target_candidate_counts` across all rows via
+     `normalize_matches()`'s `target_candidates`. What's new: extend
+     `build_summary()` (or a new reporting helper) to report explicit
+     per-genre **coverage** across all 8 `TARGET_GENRES` (candidate count
+     plus the count of rows with zero `target_candidates` - "no usable
+     metadata signal" - which the current summary doesn't break out
+     separately from the aggregate `target_candidate_counts` dict).
+   - New function `select_genre_balanced_rows()`, parallel in shape to
+     the existing `select_pilot_rows()` but grouping by primary target
+     genre (`row["metadata_assessment"]["result"]["target_candidates"][0]`
+     when non-empty, else excluded as "no usable signal") instead of
+     `collection_group()`. Targets a total of 100-200 stories,
+     distributed evenly across the 8 `TARGET_GENRES` (not
+     corpus-proportional like `select_pilot_rows`'s per-collection
+     grouping, and not `select_pilot_rows` itself, which is scoped to
+     the existing 4-collection 40-story pilot and must not be repurposed
+     or have its own target changed). Reports per-genre shortfalls the
+     same way `select_pilot_rows`'s `shortfalls` diagnostic does, for any
+     genre metadata coverage can't fill.
+   - New CLI flags: `--full-scan` (or equivalent) to run the
+     genre-balanced full-corpus selection instead of the existing
+     40-story pilot mode; `--target-total` (default in the 100-200
+     range) for the selection target.
+   - The selected sample and its selection rationale (diagnostics from
+     `select_genre_balanced_rows()`) are written as an experiment-local
+     manifest via the existing `write_outputs()`/`write_jsonl()` helpers
+     **before** any paid model call - selection and validation are two
+     separate script invocations, not one atomic step, so a human can
+     review the manifest and its cost estimate between them.
+2. **`experiments/05_metadata_genre_prefilter/run_prefilter.py`** (new
+   validation mode): a real, gated Claude Opus (`assess_story()` from
+   `lcats.analysis.corpus.assess`, detect mode) validation pass over only
+   the selected sample - never the full corpus. Follows
+   `experiments/04_genre_census/run_census.py`'s established two-step
+   cost-gate pattern (a `--sample-size`/estimate-first step, a separate
+   `--full`/real-spend step never defaulted-into) rather than inventing a
+   new gating convention: a dry-run/estimate mode reports the expected
+   cost (~$45 based on `run_census.py`'s own measured $0.233/story rate)
+   without calling the API, and the real run requires an explicit
+   opt-in flag plus the same `_PRICING_USD_PER_MILLION_TOKENS`-style
+   local pricing constant `run_census.py` uses (no shared pricing module
+   exists in this codebase - see `run_census.py`'s own Risk Notes on this
+   point, unchanged here). Each result is compared against that story's
+   metadata-rule `target_candidates` and the agreement/disagreement is
+   recorded per-story and aggregated per-genre.
+3. **`experiments/05_metadata_genre_prefilter/run_prefilter.py`** (sidecar
+   output): both the metadata-rule and model-validation results for the
+   selected sample are written as `genre-sidecar-v1` append-only
+   `assessments[]` records (`{"schema_version": "genre-sidecar-v1",
+   "lcats_id": ..., "assessments": [...]}` per story), each validated via
+   `lcats.analysis.corpus.genre_sidecar.validate_sidecar()` before being
+   written. The metadata-rule assessment reuses `build_metadata_assessment()`
+   (already emits an assessment-shaped record); a new
+   `build_model_assessment()`-equivalent builds the `model_detect`-labeled
+   record from `assess_story()`'s result, including a unique `run_id` (top
+   level or under `provenance.run_id`, per `genre_sidecar.py`'s
+   `_validate_model_run_identity()` requirement). Written under
+   `experiments/05_metadata_genre_prefilter/results/` only - never
+   `write_corpus_sidecars`/`promote_sidecars` into `corpora/`, which
+   remain forbidden actions for this item.
+4. **`experiments/05_metadata_genre_prefilter/run_prefilter_test.py`**:
+   tests for `select_genre_balanced_rows()` (target distribution,
+   shortfall reporting, determinism), the cost-estimate/gated-real-run
+   split (estimate mode makes no API calls; the real mode is not
+   reachable without its explicit opt-in flag), the agreement/disagreement
+   comparison, and that every written sidecar record passes
+   `genre_sidecar.validate_sidecar()`.
+5. **`experiments/05_metadata_genre_prefilter/README.md`**: document the
+   new full-scan/selection/validation modes, the cost gate, and the
+   sidecar output shape, following the existing README's structure.
+
 ## Non-Goals
 
 - Do not promote sidecars into `corpora/` - that remains a separate,

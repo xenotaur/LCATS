@@ -5,7 +5,12 @@ experiment-local metadata-rule evidence pilot. The runner discovers LCATS story
 buckets, uses LCATS path identity as the primary story ID, reads Gutenberg
 subjects from an explicitly supplied existing SQLite cache in read-only mode,
 records all matching metadata genre-rule evidence, and writes a deterministic
-40-story pilot manifest.
+40-story pilot manifest (the default mode, below).
+
+`WI-GENRE-0004` adds two further modes on top of that same scan: `--full-scan`
+(a full-corpus metadata scan plus a genre-balanced 100-200 story selection,
+still free) and `--validate` (a real, gated Claude Opus validation pass
+against that selection, see [Validation Pass](#validation-pass-real-gated-claude-opus)).
 
 ## No-Network Default
 
@@ -56,6 +61,66 @@ Omit `--cache-db` for no-cache readiness and shape checks. The omitted-cache
 path does not inspect `$LCATS_CACHE_DIR`, `cache/gutenbergindex.db`, or any
 other implicit cache location.
 
+## Full-Corpus Scan and Genre-Balanced Selection
+
+`--full-scan` runs the same discovery/enrichment as the default pilot mode,
+but across the entire corpus, and selects a genre-balanced (not
+corpus-proportional) sample of `--target-total` stories (default 160,
+acceptance range 100-200) distributed evenly across the 8 target genres —
+grouped by each story's primary metadata-rule target genre, not by source
+collection like the 40-story pilot. No API calls; free.
+
+```bash
+python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --full-scan \
+  --corpus-root corpora \
+  --cache-db /path/to/existing/gutenbergindex.db \
+  --target-total 160 \
+  --output experiments/05_metadata_genre_prefilter/results/full_scan
+```
+
+Writes `candidates.jsonl` (every discovered story), `genre_balanced_manifest.jsonl`
+(the selected sample), and `summary.json` — including `genre_coverage`
+(per-genre candidate counts plus a `no_usable_signal_count` for stories with
+no metadata match at all), `genre_balanced_selection` (the selection
+diagnostics: per-genre selected counts and any shortfalls), and
+`estimated_validation_cost_usd` (a rough pre-call estimate for the separate
+`--validate` step below). Review the manifest and this estimate before
+running `--validate` — selection and validation are deliberately two
+separate invocations, not one atomic step.
+
+## Validation Pass (Real, Gated Claude Opus)
+
+`--validate` reads back an existing `genre_balanced_manifest.jsonl` from
+`--output` (written by `--full-scan` above) and runs a real Claude Opus
+detect-mode classification against just that selected sample — never the
+full corpus. Estimate-only by default; **no API calls are made** unless
+`--run-real-validation` is also passed, mirroring
+`experiments/04_genre_census/run_census.py`'s established cost-gate
+convention (never spend real money without an explicit, separate opt-in).
+
+```bash
+# 1. Cost estimate only — no API calls, no ANTHROPIC_API_KEY needed.
+python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --validate \
+  --output experiments/05_metadata_genre_prefilter/results/full_scan
+
+# 2. Real run — requires ANTHROPIC_API_KEY and explicit go-ahead.
+python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --validate --run-real-validation \
+  --output experiments/05_metadata_genre_prefilter/results/full_scan
+```
+
+The real run writes `validation_results.jsonl` (one `genre-sidecar-v1`
+append-only sidecar record per story — the metadata-rule assessment plus a
+new `model_detect` assessment, each validated against
+`lcats.analysis.corpus.genre_sidecar.validate_sidecar()` before being
+written) and `validation_summary.json` (per-story and aggregate
+agreement/disagreement between the metadata rules and the model, plus real
+measured cost). These sidecar records live under this experiment's own
+output directory only — never promoted into `corpora/`, which remains a
+separately-gated, unimplemented later step (see Current Boundary below).
+
 ## Outputs
 
 The runner writes only under the requested output directory:
@@ -65,8 +130,13 @@ The runner writes only under the requested output directory:
   `lovecraft`, `sherlock`, O. Henry (`ohenry-four_million` and
   `ohenry-whirligigs`), and `mass_quantities`.
 - `summary.json`: story counts, collection counts, cache readiness,
-  target-candidate counts, secondary-signal counts, Gutenberg-ID parse
-  failures, repeated Gutenberg-ID diagnostics, and pilot-selection diagnostics.
+  target-candidate counts, secondary-signal counts, `genre_coverage`
+  (per-genre primary-candidate counts plus a no-usable-signal count),
+  Gutenberg-ID parse failures, repeated Gutenberg-ID diagnostics, and
+  pilot-selection diagnostics. `--full-scan` additionally writes
+  `genre_balanced_manifest.jsonl` and adds `genre_balanced_selection`
+  and `estimated_validation_cost_usd` to `summary.json` — see
+  [Full-Corpus Scan](#full-corpus-scan-and-genre-balanced-selection) above.
 
 The LCATS story ID is the corpus-root-relative story bucket path, such as
 `sherlock/five_orange_pips`. Gutenberg ID and URL are provenance fields only.
@@ -106,13 +176,22 @@ Direct target-label normalization:
 ## Current Boundary
 
 This experiment does not write `genre.json` sidecars into `data/` or
-`corpora/`, promote sidecars, modify `lcats annotate`, modify `lcats promote`,
-run local or remote models, run full-corpus metadata labeling for commit, or
-implement the larger 100-200 story sample. Those remain later workstream steps
-after the 40-story metadata pilot path is reviewed.
+`corpora/`, promote sidecars, modify `lcats annotate`, or modify
+`lcats promote`. Those remain later workstream steps.
 
-The reusable `genre-sidecar-v1` validator now lives in
-`lcats.analysis.corpus.genre_sidecar`. It validates the production sidecar
-shape and detects legacy flat `AssessmentResult.to_dict()` genre sidecars, but
-this experiment still remains experiment-local and does not materialize or
-promote production `genre.json` files.
+`WI-GENRE-0004` implemented the full-corpus scan, the genre-balanced
+100-200 story selection, and the real gated Claude Opus validation pass
+described above — none of these three were built as of `WI-GENRE-0002`.
+`--full-scan` still makes no network/model calls of its own beyond the
+same read-only cache access the pilot mode already used; `--validate`'s
+real mode is the only path in this experiment that makes billed API
+calls, and only against the already-selected sample, never the full
+corpus.
+
+The reusable `genre-sidecar-v1` validator lives in
+`lcats.analysis.corpus.genre_sidecar` (`WI-GENRE-0003`). It validates the
+production sidecar shape and detects legacy flat `AssessmentResult.to_dict()`
+genre sidecars; `--validate --run-real-validation` above is this
+experiment's first real producer of sidecar-shaped records validated
+against it, but this experiment still remains experiment-local and does
+not materialize or promote production `genre.json` files under `corpora/`.

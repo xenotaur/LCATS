@@ -488,5 +488,331 @@ class TestPilotSelection(unittest.TestCase):
         self.assertEqual(diagnostics["skipped_by_gutenberg_cap"]["sherlock"], 10)
 
 
+def _row_with_target_candidates(
+    story_id: str, target_candidates: list[str], gutenberg_id: int | None = None
+) -> dict:
+    return {
+        "story_id": story_id,
+        "story_path": f"{story_id}/story.json",
+        "collection": story_id.split("/")[0],
+        "gutenberg_id": gutenberg_id,
+        "metadata_assessment": {
+            "result": {
+                "target_candidates": target_candidates,
+                "suggestive_target_candidates": [],
+                "secondary_signals": [],
+            }
+        },
+    }
+
+
+class TestGenreBalancedSelection(unittest.TestCase):
+    def test_distributes_evenly_across_target_genres_and_reports_shortfalls(self):
+        rows = []
+        # 5 stories each for science fiction and fantasy; horror gets none.
+        for genre in ("science fiction", "fantasy"):
+            for index in range(5):
+                rows.append(
+                    _row_with_target_candidates(
+                        f"{genre.replace(' ', '_')}/story_{index}", [genre]
+                    )
+                )
+        rows.append(_row_with_target_candidates("unclassified/story_0", []))
+
+        selected, diagnostics = run_prefilter.select_genre_balanced_rows(
+            rows, target_total=16  # per_genre_target = 16 // 8 = 2
+        )
+
+        self.assertEqual(diagnostics["per_genre_target"], 2)
+        self.assertEqual(diagnostics["selected_counts"]["science fiction"], 2)
+        self.assertEqual(diagnostics["selected_counts"]["fantasy"], 2)
+        self.assertEqual(diagnostics["selected_counts"]["horror"], 0)
+        self.assertEqual(diagnostics["shortfalls"]["horror"], 2)
+        self.assertNotIn("science fiction", diagnostics["shortfalls"])
+        self.assertEqual(diagnostics["unclassified_count"], 1)
+        self.assertEqual(len(selected), 4)
+        for row in selected:
+            self.assertIn("selection_genre", row)
+
+    def test_excludes_rows_with_no_target_candidates(self):
+        rows = [
+            _row_with_target_candidates("a/story", []),
+            _row_with_target_candidates("b/story", ["horror"]),
+        ]
+
+        selected, diagnostics = run_prefilter.select_genre_balanced_rows(
+            rows, target_total=8
+        )
+
+        self.assertEqual(len(selected), 1)
+        self.assertEqual(selected[0]["story_id"], "b/story")
+        self.assertEqual(diagnostics["unclassified_count"], 1)
+
+    def test_deterministic_given_same_input_order(self):
+        rows = [
+            _row_with_target_candidates(f"horror/story_{i}", ["horror"])
+            for i in range(5)
+        ]
+
+        first, _ = run_prefilter.select_genre_balanced_rows(rows, target_total=8)
+        second, _ = run_prefilter.select_genre_balanced_rows(rows, target_total=8)
+
+        self.assertEqual(
+            [row["story_id"] for row in first], [row["story_id"] for row in second]
+        )
+
+    def test_respects_gutenberg_id_cap_and_reports_skips(self):
+        rows = [
+            _row_with_target_candidates(
+                f"horror/story_{i}", ["horror"], gutenberg_id=42
+            )
+            for i in range(5)
+        ]
+
+        selected, diagnostics = run_prefilter.select_genre_balanced_rows(
+            rows, target_total=24, max_per_gutenberg_id=2  # per_genre_target = 3
+        )
+
+        self.assertEqual(len(selected), 2)
+        self.assertEqual(diagnostics["skipped_by_gutenberg_cap"]["horror"], 3)
+
+
+class _FakeAssessmentResult:
+    def __init__(
+        self,
+        detected_genre="horror",
+        detected_genre_confidence=0.9,
+        error="",
+        input_tokens=100,
+        output_tokens=50,
+        backend_model="claude-opus-4-8",
+    ):
+        self.detected_genre = detected_genre
+        self.detected_genre_confidence = detected_genre_confidence
+        self.error = error
+        self.input_tokens = input_tokens
+        self.output_tokens = output_tokens
+        self.backend_model = backend_model
+
+
+class TestModelAssessment(unittest.TestCase):
+    def test_builds_valid_sidecar_shaped_assessment_and_detects_agreement(self):
+        row = _row_with_target_candidates("horror/story", ["horror"])
+        result = _FakeAssessmentResult(detected_genre="horror")
+
+        assessment = run_prefilter.build_model_assessment(
+            row, result, "run-1", "2026-08-20T00:00:00Z"
+        )
+
+        self.assertEqual(assessment["label"], "model_detect")
+        self.assertEqual(assessment["run_id"], "run-1")
+        self.assertEqual(assessment["provenance"]["run_id"], "run-1")
+        self.assertTrue(assessment["result"]["agrees_with_metadata_rules"])
+
+    def test_detects_disagreement(self):
+        row = _row_with_target_candidates("horror/story", ["horror"])
+        result = _FakeAssessmentResult(detected_genre="romance")
+
+        assessment = run_prefilter.build_model_assessment(
+            row, result, "run-1", "2026-08-20T00:00:00Z"
+        )
+
+        self.assertFalse(assessment["result"]["agrees_with_metadata_rules"])
+
+    def test_error_result_has_no_agreement_verdict(self):
+        row = _row_with_target_candidates("horror/story", ["horror"])
+        result = _FakeAssessmentResult(error="backend timeout")
+
+        assessment = run_prefilter.build_model_assessment(
+            row, result, "run-1", "2026-08-20T00:00:00Z"
+        )
+
+        self.assertIsNone(assessment["result"]["agrees_with_metadata_rules"])
+        self.assertEqual(assessment["evidence"]["error"], "backend timeout")
+
+
+class TestSidecarRecords(unittest.TestCase):
+    def test_builds_and_validates_sidecar_records(self):
+        row = _row_with_target_candidates("horror/story", ["horror"])
+        row["metadata_assessment"] = {
+            "assessment_id": "gutenberg_metadata_rules:horror__story:2026-08-20T00:00:00Z",
+            "label": "gutenberg_metadata_rules",
+            "generated_at": "2026-08-20T00:00:00Z",
+            "scope": "gutenberg_volume",
+            "method": {"name": "gutenberg_subject_rules", "version": "v1"},
+            "provenance": {"story_id": row["story_id"]},
+            "evidence": {"raw_subjects": ["horror"], "raw_rule_matches": []},
+            "result": row["metadata_assessment"]["result"],
+        }
+        model_assessment = run_prefilter.build_model_assessment(
+            row, _FakeAssessmentResult(), "run-1", "2026-08-20T00:00:00Z"
+        )
+
+        sidecars = run_prefilter.build_sidecar_records(
+            [
+                {
+                    "story_id": row["story_id"],
+                    "story_path": row["story_path"],
+                    "metadata_assessment": row["metadata_assessment"],
+                    "model_assessment": model_assessment,
+                }
+            ]
+        )
+
+        self.assertEqual(len(sidecars), 1)
+        self.assertEqual(sidecars[0]["schema_version"], "genre-sidecar-v1")
+        self.assertEqual(sidecars[0]["lcats_id"], row["story_id"])
+        self.assertEqual(len(sidecars[0]["assessments"]), 2)
+
+    def test_raises_on_invalid_assessment(self):
+        with self.assertRaises(ValueError):
+            run_prefilter.build_sidecar_records(
+                [
+                    {
+                        "story_id": "broken/story",
+                        "story_path": "broken/story/story.json",
+                        "metadata_assessment": {"label": "gutenberg_metadata_rules"},
+                        "model_assessment": {"label": "model_detect"},
+                    }
+                ]
+            )
+
+
+class TestValidationCostGate(unittest.TestCase):
+    def test_estimate_mode_makes_no_api_calls(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = pathlib.Path(tmp) / "results"
+            output_dir.mkdir()
+            manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+            run_prefilter.write_jsonl(
+                manifest_path,
+                [_row_with_target_candidates("horror/story", ["horror"])],
+            )
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(pathlib.Path(tmp) / "corpora"),
+                ]
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                summary = run_prefilter._run_validate_mode(args)
+
+            mock_assess.assert_not_called()
+            self.assertEqual(summary["mode"], "validate-estimate-only")
+            self.assertIn("estimated_cost_usd", summary)
+
+    def test_estimate_reports_zero_selected_when_no_manifest_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = pathlib.Path(tmp) / "results"
+            output_dir.mkdir()
+            run_prefilter.write_jsonl(
+                output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME, []
+            )
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(pathlib.Path(tmp) / "corpora"),
+                ]
+            )
+
+            summary = run_prefilter._run_validate_mode(args)
+
+            self.assertEqual(summary["selected_count"], 0)
+            self.assertEqual(summary["estimated_cost_usd"], 0.0)
+
+    def test_missing_manifest_raises_before_any_api_call(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = pathlib.Path(tmp) / "results"
+            output_dir.mkdir()
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--run-real-validation",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(pathlib.Path(tmp) / "corpora"),
+                ]
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                with self.assertRaises(ValueError):
+                    run_prefilter._run_validate_mode(args)
+
+            mock_assess.assert_not_called()
+
+    def test_full_scan_and_validate_are_mutually_exclusive(self):
+        with self.assertRaises(SystemExit):
+            run_prefilter.parse_args(["--full-scan", "--validate"])
+
+
+class TestFullScanIntegration(unittest.TestCase):
+    def test_full_scan_reports_genre_coverage_and_writes_manifest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            cache_db = root / "cache" / "gutenbergindex.db"
+            for index in range(3):
+                _write_story(
+                    corpus_root,
+                    "sf_collection",
+                    f"sf_story_{index}",
+                    url=f"https://www.gutenberg.org/ebooks/{1000 + index}",
+                )
+            _write_story(
+                corpus_root,
+                "plain_collection",
+                "no_url_story",
+                url=None,
+            )
+            _write_normalized_cache(
+                cache_db,
+                {1000 + index: ["science fiction"] for index in range(3)},
+            )
+
+            summary = run_prefilter.run_full_scan(
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                cache_db=cache_db,
+                target_total=24,  # per_genre_target = 3
+            )
+
+            self.assertEqual(
+                summary["genre_coverage"]["primary_target_genre_counts"][
+                    "science fiction"
+                ],
+                3,
+            )
+            self.assertEqual(summary["genre_coverage"]["no_usable_signal_count"], 1)
+            self.assertEqual(
+                summary["genre_balanced_selection"]["selected_counts"][
+                    "science fiction"
+                ],
+                3,
+            )
+            self.assertIn("estimated_validation_cost_usd", summary)
+            manifest_rows = [
+                json.loads(line)
+                for line in (
+                    output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+                )
+                .read_text(encoding="utf-8")
+                .splitlines()
+            ]
+            self.assertEqual(len(manifest_rows), 3)
+
+
 if __name__ == "__main__":
     unittest.main()

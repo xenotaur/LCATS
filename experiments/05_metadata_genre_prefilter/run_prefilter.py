@@ -1,10 +1,18 @@
-"""Read-only Gutenberg metadata genre prefilter pilot.
+"""Read-only Gutenberg metadata genre prefilter (pilot + full-corpus modes).
 
 This experiment is intentionally no-network and read-only by default. It
 discovers LCATS story buckets, records LCATS path identity as the primary story
 ID, parses Gutenberg IDs only as provenance, and can enrich rows with
 Gutenberg subject metadata from an explicitly supplied existing SQLite cache.
-It writes experiment-local candidate and pilot manifest artifacts only.
+It writes experiment-local candidate and manifest artifacts only.
+
+Three modes, mutually exclusive:
+- (default) a 4-collection, 40-story pilot manifest.
+- --full-scan: a full-corpus metadata scan plus a genre-balanced 100-200
+  story selection. No API calls; free.
+- --validate: a real, gated Claude Opus validation pass against an
+  already-selected --full-scan manifest. Estimate-only unless
+  --run-real-validation is also passed (WI-GENRE-0004).
 """
 
 from __future__ import annotations
@@ -28,13 +36,40 @@ _REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 
 from lcats.analysis.corpus import discovery  # noqa: E402
+from lcats.analysis.corpus import genre_sidecar  # noqa: E402
 
 
 CANDIDATES_FILENAME = "candidates.jsonl"
 PILOT_FILENAME = "pilot_40_manifest.jsonl"
 SUMMARY_FILENAME = "summary.json"
+GENRE_BALANCED_MANIFEST_FILENAME = "genre_balanced_manifest.jsonl"
+VALIDATION_RESULTS_FILENAME = "validation_results.jsonl"
+VALIDATION_SUMMARY_FILENAME = "validation_summary.json"
 PIPELINE_NAME = "experiments/05_metadata_genre_prefilter"
 PIPELINE_VERSION = "v2"
+
+# Total selection target for the genre-balanced full-corpus sample
+# (WI-GENRE-0004 acceptance: 100-200 stories). Not the same target as
+# DEFAULT_PILOT_TARGET_PER_GROUP/PILOT_GROUPS below, which remain scoped to
+# the existing 4-collection 40-story pilot and must not be repurposed.
+DEFAULT_GENRE_BALANCED_TARGET_TOTAL = 160
+
+MODEL_ASSESSMENT_LABEL = "model_detect"
+MODEL_ASSESSMENT_METHOD = "lcats.analysis.corpus.assess.assess_story"
+MODEL_ASSESSMENT_METHOD_VERSION = "v1"
+
+# Approximate USD price per 1M tokens, as of when this was written (2026-08)
+# - NOT a durable pricing source of truth. Mirrors
+# experiments/04_genre_census/run_census.py's own local, script-scoped
+# pricing constant rather than sharing one - see that script's Risk Notes
+# on why no shared pricing module exists in this codebase
+# (PROP-LCATS-PIPELINE-CHECKPOINTING's Category E1, deferred, unbuilt).
+_PRICING_USD_PER_MILLION_TOKENS: dict[str, tuple[float, float]] = {
+    "claude-opus-4": (15.0, 75.0),
+    "claude-sonnet-4": (3.0, 15.0),
+    "claude-haiku-4": (0.8, 4.0),
+}
+_DEFAULT_PRICING_USD_PER_MILLION_TOKENS: tuple[float, float] = (15.0, 75.0)
 ASSESSMENT_METHOD = "gutenberg_subject_rules"
 ASSESSMENT_METHOD_VERSION = "v1"
 ASSESSMENT_LABEL = "gutenberg_metadata_rules"
@@ -378,6 +413,57 @@ def build_metadata_assessment(
     }
 
 
+def build_model_assessment(
+    row: dict[str, Any],
+    assessment_result: Any,
+    run_id: str,
+    generated_at: str,
+) -> dict[str, Any]:
+    """Build a genre-sidecar-v1 model_detect assessment from an AssessmentResult.
+
+    run_id must be unique per assessment within the sidecar it is written
+    into (genre_sidecar.py's _validate_model_run_identity) - each row gets
+    its own sidecar file here, so a run_id shared across one validation
+    batch is safe: it is never repeated within any single row's own
+    assessments[] array.
+    """
+    metadata_result = row["metadata_assessment"]["result"]
+    detected_genre = assessment_result.detected_genre
+    agreement = (
+        None
+        if assessment_result.error
+        else detected_genre in metadata_result["target_candidates"]
+    )
+    return {
+        "assessment_id": f"{MODEL_ASSESSMENT_LABEL}:{row['story_id'].replace('/', '__')}:{run_id}",
+        "label": MODEL_ASSESSMENT_LABEL,
+        "generated_at": generated_at,
+        "scope": "story",
+        "method": {
+            "name": MODEL_ASSESSMENT_METHOD,
+            "version": MODEL_ASSESSMENT_METHOD_VERSION,
+        },
+        "run_id": run_id,
+        "provenance": {
+            "story_id": row["story_id"],
+            "story_path": row["story_path"],
+            "run_id": run_id,
+            "backend_model": assessment_result.backend_model,
+            "input_tokens": assessment_result.input_tokens,
+            "output_tokens": assessment_result.output_tokens,
+        },
+        "evidence": {
+            "error": assessment_result.error,
+        },
+        "result": {
+            "detected_genre": detected_genre,
+            "detected_genre_confidence": assessment_result.detected_genre_confidence,
+            "agrees_with_metadata_rules": agreement,
+            "metadata_target_candidates": metadata_result["target_candidates"],
+        },
+    }
+
+
 def discover_rows(corpus_root: pathlib.Path) -> list[dict[str, Any]]:
     """Discover canonical corpus story files and build deterministic rows."""
     story_files = list(discovery.find_json_files([corpus_root]))
@@ -462,6 +548,82 @@ def select_pilot_rows(
     return selected, diagnostics
 
 
+def _primary_target_genre(row: dict[str, Any]) -> str | None:
+    """Return a row's primary metadata-rule target genre, or None.
+
+    A row with zero target_candidates has no usable metadata signal for
+    genre-balanced selection - excluded, not defaulted to any genre.
+    """
+    candidates = row["metadata_assessment"]["result"]["target_candidates"]
+    return candidates[0] if candidates else None
+
+
+def select_genre_balanced_rows(
+    rows: list[dict[str, Any]],
+    *,
+    target_total: int = DEFAULT_GENRE_BALANCED_TARGET_TOTAL,
+    max_per_gutenberg_id: int | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Select a deterministic genre-balanced sample across all TARGET_GENRES.
+
+    Unlike select_pilot_rows (grouped by source collection, scoped to the
+    existing 4-collection 40-story pilot), this groups by each row's
+    primary metadata-rule target genre and distributes target_total evenly
+    across the 8 TARGET_GENRES - not corpus-proportional, since the corpus
+    is heavily skewed toward a small number of collections/genres and a
+    proportional sample would under-represent the smaller target genres
+    the Worldcon paper needs balanced coverage of.
+    """
+    per_genre_target = target_total // len(TARGET_GENRES)
+    selected: list[dict[str, Any]] = []
+    selected_counts = {genre: 0 for genre in TARGET_GENRES}
+    skipped_by_cap: collections.Counter[str] = collections.Counter()
+    gutenberg_counts: collections.Counter[int] = collections.Counter()
+    unclassified_count = 0
+
+    for row in rows:
+        genre = _primary_target_genre(row)
+        if genre is None:
+            unclassified_count += 1
+            continue
+        if selected_counts[genre] >= per_genre_target:
+            continue
+        gutenberg_id = row["gutenberg_id"]
+        if (
+            max_per_gutenberg_id is not None
+            and gutenberg_id is not None
+            and gutenberg_counts[gutenberg_id] >= max_per_gutenberg_id
+        ):
+            skipped_by_cap[genre] += 1
+            continue
+        selected_row = dict(row)
+        selected_row["selection_genre"] = genre
+        selected.append(selected_row)
+        selected_counts[genre] += 1
+        if gutenberg_id is not None:
+            gutenberg_counts[gutenberg_id] += 1
+
+    target_counts = {genre: per_genre_target for genre in TARGET_GENRES}
+    shortfalls = {
+        genre: target_counts[genre] - selected_counts[genre]
+        for genre in TARGET_GENRES
+        if selected_counts[genre] < target_counts[genre]
+    }
+    diagnostics = {
+        "target_total": target_total,
+        "per_genre_target": per_genre_target,
+        "target_counts": target_counts,
+        "selected_counts": selected_counts,
+        "selected_count": len(selected),
+        "shortfalls": shortfalls,
+        "unclassified_count": unclassified_count,
+        "max_per_gutenberg_id": max_per_gutenberg_id,
+        "skipped_by_gutenberg_cap": dict(sorted(skipped_by_cap.items())),
+        "selected_repeated_gutenberg_ids": repeated_gutenberg_ids(selected),
+    }
+    return selected, diagnostics
+
+
 def enrich_rows(
     rows: list[dict[str, Any]],
     cache_db: pathlib.Path | None,
@@ -498,11 +660,35 @@ def enrich_rows(
     return enriched
 
 
+def build_genre_coverage(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    """Report explicit per-genre candidate coverage across all 8 TARGET_GENRES.
+
+    Distinct from target_candidate_counts (which counts every multi-label
+    candidate a row matched): this counts, per genre, how many rows have
+    that genre as their *primary* (first) target candidate - the same
+    grouping select_genre_balanced_rows() uses for selection - plus the
+    count of rows with no usable metadata signal at all (zero candidates).
+    """
+    primary_counts = {genre: 0 for genre in TARGET_GENRES}
+    unclassified_count = 0
+    for row in rows:
+        genre = _primary_target_genre(row)
+        if genre is None:
+            unclassified_count += 1
+        else:
+            primary_counts[genre] += 1
+    return {
+        "primary_target_genre_counts": primary_counts,
+        "no_usable_signal_count": unclassified_count,
+    }
+
+
 def build_summary(
     rows: list[dict[str, Any]],
     cache_status: dict[str, Any],
     corpus_root: pathlib.Path,
     pilot_diagnostics: dict[str, Any],
+    genre_balanced_diagnostics: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build a deterministic summary for the dry-run artifact."""
     parse_failures = [
@@ -517,7 +703,7 @@ def build_summary(
         result = row["metadata_assessment"]["result"]
         target_counts.update(result["target_candidates"])
         secondary_counts.update(result["secondary_signals"])
-    return {
+    summary = {
         "pipeline": PIPELINE_NAME,
         "pipeline_version": PIPELINE_VERSION,
         "created_at": datetime.datetime.now(datetime.timezone.utc)
@@ -529,12 +715,16 @@ def build_summary(
         "collection_counts": dict(sorted(collection_counts.items())),
         "target_candidate_counts": dict(sorted(target_counts.items())),
         "secondary_signal_counts": dict(sorted(secondary_counts.items())),
+        "genre_coverage": build_genre_coverage(rows),
         "gutenberg_id_parse_failure_count": len(parse_failures),
         "gutenberg_id_parse_failures": sorted(parse_failures),
         "repeated_gutenberg_ids": repeated_gutenberg_ids(rows),
         "pilot": pilot_diagnostics,
         "cache": cache_status,
     }
+    if genre_balanced_diagnostics is not None:
+        summary["genre_balanced_selection"] = genre_balanced_diagnostics
+    return summary
 
 
 def write_jsonl(path: pathlib.Path, rows: Iterable[dict[str, Any]]) -> None:
@@ -567,6 +757,192 @@ def write_outputs(
         json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     return outputs
+
+
+def write_genre_balanced_outputs(
+    rows: list[dict[str, Any]],
+    selected_rows: list[dict[str, Any]],
+    summary: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, str]:
+    """Write candidates, the genre-balanced selection manifest, and summary.
+
+    Written BEFORE any paid model call - this is a separate, no-cost step
+    from run_validation()/write_validation_outputs() below, so a human can
+    review the selection and its rationale between them.
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    candidates_path = output_dir / CANDIDATES_FILENAME
+    manifest_path = output_dir / GENRE_BALANCED_MANIFEST_FILENAME
+    summary_path = output_dir / SUMMARY_FILENAME
+    outputs = {
+        "candidates": str(candidates_path),
+        "genre_balanced_manifest": str(manifest_path),
+        "summary": str(summary_path),
+    }
+    summary["outputs"] = outputs
+    write_jsonl(candidates_path, rows)
+    write_jsonl(manifest_path, selected_rows)
+    summary_path.write_text(
+        json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    return outputs
+
+
+def _price_for_model(model: str) -> tuple[float, float]:
+    for prefix, price in _PRICING_USD_PER_MILLION_TOKENS.items():
+        if model.startswith(prefix):
+            return price
+    return _DEFAULT_PRICING_USD_PER_MILLION_TOKENS
+
+
+def estimate_validation_cost_usd(
+    selected_count: int,
+    model: str,
+    avg_input_tokens: int = 2500,
+    avg_output_tokens: int = 400,
+) -> float:
+    """Rough pre-call cost estimate for the validation pass.
+
+    Default per-story token averages are carried over from
+    experiments/04_genre_census/run_census.py's own real measured sample
+    (WI-ASSESS-0051, $4.66/20 stories at claude-opus-4-8 pricing) rather
+    than invented here.
+    """
+    input_price, output_price = _price_for_model(model)
+    per_story = (avg_input_tokens / 1_000_000) * input_price + (
+        avg_output_tokens / 1_000_000
+    ) * output_price
+    return per_story * selected_count
+
+
+def run_validation(
+    selected_rows: list[dict[str, Any]],
+    *,
+    corpus_root: pathlib.Path,
+    backend: Any,
+    model: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Run a real, gated Claude Opus validation pass over the selected sample.
+
+    Never called on the full corpus - only the already-selected sample.
+    Caller is responsible for the explicit-go-ahead gate; this function
+    itself makes real, billed API calls unconditionally once invoked.
+
+    row["story_path"] is corpus-root-relative (story_row()'s deliberate
+    portable-manifest shape) - resolved back to a real path via
+    corpus_root here, the same way the manifest's own reader must.
+    """
+    from lcats.analysis.corpus import assess as corpus_assess
+
+    run_id = (
+        datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+    )
+    results = []
+    agreement_count = 0
+    error_count = 0
+    total_input_tokens = 0
+    total_output_tokens = 0
+    for row in selected_rows:
+        generated_at = (
+            datetime.datetime.now(datetime.timezone.utc)
+            .isoformat()
+            .replace("+00:00", "Z")
+        )
+        assessment_result = corpus_assess.assess_story(
+            corpus_root / row["story_path"],
+            genre="",
+            backend=backend,
+            model=model,
+        )
+        total_input_tokens += assessment_result.input_tokens
+        total_output_tokens += assessment_result.output_tokens
+        if assessment_result.error:
+            error_count += 1
+        model_assessment = build_model_assessment(
+            row, assessment_result, run_id, generated_at
+        )
+        if model_assessment["result"]["agrees_with_metadata_rules"]:
+            agreement_count += 1
+        results.append(
+            {
+                "story_id": row["story_id"],
+                "story_path": row["story_path"],
+                "selection_genre": row["selection_genre"],
+                "metadata_assessment": row["metadata_assessment"],
+                "model_assessment": model_assessment,
+            }
+        )
+    input_price, output_price = _price_for_model(model)
+    real_cost = (total_input_tokens / 1_000_000) * input_price + (
+        total_output_tokens / 1_000_000
+    ) * output_price
+    validated_count = len(selected_rows) - error_count
+    summary = {
+        "run_id": run_id,
+        "model": model,
+        "selected_count": len(selected_rows),
+        "error_count": error_count,
+        "agreement_count": agreement_count,
+        "disagreement_count": max(validated_count - agreement_count, 0),
+        "agreement_rate": (
+            (agreement_count / validated_count) if validated_count else None
+        ),
+        "total_input_tokens": total_input_tokens,
+        "total_output_tokens": total_output_tokens,
+        "total_estimated_cost_usd": real_cost,
+    }
+    return results, summary
+
+
+def build_sidecar_records(results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Build one genre-sidecar-v1 record per story, validating each before return."""
+    sidecars = []
+    for result in results:
+        sidecar = {
+            "schema_version": genre_sidecar.SCHEMA_VERSION,
+            "lcats_id": result["story_id"],
+            "story_path": result["story_path"],
+            "assessments": [
+                result["metadata_assessment"],
+                result["model_assessment"],
+            ],
+            "current_adjudication": None,
+        }
+        validation = genre_sidecar.validate_sidecar(sidecar)
+        if not validation.valid:
+            findings = "; ".join(
+                f"{f.path}: {f.kind}: {f.message}"
+                for f in validation.findings
+                if f.severity == "error"
+            )
+            raise ValueError(
+                f"Built an invalid genre-sidecar-v1 record for {result['story_id']!r}: "
+                f"{findings}"
+            )
+        sidecars.append(sidecar)
+    return sidecars
+
+
+def write_validation_outputs(
+    results: list[dict[str, Any]],
+    validation_summary: dict[str, Any],
+    output_dir: pathlib.Path,
+) -> dict[str, str]:
+    """Write per-story sidecar-shaped validation results and a summary."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results_path = output_dir / VALIDATION_RESULTS_FILENAME
+    summary_path = output_dir / VALIDATION_SUMMARY_FILENAME
+    sidecars = build_sidecar_records(results)
+    write_jsonl(results_path, sidecars)
+    summary_path.write_text(
+        json.dumps(validation_summary, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return {
+        "validation_results": str(results_path),
+        "validation_summary": str(summary_path),
+    }
 
 
 def _is_relative_to(path: pathlib.Path, parent: pathlib.Path) -> bool:
@@ -634,6 +1010,59 @@ def run(
     return summary
 
 
+def run_full_scan(
+    *,
+    corpus_root: pathlib.Path,
+    output_dir: pathlib.Path,
+    cache_db: pathlib.Path | None,
+    target_total: int = DEFAULT_GENRE_BALANCED_TARGET_TOTAL,
+    max_per_gutenberg_id: int | None = None,
+    validation_model: str = "claude-opus-4-8",
+) -> dict[str, Any]:
+    """Full-corpus metadata scan + genre-balanced selection. No paid calls.
+
+    Writes the selected sample manifest and its selection rationale, plus
+    a cost estimate for the separate, explicitly-gated validation step
+    (run_validation(), invoked only via --validate --run-real-validation
+    in a later, human-reviewed invocation).
+    """
+    validate_output_dir(output_dir, corpus_root, cache_db)
+    rows = discover_rows(corpus_root)
+    validate_corpus_rows(corpus_root, rows)
+    cache_status = cache_readiness(cache_db)
+    enriched_rows = enrich_rows(rows, cache_db, cache_status)
+    # select_pilot_rows' own 4-collection pilot is orthogonal to full-scan
+    # mode - report empty pilot diagnostics rather than reusing/repurposing it.
+    empty_pilot_diagnostics = {
+        "target_counts": {},
+        "selected_counts": {},
+        "selected_count": 0,
+        "shortfalls": {},
+        "max_per_gutenberg_id": None,
+        "skipped_by_gutenberg_cap": {},
+        "selected_repeated_gutenberg_ids": [],
+    }
+    selected_rows, selection_diagnostics = select_genre_balanced_rows(
+        enriched_rows,
+        target_total=target_total,
+        max_per_gutenberg_id=max_per_gutenberg_id,
+    )
+    summary = build_summary(
+        enriched_rows,
+        cache_status,
+        corpus_root,
+        empty_pilot_diagnostics,
+        genre_balanced_diagnostics=selection_diagnostics,
+    )
+    summary["estimated_validation_cost_usd"] = estimate_validation_cost_usd(
+        len(selected_rows), validation_model
+    )
+    summary["outputs"] = write_genre_balanced_outputs(
+        enriched_rows, selected_rows, summary, output_dir
+    )
+    return summary
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -666,19 +1095,113 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=None,
         help="Optional pilot sampling cap per repeated Gutenberg volume ID.",
     )
+    parser.add_argument(
+        "--full-scan",
+        action="store_true",
+        help=(
+            "Run a full-corpus metadata scan and genre-balanced selection "
+            "instead of the 4-collection 40-story pilot. No API calls; free."
+        ),
+    )
+    parser.add_argument(
+        "--target-total",
+        type=int,
+        default=DEFAULT_GENRE_BALANCED_TARGET_TOTAL,
+        help="Total genre-balanced selection size for --full-scan (100-200).",
+    )
+    parser.add_argument(
+        "--validate",
+        action="store_true",
+        help=(
+            "Estimate (or, with --run-real-validation, actually run) the "
+            "Opus validation pass against an existing --full-scan manifest "
+            "already written under --output. A separate invocation from "
+            "--full-scan by design, so the manifest can be reviewed first."
+        ),
+    )
+    parser.add_argument(
+        "--run-real-validation",
+        action="store_true",
+        help=(
+            "Required alongside --validate to actually spend real money. "
+            "Without it, --validate only prints the cost estimate and "
+            "makes no API calls - this repo's established cost-gate "
+            "convention (see experiments/04_genre_census/run_census.py)."
+        ),
+    )
+    parser.add_argument(
+        "--model",
+        default="claude-opus-4-8",
+        help="Model for --validate (Anthropic backend only).",
+    )
+    if "--full-scan" in (argv or sys.argv[1:]) and "--validate" in (
+        argv or sys.argv[1:]
+    ):
+        parser.error("--full-scan and --validate are separate invocations; pass one.")
     return parser.parse_args(argv)
+
+
+def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
+    manifest_path = args.output / GENRE_BALANCED_MANIFEST_FILENAME
+    if not manifest_path.exists():
+        raise ValueError(
+            f"No genre-balanced manifest found at {manifest_path} - run "
+            "--full-scan first and review its selection before --validate."
+        )
+    selected_rows = [
+        json.loads(line)
+        for line in manifest_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    estimate = estimate_validation_cost_usd(len(selected_rows), args.model)
+    if not args.run_real_validation:
+        return {
+            "mode": "validate-estimate-only",
+            "selected_count": len(selected_rows),
+            "model": args.model,
+            "estimated_cost_usd": estimate,
+            "note": (
+                "No API calls made. Re-run with --run-real-validation to "
+                "spend this amount for real."
+            ),
+        }
+    from lcats.llm import anthropic_backend
+
+    backend = anthropic_backend.AnthropicBackend()
+    results, validation_summary = run_validation(
+        selected_rows,
+        corpus_root=args.corpus_root,
+        backend=backend,
+        model=args.model,
+    )
+    validation_summary["outputs"] = write_validation_outputs(
+        results, validation_summary, args.output
+    )
+    return validation_summary
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     if not args.dry_run:
         raise RuntimeError("Only dry-run mode is supported by this experiment.")
-    summary = run(
-        corpus_root=args.corpus_root,
-        output_dir=args.output,
-        cache_db=args.cache_db,
-        max_per_gutenberg_id=args.max_per_gutenberg_id,
-    )
+    if args.validate:
+        summary = _run_validate_mode(args)
+    elif args.full_scan:
+        summary = run_full_scan(
+            corpus_root=args.corpus_root,
+            output_dir=args.output,
+            cache_db=args.cache_db,
+            target_total=args.target_total,
+            max_per_gutenberg_id=args.max_per_gutenberg_id,
+            validation_model=args.model,
+        )
+    else:
+        summary = run(
+            corpus_root=args.corpus_root,
+            output_dir=args.output,
+            cache_db=args.cache_db,
+            max_per_gutenberg_id=args.max_per_gutenberg_id,
+        )
     print(json.dumps(summary, indent=2, sort_keys=True))
     return 0
 
