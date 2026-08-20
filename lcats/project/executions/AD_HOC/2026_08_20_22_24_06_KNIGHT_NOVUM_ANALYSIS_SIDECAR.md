@@ -39,6 +39,7 @@ workstreams, or work items.
 
 - `lrh validate`: 0 errors; 157 warnings, all pre-existing elsewhere in the
   LCATS control plane.
+- `scripts/test`: 1,762 tests passed; 2 skipped.
 - Manual LRH structure check: required Summary, Background / Motivation,
   Prior Art Check, Design Decisions, Non-Goals, and Implementation Plan
   sections present.
