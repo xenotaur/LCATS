@@ -1142,6 +1142,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 
 def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
+    # Same guard run()/run_full_scan() apply before writing anything -
+    # --validate's real mode is the one path that writes genre-sidecar-v1
+    # records, so it must refuse a --output pointed at corpora/, data/,
+    # lcats/data/, or the corpus root just as those other modes do.
+    validate_output_dir(args.output, args.corpus_root, cache_db=None)
     manifest_path = args.output / GENRE_BALANCED_MANIFEST_FILENAME
     if not manifest_path.exists():
         raise ValueError(

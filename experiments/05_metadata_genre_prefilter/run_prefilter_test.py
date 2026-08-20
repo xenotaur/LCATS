@@ -756,6 +756,86 @@ class TestValidationCostGate(unittest.TestCase):
         with self.assertRaises(SystemExit):
             run_prefilter.parse_args(["--full-scan", "--validate"])
 
+    def test_validate_refuses_output_under_corpus_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_root = pathlib.Path(tmp) / "corpora"
+            corpus_root.mkdir()
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--run-real-validation",
+                    "--output",
+                    str(corpus_root),
+                    "--corpus-root",
+                    str(corpus_root),
+                ]
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                with self.assertRaises(ValueError):
+                    run_prefilter._run_validate_mode(args)
+
+            mock_assess.assert_not_called()
+
+    def test_real_run_calls_assess_story_once_per_row_and_writes_sidecars(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            output_dir.mkdir(parents=True)
+            _write_story(corpus_root, "horror_col", "story_a", url=None, author="A")
+            row = _row_with_target_candidates("horror_col/story_a", ["horror"])
+            row["selection_genre"] = "horror"  # select_genre_balanced_rows() output
+            row["gutenberg_id"] = None
+            row["gutenberg_url"] = None
+            row["metadata_assessment"] = run_prefilter.build_metadata_assessment(
+                row,
+                ["horror"],
+                [],
+                row["metadata_assessment"]["result"],
+                "2026-08-20T00:00:00Z",
+                {"cache_db_path": None, "status": "not_supplied"},
+            )
+            manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+            run_prefilter.write_jsonl(manifest_path, [row])
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--run-real-validation",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(corpus_root),
+                ]
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    summary = run_prefilter._run_validate_mode(args)
+
+            mock_assess.assert_called_once()
+            called_path = mock_assess.call_args[0][0]
+            self.assertEqual(called_path, corpus_root / row["story_path"])
+            self.assertEqual(summary["selected_count"], 1)
+            self.assertEqual(summary["agreement_count"], 1)
+            results_path = output_dir / run_prefilter.VALIDATION_RESULTS_FILENAME
+            self.assertTrue(results_path.exists())
+            written = [
+                json.loads(line)
+                for line in results_path.read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual(len(written), 1)
+            self.assertEqual(written[0]["schema_version"], "genre-sidecar-v1")
+
 
 class TestFullScanIntegration(unittest.TestCase):
     def test_full_scan_reports_genre_coverage_and_writes_manifest(self):
