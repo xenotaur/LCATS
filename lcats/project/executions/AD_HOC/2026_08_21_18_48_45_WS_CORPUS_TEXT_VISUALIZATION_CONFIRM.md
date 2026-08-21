@@ -32,8 +32,10 @@ section of `WS-CORPUS-TEXT-VISUALIZATION.md` cited
 this repo has no top-level `src/` — the package lives under
 `lcats/src/`. As literally written the command would not reproduce the
 "no hits" result from a natural repo-root working directory. Fixed to
-`grep -rl "visualiz" lcats/src/ ...` and re-ran it for real confirming
-zero hits.
+`grep -rl "visualiz" lcats/src/ ...` and re-ran it for real: 3 hits, all
+build-metadata files (`lcats.egg-info/{SOURCES.txt,scm_file_list.json,scm_version.json}`),
+no runtime source hits — consistent with the doc's actual claim of "no
+runtime hits outside this proposal and its own design doc."
 
 **Resolved:** the new thread
 (`https://github.com/xenotaur/LCATS/pull/335#discussion_r3832751105`,
@@ -58,8 +60,9 @@ on the PR now show `isResolved: true`.
 - `python3 -c "import lcats; print(lcats.__file__)"` / `scripts/develop`:
   editable install had drifted to a different worktree (concurrent
   session); re-ran `scripts/develop` to fix.
-- `grep -rl "visualiz" lcats/src/` run for real from repo root: confirmed
-  zero hits, matching the corrected claim.
+- `grep -rl "visualiz" lcats/src/` run for real from repo root: 3
+  build-metadata-only hits, no runtime source hits — matches the
+  corrected claim's actual wording ("no runtime hits").
 - `lrh validate`: 0 errors, 166 warnings (unchanged).
 - Pushed directly to `xenotaur/feat/ws-corpus-text-visualization` at
   commit `9d1778b9`.
