@@ -62,7 +62,7 @@ can silently include bucket sidecar files (`analysis.json`, `scenes.json`,
 etc.) as if they were independent stories, inflating or corrupting
 story-level statistics. This is exactly the "wrong tool for the
 canonical-presence question" pattern documented in
-[`PROP-LCATS-STORY-BUCKET-LAYOUT`](lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md)'s
+[`PROP-LCATS-STORY-BUCKET-LAYOUT`](../../design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md)'s
 Decision 3, and confirmed at least four other times across the
 `WS-STORY-BUCKET-LAYOUT` follow-up work (`WI-EXPERIMENTS-0046`,
 `WI-EXPERIMENTS-0048`): a broad selector that is legitimately fine for

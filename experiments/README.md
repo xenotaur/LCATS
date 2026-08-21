@@ -30,7 +30,7 @@ existing experiments.
 |---|---|---|
 | Experiment results (JSONL, TSV, CSV) | `experiments/NN_name/results/` | Output artifacts — versioned here for reproducibility |
 | Experiment scripts (`run_*.py`, `compare_*.py`, `smoke_test.py`) | `experiments/NN_name/` | Tightly coupled to the results they produce; live with the experiment |
-| Reusable library code (`assess.py`, `LLMBackend`, etc.) | `lcats/lcats/` | Part of the distributable package; used by many experiments |
+| Reusable library code (`assess.py`, `LLMBackend`, etc.) | `lcats/src/lcats/` | Part of the distributable package; used by many experiments |
 | Development data (small, in-progress corpora) | `lcats/data/` | Under active iteration; not yet curated for release |
 | Released corpora | `corpora/` | Curated, stable; referenced by experiments |
 | Exploratory notebooks | `lcats/notebooks/` | Numbered the same way (`01_`, `02_`, …); tend to precede formal experiments |

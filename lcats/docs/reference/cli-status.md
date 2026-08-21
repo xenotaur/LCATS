@@ -1,6 +1,6 @@
 # LCATS CLI status matrix
 
-This page summarizes top-level `lcats` CLI command status based on implementation in `lcats/lcats/cli.py`.
+This page summarizes top-level `lcats` CLI command status based on implementation in `lcats/src/lcats/cli.py`.
 
 ## Implemented commands
 
@@ -16,6 +16,7 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 - `promote`
 - `clean`
 - `linguistics`
+- `annotate`
 
 ## Placeholder commands (declared, not implemented)
 

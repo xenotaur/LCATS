@@ -1,18 +1,18 @@
 # LLMBackend reference
 
-`lcats.llm` (`lcats/lcats/llm/`) is the unified abstraction over LLM provider
+`lcats.llm` (`lcats/src/lcats/llm/`) is the unified abstraction over LLM provider
 APIs. Every LLM call in the packaged pipeline (`lcats.analysis.llm_extractor`,
 `lcats.extraction`, `lcats.analysis.corpus.assess`) goes through an injected
 `LLMBackend` instance, so switching providers or models is a call-site
 argument, not a code change. Derived from
 [`project/design/unified-llm-backend-design.md`](../../project/design/unified-llm-backend-design.md)
 (`DESIGN-LLM-BACKEND`) and verified against the implementation in
-`lcats/lcats/llm/`.
+`lcats/src/lcats/llm/`.
 
 ## Package layout
 
 ```
-lcats/lcats/llm/
+lcats/src/lcats/llm/
 ├── __init__.py           module docstring only; no re-exports
 ├── backend.py             LLMBackend Protocol + BackendResponse dataclass
 ├── openai_backend.py       OpenAIBackend

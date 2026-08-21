@@ -196,6 +196,27 @@ wholesale-replace their `corpora/` counterpart.
 See [`corpus-promotion.md`](corpus-promotion.md) for the full command
 explanation, collection-name mapping, and exit-code semantics.
 
+## `annotate`
+
+```
+lcats annotate [--source SOURCE] [--checkpoint-dir CHECKPOINT_DIR]
+               [--model MODEL] [--dry-run]
+               [collections ...]
+```
+
+Annotate `data/` story buckets with `genre.json`/`scenes.json` sidecars plus
+a per-bucket `README.md`, via the `lcats assess` (genre) and
+`scene_analysis` (segmentation) extractors. Requires `ANTHROPIC_API_KEY`
+unless `--dry-run` is given.
+
+| Argument / Flag | Description |
+|---|---|
+| `collections` | Collection names to annotate. Defaults to every collection under `--source`. |
+| `--source SOURCE` | Root directory of source collections (default: `data/`). |
+| `--checkpoint-dir CHECKPOINT_DIR` | Directory for checkpoint bookkeeping (default: `.annotate_checkpoints/`). Never `data/`, `corpora/`, or `cache/` — those are wiped by `lcats clean` / disposable by design. |
+| `--model MODEL` | Claude model to use for both genre and segmentation (default: `claude-opus-4-8`). |
+| `--dry-run` | List story buckets that would be annotated without calling the API. |
+
 ## `clean`
 
 ```
