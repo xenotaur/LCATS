@@ -903,6 +903,30 @@ def _validation_fingerprint(model: str, row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _rows_not_yet_checkpointed(
+    selected_rows: list[dict[str, Any]],
+    model: str,
+    roots: checkpoint.CheckpointRoots,
+) -> list[dict[str, Any]]:
+    """Return the subset of selected_rows with no matching done checkpoint.
+
+    Read-only, no API calls - used both to scope the cost estimate to
+    what a real run would actually spend (not the full sample size,
+    which would over-report on a resume) and by run_validation() itself
+    to decide, per story, whether to skip the real call.
+    """
+    remaining = []
+    for row in selected_rows:
+        item_id = _validation_item_id(row["story_id"])
+        fingerprint = _validation_fingerprint(model, row)
+        cached = checkpoint.read_checkpoint(
+            roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+        )
+        if not (cached.done and isinstance(cached.data, dict)):
+            remaining.append(row)
+    return remaining
+
+
 def run_validation(
     selected_rows: list[dict[str, Any]],
     *,
@@ -1371,31 +1395,39 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
         for line in manifest_path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    estimate = estimate_validation_cost_usd(len(selected_rows), args.model)
-    if not args.run_real_validation:
-        return {
-            "mode": "validate-estimate-only",
-            "selected_count": len(selected_rows),
-            "model": args.model,
-            "estimated_cost_usd": estimate,
-            "note": (
-                "No API calls made. Re-run with --run-real-validation to "
-                "spend this amount for real."
-            ),
-        }
 
     # Checkpoint working_root is --output itself (already validated above,
     # never corpora/data/) - source_root is the real corpus, matching
     # run_census.py's own resolve_roots(working_root=output, source_root=
-    # data_dir) call shape. Guard BEFORE any API call, same ordering
-    # rationale run_census.py documents: a rejected --output must not let
-    # any spend happen first.
+    # data_dir) call shape. Resolved (and the estimate below scoped to it)
+    # regardless of --run-real-validation, since resolving is itself a
+    # cheap, read-only, no-API-call operation - guarding it only on the
+    # real path would leave the estimate-only path reporting a stale full
+    # cost on a resume, when some stories are already checkpointed done.
     try:
         roots = checkpoint.resolve_roots(
             working_root=args.output, source_root=args.corpus_root
         )
     except (checkpoint.ProtectedRootError, RuntimeError) as exc:
         raise ValueError(f"checkpoint working_root rejected: {exc}") from exc
+
+    remaining_rows = _rows_not_yet_checkpointed(selected_rows, args.model, roots)
+    estimate = estimate_validation_cost_usd(len(remaining_rows), args.model)
+    if not args.run_real_validation:
+        return {
+            "mode": "validate-estimate-only",
+            "selected_count": len(selected_rows),
+            "already_checkpointed_count": len(selected_rows) - len(remaining_rows),
+            "remaining_count": len(remaining_rows),
+            "model": args.model,
+            "estimated_cost_usd": estimate,
+            "note": (
+                "No API calls made. estimated_cost_usd covers only "
+                "remaining_count stories not yet checkpointed under "
+                "--output - re-run with --run-real-validation to spend "
+                "this amount for real."
+            ),
+        }
 
     from lcats.llm import anthropic_backend
 
