@@ -64,9 +64,13 @@ pushing a fix itself).
 
 # Follow-up
 
-- Awaiting the user's decision on whether to fix the estimate-path
-  `FileNotFoundError` gap now (same commit) or land as-is and track
-  separately.
+- Resolved: the user asked to fix this finding before landing. Fixed in
+  commit `f655c6a2` - both `_rows_not_yet_checkpointed()` (estimate path)
+  and `run_validation()`'s real loop now isolate a missing/unreadable
+  story file as a normal per-story failure (`OSError` caught, no crash),
+  with two new tests covering both paths. 45 tests pass; full repo
+  suite: 1822 tests, OK; `lrh validate`: 0 errors, 164 pre-existing
+  warnings (unchanged baseline).
 - No primary execution record exists yet for PR #334 - one is needed at
   closeout (this record's `rerun_of` will need backfilling to point at
   it once it exists, per this project's `_SELFREVIEW`/`_REVIEW` linking
