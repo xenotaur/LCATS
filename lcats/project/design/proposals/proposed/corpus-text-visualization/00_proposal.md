@@ -13,6 +13,7 @@ related_design:
   - lcats/project/README.md
   - lcats/project/design/README.md
   - lcats/project/work_items/README.md
+  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
 ---
 
 ## Summary
@@ -115,6 +116,22 @@ Paper-oriented first uses:
 - bar chart or similar conventional distribution plot;
 - output to PNG and, if practical, SVG/PDF-capable vector output.
 
+**Genre source is not yet a native `Story`/`Corpora` field and must be named
+explicitly.** `Corpora`/`Story` (see Common Document Representation) load
+only canonical `story.json` files; genre labels live in separate `genre.json`
+sidecars per `PROP-GENRE-EVIDENCE-SIDECARS`, are not currently loaded by
+`Corpora.get_corpora`, and the checked-in corpus does not yet have
+`genre.json` files for every story. This command must consume genre data
+through whatever artifact `PROP-GENRE-EVIDENCE-SIDECARS` (or the existing
+`experiments/04_genre_census` census tooling, see
+`tests/experiment_tests/run_census_test.py`) actually produces — an
+assessment/census artifact or sidecar read, not an assumption that genre is
+already present in `Story.metadata`. The exact artifact, label
+normalization, and story-identity join key must be pinned down as part of
+implementation planning for this command, aligned with
+`PROP-GENRE-EVIDENCE-SIDECARS` rather than defining a second, competing
+genre input contract.
+
 ### `lcats visualize words`
 
 Visualize token/term frequencies from story text or a selected corpus subset.
@@ -189,12 +206,17 @@ Analysis results should be independently testable without image rendering.
 Rendering functions convert analysis results to visual outputs. Candidate
 libraries include:
 
-- `wordcloud` for word clouds;
-- `matplotlib` for conventional static figures;
-- scikit-learn for TF-IDF and possibly baseline topic modeling.
-
-Library selection should be confirmed during design review against current
-LCATS dependency and packaging constraints.
+- `wordcloud` for word clouds (new dependency — see Packaging / Dependency
+  Questions);
+- `matplotlib` for conventional static figures — **already a core LCATS
+  dependency** (`pyproject.toml`), and LCATS already has
+  `lcats.analysis.graph_plotters` with Matplotlib/Seaborn renderers and
+  dedicated tests. Conventional-chart rendering in this proposal should
+  reuse or extend `graph_plotters` rather than create a parallel plotting
+  API; introduce a new rendering module only for outputs `graph_plotters`
+  doesn't already cover (word clouds, TF-IDF/topic-specific plots);
+- scikit-learn for TF-IDF and possibly baseline topic modeling (new
+  dependency — see Packaging / Dependency Questions).
 
 ### 4. CLI orchestration
 

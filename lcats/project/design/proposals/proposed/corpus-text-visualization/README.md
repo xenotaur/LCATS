@@ -1,3 +1,10 @@
+---
+id: PROP-LCATS-CORPUS-TEXT-VISUALIZATION
+type: design_proposal_set
+status: proposed
+implementation_status: not_started
+---
+
 # PROP-LCATS-CORPUS-TEXT-VISUALIZATION
 
 Proposed design for a reusable LCATS corpus/document visualization capability.
