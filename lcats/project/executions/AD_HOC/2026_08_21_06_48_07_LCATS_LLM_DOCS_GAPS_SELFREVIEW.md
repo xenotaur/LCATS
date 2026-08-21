@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:LCATS_LLM_DOCS_GAPS_SELFREVIEW)[2026-08-21T06:47:56+00:
 work_item: AD_HOC
 status: landed
 rerun_of: 
-pr: 
+pr: https://github.com/xenotaur/LCATS/pull/331
 commit: b2a92b2ad52ecdbcf3b82a72b3729797a60dacff
 created_at: 2026-08-21T06:48:07+00:00
 ---
