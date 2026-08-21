@@ -18,6 +18,8 @@ related_design:
   - lcats/project/design/backlog.md
 work_items:
   - WI-PILOT-0067
+  - WI-SEGMENT-0071
+  - WI-SEGMENT-0072
 exit_criteria:
   - A first pilot API/output stability gate has run against a bounded, explicitly approved real Anthropic story set and reports completion, artifact well-formedness, semantic sense, quality thresholds, intended-purpose fit, actual spend, and explicit genre-detection coverage
   - Prompt-caching adoption, if still supported after the stability gate, is implemented only as an explicit pilot-level setting with cache telemetry and no global backend default change
@@ -93,29 +95,48 @@ implements measured cost and ergonomics improvements behind that gate.
 ## Work Items
 
 Per `PROP-LCATS-PILOT-IMPROVEMENTS`, this workstream should create and
-sequence work items in this order:
+sequence work items in this order. The `work_items:` frontmatter is the
+authoritative linked-item list for LRH validation and closeout; this section
+documents the intended execution order and must stay in sync with that list.
 
 1. **`WI-PILOT-0067`: Pilot API/output stability gate** - Define and run a
    bounded real end-to-end validation that checks completion, artifact
    well-formedness, semantic sense, quality thresholds, intended-purpose fit,
    actual spend, and explicit genre-detection coverage. This is a
    prerequisite for all later implementation work.
-2. **Prompt caching adoption** - If the stability gate passes, expose
+2. **`WI-SEGMENT-0070`: Narrow segmentation anchor-matching fix** - Before
+   downstream pilot adoption work proceeds, implement the already-filed
+   paragraph-marker and quote/dash typography fixes that address the
+   well-understood `WI-SEGMENT-0069` sub-categories. This item is tracked in
+   its own segmentation planning path, not as a `work_items:` member here, but
+   the two linked investigations below depend on it.
+3. **`WI-SEGMENT-0071`: Paragraph-misnumbering diagnostics** - Diagnose the
+   paragraph-misnumbering categories that `WI-SEGMENT-0070` explicitly leaves
+   unhandled. This informs whether a future safe alignment fix should be
+   filed before relying on larger pilot runs.
+4. **`WI-SEGMENT-0072`: Near-miss fuzzy-matching evaluation** - Evaluate
+   whether fuzzy matching can safely recover near-miss anchors without
+   reintroducing the silent wrong-match behavior documented by
+   `WI-SEGMENT-0059`. This is an evaluation gate, not an implementation.
+5. **Prompt caching adoption** - If the stability gate and segmentation
+   reliability follow-ups still support proceeding, expose
    explicit pilot-level prompt caching for Anthropic fixture/pilot runs,
    preserving `AnthropicBackend(enable_prompt_caching=False)` as the global
    default and retaining cache token telemetry.
-3. **Genre/segmentation model-tiering adoption** - If the stability gate
-   passes, adopt cheaper-tier model settings for genre detection and
-   segmentation in the pilot's recommended configuration while preserving
-   schema, truncation, sanitization, and semantic-quality telemetry.
-4. **Batch API opt-in design** - Design the durable batch ledger,
+6. **Genre/segmentation model-tiering adoption** - If the stability gate and
+   segmentation reliability follow-ups still support proceeding, adopt
+   cheaper-tier model settings for genre detection and segmentation in the
+   pilot's recommended configuration while preserving schema, truncation,
+   sanitization, and semantic-quality telemetry.
+7. **Batch API opt-in design** - Design the durable batch ledger,
    submit/poll/result-ingestion flow, and interaction with `checkpoint.py`.
    This design-only work can proceed without real API spend.
-5. **Batch API opt-in implementation and validation** - If the stability gate
-   passes, implement opt-in Batch API mode, publish per-stage checkpoints only
-   after result ingestion, and run a bounded real batch validation before
-   treating batch mode as usable.
-6. **User-facing pilot run ergonomics** - Clarify CLI help, docs, output
+8. **Batch API opt-in implementation and validation** - If the stability gate
+   and segmentation reliability follow-ups still support proceeding,
+   implement opt-in Batch API mode, publish per-stage checkpoints only after
+   result ingestion, and run a bounded real batch validation before treating
+   batch mode as usable.
+9. **User-facing pilot run ergonomics** - Clarify CLI help, docs, output
    summaries, or wrappers so a researcher can choose a cheap validation run, a
    synchronous high-visibility pilot run, or an opt-in lower-cost batch run.
 

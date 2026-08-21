@@ -20,7 +20,7 @@ related_design:
 depends_on:
   - WI-EVENT-0029
   - WI-ASSESS-0031
-  - WI-ASSESS-0051
+  - WI-GENRE-0004
 blocked_by: []
 expected_actions:
   - create_file
@@ -141,34 +141,61 @@ to size the effect precisely across genres.
 **Resolved 2026-08-07:** `WI-ASSESS-0031` landed (PR #224) — `VALID_GENRES`
 now has all 8 genres.
 
-**Added 2026-08-08 (via `depends_on`):** this item also depends on
-`WI-ASSESS-0051` ("Gap 2" — run the current-classifier full-corpus genre
-survey). The design doc doesn't name either work item directly, but its
-own Gap 3 sequencing (`event-role-world-genre-target-reconciliation.md:274-277`)
-says both follow-up items ("A", the corpus survey, and "B", this item's
-re-scope) depend on Gap 1 landing first, and that A should run before B
-"so B's per-genre sampling draws from an actual current genre census
-rather than the stale 2025-10 numbers" - i.e. B (this item) depends on A's
-(`WI-ASSESS-0051`'s) output, even though the doc predates either work
-item's ID. As of this note, `WI-ASSESS-0051` is `status: proposed`, not
-yet implemented - its survey has not run.
+**Added 2026-08-08 (via `depends_on`), superseded 2026-08-20:** this item
+originally depended on `WI-ASSESS-0051` ("Gap 2" — run the
+current-classifier full-corpus genre survey). The design doc doesn't name
+either work item directly, but its own Gap 3 sequencing
+(`event-role-world-genre-target-reconciliation.md:317`) says both
+follow-up items ("A", the corpus survey, and "B", this item's re-scope)
+depend on Gap 1 landing first, and that A should run before B "so B's
+per-genre sampling draws from an actual current genre census rather than
+the stale 2025-10 numbers" - i.e. B (this item) depends on A's output,
+even though the doc predates either work item's ID.
+
+**Superseded 2026-08-20:** `WI-ASSESS-0051` no longer produces that
+census, and — per review on this same PR (`chatgpt-codex-connector`,
+`copilot-pull-request-reviewer`) — `WI-GENRE-0004` will not produce a
+like-for-like replacement either: its acceptance criteria run
+metadata-rule candidate counts/coverage across all 8 `VALID_GENRES` over
+the *full* corpus (not classifier-verified — a rule-based prefilter, not
+a per-story model classification), then classify only a genre-balanced
+100-200 story *sample* with a real, bounded Opus validation pass. Neither
+output is a full-corpus verified-classifier census in the sense the
+original Gap 3 language ("an actual current genre census") meant. `depends_on`
+now points at `WI-GENRE-0004` instead of `WI-ASSESS-0051` regardless —
+this item's re-scope should draw on `WI-GENRE-0004`'s actual two outputs
+(full-corpus metadata-rule coverage per genre, and the validated sample's
+per-genre agreement/disagreement findings) as the best available
+current-genre signal, not wait for a full-corpus classifier count that no
+work item now plans to produce. `WI-ASSESS-0051`'s own sample-phase data
+remains valid evidence but was never itself a full-corpus per-genre
+census either. This was flagged as a deliberately out-of-scope follow-up
+during `WI-GENRE-0004`'s own PR #305 review (see
+`lcats/project/executions/AD_HOC/2026_08_19_23_23_53_WI_GENRE_0003_METADATA_SELECTION_VALIDATION_SELFREVIEW.md`
+finding #3) and is resolved here.
 
 **Why the content re-scope below is still deferred, not done in this
 edit:** this item's Scope/Summary/Required Changes sections still commit
 to "5-10 stories per genre" against the original 4 genres (SF, horror,
 western, romance) — a number chosen when those 4 genres' corpus
 representation was already roughly known. The 4 new genres (humor,
-mystery, fantasy, adventure) have no verified current-classifier counts —
-`WI-ASSESS-0051`'s survey is what will produce them. Rewriting this item's
-strata list and sample-size language *now*, before that survey exists,
-would mean guessing at exactly the numbers the reconciliation effort has
-been deliberately avoiding guessing at (see the design doc's own
-open-flag note on the original genre thresholds not holding up under the
-one existing, older corpus count). **Do not execute this item's pilot, and
-do not finalize its 8-genre content, until `WI-ASSESS-0051` has produced
-real per-genre counts** — at that point, re-scope the Scope/Summary/
-Required Changes/Risk Notes sections below using those real numbers, not
-before.
+mystery, fantasy, adventure) have no verified current-classifier counts,
+and — as the review above clarifies — none is coming: `WI-GENRE-0004`'s
+full-corpus metadata scan produces per-genre *candidate* counts/coverage
+(rule-based, not classifier-verified), and its bounded sample produces
+per-genre agreement/disagreement findings for only the 100-200 stories
+selected, not a verified count for the full corpus. Rewriting this item's
+strata list and sample-size language *now*, before either exists, would
+mean guessing at exactly the numbers the reconciliation effort has been
+deliberately avoiding guessing at (see the design doc's own open-flag
+note on the original genre thresholds not holding up under the one
+existing, older corpus count). **Do not execute this item's pilot, and do
+not finalize its 8-genre content, until `WI-GENRE-0004` has produced its
+full-corpus metadata-rule coverage findings and its validated sample's
+agreement results** — at that point, re-scope the Scope/Summary/Required
+Changes/Risk Notes sections below using those findings (treating the
+metadata-rule counts as candidate coverage, not authoritative per-genre
+totals), not before.
 
 ## Required Changes
 

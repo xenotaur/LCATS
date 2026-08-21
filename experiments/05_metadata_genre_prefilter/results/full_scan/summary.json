@@ -1,0 +1,515 @@
+{
+  "cache": {
+    "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+    "cache_root": "/Users/centaur/Tempspace/Projects/LCATS/cache",
+    "ready": true,
+    "status": "ready",
+    "warnings": []
+  },
+  "collection_counts": {
+    "anderson": 18,
+    "chesterton": 12,
+    "grimm": 62,
+    "hemingway": 14,
+    "london": 8,
+    "lovecraft": 17,
+    "mass_quantities": 1659,
+    "ohenry-four_million": 25,
+    "ohenry-whirligigs": 24,
+    "sherlock": 12,
+    "wilde_happy_prince": 5,
+    "wodehouse": 12
+  },
+  "corpus_root": "corpora",
+  "created_at": "2026-08-21T06:20:58.921453Z",
+  "dry_run": true,
+  "estimated_validation_cost_usd": 34.00851,
+  "genre_balanced_selection": {
+    "max_per_gutenberg_id": null,
+    "per_genre_target": 20,
+    "selected_count": 146,
+    "selected_counts": {
+      "adventure": 6,
+      "fantasy": 20,
+      "horror": 20,
+      "humor": 20,
+      "mystery": 20,
+      "romance": 20,
+      "science fiction": 20,
+      "western": 20
+    },
+    "selected_repeated_gutenberg_ids": [
+      {
+        "gutenberg_id": 1597,
+        "story_count": 18,
+        "story_ids": [
+          "anderson/bell",
+          "anderson/dream_of_little_tuk",
+          "anderson/elderbush",
+          "anderson/emperor_s_new_clothes",
+          "anderson/false_collar",
+          "anderson/fir_tree",
+          "anderson/happy_family",
+          "anderson/leap_frog",
+          "anderson/little_match_girl",
+          "anderson/naughty_boy",
+          "anderson/old_house",
+          "anderson/real_princess",
+          "anderson/red_shoes",
+          "anderson/shadow",
+          "anderson/shoes_of_fortune",
+          "anderson/snow_queen",
+          "anderson/story_of_a_mother",
+          "anderson/swineherd"
+        ]
+      },
+      {
+        "gutenberg_id": 204,
+        "story_count": 12,
+        "story_ids": [
+          "chesterton/blue_cross",
+          "chesterton/eye_of_apollo",
+          "chesterton/flying_stars",
+          "chesterton/hammer_of_god",
+          "chesterton/honour_of_israel_gow",
+          "chesterton/invisible_man",
+          "chesterton/queer_feet",
+          "chesterton/secret_garden",
+          "chesterton/sign_of_the_broken_sword",
+          "chesterton/sins_of_prince_saradine",
+          "chesterton/three_tools_of_death",
+          "chesterton/wrong_shape"
+        ]
+      },
+      {
+        "gutenberg_id": 7471,
+        "story_count": 12,
+        "story_ids": [
+          "wodehouse/at_geisenheimer_s",
+          "wodehouse/bill_the_bloodhound",
+          "wodehouse/black_for_luck",
+          "wodehouse/crowned_heads",
+          "wodehouse/extricating_young_gussie",
+          "wodehouse/making_of_mac_s",
+          "wodehouse/man_with_two_left_feet",
+          "wodehouse/mixer",
+          "wodehouse/one_touch_of_nature",
+          "wodehouse/romance_of_an_ugly_policeman",
+          "wodehouse/sea_of_troubles",
+          "wodehouse/wilton_s_holiday"
+        ]
+      },
+      {
+        "gutenberg_id": 710,
+        "story_count": 8,
+        "story_ids": [
+          "london/brown_wolf",
+          "london/day_s_lodging",
+          "london/love_of_life",
+          "london/negore_the_coward",
+          "london/story_of_keesh",
+          "london/sun_dog_trail",
+          "london/unexpected",
+          "london/white_man_s_way"
+        ]
+      },
+      {
+        "gutenberg_id": 2591,
+        "story_count": 2,
+        "story_ids": [
+          "grimm/adventures_of_chanticleer_and_partlet",
+          "grimm/ashputtel"
+        ]
+      },
+      {
+        "gutenberg_id": 68547,
+        "story_count": 2,
+        "story_ids": [
+          "lovecraft/he",
+          "mass_quantities/he__lovecraft"
+        ]
+      },
+      {
+        "gutenberg_id": 73177,
+        "story_count": 2,
+        "story_ids": [
+          "lovecraft/cool_air",
+          "mass_quantities/cool_air__lovecraft"
+        ]
+      }
+    ],
+    "shortfalls": {
+      "adventure": 14
+    },
+    "skipped_by_gutenberg_cap": {},
+    "target_counts": {
+      "adventure": 20,
+      "fantasy": 20,
+      "horror": 20,
+      "humor": 20,
+      "mystery": 20,
+      "romance": 20,
+      "science fiction": 20,
+      "western": 20
+    },
+    "target_total": 160,
+    "unclassified_count": 267
+  },
+  "genre_coverage": {
+    "no_usable_signal_count": 267,
+    "primary_target_genre_counts": {
+      "adventure": 6,
+      "fantasy": 120,
+      "horror": 43,
+      "humor": 20,
+      "mystery": 34,
+      "romance": 24,
+      "science fiction": 1308,
+      "western": 46
+    }
+  },
+  "gutenberg_id_parse_failure_count": 0,
+  "gutenberg_id_parse_failures": [],
+  "outputs": {
+    "candidates": "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl",
+    "genre_balanced_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "summary": "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json"
+  },
+  "pilot": {
+    "max_per_gutenberg_id": null,
+    "selected_count": 0,
+    "selected_counts": {},
+    "selected_repeated_gutenberg_ids": [],
+    "shortfalls": {},
+    "skipped_by_gutenberg_cap": {},
+    "target_counts": {}
+  },
+  "pipeline": "experiments/05_metadata_genre_prefilter",
+  "pipeline_version": "v2",
+  "repeated_gutenberg_ids": [
+    {
+      "gutenberg_id": 2591,
+      "story_count": 62,
+      "story_ids": [
+        "grimm/adventures_of_chanticleer_and_partlet",
+        "grimm/ashputtel",
+        "grimm/blue_light",
+        "grimm/briar_rose",
+        "grimm/cat_and_mouse_in_partnership",
+        "grimm/cat_skin",
+        "grimm/clever_elsie",
+        "grimm/clever_gretel",
+        "grimm/clever_hans",
+        "grimm/doctor_knowall",
+        "grimm/dog_and_the_sparrow",
+        "grimm/elves_and_the_shoemaker",
+        "grimm/fisherman_and_his_wife",
+        "grimm/four_clever_brothers",
+        "grimm/fox_and_the_cat",
+        "grimm/fox_and_the_horse",
+        "grimm/frederick_and_catherine",
+        "grimm/frog_prince",
+        "grimm/fundevogel",
+        "grimm/golden_bird",
+        "grimm/golden_goose",
+        "grimm/goose_girl",
+        "grimm/hans_in_luck",
+        "grimm/hansel_and_gretel",
+        "grimm/iron_hans",
+        "grimm/jorinda_and_jorindel",
+        "grimm/juniper_tree",
+        "grimm/king_grisly_beard",
+        "grimm/king_of_the_golden_mountain",
+        "grimm/lily_and_the_lion",
+        "grimm/little_peasant",
+        "grimm/little_red_cap_little_red_riding_hood",
+        "grimm/miser_in_the_bush",
+        "grimm/mother_holle",
+        "grimm/mouse_the_bird_and_the_sausage",
+        "grimm/old_man_and_his_grandson",
+        "grimm/old_sultan",
+        "grimm/pink",
+        "grimm/queen_bee",
+        "grimm/rapunzel",
+        "grimm/raven",
+        "grimm/robber_bridegroom",
+        "grimm/rumpelstiltskin",
+        "grimm/salad",
+        "grimm/seven_ravens",
+        "grimm/snow_white_and_rose_red",
+        "grimm/snowdrop",
+        "grimm/story_of_the_youth_who_went_forth_to_learn_what_fear_was",
+        "grimm/straw_the_coal_and_the_bean",
+        "grimm/sweetheart_roland",
+        "grimm/three_languages",
+        "grimm/tom_thumb",
+        "grimm/travelling_musicians",
+        "grimm/turnip",
+        "grimm/twelve_dancing_princesses",
+        "grimm/twelve_huntsmen",
+        "grimm/valiant_little_tailor",
+        "grimm/water_of_life",
+        "grimm/wedding_of_mrs_fox",
+        "grimm/white_snake",
+        "grimm/willow_wren_and_the_bear",
+        "grimm/wolf_and_the_seven_little_kids"
+      ]
+    },
+    {
+      "gutenberg_id": 2776,
+      "story_count": 25,
+      "story_ids": [
+        "ohenry-four_million/adjustment_of_nature",
+        "ohenry-four_million/after_twenty_years",
+        "ohenry-four_million/between_rounds",
+        "ohenry-four_million/brief_debut_of_tildy",
+        "ohenry-four_million/by_courier",
+        "ohenry-four_million/caliph_cupid_and_the_clock",
+        "ohenry-four_million/coming_out_of_maggie",
+        "ohenry-four_million/cop_and_the_anthem",
+        "ohenry-four_million/cosmopolite_in_a_cafe",
+        "ohenry-four_million/furnished_room",
+        "ohenry-four_million/gift_of_the_magi",
+        "ohenry-four_million/green_door",
+        "ohenry-four_million/lost_on_dress_parade",
+        "ohenry-four_million/love_philtre_of_ikey_schoenstein",
+        "ohenry-four_million/mammon_and_the_archer",
+        "ohenry-four_million/man_about_town",
+        "ohenry-four_million/memoirs_of_a_yellow_dog",
+        "ohenry-four_million/romance_of_a_busy_broker",
+        "ohenry-four_million/service_of_love",
+        "ohenry-four_million/sisters_of_the_golden_circle",
+        "ohenry-four_million/skylight_room",
+        "ohenry-four_million/springtime_a_la_carte",
+        "ohenry-four_million/the_cabby_s_seat",
+        "ohenry-four_million/tobin_s_palm",
+        "ohenry-four_million/unfinished_story"
+      ]
+    },
+    {
+      "gutenberg_id": 1595,
+      "story_count": 24,
+      "story_ids": [
+        "ohenry-whirligigs/blackjack_bargainer",
+        "ohenry-whirligigs/blind_man_s_holiday",
+        "ohenry-whirligigs/calloway_s_code",
+        "ohenry-whirligigs/chaparral_christmas_gift",
+        "ohenry-whirligigs/georgia_s_ruling",
+        "ohenry-whirligigs/girl",
+        "ohenry-whirligigs/hypotheses_of_failure",
+        "ohenry-whirligigs/little_local_colour",
+        "ohenry-whirligigs/madame_bo_peep_of_the_ranches",
+        "ohenry-whirligigs/marry_month_of_may",
+        "ohenry-whirligigs/matter_of_mean_elevation",
+        "ohenry-whirligigs/newspaper_story",
+        "ohenry-whirligigs/one_dollar_s_worth",
+        "ohenry-whirligigs/ransom_of_red_chief",
+        "ohenry-whirligigs/roads_we_take",
+        "ohenry-whirligigs/sacrifice_hit",
+        "ohenry-whirligigs/sociology_in_serge_and_straw",
+        "ohenry-whirligigs/song_and_the_sergeant",
+        "ohenry-whirligigs/suite_homes_and_their_romance",
+        "ohenry-whirligigs/technical_error",
+        "ohenry-whirligigs/theory_and_the_hound",
+        "ohenry-whirligigs/tommy_s_burglar",
+        "ohenry-whirligigs/whirligig_of_life",
+        "ohenry-whirligigs/world_and_the_door"
+      ]
+    },
+    {
+      "gutenberg_id": 1597,
+      "story_count": 18,
+      "story_ids": [
+        "anderson/bell",
+        "anderson/dream_of_little_tuk",
+        "anderson/elderbush",
+        "anderson/emperor_s_new_clothes",
+        "anderson/false_collar",
+        "anderson/fir_tree",
+        "anderson/happy_family",
+        "anderson/leap_frog",
+        "anderson/little_match_girl",
+        "anderson/naughty_boy",
+        "anderson/old_house",
+        "anderson/real_princess",
+        "anderson/red_shoes",
+        "anderson/shadow",
+        "anderson/shoes_of_fortune",
+        "anderson/snow_queen",
+        "anderson/story_of_a_mother",
+        "anderson/swineherd"
+      ]
+    },
+    {
+      "gutenberg_id": 69683,
+      "story_count": 14,
+      "story_ids": [
+        "hemingway/alpine_idyll",
+        "hemingway/banal_story",
+        "hemingway/canary_for_one",
+        "hemingway/che_ti_dice_la_patria",
+        "hemingway/fifty_grand",
+        "hemingway/hills_like_white_elephants",
+        "hemingway/in_another_country",
+        "hemingway/killers",
+        "hemingway/now_i_lay_me",
+        "hemingway/pursuit_race",
+        "hemingway/simple_enquiry",
+        "hemingway/ten_indians",
+        "hemingway/to_day_is_friday",
+        "hemingway/undefeated"
+      ]
+    },
+    {
+      "gutenberg_id": 204,
+      "story_count": 12,
+      "story_ids": [
+        "chesterton/blue_cross",
+        "chesterton/eye_of_apollo",
+        "chesterton/flying_stars",
+        "chesterton/hammer_of_god",
+        "chesterton/honour_of_israel_gow",
+        "chesterton/invisible_man",
+        "chesterton/queer_feet",
+        "chesterton/secret_garden",
+        "chesterton/sign_of_the_broken_sword",
+        "chesterton/sins_of_prince_saradine",
+        "chesterton/three_tools_of_death",
+        "chesterton/wrong_shape"
+      ]
+    },
+    {
+      "gutenberg_id": 1661,
+      "story_count": 12,
+      "story_ids": [
+        "sherlock/beryl_coronet",
+        "sherlock/blue_carbuncle",
+        "sherlock/boscombe_valley",
+        "sherlock/case_of_identity",
+        "sherlock/copper_beeches",
+        "sherlock/engineers_thumb",
+        "sherlock/five_orange_pips",
+        "sherlock/noble_bachelor",
+        "sherlock/red_headed_league",
+        "sherlock/scandal_in_bohemia",
+        "sherlock/speckled_band",
+        "sherlock/twisted_lip"
+      ]
+    },
+    {
+      "gutenberg_id": 7471,
+      "story_count": 12,
+      "story_ids": [
+        "wodehouse/at_geisenheimer_s",
+        "wodehouse/bill_the_bloodhound",
+        "wodehouse/black_for_luck",
+        "wodehouse/crowned_heads",
+        "wodehouse/extricating_young_gussie",
+        "wodehouse/making_of_mac_s",
+        "wodehouse/man_with_two_left_feet",
+        "wodehouse/mixer",
+        "wodehouse/one_touch_of_nature",
+        "wodehouse/romance_of_an_ugly_policeman",
+        "wodehouse/sea_of_troubles",
+        "wodehouse/wilton_s_holiday"
+      ]
+    },
+    {
+      "gutenberg_id": 710,
+      "story_count": 8,
+      "story_ids": [
+        "london/brown_wolf",
+        "london/day_s_lodging",
+        "london/love_of_life",
+        "london/negore_the_coward",
+        "london/story_of_keesh",
+        "london/sun_dog_trail",
+        "london/unexpected",
+        "london/white_man_s_way"
+      ]
+    },
+    {
+      "gutenberg_id": 902,
+      "story_count": 5,
+      "story_ids": [
+        "wilde_happy_prince/devoted_friend",
+        "wilde_happy_prince/happy_prince",
+        "wilde_happy_prince/nightingale_and_the_rose",
+        "wilde_happy_prince/remarkable_rocket",
+        "wilde_happy_prince/selfish_giant"
+      ]
+    },
+    {
+      "gutenberg_id": 68547,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/he",
+        "mass_quantities/he__lovecraft"
+      ]
+    },
+    {
+      "gutenberg_id": 68553,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/the_festival",
+        "mass_quantities/the_festival__lovecraft"
+      ]
+    },
+    {
+      "gutenberg_id": 70478,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/the_silver_key",
+        "mass_quantities/the_silver_key__lovecraft"
+      ]
+    },
+    {
+      "gutenberg_id": 70486,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/the_lurking_fear",
+        "mass_quantities/the_lurking_fear__lovecraft"
+      ]
+    },
+    {
+      "gutenberg_id": 73177,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/cool_air",
+        "mass_quantities/cool_air__lovecraft"
+      ]
+    },
+    {
+      "gutenberg_id": 73233,
+      "story_count": 2,
+      "story_ids": [
+        "lovecraft/the_haunter_of_the_dark",
+        "mass_quantities/the_haunter_of_the_dark__lovecraft"
+      ]
+    }
+  ],
+  "secondary_signal_counts": {
+    "Apocalyptic": 29,
+    "Children / juvenile": 41,
+    "Crime": 65,
+    "Epistolary / diary fiction": 8,
+    "Historical": 9,
+    "Medical fiction": 17,
+    "Political fiction": 12,
+    "Psychological": 45,
+    "Sea": 115,
+    "Short stories only / unspecified genre": 1528,
+    "War": 67
+  },
+  "story_count": 1868,
+  "target_candidate_counts": {
+    "adventure": 93,
+    "fantasy": 122,
+    "horror": 57,
+    "humor": 27,
+    "mystery": 48,
+    "romance": 99,
+    "science fiction": 1308,
+    "western": 53
+  }
+}

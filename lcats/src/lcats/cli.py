@@ -7,6 +7,7 @@ from lcats.analysis.corpus import annotate_cli
 from lcats.analysis.corpus import assess_cli
 from lcats.analysis.corpus import cli as corpus_cli
 from lcats.analysis.corpus import clean_cli
+from lcats.analysis.corpus import linguistics_cli
 from lcats.analysis.corpus import promote_cli
 from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
@@ -65,6 +66,10 @@ def _handle_annotate(args):
 
 def _handle_clean(args):
     return "", clean_cli.run(parsed_args=args)
+
+
+def _handle_linguistics(args):
+    return "", linguistics_cli.run(parsed_args=args)
 
 
 def _handle_index(_args):
@@ -277,6 +282,26 @@ def build_parser() -> argparse.ArgumentParser:
     )
     clean_parser.set_defaults(handler=_handle_clean)
     command_parsers["clean"] = clean_parser
+
+    linguistics_parent = linguistics_cli.build_parser(add_help=False)
+    linguistics_parser = subparsers.add_parser(
+        "linguistics",
+        parents=[linguistics_parent],
+        help="Write standalone linguistic-feature sidecars for LCATS stories.",
+        description=(
+            "Analyze LCATS stories with a local NLP backend and write compact "
+            "linguistics.json sidecars."
+        ),
+        epilog=(
+            "Examples:\n"
+            "  lcats linguistics corpora/sherlock --backend spacy\n"
+            "  lcats linguistics data/my_collection/story_slug --dry-run\n"
+            "  lcats linguistics --story-list sample.txt --summary-output run.json"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    linguistics_parser.set_defaults(handler=_handle_linguistics)
+    command_parsers["linguistics"] = linguistics_parser
 
     index_parser = subparsers.add_parser(
         "index",

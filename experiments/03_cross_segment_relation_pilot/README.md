@@ -236,6 +236,128 @@ This means:
   `mean_folded_relations_per_1000_words`,
   `mean_folded_weakly_inferred_relations_per_1000_words`.
 
+## Follow-on measurement scripts (WS-PILOT-COST-SUSTAINABILITY)
+
+Three more scripts live in this directory, delivered by
+`WS-PILOT-COST-SUSTAINABILITY` after the pilot above shipped. All three
+reuse `run_pilot.py`'s machinery (extractors, checkpointing, fixture
+loading) against the same committed `fixtures/` set rather than
+introducing a second corpus, and all three follow the same
+explicit-human-approval discipline as `run_pilot.py` itself: real,
+paid Anthropic calls only happen when `--dry-run` is omitted, and
+omitting it requires explicit, in-session human approval first — not
+just "the flag defaults to real mode, so it's fine to run."
+
+### `measure_prompt_caching.py` (WI-PILOT-0057)
+
+Measures whether Anthropic prompt caching actually reduces cost for the
+Event-Role-World extraction sequence, by running the real
+entity/event/relation/discourse extraction over the fixture set twice —
+once with caching enabled, once disabled — and recording each real
+call's `cache_creation_input_tokens`/`cache_read_input_tokens`/token
+counts. It preserves the pipeline's real per-segment interleaved call
+order (not an artificially same-extractor-grouped sequence), since
+grouping calls by extractor would overstate the cache-hit rate given
+the 5-minute cache TTL. Segmentation is checkpointed once and shared
+across both comparison arms, so it's never re-billed.
+
+Flags:
+
+| Flag | Default | Purpose |
+|---|---|---|
+| `--model` | `claude-opus-4-8` | Model used for both comparison arms |
+| `--output-dir` | `results/caching_eval` | Where `caching_comparison.json` is written |
+| `--dry-run` | off | Zero-cost FakeBackend smoke test — no real API calls |
+
+```bash
+python experiments/03_cross_segment_relation_pilot/measure_prompt_caching.py --dry-run
+```
+
+Real mode (`--output-dir results/caching_eval`, omitting `--dry-run`)
+makes real, paid Anthropic calls — entity/event/relation/discourse
+extraction over every fixture story, twice — and **requires explicit,
+in-session human approval before running**, per
+`WI-PILOT-0057`'s `forbidden_actions`
+(`run_real_llm_calls_without_explicit_approval`). It also issues one
+additional real (but free, non-generation) `count_tokens` preflight
+call per extractor before the comparison starts.
+
+Committed results from the original real run:
+[`results/caching_eval/caching_comparison.json`](results/caching_eval/caching_comparison.json).
+
+### `measure_model_tiering.py` (WI-PILOT-0060)
+
+Compares a cheaper candidate model against the baseline model on
+quality and cost, scoped to only the two stages Decision 5 authorizes
+for cheaper-model evaluation: genre detection and scene/sequel
+segmentation. The script's own docstring describes a 2-story fixture
+set giving 8 Anthropic generation calls (2 models x 2 stories x 2
+stages) — that was accurate for the original real run (whose committed
+result below shows 4 calls per model). The default `fixtures/` root
+now has **three** committed `*/story.json` files (a third,
+`five_o_clock_tea_farce`, was added later and is flagged
+`wellformed: false` in `fixtures/genre_ground_truth.json`), so a real
+run against the current default `--fixture-root` makes **12** calls
+(2 models x 3 stories x 2 stages), not 8. Pass `--fixture-root` at a
+directory containing only the two well-formed stories to reproduce the
+original 8-call scope, or budget for 12 calls against the current
+default.
+
+Flags:
+
+| Flag | Default | Purpose |
+|---|---|---|
+| `--baseline-model` | `claude-opus-4-8` | Model to compare against |
+| `--candidate-model` | `claude-haiku-4-5-20251001` | Cheaper model under evaluation |
+| `--fixture-root` | `fixtures/` | Fixture set to run both models against |
+| `--output-dir` | `results/model_tiering_eval` | Where `model_tiering_comparison.json` is written |
+| `--dry-run` | off | Zero-cost FakeBackend smoke test — no real API calls |
+
+```bash
+python experiments/03_cross_segment_relation_pilot/measure_model_tiering.py --dry-run
+```
+
+Real mode (omitting `--dry-run`) makes 8 real, paid Anthropic calls
+across the two models and stages above, and **requires the same
+explicit, in-session human approval** as `measure_prompt_caching.py`
+before running.
+
+Committed results from the original real run:
+[`results/model_tiering_eval/model_tiering_comparison.json`](results/model_tiering_eval/model_tiering_comparison.json).
+
+### `run_stability_gate.py` (WI-PILOT-0067)
+
+Runs and validates the bounded real end-to-end stability gate from
+`WS-PILOT-IMPROVEMENTS`'s first work item. It deliberately stays
+outside the installable `lcats` package. It wraps this directory's own
+`run_pilot.py` targeted-mode harness against the fixture set, adds a
+separate genre-detection check that targeted mode normally bypasses,
+validates the resulting output artifacts against expected shapes, and
+writes both a JSON and a Markdown stability-gate report.
+
+Flags:
+
+| Flag | Default | Purpose |
+|---|---|---|
+| `--model` | `claude-opus-4-8` (`DEFAULT_MODEL` in-file) | Model used for the gate run |
+| `--output-dir` | `results/stability_gate` (`_default_results_dir()` in-file) | Where gate artifacts (`pilot_stories.jsonl`, `pilot_summary.json`, `genre_detection_results.json`, `stability_gate_results.json`, `stability_gate_report.md`, etc.) are written |
+| `--dry-run` | off | Fake-backend validation only — no real API calls |
+| `--nlp-backend` | `fake` under `--dry-run`, `spacy` otherwise | Stage-2 surface-feature NLP backend: `fake`, `spacy`, or `stanza` |
+
+```bash
+python experiments/03_cross_segment_relation_pilot/run_stability_gate.py --dry-run
+```
+
+Real mode (omitting `--dry-run`) makes real, paid Anthropic calls for
+segmentation, genre detection, and the full ERW pipeline over the
+fixture set, and **requires the same explicit, in-session human
+approval** as the other two scripts before running.
+
+Committed results from the original real run:
+[`results/stability_gate/`](results/stability_gate/) (`stability_gate_report.md`,
+`stability_gate_results.json`, plus the underlying pilot artifacts it
+validated).
+
 ## Expected Results Format
 
 Whoever runs this pilot for real should append a section here, e.g.:

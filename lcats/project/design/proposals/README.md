@@ -23,3 +23,5 @@ short index plus the proposal document.
   — adopted; implementation not started.
 - [`PROP-LCATS-PILOT-IMPROVEMENTS`](proposed/lcats-pilot-improvements/README.md)
   — proposed; implementation not started.
+- [`PROP-LCATS-CORPUS-TEXT-VISUALIZATION`](proposed/corpus-text-visualization/README.md)
+  — proposed; implementation not started.
