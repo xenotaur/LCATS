@@ -38,6 +38,7 @@ acceptance:
   - "A new `lcats.visualize` package (or equivalently named module) separates source adapters, analysis functions, and rendering functions per the proposal's Architecture Sketch, consuming `lcats.stories.Story`/`Corpora` directly rather than introducing a parallel document representation"
   - "Conventional-chart rendering reuses or extends `lcats.analysis.graph_plotters` rather than duplicating a parallel Matplotlib/Seaborn plotting API"
   - "`lcats visualize genres` is registered under `lcats visualize` following the existing `subparsers.add_parser`/`build_*_parser(add_help=False)` CLI convention (see `stats`/`assess` in `cli.py`), and sources genre data through a named, real artifact (the `PROP-GENRE-EVIDENCE-SIDECARS` sidecar shape, or the `experiments/04_genre_census` census tooling) rather than assuming genre is already present in `Story.metadata`"
+  - "If the source artifact covers a sample rather than the full corpus (e.g. `experiments/04_genre_census`'s checked-in `census_sample_summary.json` currently covers 20 of 1,868 stories, `mode: \"sample\"`), the command and its rendered output explicitly surface the source population, sample size/mode, and denominator — a sample must never be presented as an unqualified corpus-wide \"genre distribution\". A figure intended to represent the whole corpus requires a full-corpus artifact instead of a sample one."
   - "`lcats visualize genres` produces a genre-distribution word cloud and a conventional bar/distribution chart, each in PNG and, where the underlying renderer supports it, SVG/PDF vector output"
   - "The command emits an input-revision/content-identity value (e.g. corpus/sidecar commit SHA or a content hash of the specific files read) alongside its output, not only selectors/parameters/seed"
   - "`wordcloud` and scikit-learn are added as core dependencies in `pyproject.toml`/`environment.yml`, matching the already-core `matplotlib`"
@@ -116,3 +117,10 @@ miss, both surfaced during the proposal's own review:
   unconditional dependencies is a real packaging change — confirm CI's
   headless (`Agg`) Matplotlib backend still works cleanly once `wordcloud`
   is added.
+- **Sample-vs-full-corpus mismatch.** `experiments/04_genre_census`'s
+  checked-in `census_sample_summary.json` currently covers only 20 of
+  1,868 stories (`mode: "sample"`). If `genres` is implemented against
+  that artifact as-is without a full-corpus source, a paper-critical
+  figure could misrepresent a 20-story sample as the whole corpus — see
+  the acceptance criterion requiring explicit population/sample-size/
+  denominator disclosure.

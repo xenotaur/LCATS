@@ -15,7 +15,7 @@ related_design:
 work_items:
   - WI-VISUALIZE-0073
 exit_criteria:
-  - lcats visualize genres produces genre-distribution figures (word cloud + conventional chart, PNG and vector) from a named, reproducible genre source (genre.json sidecars / whatever artifact PROP-GENRE-EVIDENCE-SIDECARS or the genre-census tooling actually produces), reusing lcats.analysis.graph_plotters for conventional charts
+  - lcats visualize genres produces genre-distribution figures (word cloud + conventional chart, PNG and vector) from a named, reproducible genre source (genre.json sidecars / whatever artifact PROP-GENRE-EVIDENCE-SIDECARS or the genre-census tooling actually produces), reusing lcats.analysis.graph_plotters for conventional charts, and any figure built from a sample rather than a full-corpus source explicitly discloses population, sample size/mode, and denominator rather than presenting the sample as the whole corpus
   - lcats visualize words produces word-frequency visualizations for the whole corpus and selected genre subsets, with explicit documented preprocessing defaults
   - lcats visualize tfidf produces TF-IDF comparison visualizations using story as the default document unit and genre (or another corpus selector) as the explicit comparison group
   - lcats visualize topics produces a topic-model baseline visualization
