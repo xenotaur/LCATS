@@ -4,7 +4,7 @@ Every story in LCATS's `data/` and `corpora/` trees is stored as
 `<collection>/<story>/story.json` — a dedicated directory per story,
 holding a canonical `story.json` file and, often, sibling analysis
 artifacts (`audit.json`, `scenes.json`, `events.json`, and similar
-per-story outputs) alongside it.
+per-story outputs such as `linguistics.json`) alongside it.
 
 This wasn't always the layout. Through mid-2026, a story was a single
 flat file: `<collection>/<story>.json`. This page explains why LCATS

@@ -105,7 +105,9 @@ Use these modes for existing sidecars:
 - `--existing overwrite` — recompute and replace existing output.
 
 Batch runs isolate failures per story and return a machine-readable JSON
-summary on stdout or at `--summary-output`.
+summary on stdout or at `--summary-output`. See the
+[linguistic sidecar schema reference](../reference/linguistics-sidecar.md)
+for exact sidecar, token-detail, and run-summary fields.
 
 ## Deferred Work
 

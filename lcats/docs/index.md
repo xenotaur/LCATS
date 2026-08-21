@@ -29,6 +29,7 @@ cd LCATS/lcats
 
 - [CLI status matrix](reference/cli-status.md)
 - [CLI command reference](reference/cli-commands.md) — flags and arguments for every `lcats` subcommand
+- [Linguistic sidecar schema](reference/linguistics-sidecar.md) — `linguistics.json`, token-detail, and run-summary fields
 - [LLMBackend reference](reference/llm-backend.md) — the `LLMBackend` Protocol and its providers
 - [Corpus promotion (`lcats promote`)](reference/corpus-promotion.md) — command reference and collection-name mapping
 

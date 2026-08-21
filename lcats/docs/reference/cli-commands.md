@@ -239,8 +239,9 @@ Analyze LCATS stories with a local NLP backend and write compact
 | `--summary-output SUMMARY_OUTPUT` | Write the machine-readable JSON run summary to a file instead of stdout. |
 | `--dry-run` | Resolve inputs and report what would run without writing sidecars. |
 
-See [`../how-to/run-linguistics.md`](../how-to/run-linguistics.md) for setup,
-schema notes, and resumable-run behavior.
+See [`../how-to/run-linguistics.md`](../how-to/run-linguistics.md) for setup
+and examples, and [`linguistics-sidecar.md`](linguistics-sidecar.md) for exact
+sidecar and run-summary schemas.
 
 ## Placeholder commands
 
