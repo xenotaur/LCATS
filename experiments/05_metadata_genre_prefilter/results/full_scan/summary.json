@@ -21,7 +21,7 @@
     "wodehouse": 12
   },
   "corpus_root": "corpora",
-  "created_at": "2026-08-21T05:25:55.715693Z",
+  "created_at": "2026-08-21T06:20:58.921453Z",
   "dry_run": true,
   "estimated_validation_cost_usd": 34.00851,
   "genre_balanced_selection": {
@@ -171,9 +171,9 @@
   "gutenberg_id_parse_failure_count": 0,
   "gutenberg_id_parse_failures": [],
   "outputs": {
-    "candidates": "experiments/05_metadata_genre_prefilter/results/full_scan_real/candidates.jsonl",
-    "genre_balanced_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan_real/genre_balanced_manifest.jsonl",
-    "summary": "experiments/05_metadata_genre_prefilter/results/full_scan_real/summary.json"
+    "candidates": "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl",
+    "genre_balanced_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "summary": "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json"
   },
   "pilot": {
     "max_per_gutenberg_id": null,
