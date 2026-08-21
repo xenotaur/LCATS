@@ -1104,6 +1104,64 @@ class TestValidationResilience(unittest.TestCase):
             self.assertEqual(len(written), 1)
             self.assertEqual(written[0]["lcats_id"], "horror_col/story_a")
 
+    def test_run_log_records_events_in_order_and_appends_across_resumes(self):
+        rows = [
+            _validation_manifest_row("horror_col", "story_a", "horror"),
+            _validation_manifest_row("horror_col", "story_b", "horror"),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, args = self._setup_manifest(tmp, rows)
+            log_path = output_dir / run_prefilter.VALIDATION_RUN_LOG_FILENAME
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.side_effect = [
+                    _FakeAssessmentResult(detected_genre="horror"),
+                    RuntimeError("boom - never seen before"),
+                ]
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    run_prefilter._run_validate_mode(args)
+
+            events = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual(
+                [e["event"] for e in events],
+                ["run_start", "story_completed", "story_unexpected_error", "run_end"],
+            )
+            for event in events:
+                self.assertIn("timestamp", event)
+            self.assertEqual(events[1]["story_id"], "horror_col/story_a")
+            self.assertEqual(events[2]["story_id"], "horror_col/story_b")
+            self.assertIn("boom - never seen before", events[2]["error"])
+
+            # Resuming appends to the same file rather than truncating it -
+            # story_a's already-checkpointed skip, plus a second run_start/
+            # run_end pair, must land after the first run's events.
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess_again:
+                mock_assess_again.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    run_prefilter._run_validate_mode(args)
+
+            events_after_resume = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual(len(events_after_resume), len(events) + 4)
+            self.assertEqual(events_after_resume[: len(events)], events)
+            self.assertEqual(events_after_resume[len(events)]["event"], "run_start")
+            self.assertEqual(events_after_resume[-1]["event"], "run_end")
+
 
 class TestFullScanIntegration(unittest.TestCase):
     def test_full_scan_reports_genre_coverage_and_writes_manifest(self):

@@ -46,6 +46,7 @@ SUMMARY_FILENAME = "summary.json"
 GENRE_BALANCED_MANIFEST_FILENAME = "genre_balanced_manifest.jsonl"
 VALIDATION_RESULTS_FILENAME = "validation_results.jsonl"
 VALIDATION_SUMMARY_FILENAME = "validation_summary.json"
+VALIDATION_RUN_LOG_FILENAME = "validation_run_log.jsonl"
 PIPELINE_NAME = "experiments/05_metadata_genre_prefilter"
 PIPELINE_VERSION = "v2"
 
@@ -879,6 +880,31 @@ class _UnexpectedFailureResult:
         self.output_tokens = 0
 
 
+def _log_run_event(log_path: pathlib.Path, event: str, **fields: Any) -> None:
+    """Append one timestamped JSON line to the run log, then close.
+
+    Distinct from per-item checkpointing (which answers "is this item
+    done and resume-safe?"): this answers "what actually happened, when,
+    and in what order, including why the run stopped?" - a single place
+    to `tail -f`/`cat` for a human, not a resume mechanism.
+
+    Opens, writes, and closes per call rather than holding a long-lived
+    handle across the whole run, so a hard interruption (kill -9, power
+    loss) never loses a buffered-but-unflushed line - the exact failure
+    mode this log exists to survive. The per-call open/close cost is
+    negligible next to a real API call's own latency.
+    """
+    record = {
+        "timestamp": datetime.datetime.now(datetime.timezone.utc)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "event": event,
+        **fields,
+    }
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record, sort_keys=True) + "\n")
+
+
 def _validation_item_id(story_id: str) -> str:
     """Checkpoint-safe item_id for a story - mirrors the collection__slug
     identity convention run_census.py's _story_identity and this file's
@@ -934,6 +960,7 @@ def run_validation(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
+    log_path: pathlib.Path,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
     """Run a real, gated Claude Opus validation pass over the selected sample.
 
@@ -964,11 +991,25 @@ def run_validation(
     still populated with whatever completed before the abort, since the
     caller must write those out regardless (never silently discard
     already-paid-for work).
+
+    Also appends one event per story (plus a run-start and run-end event)
+    to log_path via _log_run_event() - a human-readable, append-and-flush
+    record of what happened and when, distinct from the per-item
+    checkpoints above: checkpoints answer "is this item done and
+    resume-safe?", this log answers "what happened, in order, including
+    why the run stopped?" (see _log_run_event()'s own docstring).
     """
     from lcats.analysis.corpus import assess as corpus_assess
 
     run_id = (
         datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+    )
+    _log_run_event(
+        log_path,
+        "run_start",
+        run_id=run_id,
+        model=model,
+        story_count=len(selected_rows),
     )
     results = []
     agreement_count = 0
@@ -988,6 +1029,13 @@ def run_validation(
             total_input_tokens += cached.data.get("input_tokens", 0)
             total_output_tokens += cached.data.get("output_tokens", 0)
             print(f"  [{index}/{total}] {row['story_id']} (cached)")
+            _log_run_event(
+                log_path,
+                "story_cached",
+                story_id=row["story_id"],
+                index=index,
+                total=total,
+            )
         else:
             try:
                 generated_at = (
@@ -1027,6 +1075,15 @@ def run_validation(
                     f"  [{index}/{total}] {row['story_id']} -> "
                     f"{model_assessment['result']['detected_genre']}"
                 )
+                _log_run_event(
+                    log_path,
+                    "story_completed",
+                    story_id=row["story_id"],
+                    index=index,
+                    total=total,
+                    detected_genre=model_assessment["result"]["detected_genre"],
+                    error=model_assessment["evidence"].get("error"),
+                )
             except FatalValidationError as exc:
                 print(f"\nfatal: {exc}", file=sys.stderr)
                 print(
@@ -1036,6 +1093,14 @@ def run_validation(
                     "identically. Results and checkpoints gathered so "
                     "far are preserved and written out below.",
                     file=sys.stderr,
+                )
+                _log_run_event(
+                    log_path,
+                    "run_aborted_fatal",
+                    story_id=row["story_id"],
+                    index=index,
+                    total=total,
+                    error=str(exc),
                 )
                 aborted = True
                 break
@@ -1059,6 +1124,14 @@ def run_validation(
                     datetime.datetime.now(datetime.timezone.utc)
                     .isoformat()
                     .replace("+00:00", "Z"),
+                )
+                _log_run_event(
+                    log_path,
+                    "story_unexpected_error",
+                    story_id=row["story_id"],
+                    index=index,
+                    total=total,
+                    error=repr(exc),
                 )
         if model_assessment["evidence"].get("error"):
             error_count += 1
@@ -1100,6 +1173,16 @@ def run_validation(
         "total_output_tokens": total_output_tokens,
         "total_estimated_cost_usd": real_cost,
     }
+    _log_run_event(
+        log_path,
+        "run_end",
+        run_id=run_id,
+        aborted=aborted,
+        processed_count=len(results),
+        error_count=error_count,
+        agreement_count=agreement_count,
+        total_estimated_cost_usd=real_cost,
+    )
     return results, summary, aborted
 
 
@@ -1436,12 +1519,14 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
         f"Validating {len(selected_rows)} stories with {args.model} "
         "(resuming from any checkpoints)."
     )
+    log_path = args.output / VALIDATION_RUN_LOG_FILENAME
     results, validation_summary, aborted = run_validation(
         selected_rows,
         corpus_root=args.corpus_root,
         backend=backend,
         model=args.model,
         roots=roots,
+        log_path=log_path,
     )
     # Always write whatever completed, aborted or not - never silently
     # discard already-paid-for results (see run_validation()'s own
@@ -1449,6 +1534,7 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
     validation_summary["outputs"] = write_validation_outputs(
         results, validation_summary, args.output
     )
+    validation_summary["outputs"]["validation_run_log"] = str(log_path)
     return validation_summary
 
 

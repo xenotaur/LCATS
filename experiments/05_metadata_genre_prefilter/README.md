@@ -149,6 +149,19 @@ checkpoint per story under `--output/<collection>__<slug>/validation.json`:
   remaining story would fail identically — but everything completed so
   far is still written out, never discarded.
 
+**Run log** — the real run also appends one JSON line per event to
+`--output/validation_run_log.jsonl` (`run_start`, one `story_cached`/
+`story_completed`/`story_unexpected_error` per story, `run_aborted_fatal`
+on a fatal abort, `run_end`): a durable, human-greppable record of what
+happened, in order, including errors — distinct from the per-item
+checkpoints above, which answer "is this item done and resume-safe?"
+rather than "what actually happened, when, and why did the run stop?"
+Each line is opened, written, and closed individually (not held open for
+the whole run), so a hard interruption never loses a buffered-but-
+unflushed event. The file is append-only, so a resumed run's events land
+after the interrupted run's own — `tail -f` or `cat` it to watch or
+review a run.
+
 The cost estimate's default per-story token averages (13,449 input / 416
 output) are the real measured values from
 `experiments/04_genre_census/results/census_sample_summary.json`
