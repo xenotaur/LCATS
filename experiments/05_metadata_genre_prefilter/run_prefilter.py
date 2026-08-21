@@ -955,10 +955,21 @@ def _rows_not_yet_checkpointed(
     remaining = []
     for row in selected_rows:
         item_id = _validation_item_id(row["story_id"])
-        fingerprint = _validation_fingerprint(model, row, corpus_root)
-        cached = checkpoint.read_checkpoint(
-            roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
-        )
+        try:
+            fingerprint = _validation_fingerprint(model, row, corpus_root)
+            cached = checkpoint.read_checkpoint(
+                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+            )
+        except OSError:
+            # Story file missing/unreadable - can't fingerprint it to check
+            # for a cached result. Conservatively counted as remaining
+            # work (never as already-done) rather than crashing what's
+            # documented as a free, side-effect-free estimate preview
+            # (review finding: Codex, this PR) - a real run surfaces the
+            # same missing file as a normal, isolated per-story failure
+            # instead (see run_validation()'s own OSError handling below).
+            remaining.append(row)
+            continue
         if not (cached.done and isinstance(cached.data, dict)):
             remaining.append(row)
     return remaining
@@ -1031,11 +1042,21 @@ def run_validation(
     total = len(selected_rows)
     for index, row in enumerate(selected_rows, start=1):
         item_id = _validation_item_id(row["story_id"])
-        fingerprint = _validation_fingerprint(model, row, corpus_root)
-        cached = checkpoint.read_checkpoint(
-            roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
-        )
-        if cached.done and isinstance(cached.data, dict):
+        # fingerprint is computed inside the try block below (not here,
+        # ahead of it) because it reads the story file off disk - a
+        # missing/unreadable story must be isolated as this one story's
+        # failure by the same except Exception branch below, not crash
+        # the whole run before any per-story handling begins (review
+        # finding: Codex, this PR).
+        fingerprint = None
+        try:
+            fingerprint = _validation_fingerprint(model, row, corpus_root)
+            cached = checkpoint.read_checkpoint(
+                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+            )
+        except OSError:
+            cached = None
+        if cached is not None and cached.done and isinstance(cached.data, dict):
             model_assessment = cached.data["model_assessment"]
             total_input_tokens += cached.data.get("input_tokens", 0)
             total_output_tokens += cached.data.get("output_tokens", 0)
@@ -1049,6 +1070,11 @@ def run_validation(
             )
         else:
             try:
+                if fingerprint is None:
+                    raise FileNotFoundError(
+                        f"story file not found or unreadable: "
+                        f"{corpus_root / row['story_path']}"
+                    )
                 generated_at = (
                     datetime.datetime.now(datetime.timezone.utc)
                     .isoformat()
@@ -1120,14 +1146,20 @@ def run_validation(
                     f"  error: unexpected failure on {row['story_id']}: {exc!r}",
                     file=sys.stderr,
                 )
-                checkpoint.write_checkpoint(
-                    roots.working_root,
-                    item_id,
-                    VALIDATION_CHECKPOINT_STAGE,
-                    outcome="failure",
-                    fingerprint=fingerprint,
-                    data={"error": f"unexpected error: {exc!r}"},
-                )
+                # fingerprint is None when the failure happened computing
+                # the fingerprint itself (e.g. a missing story file) -
+                # nothing to checkpoint against yet, so skip writing one;
+                # the next resume simply retries this same story, same as
+                # any other never-checkpointed row.
+                if fingerprint is not None:
+                    checkpoint.write_checkpoint(
+                        roots.working_root,
+                        item_id,
+                        VALIDATION_CHECKPOINT_STAGE,
+                        outcome="failure",
+                        fingerprint=fingerprint,
+                        data={"error": f"unexpected error: {exc!r}"},
+                    )
                 model_assessment = build_model_assessment(
                     row,
                     _UnexpectedFailureResult(str(exc)),

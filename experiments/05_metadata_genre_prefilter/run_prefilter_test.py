@@ -1266,6 +1266,82 @@ class TestValidationResilience(unittest.TestCase):
 
             self.assertEqual(exit_code, 0)
 
+    def test_estimate_mode_does_not_crash_on_missing_story_file(self):
+        # A manifest row can outlive the story file it points at (e.g. a
+        # corpus cleanup between --full-scan and --validate). The
+        # estimate-only path is documented as a free, side-effect-free
+        # preview - it must report, not crash (review finding: Codex,
+        # this PR).
+        rows = [_validation_manifest_row("horror_col", "story_missing", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            output_dir.mkdir(parents=True)
+            # Deliberately do not write the story file this row points at.
+            manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+            run_prefilter.write_jsonl(manifest_path, rows)
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(corpus_root),
+                ]
+            )
+
+            summary = run_prefilter._run_validate_mode(args)
+
+            self.assertEqual(summary["mode"], "validate-estimate-only")
+            self.assertEqual(summary["remaining_count"], 1)
+
+    def test_real_run_isolates_missing_story_file_as_per_story_failure(self):
+        # Same missing-file scenario, but on the real (--run-real-validation)
+        # path - must be isolated as this one story's failure, not crash
+        # the whole run before any other story is processed.
+        rows = [
+            _validation_manifest_row("horror_col", "story_missing", "horror"),
+            _validation_manifest_row("horror_col", "story_present", "horror"),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            output_dir.mkdir(parents=True)
+            # Only story_present's file actually exists on disk.
+            _write_story(corpus_root, "horror_col", "story_present", url=None)
+            manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+            run_prefilter.write_jsonl(manifest_path, rows)
+            args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--run-real-validation",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(corpus_root),
+                ]
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    summary = run_prefilter._run_validate_mode(args)
+
+            # assess_story is only ever called for the story that actually
+            # exists - the missing one never reaches it.
+            mock_assess.assert_called_once()
+            self.assertFalse(summary["aborted"])
+            self.assertEqual(summary["processed_count"], 2)
+            self.assertEqual(summary["error_count"], 1)
+
 
 class TestFullScanIntegration(unittest.TestCase):
     def test_full_scan_reports_genre_coverage_and_writes_manifest(self):
