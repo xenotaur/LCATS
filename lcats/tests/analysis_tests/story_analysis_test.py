@@ -294,6 +294,13 @@ class TestTokenCount(unittest.TestCase):
 class TestGetEncoder(unittest.TestCase):
     """Tests for get_encoder (mocked to avoid network calls)."""
 
+    def setUp(self):
+        # Clear the lru_cache on get_encoder before each test to ensure test isolation
+        story_analysis.get_encoder.cache_clear()
+
+    def tearDown(self):
+        story_analysis.get_encoder.cache_clear()
+
     def test_returns_result_of_tiktoken_get_encoding(self):
         mock_enc = tokenizer_test_utils.FakeCharacterEncoding()
         import tiktoken
