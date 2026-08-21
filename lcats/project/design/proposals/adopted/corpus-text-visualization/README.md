@@ -1,13 +1,13 @@
 ---
 id: PROP-LCATS-CORPUS-TEXT-VISUALIZATION
 type: design_proposal_set
-status: proposed
+status: adopted
 implementation_status: not_started
 ---
 
 # PROP-LCATS-CORPUS-TEXT-VISUALIZATION
 
-Proposed design for a reusable LCATS corpus/document visualization capability.
+Adopted design for a reusable LCATS corpus/document visualization capability.
 
 The initial target is a Python API and `lcats visualize ...` CLI surface capable
 of producing publication-useful exploratory visualizations from LCATS corpus

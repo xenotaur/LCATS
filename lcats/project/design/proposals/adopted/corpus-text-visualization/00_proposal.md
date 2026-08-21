@@ -2,7 +2,7 @@
 id: PROP-LCATS-CORPUS-TEXT-VISUALIZATION
 type: design_proposal
 title: Corpus and Document Text Visualization for LCATS
-status: proposed
+status: adopted
 created_on: 2026-08-15
 updated_on: 2026-08-21
 implementation_status: not_started

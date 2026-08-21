@@ -24,6 +24,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-LLM-0066.md` — Wire run_census.py to a local OpenAI-compatible backend and evaluate gpt-oss:20b at genre-census scale
 - `proposed/WI-GENRE-0001.md` — Create metadata genre prefilter scaffold
 - `proposed/WI-GENRE-0004.md` — Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
+- `proposed/WI-VISUALIZE-0073.md` — Reusable lcats visualize CLI substrate and genres command
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
