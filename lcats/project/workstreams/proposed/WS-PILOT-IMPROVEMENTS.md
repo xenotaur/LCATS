@@ -18,6 +18,8 @@ related_design:
   - lcats/project/design/backlog.md
 work_items:
   - WI-PILOT-0067
+  - WI-SEGMENT-0071
+  - WI-SEGMENT-0072
 exit_criteria:
   - A first pilot API/output stability gate has run against a bounded, explicitly approved real Anthropic story set and reports completion, artifact well-formedness, semantic sense, quality thresholds, intended-purpose fit, actual spend, and explicit genre-detection coverage
   - Prompt-caching adoption, if still supported after the stability gate, is implemented only as an explicit pilot-level setting with cache telemetry and no global backend default change
