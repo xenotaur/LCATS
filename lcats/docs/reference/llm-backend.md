@@ -110,12 +110,13 @@ request.
 ```python
 from lcats.llm import openai_backend
 
-backend = openai_backend.OpenAIBackend(api_key=None)
+backend = openai_backend.OpenAIBackend(api_key=None, base_url=None)
 ```
 
 | Constructor argument | Description |
 |---|---|
 | `api_key` | Optional API key. When omitted, the OpenAI SDK reads `OPENAI_API_KEY` from the environment. |
+| `base_url` | Optional API base URL override. Local runtimes that expose an OpenAI-compatible chat completions endpoint (Ollama's `http://localhost:11434/v1`, vLLM, LM Studio, ...) can be driven through this same backend by pointing it here instead of `api.openai.com` — no separate backend class needed. See [Using a local OpenAI-compatible endpoint](../how-to/local-openai-endpoint.md). |
 
 Raises `ImportError` at construction time if the `openai` package is not
 installed. Non-tool calls request `response_format={"type": "json_object"}`
@@ -173,3 +174,4 @@ parameter rather than constructing a provider client internally.
 
 - [`project/design/unified-llm-backend-design.md`](../../project/design/unified-llm-backend-design.md) — full design rationale, provider translation tables, and migration sequence (`WI-LLM-0007` through `WI-LLM-0010`, all resolved).
 - [`docs/how-to/run-assess.md`](../how-to/run-assess.md) — using `lcats assess`, which is built on this abstraction.
+- [`docs/how-to/local-openai-endpoint.md`](../how-to/local-openai-endpoint.md) — pointing `OpenAIBackend` at a local runtime (Ollama, vLLM, LM Studio) via `base_url`, and which pipeline stages a local model has actually proven viable for.
