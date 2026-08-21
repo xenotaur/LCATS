@@ -4,7 +4,7 @@ type: design_proposal
 title: Corpus and Document Text Visualization for LCATS
 status: proposed
 created_on: 2026-08-15
-updated_on: 2026-08-15
+updated_on: 2026-08-21
 implementation_status: not_started
 implemented_by: []
 supersedes: []
@@ -204,36 +204,49 @@ Business logic should not live only in command handlers.
 
 ## Common Document Representation
 
-A minimal internal representation may be useful even if the first implementation
-only consumes native LCATS stories. A strawman is:
+LCATS already has a canonical story representation: `lcats.stories.Story`
+(`src/lcats/stories.py`), with a `body` field (full text) and a `metadata`
+dict, plus `from_dict`/`from_json_file`/`from_yaml_file`/`to_dict`
+constructors and a companion `Corpora` loader. This satisfies the `text` and
+`metadata` needs a new document abstraction would otherwise exist for.
 
-```python
-@dataclass(frozen=True)
-class TextDocument:
-    id: str
-    text: str
-    metadata: Mapping[str, object]
-    source: str | None = None
-```
+The initial implementation should consume `Story`/`Corpora` directly rather
+than introducing a parallel `TextDocument` type. `Story` has no dedicated
+`id` field; where analysis code needs a stable per-document identifier, use
+`Story.name` or a `metadata` key rather than adding a new field to `Story`
+itself.
 
-This is not yet an adopted API. Review should determine whether LCATS already
-has a representation that should be reused instead of introducing a new one.
+A separate, lighter internal representation may still be worth introducing
+later, if and when non-LCATS source adapters (see Future Scope) need a
+common shape that isn't native to `Story`. That is out of scope for the
+first tranche.
 
 ## Paper-Critical Scope
 
 The first implementation tranche should be driven by concrete figures needed
 for the current LCATS paper rather than by the full future vision.
 
-Candidate paper-critical features:
+Candidate paper-critical features, confirmed against the current Worldcon
+2026 paper's needs:
 
 1. Genre distribution visualization from current classifier/corpus outputs.
 2. Word-frequency word clouds for the whole corpus and selected genre subsets.
 3. Conventional ranked-frequency plots accompanying word clouds where useful.
-4. TF-IDF comparison across genres or other paper-relevant groups.
-5. Reproducible output suitable for regeneration during paper revision.
-
-Topic visualization is tentatively paper-useful but should remain optional until
-we identify a specific research question/figure that it supports.
+4. TF-IDF comparison across genres or other paper-relevant groups, with
+   *story* as the default document unit and genre (or another corpus
+   selector) as the explicit comparison-group parameter.
+5. Topic-oriented visualization (`lcats visualize topics`) — confirmed
+   paper-critical, not deferred; belongs in the first implementation
+   tranche alongside genres/words/tfidf.
+6. PNG and vector (SVG/PDF) output — both are required for the paper
+   workflow, not PNG-only. Note that `wordcloud`'s raster-first layout may
+   make vector output impractical for word-cloud figures specifically;
+   where that's the case, the conventional-chart companion plots (via
+   `matplotlib`, which supports vector output natively) should carry the
+   vector-output requirement for that figure.
+7. Reproducible output suitable for regeneration during paper revision,
+   including input revision/content identity (see Reproducibility and
+   Output Metadata).
 
 ## Future Scope
 
@@ -275,13 +288,23 @@ inspection, or communication need.
 At minimum, commands intended for paper use should support:
 
 - explicit output path;
+- an input revision or content identity for the corpus/classifier artifacts
+  consumed (e.g. corpus commit SHA, or a content hash of the specific
+  metadata/story files read) — logging only selectors, parameters, and a
+  random seed is not sufficient to regenerate or audit a figure if the
+  underlying corpus or classifier outputs change between paper revisions;
 - deterministic/random seed control where applicable;
 - machine-readable or logged parameters;
 - stable sorting/tie behavior for ranked outputs;
 - export of the underlying frequency/score table where useful.
 
-Open question: whether LCATS should emit a sidecar manifest for each generated
-figure in the first tranche or defer this until after dogfooding.
+Input revision/content identity is required for the first tranche, not
+deferred future scope, since Goal 6 and Principle 5 both require figures to
+be regenerable and auditable from tracked inputs. What remains open is only
+whether that identity is captured as a full sidecar manifest per figure in
+the first tranche, or as a simpler logged value (e.g. printed to stdout or a
+one-line companion file) with the richer manifest format deferred until
+after dogfooding.
 
 ## Testing Strategy
 
@@ -300,14 +323,32 @@ Likely tests:
 
 ## Packaging / Dependency Questions
 
-Before implementation, review should determine:
+`matplotlib` is already a core LCATS dependency (`pyproject.toml`,
+`environment.yml`). `wordcloud` and scikit-learn are not currently
+dependencies and must be added.
 
-- whether `matplotlib`, `wordcloud`, and scikit-learn are already dependencies;
-- whether visualization dependencies should be core or an optional extra;
-- whether SVG/vector output is directly supported by the chosen rendering path;
-- how headless rendering behaves in CI;
-- whether existing LCATS CLI patterns provide a natural command group for
-  `visualize`.
+Since `genres`/`words`/`tfidf`/`topics` are all confirmed paper-critical
+(see Paper-Critical Scope), and each depends on at least one of `wordcloud`
+or scikit-learn, both should be added as **core** dependencies rather than
+an optional extra — an extra would only add install friction for
+functionality every paper-critical command needs, with no corresponding
+opt-out use case in the first tranche.
+
+Remaining before implementation:
+
+- whether SVG/vector output is directly supported by the chosen rendering
+  path for each command (matplotlib: yes; wordcloud: PNG-first, see Paper-
+  Critical Scope item 6);
+- how headless rendering behaves in CI — this hasn't been exercised for
+  figure output before, so confirm `matplotlib`'s non-interactive (`Agg`)
+  backend is CI-safe before relying on it in tests.
+
+Existing LCATS CLI patterns provide a natural fit: `cli.py` already
+registers commands via `subparsers.add_parser(...)` with per-command
+`build_*_parser(add_help=False)` modules (see `stats`, `assess`). A
+`visualize` subcommand should follow the same convention, with its own
+module building nested `add_subparsers` for `genres`/`words`/`tfidf`/
+`topics`.
 
 ## Candidate Work Decomposition
 
@@ -317,36 +358,56 @@ possible decomposition is:
 1. Paper-critical visualization substrate and `genres` command.
 2. Text selection/preprocessing and `words` command.
 3. TF-IDF analysis and comparison visualization.
-4. Topic baseline, only if justified by a concrete paper/research need.
+4. Topic baseline — confirmed paper-critical, in scope for the first tranche.
 5. Dogfood against the LCATS corpus and paper figures.
 6. Documentation and examples.
 7. Future external document adapters as a separate follow-on workstream or work
    item set.
 
-The final decomposition may collapse the first three into one work item if the
-implementation is small enough.
+Given four distinct command surfaces (each with its own rendering and
+testing surface) plus two new core dependencies, this should land as a
+small workstream covering items 1-6, rather than a single work item. Item 7
+(future external adapters) should be a separate, later workstream.
 
 ## Open Design Questions
 
-1. What exact figures are needed for the current paper?
+Resolved during review:
+
+1. **Resolved.** Genre distribution, word-frequency clouds, and TF-IDF
+   comparison are paper-critical (see Paper-Critical Scope).
+3. **Resolved.** Reuse `lcats.stories.Story`/`Corpora`; no new document
+   abstraction for the first tranche (see Common Document Representation).
+4. **Resolved.** Core dependency, not an optional extra (see Packaging /
+   Dependency Questions).
+7. **Resolved.** Story is the default document unit; genre (or another
+   selector) is the explicit comparison-group parameter.
+8. **Resolved.** Yes — the paper needs topic modeling; `topics` is in the
+   first tranche.
+9. **Resolved.** PNG and vector (SVG/PDF); see Paper-Critical Scope item 6
+   for the wordcloud/matplotlib caveat.
+11. **Resolved.** Follow the existing `subparsers.add_parser` +
+    `build_*_parser(add_help=False)` convention used by `stats`/`assess`
+    (see Packaging / Dependency Questions).
+
+Still open — low-risk defaults proposed, confirm during implementation
+planning rather than blocking adoption:
+
 2. Should `visualize genres` consume live corpus metadata directly, a saved
-   assessment/census artifact, or both?
-3. What is the canonical LCATS story/document abstraction to reuse?
-4. Should visualization dependencies be installed by default or through an
-   optional package extra?
+   assessment/census artifact, or both? *Proposed default: live corpus API
+   first; saved-artifact support deferred until a concrete need appears.*
 5. Which preprocessing defaults are scientifically defensible for literary
-   text?
-6. Should lemmatization/POS filtering be part of the initial `words` command or
-   deferred?
-7. For TF-IDF, what units should count as documents and comparison groups?
-8. Does the paper actually need topic modeling, or is it a future exploratory
-   feature?
-9. What static output formats are required for the paper workflow?
-10. Should every figure produce an adjacent data/manifest sidecar?
-11. How should selectors align with existing LCATS CLI/corpus selector
-    conventions?
-12. Should arbitrary external files enter through `lcats visualize` directly,
-    or through a separate ingestion/document adapter API?
+   text? *Proposed default: standard stopword removal, case folding, and
+   tokenization; document the exact choices in the implementing work item.*
+6. Should lemmatization/POS filtering be part of the initial `words` command
+   or deferred? *Proposed default: defer, per the proposal's own
+   Non-Goals.*
+10. Should every figure produce an adjacent data/manifest sidecar? *Proposed
+    default: log/emit the input revision identity now (see Reproducibility
+    and Output Metadata); defer the richer structured-manifest format until
+    after dogfooding.*
+12. Should arbitrary external files enter through `lcats visualize`
+    directly, or through a separate ingestion/document adapter API? *Out of
+    scope for the first tranche either way — see Future Scope.*
 
 ## Alternatives Considered
 
@@ -376,14 +437,22 @@ rendering boundaries.
 
 ## Adoption Criteria
 
-Before this proposal is adopted, review should at least settle:
+The following have been settled during review (see Open Design Questions):
 
-- the paper-critical command/figure set;
-- the initial source representation and selector model;
-- dependency strategy;
-- reproducibility requirements;
-- whether topics are initial or future scope;
-- likely work-item/workstream decomposition.
+- the paper-critical command/figure set (genres, words, tfidf, and topics —
+  all four, with PNG and vector output);
+- the initial source representation (`lcats.stories.Story`/`Corpora`) and
+  TF-IDF unit-of-analysis default (story, grouped by genre or selector);
+- dependency strategy (`wordcloud` and scikit-learn as core dependencies,
+  alongside the already-core `matplotlib`);
+- the input-revision/content-identity reproducibility requirement;
+- decomposition (a small workstream covering substrate through dogfooding
+  and docs, per Candidate Work Decomposition).
 
-Implementation should not begin merely because this skeleton exists. Adoption
-should represent agreement on the first executable tranche.
+Remaining, non-blocking implementation-planning defaults are listed inline
+in Open Design Questions 2, 5, 6, 10, and 12.
+
+Implementation should not begin merely because this skeleton exists.
+Adoption should represent agreement on the first executable tranche — this
+proposal is ready to move to `status: adopted` once a maintainer confirms
+the above.
