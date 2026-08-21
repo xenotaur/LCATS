@@ -13,13 +13,13 @@ A Python source analysis tool that inventories public API surface area to help a
 **Usage:**
 ```bash
 # Generate markdown summary of a source tree
-python tools/sourcetree_surveyor.py lcats/src/lcats/utils --format md
+python tools/sourcetree_surveyor.py src/lcats/utils --format md
 
 # Generate JSON output for programmatic use
-python tools/sourcetree_surveyor.py lcats/src/lcats/utils --format json
+python tools/sourcetree_surveyor.py src/lcats/utils --format json
 
 # Include test file analysis (checks if corresponding tests exist)
-python tools/sourcetree_surveyor.py lcats/src/lcats/utils --tests-root lcats/tests/utils_tests --format md
+python tools/sourcetree_surveyor.py src/lcats/utils --tests-root tests/utils_tests --format md
 ```
 
 **Features:**
