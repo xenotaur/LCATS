@@ -14,7 +14,8 @@ related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap:
   - ROADMAP-CORE
-related_workstreams: []
+related_workstreams:
+  - WS-LINGUISTICS
 related_design:
   - project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
   - project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
