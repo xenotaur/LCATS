@@ -73,6 +73,17 @@ class TestCli(unittest.TestCase):
         self.assertEqual(0, actual_status)
         mock_run.assert_called_once()
 
+    def test_dispatch_linguistics_requires_resolved_stories(self):
+        """Ensure linguistics does not report success when no input is supplied."""
+        with capture.capture_output() as captured:
+            actual_message, actual_status = cli.dispatch(
+                "linguistics", ["--backend", "fake"]
+            )
+
+        self.assertEqual("", actual_message)
+        self.assertEqual(1, actual_status)
+        self.assertIn("no stories resolved", captured.stderr.getvalue())
+
     @parameterized.parameterized.expand(
         [
             ("index", "Indexing data files is not yet implemented."),

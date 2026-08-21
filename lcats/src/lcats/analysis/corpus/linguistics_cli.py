@@ -78,6 +78,13 @@ def run(argv=None, parsed_args=None) -> int:
         resolved = runner.resolve_story_inputs(
             args.inputs, story_list_files=args.story_list
         )
+        if not resolved.story_paths and not resolved.missing_paths:
+            print(
+                "error: no stories resolved; provide story paths, story buckets, "
+                "directories, or --story-list",
+                file=sys.stderr,
+            )
+            return 1
         model_name = args.model or ("en" if args.backend == "stanza" else "")
         options = sidecar.LinguisticsOptions(
             backend_name=args.backend,
