@@ -163,6 +163,23 @@ def expected_fingerprint(
     }
 
 
+def expected_detail_fingerprint(
+    *,
+    story_data: dict[str, Any],
+    story_path: pathlib.Path,
+    backend: Any,
+    options: LinguisticsOptions,
+) -> dict[str, Any]:
+    """Return the token-detail fingerprint for current input/options."""
+    fingerprint = expected_fingerprint(
+        story_data=story_data,
+        story_path=story_path,
+        backend=backend,
+        options=options,
+    )
+    return {**fingerprint, "schema_version": DETAIL_SCHEMA_VERSION}
+
+
 def validate_sidecar(data: Any) -> ValidationResult:
     """Validate one loaded ``linguistics-sidecar-v1`` object."""
     findings: list[ValidationFinding] = []
@@ -275,6 +292,8 @@ def load_json(path: pathlib.Path) -> Any:
 def story_identity(story_path: pathlib.Path) -> str:
     """Return a stable LCATS story identity from bucket path components."""
     path = pathlib.Path(story_path)
+    if path.name == "story.json" and not path.parent.name:
+        return pathlib.Path.cwd().name
     if path.parent.parent.name:
         return f"{path.parent.parent.name}/{path.parent.name}"
     return path.parent.name

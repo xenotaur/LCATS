@@ -153,6 +153,15 @@ class LinguisticsSidecarValidationTest(unittest.TestCase):
         self.assertEqual("fake", data["backend"]["name"])
         self.assertEqual(sidecar.body_sha256("Body"), data["input"]["body_sha256"])
 
+    def test_story_identity_for_bucket_relative_story_file_uses_cwd(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bucket = pathlib.Path(tmp) / "collection" / "story"
+            bucket.mkdir(parents=True)
+            with mock.patch.object(pathlib.Path, "cwd", return_value=bucket):
+                self.assertEqual(
+                    "story", sidecar.story_identity(pathlib.Path("story.json"))
+                )
+
     def test_default_stanza_model_provenance_records_language(self):
         data, _ = sidecar.build_sidecar(
             story_data=_story_data("Body"),
@@ -260,6 +269,23 @@ class LinguisticsRunnerTest(unittest.TestCase):
             self.assertIn("token detail differs", second.message)
             self.assertEqual([], second_backend.calls)
 
+    def test_token_detail_resume_skips_when_detail_fingerprint_matches(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake", include_token_detail=True
+            )
+            first = runner.run_story(story_path, backend=_backend(), options=options)
+            self.assertEqual(runner.STATUS_WRITTEN, first.status)
+            second_backend = _backend()
+
+            second = runner.run_story(
+                story_path, backend=second_backend, options=options
+            )
+
+            self.assertEqual(runner.STATUS_SKIPPED, second.status)
+            self.assertEqual([], second_backend.calls)
+
     def test_explicit_overwrite_replaces_existing_output(self):
         with tempfile.TemporaryDirectory() as tmp:
             story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
@@ -290,7 +316,7 @@ class LinguisticsRunnerTest(unittest.TestCase):
             result = runner.run_story(story_path, backend=_backend(), options=options)
 
             self.assertEqual(runner.STATUS_FAILED, result.status)
-            self.assertIn("--overwrite", result.message)
+            self.assertIn("--existing overwrite", result.message)
 
     def test_batch_failure_isolated_per_story(self):
         with tempfile.TemporaryDirectory() as tmp:

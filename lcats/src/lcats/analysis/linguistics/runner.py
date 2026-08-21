@@ -226,11 +226,18 @@ def run_story(
                 backend=backend,
                 options=current_options,
             )
+            expected_detail_fingerprint = sidecar.expected_detail_fingerprint(
+                story_data={**story_data, "body": body},
+                story_path=story_path,
+                backend=backend,
+                options=current_options,
+            )
             existing_result = _existing_result(
                 story_path=story_path,
                 sidecar_path=sidecar_path,
                 detail_path=detail_path,
                 expected_fingerprint=current_fingerprint,
+                expected_detail_fingerprint=expected_detail_fingerprint,
                 existing=existing,
             )
             if existing_result is not None:
@@ -269,6 +276,7 @@ def _existing_result(
     sidecar_path: pathlib.Path,
     detail_path: Optional[pathlib.Path],
     expected_fingerprint: dict[str, Any],
+    expected_detail_fingerprint: dict[str, Any],
     existing: str,
 ) -> Optional[StoryRunResult]:
     try:
@@ -278,7 +286,9 @@ def _existing_result(
             story_path=story_path,
             sidecar_path=sidecar_path,
             status=STATUS_FAILED,
-            message=f"existing sidecar is unreadable; use --overwrite: {error}",
+            message=(
+                "existing sidecar is unreadable; use --existing overwrite: " f"{error}"
+            ),
         )
     validation = sidecar.validate_sidecar(current)
     if not validation.valid:
@@ -287,14 +297,16 @@ def _existing_result(
             story_path=story_path,
             sidecar_path=sidecar_path,
             status=STATUS_FAILED,
-            message=f"existing sidecar is invalid; use --overwrite: {kinds}",
+            message=(
+                "existing sidecar is invalid; use --existing overwrite: " f"{kinds}"
+            ),
         )
     if sidecar.fingerprint_for_sidecar(current) == expected_fingerprint:
         detail_result = _validate_existing_detail(
             story_path=story_path,
             sidecar_path=sidecar_path,
             detail_path=detail_path,
-            expected_fingerprint=expected_fingerprint,
+            expected_fingerprint=expected_detail_fingerprint,
         )
         if detail_result is not None:
             return detail_result
@@ -316,7 +328,7 @@ def _existing_result(
         story_path=story_path,
         sidecar_path=sidecar_path,
         status=STATUS_FAILED,
-        message="existing sidecar differs; use --overwrite to replace it",
+        message="existing sidecar differs; use --existing overwrite to replace it",
     )
 
 
@@ -361,7 +373,7 @@ def _validate_existing_detail(
             sidecar_path=sidecar_path,
             detail_path=detail_path,
             status=STATUS_FAILED,
-            message="existing token detail is missing; use --overwrite",
+            message="existing token detail is missing; use --existing overwrite",
         )
     try:
         detail = sidecar.load_json(detail_path)
@@ -371,7 +383,10 @@ def _validate_existing_detail(
             sidecar_path=sidecar_path,
             detail_path=detail_path,
             status=STATUS_FAILED,
-            message=f"existing token detail is unreadable; use --overwrite: {error}",
+            message=(
+                "existing token detail is unreadable; use --existing overwrite: "
+                f"{error}"
+            ),
         )
     validation = sidecar.validate_token_detail(detail)
     if not validation.valid:
@@ -381,7 +396,10 @@ def _validate_existing_detail(
             sidecar_path=sidecar_path,
             detail_path=detail_path,
             status=STATUS_FAILED,
-            message=f"existing token detail is invalid; use --overwrite: {kinds}",
+            message=(
+                "existing token detail is invalid; use --existing overwrite: "
+                f"{kinds}"
+            ),
         )
     if sidecar.fingerprint_for_sidecar(detail) != expected_fingerprint:
         return StoryRunResult(
@@ -389,7 +407,9 @@ def _validate_existing_detail(
             sidecar_path=sidecar_path,
             detail_path=detail_path,
             status=STATUS_FAILED,
-            message="existing token detail differs; use --overwrite to replace it",
+            message=(
+                "existing token detail differs; use --existing overwrite to replace it"
+            ),
         )
     return None
 
