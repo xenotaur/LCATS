@@ -999,7 +999,30 @@ more evidence — the latter is exactly what `WI-SEGMENT-0059` already tried
 and had to revert after it produced silently wrong, overlapping segment
 boundaries on real corpora.
 
-Three hypotheses tested since, all inconclusive or negative:
+Three hypotheses tested since, all inconclusive or negative. (Review
+finding, PR #329: the first version of this entry reported wrong
+paragraph-drift numbers for several stories, using the *far* edge of the
+claimed range as the reference point even when the real text sat *before*
+the claimed range's *near* edge — e.g. reporting `no_charge_for_alterations__gold`
+as "overcounting by 37 paragraphs" when the real text is only 2 paragraphs
+before the claimed range's start. Corrected below; recomputed and
+independently re-verified against the real committed corpus text before
+this fix.)
+
+Real paragraph containing the anchor, vs. the claimed `[start_par_id,
+end_par_id]` range, for all 6 cases:
+
+| Story | Claimed range | Real paragraph | Drift (nearest edge) |
+|---|---|---:|---:|
+| `love_among_the_robots__mcdowell` | `[7,51]` | 59 | +8 |
+| `the_last_days_of_l_a__smith` | `[121,144]` | 119 | −2 |
+| `the_spinster_1905__hichens` | `[44,75]` | 91 | +16 |
+| `way_of_a_rebel__miller` | `[5,8]` | 30 | +22 |
+| `no_charge_for_alterations__gold` | `[52,87]` | 50 | −2 |
+| `peace_manoeuvres__davis` | `[37,86]` | 87 | +1 |
+
+(positive = model undercounted, real text is later than claimed; negative
+= model overcounted, real text is earlier than claimed)
 
 1. **Correlates with total paragraph count (`n_par`)?** No — mis-numbered
    stories (110-341 paragraphs) span the same range as successfully-aligned
@@ -1008,15 +1031,17 @@ Three hypotheses tested since, all inconclusive or negative:
 2. **Correlates with empty/zero-length paragraphs the literal
    `\n\n`-splitter produces** (`build_paragraph_index`,
    `text_segmenter.py:35-64`), **which consume a marker ID slot with no
-   visible content?** No — checked 2026-08-21: `love_among_the_robots__mcdowell`
-   has 2 empty paragraphs before its 8-paragraph drift, but
-   `the_spinster_1905__hichens` drifts by 9 paragraphs with zero empty
-   paragraphs nearby. Doesn't generalize.
+   visible content?** No — checked 2026-08-21: `way_of_a_rebel__miller`
+   has only 1 empty paragraph before its claimed range yet the largest
+   drift (+22), while `the_spinster_1905__hichens` has *zero* empty
+   paragraphs nearby yet the second-largest drift (+16). Doesn't
+   generalize.
 3. **Clusters in the "middle" of the document** (the documented
    long-context "lost in the middle" degradation pattern)? No, not in this
    small sample — checked 2026-08-21: the 6 claimed boundaries sit at 14%,
-   16%, 28%, 39%, 41%, and 71% through their respective documents. No
-   middle-clustering.
+   16%, 28%, 39%, 41%, and 71% through their respective documents (by
+   character offset, so unaffected by the paragraph-drift correction
+   above). No middle-clustering.
 
 One confirmed-but-unproven structural observation: all 6 mis-numbered
 stories have a substantial number of paragraphs (26-73 of 110-341 total)
@@ -1027,11 +1052,11 @@ lines) under one paragraph marker. Worked example:
 `end_par_id=86`, real text is paragraph 87) in the middle of six short
 back-to-back dialogue paragraphs (83-88) — a plausible spot for a model
 tracking paragraph count "by feel" to drop one. This doesn't explain the
-larger-margin cases equally well (one story overcounts by 37 paragraphs,
-others undercount by up to 8), so it's a lead, not a confirmed cause.
-Direction is also inconsistent: 4 of 6 cases undercount (real text later
-than claimed), 1 badly overcounts (real text 37 paragraphs earlier than
-claimed), one is a clean +1 undercount.
+larger-margin cases equally well (undercounts reach +22, overcounts are
+both small at −2), so it's a lead, not a confirmed cause. Direction is
+also inconsistent: 4 of 6 cases undercount, 2 overcount (both by only 2
+paragraphs — the two "overcount" cases are actually narrow misses, not
+dramatic ones), one is a clean +1 undercount.
 
 **Why not a fresh investigation-type WI yet:** mis-numbering was only 6 of
 21 `alignment_error` cases (≈29%) in one 30-story sample — getting enough
