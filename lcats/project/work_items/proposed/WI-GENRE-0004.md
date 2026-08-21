@@ -1,11 +1,11 @@
 ---
-resolution: "Implemented and merged in PR #322 (commit 777ef3361adb3ec618a28c94dcf90e0b609a7561)."
+resolution: null
 blocked_reason: null
 blocked: false
 id: WI-GENRE-0004
 title: Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
 type: evaluation
-status: resolved
+status: proposed
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -267,3 +267,25 @@ it.
   `proposals/proposed/` pending its governing workstream's closure. If the
   schema changes again before this item executes, the output shape here
   needs to track that.
+- **Reopened after an incorrect resolution (2026-08-21).** This item was
+  briefly marked `resolved` via PR #322 before its acceptance criteria
+  were actually met - only `scripts/test`/`lrh validate` were genuinely
+  satisfied for real; the full-corpus scan, selection, real Opus
+  validation, comparison, and sidecar output were only exercised via
+  tests/mocks (no real Gutenberg cache was available on the worktree that
+  built the tooling). Reverted to `status: proposed`, matching how
+  `WI-ASSESS-0051` stays `proposed` for the identical reason (a
+  "run for real, report real cost" acceptance criterion not yet met) -
+  this repo has no `active` bucket/precedent to use instead.
+  A real Gutenberg cache was located (`~/Tempspace/Projects/LCATS/cache/`,
+  the same one the original LCATS checkout symlinked to; this worktree
+  never inherited that symlink since worktrees don't share untracked
+  local files) and a real, free `--full-scan` has since run against it:
+  146/160 target stories selected (adventure short by 14 - only 6
+  adventure-primary candidates exist by metadata rules), real cost
+  estimate **$34.01** (vs. the earlier rough ~$45 guess), corpus
+  heavily science-fiction-skewed as expected (1,308/1,868 stories carry
+  an SF signal, 267 have none). See
+  `experiments/05_metadata_genre_prefilter/results/full_scan/`. Only the
+  gated real Opus validation run against this real selection remains
+  before this item's acceptance criteria are genuinely met.
