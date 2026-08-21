@@ -46,7 +46,7 @@ per-stage verdict:
 
 | Pipeline stage | Verdict | Notes |
 |---|---|---|
-| Genre detection | Prefer `gpt-oss:20b` | Held up at genre-census scale (go/no-go recommendation: go, ~20.8hr projected wall-clock, $0 cost) — see [`ollama_gpt_oss_20b/README.md`](../../experimental/model_comparison/ollama_gpt_oss_20b/README.md) |
+| Genre detection | Prefer `gpt-oss:20b` | Held up at multi-story, multi-genre pilot scale (20 stories, not the full ~1,868-story corpus, which has not run for any candidate); go/no-go recommendation for that full run: go, ~20.8hr projected wall-clock, $0 cost — see [`ollama_gpt_oss_20b/README.md`](../../experimental/model_comparison/ollama_gpt_oss_20b/README.md) |
 | Entity extraction | Consider it, but only behind the candidate-scoped compatibility adapter built in `WI-LLM-0065` | Raw success masked 0 grounded entities (malformed mention shapes) until the adapter repaired them ahead of the unchanged production `build_entities()` call |
 | Scene/sequel segmentation | Do not use | New alignment-rejection failure mode found in `WI-LLM-0063`; persisted even with a verbatim-quote reminder in `WI-LLM-0064` |
 
