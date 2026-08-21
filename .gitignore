@@ -111,3 +111,10 @@ experiments/04_genre_census/results/**/genre_census.json
 # directly under results/stability_gate/; checkpoint subdirectories are
 # local resume/debug state produced by run_pilot.py.
 experiments/03_cross_segment_relation_pilot/results/stability_gate/fixtures__*/
+
+# Ignore WI-GENRE-0004 --validate per-story checkpoint state (internal
+# resume cache, redundant with the committed
+# validation_results.jsonl/validation_summary.json/validation_run_log.jsonl).
+# Same targeted-filename approach as the genre-census pattern above (not
+# a blanket results/*/ pattern, for the same PR #292 reason).
+experiments/05_metadata_genre_prefilter/results/**/validation.json

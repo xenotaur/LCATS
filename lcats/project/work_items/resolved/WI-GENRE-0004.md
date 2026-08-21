@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Full-corpus metadata scan, genre-balanced 146-story selection (PR #328), and the gated real claude-opus-4-8 validation pass (this PR) are all complete with real measured results: 87.0% overall agreement (127/146) between metadata-rule and model-detected genre, real cost $36.32 (vs. the $34.01 estimate). See experiments/05_metadata_genre_prefilter/results/full_scan/ and this file's own Findings section below."
 blocked_reason: null
 blocked: false
 id: WI-GENRE-0004
 title: Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
 type: evaluation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -240,6 +240,50 @@ it.
 ## Acceptance Criteria
 
 (see frontmatter `acceptance:` - kept in sync)
+
+## Findings
+
+Real, gated `claude-opus-4-8` validation ran against all 146 selected
+stories (`--validate --run-real-validation`), 2026-08-21: 0 errors, 0
+aborts, real cost **$36.32** (2,086,375 input / 66,946 output tokens; the
+$34.01 pre-run estimate was ~7% low, normal token-count variance).
+Overall agreement between the metadata-rule prefilter and the model's
+independent detection: **87.0% (127/146)**. Per-genre:
+
+| genre | agreement |
+|---|---|
+| fantasy | 100% (20/20) |
+| horror | 100% (20/20) |
+| science fiction | 95% (19/20) |
+| mystery | 90% (18/20) |
+| adventure | 83% (5/6) |
+| humor | 80% (16/20) |
+| western | 75% (15/20) |
+| romance | 70% (14/20) |
+
+**Metadata rules plus one validation pass are sufficient for the
+Worldcon paper's genre-balanced sampling needs for fantasy, horror,
+science fiction, and mystery** (all ≥90% agreement) - the metadata-rule
+prefilter alone is a reliable enough signal there that per-story model
+validation adds little.
+
+**Romance and western are the real gap** (70%/75%): roughly
+one in four selected stories in each genre has a metadata-rule label the
+model's independent read disagrees with. Since this item's own Non-Goals
+exclude promoting sidecars into `corpora/`, this doesn't block anything
+downstream today, but any future step that trusts the metadata-rule
+label alone (rather than the sidecar's full `assessments[]` evidence)
+for romance/western sampling should account for this measured
+disagreement rate rather than assume it. Humor (80%) and adventure
+(83%, only 6 stories - the smallest genre bucket, short of its 20-story
+target per the selection's own shortfall reporting) sit in between and
+warrant the same caution at smaller scale.
+
+Per-story evidence (both the metadata-rule and `model_detect`
+assessments, `genre-sidecar-v1`-validated) is in
+`experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`;
+aggregate/per-genre numbers in the sibling `validation_summary.json`; a
+full event-by-event run log in `validation_run_log.jsonl`.
 
 ## Validation
 
