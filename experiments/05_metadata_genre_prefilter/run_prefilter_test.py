@@ -760,8 +760,10 @@ class TestValidationCostGate(unittest.TestCase):
 
     def test_estimate_mode_makes_no_api_calls(self):
         with tempfile.TemporaryDirectory() as tmp:
+            corpus_root = pathlib.Path(tmp) / "corpora"
             output_dir = pathlib.Path(tmp) / "results"
             output_dir.mkdir()
+            _write_story(corpus_root, "horror", "story", url=None)
             manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
             run_prefilter.write_jsonl(
                 manifest_path,
@@ -773,7 +775,7 @@ class TestValidationCostGate(unittest.TestCase):
                     "--output",
                     str(output_dir),
                     "--corpus-root",
-                    str(pathlib.Path(tmp) / "corpora"),
+                    str(corpus_root),
                 ]
             )
 
@@ -1161,6 +1163,108 @@ class TestValidationResilience(unittest.TestCase):
             self.assertEqual(events_after_resume[: len(events)], events)
             self.assertEqual(events_after_resume[len(events)]["event"], "run_start")
             self.assertEqual(events_after_resume[-1]["event"], "run_end")
+
+    def test_fingerprint_invalidates_when_story_content_changes(self):
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_root, _output_dir, args = self._setup_manifest(tmp, rows)
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    first = run_prefilter._run_validate_mode(args)
+            self.assertEqual(mock_assess.call_count, 1)
+            self.assertEqual(first["processed_count"], 1)
+
+            # The story's own text changes on disk (e.g. a corpus fix) -
+            # the manifest row and model are unchanged, but a resume must
+            # not silently reuse the stale checkpointed assessment (review
+            # finding: Codex P1, this PR - fingerprint must hash actual
+            # story content, not just the manifest's cached metadata).
+            story_path = corpus_root / "horror_col" / "story_a" / "story.json"
+            payload = json.loads(story_path.read_text(encoding="utf-8"))
+            payload["body"] = "This text has been corrected in place."
+            story_path.write_text(json.dumps(payload), encoding="utf-8")
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess_again:
+                mock_assess_again.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    second = run_prefilter._run_validate_mode(args)
+            mock_assess_again.assert_called_once()
+            self.assertEqual(second["processed_count"], 1)
+
+    def test_main_returns_nonzero_exit_status_on_fatal_abort(self):
+        rows = [
+            _validation_manifest_row("horror_col", "story_a", "horror"),
+            _validation_manifest_row("horror_col", "story_b", "horror"),
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_root, output_dir, _args = self._setup_manifest(tmp, rows)
+            argv = [
+                "--dry-run",
+                "--validate",
+                "--run-real-validation",
+                "--output",
+                str(output_dir),
+                "--corpus-root",
+                str(corpus_root),
+            ]
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    error="insufficient_quota: account balance exhausted"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    exit_code = run_prefilter.main(argv)
+
+            # A partially processed, paid-for run must not exit 0 - a
+            # caller (shell script, CI) needs to know the run was cut
+            # short, matching run_census.py's own return 3 on the same
+            # fatal-abort condition (review finding: Codex P1, this PR).
+            self.assertEqual(exit_code, 3)
+
+    def test_main_returns_zero_exit_status_on_clean_completion(self):
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_root, output_dir, _args = self._setup_manifest(tmp, rows)
+            argv = [
+                "--dry-run",
+                "--validate",
+                "--run-real-validation",
+                "--output",
+                str(output_dir),
+                "--corpus-root",
+                str(corpus_root),
+            ]
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    exit_code = run_prefilter.main(argv)
+
+            self.assertEqual(exit_code, 0)
 
 
 class TestFullScanIntegration(unittest.TestCase):

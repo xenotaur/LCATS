@@ -135,7 +135,12 @@ checkpoint per story under `--output/<collection>__<slug>/validation.json`:
 - **Resumable**: re-running the exact same command skips any
   already-checkpointed story (no repeat API call, no repeat spend) and
   only processes what's left. There is no separate `--resume` flag — the
-  same invocation that started the run is also how you resume it.
+  same invocation that started the run is also how you resume it. The
+  checkpoint fingerprint hashes both the manifest row's own metadata
+  content and the actual story file's bytes, so either an edited manifest
+  row or a story corrected in place invalidates only its own cached
+  result — a resume never silently describes an earlier version of the
+  story text.
 - **A single story's unexpected failure never loses the batch.** Any
   exception other than an account-level failure (bad/expired API key,
   exhausted quota) is caught, logged (`stderr` plus the story's own
@@ -147,7 +152,11 @@ checkpoint per story under `--output/<collection>__<slug>/validation.json`:
 - **An account-level failure (bad key, exhausted quota) aborts the whole
   run instead of burning through the rest of the sample** — every
   remaining story would fail identically — but everything completed so
-  far is still written out, never discarded.
+  far is still written out, never discarded. The CLI's exit status
+  reflects this too: a fatal abort returns `3` (mirroring
+  `run_census.py`'s own exit code for the same condition), not `0` — a
+  partially processed, paid run must not look successful to a calling
+  script or CI.
 
 **Run log** — the real run also appends one JSON line per event to
 `--output/validation_run_log.jsonl` (`run_start`, one `story_cached`/

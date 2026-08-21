@@ -912,20 +912,28 @@ def _validation_item_id(story_id: str) -> str:
     return story_id.replace("/", "__")
 
 
-def _validation_fingerprint(model: str, row: dict[str, Any]) -> dict[str, Any]:
-    """Fingerprint hashes the row's own metadata-assessment content (not
-    just model/config) so a re-selected or edited manifest row invalidates
-    its own cached validation, plus a version marker so a future change to
-    how validation records are built invalidates every cached one - same
-    "hash actual input, not just config" principle as run_census.py's
-    _fingerprint."""
+def _validation_fingerprint(
+    model: str, row: dict[str, Any], corpus_root: pathlib.Path
+) -> dict[str, Any]:
+    """Fingerprint hashes the row's own metadata-assessment content plus
+    the actual story file assess_story() reads (not just model/config), so
+    either a re-selected/edited manifest row or a story corrected in place
+    invalidates its own cached validation - a resumed run must never
+    silently describe an earlier version of the story text (review
+    finding: Codex P1, this PR). Also carries a version marker so a future
+    change to how validation records are built invalidates every cached
+    one - same "hash actual input, not just config" principle as
+    run_census.py's own _fingerprint."""
     row_hash = hashlib.sha256(
         json.dumps(row["metadata_assessment"], sort_keys=True).encode("utf-8")
     ).hexdigest()
+    story_bytes = (corpus_root / row["story_path"]).read_bytes()
+    story_hash = hashlib.sha256(story_bytes).hexdigest()
     return {
         "model": model,
         "validation_version": VALIDATION_FINGERPRINT_VERSION,
         "row_hash": row_hash,
+        "story_content_hash": story_hash,
     }
 
 
@@ -933,18 +941,21 @@ def _rows_not_yet_checkpointed(
     selected_rows: list[dict[str, Any]],
     model: str,
     roots: checkpoint.CheckpointRoots,
+    corpus_root: pathlib.Path,
 ) -> list[dict[str, Any]]:
     """Return the subset of selected_rows with no matching done checkpoint.
 
-    Read-only, no API calls - used both to scope the cost estimate to
-    what a real run would actually spend (not the full sample size,
-    which would over-report on a resume) and by run_validation() itself
-    to decide, per story, whether to skip the real call.
+    Read-only, no API calls (reading each story file to fingerprint it is
+    cheap local I/O, not a network/model call) - used both to scope the
+    cost estimate to what a real run would actually spend (not the full
+    sample size, which would over-report on a resume) and by
+    run_validation() itself to decide, per story, whether to skip the
+    real call.
     """
     remaining = []
     for row in selected_rows:
         item_id = _validation_item_id(row["story_id"])
-        fingerprint = _validation_fingerprint(model, row)
+        fingerprint = _validation_fingerprint(model, row, corpus_root)
         cached = checkpoint.read_checkpoint(
             roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
         )
@@ -1020,7 +1031,7 @@ def run_validation(
     total = len(selected_rows)
     for index, row in enumerate(selected_rows, start=1):
         item_id = _validation_item_id(row["story_id"])
-        fingerprint = _validation_fingerprint(model, row)
+        fingerprint = _validation_fingerprint(model, row, corpus_root)
         cached = checkpoint.read_checkpoint(
             roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
         )
@@ -1494,7 +1505,9 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
     except (checkpoint.ProtectedRootError, RuntimeError) as exc:
         raise ValueError(f"checkpoint working_root rejected: {exc}") from exc
 
-    remaining_rows = _rows_not_yet_checkpointed(selected_rows, args.model, roots)
+    remaining_rows = _rows_not_yet_checkpointed(
+        selected_rows, args.model, roots, args.corpus_root
+    )
     estimate = estimate_validation_cost_usd(len(remaining_rows), args.model)
     if not args.run_real_validation:
         return {
@@ -1561,6 +1574,13 @@ def main(argv: list[str] | None = None) -> int:
             max_per_gutenberg_id=args.max_per_gutenberg_id,
         )
     print(json.dumps(summary, indent=2, sort_keys=True))
+    # A fatal validation abort (bad/expired key, exhausted quota) leaves
+    # only the completed subset of the paid sample - the exit status must
+    # say so, matching run_census.py's own return 3 in the equivalent
+    # case, so a caller (shell script, CI) doesn't mistake a partial run
+    # for a complete one (review finding: Codex P1, this PR).
+    if summary.get("aborted"):
+        return 3
     return 0
 
 
