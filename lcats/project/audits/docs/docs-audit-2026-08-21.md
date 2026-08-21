@@ -67,7 +67,7 @@ Key findings:
   `docs/tutorials/quickstart.md` exists, requires no API key, and states
   every command in it was run for real before writing.
 - **`annotate` is a fully implemented CLI subcommand
-  (`lcats/src/lcats/cli.py:247`) with zero documentation anywhere** — not
+  (`lcats/src/lcats/cli.py:252`) with zero documentation anywhere** — not
   in `docs/reference/cli-status.md`, not in `docs/reference/cli-commands.md`,
   not in the repo-root `README.md` CLI table — despite real usage
   evidence in `lcats/experimental/annotation_feasibility_trial/` and
@@ -302,7 +302,7 @@ the four quadrants.
    The prior audit's Phase 3 recommendation ("extract... leave a short
    pointer in its place") only did the extraction half.
 2. **`annotate` has zero documentation** despite being a fully
-   implemented subcommand (`lcats/src/lcats/cli.py:247`,
+   implemented subcommand (`lcats/src/lcats/cli.py:252`,
    `add_parser("annotate", ...)`) with real usage evidence in
    `lcats/experimental/annotation_feasibility_trial/` and resolved work
    items `WI-ANNOTATE-0050`/`WI-ANNOTATE-0054`. Absent from
