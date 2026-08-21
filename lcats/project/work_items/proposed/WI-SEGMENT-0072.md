@@ -37,7 +37,7 @@ forbidden_actions:
   - reintroduce_full_document_fallback
   - fix_paragraph_misnumbering
 acceptance:
-  - "A near-miss anchor evaluation corpus is built or derived from captured WI-SEGMENT-0069/WI-SEGMENT-0070 outputs, including positive near-miss cases and negative decoy cases"
+  - "A near-miss anchor evaluation corpus is built from a tracked fixture/output artifact containing real near-miss parsed_output, or from an explicitly approved replacement sample when no reusable artifact exists; it includes positive near-miss cases and negative decoy cases"
   - "At least one candidate fuzzy-matching policy is evaluated for recovery rate and false-positive risk before any production behavior change"
   - "The recommendation states adopt, defer, or reject fuzzy matching, with explicit false-positive thresholds and stop conditions"
   - "No production fuzzy matching or weakened quote grounding is implemented"
@@ -49,6 +49,7 @@ required_evidence:
 artifacts_expected:
   - lcats/project/design/segmentation-near-miss-fuzzy-matching-evaluation.md
   - experiments/03_cross_segment_relation_pilot/
+  - experiments/03_cross_segment_relation_pilot/fixtures/
 ---
 
 ## Summary
@@ -95,6 +96,9 @@ this near-miss bucket.
 
 - Build or derive an evaluation set for near-miss anchors, including real
   positive cases and realistic negative/decoy cases.
+- Require a tracked fixture/output artifact containing the real near-miss
+  `parsed_output`, or explicitly approve a replacement sample if no reusable
+  artifact exists.
 - Evaluate candidate fuzzy-matching policies for both recovery rate and
   false-positive risk.
 - Define explicit thresholds and stop conditions for any future adoption.
@@ -102,17 +106,25 @@ this near-miss bucket.
 
 ## Required Changes
 
-1. Derive near-miss examples from captured `parsed_output` and source text,
-   avoiding fresh LLM calls unless explicitly approved.
-2. Add negative/decoy cases that could expose wrong-span matches,
+1. Confirm whether a tracked artifact already contains real near-miss
+   `parsed_output` from `WI-SEGMENT-0069`/`WI-SEGMENT-0070`. Do not treat
+   `experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0069_alignment_cases.json`
+   as satisfying this requirement by itself; that fixture captures the
+   marker-leakage and quote/dash cases used by `WI-SEGMENT-0070`, not the
+   near-miss positives.
+2. If no reusable tracked artifact exists, get explicit approval for a
+   bounded replacement sample before running real Anthropic calls, and persist
+   the resulting near-miss positives as a tracked fixture/output artifact.
+3. Derive near-miss examples from the tracked `parsed_output` and source text.
+4. Add negative/decoy cases that could expose wrong-span matches,
    repeated-text ambiguity, or overlap regressions like the failure mode
    documented by `WI-SEGMENT-0059`.
-3. Evaluate candidate policies such as bounded edit distance, contiguous-run
+5. Evaluate candidate policies such as bounded edit distance, contiguous-run
    ratio, paragraph-window constraints, and uniqueness checks.
-4. Write
+6. Write
    `lcats/project/design/segmentation-near-miss-fuzzy-matching-evaluation.md`
    with methodology, metrics, thresholds, results, and recommendation.
-5. If fuzzy matching is recommended, file a separate deliverable WI for
+7. If fuzzy matching is recommended, file a separate deliverable WI for
    implementation.
 
 ## Non-Goals
@@ -124,8 +136,10 @@ this near-miss bucket.
 
 ## Acceptance Criteria
 
-- A near-miss evaluation corpus includes both positive near-miss cases and
-  negative/decoy cases.
+- A near-miss evaluation corpus is built from a tracked fixture/output
+  artifact containing real near-miss `parsed_output`, or from an explicitly
+  approved replacement sample when no reusable artifact exists; it includes
+  both positive near-miss cases and negative/decoy cases.
 - At least one candidate fuzzy-matching policy is evaluated for recovery rate
   and false-positive risk.
 - The report gives an adopt/defer/reject recommendation with explicit
@@ -147,4 +161,7 @@ this near-miss bucket.
   segment boundaries to the wrong text.
 - If realistic decoy coverage cannot be built from existing artifacts, the
   correct outcome is defer with a named evidence gap.
+- If no tracked near-miss positive fixture exists, the executor must not invent
+  positives from prose summaries; use an explicitly approved replacement sample
+  and persist the result.
 - Any implementation must be a separate WI after this evaluation lands.
