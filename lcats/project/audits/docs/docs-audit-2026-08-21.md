@@ -33,7 +33,7 @@ and `docs/explanation/story-bucket-layout.md`.
 Two things happened since 2026-07-07 that this audit's findings mostly
 trace back to. First, the package was renamed `lcats/lcats/` →
 `lcats/src/lcats/` (a real `git mv`, history preserved), and the docs
-prose was not fully updated to match — 8 stale-path occurrences across
+prose was not fully updated to match — 9 stale-path occurrences across
 4 files, plus 2 links in the corpus README that are now one directory
 level short of correct because of the added `src/` level. Second, the
 prior audit's Phase 3 item "extract Section 9 [of the corpus README]
@@ -149,7 +149,7 @@ all three CLI-doc locations, and the exact broken-link line numbers).
 | `lcats/tools/templates/improve_coverage.md` | How-to (AI-agent task template) |
 | `.jules/bolt.md`, `.jules/sentinel.md`, `lcats/.jules/bolt.md` | Meta (agent learning logs; the third is a nested duplicate) |
 | `lcats/scripts/README.md` | Mixed, Reference dominant |
-| `lcats/tools/README.md` | Mixed, Reference dominant (carries 4 of the 8 stale `lcats/lcats/` occurrences) |
+| `lcats/tools/README.md` | Mixed, Reference dominant (carries 4 of the 9 stale `lcats/lcats/` occurrences) |
 | `lcats/src/lcats/analysis/corpus/README.md` | **Mixed — flag for splitting, still unresolved from prior audit.** §1–8 Explanation, §9 How-to (superseded in practice by `docs/how-to/run-assess.md`, which now exists — §9 should become a short pointer; its 2 links back to `docs/` are currently broken) |
 | `experiments/README.md` | Explanation (directory convention + placement rationale) |
 | `experiments/01_classify_corpora/{README,dataset/README,results/README}.md` | Reference/How-to (unchanged from prior audit) |
@@ -235,7 +235,7 @@ the four quadrants.
   and `llm-backend.md` both now exist (Phase 3 landed). Gaps: `annotate`
   is undocumented everywhere (cli-status.md, cli-commands.md,
   repo-root README's CLI table all omit it despite full implementation);
-  8 stale `lcats/lcats/` path references across 4 files postdate the
+  9 stale `lcats/lcats/` path references across 4 files postdate the
   `src/` rename.
 - **Explanation: still the thinnest quadrant, and now further behind
   reality.** Only `story-bucket-layout.md` exists as a dedicated
@@ -300,7 +300,7 @@ the four quadrants.
 
 ## Accuracy findings
 
-1. **8 stale `lcats/lcats/` → `lcats/src/lcats/` path references**,
+1. **9 stale `lcats/lcats/` → `lcats/src/lcats/` path references**,
    all postdating the package rename:
    - `lcats/docs/reference/llm-backend.md` lines 3, 10, 15 (prose and
      the package-layout code block header)
@@ -394,7 +394,7 @@ still hasn't landed.
 
 ### Phase 2c (post-rename + link cleanup, no content authored — lowest risk)
 - Fix the 4 real broken links (exact locations above).
-- Fix the 8 stale `lcats/lcats/` → `lcats/src/lcats/` path references.
+- Fix the 9 stale `lcats/lcats/` → `lcats/src/lcats/` path references.
 - Turn `lcats/src/lcats/analysis/corpus/README.md` §9 into a short
   pointer to `docs/how-to/run-assess.md` (closes out the prior audit's
   half-done Phase 3 item).
@@ -431,7 +431,7 @@ findings, mirroring the prior audit's Phase 2a precedent:
    (fix the relative path depth), and
    `lcats/src/lcats/analysis/corpus/README.md:231,233` (add the missing
    `../`).
-2. Fix the 8 stale `lcats/lcats/` → `lcats/src/lcats/` references in
+2. Fix the 9 stale `lcats/lcats/` → `lcats/src/lcats/` references in
    `docs/reference/llm-backend.md` (3), `docs/reference/cli-status.md`
    (1), `experiments/README.md` (1), `lcats/tools/README.md` (4).
 3. Add `annotate` to `docs/reference/cli-status.md`'s implemented-commands
@@ -465,7 +465,7 @@ this skill's scope).
   own `references/audit-requirements.md`. Not fixed here per the
   "do not create content" guardrail.
 - **Package-rename staleness is a live, recurring risk class, not a
-  one-time fix.** The 8 `lcats/lcats/` references and the corpus
+  one-time fix.** The 9 `lcats/lcats/` references and the corpus
   README's 2 broken links are both direct casualties of the same
   `lcats/lcats/` → `lcats/src/lcats/` rename. Any future directory-depth
   change to the package layout should be paired with a repo-wide grep
