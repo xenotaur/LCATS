@@ -46,7 +46,7 @@ This workstream coordinates implementation of `PROP-LCATS-CORPUS-TEXT-VISUALIZAT
 ## Prior Art Check
 
 ### Duplication search
-- In-repo: no existing `lcats visualize` command or equivalent plotting CLI exists (`grep -rl "visualiz" src/ ...` returns no runtime hits outside this proposal and its own design doc). `lcats.analysis.graph_plotters` already exists as a Matplotlib/Seaborn plotting module and must be reused, not duplicated, for conventional-chart rendering.
+- In-repo: no existing `lcats visualize` command or equivalent plotting CLI exists (`grep -rl "visualiz" lcats/src/ ...` — this repo's package lives under `lcats/src/`, not a top-level `src/` — returns no runtime hits outside this proposal and its own design doc). `lcats.analysis.graph_plotters` already exists as a Matplotlib/Seaborn plotting module and must be reused, not duplicated, for conventional-chart rendering.
 - Sibling repos: none identified.
 - External libraries: `matplotlib` (already core), `wordcloud`, and scikit-learn are the established libraries for this scope per the proposal; no alternative was identified as clearly preferable.
 - Recommendation: Proceed.
