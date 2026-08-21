@@ -290,8 +290,18 @@ Committed results from the original real run:
 Compares a cheaper candidate model against the baseline model on
 quality and cost, scoped to only the two stages Decision 5 authorizes
 for cheaper-model evaluation: genre detection and scene/sequel
-segmentation. Against the 2-story fixture set, a real comparison is
-exactly 8 Anthropic generation calls (2 models x 2 stories x 2 stages).
+segmentation. The script's own docstring describes a 2-story fixture
+set giving 8 Anthropic generation calls (2 models x 2 stories x 2
+stages) — that was accurate for the original real run (whose committed
+result below shows 4 calls per model). The default `fixtures/` root
+now has **three** committed `*/story.json` files (a third,
+`five_o_clock_tea_farce`, was added later and is flagged
+`wellformed: false` in `fixtures/genre_ground_truth.json`), so a real
+run against the current default `--fixture-root` makes **12** calls
+(2 models x 3 stories x 2 stages), not 8. Pass `--fixture-root` at a
+directory containing only the two well-formed stories to reproduce the
+original 8-call scope, or budget for 12 calls against the current
+default.
 
 Flags:
 
@@ -330,7 +340,7 @@ Flags:
 | Flag | Default | Purpose |
 |---|---|---|
 | `--model` | `claude-opus-4-8` (`DEFAULT_MODEL` in-file) | Model used for the gate run |
-| `--output-dir` | script-computed results dir | Where gate artifacts (`pilot_stories.jsonl`, `pilot_summary.json`, `genre_detection_results.json`, `stability_gate_results.json`, `stability_gate_report.md`, etc.) are written |
+| `--output-dir` | `results/stability_gate` (`_default_results_dir()` in-file) | Where gate artifacts (`pilot_stories.jsonl`, `pilot_summary.json`, `genre_detection_results.json`, `stability_gate_results.json`, `stability_gate_report.md`, etc.) are written |
 | `--dry-run` | off | Fake-backend validation only — no real API calls |
 | `--nlp-backend` | `fake` under `--dry-run`, `spacy` otherwise | Stage-2 surface-feature NLP backend: `fake`, `spacy`, or `stanza` |
 
