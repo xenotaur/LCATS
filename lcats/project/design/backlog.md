@@ -975,3 +975,78 @@ outcome. Remove this backlog entry once `WI-INFRA-0012` resolves.
 
 **Related:** `lcats/docs/how-to/secrets-hygiene.md`;
 `lcats/experimental/secrets_hygiene/` (PR #315); `.gitleaks.toml`.
+
+---
+
+### `align_segment`'s paragraph-mis-numbering failures — P2, real cause still unknown
+
+Surfaced 2026-08-19 during `WI-SEGMENT-0069`'s investigation; expanded
+2026-08-21. 6 of the 21 `alignment_error` failures in that investigation's
+30-story smoke test (`claude-haiku-4-5-20251001`) are cases where the
+model's `start_exact`/`end_exact` anchor text is genuinely real, verbatim
+story text — but the model's own `start_par_id`/`end_par_id` point
+`align_segment` (`lcats/src/lcats/analysis/text_segmenter.py:215`) at the
+wrong paragraph range entirely. Unlike
+`WI-SEGMENT-0070`'s two fixed categories (marker leakage, quote/dash
+typography), this isn't a text-matching problem `_locate_anchor_span` can
+solve — the quote is correct, the search window it's given is wrong.
+`WI-SEGMENT-0069`'s own investigation
+(`project/design/segmentation-alignment-failure-categories.md:135-155`)
+explicitly deferred this category: no safe fix design emerged, and that
+WI's own `forbidden_actions` (`widen_search_range_without_distribution_data`,
+`reintroduce_full_document_fallback`) bar the two obvious "fixes" without
+more evidence — the latter is exactly what `WI-SEGMENT-0059` already tried
+and had to revert after it produced silently wrong, overlapping segment
+boundaries on real corpora.
+
+Three hypotheses tested since, all inconclusive or negative:
+
+1. **Correlates with total paragraph count (`n_par`)?** No — mis-numbered
+   stories (110-341 paragraphs) span the same range as successfully-aligned
+   ones (48-373).
+   (`segmentation-alignment-failure-categories.md:149-155`)
+2. **Correlates with empty/zero-length paragraphs the literal
+   `\n\n`-splitter produces** (`build_paragraph_index`,
+   `text_segmenter.py:35-64`), **which consume a marker ID slot with no
+   visible content?** No — checked 2026-08-21: `love_among_the_robots__mcdowell`
+   has 2 empty paragraphs before its 8-paragraph drift, but
+   `the_spinster_1905__hichens` drifts by 9 paragraphs with zero empty
+   paragraphs nearby. Doesn't generalize.
+3. **Clusters in the "middle" of the document** (the documented
+   long-context "lost in the middle" degradation pattern)? No, not in this
+   small sample — checked 2026-08-21: the 6 claimed boundaries sit at 14%,
+   16%, 28%, 39%, 41%, and 71% through their respective documents. No
+   middle-clustering.
+
+One confirmed-but-unproven structural observation: all 6 mis-numbered
+stories have a substantial number of paragraphs (26-73 of 110-341 total)
+containing 3+ internal single-newlines — i.e., the deterministic
+`\n\n`-splitter bundles multiple dialogue beats (short back-and-forth
+lines) under one paragraph marker. Worked example:
+`peace_manoeuvres__davis` mis-numbered by exactly one paragraph (claimed
+`end_par_id=86`, real text is paragraph 87) in the middle of six short
+back-to-back dialogue paragraphs (83-88) — a plausible spot for a model
+tracking paragraph count "by feel" to drop one. This doesn't explain the
+larger-margin cases equally well (one story overcounts by 37 paragraphs,
+others undercount by up to 8), so it's a lead, not a confirmed cause.
+Direction is also inconsistent: 4 of 6 cases undercount (real text later
+than claimed), 1 badly overcounts (real text 37 paragraphs earlier than
+claimed), one is a clean +1 undercount.
+
+**Why not a fresh investigation-type WI yet:** mis-numbering was only 6 of
+21 `alignment_error` cases (≈29%) in one 30-story sample — getting enough
+examples to test competing hypotheses with real statistical power would
+likely need on the order of 100+ freshly-sampled stories (real API cost),
+not another 20-30. Not worth committing to that spend, or to a WI whose
+acceptance criteria can't yet be honestly written, while other work (the
+Worldcon paper) has priority. Revisit once either (a) a future smoke-test
+run for an unrelated purpose organically accumulates more mis-numbering
+examples, or (b) someone deliberately authorizes a larger dedicated
+sample.
+
+**Related:** `WI-SEGMENT-0069`
+(`project/work_items/resolved/WI-SEGMENT-0069.md`); `WI-SEGMENT-0070`
+(`project/work_items/resolved/WI-SEGMENT-0070.md`); `WI-SEGMENT-0059`
+(`project/work_items/resolved/WI-SEGMENT-0059.md`, prior art on why a
+full-document fallback is unsafe);
+`project/design/segmentation-alignment-failure-categories.md`.
