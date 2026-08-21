@@ -21,6 +21,7 @@ import argparse
 import ast
 import collections
 import datetime
+import hashlib
 import json
 import os
 import pathlib
@@ -37,6 +38,7 @@ sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 
 from lcats.analysis.corpus import discovery  # noqa: E402
 from lcats.analysis.corpus import genre_sidecar  # noqa: E402
+from lcats.utils import checkpoint  # noqa: E402
 
 CANDIDATES_FILENAME = "candidates.jsonl"
 PILOT_FILENAME = "pilot_40_manifest.jsonl"
@@ -69,6 +71,37 @@ _PRICING_USD_PER_MILLION_TOKENS: dict[str, tuple[float, float]] = {
     "claude-haiku-4": (0.8, 4.0),
 }
 _DEFAULT_PRICING_USD_PER_MILLION_TOKENS: tuple[float, float] = (15.0, 75.0)
+
+VALIDATION_CHECKPOINT_STAGE = "validation"
+VALIDATION_FINGERPRINT_VERSION = "v1"
+
+# Same rationale as experiments/04_genre_census/run_census.py's own
+# _FATAL_ERROR_SUBSTRINGS: continuing after a bad key/exhausted quota just
+# burns real money for no new information, since every remaining story
+# would fail identically. Duplicated locally rather than imported - each
+# experiment script here is deliberately independent (no shared module),
+# same reasoning as the pricing table above.
+_FATAL_ERROR_SUBSTRINGS = (
+    "credit balance",
+    "insufficient_quota",
+    "quota",
+    "api key",
+    "authentication",
+)
+
+
+class FatalValidationError(RuntimeError):
+    """Raised to abort the whole --validate run on a non-retryable,
+    account-level API error - mirrors run_census.py's FatalCensusError
+    and run_pilot.py's FatalPilotError."""
+
+
+def _check_fatal(message: str, context: str) -> None:
+    lowered = message.lower()
+    if any(s in lowered for s in _FATAL_ERROR_SUBSTRINGS):
+        raise FatalValidationError(f"{context}: {message}")
+
+
 ASSESSMENT_METHOD = "gutenberg_subject_rules"
 ASSESSMENT_METHOD_VERSION = "v1"
 ASSESSMENT_LABEL = "gutenberg_metadata_rules"
@@ -831,22 +864,82 @@ def estimate_validation_cost_usd(
     return per_story * selected_count
 
 
+class _UnexpectedFailureResult:
+    """Minimal AssessmentResult-shaped stand-in for build_model_assessment()
+    when an unexpected (non-FatalValidationError) exception is caught -
+    lets the same assessment-building/sidecar path handle this case
+    uniformly rather than hand-building a differently-shaped record."""
+
+    def __init__(self, error: str):
+        self.detected_genre = "other"
+        self.detected_genre_confidence = 0.0
+        self.error = f"unexpected error: {error}"
+        self.backend_model = ""
+        self.input_tokens = 0
+        self.output_tokens = 0
+
+
+def _validation_item_id(story_id: str) -> str:
+    """Checkpoint-safe item_id for a story - mirrors the collection__slug
+    identity convention run_census.py's _story_identity and this file's
+    own assessment_id construction already use."""
+    return story_id.replace("/", "__")
+
+
+def _validation_fingerprint(model: str, row: dict[str, Any]) -> dict[str, Any]:
+    """Fingerprint hashes the row's own metadata-assessment content (not
+    just model/config) so a re-selected or edited manifest row invalidates
+    its own cached validation, plus a version marker so a future change to
+    how validation records are built invalidates every cached one - same
+    "hash actual input, not just config" principle as run_census.py's
+    _fingerprint."""
+    row_hash = hashlib.sha256(
+        json.dumps(row["metadata_assessment"], sort_keys=True).encode("utf-8")
+    ).hexdigest()
+    return {
+        "model": model,
+        "validation_version": VALIDATION_FINGERPRINT_VERSION,
+        "row_hash": row_hash,
+    }
+
+
 def run_validation(
     selected_rows: list[dict[str, Any]],
     *,
     corpus_root: pathlib.Path,
     backend: Any,
     model: str,
-) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    roots: checkpoint.CheckpointRoots,
+) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
     """Run a real, gated Claude Opus validation pass over the selected sample.
 
     Never called on the full corpus - only the already-selected sample.
     Caller is responsible for the explicit-go-ahead gate; this function
-    itself makes real, billed API calls unconditionally once invoked.
+    itself makes real, billed API calls unconditionally once invoked
+    (except for stories already checkpointed as done - see below).
 
     row["story_path"] is corpus-root-relative (story_row()'s deliberate
     portable-manifest shape) - resolved back to a real path via
     corpus_root here, the same way the manifest's own reader must.
+
+    Each story is checkpointed individually under roots.working_root
+    (stage VALIDATION_CHECKPOINT_STAGE), success or failure, before
+    moving to the next - mirrors run_census.py's/run_pilot.py's own
+    per-item checkpoint discipline, so re-running this exact command
+    after an interruption resumes rather than re-pays for already-done
+    stories. Any exception other than FatalValidationError is caught
+    per-story (logged, checkpointed as a failure, loop continues) rather
+    than propagating out and discarding every already-completed story's
+    results - this is the exact failure mode run_pilot.py's own
+    _run_stories docstring documents fixing after a real incident
+    (WI-EVENT-0032): an unexpected per-story exception must never cost
+    more than that one story's own results.
+
+    Returns (results, summary, aborted) - aborted is True only on a
+    FatalValidationError (account-level failure); results/summary are
+    still populated with whatever completed before the abort, since the
+    caller must write those out regardless (never silently discard
+    already-paid-for work).
     """
     from lcats.analysis.corpus import assess as corpus_assess
 
@@ -858,25 +951,93 @@ def run_validation(
     error_count = 0
     total_input_tokens = 0
     total_output_tokens = 0
-    for row in selected_rows:
-        generated_at = (
-            datetime.datetime.now(datetime.timezone.utc)
-            .isoformat()
-            .replace("+00:00", "Z")
+    aborted = False
+    total = len(selected_rows)
+    for index, row in enumerate(selected_rows, start=1):
+        item_id = _validation_item_id(row["story_id"])
+        fingerprint = _validation_fingerprint(model, row)
+        cached = checkpoint.read_checkpoint(
+            roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
         )
-        assessment_result = corpus_assess.assess_story(
-            corpus_root / row["story_path"],
-            genre="",
-            backend=backend,
-            model=model,
-        )
-        total_input_tokens += assessment_result.input_tokens
-        total_output_tokens += assessment_result.output_tokens
-        if assessment_result.error:
+        if cached.done and isinstance(cached.data, dict):
+            model_assessment = cached.data["model_assessment"]
+            total_input_tokens += cached.data.get("input_tokens", 0)
+            total_output_tokens += cached.data.get("output_tokens", 0)
+            print(f"  [{index}/{total}] {row['story_id']} (cached)")
+        else:
+            try:
+                generated_at = (
+                    datetime.datetime.now(datetime.timezone.utc)
+                    .isoformat()
+                    .replace("+00:00", "Z")
+                )
+                assessment_result = corpus_assess.assess_story(
+                    corpus_root / row["story_path"],
+                    genre="",
+                    backend=backend,
+                    model=model,
+                )
+                if assessment_result.error:
+                    _check_fatal(
+                        assessment_result.error,
+                        context=f"validation {row['story_id']}",
+                    )
+                model_assessment = build_model_assessment(
+                    row, assessment_result, run_id, generated_at
+                )
+                total_input_tokens += assessment_result.input_tokens
+                total_output_tokens += assessment_result.output_tokens
+                checkpoint.write_checkpoint(
+                    roots.working_root,
+                    item_id,
+                    VALIDATION_CHECKPOINT_STAGE,
+                    outcome="failure" if assessment_result.error else "success",
+                    fingerprint=fingerprint,
+                    data={
+                        "model_assessment": model_assessment,
+                        "input_tokens": assessment_result.input_tokens,
+                        "output_tokens": assessment_result.output_tokens,
+                    },
+                )
+                print(
+                    f"  [{index}/{total}] {row['story_id']} -> "
+                    f"{model_assessment['result']['detected_genre']}"
+                )
+            except FatalValidationError as exc:
+                print(f"\nfatal: {exc}", file=sys.stderr)
+                print(
+                    "Aborting - this looks like a bad/expired API key or "
+                    "an exhausted account balance/quota, not a per-story "
+                    "problem. Every remaining story would fail "
+                    "identically. Results and checkpoints gathered so "
+                    "far are preserved and written out below.",
+                    file=sys.stderr,
+                )
+                aborted = True
+                break
+            except Exception as exc:  # noqa: BLE001 - see docstring above
+                print(
+                    f"  error: unexpected failure on {row['story_id']}: {exc!r}",
+                    file=sys.stderr,
+                )
+                checkpoint.write_checkpoint(
+                    roots.working_root,
+                    item_id,
+                    VALIDATION_CHECKPOINT_STAGE,
+                    outcome="failure",
+                    fingerprint=fingerprint,
+                    data={"error": f"unexpected error: {exc!r}"},
+                )
+                model_assessment = build_model_assessment(
+                    row,
+                    _UnexpectedFailureResult(str(exc)),
+                    run_id,
+                    datetime.datetime.now(datetime.timezone.utc)
+                    .isoformat()
+                    .replace("+00:00", "Z"),
+                )
+        if model_assessment["evidence"].get("error"):
             error_count += 1
-        model_assessment = build_model_assessment(
-            row, assessment_result, run_id, generated_at
-        )
         if model_assessment["result"]["agrees_with_metadata_rules"]:
             agreement_count += 1
         results.append(
@@ -888,15 +1049,18 @@ def run_validation(
                 "model_assessment": model_assessment,
             }
         )
+
     input_price, output_price = _price_for_model(model)
     real_cost = (total_input_tokens / 1_000_000) * input_price + (
         total_output_tokens / 1_000_000
     ) * output_price
-    validated_count = len(selected_rows) - error_count
+    validated_count = len(results) - error_count
     summary = {
         "run_id": run_id,
         "model": model,
-        "selected_count": len(selected_rows),
+        "selected_count": total,
+        "processed_count": len(results),
+        "aborted": aborted,
         "error_count": error_count,
         "agreement_count": agreement_count,
         "disagreement_count": max(validated_count - agreement_count, 0),
@@ -912,7 +1076,7 @@ def run_validation(
         "total_output_tokens": total_output_tokens,
         "total_estimated_cost_usd": real_cost,
     }
-    return results, summary
+    return results, summary, aborted
 
 
 def build_agreement_by_genre(results: list[dict[str, Any]]) -> dict[str, Any]:
@@ -1219,15 +1383,37 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
                 "spend this amount for real."
             ),
         }
+
+    # Checkpoint working_root is --output itself (already validated above,
+    # never corpora/data/) - source_root is the real corpus, matching
+    # run_census.py's own resolve_roots(working_root=output, source_root=
+    # data_dir) call shape. Guard BEFORE any API call, same ordering
+    # rationale run_census.py documents: a rejected --output must not let
+    # any spend happen first.
+    try:
+        roots = checkpoint.resolve_roots(
+            working_root=args.output, source_root=args.corpus_root
+        )
+    except (checkpoint.ProtectedRootError, RuntimeError) as exc:
+        raise ValueError(f"checkpoint working_root rejected: {exc}") from exc
+
     from lcats.llm import anthropic_backend
 
     backend = anthropic_backend.AnthropicBackend()
-    results, validation_summary = run_validation(
+    print(
+        f"Validating {len(selected_rows)} stories with {args.model} "
+        "(resuming from any checkpoints)."
+    )
+    results, validation_summary, aborted = run_validation(
         selected_rows,
         corpus_root=args.corpus_root,
         backend=backend,
         model=args.model,
+        roots=roots,
     )
+    # Always write whatever completed, aborted or not - never silently
+    # discard already-paid-for results (see run_validation()'s own
+    # docstring / run_pilot.py's WI-EVENT-0032 precedent).
     validation_summary["outputs"] = write_validation_outputs(
         results, validation_summary, args.output
     )
