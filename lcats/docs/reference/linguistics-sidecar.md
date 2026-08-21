@@ -25,7 +25,7 @@ Top-level fields:
 |---|---|---|
 | `schema_version` | string | Always `linguistics-sidecar-v1`. |
 | `lcats_id` | string | Stable story identity derived from the story bucket path, usually `<collection>/<story>`. |
-| `story_path` | string | Stable path to the analyzed `story.json`. |
+| `story_path` | string | Serialized path to the analyzed `story.json`, preserving the invocation spelling as POSIX-style separators. |
 | `extractor` | object | Extractor provenance. |
 | `backend` | object | NLP backend provenance. |
 | `input` | object | Source-text provenance used for reproducibility checks. |
@@ -53,7 +53,7 @@ Top-level fields:
 |---|---|---|
 | `body_sha256` | string | SHA-256 hash of the analyzed story body text. |
 | `body_char_count` | integer | Character count of the analyzed story body text. |
-| `source_path` | string | Stable path to the analyzed `story.json`. |
+| `source_path` | string | Serialized path to the analyzed `story.json`, preserving the invocation spelling as POSIX-style separators. |
 
 ### `options`
 
@@ -86,7 +86,7 @@ Top-level fields:
 |---|---|---|
 | `schema_version` | string | Always `linguistics-token-detail-v1`. |
 | `lcats_id` | string | Same story identity as the compact sidecar. |
-| `story_path` | string | Same story path as the compact sidecar. |
+| `story_path` | string | Same serialized story path as the compact sidecar. |
 | `extractor` | object | Same extractor provenance as the compact sidecar. |
 | `backend` | object | Same backend provenance as the compact sidecar. |
 | `input` | object | Same input provenance as the compact sidecar. |
@@ -94,9 +94,17 @@ Top-level fields:
 | `tokens` | array | Normalized token/dependency records from the NLP backend. |
 
 Token records come from the normalized ERW NLP backend protocol. Each record
-contains token text plus backend-provided linguistic annotations such as lemma,
-part-of-speech fields, morphological features, head index, and dependency
-relation when available.
+has these fixed fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `text` | string | Surface form. |
+| `lemma` | string | Dictionary form, or empty string when unavailable. |
+| `upos` | string | Universal part-of-speech tag, or empty string when unavailable. |
+| `xpos` | string | Fine-grained or treebank-specific part-of-speech tag, or empty string when unavailable. |
+| `feats` | string | Universal Dependencies-style morphological feature string, or empty string when none are available. |
+| `head_index` | integer | One-based syntactic-head index within the sentence, or `0` for root. |
+| `deprel` | string | Universal dependency relation to the head, or empty string when unavailable. |
 
 ## Run Summary
 
@@ -125,7 +133,7 @@ Each result object contains:
 | `sidecar_path` | string | Target `linguistics.json` path. |
 | `status` | string | One of `written`, `skipped`, `failed`, or `dry_run`. |
 | `message` | string | Human-readable outcome or diagnostic. |
-| `detail_path` | string | Present when token-detail output has a target path. |
+| `detail_path` | string | Present only on result objects that carry a token-detail target path. It appears for dry runs, writes, skips, write exceptions, and existing-token-detail validation failures when `--include-token-detail` is set; some failures detected while validating an existing compact sidecar omit it. |
 
 ## Fingerprint and Resume Behavior
 
@@ -141,6 +149,12 @@ skipping or validating them. The fingerprint contains:
 Matching outputs are skipped by default. Stale, invalid, unreadable, or
 missing detail outputs fail without replacement unless the command is run with
 `--existing overwrite`.
+
+Path fields are serialized from the path supplied to the runner; LCATS does
+not canonicalize them to an absolute or repository-relative form. Supplying the
+same story through different valid spellings can therefore change `story_path`,
+`input.source_path`, and the fingerprint even when the story body and backend
+configuration are otherwise unchanged.
 
 The token-detail artifact uses its own `linguistics-token-detail-v1`
 fingerprint. This keeps compact sidecar resume checks independent from the
