@@ -43,16 +43,26 @@ original content, and the two links meant to close that loop are
 exactly the ones broken by the rename above.
 
 Key findings:
-- 883 Markdown files exist repo-wide as of the finalized commit that
-  includes this audit and its accompanying self-review execution record
-  (805 are `lcats/project/` control-plane, Meta by this skill's
-  convention). 51 human-facing files were classified into Diataxis
-  quadrants; of 231 total `[text](path)` links found repo-wide, 109 are
-  non-HTTP/non-fragment targets subject to a filesystem existence check
-  — **4 real broken links found** (3 false positives excluded, all prose
-  describing link-check methodology rather than real links — including
-  this artifact's own embedded validation script, which contains the
-  same `[text](path)` literal pattern it's demonstrating).
+- All counts below are measured against `main`'s tip at commit
+  `88858ae3` (this audit PR's base commit, before any of this PR's own
+  changes) — a fixed, reproducible reference point, not "the finalized
+  tree including this audit," which is a moving target: every commit
+  that lands this artifact (or its own review-response/self-review
+  execution records) necessarily adds more files and links after the
+  count was taken, so a count claiming to include itself can never
+  actually be exact (this instability was caught in review — see Risks
+  and cautions). 880 Markdown files exist at that commit (803 are
+  `lcats/project/` control-plane, Meta by this skill's convention). 51
+  human-facing files were classified into Diataxis quadrants; of 218
+  total `[text](path)` links found, 96 are non-HTTP/non-fragment targets
+  subject to a filesystem existence check — **4 real broken links
+  found** (2 false positives excluded, both prose describing link-check
+  methodology rather than real links). This artifact and its own
+  execution records (self-review, review-response, confirm-fixes) are
+  deliberately excluded from these counts by design, not omitted by
+  oversight — see Risks and cautions for why a self-inclusive count is
+  not achievable and Validation commands for follow-up PRs for how to
+  re-run this check against a later commit.
 - **Tutorial quadrant gap from the prior audit is resolved.**
   `docs/tutorials/quickstart.md` exists, requires no API key, and states
   every command in it was run for real before writing.
@@ -96,14 +106,15 @@ Key findings:
 - `project_root` / execution root (`lcats/`): the active Python project.
 - `docs_root` (`lcats/docs/`): human-facing documentation hub. Grown
   substantially since 2026-07-07 (see Summary).
-- `control_root` (`lcats/project/`): LRH control-plane, 805 files as of
-  the finalized commit (including this audit's own file and its
-  self-review execution record) across `executions/` (649),
-  `work_items/` (87), `design/` (27, incl. 10 proposals),
-  `workstreams/` (16), `audits/` (6, including this file),
-  `guardrails/` (4), `evidence/` (3), `prompts/` (2), `contributors/`
-  (2), `context/` (2), plus single-file `status/`, `roadmap/`,
-  `principles/`, `memory/`, `goal/`, `focus/`, and `project/README.md`.
+- `control_root` (`lcats/project/`): LRH control-plane, 803 files at
+  commit `88858ae3` across `executions/` (648), `work_items/` (87),
+  `design/` (27, incl. 10 proposals), `workstreams/` (16), `audits/`
+  (5), `guardrails/` (4), `evidence/` (3), `prompts/` (2),
+  `contributors/` (2), `context/` (2), plus single-file `status/`,
+  `roadmap/`, `principles/`, `memory/`, `goal/`, `focus/`, and
+  `project/README.md`. This PR's own additions (this audit file, and
+  its self-review/review-response/confirm-fixes execution records) are
+  excluded from this count by design — see Key findings above.
 - `package_roots` (`lcats/src/lcats/`): **corrected from the prior
   audit's `lcats/lcats/`** — the package was renamed via `git mv`
   sometime after 2026-07-07. This rename is the root cause of most of
@@ -116,24 +127,35 @@ Key findings:
   `verify_assess_api/`), `.jules/` (agent learning logs, Meta),
   `Papers/` and `Resources/` (out of scope, unchanged).
 
-Discovery method: recursive filesystem walk for `*.md` (883 files as of
-the finalized commit, up from 881 at the initial discovery pass — the 2
-new files are this audit's own record and its self-review execution
-record, both added by the same commit that lands this artifact),
-cross-checked against the discovery checklist in the `lrh-doc-audit`
-skill's `references/audit-requirements.md`, covering docs directories,
-top-level meta files, package/subsystem READMEs, examples/experimental
-directories, CLI surface via `lcats/src/lcats/cli.py` source inspection
-(`add_parser` calls), and the control-plane directory. Delegated to a
-subagent for the discovery/classification pass; findings independently
-spot-verified in this session (grep confirmation of the `lcats/lcats`
-stale-path occurrences, the `annotate` subcommand and its absence from
-all three CLI-doc locations, and the exact broken-link line numbers), and
-re-verified again post-review after `chatgpt-codex-connector`'s PR #331
-review flagged that the headline counts and link methodology needed to
-be reproducible against the finalized tree, not just the tree at initial
-discovery time (see Stale-links section below for the corrected link
-methodology).
+Discovery method: recursive filesystem walk for `*.md` (880 files at
+commit `88858ae3`, this PR's base commit — see Key findings above for
+why counts are pinned to a fixed commit rather than "the tree including
+this audit"), cross-checked against the discovery checklist in the
+`lrh-doc-audit` skill's `references/audit-requirements.md`, covering
+docs directories, top-level meta files, package/subsystem READMEs,
+examples/experimental directories, CLI surface via
+`lcats/src/lcats/cli.py` source inspection (`add_parser` calls), and the
+control-plane directory. Delegated to a subagent for the
+discovery/classification pass; findings independently spot-verified in
+this session (grep confirmation of the `lcats/lcats` stale-path
+occurrences, the `annotate` subcommand and its absence from all three
+CLI-doc locations, and the exact broken-link line numbers).
+
+**Correction history:** `chatgpt-codex-connector`'s PR #331 review
+flagged that this artifact's first-committed headline counts (881
+total / 803 project / 229 non-HTTP links) were captured before the
+commit that added the audit and self-review artifacts, and so didn't
+reproduce against that "finalized" tree. The first fix attempted to
+recompute against "the finalized tree including this file," which
+turned out to be an unstable target — the fix commit itself, plus its
+own execution record, added yet more files the recomputed numbers
+didn't include, reproducing the identical bug one level deeper (caught
+by an independent `--subagent` confirm-fixes pass; see
+`project/executions/AD_HOC/` for the round's execution record). The
+counts in this artifact are now pinned to `88858ae3` — a fixed commit
+that predates every one of this PR's own additions — which is
+reproducible indefinitely, unlike "the tree including this audit,"
+which can never be measured exactly at the moment of its own commit.
 
 ## Current documentation inventory
 
@@ -192,10 +214,10 @@ audit: `Papers/Story/kokoMindReadme.md` (third-party dataset README).
 
 | Location | Count |
 |---|---|
-| `lcats/project/` (control plane, all subdirectories) | 805 (as of the finalized commit; 803 at initial discovery, before this audit's own file and its self-review execution record were added) |
+| `lcats/project/` (control plane, all subdirectories) | 803 at commit `88858ae3` (see Key findings above for why this PR's own additions are excluded) |
 | `.jules/*`, `lcats/AGENTS.md`, `lcats/STYLE.md`, `lcats/tests/AGENTS.md` | 5 |
 
-Total Markdown files discovered: 883 (881 at initial discovery). Human-facing/classifiable: 51
+Total Markdown files discovered: 880 at commit `88858ae3`. Human-facing/classifiable: 51
 (table above). Remainder is Meta (control-plane or agent-instruction
 content), per this skill's guardrail against forcing `project/` into
 the four quadrants.
@@ -227,7 +249,7 @@ the four quadrants.
     │   │   └── gather-overrides.md            (new, beyond prior plan)
     │   └── explanation/
     │       └── story-bucket-layout.md         (new, beyond prior plan)
-    ├── project/                   ← LRH control plane (unchanged structure, grown to 805 files)
+    ├── project/                   ← LRH control plane (unchanged structure, 803 files at this PR's base commit)
     ├── src/lcats/                 ← importable package — RENAMED from lcats/lcats/ since 07-07
     │   └── analysis/corpus/README.md          ← §9 still has full content + 2 broken links, not pointer-ified
     ├── experimental/              ← NEW since 07-07: model_comparison/, annotation_feasibility_trial/, secrets_hygiene/, verify_assess_api/
@@ -342,19 +364,20 @@ the four quadrants.
 
 ## Stale or ambiguous links
 
-Method: every `[text](path)` link across all 883 Markdown files (as of
-the finalized commit) was extracted — 231 total. Of those, HTTP(S)/mailto
-targets and pure-fragment (`#section`-only) links were excluded, leaving
-109 non-HTTP path targets subject to a filesystem existence check;
-`file.md#section` links were checked against `file.md` only, with paths
-resolved relative to the containing file's directory. Re-running this
-check against the finalized tree (which includes this audit file itself)
-surfaces **4 real broken links and 3 false positives** — all three are
-prose describing the link-check methodology itself, not real links: this
-audit's own prior 2026-07-07 edition, an execution record that already
-notes it's a known false positive, and — new in this finalized-tree
-re-run — this audit's own embedded validation script below, which
-contains the literal `[text](path)` pattern it's demonstrating.
+Method: every `[text](path)` link across all 880 Markdown files at
+commit `88858ae3` (this PR's base commit — see Key findings above) was
+extracted — 218 total. Of those, HTTP(S)/mailto targets and
+pure-fragment (`#section`-only) links were excluded, leaving 96 non-HTTP
+path targets subject to a filesystem existence check; `file.md#section`
+links were checked against `file.md` only, with paths resolved relative
+to the containing file's directory. This surfaces **4 real broken links
+and 2 false positives** — both are prose describing the link-check
+methodology itself, not real links: this audit's own prior 2026-07-07
+edition, and an execution record that already notes it's a known false
+positive. This artifact's own embedded validation script (below) is
+deliberately excluded from the count it describes, for the same reason
+the file-count methodology is pinned to a fixed commit rather than "the
+tree including this file" — see Key findings above.
 
 Real broken links:
 
@@ -505,6 +528,20 @@ this skill's scope).
   item 5 above) should be a copy-and-link, not a rewrite of
   `docs/how-to/run-assess.md`'s already-reviewed content — same caution
   the 07-07 audit gave when the extraction itself was scoped.
+- **A docs audit's own headline counts cannot include itself, and
+  attempting to "recompute against the finalized tree" doesn't fix
+  this — it relocates the same bug one commit later.** This was found
+  live on this PR: the first fix recomputed counts against "the tree
+  including this audit and its self-review record," but the fix commit
+  itself (plus the execution record documenting the fix) added more
+  files the recomputed numbers didn't include — the identical
+  before/after-commit mismatch the original review comment flagged, one
+  level deeper. The only stable fix is pinning every count in this
+  artifact to a fixed commit SHA that predates the artifact's own
+  existence (here, `88858ae3`, this PR's base commit) rather than
+  chasing "the finalized tree" as a moving target. Any future docs audit
+  should adopt the same convention from the start — pin to the base
+  commit, not "as of this write" — to avoid rediscovering this.
 
 ## Validation commands for follow-up PRs
 
