@@ -54,10 +54,15 @@ while explicitly recording why the remaining sites are left as-is.
 ## Prior Art Check
 
 ### Duplication search
-- In-repo: No existing implementation.
-  `grep -rli "run.log\|run_event\|runlog" src/ project/design/proposals/
-  project/workstreams/ project/work_items/` (excluding the governing
-  proposal file itself) returns nothing.
+- In-repo: No existing implementation. Excluding the governing proposal
+  file itself:
+
+  ```bash
+  grep -rli "run.log\|run_event\|runlog" src/ project/design/proposals/ \
+    project/workstreams/ project/work_items/
+  ```
+
+  returns nothing.
 - Sibling repos: None identified.
 - External libraries: Considered and rejected in the proposal's own
   Prior Art Check (stdlib `logging`, `structlog`/`loguru`) — not

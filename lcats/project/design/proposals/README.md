@@ -26,3 +26,5 @@ short index plus the proposal document.
 - [`PROP-LCATS-CORPUS-TEXT-VISUALIZATION`](adopted/corpus-text-visualization/README.md)
   — adopted; implementation not started (governed by
   `WS-CORPUS-TEXT-VISUALIZATION`).
+- [`PROP-LCATS-RUN-LOG`](proposed/lcats-run-log/README.md)
+  — proposed; implementation not started (governed by `WS-RUN-LOG`).

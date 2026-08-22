@@ -64,12 +64,16 @@ checkpointing a shared pattern rather than a `run_pilot.py`-only fix.
 ## Prior Art Check
 
 ### Duplication search
-- In-repo: No existing implementation found.
-  `grep -rli "run.log\|run_event\|log_run_event\|runlog" src/
-  project/design/proposals/ project/workstreams/ project/work_items/`
-  (from the `lcats/` project root) returns nothing outside
-  `run_prefilter.py` itself. No proposal, workstream, or work item
-  currently covers this.
+- In-repo: No existing implementation found. From the `lcats/` project
+  root:
+
+  ```bash
+  grep -rli "run.log\|run_event\|log_run_event\|runlog" src/ \
+    project/design/proposals/ project/workstreams/ project/work_items/
+  ```
+
+  returns nothing outside `run_prefilter.py` itself. No proposal,
+  workstream, or work item currently covers this.
 - Sibling repos: None identified.
 - External libraries: Considered directly in this session's design
   discussion — stdlib `logging` (rejected: default `FileHandler`
@@ -84,12 +88,22 @@ checkpointing a shared pattern rather than a `run_pilot.py`-only fix.
 - Recommendation: Proceed.
 
 ### Demand search
-- Work items: `grep -rli "run.log\|run.event" project/work_items/proposed/`
+- Work items:
+
+  ```bash
+  grep -rli "run.log\|run.event" project/work_items/proposed/
+  ```
+
   — none found. `WI-EVENT-0032` (resolved) names the underlying failure
   mode but is already closed against `run_pilot.py`'s exception-handling
   fix, not this proposal's scope.
-- Proposals: `grep -rli "run.log\|run.event"
-  project/design/proposals/proposed/` — none found.
+- Proposals:
+
+  ```bash
+  grep -rli "run.log\|run.event" project/design/proposals/proposed/
+  ```
+
+  — none found.
 - Backlog: `project/design/backlog.md` contains no matching entries.
 - Recommendation: No action — no existing request to close/link.
 
@@ -104,8 +118,8 @@ Options considered:
   generation and manually threads `run_start`/`run_end` calls through
   every `except` branch it happens to anticipate.
 - **Context manager (`RunLog`)** wrapping a run, auto-emitting `run_start`
-  on `__enter__` and `run_end`/`run_aborted` on `__exit__` based on
-  whether an exception propagated.
+  on `__enter__` and, on `__exit__`, either `run_end` (clean exit) or an
+  `run_aborted_*` event (an exception propagated).
 - **Stdlib `logging`** with a JSON `Formatter` + `FileHandler`.
 - **Third-party structured logging** (`structlog`/`loguru`).
 
@@ -124,6 +138,36 @@ Prior Art Check above: neither offers a decisive advantage for the one
 property this needs (crash-safe, ordered, human-greppable JSONL), and
 both carry real costs (buffering to work around, or a new dependency)
 this codebase doesn't currently pay.
+
+**Event-name vocabulary (review finding, this PR: `run_aborted` as
+written was ambiguous against the reference implementation's actual
+`run_aborted_fatal`).** `RunLog` reuses the reference implementation's
+existing `run_start`/per-item/`run_end`/`run_aborted_fatal` vocabulary
+(Background above) for the case it already covers — a caught
+account-level fatal error — and adds a sibling `run_aborted_unexpected`
+for `__exit__`'s new case, a truly unanticipated exception the caller
+never anticipated catching. Both are members of one `run_aborted_*`
+family (a shared prefix, not one bare `run_aborted` event), so a reader
+grepping for `run_aborted` still finds every abort path, while the
+suffix still distinguishes an expected fatal condition from a genuine
+crash. Exact event field shape is otherwise left to work-item design —
+see Open Questions.
+
+**Durability scope (review finding, this PR: "crash-safe" needs
+narrowing or an explicit `fsync` strategy).** Open-write-close per event
+guarantees a line already written is never lost to *process*
+termination — a `kill -9`, an OOM kill, or an uncaught exception —
+because `close()` flushes Python's own buffer into the OS. It does
+**not** guarantee durability across an unclean *machine* shutdown or
+power loss: `close()` does not `fsync()`, so the OS may still hold the
+just-written bytes in its page cache rather than on disk when power is
+lost. This proposal scopes the guarantee to process-level crash safety
+only, matching what the reference implementation's actual read/write
+behavior provides (its own docstring's "power loss" language overstates
+this and is not carried forward here) — whether `RunLog` should
+additionally `fsync()` after each write (trading a small per-event
+latency cost for true power-loss durability) is left to work-item
+design, not decided by this proposal; see Open Questions.
 
 ### Decision 2: Module location
 
@@ -144,6 +188,24 @@ gets the same protection checkpoints already have by construction, rather
 than by each caller separately remembering to apply it. The plain
 function keeps accepting a bare path, for callers with no
 `CheckpointRoots` of their own.
+
+**Requirement: `RunLog` must re-validate the root it is given, not just
+derive a path under it (review finding, this PR).** `CheckpointRoots` is
+publicly constructible and `working_root` is just a `Path` — the guard
+above only actually runs inside `checkpoint.resolve_roots()`, so a caller
+that constructs `CheckpointRoots` directly (bypassing `resolve_roots()`)
+and passes a `working_root` of `data/` or `corpora/` would have that
+root accepted by `RunLog` with no protection at all, silently writing
+logs into a protected root and, via `lcats promote`'s unfiltered
+`_copy_collection`, potentially carrying them into a promoted corpus.
+`RunLog`'s own constructor must therefore apply
+`checkpoint.resolve_roots`-equivalent validation to whatever root it is
+given (or reject any `working_root` it cannot confirm was itself already
+validated), not trust that a `CheckpointRoots` instance implies its
+caller already went through `resolve_roots()`. Exact mechanism (e.g.
+`RunLog` calls the same protected-root check `resolve_roots()` uses,
+directly on the roots it receives) is left to work-item design, not
+decided here — see Open Questions.
 
 ### Decision 4: Migration disposition per site
 
@@ -218,6 +280,11 @@ item:
 - Exact `RunLog` context-manager API (constructor signature, event-name
   vocabulary reuse vs. per-caller extension, e.g. `lcats promote`'s
   `collection_blocked`) — left to work-item design.
+- Exact mechanism for `RunLog`'s own protected-root re-validation
+  (Decision 3) — left to work-item design.
+- Whether `RunLog` should `fsync()` after each write for true
+  power-loss durability, or stay scoped to process-crash safety only
+  (Decision 1) — left to work-item design.
 - Whether `run_stability_gate.py`, `run_comparison.py`, or
   `lcats linguistics` should be revisited later if their usage pattern
   changes — flagged, not decided here.
