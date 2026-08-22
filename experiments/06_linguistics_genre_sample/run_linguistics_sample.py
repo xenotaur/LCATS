@@ -70,6 +70,9 @@ def load_manifest(
                 ) from error
             story_id = _required_string(raw, "story_id", path, line_number)
             story_path_text = _required_string(raw, "story_path", path, line_number)
+            story_path = _validate_manifest_story_path(
+                story_path_text, manifest_path=path, line_number=line_number
+            )
             selection_genre = _required_string(
                 raw, "selection_genre", path, line_number
             )
@@ -81,7 +84,7 @@ def load_manifest(
             rows.append(
                 ManifestRow(
                     story_id=story_id,
-                    story_path=pathlib.Path(story_path_text),
+                    story_path=story_path,
                     selection_genre=selection_genre,
                     raw=raw,
                 )
@@ -102,16 +105,16 @@ def copy_sample_buckets(
 ) -> list[pathlib.Path]:
     """Copy sampled story buckets and return copied story paths."""
     story_paths: list[pathlib.Path] = []
+    corpus_root = corpus_root.resolve(strict=True)
+    mirror_root = mirror_root.resolve(strict=False)
+    if overwrite and mirror_root.exists():
+        shutil.rmtree(mirror_root)
     for row in rows:
-        source_story = corpus_root / row.story_path
-        if source_story.name != "story.json":
-            raise ValueError(
-                f"manifest story_path must end in story.json: {row.story_path}"
-            )
+        source_story = _resolve_beneath(corpus_root, row.story_path)
         if not source_story.is_file():
             raise FileNotFoundError(f"source story not found: {source_story}")
         relative_bucket = row.story_path.parent
-        destination_bucket = mirror_root / relative_bucket
+        destination_bucket = _resolve_beneath(mirror_root, relative_bucket)
         if destination_bucket.exists():
             if not overwrite:
                 raise FileExistsError(
@@ -301,6 +304,31 @@ def _required_string(
     if not isinstance(value, str) or not value:
         raise ValueError(f"{path}:{line_number}: missing string field {key!r}")
     return value
+
+
+def _validate_manifest_story_path(
+    story_path_text: str, *, manifest_path: pathlib.Path, line_number: int
+) -> pathlib.Path:
+    story_path = pathlib.PurePosixPath(story_path_text)
+    if story_path.is_absolute() or ".." in story_path.parts:
+        raise ValueError(
+            f"{manifest_path}:{line_number}: story_path must be relative and stay "
+            f"within the corpus root: {story_path_text!r}"
+        )
+    path = pathlib.Path(story_path_text)
+    if path.name != "story.json":
+        raise ValueError(
+            f"{manifest_path}:{line_number}: manifest story_path must end in "
+            f"story.json: {story_path_text}"
+        )
+    return path
+
+
+def _resolve_beneath(root: pathlib.Path, relative_path: pathlib.Path) -> pathlib.Path:
+    resolved = (root / relative_path).resolve(strict=False)
+    if resolved != root and root not in resolved.parents:
+        raise ValueError(f"path escapes configured root: {relative_path}")
+    return resolved
 
 
 def _repo_relative(path: pathlib.Path) -> str:

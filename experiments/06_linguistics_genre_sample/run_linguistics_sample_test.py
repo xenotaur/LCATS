@@ -76,6 +76,27 @@ class ManifestLoadingTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "duplicate story_id"):
                 run_linguistics_sample.load_manifest(manifest, expected_count=2)
 
+    def test_rejects_story_paths_that_escape_corpus_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest = pathlib.Path(tmp) / "manifest.jsonl"
+            rows = [
+                {
+                    "story_id": "absolute",
+                    "story_path": "/tmp/outside/story.json",
+                    "selection_genre": "fantasy",
+                },
+                {
+                    "story_id": "parent",
+                    "story_path": "../outside/story.json",
+                    "selection_genre": "mystery",
+                },
+            ]
+
+            for row in rows:
+                manifest.write_text(json.dumps(row) + "\n", encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "within the corpus root"):
+                    run_linguistics_sample.load_manifest(manifest, expected_count=1)
+
 
 class ExperimentHarnessTest(unittest.TestCase):
     def test_fake_backend_run_copies_buckets_and_writes_sidecars(self):
@@ -144,6 +165,42 @@ class ExperimentHarnessTest(unittest.TestCase):
             self.assertEqual(report["manifest_row_count"], 2)
             self.assertEqual(report["selected_story_count"], 1)
             self.assertEqual(report["run_counts"], {"written": 1})
+            self.assertTrue((output_dir / "copied_buckets" / "alpha" / "one").exists())
+            self.assertFalse((output_dir / "copied_buckets" / "beta" / "two").exists())
+
+    def test_overwrite_prunes_stale_buckets_from_prior_larger_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            story_paths = [
+                _write_story(corpus_root, "alpha", "one"),
+                _write_story(corpus_root, "beta", "two"),
+            ]
+            manifest = root / "manifest.jsonl"
+            _write_manifest(manifest, story_paths)
+
+            full_report = run_linguistics_sample.run_sample(
+                manifest_path=manifest,
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                backend_name="fake",
+                expected_count=2,
+                overwrite=True,
+            )
+            smoke_report = run_linguistics_sample.run_sample(
+                manifest_path=manifest,
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                backend_name="fake",
+                smoke_count=1,
+                expected_count=2,
+                overwrite=True,
+            )
+
+            self.assertEqual(full_report["copied_sidecar_count"], 2)
+            self.assertEqual(smoke_report["selected_story_count"], 1)
+            self.assertEqual(smoke_report["copied_sidecar_count"], 1)
             self.assertTrue((output_dir / "copied_buckets" / "alpha" / "one").exists())
             self.assertFalse((output_dir / "copied_buckets" / "beta" / "two").exists())
 
