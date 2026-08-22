@@ -1,0 +1,101 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:mass_quantities__the_hunter_s_lodge_case__christie:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Mystery",
+            "patterns": [
+              "detective",
+              "mystery"
+            ]
+          },
+          {
+            "label": "Crime",
+            "patterns": [
+              "murder"
+            ]
+          },
+          {
+            "label": "Short stories only / unspecified genre",
+            "patterns": [
+              "short stories"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Detective and mystery stories",
+          "Murder -- Investigation -- Fiction",
+          "PR",
+          "Poirot, Hercule (Fictitious character) -- Fiction",
+          "Private investigators -- England -- Fiction",
+          "Short stories"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 67160,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/67160/pg67160.txt",
+        "story_id": "mass_quantities/the_hunter_s_lodge_case__christie",
+        "story_path": "mass_quantities/the_hunter_s_lodge_case__christie/story.json"
+      },
+      "result": {
+        "secondary_signals": [
+          "Crime",
+          "Short stories only / unspecified genre"
+        ],
+        "suggestive_target_candidates": [
+          "mystery"
+        ],
+        "target_candidates": [
+          "mystery"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:mass_quantities__the_hunter_s_lodge_case__christie:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T19:16:25.478853Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 11211,
+        "output_tokens": 491,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "mass_quantities/the_hunter_s_lodge_case__christie",
+        "story_path": "mass_quantities/the_hunter_s_lodge_case__christie/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": true,
+        "detected_genre": "mystery",
+        "detected_genre_confidence": 0.99,
+        "metadata_target_candidates": [
+          "mystery"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "mass_quantities/the_hunter_s_lodge_case__christie",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "mass_quantities/the_hunter_s_lodge_case__christie/story.json"
+}
