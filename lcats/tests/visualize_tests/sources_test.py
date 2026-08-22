@@ -124,5 +124,121 @@ class TestLoadFullScanGenreCounts(unittest.TestCase):
         self.assertEqual(result.total_stories, 1868)
 
 
+def _write_story(corpora_root, collection, slug, *, body, name=None):
+    story_dir = Path(corpora_root) / collection / slug
+    story_dir.mkdir(parents=True, exist_ok=True)
+    (story_dir / "story.json").write_text(
+        json.dumps({"name": name or slug, "body": body, "metadata": {}}),
+        encoding="utf-8",
+    )
+
+
+def _write_candidates_jsonl(tmp_path, rows):
+    path = Path(tmp_path) / "candidates.jsonl"
+    with path.open("w", encoding="utf-8") as f:
+        for story_id, target_candidates in rows.items():
+            f.write(
+                json.dumps(
+                    {
+                        "story_id": story_id,
+                        "metadata_assessment": {
+                            "result": {"target_candidates": target_candidates}
+                        },
+                    }
+                )
+                + "\n"
+            )
+    return path
+
+
+class TestLoadCorpusStories(unittest.TestCase):
+    """Tests for load_corpus_stories."""
+
+    def test_story_id_derived_from_path(self):
+        """story_id is <collection>/<slug>, not derived from title/metadata."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _write_story(tmp_dir, "anderson", "bell", body="Once upon a time.")
+            result = sources.load_corpus_stories(tmp_dir)
+        self.assertEqual(result.texts, {"anderson/bell": "Once upon a time."})
+
+    def test_multiple_collections_and_stories(self):
+        """All stories across all collections are loaded."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _write_story(tmp_dir, "anderson", "bell", body="Text A")
+            _write_story(tmp_dir, "anderson", "fir_tree", body="Text B")
+            _write_story(tmp_dir, "grimm", "rapunzel", body="Text C")
+            result = sources.load_corpus_stories(tmp_dir)
+        self.assertEqual(
+            result.texts,
+            {
+                "anderson/bell": "Text A",
+                "anderson/fir_tree": "Text B",
+                "grimm/rapunzel": "Text C",
+            },
+        )
+
+    def test_source_revision_changes_with_content(self):
+        """source_revision changes when a story's text changes."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _write_story(tmp_dir, "anderson", "bell", body="Version 1")
+            result_a = sources.load_corpus_stories(tmp_dir)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _write_story(tmp_dir, "anderson", "bell", body="Version 2")
+            result_b = sources.load_corpus_stories(tmp_dir)
+
+        self.assertNotEqual(result_a.source_revision, result_b.source_revision)
+
+    def test_source_revision_stable_for_same_content(self):
+        """source_revision is deterministic for identical content."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _write_story(tmp_dir, "anderson", "bell", body="Same text")
+            result_a = sources.load_corpus_stories(tmp_dir)
+            result_b = sources.load_corpus_stories(tmp_dir)
+        self.assertEqual(result_a.source_revision, result_b.source_revision)
+
+
+class TestLoadCandidatesGenreMembership(unittest.TestCase):
+    """Tests for load_candidates_genre_membership."""
+
+    def test_reads_target_candidates_per_story(self):
+        """story_genres maps story_id to its target_candidates list."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "anderson/bell": ["fantasy"],
+                    "anderson/fir_tree": ["fantasy", "humor"],
+                },
+            )
+            result = sources.load_candidates_genre_membership(str(path))
+        self.assertEqual(
+            result.story_genres,
+            {
+                "anderson/bell": ["fantasy"],
+                "anderson/fir_tree": ["fantasy", "humor"],
+            },
+        )
+
+    def test_multi_label_preserved(self):
+        """A story with more than one candidate genre keeps every label."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = _write_candidates_jsonl(
+                tmp_dir, {"anderson/fir_tree": ["fantasy", "humor"]}
+            )
+            result = sources.load_candidates_genre_membership(str(path))
+        self.assertEqual(len(result.story_genres["anderson/fir_tree"]), 2)
+
+    def test_source_revision_is_content_hash(self):
+        """source_revision changes when the file content changes."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path_a = _write_candidates_jsonl(tmp_dir, {"a/b": ["fantasy"]})
+            result_a = sources.load_candidates_genre_membership(str(path_a))
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path_b = _write_candidates_jsonl(tmp_dir, {"a/b": ["horror"]})
+            result_b = sources.load_candidates_genre_membership(str(path_b))
+        self.assertNotEqual(result_a.source_revision, result_b.source_revision)
+
+
 if __name__ == "__main__":
     unittest.main()

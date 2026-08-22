@@ -55,5 +55,34 @@ class TestTotalCount(unittest.TestCase):
         self.assertEqual(analysis.total_count({}), 0)
 
 
+class TestWordFrequencies(unittest.TestCase):
+    """Tests for word_frequencies."""
+
+    def test_counts_words_across_texts(self):
+        """Word counts aggregate across every text in the list."""
+        result = analysis.word_frequencies(["castle castle dragon", "castle knight"])
+        self.assertEqual(result["castle"], 3)
+        self.assertEqual(result["dragon"], 1)
+        self.assertEqual(result["knight"], 1)
+
+    def test_excludes_stopwords_and_short_tokens(self):
+        """Stopwords and short tokens are excluded (via story_analysis.get_keywords)."""
+        result = analysis.word_frequencies(["the a of dragon"])
+        self.assertNotIn("the", result)
+        self.assertNotIn("a", result)
+        self.assertNotIn("of", result)
+        self.assertIn("dragon", result)
+
+    def test_top_k_limits_result_size(self):
+        """At most top_k terms are returned."""
+        text = " ".join(f"word{i}" for i in range(10))
+        result = analysis.word_frequencies([text], top_k=3)
+        self.assertLessEqual(len(result), 3)
+
+    def test_empty_texts_returns_empty(self):
+        """An empty text list returns an empty mapping."""
+        self.assertEqual(analysis.word_frequencies([]), {})
+
+
 if __name__ == "__main__":
     unittest.main()

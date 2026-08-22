@@ -1,9 +1,17 @@
-"""Source adapters converting real LCATS/corpus artifacts into genre-count data.
+"""Source adapters converting real LCATS/corpus artifacts into analysis data.
 
 Genre labels are not part of the native LCATS story representation
 (``lcats.stories.Story``/``Corpora`` load only ``story.json``). This module
 reads whichever real, checked-in artifact actually carries genre counts,
 rather than assuming genre already lives on ``Story``.
+
+For per-story identity (needed to join external artifacts like
+``candidates.jsonl`` to loaded story text), this module derives ``story_id``
+directly from ``discovery.iter_collection_story_files``'s yielded paths.
+``lcats.stories.Corpora.get_corpora()`` cannot be used for this: it discards
+story paths entirely, returning bare ``Story`` objects (``name``/``body``/
+``metadata`` only), and both title-matching and deriving identity from
+``metadata.name`` are demonstrably ambiguous/lossy against the real corpus.
 """
 
 import dataclasses
@@ -11,9 +19,15 @@ import hashlib
 import json
 import pathlib
 
+from lcats.analysis.corpus import discovery
+
 DEFAULT_FULL_SCAN_SUMMARY_PATH = (
     "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json"
 )
+DEFAULT_CANDIDATES_JSONL_PATH = (
+    "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl"
+)
+DEFAULT_CORPORA_ROOT = "corpora"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -27,26 +41,50 @@ class GenreCounts:
     no_usable_signal_count: int
 
 
-def _resolve_summary_json_path(summary_json_path: str) -> pathlib.Path:
-    """Resolve a (possibly repo-root-relative) summary.json path.
+@dataclasses.dataclass(frozen=True)
+class CorpusSnapshot:
+    """Full-corpus story text keyed by story_id, with reproducibility metadata."""
+
+    texts: dict
+    source_path: str
+    source_revision: str
+
+
+@dataclasses.dataclass(frozen=True)
+class GenreMembership:
+    """Per-story genre-candidate membership, with reproducibility metadata."""
+
+    story_genres: dict
+    source_path: str
+    source_revision: str
+
+
+def _resolve_repo_relative_path(path_str: str) -> pathlib.Path:
+    """Resolve a (possibly repo-root-relative) path.
 
     ``AGENTS.md`` documents running ``lcats`` commands from inside the
-    ``lcats/`` package directory, but the checked-in full-scan artifact
-    lives at a repository-root-relative path (a sibling of ``lcats/``, not
-    inside it). If the path doesn't resolve against the current working
-    directory, fall back to resolving it against the repository root --
-    one level above the installed ``lcats/`` package directory that this
-    module itself lives under -- so the documented default works
-    regardless of which of those two directories the command is run from.
+    ``lcats/`` package directory, but checked-in artifacts outside the
+    package (``experiments/``, ``corpora/``) live at repository-root-relative
+    paths (siblings of ``lcats/``, not inside it). If the path doesn't
+    resolve against the current working directory, fall back to resolving
+    it against the repository root -- one level above the installed
+    ``lcats/`` package directory that this module itself lives under -- so
+    documented defaults work regardless of which of those two directories
+    the command is run from.
     """
-    candidate = pathlib.Path(summary_json_path)
+    candidate = pathlib.Path(path_str)
     if candidate.is_absolute() or candidate.exists():
         return candidate
     repo_root = pathlib.Path(__file__).resolve().parents[4]
-    repo_relative = repo_root / summary_json_path
+    repo_relative = repo_root / path_str
     if repo_relative.exists():
         return repo_relative
     return candidate
+
+
+def _resolve_summary_json_path(summary_json_path: str) -> pathlib.Path:
+    """Resolve a (possibly repo-root-relative) summary.json path."""
+    return _resolve_repo_relative_path(summary_json_path)
 
 
 def load_full_scan_genre_counts(
@@ -89,4 +127,69 @@ def load_full_scan_genre_counts(
         source_path=str(path),
         source_revision=hashlib.sha256(raw_bytes).hexdigest(),
         no_usable_signal_count=no_usable_signal_count,
+    )
+
+
+def load_corpus_stories(
+    corpora_root: str = DEFAULT_CORPORA_ROOT,
+) -> CorpusSnapshot:
+    """Load every story's body text, keyed by a stable ``story_id``.
+
+    ``story_id`` is derived directly from ``discovery.iter_collection_story_files``'s
+    yielded paths (``<collection>/<slug>``), not from ``Corpora``, which
+    discards this identity entirely. This is the only reliable join key
+    against external per-story artifacts such as ``candidates.jsonl``.
+
+    ``source_revision`` is a content hash over every consumed story file
+    (sorted ``story_id:sha256(file_bytes)`` pairs, hashed together), so any
+    change to the story set or any story's content changes the revision.
+    """
+    root = _resolve_repo_relative_path(corpora_root)
+    texts = {}
+    file_hashes = []
+    for collection_dir in sorted(
+        p for p in root.iterdir() if p.is_dir() and not p.is_symlink()
+    ):
+        for story_path in discovery.iter_collection_story_files(collection_dir):
+            story_id = f"{collection_dir.name}/{story_path.parent.name}"
+            raw_bytes = story_path.read_bytes()
+            data = json.loads(raw_bytes)
+            texts[story_id] = data.get("body", "")
+            file_hashes.append(f"{story_id}:{hashlib.sha256(raw_bytes).hexdigest()}")
+
+    revision = hashlib.sha256(
+        "\n".join(sorted(file_hashes)).encode("utf-8")
+    ).hexdigest()
+    return CorpusSnapshot(
+        texts=texts,
+        source_path=str(root),
+        source_revision=revision,
+    )
+
+
+def load_candidates_genre_membership(
+    candidates_jsonl_path: str = DEFAULT_CANDIDATES_JSONL_PATH,
+) -> GenreMembership:
+    """Load per-story genre-candidate membership from ``candidates.jsonl``.
+
+    Reads ``story_id`` and ``metadata_assessment.result.target_candidates``
+    from each row. ``target_candidates`` is multi-label -- a story may
+    belong to more than one genre's subset; this is preserved as-is, not
+    deduplicated or reduced to a single "primary" genre.
+    """
+    path = _resolve_repo_relative_path(candidates_jsonl_path)
+    raw_bytes = path.read_bytes()
+    story_genres = {}
+    for line in raw_bytes.decode("utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        row = json.loads(line)
+        candidates = row["metadata_assessment"]["result"]["target_candidates"]
+        story_genres[row["story_id"]] = list(candidates)
+
+    return GenreMembership(
+        story_genres=story_genres,
+        source_path=str(path),
+        source_revision=hashlib.sha256(raw_bytes).hexdigest(),
     )

@@ -86,5 +86,77 @@ class TestPlotGenreWordcloud(unittest.TestCase):
             os.unlink(path2)
 
 
+class TestPlotWordFrequencyBarChart(unittest.TestCase):
+    """Tests for plot_word_frequency_bar_chart."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_returns_fig_ax(self):
+        """Function returns a (fig, ax) tuple."""
+        with capture.suppress_output():
+            fig, ax = rendering.plot_word_frequency_bar_chart(_make_counts())
+        self.assertIsInstance(fig, plt.Figure)
+        self.assertIsNotNone(ax)
+
+    def test_title_and_labels(self):
+        """Title and axis labels are word-frequency-specific, not genre-specific."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_word_frequency_bar_chart(_make_counts())
+        self.assertEqual(ax.get_title(), "Word Frequency")
+        self.assertEqual(ax.get_xlabel(), "Word")
+        self.assertEqual(ax.get_ylabel(), "Frequency")
+
+
+class TestPlotWordFrequencyWordcloud(unittest.TestCase):
+    """Tests for plot_word_frequency_wordcloud."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_returns_fig_ax(self):
+        """Function returns a (fig, ax) tuple."""
+        with capture.suppress_output():
+            fig, ax = rendering.plot_word_frequency_wordcloud(_make_counts())
+        self.assertIsInstance(fig, plt.Figure)
+        self.assertIsNotNone(ax)
+
+    def test_title_is_word_frequency_specific(self):
+        """Title is word-frequency-specific, not genre-specific."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_word_frequency_wordcloud(_make_counts())
+        self.assertEqual(ax.get_title(), "Word Frequency Word Cloud")
+
+
+class TestPlotBarChartGeneric(unittest.TestCase):
+    """Tests for the shared plot_bar_chart primitive."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_custom_title_and_labels(self):
+        """Custom title/labels are applied, confirming genre/word wrappers share this primitive."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_bar_chart(
+                _make_counts(), title="Custom", xlabel="X", ylabel="Y"
+            )
+        self.assertEqual(ax.get_title(), "Custom")
+        self.assertEqual(ax.get_xlabel(), "X")
+        self.assertEqual(ax.get_ylabel(), "Y")
+
+
+class TestPlotWordcloudGeneric(unittest.TestCase):
+    """Tests for the shared plot_wordcloud primitive."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_custom_title(self):
+        """Custom title is applied, confirming genre/word wrappers share this primitive."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_wordcloud(_make_counts(), title="Custom Cloud")
+        self.assertEqual(ax.get_title(), "Custom Cloud")
+
+
 if __name__ == "__main__":
     unittest.main()
