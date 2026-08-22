@@ -37,7 +37,7 @@ forbidden_actions:
 acceptance:
   - "A new `lcats.visualize` package (or equivalently named module) separates source adapters, analysis functions, and rendering functions per the proposal's Architecture Sketch, consuming `lcats.stories.Story`/`Corpora` directly rather than introducing a parallel document representation"
   - "Conventional-chart rendering reuses or extends `lcats.analysis.graph_plotters` rather than duplicating a parallel Matplotlib/Seaborn plotting API"
-  - "`lcats visualize genres` is registered under `lcats visualize` following the existing `subparsers.add_parser`/`build_*_parser(add_help=False)` CLI convention (see `stats`/`assess` in `cli.py`), and sources genre data through a named, real, full-corpus artifact: `experiments/05_metadata_genre_prefilter/results/full_scan/summary.json`'s `target_candidate_counts` field (1868/1868 stories) as the primary source, rather than assuming genre is already present in `Story.metadata` or building against the not-yet-checked-in `genre-sidecar-v1` schema"
+  - "`lcats visualize genres` is registered under `lcats visualize` following the existing `subparsers.add_parser`/`build_*_parser(add_help=False)` CLI convention (see `stats`/`assess` in `cli.py`), and sources genre data through a named, real, full-corpus artifact: `experiments/05_metadata_genre_prefilter/results/full_scan/summary.json`'s `genre_coverage.primary_target_genre_counts` field plus its `no_usable_signal_count` (together sum to exactly 1868/1868 stories, unlike the multi-label `target_candidate_counts` field which sums to 1807 due to double-counting stories with more than one candidate genre) as the primary source, rather than assuming genre is already present in `Story.metadata` or building against the not-yet-checked-in `genre-sidecar-v1` schema"
   - "If the source artifact covers a sample rather than the full corpus (e.g. `experiments/04_genre_census`'s checked-in `census_sample_summary.json` currently covers 20 of 1,868 stories, `mode: \"sample\"`), the command and its rendered output explicitly surface the source population, sample size/mode, and denominator — a sample must never be presented as an unqualified corpus-wide \"genre distribution\". A figure intended to represent the whole corpus requires a full-corpus artifact instead of a sample one."
   - "`lcats visualize genres` produces a genre-distribution word cloud and a conventional bar/distribution chart, each in PNG and, where the underlying renderer supports it, SVG/PDF vector output"
   - "The command emits an input-revision/content-identity value (e.g. corpus/sidecar commit SHA or a content hash of the specific files read) alongside its output, not only selectors/parameters/seed"
@@ -124,13 +124,16 @@ miss, both surfaced during the proposal's own review:
   figure could misrepresent a 20-story sample as the whole corpus — see
   the acceptance criterion requiring explicit population/sample-size/
   denominator disclosure.
+- **`full_scan/summary.json` is a `dry_run: true` artifact.** Confirm
+  during implementation whether a non-dry-run full-scan output exists or
+  is expected before this item completes, and whether that distinction
+  needs surfacing in the command's own output disclosure.
 
 ## Problem
 
-LCATS has no visualization CLI. Genre-distribution figures for the
-Worldcon 2026 paper are currently produced ad hoc. `Corpora`/`Story` (the
-native LCATS document representation) carry no genre information — genre
-lives entirely in separate artifacts.
+See "Problem / Context" above for the full narrative. In short: LCATS has
+no visualization CLI, and genre information lives entirely outside
+`Corpora`/`Story`.
 
 ## Scope
 
@@ -138,8 +141,12 @@ lives entirely in separate artifacts.
   and rendering, consuming `lcats.stories.Story`/`Corpora` directly.
 - `lcats visualize genres`, sourcing genre counts from
   `experiments/05_metadata_genre_prefilter/results/full_scan/summary.json`'s
-  `target_candidate_counts` field (a real, checked-in, full-corpus
-  1868/1868-story genre distribution) as the primary source.
+  `genre_coverage.primary_target_genre_counts` field plus its
+  `no_usable_signal_count` (together a real, checked-in, non-overlapping
+  full-corpus 1868/1868-story genre distribution — not the multi-label
+  `target_candidate_counts` field, which sums to 1807 due to
+  double-counting stories with more than one candidate genre) as the
+  primary source.
 - Word-cloud and conventional bar-chart rendering, PNG + vector output.
 - Reuse of `lcats.analysis.graph_plotters` for the conventional chart.
 - `wordcloud` and scikit-learn added as core dependencies.
@@ -166,9 +173,11 @@ lives entirely in separate artifacts.
    scaffold.
 2. `lcats/src/lcats/visualize/sources.py` — a
    `load_full_scan_genre_counts(summary_json_path)` adapter reading
-   `target_candidate_counts` from the full-scan `summary.json`, returning
-   a `{genre: count}` mapping plus the source's content hash/revision and
-   story-count denominator.
+   `genre_coverage.primary_target_genre_counts` (plus
+   `no_usable_signal_count` as an explicit "no signal" category) from the
+   full-scan `summary.json` — not the multi-label `target_candidate_counts`
+   field — returning a `{genre: count}` mapping plus the source's content
+   hash/revision and story-count denominator.
 3. `lcats/src/lcats/visualize/analysis.py` — pure functions operating on
    the `{genre: count}` mapping (already the shape needed; minimal
    transform).
@@ -202,7 +211,8 @@ lives entirely in separate artifacts.
 - `lrh validate`
 - `lcats visualize genres --output-dir /tmp/genre_viz`, confirming PNG
   (and vector where supported) output files are created, non-empty, and
-  the genre counts sum to 1868 with the source revision disclosed
+  the genre counts (from `primary_target_genre_counts` plus
+  `no_usable_signal_count`) sum to 1868 with the source revision disclosed
 
 ## Open Questions
 
