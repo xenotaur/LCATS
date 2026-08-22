@@ -66,7 +66,7 @@ for the harness's full layout and how to add a new candidate.
 
 ## What the evidence actually shows
 
-Ten candidates have now been run for real against this harness:
+Nine candidates have now been run for real against this harness:
 `anthropic_opus` (the frontier baseline), `anthropic_haiku`,
 `openai_gpt55`, `gemini_flash`, and five local Ollama models
 (`gemma4:12b`, `deepseek-r1:14b`, `qwen3:8b`, `qwen3:30b-a3b`, and
