@@ -39,5 +39,6 @@ cd LCATS/lcats
 ### Explanation
 
 - [Why stories live in per-story bucket directories](explanation/story-bucket-layout.md) — the storage-layout migration, what changed, and why
+- [Corpus analysis subsystem architecture](explanation/corpus-analysis-architecture.md) — design principles, data flow, and current capabilities of the text-quality/artifact-detection layer
+- [Why LCATS evaluates local models against the ERW pipeline](explanation/local-model-evaluation.md) — the cost problem, the `base_url` architecture decision, and what the evidence shows so far, per pipeline stage
 - Control-plane concepts live in [`project/README.md`](../project/README.md).
-- Corpus-analysis architecture details live in [`lcats/analysis/corpus/README.md`](../src/lcats/analysis/corpus/README.md).
