@@ -27,6 +27,28 @@ class GenreCounts:
     no_usable_signal_count: int
 
 
+def _resolve_summary_json_path(summary_json_path: str) -> pathlib.Path:
+    """Resolve a (possibly repo-root-relative) summary.json path.
+
+    ``AGENTS.md`` documents running ``lcats`` commands from inside the
+    ``lcats/`` package directory, but the checked-in full-scan artifact
+    lives at a repository-root-relative path (a sibling of ``lcats/``, not
+    inside it). If the path doesn't resolve against the current working
+    directory, fall back to resolving it against the repository root --
+    one level above the installed ``lcats/`` package directory that this
+    module itself lives under -- so the documented default works
+    regardless of which of those two directories the command is run from.
+    """
+    candidate = pathlib.Path(summary_json_path)
+    if candidate.is_absolute() or candidate.exists():
+        return candidate
+    repo_root = pathlib.Path(__file__).resolve().parents[4]
+    repo_relative = repo_root / summary_json_path
+    if repo_relative.exists():
+        return repo_relative
+    return candidate
+
+
 def load_full_scan_genre_counts(
     summary_json_path: str = DEFAULT_FULL_SCAN_SUMMARY_PATH,
 ) -> GenreCounts:
@@ -43,7 +65,7 @@ def load_full_scan_genre_counts(
     ``primary_target_genre_counts`` plus ``no_usable_signal_count`` is
     non-overlapping and sums to the full ``story_count``.
     """
-    path = pathlib.Path(summary_json_path)
+    path = _resolve_summary_json_path(summary_json_path)
     raw_bytes = path.read_bytes()
     data = json.loads(raw_bytes)
 

@@ -1,6 +1,7 @@
 """Unit tests for lcats.visualize.sources."""
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -91,6 +92,24 @@ class TestLoadFullScanGenreCounts(unittest.TestCase):
             )
             result = sources.load_full_scan_genre_counts(str(path))
         self.assertEqual(result.source_path, str(path))
+
+    def test_default_path_resolves_from_lcats_package_directory(self):
+        """The default path resolves even when run from inside lcats/.
+
+        AGENTS.md documents running lcats commands from inside the lcats/
+        package directory, but the checked-in full-scan artifact is a
+        repository-root-relative sibling of lcats/, not inside it. A
+        naive CWD-relative default would raise FileNotFoundError in that
+        documented usage.
+        """
+        lcats_package_dir = Path(__file__).resolve().parents[2]
+        original_cwd = Path.cwd()
+        try:
+            os.chdir(lcats_package_dir)
+            result = sources.load_full_scan_genre_counts()
+        finally:
+            os.chdir(original_cwd)
+        self.assertEqual(result.total_stories, 1868)
 
 
 if __name__ == "__main__":
