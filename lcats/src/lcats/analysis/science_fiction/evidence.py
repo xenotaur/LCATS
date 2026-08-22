@@ -784,7 +784,9 @@ def _string_tuple_value(
 ) -> tuple[tuple[str, ...], tuple[str, ...]]:
     if not isinstance(value, (list, tuple)):
         return (), (f"{key} must be an array of strings",)
-    return tuple(str(item) for item in value), ()
+    if not all(isinstance(item, str) for item in value):
+        return (), (f"{key} must be an array of strings",)
+    return tuple(value), ()
 
 
 def _required_string_field(

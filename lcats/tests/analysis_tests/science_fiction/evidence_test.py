@@ -183,6 +183,24 @@ class EvidenceTest(unittest.TestCase):
             "paragraph_ids must be an array", evidence_set.quarantined[0].reason
         )
 
+    def test_non_string_collection_items_are_quarantined(self):
+        prepared = _prepared_story()
+        candidate = {
+            "evidence_type": "character_reaction",
+            "quote": "Mara feared the engines",
+            "paraphrase": "A character reacts with fear.",
+            "confidence": 0.8,
+            "paragraph_ids": ["p00001"],
+            "entity_ids": [123],
+            "event_ids": [None],
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+        self.assertIn("entity_ids must be an array", evidence_set.quarantined[0].reason)
+
     def test_null_required_scalar_fields_are_quarantined(self):
         prepared = preparation.prepare_story_data(
             {"name": "None Story", "body": "None"},
@@ -570,6 +588,51 @@ class EvidenceTest(unittest.TestCase):
                     ),
                     linked_entity_ids=None,
                     linked_event_ids=None,
+                    confidence=0.8,
+                )
+            ],
+            explanations=[],
+        )
+
+        candidates = evidence.adapt_erw_annotation(annotation)
+        evidence_set = evidence.build_evidence_set(prepared, candidates)
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+        self.assertIn("entity_ids must be an array", evidence_set.quarantined[0].reason)
+
+    def test_erw_adapter_quarantines_non_string_linked_id_items(self):
+        prepared = _prepared_story()
+
+        @dataclasses.dataclass
+        class FakeSpan:
+            quote: str
+            paragraph_ids: list[str]
+
+        @dataclasses.dataclass
+        class FakeTag:
+            tag_id: str
+            tag: str
+            evidence: FakeSpan
+            linked_entity_ids: list[object]
+            linked_event_ids: list[object]
+            confidence: float
+
+        @dataclasses.dataclass
+        class FakeAnnotation:
+            sf_tags: list[FakeTag]
+            explanations: list
+
+        annotation = FakeAnnotation(
+            sf_tags=[
+                FakeTag(
+                    tag_id="tag-bad-ids",
+                    tag="anomaly_or_novum",
+                    evidence=FakeSpan(
+                        quote="old farms below froze", paragraph_ids=["p00003"]
+                    ),
+                    linked_entity_ids=[123],
+                    linked_event_ids=[None],
                     confidence=0.8,
                 )
             ],
