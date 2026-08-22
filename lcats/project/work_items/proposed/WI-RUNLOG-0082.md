@@ -25,8 +25,8 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - lcats gather's download loop (mass_quantities/gatherer.py) emits run_start, a per-story event, and run_end/run_aborted_*, per named gatherer
-  - lcats assess's per-file loop (assess_cli.py) emits the same event triad around each assess_story call
+  - lcats gather's shared gatherlib.gather() loop (used by the majority of individual gatherers — ohenry_four_million, ohenry_whirligigs, hemingway, chesterton, wilde_happy_prince, wodehouse, anderson, london, grimm) emits run_start, a per-story event, and run_end/run_aborted_*, writing to a log root outside the protected data/ tree — mass_quantities, sherlock, and lovecraft each implement their own separate gather() and are explicitly out of scope for this item (review finding, PR #352)
+  - lcats assess's per-file loop (assess_cli.py) emits the same event triad around each assess_story call, writing to a log destination defined by a new CLI option (assess has no existing checkpoint/working directory to reuse, and --output is the result-format file, not a durable working root)
   - lcats annotate's per-story/per-collection loop (annotate.py) emits the same triad, reusing its existing checkpoint_dir as the log's home
   - Each of the 3 commands' own test suites cover the new logging
   - lrh validate and scripts/test pass with 0 errors
@@ -35,7 +35,7 @@ required_evidence:
   - test_output
 artifacts_expected:
   - lcats/src/lcats/gatherers/main.py
-  - lcats/src/lcats/gatherers/mass_quantities/gatherer.py
+  - lcats/src/lcats/gatherers/gatherlib.py
   - lcats/src/lcats/analysis/corpus/assess_cli.py
   - lcats/src/lcats/analysis/corpus/annotate.py
 ---
@@ -72,18 +72,33 @@ additions of the same shape, not because they share code.
 
 ## Scope
 
-- Add logging hooks to each of the 3 commands' main loops
-- Do not unify the 3 commands into one shared caller — each keeps its
-  own call sites
+- Add logging hooks to `gatherlib.gather()` (the shared loop most
+  individual gatherers use), `assess_cli.py`, and `annotate.py`
+- Define an explicit, non-protected log destination for `gather` and
+  `assess`, since neither has one today (review finding, PR #352)
+- Do not unify these into one shared caller — each keeps its own call
+  sites
 - Do not change any command's existing checkpoint semantics
+- Does not instrument `mass_quantities`, `sherlock`, or `lovecraft`'s own
+  separate `gather()` implementations — explicitly deferred (see
+  Non-Goals)
 
 ## Required Changes
 
 1. `lcats gather`: hook `run_start`/per-story/`run_end` in
-   `mass_quantities/gatherer.py`'s `gather_stories`, and around
-   `main.py`'s per-gatherer loop.
+   `gatherlib.gather()` (`lcats/src/lcats/gatherers/gatherlib.py`), the
+   shared loop used by the majority of individual gatherers. Add a log
+   destination outside `data/`/`corpora/` — e.g. a `logs/gather/`
+   directory at the project root, or an explicit `--log-dir` CLI option
+   threaded from `main.py`'s per-gatherer loop — since `RunLog` rejects
+   any root under those protected trees (WI-RUNLOG-0078).
 2. `lcats assess`: hook the same triad around `assess_cli.py`'s
-   `for file_path in tqdm.tqdm(files, ...)` loop.
+   `for file_path in tqdm.tqdm(files, ...)` loop. Add a new CLI option
+   (e.g. `--log-path`) for the log destination, since `assess` has no
+   existing checkpoint/working directory and `--output` is the
+   result-format file, not a durable working root; document the
+   behavior when the option is omitted (no log, or a default location —
+   implementor's choice, but must be specified, not left ambiguous).
 3. `lcats annotate`: hook the same triad through
    `annotate_collections`/`annotate_collection`/`annotate_story`, log
    path under `args.checkpoint_dir`.
@@ -96,6 +111,12 @@ additions of the same shape, not because they share code.
   here.
 - Does not change any of the 3 commands' checkpoint resumability
   behavior.
+- Does not add run-log support to `mass_quantities/gatherer.py`,
+  `sherlock/gatherer.py`, or `lovecraft/gatherer.py` — each implements
+  its own separate `gather()`/`gather_stories()` not routed through
+  `gatherlib.gather()`; covering them is a follow-up item if warranted
+  (review finding, PR #352 — `lcats gather` is not implemented only by
+  `mass_quantities/gatherer.py`).
 
 ## Acceptance Criteria
 

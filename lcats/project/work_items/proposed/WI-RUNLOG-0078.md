@@ -27,9 +27,9 @@ forbidden_actions:
   - implement_run_prefilter_migration
 acceptance:
   - lcats.utils.run_log exists with a free function matching _log_run_event()'s shape and a RunLog context manager per the proposal's Decision 1
-  - RunLog re-validates its own working_root (or accepts only an already-validated CheckpointRoots) per Decision 3's review-finding requirement — a directly-constructed CheckpointRoots pointed at data/ or corpora/ is rejected, not silently accepted
-  - RunLog's __exit__ emits run_end on clean exit and run_aborted_fatal / run_aborted_unexpected on exception, per Decision 1's event-name family
-  - Unit tests cover the crash-safety property (no buffered-but-unflushed line lost), the protected-root rejection, and both exit-path event types
+  - RunLog always re-validates whatever working_root/CheckpointRoots it is given by re-running checkpoint.resolve_roots()'s own protected-root guard — it never trusts a caller-supplied CheckpointRoots as already-validated, since CheckpointRoots is a plain frozen dataclass with no way to distinguish a resolve_roots() result from a directly-constructed one (review finding, PR #352) — a directly-constructed CheckpointRoots pointed at data/ or corpora/ is rejected, not silently accepted
+  - RunLog defines how __exit__ classifies a propagated exception as fatal vs. unexpected — either an explicit fatal_exceptions parameter callers supply (e.g. FatalValidationError, FatalCensusError, FatalPilotError), or a documented requirement that callers emit the fatal event themselves before re-raising (review finding, PR #352) — RunLog's __exit__ emits run_end on clean exit and run_aborted_fatal / run_aborted_unexpected on exception per that classification
+  - Unit tests cover the crash-safety property (no buffered-but-unflushed line lost), the protected-root rejection (including a directly-constructed CheckpointRoots, not only a bare Path), and both exit-path event types under the chosen classification mechanism
   - lrh validate and scripts/test pass with 0 errors
 required_evidence:
   - lrh_validate
@@ -60,8 +60,9 @@ finding on PR #338 — a caller-constructed `CheckpointRoots` bypassing
 
 ### Duplication search
 - In-repo: No existing implementation. `_log_run_event()` in
-  `run_prefilter.py:883-905` is the pattern being generalized, not a
-  duplicate to avoid.
+  `run_prefilter.py:1005-1027` (current `main` — line numbers shifted
+  since the governing proposal was written; corrected per review finding,
+  PR #352) is the pattern being generalized, not a duplicate to avoid.
 - Sibling repos: None identified.
 - External libraries: Considered and rejected in the proposal itself
   (stdlib `logging`, `structlog`/`loguru`) — not revisited here.
@@ -87,10 +88,17 @@ finding on PR #338 — a caller-constructed `CheckpointRoots` bypassing
 1. Create `lcats/src/lcats/utils/run_log.py` with the free function and
    `RunLog` class.
 2. `RunLog.__init__` accepts a `checkpoint.CheckpointRoots` (or
-   `working_root`) and re-validates it (Decision 3).
+   `working_root`) and **always** re-runs `checkpoint.resolve_roots()`'s
+   own protected-root guard against it — never trusts that a supplied
+   `CheckpointRoots` was already validated (review finding, PR #352:
+   `CheckpointRoots` is a bare frozen dataclass, indistinguishable from a
+   hand-constructed one).
 3. `RunLog.__enter__`/`__exit__` emit
    `run_start`/`run_end`/`run_aborted_fatal`/`run_aborted_unexpected` per
-   Decision 1.
+   Decision 1, using an explicit fatal-vs-unexpected classification
+   mechanism (e.g. a `fatal_exceptions` constructor parameter) — define
+   and document this mechanism as part of the implementation, not left
+   implicit (review finding, PR #352).
 4. Create `lcats/tests/utils_tests/run_log_test.py`.
 
 ## Non-Goals
@@ -115,10 +123,14 @@ finding on PR #338 — a caller-constructed `CheckpointRoots` bypassing
 
 ## Risk Notes
 
-- The protected-root re-validation mechanism's exact shape is an open
-  question in the proposal — implementor has design latitude here,
-  should be conservative (reuse `checkpoint.resolve_roots`'s own guard
-  rather than reimplementing it).
+- The protected-root re-validation mechanism must reuse
+  `checkpoint.resolve_roots`'s own guard, not reimplement protected-path
+  logic separately — two independent implementations of "is this root
+  protected" is a drift risk the moment either one changes.
+- The fatal-vs-unexpected exception classifier is implementor's choice of
+  mechanism (parameter, decorator, caller-side pre-emit) but must be
+  concretely specified and tested — an unspecified classifier is exactly
+  the gap review flagged on PR #352.
 
 ## Related Workstream and Designs
 

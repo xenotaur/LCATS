@@ -25,7 +25,7 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - The classification loop emits run_start after roots resolution, a per-item event per story, run_aborted_fatal in the FatalCensusError branch, and run_end before the final summary write
+  - The classification loop emits run_start after roots resolution, a per-item event per story, and run_aborted_fatal in the FatalCensusError branch; run_end is emitted only after the final summary write succeeds, not before it — a failure while writing the summary produces run_aborted_unexpected instead (review finding, PR #352: run_end before the write is not a valid terminal-completion record)
   - Log path is <output_dir>/<prefix>_run_log.jsonl
   - A crash mid-run leaves a readable partial run log
   - lrh validate and scripts/test pass with 0 errors
@@ -71,7 +71,10 @@ until the final summary write. Proposal Decision 4 table entry.
 1. Hook `run_start` after `roots = checkpoint.resolve_roots(...)`.
 2. Hook a per-item event inside the target loop (or in `_classify_story`).
 3. Hook `run_aborted_fatal` in the `except FatalCensusError` branch.
-4. Hook `run_end` before the final summary write.
+4. Keep the run scope open through the final summary write; emit
+   `run_end` only after it succeeds, and `run_aborted_unexpected` if it
+   fails (review finding, PR #352 — do not emit `run_end` before the
+   write as originally scoped).
 
 ## Non-Goals
 

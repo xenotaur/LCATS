@@ -26,8 +26,9 @@ forbidden_actions:
   - delete_branch
   - change_copytree_semantics
 acceptance:
-  - promote_collections() emits run_start with the full collection list, promote_start/promote_end bracketing each _copy_collection call, collection_blocked for gated ones, and run_end/run_aborted_fatal
-  - Log path is dest_root / "promote_run.jsonl"
+  - promote_collections() emits run_start with the full collection list, promote_start/promote_end bracketing each _copy_collection call, collection_blocked for gated ones, and run_end/run_aborted_fatal/run_aborted_unexpected
+  - Log path is a location outside both --source (data/) and --dest (corpora/, the default) — e.g. a new logs/promote/ directory at the project root, or an explicit --log-dir CLI option — since dest_root / "promote_run.jsonl" as originally scoped would require RunLog to accept a write into corpora/, which WI-RUNLOG-0078 requires it to reject (review finding, PR #352)
+  - Both run_aborted_fatal (an account/environment-level failure, if any is defined for this command) and run_aborted_unexpected (an uncaught exception from surveying or _copy_collection) are covered — promote.py has no existing FatalPromoteError class, so an uncaught operational exception must not be silently uncategorized
   - A crash mid-copy leaves a readable partial log showing which collections completed and which was in flight
   - promote.py's existing test coverage is extended to cover the new logging
   - lrh validate and scripts/test pass with 0 errors
@@ -73,11 +74,20 @@ destroyed or half-written. Proposal Decision 4 table entry.
 ## Required Changes
 
 1. Hook `run_start` with the full collection list before the loop
-   (`promote.py:326-333`).
+   (`promote.py:326-333`), logging to a destination outside both
+   `--source`/`--dest` (both of which resolve to protected roots by
+   default — `data/`/`corpora/`) — e.g. a `logs/promote/` directory at
+   the project root, or a new `--log-dir` CLI option threaded from
+   `promote_cli.py`.
 2. Hook `promote_start`/`promote_end` bracketing each `_copy_collection`
    call.
 3. Hook `collection_blocked` for mojibake-gated collections.
-4. Hook `run_end`/`run_aborted_fatal`.
+4. Hook `run_end` on clean completion and `run_aborted_unexpected` for
+   an uncaught exception from surveying or `_copy_collection` — `promote.py`
+   has no existing `FatalPromoteError`/account-level fatal class, so
+   `run_aborted_fatal` alone would leave ordinary operational failures
+   (e.g. a permissions error mid-copy) unclassified (review finding,
+   PR #352).
 
 ## Non-Goals
 

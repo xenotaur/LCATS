@@ -27,7 +27,7 @@ forbidden_actions:
   - delete_branch
   - change_checkpoint_semantics
 acceptance:
-  - _run_stories() emits run_start before the per-story loop, a per-story event after each run_story()/exception resolution, and run_end/run_aborted_* around the final write block
+  - _run_stories() emits run_start before the per-story loop and a per-story event after each run_story()/exception resolution; the caller in main() emits run_end/run_aborted_* around the call to _run_stories() plus the pilot_stories.jsonl/pilot_usage.jsonl write block that follows it, since _run_stories() itself only returns (rows, usage_rows, aborted) and does not perform those writes (review finding, PR #352)
   - Log path is <output_dir>/pilot_run_log.jsonl, derived via RunLog's protected-root re-validation
   - A crash mid-run (e.g. simulated kill/exception) leaves a readable partial run log reflecting every story processed so far
   - experiments/03_cross_segment_relation_pilot/run_pilot_test.py covers the new logging, extended as needed
@@ -73,19 +73,26 @@ caused.
 
 ## Scope
 
-- Add `_log_run_event`/`RunLog` calls to `_run_stories()`
+- Add `_log_run_event`/`RunLog` calls to `_run_stories()` (per-story
+  events) and to `main()` (run_start/run_end/run_aborted_*, since the
+  final writes it wraps live there, not in `_run_stories()`)
 - Do not change existing per-item checkpointing semantics
 - Do not change `pilot_stories.jsonl`/`pilot_usage.jsonl`'s own format
 
 ## Required Changes
 
-1. Hook `run_start` before the loop in `_run_stories()` (~line 1811 call
-   site).
-2. Hook a per-story event after each `run_story`/exception branch
+1. Hook a per-story event inside `_run_stories()`'s loop (`run_pilot.py`
+   spans lines 1403-1500), after each `run_story`/exception branch
    resolves.
-3. Hook `run_end`/`run_aborted_*` around the final write block
-   (~1822-1833).
-4. Extend `run_pilot_test.py` to cover the new log.
+2. In `main()`, wrap the call to `_run_stories()` **and** the subsequent
+   `pilot_stories.jsonl`/`pilot_usage.jsonl` write block (`run_pilot.py:
+   1824-1832`) in a single `RunLog` scope — emitting `run_start` before
+   the call and `run_end` only after both files are written, so a
+   failure during those writes also produces `run_aborted_unexpected`
+   (review finding, PR #352 — `_run_stories()` itself only returns
+   `(rows, usage_rows, aborted)` and does not perform the writes).
+3. Extend `run_pilot_test.py` to cover the new log, including a case
+   where the final write block itself fails.
 
 ## Non-Goals
 
