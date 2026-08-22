@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0002_SELFREVIEW)[2026-08-22T06:05:29+00:
 work_item: AD_HOC
 status: in_progress
 rerun_of: 
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/353
+commit: 96a578f2
 created_at: 2026-08-22T06:05:36+00:00
 agent: codex_app
 instruction_source: prompt://lrh-self-review diff-mode WI-LINGUISTICS-0002
