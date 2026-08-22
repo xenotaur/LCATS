@@ -144,9 +144,7 @@ class RunLogTest(unittest.TestCase):
         working = self.tmp_dir / "results"
 
         with self.assertRaises(FatalError):
-            with run_log.RunLog(
-                working, "run.jsonl", fatal_exceptions=(FatalError,)
-            ) as log:
+            with run_log.RunLog(working, "run.jsonl", fatal_exceptions=(FatalError,)):
                 raise FatalError("account exhausted")
 
         lines = self._read_lines(working / "run.jsonl")
