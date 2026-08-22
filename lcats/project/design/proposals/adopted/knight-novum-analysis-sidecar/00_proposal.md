@@ -2,9 +2,9 @@
 id: PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR
 type: design_proposal
 title: Knight and Novum Analysis Pipeline and Science-Fiction Sidecar
-status: proposed
+status: adopted
 created_on: 2026-08-20
-updated_on: 2026-08-20
+updated_on: 2026-08-21
 implementation_status: not_started
 implemented_by: []
 supersedes: []

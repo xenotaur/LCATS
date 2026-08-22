@@ -11,7 +11,7 @@ related_focus:
 related_roadmap:
   - ROADMAP-CORE
 related_design:
-  - lcats/project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md
+  - lcats/project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
@@ -44,9 +44,9 @@ exit_criteria:
 
 ## Purpose
 
-This workstream coordinates planning for `PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR`, which proposes a checkpointed, evidence-grounded science-fiction analysis pipeline that prepares each story once, extracts a shared theory-neutral evidence layer, and applies independent Damon Knight and Darko Suvin adjudicators before assembling a versioned `science-fiction.json` sidecar (`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md:26`).
+This workstream coordinates planning for `PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR`, which proposes a checkpointed, evidence-grounded science-fiction analysis pipeline that prepares each story once, extracts a shared theory-neutral evidence layer, and applies independent Damon Knight and Darko Suvin adjudicators before assembling a versioned `science-fiction.json` sidecar (`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md:26`).
 
-The proposal was merged by PR #323 but still lives in the `proposed/` proposal bucket with `status: proposed`; its implementation plan says the multi-stage effort should be delivered through a new workstream after proposal adoption and through separately scoped work items rather than treated as authorization for a monolithic runtime change (`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md:466`). This workstream therefore records reviewable, provisional planning artifacts only: runtime implementation remains blocked until proposal adoption, this planning PR lands through the LRH lifecycle, and a ready leaf work item is explicitly selected.
+The proposal was merged by PR #323 and adopted as a governing design on 2026-08-21. Its implementation plan says the multi-stage effort should be delivered through a new workstream and separately scoped work items rather than treated as authorization for a monolithic runtime change (`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md:466`). Runtime implementation remains blocked until the relevant planning PR has landed through the LRH lifecycle, the target work item passes readiness review, and a ready leaf work item is explicitly selected.
 
 ## Scope
 
@@ -60,17 +60,17 @@ The proposal was merged by PR #323 but still lives in the `proposed/` proposal b
 
 ### Duplication search
 
-- In-repo: No duplicate Knight/Suvin analysis workstream, work item, runtime package, or `science-fiction.json` sidecar was found. The merged proposal itself records that related infrastructure exists but no duplicate Knight/Suvin analysis or sidecar exists (`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md:80`). A fresh search found only the proposal and its execution records for Knight/Novum terms, while existing sidecar work is `genre.json`-specific (`project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md:40`).
+- In-repo: No duplicate Knight/Suvin analysis workstream, work item, runtime package, or `science-fiction.json` sidecar was found. The merged proposal itself records that related infrastructure exists but no duplicate Knight/Suvin analysis or sidecar exists (`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md:80`). A fresh search found only the proposal and its execution records for Knight/Novum terms, while existing sidecar work is `genre.json`-specific (`project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md:40`).
 - Related implementation substrate: story discovery is now canonical bucket-only and excludes sibling sidecars by accepting only `<story>/story.json` (`src/lcats/analysis/corpus/discovery.py:63`); `lcats annotate` separates checkpoint bookkeeping from materialized sidecars and can rematerialize sidecars without repeated paid calls (`src/lcats/analysis/corpus/annotate.py:8`); checkpoint writes use atomic temp-file plus replace semantics (`src/lcats/utils/checkpoint.py:302`); `genre-sidecar-v1` validates append-only assessment sidecars without reading, writing, or promotion side effects (`src/lcats/analysis/corpus/genre_sidecar.py:1`).
 - Related but not duplicate ERW work: the Event-Role-World proposal defines evidence spans, SF world-model tags, and `anomaly_or_novum` (`project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md:34`), but it treats `anomaly_or_novum` as an interpretive hypothesis (`project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md:185`) and does not operationalize Knight criteria or Suvin's N/C/H conjunction.
 - Sibling repos: None identified by the user or repository context.
-- External libraries: No external library replaces the LCATS-specific literary-analysis, sidecar, and LRH governance work. General JSON/schema/evaluation libraries may inform future implementation, but the proposal explicitly prefers a pure-Python validator for Phase 1 (`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md:309`).
+- External libraries: No external library replaces the LCATS-specific literary-analysis, sidecar, and LRH governance work. General JSON/schema/evaluation libraries may inform future implementation, but the proposal explicitly prefers a pure-Python validator for Phase 1 (`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md:309`).
 - Recommendation: Proceed by extending the existing LCATS bucket, checkpoint, structured-output, validation, and genre-sidecar patterns rather than duplicating them. Treat ERW and scene/sequel outputs as optional evidence/navigation inputs, not prerequisites.
 
 ### Demand search
 
 - Work items: `WI-GENRE-0004` remains proposed and supplies the Worldcon sample dependency for Phase 3, not a Knight/Novum implementation item. Its current state is materially newer than the Knight/Novum proposal snapshot: a real no-cost full scan selected 146/160 target stories, estimated the gated validation run at $34.01, and left only the real Opus validation run outstanding (`project/work_items/proposed/WI-GENRE-0004.md:280`).
-- Proposals: `PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR` directly requests this workstream and work-item decomposition after proposal adoption (`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md:466`). `PROP-GENRE-EVIDENCE-SIDECARS` and `WS-GENRE-EVIDENCE-SIDECARS` request adjacent append-only `genre.json` evidence work, not theory-specific science-fiction analysis (`project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md:46`).
+- Proposals: `PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR` directly requests this workstream and work-item decomposition (`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md:466`). `PROP-GENRE-EVIDENCE-SIDECARS` and `WS-GENRE-EVIDENCE-SIDECARS` request adjacent append-only `genre.json` evidence work, not theory-specific science-fiction analysis (`project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md:46`).
 - Backlog: No matching Knight, Novum, science-fiction-analysis, rubric, or linguistic-feature backlog entry was found in `project/design/backlog.md` during the prior-art search.
 - Recommendation: Link this workstream to `WI-GENRE-0004` for the Phase 3 sample, and link ERW, checkpointing, bucket layout, annotation, and genre-sidecar artifacts as prior art. Do not close or rewrite related demand artifacts.
 
@@ -113,10 +113,10 @@ WI-SF-0010 decision -> WI-SF-0011 (separate integration gate)
 
 ### Parallelizable leaves
 
-- After proposal adoption, this planning PR landing, readiness review, and explicit leaf selection, WI-SF-0002 can begin with no primary-source dependency and no paid calls.
-- After proposal adoption, WI-SF-0001 can begin as a source-packet/data-contract planning item, but must not freeze Knight or Suvin rubric wording until authoritative primary-source excerpts or an approved repository source are supplied.
-- After proposal adoption and sufficient contract vocabulary, WI-SF-0007 can draft sampling and evaluation scaffolding in parallel, but final gates must wait for Phase 1 contract stability.
-- After proposal adoption and WI-SF-0002, WI-SF-0003 can start without final Knight/Suvin rubric wording because it is theory-neutral by design.
+- With proposal adoption and the planning PR landed, WI-SF-0002 can begin after readiness review and explicit leaf selection; it has no primary-source dependency and no paid calls.
+- WI-SF-0001 can begin as a source-packet/data-contract planning item after readiness review and explicit selection, but must not freeze Knight or Suvin rubric wording until authoritative primary-source excerpts or an approved repository source are supplied.
+- WI-SF-0007 can draft sampling and evaluation scaffolding after readiness review, explicit selection, and sufficient contract vocabulary, but final gates must wait for Phase 1 contract stability.
+- WI-SF-0003 can start after WI-SF-0002 without final Knight/Suvin rubric wording because it is theory-neutral by design.
 
 ## Exit Criteria
 

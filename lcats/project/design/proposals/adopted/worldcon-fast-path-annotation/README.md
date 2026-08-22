@@ -22,4 +22,4 @@ extractor.
   file-discovery convention, the `lcats stats` selector fix), non-goals,
   and implementation plan.
 
-Governed by [`WS-WORLDCON-FAST-PATH-ANNOTATION`](../../../../workstreams/proposed/WS-WORLDCON-FAST-PATH-ANNOTATION.md).
+Governed by [`WS-WORLDCON-FAST-PATH-ANNOTATION`](../../../../workstreams/resolved/WS-WORLDCON-FAST-PATH-ANNOTATION.md).

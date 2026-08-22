@@ -163,9 +163,9 @@ Each story is stored as JSON with consistent structure:
 ## Development
 
 ### Requirements
-- Python 3.6+
+- Python 3.10+
 - Dependencies listed in `pyproject.toml`
-- OpenAI API key (for LLM features)
+- Anthropic and/or OpenAI API key (for LLM features)
 
 ### Development Setup
 
@@ -273,6 +273,10 @@ Implemented:
 | `lcats assess <files>` | Assess corpus stories for quality and genre fit using the Claude API |
 | `lcats stats` | Compute corpus-level statistics |
 | `lcats repair-specials` | Generate dry-run Unicode/special-character repair proposals |
+| `lcats promote` | Promote clean `data/` collections into `corpora/` |
+| `lcats clean` | Clear `data/` and/or `cache/` contents |
+| `lcats annotate` | Annotate `data/` story buckets with genre/scene sidecars via the Claude API |
+| `lcats linguistics` | Analyze stories with a local NLP backend, writing `linguistics.json` sidecars |
 
 Placeholder (declared, not yet implemented):
 

@@ -2,14 +2,14 @@
 execution_id: 2026_08_21_17_55_30_WS_CORPUS_TEXT_VISUALIZATION
 prompt_id: PROMPT(AD_HOC:WS_CORPUS_TEXT_VISUALIZATION)[2026-08-21T17:55:24+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/335
-commit: 177289b9
+commit: 190181e7a4cf9eb3d626b29877a0e038e7ed1fb4
 created_at: 2026-08-21T17:55:30+00:00
 agent: claude-sonnet-5
 instruction_source: https://github.com/xenotaur/LCATS/pull/335
-session_transcript: pending
+session_transcript: claude-app:bd65a2ed-883b-400d-b621-0268bc17e85a
 ---
 
 # Summary

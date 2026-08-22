@@ -13,13 +13,13 @@ A Python source analysis tool that inventories public API surface area to help a
 **Usage:**
 ```bash
 # Generate markdown summary of a source tree
-python tools/sourcetree_surveyor.py lcats/lcats/utils --format md
+python tools/sourcetree_surveyor.py src/lcats/utils --format md
 
 # Generate JSON output for programmatic use
-python tools/sourcetree_surveyor.py lcats/lcats/utils --format json
+python tools/sourcetree_surveyor.py src/lcats/utils --format json
 
 # Include test file analysis (checks if corresponding tests exist)
-python tools/sourcetree_surveyor.py lcats/lcats/utils --tests-root lcats/tests/utils_tests --format md
+python tools/sourcetree_surveyor.py src/lcats/utils --tests-root tests/utils_tests --format md
 ```
 
 **Features:**
@@ -109,7 +109,7 @@ To create new templates:
 The tools understand LCATS project structure:
 
 - **Input**: `analysis/foo.py` or `lcats/analysis/foo.py` 
-- **Normalized**: `lcats/lcats/analysis/foo.py`
+- **Normalized**: `lcats/src/lcats/analysis/foo.py`
 - **Test Path**: `lcats/tests/analysis_tests/foo_test.py`
 
 This automatic path normalization ensures consistency across different working directories and input formats.

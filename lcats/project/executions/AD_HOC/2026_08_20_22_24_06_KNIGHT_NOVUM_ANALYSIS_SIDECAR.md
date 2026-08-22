@@ -8,7 +8,7 @@ pr: https://github.com/xenotaur/LCATS/pull/323
 commit: 9b8912c97355572b717864b692fe1bd650278b4d
 created_at: 2026-08-20T22:24:06+00:00
 agent: codex_app
-instruction_source: project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md
+instruction_source: project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md
 session_transcript: pending
 ---
 
@@ -21,7 +21,7 @@ LCATS proposal and open it as a draft pull request for human review.
 # Result
 
 Created
-`project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md`
+`project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md`
 as `PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR`. The proposal chooses shared
 theory-neutral extraction with independent Knight and Suvin adjudication,
 adaptive whole-story/paragraph-aligned processing, deterministic scoring, and

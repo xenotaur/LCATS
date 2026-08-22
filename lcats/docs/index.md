@@ -33,6 +33,8 @@ cd LCATS/lcats
 - [Linguistic sidecar schema](reference/linguistics-sidecar.md) — `linguistics.json`, token-detail, and run-summary fields
 - [LLMBackend reference](reference/llm-backend.md) — the `LLMBackend` Protocol and its providers
 - [Corpus promotion (`lcats promote`)](reference/corpus-promotion.md) — command reference and collection-name mapping
+- [Full-corpus genre census](../../experiments/04_genre_census/README.md) — `lcats assess`'s detect-mode classifier run across the full corpus, with real per-genre counts
+- [Metadata genre prefilter](../../experiments/05_metadata_genre_prefilter/README.md) — the metadata-rule evidence pilot backing the genre-balanced corpus selection
 
 ### Explanation
 

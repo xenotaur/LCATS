@@ -33,7 +33,7 @@ The invoking session independently re-verified the proposal status and implement
 # Validation
 
 - `nl -ba project/workstreams/proposed/WS-KNIGHT-NOVUM-ANALYSIS.md`
-- `nl -ba project/design/proposals/proposed/knight-novum-analysis-sidecar/00_proposal.md`
+- `nl -ba project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md`
 - `nl -ba project/work_items/proposed/WI-SF-0008.md`
 - `nl -ba project/work_items/proposed/WI-SF-0009.md`
 - `nl -ba project/executions/AD_HOC/2026_08_21_07_38_27_WS_KNIGHT_NOVUM_ANALYSIS.md`

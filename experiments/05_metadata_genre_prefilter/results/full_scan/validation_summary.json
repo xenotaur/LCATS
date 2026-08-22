@@ -1,0 +1,72 @@
+{
+  "aborted": false,
+  "agreement_by_genre": {
+    "adventure": {
+      "agreement_count": 5,
+      "agreement_rate": 0.8333333333333334,
+      "disagreement_count": 1,
+      "error_count": 0,
+      "validated_count": 6
+    },
+    "fantasy": {
+      "agreement_count": 20,
+      "agreement_rate": 1.0,
+      "disagreement_count": 0,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "horror": {
+      "agreement_count": 20,
+      "agreement_rate": 1.0,
+      "disagreement_count": 0,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "humor": {
+      "agreement_count": 16,
+      "agreement_rate": 0.8,
+      "disagreement_count": 4,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "mystery": {
+      "agreement_count": 18,
+      "agreement_rate": 0.9,
+      "disagreement_count": 2,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "romance": {
+      "agreement_count": 14,
+      "agreement_rate": 0.7,
+      "disagreement_count": 6,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "science fiction": {
+      "agreement_count": 19,
+      "agreement_rate": 0.95,
+      "disagreement_count": 1,
+      "error_count": 0,
+      "validated_count": 20
+    },
+    "western": {
+      "agreement_count": 15,
+      "agreement_rate": 0.75,
+      "disagreement_count": 5,
+      "error_count": 0,
+      "validated_count": 20
+    }
+  },
+  "agreement_count": 127,
+  "agreement_rate": 0.8698630136986302,
+  "disagreement_count": 19,
+  "error_count": 0,
+  "model": "claude-opus-4-8",
+  "processed_count": 146,
+  "run_id": "2026-08-21T18:55:51.831553Z",
+  "selected_count": 146,
+  "total_estimated_cost_usd": 36.316575,
+  "total_input_tokens": 2086375,
+  "total_output_tokens": 66946
+}
