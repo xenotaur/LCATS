@@ -135,6 +135,8 @@ def prepare_story_file(
         )
     with path.open("r", encoding="utf-8") as handle:
         story_data = json.load(handle)
+    if not isinstance(story_data, dict):
+        raise TypeError(f"story file must contain a JSON object: {path}")
     return prepare_story_data(story_data, story_path=path, config=config)
 
 
@@ -258,8 +260,9 @@ def plan_chunks(
 
     core_ranges = _core_ranges(paragraphs, config=config)
     for index, (core_start, core_end) in enumerate(core_ranges):
-        chunk_start = max(0, core_start - config.chunk_overlap_paragraphs)
-        chunk_end = min(len(paragraphs), core_end + config.chunk_overlap_paragraphs)
+        chunk_start, chunk_end = _chunk_window_for_core(
+            paragraphs, core_start=core_start, core_end=core_end, config=config
+        )
         yield _build_chunk(
             index=index,
             chunk_paragraphs=paragraphs[chunk_start:chunk_end],
@@ -290,32 +293,99 @@ def _choose_core_end(
     start: int,
     config: PreparationConfig,
 ) -> int:
-    end = start
-    char_count = 0
-    preferred_end: int | None = None
-    while end < len(paragraphs):
-        paragraph = paragraphs[end]
-        separator_chars = 2 if end > start else 0
-        projected = char_count + separator_chars + len(paragraph.text)
-        if end > start and projected > config.chunk_max_chars:
-            break
-        char_count = projected
-        end += 1
+    candidates: list[tuple[int, int, bool]] = []
+    for end in range(start + 1, len(paragraphs) + 1):
         if (
-            end < len(paragraphs)
-            and paragraphs[end].is_section_boundary
-            and char_count >= config.chunk_target_chars
+            _planned_chunk_len(
+                paragraphs, core_start=start, core_end=end, config=config
+            )
+            > config.chunk_max_chars
         ):
-            preferred_end = end
+            if end == start + 1:
+                candidates.append(
+                    (end, _paragraph_window_len(paragraphs, start, end), False)
+                )
             break
-        if char_count >= config.chunk_target_chars:
-            break
+        core_len = _paragraph_window_len(paragraphs, start, end)
+        boundary_after = end < len(paragraphs) and paragraphs[end].is_section_boundary
+        candidates.append((end, core_len, boundary_after))
 
-    if preferred_end is not None and preferred_end > start:
-        return preferred_end
-    if end == start:
+    if not candidates:
         return start + 1
-    return end
+
+    boundary_candidates = [candidate for candidate in candidates if candidate[2]]
+    if boundary_candidates:
+        return min(
+            boundary_candidates,
+            key=lambda candidate: (
+                abs(candidate[1] - config.chunk_target_chars),
+                candidate[0],
+            ),
+        )[0]
+
+    target_candidates = [
+        candidate
+        for candidate in candidates
+        if candidate[1] >= config.chunk_target_chars
+    ]
+    if target_candidates:
+        return target_candidates[0][0]
+    return candidates[-1][0]
+
+
+def _planned_chunk_len(
+    paragraphs: tuple[Paragraph, ...],
+    *,
+    core_start: int,
+    core_end: int,
+    config: PreparationConfig,
+) -> int:
+    chunk_start = max(0, core_start - config.chunk_overlap_paragraphs)
+    chunk_end = min(len(paragraphs), core_end + config.chunk_overlap_paragraphs)
+    return _paragraph_window_len(paragraphs, chunk_start, chunk_end)
+
+
+def _chunk_window_for_core(
+    paragraphs: tuple[Paragraph, ...],
+    *,
+    core_start: int,
+    core_end: int,
+    config: PreparationConfig,
+) -> tuple[int, int]:
+    chunk_start = core_start
+    chunk_end = core_end
+
+    for _ in range(config.chunk_overlap_paragraphs):
+        candidate_start = chunk_start - 1
+        if candidate_start < 0:
+            break
+        if (
+            _paragraph_window_len(paragraphs, candidate_start, chunk_end)
+            > config.chunk_max_chars
+        ):
+            break
+        chunk_start = candidate_start
+
+    for _ in range(config.chunk_overlap_paragraphs):
+        candidate_end = chunk_end + 1
+        if candidate_end > len(paragraphs):
+            break
+        if (
+            _paragraph_window_len(paragraphs, chunk_start, candidate_end)
+            > config.chunk_max_chars
+        ):
+            break
+        chunk_end = candidate_end
+
+    return chunk_start, chunk_end
+
+
+def _paragraph_window_len(
+    paragraphs: tuple[Paragraph, ...],
+    start: int,
+    end: int,
+) -> int:
+    return paragraphs[end - 1].end_char - paragraphs[start].start_char
 
 
 def _build_chunk(

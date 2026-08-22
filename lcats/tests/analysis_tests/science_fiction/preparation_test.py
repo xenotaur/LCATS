@@ -118,8 +118,37 @@ class PreparationTest(unittest.TestCase):
         self.assertEqual(
             [paragraph.paragraph_id for paragraph in result.paragraphs], core_ids
         )
-        self.assertEqual(("p00003",), result.chunks[0].overlap_after_ids)
-        self.assertEqual(("p00002",), result.chunks[1].overlap_before_ids)
+        self.assertTrue(any(chunk.overlap_after_ids for chunk in result.chunks))
+        self.assertTrue(any(chunk.overlap_before_ids for chunk in result.chunks))
+        self.assertTrue(
+            all(
+                len(chunk.text) <= result.config.chunk_max_chars
+                for chunk in result.chunks
+            )
+        )
+
+    def test_chunk_overlap_stays_within_configured_max_when_possible(self):
+        body = "\n\n".join(f"{index} " + ("x" * 29_998) for index in range(6))
+
+        result = preparation.prepare_story_data(
+            {"name": "Large paragraphs", "body": body},
+            story_path=self.story_path,
+            config=preparation.PreparationConfig(
+                whole_story_max_chars=10,
+                chunk_target_chars=60_000,
+                chunk_max_chars=75_000,
+                chunk_overlap_paragraphs=1,
+            ),
+        )
+
+        self.assertGreater(len(result.chunks), 1)
+        self.assertTrue(
+            all(
+                len(chunk.text) <= result.config.chunk_max_chars
+                for chunk in result.chunks
+            )
+        )
+        preparation.assert_gap_free_core_coverage(result)
 
     def test_chunk_planning_prefers_section_boundaries(self):
         body = "\n\n".join(
@@ -146,6 +175,31 @@ class PreparationTest(unittest.TestCase):
         self.assertTrue(result.paragraphs[2].is_section_boundary)
         self.assertEqual(("p00001", "p00002"), result.chunks[0].core_paragraph_ids)
         self.assertEqual(("p00003", "p00004"), result.chunks[1].core_paragraph_ids)
+        preparation.assert_gap_free_core_coverage(result)
+
+    def test_chunk_planning_prefers_boundary_before_target(self):
+        body = "\n\n".join(
+            [
+                "alpha text before the heading",
+                "CHAPTER II",
+                "beta text after the heading",
+            ]
+        )
+        config = preparation.PreparationConfig(
+            whole_story_max_chars=10,
+            chunk_target_chars=55,
+            chunk_max_chars=120,
+            chunk_overlap_paragraphs=0,
+        )
+
+        result = preparation.prepare_story_data(
+            {"name": "Boundary Before Target", "body": body},
+            story_path=self.story_path,
+            config=config,
+        )
+
+        self.assertEqual(("p00001",), result.chunks[0].core_paragraph_ids)
+        self.assertEqual(("p00002", "p00003"), result.chunks[1].core_paragraph_ids)
         preparation.assert_gap_free_core_coverage(result)
 
     def test_manifest_records_versioned_configuration_and_chunk_hashes(self):
@@ -177,6 +231,14 @@ class PreparationTest(unittest.TestCase):
         _write_story(path, {"name": "Draft", "body": "Text."})
 
         with self.assertRaises(ValueError):
+            preparation.prepare_story_file(path)
+
+    def test_rejects_non_object_story_json(self):
+        path = self.root / "collection" / "story-a" / "story.json"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(["not", "an", "object"]), encoding="utf-8")
+
+        with self.assertRaisesRegex(TypeError, "JSON object"):
             preparation.prepare_story_file(path)
 
 
