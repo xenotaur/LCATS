@@ -422,67 +422,88 @@ def adapt_erw_annotation(
         if evidence_type is None:
             continue
         evidence_span = getattr(raw_tag, "evidence", None)
+        quote, quote_errors = _required_string_value(
+            getattr(evidence_span, "quote", None), "quote"
+        )
+        paragraph_ids, paragraph_errors = _string_tuple_value(
+            getattr(evidence_span, "paragraph_ids", ()), "paragraph_ids"
+        )
+        entity_ids, entity_errors = _string_tuple_value(
+            getattr(raw_tag, "linked_entity_ids", ()), "entity_ids"
+        )
+        event_ids, event_errors = _string_tuple_value(
+            getattr(raw_tag, "linked_event_ids", ()), "event_ids"
+        )
         candidates.append(
             EvidenceCandidate(
                 evidence_type=evidence_type,
-                quote=str(getattr(evidence_span, "quote", "")),
+                quote=quote,
                 paraphrase=tag.replace("_", " "),
                 confidence=_coerce_confidence(getattr(raw_tag, "confidence", 0.0)),
                 source_chunk_id=source_chunk_id,
-                paragraph_ids=tuple(
-                    str(value)
-                    for value in (getattr(evidence_span, "paragraph_ids", ()) or ())
-                ),
+                paragraph_ids=paragraph_ids,
                 start_char=_translated_erw_offset(
                     getattr(evidence_span, "start_char", None), segment_start_char
                 ),
                 end_char=_translated_erw_offset(
                     getattr(evidence_span, "end_char", None), segment_start_char
                 ),
-                entity_ids=tuple(
-                    str(value) for value in getattr(raw_tag, "linked_entity_ids", ())
-                ),
-                event_ids=tuple(
-                    str(value) for value in getattr(raw_tag, "linked_event_ids", ())
-                ),
+                entity_ids=entity_ids,
+                event_ids=event_ids,
                 raw_id=_optional_string(getattr(raw_tag, "tag_id", None)),
                 source="erw",
+                schema_errors=(
+                    quote_errors + paragraph_errors + entity_errors + event_errors
+                ),
             )
         )
 
     for raw_explanation in getattr(annotation, "explanations", ()) or ():
         evidence_span = getattr(raw_explanation, "evidence", None)
+        quote, quote_errors = _required_string_value(
+            getattr(evidence_span, "quote", None), "quote"
+        )
+        paraphrase, paraphrase_errors = _required_string_value(
+            getattr(raw_explanation, "topic", None), "paraphrase"
+        )
+        paragraph_ids, paragraph_errors = _string_tuple_value(
+            getattr(evidence_span, "paragraph_ids", ()), "paragraph_ids"
+        )
+        entity_ids, entity_errors = _string_tuple_value(
+            getattr(raw_explanation, "linked_entity_ids", ()), "entity_ids"
+        )
+        event_ids, event_errors = _string_tuple_value(
+            getattr(raw_explanation, "linked_event_ids", ()), "event_ids"
+        )
         candidates.append(
             EvidenceCandidate(
                 evidence_type="scientific_or_technical_explanation",
-                quote=str(getattr(evidence_span, "quote", "")),
-                paraphrase=str(getattr(raw_explanation, "topic", "")),
+                quote=quote,
+                paraphrase=paraphrase,
                 confidence=_coerce_confidence(
                     getattr(raw_explanation, "confidence", 0.0)
                 ),
                 source_chunk_id=source_chunk_id,
-                paragraph_ids=tuple(
-                    str(value)
-                    for value in (getattr(evidence_span, "paragraph_ids", ()) or ())
-                ),
+                paragraph_ids=paragraph_ids,
                 start_char=_translated_erw_offset(
                     getattr(evidence_span, "start_char", None), segment_start_char
                 ),
                 end_char=_translated_erw_offset(
                     getattr(evidence_span, "end_char", None), segment_start_char
                 ),
-                entity_ids=tuple(
-                    str(value)
-                    for value in getattr(raw_explanation, "linked_entity_ids", ())
-                ),
-                event_ids=tuple(
-                    str(value)
-                    for value in getattr(raw_explanation, "linked_event_ids", ())
-                ),
+                entity_ids=entity_ids,
+                event_ids=event_ids,
                 raw_id=_optional_string(
                     getattr(raw_explanation, "explanation_id", None)
                 ),
                 source="erw",
+                schema_errors=(
+                    quote_errors
+                    + paraphrase_errors
+                    + paragraph_errors
+                    + entity_errors
+                    + event_errors
+                ),
             )
         )
     return tuple(candidates)
@@ -755,7 +776,12 @@ def _string_tuple_field(
 ) -> tuple[tuple[str, ...], tuple[str, ...]]:
     if key not in data:
         return (), ()
-    value = data[key]
+    return _string_tuple_value(data[key], key)
+
+
+def _string_tuple_value(
+    value: Any, key: str
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
     if not isinstance(value, (list, tuple)):
         return (), (f"{key} must be an array of strings",)
     return tuple(str(item) for item in value), ()
@@ -766,7 +792,10 @@ def _required_string_field(
 ) -> tuple[str, tuple[str, ...]]:
     if key not in data:
         return "", (f"{key} is required",)
-    value = data[key]
+    return _required_string_value(data[key], key)
+
+
+def _required_string_value(value: Any, key: str) -> tuple[str, tuple[str, ...]]:
     if not isinstance(value, str):
         return "", (f"{key} must be a string",)
     return value, ()

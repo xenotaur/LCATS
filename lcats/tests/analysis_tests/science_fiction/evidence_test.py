@@ -492,6 +492,97 @@ class EvidenceTest(unittest.TestCase):
         self.assertEqual(1, len(evidence_set.records))
         self.assertEqual(segment_start, evidence_set.records[0].anchor.start_char)
 
+    def test_erw_adapter_quarantines_null_quote(self):
+        prepared = preparation.prepare_story_data(
+            {"name": "None Story", "body": "None"},
+            story_path="/tmp/collection/none-story/story.json",
+        )
+
+        @dataclasses.dataclass
+        class FakeSpan:
+            quote: object
+            paragraph_ids: list[str]
+
+        @dataclasses.dataclass
+        class FakeTag:
+            tag_id: str
+            tag: str
+            evidence: FakeSpan
+            linked_entity_ids: list[str]
+            linked_event_ids: list[str]
+            confidence: float
+
+        @dataclasses.dataclass
+        class FakeAnnotation:
+            sf_tags: list[FakeTag]
+            explanations: list
+
+        annotation = FakeAnnotation(
+            sf_tags=[
+                FakeTag(
+                    tag_id="tag-null",
+                    tag="anomaly_or_novum",
+                    evidence=FakeSpan(quote=None, paragraph_ids=[]),
+                    linked_entity_ids=[],
+                    linked_event_ids=[],
+                    confidence=0.8,
+                )
+            ],
+            explanations=[],
+        )
+
+        candidates = evidence.adapt_erw_annotation(annotation)
+        evidence_set = evidence.build_evidence_set(prepared, candidates)
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+        self.assertIn("quote must be a string", evidence_set.quarantined[0].reason)
+
+    def test_erw_adapter_quarantines_null_linked_ids(self):
+        prepared = _prepared_story()
+
+        @dataclasses.dataclass
+        class FakeSpan:
+            quote: str
+            paragraph_ids: list[str]
+
+        @dataclasses.dataclass
+        class FakeTag:
+            tag_id: str
+            tag: str
+            evidence: FakeSpan
+            linked_entity_ids: object
+            linked_event_ids: object
+            confidence: float
+
+        @dataclasses.dataclass
+        class FakeAnnotation:
+            sf_tags: list[FakeTag]
+            explanations: list
+
+        annotation = FakeAnnotation(
+            sf_tags=[
+                FakeTag(
+                    tag_id="tag-null-ids",
+                    tag="anomaly_or_novum",
+                    evidence=FakeSpan(
+                        quote="old farms below froze", paragraph_ids=["p00003"]
+                    ),
+                    linked_entity_ids=None,
+                    linked_event_ids=None,
+                    confidence=0.8,
+                )
+            ],
+            explanations=[],
+        )
+
+        candidates = evidence.adapt_erw_annotation(annotation)
+        evidence_set = evidence.build_evidence_set(prepared, candidates)
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+        self.assertIn("entity_ids must be an array", evidence_set.quarantined[0].reason)
+
 
 if __name__ == "__main__":
     unittest.main()
