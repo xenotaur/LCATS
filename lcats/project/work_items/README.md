@@ -16,6 +16,10 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
+- `proposed/WI-EVENT-0078.md` — Reconcile and preregister WI-EVENT-0030 for staged density execution
+- `proposed/WI-EVENT-0079.md` — Run the cross-segment density readiness gate
+- `proposed/WI-EVENT-0080.md` — Run a small real cross-segment density feasibility pilot
+- `proposed/WI-EVENT-0081.md` — Produce the final cross-segment density analysis package
 - `proposed/WI-ASSESS-0051.md` — Genre-census sample and cost-estimate tooling (Gap 2) - full-corpus run retired, see WI-GENRE-0004
 - `proposed/WI-EVENT-0033.md` — Add schema-hardened structured output to scene/story analysis extractors
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker

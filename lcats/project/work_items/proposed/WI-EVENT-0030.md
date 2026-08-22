@@ -13,7 +13,8 @@ assigned_agents: []
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
-related_workstreams: []
+related_workstreams:
+  - WS-PILOT-CROSS-SEGMENT-DENSITY
 related_design:
   - project/design/proposals/adopted/lcats-event-role-world-extractor/00_proposal.md
   - project/design/event-role-world-cross-segment-relations-evaluation.md
@@ -22,6 +23,9 @@ depends_on:
   - WI-EVENT-0029
   - WI-ASSESS-0031
   - WI-GENRE-0004
+  - WI-EVENT-0078
+  - WI-EVENT-0079
+  - WI-EVENT-0080
 blocked_by: []
 expected_actions:
   - create_file
@@ -68,6 +72,18 @@ Opus-validated 146-story genre-balanced set rather than independently
 reclassified — see Dependencies / Order for why that item's real output
 is now available and Scope for the real per-genre corpus counts and
 validation-agreement rates it measured.
+
+**Staged execution note (2026-08-22):** `WI-EVENT-0030` is now linked to
+`WS-PILOT-CROSS-SEGMENT-DENSITY` as the near-final empirical run, not the
+first step after planning. Earlier attempts to run `run_pilot.py` directly
+surfaced expensive reliability and cost-control failures, leading to
+checkpointing, pilot cost-sustainability, and pilot-improvement work. This
+item therefore depends on preregistration (`WI-EVENT-0078`), readiness
+(`WI-EVENT-0079`), and a small real feasibility run (`WI-EVENT-0080`) before
+execution. `WI-EVENT-0078` may revise this item's exact sample scale before
+new density results are observed, including whether this run remains the
+5-10 stories-per-genre plan described below or expands toward the full
+`WI-GENRE-0004` 146-story Worldcon-scale sample.
 
 ## Problem / Context
 

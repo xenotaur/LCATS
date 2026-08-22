@@ -31,3 +31,6 @@ short index plus the proposal document.
   `WS-KNIGHT-NOVUM-ANALYSIS`).
 - [`PROP-LCATS-RUN-LOG`](proposed/lcats-run-log/README.md)
   — proposed; implementation not started (governed by `WS-RUN-LOG`).
+- [`PROP-LCATS-CROSS-SEGMENT-DENSITY-EXPERIMENT`](proposed/lcats-cross-segment-density-experiment/README.md)
+  — proposed; implementation not started (governed by
+  `WS-PILOT-CROSS-SEGMENT-DENSITY`).
