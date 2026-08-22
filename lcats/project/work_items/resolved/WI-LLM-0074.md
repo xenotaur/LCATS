@@ -1,5 +1,5 @@
 ---
-resolution: "Wiring landed in PR #349; the real 146-story gpt-oss:20b run and its three-way comparison (this PR) are both complete. Real measured results: 111.5 min wall-clock, $0 cost, 0 errors; 71.2% agreement with the metadata rules and 69.9% (102/146) directly against Opus. Go/no-go: viable as a cheap first-pass filter for horror/science-fiction/mystery/adventure (80-95% agreement with Opus), not a safe substitute for fantasy/romance/humor/western (50-60%). See this file's own Findings section below."
+resolution: "Wiring landed in PR #349; the real 146-story gpt-oss:20b run and its three-way comparison (this PR) are both complete. Real measured results: 111.5 min wall-clock, $0 cost, 0 errors; 73.3% agreement with the metadata rules and 71.2% (104/146) directly against Opus (corrected from an initial 69.9% after a review finding - see Findings). Go/no-go: viable as a cheap first-pass filter for horror/science-fiction/mystery/adventure (83-100% agreement with Opus), not a safe substitute for fantasy/romance/humor/western (50-60%). See this file's own Findings section below."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0074
@@ -192,13 +192,27 @@ PR's diff) confirming the mechanics worked for real before committing to
 the full run - 1m28s for 3 stories, output correctly written to
 qualified filenames alongside (not overwriting) the Opus evidence.
 
+**Correction (review finding, Copilot, this PR):** the first committed
+version of this run's results recorded `detected_genre: "science_fiction"`
+(underscore) for 3/146 stories - a real local-model quirk (`gpt-oss:20b`
+via Ollama does not enforce `ASSESSMENT_TOOL`'s own JSON-schema `enum`
+the way Anthropic's strict tool-calling does) that isn't the canonical
+`"science fiction"` (space) `VALID_GENRES` value, so those 3 stories
+silently failed the metadata-rules membership check and were miscounted
+as disagreements. Fixed at the source
+(`lcats.analysis.corpus.assess._canonicalize_detected_genre()`, new,
+normalizes any underscore variant and falls back to `"other"` for
+anything still unrecognized) and re-run for just those 3 stories
+(resuming from checkpoint for the other 143 - no other story was
+affected). The numbers below are the corrected ones.
+
 **Three-way comparison** (metadata rules / Opus / local model), computed
 directly from the two committed `validation_results.jsonl` files:
 
 | | agreement |
 |---|---|
-| `gpt-oss:20b` vs. metadata rules | 71.2% (104/146) |
-| `gpt-oss:20b` vs. Opus directly | **69.9% (102/146)** |
+| `gpt-oss:20b` vs. metadata rules | 73.3% (107/146) |
+| `gpt-oss:20b` vs. Opus directly | **71.2% (104/146)** |
 | (for reference) Opus vs. metadata rules | 87.0% (127/146) |
 
 Per-genre, local-vs-Opus:
@@ -206,7 +220,7 @@ Per-genre, local-vs-Opus:
 | genre | agreement |
 |---|---|
 | horror | 95% (19/20) |
-| science fiction | 85% (17/20) |
+| science fiction | 95% (19/20) |
 | adventure | 83% (5/6) |
 | mystery | 80% (16/20) |
 | western | 60% (12/20) |

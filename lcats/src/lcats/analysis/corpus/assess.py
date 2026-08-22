@@ -319,6 +319,31 @@ def _sanitize_secondary_genre(raw: str) -> tuple[str, bool]:
     return raw, False
 
 
+def _canonicalize_detected_genre(raw: str) -> str:
+    """Normalize a model's detected_genre value against VALID_GENRES.
+
+    ASSESSMENT_TOOL's own JSON schema declares an `enum` restricting
+    detected_genre to VALID_GENRES + "other" (line ~78), but that enum is
+    only enforced by backends that actually validate tool-call arguments
+    against the schema - a real local OpenAI-compatible endpoint
+    (WI-LLM-0074's gpt-oss:20b run, PR #361 review finding, Copilot)
+    returned "science_fiction" (underscore) instead of the canonical
+    "science fiction" (space) for 3/146 stories, which then silently
+    failed the `detected_genre in metadata_result["target_candidates"]`
+    membership check in run_prefilter.py's build_model_assessment() -
+    understating that run's real measured agreement rate. Replacing every
+    underscore with a space handles this and any equivalent future
+    variant without hardcoding a single fixed alias; anything still not
+    in VALID_GENRES after that falls back to "other", matching this
+    file's own documented default for an unrecognized value rather than
+    passing a non-contract string further downstream.
+    """
+    if raw == "other":
+        return "other"
+    candidate = raw.replace("_", " ")
+    return candidate if candidate in VALID_GENRES else "other"
+
+
 def run_preflight(
     file_path: pathlib.Path,
 ) -> tuple[str, str, str, list, str]:
@@ -455,7 +480,9 @@ def assess_story(
             verdict=a.get("verdict", "review"),
             exclude_reason=a.get("exclude_reason", ""),
             wellformed=bool(a.get("wellformed", True)),
-            detected_genre=a.get("detected_genre", "other"),
+            detected_genre=_canonicalize_detected_genre(
+                a.get("detected_genre", "other")
+            ),
             detected_genre_confidence=max(
                 0.0, min(1.0, float(a.get("detected_genre_confidence", 0.0)))
             ),
