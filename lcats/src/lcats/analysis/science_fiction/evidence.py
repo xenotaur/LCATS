@@ -75,6 +75,7 @@ class EvidenceCandidate:
     event_ids: tuple[str, ...] = ()
     raw_id: str | None = None
     source: str = "model"
+    schema_errors: tuple[str, ...] = ()
 
     @classmethod
     def from_mapping(
@@ -84,6 +85,9 @@ class EvidenceCandidate:
         default_source_chunk_id: str | None = None,
         source: str = "model",
     ) -> "EvidenceCandidate":
+        paragraph_ids, paragraph_errors = _string_tuple_field(data, "paragraph_ids")
+        entity_ids, entity_errors = _string_tuple_field(data, "entity_ids")
+        event_ids, event_errors = _string_tuple_field(data, "event_ids")
         return cls(
             evidence_type=str(data.get("evidence_type", "")),
             quote=str(data.get("quote", "")),
@@ -92,13 +96,14 @@ class EvidenceCandidate:
             source_chunk_id=_optional_string(
                 data.get("source_chunk_id"), default_source_chunk_id
             ),
-            paragraph_ids=tuple(str(value) for value in data.get("paragraph_ids", ())),
+            paragraph_ids=paragraph_ids,
             start_char=_optional_int(data.get("start_char")),
             end_char=_optional_int(data.get("end_char")),
-            entity_ids=tuple(str(value) for value in data.get("entity_ids", ())),
-            event_ids=tuple(str(value) for value in data.get("event_ids", ())),
+            entity_ids=entity_ids,
+            event_ids=event_ids,
             raw_id=_optional_string(data.get("raw_id")),
             source=source,
+            schema_errors=paragraph_errors + entity_errors + event_errors,
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -115,6 +120,7 @@ class EvidenceCandidate:
             "confidence": self.confidence,
             "source_chunk_id": self.source_chunk_id,
             "source": self.source,
+            "schema_errors": list(self.schema_errors),
         }
 
 
@@ -304,7 +310,7 @@ def build_evidence_set(
         {
             "story_hash": prepared_story.story_hash,
             "record_ids": [record.evidence_id for record in records],
-            "quarantined": [item.to_dict() for item in quarantined],
+            "quarantined": _sorted_quarantine_payload(quarantined),
         },
     )
     return EvidenceSet(
@@ -327,7 +333,10 @@ def extract_evidence_set(
     candidates: list[EvidenceCandidate | dict[str, Any]] = []
     for chunk in prepared_story.chunks:
         request = EvidenceExtractionRequest.from_chunk(prepared_story, chunk)
-        candidates.extend(extractor.extract(request))
+        candidates.extend(
+            _coerce_candidate(candidate, default_source_chunk_id=chunk.chunk_id)
+            for candidate in extractor.extract(request)
+        )
     return build_evidence_set(prepared_story, candidates, backend=backend)
 
 
@@ -363,14 +372,22 @@ def locate_quote(
     if ranges is None:
         return None
     for start_bound, end_bound in ranges:
-        found_at = prepared_story.normalized_text.find(quote, start_bound, end_bound)
-        if found_at != -1:
+        search_from = start_bound
+        while search_from < end_bound:
+            found_at = prepared_story.normalized_text.find(
+                quote, search_from, end_bound
+            )
+            if found_at == -1:
+                break
             end = found_at + len(quote)
-            return EvidenceAnchor(
+            anchor = EvidenceAnchor(
                 paragraph_ids=_paragraph_ids_for_span(prepared_story, found_at, end),
                 start_char=found_at,
                 end_char=end,
             )
+            if _anchor_satisfies_candidate(prepared_story, candidate, anchor):
+                return anchor
+            search_from = found_at + 1
     return None
 
 
@@ -378,6 +395,7 @@ def adapt_erw_annotation(
     annotation: Any,
     *,
     source_chunk_id: str | None = None,
+    segment_start_char: int = 0,
 ) -> tuple[EvidenceCandidate, ...]:
     """Adapt optional ERW discourse tags/explanations into neutral candidates.
 
@@ -403,8 +421,12 @@ def adapt_erw_annotation(
                     str(value)
                     for value in (getattr(evidence_span, "paragraph_ids", ()) or ())
                 ),
-                start_char=_optional_int(getattr(evidence_span, "start_char", None)),
-                end_char=_optional_int(getattr(evidence_span, "end_char", None)),
+                start_char=_translated_erw_offset(
+                    getattr(evidence_span, "start_char", None), segment_start_char
+                ),
+                end_char=_translated_erw_offset(
+                    getattr(evidence_span, "end_char", None), segment_start_char
+                ),
                 entity_ids=tuple(
                     str(value) for value in getattr(raw_tag, "linked_entity_ids", ())
                 ),
@@ -431,8 +453,12 @@ def adapt_erw_annotation(
                     str(value)
                     for value in (getattr(evidence_span, "paragraph_ids", ()) or ())
                 ),
-                start_char=_optional_int(getattr(evidence_span, "start_char", None)),
-                end_char=_optional_int(getattr(evidence_span, "end_char", None)),
+                start_char=_translated_erw_offset(
+                    getattr(evidence_span, "start_char", None), segment_start_char
+                ),
+                end_char=_translated_erw_offset(
+                    getattr(evidence_span, "end_char", None), segment_start_char
+                ),
                 entity_ids=tuple(
                     str(value)
                     for value in getattr(raw_explanation, "linked_entity_ids", ())
@@ -451,6 +477,8 @@ def adapt_erw_annotation(
 
 
 def _candidate_schema_error(candidate: EvidenceCandidate) -> str | None:
+    if candidate.schema_errors:
+        return candidate.schema_errors[0]
     if candidate.evidence_type not in EVIDENCE_TYPES:
         return f"unsupported neutral evidence type: {candidate.evidence_type!r}"
     if not candidate.quote:
@@ -462,17 +490,34 @@ def _candidate_schema_error(candidate: EvidenceCandidate) -> str | None:
     return None
 
 
-def _coerce_candidate(raw_candidate: EvidenceCandidate | dict[str, Any]):
+def _coerce_candidate(
+    raw_candidate: EvidenceCandidate | dict[str, Any],
+    *,
+    default_source_chunk_id: str | None = None,
+) -> EvidenceCandidate:
     if isinstance(raw_candidate, EvidenceCandidate):
+        if (
+            raw_candidate.source_chunk_id is None
+            and default_source_chunk_id is not None
+        ):
+            return dataclasses.replace(
+                raw_candidate, source_chunk_id=default_source_chunk_id
+            )
         return raw_candidate
     if isinstance(raw_candidate, dict):
-        return EvidenceCandidate.from_mapping(raw_candidate)
+        return EvidenceCandidate.from_mapping(
+            raw_candidate, default_source_chunk_id=default_source_chunk_id
+        )
     return EvidenceCandidate(
         evidence_type="",
         quote="",
         paraphrase=f"malformed candidate of type {type(raw_candidate).__name__}",
         confidence=0.0,
         source="malformed",
+        source_chunk_id=default_source_chunk_id,
+        schema_errors=(
+            f"candidate must be an object, got {type(raw_candidate).__name__}",
+        ),
     )
 
 
@@ -652,6 +697,19 @@ def _erw_tag_to_evidence_type(tag: str) -> str | None:
     return mapping.get(tag)
 
 
+def _sorted_quarantine_payload(
+    quarantined: Iterable[QuarantinedEvidence],
+) -> list[dict[str, Any]]:
+    payload = [item.to_dict() for item in quarantined]
+    return sorted(
+        payload,
+        key=lambda item: (
+            item["reason"],
+            json.dumps(item["candidate"], sort_keys=True, separators=(",", ":")),
+        ),
+    )
+
+
 def _stable_id(prefix: str, payload: Any) -> str:
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     digest = hashlib.sha256(encoded.encode("utf-8")).hexdigest()[:16]
@@ -678,3 +736,21 @@ def _optional_string(value: Any, default: str | None = None) -> str | None:
     if value is None:
         return default
     return str(value)
+
+
+def _string_tuple_field(
+    data: dict[str, Any], key: str
+) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    if key not in data:
+        return (), ()
+    value = data[key]
+    if not isinstance(value, (list, tuple)):
+        return (), (f"{key} must be an array of strings",)
+    return tuple(str(item) for item in value), ()
+
+
+def _translated_erw_offset(value: Any, segment_start_char: int) -> int | None:
+    offset = _optional_int(value)
+    if offset is None:
+        return None
+    return segment_start_char + offset
