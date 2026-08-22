@@ -11,7 +11,14 @@ related_roadmap: []
 related_design:
   - lcats/project/design/proposals/proposed/lcats-run-log/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
-work_items: []
+work_items:
+  - WI-RUNLOG-0078
+  - WI-RUNLOG-0079
+  - WI-RUNLOG-0080
+  - WI-RUNLOG-0081
+  - WI-RUNLOG-0082
+  - WI-RUNLOG-0083
+  - WI-RUNLOG-0084
 exit_criteria:
   - lcats.utils.run_log exists implementing Decision 1's function + RunLog context manager and Decision 3's CheckpointRoots-derived log path, with unit tests
   - run_prefilter.py is migrated from its inline _log_run_event() onto the shared module
@@ -79,19 +86,17 @@ while explicitly recording why the remaining sites are left as-is.
 
 ## Work Items
 
-None created yet — `work_items: []`. Per the proposal's Implementation
-Plan, the natural breakdown is:
-- Shared `lcats.utils.run_log` module + unit tests (blocks everything
-  else).
-- `run_prefilter.py` migration (dogfoods the module against the
-  reference implementation).
-- `run_pilot.py` addition (highest priority).
-- `run_census.py` addition.
-- `lcats gather` / `lcats assess` / `lcats annotate` additions (may be
-  one item or three, per work-item scoping).
-- `lcats promote` addition.
-- Historical-disposition note across the 5 out-of-scope sites (likely
-  one small item).
+- **WI-RUNLOG-0078** — Shared `lcats.utils.run_log` module + unit tests
+  (blocks everything else).
+- **WI-RUNLOG-0079** — `run_prefilter.py` migration (dogfoods the module
+  against the reference implementation).
+- **WI-RUNLOG-0080** — `run_pilot.py` addition (highest priority).
+- **WI-RUNLOG-0081** — `run_census.py` addition.
+- **WI-RUNLOG-0082** — `lcats gather` / `lcats assess` / `lcats annotate`
+  additions.
+- **WI-RUNLOG-0083** — `lcats promote` addition.
+- **WI-RUNLOG-0084** — Historical-disposition note across the 5
+  out-of-scope sites.
 
 ## Exit Criteria
 
