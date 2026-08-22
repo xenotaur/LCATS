@@ -75,9 +75,13 @@ future contributor unaware of the deliberate decision.
 
 ## Required Changes
 
-1. `run_stability_gate.py` — note: bounded 2-fixture scope, real work
-   delegated to `run_pilot.py` subprocess (covered transitively by
-   WI-RUNLOG-0080).
+1. `run_stability_gate.py` — note: bounded 2-fixture scope; its pilot
+   stage (`_run_pilot()`) is delegated to a `run_pilot.py` subprocess
+   (covered transitively by WI-RUNLOG-0080), but its genre-detection
+   stage (`_run_genre_detection()`) makes its own paid, in-process
+   `assess_story()` calls, not subprocess-delegated (correction, PR
+   #352 self-review) — still small/bounded enough (2 fixture stories)
+   not to warrant its own run log.
 2. `run_comparison.py` — note: small ad-hoc tool, existing flush-per-row
    JSONL already gives near-equivalent durability.
 3. `clean_cli.py` — note: deterministic deletion, idempotent to rerun.

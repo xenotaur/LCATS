@@ -49,7 +49,8 @@ root.
 
 ## Problem / Context
 
-`PROP-LCATS-RUN-LOG` (adopted design; see `related_design`) found the
+`PROP-LCATS-RUN-LOG` (proposed design, not yet adopted; see
+`related_design`) found the
 crash-safe run-log pattern from PR #334's `_log_run_event()` scoped to one
 script, with the identical gap recurring at 6 more sites. This item
 delivers the shared module the other 6 items depend on. Decisions 1-3 of
