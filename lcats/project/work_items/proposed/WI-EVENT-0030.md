@@ -35,9 +35,11 @@ expected_actions:
 forbidden_actions:
   - modify_event_role_world_extractor
   - implement_new_architecture
+  - run_real_llm_calls_without_explicit_approval
   - force_push
   - delete_branch
 acceptance:
+  - Before this near-final paid run starts, the executor presents the selected model/backend, exact story count or manifest, expected call-count/cost estimate, output root, and checkpoint/resume plan, and receives explicit in-session human approval distinct from any approval granted for WI-EVENT-0080's smaller feasibility run
   - A stratified sample of 5-10 stories per genre (adventure capped at its real corpus availability of 6 stories - see Scope) is run through the Event-Role-World pipeline with the story-level cross-segment relation pass (WI-EVENT-0029) enabled, using all 8 VALID_GENRES lcats assess --genre now classifies (science fiction, fantasy, horror, western, romance, mystery, humor, adventure), drawn from WI-GENRE-0004's already-Opus-validated genre-balanced 146-story set (experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl) - selecting stories whose model_detect.detected_genre exactly equals the metadata rule's primary target_candidates[0], not merely present anywhere in the candidate list - rather than reclassified independently
   - Per-genre cross-segment-only relation density is reported as a metric computed directly from each story's cross_segment_relations and weakly_inferred_cross_segment_relations lists (count per 1000 words), kept separate from - not folded into - the existing total relations_per_1000_words baseline.summarize_annotations already reports, since that total mixes cross-segment and same-segment counts and cannot by itself confirm or contradict a cross-segment-specific claim
   - The relation types counted toward the headline cross-segment density figure are stated explicitly (all relation_type values are counted, matching how the existing total relations_per_1000_words already counts every type without filtering)
@@ -83,7 +85,11 @@ item therefore depends on preregistration (`WI-EVENT-0078`), readiness
 execution. `WI-EVENT-0078` may revise this item's exact sample scale before
 new density results are observed, including whether this run remains the
 5-10 stories-per-genre plan described below or expands toward the full
-`WI-GENRE-0004` 146-story Worldcon-scale sample.
+`WI-GENRE-0004` 146-story Worldcon-scale sample. Approval for
+`WI-EVENT-0080`'s small feasibility run is not approval for this near-final
+run; this item requires its own explicit in-session spend gate with model,
+manifest/story count, expected call-count/cost estimate, output root, and
+checkpoint/resume plan before any real LLM call begins.
 
 ## Problem / Context
 
@@ -120,6 +126,10 @@ to size the effect precisely across genres.
 
 ## Scope
 
+- Before any real LLM call, present the selected model/backend, exact story
+  count or manifest, expected call-count/cost estimate, output root, and
+  checkpoint/resume plan, and receive explicit in-session human approval
+  specific to this near-final run.
 - Select a stratified sample of 5-10 stories per genre covering all 8
   genres `lcats assess --genre` now supports (`science fiction`,
   `fantasy`, `horror`, `western`, `romance`, `mystery`, `humor`,
@@ -324,6 +334,11 @@ was still pending.
 
 ## Risk Notes
 
+- **The feasibility approval does not carry forward.** `WI-EVENT-0080` is a
+  smaller paid proof-of-life; this item is the larger near-final run and
+  must obtain its own explicit approval after the actual sample, model,
+  expected call count, cost estimate, output root, and checkpoint/resume
+  plan are known.
 - Requires real LLM API calls across roughly 40-75 stories (7 genres x
   5-10 stories each, plus adventure's hard-capped 6) — a real cost/latency
   expenditure, not free; size the non-adventure strata toward the lower

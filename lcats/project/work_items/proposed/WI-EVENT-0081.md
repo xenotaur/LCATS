@@ -34,9 +34,10 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - Final analysis artifacts include the raw-source references, per-story density rows, per-genre summaries, excluded-story/failure taxonomy, usage/cost report, figure/table source, and generated paper-facing figure or table
-  - The written interpretation states whether WI-EVENT-0030 confirms, weakens, or contradicts WI-EVENT-0028's long-range cross-segment relation hypothesis
-  - Genre-label reliability and any low-confidence strata are reported alongside the density findings
+  - If WI-EVENT-0030 ran at the approved near-final scale, final analysis artifacts include the raw-source references, per-story density rows, per-genre summaries, excluded-story/failure taxonomy, usage/cost report, figure/table source, and generated paper-facing figure or table
+  - If a preregistered gate stopped WI-EVENT-0030 before near-final execution, the final package instead includes the gate evidence, named stop condition, costs incurred, unavailable-result explanation, and recommendation to stop, revise, or file follow-on work
+  - The written interpretation states whether WI-EVENT-0030 confirms, weakens, contradicts, or did not reach the evidentiary conditions needed to assess WI-EVENT-0028's long-range cross-segment relation hypothesis
+  - Genre-label reliability and any low-confidence strata are reported alongside the density findings when density findings exist, or carried forward as planned-but-unobserved caveats when the run is gate-stopped
   - The package states whether to stop, expand to more stories, revise methodology, or file follow-on work
   - lrh validate reports 0 errors
 required_evidence:
@@ -57,7 +58,10 @@ cross-segment density analysis package.
 The density experiment is not complete when raw pilot output exists. The
 paper needs a defensible analysis package that records the exact data used,
 exclusions/failures, costs, genre-label uncertainty, figure/table source,
-and interpretation of whether the long-range relation hypothesis held.
+and interpretation of whether the long-range relation hypothesis held. If
+the staged gates stop the near-final run before density results exist, the
+analysis package should report that stopped outcome rather than requiring a
+figure that the workstream deliberately chose not to produce.
 
 ### Duplication search
 
@@ -80,20 +84,25 @@ and interpretation of whether the long-range relation hypothesis held.
 
 ## Scope
 
-- Analyze the completed near-final density run.
-- Produce paper-facing figures/tables and a written interpretation.
+- Analyze the completed near-final density run, or the gate-stopped outcome
+  if preregistered thresholds prevented the run.
+- Produce paper-facing figures/tables and a written interpretation when
+  density results exist; otherwise produce a gate-stopped evidence package.
 - Preserve enough provenance for a reader to audit how the result was
   computed.
 
 ## Required Changes
 
-1. Read the committed `WI-EVENT-0030` output artifacts and verify that the
+1. Read the committed `WI-EVENT-0030` output artifacts, or the gate-stop
+   evidence if the near-final run did not execute, and verify that the
    analysis inputs match the preregistered artifact contract.
 2. Create `experiments/03_cross_segment_relation_pilot/results/final_density_analysis/`
    with figure/table source, generated figure or table, and a written
-   analysis report.
-3. Report cross-segment-only density separately from folded total density,
-   preserving the weakly inferred partition.
+   analysis report when density results exist; for a gate-stopped outcome,
+   include the gate evidence, stop condition, costs incurred, and
+   unavailable-result explanation instead.
+3. When density results exist, report cross-segment-only density separately
+   from folded total density, preserving the weakly inferred partition.
 4. Include excluded-story/failure taxonomy, usage/cost summary, genre-label
    reliability caveats, and a stop/expand/revise/follow-up recommendation.
 
@@ -107,15 +116,20 @@ and interpretation of whether the long-range relation hypothesis held.
 
 ## Acceptance Criteria
 
-- Final analysis artifacts include the raw-source references, per-story
-  density rows, per-genre summaries, excluded-story/failure taxonomy,
-  usage/cost report, figure/table source, and generated paper-facing figure
-  or table.
+- If `WI-EVENT-0030` ran at the approved near-final scale, final analysis
+  artifacts include the raw-source references, per-story density rows,
+  per-genre summaries, excluded-story/failure taxonomy, usage/cost report,
+  figure/table source, and generated paper-facing figure or table.
+- If a preregistered gate stopped `WI-EVENT-0030` before near-final
+  execution, the final package instead includes the gate evidence, named
+  stop condition, costs incurred, unavailable-result explanation, and
+  recommendation to stop, revise, or file follow-on work.
 - The written interpretation states whether `WI-EVENT-0030` confirms,
-  weakens, or contradicts `WI-EVENT-0028`'s long-range cross-segment
-  relation hypothesis.
+  weakens, contradicts, or did not reach the evidentiary conditions needed
+  to assess `WI-EVENT-0028`'s long-range cross-segment relation hypothesis.
 - Genre-label reliability and any low-confidence strata are reported
-  alongside the density findings.
+  alongside the density findings when density findings exist, or carried
+  forward as planned-but-unobserved caveats when the run is gate-stopped.
 - The package states whether to stop, expand to more stories, revise
   methodology, or file follow-on work.
 - `lrh validate` reports 0 errors.
@@ -126,8 +140,9 @@ and interpretation of whether the long-range relation hypothesis held.
 
 ## Risk Notes
 
-- If `WI-EVENT-0030` is gate-stopped before a full result, this item may
-  need to analyze a negative/blocked outcome rather than a density figure.
+- If `WI-EVENT-0030` is gate-stopped before a full result, this item should
+  analyze that stopped outcome rather than forcing a density figure or
+  per-genre conclusion that does not exist.
 - The final analysis should not overstate low-confidence strata, especially
   if genre-label agreement or exclusion rates are uneven.
 

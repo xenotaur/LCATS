@@ -26,7 +26,7 @@ exit_criteria:
   - A readiness gate has reported whether the runner, segmentation, logging, checkpoints, and artifacts are safe enough for a paid feasibility run
   - A bounded, explicitly approved small real feasibility pilot has either passed its preregistered thresholds or produced a named stop condition
   - WI-EVENT-0030, possibly revised by preregistration, has either run at the approved near-final scale or been explicitly stopped by a documented gate
-  - A final analysis/evidence package reports density results, costs, exclusions/failures, figures/tables, and a confirm/weaken/contradict conclusion
+  - A final analysis/evidence package reports density results, costs, exclusions/failures, figures/tables, and a confirm/weaken/contradict conclusion, or reports a preregistered gate stop with the named stop condition and unavailable-result explanation
   - All linked work items are resolved and lrh validate reports 0 errors
 ---
 

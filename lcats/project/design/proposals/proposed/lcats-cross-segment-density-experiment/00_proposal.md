@@ -164,19 +164,25 @@ proven and the expected savings justify the schedule risk.
 
 ### Decision 5: Close with an evidence package, not only raw output
 
-**Question:** What is the final deliverable after `WI-EVENT-0030` runs?
+**Question:** What is the final deliverable after `WI-EVENT-0030` runs or
+is gate-stopped?
 
 **Options considered:**
 
 - Commit raw run output only.
 - Commit summary numbers only.
-- Produce a paper-facing evidence package.
+- Produce a paper-facing evidence package, including a stopped-outcome
+  package when preregistered gates prevent the near-final run.
 
 **Chosen: produce a paper-facing evidence package.** The final analysis
 should include raw per-story rows, excluded-story/failure taxonomy, usage
 and cost report, per-genre density summaries, figure source, generated
 figure/table, and prose interpretation stating whether the result confirms,
-weakens, or contradicts the original hypothesis.
+weakens, or contradicts the original hypothesis. If a preregistered gate
+stops the near-final run before density results exist, the package should
+instead include the gate evidence, named stop condition, costs incurred,
+unavailable-result explanation, and recommendation to stop, revise, or file
+follow-on work.
 
 ## Non-Goals
 
@@ -202,9 +208,11 @@ This proposal is delivered through
 3. `WI-EVENT-0080` - run a bounded, explicitly approved small real
    feasibility pilot.
 4. `WI-EVENT-0030` - execute the near-final stratified density run, possibly
-   revised by `WI-EVENT-0078`.
+   revised by `WI-EVENT-0078`, only after a fresh explicit approval gate for
+   this larger paid run.
 5. `WI-EVENT-0081` - produce the final analysis and paper-facing evidence
-   package.
+   package, or the gate-stopped evidence package if the near-final run does
+   not execute.
 
 ## Cross-References
 

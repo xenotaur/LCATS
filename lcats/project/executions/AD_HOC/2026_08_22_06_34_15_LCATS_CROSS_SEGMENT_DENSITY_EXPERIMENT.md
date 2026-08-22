@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:LCATS_CROSS_SEGMENT_DENSITY_EXPERIMENT)[2026-08-22T06:3
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/355
 commit:
 created_at: 2026-08-22T06:34:15+00:00
 agent: codex_app
