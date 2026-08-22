@@ -39,9 +39,10 @@ acceptance:
   - "Tokenization, stopword removal, and frequency counting reuse `lcats.analysis.story_analysis.get_keywords`/`top_keywords` rather than reimplementing tokenization; if those functions prove insufficient for corpus-scale use, the gap is documented explicitly rather than silently forked"
   - "Story text is consumed via `lcats.stories.Story`/`Corpora` directly (unlike `genres`, word text genuinely lives on `Story.body` -- no external artifact needed for the whole-corpus case)"
   - "Supports a whole-corpus view and a genre-subset view; genre-subset filtering sources per-story genre membership from `experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl`'s `metadata_assessment.result.target_candidates` field (the per-story sibling of the aggregate `summary.json` WI-VISUALIZE-0073 already consumes) -- not an assumption that genre lives on `Story.metadata`"
+  - "The join between `candidates.jsonl` rows and loaded story text uses `story_id`/`story_path` derived directly from `discovery.iter_collection_story_files`'s yielded paths (which preserve the exact `<collection>/<slug>` identity `candidates.jsonl` was built from), not `Corpora.get_corpora()`'s `Story` list, which discards story paths entirely -- `Story` carries only `name`/`body`/`metadata`, and both title-matching and deriving the slug from `metadata.name` are demonstrably ambiguous/lossy against the real checked-in corpus (confirmed: title matching is ambiguous for 16 rows, `metadata.name`-derived slugs fail for 17 Lovecraft rows). The join must assert complete, unambiguous one-to-one coverage rather than silently omitting or misassigning stories"
   - "Produces a word-frequency word cloud and a conventional ranked-frequency bar chart, each in PNG and vector (SVG/PDF) output, reusing `lcats.analysis.graph_plotters` and the `visualize/rendering.py` wordcloud renderer rather than duplicating a parallel plotting API"
   - "Preprocessing defaults (stopwords, case folding, minimum token length) are explicit and documented in the command's help/docs"
-  - "The command emits an input-revision/content-identity value alongside its output, matching WI-VISUALIZE-0073's pattern for the corpus snapshot consumed"
+  - "For the genre-subset view, the command emits input-revision/content-identity values for *both* the story corpus and `candidates.jsonl` snapshots consumed, not only one -- changing candidate genre memberships while leaving story text unchanged changes the selected documents and resulting frequencies, so a corpus-only revision value cannot reproduce or audit the output. The whole-corpus view (no `candidates.jsonl` dependency) still only needs the corpus snapshot identity"
   - "Analysis functions (tokenize -> frequency mapping, etc.) are unit-tested independently of image rendering; `lcats visualize words` has a CLI integration/smoke test verifying real output-file creation"
   - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
@@ -122,7 +123,13 @@ for the whole-corpus case -- no external artifact needed there.
 ## Required Changes
 
 1. Extend `lcats/src/lcats/visualize/sources.py` with story-text loading
-   (via `Corpora`) and genre-membership loading (via `candidates.jsonl`).
+   (whole-corpus case: via `Corpora`) and genre-membership loading (via
+   `candidates.jsonl`). For the genre-subset case, join on `story_id`
+   derived from `discovery.iter_collection_story_files`'s paths -- not
+   `Corpora.get_corpora()`'s `Story` objects, which discard path/identity
+   information entirely (see acceptance criteria for why title/`metadata.name`
+   matching is unreliable). Emit distinct revision identifiers for the
+   corpus snapshot and the `candidates.jsonl` snapshot.
 2. Extend `lcats/src/lcats/visualize/analysis.py` with word-frequency
    functions built on `story_analysis.get_keywords`/`top_keywords`.
 3. Extend or reuse `lcats/src/lcats/visualize/rendering.py` for
@@ -164,3 +171,11 @@ for the whole-corpus case -- no external artifact needed there.
   not be scientifically defensible as-is for corpus-scale/paper use;
   confirm during implementation whether the existing list is adequate or
   needs expansion, and document the choice either way.
+- **`Story`/`Corpora` do not preserve story-path identity.** Confirmed
+  against real data: `Corpora.get_corpora()` only appends bare `Story`
+  objects (`name`/`body`/`metadata`, no path) to its collection lists, so
+  joining `candidates.jsonl` rows to loaded stories by title or
+  `metadata.name` is unreliable (ambiguous for 16 rows; fails for 17
+  Lovecraft rows via `metadata.name`). The genre-subset implementation
+  must derive `story_id` from `discovery.iter_collection_story_files`'s
+  paths directly, not from `Corpora`'s `Story` list.
