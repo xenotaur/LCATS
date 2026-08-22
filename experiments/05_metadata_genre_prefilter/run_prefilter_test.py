@@ -837,6 +837,28 @@ class TestValidationCostGate(unittest.TestCase):
         with self.assertRaises(SystemExit):
             run_prefilter.parse_args(["--full-scan", "--validate"])
 
+    def test_omitting_backend_flags_leaves_default_unchanged(self):
+        args = run_prefilter.parse_args(["--validate"])
+        self.assertEqual(args.backend, "anthropic")
+        self.assertIsNone(args.base_url)
+        self.assertEqual(args.model, "claude-opus-4-8")
+
+    def test_backend_openai_defaults_model_when_omitted(self):
+        args = run_prefilter.parse_args(["--validate", "--backend", "openai"])
+        self.assertEqual(args.model, "gpt-4o")
+
+    def test_explicit_model_is_respected_regardless_of_backend(self):
+        args = run_prefilter.parse_args(
+            ["--validate", "--backend", "openai", "--model", "gpt-oss:20b"]
+        )
+        self.assertEqual(args.model, "gpt-oss:20b")
+
+    def test_base_url_requires_openai_backend(self):
+        with self.assertRaises(SystemExit):
+            run_prefilter.parse_args(
+                ["--validate", "--base-url", "http://localhost:11434/v1"]
+            )
+
     def test_validate_refuses_output_under_corpus_root(self):
         with tempfile.TemporaryDirectory() as tmp:
             corpus_root = pathlib.Path(tmp) / "corpora"
@@ -1341,6 +1363,148 @@ class TestValidationResilience(unittest.TestCase):
             self.assertFalse(summary["aborted"])
             self.assertEqual(summary["processed_count"], 2)
             self.assertEqual(summary["error_count"], 1)
+
+
+class TestValidationLocalBackend(unittest.TestCase):
+    """WI-LLM-0074: --validate's opt-in local OpenAI-compatible backend,
+    mirroring run_census.py's own --backend/--base-url wiring
+    (WI-LLM-0066)."""
+
+    def _setup_manifest(self, tmp, rows, extra_argv):
+        root = pathlib.Path(tmp)
+        corpus_root = root / "corpora"
+        output_dir = root / "results"
+        output_dir.mkdir(parents=True)
+        for row in rows:
+            collection, slug = row["story_id"].split("/")
+            _write_story(corpus_root, collection, slug, url=None, author="A")
+        manifest_path = output_dir / run_prefilter.GENRE_BALANCED_MANIFEST_FILENAME
+        run_prefilter.write_jsonl(manifest_path, rows)
+        args = run_prefilter.parse_args(
+            [
+                "--validate",
+                "--run-real-validation",
+                "--output",
+                str(output_dir),
+                "--corpus-root",
+                str(corpus_root),
+            ]
+            + extra_argv
+        )
+        return corpus_root, output_dir, args
+
+    def test_local_run_writes_separate_output_and_zero_cost(self):
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, args = self._setup_manifest(
+                tmp,
+                rows,
+                [
+                    "--backend",
+                    "openai",
+                    "--base-url",
+                    "http://localhost:11434/v1",
+                    "--model",
+                    "gpt-oss:20b",
+                ],
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                summary = run_prefilter._run_validate_mode(args)
+
+            self.assertEqual(summary["backend"], "openai")
+            self.assertEqual(summary["base_url"], "http://localhost:11434/v1")
+            self.assertEqual(summary["total_estimated_cost_usd"], 0.0)
+
+            # A separate, model/endpoint-qualified output - never the plain
+            # Opus filenames, so a local run can never clobber the existing
+            # Opus evidence sitting in the same --output directory.
+            self.assertFalse(
+                (output_dir / run_prefilter.VALIDATION_RESULTS_FILENAME).exists()
+            )
+            qualified = list(output_dir.glob("validation_gpt_oss_20b_*_results.jsonl"))
+            self.assertEqual(len(qualified), 1)
+
+    def test_local_endpoint_estimate_is_always_zero(self):
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, _output_dir, args = self._setup_manifest(
+                tmp,
+                rows,
+                ["--backend", "openai", "--base-url", "http://localhost:11434/v1"],
+            )
+            args.run_real_validation = False
+
+            summary = run_prefilter._run_validate_mode(args)
+
+            self.assertEqual(summary["mode"], "validate-estimate-only")
+            self.assertEqual(summary["estimated_cost_usd"], 0.0)
+
+    def test_fingerprint_differs_by_backend_and_endpoint(self):
+        row = _validation_manifest_row("horror_col", "story_a", "horror")
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_root = pathlib.Path(tmp) / "corpora"
+            _write_story(corpus_root, "horror_col", "story_a", url=None)
+
+            anthropic_fp = run_prefilter._validation_fingerprint(
+                "claude-opus-4-8", row, corpus_root
+            )
+            openai_fp = run_prefilter._validation_fingerprint(
+                "gpt-oss:20b",
+                row,
+                corpus_root,
+                backend_name="openai",
+                base_url="http://localhost:11434/v1",
+            )
+            other_endpoint_fp = run_prefilter._validation_fingerprint(
+                "gpt-oss:20b",
+                row,
+                corpus_root,
+                backend_name="openai",
+                base_url="http://localhost:9999/v1",
+            )
+
+            # Different backend/endpoint must never collide with the
+            # default Opus fingerprint, or with each other - a resume
+            # against a different local endpoint must not serve a cached
+            # classification from the wrong server.
+            self.assertNotEqual(anthropic_fp, openai_fp)
+            self.assertNotEqual(openai_fp, other_endpoint_fp)
+            self.assertEqual(anthropic_fp["backend"], "anthropic")
+            self.assertEqual(openai_fp["base_url"], "http://localhost:11434/v1")
+
+    def test_omitting_local_backend_flags_writes_original_opus_filenames(self):
+        # A plain --validate --run-real-validation invocation, with none
+        # of the new flags, must still write to exactly the same paths it
+        # always has - the acceptance criterion this whole item hinges on.
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, args = self._setup_manifest(tmp, rows, [])
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    summary = run_prefilter._run_validate_mode(args)
+
+            self.assertEqual(summary["backend"], "anthropic")
+            self.assertEqual(summary["base_url"], "")
+            self.assertTrue(
+                (output_dir / run_prefilter.VALIDATION_RESULTS_FILENAME).exists()
+            )
+            self.assertTrue(
+                (output_dir / run_prefilter.VALIDATION_SUMMARY_FILENAME).exists()
+            )
 
 
 class TestFullScanIntegration(unittest.TestCase):
