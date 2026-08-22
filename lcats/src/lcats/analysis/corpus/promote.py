@@ -113,7 +113,16 @@ def _validate_sidecars(story_path: pathlib.Path) -> list[MalformedSidecarFinding
     always populates, with the expected value type -- key presence alone
     would still wave through e.g. {"segments": null} (review finding, PR
     #248). A missing sidecar is not itself a finding -- most of data/
-    predates lcats annotate and has no sidecars at all."""
+    predates lcats annotate and has no sidecars at all.
+
+    genre.json is a special case as of WI-GENRE-0076: `lcats annotate` now
+    writes the append-only genre-sidecar-v1 shape (nested
+    assessments[].result), which never carries the legacy top-level
+    detected_genre key this function otherwise requires -- a v1-shaped
+    genre.json would be wrongly reported malformed by the plain
+    required-key check below. Any genre.json that isn't the legacy flat
+    shape is instead checked via genre_sidecar.validate_sidecar()
+    (review finding, PR #357); scenes.json's check is unaffected."""
     bucket_dir = story_path.parent
     findings: list[MalformedSidecarFinding] = []
     for sidecar_name, required_key, expected_type in _SIDECAR_REQUIRED_KEYS:
@@ -139,6 +148,22 @@ def _validate_sidecars(story_path: pathlib.Path) -> list[MalformedSidecarFinding
                     error=f"expected a JSON object, got {type(data).__name__}",
                 )
             )
+            continue
+        if sidecar_name == discovery.GENRE_SIDECAR_FILENAME and not (
+            genre_sidecar.is_legacy_flat_sidecar(data)
+        ):
+            validation = genre_sidecar.validate_sidecar(data)
+            if not validation.valid:
+                findings.append(
+                    MalformedSidecarFinding(
+                        story_path=story_path,
+                        sidecar_name=sidecar_name,
+                        error="; ".join(
+                            f"{finding.path}: {finding.message}"
+                            for finding in validation.findings
+                        ),
+                    )
+                )
             continue
         if required_key not in data:
             findings.append(

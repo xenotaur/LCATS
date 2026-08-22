@@ -19,6 +19,8 @@ related_design:
   - project/work_items/resolved/WI-GENRE-0004.md
   - lcats/src/lcats/analysis/corpus/genre_sidecar.py
   - lcats/src/lcats/analysis/corpus/annotate.py
+  - lcats/src/lcats/analysis/corpus/promote.py
+  - project/work_items/resolved/WI-GENRE-0075.md
 depends_on: []
 blocked_by: []
 blocked: false
@@ -31,7 +33,7 @@ expected_actions:
 forbidden_actions:
   - force_push
   - delete_branch
-  - modify_lcats_promote
+  - change_promote_wholesale_replacement_default_behavior
   - implement_local_model_assessment_source
   - implement_human_adjudication_ui
 acceptance:
@@ -51,6 +53,8 @@ required_evidence:
 artifacts_expected:
   - lcats/src/lcats/analysis/corpus/annotate.py
   - lcats/tests/analysis_tests/annotate_test.py
+  - lcats/src/lcats/analysis/corpus/promote.py
+  - lcats/tests/analysis_tests/promote_test.py
 ---
 
 # Work Item: WI-GENRE-0076
@@ -117,6 +121,19 @@ prior evidence.
 - Update `_write_readme()`'s genre-rendering section to read v1's nested
   `assessments[].result` fields so the README doesn't silently blank out
   once a story's `genre.json` becomes v1-shaped.
+- **Amended after PR #357's review** (scope was originally
+  `forbidden_actions: modify_lcats_promote`, narrowed to
+  `change_promote_wholesale_replacement_default_behavior` with explicit
+  human authorization): a v1-shaped `genre.json` this item's own writer
+  now produces has no top-level `detected_genre` key, which
+  `promote.py`'s wholesale `_validate_sidecars()` gate required
+  unconditionally - every v1 sidecar this item writes would be rejected
+  by `lcats promote <collection>`'s wholesale path as malformed. Update
+  `_validate_sidecars()` to check a non-legacy-flat `genre.json` via
+  `genre_sidecar.validate_sidecar()` instead of the legacy top-level-key
+  check. The actual wholesale copy/replace mechanism itself
+  (`promote_collections()`) is unchanged - only the malformed-sidecar
+  *gate* for genre.json is made v1-aware.
 
 ## Required Changes
 
@@ -157,12 +174,25 @@ prior evidence.
    from
    `experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`
    as fixtures rather than only synthetic examples.
+4. **`lcats/src/lcats/analysis/corpus/promote.py`** (`_validate_sidecars()`,
+   amended scope - review finding, PR #357): check a genre.json that is
+   not legacy-flat (per `genre_sidecar.is_legacy_flat_sidecar()`) via
+   `genre_sidecar.validate_sidecar()` instead of the legacy top-level
+   `detected_genre` key check, so a v1-shaped sidecar this item's own
+   writer produces isn't wrongly flagged malformed by `lcats promote`'s
+   wholesale gate. `scenes.json`'s check and the wholesale copy/replace
+   mechanism itself are unaffected.
+5. **`lcats/tests/analysis_tests/promote_test.py`**: add tests covering a
+   valid v1 sidecar not blocking, an invalid-but-v1-shaped sidecar still
+   blocking (via `genre_sidecar.validate_sidecar()`'s own findings), and
+   confirmation the pre-existing legacy-shape tests are unaffected.
 
 ## Non-Goals
 
-- Does not touch `lcats promote` or any corpora-promotion mechanism - that
-  is a separate work item (`WI-GENRE-0075`), no dependency either
-  direction.
+- Does not change `lcats promote`'s actual wholesale copy/replace
+  mechanism (`promote_collections()`) or its tranche-promotion mode
+  (`WI-GENRE-0075`) - only `_validate_sidecars()`'s malformed-sidecar gate
+  for genre.json is made v1-aware (Required Change 4, amended scope).
 - Does not implement the local-model (`gpt-oss:20b`) assessment source
   (Implementation Plan Step 8) or human-review/adjudication UI (Step 9) -
   this item only needs the append *mechanism* to exist and be exercised by

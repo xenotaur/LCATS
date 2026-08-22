@@ -302,11 +302,12 @@ class AnnotateStoryTest(unittest.TestCase):
         self.assertEqual(call_count, len(backend.calls))
         self.assertTrue((story_path.parent / "genre.json").is_file())
 
-    def test_stale_genre_sidecar_removed_when_recompute_fails(self):
-        """A failed recompute must not leave a stale genre.json from a
-        prior, differently-configured run in place -- the bucket would
-        otherwise silently mix a new-config scenes.json with an
-        old-config genre.json (review finding, PR #241)."""
+    def test_valid_v1_sidecar_survives_a_failed_recompute(self):
+        """A failed recompute must not delete an existing valid v1 ledger
+        -- its prior assessments remain independently valid regardless of
+        this later, unrelated attempt failing (review finding, PR #357;
+        supersedes this test's own prior "always delete on failure"
+        assertion, which predated append-mode semantics)."""
         story_path = _write_story(
             self.source_root / "collection_a", "story_one", "A dragon story."
         )
@@ -318,7 +319,9 @@ class AnnotateStoryTest(unittest.TestCase):
             model="fake-model",
             roots=self.roots,
         )
-        self.assertTrue((story_path.parent / "genre.json").is_file())
+        genre_path = story_path.parent / "genre.json"
+        first_write = json.loads(genre_path.read_text(encoding="utf-8"))
+        self.assertEqual("genre-sidecar-v1", first_write["schema_version"])
 
         # A body change invalidates the checkpoint, forcing a real
         # recompute -- which this backend is configured to fail.
@@ -338,7 +341,40 @@ class AnnotateStoryTest(unittest.TestCase):
 
         self.assertFalse(result.clean)
         self.assertIsNotNone(result.genre_error)
-        self.assertFalse((story_path.parent / "genre.json").exists())
+        # The prior valid ledger survives completely untouched -- not
+        # deleted, not partially modified.
+        self.assertTrue(genre_path.is_file())
+        self.assertEqual(
+            first_write, json.loads(genre_path.read_text(encoding="utf-8"))
+        )
+
+    def test_stale_legacy_sidecar_removed_when_recompute_fails(self):
+        """A failed recompute over a pre-append-mode legacy sidecar (not
+        yet migrated to v1) must still remove the stale file from a
+        prior, differently-configured run -- the bucket would otherwise
+        silently mix a new-config scenes.json with an old-config
+        genre.json (review finding, PR #241); this narrower case is
+        unaffected by the v1-ledger-survives fix above, since a legacy
+        sidecar was never independently valid evidence the append
+        mechanism itself vouches for."""
+        story_path = _write_story(
+            self.source_root / "collection_a", "story_one", "A dragon story."
+        )
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8")
+        backend = _DualToolFakeBackend(fail_genre_calls_after=0)
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="collection_a",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertFalse(result.clean)
+        self.assertIsNotNone(result.genre_error)
+        self.assertFalse(genre_path.exists())
 
 
 # A real genre-sidecar-v1 record actually produced by WI-GENRE-0004's

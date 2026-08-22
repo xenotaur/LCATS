@@ -163,6 +163,12 @@ class SurveyCollectionTest(unittest.TestCase):
             self.assertIn("JSON object", result.sidecar_findings[0].error)
 
     def test_missing_required_key_sidecar_blocks(self):
+        """A genre.json with neither the legacy detected_genre key nor a
+        recognizable v1 shape blocks promotion either way -- it is
+        checked against genre_sidecar.validate_sidecar() (not the legacy
+        top-level-key check) since it isn't legacy-flat per
+        is_legacy_flat_sidecar()'s own definition (WI-GENRE-0076,
+        review finding PR #357)."""
         with tempfile.TemporaryDirectory() as tmpdir:
             collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
             _write_story(collection_dir, "story_one", "A clean sentence.")
@@ -174,7 +180,81 @@ class SurveyCollectionTest(unittest.TestCase):
 
             self.assertFalse(result.clean)
             self.assertEqual(1, len(result.sidecar_findings))
-            self.assertIn("detected_genre", result.sidecar_findings[0].error)
+            self.assertIn("schema_version", result.sidecar_findings[0].error)
+
+    def test_missing_required_key_scenes_sidecar_blocks(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            (collection_dir / "story_one" / "scenes.json").write_text(
+                json.dumps({"unrelated_key": "value"}), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertFalse(result.clean)
+            self.assertEqual(1, len(result.sidecar_findings))
+            self.assertIn("segments", result.sidecar_findings[0].error)
+
+    def test_valid_v1_genre_sidecar_does_not_block(self):
+        """A genre-sidecar-v1 record written by lcats annotate's new
+        append-mode path (WI-GENRE-0076) must not be wrongly flagged
+        malformed by the legacy top-level detected_genre check -- it is
+        checked via genre_sidecar.validate_sidecar() instead (review
+        finding, PR #357)."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "annotated_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            v1_sidecar = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "annotated_collection/story_one",
+                "story_path": "annotated_collection/story_one/story.json",
+                "assessments": [
+                    {
+                        "assessment_id": "model_detect:story_one:2026-08-22T00:00:00+00:00",
+                        "label": "model_detect",
+                        "generated_at": "2026-08-22T00:00:00+00:00",
+                        "scope": "story",
+                        "method": {"name": "assess_story", "version": "v1"},
+                        "provenance": {
+                            "run_id": "2026-08-22T00:00:00+00:00",
+                        },
+                        "evidence": {},
+                        "result": {"detected_genre": "horror"},
+                        "run_id": "2026-08-22T00:00:00+00:00",
+                    }
+                ],
+            }
+            (collection_dir / "story_one" / "genre.json").write_text(
+                json.dumps(v1_sidecar), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertTrue(result.clean)
+            self.assertEqual((), result.sidecar_findings)
+
+    def test_invalid_v1_genre_sidecar_blocks(self):
+        """A v1-shaped genre.json (has schema_version, not legacy-flat)
+        with a genuinely invalid assessments[] entry must still block,
+        via genre_sidecar.validate_sidecar()'s own findings."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            invalid_v1 = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "broken_sidecar_collection/story_one",
+                "story_path": "broken_sidecar_collection/story_one/story.json",
+                "assessments": [{"label": "model_detect"}],
+            }
+            (collection_dir / "story_one" / "genre.json").write_text(
+                json.dumps(invalid_v1), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertFalse(result.clean)
+            self.assertEqual(1, len(result.sidecar_findings))
 
     def test_null_required_value_sidecar_blocks(self):
         """Key presence alone isn't enough -- {"segments": null} passes an

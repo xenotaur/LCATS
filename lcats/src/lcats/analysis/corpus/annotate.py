@@ -616,19 +616,39 @@ def annotate_story(
         max_tokens=genre_max_tokens,
         roots=roots,
     )
-    # A failed recompute must not leave a stale sidecar from a prior,
-    # differently-configured run in place -- the bucket would otherwise
-    # silently mix a new-config scenes.json with an old-config genre.json
-    # (review finding, PR #241).
+    # A failed recompute of a *legacy* single-result sidecar must not
+    # leave a stale file from a prior, differently-configured run in
+    # place -- the bucket would otherwise silently mix a new-config
+    # scenes.json with an old-config genre.json (review finding, PR
+    # #241). But an existing *valid v1* ledger is not "stale" the same
+    # way: it holds independently-valid prior assessments that a new,
+    # unrelated failed attempt did not invalidate, so it must survive
+    # untouched rather than being deleted by that same cleanup (review
+    # finding, PR #357) -- and a checkpoint hit only counts as "nothing
+    # new to append" when the existing file is already that valid v1
+    # shape; a pre-WI-GENRE-0076 legacy sidecar still needs converting
+    # even on a cache hit, or it would never migrate (review finding, PR
+    # #357).
     genre_sidecar_path = bucket_dir / GENRE_SIDECAR_FILENAME
-    if genre_data is not None and genre_from_cache and genre_sidecar_path.is_file():
-        # A checkpoint hit with an already-materialized sidecar is a
-        # resumed no-op replay of a prior observation, not a new one --
-        # appending here would pile up a content-identical assessment on
-        # every re-run of an unchanged config, defeating this module's
-        # own checkpoint idempotency guarantee (review finding, PR #350's
-        # WI-GENRE-0076 self-review). Only a genuinely missing sidecar
-        # (e.g. deleted between runs) still needs materializing below.
+    existing_is_valid_v1 = False
+    if genre_sidecar_path.is_file():
+        try:
+            existing_genre_data = json.loads(
+                genre_sidecar_path.read_text(encoding="utf-8")
+            )
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            existing_genre_data = None
+        if existing_genre_data is not None:
+            existing_is_valid_v1 = genre_sidecar.validate_sidecar(
+                existing_genre_data
+            ).valid
+
+    if genre_data is not None and genre_from_cache and existing_is_valid_v1:
+        # A checkpoint hit against an already-migrated, valid v1 ledger
+        # is a resumed no-op replay of a prior observation, not a new
+        # one -- appending here would pile up a content-identical
+        # assessment on every re-run of an unchanged config, defeating
+        # this module's own checkpoint idempotency guarantee.
         pass
     elif genre_data is not None:
         lcats_id = lcats_story_id(collection_name, bucket_dir.name)
@@ -646,8 +666,8 @@ def annotate_story(
             _write_json(bucket_dir / GENRE_SIDECAR_FILENAME, sidecar_data)
         else:
             genre_error = merge_error
-    elif genre_error is not None:
-        _remove_if_exists(bucket_dir / GENRE_SIDECAR_FILENAME)
+    elif genre_error is not None and not existing_is_valid_v1:
+        _remove_if_exists(genre_sidecar_path)
 
     scenes_data, scenes_error = _annotate_scenes(
         item_id=item_id,
