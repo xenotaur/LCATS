@@ -112,9 +112,18 @@ experiments/04_genre_census/results/**/genre_census.json
 # local resume/debug state produced by run_pilot.py.
 experiments/03_cross_segment_relation_pilot/results/stability_gate/fixtures__*/
 
-# Ignore WI-GENRE-0004 --validate per-story checkpoint state (internal
-# resume cache, redundant with the committed
-# validation_results.jsonl/validation_summary.json/validation_run_log.jsonl).
-# Same targeted-filename approach as the genre-census pattern above (not
-# a blanket results/*/ pattern, for the same PR #292 reason).
-experiments/05_metadata_genre_prefilter/results/**/validation.json
+# Ignore WI-GENRE-0004/WI-LLM-0074 --validate per-story checkpoint state
+# (internal resume cache, redundant with the committed
+# validation_results.jsonl/validation_summary.json/validation_run_log.jsonl
+# and their backend/model/endpoint-qualified equivalents). WI-LLM-0074's
+# checkpoint-collision fix (_validation_checkpoint_stage()) qualifies the
+# checkpoint filename itself by backend/endpoint (e.g.
+# validation_openai_http_localhost_11434_v1.json), so the pattern must
+# match that family, not just the literal "validation.json" - but still
+# requires the extra <collection>__<slug>/ directory level checkpoint
+# files always sit under, so it never matches the real evidence files
+# (validation_summary.json etc.), which sit directly in the experiment's
+# own output directory. Same targeted-filename approach as the
+# genre-census pattern above (not a blanket results/*/ pattern, for the
+# same PR #292 reason).
+experiments/05_metadata_genre_prefilter/results/*/*/validation*.json
