@@ -112,6 +112,11 @@ class TestRunGenres(unittest.TestCase):
             status = visualize_cli.run(parsed_args=args)
         self.assertEqual(status, 1)
 
+    def test_parser_prog_matches_top_level_invocation(self):
+        """Usage/help text reflects `lcats visualize`, not a bare script name."""
+        parser = visualize_cli.build_visualize_parser()
+        self.assertEqual(parser.prog, "lcats visualize")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -74,6 +74,15 @@ def load_full_scan_genre_counts(
     no_usable_signal_count = genre_coverage["no_usable_signal_count"]
     total_stories = data["story_count"]
 
+    counted_total = sum(counts.values()) + no_usable_signal_count
+    if counted_total != total_stories:
+        raise ValueError(
+            f"{path}: primary_target_genre_counts ({sum(counts.values())}) + "
+            f"no_usable_signal_count ({no_usable_signal_count}) = "
+            f"{counted_total}, expected story_count ({total_stories}) -- "
+            "the artifact may be inconsistent or partially updated."
+        )
+
     return GenreCounts(
         counts=counts,
         total_stories=total_stories,

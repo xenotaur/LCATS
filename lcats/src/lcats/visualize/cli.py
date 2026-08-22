@@ -19,6 +19,7 @@ DEFAULT_OUTPUT_DIR = "genre_viz"
 def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
     """Build parser for the visualize command family."""
     parser = argparse.ArgumentParser(
+        prog="lcats visualize",
         description="Corpus and document text visualization commands.",
         add_help=add_help,
     )

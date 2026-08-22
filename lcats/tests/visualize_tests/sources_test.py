@@ -93,6 +93,18 @@ class TestLoadFullScanGenreCounts(unittest.TestCase):
             result = sources.load_full_scan_genre_counts(str(path))
         self.assertEqual(result.source_path, str(path))
 
+    def test_raises_when_counts_do_not_match_story_count(self):
+        """An inconsistent artifact (counts don't sum to story_count) raises."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = _write_summary(
+                tmp_dir,
+                primary_counts={"fantasy": 3},
+                no_usable_signal_count=5,
+                story_count=10,
+            )
+            with self.assertRaises(ValueError):
+                sources.load_full_scan_genre_counts(str(path))
+
     def test_default_path_resolves_from_lcats_package_directory(self):
         """The default path resolves even when run from inside lcats/.
 
