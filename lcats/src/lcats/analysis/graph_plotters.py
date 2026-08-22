@@ -237,6 +237,49 @@ def plot_tokens_per_story_by_author_sns(
     return fig, ax
 
 
+def plot_category_distribution(
+    counts: dict,
+    *,
+    title: str = "Category Distribution",
+    xlabel: str = "Category",
+    ylabel: str = "Count",
+    figsize: tuple = (9, 6),
+    save_path: str | None = None,
+):
+    """
+    Bar chart of a category -> count mapping, sorted by count descending.
+
+    Args:
+        counts: Mapping of category label to count (e.g. genre -> story count).
+        title: Chart title.
+        xlabel: X-axis label.
+        ylabel: Y-axis label.
+        figsize: Matplotlib figure size.
+        save_path: If provided, saves the figure to this path.
+
+    Returns:
+        (fig, ax)
+    """
+    ordered = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+    labels = [label for label, _ in ordered]
+    values = [value for _, value in ordered]
+
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.bar(labels, values)
+
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title)
+    ax.grid(True, axis="y", linestyle="--", linewidth=0.5, alpha=0.6)
+
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+
+    fig.tight_layout()
+    if save_path:
+        fig.savefig(save_path, dpi=150)
+    return fig, ax
+
+
 def plot_tokens_per_story_vs_stories(
     author_stats,
     *,
