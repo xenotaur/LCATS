@@ -14,6 +14,7 @@ related_design:
   - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
 work_items:
   - WI-VISUALIZE-0073
+  - WI-VISUALIZE-0085
 exit_criteria:
   - lcats visualize genres produces genre-distribution figures (word cloud + conventional chart, PNG and vector) from a named, reproducible genre source (genre.json sidecars / whatever artifact PROP-GENRE-EVIDENCE-SIDECARS or the genre-census tooling actually produces), reusing lcats.analysis.graph_plotters for conventional charts, and any figure built from a sample rather than a full-corpus source explicitly discloses population, sample size/mode, and denominator rather than presenting the sample as the whole corpus
   - lcats visualize words produces word-frequency visualizations for the whole corpus and selected genre subsets, with explicit documented preprocessing defaults
@@ -60,7 +61,7 @@ This workstream coordinates implementation of `PROP-LCATS-CORPUS-TEXT-VISUALIZAT
 ## Proposed Work Items
 
 1. `WI-VISUALIZE-0073` — Paper-critical visualization substrate and `genres` command (source adapters over `Story`/`Corpora`, analysis/rendering split reusing `graph_plotters`, genre source named and wired to its real artifact, input-revision reproducibility).
-2. Text selection/preprocessing and `words` command (not yet minted).
+2. `WI-VISUALIZE-0085` — Text selection/preprocessing and `words` command.
 3. TF-IDF analysis and comparison visualization (not yet minted).
 4. Topic baseline (not yet minted).
 5. Dogfood against the LCATS corpus and paper figures (not yet minted).
