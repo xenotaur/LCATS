@@ -242,7 +242,8 @@ worked walkthrough of when and why to use `lcats clean`.
 lcats linguistics [--story-list STORY_LIST] [--backend {spacy,stanza,fake}]
                   [--model MODEL] [--include-token-detail]
                   [--existing {skip,validate,overwrite}]
-                  [--summary-output SUMMARY_OUTPUT] [--dry-run]
+                  [--summary-output SUMMARY_OUTPUT] [--output-root OUTPUT_ROOT]
+                  [--dry-run]
                   [inputs ...]
 ```
 
@@ -258,6 +259,7 @@ Analyze LCATS stories with a local NLP backend and write compact
 | `--include-token-detail` | Also write `linguistics.tokens.json` with normalized token records. |
 | `--existing {skip,validate,overwrite}` | Existing-output behavior. Defaults to `skip`. |
 | `--summary-output SUMMARY_OUTPUT` | Write the machine-readable JSON run summary to a file instead of stdout. |
+| `--output-root OUTPUT_ROOT` | Redirect sidecars under `<output-root>/<collection>/<story>/` instead of writing beside each `story.json`. |
 | `--dry-run` | Resolve inputs and report what would run without writing sidecars. |
 
 See [`../how-to/run-linguistics.md`](../how-to/run-linguistics.md) for setup

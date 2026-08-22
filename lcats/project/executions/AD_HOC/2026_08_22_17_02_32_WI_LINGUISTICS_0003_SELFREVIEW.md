@@ -3,7 +3,7 @@ execution_id: 2026_08_22_17_02_32_WI_LINGUISTICS_0003_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0003_SELFREVIEW)[2026-08-22T17:02:26+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/356
 commit: 9d721123
 created_at: 2026-08-22T17:02:32+00:00

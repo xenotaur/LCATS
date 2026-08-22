@@ -130,7 +130,7 @@ Top-level fields:
 | `model_name` | string | Requested model name or language code. |
 | `existing` | string | Existing-output mode: `skip`, `validate`, or `overwrite`. |
 | `include_token_detail` | boolean | Whether token-detail output was requested. |
-| `output_root` | string | Redirect root used for sidecar outputs, or an empty string when outputs were written beside source stories. |
+| `output_root` | string | Present only when `--output-root` was used; records the redirect root for sidecar outputs. |
 | `counts` | object | Count of per-story results by status. |
 | `results` | array | Per-story outcomes. |
 
