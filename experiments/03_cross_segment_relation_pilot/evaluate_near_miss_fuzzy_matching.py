@@ -56,7 +56,9 @@ def _read_json(path: pathlib.Path) -> Any:
 
 def _story_text(path: pathlib.Path) -> str:
     data = _read_json(path)
-    return story_analysis.coerce_text(data.get("body", ""))
+    return text_segmenter.canonicalize_text(
+        story_analysis.coerce_text(data.get("body", ""))
+    )
 
 
 def _paragraph_range(text: str, start_par_id: int, end_par_id: int) -> tuple[int, int]:
@@ -175,10 +177,11 @@ def _is_unique_enough(matches: list[CandidateMatch], policy: Policy) -> bool:
         union = max(best.end, candidate.end) - min(best.start, candidate.start)
         if union and overlap / union >= 0.9:
             continue
-        return (
+        if (
             best.similarity_ratio - candidate.similarity_ratio
-            >= policy.uniqueness_margin
-        )
+            < policy.uniqueness_margin
+        ):
+            return False
     return True
 
 

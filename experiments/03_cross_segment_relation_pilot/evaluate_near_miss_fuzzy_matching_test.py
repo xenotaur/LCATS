@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pathlib
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -48,6 +49,29 @@ class EvaluateNearMissFuzzyMatchingTest(unittest.TestCase):
             by_case["no_charge_repeated_character_wrong_window"]["matched"]
         )
         self.assertFalse(by_case["way_radio_voice_wrong_window"]["matched"])
+
+    def test_story_text_canonicalizes_newlines_before_offset_use(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = pathlib.Path(tmpdir) / "story.json"
+            path.write_text('{"body": "alpha\\r\\nbeta\\rgamma"}', encoding="utf-8")
+
+            self.assertEqual(evaluator._story_text(path), "alpha\nbeta\ngamma")
+
+    def test_uniqueness_rejects_any_close_distinct_candidate(self):
+        policy = evaluator.Policy(
+            name="test",
+            max_edit_distance=3,
+            min_similarity_ratio=0.985,
+            min_contiguous_run_ratio=0.7,
+            uniqueness_margin=0.02,
+        )
+        matches = [
+            evaluator.CandidateMatch(0, 10, "best", 1, 0.990, 0.9),
+            evaluator.CandidateMatch(20, 30, "worse", 2, 0.940, 0.9),
+            evaluator.CandidateMatch(40, 50, "close", 2, 0.980, 0.9),
+        ]
+
+        self.assertFalse(evaluator._is_unique_enough(matches, policy))
 
 
 if __name__ == "__main__":

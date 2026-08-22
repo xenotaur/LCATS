@@ -21,16 +21,20 @@ The review target was `git diff main` on branch
 # Result
 
 Report-only self-review completed with zero findings. The cold subagent
-verified that the diff only adds experiment/report artifacts, leaves production
-alignment code unchanged, grounds positive near-miss examples in tracked
-`parsed_output`, evaluates one strict local fuzzy policy, reproduces the 2/2
-positive recovery and 0/4 decoy false-positive result, and recommends defer
-rather than production fuzzy matching.
+verified that the pre-PR implementation diff only added experiment/report
+artifacts, left production alignment code unchanged, grounded positive
+near-miss examples in tracked `parsed_output`, evaluated one strict local fuzzy
+policy, reproduced the then-current 2/2 positive recovery and 0/4 decoy
+false-positive result, and recommended defer rather than production fuzzy
+matching.
 
 Main-session re-verification checked the top clean-review claims directly:
-`git diff main --name-only` listed only the five expected files, the focused
-unit test passed, and the evaluator reproduced the committed 2/2 and 0/4
-metrics.
+`git diff main --name-only` listed the five expected implementation/report
+files before execution records were added, the focused unit test passed, and the
+evaluator reproduced the committed 2/2 and 0/4 metrics. The later automatic PR
+review found that exact recovery also needed to compare the end offset and raw
+text; PR follow-up corrected the metric to 1/2 exact recoveries and 0/4 decoy
+false positives.
 
 # Validation
 
