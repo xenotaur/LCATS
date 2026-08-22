@@ -219,7 +219,7 @@ def build_report(
     genre_counts: dict[str, int] = {}
     for row in selected_rows:
         genre_counts[row.selection_genre] = genre_counts.get(row.selection_genre, 0) + 1
-    corpus_sidecars = sorted(corpus_root.glob("**/linguistics*.json"))
+    corpus_sidecars = _selected_source_sidecars(corpus_root, selected_rows)
     copied_sidecars = sorted(output_dir.glob("copied_buckets/**/linguistics.json"))
     return {
         "schema_version": "linguistics-genre-sample-report-v1",
@@ -329,6 +329,21 @@ def _resolve_beneath(root: pathlib.Path, relative_path: pathlib.Path) -> pathlib
     if resolved != root and root not in resolved.parents:
         raise ValueError(f"path escapes configured root: {relative_path}")
     return resolved
+
+
+def _selected_source_sidecars(
+    corpus_root: pathlib.Path, selected_rows: Iterable[ManifestRow]
+) -> list[pathlib.Path]:
+    corpus_root = corpus_root.resolve(strict=True)
+    paths: list[pathlib.Path] = []
+    for row in selected_rows:
+        source_story = _resolve_beneath(corpus_root, row.story_path)
+        source_bucket = source_story.parent
+        for filename in (sidecar.SIDECAR_FILENAME, sidecar.TOKEN_DETAIL_FILENAME):
+            candidate = source_bucket / filename
+            if candidate.exists():
+                paths.append(candidate)
+    return sorted(paths)
 
 
 def _repo_relative(path: pathlib.Path) -> str:

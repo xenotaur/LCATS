@@ -140,6 +140,53 @@ class ExperimentHarnessTest(unittest.TestCase):
             story_list = (output_dir / "story-list.txt").read_text(encoding="utf-8")
             self.assertIn("copied_buckets/alpha/one/story.json", story_list)
 
+    def test_report_checks_only_selected_source_buckets_for_corpus_sidecars(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            selected_story = _write_story(corpus_root, "alpha", "one")
+            unrelated_story = _write_story(corpus_root, "beta", "two")
+            manifest = root / "manifest.jsonl"
+            _write_manifest(manifest, [selected_story])
+            (unrelated_story.parent / "linguistics.json").write_text(
+                "{}", encoding="utf-8"
+            )
+
+            report = run_linguistics_sample.run_sample(
+                manifest_path=manifest,
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                backend_name="fake",
+                expected_count=1,
+                overwrite=True,
+            )
+
+            self.assertFalse(report["corpora_modified"])
+            self.assertEqual(report["corpus_linguistics_sidecars_found"], [])
+
+            (selected_story.parent / "linguistics.tokens.json").write_text(
+                "{}", encoding="utf-8"
+            )
+            report = run_linguistics_sample.run_sample(
+                manifest_path=manifest,
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                backend_name="fake",
+                expected_count=1,
+                overwrite=True,
+            )
+
+            self.assertTrue(report["corpora_modified"])
+            self.assertEqual(
+                report["corpus_linguistics_sidecars_found"],
+                [
+                    (selected_story.parent / "linguistics.tokens.json")
+                    .resolve()
+                    .as_posix()
+                ],
+            )
+
     def test_smoke_count_limits_selected_rows(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)
