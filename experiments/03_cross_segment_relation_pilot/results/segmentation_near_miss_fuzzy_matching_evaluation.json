@@ -1,0 +1,80 @@
+{
+  "fixture": "experiments/03_cross_segment_relation_pilot/fixtures/wi_segment_0072_near_miss_fuzzy_cases.json",
+  "policy": {
+    "name": "strict_local_fuzzy",
+    "max_edit_distance": 3,
+    "min_similarity_ratio": 0.985,
+    "min_contiguous_run_ratio": 0.7,
+    "uniqueness_margin": 0.02
+  },
+  "positive_total": 2,
+  "positive_recovered": 1,
+  "positive_recovery_rate": 0.5,
+  "negative_total": 4,
+  "negative_false_positives": 0,
+  "negative_false_positive_rate": 0.0,
+  "positive_results": [
+    {
+      "case_id": "no_charge_end_exact_missing_p",
+      "expected": true,
+      "expected_span_start": 44115,
+      "expected_span_end": 44310,
+      "matched": true,
+      "recovered_expected_span": true,
+      "match": {
+        "start": 44115,
+        "end": 44310,
+        "text": "Finished, they left the three uproariously drunk in the waiting room and\nwent to wash up. Dr. Kalmar went along bewilderedly. The old man was as\nunconcerned as if he did this sort of thing daily.",
+        "edit_distance": 1,
+        "similarity_ratio": 0.9974293059125964,
+        "contiguous_run_ratio": 0.8402061855670103
+      }
+    },
+    {
+      "case_id": "way_of_a_rebel_start_exact_verb_substitution",
+      "expected": true,
+      "expected_span_start": 1575,
+      "expected_span_end": 1713,
+      "matched": true,
+      "recovered_expected_span": false,
+      "match": {
+        "start": 1575,
+        "end": 1714,
+        "text": "Mitch Laskell switched off the short wave set and muttered an oath. He\nsqueezed his way up through the narrow conning tower and sat on the\n",
+        "edit_distance": 2,
+        "similarity_ratio": 0.9891696750902527,
+        "contiguous_run_ratio": 0.9280575539568345
+      }
+    }
+  ],
+  "negative_results": [
+    {
+      "case_id": "no_charge_anchor_wrong_early_window",
+      "expected": false,
+      "matched": false,
+      "false_positive": false,
+      "match": null
+    },
+    {
+      "case_id": "way_anchor_wrong_late_window",
+      "expected": false,
+      "matched": false,
+      "false_positive": false,
+      "match": null
+    },
+    {
+      "case_id": "no_charge_repeated_character_wrong_window",
+      "expected": false,
+      "matched": false,
+      "false_positive": false,
+      "match": null
+    },
+    {
+      "case_id": "way_radio_voice_wrong_window",
+      "expected": false,
+      "matched": false,
+      "false_positive": false,
+      "match": null
+    }
+  ]
+}
