@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43801,
+    "body_sha256": "780ac79648a5f4739e7b3da551aa17c97e19da990d613bc2e4cfc67b53bcbaec",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/story.json"
+  },
+  "lcats_id": "mass_quantities/a_drift_from_redwood_camp__harte",
+  "metrics": {
+    "avg_sentence_length": 24.20353982300885,
+    "avg_word_length": 4.373187081048141,
+    "sentence_count": 339,
+    "token_count": 9364,
+    "word_count": 8205
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/story.json"
+}

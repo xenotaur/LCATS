@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17778,
+    "body_sha256": "a068a9e994a6a9fee9eb97034ba35821687394b9a9476e683a7310174640a127",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/story.json"
+  },
+  "lcats_id": "anderson/elderbush",
+  "metrics": {
+    "avg_sentence_length": 22.917241379310344,
+    "avg_word_length": 4.306048751128499,
+    "sentence_count": 145,
+    "token_count": 4040,
+    "word_count": 3323
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/story.json"
+}

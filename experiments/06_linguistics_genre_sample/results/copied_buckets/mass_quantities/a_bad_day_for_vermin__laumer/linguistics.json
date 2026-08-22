@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11704,
+    "body_sha256": "4c94a313169b90160ae93cd693113930a4e8d3ad5822f33b4ed0af12dc30acd7",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/story.json"
+  },
+  "lcats_id": "mass_quantities/a_bad_day_for_vermin__laumer",
+  "metrics": {
+    "avg_sentence_length": 14.822784810126583,
+    "avg_word_length": 3.953458582408198,
+    "sentence_count": 158,
+    "token_count": 2915,
+    "word_count": 2342
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/story.json"
+}

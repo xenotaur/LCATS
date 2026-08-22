@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53499,
+    "body_sha256": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope",
+  "metrics": {
+    "avg_sentence_length": 22.824847250509166,
+    "avg_word_length": 3.813777103595967,
+    "sentence_count": 491,
+    "token_count": 12927,
+    "word_count": 11207
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/story.json"
+}

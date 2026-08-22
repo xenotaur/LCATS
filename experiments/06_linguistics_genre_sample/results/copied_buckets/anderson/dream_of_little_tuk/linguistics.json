@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11165,
+    "body_sha256": "d24f1bf04f1dacfa576f1c4331576b4b9d31f82d9c71abdf43905e1df839c292",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/story.json"
+  },
+  "lcats_id": "anderson/dream_of_little_tuk",
+  "metrics": {
+    "avg_sentence_length": 22.095744680851062,
+    "avg_word_length": 4.350987000481464,
+    "sentence_count": 94,
+    "token_count": 2469,
+    "word_count": 2077
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/story.json"
+}

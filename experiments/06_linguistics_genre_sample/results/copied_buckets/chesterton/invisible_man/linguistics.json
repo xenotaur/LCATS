@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40103,
+    "body_sha256": "a53abcbff1986ce23b44cec50014221fdb88dc34e6a7efbb6c2b69456e529758",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/story.json"
+  },
+  "lcats_id": "chesterton/invisible_man",
+  "metrics": {
+    "avg_sentence_length": 22.812698412698413,
+    "avg_word_length": 4.5713888115780685,
+    "sentence_count": 315,
+    "token_count": 8516,
+    "word_count": 7186
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/story.json"
+}

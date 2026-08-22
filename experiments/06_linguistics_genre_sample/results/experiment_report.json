@@ -1,0 +1,32 @@
+{
+  "backend_name": "spacy",
+  "copied_bucket_root": "experiments/06_linguistics_genre_sample/results/copied_buckets",
+  "copied_sidecar_count": 146,
+  "copied_story_count": 146,
+  "corpora_modified": false,
+  "corpus_linguistics_sidecars_found": [],
+  "dry_run": false,
+  "experiment": "experiments/06_linguistics_genre_sample",
+  "manifest_path": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "manifest_row_count": 146,
+  "model_name": "",
+  "run_clean": true,
+  "run_counts": {
+    "written": 146
+  },
+  "run_summary_path": "experiments/06_linguistics_genre_sample/results/linguistics_run_summary.json",
+  "schema_version": "linguistics-genre-sample-report-v1",
+  "selected_story_count": 146,
+  "selection_genre_counts": {
+    "adventure": 6,
+    "fantasy": 20,
+    "horror": 20,
+    "humor": 20,
+    "mystery": 20,
+    "romance": 20,
+    "science fiction": 20,
+    "western": 20
+  },
+  "smoke_count": null,
+  "story_list_path": "experiments/06_linguistics_genre_sample/results/story-list.txt"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44243,
+    "body_sha256": "d4f364789929a96466eb0d1116ae1a539ab43252324d3e84c55c9a6706010a01",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/dough_or_dynamite__tuttle",
+  "metrics": {
+    "avg_sentence_length": 13.836283185840708,
+    "avg_word_length": 3.688412749173862,
+    "sentence_count": 678,
+    "token_count": 11651,
+    "word_count": 9381
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/story.json"
+}

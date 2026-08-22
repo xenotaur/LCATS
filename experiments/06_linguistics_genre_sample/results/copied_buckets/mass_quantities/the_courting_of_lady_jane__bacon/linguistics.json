@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29160,
+    "body_sha256": "a7ef2f2bd83dcb6e759f8eaee74fe3842364c92555da30f77d58c38bbfad56ea",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/the_courting_of_lady_jane__bacon",
+  "metrics": {
+    "avg_sentence_length": 16.95664739884393,
+    "avg_word_length": 3.9442645304244075,
+    "sentence_count": 346,
+    "token_count": 7100,
+    "word_count": 5867
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47077,
+    "body_sha256": "02ed33d72a3ada291be4f4566376a5f52c31e28bf8787bacc82d912814d0c3ca",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/story.json"
+  },
+  "lcats_id": "chesterton/secret_garden",
+  "metrics": {
+    "avg_sentence_length": 20.103864734299517,
+    "avg_word_length": 4.639072449837799,
+    "sentence_count": 414,
+    "token_count": 9942,
+    "word_count": 8323
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/story.json"
+}

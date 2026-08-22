@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19854,
+    "body_sha256": "f0b5216be7d1f3ded2ec94c135f0346569552b0add6ee6ad74f4361085ab9cdc",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/story.json"
+  },
+  "lcats_id": "mass_quantities/cool_air__lovecraft",
+  "metrics": {
+    "avg_sentence_length": 31.516666666666666,
+    "avg_word_length": 4.313061872025384,
+    "sentence_count": 120,
+    "token_count": 4193,
+    "word_count": 3782
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35167,
+    "body_sha256": "3144d452aa7c1e491fe49e059ff0809e129b398968ccbf9da67de922de86ab30",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/story.json"
+  },
+  "lcats_id": "wodehouse/bill_the_bloodhound",
+  "metrics": {
+    "avg_sentence_length": 14.850117096018735,
+    "avg_word_length": 4.563791200126163,
+    "sentence_count": 427,
+    "token_count": 7465,
+    "word_count": 6341
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/story.json"
+}

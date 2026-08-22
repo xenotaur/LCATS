@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42936,
+    "body_sha256": "57a2bb9b012d97fd451e4cab2fe292c0f660415c5f5d2b6c89b2fba3efa11524",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/a_philanthropist__bacon",
+  "metrics": {
+    "avg_sentence_length": 21.72236503856041,
+    "avg_word_length": 4.082485207100592,
+    "sentence_count": 389,
+    "token_count": 9966,
+    "word_count": 8450
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/story.json"
+}

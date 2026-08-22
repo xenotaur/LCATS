@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20292,
+    "body_sha256": "01efe72fc54f15968f334e19c0e7a3bd901e3d19bba3a85a50374adb3994d5b9",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/story.json"
+  },
+  "lcats_id": "mass_quantities/don_t_think_about_it__stuart",
+  "metrics": {
+    "avg_sentence_length": 13.179012345679013,
+    "avg_word_length": 3.756206088992974,
+    "sentence_count": 324,
+    "token_count": 5080,
+    "word_count": 4270
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/story.json"
+}

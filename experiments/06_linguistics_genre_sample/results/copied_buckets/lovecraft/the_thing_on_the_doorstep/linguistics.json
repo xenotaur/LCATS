@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 60572,
+    "body_sha256": "8524852319d5b705ae63bd9e3fa971d7482b26257c05859d15701d6f513ba330",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/story.json"
+  },
+  "lcats_id": "lovecraft/the_thing_on_the_doorstep",
+  "metrics": {
+    "avg_sentence_length": 23.289320388349516,
+    "avg_word_length": 4.111722527930632,
+    "sentence_count": 515,
+    "token_count": 13535,
+    "word_count": 11994
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4042,
+    "body_sha256": "2882a24aea00a6e87cdc54e0387677271225cf86cc107f4a5c8735ded733e66a",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/story.json"
+  },
+  "lcats_id": "anderson/leap_frog",
+  "metrics": {
+    "avg_sentence_length": 25.517241379310345,
+    "avg_word_length": 4.447297297297298,
+    "sentence_count": 29,
+    "token_count": 880,
+    "word_count": 740
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/story.json"
+}

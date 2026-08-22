@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24853,
+    "body_sha256": "e48cc05c29a89d1cd4b566b7891ca41dfe9a539ab86587995c13af413f7728f8",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/6_frightened_men__silverberg",
+  "metrics": {
+    "avg_sentence_length": 12.982142857142858,
+    "avg_word_length": 3.8972293181371587,
+    "sentence_count": 392,
+    "token_count": 6040,
+    "word_count": 5089
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/story.json"
+}

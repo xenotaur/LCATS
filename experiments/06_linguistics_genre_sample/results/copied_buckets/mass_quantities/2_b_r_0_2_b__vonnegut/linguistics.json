@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14409,
+    "body_sha256": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/story.json"
+  },
+  "lcats_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "metrics": {
+    "avg_sentence_length": 12.981900452488688,
+    "avg_word_length": 3.950156849076333,
+    "sentence_count": 221,
+    "token_count": 3677,
+    "word_count": 2869
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/story.json"
+}
