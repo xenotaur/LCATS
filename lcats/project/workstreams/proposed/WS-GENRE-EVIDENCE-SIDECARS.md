@@ -17,7 +17,7 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/project/work_items/proposed/WI-ASSESS-0051.md
-  - lcats/project/work_items/proposed/WI-LLM-0066.md
+  - lcats/project/work_items/resolved/WI-LLM-0066.md
 work_items:
   - WI-GENRE-0001
   - WI-GENRE-0002
