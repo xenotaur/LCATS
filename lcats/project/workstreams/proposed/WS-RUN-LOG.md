@@ -38,8 +38,10 @@ proposed in this same PR in response to a session audit that found
 incremental, human-readable run-event log distinct from per-item
 checkpointing — was scoped to one script while the identical gap
 recurred at five more sites, including `run_pilot.py`, the script whose
-own docstring names the precedent (`WI-EVENT-0032`) this pattern exists
-to prevent. It coordinates extracting a shared, reusable
+own inline code comments (not its module docstring, which names its own
+implementing item `WI-EVENT-0030` instead) cite the precedent
+(`WI-EVENT-0032`) this pattern exists to prevent. It coordinates
+extracting a shared, reusable
 `lcats.utils.run_log` module and migrating every warranted site onto it,
 while explicitly recording why the remaining sites are left as-is.
 

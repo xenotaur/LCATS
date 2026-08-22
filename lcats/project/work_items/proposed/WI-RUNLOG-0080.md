@@ -43,9 +43,11 @@ artifacts_expected:
 ## Summary
 
 Adds an incremental, crash-safe run-event log to `run_pilot.py`, closing
-the gap that its own docstring's `WI-EVENT-0032` precedent exists to
-prevent but which the write-once-at-end output design still leaves open
-on a hard crash.
+the gap that the `WI-EVENT-0032` precedent — cited in this script's own
+inline code comments (`run_pilot.py:777,782,1467`), not its module
+docstring (which names its own implementing item, `WI-EVENT-0030`,
+instead) — exists to prevent, but which the write-once-at-end output
+design still leaves open on a hard crash.
 
 ## Problem / Context
 
