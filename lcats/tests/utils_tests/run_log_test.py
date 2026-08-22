@@ -182,6 +182,67 @@ class RunLogTest(unittest.TestCase):
             with run_log.RunLog(working, "run.jsonl"):
                 raise RuntimeError("boom")
 
+    def test_rejects_absolute_filename(self):
+        working = self.tmp_dir / "results"
+
+        with self.assertRaises(ValueError):
+            run_log.RunLog(working, "/etc/passwd")
+
+    def test_rejects_filename_containing_parent_traversal(self):
+        working = self.tmp_dir / "results"
+
+        with self.assertRaises(ValueError):
+            run_log.RunLog(working, "../escaped.jsonl")
+
+    def test_rejects_filename_containing_a_path_separator(self):
+        working = self.tmp_dir / "results"
+
+        with self.assertRaises(ValueError):
+            run_log.RunLog(working, "subdir/run.jsonl")
+
+    def test_terminal_log_write_failure_does_not_mask_body_exception(self):
+        """A failure writing the abort event must not replace the real error.
+
+        Regression test for the exact gap review flagged on PR #359:
+        without protection, __exit__'s own self.event() call raising
+        (e.g. because the output directory vanished) would propagate
+        instead of the original body exception, hiding the real failure.
+        Calls __enter__/__exit__ directly (rather than via a `with`
+        block) so the patch only takes effect during __exit__, not
+        __enter__'s own unrelated run_start call.
+        """
+        working = self.tmp_dir / "results"
+        log = run_log.RunLog(working, "run.jsonl")
+        log.__enter__()
+
+        with patch.object(run_log, "log_event", side_effect=OSError("disk full")):
+            try:
+                raise RuntimeError("the real failure")
+            except RuntimeError as body_exc:
+                suppressed = log.__exit__(
+                    RuntimeError, body_exc, body_exc.__traceback__
+                )
+
+        self.assertFalse(suppressed)
+
+    def test_refuses_to_follow_a_symlinked_log_path(self):
+        """A symlink at the log path must not redirect writes elsewhere.
+
+        Regression test for the review finding on PR #359: a plain
+        Path.open("a") follows symlinks, so a run.jsonl symlink pointing
+        outside the validated working_root would silently defeat the
+        protected-root guard.
+        """
+        working = self.tmp_dir / "results"
+        working.mkdir(parents=True)
+        target = self.tmp_dir / "outside.jsonl"
+        (working / "run.jsonl").symlink_to(target)
+
+        with self.assertRaises(OSError):
+            run_log.log_event(working / "run.jsonl", "run_start")
+
+        self.assertFalse(target.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

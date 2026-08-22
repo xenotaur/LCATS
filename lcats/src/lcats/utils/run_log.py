@@ -61,12 +61,19 @@ from __future__ import annotations
 
 import datetime
 import json
+import os
 import pathlib
+import sys
 from typing import Any, Optional, Union
 
 from lcats.utils import checkpoint
 
 PathLike = Union[str, pathlib.Path]
+
+# Not defined on Windows; fall back to 0 (no-op flag) there rather than
+# raising AttributeError -- the symlink guard below is a POSIX-specific
+# hardening, not a portability requirement.
+_O_NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
 
 
 def log_event(log_path: PathLike, event: str, **fields: Any) -> None:
@@ -77,6 +84,13 @@ def log_event(log_path: PathLike, event: str, **fields: Any) -> None:
     buffered-but-unflushed line -- the exact failure mode this log exists
     to survive. The per-call open/close cost is negligible next to a real
     API call's own latency.
+
+    Refuses to follow a symlink at ``log_path`` (``O_NOFOLLOW``): a plain
+    ``Path.open("a")`` follows symlinks, so a log-file symlink pointing
+    outside a caller's validated root (e.g. planted by another process,
+    or left over from a prior run) would silently redirect every write
+    there, defeating any protected-root guard the caller already applied
+    (review finding, PR #359).
     """
     record = {
         "timestamp": datetime.datetime.now(datetime.timezone.utc)
@@ -85,8 +99,14 @@ def log_event(log_path: PathLike, event: str, **fields: Any) -> None:
         "event": event,
         **fields,
     }
-    with pathlib.Path(log_path).open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record, sort_keys=True) + "\n")
+    line = json.dumps(record, sort_keys=True) + "\n"
+    fd = os.open(
+        os.fspath(log_path),
+        os.O_WRONLY | os.O_APPEND | os.O_CREAT | _O_NOFOLLOW,
+        0o644,
+    )
+    with os.fdopen(fd, "a", encoding="utf-8") as f:
+        f.write(line)
 
 
 class RunLog:
@@ -124,6 +144,16 @@ class RunLog:
             source_root = None
         validated = checkpoint.resolve_roots(working_root, source_root)
         self.roots = validated
+        # filename is a caller-supplied identifier, not a path -- without
+        # this check, an absolute value or one containing ".." would
+        # escape validated.working_root entirely, defeating the guard
+        # above (review finding, PR #359; mirrors
+        # checkpoint._validate_path_component's own rationale).
+        parts = pathlib.PurePath(filename).parts
+        if len(parts) != 1 or filename in (".", ".."):
+            raise ValueError(
+                f"filename must be a single, relative path segment, got {filename!r}"
+            )
         self.log_path = validated.working_root / filename
         # Callers name an output directory that may not exist yet (e.g. a
         # fresh --output path); log_event() only opens in append mode and
@@ -143,9 +173,29 @@ class RunLog:
 
     def __exit__(self, exc_type, exc, tb) -> bool:
         if exc_type is None:
+            # No active exception to protect -- a failure writing run_end
+            # here is itself the only error worth reporting, so let it
+            # propagate normally.
             self.event("run_end")
-        elif self.fatal_exceptions and issubclass(exc_type, self.fatal_exceptions):
-            self.event("run_aborted_fatal", error=repr(exc))
+            return False
+        # An exception is already propagating. If writing the terminal
+        # abort event itself fails (disk full, output directory removed,
+        # permissions changed), that failure must never replace the
+        # active body exception as what the caller sees -- doing so would
+        # hide the real failure behind an unrelated I/O error (review
+        # finding, PR #359). Report the logging failure to stderr instead
+        # of raising it, and let the original exception continue to
+        # propagate untouched.
+        if self.fatal_exceptions and issubclass(exc_type, self.fatal_exceptions):
+            event_name = "run_aborted_fatal"
         else:
-            self.event("run_aborted_unexpected", error=repr(exc))
+            event_name = "run_aborted_unexpected"
+        try:
+            self.event(event_name, error=repr(exc))
+        except Exception as log_error:  # noqa: BLE001 - see docstring above
+            print(
+                f"run_log: failed to write {event_name} for {self.log_path}: "
+                f"{log_error!r} (original exception still propagating)",
+                file=sys.stderr,
+            )
         return False  # never suppress the exception
