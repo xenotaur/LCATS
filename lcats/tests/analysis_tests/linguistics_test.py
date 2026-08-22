@@ -497,6 +497,29 @@ class LinguisticsRunnerTest(unittest.TestCase):
             )
             self.assertIn("same output sidecar path", summary.results[1].message)
 
+    def test_redirected_batch_detects_symlinked_duplicate_output_targets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            first = _write_story(root / "alpha-source" / "alpha" / "story")
+            second = _write_story(root / "beta-source" / "beta" / "story")
+            output_root = root / "linguistics-output"
+            (output_root / "beta").mkdir(parents=True)
+            (output_root / "alpha").symlink_to(output_root / "beta")
+
+            summary = runner.run(
+                [first, second],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                output_root=output_root,
+            )
+
+            self.assertFalse(summary.clean)
+            self.assertEqual(
+                [runner.STATUS_WRITTEN, runner.STATUS_FAILED],
+                [result.status for result in summary.results],
+            )
+            self.assertIn("same output sidecar path", summary.results[1].message)
+
     def test_redirected_output_path_failure_is_isolated_per_story(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)
@@ -529,6 +552,18 @@ class LinguisticsRunnerTest(unittest.TestCase):
             )
 
             self.assertEqual(output_root.as_posix(), summary.to_dict()["output_root"])
+
+    def test_run_summary_omits_output_root_when_default_output_is_used(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
+
+            summary = runner.run(
+                [story_path],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+            )
+
+            self.assertNotIn("output_root", summary.to_dict())
 
     def test_resolve_story_paths_accepts_bucket_directory_and_story_list(self):
         with tempfile.TemporaryDirectory() as tmp:
