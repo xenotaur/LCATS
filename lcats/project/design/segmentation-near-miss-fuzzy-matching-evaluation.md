@@ -15,10 +15,11 @@ Related work:
 
 ## Summary
 
-A strict local fuzzy policy can recover the two committed near-miss positives
-available in the repository, with zero false positives on four hand-built decoy
-cases. That is a useful signal, but it is not enough evidence to adopt fuzzy
-matching in production.
+A strict local fuzzy policy matched both committed near-miss positives available
+in the repository, but only one was an exact span recovery. The other accepted
+match overextended the expected source span by one newline. The same policy
+produced zero false positives on four hand-built decoy cases. That is useful
+evidence, but it is not enough to adopt fuzzy matching in production.
 
 Recommendation: defer production fuzzy matching. Keep exact/normalized anchor
 grounding as the production behavior. Reconsider only after a broader,
@@ -81,19 +82,20 @@ The result artifact is
 | Metric | Result |
 |---|---:|
 | Positive near-miss cases | 2 |
-| Positives recovered | 2 |
-| Positive recovery rate | 100% |
+| Positives recovered exactly | 1 |
+| Positive exact-recovery rate | 50% |
 | Negative/decoy cases | 4 |
 | False positives | 0 |
 | False-positive rate | 0% |
 
-Recovered positive spans:
+Positive spans:
 
 - `no_charge_end_exact_missing_p`: recovered source span `[44115, 44310)`,
   edit distance 1, similarity 0.9974, contiguous-run ratio 0.8402.
-- `way_of_a_rebel_start_exact_verb_substitution`: recovered source span
-  `[1575, 1714)`, edit distance 2, similarity 0.9892, contiguous-run ratio
-  0.9281.
+- `way_of_a_rebel_start_exact_verb_substitution`: matched source span
+  `[1575, 1714)`, but the expected source span was `[1575, 1713)`. The extra
+  trailing newline means this is not counted as exact recovery; edit distance
+  2, similarity 0.9892, contiguous-run ratio 0.9281.
 
 Rejected decoys:
 
@@ -105,12 +107,14 @@ Rejected decoys:
 
 ## Safety Assessment
 
-The strict local policy is directionally promising because it recovered both
+The strict local policy is directionally interesting because it matched both
 available positives without accepting the decoys. The important limitation is
-sample size: two positives and four decoys do not estimate false-positive risk
-well enough for a production matcher. A single silent wrong span can corrupt
-segment boundaries while still producing syntactically valid output, which is
-the exact class of failure `WI-SEGMENT-0059` warns against.
+not only sample size: one accepted positive overextended the expected span by
+one newline. On a segment boundary, that is still a boundary error. Two
+positives and four decoys also do not estimate false-positive risk well enough
+for a production matcher. A single silent wrong span can corrupt segment
+boundaries while still producing syntactically valid output, which is the exact
+class of failure `WI-SEGMENT-0059` warns against.
 
 The policy's strongest safety properties are:
 
@@ -122,6 +126,7 @@ The policy's strongest safety properties are:
 The unresolved risks are:
 
 - The positive set is too small and comes from only two stories.
+- The current candidate policy accepted one non-exact boundary span.
 - The decoys are useful but hand-built, not a broad repeated-text control set.
 - The evaluation does not yet include cases with multiple near-identical
   phrases in the same claimed paragraph range.
@@ -152,8 +157,8 @@ thresholds after seeing the results.
 
 Defer production fuzzy matching.
 
-This evaluation shows that a strict local fuzzy matcher may be viable, but it
-does not yet clear the safety bar for production adoption. Do not implement a
+This evaluation shows that a strict local fuzzy matcher may be worth studying,
+but it does not clear the safety bar for production adoption. Do not implement a
 production matcher from this evidence alone. The right next step is to let
 future approved segmentation runs accumulate more real near-miss
 `parsed_output`, or to file a separate bounded evidence-gathering WI if fuzzy

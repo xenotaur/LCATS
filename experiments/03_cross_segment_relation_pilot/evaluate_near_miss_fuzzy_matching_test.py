@@ -10,12 +10,28 @@ import evaluate_near_miss_fuzzy_matching as evaluator  # noqa: E402
 
 
 class EvaluateNearMissFuzzyMatchingTest(unittest.TestCase):
-    def test_fixture_evaluation_recovers_positive_near_misses(self):
+    def test_fixture_evaluation_counts_only_exact_span_recovery(self):
         result = evaluator.evaluate_fixture()
 
         self.assertEqual(result["positive_total"], 2)
-        self.assertEqual(result["positive_recovered"], 2)
-        self.assertEqual(result["positive_recovery_rate"], 1.0)
+        self.assertEqual(result["positive_recovered"], 1)
+        self.assertEqual(result["positive_recovery_rate"], 0.5)
+
+        by_case = {item["case_id"]: item for item in result["positive_results"]}
+        self.assertTrue(
+            by_case["no_charge_end_exact_missing_p"]["recovered_expected_span"]
+        )
+        self.assertFalse(
+            by_case["way_of_a_rebel_start_exact_verb_substitution"][
+                "recovered_expected_span"
+            ]
+        )
+        self.assertNotEqual(
+            by_case["way_of_a_rebel_start_exact_verb_substitution"]["match"]["end"],
+            by_case["way_of_a_rebel_start_exact_verb_substitution"][
+                "expected_span_end"
+            ],
+        )
 
     def test_fixture_evaluation_rejects_negative_decoys(self):
         result = evaluator.evaluate_fixture()

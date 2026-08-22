@@ -235,15 +235,20 @@ def evaluate_fixture(fixture_path: pathlib.Path = DEFAULT_FIXTURE) -> dict[str, 
         lo, hi = _paragraph_range(text, start_par_id, end_par_id)
         match = accepted_match(text, anchor, lo, hi, policy)
         expected = case["expected_source_text"]
+        expected_start = case["expected_span_start"]
+        expected_end = expected_start + len(expected)
         recovered = (
             match is not None
-            and match.start == case["expected_span_start"]
-            and _collapse_ws(match.text) == _collapse_ws(expected)
+            and match.start == expected_start
+            and match.end == expected_end
+            and match.text == expected
         )
         positive_results.append(
             {
                 "case_id": case["case_id"],
                 "expected": True,
+                "expected_span_start": expected_start,
+                "expected_span_end": expected_end,
                 "matched": match is not None,
                 "recovered_expected_span": recovered,
                 "match": dataclasses.asdict(match) if match else None,

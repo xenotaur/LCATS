@@ -8,8 +8,8 @@
     "uniqueness_margin": 0.02
   },
   "positive_total": 2,
-  "positive_recovered": 2,
-  "positive_recovery_rate": 1.0,
+  "positive_recovered": 1,
+  "positive_recovery_rate": 0.5,
   "negative_total": 4,
   "negative_false_positives": 0,
   "negative_false_positive_rate": 0.0,
@@ -17,6 +17,8 @@
     {
       "case_id": "no_charge_end_exact_missing_p",
       "expected": true,
+      "expected_span_start": 44115,
+      "expected_span_end": 44310,
       "matched": true,
       "recovered_expected_span": true,
       "match": {
@@ -31,8 +33,10 @@
     {
       "case_id": "way_of_a_rebel_start_exact_verb_substitution",
       "expected": true,
+      "expected_span_start": 1575,
+      "expected_span_end": 1713,
       "matched": true,
-      "recovered_expected_span": true,
+      "recovered_expected_span": false,
       "match": {
         "start": 1575,
         "end": 1714,
