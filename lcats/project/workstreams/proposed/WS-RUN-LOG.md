@@ -5,7 +5,7 @@ title: Shared run-event logging for LCATS batch scripts
 status: proposed
 stage: designed
 origin: design_review
-summary: Deliver PROP-LCATS-RUN-LOG's shared lcats.utils.run_log module (function + RunLog context manager) and migrate the 6 warranted batch-script/CLI sites to it, plus record the disposition of the 5 explicitly out-of-scope sites.
+summary: Deliver PROP-LCATS-RUN-LOG's shared lcats.utils.run_log module (function + RunLog context manager) and migrate the 7 warranted batch-script/CLI sites to it, plus record the disposition of the 5 explicitly out-of-scope sites.
 related_focus: []
 related_roadmap: []
 related_design:
@@ -41,7 +41,7 @@ while explicitly recording why the remaining sites are left as-is.
 - Design and implement `lcats.utils.run_log` per the proposal's
   Decision 1 (function + `RunLog` context manager), Decision 2 (module
   location), and Decision 3 (tied to `checkpoint.CheckpointRoots`).
-- Migrate the 6 "upgrade" sites from the proposal's Decision 4 table:
+- Migrate the 7 "upgrade" sites from the proposal's Decision 4 table:
   `run_prefilter.py`, `run_pilot.py`, `run_census.py`, `lcats gather`,
   `lcats assess`, `lcats annotate`, `lcats promote`.
 - Record the "historical/no-log-needed" disposition in-code for the 5
