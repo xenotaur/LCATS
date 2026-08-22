@@ -71,6 +71,12 @@ _PRICING_USD_PER_MILLION_TOKENS: dict[str, tuple[float, float]] = {
     "claude-opus-4": (15.0, 75.0),
     "claude-sonnet-4": (3.0, 15.0),
     "claude-haiku-4": (0.8, 4.0),
+    # Real OpenAI pricing (not just Claude prefixes) - --backend openai
+    # without --base-url hits the real, billed OpenAI API, not a local
+    # endpoint, so it must not silently fall through to the Anthropic
+    # default price (review finding: Codex P2 / Copilot, this PR).
+    # Matches run_census.py's own pricing table entry exactly.
+    "gpt-4o": (2.5, 10.0),
 }
 _DEFAULT_PRICING_USD_PER_MILLION_TOKENS: tuple[float, float] = (15.0, 75.0)
 
@@ -843,6 +849,22 @@ def _slugify_component(value: str) -> str:
     return "".join(char if char.isalnum() else "_" for char in value.lower()).strip("_")
 
 
+def _redact_base_url(base_url: str) -> str:
+    """Strips userinfo (username:password@), query string, and fragment
+    from base_url before it is ever written to disk - a base_url carrying
+    credentials or an API key in its query string must never be persisted
+    verbatim into a checkpoint fingerprint or a committed summary file
+    (review finding: Copilot, this PR). Only the redacted form is used
+    anywhere this value gets written out; the real, unredacted base_url
+    is used solely to construct the actual backend connection, which
+    happens once and is never itself serialized."""
+    parsed = urllib.parse.urlparse(base_url)
+    netloc = parsed.hostname or ""
+    if parsed.port:
+        netloc = f"{netloc}:{parsed.port}"
+    return urllib.parse.urlunparse((parsed.scheme, netloc, parsed.path, "", "", ""))
+
+
 def _is_local_base_url(base_url: str | None) -> bool:
     """Mirrors run_census.py's own _is_local_base_url (WI-LLM-0066) - a
     local-endpoint call is reported at $0 API cost regardless of model."""
@@ -909,6 +931,29 @@ def _validation_output_filenames(
         "summary": f"{prefix}_summary.json",
         "run_log": f"{prefix}_run_log.jsonl",
     }
+
+
+def _validation_checkpoint_stage(backend_name: str, base_url: str | None) -> str:
+    """Backend/endpoint-qualified checkpoint stage name for --validate.
+
+    checkpoint.write_checkpoint()/read_checkpoint() key each story's
+    checkpoint file by (item_id, stage) alone - the fingerprint only
+    gates whether a checkpoint is treated as done, it does not change
+    *where* the checkpoint is written. Without this qualification, an
+    Opus run and a local run sharing the same --output (the documented
+    comparison workflow) would both write to the exact same
+    <item_id>/validation.json file: a local run's write - even a failed
+    one - would silently replace the Opus run's own successful resume
+    checkpoint, so switching back to the Opus command would re-call and
+    re-bill every story the local run had touched (review finding: Codex
+    P1, this PR). The default anthropic/no-base_url case keeps today's
+    exact stage name unchanged."""
+    if backend_name == "anthropic" and not base_url:
+        return VALIDATION_CHECKPOINT_STAGE
+    pieces = [backend_name]
+    if base_url:
+        pieces.append(_endpoint_slug(base_url))
+    return VALIDATION_CHECKPOINT_STAGE + "_" + "_".join(pieces)
 
 
 def _price_for_model(model: str) -> tuple[float, float]:
@@ -1045,6 +1090,7 @@ def _rows_not_yet_checkpointed(
     run_validation() itself to decide, per story, whether to skip the
     real call.
     """
+    stage = _validation_checkpoint_stage(backend_name, base_url)
     remaining = []
     for row in selected_rows:
         item_id = _validation_item_id(row["story_id"])
@@ -1053,7 +1099,7 @@ def _rows_not_yet_checkpointed(
                 model, row, corpus_root, backend_name=backend_name, base_url=base_url
             )
             cached = checkpoint.read_checkpoint(
-                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+                roots.working_root, item_id, stage, fingerprint
             )
         except OSError:
             # Story file missing/unreadable - can't fingerprint it to check
@@ -1141,6 +1187,7 @@ def run_validation(
     total_output_tokens = 0
     aborted = False
     total = len(selected_rows)
+    stage = _validation_checkpoint_stage(backend_name, base_url)
     for index, row in enumerate(selected_rows, start=1):
         item_id = _validation_item_id(row["story_id"])
         # fingerprint is computed inside the try block below (not here,
@@ -1155,7 +1202,7 @@ def run_validation(
                 model, row, corpus_root, backend_name=backend_name, base_url=base_url
             )
             cached = checkpoint.read_checkpoint(
-                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+                roots.working_root, item_id, stage, fingerprint
             )
         except OSError:
             cached = None
@@ -1202,7 +1249,7 @@ def run_validation(
                 checkpoint.write_checkpoint(
                     roots.working_root,
                     item_id,
-                    VALIDATION_CHECKPOINT_STAGE,
+                    stage,
                     outcome="failure" if assessment_result.error else "success",
                     fingerprint=fingerprint,
                     data={
@@ -1258,7 +1305,7 @@ def run_validation(
                     checkpoint.write_checkpoint(
                         roots.working_root,
                         item_id,
-                        VALIDATION_CHECKPOINT_STAGE,
+                        stage,
                         outcome="failure",
                         fingerprint=fingerprint,
                         data={"error": f"unexpected error: {exc!r}"},
@@ -1690,14 +1737,20 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
     except (checkpoint.ProtectedRootError, RuntimeError) as exc:
         raise ValueError(f"checkpoint working_root rejected: {exc}") from exc
 
-    is_local_endpoint = _is_local_base_url(args.base_url)
+    # Redacted (userinfo/query/fragment stripped) before this value is
+    # ever written to disk - the raw args.base_url is used only for the
+    # real backend connection below, never for a fingerprint, summary,
+    # log line, or filename (review finding: Copilot, this PR).
+    redacted_base_url = _redact_base_url(args.base_url) if args.base_url else None
+
+    is_local_endpoint = _is_local_base_url(redacted_base_url)
     remaining_rows = _rows_not_yet_checkpointed(
         selected_rows,
         args.model,
         roots,
         args.corpus_root,
         backend_name=args.backend,
-        base_url=args.base_url,
+        base_url=redacted_base_url,
     )
     estimate = (
         0.0
@@ -1712,7 +1765,7 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
             "remaining_count": len(remaining_rows),
             "model": args.model,
             "backend": args.backend,
-            "base_url": args.base_url or "",
+            "base_url": redacted_base_url or "",
             "estimated_cost_usd": estimate,
             "note": (
                 "No API calls made. estimated_cost_usd covers only "
@@ -1728,10 +1781,12 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
         }
 
     backend = _build_validation_backend(args.backend, args.model, args.base_url)
-    filenames = _validation_output_filenames(args.backend, args.model, args.base_url)
+    filenames = _validation_output_filenames(
+        args.backend, args.model, redacted_base_url
+    )
     print(
         f"Validating {len(selected_rows)} stories with {args.backend}/{args.model}"
-        + (f" @ {args.base_url}" if args.base_url else "")
+        + (f" @ {redacted_base_url}" if redacted_base_url else "")
         + " (resuming from any checkpoints)."
     )
     log_path = args.output / filenames["run_log"]
@@ -1743,7 +1798,7 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
         roots=roots,
         log_path=log_path,
         backend_name=args.backend,
-        base_url=args.base_url,
+        base_url=redacted_base_url,
         is_local_endpoint=is_local_endpoint,
     )
     # Always write whatever completed, aborted or not - never silently

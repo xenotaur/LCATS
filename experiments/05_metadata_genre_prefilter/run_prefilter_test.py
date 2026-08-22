@@ -1506,6 +1506,126 @@ class TestValidationLocalBackend(unittest.TestCase):
                 (output_dir / run_prefilter.VALIDATION_SUMMARY_FILENAME).exists()
             )
 
+    def test_opus_and_local_checkpoints_do_not_collide_in_shared_output(self):
+        # Review finding (Codex P1): an Opus run and a local run sharing
+        # the same --output must never write to the same checkpoint file
+        # - a local run (even a failed one) must not destroy the Opus
+        # run's own resume checkpoint, and vice versa.
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, opus_args = self._setup_manifest(tmp, rows, [])
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    opus_summary = run_prefilter._run_validate_mode(opus_args)
+            self.assertEqual(opus_summary["processed_count"], 1)
+
+            # Same --output, same manifest, now a local-backend run.
+            local_args = run_prefilter.parse_args(
+                [
+                    "--validate",
+                    "--run-real-validation",
+                    "--output",
+                    str(output_dir),
+                    "--corpus-root",
+                    str(_corpus_root),
+                    "--backend",
+                    "openai",
+                    "--base-url",
+                    "http://localhost:11434/v1",
+                    "--model",
+                    "gpt-oss:20b",
+                ]
+            )
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess_local:
+                mock_assess_local.return_value = _FakeAssessmentResult(
+                    detected_genre="mystery"
+                )
+                local_summary = run_prefilter._run_validate_mode(local_args)
+            # The local backend has its own fingerprint, so it re-calls
+            # rather than reusing the Opus result - expected, since these
+            # are two genuinely different classifications.
+            self.assertEqual(local_summary["processed_count"], 1)
+            mock_assess_local.assert_called_once()
+
+            # The real check: re-running the ORIGINAL Opus command now
+            # must still find its own checkpoint intact (cached, zero new
+            # calls) - not silently overwritten by the local run.
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess_opus_again:
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    opus_summary_again = run_prefilter._run_validate_mode(opus_args)
+            mock_assess_opus_again.assert_not_called()
+            self.assertEqual(opus_summary_again["processed_count"], 1)
+
+    def test_default_openai_model_uses_openai_pricing_not_anthropic_fallback(self):
+        # Review finding (Codex P2 / Copilot): --backend openai without
+        # --base-url hits real, billed OpenAI - the pricing table must
+        # have a real gpt-4o entry, not silently fall through to the
+        # Anthropic default (15, 75) price.
+        input_price, output_price = run_prefilter._price_for_model("gpt-4o")
+        self.assertEqual((input_price, output_price), (2.5, 10.0))
+        self.assertNotEqual(
+            (input_price, output_price),
+            run_prefilter._DEFAULT_PRICING_USD_PER_MILLION_TOKENS,
+        )
+
+    def test_base_url_credentials_are_redacted_before_persisting(self):
+        # Review finding (Copilot): a base_url carrying credentials or a
+        # query-string secret must never be written to disk verbatim.
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, args = self._setup_manifest(
+                tmp,
+                rows,
+                [
+                    "--backend",
+                    "openai",
+                    "--base-url",
+                    "http://user:secret@localhost:11434/v1?api_key=topsecret",
+                    "--model",
+                    "gpt-oss:20b",
+                ],
+            )
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                summary = run_prefilter._run_validate_mode(args)
+
+            self.assertNotIn("secret", summary["base_url"])
+            self.assertNotIn("topsecret", summary["base_url"])
+            self.assertEqual(summary["base_url"], "http://localhost:11434/v1")
+
+            # Not in the committed summary file, and not in the checkpoint
+            # fingerprint written to disk either.
+            summary_files = list(output_dir.glob("*_summary.json"))
+            self.assertEqual(len(summary_files), 1)
+            summary_text = summary_files[0].read_text(encoding="utf-8")
+            self.assertNotIn("secret", summary_text)
+            self.assertNotIn("topsecret", summary_text)
+
+            checkpoint_files = list(output_dir.glob("*/validation_*.json"))
+            self.assertEqual(len(checkpoint_files), 1)
+            checkpoint_text = checkpoint_files[0].read_text(encoding="utf-8")
+            self.assertNotIn("secret", checkpoint_text)
+            self.assertNotIn("topsecret", checkpoint_text)
+
 
 class TestFullScanIntegration(unittest.TestCase):
     def test_full_scan_reports_genre_coverage_and_writes_manifest(self):
