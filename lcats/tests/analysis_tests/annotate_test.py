@@ -715,6 +715,50 @@ class GenreSidecarAppendModeTest(unittest.TestCase):
         )
         self.assertEqual(1, len(genre_data["assessments"]))
 
+    def test_checkpoint_hit_against_legacy_sidecar_still_migrates(self):
+        """The checkpoint-hit no-op only applies once the existing file is
+        already a valid v1 ledger -- a pre-WI-GENRE-0076 legacy sidecar
+        re-annotated under an unchanged config (a checkpoint hit) must
+        still be converted-and-appended, not skipped (review finding,
+        PR #357: the original no-op check only tested `is_file()`)."""
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        backend = _DualToolFakeBackend()
+
+        annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+        first_call_count = len(backend.calls)
+        # Simulate a story annotated by the pre-append-mode implementation:
+        # a valid checkpoint exists (from the call above), but the on-disk
+        # file is overwritten with a legacy flat sidecar.
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8")
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+        # No new API calls -- this was a genuine checkpoint hit.
+        self.assertEqual(first_call_count, len(backend.calls))
+        # But the legacy file was still migrated, not left in place.
+        genre_data = json.loads(genre_path.read_text(encoding="utf-8"))
+        self.assertEqual("genre-sidecar-v1", genre_data["schema_version"])
+        self.assertEqual(2, len(genre_data["assessments"]))
+        self.assertEqual(
+            "fantasy", genre_data["assessments"][0]["result"]["detected_genre"]
+        )
+
     def test_merge_preserves_existing_current_adjudication(self):
         """merge_genre_sidecar rebuilds the top-level record on every call
         -- it must not silently drop an existing human adjudication
