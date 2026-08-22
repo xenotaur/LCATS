@@ -88,10 +88,15 @@ class EvidenceCandidate:
         paragraph_ids, paragraph_errors = _string_tuple_field(data, "paragraph_ids")
         entity_ids, entity_errors = _string_tuple_field(data, "entity_ids")
         event_ids, event_errors = _string_tuple_field(data, "event_ids")
+        evidence_type, evidence_type_errors = _required_string_field(
+            data, "evidence_type"
+        )
+        quote, quote_errors = _required_string_field(data, "quote")
+        paraphrase, paraphrase_errors = _required_string_field(data, "paraphrase")
         return cls(
-            evidence_type=str(data.get("evidence_type", "")),
-            quote=str(data.get("quote", "")),
-            paraphrase=str(data.get("paraphrase", "")),
+            evidence_type=evidence_type,
+            quote=quote,
+            paraphrase=paraphrase,
             confidence=_coerce_confidence(data.get("confidence", 0.0)),
             source_chunk_id=_optional_string(
                 data.get("source_chunk_id"), default_source_chunk_id
@@ -103,7 +108,14 @@ class EvidenceCandidate:
             event_ids=event_ids,
             raw_id=_optional_string(data.get("raw_id")),
             source=source,
-            schema_errors=paragraph_errors + entity_errors + event_errors,
+            schema_errors=(
+                evidence_type_errors
+                + quote_errors
+                + paraphrase_errors
+                + paragraph_errors
+                + entity_errors
+                + event_errors
+            ),
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -747,6 +759,17 @@ def _string_tuple_field(
     if not isinstance(value, (list, tuple)):
         return (), (f"{key} must be an array of strings",)
     return tuple(str(item) for item in value), ()
+
+
+def _required_string_field(
+    data: dict[str, Any], key: str
+) -> tuple[str, tuple[str, ...]]:
+    if key not in data:
+        return "", (f"{key} is required",)
+    value = data[key]
+    if not isinstance(value, str):
+        return "", (f"{key} must be a string",)
+    return value, ()
 
 
 def _translated_erw_offset(value: Any, segment_start_char: int) -> int | None:

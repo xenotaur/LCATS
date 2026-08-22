@@ -183,6 +183,24 @@ class EvidenceTest(unittest.TestCase):
             "paragraph_ids must be an array", evidence_set.quarantined[0].reason
         )
 
+    def test_null_required_scalar_fields_are_quarantined(self):
+        prepared = preparation.prepare_story_data(
+            {"name": "None Story", "body": "None"},
+            story_path="/tmp/collection/none-story/story.json",
+        )
+        candidate = {
+            "evidence_type": "storyworld_change",
+            "quote": None,
+            "paraphrase": None,
+            "confidence": 0.8,
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+        self.assertIn("quote must be a string", evidence_set.quarantined[0].reason)
+
     def test_unlocatable_or_malformed_evidence_is_quarantined(self):
         prepared = _prepared_story()
         valid = {
