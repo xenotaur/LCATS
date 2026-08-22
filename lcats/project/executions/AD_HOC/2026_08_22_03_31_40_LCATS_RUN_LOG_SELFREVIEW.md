@@ -2,10 +2,10 @@
 execution_id: 2026_08_22_03_31_40_LCATS_RUN_LOG_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:LCATS_RUN_LOG_SELFREVIEW)[2026-08-22T03:31:28+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_08_21_22_09_17_LCATS_RUN_LOG
 pr: https://github.com/xenotaur/LCATS/pull/338
-commit: f55638fb4913a5447c71ece6c9b197752c4e7471
+commit: 5d9a38dddb543bd83796c19d1e08197534918d73
 created_at: 2026-08-22T03:31:40+00:00
 agent: claude_app
 instruction_source: project/executions/AD_HOC/2026_08_22_03_31_40_LCATS_RUN_LOG_SELFREVIEW.md

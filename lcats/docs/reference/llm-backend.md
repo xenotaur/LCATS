@@ -175,3 +175,4 @@ parameter rather than constructing a provider client internally.
 - [`project/design/unified-llm-backend-design.md`](../../project/design/unified-llm-backend-design.md) — full design rationale, provider translation tables, and migration sequence (`WI-LLM-0007` through `WI-LLM-0010`, all resolved).
 - [`docs/how-to/run-assess.md`](../how-to/run-assess.md) — using `lcats assess`, which is built on this abstraction.
 - [`docs/how-to/local-openai-endpoint.md`](../how-to/local-openai-endpoint.md) — pointing `OpenAIBackend` at a local runtime (Ollama, vLLM, LM Studio) via `base_url`, and which pipeline stages a local model has actually proven viable for.
+- [`docs/explanation/local-model-evaluation.md`](../explanation/local-model-evaluation.md) — why LCATS evaluates local models, the architecture decision behind `base_url`, and the per-stage evidence gathered so far.
