@@ -57,10 +57,11 @@ candidate model gets its own directory with a `README.md`, a `setup.py`
 (prerequisite check only - it never downloads or installs anything), and
 a `benchmark.py` that builds an `LLMBackend` and calls a shared harness.
 The harness runs the pipeline's *actual* tool schemas - stage-3 entity
-extraction, genre detection, and scene/sequel segmentation - against a
-real, fixed ~600-word segment drawn from
-`corpora/sherlock/five_orange_pips/story.json`, not synthetic schemas or
-a toy prompt. See
+extraction against a real, fixed ~600-word segment drawn from
+`corpora/sherlock/five_orange_pips/story.json`, and genre detection and
+scene/sequel segmentation against the same story's full text
+(`DEFAULT_SAMPLE_STORY`), matching what each stage's real production call
+path actually receives - not synthetic schemas or a toy prompt. See
 [`experimental/model_comparison/README.md`](../../experimental/model_comparison/README.md)
 for the harness's full layout and how to add a new candidate.
 
@@ -88,8 +89,9 @@ documented recommendation of 0.6, which explicitly warns against
 greedy-decoding settings like 0.2), the first two runs produced one
 outright failure and one successful-but-29-minute run - an "unreliable"
 verdict. Once both were fixed, `qwen3:8b` succeeded consistently across 3
-runs at roughly 1.5-2.2x `claude-opus-4-8`'s latency, with lower recall
-(11-14 entities vs. Opus's 21, not evaluated for precision). The original
+runs at roughly 1.5-2.2x `claude-opus-4-8`'s latency, with fewer
+extracted entities (11-14 vs. Opus's 21 - not evaluated for precision or
+recall, since the harness has no human ground-truth entity list). The original
 "unreliable" conclusion was substantially an artifact of the harness, not
 a stable property of the model - a reminder that the raw numbers below
 are only as trustworthy as the methodology that produced them, and worth
@@ -266,8 +268,9 @@ questions remain genuinely unanswered rather than quietly assumed:
   routing any real traffic to, once the candidate-scoped adapter is in
   place.
 - The Kubuntu Focus/NVIDIA hardware profile and MLX (Apple-Silicon-native
-  tool calling) remain entirely untested; every result on this page comes
-  from Ollama on an Apple Silicon Mac.
+  tool calling) remain entirely untested; every *local-model* result on
+  this page comes from Ollama on an Apple Silicon Mac (the online-provider
+  results - Anthropic, OpenAI, Gemini - are unaffected by this gap).
 - `WI-LLM-0074` is a **proposed, not yet executed** follow-up that would
   wire `experiments/05_metadata_genre_prefilter/run_prefilter.py`'s
   `--validate` mode to the same local-backend pattern
