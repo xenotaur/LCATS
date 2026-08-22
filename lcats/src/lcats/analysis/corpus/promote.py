@@ -378,6 +378,27 @@ def _atomic_write_text(path: pathlib.Path, text: str) -> None:
         raise
 
 
+def _lcats_id_escape_error(lcats_id: str, dest_root: pathlib.Path) -> str | None:
+    """Return an error message if ``lcats_id`` could place a write outside
+    ``dest_root``, else None. ``validate_sidecar()`` only requires a
+    non-empty string, so an absolute path or ``..``/``.`` component in an
+    otherwise schema-valid manifest record must be rejected here before it
+    is ever joined onto ``dest_root`` (review finding, PR #350)."""
+    candidate = pathlib.PurePosixPath(lcats_id)
+    if candidate.is_absolute() or not candidate.parts or ".." in candidate.parts:
+        return (
+            f"lcats_id {lcats_id!r} must be a non-empty relative path with "
+            "no '..' components"
+        )
+    resolved_dest_root = dest_root.resolve()
+    resolved_candidate = (dest_root / lcats_id).resolve()
+    try:
+        resolved_candidate.relative_to(resolved_dest_root)
+    except ValueError:
+        return f"lcats_id {lcats_id!r} resolves outside dest_root ({dest_root})"
+    return None
+
+
 def promote_sidecar_tranche(
     manifest_path: pathlib.Path,
     dest_root: pathlib.Path,
@@ -440,6 +461,13 @@ def promote_sidecar_tranche(
                 )
                 continue
 
+            escape_error = _lcats_id_escape_error(lcats_id, dest_root)
+            if escape_error is not None:
+                rejected.append(
+                    SidecarPromotionFinding(lcats_id=lcats_id, error=escape_error)
+                )
+                continue
+
             validation = genre_sidecar.validate_sidecar(record)
             if not validation.valid:
                 rejected.append(
@@ -453,7 +481,21 @@ def promote_sidecar_tranche(
                 )
                 continue
 
-            dest_path = dest_root / lcats_id / discovery.GENRE_SIDECAR_FILENAME
+            dest_dir = dest_root / lcats_id
+            if not (dest_dir / discovery.CANONICAL_STORY_FILENAME).is_file():
+                rejected.append(
+                    SidecarPromotionFinding(
+                        lcats_id=lcats_id,
+                        error=(
+                            f"refusing to promote: no {discovery.CANONICAL_STORY_FILENAME} "
+                            f"at {dest_dir} -- lcats_id must name an existing story bucket, "
+                            "not create one"
+                        ),
+                    )
+                )
+                continue
+
+            dest_path = dest_dir / discovery.GENRE_SIDECAR_FILENAME
             if dest_path.is_file():
                 try:
                     existing = json.loads(dest_path.read_text(encoding="utf-8"))

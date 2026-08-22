@@ -512,6 +512,9 @@ class PromoteSidecarTrancheTest(unittest.TestCase):
 
             bucket_dir = dest_root / "anderson" / "bell"
             bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
             legacy_sidecar = {
                 "detected_genre": "fantasy",
                 "detected_genre_confidence": 0.9,
@@ -542,12 +545,62 @@ class PromoteSidecarTrancheTest(unittest.TestCase):
             record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
             _write_manifest(manifest_path, [record])
 
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
             report = promote.promote_sidecar_tranche(
                 manifest_path, dest_root, dry_run=True
             )
 
             self.assertEqual(("anderson/bell",), report.promoted)
-            self.assertFalse((dest_root / "anderson" / "bell").exists())
+            self.assertFalse((bucket_dir / "genre.json").exists())
+
+    def test_lcats_id_escaping_dest_root_is_rejected(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            escaping_ids = ["/etc/passwd", "../outside", "anderson/../../outside", "."]
+            records = [
+                _valid_sidecar_record(lcats_id, f"{lcats_id}/story.json")
+                for lcats_id in escaping_ids
+            ]
+            _write_manifest(manifest_path, records)
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(len(escaping_ids), len(report.rejected))
+            for finding in report.rejected:
+                self.assertIn(finding.lcats_id, escaping_ids)
+            # Nothing was ever written outside (or directly under) dest_root.
+            self.assertEqual([], list(dest_root.rglob("genre.json")))
+
+    def test_missing_destination_story_is_rejected_not_created(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            # No story.json bucket exists at the destination for this id.
+            record = _valid_sidecar_record(
+                "anderson/typo_d_id", "anderson/typo_d_id/story.json"
+            )
+            _write_manifest(manifest_path, [record])
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(1, len(report.rejected))
+            self.assertEqual("anderson/typo_d_id", report.rejected[0].lcats_id)
+            self.assertIn("story.json", report.rejected[0].error)
+            self.assertFalse((dest_root / "anderson" / "typo_d_id").exists())
 
     def test_malformed_manifest_line_is_rejected_not_fatal(self):
         with (
@@ -562,6 +615,11 @@ class PromoteSidecarTrancheTest(unittest.TestCase):
             manifest_path.write_text(
                 "not valid json\n" + json.dumps(good_record) + "\n",
                 encoding="utf-8",
+            )
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
             )
 
             report = promote.promote_sidecar_tranche(manifest_path, dest_root)
@@ -670,6 +728,11 @@ class PromoteCliTest(unittest.TestCase):
             manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
             record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
             _write_manifest(manifest_path, [record])
+            bucket_dir = pathlib.Path(dest_tmp) / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
 
             output = io.StringIO()
             with unittest.mock.patch("sys.stdout", output):
@@ -723,6 +786,11 @@ class PromoteCliTest(unittest.TestCase):
             manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
             record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
             _write_manifest(manifest_path, [record])
+            bucket_dir = pathlib.Path(dest_tmp) / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
 
             output = io.StringIO()
             with unittest.mock.patch("sys.stdout", output):
@@ -738,7 +806,7 @@ class PromoteCliTest(unittest.TestCase):
 
             self.assertEqual(0, exit_code)
             self.assertIn("would promote sidecar: anderson/bell", output.getvalue())
-            self.assertFalse((pathlib.Path(dest_tmp) / "anderson").exists())
+            self.assertFalse((bucket_dir / "genre.json").exists())
 
     def test_wholesale_cli_invocations_are_unaffected_by_the_new_flag(self):
         # Sanity check: the existing wholesale CLI path and its exit codes
