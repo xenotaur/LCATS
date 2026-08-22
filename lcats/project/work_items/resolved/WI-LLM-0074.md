@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Wiring landed in PR #349; the real 146-story gpt-oss:20b run and its three-way comparison (this PR) are both complete. Real measured results: 111.5 min wall-clock, $0 cost, 0 errors; 71.2% agreement with the metadata rules and 69.9% (102/146) directly against Opus. Go/no-go: viable as a cheap first-pass filter for horror/science-fiction/mystery/adventure (80-95% agreement with Opus), not a safe substitute for fantasy/romance/humor/western (50-60%). See this file's own Findings section below."
 blocked_reason: null
 blocked: false
 id: WI-LLM-0074
 title: Wire run_prefilter.py's --validate to a local backend and run it over WI-GENRE-0004's 146-story sample
 type: evaluation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
@@ -176,6 +176,61 @@ exist as the comparison target.
 ## Acceptance Criteria
 
 (see frontmatter `acceptance:` - kept in sync)
+
+## Findings
+
+Real, gated `gpt-oss:20b` (via Ollama, `http://localhost:11434/v1`)
+validation ran against all 146 selected stories
+(`--validate --run-real-validation --backend openai --base-url
+http://localhost:11434/v1 --model gpt-oss:20b`), 2026-08-22: 0 errors, 0
+aborts, real cost **$0**, real measured wall-clock **111.5 minutes**
+(not extrapolated - `run_start`/`run_end` timestamps in
+`validation_gpt_oss_20b_http_localhost_11434_v1_run_log.jsonl`).
+
+Preceded by a 3-story smoke test (separate scratch run, not part of this
+PR's diff) confirming the mechanics worked for real before committing to
+the full run - 1m28s for 3 stories, output correctly written to
+qualified filenames alongside (not overwriting) the Opus evidence.
+
+**Three-way comparison** (metadata rules / Opus / local model), computed
+directly from the two committed `validation_results.jsonl` files:
+
+| | agreement |
+|---|---|
+| `gpt-oss:20b` vs. metadata rules | 71.2% (104/146) |
+| `gpt-oss:20b` vs. Opus directly | **69.9% (102/146)** |
+| (for reference) Opus vs. metadata rules | 87.0% (127/146) |
+
+Per-genre, local-vs-Opus:
+
+| genre | agreement |
+|---|---|
+| horror | 95% (19/20) |
+| science fiction | 85% (17/20) |
+| adventure | 83% (5/6) |
+| mystery | 80% (16/20) |
+| western | 60% (12/20) |
+| fantasy | 60% (12/20) |
+| romance | 55% (11/20) |
+| humor | 50% (10/20) |
+
+**Go/no-go recommendation**: `gpt-oss:20b` is a viable, free, fast
+first-pass filter for horror/science-fiction/mystery/adventure, where it
+tracks Opus closely (80-95% agreement). It is **not** a safe drop-in
+substitute for fantasy/romance/humor/western (50-60% agreement) - the
+disagreements there skew toward the local model defaulting to a generic
+`other` label where both Opus and the metadata rules agree on something
+specific (e.g. `anderson/false_collar`: rules+Opus say `fantasy`, local
+says `other`), rather than confidently picking a different-but-plausible
+genre. This matches `WI-LLM-0066`'s own prior finding that genre
+detection is this candidate's most reliable stage, refined here with a
+genre-by-genre breakdown that finding didn't have.
+
+Per-story evidence (both the metadata-rule and local `model_detect`
+assessments, `genre-sidecar-v1`-validated) is in
+`experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl`;
+aggregate/per-genre numbers (local-vs-metadata-rules) in the sibling
+`_summary.json`; the full event-by-event run log in `_run_log.jsonl`.
 
 ## Validation
 
