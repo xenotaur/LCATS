@@ -24,6 +24,9 @@ work_items:
   - WI-GENRE-0003
   - WI-GENRE-0004
   - WI-LLM-0074
+  - WI-GENRE-0075
+  - WI-GENRE-0076
+  - WI-GENRE-0077
 exit_criteria:
   - Gutenberg metadata cache preflight exists and refuses cache build/download unless explicitly approved
   - experiments/05_metadata_genre_prefilter produces reviewed 40-story pilot manifests with LCATS IDs and metadata-rule assessment evidence
@@ -61,17 +64,17 @@ Relevant prior work includes the current genre census experiment, existing `lcat
 
 ## Proposed Work Items
 
-1. Create cache preflight and `experiments/05_metadata_genre_prefilter` scaffold.
-2. Produce the 40-story metadata-evidence pilot across heterogeneous collections.
-3. Define and validate `genre-sidecar-v1`.
-4. Add legacy flat-sidecar conversion and validation coverage.
-5. Add sidecar-tranche promotion support.
-6. Promote and check in the 40-story pilot sidecars.
-7. Expand metadata evidence to the 100-200 story sample.
-8. Add append-mode genre assessment support to `lcats annotate`.
-9. Add local-model genre assessment as an append-only evidence source with explicit run identity.
-10. Add human review/adjudication support for genre evidence.
-11. Reassess event extraction and analysis work items after genre sidecars are stable.
+1. Create cache preflight and `experiments/05_metadata_genre_prefilter` scaffold. **Done — `WI-GENRE-0001`.**
+2. Produce the 40-story metadata-evidence pilot across heterogeneous collections. **Done — `WI-GENRE-0002`.**
+3. Define and validate `genre-sidecar-v1`. **Done — `WI-GENRE-0003`.**
+4. Add legacy flat-sidecar conversion and validation coverage. **Detection only done — `WI-GENRE-0003`'s `genre_sidecar.is_legacy_flat_sidecar()` detects the legacy shape but performs no conversion (an explicit Non-Goal of that item); actual conversion is scoped to `WI-GENRE-0076`, which owns the only production write path that needs it (review finding, PR #348).**
+5. Add sidecar-tranche promotion support. **Scoped — `WI-GENRE-0075`.**
+6. Promote and check in the 40-story pilot sidecars. **Superseded by the larger 146-story genre-balanced sample below; folded into `WI-GENRE-0077`, which depends on `WI-GENRE-0075`.**
+7. Expand metadata evidence to the 100-200 story sample. **Scan/selection/validation done — `WI-GENRE-0004` (146 stories, 87.0% metadata-rule/model agreement); actual promotion into `corpora/` remains — `WI-GENRE-0077`.**
+8. Add append-mode genre assessment support to `lcats annotate`. **Scoped — `WI-GENRE-0076`.**
+9. Add local-model genre assessment as an append-only evidence source with explicit run identity. **Scoped separately — `WI-LLM-0074`.**
+10. Add human review/adjudication support for genre evidence. Not yet scoped as its own work item.
+11. Reassess event extraction and analysis work items after genre sidecars are stable. Not yet scoped as its own work item.
 
 ## Non-Goals
 
@@ -84,7 +87,6 @@ Relevant prior work includes the current genre census experiment, existing `lcat
 
 ## Open Questions
 
-- What exact work item IDs should be minted for each implementation slice?
 - What exact LCATS story ID string should become canonical in sidecars?
 - What should the CLI surface look like for sidecar-tranche promotion and append-mode annotation?
 - Should whole-corpus Gutenberg metadata labels be committed if the metadata path proves high-quality and very fast?

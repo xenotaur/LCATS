@@ -2,10 +2,10 @@
 execution_id: 2026_08_22_03_27_26_WI_EVENT_0030_RESCOPE_GENRE0004_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_EVENT_0030_RESCOPE_GENRE0004_REVIEW)[2026-08-22T00:00:28+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/340
-commit: ab56de1b
+commit: 0b92579d
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/340
 session_transcript: claude-app:e8e46d5d-35d3-4ccc-9cba-137bd31bf3a5
