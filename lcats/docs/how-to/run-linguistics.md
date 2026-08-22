@@ -2,7 +2,7 @@
 
 `lcats linguistics` analyzes LCATS story buckets with a local NLP backend and
 writes a compact, deterministic `linguistics.json` sidecar beside each
-`story.json`.
+`story.json` by default.
 
 The command is NLP-only. It does not call an LLM, does not use paid APIs, and
 does not depend on the future `WI-GENRE-0004` balanced-sample manifest.
@@ -55,6 +55,14 @@ Use a plain story-list file:
 lcats linguistics --story-list sample.txt --summary-output linguistics-run.json
 ```
 
+Redirect sidecars away from source buckets:
+
+```bash
+lcats linguistics --story-list sample.txt \
+  --output-root experiments/my_linguistics_run/results/sidecars \
+  --summary-output experiments/my_linguistics_run/results/summary.json
+```
+
 Preview which stories would run:
 
 ```bash
@@ -86,6 +94,13 @@ Full token/dependency records are intentionally not stored in
 `linguistics.json`. When `--include-token-detail` is set, they are written to
 `linguistics.tokens.json`.
 
+By default, both artifacts are written beside the analyzed `story.json`. With
+`--output-root`, LCATS writes them under the explicit root using the story
+identity as the path: `<output-root>/<collection>/<story>/linguistics.json`
+and, when requested, `<output-root>/<collection>/<story>/linguistics.tokens.json`.
+The sidecar provenance still records the source story path and body hash for
+the analyzed input.
+
 JSON output is serialized deterministically with sorted keys and a trailing
 newline. File publication is atomic: LCATS writes a temporary file in the same
 directory and replaces the target only after the write completes.
@@ -109,11 +124,19 @@ summary on stdout or at `--summary-output`. See the
 [linguistic sidecar schema reference](../reference/linguistics-sidecar.md)
 for exact sidecar, token-detail, and run-summary fields.
 
+## Copied Buckets vs. Output Root
+
+Use copied-bucket experiment mirrors when the artifact should preserve the
+exact story files that produced the output, as in the `WI-GENRE-0004` sample
+run. Use `--output-root` when you only need generated linguistic sidecars and
+run summaries separated from source buckets.
+
+If two inputs resolve to the same LCATS story identity, redirected batch runs
+fail the later duplicate result instead of overwriting the first sidecar.
+
 ## Deferred Work
 
 This command is the generic infrastructure layer. Follow-up work remains for:
 
-- a thin `WI-GENRE-0004` manifest adapter once that manifest lands;
-- running the selected Worldcon sample;
 - measuring performance over long stories;
 - defining any later corpus-promotion workflow for linguistic sidecars.
