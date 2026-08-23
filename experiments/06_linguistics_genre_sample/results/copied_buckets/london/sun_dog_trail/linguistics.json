@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42680,
+    "body_sha256": "77b60af4a57414711ace369cfa3efc5fcfea228eafe3d4a63ce5f79c00b9e52b",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/story.json"
+  },
+  "lcats_id": "london/sun_dog_trail",
+  "metrics": {
+    "avg_sentence_length": 12.717586649550706,
+    "avg_word_length": 3.4272736448975474,
+    "sentence_count": 779,
+    "token_count": 11723,
+    "word_count": 9907
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/story.json"
+}

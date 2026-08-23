@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11390,
+    "body_sha256": "0a5e8679556ad24cad822d8b1fba50ff24103de3131e782eedd4bf4f05445e13",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/story.json"
+  },
+  "lcats_id": "anderson/story_of_a_mother",
+  "metrics": {
+    "avg_sentence_length": 23.766666666666666,
+    "avg_word_length": 4.291725105189341,
+    "sentence_count": 90,
+    "token_count": 2575,
+    "word_count": 2139
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21353,
+    "body_sha256": "940c31973a7be41becf264b078a7b773e31e1ba5c738ad8aa769ead8a58a5f86",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/8_million_dollars_from_mars__marks",
+  "metrics": {
+    "avg_sentence_length": 18.116591928251122,
+    "avg_word_length": 4.329455445544554,
+    "sentence_count": 223,
+    "token_count": 4634,
+    "word_count": 4040
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/story.json"
+}

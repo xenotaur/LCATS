@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17605,
+    "body_sha256": "c2bc19622b01dec2e1cfd0c8a55a439228e806ec0aab6fe43c60e63599689a50",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/old_house/story.json"
+  },
+  "lcats_id": "anderson/old_house",
+  "metrics": {
+    "avg_sentence_length": 25.045112781954888,
+    "avg_word_length": 4.269588712098469,
+    "sentence_count": 133,
+    "token_count": 3932,
+    "word_count": 3331
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/old_house/story.json"
+}

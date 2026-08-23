@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31238,
+    "body_sha256": "5f8127980297cc68e4c9b17ebfb2b372603f4dcf1e5b8f89290bf436ee072b67",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/story.json"
+  },
+  "lcats_id": "chesterton/three_tools_of_death",
+  "metrics": {
+    "avg_sentence_length": 21.589147286821706,
+    "avg_word_length": 4.6021543985637345,
+    "sentence_count": 258,
+    "token_count": 6592,
+    "word_count": 5570
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/story.json"
+}

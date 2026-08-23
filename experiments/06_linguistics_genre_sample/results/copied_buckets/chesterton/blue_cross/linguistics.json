@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46342,
+    "body_sha256": "f43d22694d6ffc7a6422b1a597c9cca46cfbe3d8b051202a14f3db6966eb7c30",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/story.json"
+  },
+  "lcats_id": "chesterton/blue_cross",
+  "metrics": {
+    "avg_sentence_length": 21.373056994818654,
+    "avg_word_length": 4.620363636363637,
+    "sentence_count": 386,
+    "token_count": 9633,
+    "word_count": 8250
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/story.json"
+}

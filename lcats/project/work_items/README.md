@@ -16,6 +16,10 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 ## Proposed Items
 - `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
+- `proposed/WI-EVENT-0078.md` — Reconcile and preregister WI-EVENT-0030 for staged density execution
+- `proposed/WI-EVENT-0079.md` — Run the cross-segment density readiness gate
+- `proposed/WI-EVENT-0080.md` — Run a small real cross-segment density feasibility pilot
+- `proposed/WI-EVENT-0081.md` — Produce the final cross-segment density analysis package
 - `proposed/WI-ASSESS-0051.md` — Genre-census sample and cost-estimate tooling (Gap 2) - full-corpus run retired, see WI-GENRE-0004
 - `proposed/WI-EVENT-0033.md` — Add schema-hardened structured output to scene/story analysis extractors
 - `proposed/WI-RELEASE-0037.md` — Resolve gutenbergpy VCS-pin PyPI-publish blocker
@@ -23,7 +27,6 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `proposed/WI-LLM-0055.md` — Capture full entity lists and diff them across benchmark candidates
 - `proposed/WI-GENRE-0001.md` — Create metadata genre prefilter scaffold
 - `proposed/WI-GENRE-0004.md` — Full-corpus metadata scan, genre-balanced 100-200 story selection, and bounded Opus validation
-- `proposed/WI-VISUALIZE-0073.md` — Reusable lcats visualize CLI substrate and genres command
 
 ## Abandoned Items
 - `abandoned/WI-META-0006.md` — superseded by native LRH functionality (`lrh meta register`); reversed by WI-META-0023
@@ -31,6 +34,7 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 
 ## Resolved Items
 - `resolved/WI-LLM-0066.md` — Wire run_census.py to a local OpenAI-compatible backend and evaluate gpt-oss:20b at genre-census scale
+- `resolved/WI-VISUALIZE-0073.md` — Reusable lcats visualize CLI substrate and genres command
 - `resolved/WI-LLM-0065.md` — Make gpt-oss:20b entity extraction production-grounded behind a candidate-scoped adapter; consider-only pending precision/recall evaluation, with no default routing change
 - `resolved/WI-LLM-0064.md` — Establish a best-of-breed config for ollama_gpt_oss_20b and fix harness diagnostic gaps
 - `resolved/WI-LLM-0063.md` — Thoroughly vet ollama_gpt_oss_20b across all 3 pipeline stages; genre detection 3/3, entity extraction 3/3 (real output-count variance found), segmentation 0/3 (new alignment-rejection failure mode distinct from silent-ignore)

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53356,
+    "body_sha256": "cf282c11e4deaadf11c8b4062adc2e38236af322ea925890fab94fb4c48bbc0b",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope",
+  "metrics": {
+    "avg_sentence_length": 24.684326710816777,
+    "avg_word_length": 3.7913611160794134,
+    "sentence_count": 453,
+    "token_count": 13040,
+    "word_count": 11182
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/story.json"
+}

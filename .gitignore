@@ -112,9 +112,26 @@ experiments/04_genre_census/results/**/genre_census.json
 # local resume/debug state produced by run_pilot.py.
 experiments/03_cross_segment_relation_pilot/results/stability_gate/fixtures__*/
 
-# Ignore WI-GENRE-0004 --validate per-story checkpoint state (internal
-# resume cache, redundant with the committed
-# validation_results.jsonl/validation_summary.json/validation_run_log.jsonl).
-# Same targeted-filename approach as the genre-census pattern above (not
-# a blanket results/*/ pattern, for the same PR #292 reason).
-experiments/05_metadata_genre_prefilter/results/**/validation.json
+# Ignore WI-GENRE-0004/WI-LLM-0074 --validate per-story checkpoint state
+# (internal resume cache, redundant with the committed
+# validation_results.jsonl/validation_summary.json/validation_run_log.jsonl
+# and their backend/model/endpoint-qualified equivalents). WI-LLM-0074's
+# checkpoint-collision fix (_validation_checkpoint_stage()) qualifies the
+# checkpoint filename itself by backend/endpoint (e.g.
+# validation_openai_http_localhost_11434_v1.json), so the pattern must
+# match that family, not just the literal "validation.json".
+#
+# A fixed */*/ depth (an earlier version of this pattern) assumed
+# --output was always two levels below results/ (results/full_scan/...)
+# - but --output defaults to results/ itself, one level shallower, so a
+# default-output real run's checkpoints went unignored (review finding:
+# Codex P2, PR #361). Matched by directory *name* instead of a fixed
+# depth: checkpoint files always sit directly under a
+# _validation_item_id()-named directory (row["story_id"].replace("/",
+# "__"), always exactly one literal "__" - e.g. "sherlock__five_orange_
+# pips"), which the real evidence files (validation_summary.json etc.,
+# sitting directly in the experiment's own output directory, never
+# inside a "__"-named directory) never match regardless of --output's
+# own depth. Same targeted-filename approach as the genre-census pattern
+# above (not a blanket results/*/ pattern, for the same PR #292 reason).
+experiments/05_metadata_genre_prefilter/results/**/*__*/validation*.json

@@ -22,6 +22,7 @@ checkpoint and writing the sidecar file itself.
 from __future__ import annotations
 
 import dataclasses
+import datetime
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ from typing import Any, Optional
 from lcats.analysis import scene_analysis
 from lcats.analysis.corpus import assess, discovery
 from lcats.analysis.corpus import cli as corpus_cli
+from lcats.analysis.corpus import genre_sidecar
 from lcats.utils import checkpoint
 
 # Explicit defaults, passed through to assess_story/make_segment_extractor
@@ -158,16 +160,21 @@ def _annotate_genre(
     model: str,
     max_tokens: int,
     roots: checkpoint.CheckpointRoots,
-) -> tuple[Optional[dict], Optional[str]]:
-    """Return (genre_data, error). genre_data is the sidecar payload to
-    write; error is set (genre_data is None) only on an unrecoverable
-    failure. A checkpoint hit skips the paid assess_story call entirely."""
+) -> tuple[Optional[dict], Optional[str], bool]:
+    """Return (genre_data, error, from_cache). genre_data is the sidecar
+    payload to write; error is set (genre_data is None) only on an
+    unrecoverable failure. A checkpoint hit skips the paid assess_story
+    call entirely and returns from_cache=True, so callers can tell a
+    genuinely fresh assessment (a real new observation, worth appending)
+    apart from a resumed no-op replay of a prior one (nothing new to
+    append -- see annotate_story's own use of this flag, review finding,
+    PR #350's WI-GENRE-0076 self-review)."""
     fingerprint = _genre_fingerprint(model, max_tokens, story_data, body)
     cached = checkpoint.read_checkpoint(
         roots.working_root, item_id, "genre", fingerprint
     )
     if cached.done and isinstance(cached.data, dict):
-        return cached.data, None
+        return cached.data, None, True
 
     result = assess.assess_story(
         story_path, genre="", backend=backend, model=model, max_tokens=max_tokens
@@ -181,7 +188,7 @@ def _annotate_genre(
             fingerprint=fingerprint,
             data={"error": result.error},
         )
-        return None, result.error
+        return None, result.error, False
 
     data = result.to_dict()
     checkpoint.write_checkpoint(
@@ -192,7 +199,7 @@ def _annotate_genre(
         fingerprint=fingerprint,
         data=data,
     )
-    return data, None
+    return data, None, False
 
 
 def _error_message(error: Any) -> str:
@@ -325,12 +332,18 @@ def _write_readme(
     genre_path = bucket_dir / GENRE_SIDECAR_FILENAME
     if genre_path.is_file():
         genre_data = json.loads(genre_path.read_text(encoding="utf-8"))
+        # genre-sidecar-v1's fields live nested under the latest
+        # assessment's result, not at the top level -- reading the
+        # top-level keys directly (the legacy-only shape) would silently
+        # render blank/default values once a story's genre.json becomes
+        # v1-shaped (review finding, PR #348).
+        result = _latest_genre_assessment_result(genre_data)
         lines.append("## genre.json")
         lines.append(
-            f"- detected_genre: {genre_data.get('detected_genre', '')}"
-            f" (confidence {genre_data.get('detected_genre_confidence', 0)})"
+            f"- detected_genre: {result.get('detected_genre', '')}"
+            f" (confidence {result.get('detected_genre_confidence', 0)})"
         )
-        lines.append(f"- verdict: {genre_data.get('verdict', '')}")
+        lines.append(f"- verdict: {result.get('verdict', '')}")
         lines.append("")
 
     scenes_path = bucket_dir / SCENES_SIDECAR_FILENAME
@@ -341,6 +354,235 @@ def _write_readme(
         lines.append("")
 
     _atomic_write_text(bucket_dir / "README.md", "\n".join(lines))
+
+
+# method.name/version recorded on every model-sourced assessment this
+# module builds -- distinct from _GENRE_POSTPROCESS_VERSION (which
+# invalidates checkpoints) since this is sidecar-record provenance, not
+# cache-fingerprint input.
+_MODEL_ASSESSMENT_METHOD = {
+    "name": "lcats.analysis.corpus.assess.assess_story",
+    "version": "v1",
+}
+
+
+def lcats_story_id(collection_name: str, bucket_dir_name: str) -> str:
+    """Return the canonical genre-sidecar-v1 lcats_id for a story bucket:
+    "<collection>/<bucket>", matching the real evidence already committed
+    in experiments/05_metadata_genre_prefilter/results/full_scan/ -- a
+    different separator convention from story_item_id()'s checkpoint-safe
+    "<collection>__<bucket>" (checkpoint item_ids must be a single path
+    segment; genre-sidecar-v1 lcats_ids intentionally are not)."""
+    return f"{collection_name}/{bucket_dir_name}"
+
+
+def build_model_genre_assessment(
+    result: dict,
+    *,
+    lcats_id: str,
+    story_path_str: str,
+    generated_at: Optional[str] = None,
+    run_id: Optional[str] = None,
+) -> dict:
+    """Wrap one assess_story() result (an AssessmentResult.to_dict()
+    payload) as a genre-sidecar-v1 model-sourced assessment record.
+
+    `result` becomes the assessment's own `result` field verbatim, so
+    every field assess_story() ever produces stays available to
+    consumers (e.g. _write_readme below) without a second hand-maintained
+    field list drifting out of sync with AssessmentResult.
+    """
+    generated_at = (
+        generated_at or datetime.datetime.now(datetime.timezone.utc).isoformat()
+    )
+    run_id = run_id or generated_at
+    return {
+        "assessment_id": f"model_detect:{lcats_id.replace('/', '__')}:{run_id}",
+        "label": "model_detect",
+        "generated_at": generated_at,
+        "scope": "story",
+        "method": dict(_MODEL_ASSESSMENT_METHOD),
+        "provenance": {
+            "backend_model": result.get("backend_model", ""),
+            "input_tokens": result.get("input_tokens", 0),
+            "output_tokens": result.get("output_tokens", 0),
+            "run_id": run_id,
+            "story_id": lcats_id,
+            "story_path": story_path_str,
+        },
+        "evidence": {"error": result.get("error", "")},
+        "result": result,
+        "run_id": run_id,
+    }
+
+
+def build_human_genre_assessment(
+    result: dict,
+    *,
+    lcats_id: str,
+    story_path_str: str,
+    reviewer: str,
+    generated_at: Optional[str] = None,
+) -> dict:
+    """Wrap a human reviewer's genre judgment as a genre-sidecar-v1
+    human-sourced assessment record. Exercised by this item's own tests
+    only -- WI-GENRE-0076's Non-Goals exclude building an adjudication UI
+    around this; the append mechanism itself must simply support both
+    sources (acceptance criterion 6)."""
+    generated_at = (
+        generated_at or datetime.datetime.now(datetime.timezone.utc).isoformat()
+    )
+    return {
+        "assessment_id": f"human_review:{lcats_id.replace('/', '__')}:{generated_at}",
+        "label": "human_review",
+        "generated_at": generated_at,
+        "scope": "story",
+        "method": {"name": "manual_review", "version": "v1"},
+        "provenance": {
+            "reviewer": reviewer,
+            "story_id": lcats_id,
+            "story_path": story_path_str,
+        },
+        "evidence": {},
+        "result": result,
+    }
+
+
+def _legacy_flat_sidecar_to_assessment(
+    legacy_data: dict,
+    *,
+    lcats_id: str,
+    story_path_str: str,
+    sidecar_path: pathlib.Path,
+) -> dict:
+    """Wrap an existing legacy flat AssessmentResult.to_dict() sidecar as
+    one genre-sidecar-v1 assessment, preserving its content verbatim so
+    conversion never discards prior evidence (acceptance criterion 2).
+    The legacy shape never recorded generated_at/run_id, so both are
+    synthesized from the sidecar file's own mtime -- the closest
+    available proxy for when that assessment was actually produced."""
+    try:
+        generated_at = datetime.datetime.fromtimestamp(
+            sidecar_path.stat().st_mtime, tz=datetime.timezone.utc
+        ).isoformat()
+    except OSError:
+        generated_at = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    run_id = f"legacy-conversion:{generated_at}"
+    return build_model_genre_assessment(
+        legacy_data,
+        lcats_id=lcats_id,
+        story_path_str=story_path_str,
+        generated_at=generated_at,
+        run_id=run_id,
+    )
+
+
+def merge_genre_sidecar(
+    bucket_dir: pathlib.Path,
+    *,
+    lcats_id: str,
+    story_path_str: str,
+    new_assessment: dict,
+) -> tuple[Optional[dict], Optional[str]]:
+    """Return (sidecar_data, error): the genre-sidecar-v1 payload to write
+    at bucket_dir/genre.json, merging `new_assessment` into whatever
+    already exists there.
+
+    - No existing file, or an unreadable/corrupt one: wraps a fresh v1
+      record containing only `new_assessment` (acceptance criterion 3) --
+      an unreadable file is treated the same as "nothing usable exists"
+      rather than raised, since a torn/corrupt sidecar from an earlier
+      interrupted run must not block annotation from proceeding.
+    - A legacy flat sidecar: converts it to one assessment (preserving
+      its evidence), then appends `new_assessment` (acceptance
+      criterion 2).
+    - A valid existing genre-sidecar-v1 record: appends `new_assessment`
+      to its assessments[] list (acceptance criterion 1).
+    - Anything else (a dict that is neither a valid v1 record nor a
+      legacy flat sidecar): refuses to touch it, returning an error
+      rather than silently overwriting content this module cannot
+      recognize.
+
+    The returned `sidecar_data` is always re-validated via
+    genre_sidecar.validate_sidecar() before being returned; if that
+    re-validation itself fails, returns (None, error) instead so the
+    caller refuses to write (acceptance criterion 4).
+    """
+    sidecar_path = bucket_dir / GENRE_SIDECAR_FILENAME
+    existing: Optional[dict] = None
+    if sidecar_path.is_file():
+        try:
+            existing = json.loads(sidecar_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            existing = None
+
+    if existing is None:
+        assessments = [new_assessment]
+    elif genre_sidecar.is_legacy_flat_sidecar(existing):
+        legacy_assessment = _legacy_flat_sidecar_to_assessment(
+            existing,
+            lcats_id=lcats_id,
+            story_path_str=story_path_str,
+            sidecar_path=sidecar_path,
+        )
+        assessments = [legacy_assessment, new_assessment]
+    else:
+        validation = genre_sidecar.validate_sidecar(existing)
+        if not validation.valid:
+            findings = "; ".join(
+                f"{finding.path}: {finding.message}" for finding in validation.findings
+            )
+            return None, (
+                f"existing {GENRE_SIDECAR_FILENAME} is neither a valid "
+                f"genre-sidecar-v1 record nor a legacy flat sidecar; "
+                f"refusing to touch it ({findings})"
+            )
+        assessments = list(existing.get("assessments", [])) + [new_assessment]
+
+    sidecar_data = {
+        "schema_version": genre_sidecar.SCHEMA_VERSION,
+        "lcats_id": lcats_id,
+        "story_path": story_path_str,
+        "assessments": assessments,
+    }
+    # A valid existing v1 record may carry a human adjudication pointer
+    # -- rebuilding sidecar_data from scratch above must not silently
+    # drop it (review finding, PR #350's WI-GENRE-0076 self-review).
+    # Neither "no existing file" nor "legacy flat" can have one: the
+    # legacy shape predates this field entirely.
+    if isinstance(existing, dict) and existing.get("current_adjudication") is not None:
+        sidecar_data["current_adjudication"] = existing["current_adjudication"]
+
+    validation = genre_sidecar.validate_sidecar(sidecar_data)
+    if not validation.valid:
+        findings = "; ".join(
+            f"{finding.path}: {finding.message}" for finding in validation.findings
+        )
+        return None, (
+            f"merged genre-sidecar-v1 record failed validation, refusing "
+            f"to write ({findings})"
+        )
+    return sidecar_data, None
+
+
+def _latest_genre_assessment_result(genre_data: dict) -> dict:
+    """Return the `result` fields to render in README.md's genre.json
+    section, regardless of whether genre_data on disk is the legacy flat
+    shape or a genre-sidecar-v1 record.
+
+    v1's assessments[] is an append-only ledger in write order (this
+    module's own merge_genre_sidecar always appends, never reorders or
+    removes), so the most recently written assessment -- and therefore
+    the one whose result best reflects the sidecar's current state -- is
+    always its last element."""
+    if genre_sidecar.is_legacy_flat_sidecar(genre_data):
+        return genre_data
+    assessments = genre_data.get("assessments")
+    if isinstance(assessments, list) and assessments:
+        last = assessments[-1]
+        if isinstance(last, dict) and isinstance(last.get("result"), dict):
+            return last["result"]
+    return {}
 
 
 def annotate_story(
@@ -364,7 +606,7 @@ def annotate_story(
     story_data = corpus_cli.read_story_data(story_path)
     body = corpus_cli.coerce_story_text(story_data.get("body", ""))
 
-    genre_data, genre_error = _annotate_genre(
+    genre_data, genre_error, genre_from_cache = _annotate_genre(
         story_path=story_path,
         item_id=item_id,
         story_data=story_data,
@@ -374,14 +616,58 @@ def annotate_story(
         max_tokens=genre_max_tokens,
         roots=roots,
     )
-    # A failed recompute must not leave a stale sidecar from a prior,
-    # differently-configured run in place -- the bucket would otherwise
-    # silently mix a new-config scenes.json with an old-config genre.json
-    # (review finding, PR #241).
-    if genre_data is not None:
-        _write_json(bucket_dir / GENRE_SIDECAR_FILENAME, genre_data)
-    elif genre_error is not None:
-        _remove_if_exists(bucket_dir / GENRE_SIDECAR_FILENAME)
+    # A failed recompute of a *legacy* single-result sidecar must not
+    # leave a stale file from a prior, differently-configured run in
+    # place -- the bucket would otherwise silently mix a new-config
+    # scenes.json with an old-config genre.json (review finding, PR
+    # #241). But an existing *valid v1* ledger is not "stale" the same
+    # way: it holds independently-valid prior assessments that a new,
+    # unrelated failed attempt did not invalidate, so it must survive
+    # untouched rather than being deleted by that same cleanup (review
+    # finding, PR #357) -- and a checkpoint hit only counts as "nothing
+    # new to append" when the existing file is already that valid v1
+    # shape; a pre-WI-GENRE-0076 legacy sidecar still needs converting
+    # even on a cache hit, or it would never migrate (review finding, PR
+    # #357).
+    genre_sidecar_path = bucket_dir / GENRE_SIDECAR_FILENAME
+    existing_is_valid_v1 = False
+    if genre_sidecar_path.is_file():
+        try:
+            existing_genre_data = json.loads(
+                genre_sidecar_path.read_text(encoding="utf-8")
+            )
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            existing_genre_data = None
+        if existing_genre_data is not None:
+            existing_is_valid_v1 = genre_sidecar.validate_sidecar(
+                existing_genre_data
+            ).valid
+
+    if genre_data is not None and genre_from_cache and existing_is_valid_v1:
+        # A checkpoint hit against an already-migrated, valid v1 ledger
+        # is a resumed no-op replay of a prior observation, not a new
+        # one -- appending here would pile up a content-identical
+        # assessment on every re-run of an unchanged config, defeating
+        # this module's own checkpoint idempotency guarantee.
+        pass
+    elif genre_data is not None:
+        lcats_id = lcats_story_id(collection_name, bucket_dir.name)
+        story_path_str = f"{lcats_id}/{discovery.CANONICAL_STORY_FILENAME}"
+        new_assessment = build_model_genre_assessment(
+            genre_data, lcats_id=lcats_id, story_path_str=story_path_str
+        )
+        sidecar_data, merge_error = merge_genre_sidecar(
+            bucket_dir,
+            lcats_id=lcats_id,
+            story_path_str=story_path_str,
+            new_assessment=new_assessment,
+        )
+        if sidecar_data is not None:
+            _write_json(bucket_dir / GENRE_SIDECAR_FILENAME, sidecar_data)
+        else:
+            genre_error = merge_error
+    elif genre_error is not None and not existing_is_valid_v1:
+        _remove_if_exists(genre_sidecar_path)
 
     scenes_data, scenes_error = _annotate_scenes(
         item_id=item_id,

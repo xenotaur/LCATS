@@ -41,6 +41,20 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
         action="store_true",
         help="Survey and report without copying any files.",
     )
+    parser.add_argument(
+        "--tranche-manifest",
+        type=pathlib.Path,
+        default=None,
+        help=(
+            "Path to a JSONL manifest of genre-sidecar-v1 records "
+            "(one sidecar object per line, e.g. from "
+            "experiments/05_metadata_genre_prefilter). When given, "
+            "promotes only those stories' genre.json sidecars into --dest "
+            "(without touching any other file in their collection "
+            "directories) instead of the wholesale --source/collections "
+            "promotion above; --source and collections are ignored."
+        ),
+    )
     return parser
 
 
@@ -50,6 +64,19 @@ def run(argv=None, parsed_args=None) -> int:
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
 
     try:
+        if args.tranche_manifest is not None:
+            tranche_report = promote.promote_sidecar_tranche(
+                manifest_path=args.tranche_manifest,
+                dest_root=args.dest,
+                dry_run=args.dry_run,
+            )
+            for lcats_id in tranche_report.promoted:
+                verb = "would promote" if args.dry_run else "promoted"
+                print(f"{verb} sidecar: {lcats_id}")
+            for finding in tranche_report.rejected:
+                print(f"rejected: {finding.lcats_id}: {finding.error}", file=sys.stderr)
+            return 0 if tranche_report.all_promoted else 1
+
         collection_names = args.collections or None
         report = promote.promote_collections(
             source_root=args.source,

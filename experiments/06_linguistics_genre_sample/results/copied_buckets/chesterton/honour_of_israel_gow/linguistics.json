@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34894,
+    "body_sha256": "7094e60b2647095bb026f23b3d7ea33b6d48ab5401a824730ae3cae11cd5c191",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/story.json"
+  },
+  "lcats_id": "chesterton/honour_of_israel_gow",
+  "metrics": {
+    "avg_sentence_length": 20.311475409836067,
+    "avg_word_length": 4.631476997578693,
+    "sentence_count": 305,
+    "token_count": 7256,
+    "word_count": 6195
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28026,
+    "body_sha256": "077b9c9156652b34a93edf283447fd26eb93430d4dcf06e3f18d6cd61c87c59c",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/story.json"
+  },
+  "lcats_id": "mass_quantities/a_city_near_centaurus__doede",
+  "metrics": {
+    "avg_sentence_length": 9.992831541218639,
+    "avg_word_length": 3.992467718794835,
+    "sentence_count": 558,
+    "token_count": 6848,
+    "word_count": 5576
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/story.json"
+}

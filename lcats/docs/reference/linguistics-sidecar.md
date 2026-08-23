@@ -1,7 +1,9 @@
 # Linguistic sidecar schema
 
-`lcats linguistics` writes local NLP-derived analysis artifacts beside an LCATS
-story bucket's canonical `story.json`.
+`lcats linguistics` writes local NLP-derived analysis artifacts for an LCATS
+story bucket's canonical `story.json`. By default, artifacts are written beside
+the source story; with `--output-root`, they are redirected under an explicit
+output root.
 
 The default artifact is `linguistics.json`, a compact story-level sidecar using
 `schema_version: linguistics-sidecar-v1`. When token detail is explicitly
@@ -12,6 +14,12 @@ Both artifacts are deterministic JSON: UTF-8, sorted keys, two-space
 indentation, and a trailing newline. LCATS publishes them atomically by writing
 a temporary file in the same directory and replacing the target after the write
 completes.
+
+When redirected, output paths use the LCATS story identity as a directory path:
+`<output-root>/<collection>/<story>/linguistics.json`. Token detail, when
+requested, uses the same directory. The sidecar's `story_path` and
+`input.source_path` fields continue to describe the analyzed source
+`story.json`, not the redirected artifact location.
 
 ## `linguistics.json`
 
@@ -122,6 +130,7 @@ Top-level fields:
 | `model_name` | string | Requested model name or language code. |
 | `existing` | string | Existing-output mode: `skip`, `validate`, or `overwrite`. |
 | `include_token_detail` | boolean | Whether token-detail output was requested. |
+| `output_root` | string | Present only when `--output-root` was used; records the redirect root for sidecar outputs. |
 | `counts` | object | Count of per-story results by status. |
 | `results` | array | Per-story outcomes. |
 
@@ -155,6 +164,12 @@ not canonicalize them to an absolute or repository-relative form. Supplying the
 same story through different valid spellings can therefore change `story_path`,
 `input.source_path`, and the fingerprint even when the story body and backend
 configuration are otherwise unchanged.
+
+Output redirection does not change this fingerprint behavior. Existing-output
+checks use the redirected target path when `--output-root` is active, but the
+fingerprint still describes the source story and extraction configuration.
+Within one redirected batch, duplicate output targets are reported as
+per-story failures rather than silently overwriting an earlier result.
 
 The token-detail artifact uses its own `linguistics-token-detail-v1`
 fingerprint. This keeps compact sidecar resume checks independent from the

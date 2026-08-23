@@ -28,6 +28,7 @@ import pathlib
 import re
 import sqlite3
 import sys
+import urllib.parse
 
 from typing import Any, Iterable
 
@@ -39,6 +40,7 @@ sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 from lcats.analysis.corpus import discovery  # noqa: E402
 from lcats.analysis.corpus import genre_sidecar  # noqa: E402
 from lcats.utils import checkpoint  # noqa: E402
+from lcats.utils import run_log  # noqa: E402
 
 CANDIDATES_FILENAME = "candidates.jsonl"
 PILOT_FILENAME = "pilot_40_manifest.jsonl"
@@ -70,11 +72,21 @@ _PRICING_USD_PER_MILLION_TOKENS: dict[str, tuple[float, float]] = {
     "claude-opus-4": (15.0, 75.0),
     "claude-sonnet-4": (3.0, 15.0),
     "claude-haiku-4": (0.8, 4.0),
+    # Real OpenAI pricing (not just Claude prefixes) - --backend openai
+    # without --base-url hits the real, billed OpenAI API, not a local
+    # endpoint, so it must not silently fall through to the Anthropic
+    # default price (review finding: Codex P2 / Copilot, this PR).
+    # Matches run_census.py's own pricing table entry exactly.
+    "gpt-4o": (2.5, 10.0),
 }
 _DEFAULT_PRICING_USD_PER_MILLION_TOKENS: tuple[float, float] = (15.0, 75.0)
 
 VALIDATION_CHECKPOINT_STAGE = "validation"
-VALIDATION_FINGERPRINT_VERSION = "v1"
+# Bumped v1 -> v2 (WI-LLM-0074): the fingerprint now also carries the
+# effective backend, so this version marker invalidates every pre-existing
+# checkpoint rather than silently reusing one computed under the old,
+# backend-less fingerprint shape.
+VALIDATION_FINGERPRINT_VERSION = "v2"
 
 # Same rationale as experiments/04_genre_census/run_census.py's own
 # _FATAL_ERROR_SUBSTRINGS: continuing after a bad key/exhausted quota just
@@ -834,6 +846,117 @@ def write_genre_balanced_outputs(
     return outputs
 
 
+def _slugify_component(value: str) -> str:
+    return "".join(char if char.isalnum() else "_" for char in value.lower()).strip("_")
+
+
+def _redact_base_url(base_url: str) -> str:
+    """Strips userinfo (username:password@), query string, and fragment
+    from base_url before it is ever written to disk - a base_url carrying
+    credentials or an API key in its query string must never be persisted
+    verbatim into a checkpoint fingerprint or a committed summary file
+    (review finding: Copilot, this PR). Only the redacted form is used
+    anywhere this value gets written out; the real, unredacted base_url
+    is used solely to construct the actual backend connection, which
+    happens once and is never itself serialized."""
+    parsed = urllib.parse.urlparse(base_url)
+    netloc = parsed.hostname or ""
+    if parsed.port:
+        netloc = f"{netloc}:{parsed.port}"
+    return urllib.parse.urlunparse((parsed.scheme, netloc, parsed.path, "", "", ""))
+
+
+def _is_local_base_url(base_url: str | None) -> bool:
+    """Mirrors run_census.py's own _is_local_base_url (WI-LLM-0066) - a
+    local-endpoint call is reported at $0 API cost regardless of model."""
+    if not base_url:
+        return False
+    host = (urllib.parse.urlparse(base_url).hostname or "").lower()
+    return host in {"localhost", "127.0.0.1", "::1"}
+
+
+def _endpoint_slug(base_url: str) -> str:
+    """Mirrors run_census.py's own _endpoint_slug (WI-LLM-0066)."""
+    parsed = urllib.parse.urlparse(base_url)
+    pieces = [parsed.scheme or "endpoint"]
+    pieces.append(parsed.hostname or parsed.netloc or base_url)
+    if parsed.port:
+        pieces.append(str(parsed.port))
+    path = parsed.path.strip("/")
+    if path:
+        pieces.extend(part for part in path.split("/") if part)
+    return _slugify_component("_".join(pieces)) or "endpoint"
+
+
+def _build_validation_backend(backend_name: str, model: str, base_url: str | None):
+    """Constructs the backend for --validate's real/estimated pass, mirroring
+    run_census.py's own _build_backend (WI-LLM-0066) rather than inventing a
+    new wiring convention. The default anthropic/no-base_url case returns
+    exactly what this function replaced (AnthropicBackend())."""
+    if backend_name == "anthropic":
+        from lcats.llm import anthropic_backend
+
+        return anthropic_backend.AnthropicBackend()
+    if backend_name == "openai":
+        from lcats.llm import openai_backend
+
+        if base_url:
+            if _is_local_base_url(base_url):
+                return openai_backend.OpenAIBackend(api_key="ollama", base_url=base_url)
+            return openai_backend.OpenAIBackend(base_url=base_url)
+        return openai_backend.OpenAIBackend()
+    raise ValueError(f"Unknown backend: {backend_name!r}")
+
+
+def _validation_output_filenames(
+    backend_name: str, model: str, base_url: str | None
+) -> dict[str, str]:
+    """Backend/model/endpoint-qualified output filenames for --validate's
+    real run, mirroring run_census.py's own _output_prefix convention
+    (WI-LLM-0066). The default anthropic/no-base_url case keeps today's
+    exact filenames unchanged, so a plain --validate --run-real-validation
+    invocation with no new flags writes to the same paths it always has.
+    Any other backend/endpoint gets its own qualified set so a local-model
+    run never overwrites the existing Opus evidence."""
+    if backend_name == "anthropic" and not base_url:
+        return {
+            "results": VALIDATION_RESULTS_FILENAME,
+            "summary": VALIDATION_SUMMARY_FILENAME,
+            "run_log": VALIDATION_RUN_LOG_FILENAME,
+        }
+    pieces = [_slugify_component(model)]
+    pieces.append(_endpoint_slug(base_url) if base_url else backend_name)
+    prefix = "validation_" + "_".join(pieces)
+    return {
+        "results": f"{prefix}_results.jsonl",
+        "summary": f"{prefix}_summary.json",
+        "run_log": f"{prefix}_run_log.jsonl",
+    }
+
+
+def _validation_checkpoint_stage(backend_name: str, base_url: str | None) -> str:
+    """Backend/endpoint-qualified checkpoint stage name for --validate.
+
+    checkpoint.write_checkpoint()/read_checkpoint() key each story's
+    checkpoint file by (item_id, stage) alone - the fingerprint only
+    gates whether a checkpoint is treated as done, it does not change
+    *where* the checkpoint is written. Without this qualification, an
+    Opus run and a local run sharing the same --output (the documented
+    comparison workflow) would both write to the exact same
+    <item_id>/validation.json file: a local run's write - even a failed
+    one - would silently replace the Opus run's own successful resume
+    checkpoint, so switching back to the Opus command would re-call and
+    re-bill every story the local run had touched (review finding: Codex
+    P1, this PR). The default anthropic/no-base_url case keeps today's
+    exact stage name unchanged."""
+    if backend_name == "anthropic" and not base_url:
+        return VALIDATION_CHECKPOINT_STAGE
+    pieces = [backend_name]
+    if base_url:
+        pieces.append(_endpoint_slug(base_url))
+    return VALIDATION_CHECKPOINT_STAGE + "_" + "_".join(pieces)
+
+
 def _price_for_model(model: str) -> tuple[float, float]:
     for prefix, price in _PRICING_USD_PER_MILLION_TOKENS.items():
         if model.startswith(prefix):
@@ -880,31 +1003,6 @@ class _UnexpectedFailureResult:
         self.output_tokens = 0
 
 
-def _log_run_event(log_path: pathlib.Path, event: str, **fields: Any) -> None:
-    """Append one timestamped JSON line to the run log, then close.
-
-    Distinct from per-item checkpointing (which answers "is this item
-    done and resume-safe?"): this answers "what actually happened, when,
-    and in what order, including why the run stopped?" - a single place
-    to `tail -f`/`cat` for a human, not a resume mechanism.
-
-    Opens, writes, and closes per call rather than holding a long-lived
-    handle across the whole run, so a hard interruption (kill -9, power
-    loss) never loses a buffered-but-unflushed line - the exact failure
-    mode this log exists to survive. The per-call open/close cost is
-    negligible next to a real API call's own latency.
-    """
-    record = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc)
-        .isoformat()
-        .replace("+00:00", "Z"),
-        "event": event,
-        **fields,
-    }
-    with log_path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record, sort_keys=True) + "\n")
-
-
 def _validation_item_id(story_id: str) -> str:
     """Checkpoint-safe item_id for a story - mirrors the collection__slug
     identity convention run_census.py's _story_identity and this file's
@@ -913,28 +1011,41 @@ def _validation_item_id(story_id: str) -> str:
 
 
 def _validation_fingerprint(
-    model: str, row: dict[str, Any], corpus_root: pathlib.Path
+    model: str,
+    row: dict[str, Any],
+    corpus_root: pathlib.Path,
+    *,
+    backend_name: str = "anthropic",
+    base_url: str | None = None,
 ) -> dict[str, Any]:
     """Fingerprint hashes the row's own metadata-assessment content plus
     the actual story file assess_story() reads (not just model/config), so
     either a re-selected/edited manifest row or a story corrected in place
     invalidates its own cached validation - a resumed run must never
     silently describe an earlier version of the story text (review
-    finding: Codex P1, this PR). Also carries a version marker so a future
-    change to how validation records are built invalidates every cached
-    one - same "hash actual input, not just config" principle as
-    run_census.py's own _fingerprint."""
+    finding: Codex P1, PR #334). Also includes the effective backend and
+    endpoint (WI-LLM-0074), so reusing the same --output directory against
+    a different local endpoint cannot silently serve a cached
+    classification from the wrong server - same concern run_census.py's
+    own _fingerprint already covers via its base_url field. Also carries a
+    version marker so a future change to how validation records are built
+    invalidates every cached one - same "hash actual input, not just
+    config" principle as run_census.py's own _fingerprint."""
     row_hash = hashlib.sha256(
         json.dumps(row["metadata_assessment"], sort_keys=True).encode("utf-8")
     ).hexdigest()
     story_bytes = (corpus_root / row["story_path"]).read_bytes()
     story_hash = hashlib.sha256(story_bytes).hexdigest()
-    return {
+    fingerprint = {
         "model": model,
+        "backend": backend_name,
         "validation_version": VALIDATION_FINGERPRINT_VERSION,
         "row_hash": row_hash,
         "story_content_hash": story_hash,
     }
+    if base_url:
+        fingerprint["base_url"] = base_url
+    return fingerprint
 
 
 def _rows_not_yet_checkpointed(
@@ -942,6 +1053,9 @@ def _rows_not_yet_checkpointed(
     model: str,
     roots: checkpoint.CheckpointRoots,
     corpus_root: pathlib.Path,
+    *,
+    backend_name: str = "anthropic",
+    base_url: str | None = None,
 ) -> list[dict[str, Any]]:
     """Return the subset of selected_rows with no matching done checkpoint.
 
@@ -952,13 +1066,16 @@ def _rows_not_yet_checkpointed(
     run_validation() itself to decide, per story, whether to skip the
     real call.
     """
+    stage = _validation_checkpoint_stage(backend_name, base_url)
     remaining = []
     for row in selected_rows:
         item_id = _validation_item_id(row["story_id"])
         try:
-            fingerprint = _validation_fingerprint(model, row, corpus_root)
+            fingerprint = _validation_fingerprint(
+                model, row, corpus_root, backend_name=backend_name, base_url=base_url
+            )
             cached = checkpoint.read_checkpoint(
-                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+                roots.working_root, item_id, stage, fingerprint
             )
         except OSError:
             # Story file missing/unreadable - can't fingerprint it to check
@@ -982,9 +1099,16 @@ def run_validation(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
-    log_path: pathlib.Path,
+    log: run_log.RunLog,
+    run_id: str,
+    backend_name: str = "anthropic",
+    base_url: str | None = None,
+    is_local_endpoint: bool = False,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], bool]:
-    """Run a real, gated Claude Opus validation pass over the selected sample.
+    """Run a real, gated validation pass over the selected sample - Claude
+    Opus by default, or an opt-in local OpenAI-compatible backend
+    (WI-LLM-0074, mirroring run_census.py's own --backend/--base-url
+    wiring) when backend_name/base_url are set by the caller.
 
     Never called on the full corpus - only the already-selected sample.
     Caller is responsible for the explicit-go-ahead gate; this function
@@ -1014,25 +1138,17 @@ def run_validation(
     caller must write those out regardless (never silently discard
     already-paid-for work).
 
-    Also appends one event per story (plus a run-start and run-end event)
-    to log_path via _log_run_event() - a human-readable, append-and-flush
-    record of what happened and when, distinct from the per-item
-    checkpoints above: checkpoints answer "is this item done and
-    resume-safe?", this log answers "what happened, in order, including
-    why the run stopped?" (see _log_run_event()'s own docstring).
+    Also appends one event per story to ``log`` (a
+    ``lcats.utils.run_log.RunLog``, per-run-scoped by the caller) - a
+    human-readable, append-and-flush record of what happened and when,
+    distinct from the per-item checkpoints above: checkpoints answer "is
+    this item done and resume-safe?", this log answers "what happened, in
+    order, including why the run stopped?" ``run_start``/``run_end`` are
+    the caller's responsibility (via ``log``'s own context-manager
+    lifecycle), not this function's - see ``_run_validate_mode()``.
     """
     from lcats.analysis.corpus import assess as corpus_assess
 
-    run_id = (
-        datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
-    )
-    _log_run_event(
-        log_path,
-        "run_start",
-        run_id=run_id,
-        model=model,
-        story_count=len(selected_rows),
-    )
     results = []
     agreement_count = 0
     error_count = 0
@@ -1040,6 +1156,7 @@ def run_validation(
     total_output_tokens = 0
     aborted = False
     total = len(selected_rows)
+    stage = _validation_checkpoint_stage(backend_name, base_url)
     for index, row in enumerate(selected_rows, start=1):
         item_id = _validation_item_id(row["story_id"])
         # fingerprint is computed inside the try block below (not here,
@@ -1050,9 +1167,11 @@ def run_validation(
         # finding: Codex, this PR).
         fingerprint = None
         try:
-            fingerprint = _validation_fingerprint(model, row, corpus_root)
+            fingerprint = _validation_fingerprint(
+                model, row, corpus_root, backend_name=backend_name, base_url=base_url
+            )
             cached = checkpoint.read_checkpoint(
-                roots.working_root, item_id, VALIDATION_CHECKPOINT_STAGE, fingerprint
+                roots.working_root, item_id, stage, fingerprint
             )
         except OSError:
             cached = None
@@ -1061,8 +1180,7 @@ def run_validation(
             total_input_tokens += cached.data.get("input_tokens", 0)
             total_output_tokens += cached.data.get("output_tokens", 0)
             print(f"  [{index}/{total}] {row['story_id']} (cached)")
-            _log_run_event(
-                log_path,
+            log.event(
                 "story_cached",
                 story_id=row["story_id"],
                 index=index,
@@ -1099,7 +1217,7 @@ def run_validation(
                 checkpoint.write_checkpoint(
                     roots.working_root,
                     item_id,
-                    VALIDATION_CHECKPOINT_STAGE,
+                    stage,
                     outcome="failure" if assessment_result.error else "success",
                     fingerprint=fingerprint,
                     data={
@@ -1112,8 +1230,7 @@ def run_validation(
                     f"  [{index}/{total}] {row['story_id']} -> "
                     f"{model_assessment['result']['detected_genre']}"
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "story_completed",
                     story_id=row["story_id"],
                     index=index,
@@ -1131,8 +1248,7 @@ def run_validation(
                     "far are preserved and written out below.",
                     file=sys.stderr,
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "run_aborted_fatal",
                     story_id=row["story_id"],
                     index=index,
@@ -1155,7 +1271,7 @@ def run_validation(
                     checkpoint.write_checkpoint(
                         roots.working_root,
                         item_id,
-                        VALIDATION_CHECKPOINT_STAGE,
+                        stage,
                         outcome="failure",
                         fingerprint=fingerprint,
                         data={"error": f"unexpected error: {exc!r}"},
@@ -1168,8 +1284,7 @@ def run_validation(
                     .isoformat()
                     .replace("+00:00", "Z"),
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "story_unexpected_error",
                     story_id=row["story_id"],
                     index=index,
@@ -1190,14 +1305,22 @@ def run_validation(
             }
         )
 
-    input_price, output_price = _price_for_model(model)
-    real_cost = (total_input_tokens / 1_000_000) * input_price + (
-        total_output_tokens / 1_000_000
-    ) * output_price
+    if is_local_endpoint:
+        # Mirrors run_census.py's own _estimate_cost_usd(is_local_endpoint=...)
+        # - a local-endpoint call is reported at $0, not the Anthropic/OpenAI
+        # pricing table's price for whatever model string was requested.
+        real_cost = 0.0
+    else:
+        input_price, output_price = _price_for_model(model)
+        real_cost = (total_input_tokens / 1_000_000) * input_price + (
+            total_output_tokens / 1_000_000
+        ) * output_price
     validated_count = len(results) - error_count
     summary = {
         "run_id": run_id,
         "model": model,
+        "backend": backend_name,
+        "base_url": base_url or "",
         "selected_count": total,
         "processed_count": len(results),
         "aborted": aborted,
@@ -1216,16 +1339,11 @@ def run_validation(
         "total_output_tokens": total_output_tokens,
         "total_estimated_cost_usd": real_cost,
     }
-    _log_run_event(
-        log_path,
-        "run_end",
-        run_id=run_id,
-        aborted=aborted,
-        processed_count=len(results),
-        error_count=error_count,
-        agreement_count=agreement_count,
-        total_estimated_cost_usd=real_cost,
-    )
+    # run_end is deliberately NOT logged here -- it belongs to the caller,
+    # after write_validation_outputs() has actually succeeded (review
+    # finding, PR #352 on WI-RUNLOG-0079: logging it here, before that
+    # write, left a real output-writing failure with no terminal event at
+    # all). See _run_validate_mode().
     return results, summary, aborted
 
 
@@ -1287,11 +1405,19 @@ def write_validation_outputs(
     results: list[dict[str, Any]],
     validation_summary: dict[str, Any],
     output_dir: pathlib.Path,
+    *,
+    results_filename: str = VALIDATION_RESULTS_FILENAME,
+    summary_filename: str = VALIDATION_SUMMARY_FILENAME,
 ) -> dict[str, str]:
-    """Write per-story sidecar-shaped validation results and a summary."""
+    """Write per-story sidecar-shaped validation results and a summary.
+
+    results_filename/summary_filename default to the plain Opus filenames
+    (unchanged from before WI-LLM-0074) - a non-default backend/endpoint
+    passes its own qualified names (_validation_output_filenames()) so a
+    local-model run never overwrites the existing Opus evidence."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    results_path = output_dir / VALIDATION_RESULTS_FILENAME
-    summary_path = output_dir / VALIDATION_SUMMARY_FILENAME
+    results_path = output_dir / results_filename
+    summary_path = output_dir / summary_filename
     sidecars = build_sidecar_records(results)
     write_jsonl(results_path, sidecars)
     summary_path.write_text(
@@ -1490,18 +1616,52 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        default="claude-opus-4-8",
+        default=None,
         help=(
-            "Anthropic model used for --validate's real or estimated "
-            "validation pass, and for --full-scan's own "
-            "estimated_validation_cost_usd preview of that same estimate."
+            "Model used for --validate's real or estimated validation "
+            "pass, and for --full-scan's own estimated_validation_cost_usd "
+            "preview of that same estimate. Defaults to claude-opus-4-8 "
+            "for the default --backend anthropic, or gpt-4o for "
+            "--backend openai (override explicitly for a local model, "
+            "e.g. --model gpt-oss:20b)."
+        ),
+    )
+    parser.add_argument(
+        "--backend",
+        choices=["anthropic", "openai"],
+        default="anthropic",
+        help=(
+            "Backend for --validate's real/estimated pass (default: "
+            "anthropic). Only --validate reads this; --full-scan makes no "
+            "model calls of its own. Mirrors run_census.py's own "
+            "--backend/--base-url wiring (WI-LLM-0066)."
+        ),
+    )
+    parser.add_argument(
+        "--base-url",
+        default=None,
+        help=(
+            "Optional OpenAI-compatible endpoint override for --backend "
+            "openai (for example http://localhost:11434/v1 for Ollama). "
+            "Only valid with --backend openai. A local endpoint "
+            "(localhost/127.0.0.1/::1) is always reported at $0 API cost, "
+            "regardless of --model."
         ),
     )
     if "--full-scan" in (argv or sys.argv[1:]) and "--validate" in (
         argv or sys.argv[1:]
     ):
         parser.error("--full-scan and --validate are separate invocations; pass one.")
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv)
+    if args.base_url and args.backend != "openai":
+        parser.error("--base-url is only supported with --backend openai")
+    if args.model is None:
+        # Resolved once, here, regardless of mode - full-scan/pilot/
+        # validate-anthropic all get exactly "claude-opus-4-8", identical
+        # to this flag's previous hardcoded default, so omitting --model
+        # and --backend together leaves every existing behavior unchanged.
+        args.model = "claude-opus-4-8" if args.backend == "anthropic" else "gpt-4o"
+    return args
 
 
 def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
@@ -1537,10 +1697,26 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
     except (checkpoint.ProtectedRootError, RuntimeError) as exc:
         raise ValueError(f"checkpoint working_root rejected: {exc}") from exc
 
+    # Redacted (userinfo/query/fragment stripped) before this value is
+    # ever written to disk - the raw args.base_url is used only for the
+    # real backend connection below, never for a fingerprint, summary,
+    # log line, or filename (review finding: Copilot, this PR).
+    redacted_base_url = _redact_base_url(args.base_url) if args.base_url else None
+
+    is_local_endpoint = _is_local_base_url(redacted_base_url)
     remaining_rows = _rows_not_yet_checkpointed(
-        selected_rows, args.model, roots, args.corpus_root
+        selected_rows,
+        args.model,
+        roots,
+        args.corpus_root,
+        backend_name=args.backend,
+        base_url=redacted_base_url,
     )
-    estimate = estimate_validation_cost_usd(len(remaining_rows), args.model)
+    estimate = (
+        0.0
+        if is_local_endpoint
+        else estimate_validation_cost_usd(len(remaining_rows), args.model)
+    )
     if not args.run_real_validation:
         return {
             "mode": "validate-estimate-only",
@@ -1548,38 +1724,84 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
             "already_checkpointed_count": len(selected_rows) - len(remaining_rows),
             "remaining_count": len(remaining_rows),
             "model": args.model,
+            "backend": args.backend,
+            "base_url": redacted_base_url or "",
             "estimated_cost_usd": estimate,
             "note": (
                 "No API calls made. estimated_cost_usd covers only "
                 "remaining_count stories not yet checkpointed under "
                 "--output - re-run with --run-real-validation to spend "
                 "this amount for real."
+                + (
+                    " A local endpoint always estimates/reports $0."
+                    if is_local_endpoint
+                    else ""
+                )
             ),
         }
 
-    from lcats.llm import anthropic_backend
-
-    backend = anthropic_backend.AnthropicBackend()
+    backend = _build_validation_backend(args.backend, args.model, args.base_url)
+    filenames = _validation_output_filenames(
+        args.backend, args.model, redacted_base_url
+    )
     print(
-        f"Validating {len(selected_rows)} stories with {args.model} "
-        "(resuming from any checkpoints)."
+        f"Validating {len(selected_rows)} stories with {args.backend}/{args.model}"
+        + (f" @ {redacted_base_url}" if redacted_base_url else "")
+        + " (resuming from any checkpoints)."
     )
-    log_path = args.output / VALIDATION_RUN_LOG_FILENAME
-    results, validation_summary, aborted = run_validation(
-        selected_rows,
-        corpus_root=args.corpus_root,
-        backend=backend,
+    run_id = (
+        datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+    )
+    # RunLog wraps both run_validation() and write_validation_outputs()
+    # below in one scope: an exception anywhere in either -- including
+    # during output writing, not just the per-story loop -- still
+    # produces a terminal event, and run_end is only ever emitted once
+    # both have actually succeeded (review finding, PR #352 on
+    # WI-RUNLOG-0079).
+    with run_log.RunLog(
+        roots,
+        filenames["run_log"],
+        run_id=run_id,
         model=args.model,
-        roots=roots,
-        log_path=log_path,
-    )
-    # Always write whatever completed, aborted or not - never silently
-    # discard already-paid-for results (see run_validation()'s own
-    # docstring / run_pilot.py's WI-EVENT-0032 precedent).
-    validation_summary["outputs"] = write_validation_outputs(
-        results, validation_summary, args.output
-    )
-    validation_summary["outputs"]["validation_run_log"] = str(log_path)
+        story_count=len(selected_rows),
+    ) as log:
+        results, validation_summary, aborted = run_validation(
+            selected_rows,
+            corpus_root=args.corpus_root,
+            backend=backend,
+            model=args.model,
+            roots=roots,
+            log=log,
+            run_id=run_id,
+            backend_name=args.backend,
+            base_url=redacted_base_url,
+            is_local_endpoint=is_local_endpoint,
+        )
+        # Always write whatever completed, aborted or not - never silently
+        # discard already-paid-for results (see run_validation()'s own
+        # docstring / run_pilot.py's WI-EVENT-0032 precedent).
+        validation_summary["outputs"] = write_validation_outputs(
+            results,
+            validation_summary,
+            args.output,
+            results_filename=filenames["results"],
+            summary_filename=filenames["summary"],
+        )
+        validation_summary["outputs"]["validation_run_log"] = str(log.log_path)
+        # Manually logged (not RunLog's own automatic bare run_end) so the
+        # same rich summary payload the reference implementation always
+        # carried is preserved; logging it here, as literally the last
+        # statement before this `with` block exits cleanly, guarantees it
+        # only fires once output writing above has actually succeeded.
+        log.event(
+            "run_end",
+            run_id=run_id,
+            aborted=aborted,
+            processed_count=validation_summary["processed_count"],
+            error_count=validation_summary["error_count"],
+            agreement_count=validation_summary["agreement_count"],
+            total_estimated_cost_usd=validation_summary["total_estimated_cost_usd"],
+        )
     return validation_summary
 
 

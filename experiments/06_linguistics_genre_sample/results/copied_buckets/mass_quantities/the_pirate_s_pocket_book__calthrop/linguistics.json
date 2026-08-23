@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11310,
+    "body_sha256": "564eeac4dcfb8b2eefab8a70148493bd12e9dd34a61962f8573d8973f8b89cf8",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/story.json"
+  },
+  "lcats_id": "mass_quantities/the_pirate_s_pocket_book__calthrop",
+  "metrics": {
+    "avg_sentence_length": 14.429487179487179,
+    "avg_word_length": 4.032874278098623,
+    "sentence_count": 156,
+    "token_count": 2814,
+    "word_count": 2251
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/story.json"
+}

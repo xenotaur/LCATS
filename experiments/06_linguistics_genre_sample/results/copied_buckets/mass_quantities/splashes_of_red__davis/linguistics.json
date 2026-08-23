@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31689,
+    "body_sha256": "2c90f6e66427c346d96675f849da787574ae55e3ec72fa79838b1a72e2518a2d",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/splashes_of_red__davis",
+  "metrics": {
+    "avg_sentence_length": 17.358090185676392,
+    "avg_word_length": 3.827781173594132,
+    "sentence_count": 377,
+    "token_count": 7961,
+    "word_count": 6544
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/story.json"
+}

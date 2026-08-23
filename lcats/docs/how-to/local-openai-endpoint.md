@@ -61,5 +61,6 @@ constituent work item explicitly excluded that.
 ## See also
 
 - [`docs/reference/llm-backend.md`](../reference/llm-backend.md) — full `LLMBackend` / `OpenAIBackend` reference.
+- [`docs/explanation/local-model-evaluation.md`](../explanation/local-model-evaluation.md) — the full narrative: motivation, architecture decision, and per-stage evidence synthesized across every candidate model.
 - [`experimental/model_comparison/README.md`](../../experimental/model_comparison/README.md) — the benchmark harness, its layout, and how to add a new candidate.
 - [`project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md`](../../project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md) — design rationale for the `base_url` approach.

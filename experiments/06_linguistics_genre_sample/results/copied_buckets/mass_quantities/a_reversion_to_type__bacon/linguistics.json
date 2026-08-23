@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31435,
+    "body_sha256": "982fa5d193df41b50dbde7e8415996f233f110cf8b51443d855e9cd3a9f3a171",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/a_reversion_to_type__bacon",
+  "metrics": {
+    "avg_sentence_length": 16.34036939313984,
+    "avg_word_length": 4.071047957371226,
+    "sentence_count": 379,
+    "token_count": 7345,
+    "word_count": 6193
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/story.json"
+}

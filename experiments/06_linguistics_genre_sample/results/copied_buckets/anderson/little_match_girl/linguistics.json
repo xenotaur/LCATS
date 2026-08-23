@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6028,
+    "body_sha256": "6c6da0b80f69cebcb54e0836824a97574b44262ab9dd3edc24083c017e160985",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/story.json"
+  },
+  "lcats_id": "anderson/little_match_girl",
+  "metrics": {
+    "avg_sentence_length": 25.837209302325583,
+    "avg_word_length": 4.437443744374438,
+    "sentence_count": 43,
+    "token_count": 1277,
+    "word_count": 1111
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/story.json"
+}

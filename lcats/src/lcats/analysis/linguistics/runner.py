@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import dataclasses
 import pathlib
+import sys
 from typing import Any, Iterable, Optional
 
 from lcats.analysis.corpus import cli as corpus_cli
@@ -51,6 +52,14 @@ class StoryRunResult:
 
 
 @dataclasses.dataclass(frozen=True)
+class StoryOutputPaths:
+    """Target sidecar paths for one story."""
+
+    sidecar_path: pathlib.Path
+    detail_path: Optional[pathlib.Path] = None
+
+
+@dataclasses.dataclass(frozen=True)
 class RunSummary:
     """Machine-readable summary for a linguistic sidecar batch run."""
 
@@ -59,6 +68,7 @@ class RunSummary:
     model_name: str
     existing: str
     include_token_detail: bool
+    output_root: Optional[pathlib.Path] = None
 
     @property
     def clean(self) -> bool:
@@ -68,7 +78,7 @@ class RunSummary:
         counts: dict[str, int] = {}
         for result in self.results:
             counts[result.status] = counts.get(result.status, 0) + 1
-        return {
+        data = {
             "schema_version": "linguistics-run-summary-v1",
             "backend_name": self.backend_name,
             "model_name": self.model_name,
@@ -77,6 +87,9 @@ class RunSummary:
             "counts": counts,
             "results": [result.to_dict() for result in self.results],
         }
+        if self.output_root is not None:
+            data["output_root"] = self.output_root.as_posix()
+        return data
 
 
 def make_backend(name: str, model_name: str = "") -> Any:
@@ -169,17 +182,59 @@ def run(
     options: sidecar.LinguisticsOptions,
     existing: str = EXISTING_SKIP,
     dry_run: bool = False,
+    output_root: Optional[pathlib.Path] = None,
 ) -> RunSummary:
     """Analyze stories and write sidecars with per-story failure isolation."""
     results: list[StoryRunResult] = []
+    seen_sidecar_targets: set[str] = set()
     for story_path in story_paths:
+        story_path = pathlib.Path(story_path)
+        if output_root is not None:
+            try:
+                output_paths = output_paths_for_story(
+                    story_path,
+                    include_token_detail=options.include_token_detail,
+                    output_root=output_root,
+                )
+                sidecar_target = _canonical_target_key(output_paths.sidecar_path)
+            except Exception as error:  # noqa: BLE001 - isolate per-story failures.
+                results.append(_output_path_failure(story_path, output_root, error))
+                continue
+            if sidecar_target in seen_sidecar_targets:
+                results.append(
+                    StoryRunResult(
+                        story_path=story_path,
+                        sidecar_path=output_paths.sidecar_path,
+                        detail_path=output_paths.detail_path,
+                        status=STATUS_FAILED,
+                        message=(
+                            "multiple stories resolve to the same output sidecar "
+                            "path; choose distinct story identities or separate "
+                            "output roots"
+                        ),
+                    )
+                )
+                continue
+            seen_sidecar_targets.add(sidecar_target)
+            results.append(
+                run_story(
+                    story_path,
+                    backend=backend,
+                    options=options,
+                    existing=existing,
+                    dry_run=dry_run,
+                    output_root=output_root,
+                )
+            )
+            continue
         results.append(
             run_story(
-                pathlib.Path(story_path),
+                story_path,
                 backend=backend,
                 options=options,
                 existing=existing,
                 dry_run=dry_run,
+                output_root=output_root,
             )
         )
     return RunSummary(
@@ -188,6 +243,7 @@ def run(
         model_name=options.model_name,
         existing=existing,
         include_token_detail=options.include_token_detail,
+        output_root=pathlib.Path(output_root) if output_root is not None else None,
     )
 
 
@@ -198,14 +254,19 @@ def run_story(
     options: sidecar.LinguisticsOptions,
     existing: str = EXISTING_SKIP,
     dry_run: bool = False,
+    output_root: Optional[pathlib.Path] = None,
 ) -> StoryRunResult:
     """Analyze one story and write its linguistic sidecar."""
-    sidecar_path = story_path.parent / sidecar.SIDECAR_FILENAME
-    detail_path = (
-        story_path.parent / sidecar.TOKEN_DETAIL_FILENAME
-        if options.include_token_detail
-        else None
-    )
+    try:
+        output_paths = output_paths_for_story(
+            story_path,
+            include_token_detail=options.include_token_detail,
+            output_root=output_root,
+        )
+    except Exception as error:  # noqa: BLE001 - isolate per-story failures.
+        return _output_path_failure(story_path, output_root, error)
+    sidecar_path = output_paths.sidecar_path
+    detail_path = output_paths.detail_path
     if dry_run:
         return StoryRunResult(
             story_path=story_path,
@@ -355,6 +416,60 @@ def with_prepended_results(
         model_name=summary.model_name,
         existing=summary.existing,
         include_token_detail=summary.include_token_detail,
+        output_root=summary.output_root,
+    )
+
+
+def _canonical_target_key(path: pathlib.Path) -> str:
+    """Return a stable key for comparing filesystem destinations."""
+    key = pathlib.Path(path).resolve(strict=False).as_posix()
+    if sys.platform in ("darwin", "win32"):
+        return key.casefold()
+    return key
+
+
+def output_paths_for_story(
+    story_path: pathlib.Path,
+    *,
+    include_token_detail: bool,
+    output_root: Optional[pathlib.Path] = None,
+) -> StoryOutputPaths:
+    """Return compact and optional detail output paths for one story."""
+    story_path = pathlib.Path(story_path)
+    if output_root is None:
+        output_dir = story_path.parent
+    else:
+        identity = pathlib.PurePosixPath(sidecar.story_identity(story_path))
+        if identity.is_absolute() or any(
+            part in ("", ".", "..") for part in identity.parts
+        ):
+            raise ValueError(
+                f"story identity cannot be used as an output path: {identity}"
+            )
+        output_dir = pathlib.Path(output_root).joinpath(*identity.parts)
+    return StoryOutputPaths(
+        sidecar_path=output_dir / sidecar.SIDECAR_FILENAME,
+        detail_path=(
+            output_dir / sidecar.TOKEN_DETAIL_FILENAME if include_token_detail else None
+        ),
+    )
+
+
+def _output_path_failure(
+    story_path: pathlib.Path,
+    output_root: Optional[pathlib.Path],
+    error: Exception,
+) -> StoryRunResult:
+    fallback = (
+        pathlib.Path(output_root) / sidecar.SIDECAR_FILENAME
+        if output_root is not None
+        else pathlib.Path(story_path).parent / sidecar.SIDECAR_FILENAME
+    )
+    return StoryRunResult(
+        story_path=pathlib.Path(story_path),
+        sidecar_path=fallback,
+        status=STATUS_FAILED,
+        message=f"could not resolve output path: {error}",
     )
 
 

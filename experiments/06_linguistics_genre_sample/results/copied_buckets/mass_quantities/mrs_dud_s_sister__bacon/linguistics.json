@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30254,
+    "body_sha256": "65ad1f9dbd162d86a3e2e17e70a994973672751088dcc3329359890e188093f7",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/mrs_dud_s_sister__bacon",
+  "metrics": {
+    "avg_sentence_length": 15.674358974358974,
+    "avg_word_length": 3.92000654343203,
+    "sentence_count": 390,
+    "token_count": 7425,
+    "word_count": 6113
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/story.json"
+}

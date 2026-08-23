@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 70476,
+    "body_sha256": "e4e5893299f346c2301b16ebf0cb978e7256df9f92a4374446e29afcfadcecf7",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/story.json"
+  },
+  "lcats_id": "anderson/snow_queen",
+  "metrics": {
+    "avg_sentence_length": 21.85475792988314,
+    "avg_word_length": 4.363914139485143,
+    "sentence_count": 599,
+    "token_count": 15492,
+    "word_count": 13091
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/story.json"
+}

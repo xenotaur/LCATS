@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33162,
+    "body_sha256": "7cba2dadefc4524d427deb6b97cb16bb04433cbceef017b03142a7c0dee892fe",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/story.json"
+  },
+  "lcats_id": "mass_quantities/long_odds__haggard",
+  "metrics": {
+    "avg_sentence_length": 26.915384615384614,
+    "avg_word_length": 3.749642755072878,
+    "sentence_count": 260,
+    "token_count": 7987,
+    "word_count": 6998
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/story.json"
+}

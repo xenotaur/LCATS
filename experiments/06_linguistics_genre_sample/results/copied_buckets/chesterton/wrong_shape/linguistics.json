@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42682,
+    "body_sha256": "9f9851f221dc58ce1b6e53a3ff315ef9d33e1a8a6646b82baf60c7aba700235d",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/story.json"
+  },
+  "lcats_id": "chesterton/wrong_shape",
+  "metrics": {
+    "avg_sentence_length": 20.317460317460316,
+    "avg_word_length": 4.539453125,
+    "sentence_count": 378,
+    "token_count": 9152,
+    "word_count": 7680
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31850,
+    "body_sha256": "307d4e93233b46fa93e5b7a4fe0988eaa9755ab9c39b7b941d89626e920eae26",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/story.json"
+  },
+  "lcats_id": "mass_quantities/doom_of_the_house_of_duryea__peirce",
+  "metrics": {
+    "avg_sentence_length": 16.81382978723404,
+    "avg_word_length": 4.04729515975957,
+    "sentence_count": 376,
+    "token_count": 7395,
+    "word_count": 6322
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/story.json"
+}

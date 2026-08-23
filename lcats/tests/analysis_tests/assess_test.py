@@ -240,6 +240,56 @@ class TestAssessStorySuccess(unittest.TestCase):
         self.assertEqual(len(result.issues), 1)
         self.assertEqual(result.issues[0]["severity"], "low")
 
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_detected_genre_underscore_variant_canonicalized(self, _mock):
+        """A real local OpenAI-compatible backend (gpt-oss:20b via Ollama,
+        WI-LLM-0074) is not guaranteed to respect ASSESSMENT_TOOL's own enum
+        the way Anthropic's strict tool-calling does - it returned
+        "science_fiction" instead of the canonical "science fiction" for
+        3/146 stories in a real run (PR #361 review finding), which
+        silently failed run_prefilter.py's target_candidates membership
+        check and understated that run's measured agreement rate."""
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["detected_genre"] = "science_fiction"
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.detected_genre, "science fiction")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_detected_genre_unrecognized_value_falls_back_to_other(self, _mock):
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["detected_genre"] = "not_a_real_genre"
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.detected_genre, "other")
+
+    @patch("lcats.analysis.corpus.assess.run_preflight", return_value=_PREFLIGHT_RETURN)
+    def test_detected_genre_other_passes_through_unchanged(self, _mock):
+        tool_result = dict(_SAMPLE_TOOL_RESULT)
+        tool_result["detected_genre"] = "other"
+        fb = fake_backend.FakeBackend(tool_result=tool_result)
+        result = assess.assess_story(_FILE, _GENRE, fb)
+        self.assertEqual(result.detected_genre, "other")
+
+
+class TestCanonicalizeDetectedGenre(unittest.TestCase):
+    """Direct unit tests for _canonicalize_detected_genre."""
+
+    def test_canonical_value_unchanged(self):
+        for genre in assess.VALID_GENRES:
+            self.assertEqual(assess._canonicalize_detected_genre(genre), genre)
+
+    def test_underscore_variant_normalized(self):
+        self.assertEqual(
+            assess._canonicalize_detected_genre("science_fiction"), "science fiction"
+        )
+
+    def test_unrecognized_value_falls_back_to_other(self):
+        self.assertEqual(assess._canonicalize_detected_genre("space_opera"), "other")
+
+    def test_other_passes_through(self):
+        self.assertEqual(assess._canonicalize_detected_genre("other"), "other")
+
 
 class TestAssessStoryErrorPaths(unittest.TestCase):
     """assess_story error-path tests."""

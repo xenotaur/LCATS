@@ -356,6 +356,52 @@ class TestPlotTokensPerStoryByAuthorSns(unittest.TestCase):
         self.assertLessEqual(len(tick_labels), 1)
 
 
+class TestPlotCategoryDistribution(unittest.TestCase):
+    """Tests for plot_category_distribution."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_returns_fig_ax(self):
+        """Function returns a (fig, ax) tuple."""
+        with capture.suppress_output():
+            fig, ax = graph_plotters.plot_category_distribution(
+                {"a": 1, "b": 3, "c": 2}
+            )
+        self.assertIsInstance(fig, plt.Figure)
+        self.assertIsNotNone(ax)
+
+    def test_bars_sorted_by_count_descending(self):
+        """Bars are ordered by count, highest first."""
+        with capture.suppress_output():
+            _, ax = graph_plotters.plot_category_distribution({"a": 1, "b": 3, "c": 2})
+        labels = [t.get_text() for t in ax.get_xticklabels()]
+        self.assertEqual(labels, ["b", "c", "a"])
+
+    def test_save_path_writes_file(self):
+        """Figure is saved to disk when save_path is provided."""
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+            path = f.name
+        try:
+            with capture.suppress_output():
+                graph_plotters.plot_category_distribution(
+                    {"a": 1, "b": 2}, save_path=path
+                )
+            self.assertTrue(os.path.getsize(path) > 0)
+        finally:
+            os.unlink(path)
+
+    def test_axis_labels_and_title(self):
+        """Custom title/axis labels are applied."""
+        with capture.suppress_output():
+            _, ax = graph_plotters.plot_category_distribution(
+                {"a": 1}, title="My Title", xlabel="My X", ylabel="My Y"
+            )
+        self.assertEqual(ax.get_title(), "My Title")
+        self.assertEqual(ax.get_xlabel(), "My X")
+        self.assertEqual(ax.get_ylabel(), "My Y")
+
+
 class TestPlotTokensPerStoryVsStories(unittest.TestCase):
     """Tests for plot_tokens_per_story_vs_stories."""
 

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43257,
+    "body_sha256": "4a6d6da74901a0d1790af45d07f4c3cc8260e7be39f8d7442f438bff6b0ac109",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/story.json"
+  },
+  "lcats_id": "wodehouse/extricating_young_gussie",
+  "metrics": {
+    "avg_sentence_length": 16.89648033126294,
+    "avg_word_length": 4.309888494057101,
+    "sentence_count": 483,
+    "token_count": 9662,
+    "word_count": 8161
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/story.json"
+}

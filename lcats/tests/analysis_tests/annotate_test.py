@@ -4,8 +4,9 @@ import json
 import pathlib
 import tempfile
 import unittest
+import unittest.mock
 
-from lcats.analysis.corpus import annotate
+from lcats.analysis.corpus import annotate, genre_sidecar
 from lcats.utils import checkpoint
 
 _GENRE_TOOL_RESULT = {
@@ -170,7 +171,14 @@ class AnnotateStoryTest(unittest.TestCase):
         self.assertTrue(result.clean)
         bucket_dir = story_path.parent
         genre_data = json.loads((bucket_dir / "genre.json").read_text(encoding="utf-8"))
-        self.assertEqual("science fiction", genre_data["detected_genre"])
+        # A fresh write is genre-sidecar-v1-shaped (WI-GENRE-0076), not
+        # the legacy flat AssessmentResult.to_dict() shape -- the
+        # detected genre lives nested under the one assessment's result.
+        self.assertEqual("genre-sidecar-v1", genre_data["schema_version"])
+        self.assertEqual(1, len(genre_data["assessments"]))
+        self.assertEqual(
+            "science fiction", genre_data["assessments"][0]["result"]["detected_genre"]
+        )
         scenes_data = json.loads(
             (bucket_dir / "scenes.json").read_text(encoding="utf-8")
         )
@@ -294,11 +302,12 @@ class AnnotateStoryTest(unittest.TestCase):
         self.assertEqual(call_count, len(backend.calls))
         self.assertTrue((story_path.parent / "genre.json").is_file())
 
-    def test_stale_genre_sidecar_removed_when_recompute_fails(self):
-        """A failed recompute must not leave a stale genre.json from a
-        prior, differently-configured run in place -- the bucket would
-        otherwise silently mix a new-config scenes.json with an
-        old-config genre.json (review finding, PR #241)."""
+    def test_valid_v1_sidecar_survives_a_failed_recompute(self):
+        """A failed recompute must not delete an existing valid v1 ledger
+        -- its prior assessments remain independently valid regardless of
+        this later, unrelated attempt failing (review finding, PR #357;
+        supersedes this test's own prior "always delete on failure"
+        assertion, which predated append-mode semantics)."""
         story_path = _write_story(
             self.source_root / "collection_a", "story_one", "A dragon story."
         )
@@ -310,7 +319,9 @@ class AnnotateStoryTest(unittest.TestCase):
             model="fake-model",
             roots=self.roots,
         )
-        self.assertTrue((story_path.parent / "genre.json").is_file())
+        genre_path = story_path.parent / "genre.json"
+        first_write = json.loads(genre_path.read_text(encoding="utf-8"))
+        self.assertEqual("genre-sidecar-v1", first_write["schema_version"])
 
         # A body change invalidates the checkpoint, forcing a real
         # recompute -- which this backend is configured to fail.
@@ -330,7 +341,461 @@ class AnnotateStoryTest(unittest.TestCase):
 
         self.assertFalse(result.clean)
         self.assertIsNotNone(result.genre_error)
-        self.assertFalse((story_path.parent / "genre.json").exists())
+        # The prior valid ledger survives completely untouched -- not
+        # deleted, not partially modified.
+        self.assertTrue(genre_path.is_file())
+        self.assertEqual(
+            first_write, json.loads(genre_path.read_text(encoding="utf-8"))
+        )
+
+    def test_stale_legacy_sidecar_removed_when_recompute_fails(self):
+        """A failed recompute over a pre-append-mode legacy sidecar (not
+        yet migrated to v1) must still remove the stale file from a
+        prior, differently-configured run -- the bucket would otherwise
+        silently mix a new-config scenes.json with an old-config
+        genre.json (review finding, PR #241); this narrower case is
+        unaffected by the v1-ledger-survives fix above, since a legacy
+        sidecar was never independently valid evidence the append
+        mechanism itself vouches for."""
+        story_path = _write_story(
+            self.source_root / "collection_a", "story_one", "A dragon story."
+        )
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8")
+        backend = _DualToolFakeBackend(fail_genre_calls_after=0)
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="collection_a",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertFalse(result.clean)
+        self.assertIsNotNone(result.genre_error)
+        self.assertFalse(genre_path.exists())
+
+
+# A real genre-sidecar-v1 record actually produced by WI-GENRE-0004's
+# gated validation run (experiments/05_metadata_genre_prefilter/results/
+# full_scan/validation_results.jsonl, first line) -- used as a fixture
+# per this item's own Required Change 3 ("replay real records ... rather
+# than only synthetic examples") instead of a hand-built stand-in.
+_REAL_V1_SIDECAR = {
+    "schema_version": "genre-sidecar-v1",
+    "lcats_id": "anderson/bell",
+    "story_path": "anderson/bell/story.json",
+    "assessments": [
+        {
+            "assessment_id": "gutenberg_metadata_rules:anderson__bell:2026-08-21T06:19:16.729706Z",
+            "label": "gutenberg_metadata_rules",
+            "generated_at": "2026-08-21T06:19:16.729706Z",
+            "scope": "gutenberg_volume",
+            "method": {"name": "gutenberg_subject_rules", "version": "v1"},
+            "provenance": {"story_id": "anderson/bell"},
+            "evidence": {"raw_subjects": ["Fairy tales"]},
+            "result": {"target_candidates": ["fantasy"]},
+        }
+    ],
+    "current_adjudication": None,
+}
+
+_REAL_LEGACY_FLAT_SIDECAR = {
+    "verdict": "include",
+    "wellformed": True,
+    "detected_genre": "fantasy",
+    "detected_genre_confidence": 0.85,
+    "genre_verdict": "detected",
+    "specials_verdict": "none",
+    "summary": "A fairy tale.",
+    "issues": [],
+    "exclude_reason": "",
+    "genre_suggestion": "",
+    "secondary_genre": "",
+}
+
+
+class GenreSidecarAppendModeTest(unittest.TestCase):
+    """Tests for WI-GENRE-0076: append-mode genre-sidecar writes."""
+
+    def setUp(self):
+        self._tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmpdir.cleanup)
+        self.tmp_path = pathlib.Path(self._tmpdir.name)
+        self.source_root = self.tmp_path / "data"
+        self.checkpoint_dir = self.tmp_path / "checkpoints"
+        self.source_root.mkdir()
+        self.roots = checkpoint.resolve_roots(
+            working_root=self.checkpoint_dir, source_root=self.source_root
+        )
+
+    def test_appends_to_existing_valid_v1_sidecar(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_V1_SIDECAR), encoding="utf-8"
+        )
+        backend = _DualToolFakeBackend()
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+        genre_data = json.loads(
+            (story_path.parent / "genre.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("genre-sidecar-v1", genre_data["schema_version"])
+        # The pre-existing metadata-rules assessment survives untouched...
+        self.assertEqual(2, len(genre_data["assessments"]))
+        self.assertEqual(
+            "gutenberg_metadata_rules", genre_data["assessments"][0]["label"]
+        )
+        self.assertEqual(
+            ["fantasy"], genre_data["assessments"][0]["result"]["target_candidates"]
+        )
+        # ...and the new model assessment is appended after it, not
+        # replacing it.
+        self.assertEqual("model_detect", genre_data["assessments"][1]["label"])
+        self.assertEqual(
+            "science fiction", genre_data["assessments"][1]["result"]["detected_genre"]
+        )
+
+    def test_converts_legacy_flat_sidecar_then_appends(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8"
+        )
+        backend = _DualToolFakeBackend()
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+        genre_data = json.loads(
+            (story_path.parent / "genre.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("genre-sidecar-v1", genre_data["schema_version"])
+        self.assertEqual(2, len(genre_data["assessments"]))
+        # The legacy sidecar's evidence is preserved as the first
+        # assessment, not discarded.
+        self.assertEqual(
+            "fantasy", genre_data["assessments"][0]["result"]["detected_genre"]
+        )
+        self.assertEqual(
+            0.85, genre_data["assessments"][0]["result"]["detected_genre_confidence"]
+        )
+        self.assertEqual(
+            "science fiction", genre_data["assessments"][1]["result"]["detected_genre"]
+        )
+
+    def test_fresh_write_produces_valid_v1_record_not_legacy_shape(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        backend = _DualToolFakeBackend()
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+        genre_data = json.loads(
+            (story_path.parent / "genre.json").read_text(encoding="utf-8")
+        )
+        self.assertFalse(genre_sidecar.is_legacy_flat_sidecar(genre_data))
+        self.assertTrue(genre_sidecar.validate_sidecar(genre_data).valid)
+        self.assertEqual("anderson/bell", genre_data["lcats_id"])
+        self.assertEqual("anderson/bell/story.json", genre_data["story_path"])
+
+    def test_refuses_write_when_existing_sidecar_fails_validation(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        # A dict that is neither a valid v1 record (no assessments/
+        # lcats_id/story_path) nor the legacy flat shape (no
+        # detected_genre) -- annotate.py must not guess how to merge into
+        # this or silently overwrite it.
+        unrecognized = {"schema_version": "genre-sidecar-v1", "something_else": True}
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(unrecognized), encoding="utf-8")
+        backend = _DualToolFakeBackend()
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertFalse(result.clean)
+        self.assertIsNotNone(result.genre_error)
+        # The unrecognized file survives untouched -- refused, not
+        # overwritten or deleted.
+        self.assertEqual(
+            unrecognized, json.loads(genre_path.read_text(encoding="utf-8"))
+        )
+
+    def test_append_is_atomic_no_partial_file_on_interrupted_write(self):
+        # Targets the append path's own write directly (merge_genre_sidecar
+        # + _write_json), not the full annotate_story flow -- annotate.py
+        # also calls checkpoint.write_checkpoint before ever reaching this
+        # write, and that call goes through its own, separately-tested
+        # os.replace inside checkpoint.py; patching annotate.py's `os`
+        # module globally would intercept that earlier call instead of
+        # this one (caught in this item's own self-review), since both
+        # share the same underlying os.replace attribute.
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(_REAL_V1_SIDECAR), encoding="utf-8")
+
+        new_assessment = annotate.build_model_genre_assessment(
+            _GENRE_TOOL_RESULT,
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+        )
+        sidecar_data, error = annotate.merge_genre_sidecar(
+            story_path.parent,
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+            new_assessment=new_assessment,
+        )
+        self.assertIsNone(error)
+
+        with unittest.mock.patch(
+            "lcats.analysis.corpus.annotate.os.replace",
+            side_effect=OSError("simulated interruption"),
+        ):
+            with self.assertRaises(OSError):
+                annotate._write_json(genre_path, sidecar_data)
+
+        # The pre-existing valid sidecar must survive completely intact --
+        # not truncated, not partially merged.
+        self.assertEqual(
+            _REAL_V1_SIDECAR, json.loads(genre_path.read_text(encoding="utf-8"))
+        )
+        # No stray temp file left behind either.
+        leftover_tmp = list(story_path.parent.glob(".genre.json.*.tmp"))
+        self.assertEqual([], leftover_tmp)
+
+    def test_write_readme_renders_v1_sidecar_result(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_V1_SIDECAR), encoding="utf-8"
+        )
+        story_data = json.loads(story_path.read_text(encoding="utf-8"))
+
+        annotate._write_readme(story_path.parent, story_data, story_path)
+
+        readme = (story_path.parent / "README.md").read_text(encoding="utf-8")
+        # Only one assessment exists (the metadata-rules one, which has
+        # no detected_genre field) -- the README must not blank out, it
+        # falls back to the empty-string/0 defaults for that assessment's
+        # own result shape rather than crashing.
+        self.assertIn("## genre.json", readme)
+
+    def test_write_readme_renders_legacy_sidecar_for_backward_compatibility(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8"
+        )
+        story_data = json.loads(story_path.read_text(encoding="utf-8"))
+
+        annotate._write_readme(story_path.parent, story_data, story_path)
+
+        readme = (story_path.parent / "README.md").read_text(encoding="utf-8")
+        self.assertIn("fantasy", readme)
+
+    def test_scenes_json_write_is_unaffected_by_append_mode(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_V1_SIDECAR), encoding="utf-8"
+        )
+        backend = _DualToolFakeBackend()
+
+        annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        scenes_data = json.loads(
+            (story_path.parent / "scenes.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(1, scenes_data["segment_count"])
+
+    def test_build_human_genre_assessment_is_constructible_and_appendable(self):
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(_REAL_V1_SIDECAR), encoding="utf-8"
+        )
+
+        human_assessment = annotate.build_human_genre_assessment(
+            {"detected_genre": "fantasy", "detected_genre_confidence": 1.0},
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+            reviewer="a.reviewer@example.com",
+        )
+        sidecar_data, error = annotate.merge_genre_sidecar(
+            story_path.parent,
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+            new_assessment=human_assessment,
+        )
+
+        self.assertIsNone(error)
+        self.assertIsNotNone(sidecar_data)
+        self.assertTrue(genre_sidecar.validate_sidecar(sidecar_data).valid)
+        self.assertEqual("human_review", sidecar_data["assessments"][-1]["label"])
+
+    def test_checkpoint_hit_is_a_no_op_not_a_duplicate_append(self):
+        """A resumed run under an unchanged config must not pile up a
+        content-identical assessment on every re-run -- that would
+        contradict this module's own checkpoint idempotency guarantee
+        (review finding, this item's own self-review)."""
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        backend = _DualToolFakeBackend()
+
+        annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+        first_call_count = len(backend.calls)
+        genre_data = json.loads(
+            (story_path.parent / "genre.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(1, len(genre_data["assessments"]))
+
+        annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertEqual(first_call_count, len(backend.calls))
+        genre_data = json.loads(
+            (story_path.parent / "genre.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(1, len(genre_data["assessments"]))
+
+    def test_checkpoint_hit_against_legacy_sidecar_still_migrates(self):
+        """The checkpoint-hit no-op only applies once the existing file is
+        already a valid v1 ledger -- a pre-WI-GENRE-0076 legacy sidecar
+        re-annotated under an unchanged config (a checkpoint hit) must
+        still be converted-and-appended, not skipped (review finding,
+        PR #357: the original no-op check only tested `is_file()`)."""
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        backend = _DualToolFakeBackend()
+
+        annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+        first_call_count = len(backend.calls)
+        # Simulate a story annotated by the pre-append-mode implementation:
+        # a valid checkpoint exists (from the call above), but the on-disk
+        # file is overwritten with a legacy flat sidecar.
+        genre_path = story_path.parent / "genre.json"
+        genre_path.write_text(json.dumps(_REAL_LEGACY_FLAT_SIDECAR), encoding="utf-8")
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="anderson",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+        # No new API calls -- this was a genuine checkpoint hit.
+        self.assertEqual(first_call_count, len(backend.calls))
+        # But the legacy file was still migrated, not left in place.
+        genre_data = json.loads(genre_path.read_text(encoding="utf-8"))
+        self.assertEqual("genre-sidecar-v1", genre_data["schema_version"])
+        self.assertEqual(2, len(genre_data["assessments"]))
+        self.assertEqual(
+            "fantasy", genre_data["assessments"][0]["result"]["detected_genre"]
+        )
+
+    def test_merge_preserves_existing_current_adjudication(self):
+        """merge_genre_sidecar rebuilds the top-level record on every call
+        -- it must not silently drop an existing human adjudication
+        pointer while doing so (review finding, this item's own
+        self-review)."""
+        seeded = dict(_REAL_V1_SIDECAR)
+        seeded["current_adjudication"] = {
+            "label": "fantasy",
+            "selected_assessment_id": _REAL_V1_SIDECAR["assessments"][0][
+                "assessment_id"
+            ],
+            "decided_at": "2026-08-22T00:00:00+00:00",
+        }
+        story_path = _write_story(
+            self.source_root / "anderson", "bell", "Once upon a time."
+        )
+        (story_path.parent / "genre.json").write_text(
+            json.dumps(seeded), encoding="utf-8"
+        )
+
+        new_assessment = annotate.build_model_genre_assessment(
+            _GENRE_TOOL_RESULT,
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+        )
+        sidecar_data, error = annotate.merge_genre_sidecar(
+            story_path.parent,
+            lcats_id="anderson/bell",
+            story_path_str="anderson/bell/story.json",
+            new_assessment=new_assessment,
+        )
+
+        self.assertIsNone(error)
+        self.assertEqual(
+            seeded["current_adjudication"], sidecar_data["current_adjudication"]
+        )
+        self.assertTrue(genre_sidecar.validate_sidecar(sidecar_data).valid)
 
 
 class AnnotateCollectionTest(unittest.TestCase):

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 62862,
+    "body_sha256": "3c7a41b7ac8063883aeb2ae4a2ac68425c6513a65909ddf880746b5fe357af29",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/story.json"
+  },
+  "lcats_id": "lovecraft/the_shunned_house",
+  "metrics": {
+    "avg_sentence_length": 37.6,
+    "avg_word_length": 4.16703715465227,
+    "sentence_count": 335,
+    "token_count": 13853,
+    "word_count": 12596
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/story.json"
+}

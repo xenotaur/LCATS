@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37165,
+    "body_sha256": "55c97a1bfed2fecfceb135718f6a0fb1b89ca336a525c68c21902ba4840001aa",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/creepin_tintypes__tuttle",
+  "metrics": {
+    "avg_sentence_length": 16.014028056112224,
+    "avg_word_length": 3.6135652609185334,
+    "sentence_count": 499,
+    "token_count": 10098,
+    "word_count": 7991
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/story.json"
+}

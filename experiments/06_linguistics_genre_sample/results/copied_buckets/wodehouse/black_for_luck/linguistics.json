@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35334,
+    "body_sha256": "3722bff4d7adf27ed8203eb0ccb03ca02e4939813654e905a03c5725af34ac65",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/story.json"
+  },
+  "lcats_id": "wodehouse/black_for_luck",
+  "metrics": {
+    "avg_sentence_length": 17.991501416430594,
+    "avg_word_length": 4.580853408911983,
+    "sentence_count": 353,
+    "token_count": 7458,
+    "word_count": 6351
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/story.json"
+}

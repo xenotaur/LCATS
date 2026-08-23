@@ -1,0 +1,296 @@
+{"event": "run_start", "model": "gpt-oss:20b", "run_id": "2026-08-22T18:12:52.694890Z", "story_count": 146, "timestamp": "2026-08-22T18:12:52.694914Z"}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 1, "story_id": "anderson/bell", "timestamp": "2026-08-22T18:13:07.788915Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 2, "story_id": "anderson/dream_of_little_tuk", "timestamp": "2026-08-22T18:13:21.919560Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 3, "story_id": "anderson/elderbush", "timestamp": "2026-08-22T18:13:36.054476Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 4, "story_id": "anderson/emperor_s_new_clothes", "timestamp": "2026-08-22T18:13:57.281554Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 5, "story_id": "anderson/false_collar", "timestamp": "2026-08-22T18:14:19.904162Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 6, "story_id": "anderson/fir_tree", "timestamp": "2026-08-22T18:14:50.555078Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 7, "story_id": "anderson/happy_family", "timestamp": "2026-08-22T18:15:14.964099Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 8, "story_id": "anderson/leap_frog", "timestamp": "2026-08-22T18:15:29.601222Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 9, "story_id": "anderson/little_match_girl", "timestamp": "2026-08-22T18:15:49.939201Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 10, "story_id": "anderson/naughty_boy", "timestamp": "2026-08-22T18:16:07.902086Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 11, "story_id": "anderson/old_house", "timestamp": "2026-08-22T18:16:35.486110Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 12, "story_id": "anderson/real_princess", "timestamp": "2026-08-22T18:16:57.220590Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 13, "story_id": "anderson/red_shoes", "timestamp": "2026-08-22T18:17:19.765962Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 14, "story_id": "anderson/shadow", "timestamp": "2026-08-22T18:18:08.336795Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 15, "story_id": "anderson/shoes_of_fortune", "timestamp": "2026-08-22T18:19:52.348855Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 16, "story_id": "anderson/snow_queen", "timestamp": "2026-08-22T18:21:16.416844Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 17, "story_id": "anderson/story_of_a_mother", "timestamp": "2026-08-22T18:21:40.042169Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 18, "story_id": "anderson/swineherd", "timestamp": "2026-08-22T18:22:11.039948Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 19, "story_id": "chesterton/blue_cross", "timestamp": "2026-08-22T18:23:08.710900Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 20, "story_id": "chesterton/eye_of_apollo", "timestamp": "2026-08-22T18:24:03.425177Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 21, "story_id": "chesterton/flying_stars", "timestamp": "2026-08-22T18:24:50.126388Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 22, "story_id": "chesterton/hammer_of_god", "timestamp": "2026-08-22T18:25:43.059958Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 23, "story_id": "chesterton/honour_of_israel_gow", "timestamp": "2026-08-22T18:26:31.033359Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 24, "story_id": "chesterton/invisible_man", "timestamp": "2026-08-22T18:27:32.072063Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 25, "story_id": "chesterton/queer_feet", "timestamp": "2026-08-22T18:28:31.970842Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 26, "story_id": "chesterton/secret_garden", "timestamp": "2026-08-22T18:29:36.386271Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 27, "story_id": "chesterton/sign_of_the_broken_sword", "timestamp": "2026-08-22T18:30:41.079017Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 28, "story_id": "chesterton/sins_of_prince_saradine", "timestamp": "2026-08-22T18:31:37.568997Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 29, "story_id": "chesterton/three_tools_of_death", "timestamp": "2026-08-22T18:32:18.090470Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 30, "story_id": "chesterton/wrong_shape", "timestamp": "2026-08-22T18:33:08.691454Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 31, "story_id": "grimm/adventures_of_chanticleer_and_partlet", "timestamp": "2026-08-22T18:33:41.606963Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 32, "story_id": "grimm/ashputtel", "timestamp": "2026-08-22T18:34:06.146406Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 33, "story_id": "london/brown_wolf", "timestamp": "2026-08-22T18:35:29.689001Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 34, "story_id": "london/day_s_lodging", "timestamp": "2026-08-22T18:36:38.122840Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 35, "story_id": "london/love_of_life", "timestamp": "2026-08-22T18:38:00.208649Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 36, "story_id": "london/negore_the_coward", "timestamp": "2026-08-22T18:38:45.249093Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 37, "story_id": "london/story_of_keesh", "timestamp": "2026-08-22T18:39:30.591840Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 38, "story_id": "london/sun_dog_trail", "timestamp": "2026-08-22T18:41:08.142362Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 39, "story_id": "london/unexpected", "timestamp": "2026-08-22T18:42:22.364222Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 40, "story_id": "london/white_man_s_way", "timestamp": "2026-08-22T18:43:18.837400Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 41, "story_id": "lovecraft/cool_air", "timestamp": "2026-08-22T18:44:03.972911Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 42, "story_id": "lovecraft/he", "timestamp": "2026-08-22T18:44:49.207156Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 43, "story_id": "lovecraft/the_call_of_cthulhu", "timestamp": "2026-08-22T18:46:02.043058Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 44, "story_id": "lovecraft/the_colour_out_of_space", "timestamp": "2026-08-22T18:47:20.246746Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 45, "story_id": "lovecraft/the_festival", "timestamp": "2026-08-22T18:48:02.412842Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 46, "story_id": "lovecraft/the_haunter_of_the_dark", "timestamp": "2026-08-22T18:49:01.223821Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 47, "story_id": "lovecraft/the_horror_at_red_hook", "timestamp": "2026-08-22T18:49:48.430828Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 48, "story_id": "lovecraft/the_lurking_fear", "timestamp": "2026-08-22T18:50:40.083175Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 49, "story_id": "lovecraft/the_shunned_house", "timestamp": "2026-08-22T18:51:46.780504Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 50, "story_id": "lovecraft/the_thing_on_the_doorstep", "timestamp": "2026-08-22T18:52:47.419051Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 51, "story_id": "mass_quantities/1_000_a_plate__mckenty", "timestamp": "2026-08-22T18:53:10.419477Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 52, "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut", "timestamp": "2026-08-22T18:53:38.204843Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 53, "story_id": "mass_quantities/30deg_cattywonkus__bell", "timestamp": "2026-08-22T18:54:10.856537Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 54, "story_id": "mass_quantities/6_frightened_men__silverberg", "timestamp": "2026-08-22T18:54:37.520661Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 55, "story_id": "mass_quantities/8_million_dollars_from_mars__marks", "timestamp": "2026-08-22T18:55:06.335233Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 56, "story_id": "mass_quantities/a_bad_day_for_sales__leiber", "timestamp": "2026-08-22T18:55:42.847889Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 57, "story_id": "mass_quantities/a_bad_day_for_vermin__laumer", "timestamp": "2026-08-22T18:56:14.200857Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 58, "story_id": "mass_quantities/a_bottle_of_old_wine__lewis", "timestamp": "2026-08-22T18:56:41.312551Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 59, "story_id": "mass_quantities/a_case_of_sunburn__fontenay", "timestamp": "2026-08-22T18:57:24.065845Z", "total": 146}
+{"detected_genre": "science_fiction", "error": "", "event": "story_completed", "index": 60, "story_id": "mass_quantities/a_city_near_centaurus__doede", "timestamp": "2026-08-22T18:57:57.144771Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 61, "story_id": "mass_quantities/a_cold_night_for_crying__marlowe", "timestamp": "2026-08-22T18:58:33.671440Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 62, "story_id": "mass_quantities/a_drift_from_redwood_camp__harte", "timestamp": "2026-08-22T18:59:19.897605Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 63, "story_id": "mass_quantities/a_fall_of_glass__lee", "timestamp": "2026-08-22T19:00:21.282624Z", "total": 146}
+{"detected_genre": "science_fiction", "error": "", "event": "story_completed", "index": 64, "story_id": "mass_quantities/a_filbert_is_a_nut__raphael", "timestamp": "2026-08-22T19:00:51.052817Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 65, "story_id": "mass_quantities/a_gift_for_terra__holden", "timestamp": "2026-08-22T19:01:32.520972Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 66, "story_id": "mass_quantities/a_gift_from_earth__banister", "timestamp": "2026-08-22T19:02:05.760377Z", "total": 146}
+{"detected_genre": "science_fiction", "error": "", "event": "story_completed", "index": 67, "story_id": "mass_quantities/a_great_day_for_the_irish__hopf", "timestamp": "2026-08-22T19:02:40.376837Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 68, "story_id": "mass_quantities/a_hitch_in_space__leiber", "timestamp": "2026-08-22T19:03:07.377515Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 69, "story_id": "mass_quantities/a_husband_for_my_wife__stuart", "timestamp": "2026-08-22T19:03:40.778512Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 70, "story_id": "mass_quantities/a_jar_of_jelly_beans__gregory", "timestamp": "2026-08-22T19:04:08.609240Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 71, "story_id": "mass_quantities/a_philanthropist__bacon", "timestamp": "2026-08-22T19:04:54.944386Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 72, "story_id": "mass_quantities/a_prevaricated_parade__tuttle", "timestamp": "2026-08-22T19:05:45.335002Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 73, "story_id": "mass_quantities/a_reversion_to_type__bacon", "timestamp": "2026-08-22T19:06:20.161016Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 74, "story_id": "mass_quantities/ajax_for_example__tuttle", "timestamp": "2026-08-22T19:06:58.868661Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 75, "story_id": "mass_quantities/all_wool__tuttle", "timestamp": "2026-08-22T19:07:30.933029Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 76, "story_id": "mass_quantities/amy_foster__conrad", "timestamp": "2026-08-22T19:08:31.079243Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 77, "story_id": "mass_quantities/back_home__davis", "timestamp": "2026-08-22T19:09:05.284167Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 78, "story_id": "mass_quantities/bearly_reasonable__tuttle", "timestamp": "2026-08-22T19:09:55.037629Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 79, "story_id": "mass_quantities/brown_john_s_body__marks", "timestamp": "2026-08-22T19:10:27.375827Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 80, "story_id": "mass_quantities/cinders__tuttle", "timestamp": "2026-08-22T19:10:57.385828Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 81, "story_id": "mass_quantities/cold_ghost__geier", "timestamp": "2026-08-22T19:11:34.768726Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 82, "story_id": "mass_quantities/cool_air__lovecraft", "timestamp": "2026-08-22T19:11:57.686014Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 83, "story_id": "mass_quantities/country_lodgings__mitford", "timestamp": "2026-08-22T19:12:21.185034Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 84, "story_id": "mass_quantities/creepin_tintypes__tuttle", "timestamp": "2026-08-22T19:12:52.251965Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 85, "story_id": "mass_quantities/death_and_taxes__hartzell", "timestamp": "2026-08-22T19:13:29.847097Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 86, "story_id": "mass_quantities/dig_me_no_grave__howard", "timestamp": "2026-08-22T19:13:57.523020Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 87, "story_id": "mass_quantities/dirty_work_for_doughgod__tuttle", "timestamp": "2026-08-22T19:14:34.246349Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 88, "story_id": "mass_quantities/don_t_think_about_it__stuart", "timestamp": "2026-08-22T19:15:10.855828Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 89, "story_id": "mass_quantities/doom_of_the_house_of_duryea__peirce", "timestamp": "2026-08-22T19:15:55.114216Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 90, "story_id": "mass_quantities/dough_or_dynamite__tuttle", "timestamp": "2026-08-22T19:16:55.072827Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 91, "story_id": "mass_quantities/each_man_kills__glad", "timestamp": "2026-08-22T19:17:42.491017Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 92, "story_id": "mass_quantities/easy_come_easy_go__sabin", "timestamp": "2026-08-22T19:18:18.171118Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 93, "story_id": "mass_quantities/easy_money__sinclair", "timestamp": "2026-08-22T19:19:10.204195Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 94, "story_id": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe", "timestamp": "2026-08-22T19:19:44.832553Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 95, "story_id": "mass_quantities/eve_s_diary_complete__twain", "timestamp": "2026-08-22T19:20:34.185449Z", "total": 146}
+{"detected_genre": "fantasy", "error": "", "event": "story_completed", "index": 96, "story_id": "mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain", "timestamp": "2026-08-22T19:21:20.191888Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 97, "story_id": "mass_quantities/he__lovecraft", "timestamp": "2026-08-22T19:21:53.150280Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 98, "story_id": "mass_quantities/in_the_dark__clark", "timestamp": "2026-08-22T19:22:19.487929Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 99, "story_id": "mass_quantities/in_the_valley_of_the_shadow__bacon", "timestamp": "2026-08-22T19:22:58.103632Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 100, "story_id": "mass_quantities/into_the_blue__austin", "timestamp": "2026-08-22T19:23:42.406396Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 101, "story_id": "mass_quantities/isle_of_the_undead__eshbach", "timestamp": "2026-08-22T19:24:37.258350Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 102, "story_id": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope", "timestamp": "2026-08-22T19:25:24.084453Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 103, "story_id": "mass_quantities/julia_the_apostate__bacon", "timestamp": "2026-08-22T19:26:00.523546Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 104, "story_id": "mass_quantities/le_monsieur_de_la_petite_dame__burnett", "timestamp": "2026-08-22T19:27:01.112205Z", "total": 146}
+{"detected_genre": "horror", "error": "", "event": "story_completed", "index": 105, "story_id": "mass_quantities/listen_children_listen__west", "timestamp": "2026-08-22T19:27:42.308583Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 106, "story_id": "mass_quantities/long_odds__haggard", "timestamp": "2026-08-22T19:28:16.146761Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 107, "story_id": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope", "timestamp": "2026-08-22T19:29:16.600328Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 108, "story_id": "mass_quantities/mrs_dud_s_sister__bacon", "timestamp": "2026-08-22T19:29:52.141687Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 109, "story_id": "mass_quantities/mrs_general_talboys__trollope", "timestamp": "2026-08-22T19:30:40.319489Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 110, "story_id": "mass_quantities/mrs_korner_sins_her_mercies__jerome", "timestamp": "2026-08-22T19:31:22.615670Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 111, "story_id": "mass_quantities/my_friend_the_murderer__doyle", "timestamp": "2026-08-22T19:32:14.986298Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 112, "story_id": "mass_quantities/one_day_at_arle__burnett", "timestamp": "2026-08-22T19:32:49.909798Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 113, "story_id": "mass_quantities/passion_fruit__stacpoole", "timestamp": "2026-08-22T19:33:40.721124Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 114, "story_id": "mass_quantities/puppet_government__revelle", "timestamp": "2026-08-22T19:34:18.509430Z", "total": 146}
+{"detected_genre": "western", "error": "", "event": "story_completed", "index": 115, "story_id": "mass_quantities/splashes_of_red__davis", "timestamp": "2026-08-22T19:34:55.852539Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 116, "story_id": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke", "timestamp": "2026-08-22T19:35:46.462751Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 117, "story_id": "mass_quantities/the_adventure_of_the_dying_detective__doyle", "timestamp": "2026-08-22T19:36:44.334190Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 118, "story_id": "mass_quantities/the_adventure_of_the_red_circle__doyle", "timestamp": "2026-08-22T19:37:37.049562Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 119, "story_id": "mass_quantities/the_courting_of_lady_jane__bacon", "timestamp": "2026-08-22T19:38:22.863547Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 120, "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain", "timestamp": "2026-08-22T19:39:19.519836Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 121, "story_id": "mass_quantities/the_girl_in_the_crowd__terhune", "timestamp": "2026-08-22T19:40:04.618932Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 122, "story_id": "mass_quantities/the_gray_brotherhood__leverage", "timestamp": "2026-08-22T19:41:05.037895Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 123, "story_id": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope", "timestamp": "2026-08-22T19:42:10.242470Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 124, "story_id": "mass_quantities/the_hunter_s_lodge_case__christie", "timestamp": "2026-08-22T19:42:56.588652Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 125, "story_id": "mass_quantities/the_lamplighter__dickens", "timestamp": "2026-08-22T19:44:08.113819Z", "total": 146}
+{"detected_genre": "mystery", "error": "", "event": "story_completed", "index": 126, "story_id": "mass_quantities/the_leak__futrelle", "timestamp": "2026-08-22T19:44:56.046846Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 127, "story_id": "mass_quantities/the_marriage_of_william_durrant__cummings", "timestamp": "2026-08-22T19:45:37.435273Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 128, "story_id": "mass_quantities/the_pirate_s_pocket_book__calthrop", "timestamp": "2026-08-22T19:46:36.059950Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 129, "story_id": "mass_quantities/the_red_fetish__long", "timestamp": "2026-08-22T19:47:26.660137Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 130, "story_id": "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope", "timestamp": "2026-08-22T19:48:07.378962Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 131, "story_id": "mass_quantities/the_seven_missionaries__mcneile", "timestamp": "2026-08-22T19:48:53.897692Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 132, "story_id": "mass_quantities/the_spring_of_a_lion__haggard", "timestamp": "2026-08-22T19:49:41.865516Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 133, "story_id": "mass_quantities/the_westminster_alice__saki", "timestamp": "2026-08-22T19:50:49.757283Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 134, "story_id": "mass_quantities/to_the_lights__norton", "timestamp": "2026-08-22T19:51:58.339371Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 135, "story_id": "wodehouse/at_geisenheimer_s", "timestamp": "2026-08-22T19:52:55.709969Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 136, "story_id": "wodehouse/bill_the_bloodhound", "timestamp": "2026-08-22T19:53:59.088800Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 137, "story_id": "wodehouse/black_for_luck", "timestamp": "2026-08-22T19:55:03.675452Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 138, "story_id": "wodehouse/crowned_heads", "timestamp": "2026-08-22T19:55:59.090759Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 139, "story_id": "wodehouse/extricating_young_gussie", "timestamp": "2026-08-22T19:57:16.706150Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 140, "story_id": "wodehouse/making_of_mac_s", "timestamp": "2026-08-22T19:58:10.477627Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 141, "story_id": "wodehouse/man_with_two_left_feet", "timestamp": "2026-08-22T19:59:11.051316Z", "total": 146}
+{"detected_genre": "adventure", "error": "", "event": "story_completed", "index": 142, "story_id": "wodehouse/mixer", "timestamp": "2026-08-22T20:00:50.960326Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 143, "story_id": "wodehouse/one_touch_of_nature", "timestamp": "2026-08-22T20:01:41.237171Z", "total": 146}
+{"detected_genre": "romance", "error": "", "event": "story_completed", "index": 144, "story_id": "wodehouse/romance_of_an_ugly_policeman", "timestamp": "2026-08-22T20:02:48.022702Z", "total": 146}
+{"detected_genre": "humor", "error": "", "event": "story_completed", "index": 145, "story_id": "wodehouse/sea_of_troubles", "timestamp": "2026-08-22T20:03:32.166499Z", "total": 146}
+{"detected_genre": "other", "error": "", "event": "story_completed", "index": 146, "story_id": "wodehouse/wilton_s_holiday", "timestamp": "2026-08-22T20:04:23.369327Z", "total": 146}
+{"aborted": false, "agreement_count": 104, "error_count": 0, "event": "run_end", "processed_count": 146, "run_id": "2026-08-22T18:12:52.694890Z", "timestamp": "2026-08-22T20:04:23.378864Z", "total_estimated_cost_usd": 0.0}
+{"event": "run_start", "model": "gpt-oss:20b", "run_id": "2026-08-22T22:43:34.555291Z", "story_count": 146, "timestamp": "2026-08-22T22:43:34.555305Z"}
+{"event": "story_cached", "index": 1, "story_id": "anderson/bell", "timestamp": "2026-08-22T22:43:34.556035Z", "total": 146}
+{"event": "story_cached", "index": 2, "story_id": "anderson/dream_of_little_tuk", "timestamp": "2026-08-22T22:43:34.556226Z", "total": 146}
+{"event": "story_cached", "index": 3, "story_id": "anderson/elderbush", "timestamp": "2026-08-22T22:43:34.556401Z", "total": 146}
+{"event": "story_cached", "index": 4, "story_id": "anderson/emperor_s_new_clothes", "timestamp": "2026-08-22T22:43:34.556562Z", "total": 146}
+{"event": "story_cached", "index": 5, "story_id": "anderson/false_collar", "timestamp": "2026-08-22T22:43:34.556718Z", "total": 146}
+{"event": "story_cached", "index": 6, "story_id": "anderson/fir_tree", "timestamp": "2026-08-22T22:43:34.556879Z", "total": 146}
+{"event": "story_cached", "index": 7, "story_id": "anderson/happy_family", "timestamp": "2026-08-22T22:43:34.557033Z", "total": 146}
+{"event": "story_cached", "index": 8, "story_id": "anderson/leap_frog", "timestamp": "2026-08-22T22:43:34.557190Z", "total": 146}
+{"event": "story_cached", "index": 9, "story_id": "anderson/little_match_girl", "timestamp": "2026-08-22T22:43:34.557339Z", "total": 146}
+{"event": "story_cached", "index": 10, "story_id": "anderson/naughty_boy", "timestamp": "2026-08-22T22:43:34.557483Z", "total": 146}
+{"event": "story_cached", "index": 11, "story_id": "anderson/old_house", "timestamp": "2026-08-22T22:43:34.557632Z", "total": 146}
+{"event": "story_cached", "index": 12, "story_id": "anderson/real_princess", "timestamp": "2026-08-22T22:43:34.557773Z", "total": 146}
+{"event": "story_cached", "index": 13, "story_id": "anderson/red_shoes", "timestamp": "2026-08-22T22:43:34.557921Z", "total": 146}
+{"event": "story_cached", "index": 14, "story_id": "anderson/shadow", "timestamp": "2026-08-22T22:43:34.558076Z", "total": 146}
+{"event": "story_cached", "index": 15, "story_id": "anderson/shoes_of_fortune", "timestamp": "2026-08-22T22:43:34.558263Z", "total": 146}
+{"event": "story_cached", "index": 16, "story_id": "anderson/snow_queen", "timestamp": "2026-08-22T22:43:34.558439Z", "total": 146}
+{"event": "story_cached", "index": 17, "story_id": "anderson/story_of_a_mother", "timestamp": "2026-08-22T22:43:34.558581Z", "total": 146}
+{"event": "story_cached", "index": 18, "story_id": "anderson/swineherd", "timestamp": "2026-08-22T22:43:34.558723Z", "total": 146}
+{"event": "story_cached", "index": 19, "story_id": "chesterton/blue_cross", "timestamp": "2026-08-22T22:43:34.558892Z", "total": 146}
+{"event": "story_cached", "index": 20, "story_id": "chesterton/eye_of_apollo", "timestamp": "2026-08-22T22:43:34.559053Z", "total": 146}
+{"event": "story_cached", "index": 21, "story_id": "chesterton/flying_stars", "timestamp": "2026-08-22T22:43:34.559214Z", "total": 146}
+{"event": "story_cached", "index": 22, "story_id": "chesterton/hammer_of_god", "timestamp": "2026-08-22T22:43:34.559378Z", "total": 146}
+{"event": "story_cached", "index": 23, "story_id": "chesterton/honour_of_israel_gow", "timestamp": "2026-08-22T22:43:34.559534Z", "total": 146}
+{"event": "story_cached", "index": 24, "story_id": "chesterton/invisible_man", "timestamp": "2026-08-22T22:43:34.559691Z", "total": 146}
+{"event": "story_cached", "index": 25, "story_id": "chesterton/queer_feet", "timestamp": "2026-08-22T22:43:34.559852Z", "total": 146}
+{"event": "story_cached", "index": 26, "story_id": "chesterton/secret_garden", "timestamp": "2026-08-22T22:43:34.560013Z", "total": 146}
+{"event": "story_cached", "index": 27, "story_id": "chesterton/sign_of_the_broken_sword", "timestamp": "2026-08-22T22:43:34.560174Z", "total": 146}
+{"event": "story_cached", "index": 28, "story_id": "chesterton/sins_of_prince_saradine", "timestamp": "2026-08-22T22:43:34.560336Z", "total": 146}
+{"event": "story_cached", "index": 29, "story_id": "chesterton/three_tools_of_death", "timestamp": "2026-08-22T22:43:34.560491Z", "total": 146}
+{"event": "story_cached", "index": 30, "story_id": "chesterton/wrong_shape", "timestamp": "2026-08-22T22:43:34.560679Z", "total": 146}
+{"event": "story_cached", "index": 31, "story_id": "grimm/adventures_of_chanticleer_and_partlet", "timestamp": "2026-08-22T22:43:34.560828Z", "total": 146}
+{"event": "story_cached", "index": 32, "story_id": "grimm/ashputtel", "timestamp": "2026-08-22T22:43:34.560976Z", "total": 146}
+{"event": "story_cached", "index": 33, "story_id": "london/brown_wolf", "timestamp": "2026-08-22T22:43:34.561137Z", "total": 146}
+{"event": "story_cached", "index": 34, "story_id": "london/day_s_lodging", "timestamp": "2026-08-22T22:43:34.561300Z", "total": 146}
+{"event": "story_cached", "index": 35, "story_id": "london/love_of_life", "timestamp": "2026-08-22T22:43:34.561468Z", "total": 146}
+{"event": "story_cached", "index": 36, "story_id": "london/negore_the_coward", "timestamp": "2026-08-22T22:43:34.561621Z", "total": 146}
+{"event": "story_cached", "index": 37, "story_id": "london/story_of_keesh", "timestamp": "2026-08-22T22:43:34.561770Z", "total": 146}
+{"event": "story_cached", "index": 38, "story_id": "london/sun_dog_trail", "timestamp": "2026-08-22T22:43:34.561932Z", "total": 146}
+{"event": "story_cached", "index": 39, "story_id": "london/unexpected", "timestamp": "2026-08-22T22:43:34.562094Z", "total": 146}
+{"event": "story_cached", "index": 40, "story_id": "london/white_man_s_way", "timestamp": "2026-08-22T22:43:34.562250Z", "total": 146}
+{"event": "story_cached", "index": 41, "story_id": "lovecraft/cool_air", "timestamp": "2026-08-22T22:43:34.562403Z", "total": 146}
+{"event": "story_cached", "index": 42, "story_id": "lovecraft/he", "timestamp": "2026-08-22T22:43:34.562562Z", "total": 146}
+{"event": "story_cached", "index": 43, "story_id": "lovecraft/the_call_of_cthulhu", "timestamp": "2026-08-22T22:43:34.562737Z", "total": 146}
+{"event": "story_cached", "index": 44, "story_id": "lovecraft/the_colour_out_of_space", "timestamp": "2026-08-22T22:43:34.562914Z", "total": 146}
+{"event": "story_cached", "index": 45, "story_id": "lovecraft/the_festival", "timestamp": "2026-08-22T22:43:34.563061Z", "total": 146}
+{"event": "story_cached", "index": 46, "story_id": "lovecraft/the_haunter_of_the_dark", "timestamp": "2026-08-22T22:43:34.563225Z", "total": 146}
+{"event": "story_cached", "index": 47, "story_id": "lovecraft/the_horror_at_red_hook", "timestamp": "2026-08-22T22:43:34.563388Z", "total": 146}
+{"event": "story_cached", "index": 48, "story_id": "lovecraft/the_lurking_fear", "timestamp": "2026-08-22T22:43:34.563550Z", "total": 146}
+{"event": "story_cached", "index": 49, "story_id": "lovecraft/the_shunned_house", "timestamp": "2026-08-22T22:43:34.563719Z", "total": 146}
+{"event": "story_cached", "index": 50, "story_id": "lovecraft/the_thing_on_the_doorstep", "timestamp": "2026-08-22T22:43:34.563887Z", "total": 146}
+{"event": "story_cached", "index": 51, "story_id": "mass_quantities/1_000_a_plate__mckenty", "timestamp": "2026-08-22T22:43:34.564033Z", "total": 146}
+{"event": "story_cached", "index": 52, "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut", "timestamp": "2026-08-22T22:43:34.564188Z", "total": 146}
+{"event": "story_cached", "index": 53, "story_id": "mass_quantities/30deg_cattywonkus__bell", "timestamp": "2026-08-22T22:43:34.564342Z", "total": 146}
+{"event": "story_cached", "index": 54, "story_id": "mass_quantities/6_frightened_men__silverberg", "timestamp": "2026-08-22T22:43:34.564500Z", "total": 146}
+{"event": "story_cached", "index": 55, "story_id": "mass_quantities/8_million_dollars_from_mars__marks", "timestamp": "2026-08-22T22:43:34.564652Z", "total": 146}
+{"event": "story_cached", "index": 56, "story_id": "mass_quantities/a_bad_day_for_sales__leiber", "timestamp": "2026-08-22T22:43:34.564797Z", "total": 146}
+{"event": "story_cached", "index": 57, "story_id": "mass_quantities/a_bad_day_for_vermin__laumer", "timestamp": "2026-08-22T22:43:34.564947Z", "total": 146}
+{"event": "story_cached", "index": 58, "story_id": "mass_quantities/a_bottle_of_old_wine__lewis", "timestamp": "2026-08-22T22:43:34.565129Z", "total": 146}
+{"event": "story_cached", "index": 59, "story_id": "mass_quantities/a_case_of_sunburn__fontenay", "timestamp": "2026-08-22T22:43:34.565291Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 60, "story_id": "mass_quantities/a_city_near_centaurus__doede", "timestamp": "2026-08-22T22:44:17.213331Z", "total": 146}
+{"event": "story_cached", "index": 61, "story_id": "mass_quantities/a_cold_night_for_crying__marlowe", "timestamp": "2026-08-22T22:44:17.217793Z", "total": 146}
+{"event": "story_cached", "index": 62, "story_id": "mass_quantities/a_drift_from_redwood_camp__harte", "timestamp": "2026-08-22T22:44:17.218629Z", "total": 146}
+{"event": "story_cached", "index": 63, "story_id": "mass_quantities/a_fall_of_glass__lee", "timestamp": "2026-08-22T22:44:17.219821Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 64, "story_id": "mass_quantities/a_filbert_is_a_nut__raphael", "timestamp": "2026-08-22T22:44:44.560159Z", "total": 146}
+{"event": "story_cached", "index": 65, "story_id": "mass_quantities/a_gift_for_terra__holden", "timestamp": "2026-08-22T22:44:44.562552Z", "total": 146}
+{"event": "story_cached", "index": 66, "story_id": "mass_quantities/a_gift_from_earth__banister", "timestamp": "2026-08-22T22:44:44.563526Z", "total": 146}
+{"detected_genre": "science fiction", "error": "", "event": "story_completed", "index": 67, "story_id": "mass_quantities/a_great_day_for_the_irish__hopf", "timestamp": "2026-08-22T23:01:10.971679Z", "total": 146}
+{"event": "story_cached", "index": 68, "story_id": "mass_quantities/a_hitch_in_space__leiber", "timestamp": "2026-08-22T23:01:10.976640Z", "total": 146}
+{"event": "story_cached", "index": 69, "story_id": "mass_quantities/a_husband_for_my_wife__stuart", "timestamp": "2026-08-22T23:01:10.977849Z", "total": 146}
+{"event": "story_cached", "index": 70, "story_id": "mass_quantities/a_jar_of_jelly_beans__gregory", "timestamp": "2026-08-22T23:01:10.980288Z", "total": 146}
+{"event": "story_cached", "index": 71, "story_id": "mass_quantities/a_philanthropist__bacon", "timestamp": "2026-08-22T23:01:10.982446Z", "total": 146}
+{"event": "story_cached", "index": 72, "story_id": "mass_quantities/a_prevaricated_parade__tuttle", "timestamp": "2026-08-22T23:01:10.984151Z", "total": 146}
+{"event": "story_cached", "index": 73, "story_id": "mass_quantities/a_reversion_to_type__bacon", "timestamp": "2026-08-22T23:01:10.984858Z", "total": 146}
+{"event": "story_cached", "index": 74, "story_id": "mass_quantities/ajax_for_example__tuttle", "timestamp": "2026-08-22T23:01:10.989301Z", "total": 146}
+{"event": "story_cached", "index": 75, "story_id": "mass_quantities/all_wool__tuttle", "timestamp": "2026-08-22T23:01:10.990764Z", "total": 146}
+{"event": "story_cached", "index": 76, "story_id": "mass_quantities/amy_foster__conrad", "timestamp": "2026-08-22T23:01:10.991584Z", "total": 146}
+{"event": "story_cached", "index": 77, "story_id": "mass_quantities/back_home__davis", "timestamp": "2026-08-22T23:01:10.992345Z", "total": 146}
+{"event": "story_cached", "index": 78, "story_id": "mass_quantities/bearly_reasonable__tuttle", "timestamp": "2026-08-22T23:01:10.993386Z", "total": 146}
+{"event": "story_cached", "index": 79, "story_id": "mass_quantities/brown_john_s_body__marks", "timestamp": "2026-08-22T23:01:10.994525Z", "total": 146}
+{"event": "story_cached", "index": 80, "story_id": "mass_quantities/cinders__tuttle", "timestamp": "2026-08-22T23:01:10.995458Z", "total": 146}
+{"event": "story_cached", "index": 81, "story_id": "mass_quantities/cold_ghost__geier", "timestamp": "2026-08-22T23:01:10.996244Z", "total": 146}
+{"event": "story_cached", "index": 82, "story_id": "mass_quantities/cool_air__lovecraft", "timestamp": "2026-08-22T23:01:10.997185Z", "total": 146}
+{"event": "story_cached", "index": 83, "story_id": "mass_quantities/country_lodgings__mitford", "timestamp": "2026-08-22T23:01:10.998073Z", "total": 146}
+{"event": "story_cached", "index": 84, "story_id": "mass_quantities/creepin_tintypes__tuttle", "timestamp": "2026-08-22T23:01:10.998932Z", "total": 146}
+{"event": "story_cached", "index": 85, "story_id": "mass_quantities/death_and_taxes__hartzell", "timestamp": "2026-08-22T23:01:10.999910Z", "total": 146}
+{"event": "story_cached", "index": 86, "story_id": "mass_quantities/dig_me_no_grave__howard", "timestamp": "2026-08-22T23:01:11.000941Z", "total": 146}
+{"event": "story_cached", "index": 87, "story_id": "mass_quantities/dirty_work_for_doughgod__tuttle", "timestamp": "2026-08-22T23:01:11.002078Z", "total": 146}
+{"event": "story_cached", "index": 88, "story_id": "mass_quantities/don_t_think_about_it__stuart", "timestamp": "2026-08-22T23:01:11.002785Z", "total": 146}
+{"event": "story_cached", "index": 89, "story_id": "mass_quantities/doom_of_the_house_of_duryea__peirce", "timestamp": "2026-08-22T23:01:11.003550Z", "total": 146}
+{"event": "story_cached", "index": 90, "story_id": "mass_quantities/dough_or_dynamite__tuttle", "timestamp": "2026-08-22T23:01:11.004262Z", "total": 146}
+{"event": "story_cached", "index": 91, "story_id": "mass_quantities/each_man_kills__glad", "timestamp": "2026-08-22T23:01:11.005250Z", "total": 146}
+{"event": "story_cached", "index": 92, "story_id": "mass_quantities/easy_come_easy_go__sabin", "timestamp": "2026-08-22T23:01:11.006136Z", "total": 146}
+{"event": "story_cached", "index": 93, "story_id": "mass_quantities/easy_money__sinclair", "timestamp": "2026-08-22T23:01:11.007647Z", "total": 146}
+{"event": "story_cached", "index": 94, "story_id": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe", "timestamp": "2026-08-22T23:01:11.009162Z", "total": 146}
+{"event": "story_cached", "index": 95, "story_id": "mass_quantities/eve_s_diary_complete__twain", "timestamp": "2026-08-22T23:01:11.010871Z", "total": 146}
+{"event": "story_cached", "index": 96, "story_id": "mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain", "timestamp": "2026-08-22T23:01:11.011779Z", "total": 146}
+{"event": "story_cached", "index": 97, "story_id": "mass_quantities/he__lovecraft", "timestamp": "2026-08-22T23:01:11.013056Z", "total": 146}
+{"event": "story_cached", "index": 98, "story_id": "mass_quantities/in_the_dark__clark", "timestamp": "2026-08-22T23:01:11.013955Z", "total": 146}
+{"event": "story_cached", "index": 99, "story_id": "mass_quantities/in_the_valley_of_the_shadow__bacon", "timestamp": "2026-08-22T23:01:11.014729Z", "total": 146}
+{"event": "story_cached", "index": 100, "story_id": "mass_quantities/into_the_blue__austin", "timestamp": "2026-08-22T23:01:11.015875Z", "total": 146}
+{"event": "story_cached", "index": 101, "story_id": "mass_quantities/isle_of_the_undead__eshbach", "timestamp": "2026-08-22T23:01:11.016874Z", "total": 146}
+{"event": "story_cached", "index": 102, "story_id": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope", "timestamp": "2026-08-22T23:01:11.021782Z", "total": 146}
+{"event": "story_cached", "index": 103, "story_id": "mass_quantities/julia_the_apostate__bacon", "timestamp": "2026-08-22T23:01:11.022612Z", "total": 146}
+{"event": "story_cached", "index": 104, "story_id": "mass_quantities/le_monsieur_de_la_petite_dame__burnett", "timestamp": "2026-08-22T23:01:11.023588Z", "total": 146}
+{"event": "story_cached", "index": 105, "story_id": "mass_quantities/listen_children_listen__west", "timestamp": "2026-08-22T23:01:11.025132Z", "total": 146}
+{"event": "story_cached", "index": 106, "story_id": "mass_quantities/long_odds__haggard", "timestamp": "2026-08-22T23:01:11.025939Z", "total": 146}
+{"event": "story_cached", "index": 107, "story_id": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope", "timestamp": "2026-08-22T23:01:11.027323Z", "total": 146}
+{"event": "story_cached", "index": 108, "story_id": "mass_quantities/mrs_dud_s_sister__bacon", "timestamp": "2026-08-22T23:01:11.028707Z", "total": 146}
+{"event": "story_cached", "index": 109, "story_id": "mass_quantities/mrs_general_talboys__trollope", "timestamp": "2026-08-22T23:01:11.029537Z", "total": 146}
+{"event": "story_cached", "index": 110, "story_id": "mass_quantities/mrs_korner_sins_her_mercies__jerome", "timestamp": "2026-08-22T23:01:11.030293Z", "total": 146}
+{"event": "story_cached", "index": 111, "story_id": "mass_quantities/my_friend_the_murderer__doyle", "timestamp": "2026-08-22T23:01:11.032114Z", "total": 146}
+{"event": "story_cached", "index": 112, "story_id": "mass_quantities/one_day_at_arle__burnett", "timestamp": "2026-08-22T23:01:11.032959Z", "total": 146}
+{"event": "story_cached", "index": 113, "story_id": "mass_quantities/passion_fruit__stacpoole", "timestamp": "2026-08-22T23:01:11.033997Z", "total": 146}
+{"event": "story_cached", "index": 114, "story_id": "mass_quantities/puppet_government__revelle", "timestamp": "2026-08-22T23:01:11.035311Z", "total": 146}
+{"event": "story_cached", "index": 115, "story_id": "mass_quantities/splashes_of_red__davis", "timestamp": "2026-08-22T23:01:11.036928Z", "total": 146}
+{"event": "story_cached", "index": 116, "story_id": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke", "timestamp": "2026-08-22T23:01:11.037962Z", "total": 146}
+{"event": "story_cached", "index": 117, "story_id": "mass_quantities/the_adventure_of_the_dying_detective__doyle", "timestamp": "2026-08-22T23:01:11.039666Z", "total": 146}
+{"event": "story_cached", "index": 118, "story_id": "mass_quantities/the_adventure_of_the_red_circle__doyle", "timestamp": "2026-08-22T23:01:11.045398Z", "total": 146}
+{"event": "story_cached", "index": 119, "story_id": "mass_quantities/the_courting_of_lady_jane__bacon", "timestamp": "2026-08-22T23:01:11.046321Z", "total": 146}
+{"event": "story_cached", "index": 120, "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain", "timestamp": "2026-08-22T23:01:11.047299Z", "total": 146}
+{"event": "story_cached", "index": 121, "story_id": "mass_quantities/the_girl_in_the_crowd__terhune", "timestamp": "2026-08-22T23:01:11.049750Z", "total": 146}
+{"event": "story_cached", "index": 122, "story_id": "mass_quantities/the_gray_brotherhood__leverage", "timestamp": "2026-08-22T23:01:11.050688Z", "total": 146}
+{"event": "story_cached", "index": 123, "story_id": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope", "timestamp": "2026-08-22T23:01:11.051437Z", "total": 146}
+{"event": "story_cached", "index": 124, "story_id": "mass_quantities/the_hunter_s_lodge_case__christie", "timestamp": "2026-08-22T23:01:11.052525Z", "total": 146}
+{"event": "story_cached", "index": 125, "story_id": "mass_quantities/the_lamplighter__dickens", "timestamp": "2026-08-22T23:01:11.053542Z", "total": 146}
+{"event": "story_cached", "index": 126, "story_id": "mass_quantities/the_leak__futrelle", "timestamp": "2026-08-22T23:01:11.054377Z", "total": 146}
+{"event": "story_cached", "index": 127, "story_id": "mass_quantities/the_marriage_of_william_durrant__cummings", "timestamp": "2026-08-22T23:01:11.055329Z", "total": 146}
+{"event": "story_cached", "index": 128, "story_id": "mass_quantities/the_pirate_s_pocket_book__calthrop", "timestamp": "2026-08-22T23:01:11.056535Z", "total": 146}
+{"event": "story_cached", "index": 129, "story_id": "mass_quantities/the_red_fetish__long", "timestamp": "2026-08-22T23:01:11.057535Z", "total": 146}
+{"event": "story_cached", "index": 130, "story_id": "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope", "timestamp": "2026-08-22T23:01:11.058394Z", "total": 146}
+{"event": "story_cached", "index": 131, "story_id": "mass_quantities/the_seven_missionaries__mcneile", "timestamp": "2026-08-22T23:01:11.059230Z", "total": 146}
+{"event": "story_cached", "index": 132, "story_id": "mass_quantities/the_spring_of_a_lion__haggard", "timestamp": "2026-08-22T23:01:11.060081Z", "total": 146}
+{"event": "story_cached", "index": 133, "story_id": "mass_quantities/the_westminster_alice__saki", "timestamp": "2026-08-22T23:01:11.060889Z", "total": 146}
+{"event": "story_cached", "index": 134, "story_id": "mass_quantities/to_the_lights__norton", "timestamp": "2026-08-22T23:01:11.061944Z", "total": 146}
+{"event": "story_cached", "index": 135, "story_id": "wodehouse/at_geisenheimer_s", "timestamp": "2026-08-22T23:01:11.063072Z", "total": 146}
+{"event": "story_cached", "index": 136, "story_id": "wodehouse/bill_the_bloodhound", "timestamp": "2026-08-22T23:01:11.063705Z", "total": 146}
+{"event": "story_cached", "index": 137, "story_id": "wodehouse/black_for_luck", "timestamp": "2026-08-22T23:01:11.064454Z", "total": 146}
+{"event": "story_cached", "index": 138, "story_id": "wodehouse/crowned_heads", "timestamp": "2026-08-22T23:01:11.065159Z", "total": 146}
+{"event": "story_cached", "index": 139, "story_id": "wodehouse/extricating_young_gussie", "timestamp": "2026-08-22T23:01:11.065985Z", "total": 146}
+{"event": "story_cached", "index": 140, "story_id": "wodehouse/making_of_mac_s", "timestamp": "2026-08-22T23:01:11.066958Z", "total": 146}
+{"event": "story_cached", "index": 141, "story_id": "wodehouse/man_with_two_left_feet", "timestamp": "2026-08-22T23:01:11.067635Z", "total": 146}
+{"event": "story_cached", "index": 142, "story_id": "wodehouse/mixer", "timestamp": "2026-08-22T23:01:11.068448Z", "total": 146}
+{"event": "story_cached", "index": 143, "story_id": "wodehouse/one_touch_of_nature", "timestamp": "2026-08-22T23:01:11.069383Z", "total": 146}
+{"event": "story_cached", "index": 144, "story_id": "wodehouse/romance_of_an_ugly_policeman", "timestamp": "2026-08-22T23:01:11.069930Z", "total": 146}
+{"event": "story_cached", "index": 145, "story_id": "wodehouse/sea_of_troubles", "timestamp": "2026-08-22T23:01:11.070557Z", "total": 146}
+{"event": "story_cached", "index": 146, "story_id": "wodehouse/wilton_s_holiday", "timestamp": "2026-08-22T23:01:11.071467Z", "total": 146}
+{"aborted": false, "agreement_count": 107, "error_count": 0, "event": "run_end", "processed_count": 146, "run_id": "2026-08-22T22:43:34.555291Z", "timestamp": "2026-08-22T23:01:11.072562Z", "total_estimated_cost_usd": 0.0}

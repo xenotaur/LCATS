@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51525,
+    "body_sha256": "2a5b85edba0b099b5b455cdbfff88fd30664b8eda7dd607b865ea837f7026c86",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/mrs_general_talboys__trollope",
+  "metrics": {
+    "avg_sentence_length": 22.808278867102395,
+    "avg_word_length": 3.946031139554876,
+    "sentence_count": 459,
+    "token_count": 12167,
+    "word_count": 10469
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/story.json"
+}

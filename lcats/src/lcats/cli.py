@@ -13,6 +13,7 @@ from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
 from lcats import version
+from lcats.visualize import cli as visualize_cli
 
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
@@ -70,6 +71,10 @@ def _handle_clean(args):
 
 def _handle_linguistics(args):
     return "", linguistics_cli.run(parsed_args=args)
+
+
+def _handle_visualize(args):
+    return "", visualize_cli.run(parsed_args=args)
 
 
 def _handle_index(_args):
@@ -302,6 +307,25 @@ def build_parser() -> argparse.ArgumentParser:
     )
     linguistics_parser.set_defaults(handler=_handle_linguistics)
     command_parsers["linguistics"] = linguistics_parser
+
+    visualize_parent = visualize_cli.build_visualize_parser(add_help=False)
+    visualize_parser = subparsers.add_parser(
+        "visualize",
+        parents=[visualize_parent],
+        help="Visualize corpus metadata and document text.",
+        description=(
+            "Generate reproducible, publication-useful figures from LCATS "
+            "corpus metadata and story text."
+        ),
+        epilog=(
+            "Examples:\n"
+            "  lcats visualize genres\n"
+            "  lcats visualize genres --output-dir figures/genres --formats png,svg,pdf"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    visualize_parser.set_defaults(handler=_handle_visualize)
+    command_parsers["visualize"] = visualize_parser
 
     index_parser = subparsers.add_parser(
         "index",

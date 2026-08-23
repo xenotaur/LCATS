@@ -8,6 +8,7 @@ import tempfile
 import unittest
 from unittest import mock
 
+from lcats.analysis.corpus import linguistics_cli
 from lcats.analysis.event_role_world import nlp_backend
 from lcats.analysis.linguistics import runner, sidecar
 from lcats import stories
@@ -213,6 +214,52 @@ class LinguisticsRunnerTest(unittest.TestCase):
                 (story_path.parent / sidecar.TOKEN_DETAIL_FILENAME).is_file()
             )
 
+    def test_run_story_redirects_sidecar_under_output_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+
+            result = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                output_root=output_root,
+            )
+
+            redirected = output_root / "collection" / "story" / sidecar.SIDECAR_FILENAME
+            self.assertEqual(runner.STATUS_WRITTEN, result.status)
+            self.assertEqual(redirected, result.sidecar_path)
+            self.assertTrue(redirected.is_file())
+            self.assertFalse((story_path.parent / sidecar.SIDECAR_FILENAME).exists())
+            data = sidecar.load_json(redirected)
+            self.assertEqual(story_path.as_posix(), data["input"]["source_path"])
+
+    def test_run_story_redirects_token_detail_under_output_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake", include_token_detail=True
+            )
+
+            result = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                output_root=output_root,
+            )
+
+            redirected_detail = (
+                output_root / "collection" / "story" / sidecar.TOKEN_DETAIL_FILENAME
+            )
+            self.assertEqual(redirected_detail, result.detail_path)
+            self.assertTrue(redirected_detail.is_file())
+            self.assertFalse(
+                (story_path.parent / sidecar.TOKEN_DETAIL_FILENAME).exists()
+            )
+
     def test_matching_existing_output_skips_without_backend_call(self):
         with tempfile.TemporaryDirectory() as tmp:
             story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
@@ -228,6 +275,72 @@ class LinguisticsRunnerTest(unittest.TestCase):
 
             self.assertEqual(runner.STATUS_SKIPPED, second.status)
             self.assertEqual([], second_backend.calls)
+
+    def test_default_duplicate_story_input_uses_existing_output_semantics(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
+
+            summary = runner.run(
+                [story_path, story_path],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+            )
+
+            self.assertTrue(summary.clean)
+            self.assertEqual(
+                [runner.STATUS_WRITTEN, runner.STATUS_SKIPPED],
+                [result.status for result in summary.results],
+            )
+
+    def test_matching_redirected_output_skips_without_backend_call(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+            options = sidecar.LinguisticsOptions(backend_name="fake")
+            first = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                output_root=output_root,
+            )
+            self.assertEqual(runner.STATUS_WRITTEN, first.status)
+            second_backend = _backend()
+
+            second = runner.run_story(
+                story_path,
+                backend=second_backend,
+                options=options,
+                output_root=output_root,
+            )
+
+            self.assertEqual(runner.STATUS_SKIPPED, second.status)
+            self.assertEqual([], second_backend.calls)
+
+    def test_redirected_validate_reports_stale_existing_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+            options = sidecar.LinguisticsOptions(backend_name="fake")
+            runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                output_root=output_root,
+            )
+            _write_story(story_path.parent, body="Changed body")
+
+            result = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                existing=runner.EXISTING_VALIDATE,
+                output_root=output_root,
+            )
+
+            self.assertEqual(runner.STATUS_FAILED, result.status)
+            self.assertIn("valid but stale", result.message)
 
     def test_token_detail_resume_requires_existing_detail_artifact(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -306,6 +419,35 @@ class LinguisticsRunnerTest(unittest.TestCase):
                 sidecar.body_sha256("Changed body"), data["input"]["body_sha256"]
             )
 
+    def test_redirected_overwrite_replaces_existing_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+            options = sidecar.LinguisticsOptions(backend_name="fake")
+            runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                output_root=output_root,
+            )
+            _write_story(story_path.parent, body="Changed body")
+
+            result = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=options,
+                existing=runner.EXISTING_OVERWRITE,
+                output_root=output_root,
+            )
+
+            redirected = output_root / "collection" / "story" / sidecar.SIDECAR_FILENAME
+            data = sidecar.load_json(redirected)
+            self.assertEqual(runner.STATUS_WRITTEN, result.status)
+            self.assertEqual(
+                sidecar.body_sha256("Changed body"), data["input"]["body_sha256"]
+            )
+
     def test_stale_existing_output_fails_without_overwrite(self):
         with tempfile.TemporaryDirectory() as tmp:
             story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
@@ -333,6 +475,95 @@ class LinguisticsRunnerTest(unittest.TestCase):
             self.assertFalse(summary.clean)
             statuses = [result.status for result in summary.results]
             self.assertEqual([runner.STATUS_WRITTEN, runner.STATUS_FAILED], statuses)
+
+    def test_redirected_batch_detects_duplicate_output_targets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            first = _write_story(root / "first-root" / "collection" / "story")
+            second = _write_story(root / "second-root" / "collection" / "story")
+            output_root = root / "linguistics-output"
+
+            summary = runner.run(
+                [first, second],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                output_root=output_root,
+            )
+
+            self.assertFalse(summary.clean)
+            self.assertEqual(
+                [runner.STATUS_WRITTEN, runner.STATUS_FAILED],
+                [result.status for result in summary.results],
+            )
+            self.assertIn("same output sidecar path", summary.results[1].message)
+
+    def test_redirected_batch_detects_symlinked_duplicate_output_targets(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            first = _write_story(root / "alpha-source" / "alpha" / "story")
+            second = _write_story(root / "beta-source" / "beta" / "story")
+            output_root = root / "linguistics-output"
+            (output_root / "beta").mkdir(parents=True)
+            (output_root / "alpha").symlink_to(output_root / "beta")
+
+            summary = runner.run(
+                [first, second],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                output_root=output_root,
+            )
+
+            self.assertFalse(summary.clean)
+            self.assertEqual(
+                [runner.STATUS_WRITTEN, runner.STATUS_FAILED],
+                [result.status for result in summary.results],
+            )
+            self.assertIn("same output sidecar path", summary.results[1].message)
+
+    def test_redirected_output_path_failure_is_isolated_per_story(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+
+            with mock.patch.object(sidecar, "story_identity", return_value="../story"):
+                summary = runner.run(
+                    [story_path],
+                    backend=_backend(),
+                    options=sidecar.LinguisticsOptions(backend_name="fake"),
+                    output_root=output_root,
+                )
+
+            self.assertFalse(summary.clean)
+            self.assertEqual(runner.STATUS_FAILED, summary.results[0].status)
+            self.assertIn("could not resolve output path", summary.results[0].message)
+
+    def test_run_summary_records_output_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+
+            summary = runner.run(
+                [story_path],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                output_root=output_root,
+            )
+
+            self.assertEqual(output_root.as_posix(), summary.to_dict()["output_root"])
+
+    def test_run_summary_omits_output_root_when_default_output_is_used(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
+
+            summary = runner.run(
+                [story_path],
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+            )
+
+            self.assertNotIn("output_root", summary.to_dict())
 
     def test_resolve_story_paths_accepts_bucket_directory_and_story_list(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -375,6 +606,33 @@ class LinguisticsRunnerTest(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "Unknown NLP backend"):
             runner.make_backend("not_real")
+
+
+class LinguisticsCliTest(unittest.TestCase):
+    def test_cli_passes_output_root_to_runner(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+            output_root = root / "linguistics-output"
+
+            status = linguistics_cli.run(
+                [
+                    str(story_path),
+                    "--backend",
+                    "fake",
+                    "--output-root",
+                    str(output_root),
+                    "--summary-output",
+                    str(root / "summary.json"),
+                ]
+            )
+
+            self.assertEqual(0, status)
+            self.assertTrue(
+                (
+                    output_root / "collection" / "story" / sidecar.SIDECAR_FILENAME
+                ).is_file()
+            )
 
 
 class LinguisticsFixtureTest(unittest.TestCase):

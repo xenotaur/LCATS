@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39993,
+    "body_sha256": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/story.json"
+  },
+  "lcats_id": "mass_quantities/the_adventure_of_the_red_circle__doyle",
+  "metrics": {
+    "avg_sentence_length": 16.062618595825427,
+    "avg_word_length": 3.74518606024808,
+    "sentence_count": 527,
+    "token_count": 10098,
+    "word_count": 8465
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/story.json"
+}

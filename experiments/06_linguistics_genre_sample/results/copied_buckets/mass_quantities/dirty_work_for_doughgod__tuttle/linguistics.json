@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34154,
+    "body_sha256": "6c0a34674f1a0d73cf58b927dd2472cc9acbfc62ff9622629e89a1590307fe76",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/dirty_work_for_doughgod__tuttle",
+  "metrics": {
+    "avg_sentence_length": 15.601731601731602,
+    "avg_word_length": 3.7153163152053272,
+    "sentence_count": 462,
+    "token_count": 8917,
+    "word_count": 7208
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/story.json"
+}

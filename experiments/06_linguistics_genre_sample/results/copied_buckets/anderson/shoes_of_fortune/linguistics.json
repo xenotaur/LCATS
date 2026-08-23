@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 77811,
+    "body_sha256": "d66a40553499ff17ee20505dcd94452fdf709d336ac1a4ed09dc1172fe13fed4",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/story.json"
+  },
+  "lcats_id": "anderson/shoes_of_fortune",
+  "metrics": {
+    "avg_sentence_length": 22.922824302134647,
+    "avg_word_length": 4.568051575931232,
+    "sentence_count": 609,
+    "token_count": 16443,
+    "word_count": 13960
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/story.json"
+}

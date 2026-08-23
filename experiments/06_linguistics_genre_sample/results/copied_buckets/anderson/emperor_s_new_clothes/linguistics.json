@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11567,
+    "body_sha256": "4c59dd86de71c57a6891fbd1e3e2598a31410e40e72a080b77521f35db1f182a",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/story.json"
+  },
+  "lcats_id": "anderson/emperor_s_new_clothes",
+  "metrics": {
+    "avg_sentence_length": 21.25,
+    "avg_word_length": 4.650490196078431,
+    "sentence_count": 96,
+    "token_count": 2409,
+    "word_count": 2040
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/story.json"
+}

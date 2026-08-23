@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 69283,
+    "body_sha256": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/story.json"
+  },
+  "lcats_id": "lovecraft/the_colour_out_of_space",
+  "metrics": {
+    "avg_sentence_length": 24.91025641025641,
+    "avg_word_length": 4.142710094845968,
+    "sentence_count": 546,
+    "token_count": 15029,
+    "word_count": 13601
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/story.json"
+}

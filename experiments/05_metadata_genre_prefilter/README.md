@@ -178,6 +178,45 @@ output) are the real measured values from
 placeholders — the estimate is the human review gate before real billed
 calls, so it must not understate expected spend.
 
+### Local Backend (Opt-In, `WI-LLM-0074`)
+
+`--validate` defaults to real, billed `claude-opus-4-8` calls — nothing
+below changes that unless you opt in. `--backend openai` plus `--base-url`
+route the same validation pass through any OpenAI-compatible endpoint
+(Ollama, vLLM, LM Studio), mirroring
+`experiments/04_genre_census/run_census.py`'s own `--backend`/`--base-url`
+wiring (`WI-LLM-0066`) rather than inventing a new convention:
+
+```bash
+python experiments/05_metadata_genre_prefilter/run_prefilter.py \
+  --validate --run-real-validation \
+  --backend openai --base-url http://localhost:11434/v1 --model gpt-oss:20b \
+  --output experiments/05_metadata_genre_prefilter/results/full_scan
+```
+
+- **Always reuses the exact same `genre_balanced_manifest.jsonl` sample** —
+  there is no separate selection step for a local run; it validates
+  identically to the Opus run, on the identical stories, so the two are
+  directly comparable.
+- **A local endpoint (`localhost`/`127.0.0.1`/`::1`) is always reported at
+  $0**, regardless of `--model` — no cost gate concern the way the Opus
+  path has one, though the run-real-validation confirmation step still
+  applies (a full 146-story local run still takes real wall-clock time
+  worth confirming before starting).
+- **Never overwrites the Opus evidence.** Any backend/endpoint other than
+  the default writes its own model/endpoint-qualified filenames (e.g.
+  `validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl`) instead
+  of `validation_results.jsonl` — the same `_output_prefix` convention
+  `run_census.py` already uses for its own local-run outputs.
+- **The checkpoint fingerprint includes the effective backend and
+  endpoint**, not just the model string — resuming the same `--output`
+  against a *different* local endpoint can never silently serve a cached
+  classification from the wrong server.
+- **`--model` is required in practice for a local endpoint** — omitting it
+  resolves to `gpt-4o` (matching `run_census.py`'s own default), which is
+  almost never the model actually running behind a local endpoint; pass
+  the real model name explicitly (e.g. `--model gpt-oss:20b`).
+
 ## Outputs
 
 The runner writes only under the requested output directory:
@@ -252,3 +291,10 @@ genre sidecars; `--validate --run-real-validation` above is this
 experiment's first real producer of sidecar-shaped records validated
 against it, but this experiment still remains experiment-local and does
 not materialize or promote production `genre.json` files under `corpora/`.
+
+`WI-LLM-0074` added the opt-in local-backend wiring described above, but
+its own scope stops at the wiring itself — the real 146-story local-model
+run (and the three-way agreement report it would produce) is a separate,
+explicitly-gated follow-up step, matching this experiment's own
+established go-ahead discipline (real spend/wall-clock only after
+explicit review, never bundled silently into a wiring change).

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22745,
+    "body_sha256": "298022e5aea061c29613204a7b8ab8359ef290791a5cb496a28ff00e183f9827",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/story.json"
+  },
+  "lcats_id": "london/negore_the_coward",
+  "metrics": {
+    "avg_sentence_length": 23.814285714285713,
+    "avg_word_length": 3.6186762647470507,
+    "sentence_count": 210,
+    "token_count": 5822,
+    "word_count": 5001
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/story.json"
+}

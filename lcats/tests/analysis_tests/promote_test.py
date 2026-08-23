@@ -163,6 +163,12 @@ class SurveyCollectionTest(unittest.TestCase):
             self.assertIn("JSON object", result.sidecar_findings[0].error)
 
     def test_missing_required_key_sidecar_blocks(self):
+        """A genre.json with neither the legacy detected_genre key nor a
+        recognizable v1 shape blocks promotion either way -- it is
+        checked against genre_sidecar.validate_sidecar() (not the legacy
+        top-level-key check) since it isn't legacy-flat per
+        is_legacy_flat_sidecar()'s own definition (WI-GENRE-0076,
+        review finding PR #357)."""
         with tempfile.TemporaryDirectory() as tmpdir:
             collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
             _write_story(collection_dir, "story_one", "A clean sentence.")
@@ -174,7 +180,81 @@ class SurveyCollectionTest(unittest.TestCase):
 
             self.assertFalse(result.clean)
             self.assertEqual(1, len(result.sidecar_findings))
-            self.assertIn("detected_genre", result.sidecar_findings[0].error)
+            self.assertIn("schema_version", result.sidecar_findings[0].error)
+
+    def test_missing_required_key_scenes_sidecar_blocks(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            (collection_dir / "story_one" / "scenes.json").write_text(
+                json.dumps({"unrelated_key": "value"}), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertFalse(result.clean)
+            self.assertEqual(1, len(result.sidecar_findings))
+            self.assertIn("segments", result.sidecar_findings[0].error)
+
+    def test_valid_v1_genre_sidecar_does_not_block(self):
+        """A genre-sidecar-v1 record written by lcats annotate's new
+        append-mode path (WI-GENRE-0076) must not be wrongly flagged
+        malformed by the legacy top-level detected_genre check -- it is
+        checked via genre_sidecar.validate_sidecar() instead (review
+        finding, PR #357)."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "annotated_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            v1_sidecar = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "annotated_collection/story_one",
+                "story_path": "annotated_collection/story_one/story.json",
+                "assessments": [
+                    {
+                        "assessment_id": "model_detect:story_one:2026-08-22T00:00:00+00:00",
+                        "label": "model_detect",
+                        "generated_at": "2026-08-22T00:00:00+00:00",
+                        "scope": "story",
+                        "method": {"name": "assess_story", "version": "v1"},
+                        "provenance": {
+                            "run_id": "2026-08-22T00:00:00+00:00",
+                        },
+                        "evidence": {},
+                        "result": {"detected_genre": "horror"},
+                        "run_id": "2026-08-22T00:00:00+00:00",
+                    }
+                ],
+            }
+            (collection_dir / "story_one" / "genre.json").write_text(
+                json.dumps(v1_sidecar), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertTrue(result.clean)
+            self.assertEqual((), result.sidecar_findings)
+
+    def test_invalid_v1_genre_sidecar_blocks(self):
+        """A v1-shaped genre.json (has schema_version, not legacy-flat)
+        with a genuinely invalid assessments[] entry must still block,
+        via genre_sidecar.validate_sidecar()'s own findings."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            collection_dir = pathlib.Path(tmpdir) / "broken_sidecar_collection"
+            _write_story(collection_dir, "story_one", "A clean sentence.")
+            invalid_v1 = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "broken_sidecar_collection/story_one",
+                "story_path": "broken_sidecar_collection/story_one/story.json",
+                "assessments": [{"label": "model_detect"}],
+            }
+            (collection_dir / "story_one" / "genre.json").write_text(
+                json.dumps(invalid_v1), encoding="utf-8"
+            )
+
+            result = promote.survey_collection(collection_dir)
+
+            self.assertFalse(result.clean)
+            self.assertEqual(1, len(result.sidecar_findings))
 
     def test_null_required_value_sidecar_blocks(self):
         """Key presence alone isn't enough -- {"segments": null} passes an
@@ -414,6 +494,237 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertEqual(1, len(report.blocked))
 
 
+def _valid_sidecar_record(lcats_id: str, story_path: str) -> dict:
+    """Build a minimal genre-sidecar-v1 record that passes
+    genre_sidecar.validate_sidecar() -- a non-model assessment label so no
+    run_id/provenance.run_id is required."""
+    return {
+        "schema_version": "genre-sidecar-v1",
+        "lcats_id": lcats_id,
+        "story_path": story_path,
+        "assessments": [
+            {
+                "assessment_id": f"gutenberg_metadata_rules:{lcats_id}:1",
+                "label": "gutenberg_metadata_rules",
+                "generated_at": "2026-08-21T06:19:16.729706Z",
+                "scope": "gutenberg_volume",
+                "method": {"name": "gutenberg_subject_rules", "version": "v1"},
+                "provenance": {"story_id": lcats_id},
+                "evidence": {"raw_subjects": []},
+                "result": {"target_candidates": ["fantasy"]},
+            }
+        ],
+    }
+
+
+def _write_manifest(manifest_path: pathlib.Path, records: list) -> None:
+    lines = [json.dumps(record) for record in records]
+    manifest_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+class PromoteSidecarTrancheTest(unittest.TestCase):
+    """Tests for the sidecar-tranche promotion mode (WI-GENRE-0075)."""
+
+    def test_valid_records_are_promoted_without_touching_other_files(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [record])
+
+            # A pre-existing, unrelated file in the destination story
+            # bucket must survive promotion untouched.
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual(("anderson/bell",), report.promoted)
+            self.assertEqual((), report.rejected)
+            self.assertTrue(report.all_promoted)
+            written = json.loads(
+                (bucket_dir / "genre.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(record, written)
+            # story.json is untouched.
+            self.assertEqual(
+                {"name": "bell"},
+                json.loads((bucket_dir / "story.json").read_text(encoding="utf-8")),
+            )
+
+    def test_invalid_record_is_rejected_and_not_written(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            # Missing "assessments" entirely -- validate_sidecar rejects.
+            invalid_record = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "anderson/bell",
+                "story_path": "anderson/bell/story.json",
+            }
+            _write_manifest(manifest_path, [invalid_record])
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(1, len(report.rejected))
+            self.assertEqual("anderson/bell", report.rejected[0].lcats_id)
+            self.assertFalse((dest_root / "anderson" / "bell" / "genre.json").exists())
+
+    def test_legacy_flat_sidecar_at_destination_is_refused_not_overwritten(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [record])
+
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+            legacy_sidecar = {
+                "detected_genre": "fantasy",
+                "detected_genre_confidence": 0.9,
+                "verdict": "wellformed",
+            }
+            (bucket_dir / "genre.json").write_text(
+                json.dumps(legacy_sidecar), encoding="utf-8"
+            )
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(1, len(report.rejected))
+            self.assertIn("legacy", report.rejected[0].error)
+            # The legacy sidecar must survive untouched, not be overwritten.
+            self.assertEqual(
+                legacy_sidecar,
+                json.loads((bucket_dir / "genre.json").read_text(encoding="utf-8")),
+            )
+
+    def test_dry_run_makes_no_writes(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [record])
+
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            report = promote.promote_sidecar_tranche(
+                manifest_path, dest_root, dry_run=True
+            )
+
+            self.assertEqual(("anderson/bell",), report.promoted)
+            self.assertFalse((bucket_dir / "genre.json").exists())
+
+    def test_lcats_id_escaping_dest_root_is_rejected(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            escaping_ids = ["/etc/passwd", "../outside", "anderson/../../outside", "."]
+            records = [
+                _valid_sidecar_record(lcats_id, f"{lcats_id}/story.json")
+                for lcats_id in escaping_ids
+            ]
+            _write_manifest(manifest_path, records)
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(len(escaping_ids), len(report.rejected))
+            for finding in report.rejected:
+                self.assertIn(finding.lcats_id, escaping_ids)
+            # Nothing was ever written outside (or directly under) dest_root.
+            self.assertEqual([], list(dest_root.rglob("genre.json")))
+
+    def test_missing_destination_story_is_rejected_not_created(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            # No story.json bucket exists at the destination for this id.
+            record = _valid_sidecar_record(
+                "anderson/typo_d_id", "anderson/typo_d_id/story.json"
+            )
+            _write_manifest(manifest_path, [record])
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(1, len(report.rejected))
+            self.assertEqual("anderson/typo_d_id", report.rejected[0].lcats_id)
+            self.assertIn("story.json", report.rejected[0].error)
+            self.assertFalse((dest_root / "anderson" / "typo_d_id").exists())
+
+    def test_malformed_manifest_line_is_rejected_not_fatal(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            good_record = _valid_sidecar_record(
+                "anderson/bell", "anderson/bell/story.json"
+            )
+            manifest_path.write_text(
+                "not valid json\n" + json.dumps(good_record) + "\n",
+                encoding="utf-8",
+            )
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            report = promote.promote_sidecar_tranche(manifest_path, dest_root)
+
+            self.assertEqual(("anderson/bell",), report.promoted)
+            self.assertEqual(1, len(report.rejected))
+            self.assertIn("<line 1>", report.rejected[0].lcats_id)
+
+    def test_wholesale_promote_collections_is_unaffected(self):
+        # Sanity check: adding the tranche path did not change
+        # promote_collections' own wholesale behavior or shape.
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual(("clean",), report.promoted)
+            self.assertTrue(report.all_promoted)
+
+
 class PromoteCliTest(unittest.TestCase):
     """Tests for the promote CLI exit-code and reporting behavior."""
 
@@ -485,6 +796,116 @@ class PromoteCliTest(unittest.TestCase):
             self.assertEqual(2, exit_code)
             self.assertIn("error:", error_output.getvalue())
             self.assertIn("same directory", error_output.getvalue())
+
+    def test_tranche_manifest_flag_reaches_the_tranche_promotion_function(self):
+        # The whole point of Required Change 2 (review finding, PR #348):
+        # the CLI must actually invoke promote_sidecar_tranche, not just
+        # the library function called directly in tests above.
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [record])
+            bucket_dir = pathlib.Path(dest_tmp) / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            output = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output):
+                exit_code = promote_cli.run(
+                    [
+                        "--dest",
+                        dest_tmp,
+                        "--tranche-manifest",
+                        str(manifest_path),
+                    ]
+                )
+
+            self.assertEqual(0, exit_code)
+            self.assertIn("promoted sidecar: anderson/bell", output.getvalue())
+            self.assertTrue(
+                (pathlib.Path(dest_tmp) / "anderson" / "bell" / "genre.json").is_file()
+            )
+
+    def test_tranche_manifest_flag_reports_rejections_and_nonzero_exit(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            invalid_record = {
+                "schema_version": "genre-sidecar-v1",
+                "lcats_id": "anderson/bell",
+                "story_path": "anderson/bell/story.json",
+            }
+            _write_manifest(manifest_path, [invalid_record])
+
+            error_output = io.StringIO()
+            with unittest.mock.patch("sys.stderr", error_output):
+                exit_code = promote_cli.run(
+                    [
+                        "--dest",
+                        dest_tmp,
+                        "--tranche-manifest",
+                        str(manifest_path),
+                    ]
+                )
+
+            self.assertEqual(1, exit_code)
+            self.assertIn("rejected: anderson/bell", error_output.getvalue())
+
+    def test_tranche_manifest_dry_run_makes_no_writes_via_cli(self):
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            record = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [record])
+            bucket_dir = pathlib.Path(dest_tmp) / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            output = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output):
+                exit_code = promote_cli.run(
+                    [
+                        "--dest",
+                        dest_tmp,
+                        "--tranche-manifest",
+                        str(manifest_path),
+                        "--dry-run",
+                    ]
+                )
+
+            self.assertEqual(0, exit_code)
+            self.assertIn("would promote sidecar: anderson/bell", output.getvalue())
+            self.assertFalse((bucket_dir / "genre.json").exists())
+
+    def test_wholesale_cli_invocations_are_unaffected_by_the_new_flag(self):
+        # Sanity check: the existing wholesale CLI path and its exit codes
+        # are unchanged when --tranche-manifest is simply not passed.
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+
+            output = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output):
+                exit_code = promote_cli.run(
+                    ["--source", str(source_root), "--dest", dest_tmp]
+                )
+
+            self.assertEqual(0, exit_code)
+            self.assertIn("promoted: clean", output.getvalue())
 
 
 if __name__ == "__main__":

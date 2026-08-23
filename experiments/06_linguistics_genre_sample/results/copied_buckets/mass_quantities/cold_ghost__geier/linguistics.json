@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26496,
+    "body_sha256": "6b9275dd1397da33596f7ec588db62e2689ed6750f8289f7a9075c1c9ae16833",
+    "source_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/story.json"
+  },
+  "lcats_id": "mass_quantities/cold_ghost__geier",
+  "metrics": {
+    "avg_sentence_length": 12.627403846153847,
+    "avg_word_length": 4.080335046640015,
+    "sentence_count": 416,
+    "token_count": 6054,
+    "word_count": 5253
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/06_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/story.json"
+}
