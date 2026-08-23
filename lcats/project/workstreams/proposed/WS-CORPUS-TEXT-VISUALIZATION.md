@@ -15,6 +15,10 @@ related_design:
 work_items:
   - WI-VISUALIZE-0073
   - WI-VISUALIZE-0085
+  - WI-VISUALIZE-0086
+  - WI-VISUALIZE-0087
+  - WI-VISUALIZE-0088
+  - WI-VISUALIZE-0089
 exit_criteria:
   - lcats visualize genres produces genre-distribution figures (word cloud + conventional chart, PNG and vector) from a named, reproducible genre source (genre.json sidecars / whatever artifact PROP-GENRE-EVIDENCE-SIDECARS or the genre-census tooling actually produces), reusing lcats.analysis.graph_plotters for conventional charts, and any figure built from a sample rather than a full-corpus source explicitly discloses population, sample size/mode, and denominator rather than presenting the sample as the whole corpus
   - lcats visualize words produces word-frequency visualizations for the whole corpus and selected genre subsets, with explicit documented preprocessing defaults
@@ -62,12 +66,10 @@ This workstream coordinates implementation of `PROP-LCATS-CORPUS-TEXT-VISUALIZAT
 
 1. `WI-VISUALIZE-0073` — Paper-critical visualization substrate and `genres` command (source adapters over `Story`/`Corpora`, analysis/rendering split reusing `graph_plotters`, genre source named and wired to its real artifact, input-revision reproducibility).
 2. `WI-VISUALIZE-0085` — Text selection/preprocessing and `words` command.
-3. TF-IDF analysis and comparison visualization (not yet minted).
-4. Topic baseline (not yet minted).
-5. Dogfood against the LCATS corpus and paper figures (not yet minted).
-6. Documentation and examples (not yet minted).
-
-Items 2-6 will be minted as work items once item 1's substrate lands and the exact command interfaces it establishes are known — the proposal's own "Candidate Work Decomposition" section allows collapsing some of these if the implementation turns out small enough.
+3. `WI-VISUALIZE-0086` — TF-IDF analysis and comparison visualization.
+4. `WI-VISUALIZE-0087` — Topic baseline.
+5. `WI-VISUALIZE-0088` — Dogfood against the LCATS corpus and paper figures (blocked by items 3-4).
+6. `WI-VISUALIZE-0089` — Documentation and examples (blocked by items 3-4).
 
 ## Non-Goals
 
@@ -85,4 +87,3 @@ Items 2-6 will be minted as work items once item 1's substrate lands and the exa
 - Should lemmatization/POS filtering be part of the initial `words` command or deferred? (Proposed default: defer.)
 - Should every figure produce an adjacent data/manifest sidecar, or is the simpler logged input-revision value sufficient for the first tranche? (Proposed default: log the value now; defer the richer manifest format until after dogfooding.)
 - Should arbitrary external files ever enter through `lcats visualize` directly, or always through a separate ingestion/document adapter API? (Out of scope for this workstream either way.)
-- What exact work-item IDs and split should items 2-6 use once item 1 lands?
