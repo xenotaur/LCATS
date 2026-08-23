@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33828,
+    "body_sha256": "eb75210f9fc6130ebfd3f201a79c537f4a9fc774f1ee6fd8f0bec2b5042bc807",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_rough_beast__highe/story.json"
+  },
+  "lcats_id": "mass_quantities/what_rough_beast__highe",
+  "metrics": {
+    "avg_sentence_length": 12.250871080139373,
+    "avg_word_length": 3.779721274175199,
+    "sentence_count": 574,
+    "token_count": 8694,
+    "word_count": 7032
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_rough_beast__highe/story.json"
+}

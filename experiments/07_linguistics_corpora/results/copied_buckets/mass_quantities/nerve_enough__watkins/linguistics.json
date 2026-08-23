@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25009,
+    "body_sha256": "14d65ef9f3d701c1bd942ccb3c6e51dd954419cd697f2ee736b4329f2e789bb3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nerve_enough__watkins/story.json"
+  },
+  "lcats_id": "mass_quantities/nerve_enough__watkins",
+  "metrics": {
+    "avg_sentence_length": 19.181102362204726,
+    "avg_word_length": 4.165024630541872,
+    "sentence_count": 254,
+    "token_count": 5627,
+    "word_count": 4872
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nerve_enough__watkins/story.json"
+}

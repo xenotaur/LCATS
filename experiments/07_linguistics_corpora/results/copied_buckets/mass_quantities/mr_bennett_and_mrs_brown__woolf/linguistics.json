@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44222,
+    "body_sha256": "b66f497f9f0f97df8410006ccc0d8ae52f5b091a536cb91baf1fa44cccba063f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_bennett_and_mrs_brown__woolf/story.json"
+  },
+  "lcats_id": "mass_quantities/mr_bennett_and_mrs_brown__woolf",
+  "metrics": {
+    "avg_sentence_length": 22.98936170212766,
+    "avg_word_length": 4.135932438685794,
+    "sentence_count": 376,
+    "token_count": 9860,
+    "word_count": 8644
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_bennett_and_mrs_brown__woolf/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18012,
+    "body_sha256": "433f0dfdebf5a1aa307cb5858926809672a17e2f5671333e8de0b75c49e8c370",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_protector__curtis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_protector__curtis",
+  "metrics": {
+    "avg_sentence_length": 20.122448979591837,
+    "avg_word_length": 3.604716024340771,
+    "sentence_count": 196,
+    "token_count": 4458,
+    "word_count": 3944
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_protector__curtis/story.json"
+}

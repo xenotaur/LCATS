@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44905,
+    "body_sha256": "89dc5f0e8930505fdb8a96d09f750a1f8a7436a1436d8d8c05d32f66e750ab0b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_overlord_s_thumb__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/the_overlord_s_thumb__silverberg",
+  "metrics": {
+    "avg_sentence_length": 15.301919720767888,
+    "avg_word_length": 4.141537408759124,
+    "sentence_count": 573,
+    "token_count": 10412,
+    "word_count": 8768
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_overlord_s_thumb__silverberg/story.json"
+}

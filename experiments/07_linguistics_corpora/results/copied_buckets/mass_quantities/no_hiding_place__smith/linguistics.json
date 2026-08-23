@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18600,
+    "body_sha256": "45a950f509015f3187a7ad9494bb763ba1834638ea8ea1d0312c9444b311cd2f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_hiding_place__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/no_hiding_place__smith",
+  "metrics": {
+    "avg_sentence_length": 13.683397683397683,
+    "avg_word_length": 4.288939051918736,
+    "sentence_count": 259,
+    "token_count": 4108,
+    "word_count": 3544
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_hiding_place__smith/story.json"
+}

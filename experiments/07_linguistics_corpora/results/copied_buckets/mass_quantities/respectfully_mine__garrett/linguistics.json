@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5582,
+    "body_sha256": "d9a8707a9b408f823bceaaf55311728e3d4ca2ef6e54998641f0515cf0a0a8de",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/respectfully_mine__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/respectfully_mine__garrett",
+  "metrics": {
+    "avg_sentence_length": 15.178082191780822,
+    "avg_word_length": 4.067689530685921,
+    "sentence_count": 73,
+    "token_count": 1295,
+    "word_count": 1108
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/respectfully_mine__garrett/story.json"
+}

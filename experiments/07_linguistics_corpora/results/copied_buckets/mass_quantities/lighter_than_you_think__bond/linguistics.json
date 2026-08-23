@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24741,
+    "body_sha256": "bda6af018e8dffcdf8ac08a71f226d8fad7aac6daae2df9ad0a5c80c583c61df",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lighter_than_you_think__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/lighter_than_you_think__bond",
+  "metrics": {
+    "avg_sentence_length": 12.283208020050125,
+    "avg_word_length": 4.01407875943685,
+    "sentence_count": 399,
+    "token_count": 6165,
+    "word_count": 4901
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lighter_than_you_think__bond/story.json"
+}

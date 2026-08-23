@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21318,
+    "body_sha256": "74c7da7dfe385de0332a958ea4f45b968e1b29bcabbb2c2316f4b67f9ea54039",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/flight_from_time__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/flight_from_time__coppel",
+  "metrics": {
+    "avg_sentence_length": 13.50498338870432,
+    "avg_word_length": 4.287084870848709,
+    "sentence_count": 301,
+    "token_count": 4550,
+    "word_count": 4065
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/flight_from_time__coppel/story.json"
+}

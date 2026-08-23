@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34552,
+    "body_sha256": "554614bc43e5c11c0f4533ada1355ae6bbe880a68817b4cc9d93876d408ddc4b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_way_out__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_way_out__smith",
+  "metrics": {
+    "avg_sentence_length": 13.085877862595419,
+    "avg_word_length": 4.056876184920519,
+    "sentence_count": 524,
+    "token_count": 8039,
+    "word_count": 6857
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_way_out__smith/story.json"
+}

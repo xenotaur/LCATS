@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11115,
+    "body_sha256": "5c577686b5edcb617b824f01c4c56413fe14d741f550b2f717472c6072988583",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/people_soup__arkin/story.json"
+  },
+  "lcats_id": "mass_quantities/people_soup__arkin",
+  "metrics": {
+    "avg_sentence_length": 13.028248587570621,
+    "avg_word_length": 3.7779705117085864,
+    "sentence_count": 177,
+    "token_count": 2923,
+    "word_count": 2306
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/people_soup__arkin/story.json"
+}

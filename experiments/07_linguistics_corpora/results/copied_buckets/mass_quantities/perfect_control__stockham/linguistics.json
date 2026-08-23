@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35776,
+    "body_sha256": "db0f599d682fc3af738e71bfcc72c18735d261c41530956ce4e604465b40b893",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/perfect_control__stockham/story.json"
+  },
+  "lcats_id": "mass_quantities/perfect_control__stockham",
+  "metrics": {
+    "avg_sentence_length": 11.099212598425197,
+    "avg_word_length": 4.084137343927355,
+    "sentence_count": 635,
+    "token_count": 8460,
+    "word_count": 7048
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/perfect_control__stockham/story.json"
+}

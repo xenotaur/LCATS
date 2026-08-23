@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32244,
+    "body_sha256": "c94a5d1c011b4e9fe3762dbe77ff7489edebdf4da2f9a57b1020fc1037fc32bd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shipping_clerk__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/shipping_clerk__samachson",
+  "metrics": {
+    "avg_sentence_length": 14.241900647948164,
+    "avg_word_length": 3.8873218077039735,
+    "sentence_count": 463,
+    "token_count": 7901,
+    "word_count": 6594
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shipping_clerk__samachson/story.json"
+}

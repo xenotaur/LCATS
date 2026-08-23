@@ -44,3 +44,5 @@ existing experiments.
 | 03 | `03_cross_segment_relation_pilot` | Stratified cross-genre pilot measuring Event-Role-World cross-segment relation density (WI-EVENT-0030) |
 | 04 | `04_genre_census` | Full-corpus genre census under the current 8-genre classifier, cost-gated via a small sample first (WI-ASSESS-0051) |
 | 05 | `05_metadata_genre_prefilter` | No-network dry-run scaffold for LCATS story identity, Gutenberg ID provenance, cache readiness, and metadata-prefilter manifest output (WI-GENRE-0001) |
+| 06 | `06_linguistics_genre_sample` | Standalone linguistic feature extraction over the WI-GENRE-0004 genre-balanced sample using copied story buckets |
+| 07 | `07_linguistics_corpora` | Full-corpus standalone linguistic feature extraction using an experiment-local copied-bucket snapshot (WI-LINGUISTICS-0004) |

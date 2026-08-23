@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51157,
+    "body_sha256": "0b4b707876f555d7d5ffa8eb6160dcee7343b5ffc4c405b701da094732a12c0c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/a_prevaricated_parade__tuttle",
+  "metrics": {
+    "avg_sentence_length": 15.267983074753174,
+    "avg_word_length": 3.7068822170900693,
+    "sentence_count": 709,
+    "token_count": 13394,
+    "word_count": 10825
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/story.json"
+}

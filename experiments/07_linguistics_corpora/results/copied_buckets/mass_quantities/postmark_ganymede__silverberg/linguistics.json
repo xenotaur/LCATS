@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15740,
+    "body_sha256": "6d3797f121a189740a134e380f9f33ac7ddb031712fa8f65a6693e751f674eb5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/postmark_ganymede__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/postmark_ganymede__silverberg",
+  "metrics": {
+    "avg_sentence_length": 11.594795539033457,
+    "avg_word_length": 4.038794485411991,
+    "sentence_count": 269,
+    "token_count": 3846,
+    "word_count": 3119
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/postmark_ganymede__silverberg/story.json"
+}

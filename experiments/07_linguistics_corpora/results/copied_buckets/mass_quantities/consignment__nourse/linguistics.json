@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22391,
+    "body_sha256": "3cadeb2fc5d67ca7f92e53aa314c5d375754b24c30e8db503d1b2b7a831a7381",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/consignment__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/consignment__nourse",
+  "metrics": {
+    "avg_sentence_length": 15.140893470790378,
+    "avg_word_length": 4.092827961870177,
+    "sentence_count": 291,
+    "token_count": 5154,
+    "word_count": 4406
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/consignment__nourse/story.json"
+}

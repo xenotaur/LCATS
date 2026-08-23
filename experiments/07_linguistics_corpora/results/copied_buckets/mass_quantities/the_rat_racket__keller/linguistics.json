@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38464,
+    "body_sha256": "2077dfa99dcac64e08d6abd5fbb1deb00d24a50afdc507301c54a5fe68f61e47",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rat_racket__keller/story.json"
+  },
+  "lcats_id": "mass_quantities/the_rat_racket__keller",
+  "metrics": {
+    "avg_sentence_length": 17.065645514223196,
+    "avg_word_length": 3.9424285164764714,
+    "sentence_count": 457,
+    "token_count": 9004,
+    "word_count": 7799
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rat_racket__keller/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12883,
+    "body_sha256": "a11bd939a7a4b39db9116004e9d033e8bd2ba2052cbf59ad6943adaee5c9836b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beyond_the_door__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/beyond_the_door__dick",
+  "metrics": {
+    "avg_sentence_length": 9.992565055762082,
+    "avg_word_length": 3.7593005952380953,
+    "sentence_count": 269,
+    "token_count": 3305,
+    "word_count": 2688
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beyond_the_door__dick/story.json"
+}

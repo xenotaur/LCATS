@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12890,
+    "body_sha256": "6a3293f0935822ff931144c6b4fc3fb43c84416729da1a3b2785d03f4839326d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/lost_on_dress_parade/story.json"
+  },
+  "lcats_id": "ohenry-four_million/lost_on_dress_parade",
+  "metrics": {
+    "avg_sentence_length": 19.83206106870229,
+    "avg_word_length": 3.985373364126251,
+    "sentence_count": 131,
+    "token_count": 3001,
+    "word_count": 2598
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/lost_on_dress_parade/story.json"
+}

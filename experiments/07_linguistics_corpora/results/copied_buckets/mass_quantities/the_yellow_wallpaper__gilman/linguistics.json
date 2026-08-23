@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31445,
+    "body_sha256": "e5b45cb686d0f0cb374cf3e8d3e3aea7138834ea8aab84fea100d3a4659eccf2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_yellow_wallpaper__gilman/story.json"
+  },
+  "lcats_id": "mass_quantities/the_yellow_wallpaper__gilman",
+  "metrics": {
+    "avg_sentence_length": 17.357142857142858,
+    "avg_word_length": 3.6738683127572016,
+    "sentence_count": 392,
+    "token_count": 7743,
+    "word_count": 6804
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_yellow_wallpaper__gilman/story.json"
+}

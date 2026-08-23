@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27925,
+    "body_sha256": "5ea7305a9aa96d205cad8627c835c4ad226228b5480cba9c39c07e3f111c60a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/master_of_none__goble/story.json"
+  },
+  "lcats_id": "mass_quantities/master_of_none__goble",
+  "metrics": {
+    "avg_sentence_length": 14.299212598425196,
+    "avg_word_length": 4.090675477239354,
+    "sentence_count": 381,
+    "token_count": 6801,
+    "word_count": 5448
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/master_of_none__goble/story.json"
+}

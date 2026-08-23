@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24996,
+    "body_sha256": "691e5981f8f487564775bcf1d8c7226652e57a9558b171530b6aad8a41f44fc8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mercurian__long/story.json"
+  },
+  "lcats_id": "mass_quantities/the_mercurian__long",
+  "metrics": {
+    "avg_sentence_length": 15.811145510835914,
+    "avg_word_length": 3.9485020560015665,
+    "sentence_count": 323,
+    "token_count": 5821,
+    "word_count": 5107
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mercurian__long/story.json"
+}

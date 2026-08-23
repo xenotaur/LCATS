@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28149,
+    "body_sha256": "4ee7c01bd8359038d7d1d53aa42af14793bf47de33530f2ee979ecf37d18e636",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/dig_me_no_grave__howard",
+  "metrics": {
+    "avg_sentence_length": 20.184115523465703,
+    "avg_word_length": 4.048113038812377,
+    "sentence_count": 277,
+    "token_count": 6479,
+    "word_count": 5591
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/story.json"
+}

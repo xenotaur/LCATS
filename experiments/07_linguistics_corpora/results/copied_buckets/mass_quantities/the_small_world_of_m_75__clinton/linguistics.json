@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29110,
+    "body_sha256": "5b481de67eecc80299d6f50f8113dce74a9a13bfbca5a364487c35d8f0f7ef1e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_small_world_of_m_75__clinton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_small_world_of_m_75__clinton",
+  "metrics": {
+    "avg_sentence_length": 19.487544483985765,
+    "avg_word_length": 4.35336011687363,
+    "sentence_count": 281,
+    "token_count": 6298,
+    "word_count": 5476
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_small_world_of_m_75__clinton/story.json"
+}

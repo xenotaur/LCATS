@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33858,
+    "body_sha256": "020efaf3bbf839f42361e922a1a51b60be6e3f027707825ed92239fb569fa588",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_moons_of_mars__evans/story.json"
+  },
+  "lcats_id": "mass_quantities/the_moons_of_mars__evans",
+  "metrics": {
+    "avg_sentence_length": 12.969258589511755,
+    "avg_word_length": 3.726715002788622,
+    "sentence_count": 553,
+    "token_count": 8536,
+    "word_count": 7172
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_moons_of_mars__evans/story.json"
+}

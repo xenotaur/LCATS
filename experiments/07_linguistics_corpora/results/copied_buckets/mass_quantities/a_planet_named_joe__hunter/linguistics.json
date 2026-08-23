@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28393,
+    "body_sha256": "7ab5b49626d698e8a9c17e2e5a063b0624259907fa387c43270ab3d246f85e81",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_planet_named_joe__hunter/story.json"
+  },
+  "lcats_id": "mass_quantities/a_planet_named_joe__hunter",
+  "metrics": {
+    "avg_sentence_length": 10.766544117647058,
+    "avg_word_length": 3.798019463889363,
+    "sentence_count": 544,
+    "token_count": 7314,
+    "word_count": 5857
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_planet_named_joe__hunter/story.json"
+}

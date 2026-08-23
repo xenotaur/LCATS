@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27282,
+    "body_sha256": "2f1a10e5a84e8053a11b6aa785f1d4cd329830d1a30c76cc551db95bccd1e604",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hunted_heroes__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hunted_heroes__silverberg",
+  "metrics": {
+    "avg_sentence_length": 12.220302375809935,
+    "avg_word_length": 3.8167196889360198,
+    "sentence_count": 463,
+    "token_count": 6856,
+    "word_count": 5658
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hunted_heroes__silverberg/story.json"
+}

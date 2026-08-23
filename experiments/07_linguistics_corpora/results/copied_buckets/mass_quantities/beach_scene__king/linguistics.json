@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28933,
+    "body_sha256": "8066403a476b73a0bd9578b9cbec5cd4c18156da81b5c73e5fad598bb7a8d6c0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beach_scene__king/story.json"
+  },
+  "lcats_id": "mass_quantities/beach_scene__king",
+  "metrics": {
+    "avg_sentence_length": 13.582568807339449,
+    "avg_word_length": 3.898176291793313,
+    "sentence_count": 436,
+    "token_count": 7013,
+    "word_count": 5922
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beach_scene__king/story.json"
+}

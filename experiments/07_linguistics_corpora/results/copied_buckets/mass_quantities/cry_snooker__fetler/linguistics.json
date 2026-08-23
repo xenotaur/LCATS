@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26452,
+    "body_sha256": "17bb58661a68df4d37c6d433cacf8c6f35ae6d8507558f3d41b3dfa497a3d5ff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cry_snooker__fetler/story.json"
+  },
+  "lcats_id": "mass_quantities/cry_snooker__fetler",
+  "metrics": {
+    "avg_sentence_length": 11.456140350877194,
+    "avg_word_length": 4.039624808575804,
+    "sentence_count": 456,
+    "token_count": 6521,
+    "word_count": 5224
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cry_snooker__fetler/story.json"
+}

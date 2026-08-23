@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22620,
+    "body_sha256": "889867b1e29f036150fe8cb77d3d69ce370c1e6cf1a02bdfdbd4f6d4de36051d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/footprints_on_the_sea_shore_from_twice_told_tales__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/footprints_on_the_sea_shore_from_twice_told_tales__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 25.670391061452513,
+    "avg_word_length": 3.972361262241567,
+    "sentence_count": 179,
+    "token_count": 5260,
+    "word_count": 4595
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/footprints_on_the_sea_shore_from_twice_told_tales__hawthorne/story.json"
+}

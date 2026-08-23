@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24528,
+    "body_sha256": "efb0bf8305805805cfb9c1d2043cd0c4bb06954b03b319dfb8418d7db3ebf51b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_crimp__leverage/story.json"
+  },
+  "lcats_id": "mass_quantities/the_crimp__leverage",
+  "metrics": {
+    "avg_sentence_length": 11.914489311163896,
+    "avg_word_length": 3.8941387559808613,
+    "sentence_count": 421,
+    "token_count": 6067,
+    "word_count": 5016
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_crimp__leverage/story.json"
+}

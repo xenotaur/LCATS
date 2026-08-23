@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14904,
+    "body_sha256": "30570b058f5d5a1e190160f126e2b5ea3e0301a0ae340bc3a7cbfdb75a06058e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bad_memory__fahy/story.json"
+  },
+  "lcats_id": "mass_quantities/bad_memory__fahy",
+  "metrics": {
+    "avg_sentence_length": 16.796511627906977,
+    "avg_word_length": 4.1993769470404985,
+    "sentence_count": 172,
+    "token_count": 3337,
+    "word_count": 2889
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bad_memory__fahy/story.json"
+}

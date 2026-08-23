@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25569,
+    "body_sha256": "b74d589c91f235b980944c02644abb7121c7997a3c11d47eb46c3b737435dc32",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lonely_ones__ludwig/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lonely_ones__ludwig",
+  "metrics": {
+    "avg_sentence_length": 10.540425531914893,
+    "avg_word_length": 4.131610819539766,
+    "sentence_count": 470,
+    "token_count": 6223,
+    "word_count": 4954
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lonely_ones__ludwig/story.json"
+}

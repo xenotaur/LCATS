@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39389,
+    "body_sha256": "0dc077cb99f708bf7973b02b8d2f16036f909e96b8053dcf9b320dae8dae6635",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cerebrum__teichner/story.json"
+  },
+  "lcats_id": "mass_quantities/cerebrum__teichner",
+  "metrics": {
+    "avg_sentence_length": 15.797938144329898,
+    "avg_word_length": 4.168232837379274,
+    "sentence_count": 485,
+    "token_count": 8985,
+    "word_count": 7662
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cerebrum__teichner/story.json"
+}

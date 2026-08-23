@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22869,
+    "body_sha256": "3b7f381b12678b986a0e6fc7612d92824d58aa4b2194265b5b9e8dccabb92505",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sarreo_1901__becke/story.json"
+  },
+  "lcats_id": "mass_quantities/sarreo_1901__becke",
+  "metrics": {
+    "avg_sentence_length": 25.147959183673468,
+    "avg_word_length": 3.63887198214648,
+    "sentence_count": 196,
+    "token_count": 5771,
+    "word_count": 4929
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sarreo_1901__becke/story.json"
+}

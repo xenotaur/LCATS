@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31969,
+    "body_sha256": "e8a9db9a8eeb1a4e48ab899ff2e7a4da2fa79b1d367eb5f9ddf64b38a341f998",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ricardo_s_virus__tenn/story.json"
+  },
+  "lcats_id": "mass_quantities/ricardo_s_virus__tenn",
+  "metrics": {
+    "avg_sentence_length": 14.204545454545455,
+    "avg_word_length": 4.15408,
+    "sentence_count": 440,
+    "token_count": 7176,
+    "word_count": 6250
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ricardo_s_virus__tenn/story.json"
+}

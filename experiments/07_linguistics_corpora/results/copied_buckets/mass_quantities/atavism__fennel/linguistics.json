@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19865,
+    "body_sha256": "613654b6cc978aa3fe9e1e994f7e606be81b042a22b95bc57a9b5a29e5bac0da",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/atavism__fennel/story.json"
+  },
+  "lcats_id": "mass_quantities/atavism__fennel",
+  "metrics": {
+    "avg_sentence_length": 13.906367041198502,
+    "avg_word_length": 4.37947751144627,
+    "sentence_count": 267,
+    "token_count": 4339,
+    "word_count": 3713
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/atavism__fennel/story.json"
+}

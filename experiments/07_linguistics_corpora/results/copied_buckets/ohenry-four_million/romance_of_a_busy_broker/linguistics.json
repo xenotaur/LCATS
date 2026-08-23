@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7962,
+    "body_sha256": "58cfaacb22b3ba46d87dbe3ee0f1ae16aad3d031cabf0bab8807a1fa4ff8c234",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/romance_of_a_busy_broker/story.json"
+  },
+  "lcats_id": "ohenry-four_million/romance_of_a_busy_broker",
+  "metrics": {
+    "avg_sentence_length": 15.9375,
+    "avg_word_length": 4.220915032679739,
+    "sentence_count": 96,
+    "token_count": 1790,
+    "word_count": 1530
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/romance_of_a_busy_broker/story.json"
+}

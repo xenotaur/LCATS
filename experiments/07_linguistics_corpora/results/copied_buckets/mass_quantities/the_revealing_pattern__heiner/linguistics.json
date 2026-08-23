@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13759,
+    "body_sha256": "501fb7d0bc4b4226edfbc2af93f3e7c792434ac87b0177549779a8a32ccee333",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_revealing_pattern__heiner/story.json"
+  },
+  "lcats_id": "mass_quantities/the_revealing_pattern__heiner",
+  "metrics": {
+    "avg_sentence_length": 13.0,
+    "avg_word_length": 3.974600870827286,
+    "sentence_count": 212,
+    "token_count": 3383,
+    "word_count": 2756
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_revealing_pattern__heiner/story.json"
+}

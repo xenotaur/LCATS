@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 258571,
+    "body_sha256": "4d579008d88601cdd951a0da8fa6d123eff1159c1cf8911a9083b673ad330a76",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_case_of_charles_dexter_ward/story.json"
+  },
+  "lcats_id": "lovecraft/the_case_of_charles_dexter_ward",
+  "metrics": {
+    "avg_sentence_length": 31.74822466107166,
+    "avg_word_length": 4.3274431656431736,
+    "sentence_count": 1549,
+    "token_count": 54163,
+    "word_count": 49178
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_case_of_charles_dexter_ward/story.json"
+}

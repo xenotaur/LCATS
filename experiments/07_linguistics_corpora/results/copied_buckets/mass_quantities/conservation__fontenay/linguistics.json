@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35178,
+    "body_sha256": "ca8d79c890a60cd7bc997be8ada68cf07da4e30ad54c27fae911278ae52377fa",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/conservation__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/conservation__fontenay",
+  "metrics": {
+    "avg_sentence_length": 17.02,
+    "avg_word_length": 4.181110458284372,
+    "sentence_count": 400,
+    "token_count": 8090,
+    "word_count": 6808
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/conservation__fontenay/story.json"
+}

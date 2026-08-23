@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53158,
+    "body_sha256": "dee9ef0a2d58df83caec28a67a0c38920cbc5e9e4494b1b86dbe470bf0765f3a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/speckled_band/story.json"
+  },
+  "lcats_id": "sherlock/speckled_band",
+  "metrics": {
+    "avg_sentence_length": 20.826254826254825,
+    "avg_word_length": 3.917593622543567,
+    "sentence_count": 518,
+    "token_count": 12716,
+    "word_count": 10788
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/speckled_band/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34954,
+    "body_sha256": "6cf9ffd5c5a3642b3de2064594132913a092b1c2ad1e88325d6ca407cfdbb665",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/suicide_command__mullen/story.json"
+  },
+  "lcats_id": "mass_quantities/suicide_command__mullen",
+  "metrics": {
+    "avg_sentence_length": 11.166666666666666,
+    "avg_word_length": 4.125987708516242,
+    "sentence_count": 612,
+    "token_count": 8164,
+    "word_count": 6834
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/suicide_command__mullen/story.json"
+}

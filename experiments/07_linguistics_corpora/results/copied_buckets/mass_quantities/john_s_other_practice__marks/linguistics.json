@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28668,
+    "body_sha256": "b769ec7e9d2997ba8d0f6f8551a9d0497246730bcd1aa0256e497d3239b5e171",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/john_s_other_practice__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/john_s_other_practice__marks",
+  "metrics": {
+    "avg_sentence_length": 14.15089514066496,
+    "avg_word_length": 4.185432857401048,
+    "sentence_count": 391,
+    "token_count": 6593,
+    "word_count": 5533
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/john_s_other_practice__marks/story.json"
+}

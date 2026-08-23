@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22995,
+    "body_sha256": "c3faba88522b7ebe9b4303efc98db39965d5a3185705daa21faf663af198c5a0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heir_apparent__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/heir_apparent__nourse",
+  "metrics": {
+    "avg_sentence_length": 14.307017543859649,
+    "avg_word_length": 3.6871040261598202,
+    "sentence_count": 342,
+    "token_count": 5924,
+    "word_count": 4893
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heir_apparent__nourse/story.json"
+}

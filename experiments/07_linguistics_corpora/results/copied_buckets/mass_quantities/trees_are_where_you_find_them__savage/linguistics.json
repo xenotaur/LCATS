@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13195,
+    "body_sha256": "d236040411ca6ca8b378f94bc23374d50f3601778a9b88492c99f248aadf3a7a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/trees_are_where_you_find_them__savage/story.json"
+  },
+  "lcats_id": "mass_quantities/trees_are_where_you_find_them__savage",
+  "metrics": {
+    "avg_sentence_length": 15.194736842105263,
+    "avg_word_length": 3.5746449601662627,
+    "sentence_count": 190,
+    "token_count": 3443,
+    "word_count": 2887
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/trees_are_where_you_find_them__savage/story.json"
+}

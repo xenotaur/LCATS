@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16406,
+    "body_sha256": "a3830f2d7c54f72b4221db8a98a90fb76c6d128f8ba1b15a26db4d9f80bc4546",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/juvenile_delinquent__ludwig/story.json"
+  },
+  "lcats_id": "mass_quantities/juvenile_delinquent__ludwig",
+  "metrics": {
+    "avg_sentence_length": 10.875399361022364,
+    "avg_word_length": 3.8128672150411282,
+    "sentence_count": 313,
+    "token_count": 4245,
+    "word_count": 3404
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/juvenile_delinquent__ludwig/story.json"
+}

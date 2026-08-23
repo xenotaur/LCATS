@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23583,
+    "body_sha256": "196cb9bf8fc46495ff9e608e4928ed736c150f946a4e6a41636038597a28036d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_order__holden/story.json"
+  },
+  "lcats_id": "mass_quantities/a_matter_of_order__holden",
+  "metrics": {
+    "avg_sentence_length": 17.51145038167939,
+    "avg_word_length": 4.126852659110724,
+    "sentence_count": 262,
+    "token_count": 5542,
+    "word_count": 4588
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_order__holden/story.json"
+}

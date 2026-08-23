@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29207,
+    "body_sha256": "3c93805bb7c8203fb762deb42a400e979bd8ad0ed184141da6c933e35d138cbb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/feet_of_clay__hoskins/story.json"
+  },
+  "lcats_id": "mass_quantities/feet_of_clay__hoskins",
+  "metrics": {
+    "avg_sentence_length": 13.287305122494432,
+    "avg_word_length": 3.8518270197787463,
+    "sentence_count": 449,
+    "token_count": 7332,
+    "word_count": 5966
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/feet_of_clay__hoskins/story.json"
+}

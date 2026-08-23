@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8580,
+    "body_sha256": "920e283baa6063c0f645763c8691e57859c5baab9c8adf46135e723e01db25bd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/selfish_giant/story.json"
+  },
+  "lcats_id": "wilde_happy_prince/selfish_giant",
+  "metrics": {
+    "avg_sentence_length": 19.4,
+    "avg_word_length": 3.6988605534454693,
+    "sentence_count": 95,
+    "token_count": 2126,
+    "word_count": 1843
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/selfish_giant/story.json"
+}

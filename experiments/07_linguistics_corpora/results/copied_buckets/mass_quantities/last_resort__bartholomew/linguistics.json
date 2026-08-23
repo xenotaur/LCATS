@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21243,
+    "body_sha256": "07ae65f17debb4df56db27f390aedff7164f1bfb69b4744693995cad84068ebf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/last_resort__bartholomew/story.json"
+  },
+  "lcats_id": "mass_quantities/last_resort__bartholomew",
+  "metrics": {
+    "avg_sentence_length": 13.722397476340694,
+    "avg_word_length": 3.912873563218391,
+    "sentence_count": 317,
+    "token_count": 4965,
+    "word_count": 4350
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/last_resort__bartholomew/story.json"
+}

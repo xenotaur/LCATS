@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16152,
+    "body_sha256": "899b6e4f0ff2723aaab789c3b6cf884553ca7a3c3452d264d2b115502c67d1e9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_slizzers__bixby/story.json"
+  },
+  "lcats_id": "mass_quantities/the_slizzers__bixby",
+  "metrics": {
+    "avg_sentence_length": 14.493449781659388,
+    "avg_word_length": 3.892437481169027,
+    "sentence_count": 229,
+    "token_count": 3960,
+    "word_count": 3319
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_slizzers__bixby/story.json"
+}

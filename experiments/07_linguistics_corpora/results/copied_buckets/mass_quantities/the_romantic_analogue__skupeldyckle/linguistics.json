@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23069,
+    "body_sha256": "5f48c676613da16e9e6cf411e4ceb693e1e4b820ced360f3d89fad3503f9fa16",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_romantic_analogue__skupeldyckle/story.json"
+  },
+  "lcats_id": "mass_quantities/the_romantic_analogue__skupeldyckle",
+  "metrics": {
+    "avg_sentence_length": 12.824324324324325,
+    "avg_word_length": 3.843203371970495,
+    "sentence_count": 370,
+    "token_count": 5805,
+    "word_count": 4745
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_romantic_analogue__skupeldyckle/story.json"
+}

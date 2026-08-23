@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18304,
+    "body_sha256": "df9e38b6996b8404867b7caeb25bc9fc9a38dbbea24b8094f62526b099c064c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eel__de_ford/story.json"
+  },
+  "lcats_id": "mass_quantities/the_eel__de_ford",
+  "metrics": {
+    "avg_sentence_length": 22.57051282051282,
+    "avg_word_length": 4.244816813405283,
+    "sentence_count": 156,
+    "token_count": 4002,
+    "word_count": 3521
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eel__de_ford/story.json"
+}

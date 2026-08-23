@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50314,
+    "body_sha256": "991434ab349cc36ee7d6e428d383f5d98e99a9d084c09bd486af4257870fac89",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spawn_of_the_comet__rich/story.json"
+  },
+  "lcats_id": "mass_quantities/spawn_of_the_comet__rich",
+  "metrics": {
+    "avg_sentence_length": 15.494470774091628,
+    "avg_word_length": 4.125305872756933,
+    "sentence_count": 633,
+    "token_count": 11855,
+    "word_count": 9808
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spawn_of_the_comet__rich/story.json"
+}

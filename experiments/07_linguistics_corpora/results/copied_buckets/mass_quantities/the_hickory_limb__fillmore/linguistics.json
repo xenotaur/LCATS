@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39530,
+    "body_sha256": "700c9019df2c3be57da8d4b076b9be7e87301b32344fe2e91e06186d6f8f1fd5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hickory_limb__fillmore/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hickory_limb__fillmore",
+  "metrics": {
+    "avg_sentence_length": 15.437007874015748,
+    "avg_word_length": 4.048201989288446,
+    "sentence_count": 508,
+    "token_count": 9424,
+    "word_count": 7842
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hickory_limb__fillmore/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26427,
+    "body_sha256": "0cb3d0e6294934355fd6abce1f5e561d82bb71cba88eca1a17c810ec6addcf21",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/world_and_the_door/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/world_and_the_door",
+  "metrics": {
+    "avg_sentence_length": 16.815873015873017,
+    "avg_word_length": 3.9918821974702663,
+    "sentence_count": 315,
+    "token_count": 6248,
+    "word_count": 5297
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/world_and_the_door/story.json"
+}

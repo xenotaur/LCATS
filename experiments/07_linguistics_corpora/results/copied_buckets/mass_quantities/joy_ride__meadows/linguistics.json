@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14710,
+    "body_sha256": "2e11c9625c233579eb56cd5cc6860b7518278241944a626f3170160e8175eea7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/joy_ride__meadows/story.json"
+  },
+  "lcats_id": "mass_quantities/joy_ride__meadows",
+  "metrics": {
+    "avg_sentence_length": 16.63095238095238,
+    "avg_word_length": 4.341088045812455,
+    "sentence_count": 168,
+    "token_count": 3141,
+    "word_count": 2794
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/joy_ride__meadows/story.json"
+}

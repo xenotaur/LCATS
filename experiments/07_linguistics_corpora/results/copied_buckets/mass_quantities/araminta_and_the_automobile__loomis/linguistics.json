@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51334,
+    "body_sha256": "1cf1d1cd9044c06f560dee3c1047553921921f03c98584fe595091384506f324",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/araminta_and_the_automobile__loomis/story.json"
+  },
+  "lcats_id": "mass_quantities/araminta_and_the_automobile__loomis",
+  "metrics": {
+    "avg_sentence_length": 20.72178988326848,
+    "avg_word_length": 3.8445216411604544,
+    "sentence_count": 514,
+    "token_count": 12346,
+    "word_count": 10651
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/araminta_and_the_automobile__loomis/story.json"
+}

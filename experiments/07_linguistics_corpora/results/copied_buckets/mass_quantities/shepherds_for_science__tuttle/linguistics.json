@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51088,
+    "body_sha256": "4a3781807ab6a39fbf773a85cf28554de105d12a388e881c7dbad6d11816caa6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shepherds_for_science__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/shepherds_for_science__tuttle",
+  "metrics": {
+    "avg_sentence_length": 14.358413132694938,
+    "avg_word_length": 3.8201219512195124,
+    "sentence_count": 731,
+    "token_count": 13147,
+    "word_count": 10496
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shepherds_for_science__tuttle/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23351,
+    "body_sha256": "6b1c3c7b467a9dd18b5f3a1345da61011413e8b620487bc9e7eea8a8c59bb77c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_wool__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/all_wool__tuttle",
+  "metrics": {
+    "avg_sentence_length": 16.062091503267975,
+    "avg_word_length": 3.736317395727365,
+    "sentence_count": 306,
+    "token_count": 6049,
+    "word_count": 4915
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_wool__tuttle/story.json"
+}

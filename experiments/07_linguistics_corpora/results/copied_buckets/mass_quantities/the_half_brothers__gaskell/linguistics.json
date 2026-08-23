@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26939,
+    "body_sha256": "0e72ed31b28604dab94f8dd19877c9f81ce51e8d7c57947ac50fb1caa92ddf08",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_half_brothers__gaskell/story.json"
+  },
+  "lcats_id": "mass_quantities/the_half_brothers__gaskell",
+  "metrics": {
+    "avg_sentence_length": 28.98974358974359,
+    "avg_word_length": 3.7856005660711127,
+    "sentence_count": 195,
+    "token_count": 6460,
+    "word_count": 5653
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_half_brothers__gaskell/story.json"
+}

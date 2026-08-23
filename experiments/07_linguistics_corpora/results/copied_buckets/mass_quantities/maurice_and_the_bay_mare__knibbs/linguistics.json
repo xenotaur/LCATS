@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25439,
+    "body_sha256": "185e4becf4c9598c77afcc84fe768c95663e7ea571483f9dd44526dd21e895a2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/maurice_and_the_bay_mare__knibbs/story.json"
+  },
+  "lcats_id": "mass_quantities/maurice_and_the_bay_mare__knibbs",
+  "metrics": {
+    "avg_sentence_length": 15.8231884057971,
+    "avg_word_length": 3.648653599560359,
+    "sentence_count": 345,
+    "token_count": 6369,
+    "word_count": 5459
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/maurice_and_the_bay_mare__knibbs/story.json"
+}

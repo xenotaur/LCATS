@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 2701,
+    "body_sha256": "ceba9f08388f02b7297babc2e655da44daed56dd3d0247d46e5da299d08b09a8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/fox_and_the_horse/story.json"
+  },
+  "lcats_id": "grimm/fox_and_the_horse",
+  "metrics": {
+    "avg_sentence_length": 29.61111111111111,
+    "avg_word_length": 4.031894934333959,
+    "sentence_count": 18,
+    "token_count": 631,
+    "word_count": 533
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/fox_and_the_horse/story.json"
+}

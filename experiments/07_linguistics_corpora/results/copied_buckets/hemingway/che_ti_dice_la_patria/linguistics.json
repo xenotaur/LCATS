@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17104,
+    "body_sha256": "407159ca0d6556604327d6dd98a0982badbe9b97378cffb00847c46908c17f29",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/che_ti_dice_la_patria/story.json"
+  },
+  "lcats_id": "hemingway/che_ti_dice_la_patria",
+  "metrics": {
+    "avg_sentence_length": 12.965635738831615,
+    "avg_word_length": 3.5605618870924993,
+    "sentence_count": 291,
+    "token_count": 4649,
+    "word_count": 3773
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/che_ti_dice_la_patria/story.json"
+}

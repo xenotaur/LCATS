@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45104,
+    "body_sha256": "ac65242590f359937c6756c4f5feb7a0430155800bfb2ffd810d33eb6d702fd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sky_sheriff_the_pioneer_spirit_lives_again_in__burtis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sky_sheriff_the_pioneer_spirit_lives_again_in__burtis",
+  "metrics": {
+    "avg_sentence_length": 18.763213530655392,
+    "avg_word_length": 4.1259718309859155,
+    "sentence_count": 473,
+    "token_count": 10250,
+    "word_count": 8875
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sky_sheriff_the_pioneer_spirit_lives_again_in__burtis/story.json"
+}

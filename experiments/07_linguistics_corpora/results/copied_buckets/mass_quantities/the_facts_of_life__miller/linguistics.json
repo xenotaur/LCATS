@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28899,
+    "body_sha256": "99bf105783a581a3cb51026e5f5f447046d2273d00e4a8f53f8804005ccf6721",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_facts_of_life__miller/story.json"
+  },
+  "lcats_id": "mass_quantities/the_facts_of_life__miller",
+  "metrics": {
+    "avg_sentence_length": 20.202797202797203,
+    "avg_word_length": 4.037383177570093,
+    "sentence_count": 286,
+    "token_count": 6545,
+    "word_count": 5778
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_facts_of_life__miller/story.json"
+}

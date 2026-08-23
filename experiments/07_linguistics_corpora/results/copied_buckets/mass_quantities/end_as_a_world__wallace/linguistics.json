@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12382,
+    "body_sha256": "05bc3cd183237758bc784eab3ba95011a6a918f84def451f1c6880150a14b074",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/end_as_a_world__wallace/story.json"
+  },
+  "lcats_id": "mass_quantities/end_as_a_world__wallace",
+  "metrics": {
+    "avg_sentence_length": 10.135849056603774,
+    "avg_word_length": 3.6102010424422932,
+    "sentence_count": 265,
+    "token_count": 3196,
+    "word_count": 2686
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/end_as_a_world__wallace/story.json"
+}

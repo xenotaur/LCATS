@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18522,
+    "body_sha256": "d4890465f0e9af777f5ddb3eee03f411880dd0a682551be4eac1df91441b4609",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cost_of_living__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/cost_of_living__sheckley",
+  "metrics": {
+    "avg_sentence_length": 11.630434782608695,
+    "avg_word_length": 3.925233644859813,
+    "sentence_count": 322,
+    "token_count": 4628,
+    "word_count": 3745
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cost_of_living__sheckley/story.json"
+}

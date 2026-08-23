@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47610,
+    "body_sha256": "290266fcfb7b791c2d4e44b52ae088124a843fa957e942e663e5e077ee5c061e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/flight_perilous__noll/story.json"
+  },
+  "lcats_id": "mass_quantities/flight_perilous__noll",
+  "metrics": {
+    "avg_sentence_length": 14.734299516908212,
+    "avg_word_length": 4.2344262295081965,
+    "sentence_count": 621,
+    "token_count": 10735,
+    "word_count": 9150
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/flight_perilous__noll/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19487,
+    "body_sha256": "8bb9e08f74659e8ab9d18c74d2679919ee2de893fc2674cbd264ddacd15b3433",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/common_denominator__macdonald/story.json"
+  },
+  "lcats_id": "mass_quantities/common_denominator__macdonald",
+  "metrics": {
+    "avg_sentence_length": 14.164122137404581,
+    "avg_word_length": 4.2613850714093235,
+    "sentence_count": 262,
+    "token_count": 4349,
+    "word_count": 3711
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/common_denominator__macdonald/story.json"
+}

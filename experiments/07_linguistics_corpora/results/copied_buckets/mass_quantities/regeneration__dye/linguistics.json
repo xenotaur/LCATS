@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21460,
+    "body_sha256": "e83e0c10b82b7ca19e6dd416c3117c82b60bab84733e3f224537215fac1ef7d3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/regeneration__dye/story.json"
+  },
+  "lcats_id": "mass_quantities/regeneration__dye",
+  "metrics": {
+    "avg_sentence_length": 17.716666666666665,
+    "avg_word_length": 4.097601128880527,
+    "sentence_count": 240,
+    "token_count": 4795,
+    "word_count": 4252
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/regeneration__dye/story.json"
+}

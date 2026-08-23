@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39034,
+    "body_sha256": "3a2052ff55c422c451dbb44a88cb6b9045a39a9afa554db9968b8e61b97a9224",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/hammer_of_god/story.json"
+  },
+  "lcats_id": "chesterton/hammer_of_god",
+  "metrics": {
+    "avg_sentence_length": 21.03293413173653,
+    "avg_word_length": 4.547330960854093,
+    "sentence_count": 334,
+    "token_count": 8282,
+    "word_count": 7025
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/hammer_of_god/story.json"
+}

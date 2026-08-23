@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14634,
+    "body_sha256": "bb99a0d13a5778810986acc3335ee2632756474a3b6874083c1e52f5d796a509",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_heck_s_thanksgiving_party_or_topsy_up_to_date__munsell/story.json"
+  },
+  "lcats_id": "mass_quantities/miss_heck_s_thanksgiving_party_or_topsy_up_to_date__munsell",
+  "metrics": {
+    "avg_sentence_length": 31.72222222222222,
+    "avg_word_length": 4.17968476357268,
+    "sentence_count": 90,
+    "token_count": 3217,
+    "word_count": 2855
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_heck_s_thanksgiving_party_or_topsy_up_to_date__munsell/story.json"
+}

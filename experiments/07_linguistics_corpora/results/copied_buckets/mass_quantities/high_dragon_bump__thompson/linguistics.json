@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24105,
+    "body_sha256": "106de5c57e85f529da12cbc5d153fafc7db812f5b893805cacfce36e935da961",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/high_dragon_bump__thompson/story.json"
+  },
+  "lcats_id": "mass_quantities/high_dragon_bump__thompson",
+  "metrics": {
+    "avg_sentence_length": 10.54585152838428,
+    "avg_word_length": 3.9821946169772255,
+    "sentence_count": 458,
+    "token_count": 5882,
+    "word_count": 4830
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/high_dragon_bump__thompson/story.json"
+}

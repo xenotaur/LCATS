@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21393,
+    "body_sha256": "c0e6ce8bd5231a50a73163e15049d8697b2ede8a9f775bc4f06c57e893ea83ca",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mannion_court_martial__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_mannion_court_martial__garrett",
+  "metrics": {
+    "avg_sentence_length": 12.519287833827892,
+    "avg_word_length": 4.073003081298886,
+    "sentence_count": 337,
+    "token_count": 5138,
+    "word_count": 4219
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mannion_court_martial__garrett/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23469,
+    "body_sha256": "2999d8d5141e8635bf631a85398872e55d1e42165faee8651ef8f9409ebe6c44",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/generals_help_themselves__pease/story.json"
+  },
+  "lcats_id": "mass_quantities/generals_help_themselves__pease",
+  "metrics": {
+    "avg_sentence_length": 12.638655462184873,
+    "avg_word_length": 4.19991134751773,
+    "sentence_count": 357,
+    "token_count": 5361,
+    "word_count": 4512
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/generals_help_themselves__pease/story.json"
+}

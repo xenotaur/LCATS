@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29701,
+    "body_sha256": "1ed2804f4ce9f8359ae71e778167d38cc1d637ed806927225b762308c7144b52",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ecology_on_rollins_island__lang/story.json"
+  },
+  "lcats_id": "mass_quantities/ecology_on_rollins_island__lang",
+  "metrics": {
+    "avg_sentence_length": 12.546583850931677,
+    "avg_word_length": 3.8925742574257427,
+    "sentence_count": 483,
+    "token_count": 7226,
+    "word_count": 6060
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ecology_on_rollins_island__lang/story.json"
+}

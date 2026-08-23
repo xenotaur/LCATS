@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21377,
+    "body_sha256": "3d98347834b32250ffdc3c4b6c230caa277069c4dcff62c764b39a6fa46a9d85",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/santa_claus_message_a_christmas_story__tregaskis/story.json"
+  },
+  "lcats_id": "mass_quantities/santa_claus_message_a_christmas_story__tregaskis",
+  "metrics": {
+    "avg_sentence_length": 18.708520179372197,
+    "avg_word_length": 4.085091083413231,
+    "sentence_count": 223,
+    "token_count": 5030,
+    "word_count": 4172
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/santa_claus_message_a_christmas_story__tregaskis/story.json"
+}

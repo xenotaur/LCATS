@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25651,
+    "body_sha256": "52a68cf22208b59de6c5209cc89111365b89b951b3373e27b2eeef999889ea9e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_crusade__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_crusade__smith",
+  "metrics": {
+    "avg_sentence_length": 14.197916666666666,
+    "avg_word_length": 3.703778429933969,
+    "sentence_count": 384,
+    "token_count": 6429,
+    "word_count": 5452
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_crusade__smith/story.json"
+}

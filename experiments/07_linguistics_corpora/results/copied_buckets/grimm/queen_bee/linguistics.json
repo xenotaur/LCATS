@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4787,
+    "body_sha256": "96ce25f6bbe0728c4192e2b0e8cf01a276947473f3424e885a7c088a71b9f9d5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/queen_bee/story.json"
+  },
+  "lcats_id": "grimm/queen_bee",
+  "metrics": {
+    "avg_sentence_length": 33.07142857142857,
+    "avg_word_length": 4.1922246220302375,
+    "sentence_count": 28,
+    "token_count": 1046,
+    "word_count": 926
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/queen_bee/story.json"
+}

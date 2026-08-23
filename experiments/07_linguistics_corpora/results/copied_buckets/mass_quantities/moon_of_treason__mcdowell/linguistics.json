@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43848,
+    "body_sha256": "7173e84c4ec8ebe79bf195acf9065adb3143a6b7547b9d60d3a51939a3ac1308",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/moon_of_treason__mcdowell/story.json"
+  },
+  "lcats_id": "mass_quantities/moon_of_treason__mcdowell",
+  "metrics": {
+    "avg_sentence_length": 11.420707732634337,
+    "avg_word_length": 4.039017672710581,
+    "sentence_count": 763,
+    "token_count": 10494,
+    "word_count": 8714
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/moon_of_treason__mcdowell/story.json"
+}

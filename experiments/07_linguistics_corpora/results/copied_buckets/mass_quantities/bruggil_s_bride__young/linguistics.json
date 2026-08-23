@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33083,
+    "body_sha256": "8e9ee81d02177b7f9963c56fc98254b612dc7ceb77417de62dfe88d6b2d56b49",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bruggil_s_bride__young/story.json"
+  },
+  "lcats_id": "mass_quantities/bruggil_s_bride__young",
+  "metrics": {
+    "avg_sentence_length": 20.50793650793651,
+    "avg_word_length": 4.163467492260062,
+    "sentence_count": 315,
+    "token_count": 7354,
+    "word_count": 6460
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bruggil_s_bride__young/story.json"
+}

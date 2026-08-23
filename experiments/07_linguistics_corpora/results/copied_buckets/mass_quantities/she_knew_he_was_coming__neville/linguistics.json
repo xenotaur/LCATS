@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27352,
+    "body_sha256": "ce7ff1dd549a928411f869b7ad9de6ba08afe6e177e41f072b394956f8c9d3a5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/she_knew_he_was_coming__neville/story.json"
+  },
+  "lcats_id": "mass_quantities/she_knew_he_was_coming__neville",
+  "metrics": {
+    "avg_sentence_length": 10.342644320297952,
+    "avg_word_length": 3.8590205257472094,
+    "sentence_count": 537,
+    "token_count": 7118,
+    "word_count": 5554
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/she_knew_he_was_coming__neville/story.json"
+}

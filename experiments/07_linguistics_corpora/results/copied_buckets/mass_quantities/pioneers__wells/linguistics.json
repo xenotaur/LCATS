@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24659,
+    "body_sha256": "bc9b27ccce80c69b33098bb24cddc75d9d217c314b7edb4a4b4b0fed816f17e5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pioneers__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/pioneers__wells",
+  "metrics": {
+    "avg_sentence_length": 14.657657657657658,
+    "avg_word_length": 4.0633066994468345,
+    "sentence_count": 333,
+    "token_count": 5751,
+    "word_count": 4881
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pioneers__wells/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32204,
+    "body_sha256": "6d70f917eba0c01c3e4b498ce73b64db17da01de9db51993dfef2cffba048a90",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_pay_the_piper__blish/story.json"
+  },
+  "lcats_id": "mass_quantities/to_pay_the_piper__blish",
+  "metrics": {
+    "avg_sentence_length": 16.270408163265305,
+    "avg_word_length": 4.062715584822828,
+    "sentence_count": 392,
+    "token_count": 7649,
+    "word_count": 6378
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_pay_the_piper__blish/story.json"
+}

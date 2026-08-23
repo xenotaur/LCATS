@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43779,
+    "body_sha256": "2f195223f892314f113e7ba658583fbbee9970df5166b94e79f1e0602a749dad",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earth_s_holocaust_from_mosses_from_an_old_manse__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/earth_s_holocaust_from_mosses_from_an_old_manse__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 30.377289377289376,
+    "avg_word_length": 4.309055830218257,
+    "sentence_count": 273,
+    "token_count": 9491,
+    "word_count": 8293
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earth_s_holocaust_from_mosses_from_an_old_manse__hawthorne/story.json"
+}

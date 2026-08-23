@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34645,
+    "body_sha256": "178b10b92d6c2e8e71ab70d50a68319084614eed2364edb298413bfc2e7f97f8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_worlds_of_if__weinbaum/story.json"
+  },
+  "lcats_id": "mass_quantities/the_worlds_of_if__weinbaum",
+  "metrics": {
+    "avg_sentence_length": 14.044715447154472,
+    "avg_word_length": 4.001736613603473,
+    "sentence_count": 492,
+    "token_count": 8339,
+    "word_count": 6910
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_worlds_of_if__weinbaum/story.json"
+}

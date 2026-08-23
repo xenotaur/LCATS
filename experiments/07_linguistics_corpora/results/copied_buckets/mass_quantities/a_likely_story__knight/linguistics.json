@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33175,
+    "body_sha256": "cb19593a4230b37b3e7b510bec2c2fdafb0d3bf530d6835bb61f2ac421703bc1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_likely_story__knight/story.json"
+  },
+  "lcats_id": "mass_quantities/a_likely_story__knight",
+  "metrics": {
+    "avg_sentence_length": 16.43276283618582,
+    "avg_word_length": 3.922779348311263,
+    "sentence_count": 409,
+    "token_count": 8136,
+    "word_count": 6721
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_likely_story__knight/story.json"
+}

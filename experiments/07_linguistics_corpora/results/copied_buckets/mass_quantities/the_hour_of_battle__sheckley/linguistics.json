@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11593,
+    "body_sha256": "0b75b5682eced46f7d5f0a56edce56f1cc1d82a521790a3b533b20c6cb854934",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hour_of_battle__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hour_of_battle__sheckley",
+  "metrics": {
+    "avg_sentence_length": 10.733333333333333,
+    "avg_word_length": 4.095829636202307,
+    "sentence_count": 210,
+    "token_count": 2880,
+    "word_count": 2254
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hour_of_battle__sheckley/story.json"
+}

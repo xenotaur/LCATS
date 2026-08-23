@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39389,
+    "body_sha256": "3919adc02b95a063ae756f3331f485f1411a46befbc0815c032510c07b0e6519",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/made_to_measure__gault/story.json"
+  },
+  "lcats_id": "mass_quantities/made_to_measure__gault",
+  "metrics": {
+    "avg_sentence_length": 11.144662921348315,
+    "avg_word_length": 3.9417769376181475,
+    "sentence_count": 712,
+    "token_count": 9874,
+    "word_count": 7935
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/made_to_measure__gault/story.json"
+}

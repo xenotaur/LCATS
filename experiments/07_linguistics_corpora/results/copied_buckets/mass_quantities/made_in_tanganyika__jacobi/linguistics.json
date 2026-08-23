@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25383,
+    "body_sha256": "e613e27c4c2f773d17039fd44b3759e6eff3e13ea358b7e18cb9b68da730a776",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/made_in_tanganyika__jacobi/story.json"
+  },
+  "lcats_id": "mass_quantities/made_in_tanganyika__jacobi",
+  "metrics": {
+    "avg_sentence_length": 16.675675675675677,
+    "avg_word_length": 4.187601296596434,
+    "sentence_count": 296,
+    "token_count": 5566,
+    "word_count": 4936
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/made_in_tanganyika__jacobi/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39773,
+    "body_sha256": "cbda927fe5bba35e627eafa408eaf1271dd9d9d98ec12d60f0d569f673abf23a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pioneer__cox/story.json"
+  },
+  "lcats_id": "mass_quantities/the_pioneer__cox",
+  "metrics": {
+    "avg_sentence_length": 12.896381578947368,
+    "avg_word_length": 4.076903456191812,
+    "sentence_count": 608,
+    "token_count": 9238,
+    "word_count": 7841
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pioneer__cox/story.json"
+}

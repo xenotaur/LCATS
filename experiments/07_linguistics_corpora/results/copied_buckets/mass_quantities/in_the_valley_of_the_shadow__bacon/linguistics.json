@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29216,
+    "body_sha256": "6c88f964e33af23c1b3b7f1ffd6440fb9b709d5b1efba24f8034c21e662d017f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/in_the_valley_of_the_shadow__bacon",
+  "metrics": {
+    "avg_sentence_length": 13.5,
+    "avg_word_length": 3.891077441077441,
+    "sentence_count": 440,
+    "token_count": 7295,
+    "word_count": 5940
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/story.json"
+}

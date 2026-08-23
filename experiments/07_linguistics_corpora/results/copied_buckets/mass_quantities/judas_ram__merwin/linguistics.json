@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38682,
+    "body_sha256": "a7b7406b0beb999920b3b9d60ced6ac68dc5c2990d2136649b877e9ab67523f1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/judas_ram__merwin/story.json"
+  },
+  "lcats_id": "mass_quantities/judas_ram__merwin",
+  "metrics": {
+    "avg_sentence_length": 14.163302752293578,
+    "avg_word_length": 4.00816167897396,
+    "sentence_count": 545,
+    "token_count": 9216,
+    "word_count": 7719
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/judas_ram__merwin/story.json"
+}

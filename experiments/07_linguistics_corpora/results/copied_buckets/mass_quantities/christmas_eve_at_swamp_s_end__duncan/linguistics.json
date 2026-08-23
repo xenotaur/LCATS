@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6446,
+    "body_sha256": "d11d5edf6928a9b54ed1dce95df4f79fb449cedb6f66d70fd6440cbe30357684",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/christmas_eve_at_swamp_s_end__duncan/story.json"
+  },
+  "lcats_id": "mass_quantities/christmas_eve_at_swamp_s_end__duncan",
+  "metrics": {
+    "avg_sentence_length": 18.846153846153847,
+    "avg_word_length": 4.181224489795919,
+    "sentence_count": 65,
+    "token_count": 1597,
+    "word_count": 1225
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/christmas_eve_at_swamp_s_end__duncan/story.json"
+}

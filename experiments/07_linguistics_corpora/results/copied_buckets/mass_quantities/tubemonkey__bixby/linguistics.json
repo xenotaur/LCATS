@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25005,
+    "body_sha256": "7ac76315f86580fc16577ddce111a804683a27e5072d887866b990ab44a319cd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tubemonkey__bixby/story.json"
+  },
+  "lcats_id": "mass_quantities/tubemonkey__bixby",
+  "metrics": {
+    "avg_sentence_length": 16.34448160535117,
+    "avg_word_length": 4.147943523634131,
+    "sentence_count": 299,
+    "token_count": 5743,
+    "word_count": 4887
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tubemonkey__bixby/story.json"
+}

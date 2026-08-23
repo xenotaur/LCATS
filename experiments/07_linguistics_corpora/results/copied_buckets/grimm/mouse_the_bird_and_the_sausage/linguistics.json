@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 3995,
+    "body_sha256": "e47114e1832539828298e4e2b1fe5df7248946f92ea6674810294275b82976b8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/mouse_the_bird_and_the_sausage/story.json"
+  },
+  "lcats_id": "grimm/mouse_the_bird_and_the_sausage",
+  "metrics": {
+    "avg_sentence_length": 31.708333333333332,
+    "avg_word_length": 4.266754270696452,
+    "sentence_count": 24,
+    "token_count": 858,
+    "word_count": 761
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/mouse_the_bird_and_the_sausage/story.json"
+}

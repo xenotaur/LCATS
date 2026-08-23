@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26166,
+    "body_sha256": "0a4cf1e945dcd2a05cac1579235c56a91b5bc452be0fcc042b8e2de7efb59101",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/too_close_to_the_forest__reynolds_walton/story.json"
+  },
+  "lcats_id": "mass_quantities/too_close_to_the_forest__reynolds_walton",
+  "metrics": {
+    "avg_sentence_length": 14.771186440677965,
+    "avg_word_length": 4.040351883725378,
+    "sentence_count": 354,
+    "token_count": 6081,
+    "word_count": 5229
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/too_close_to_the_forest__reynolds_walton/story.json"
+}

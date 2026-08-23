@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12055,
+    "body_sha256": "3faa2fbc29ba616d1b7f2a23ecb7eec79772e4dcfad11466b8cccf6667fe6e18",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/native_son__hamm/story.json"
+  },
+  "lcats_id": "mass_quantities/native_son__hamm",
+  "metrics": {
+    "avg_sentence_length": 15.729032258064516,
+    "avg_word_length": 3.951599671862182,
+    "sentence_count": 155,
+    "token_count": 2872,
+    "word_count": 2438
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/native_son__hamm/story.json"
+}

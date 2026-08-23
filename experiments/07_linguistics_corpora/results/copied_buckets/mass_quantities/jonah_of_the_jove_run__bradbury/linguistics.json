@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31153,
+    "body_sha256": "cf0e7541c75abc0fe1c4169bd6371b0e3baccf8ff9511bf210dee0fbc13971bc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jonah_of_the_jove_run__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/jonah_of_the_jove_run__bradbury",
+  "metrics": {
+    "avg_sentence_length": 9.452914798206278,
+    "avg_word_length": 3.8802972802024036,
+    "sentence_count": 669,
+    "token_count": 7936,
+    "word_count": 6324
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jonah_of_the_jove_run__bradbury/story.json"
+}

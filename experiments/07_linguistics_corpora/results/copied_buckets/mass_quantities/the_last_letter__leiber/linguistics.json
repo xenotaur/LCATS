@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23643,
+    "body_sha256": "2754a5d9ee68c7ec5fb1ce498f367344f9d137d5c24a36339854e3f4fe68ca03",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_letter__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_letter__leiber",
+  "metrics": {
+    "avg_sentence_length": 15.587412587412587,
+    "avg_word_length": 4.31269627635711,
+    "sentence_count": 286,
+    "token_count": 5367,
+    "word_count": 4458
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_letter__leiber/story.json"
+}

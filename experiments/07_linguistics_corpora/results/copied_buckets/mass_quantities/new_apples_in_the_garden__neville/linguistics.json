@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19492,
+    "body_sha256": "d1fdb25ee4b84c55553911bf142a1051daf5708821ef71e4c42b6d9f76fbd51b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/new_apples_in_the_garden__neville/story.json"
+  },
+  "lcats_id": "mass_quantities/new_apples_in_the_garden__neville",
+  "metrics": {
+    "avg_sentence_length": 11.910179640718562,
+    "avg_word_length": 3.871543489190548,
+    "sentence_count": 334,
+    "token_count": 4976,
+    "word_count": 3978
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/new_apples_in_the_garden__neville/story.json"
+}

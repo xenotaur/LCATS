@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31259,
+    "body_sha256": "3fc6018287cdd7975454e65474e09a6482dbe4b2813f678de0a0414dd867dae9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_chance__hoskins/story.json"
+  },
+  "lcats_id": "mass_quantities/second_chance__hoskins",
+  "metrics": {
+    "avg_sentence_length": 12.0,
+    "avg_word_length": 3.9845261121856868,
+    "sentence_count": 517,
+    "token_count": 7809,
+    "word_count": 6204
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_chance__hoskins/story.json"
+}

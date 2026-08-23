@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30478,
+    "body_sha256": "73e6b6e3ee8b2783c9c8feff8e96a027245648111d1eb7d7ba46c7dc3750093f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_sweetheart_s_the_man_in_the_moon__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/my_sweetheart_s_the_man_in_the_moon__marlowe",
+  "metrics": {
+    "avg_sentence_length": 10.702846975088969,
+    "avg_word_length": 4.026766417290108,
+    "sentence_count": 562,
+    "token_count": 7579,
+    "word_count": 6015
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_sweetheart_s_the_man_in_the_moon__marlowe/story.json"
+}

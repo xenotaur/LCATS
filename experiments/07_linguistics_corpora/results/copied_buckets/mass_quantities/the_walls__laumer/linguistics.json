@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27393,
+    "body_sha256": "72845ebc41dc643d91fc319d57c6a772fd2f73985ea090b4123f90f4db1417ed",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_walls__laumer/story.json"
+  },
+  "lcats_id": "mass_quantities/the_walls__laumer",
+  "metrics": {
+    "avg_sentence_length": 13.410194174757281,
+    "avg_word_length": 3.911674208144796,
+    "sentence_count": 412,
+    "token_count": 6760,
+    "word_count": 5525
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_walls__laumer/story.json"
+}

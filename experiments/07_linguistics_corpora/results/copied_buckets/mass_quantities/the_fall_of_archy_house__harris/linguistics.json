@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20671,
+    "body_sha256": "10906773f882c5ae4f48957027411993bf71a73765a2b044a9288b01a6397026",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_fall_of_archy_house__harris/story.json"
+  },
+  "lcats_id": "mass_quantities/the_fall_of_archy_house__harris",
+  "metrics": {
+    "avg_sentence_length": 11.808823529411764,
+    "avg_word_length": 4.1110834371108345,
+    "sentence_count": 340,
+    "token_count": 5052,
+    "word_count": 4015
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_fall_of_archy_house__harris/story.json"
+}

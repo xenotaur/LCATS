@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26862,
+    "body_sha256": "428294c25f50bf25f068e8239f03c33b265259ed218d92372e7de4c470a5797a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/half_past_alligator__colvin/story.json"
+  },
+  "lcats_id": "mass_quantities/half_past_alligator__colvin",
+  "metrics": {
+    "avg_sentence_length": 12.401913875598087,
+    "avg_word_length": 4.15991512345679,
+    "sentence_count": 418,
+    "token_count": 6317,
+    "word_count": 5184
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/half_past_alligator__colvin/story.json"
+}

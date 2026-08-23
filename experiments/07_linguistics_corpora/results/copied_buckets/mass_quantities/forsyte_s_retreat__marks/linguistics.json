@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29483,
+    "body_sha256": "6e005e3a8a98f93c8a95a6387c82f1d87522326a3ce25660c5841f1df773e506",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forsyte_s_retreat__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/forsyte_s_retreat__marks",
+  "metrics": {
+    "avg_sentence_length": 13.75421686746988,
+    "avg_word_length": 4.183426769446391,
+    "sentence_count": 415,
+    "token_count": 6773,
+    "word_count": 5708
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forsyte_s_retreat__marks/story.json"
+}

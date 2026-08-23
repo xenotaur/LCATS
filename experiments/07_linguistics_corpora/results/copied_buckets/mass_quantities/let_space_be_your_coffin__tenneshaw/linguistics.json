@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30651,
+    "body_sha256": "69937156f80be0402b9a5d5eea9d6fc5bed78491496dfc4d760d24c5a4fb5320",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_space_be_your_coffin__tenneshaw/story.json"
+  },
+  "lcats_id": "mass_quantities/let_space_be_your_coffin__tenneshaw",
+  "metrics": {
+    "avg_sentence_length": 10.942408376963352,
+    "avg_word_length": 3.8964912280701753,
+    "sentence_count": 573,
+    "token_count": 7447,
+    "word_count": 6270
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_space_be_your_coffin__tenneshaw/story.json"
+}

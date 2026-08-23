@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24438,
+    "body_sha256": "072f6a79f2593c644a1a9c61f8d99f70aa44edf602fab413a96d0cd24e46a658",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cakewalk_to_gloryanna__stecher/story.json"
+  },
+  "lcats_id": "mass_quantities/cakewalk_to_gloryanna__stecher",
+  "metrics": {
+    "avg_sentence_length": 16.537953795379536,
+    "avg_word_length": 3.9028138096188387,
+    "sentence_count": 303,
+    "token_count": 5782,
+    "word_count": 5011
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cakewalk_to_gloryanna__stecher/story.json"
+}

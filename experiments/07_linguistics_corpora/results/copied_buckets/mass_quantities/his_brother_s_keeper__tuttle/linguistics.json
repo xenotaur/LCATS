@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35895,
+    "body_sha256": "f5692971adb58cacc1d4ae89b747d1f4b68ca97ae93634e0b1f7785bc08eda40",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/his_brother_s_keeper__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/his_brother_s_keeper__tuttle",
+  "metrics": {
+    "avg_sentence_length": 13.430357142857142,
+    "avg_word_length": 3.759872357399282,
+    "sentence_count": 560,
+    "token_count": 9090,
+    "word_count": 7521
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/his_brother_s_keeper__tuttle/story.json"
+}

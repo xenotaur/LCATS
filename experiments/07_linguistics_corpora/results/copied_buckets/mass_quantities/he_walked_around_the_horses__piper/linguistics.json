@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45591,
+    "body_sha256": "62602783b0fcc4d038617f25085080762ee86fafecee5ef702a2ee76bbb18d8b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/he_walked_around_the_horses__piper/story.json"
+  },
+  "lcats_id": "mass_quantities/he_walked_around_the_horses__piper",
+  "metrics": {
+    "avg_sentence_length": 26.922619047619047,
+    "avg_word_length": 4.075060800353747,
+    "sentence_count": 336,
+    "token_count": 10443,
+    "word_count": 9046
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/he_walked_around_the_horses__piper/story.json"
+}

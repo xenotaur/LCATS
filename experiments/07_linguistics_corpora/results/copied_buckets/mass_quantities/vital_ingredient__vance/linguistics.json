@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16093,
+    "body_sha256": "7350a8b60f8df2329a6e2a890f5206b96633818a16a908d1f772d424b73bdff1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vital_ingredient__vance/story.json"
+  },
+  "lcats_id": "mass_quantities/vital_ingredient__vance",
+  "metrics": {
+    "avg_sentence_length": 11.360544217687075,
+    "avg_word_length": 3.825149700598802,
+    "sentence_count": 294,
+    "token_count": 3989,
+    "word_count": 3340
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vital_ingredient__vance/story.json"
+}

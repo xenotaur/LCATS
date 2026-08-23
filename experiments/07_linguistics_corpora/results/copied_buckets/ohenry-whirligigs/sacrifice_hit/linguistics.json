@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10018,
+    "body_sha256": "f838497c8bb32983e7f7c5a96c4017da3d81f46ec919c11c721a2125fde54bd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/sacrifice_hit/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/sacrifice_hit",
+  "metrics": {
+    "avg_sentence_length": 22.647058823529413,
+    "avg_word_length": 4.231168831168831,
+    "sentence_count": 85,
+    "token_count": 2242,
+    "word_count": 1925
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/sacrifice_hit/story.json"
+}

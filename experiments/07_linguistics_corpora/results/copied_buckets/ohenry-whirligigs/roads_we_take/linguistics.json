@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9531,
+    "body_sha256": "8f7782cde134ddaa40c7b5c497c073d91ff908681c19f80b7b3b14db32cd119f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/roads_we_take/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/roads_we_take",
+  "metrics": {
+    "avg_sentence_length": 19.198019801980198,
+    "avg_word_length": 3.928313563692625,
+    "sentence_count": 101,
+    "token_count": 2287,
+    "word_count": 1939
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/roads_we_take/story.json"
+}

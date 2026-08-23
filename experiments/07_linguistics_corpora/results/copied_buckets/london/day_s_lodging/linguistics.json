@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30563,
+    "body_sha256": "d8351cafe989bee2d4e506fdb54ae4118833b9092e4726e5d1b08f9ca0d980a4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/day_s_lodging/story.json"
+  },
+  "lcats_id": "london/day_s_lodging",
+  "metrics": {
+    "avg_sentence_length": 14.530973451327434,
+    "avg_word_length": 3.750456760048721,
+    "sentence_count": 452,
+    "token_count": 7970,
+    "word_count": 6568
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/day_s_lodging/story.json"
+}

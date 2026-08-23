@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 55726,
+    "body_sha256": "9462e79cd53ecb5b0a99bcf022d868f537e5f6fb3efb3d2c46ec6fc18befc4e8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_seed_of_the_toc_toc_birds__weiss/story.json"
+  },
+  "lcats_id": "mass_quantities/the_seed_of_the_toc_toc_birds__weiss",
+  "metrics": {
+    "avg_sentence_length": 15.980597014925372,
+    "avg_word_length": 4.21285140562249,
+    "sentence_count": 670,
+    "token_count": 12566,
+    "word_count": 10707
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_seed_of_the_toc_toc_birds__weiss/story.json"
+}

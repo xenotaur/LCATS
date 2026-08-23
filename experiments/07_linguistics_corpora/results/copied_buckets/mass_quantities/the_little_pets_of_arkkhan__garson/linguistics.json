@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45048,
+    "body_sha256": "876add7e85690148850a87cb32b724b527f5e4f9dab3ea347dcb69edfc981463",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_little_pets_of_arkkhan__garson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_little_pets_of_arkkhan__garson",
+  "metrics": {
+    "avg_sentence_length": 11.066026410564225,
+    "avg_word_length": 3.8916250813625517,
+    "sentence_count": 833,
+    "token_count": 11107,
+    "word_count": 9218
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_little_pets_of_arkkhan__garson/story.json"
+}

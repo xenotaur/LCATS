@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51531,
+    "body_sha256": "3efa26014b8497203f583da43128ce87a23e1605068283c6a261b3eed9aaa6a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/boscombe_valley/story.json"
+  },
+  "lcats_id": "sherlock/boscombe_valley",
+  "metrics": {
+    "avg_sentence_length": 19.220802919708028,
+    "avg_word_length": 3.878002468432545,
+    "sentence_count": 548,
+    "token_count": 12402,
+    "word_count": 10533
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/boscombe_valley/story.json"
+}

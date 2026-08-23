@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22785,
+    "body_sha256": "6397395253bce70aa1168f6a934b431407b4a1248f698d869c8d8dd908194828",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_oscar_went_wild__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/when_oscar_went_wild__tuttle",
+  "metrics": {
+    "avg_sentence_length": 16.4006734006734,
+    "avg_word_length": 3.6606446314925067,
+    "sentence_count": 297,
+    "token_count": 5983,
+    "word_count": 4871
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_oscar_went_wild__tuttle/story.json"
+}

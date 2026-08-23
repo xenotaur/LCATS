@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43222,
+    "body_sha256": "30185aac1e378c8e70d1aa292dba5290e8f4615d73eec8ed5bdba9c9a74e2200",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/making_good_for_muley__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/making_good_for_muley__tuttle",
+  "metrics": {
+    "avg_sentence_length": 16.77355072463768,
+    "avg_word_length": 3.656442380386651,
+    "sentence_count": 552,
+    "token_count": 11412,
+    "word_count": 9259
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/making_good_for_muley__tuttle/story.json"
+}

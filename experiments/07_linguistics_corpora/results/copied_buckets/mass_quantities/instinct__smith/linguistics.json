@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25717,
+    "body_sha256": "8b6e2bde3f7a8061df8e724703d6ef867f3eb53c9b35baa51e11e3a8cd870db0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/instinct__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/instinct__smith",
+  "metrics": {
+    "avg_sentence_length": 14.780701754385966,
+    "avg_word_length": 4.103066271018793,
+    "sentence_count": 342,
+    "token_count": 5974,
+    "word_count": 5055
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/instinct__smith/story.json"
+}

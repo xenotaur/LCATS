@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24426,
+    "body_sha256": "3a843c23f6e9fcff6b7949751aa043ef5cd09ab84e4456256c543cfe701f291b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miracle__cummings/story.json"
+  },
+  "lcats_id": "mass_quantities/miracle__cummings",
+  "metrics": {
+    "avg_sentence_length": 14.300595238095237,
+    "avg_word_length": 4.089698231009365,
+    "sentence_count": 336,
+    "token_count": 5643,
+    "word_count": 4805
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miracle__cummings/story.json"
+}

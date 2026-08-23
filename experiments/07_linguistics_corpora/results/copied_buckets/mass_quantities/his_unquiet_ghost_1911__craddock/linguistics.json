@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45640,
+    "body_sha256": "dc8b4ab52960d6538e145f3c9052b1d765aa9dcf810d17f99e79d22d399e129c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/his_unquiet_ghost_1911__craddock/story.json"
+  },
+  "lcats_id": "mass_quantities/his_unquiet_ghost_1911__craddock",
+  "metrics": {
+    "avg_sentence_length": 23.745308310991955,
+    "avg_word_length": 4.164728463362312,
+    "sentence_count": 373,
+    "token_count": 10402,
+    "word_count": 8857
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/his_unquiet_ghost_1911__craddock/story.json"
+}

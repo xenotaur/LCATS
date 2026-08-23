@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29526,
+    "body_sha256": "faf34783f280cea4ce1d7b6e09a9ceb4307d224377e61c0fd8d212a85ed983e7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_intelligence_office_from_mosses_from_an_old_ma__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/the_intelligence_office_from_mosses_from_an_old_ma__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 30.61413043478261,
+    "avg_word_length": 4.255458902893662,
+    "sentence_count": 184,
+    "token_count": 6520,
+    "word_count": 5633
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_intelligence_office_from_mosses_from_an_old_ma__hawthorne/story.json"
+}

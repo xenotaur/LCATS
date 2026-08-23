@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48136,
+    "body_sha256": "f62f8746eaf1f08702c25cf5ac68ad7d1505fdd2734a302c5be9c609f8ccd9e2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lurking_fear__lovecraft/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lurking_fear__lovecraft",
+  "metrics": {
+    "avg_sentence_length": 28.461783439490446,
+    "avg_word_length": 4.452165156092649,
+    "sentence_count": 314,
+    "token_count": 9831,
+    "word_count": 8937
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lurking_fear__lovecraft/story.json"
+}

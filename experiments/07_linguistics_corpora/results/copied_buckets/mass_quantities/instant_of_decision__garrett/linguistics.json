@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48488,
+    "body_sha256": "276344a1a71331caa564ed1564b9231b201b8c35109c0a5dc7faa3bc2c8eb053",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/instant_of_decision__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/instant_of_decision__garrett",
+  "metrics": {
+    "avg_sentence_length": 13.470588235294118,
+    "avg_word_length": 4.064254522769807,
+    "sentence_count": 714,
+    "token_count": 11385,
+    "word_count": 9618
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/instant_of_decision__garrett/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15591,
+    "body_sha256": "66a4ed0c5a6a43878a86e0d7698e312301b61eaf86548004f04013ce2253a605",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/treasure_of_triton__baker/story.json"
+  },
+  "lcats_id": "mass_quantities/treasure_of_triton__baker",
+  "metrics": {
+    "avg_sentence_length": 16.083333333333332,
+    "avg_word_length": 4.071567357512953,
+    "sentence_count": 192,
+    "token_count": 3551,
+    "word_count": 3088
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/treasure_of_triton__baker/story.json"
+}

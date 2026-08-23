@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27046,
+    "body_sha256": "cc40324c6ed79a773dd14a2117345397fe111121a0110d4ac7d7e52aa0b861fe",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/white_man_s_way/story.json"
+  },
+  "lcats_id": "london/white_man_s_way",
+  "metrics": {
+    "avg_sentence_length": 16.803324099722992,
+    "avg_word_length": 3.5601714474118036,
+    "sentence_count": 361,
+    "token_count": 7077,
+    "word_count": 6066
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/white_man_s_way/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23452,
+    "body_sha256": "fb41ecbea2948c3c3992dcd2a9064115a9426e280eae5c188b5cfb915bd8ad84",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_tactics__sevcik/story.json"
+  },
+  "lcats_id": "mass_quantities/survival_tactics__sevcik",
+  "metrics": {
+    "avg_sentence_length": 15.63888888888889,
+    "avg_word_length": 4.225355239786857,
+    "sentence_count": 288,
+    "token_count": 5218,
+    "word_count": 4504
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_tactics__sevcik/story.json"
+}

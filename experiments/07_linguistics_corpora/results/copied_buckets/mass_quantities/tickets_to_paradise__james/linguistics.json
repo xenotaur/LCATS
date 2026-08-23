@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39221,
+    "body_sha256": "e0b57d9300dccc8846416ef991ea130913eee297ed36cb0c276527228738d580",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tickets_to_paradise__james/story.json"
+  },
+  "lcats_id": "mass_quantities/tickets_to_paradise__james",
+  "metrics": {
+    "avg_sentence_length": 15.210325047801147,
+    "avg_word_length": 3.932118164676304,
+    "sentence_count": 523,
+    "token_count": 9407,
+    "word_count": 7955
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tickets_to_paradise__james/story.json"
+}

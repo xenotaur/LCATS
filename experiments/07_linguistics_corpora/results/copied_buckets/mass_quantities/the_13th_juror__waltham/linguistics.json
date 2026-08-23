@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29275,
+    "body_sha256": "d4eb96eb5c6f50c6e28d0b8690d0a7a09744f43871b8f55cd1298988279ac8ef",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_13th_juror__waltham/story.json"
+  },
+  "lcats_id": "mass_quantities/the_13th_juror__waltham",
+  "metrics": {
+    "avg_sentence_length": 9.844974446337309,
+    "avg_word_length": 3.9892715002595605,
+    "sentence_count": 587,
+    "token_count": 7369,
+    "word_count": 5779
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_13th_juror__waltham/story.json"
+}

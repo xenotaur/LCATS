@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16584,
+    "body_sha256": "5dd360c61613ec18147c97523801642c5a4e1e356702b4c12e90dafe8d70bd7e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eagles_gather__kelleam/story.json"
+  },
+  "lcats_id": "mass_quantities/the_eagles_gather__kelleam",
+  "metrics": {
+    "avg_sentence_length": 10.289156626506024,
+    "avg_word_length": 3.829625292740047,
+    "sentence_count": 332,
+    "token_count": 4168,
+    "word_count": 3416
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eagles_gather__kelleam/story.json"
+}

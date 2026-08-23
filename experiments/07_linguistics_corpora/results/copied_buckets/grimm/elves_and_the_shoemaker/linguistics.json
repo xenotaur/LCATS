@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4192,
+    "body_sha256": "e8297fc0c26e69fb19b38fedbe174b66a894589393b01f80bcc174396bcbc559",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/elves_and_the_shoemaker/story.json"
+  },
+  "lcats_id": "grimm/elves_and_the_shoemaker",
+  "metrics": {
+    "avg_sentence_length": 34.95652173913044,
+    "avg_word_length": 4.231343283582089,
+    "sentence_count": 23,
+    "token_count": 908,
+    "word_count": 804
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/elves_and_the_shoemaker/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 56563,
+    "body_sha256": "fea197659931332d74eec669a0a94750b8eefefbe9244b4cfdb336848663112d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/calling_the_empress__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/calling_the_empress__smith",
+  "metrics": {
+    "avg_sentence_length": 15.84129213483146,
+    "avg_word_length": 4.026509442326447,
+    "sentence_count": 712,
+    "token_count": 13392,
+    "word_count": 11279
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/calling_the_empress__smith/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4156,
+    "body_sha256": "d67404fe3dd873cb2acf7b541fa834d4264740d327152f81eb9c68d68bd7d118",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/aide_memoire__laumer/story.json"
+  },
+  "lcats_id": "mass_quantities/aide_memoire__laumer",
+  "metrics": {
+    "avg_sentence_length": 14.033898305084746,
+    "avg_word_length": 3.904589371980676,
+    "sentence_count": 59,
+    "token_count": 1090,
+    "word_count": 828
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/aide_memoire__laumer/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14383,
+    "body_sha256": "13c9371fd06f9bc12a68c725557f0d653f9df20a377f607ed62d66d078d57130",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/sociology_in_serge_and_straw/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/sociology_in_serge_and_straw",
+  "metrics": {
+    "avg_sentence_length": 16.84431137724551,
+    "avg_word_length": 4.091006043370068,
+    "sentence_count": 167,
+    "token_count": 3445,
+    "word_count": 2813
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/sociology_in_serge_and_straw/story.json"
+}

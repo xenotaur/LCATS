@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42601,
+    "body_sha256": "3aefeace18ad77f5ed52620d44b3306bbc9df1be98066736a985dd9a044a56fb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/george_walker_at_suez__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/george_walker_at_suez__trollope",
+  "metrics": {
+    "avg_sentence_length": 25.746438746438745,
+    "avg_word_length": 3.7751466194533583,
+    "sentence_count": 351,
+    "token_count": 10100,
+    "word_count": 9037
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/george_walker_at_suez__trollope/story.json"
+}

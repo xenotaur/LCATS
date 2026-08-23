@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37374,
+    "body_sha256": "09729b0e33b39eafba24838dbcf161b831b0c4473d7b2746e1a94848d2619b5c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/noble_redman__bone/story.json"
+  },
+  "lcats_id": "mass_quantities/noble_redman__bone",
+  "metrics": {
+    "avg_sentence_length": 12.955,
+    "avg_word_length": 3.817830953299884,
+    "sentence_count": 600,
+    "token_count": 9197,
+    "word_count": 7773
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/noble_redman__bone/story.json"
+}

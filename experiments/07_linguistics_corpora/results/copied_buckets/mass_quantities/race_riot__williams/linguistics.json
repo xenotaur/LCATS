@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31670,
+    "body_sha256": "cc57168b0e37690cd6e7b5b55e97592b8ce9c78553efef807235b7c356715ab8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/race_riot__williams/story.json"
+  },
+  "lcats_id": "mass_quantities/race_riot__williams",
+  "metrics": {
+    "avg_sentence_length": 14.736720554272518,
+    "avg_word_length": 3.9609779031499763,
+    "sentence_count": 433,
+    "token_count": 7600,
+    "word_count": 6381
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/race_riot__williams/story.json"
+}

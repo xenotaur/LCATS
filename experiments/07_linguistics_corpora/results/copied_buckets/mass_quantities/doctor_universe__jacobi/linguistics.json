@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35420,
+    "body_sha256": "0c254d861f50a269fdc9c6a5d342ecd39c344670fa79139483550561069a7bb3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doctor_universe__jacobi/story.json"
+  },
+  "lcats_id": "mass_quantities/doctor_universe__jacobi",
+  "metrics": {
+    "avg_sentence_length": 13.602316602316602,
+    "avg_word_length": 4.054499006528527,
+    "sentence_count": 518,
+    "token_count": 8249,
+    "word_count": 7046
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doctor_universe__jacobi/story.json"
+}

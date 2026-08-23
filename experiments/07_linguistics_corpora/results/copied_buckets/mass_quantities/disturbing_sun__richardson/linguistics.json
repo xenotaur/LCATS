@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23459,
+    "body_sha256": "df97947f40529f0d892a7e862c180b2a7ae96aeeb9df61db8a07eb82fb194107",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/disturbing_sun__richardson/story.json"
+  },
+  "lcats_id": "mass_quantities/disturbing_sun__richardson",
+  "metrics": {
+    "avg_sentence_length": 14.587662337662337,
+    "avg_word_length": 4.285110171377698,
+    "sentence_count": 308,
+    "token_count": 5065,
+    "word_count": 4493
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/disturbing_sun__richardson/story.json"
+}

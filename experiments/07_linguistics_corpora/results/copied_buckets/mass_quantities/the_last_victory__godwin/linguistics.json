@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33470,
+    "body_sha256": "b430ac56a2f25c980cd04dd01fefdf55f9373a45c4275161744346c6b71c80f0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_victory__godwin/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_victory__godwin",
+  "metrics": {
+    "avg_sentence_length": 17.13659793814433,
+    "avg_word_length": 4.071589712738758,
+    "sentence_count": 388,
+    "token_count": 7593,
+    "word_count": 6649
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_victory__godwin/story.json"
+}

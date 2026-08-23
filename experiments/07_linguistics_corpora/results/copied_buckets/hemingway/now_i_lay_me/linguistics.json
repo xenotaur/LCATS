@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15600,
+    "body_sha256": "abb343a40f6b6121d5d311e79852c3f146f88dc246608c0b0d2c7ca3618eacef",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/now_i_lay_me/story.json"
+  },
+  "lcats_id": "hemingway/now_i_lay_me",
+  "metrics": {
+    "avg_sentence_length": 17.688442211055275,
+    "avg_word_length": 3.509659090909091,
+    "sentence_count": 199,
+    "token_count": 4119,
+    "word_count": 3520
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/now_i_lay_me/story.json"
+}

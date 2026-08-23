@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27108,
+    "body_sha256": "ca992abc543584419321ba902f9a77b013590430e92d47a238ced69b594d953c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/there_was_an_old_woman__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/there_was_an_old_woman__silverberg",
+  "metrics": {
+    "avg_sentence_length": 16.823343848580443,
+    "avg_word_length": 4.104631539471217,
+    "sentence_count": 317,
+    "token_count": 6240,
+    "word_count": 5333
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/there_was_an_old_woman__silverberg/story.json"
+}

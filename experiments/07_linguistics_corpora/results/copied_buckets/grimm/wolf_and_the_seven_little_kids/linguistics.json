@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6228,
+    "body_sha256": "fcdf9d68bcee4ec778708a9d1d64db56dae7e0798b54ff75b6bd05d6c7ab0a90",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/wolf_and_the_seven_little_kids/story.json"
+  },
+  "lcats_id": "grimm/wolf_and_the_seven_little_kids",
+  "metrics": {
+    "avg_sentence_length": 21.727272727272727,
+    "avg_word_length": 4.186610878661088,
+    "sentence_count": 55,
+    "token_count": 1405,
+    "word_count": 1195
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/wolf_and_the_seven_little_kids/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6160,
+    "body_sha256": "2d1055d9b2e04932f6fbe80b41146c06fa0a75ff36f8b009eeac4d3f1b20ccd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/twelve_huntsmen/story.json"
+  },
+  "lcats_id": "grimm/twelve_huntsmen",
+  "metrics": {
+    "avg_sentence_length": 24.74468085106383,
+    "avg_word_length": 4.267411865864145,
+    "sentence_count": 47,
+    "token_count": 1382,
+    "word_count": 1163
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/twelve_huntsmen/story.json"
+}

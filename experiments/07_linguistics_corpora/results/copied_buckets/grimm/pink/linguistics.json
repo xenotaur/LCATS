@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9855,
+    "body_sha256": "4646b073eb90a0b2d3aadf472abc18e49788fbcecf6eb5f01e14c946f22f2334",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/pink/story.json"
+  },
+  "lcats_id": "grimm/pink",
+  "metrics": {
+    "avg_sentence_length": 30.25,
+    "avg_word_length": 4.071797520661157,
+    "sentence_count": 64,
+    "token_count": 2235,
+    "word_count": 1936
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/pink/story.json"
+}

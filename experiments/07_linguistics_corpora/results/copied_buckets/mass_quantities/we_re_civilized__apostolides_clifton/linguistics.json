@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24327,
+    "body_sha256": "f59c79643f3015886fea3f4b96da6cebe2cf902049065a5c33b7030980f56fb4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/we_re_civilized__apostolides_clifton/story.json"
+  },
+  "lcats_id": "mass_quantities/we_re_civilized__apostolides_clifton",
+  "metrics": {
+    "avg_sentence_length": 14.12539184952978,
+    "avg_word_length": 4.392809587217044,
+    "sentence_count": 319,
+    "token_count": 5352,
+    "word_count": 4506
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/we_re_civilized__apostolides_clifton/story.json"
+}

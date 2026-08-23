@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43801,
+    "body_sha256": "22116d0097948e7b7c226d8afb4dfdd475d4cb5cc742a5d9cef20db66eeef6f7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_hated_himself__coburn/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_who_hated_himself__coburn",
+  "metrics": {
+    "avg_sentence_length": 12.836909871244636,
+    "avg_word_length": 3.8999219881867826,
+    "sentence_count": 699,
+    "token_count": 10389,
+    "word_count": 8973
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_hated_himself__coburn/story.json"
+}

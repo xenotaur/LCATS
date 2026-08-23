@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31812,
+    "body_sha256": "68d4f3b945e56289d7f679ae231358b4446b3c3fdc6ba7275bc35d8d001ff85a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/story.json"
+  },
+  "lcats_id": "mass_quantities/the_seven_missionaries__mcneile",
+  "metrics": {
+    "avg_sentence_length": 17.211640211640212,
+    "avg_word_length": 3.897325545650169,
+    "sentence_count": 378,
+    "token_count": 7614,
+    "word_count": 6506
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/story.json"
+}

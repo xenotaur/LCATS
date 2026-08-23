@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 2699,
+    "body_sha256": "ed7700b9456a1ae8066788e961784f29b24d257ae488f949c0e888a1c28ce8c2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/money_is_the_root_of_all_good__wilkins/story.json"
+  },
+  "lcats_id": "mass_quantities/money_is_the_root_of_all_good__wilkins",
+  "metrics": {
+    "avg_sentence_length": 15.823529411764707,
+    "avg_word_length": 4.0464684014869885,
+    "sentence_count": 34,
+    "token_count": 623,
+    "word_count": 538
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/money_is_the_root_of_all_good__wilkins/story.json"
+}

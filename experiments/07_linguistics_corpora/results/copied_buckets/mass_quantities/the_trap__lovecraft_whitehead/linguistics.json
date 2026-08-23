@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50079,
+    "body_sha256": "b6506e0aeab81034dc46b67fdda0ba0e0fb008c647c33066d11a544278727f6f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_trap__lovecraft_whitehead/story.json"
+  },
+  "lcats_id": "mass_quantities/the_trap__lovecraft_whitehead",
+  "metrics": {
+    "avg_sentence_length": 28.14626865671642,
+    "avg_word_length": 4.372786085480963,
+    "sentence_count": 335,
+    "token_count": 10575,
+    "word_count": 9429
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_trap__lovecraft_whitehead/story.json"
+}

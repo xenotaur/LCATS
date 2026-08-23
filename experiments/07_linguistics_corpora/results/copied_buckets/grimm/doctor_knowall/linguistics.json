@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4360,
+    "body_sha256": "ae8862c9775e183f4aaaa80aaab11cfaf60fcfdd60e199bf227802191e2b3f15",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/doctor_knowall/story.json"
+  },
+  "lcats_id": "grimm/doctor_knowall",
+  "metrics": {
+    "avg_sentence_length": 23.25,
+    "avg_word_length": 4.148148148148148,
+    "sentence_count": 36,
+    "token_count": 1003,
+    "word_count": 837
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/doctor_knowall/story.json"
+}

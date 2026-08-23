@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46917,
+    "body_sha256": "1ca0e0d4d0163b1ea01ba586e69c2ccb582271d38a25203b0a2ec5656779a21a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/i_ll_see_you_in_my_dreams__gault/story.json"
+  },
+  "lcats_id": "mass_quantities/i_ll_see_you_in_my_dreams__gault",
+  "metrics": {
+    "avg_sentence_length": 10.10651499482937,
+    "avg_word_length": 3.753402230635424,
+    "sentence_count": 967,
+    "token_count": 12495,
+    "word_count": 9773
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/i_ll_see_you_in_my_dreams__gault/story.json"
+}

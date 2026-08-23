@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40019,
+    "body_sha256": "ec438b9c309684f56dcac7fa06e0b4c8ebd407fc2f1c4a296ee040db352b455a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/innocent_at_large__anderson_anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/innocent_at_large__anderson_anderson",
+  "metrics": {
+    "avg_sentence_length": 11.593659942363113,
+    "avg_word_length": 3.911508824260502,
+    "sentence_count": 694,
+    "token_count": 10165,
+    "word_count": 8046
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/innocent_at_large__anderson_anderson/story.json"
+}

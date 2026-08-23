@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25130,
+    "body_sha256": "bad0626935130751d2ebfd64683243157600b9ee7ce7312a3d89cfa9100b0210",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/crossroads_of_destiny__piper/story.json"
+  },
+  "lcats_id": "mass_quantities/crossroads_of_destiny__piper",
+  "metrics": {
+    "avg_sentence_length": 18.58671586715867,
+    "avg_word_length": 3.998014691284495,
+    "sentence_count": 271,
+    "token_count": 5985,
+    "word_count": 5037
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/crossroads_of_destiny__piper/story.json"
+}

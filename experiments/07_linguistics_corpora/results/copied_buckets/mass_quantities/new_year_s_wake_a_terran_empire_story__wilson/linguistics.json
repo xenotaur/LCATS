@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16925,
+    "body_sha256": "2dc4560767a0c2001f69b0f86fea85a0fc3a6d9b867957f5ef22757045d57c87",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/new_year_s_wake_a_terran_empire_story__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/new_year_s_wake_a_terran_empire_story__wilson",
+  "metrics": {
+    "avg_sentence_length": 15.811926605504587,
+    "avg_word_length": 3.9123875834058603,
+    "sentence_count": 218,
+    "token_count": 4196,
+    "word_count": 3447
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/new_year_s_wake_a_terran_empire_story__wilson/story.json"
+}

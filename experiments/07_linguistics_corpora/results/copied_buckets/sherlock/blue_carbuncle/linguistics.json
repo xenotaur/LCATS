@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42258,
+    "body_sha256": "853c8dcbb1194ad50aeeebe4a50985307d264708a13f534cba855fb6aa97f9bc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/blue_carbuncle/story.json"
+  },
+  "lcats_id": "sherlock/blue_carbuncle",
+  "metrics": {
+    "avg_sentence_length": 19.115044247787612,
+    "avg_word_length": 3.8581018518518517,
+    "sentence_count": 452,
+    "token_count": 10440,
+    "word_count": 8640
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/blue_carbuncle/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40182,
+    "body_sha256": "1ed03061ba61aa62ed2d4e060b74b269e6c7196c696a1252337f8b816d2fb716",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/greville_fane__james/story.json"
+  },
+  "lcats_id": "mass_quantities/greville_fane__james",
+  "metrics": {
+    "avg_sentence_length": 26.453968253968252,
+    "avg_word_length": 3.895595823832953,
+    "sentence_count": 315,
+    "token_count": 9370,
+    "word_count": 8333
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/greville_fane__james/story.json"
+}

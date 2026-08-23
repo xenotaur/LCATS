@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31801,
+    "body_sha256": "318037cba1af64f009ea4dd2940b61900bbba163572fc4ce36494b70f11667c5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sunfire__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/sunfire__hamilton",
+  "metrics": {
+    "avg_sentence_length": 15.243436754176612,
+    "avg_word_length": 3.986691717551276,
+    "sentence_count": 419,
+    "token_count": 7617,
+    "word_count": 6387
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sunfire__hamilton/story.json"
+}

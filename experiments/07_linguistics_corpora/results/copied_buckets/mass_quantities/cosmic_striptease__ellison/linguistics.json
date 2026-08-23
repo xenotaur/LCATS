@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32258,
+    "body_sha256": "b067fd533b68ffc3c4d6497ef8aa61e4836483708c8b90e4f29aad31da620e88",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cosmic_striptease__ellison/story.json"
+  },
+  "lcats_id": "mass_quantities/cosmic_striptease__ellison",
+  "metrics": {
+    "avg_sentence_length": 14.907407407407407,
+    "avg_word_length": 3.9832298136645963,
+    "sentence_count": 432,
+    "token_count": 7832,
+    "word_count": 6440
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cosmic_striptease__ellison/story.json"
+}

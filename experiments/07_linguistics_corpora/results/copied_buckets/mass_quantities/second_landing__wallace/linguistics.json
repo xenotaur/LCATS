@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13604,
+    "body_sha256": "9de4d3810f24c61c5b7c3095dbb87318f4303b62700f61ce84f1eb596d801e09",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_landing__wallace/story.json"
+  },
+  "lcats_id": "mass_quantities/second_landing__wallace",
+  "metrics": {
+    "avg_sentence_length": 11.56910569105691,
+    "avg_word_length": 3.7501756851721715,
+    "sentence_count": 246,
+    "token_count": 3553,
+    "word_count": 2846
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_landing__wallace/story.json"
+}

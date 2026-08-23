@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33333,
+    "body_sha256": "7f63459136a44b7e7b9cbc0191d9e0eb97f50fdd471dc2359e1dab3eee448513",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/crowned_heads/story.json"
+  },
+  "lcats_id": "wodehouse/crowned_heads",
+  "metrics": {
+    "avg_sentence_length": 15.702564102564102,
+    "avg_word_length": 4.454114957544089,
+    "sentence_count": 390,
+    "token_count": 7277,
+    "word_count": 6124
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/crowned_heads/story.json"
+}

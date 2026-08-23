@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35994,
+    "body_sha256": "dd55e23bc8155a2e605a2988b42983c96209cba9eb94c381fafee6a8cb8c11cf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_time_rolled_back__repp/story.json"
+  },
+  "lcats_id": "mass_quantities/when_time_rolled_back__repp",
+  "metrics": {
+    "avg_sentence_length": 15.673076923076923,
+    "avg_word_length": 3.934560327198364,
+    "sentence_count": 468,
+    "token_count": 8363,
+    "word_count": 7335
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_time_rolled_back__repp/story.json"
+}

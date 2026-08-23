@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36655,
+    "body_sha256": "e48a1b4e278187d4e314471ae93ad5fff440391b1b3c2676d2a85e31b99704cc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/old_mr_wiley__la_spina/story.json"
+  },
+  "lcats_id": "mass_quantities/old_mr_wiley__la_spina",
+  "metrics": {
+    "avg_sentence_length": 18.14,
+    "avg_word_length": 4.080071664829107,
+    "sentence_count": 400,
+    "token_count": 8467,
+    "word_count": 7256
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/old_mr_wiley__la_spina/story.json"
+}

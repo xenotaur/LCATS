@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52407,
+    "body_sha256": "83c2fb188d88126fd3a4d1da2923c03cc3d5329c5d888284d8aef84fb161beeb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/yellow_butterflies__andrews/story.json"
+  },
+  "lcats_id": "mass_quantities/yellow_butterflies__andrews",
+  "metrics": {
+    "avg_sentence_length": 17.001623376623378,
+    "avg_word_length": 4.000095483624558,
+    "sentence_count": 616,
+    "token_count": 12420,
+    "word_count": 10473
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/yellow_butterflies__andrews/story.json"
+}

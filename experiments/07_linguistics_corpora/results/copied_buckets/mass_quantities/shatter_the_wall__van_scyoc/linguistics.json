@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23172,
+    "body_sha256": "f9fa50bd3948645836ae54982e0954706a2b7ffc08600347b1a2f0ca706abe0e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shatter_the_wall__van_scyoc/story.json"
+  },
+  "lcats_id": "mass_quantities/shatter_the_wall__van_scyoc",
+  "metrics": {
+    "avg_sentence_length": 10.2560706401766,
+    "avg_word_length": 3.9619027120103314,
+    "sentence_count": 453,
+    "token_count": 5784,
+    "word_count": 4646
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shatter_the_wall__van_scyoc/story.json"
+}

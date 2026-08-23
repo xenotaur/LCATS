@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 87014,
+    "body_sha256": "bd22a753737fe5b03d1c85724a2b7a2c62d7a3618dcb173eba496f7b0afbe46f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_variety__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/second_variety__dick",
+  "metrics": {
+    "avg_sentence_length": 8.02688919796013,
+    "avg_word_length": 3.9722767702437336,
+    "sentence_count": 2157,
+    "token_count": 22004,
+    "word_count": 17314
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_variety__dick/story.json"
+}

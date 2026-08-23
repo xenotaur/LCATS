@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30109,
+    "body_sha256": "d23410011506a2d52fea1c343a17fbea09dab5fe884c84e56a12a92e34637be3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pipe_dream__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/pipe_dream__leiber",
+  "metrics": {
+    "avg_sentence_length": 20.3321554770318,
+    "avg_word_length": 4.271289537712895,
+    "sentence_count": 283,
+    "token_count": 6621,
+    "word_count": 5754
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pipe_dream__leiber/story.json"
+}

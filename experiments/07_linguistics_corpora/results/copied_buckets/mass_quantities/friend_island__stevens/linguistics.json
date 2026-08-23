@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26080,
+    "body_sha256": "2e7378df4a7de9202615cf5004ee566b2662c92e1f7bf81e18cc51ddaa1d9573",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/friend_island__stevens/story.json"
+  },
+  "lcats_id": "mass_quantities/friend_island__stevens",
+  "metrics": {
+    "avg_sentence_length": 20.245421245421245,
+    "avg_word_length": 3.738918038719016,
+    "sentence_count": 273,
+    "token_count": 6401,
+    "word_count": 5527
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/friend_island__stevens/story.json"
+}

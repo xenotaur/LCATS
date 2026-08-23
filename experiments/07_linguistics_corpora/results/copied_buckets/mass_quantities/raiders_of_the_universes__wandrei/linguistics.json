@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46059,
+    "body_sha256": "5cec5c1a6445ad0b1618593fba3f69c2a29a1079635dba30d125ca1ae7ee6159",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/raiders_of_the_universes__wandrei/story.json"
+  },
+  "lcats_id": "mass_quantities/raiders_of_the_universes__wandrei",
+  "metrics": {
+    "avg_sentence_length": 19.587053571428573,
+    "avg_word_length": 4.296068376068376,
+    "sentence_count": 448,
+    "token_count": 9930,
+    "word_count": 8775
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/raiders_of_the_universes__wandrei/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 63281,
+    "body_sha256": "831a7a1885a53d6beb98fc5b5d13f23e6a62b329731befb054f6e77b3f93fd4c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/mixer/story.json"
+  },
+  "lcats_id": "wodehouse/mixer",
+  "metrics": {
+    "avg_sentence_length": 14.373983739837398,
+    "avg_word_length": 4.120232708468002,
+    "sentence_count": 861,
+    "token_count": 14479,
+    "word_count": 12376
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/mixer/story.json"
+}

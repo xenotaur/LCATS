@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19620,
+    "body_sha256": "3acac4d3616bda5e6e858e73a3015928824e948238b338852587d928e65f2b35",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forever__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/forever__sheckley",
+  "metrics": {
+    "avg_sentence_length": 13.20494699646643,
+    "avg_word_length": 4.255820176612255,
+    "sentence_count": 283,
+    "token_count": 4487,
+    "word_count": 3737
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forever__sheckley/story.json"
+}

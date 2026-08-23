@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29323,
+    "body_sha256": "88197593c4a72644896d0dff9d40d5f42799cbd5fd003fa90293cc666748fd5e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/deadline__kleine/story.json"
+  },
+  "lcats_id": "mass_quantities/deadline__kleine",
+  "metrics": {
+    "avg_sentence_length": 14.891566265060241,
+    "avg_word_length": 3.791747572815534,
+    "sentence_count": 415,
+    "token_count": 7192,
+    "word_count": 6180
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/deadline__kleine/story.json"
+}

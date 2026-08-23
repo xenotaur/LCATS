@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39563,
+    "body_sha256": "f067db48360a5ba0182551693c3e03ea43421f5bfb4292965087a141e0ad08e3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_straw__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_straw__smith",
+  "metrics": {
+    "avg_sentence_length": 13.099836333878887,
+    "avg_word_length": 3.9466516741629185,
+    "sentence_count": 611,
+    "token_count": 9554,
+    "word_count": 8004
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_straw__smith/story.json"
+}

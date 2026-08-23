@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26764,
+    "body_sha256": "51f6b7fdae38bfc78d77886db246426ae2d2064764941a46dd09d2d57cef55b4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monkey_on_his_back__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/monkey_on_his_back__de_vet",
+  "metrics": {
+    "avg_sentence_length": 12.737226277372264,
+    "avg_word_length": 4.132378223495702,
+    "sentence_count": 411,
+    "token_count": 6136,
+    "word_count": 5235
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monkey_on_his_back__de_vet/story.json"
+}

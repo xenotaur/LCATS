@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28322,
+    "body_sha256": "e7c7e0cb61e943d12cfaee30bd2a9057231efdaad35dae2635806f3095d846ce",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/martyr_s_flight__searls/story.json"
+  },
+  "lcats_id": "mass_quantities/martyr_s_flight__searls",
+  "metrics": {
+    "avg_sentence_length": 11.995698924731183,
+    "avg_word_length": 4.014342058085335,
+    "sentence_count": 465,
+    "token_count": 6946,
+    "word_count": 5578
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/martyr_s_flight__searls/story.json"
+}

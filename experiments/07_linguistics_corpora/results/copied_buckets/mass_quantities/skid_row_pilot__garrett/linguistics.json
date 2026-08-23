@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27848,
+    "body_sha256": "e77e334bc2d1832ac994403dd8d384a75169825c8d88cbe8bc27f5d429770af3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/skid_row_pilot__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/skid_row_pilot__garrett",
+  "metrics": {
+    "avg_sentence_length": 11.336653386454183,
+    "avg_word_length": 3.896503250746793,
+    "sentence_count": 502,
+    "token_count": 6899,
+    "word_count": 5691
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/skid_row_pilot__garrett/story.json"
+}

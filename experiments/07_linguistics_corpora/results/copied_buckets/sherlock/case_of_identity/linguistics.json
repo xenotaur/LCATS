@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38018,
+    "body_sha256": "385f435fe9bb6a475878b7cd571a924f3658e5afcb7ba9d4020e1d0c927ca1c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/case_of_identity/story.json"
+  },
+  "lcats_id": "sherlock/case_of_identity",
+  "metrics": {
+    "avg_sentence_length": 22.55,
+    "avg_word_length": 3.9414373288117908,
+    "sentence_count": 340,
+    "token_count": 9073,
+    "word_count": 7667
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/case_of_identity/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6441,
+    "body_sha256": "9b5abaf921956df5ecdd3c8dcc1fd6ac1599062a687e99d8d7dbb71efd339ef3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/jorinda_and_jorindel/story.json"
+  },
+  "lcats_id": "grimm/jorinda_and_jorindel",
+  "metrics": {
+    "avg_sentence_length": 25.833333333333332,
+    "avg_word_length": 4.210483870967742,
+    "sentence_count": 48,
+    "token_count": 1421,
+    "word_count": 1240
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/jorinda_and_jorindel/story.json"
+}

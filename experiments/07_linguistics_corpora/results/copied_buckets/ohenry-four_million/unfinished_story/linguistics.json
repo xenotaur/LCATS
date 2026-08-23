@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12988,
+    "body_sha256": "a739b3986069e5a8aee200538f10ede45ad5ab1e420460ad45aa16364a898cf3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/unfinished_story/story.json"
+  },
+  "lcats_id": "ohenry-four_million/unfinished_story",
+  "metrics": {
+    "avg_sentence_length": 17.753424657534246,
+    "avg_word_length": 4.035108024691358,
+    "sentence_count": 146,
+    "token_count": 3007,
+    "word_count": 2592
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/unfinished_story/story.json"
+}

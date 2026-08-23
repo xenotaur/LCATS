@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32893,
+    "body_sha256": "cafabed0ee2dc09efe6d876ea1e9ed39f25426f67efe36caa1a7609f46a3e267",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meeting_of_the_board__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/meeting_of_the_board__nourse",
+  "metrics": {
+    "avg_sentence_length": 12.268571428571429,
+    "avg_word_length": 4.115510013972986,
+    "sentence_count": 525,
+    "token_count": 7698,
+    "word_count": 6441
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meeting_of_the_board__nourse/story.json"
+}

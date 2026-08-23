@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47241,
+    "body_sha256": "ba0e6e589f68364b37c9547c5b25a97614177c7a3b60779233310b453e5d1bcd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/against_tetrarch__gilmour/story.json"
+  },
+  "lcats_id": "mass_quantities/against_tetrarch__gilmour",
+  "metrics": {
+    "avg_sentence_length": 11.440490797546012,
+    "avg_word_length": 4.08022308022308,
+    "sentence_count": 815,
+    "token_count": 11065,
+    "word_count": 9324
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/against_tetrarch__gilmour/story.json"
+}

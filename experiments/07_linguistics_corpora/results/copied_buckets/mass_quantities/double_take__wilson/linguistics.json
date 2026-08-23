@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20971,
+    "body_sha256": "24e169d1f2716860f17218ff3aa81aa917c1cd831a397d8b4567bf7e717cc748",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/double_take__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/double_take__wilson",
+  "metrics": {
+    "avg_sentence_length": 11.80939226519337,
+    "avg_word_length": 3.8987134502923975,
+    "sentence_count": 362,
+    "token_count": 5138,
+    "word_count": 4275
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/double_take__wilson/story.json"
+}

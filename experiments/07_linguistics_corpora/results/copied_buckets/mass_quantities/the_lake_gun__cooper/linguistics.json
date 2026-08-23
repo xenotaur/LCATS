@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27456,
+    "body_sha256": "faaceb462bec3774dae8f3b1149dcefcf156618aa912963dd7712f14231977b6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lake_gun__cooper/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lake_gun__cooper",
+  "metrics": {
+    "avg_sentence_length": 27.084158415841586,
+    "avg_word_length": 4.0116980442332295,
+    "sentence_count": 202,
+    "token_count": 6434,
+    "word_count": 5471
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lake_gun__cooper/story.json"
+}

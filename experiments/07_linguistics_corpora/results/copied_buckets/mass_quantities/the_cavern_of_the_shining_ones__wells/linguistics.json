@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 49159,
+    "body_sha256": "28f50c1405408260207b74663734fa1e13baf92d8fe9743778625eaf98326829",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cavern_of_the_shining_ones__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cavern_of_the_shining_ones__wells",
+  "metrics": {
+    "avg_sentence_length": 19.7875,
+    "avg_word_length": 4.2597388923984,
+    "sentence_count": 480,
+    "token_count": 10391,
+    "word_count": 9498
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cavern_of_the_shining_ones__wells/story.json"
+}

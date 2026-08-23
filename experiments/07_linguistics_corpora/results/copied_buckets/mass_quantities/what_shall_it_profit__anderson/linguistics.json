@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37218,
+    "body_sha256": "7d42cd7e5d8650667922e853edf0e91991e7a4a2bc3921f3c36b6d22c0db7b79",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_shall_it_profit__anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/what_shall_it_profit__anderson",
+  "metrics": {
+    "avg_sentence_length": 12.766666666666667,
+    "avg_word_length": 4.09949154871513,
+    "sentence_count": 570,
+    "token_count": 8714,
+    "word_count": 7277
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_shall_it_profit__anderson/story.json"
+}

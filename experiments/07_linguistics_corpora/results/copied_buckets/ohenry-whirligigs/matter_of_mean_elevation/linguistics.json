@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21101,
+    "body_sha256": "aeb23f87cb80ac57ebf1dce41efb2da71b1b431791784bf175a08f75fbb95107",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/matter_of_mean_elevation/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/matter_of_mean_elevation",
+  "metrics": {
+    "avg_sentence_length": 16.597510373443985,
+    "avg_word_length": 4.309,
+    "sentence_count": 241,
+    "token_count": 4544,
+    "word_count": 4000
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/matter_of_mean_elevation/story.json"
+}

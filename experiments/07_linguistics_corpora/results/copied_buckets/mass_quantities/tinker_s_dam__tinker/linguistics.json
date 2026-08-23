@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40258,
+    "body_sha256": "cec9d9b8472181aa8dc7f60ba3126e9140305c2cf0dc13ba66dd0fb6c30e8e3a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tinker_s_dam__tinker/story.json"
+  },
+  "lcats_id": "mass_quantities/tinker_s_dam__tinker",
+  "metrics": {
+    "avg_sentence_length": 11.00786369593709,
+    "avg_word_length": 3.738659364210025,
+    "sentence_count": 763,
+    "token_count": 10571,
+    "word_count": 8399
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tinker_s_dam__tinker/story.json"
+}

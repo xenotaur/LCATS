@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11159,
+    "body_sha256": "e43fd3b94804d7e6c05603e6bf4eeb6bf45605abe8dd98d5400123aad3da82f7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/cosmopolite_in_a_cafe/story.json"
+  },
+  "lcats_id": "ohenry-four_million/cosmopolite_in_a_cafe",
+  "metrics": {
+    "avg_sentence_length": 23.70967741935484,
+    "avg_word_length": 4.079818594104308,
+    "sentence_count": 93,
+    "token_count": 2561,
+    "word_count": 2205
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/cosmopolite_in_a_cafe/story.json"
+}

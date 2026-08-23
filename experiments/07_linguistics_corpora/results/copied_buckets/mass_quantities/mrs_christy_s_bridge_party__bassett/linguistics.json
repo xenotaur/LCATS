@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17610,
+    "body_sha256": "fb39d0d4d21efaae26382087e5aa001e481b84f813f8c7ebf0099cd4f2e7e828",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mrs_christy_s_bridge_party__bassett/story.json"
+  },
+  "lcats_id": "mass_quantities/mrs_christy_s_bridge_party__bassett",
+  "metrics": {
+    "avg_sentence_length": 16.376744186046512,
+    "avg_word_length": 4.000852030673104,
+    "sentence_count": 215,
+    "token_count": 4211,
+    "word_count": 3521
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mrs_christy_s_bridge_party__bassett/story.json"
+}

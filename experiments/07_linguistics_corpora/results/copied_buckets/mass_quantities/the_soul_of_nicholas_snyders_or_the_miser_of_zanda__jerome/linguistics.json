@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31737,
+    "body_sha256": "e96474821dee479c5e2ca9af6cf7c83faa6ef6b9789365508cc9abea27a69e07",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_soul_of_nicholas_snyders_or_the_miser_of_zanda__jerome/story.json"
+  },
+  "lcats_id": "mass_quantities/the_soul_of_nicholas_snyders_or_the_miser_of_zanda__jerome",
+  "metrics": {
+    "avg_sentence_length": 14.769767441860465,
+    "avg_word_length": 3.9722878286883954,
+    "sentence_count": 430,
+    "token_count": 7595,
+    "word_count": 6351
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_soul_of_nicholas_snyders_or_the_miser_of_zanda__jerome/story.json"
+}

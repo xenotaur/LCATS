@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32299,
+    "body_sha256": "18798c953a45cd8f9cd454c2fdd6bd49fb1b297e4d25d51262defaf944133186",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/letter_of_the_law__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/letter_of_the_law__nourse",
+  "metrics": {
+    "avg_sentence_length": 13.645299145299145,
+    "avg_word_length": 4.050422799874726,
+    "sentence_count": 468,
+    "token_count": 7757,
+    "word_count": 6386
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/letter_of_the_law__nourse/story.json"
+}

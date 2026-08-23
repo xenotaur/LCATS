@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16266,
+    "body_sha256": "016271be9bc489caad532953150697175e7cef22c2720f6f249cffc3fd932bf4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/brknk_s_bounty__sohl/story.json"
+  },
+  "lcats_id": "mass_quantities/brknk_s_bounty__sohl",
+  "metrics": {
+    "avg_sentence_length": 12.159574468085106,
+    "avg_word_length": 3.7448235637212015,
+    "sentence_count": 282,
+    "token_count": 4206,
+    "word_count": 3429
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/brknk_s_bounty__sohl/story.json"
+}

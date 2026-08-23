@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32962,
+    "body_sha256": "7d889ae75db56f24fe54350baea7b46a073e6abe4675ffa083239024e635fa17",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stop_look_and_dig__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/stop_look_and_dig__smith",
+  "metrics": {
+    "avg_sentence_length": 17.418136020151135,
+    "avg_word_length": 3.820245842371656,
+    "sentence_count": 397,
+    "token_count": 7800,
+    "word_count": 6915
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stop_look_and_dig__smith/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31542,
+    "body_sha256": "88483c9c4f384a2c5fe03fa68d5aa536db6c8a03fc058d6cf3aeb60d4642c89a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/between_the_dark_and_the_daylight__budrys/story.json"
+  },
+  "lcats_id": "mass_quantities/between_the_dark_and_the_daylight__budrys",
+  "metrics": {
+    "avg_sentence_length": 15.735436893203884,
+    "avg_word_length": 3.8738238469844206,
+    "sentence_count": 412,
+    "token_count": 7687,
+    "word_count": 6483
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/between_the_dark_and_the_daylight__budrys/story.json"
+}

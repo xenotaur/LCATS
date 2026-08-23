@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33875,
+    "body_sha256": "e47bf70d5e814c23ba82e71b7e3918f0f948d407c7b97526ed457d4ec2a71734",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/last_night_out__rothman/story.json"
+  },
+  "lcats_id": "mass_quantities/last_night_out__rothman",
+  "metrics": {
+    "avg_sentence_length": 17.221932114882506,
+    "avg_word_length": 4.168587022437841,
+    "sentence_count": 383,
+    "token_count": 7607,
+    "word_count": 6596
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/last_night_out__rothman/story.json"
+}

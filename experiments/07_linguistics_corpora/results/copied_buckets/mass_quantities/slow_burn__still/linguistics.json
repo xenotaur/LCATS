@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36861,
+    "body_sha256": "9c5f140f44aeda0cb7a4c31910233f32c00cd63d8328c81238e95b2a344124c6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/slow_burn__still/story.json"
+  },
+  "lcats_id": "mass_quantities/slow_burn__still",
+  "metrics": {
+    "avg_sentence_length": 11.50402576489533,
+    "avg_word_length": 4.1429171332586785,
+    "sentence_count": 621,
+    "token_count": 8709,
+    "word_count": 7144
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/slow_burn__still/story.json"
+}

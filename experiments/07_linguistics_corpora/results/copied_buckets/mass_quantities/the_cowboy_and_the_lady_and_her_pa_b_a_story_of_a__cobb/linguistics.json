@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41789,
+    "body_sha256": "4a5c46fa115ea267f0bb15bf41e2f1c4ddb8170bbc33d3530b1b97abf04e9d73",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cowboy_and_the_lady_and_her_pa_b_a_story_of_a__cobb/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cowboy_and_the_lady_and_her_pa_b_a_story_of_a__cobb",
+  "metrics": {
+    "avg_sentence_length": 19.71527777777778,
+    "avg_word_length": 3.9564400610543617,
+    "sentence_count": 432,
+    "token_count": 9886,
+    "word_count": 8517
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cowboy_and_the_lady_and_her_pa_b_a_story_of_a__cobb/story.json"
+}

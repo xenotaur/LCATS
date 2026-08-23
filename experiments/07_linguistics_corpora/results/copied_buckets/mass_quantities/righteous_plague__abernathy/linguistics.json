@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42937,
+    "body_sha256": "f59939c2cc5d819c322f81a3dcc530493538faa9dbd48ee6b1a46ef444298a1c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/righteous_plague__abernathy/story.json"
+  },
+  "lcats_id": "mass_quantities/righteous_plague__abernathy",
+  "metrics": {
+    "avg_sentence_length": 21.14025974025974,
+    "avg_word_length": 4.290821968300774,
+    "sentence_count": 385,
+    "token_count": 9470,
+    "word_count": 8139
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/righteous_plague__abernathy/story.json"
+}

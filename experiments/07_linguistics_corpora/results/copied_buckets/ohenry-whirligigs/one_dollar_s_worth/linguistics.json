@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14307,
+    "body_sha256": "fd9da655bdccc6ec3d5da0ff36d3bd5d7cf38903ef838ce68f91a3f06e449c4b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/one_dollar_s_worth/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/one_dollar_s_worth",
+  "metrics": {
+    "avg_sentence_length": 16.033519553072626,
+    "avg_word_length": 4.014285714285714,
+    "sentence_count": 179,
+    "token_count": 3345,
+    "word_count": 2870
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/one_dollar_s_worth/story.json"
+}

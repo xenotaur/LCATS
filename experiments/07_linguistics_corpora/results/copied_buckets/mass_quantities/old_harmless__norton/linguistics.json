@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52224,
+    "body_sha256": "0d3957a84b7da4feb5a45e20b42aabd9684b3b49af97ca34a0863c19fc6d8cc6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/old_harmless__norton/story.json"
+  },
+  "lcats_id": "mass_quantities/old_harmless__norton",
+  "metrics": {
+    "avg_sentence_length": 19.81306715063521,
+    "avg_word_length": 3.791701016762847,
+    "sentence_count": 551,
+    "token_count": 12805,
+    "word_count": 10917
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/old_harmless__norton/story.json"
+}

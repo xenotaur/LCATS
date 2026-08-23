@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23555,
+    "body_sha256": "91d1688d5159df4021ee48111c3c8c882781e8b51a6810e080e2786ad1dd9887",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ultroom_error__sohl/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ultroom_error__sohl",
+  "metrics": {
+    "avg_sentence_length": 12.308080808080808,
+    "avg_word_length": 3.835658596635207,
+    "sentence_count": 396,
+    "token_count": 5863,
+    "word_count": 4874
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ultroom_error__sohl/story.json"
+}

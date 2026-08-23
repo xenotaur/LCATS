@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16878,
+    "body_sha256": "73df2829aa8f6d742d0e20f6253439ff9c6363906bdbec2051c25977d99b3643",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eyes_have_it__mckimmey/story.json"
+  },
+  "lcats_id": "mass_quantities/the_eyes_have_it__mckimmey",
+  "metrics": {
+    "avg_sentence_length": 11.377622377622378,
+    "avg_word_length": 4.091579594345421,
+    "sentence_count": 286,
+    "token_count": 4205,
+    "word_count": 3254
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eyes_have_it__mckimmey/story.json"
+}

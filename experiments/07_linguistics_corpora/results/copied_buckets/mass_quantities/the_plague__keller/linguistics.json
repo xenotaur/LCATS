@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26215,
+    "body_sha256": "3e9b53dbe5cc6e49cdebe83763551d46817e34ac3174ba84c3ff48410db46bf4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_plague__keller/story.json"
+  },
+  "lcats_id": "mass_quantities/the_plague__keller",
+  "metrics": {
+    "avg_sentence_length": 12.127962085308058,
+    "avg_word_length": 4.084603360687769,
+    "sentence_count": 422,
+    "token_count": 6299,
+    "word_count": 5118
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_plague__keller/story.json"
+}

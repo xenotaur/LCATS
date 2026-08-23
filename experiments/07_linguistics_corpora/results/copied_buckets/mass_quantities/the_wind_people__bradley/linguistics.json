@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35829,
+    "body_sha256": "9b34626ba007c3ec9fe5494d76ec9d25dfda70de4dda786f1ada30ff6c2a1c9f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_wind_people__bradley/story.json"
+  },
+  "lcats_id": "mass_quantities/the_wind_people__bradley",
+  "metrics": {
+    "avg_sentence_length": 20.712209302325583,
+    "avg_word_length": 4.032561403508772,
+    "sentence_count": 344,
+    "token_count": 8410,
+    "word_count": 7125
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_wind_people__bradley/story.json"
+}

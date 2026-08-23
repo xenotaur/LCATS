@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40279,
+    "body_sha256": "bc86c3daee1f72ca1cbb1601931211162dfd78ac8a77a24b76fdf341e0c0364a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_touch_of_e_flat__gibson/story.json"
+  },
+  "lcats_id": "mass_quantities/a_touch_of_e_flat__gibson",
+  "metrics": {
+    "avg_sentence_length": 17.523076923076925,
+    "avg_word_length": 4.107864041138844,
+    "sentence_count": 455,
+    "token_count": 9118,
+    "word_count": 7973
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_touch_of_e_flat__gibson/story.json"
+}

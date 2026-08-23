@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21427,
+    "body_sha256": "b6e00984ba3c38955f8355a83d3f7e4ab966a57798f9709e914b6abf7ca57f1b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gunnison_s_bonanza__purcell/story.json"
+  },
+  "lcats_id": "mass_quantities/gunnison_s_bonanza__purcell",
+  "metrics": {
+    "avg_sentence_length": 14.317241379310344,
+    "avg_word_length": 4.22543352601156,
+    "sentence_count": 290,
+    "token_count": 4629,
+    "word_count": 4152
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gunnison_s_bonanza__purcell/story.json"
+}

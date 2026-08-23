@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32526,
+    "body_sha256": "b3e2b81fe2a564a7b6b1b5f66b98d86f7d6991a98b5d720feba40688371c5005",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/return_of_a_legend__gallun/story.json"
+  },
+  "lcats_id": "mass_quantities/return_of_a_legend__gallun",
+  "metrics": {
+    "avg_sentence_length": 13.898454746136865,
+    "avg_word_length": 4.183608640406607,
+    "sentence_count": 453,
+    "token_count": 7443,
+    "word_count": 6296
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/return_of_a_legend__gallun/story.json"
+}

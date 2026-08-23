@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20632,
+    "body_sha256": "31c60aaf123cbb8f83a843c020b2bd896f185881238c01c52ae8fe99433bb443",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/frictional_electricity_from_the_saturday_evening_p__clark/story.json"
+  },
+  "lcats_id": "mass_quantities/frictional_electricity_from_the_saturday_evening_p__clark",
+  "metrics": {
+    "avg_sentence_length": 28.070967741935483,
+    "avg_word_length": 3.7481038841645598,
+    "sentence_count": 155,
+    "token_count": 5091,
+    "word_count": 4351
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/frictional_electricity_from_the_saturday_evening_p__clark/story.json"
+}

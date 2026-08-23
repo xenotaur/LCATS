@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33816,
+    "body_sha256": "95669fe1370ace8acc057f9963d77777f0d75ba91872776754486704b881e6bd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_s_get_together__asimov/story.json"
+  },
+  "lcats_id": "mass_quantities/let_s_get_together__asimov",
+  "metrics": {
+    "avg_sentence_length": 15.644391408114558,
+    "avg_word_length": 4.183218916857361,
+    "sentence_count": 419,
+    "token_count": 7785,
+    "word_count": 6555
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_s_get_together__asimov/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 58475,
+    "body_sha256": "097eccd9bf7b6c4490d14c1cbd2b9b9beb1214f95a08bac68c1cecd1ffca28d7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/medal_of_honor__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/medal_of_honor__reynolds",
+  "metrics": {
+    "avg_sentence_length": 12.871287128712872,
+    "avg_word_length": 3.9843589743589742,
+    "sentence_count": 909,
+    "token_count": 14251,
+    "word_count": 11700
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/medal_of_honor__reynolds/story.json"
+}

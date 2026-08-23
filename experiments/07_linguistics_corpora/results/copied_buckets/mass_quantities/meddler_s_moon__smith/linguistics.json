@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46405,
+    "body_sha256": "a51d0fe233d8cad2cab2b01ba28d1063ca98b5a9ae805aa5efe42dd95683bc21",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meddler_s_moon__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/meddler_s_moon__smith",
+  "metrics": {
+    "avg_sentence_length": 13.312408759124088,
+    "avg_word_length": 4.038710384910626,
+    "sentence_count": 685,
+    "token_count": 11441,
+    "word_count": 9119
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meddler_s_moon__smith/story.json"
+}

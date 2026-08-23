@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37347,
+    "body_sha256": "0e4919c1bcf240b4c7c762b55c8f58f7bc8ace2ed2682dec7c69ce79e38fa7f3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_outside__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_outside__smith",
+  "metrics": {
+    "avg_sentence_length": 15.856531049250535,
+    "avg_word_length": 4.05658338960162,
+    "sentence_count": 467,
+    "token_count": 8776,
+    "word_count": 7405
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_outside__smith/story.json"
+}

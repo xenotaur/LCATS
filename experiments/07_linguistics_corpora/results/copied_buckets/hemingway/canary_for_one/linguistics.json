@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9466,
+    "body_sha256": "a8e922618e7460ebc41069485d07040a5670a46922c1607d95d3911563d473bc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/canary_for_one/story.json"
+  },
+  "lcats_id": "hemingway/canary_for_one",
+  "metrics": {
+    "avg_sentence_length": 16.475409836065573,
+    "avg_word_length": 3.7950248756218907,
+    "sentence_count": 122,
+    "token_count": 2351,
+    "word_count": 2010
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/canary_for_one/story.json"
+}

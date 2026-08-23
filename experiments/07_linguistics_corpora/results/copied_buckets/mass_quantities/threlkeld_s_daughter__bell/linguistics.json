@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22702,
+    "body_sha256": "f6d91e6dc5614d874e2511658bc5fb5bb3983cdc01f82b82a173ca1e7a8ca078",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/threlkeld_s_daughter__bell/story.json"
+  },
+  "lcats_id": "mass_quantities/threlkeld_s_daughter__bell",
+  "metrics": {
+    "avg_sentence_length": 13.350299401197605,
+    "avg_word_length": 4.065934065934066,
+    "sentence_count": 334,
+    "token_count": 5415,
+    "word_count": 4459
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/threlkeld_s_daughter__bell/story.json"
+}

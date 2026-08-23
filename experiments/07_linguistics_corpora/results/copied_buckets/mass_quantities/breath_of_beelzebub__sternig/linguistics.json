@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23765,
+    "body_sha256": "4cd428a7f22c148d1fd967947ca676003418a8fd7412b5a1f3eaefe4c81af63f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breath_of_beelzebub__sternig/story.json"
+  },
+  "lcats_id": "mass_quantities/breath_of_beelzebub__sternig",
+  "metrics": {
+    "avg_sentence_length": 14.931137724550899,
+    "avg_word_length": 3.7734108682574696,
+    "sentence_count": 334,
+    "token_count": 5949,
+    "word_count": 4987
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breath_of_beelzebub__sternig/story.json"
+}

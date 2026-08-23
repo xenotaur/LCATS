@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45617,
+    "body_sha256": "5211f4d8920375549fc77a8f26cfbaed57db22ea0b48dbe2f8461226e7b327ea",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_asses_of_balaam__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_asses_of_balaam__garrett",
+  "metrics": {
+    "avg_sentence_length": 15.302013422818792,
+    "avg_word_length": 4.018201754385965,
+    "sentence_count": 596,
+    "token_count": 10816,
+    "word_count": 9120
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_asses_of_balaam__garrett/story.json"
+}

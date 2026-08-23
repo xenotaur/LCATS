@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29211,
+    "body_sha256": "9ef33868a351f7703b10bb98043d2d2a7a0cec087827d7602bbbe18e23682c4c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nostalgia_gene__hutchins/story.json"
+  },
+  "lcats_id": "mass_quantities/the_nostalgia_gene__hutchins",
+  "metrics": {
+    "avg_sentence_length": 19.239864864864863,
+    "avg_word_length": 4.180509218612818,
+    "sentence_count": 296,
+    "token_count": 6472,
+    "word_count": 5695
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nostalgia_gene__hutchins/story.json"
+}

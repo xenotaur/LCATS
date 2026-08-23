@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26386,
+    "body_sha256": "634d3dac37ab7f41907fb0c5a70c9d012ef12d3520f4b53d92aa030ea280ecc8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hero__wilber/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hero__wilber",
+  "metrics": {
+    "avg_sentence_length": 13.991620111731844,
+    "avg_word_length": 4.2327809942104215,
+    "sentence_count": 358,
+    "token_count": 6154,
+    "word_count": 5009
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hero__wilber/story.json"
+}

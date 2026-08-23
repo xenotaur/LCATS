@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26279,
+    "body_sha256": "fb0c86fcba9085d67acdb71c997e6c71e7fbf1b7e6e0dbc5d7e6c9000da87ff6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/martians_never_die__daniel/story.json"
+  },
+  "lcats_id": "mass_quantities/martians_never_die__daniel",
+  "metrics": {
+    "avg_sentence_length": 13.381679389312977,
+    "avg_word_length": 3.9933447423464536,
+    "sentence_count": 393,
+    "token_count": 6299,
+    "word_count": 5259
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/martians_never_die__daniel/story.json"
+}

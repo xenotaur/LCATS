@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 57747,
+    "body_sha256": "1aac68831d43cc00e38518136ee6bf519c66edbfdca2334f20f41237d1e1a6c6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_the_sons_of_tomorrow__cox/story.json"
+  },
+  "lcats_id": "mass_quantities/to_the_sons_of_tomorrow__cox",
+  "metrics": {
+    "avg_sentence_length": 14.361596009975063,
+    "avg_word_length": 4.026740753603056,
+    "sentence_count": 802,
+    "token_count": 13519,
+    "word_count": 11518
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_the_sons_of_tomorrow__cox/story.json"
+}

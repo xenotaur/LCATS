@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46005,
+    "body_sha256": "a3ee06fa7de1eb7a17c57ca0cf40d883bf2b9c75424db612ef9c124e8749d4e0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/into_the_blue__austin/story.json"
+  },
+  "lcats_id": "mass_quantities/into_the_blue__austin",
+  "metrics": {
+    "avg_sentence_length": 15.193388429752066,
+    "avg_word_length": 4.010879025239339,
+    "sentence_count": 605,
+    "token_count": 10822,
+    "word_count": 9192
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/into_the_blue__austin/story.json"
+}

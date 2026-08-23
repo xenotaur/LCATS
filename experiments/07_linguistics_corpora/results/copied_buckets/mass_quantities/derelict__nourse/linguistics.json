@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39660,
+    "body_sha256": "a659b13839f3caa9531ce8882260c393389613fb1214e3de703c1f5f42845edd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/derelict__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/derelict__nourse",
+  "metrics": {
+    "avg_sentence_length": 13.947460595446586,
+    "avg_word_length": 3.977021597187343,
+    "sentence_count": 571,
+    "token_count": 9538,
+    "word_count": 7964
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/derelict__nourse/story.json"
+}

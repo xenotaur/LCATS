@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26660,
+    "body_sha256": "9e1e233e131b816cbeb41cf7d0a1b2dd238a6ff26f10ea575f14af627152c8e4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_red_fetish__long/story.json"
+  },
+  "lcats_id": "mass_quantities/the_red_fetish__long",
+  "metrics": {
+    "avg_sentence_length": 13.751295336787564,
+    "avg_word_length": 4.058967596081387,
+    "sentence_count": 386,
+    "token_count": 6060,
+    "word_count": 5308
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_red_fetish__long/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20365,
+    "body_sha256": "6af3a6dad9f7c5f148d7d991f73fd5a71151836676a5fac2bd531c4b8d264817",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mercy_flight__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/mercy_flight__reynolds",
+  "metrics": {
+    "avg_sentence_length": 12.810725552050473,
+    "avg_word_length": 4.028564393006649,
+    "sentence_count": 317,
+    "token_count": 4837,
+    "word_count": 4061
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mercy_flight__reynolds/story.json"
+}

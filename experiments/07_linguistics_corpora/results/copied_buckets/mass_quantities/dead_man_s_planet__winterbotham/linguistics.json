@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26475,
+    "body_sha256": "7510842042a3f4187d35fd9ced8e4d6afbcaa0bae2ea33a651de929a15e5f503",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_man_s_planet__winterbotham/story.json"
+  },
+  "lcats_id": "mass_quantities/dead_man_s_planet__winterbotham",
+  "metrics": {
+    "avg_sentence_length": 13.012437810945274,
+    "avg_word_length": 4.0779965589753395,
+    "sentence_count": 402,
+    "token_count": 6184,
+    "word_count": 5231
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_man_s_planet__winterbotham/story.json"
+}

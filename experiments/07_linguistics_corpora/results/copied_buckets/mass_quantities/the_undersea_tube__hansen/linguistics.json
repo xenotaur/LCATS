@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23759,
+    "body_sha256": "bec144a7b3db8abd337d62631c6568ec4f2fb19d648d60f7aa53a0104b19e4e8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_undersea_tube__hansen/story.json"
+  },
+  "lcats_id": "mass_quantities/the_undersea_tube__hansen",
+  "metrics": {
+    "avg_sentence_length": 24.00502512562814,
+    "avg_word_length": 4.004814737282813,
+    "sentence_count": 199,
+    "token_count": 5476,
+    "word_count": 4777
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_undersea_tube__hansen/story.json"
+}

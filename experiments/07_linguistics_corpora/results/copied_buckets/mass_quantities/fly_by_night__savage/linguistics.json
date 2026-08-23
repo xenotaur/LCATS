@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29427,
+    "body_sha256": "baa543381d8152680406cfb0293eda883250e3aa4aa1adb4076e0139700d1e99",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fly_by_night__savage/story.json"
+  },
+  "lcats_id": "mass_quantities/fly_by_night__savage",
+  "metrics": {
+    "avg_sentence_length": 14.992021276595745,
+    "avg_word_length": 4.226716338477914,
+    "sentence_count": 376,
+    "token_count": 6692,
+    "word_count": 5637
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fly_by_night__savage/story.json"
+}

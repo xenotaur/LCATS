@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14878,
+    "body_sha256": "013f6a31bc057d8470d30ede5f8ef43e69926173c626c68f326c234f1a65aaee",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/story.json"
+  },
+  "lcats_id": "mass_quantities/1_000_a_plate__mckenty",
+  "metrics": {
+    "avg_sentence_length": 16.038888888888888,
+    "avg_word_length": 4.166955316937998,
+    "sentence_count": 180,
+    "token_count": 3408,
+    "word_count": 2887
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39061,
+    "body_sha256": "39e16234d27de5fd449c330c6044471dea956c9122b5ed682af145efaff00525",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_third_little_green_man__knight/story.json"
+  },
+  "lcats_id": "mass_quantities/the_third_little_green_man__knight",
+  "metrics": {
+    "avg_sentence_length": 14.151898734177216,
+    "avg_word_length": 3.979427549194991,
+    "sentence_count": 553,
+    "token_count": 9447,
+    "word_count": 7826
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_third_little_green_man__knight/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40092,
+    "body_sha256": "bf58fefc83e8d085c45aea7bdf00f122af0e50b07eeefdb23b4cc193bd07a53b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/round_and_round_trip__fyfe/story.json"
+  },
+  "lcats_id": "mass_quantities/round_and_round_trip__fyfe",
+  "metrics": {
+    "avg_sentence_length": 13.952042628774423,
+    "avg_word_length": 4.1108847867600256,
+    "sentence_count": 563,
+    "token_count": 9339,
+    "word_count": 7855
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/round_and_round_trip__fyfe/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30326,
+    "body_sha256": "22671e33aeb4bd3cf1208f60dc4ce5d6617bd88eac3af9b16000b9d49c683b19",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_jest_and_a_vengeance__price/story.json"
+  },
+  "lcats_id": "mass_quantities/a_jest_and_a_vengeance__price",
+  "metrics": {
+    "avg_sentence_length": 18.166153846153847,
+    "avg_word_length": 4.125,
+    "sentence_count": 325,
+    "token_count": 6998,
+    "word_count": 5904
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_jest_and_a_vengeance__price/story.json"
+}

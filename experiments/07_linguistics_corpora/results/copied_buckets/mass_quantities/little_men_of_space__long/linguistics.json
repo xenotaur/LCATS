@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35227,
+    "body_sha256": "de0a51f1088631c8ee3de8db034295b3ec151b794d10f202ccd09913a39397aa",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/little_men_of_space__long/story.json"
+  },
+  "lcats_id": "mass_quantities/little_men_of_space__long",
+  "metrics": {
+    "avg_sentence_length": 15.620535714285714,
+    "avg_word_length": 4.082309231208916,
+    "sentence_count": 448,
+    "token_count": 8079,
+    "word_count": 6998
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/little_men_of_space__long/story.json"
+}

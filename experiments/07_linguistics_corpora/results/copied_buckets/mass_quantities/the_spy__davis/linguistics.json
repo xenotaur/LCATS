@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39041,
+    "body_sha256": "efc7f5a830b82d96171e2510e1e2f1d967eb742594bd2bfbf00979df6516a8bd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spy__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_spy__davis",
+  "metrics": {
+    "avg_sentence_length": 16.351738241308794,
+    "avg_word_length": 3.8704352176088044,
+    "sentence_count": 489,
+    "token_count": 9575,
+    "word_count": 7996
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spy__davis/story.json"
+}

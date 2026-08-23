@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16319,
+    "body_sha256": "dfcc6b542e8d2ec45d7e74e7136b785a4958ad2c5c95a2ccb9b18e90c64191ae",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/homecoming__hidalgo/story.json"
+  },
+  "lcats_id": "mass_quantities/homecoming__hidalgo",
+  "metrics": {
+    "avg_sentence_length": 14.333333333333334,
+    "avg_word_length": 4.010097919216646,
+    "sentence_count": 228,
+    "token_count": 3741,
+    "word_count": 3268
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/homecoming__hidalgo/story.json"
+}

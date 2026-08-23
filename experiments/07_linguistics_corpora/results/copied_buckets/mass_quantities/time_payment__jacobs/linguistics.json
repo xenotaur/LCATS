@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27427,
+    "body_sha256": "042cc7438533b402f9e39d75ea23831de2d3a3b55e091600e4bb92021a0d6a62",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_payment__jacobs/story.json"
+  },
+  "lcats_id": "mass_quantities/time_payment__jacobs",
+  "metrics": {
+    "avg_sentence_length": 17.20807453416149,
+    "avg_word_length": 3.978704205017145,
+    "sentence_count": 322,
+    "token_count": 6483,
+    "word_count": 5541
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_payment__jacobs/story.json"
+}

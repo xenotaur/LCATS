@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5352,
+    "body_sha256": "175e3c5a5229615e7025f75726b9fcb1b1e7781eeb8692984bf7e04a9e77c0f4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/fundevogel/story.json"
+  },
+  "lcats_id": "grimm/fundevogel",
+  "metrics": {
+    "avg_sentence_length": 23.045454545454547,
+    "avg_word_length": 4.220907297830375,
+    "sentence_count": 44,
+    "token_count": 1218,
+    "word_count": 1014
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/fundevogel/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14277,
+    "body_sha256": "74c35be92634c49ccc8665353e8b716a0b67c21a87c8ef7c729229a8bc967ec7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/coming_out_of_maggie/story.json"
+  },
+  "lcats_id": "ohenry-four_million/coming_out_of_maggie",
+  "metrics": {
+    "avg_sentence_length": 16.20689655172414,
+    "avg_word_length": 4.092198581560283,
+    "sentence_count": 174,
+    "token_count": 3289,
+    "word_count": 2820
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/coming_out_of_maggie/story.json"
+}

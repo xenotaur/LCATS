@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12570,
+    "body_sha256": "d9706569816ac5ddd5797ffe31b02a84ca59b5082605d63bb86c7435ef1bb1d2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/caliph_cupid_and_the_clock/story.json"
+  },
+  "lcats_id": "ohenry-four_million/caliph_cupid_and_the_clock",
+  "metrics": {
+    "avg_sentence_length": 17.256944444444443,
+    "avg_word_length": 4.0567404426559355,
+    "sentence_count": 144,
+    "token_count": 2937,
+    "word_count": 2485
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/caliph_cupid_and_the_clock/story.json"
+}

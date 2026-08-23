@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44344,
+    "body_sha256": "06615ca6abeac748d9933e3dd3bed3990168c0a4c89fe6a279b1bde26313a1f0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/troubled_waters__sinclair/story.json"
+  },
+  "lcats_id": "mass_quantities/troubled_waters__sinclair",
+  "metrics": {
+    "avg_sentence_length": 14.807210031347962,
+    "avg_word_length": 3.7207579125648356,
+    "sentence_count": 638,
+    "token_count": 10965,
+    "word_count": 9447
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/troubled_waters__sinclair/story.json"
+}

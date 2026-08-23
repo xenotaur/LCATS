@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 84632,
+    "body_sha256": "228188be6556538aae3eb7dd5705bbb94c4938f3d9eda16f0678918696bfa977",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/through_the_gates_of_the_silver_key/story.json"
+  },
+  "lcats_id": "lovecraft/through_the_gates_of_the_silver_key",
+  "metrics": {
+    "avg_sentence_length": 26.858333333333334,
+    "avg_word_length": 4.316847657461992,
+    "sentence_count": 600,
+    "token_count": 18091,
+    "word_count": 16115
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/through_the_gates_of_the_silver_key/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19982,
+    "body_sha256": "48041bf036d643b69e117adb7ba7e2dd1815b06a57b5a23396c0be1466ca8cde",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spawning_ground__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/spawning_ground__del_rey",
+  "metrics": {
+    "avg_sentence_length": 13.31438127090301,
+    "avg_word_length": 4.056518462697815,
+    "sentence_count": 299,
+    "token_count": 4575,
+    "word_count": 3981
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spawning_ground__del_rey/story.json"
+}

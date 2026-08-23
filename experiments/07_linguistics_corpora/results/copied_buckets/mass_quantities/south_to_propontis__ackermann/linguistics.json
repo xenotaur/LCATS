@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23974,
+    "body_sha256": "7187790165deea4b8ce98ba02d3575d768efb1ba7c9412e0f338edaaca79e18a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/south_to_propontis__ackermann/story.json"
+  },
+  "lcats_id": "mass_quantities/south_to_propontis__ackermann",
+  "metrics": {
+    "avg_sentence_length": 14.240356083086054,
+    "avg_word_length": 4.027297353615337,
+    "sentence_count": 337,
+    "token_count": 5550,
+    "word_count": 4799
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/south_to_propontis__ackermann/story.json"
+}

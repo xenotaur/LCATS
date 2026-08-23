@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31160,
+    "body_sha256": "213aedeecdcc7aca22e7a777a6fa2714b3964201e10eca71126ade5e5a410c3c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/operation_earthworm__archibald/story.json"
+  },
+  "lcats_id": "mass_quantities/operation_earthworm__archibald",
+  "metrics": {
+    "avg_sentence_length": 15.623762376237623,
+    "avg_word_length": 3.9535804816223066,
+    "sentence_count": 404,
+    "token_count": 7318,
+    "word_count": 6312
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/operation_earthworm__archibald/story.json"
+}

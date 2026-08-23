@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9684,
+    "body_sha256": "d668b98bfe91ec6f0a87beff32b330e784fac69001c8f35f07418a2c4f33dd38",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/the_cabby_s_seat/story.json"
+  },
+  "lcats_id": "ohenry-four_million/the_cabby_s_seat",
+  "metrics": {
+    "avg_sentence_length": 18.41346153846154,
+    "avg_word_length": 4.084595300261096,
+    "sentence_count": 104,
+    "token_count": 2217,
+    "word_count": 1915
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/the_cabby_s_seat/story.json"
+}

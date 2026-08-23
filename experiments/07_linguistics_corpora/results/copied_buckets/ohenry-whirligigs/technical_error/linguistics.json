@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12869,
+    "body_sha256": "c42b4e81fde13d1ac840def5929586efd81358839320ce5525a8cd777d146c56",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/technical_error/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/technical_error",
+  "metrics": {
+    "avg_sentence_length": 17.57718120805369,
+    "avg_word_length": 3.9274532264222985,
+    "sentence_count": 149,
+    "token_count": 3082,
+    "word_count": 2619
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/technical_error/story.json"
+}

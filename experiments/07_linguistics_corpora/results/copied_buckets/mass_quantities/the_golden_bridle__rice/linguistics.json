@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 58851,
+    "body_sha256": "69453cc0b68f40bb3f9c65122ff5846e5b9224539e9d2367c158526f8f754bd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_golden_bridle__rice/story.json"
+  },
+  "lcats_id": "mass_quantities/the_golden_bridle__rice",
+  "metrics": {
+    "avg_sentence_length": 18.304285714285715,
+    "avg_word_length": 3.594864590650121,
+    "sentence_count": 700,
+    "token_count": 14860,
+    "word_count": 12813
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_golden_bridle__rice/story.json"
+}

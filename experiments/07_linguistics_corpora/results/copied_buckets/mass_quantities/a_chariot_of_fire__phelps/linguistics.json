@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35701,
+    "body_sha256": "5415ef4df938772e81b57dfb08f037579203ebb94d2bc2328f22879da97bb701",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_chariot_of_fire__phelps/story.json"
+  },
+  "lcats_id": "mass_quantities/a_chariot_of_fire__phelps",
+  "metrics": {
+    "avg_sentence_length": 15.16633266533066,
+    "avg_word_length": 3.747225158562368,
+    "sentence_count": 499,
+    "token_count": 9121,
+    "word_count": 7568
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_chariot_of_fire__phelps/story.json"
+}

@@ -1,0 +1,28 @@
+{
+  "backend_name": "spacy",
+  "copied_bucket_bytes": 58549409,
+  "copied_bucket_root": "experiments/07_linguistics_corpora/results/copied_buckets",
+  "copied_sidecar_count": 1868,
+  "copied_story_count": 1868,
+  "corpora_modified": false,
+  "corpus_linguistics_sidecars_found": [],
+  "dry_run": false,
+  "elapsed_seconds": 2674.392,
+  "experiment": "experiments/07_linguistics_corpora",
+  "failures": [],
+  "model_name": "",
+  "overwrite": true,
+  "resume": false,
+  "run_clean": true,
+  "run_counts": {
+    "written": 1868
+  },
+  "run_summary_path": "experiments/07_linguistics_corpora/results/linguistics_run_summary.json",
+  "schema_version": "linguistics-corpora-report-v1",
+  "selected_story_count": 1868,
+  "smoke_count": null,
+  "snapshot_manifest_path": "experiments/07_linguistics_corpora/results/snapshot_manifest.json",
+  "source_commit": "eecf36e0446a858e26c8b448d8ce2aa7bf7d7607",
+  "source_story_count": 1868,
+  "story_list_path": "experiments/07_linguistics_corpora/results/story-list.txt"
+}

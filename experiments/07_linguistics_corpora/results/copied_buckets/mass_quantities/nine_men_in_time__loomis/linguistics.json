@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32886,
+    "body_sha256": "b1c763fd4033632ed7b1f70f72fce5340ed01f05ff06fdc16e2e6764764b9423",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nine_men_in_time__loomis/story.json"
+  },
+  "lcats_id": "mass_quantities/nine_men_in_time__loomis",
+  "metrics": {
+    "avg_sentence_length": 14.863736263736264,
+    "avg_word_length": 3.8697323672926216,
+    "sentence_count": 455,
+    "token_count": 8073,
+    "word_count": 6763
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nine_men_in_time__loomis/story.json"
+}

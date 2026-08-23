@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35027,
+    "body_sha256": "41bda19eb968027e7be7418c225cb420e62f9802ff48249325a0ba8b7422c222",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json"
+  },
+  "lcats_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+  "metrics": {
+    "avg_sentence_length": 18.334183673469386,
+    "avg_word_length": 3.861416446361486,
+    "sentence_count": 392,
+    "token_count": 8497,
+    "word_count": 7187
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json"
+}

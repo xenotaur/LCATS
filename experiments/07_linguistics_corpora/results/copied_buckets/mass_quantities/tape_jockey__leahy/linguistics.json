@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13357,
+    "body_sha256": "8fba0624f982b14b79aebf3aea59496ad4d9b99e54f048cacc00790844ebd304",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tape_jockey__leahy/story.json"
+  },
+  "lcats_id": "mass_quantities/tape_jockey__leahy",
+  "metrics": {
+    "avg_sentence_length": 14.168478260869565,
+    "avg_word_length": 4.095895665515918,
+    "sentence_count": 184,
+    "token_count": 3216,
+    "word_count": 2607
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tape_jockey__leahy/story.json"
+}

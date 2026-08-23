@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32499,
+    "body_sha256": "1c953c54087df76899ac5b46fa467c1d48a7354bdc97ecb706ff258c3e90e033",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/p_laski_s_tunament_1891__page/story.json"
+  },
+  "lcats_id": "mass_quantities/p_laski_s_tunament_1891__page",
+  "metrics": {
+    "avg_sentence_length": 23.96283783783784,
+    "avg_word_length": 3.504440998167207,
+    "sentence_count": 296,
+    "token_count": 8867,
+    "word_count": 7093
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/p_laski_s_tunament_1891__page/story.json"
+}

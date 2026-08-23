@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35175,
+    "body_sha256": "6ef662652f193a388b71215c1edea5e7281423e8a7cea75981fa937cdcb3b460",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rats_in_the_belfry__o_brien/story.json"
+  },
+  "lcats_id": "mass_quantities/rats_in_the_belfry__o_brien",
+  "metrics": {
+    "avg_sentence_length": 13.355263157894736,
+    "avg_word_length": 3.949612948627727,
+    "sentence_count": 532,
+    "token_count": 8556,
+    "word_count": 7105
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rats_in_the_belfry__o_brien/story.json"
+}

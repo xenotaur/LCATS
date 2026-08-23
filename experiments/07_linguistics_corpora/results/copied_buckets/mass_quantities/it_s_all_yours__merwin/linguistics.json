@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19881,
+    "body_sha256": "07fa56b5b628e5db77f11e88b21cb540397acd68c5da49fbc28f7e64bd684a38",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_s_all_yours__merwin/story.json"
+  },
+  "lcats_id": "mass_quantities/it_s_all_yours__merwin",
+  "metrics": {
+    "avg_sentence_length": 16.392241379310345,
+    "avg_word_length": 4.219563502498028,
+    "sentence_count": 232,
+    "token_count": 4572,
+    "word_count": 3803
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_s_all_yours__merwin/story.json"
+}

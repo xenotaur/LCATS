@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 55055,
+    "body_sha256": "5d7de3e05f853973289144f816bf5569dbe1a5f3fc66ff1217a676daa03b84b2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/black_hound_of_death__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/black_hound_of_death__howard",
+  "metrics": {
+    "avg_sentence_length": 16.681137724550897,
+    "avg_word_length": 3.950910885757875,
+    "sentence_count": 668,
+    "token_count": 12973,
+    "word_count": 11143
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/black_hound_of_death__howard/story.json"
+}

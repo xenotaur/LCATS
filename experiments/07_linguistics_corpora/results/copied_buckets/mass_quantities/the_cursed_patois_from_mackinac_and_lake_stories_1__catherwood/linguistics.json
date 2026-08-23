@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26021,
+    "body_sha256": "fc9b33096939686059181c59e1b206b9af055223ae8c9b02b192f0935bcaeb34",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cursed_patois_from_mackinac_and_lake_stories_1__catherwood/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cursed_patois_from_mackinac_and_lake_stories_1__catherwood",
+  "metrics": {
+    "avg_sentence_length": 19.347985347985347,
+    "avg_word_length": 3.938091631957592,
+    "sentence_count": 273,
+    "token_count": 6201,
+    "word_count": 5282
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cursed_patois_from_mackinac_and_lake_stories_1__catherwood/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37508,
+    "body_sha256": "02b9f9e172e77bd200634346b298074a61a1bb353bf9572e095d86e97df1f591",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_phantom_of_bogue_holauba_1911__craddock/story.json"
+  },
+  "lcats_id": "mass_quantities/the_phantom_of_bogue_holauba_1911__craddock",
+  "metrics": {
+    "avg_sentence_length": 24.13953488372093,
+    "avg_word_length": 4.1716212496559315,
+    "sentence_count": 301,
+    "token_count": 8493,
+    "word_count": 7266
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_phantom_of_bogue_holauba_1911__craddock/story.json"
+}

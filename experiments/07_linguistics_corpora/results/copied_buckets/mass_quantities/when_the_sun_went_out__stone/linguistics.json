@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36819,
+    "body_sha256": "ff68997ec8fa70fa421e1f30a7c5ec3b2f5443f231b855ac6976311de5f59378",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_the_sun_went_out__stone/story.json"
+  },
+  "lcats_id": "mass_quantities/when_the_sun_went_out__stone",
+  "metrics": {
+    "avg_sentence_length": 21.333333333333332,
+    "avg_word_length": 4.1515486725663715,
+    "sentence_count": 339,
+    "token_count": 7989,
+    "word_count": 7232
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_the_sun_went_out__stone/story.json"
+}

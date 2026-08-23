@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42806,
+    "body_sha256": "bdc9c08a665b5e8356088d0ed164fe97d071aab0d83351275a37d6b8cf43fee8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/or_your_money_back__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/or_your_money_back__garrett",
+  "metrics": {
+    "avg_sentence_length": 14.03864734299517,
+    "avg_word_length": 3.8932094517091076,
+    "sentence_count": 621,
+    "token_count": 10623,
+    "word_count": 8718
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/or_your_money_back__garrett/story.json"
+}

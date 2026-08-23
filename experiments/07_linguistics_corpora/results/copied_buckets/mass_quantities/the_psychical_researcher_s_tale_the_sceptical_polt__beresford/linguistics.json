@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23669,
+    "body_sha256": "e16f70660cb3faa246f15d20ff5813c270c155ee6df3c2c23b8ca63ea3f33105",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_psychical_researcher_s_tale_the_sceptical_polt__beresford/story.json"
+  },
+  "lcats_id": "mass_quantities/the_psychical_researcher_s_tale_the_sceptical_polt__beresford",
+  "metrics": {
+    "avg_sentence_length": 19.90295358649789,
+    "avg_word_length": 4.0275598897604405,
+    "sentence_count": 237,
+    "token_count": 5490,
+    "word_count": 4717
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_psychical_researcher_s_tale_the_sceptical_polt__beresford/story.json"
+}

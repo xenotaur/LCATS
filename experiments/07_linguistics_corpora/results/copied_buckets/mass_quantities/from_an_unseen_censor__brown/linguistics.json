@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45273,
+    "body_sha256": "d0f642a0f42fbec4edd04c3094711f30933359ac8e642adb1e982e0fd5960c07",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/from_an_unseen_censor__brown/story.json"
+  },
+  "lcats_id": "mass_quantities/from_an_unseen_censor__brown",
+  "metrics": {
+    "avg_sentence_length": 12.792225201072386,
+    "avg_word_length": 3.7484019700303888,
+    "sentence_count": 746,
+    "token_count": 11476,
+    "word_count": 9543
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/from_an_unseen_censor__brown/story.json"
+}

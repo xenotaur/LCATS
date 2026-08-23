@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22513,
+    "body_sha256": "eedc0430faa504449ed956abfadfcd2cb5a78422931b3f101d1dc6c525c4f5fa",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_goes_there__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/who_goes_there__davis",
+  "metrics": {
+    "avg_sentence_length": 15.512820512820513,
+    "avg_word_length": 4.3242030696576155,
+    "sentence_count": 273,
+    "token_count": 5022,
+    "word_count": 4235
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_goes_there__davis/story.json"
+}

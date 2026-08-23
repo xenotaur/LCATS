@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54842,
+    "body_sha256": "9c6f3676e82737aa769f66ede5b4d2d05468c733415e6e8574a1f8834befe1e7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hammer_of_thor__diffin/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hammer_of_thor__diffin",
+  "metrics": {
+    "avg_sentence_length": 18.78974358974359,
+    "avg_word_length": 4.003184133915575,
+    "sentence_count": 585,
+    "token_count": 12775,
+    "word_count": 10992
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hammer_of_thor__diffin/story.json"
+}

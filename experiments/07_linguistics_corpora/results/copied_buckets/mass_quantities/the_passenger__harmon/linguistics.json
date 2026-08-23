@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20398,
+    "body_sha256": "4a8e6831ec12e424fa371b062f5da4c79a07fe6920981b5676f0545f91a5612a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_passenger__harmon/story.json"
+  },
+  "lcats_id": "mass_quantities/the_passenger__harmon",
+  "metrics": {
+    "avg_sentence_length": 18.146017699115045,
+    "avg_word_length": 3.978297976103389,
+    "sentence_count": 226,
+    "token_count": 4824,
+    "word_count": 4101
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_passenger__harmon/story.json"
+}

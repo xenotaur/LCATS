@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26871,
+    "body_sha256": "bd590d8898f01350e07f8b077ca060157a057a494595086ad164cd3adf09a20e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/georgia_s_ruling/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/georgia_s_ruling",
+  "metrics": {
+    "avg_sentence_length": 22.914414414414413,
+    "avg_word_length": 4.293100058973855,
+    "sentence_count": 222,
+    "token_count": 5958,
+    "word_count": 5087
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/georgia_s_ruling/story.json"
+}

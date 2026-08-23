@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11518,
+    "body_sha256": "7b81367da6c3d220d7747cf845f42a4339858f411f7a8115e307d2719b07c926",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/service_of_love/story.json"
+  },
+  "lcats_id": "ohenry-four_million/service_of_love",
+  "metrics": {
+    "avg_sentence_length": 15.735099337748345,
+    "avg_word_length": 3.855218855218855,
+    "sentence_count": 151,
+    "token_count": 2844,
+    "word_count": 2376
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/service_of_love/story.json"
+}

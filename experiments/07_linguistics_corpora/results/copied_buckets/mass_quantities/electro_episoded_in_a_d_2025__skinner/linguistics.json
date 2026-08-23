@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39059,
+    "body_sha256": "4806027936516eefccd5340ede54a7306c87fbb4dfe3b5fc96c6e7634376490f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/electro_episoded_in_a_d_2025__skinner/story.json"
+  },
+  "lcats_id": "mass_quantities/electro_episoded_in_a_d_2025__skinner",
+  "metrics": {
+    "avg_sentence_length": 28.196969696969695,
+    "avg_word_length": 4.231192907039226,
+    "sentence_count": 264,
+    "token_count": 8996,
+    "word_count": 7444
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/electro_episoded_in_a_d_2025__skinner/story.json"
+}

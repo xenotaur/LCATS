@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43217,
+    "body_sha256": "ee294e9e3f5825ecd80ffcf86e2a561e30a00fddd82634a4e696ab1350eb52f0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vicious_delinquents__reinsberg/story.json"
+  },
+  "lcats_id": "mass_quantities/the_vicious_delinquents__reinsberg",
+  "metrics": {
+    "avg_sentence_length": 13.330745341614907,
+    "avg_word_length": 4.022131624927199,
+    "sentence_count": 644,
+    "token_count": 10375,
+    "word_count": 8585
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vicious_delinquents__reinsberg/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19984,
+    "body_sha256": "9f883eac46d5afabedd735d7bc9ba1707b71cce402a427df4792e7862fd928ab",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bleekman_s_planet__garrett_silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/bleekman_s_planet__garrett_silverberg",
+  "metrics": {
+    "avg_sentence_length": 11.132394366197182,
+    "avg_word_length": 4.0437753036437245,
+    "sentence_count": 355,
+    "token_count": 4893,
+    "word_count": 3952
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bleekman_s_planet__garrett_silverberg/story.json"
+}

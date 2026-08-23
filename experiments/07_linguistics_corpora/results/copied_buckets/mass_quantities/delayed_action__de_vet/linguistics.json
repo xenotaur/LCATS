@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34758,
+    "body_sha256": "7eaffd008f1455c8d066573cf2da068c3c1bdfbddfdb0a99457542696dfc2fad",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/delayed_action__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/delayed_action__de_vet",
+  "metrics": {
+    "avg_sentence_length": 14.219262295081966,
+    "avg_word_length": 4.024787433347744,
+    "sentence_count": 488,
+    "token_count": 8167,
+    "word_count": 6939
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/delayed_action__de_vet/story.json"
+}

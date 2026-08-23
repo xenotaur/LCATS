@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15972,
+    "body_sha256": "651c7313bf82f4d6d691be8a12a12c1c72d8806c58d867e75e9859c7864a9ca0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/proof_of_the_pudding__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/proof_of_the_pudding__sheckley",
+  "metrics": {
+    "avg_sentence_length": 12.29277566539924,
+    "avg_word_length": 3.9208165790287657,
+    "sentence_count": 263,
+    "token_count": 3913,
+    "word_count": 3233
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/proof_of_the_pudding__sheckley/story.json"
+}

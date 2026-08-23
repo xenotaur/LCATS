@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20816,
+    "body_sha256": "4381a108ff02c5fcd14635c9bd01cf694da91b51d75a81de743505e4474007f6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/halima_and_the_scorpions_1905__hichens/story.json"
+  },
+  "lcats_id": "mass_quantities/halima_and_the_scorpions_1905__hichens",
+  "metrics": {
+    "avg_sentence_length": 19.42396313364055,
+    "avg_word_length": 3.9587188612099644,
+    "sentence_count": 217,
+    "token_count": 4944,
+    "word_count": 4215
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/halima_and_the_scorpions_1905__hichens/story.json"
+}

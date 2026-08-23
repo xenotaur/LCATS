@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20860,
+    "body_sha256": "5368ebf1c37d8e9899113dada9045eab9a4b7e1d9069589f51c2f47699a763b4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/synthetic_hero__fennel/story.json"
+  },
+  "lcats_id": "mass_quantities/synthetic_hero__fennel",
+  "metrics": {
+    "avg_sentence_length": 17.799086757990867,
+    "avg_word_length": 4.425602873268343,
+    "sentence_count": 219,
+    "token_count": 4337,
+    "word_count": 3898
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/synthetic_hero__fennel/story.json"
+}

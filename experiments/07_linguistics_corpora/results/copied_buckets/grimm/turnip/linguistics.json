@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6506,
+    "body_sha256": "4bed9a30bcc9b82dc0602ed07785dabd681725a3c5014c24126c01ac01f1d64a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/turnip/story.json"
+  },
+  "lcats_id": "grimm/turnip",
+  "metrics": {
+    "avg_sentence_length": 28.295454545454547,
+    "avg_word_length": 4.2008032128514055,
+    "sentence_count": 44,
+    "token_count": 1456,
+    "word_count": 1245
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/turnip/story.json"
+}

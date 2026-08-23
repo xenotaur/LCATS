@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29612,
+    "body_sha256": "a2dafa23a7d6dd20a38f6c4d5218477ec5a647b2e4dca38cf624d2fb1a950f3c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/recollections_of_captain_wilkie_a_story_of_an_old__doyle/story.json"
+  },
+  "lcats_id": "mass_quantities/recollections_of_captain_wilkie_a_story_of_an_old__doyle",
+  "metrics": {
+    "avg_sentence_length": 20.792642140468228,
+    "avg_word_length": 3.7518095544474828,
+    "sentence_count": 299,
+    "token_count": 7403,
+    "word_count": 6217
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/recollections_of_captain_wilkie_a_story_of_an_old__doyle/story.json"
+}

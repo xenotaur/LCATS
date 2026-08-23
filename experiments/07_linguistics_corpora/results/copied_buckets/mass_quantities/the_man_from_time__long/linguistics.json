@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28465,
+    "body_sha256": "2614d7955bedbbfbb64339483164e6405bb1ff9a1825d4dd382031a1a3a7ba5a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_from_time__long/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_from_time__long",
+  "metrics": {
+    "avg_sentence_length": 16.142061281337046,
+    "avg_word_length": 3.977221742881795,
+    "sentence_count": 359,
+    "token_count": 6488,
+    "word_count": 5795
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_from_time__long/story.json"
+}

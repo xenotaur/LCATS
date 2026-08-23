@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33912,
+    "body_sha256": "c2954491bc2be832a35bba31534faf79536c14c1fdffc4a25fa89fbd2c1b156c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/among_the_scented_ones__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/among_the_scented_ones__wells",
+  "metrics": {
+    "avg_sentence_length": 14.46103896103896,
+    "avg_word_length": 4.113605747642569,
+    "sentence_count": 462,
+    "token_count": 7753,
+    "word_count": 6681
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/among_the_scented_ones__wells/story.json"
+}

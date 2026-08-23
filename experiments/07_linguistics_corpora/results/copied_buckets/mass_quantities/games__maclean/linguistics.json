@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16869,
+    "body_sha256": "afd1340be0d0c0732785a32657e6e478c3b445023dc07d5d99d4689c4efa3d10",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/games__maclean/story.json"
+  },
+  "lcats_id": "mass_quantities/games__maclean",
+  "metrics": {
+    "avg_sentence_length": 15.550925925925926,
+    "avg_word_length": 4.042274486454302,
+    "sentence_count": 216,
+    "token_count": 3888,
+    "word_count": 3359
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/games__maclean/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50179,
+    "body_sha256": "64224014c8c15ab2588d1efe3c860bef414731bccb052d25d4012aad0917b67f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_horror_at_red_hook/story.json"
+  },
+  "lcats_id": "lovecraft/the_horror_at_red_hook",
+  "metrics": {
+    "avg_sentence_length": 35.376344086021504,
+    "avg_word_length": 4.267882472137791,
+    "sentence_count": 279,
+    "token_count": 10864,
+    "word_count": 9870
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_horror_at_red_hook/story.json"
+}

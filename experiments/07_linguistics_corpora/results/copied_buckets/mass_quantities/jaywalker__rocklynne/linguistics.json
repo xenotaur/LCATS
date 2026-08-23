@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28173,
+    "body_sha256": "08fcf24d0f0b51d6f4a760302622181dd25ebb27c8470061ea9f3903f2385f59",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jaywalker__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/jaywalker__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 14.741602067183463,
+    "avg_word_length": 3.9219982471516213,
+    "sentence_count": 387,
+    "token_count": 6980,
+    "word_count": 5705
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jaywalker__rocklynne/story.json"
+}

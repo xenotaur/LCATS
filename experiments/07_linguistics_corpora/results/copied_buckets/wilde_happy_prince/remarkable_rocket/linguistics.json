@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23582,
+    "body_sha256": "4bf06165fcab1d26ec22123afe965d0247448ff286ddaa155d9e38c229e73adf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/remarkable_rocket/story.json"
+  },
+  "lcats_id": "wilde_happy_prince/remarkable_rocket",
+  "metrics": {
+    "avg_sentence_length": 17.2140350877193,
+    "avg_word_length": 3.801263758662862,
+    "sentence_count": 285,
+    "token_count": 5955,
+    "word_count": 4906
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/remarkable_rocket/story.json"
+}

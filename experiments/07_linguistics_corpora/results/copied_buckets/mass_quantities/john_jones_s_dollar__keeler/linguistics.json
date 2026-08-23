@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23589,
+    "body_sha256": "9b7f57de25d5cc6bcebbfafed4606d54d9a09533163c2b4b90e1f74f34fe33dc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/john_jones_s_dollar__keeler/story.json"
+  },
+  "lcats_id": "mass_quantities/john_jones_s_dollar__keeler",
+  "metrics": {
+    "avg_sentence_length": 25.21264367816092,
+    "avg_word_length": 4.415317984955551,
+    "sentence_count": 174,
+    "token_count": 5047,
+    "word_count": 4387
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/john_jones_s_dollar__keeler/story.json"
+}

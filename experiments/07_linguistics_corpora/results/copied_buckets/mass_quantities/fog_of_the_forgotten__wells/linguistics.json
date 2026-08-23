@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36087,
+    "body_sha256": "57e5c126784950fd8775385a1b1fd3f6bf4c5da08a67f9e22b13772f264e7c25",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fog_of_the_forgotten__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/fog_of_the_forgotten__wells",
+  "metrics": {
+    "avg_sentence_length": 18.413265306122447,
+    "avg_word_length": 4.049736769188141,
+    "sentence_count": 392,
+    "token_count": 8251,
+    "word_count": 7218
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fog_of_the_forgotten__wells/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14917,
+    "body_sha256": "75cff93bb99fb12badc4594f565c9da1175658d968a9b1fe40c38198475e3ee9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/battleground__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/battleground__del_rey",
+  "metrics": {
+    "avg_sentence_length": 14.15609756097561,
+    "avg_word_length": 4.158511371467953,
+    "sentence_count": 205,
+    "token_count": 3378,
+    "word_count": 2902
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/battleground__del_rey/story.json"
+}

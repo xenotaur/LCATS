@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21613,
+    "body_sha256": "f56ee50d40685dee53285c85f87a0dd447cce33a1bfd62e849dab7d93d08bba3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/solomon_s_orbit__carroll/story.json"
+  },
+  "lcats_id": "mass_quantities/solomon_s_orbit__carroll",
+  "metrics": {
+    "avg_sentence_length": 16.59437751004016,
+    "avg_word_length": 4.25459825750242,
+    "sentence_count": 249,
+    "token_count": 4767,
+    "word_count": 4132
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/solomon_s_orbit__carroll/story.json"
+}

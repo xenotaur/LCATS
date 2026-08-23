@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13523,
+    "body_sha256": "9a87cb7cb1ff630e0d9d00f1fffa013a0fa02693e29a39a2c2037bf1745794d5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/king_of_the_golden_mountain/story.json"
+  },
+  "lcats_id": "grimm/king_of_the_golden_mountain",
+  "metrics": {
+    "avg_sentence_length": 29.93258426966292,
+    "avg_word_length": 4.046921921921922,
+    "sentence_count": 89,
+    "token_count": 3118,
+    "word_count": 2664
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/king_of_the_golden_mountain/story.json"
+}

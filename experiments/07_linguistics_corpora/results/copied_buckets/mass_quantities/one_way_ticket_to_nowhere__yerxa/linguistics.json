@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53726,
+    "body_sha256": "6f12b062d922300d19a6a5bc5741cae3fc4394418f4ae59fa12ec92e51152885",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_way_ticket_to_nowhere__yerxa/story.json"
+  },
+  "lcats_id": "mass_quantities/one_way_ticket_to_nowhere__yerxa",
+  "metrics": {
+    "avg_sentence_length": 12.232922732362821,
+    "avg_word_length": 3.9161479311607468,
+    "sentence_count": 893,
+    "token_count": 13177,
+    "word_count": 10924
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_way_ticket_to_nowhere__yerxa/story.json"
+}

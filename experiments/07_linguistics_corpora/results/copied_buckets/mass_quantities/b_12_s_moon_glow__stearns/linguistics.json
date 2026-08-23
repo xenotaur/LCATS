@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33627,
+    "body_sha256": "79df0028a9b7b991865f8807a108064df7139a7a98d450c533350151cd8882ff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/b_12_s_moon_glow__stearns/story.json"
+  },
+  "lcats_id": "mass_quantities/b_12_s_moon_glow__stearns",
+  "metrics": {
+    "avg_sentence_length": 13.541832669322709,
+    "avg_word_length": 3.923948220064725,
+    "sentence_count": 502,
+    "token_count": 8174,
+    "word_count": 6798
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/b_12_s_moon_glow__stearns/story.json"
+}

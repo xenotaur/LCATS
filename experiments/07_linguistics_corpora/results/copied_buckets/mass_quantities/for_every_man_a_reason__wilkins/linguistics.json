@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44149,
+    "body_sha256": "fd00531026a6edda7f5c1f08410e043caed2c74863860f88a87b427cf270946a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/for_every_man_a_reason__wilkins/story.json"
+  },
+  "lcats_id": "mass_quantities/for_every_man_a_reason__wilkins",
+  "metrics": {
+    "avg_sentence_length": 18.663811563169165,
+    "avg_word_length": 4.11977971546581,
+    "sentence_count": 467,
+    "token_count": 9859,
+    "word_count": 8716
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/for_every_man_a_reason__wilkins/story.json"
+}

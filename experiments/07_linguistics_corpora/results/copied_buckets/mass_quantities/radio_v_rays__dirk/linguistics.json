@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27144,
+    "body_sha256": "a35b7001b4b6da47c4e9915f005ba3a6e69348e583e415723bee38940a6234ec",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/radio_v_rays__dirk/story.json"
+  },
+  "lcats_id": "mass_quantities/radio_v_rays__dirk",
+  "metrics": {
+    "avg_sentence_length": 21.52191235059761,
+    "avg_word_length": 4.034616808589411,
+    "sentence_count": 251,
+    "token_count": 6351,
+    "word_count": 5402
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/radio_v_rays__dirk/story.json"
+}

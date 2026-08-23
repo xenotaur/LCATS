@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37056,
+    "body_sha256": "17ffe7c0cd027a0727d56a5cd278e673da9575a84c11951dd3080dbc62e74bd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_purple_hope__hasse/story.json"
+  },
+  "lcats_id": "mass_quantities/one_purple_hope__hasse",
+  "metrics": {
+    "avg_sentence_length": 11.29742033383915,
+    "avg_word_length": 3.991000671591672,
+    "sentence_count": 659,
+    "token_count": 8821,
+    "word_count": 7445
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_purple_hope__hasse/story.json"
+}

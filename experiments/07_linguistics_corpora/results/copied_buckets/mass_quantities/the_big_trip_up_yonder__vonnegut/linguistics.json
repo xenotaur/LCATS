@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20856,
+    "body_sha256": "010e39c1d2ccef922c9ab7a79e057f69e6f5b852dc10a194f459d2f1f0afc6df",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_trip_up_yonder__vonnegut/story.json"
+  },
+  "lcats_id": "mass_quantities/the_big_trip_up_yonder__vonnegut",
+  "metrics": {
+    "avg_sentence_length": 18.45045045045045,
+    "avg_word_length": 4.08642578125,
+    "sentence_count": 222,
+    "token_count": 4964,
+    "word_count": 4096
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_trip_up_yonder__vonnegut/story.json"
+}

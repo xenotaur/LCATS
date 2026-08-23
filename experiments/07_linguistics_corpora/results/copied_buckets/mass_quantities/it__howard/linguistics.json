@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35941,
+    "body_sha256": "8fc133ab0de19b20a24790127b638203554ef76a2fd43ca9133ada9c3677066b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/it__howard",
+  "metrics": {
+    "avg_sentence_length": 14.559426229508198,
+    "avg_word_length": 4.099788881069669,
+    "sentence_count": 488,
+    "token_count": 8153,
+    "word_count": 7105
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it__howard/story.json"
+}

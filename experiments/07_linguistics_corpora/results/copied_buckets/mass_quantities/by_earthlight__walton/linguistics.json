@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25939,
+    "body_sha256": "f18c933450ed2690aaa99ef13f706c8c45c2165456c7b38ba161e44bf484c558",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/by_earthlight__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/by_earthlight__walton",
+  "metrics": {
+    "avg_sentence_length": 12.869017632241814,
+    "avg_word_length": 4.080250538265806,
+    "sentence_count": 397,
+    "token_count": 6017,
+    "word_count": 5109
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/by_earthlight__walton/story.json"
+}

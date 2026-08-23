@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31089,
+    "body_sha256": "ba68882db82933837599993079d562629527e22b2960c9fe8608d7dade42a490",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lifted_bandage__andrews/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lifted_bandage__andrews",
+  "metrics": {
+    "avg_sentence_length": 16.37084398976982,
+    "avg_word_length": 3.8450242149664113,
+    "sentence_count": 391,
+    "token_count": 7648,
+    "word_count": 6401
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lifted_bandage__andrews/story.json"
+}

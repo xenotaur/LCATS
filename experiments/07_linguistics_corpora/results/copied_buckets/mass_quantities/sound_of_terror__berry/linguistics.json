@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20465,
+    "body_sha256": "c20913b606fe68ac6d57813b733d6d7fd93dfa6d5db1d2241d101d1e5d9d4a89",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sound_of_terror__berry/story.json"
+  },
+  "lcats_id": "mass_quantities/sound_of_terror__berry",
+  "metrics": {
+    "avg_sentence_length": 10.41343669250646,
+    "avg_word_length": 3.993300248138958,
+    "sentence_count": 387,
+    "token_count": 5129,
+    "word_count": 4030
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sound_of_terror__berry/story.json"
+}

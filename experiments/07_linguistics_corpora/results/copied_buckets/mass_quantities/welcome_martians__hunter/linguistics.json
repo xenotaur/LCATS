@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14801,
+    "body_sha256": "644ded67d6822dd0aad5cd095149611014c9100369ce1885830d4e53c522964d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/welcome_martians__hunter/story.json"
+  },
+  "lcats_id": "mass_quantities/welcome_martians__hunter",
+  "metrics": {
+    "avg_sentence_length": 9.327974276527332,
+    "avg_word_length": 4.019993105825577,
+    "sentence_count": 311,
+    "token_count": 3752,
+    "word_count": 2901
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/welcome_martians__hunter/story.json"
+}

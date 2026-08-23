@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25889,
+    "body_sha256": "701a73f8dbafaf493876c791a91cc44bd6c6bbef098972a3207a908c7f67dacd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_deep_one__ruzic/story.json"
+  },
+  "lcats_id": "mass_quantities/the_deep_one__ruzic",
+  "metrics": {
+    "avg_sentence_length": 15.179640718562874,
+    "avg_word_length": 4.135502958579882,
+    "sentence_count": 334,
+    "token_count": 5918,
+    "word_count": 5070
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_deep_one__ruzic/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27320,
+    "body_sha256": "bae0d5d9bb440bf4aa5743fbd40523f1a0fd5303a1ef9a45c228e0b8f092f89e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/story.json"
+  },
+  "lcats_id": "mass_quantities/julia_the_apostate__bacon",
+  "metrics": {
+    "avg_sentence_length": 20.08664259927798,
+    "avg_word_length": 3.906002875629044,
+    "sentence_count": 277,
+    "token_count": 6729,
+    "word_count": 5564
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/story.json"
+}

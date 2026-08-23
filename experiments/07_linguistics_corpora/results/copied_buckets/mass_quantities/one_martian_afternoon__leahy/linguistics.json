@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11041,
+    "body_sha256": "844362c5edd24e5e3e016cd1eeef4f4755cbdab969f6c4c6ed58b87afcccc06d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_martian_afternoon__leahy/story.json"
+  },
+  "lcats_id": "mass_quantities/one_martian_afternoon__leahy",
+  "metrics": {
+    "avg_sentence_length": 13.333333333333334,
+    "avg_word_length": 3.898660714285714,
+    "sentence_count": 168,
+    "token_count": 2750,
+    "word_count": 2240
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_martian_afternoon__leahy/story.json"
+}

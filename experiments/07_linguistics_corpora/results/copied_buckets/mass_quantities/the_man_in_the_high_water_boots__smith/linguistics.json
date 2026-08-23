@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28458,
+    "body_sha256": "843f7e5ac8652ce995b973a7d11094a5a106ad2361542ff911a611777c218ef1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_in_the_high_water_boots__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_in_the_high_water_boots__smith",
+  "metrics": {
+    "avg_sentence_length": 27.497630331753555,
+    "avg_word_length": 3.9015856601172008,
+    "sentence_count": 211,
+    "token_count": 6928,
+    "word_count": 5802
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_in_the_high_water_boots__smith/story.json"
+}

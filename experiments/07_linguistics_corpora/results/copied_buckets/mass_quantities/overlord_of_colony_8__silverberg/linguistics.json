@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22513,
+    "body_sha256": "cf27f47205b36ce9c62aa1be53bd7a3c8af0d008658027abc20d0337c3ecc076",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/overlord_of_colony_8__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/overlord_of_colony_8__silverberg",
+  "metrics": {
+    "avg_sentence_length": 10.37962962962963,
+    "avg_word_length": 4.019848349687779,
+    "sentence_count": 432,
+    "token_count": 5397,
+    "word_count": 4484
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/overlord_of_colony_8__silverberg/story.json"
+}

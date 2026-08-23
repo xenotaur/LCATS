@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40324,
+    "body_sha256": "7d143a93b95d2361559996d992c04b976efe06ba9eb4f53ae3cbb78ae7f415c6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/orphans_of_the_void__shaara/story.json"
+  },
+  "lcats_id": "mass_quantities/orphans_of_the_void__shaara",
+  "metrics": {
+    "avg_sentence_length": 15.020992366412214,
+    "avg_word_length": 4.127683902934824,
+    "sentence_count": 524,
+    "token_count": 9272,
+    "word_count": 7871
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/orphans_of_the_void__shaara/story.json"
+}

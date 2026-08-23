@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31374,
+    "body_sha256": "f1911db101cda9ec3cc7845d31a817049d7c985c51a26e950d7d2728a7c7f91a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tillie__phillips/story.json"
+  },
+  "lcats_id": "mass_quantities/tillie__phillips",
+  "metrics": {
+    "avg_sentence_length": 16.317948717948717,
+    "avg_word_length": 3.968416090509114,
+    "sentence_count": 390,
+    "token_count": 7213,
+    "word_count": 6364
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tillie__phillips/story.json"
+}

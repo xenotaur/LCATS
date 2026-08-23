@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16003,
+    "body_sha256": "33a994330c98674d6db6cd064339fbe9bb3aff88bcaada799b5f5ab598956ee6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_semantic_war__clothier/story.json"
+  },
+  "lcats_id": "mass_quantities/the_semantic_war__clothier",
+  "metrics": {
+    "avg_sentence_length": 14.35909090909091,
+    "avg_word_length": 4.107945552389997,
+    "sentence_count": 220,
+    "token_count": 3596,
+    "word_count": 3159
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_semantic_war__clothier/story.json"
+}

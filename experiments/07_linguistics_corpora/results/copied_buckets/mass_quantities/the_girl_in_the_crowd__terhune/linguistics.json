@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33478,
+    "body_sha256": "1191700079db6b61037e3d3724bc089a894034868cf9bbc76160813bf64241ce",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/story.json"
+  },
+  "lcats_id": "mass_quantities/the_girl_in_the_crowd__terhune",
+  "metrics": {
+    "avg_sentence_length": 14.431289640591967,
+    "avg_word_length": 3.9282156460591855,
+    "sentence_count": 473,
+    "token_count": 8152,
+    "word_count": 6826
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29558,
+    "body_sha256": "9bc434889b64bec907afba18de20e67b8c0a72b5aee436df4e7e045abc436460",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/learning_theory__mcconnell/story.json"
+  },
+  "lcats_id": "mass_quantities/learning_theory__mcconnell",
+  "metrics": {
+    "avg_sentence_length": 19.927152317880793,
+    "avg_word_length": 3.965769358590894,
+    "sentence_count": 302,
+    "token_count": 6705,
+    "word_count": 6018
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/learning_theory__mcconnell/story.json"
+}

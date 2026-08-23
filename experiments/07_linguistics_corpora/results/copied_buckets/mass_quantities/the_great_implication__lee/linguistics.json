@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21465,
+    "body_sha256": "a68d8e86b8b6cc35fd90c4fb4d7b59f0e6866645909c4a7f631cab06a4ae8796",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_implication__lee/story.json"
+  },
+  "lcats_id": "mass_quantities/the_great_implication__lee",
+  "metrics": {
+    "avg_sentence_length": 15.36101083032491,
+    "avg_word_length": 4.05123384253819,
+    "sentence_count": 277,
+    "token_count": 5136,
+    "word_count": 4255
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_implication__lee/story.json"
+}

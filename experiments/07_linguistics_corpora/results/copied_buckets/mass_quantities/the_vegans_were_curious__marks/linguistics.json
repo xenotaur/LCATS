@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23335,
+    "body_sha256": "63534950ad596fa109f2201b939766bb30d654931b5a11c684052eedb8f89d98",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vegans_were_curious__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/the_vegans_were_curious__marks",
+  "metrics": {
+    "avg_sentence_length": 13.88785046728972,
+    "avg_word_length": 4.227007626738447,
+    "sentence_count": 321,
+    "token_count": 5485,
+    "word_count": 4458
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vegans_were_curious__marks/story.json"
+}

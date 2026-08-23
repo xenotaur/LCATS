@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48436,
+    "body_sha256": "9af2ddc8855ca2eac2c40e9bd939ce3f1f0d2d2ac9eb27c68f0c3d5e63294c6e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_defenders__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/the_defenders__dick",
+  "metrics": {
+    "avg_sentence_length": 10.5,
+    "avg_word_length": 4.003846953628613,
+    "sentence_count": 916,
+    "token_count": 11823,
+    "word_count": 9618
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_defenders__dick/story.json"
+}

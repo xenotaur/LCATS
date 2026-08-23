@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20192,
+    "body_sha256": "ace1c401bd625d36b1ef864a05785fda12888a56f6d74591af8f10af7bdcf4b8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_philly_firkin_the_china_woman__mitford/story.json"
+  },
+  "lcats_id": "mass_quantities/miss_philly_firkin_the_china_woman__mitford",
+  "metrics": {
+    "avg_sentence_length": 44.1123595505618,
+    "avg_word_length": 4.15843097300051,
+    "sentence_count": 89,
+    "token_count": 4552,
+    "word_count": 3926
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_philly_firkin_the_china_woman__mitford/story.json"
+}

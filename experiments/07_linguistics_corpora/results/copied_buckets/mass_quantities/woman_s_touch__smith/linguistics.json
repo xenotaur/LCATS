@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37412,
+    "body_sha256": "0492c7b48e4deb48894eeac18ef5e83aa666b2dbbd12a7db19556ae9c97a53b5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/woman_s_touch__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/woman_s_touch__smith",
+  "metrics": {
+    "avg_sentence_length": 13.842803030303031,
+    "avg_word_length": 4.0757969626487895,
+    "sentence_count": 528,
+    "token_count": 9114,
+    "word_count": 7309
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/woman_s_touch__smith/story.json"
+}

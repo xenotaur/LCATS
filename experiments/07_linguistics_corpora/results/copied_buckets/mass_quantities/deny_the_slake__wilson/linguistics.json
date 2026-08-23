@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30498,
+    "body_sha256": "a8290137a3ae36d09f0c324adcd27369387ac91db5931e2e75d6963c92b6121a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/deny_the_slake__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/deny_the_slake__wilson",
+  "metrics": {
+    "avg_sentence_length": 13.261437908496733,
+    "avg_word_length": 4.007557088877936,
+    "sentence_count": 459,
+    "token_count": 7400,
+    "word_count": 6087
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/deny_the_slake__wilson/story.json"
+}

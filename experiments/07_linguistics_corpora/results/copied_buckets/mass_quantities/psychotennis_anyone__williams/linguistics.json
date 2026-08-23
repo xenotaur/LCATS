@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26783,
+    "body_sha256": "4406a5355d6c7ec769dca26db7ca7b5f3ce1211a44fcdb9698346664f42cc93b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/psychotennis_anyone__williams/story.json"
+  },
+  "lcats_id": "mass_quantities/psychotennis_anyone__williams",
+  "metrics": {
+    "avg_sentence_length": 11.8,
+    "avg_word_length": 4.022033898305085,
+    "sentence_count": 450,
+    "token_count": 6467,
+    "word_count": 5310
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/psychotennis_anyone__williams/story.json"
+}

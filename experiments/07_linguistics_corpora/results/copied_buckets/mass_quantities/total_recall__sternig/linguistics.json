@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19711,
+    "body_sha256": "065a4e2ea62cb6d96e8279c254e478a7be387e742fcf3a5c42b02f2b070383f5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/total_recall__sternig/story.json"
+  },
+  "lcats_id": "mass_quantities/total_recall__sternig",
+  "metrics": {
+    "avg_sentence_length": 13.830985915492958,
+    "avg_word_length": 4.02469450101833,
+    "sentence_count": 284,
+    "token_count": 4714,
+    "word_count": 3928
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/total_recall__sternig/story.json"
+}

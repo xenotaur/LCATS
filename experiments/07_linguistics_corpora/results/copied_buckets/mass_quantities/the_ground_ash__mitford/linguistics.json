@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26723,
+    "body_sha256": "746bc6ecec84fe9bf193aa41306b05edca77f7fdd72d0c55e2f12124de8c6aea",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ground_ash__mitford/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ground_ash__mitford",
+  "metrics": {
+    "avg_sentence_length": 42.983333333333334,
+    "avg_word_length": 4.1917409848778595,
+    "sentence_count": 120,
+    "token_count": 5973,
+    "word_count": 5158
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ground_ash__mitford/story.json"
+}

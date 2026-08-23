@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15041,
+    "body_sha256": "3a91b009997f99ff7d99919e4a4af4a4ed142efd8b91c132dd7d98045468687e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_invader__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/the_invader__coppel",
+  "metrics": {
+    "avg_sentence_length": 15.026178010471204,
+    "avg_word_length": 4.282578397212544,
+    "sentence_count": 191,
+    "token_count": 3240,
+    "word_count": 2870
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_invader__coppel/story.json"
+}

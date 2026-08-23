@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37665,
+    "body_sha256": "635d257d1a203ad64bacaa5dcee4c878c2af2fb69d493c708e473a76a71fea78",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/telempathy__simonds/story.json"
+  },
+  "lcats_id": "mass_quantities/telempathy__simonds",
+  "metrics": {
+    "avg_sentence_length": 16.302961275626423,
+    "avg_word_length": 4.221880676261003,
+    "sentence_count": 439,
+    "token_count": 8911,
+    "word_count": 7157
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/telempathy__simonds/story.json"
+}

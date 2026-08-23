@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28271,
+    "body_sha256": "2ee6d0d236bca8e9ad8b9e1c84cb9ffcc3cc970f4897ba1b572b85be739cc204",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bramble_bush__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/bramble_bush__nourse",
+  "metrics": {
+    "avg_sentence_length": 12.714932126696832,
+    "avg_word_length": 4.034341637010676,
+    "sentence_count": 442,
+    "token_count": 6804,
+    "word_count": 5620
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bramble_bush__nourse/story.json"
+}

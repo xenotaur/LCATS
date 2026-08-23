@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15387,
+    "body_sha256": "2aab875a00673adbf9cc9316ea2fc7e739a5e4a6e4631fbc5132b1d7300bd985",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/green_door/story.json"
+  },
+  "lcats_id": "ohenry-four_million/green_door",
+  "metrics": {
+    "avg_sentence_length": 19.616883116883116,
+    "avg_word_length": 4.1092353525322745,
+    "sentence_count": 154,
+    "token_count": 3492,
+    "word_count": 3021
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/green_door/story.json"
+}

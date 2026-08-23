@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16740,
+    "body_sha256": "eda09e38d297c6f0e04fa106f7f62d382f4389332fb804d1e26a662e69958a10",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/am_i_still_there__hall/story.json"
+  },
+  "lcats_id": "mass_quantities/am_i_still_there__hall",
+  "metrics": {
+    "avg_sentence_length": 15.289719626168225,
+    "avg_word_length": 4.125305623471883,
+    "sentence_count": 214,
+    "token_count": 3906,
+    "word_count": 3272
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/am_i_still_there__hall/story.json"
+}

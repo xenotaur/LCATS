@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29783,
+    "body_sha256": "cd2a98932357fc9cb3acd58dfcc18873c90f69b769ea88d0a7618e69799531ce",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_un_reconstructed_woman__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/the_un_reconstructed_woman__howard",
+  "metrics": {
+    "avg_sentence_length": 17.51014492753623,
+    "avg_word_length": 3.9592782651878826,
+    "sentence_count": 345,
+    "token_count": 6887,
+    "word_count": 6041
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_un_reconstructed_woman__howard/story.json"
+}

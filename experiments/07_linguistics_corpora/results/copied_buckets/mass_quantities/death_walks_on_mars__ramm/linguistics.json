@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20933,
+    "body_sha256": "30f4c7c8c20164abd10d83eb6f7c0b5dc3a7162af3d3670283d7abe77c6a93bb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_walks_on_mars__ramm/story.json"
+  },
+  "lcats_id": "mass_quantities/death_walks_on_mars__ramm",
+  "metrics": {
+    "avg_sentence_length": 11.28225806451613,
+    "avg_word_length": 3.990945913747915,
+    "sentence_count": 372,
+    "token_count": 5021,
+    "word_count": 4197
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_walks_on_mars__ramm/story.json"
+}

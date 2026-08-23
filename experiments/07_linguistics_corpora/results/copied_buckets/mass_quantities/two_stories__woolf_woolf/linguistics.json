@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18332,
+    "body_sha256": "fc0b83d3bd6a8fca6c1edb3a50c0bc2675e2c080dcbfec4bcb4a43070db4f523",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_stories__woolf_woolf/story.json"
+  },
+  "lcats_id": "mass_quantities/two_stories__woolf_woolf",
+  "metrics": {
+    "avg_sentence_length": 25.171232876712327,
+    "avg_word_length": 4.0016326530612245,
+    "sentence_count": 146,
+    "token_count": 4181,
+    "word_count": 3675
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_stories__woolf_woolf/story.json"
+}

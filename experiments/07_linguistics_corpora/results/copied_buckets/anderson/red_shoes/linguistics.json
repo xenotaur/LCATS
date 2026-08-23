@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13138,
+    "body_sha256": "4ef1f02bd630c3406958560227d922581d0bdffbb5bf9ae1d9c8f472a4c23cb4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/red_shoes/story.json"
+  },
+  "lcats_id": "anderson/red_shoes",
+  "metrics": {
+    "avg_sentence_length": 24.39,
+    "avg_word_length": 4.3854038540385405,
+    "sentence_count": 100,
+    "token_count": 2832,
+    "word_count": 2439
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/red_shoes/story.json"
+}

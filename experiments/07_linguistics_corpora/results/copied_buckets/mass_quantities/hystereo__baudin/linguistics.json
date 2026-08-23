@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27318,
+    "body_sha256": "0a35383bcfdcfac8d59e7145d176756584db5bcc70b8096f0fde25d808036261",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hystereo__baudin/story.json"
+  },
+  "lcats_id": "mass_quantities/hystereo__baudin",
+  "metrics": {
+    "avg_sentence_length": 12.405727923627685,
+    "avg_word_length": 4.207002693343593,
+    "sentence_count": 419,
+    "token_count": 6402,
+    "word_count": 5198
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hystereo__baudin/story.json"
+}

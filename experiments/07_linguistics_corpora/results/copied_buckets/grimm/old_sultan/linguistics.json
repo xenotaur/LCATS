@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4775,
+    "body_sha256": "7569ace27c0b6c006ba97946bdaf5ebf29aba305a9cf142b28d424353a190ea8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/old_sultan/story.json"
+  },
+  "lcats_id": "grimm/old_sultan",
+  "metrics": {
+    "avg_sentence_length": 39.083333333333336,
+    "avg_word_length": 4.0799573560767595,
+    "sentence_count": 24,
+    "token_count": 1078,
+    "word_count": 938
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/old_sultan/story.json"
+}

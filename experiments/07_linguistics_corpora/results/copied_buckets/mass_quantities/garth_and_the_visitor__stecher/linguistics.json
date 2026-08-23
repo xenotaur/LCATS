@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20704,
+    "body_sha256": "733bd5a7ccc0cd88d13dbd2e700d49f6573b197af7903f172e37e220d9c486f7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/garth_and_the_visitor__stecher/story.json"
+  },
+  "lcats_id": "mass_quantities/garth_and_the_visitor__stecher",
+  "metrics": {
+    "avg_sentence_length": 15.226277372262773,
+    "avg_word_length": 3.9695589645254077,
+    "sentence_count": 274,
+    "token_count": 4969,
+    "word_count": 4172
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/garth_and_the_visitor__stecher/story.json"
+}

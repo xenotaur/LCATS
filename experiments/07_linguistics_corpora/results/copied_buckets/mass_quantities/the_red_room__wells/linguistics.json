@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21455,
+    "body_sha256": "f0d485dc6ec0aec106ba180a65f07252ae3a7583826bc24786d0187333a27739",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_red_room__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/the_red_room__wells",
+  "metrics": {
+    "avg_sentence_length": 21.908163265306122,
+    "avg_word_length": 4.00279459711225,
+    "sentence_count": 196,
+    "token_count": 4965,
+    "word_count": 4294
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_red_room__wells/story.json"
+}

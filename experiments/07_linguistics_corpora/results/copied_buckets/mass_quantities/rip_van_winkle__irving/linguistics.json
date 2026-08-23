@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40205,
+    "body_sha256": "2e7beb8be48de75487a60f4a277535619c33b33583a472e5a9baa030d54235e6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rip_van_winkle__irving/story.json"
+  },
+  "lcats_id": "mass_quantities/rip_van_winkle__irving",
+  "metrics": {
+    "avg_sentence_length": 32.11522633744856,
+    "avg_word_length": 4.159405433111225,
+    "sentence_count": 243,
+    "token_count": 9140,
+    "word_count": 7804
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rip_van_winkle__irving/story.json"
+}

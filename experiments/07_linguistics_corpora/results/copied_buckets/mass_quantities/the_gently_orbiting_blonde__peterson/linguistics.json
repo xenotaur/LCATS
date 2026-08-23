@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21160,
+    "body_sha256": "49e85860d12d07628ba38afae25a84590e469a9c8a743dff0933c56d924b2f41",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gently_orbiting_blonde__peterson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_gently_orbiting_blonde__peterson",
+  "metrics": {
+    "avg_sentence_length": 14.013289036544851,
+    "avg_word_length": 4.047652916073969,
+    "sentence_count": 301,
+    "token_count": 4996,
+    "word_count": 4218
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gently_orbiting_blonde__peterson/story.json"
+}

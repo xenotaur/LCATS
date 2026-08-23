@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5173,
+    "body_sha256": "8feee150c0a622772bc5e1cc57b527c7db10f1e4a38e97b5de8c2eb43886bef1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/simple_enquiry/story.json"
+  },
+  "lcats_id": "hemingway/simple_enquiry",
+  "metrics": {
+    "avg_sentence_length": 13.091954022988507,
+    "avg_word_length": 3.56540825285338,
+    "sentence_count": 87,
+    "token_count": 1395,
+    "word_count": 1139
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/simple_enquiry/story.json"
+}

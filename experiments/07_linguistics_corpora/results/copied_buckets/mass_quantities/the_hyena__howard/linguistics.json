@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26368,
+    "body_sha256": "4b99d5d5b53a80aba0520589feec22652962ea066fbeadc809a9f46d40aed95e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hyena__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hyena__howard",
+  "metrics": {
+    "avg_sentence_length": 15.559420289855073,
+    "avg_word_length": 3.9152384500745154,
+    "sentence_count": 345,
+    "token_count": 6325,
+    "word_count": 5368
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hyena__howard/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21581,
+    "body_sha256": "ddb08ebb0120af409f76965ac804f31faf842ec55c4dbb02e0322864d4e8b6e9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ring_once_for_death__arthur/story.json"
+  },
+  "lcats_id": "mass_quantities/ring_once_for_death__arthur",
+  "metrics": {
+    "avg_sentence_length": 10.018099547511312,
+    "avg_word_length": 3.803297199638663,
+    "sentence_count": 442,
+    "token_count": 5637,
+    "word_count": 4428
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ring_once_for_death__arthur/story.json"
+}

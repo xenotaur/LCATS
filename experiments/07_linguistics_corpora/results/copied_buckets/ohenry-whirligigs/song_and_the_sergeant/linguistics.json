@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12914,
+    "body_sha256": "ff541a5fd50ca2cc81351a6f76af227f6e29f804dac36b07c1defcfa1eba6045",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/song_and_the_sergeant/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/song_and_the_sergeant",
+  "metrics": {
+    "avg_sentence_length": 16.264150943396228,
+    "avg_word_length": 4.001933488012375,
+    "sentence_count": 159,
+    "token_count": 3073,
+    "word_count": 2586
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/song_and_the_sergeant/story.json"
+}

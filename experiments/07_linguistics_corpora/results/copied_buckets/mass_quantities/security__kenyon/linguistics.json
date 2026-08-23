@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20718,
+    "body_sha256": "ba84729ac1d1d93d1c21d6111be32675ae9d35309e5459d94b8dcd2c9636cf6a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/security__kenyon/story.json"
+  },
+  "lcats_id": "mass_quantities/security__kenyon",
+  "metrics": {
+    "avg_sentence_length": 15.87843137254902,
+    "avg_word_length": 4.14522104223265,
+    "sentence_count": 255,
+    "token_count": 4675,
+    "word_count": 4049
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/security__kenyon/story.json"
+}

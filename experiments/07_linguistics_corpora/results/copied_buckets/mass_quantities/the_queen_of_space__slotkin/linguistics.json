@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34420,
+    "body_sha256": "abfe560942b4a7d8712201c90969da19aee7fe83988749e9a77f28bf2ca24021",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_queen_of_space__slotkin/story.json"
+  },
+  "lcats_id": "mass_quantities/the_queen_of_space__slotkin",
+  "metrics": {
+    "avg_sentence_length": 14.08284023668639,
+    "avg_word_length": 3.7471988795518207,
+    "sentence_count": 507,
+    "token_count": 9174,
+    "word_count": 7140
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_queen_of_space__slotkin/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20827,
+    "body_sha256": "e3276a15b34469df3f5f9bda2474f09551352d5207e0e397c1f4053bc6bc2928",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_mockery__moskowitz/story.json"
+  },
+  "lcats_id": "mass_quantities/world_of_mockery__moskowitz",
+  "metrics": {
+    "avg_sentence_length": 16.696202531645568,
+    "avg_word_length": 4.296689411170078,
+    "sentence_count": 237,
+    "token_count": 4507,
+    "word_count": 3957
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_mockery__moskowitz/story.json"
+}

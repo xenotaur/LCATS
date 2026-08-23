@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24660,
+    "body_sha256": "63138991059e6344792356d053188319e69f4f8c2772b2f9d7eceeb66d013417",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ride_the_crepe_ring__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/ride_the_crepe_ring__marlowe",
+  "metrics": {
+    "avg_sentence_length": 13.423592493297587,
+    "avg_word_length": 3.919512682244857,
+    "sentence_count": 373,
+    "token_count": 6051,
+    "word_count": 5007
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ride_the_crepe_ring__marlowe/story.json"
+}

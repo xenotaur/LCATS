@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36278,
+    "body_sha256": "33a7dc0c5d230630a16b66cc4450890ab072ad02db7e97eb4668fb2cdcba74ca",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_of_a_spaceman__miller/story.json"
+  },
+  "lcats_id": "mass_quantities/death_of_a_spaceman__miller",
+  "metrics": {
+    "avg_sentence_length": 13.257042253521126,
+    "avg_word_length": 3.804780876494024,
+    "sentence_count": 568,
+    "token_count": 9222,
+    "word_count": 7530
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_of_a_spaceman__miller/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37965,
+    "body_sha256": "32e3fe26d2fb802cc5c3947bae2630e2b71b65eebbc3e2e368fbf234b81a14f7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/oneness__schmitz/story.json"
+  },
+  "lcats_id": "mass_quantities/oneness__schmitz",
+  "metrics": {
+    "avg_sentence_length": 19.663888888888888,
+    "avg_word_length": 4.408108489899703,
+    "sentence_count": 360,
+    "token_count": 8090,
+    "word_count": 7079
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/oneness__schmitz/story.json"
+}

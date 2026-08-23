@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28266,
+    "body_sha256": "7418b158866729670c503788a391f9ad4de13293bed70b9194eca36ae7e668e6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_animated_pinup__parker/story.json"
+  },
+  "lcats_id": "mass_quantities/the_animated_pinup__parker",
+  "metrics": {
+    "avg_sentence_length": 11.916,
+    "avg_word_length": 3.7343068143672373,
+    "sentence_count": 500,
+    "token_count": 7239,
+    "word_count": 5958
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_animated_pinup__parker/story.json"
+}

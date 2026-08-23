@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54665,
+    "body_sha256": "f1c1f49815035e50d3b0355ae75aca1a0851c79053cc4d550dada0361024d01b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_haunter_of_the_dark__lovecraft/story.json"
+  },
+  "lcats_id": "mass_quantities/the_haunter_of_the_dark__lovecraft",
+  "metrics": {
+    "avg_sentence_length": 26.817232375979113,
+    "avg_word_length": 4.374354980040891,
+    "sentence_count": 383,
+    "token_count": 11499,
+    "word_count": 10271
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_haunter_of_the_dark__lovecraft/story.json"
+}

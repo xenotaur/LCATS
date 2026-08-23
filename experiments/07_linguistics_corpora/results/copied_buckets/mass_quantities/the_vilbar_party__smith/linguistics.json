@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19855,
+    "body_sha256": "700eaef77eea99114fec5c4d18454e3b7d23781b0cd8a2a2e5133ce5c1d74e6d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vilbar_party__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_vilbar_party__smith",
+  "metrics": {
+    "avg_sentence_length": 15.44047619047619,
+    "avg_word_length": 4.102030326394243,
+    "sentence_count": 252,
+    "token_count": 4675,
+    "word_count": 3891
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vilbar_party__smith/story.json"
+}

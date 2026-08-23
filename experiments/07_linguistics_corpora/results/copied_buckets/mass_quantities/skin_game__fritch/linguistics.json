@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18153,
+    "body_sha256": "ff180975d8ae7117acc5c65698dd1e60780ced20a2706eb48e19760b8680f129",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/skin_game__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/skin_game__fritch",
+  "metrics": {
+    "avg_sentence_length": 13.829365079365079,
+    "avg_word_length": 4.200573888091822,
+    "sentence_count": 252,
+    "token_count": 4200,
+    "word_count": 3485
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/skin_game__fritch/story.json"
+}

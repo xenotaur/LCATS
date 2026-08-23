@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45962,
+    "body_sha256": "1403c26861e6cb0b452c82340f227f33ccd32556c07bc1f1ce66ceeea60ef6fb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/sins_of_prince_saradine/story.json"
+  },
+  "lcats_id": "chesterton/sins_of_prince_saradine",
+  "metrics": {
+    "avg_sentence_length": 22.412087912087912,
+    "avg_word_length": 4.644765873988723,
+    "sentence_count": 364,
+    "token_count": 9455,
+    "word_count": 8158
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/sins_of_prince_saradine/story.json"
+}

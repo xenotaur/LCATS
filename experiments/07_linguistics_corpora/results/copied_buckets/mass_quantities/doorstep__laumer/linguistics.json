@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11356,
+    "body_sha256": "50da476b2614bca09d130e0a84d53d1025ee2a8ef47b358ffbea7b154fac694f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doorstep__laumer/story.json"
+  },
+  "lcats_id": "mass_quantities/doorstep__laumer",
+  "metrics": {
+    "avg_sentence_length": 11.813829787234043,
+    "avg_word_length": 4.072039621791985,
+    "sentence_count": 188,
+    "token_count": 2741,
+    "word_count": 2221
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doorstep__laumer/story.json"
+}

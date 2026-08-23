@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13006,
+    "body_sha256": "b113712696bc5070a985a1397a588c89f412e05beedcc131c5a125651ad2a4b5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_there_be_light__fyfe/story.json"
+  },
+  "lcats_id": "mass_quantities/let_there_be_light__fyfe",
+  "metrics": {
+    "avg_sentence_length": 14.845714285714285,
+    "avg_word_length": 4.01270207852194,
+    "sentence_count": 175,
+    "token_count": 3098,
+    "word_count": 2598
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_there_be_light__fyfe/story.json"
+}

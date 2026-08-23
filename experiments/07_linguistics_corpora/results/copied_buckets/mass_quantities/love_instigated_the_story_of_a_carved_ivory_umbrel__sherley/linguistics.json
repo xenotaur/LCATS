@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9881,
+    "body_sha256": "f7e80f9314aea55b37e4314cc08ff28aebb98fb12eda8f326019b24d3e284333",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_instigated_the_story_of_a_carved_ivory_umbrel__sherley/story.json"
+  },
+  "lcats_id": "mass_quantities/love_instigated_the_story_of_a_carved_ivory_umbrel__sherley",
+  "metrics": {
+    "avg_sentence_length": 24.69333333333333,
+    "avg_word_length": 4.397948164146868,
+    "sentence_count": 75,
+    "token_count": 2135,
+    "word_count": 1852
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_instigated_the_story_of_a_carved_ivory_umbrel__sherley/story.json"
+}

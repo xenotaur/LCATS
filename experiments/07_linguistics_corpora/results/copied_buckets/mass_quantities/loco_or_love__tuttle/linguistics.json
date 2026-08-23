@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35790,
+    "body_sha256": "58ae24a7be896fad6db468a6eb5d28dc7fe06bbcac54e8c832a7f5ec40e3d575",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/loco_or_love__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/loco_or_love__tuttle",
+  "metrics": {
+    "avg_sentence_length": 13.721340388007055,
+    "avg_word_length": 3.5681233933161955,
+    "sentence_count": 567,
+    "token_count": 9753,
+    "word_count": 7780
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/loco_or_love__tuttle/story.json"
+}

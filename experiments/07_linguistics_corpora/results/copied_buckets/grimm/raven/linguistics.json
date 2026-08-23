@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13544,
+    "body_sha256": "03e6313250340027d28f0d2d9c851ba3d20be6d17508e361a0b554df15e16250",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/raven/story.json"
+  },
+  "lcats_id": "grimm/raven",
+  "metrics": {
+    "avg_sentence_length": 27.09375,
+    "avg_word_length": 4.1930026912725875,
+    "sentence_count": 96,
+    "token_count": 3006,
+    "word_count": 2601
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/raven/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27987,
+    "body_sha256": "498ea1aac51e871704fb0d50a32ece2d1a8b365dace56f8f13aed09234996936",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/get_out_of_my_body__harris/story.json"
+  },
+  "lcats_id": "mass_quantities/get_out_of_my_body__harris",
+  "metrics": {
+    "avg_sentence_length": 14.571808510638299,
+    "avg_word_length": 4.106223763460486,
+    "sentence_count": 376,
+    "token_count": 6513,
+    "word_count": 5479
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/get_out_of_my_body__harris/story.json"
+}

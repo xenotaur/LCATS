@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28836,
+    "body_sha256": "8a0bd292c2d50f0202d127b509ce16536e208288ed1a4c01f42b52b6e735aae9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mo_sanshon__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/mo_sanshon__walton",
+  "metrics": {
+    "avg_sentence_length": 13.852791878172589,
+    "avg_word_length": 4.311652620007329,
+    "sentence_count": 394,
+    "token_count": 6368,
+    "word_count": 5458
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mo_sanshon__walton/story.json"
+}

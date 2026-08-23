@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31089,
+    "body_sha256": "ffc1a2b70eb906ffe120f9659f425bfe33d65e52f45ae234ea34f747c42385a5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_select_party__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/a_select_party__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 35.6890243902439,
+    "avg_word_length": 4.350760293866394,
+    "sentence_count": 164,
+    "token_count": 6631,
+    "word_count": 5853
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_select_party__hawthorne/story.json"
+}

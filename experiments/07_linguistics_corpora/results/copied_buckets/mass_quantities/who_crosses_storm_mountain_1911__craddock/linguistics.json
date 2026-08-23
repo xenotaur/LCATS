@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27289,
+    "body_sha256": "b7f2c47425304f31d5983a6fd1a38c3b98aa38c83107164f767a81df383eb443",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_crosses_storm_mountain_1911__craddock/story.json"
+  },
+  "lcats_id": "mass_quantities/who_crosses_storm_mountain_1911__craddock",
+  "metrics": {
+    "avg_sentence_length": 26.415841584158414,
+    "avg_word_length": 4.12856071964018,
+    "sentence_count": 202,
+    "token_count": 6272,
+    "word_count": 5336
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_crosses_storm_mountain_1911__craddock/story.json"
+}

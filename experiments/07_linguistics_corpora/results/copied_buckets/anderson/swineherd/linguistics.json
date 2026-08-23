@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9241,
+    "body_sha256": "4cd92628a82e855651ffa3f4203b92bbf70ce26d2b898486f7f3d0afcb1b1444",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/swineherd/story.json"
+  },
+  "lcats_id": "anderson/swineherd",
+  "metrics": {
+    "avg_sentence_length": 17.5531914893617,
+    "avg_word_length": 4.535151515151515,
+    "sentence_count": 94,
+    "token_count": 2069,
+    "word_count": 1650
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/swineherd/story.json"
+}

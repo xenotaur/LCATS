@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32865,
+    "body_sha256": "0b406ecd19192cc081492d5ed1323a75ab1551598b29fd00b91ebd7edfb4afa6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/amour_amour_dear_planet__clutter/story.json"
+  },
+  "lcats_id": "mass_quantities/amour_amour_dear_planet__clutter",
+  "metrics": {
+    "avg_sentence_length": 12.342696629213483,
+    "avg_word_length": 3.9916552875132756,
+    "sentence_count": 534,
+    "token_count": 7799,
+    "word_count": 6591
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/amour_amour_dear_planet__clutter/story.json"
+}

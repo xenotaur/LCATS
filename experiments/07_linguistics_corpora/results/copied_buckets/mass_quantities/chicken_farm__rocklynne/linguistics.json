@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32149,
+    "body_sha256": "96a29fda4019c1f6939dd933e0c27900df4c49f3afca607a031f58906cc7236d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/chicken_farm__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/chicken_farm__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 11.245989304812834,
+    "avg_word_length": 4.076874306546204,
+    "sentence_count": 561,
+    "token_count": 7660,
+    "word_count": 6309
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/chicken_farm__rocklynne/story.json"
+}

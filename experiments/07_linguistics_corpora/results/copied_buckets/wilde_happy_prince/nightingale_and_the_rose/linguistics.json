@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12062,
+    "body_sha256": "46282713efae50ae8369f94a08b050d3af685c2c28d1d0299e78ee390ae0fb66",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/nightingale_and_the_rose/story.json"
+  },
+  "lcats_id": "wilde_happy_prince/nightingale_and_the_rose",
+  "metrics": {
+    "avg_sentence_length": 20.88,
+    "avg_word_length": 3.636015325670498,
+    "sentence_count": 125,
+    "token_count": 3103,
+    "word_count": 2610
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/nightingale_and_the_rose/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31817,
+    "body_sha256": "30e151421871d5df05778ed023b4fb36d7095b50d3bc2a25c666bba399fcdf6e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/brown_wolf/story.json"
+  },
+  "lcats_id": "london/brown_wolf",
+  "metrics": {
+    "avg_sentence_length": 16.31980906921241,
+    "avg_word_length": 3.766598420590816,
+    "sentence_count": 419,
+    "token_count": 8113,
+    "word_count": 6838
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/brown_wolf/story.json"
+}

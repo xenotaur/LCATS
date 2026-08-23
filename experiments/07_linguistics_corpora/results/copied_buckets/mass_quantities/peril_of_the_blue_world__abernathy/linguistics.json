@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23940,
+    "body_sha256": "4e9f55a7e2d085a7b000aea93e328c2238908b5b029d2106d4a0fee20ec9f8e4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peril_of_the_blue_world__abernathy/story.json"
+  },
+  "lcats_id": "mass_quantities/peril_of_the_blue_world__abernathy",
+  "metrics": {
+    "avg_sentence_length": 22.95431472081218,
+    "avg_word_length": 4.322644847412649,
+    "sentence_count": 197,
+    "token_count": 5243,
+    "word_count": 4522
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peril_of_the_blue_world__abernathy/story.json"
+}

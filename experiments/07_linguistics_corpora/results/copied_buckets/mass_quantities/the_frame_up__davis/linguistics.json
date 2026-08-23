@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43397,
+    "body_sha256": "4867de3a3e03083d90be063383bbc64289af4f39785e0cd1d358a8ae50026b49",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_frame_up__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_frame_up__davis",
+  "metrics": {
+    "avg_sentence_length": 15.424295774647888,
+    "avg_word_length": 3.951147129323137,
+    "sentence_count": 568,
+    "token_count": 10465,
+    "word_count": 8761
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_frame_up__davis/story.json"
+}

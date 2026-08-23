@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5252,
+    "body_sha256": "e807c7ecf937347ee1b1238f4a49dce641f739ac8c259e6b4a14a21d8abbf468",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/clever_gretel/story.json"
+  },
+  "lcats_id": "grimm/clever_gretel",
+  "metrics": {
+    "avg_sentence_length": 23.372093023255815,
+    "avg_word_length": 4.151243781094528,
+    "sentence_count": 43,
+    "token_count": 1221,
+    "word_count": 1005
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/clever_gretel/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41703,
+    "body_sha256": "b57e30f0dff04f0441009ec24505a7a5c278fe7e21bbe8c3d2d1d48dab6dfc7c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spectre_in_the_cart_1908__page/story.json"
+  },
+  "lcats_id": "mass_quantities/the_spectre_in_the_cart_1908__page",
+  "metrics": {
+    "avg_sentence_length": 21.811083123425693,
+    "avg_word_length": 3.8346229356738655,
+    "sentence_count": 397,
+    "token_count": 9917,
+    "word_count": 8659
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spectre_in_the_cart_1908__page/story.json"
+}

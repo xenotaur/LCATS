@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34173,
+    "body_sha256": "ca09852de71ef342847d4f488cec2b40b1ec7c19fa97a834e0c0e320179b8c9f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_longsnozzle_event__annas/story.json"
+  },
+  "lcats_id": "mass_quantities/the_longsnozzle_event__annas",
+  "metrics": {
+    "avg_sentence_length": 14.272921108742004,
+    "avg_word_length": 4.10442187033164,
+    "sentence_count": 469,
+    "token_count": 7968,
+    "word_count": 6694
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_longsnozzle_event__annas/story.json"
+}

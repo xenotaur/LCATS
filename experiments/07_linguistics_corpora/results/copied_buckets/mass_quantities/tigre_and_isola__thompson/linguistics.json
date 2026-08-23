@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25408,
+    "body_sha256": "8df5f9306969a3135cf71e9fe092f5c901a2607fb98a74843df9bf98c7e57717",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tigre_and_isola__thompson/story.json"
+  },
+  "lcats_id": "mass_quantities/tigre_and_isola__thompson",
+  "metrics": {
+    "avg_sentence_length": 22.515555555555554,
+    "avg_word_length": 4.0369127516778525,
+    "sentence_count": 225,
+    "token_count": 5841,
+    "word_count": 5066
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tigre_and_isola__thompson/story.json"
+}

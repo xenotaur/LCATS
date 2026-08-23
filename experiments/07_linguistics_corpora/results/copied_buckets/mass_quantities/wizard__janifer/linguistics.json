@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 2459,
+    "body_sha256": "134b86482c695797d6aec89f0462bc54431e6fe580e3a3eafcb90e4353c4cea8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wizard__janifer/story.json"
+  },
+  "lcats_id": "mass_quantities/wizard__janifer",
+  "metrics": {
+    "avg_sentence_length": 8.189655172413794,
+    "avg_word_length": 3.9747368421052633,
+    "sentence_count": 58,
+    "token_count": 661,
+    "word_count": 475
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wizard__janifer/story.json"
+}

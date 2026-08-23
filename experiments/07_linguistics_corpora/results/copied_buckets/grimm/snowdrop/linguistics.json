@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13402,
+    "body_sha256": "7c37b792c09934b550b3266364dc6816b376c3bfca400dfb1b1f258e740f0239",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/snowdrop/story.json"
+  },
+  "lcats_id": "grimm/snowdrop",
+  "metrics": {
+    "avg_sentence_length": 26.060606060606062,
+    "avg_word_length": 4.158139534883721,
+    "sentence_count": 99,
+    "token_count": 3065,
+    "word_count": 2580
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/snowdrop/story.json"
+}

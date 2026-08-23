@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9743,
+    "body_sha256": "777f19556eb675640bf9b839807ed0aac84802529306c3cf788ff1fb9319d161",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_generation_a_story_of_the_future__flecker/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_generation_a_story_of_the_future__flecker",
+  "metrics": {
+    "avg_sentence_length": 9.497206703910615,
+    "avg_word_length": 4.6911764705882355,
+    "sentence_count": 179,
+    "token_count": 2104,
+    "word_count": 1700
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_generation_a_story_of_the_future__flecker/story.json"
+}

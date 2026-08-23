@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14771,
+    "body_sha256": "1f1a099d393a09ac6d91d6ae4c7b9346540cf56345a558dd5d50417051992974",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_quest_of_iranon/story.json"
+  },
+  "lcats_id": "lovecraft/the_quest_of_iranon",
+  "metrics": {
+    "avg_sentence_length": 30.44,
+    "avg_word_length": 3.899145860709593,
+    "sentence_count": 100,
+    "token_count": 3386,
+    "word_count": 3044
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_quest_of_iranon/story.json"
+}

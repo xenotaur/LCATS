@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43238,
+    "body_sha256": "06f5512d5928a7754774615644d75c118d6818215e42029da308d27a5346ecfb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_the_mad__anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/world_of_the_mad__anderson",
+  "metrics": {
+    "avg_sentence_length": 15.808823529411764,
+    "avg_word_length": 4.046162790697674,
+    "sentence_count": 544,
+    "token_count": 10017,
+    "word_count": 8600
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_the_mad__anderson/story.json"
+}

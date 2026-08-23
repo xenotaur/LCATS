@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33621,
+    "body_sha256": "77f8cf99d0cb49340afca99aab97a2c9809819398c5b09d1e38b957d6d788116",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_priest_s_tale_pere_etienne_from_the_new_decame__keable/story.json"
+  },
+  "lcats_id": "mass_quantities/the_priest_s_tale_pere_etienne_from_the_new_decame__keable",
+  "metrics": {
+    "avg_sentence_length": 18.389473684210525,
+    "avg_word_length": 3.799084144247281,
+    "sentence_count": 380,
+    "token_count": 8180,
+    "word_count": 6988
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_priest_s_tale_pere_etienne_from_the_new_decame__keable/story.json"
+}

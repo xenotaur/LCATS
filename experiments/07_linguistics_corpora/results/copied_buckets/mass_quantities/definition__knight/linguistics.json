@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31194,
+    "body_sha256": "e46c7750177dc905a03996f0cf4ef02ac15d0b1c378d5263ea524a9bce619acd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/definition__knight/story.json"
+  },
+  "lcats_id": "mass_quantities/definition__knight",
+  "metrics": {
+    "avg_sentence_length": 15.717884130982368,
+    "avg_word_length": 3.9916666666666667,
+    "sentence_count": 397,
+    "token_count": 7503,
+    "word_count": 6240
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/definition__knight/story.json"
+}

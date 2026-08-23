@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24990,
+    "body_sha256": "6c1eb5a4c39f75690088ccaba37281cbc1ca6bcf1dca0b0a22ff1d21f89aaed1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beauty_of_the_village__mitford/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beauty_of_the_village__mitford",
+  "metrics": {
+    "avg_sentence_length": 46.7029702970297,
+    "avg_word_length": 4.327114691541234,
+    "sentence_count": 101,
+    "token_count": 5382,
+    "word_count": 4717
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beauty_of_the_village__mitford/story.json"
+}

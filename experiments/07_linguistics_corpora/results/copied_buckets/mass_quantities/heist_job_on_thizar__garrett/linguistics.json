@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24557,
+    "body_sha256": "a7a0cd9825a0b41224a24d57d26565983f7a258027ae5985fa5631114987bf1b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heist_job_on_thizar__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/heist_job_on_thizar__garrett",
+  "metrics": {
+    "avg_sentence_length": 13.888268156424582,
+    "avg_word_length": 3.9541432019308127,
+    "sentence_count": 358,
+    "token_count": 5886,
+    "word_count": 4972
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heist_job_on_thizar__garrett/story.json"
+}

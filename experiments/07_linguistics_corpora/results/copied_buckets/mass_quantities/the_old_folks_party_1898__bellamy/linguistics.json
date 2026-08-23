@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39418,
+    "body_sha256": "628c134e60be169db715f41f0577f98a3b85c8fb7948d19e5f5469f7291ae827",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_old_folks_party_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/the_old_folks_party_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 23.662613981762917,
+    "avg_word_length": 4.064354527938343,
+    "sentence_count": 329,
+    "token_count": 9156,
+    "word_count": 7785
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_old_folks_party_1898__bellamy/story.json"
+}

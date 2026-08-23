@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 3783,
+    "body_sha256": "f4ce964b3f327d59d56f1435ae50ce42d4c4ad1769860383cde8386444a82575",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_the_ants_try__pohl/story.json"
+  },
+  "lcats_id": "mass_quantities/let_the_ants_try__pohl",
+  "metrics": {
+    "avg_sentence_length": 15.571428571428571,
+    "avg_word_length": 3.961992136304063,
+    "sentence_count": 49,
+    "token_count": 880,
+    "word_count": 763
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/let_the_ants_try__pohl/story.json"
+}

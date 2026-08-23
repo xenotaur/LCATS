@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39059,
+    "body_sha256": "d8d791c16bcb9d459549977392cbe2e6beb27d9ddd6ea292818b3080012aeda4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lamplighter__dickens/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lamplighter__dickens",
+  "metrics": {
+    "avg_sentence_length": 26.885906040268456,
+    "avg_word_length": 3.8548427358961557,
+    "sentence_count": 298,
+    "token_count": 9881,
+    "word_count": 8012
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lamplighter__dickens/story.json"
+}

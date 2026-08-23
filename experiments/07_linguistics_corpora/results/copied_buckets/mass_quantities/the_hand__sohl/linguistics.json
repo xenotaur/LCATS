@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21601,
+    "body_sha256": "b5c500b598e61fe45936baad94f7a7a5142357cf7c56e7feed52129d19b527cf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hand__sohl/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hand__sohl",
+  "metrics": {
+    "avg_sentence_length": 15.612794612794612,
+    "avg_word_length": 3.6970023722234204,
+    "sentence_count": 297,
+    "token_count": 5306,
+    "word_count": 4637
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hand__sohl/story.json"
+}

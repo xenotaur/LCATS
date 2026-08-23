@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18919,
+    "body_sha256": "222735572ad0050c421cd52278465b6cb6402e4a6753569474ad15b2fede7cb7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/valiant_little_tailor/story.json"
+  },
+  "lcats_id": "grimm/valiant_little_tailor",
+  "metrics": {
+    "avg_sentence_length": 24.35810810810811,
+    "avg_word_length": 4.208321775312067,
+    "sentence_count": 148,
+    "token_count": 4262,
+    "word_count": 3605
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/valiant_little_tailor/story.json"
+}

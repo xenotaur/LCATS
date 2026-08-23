@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36748,
+    "body_sha256": "3e8106138317b98062415ec10dbb2f23014b6b3c44a95eaddce19d41b227a1c4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/on_the_fourth_planet__bone/story.json"
+  },
+  "lcats_id": "mass_quantities/on_the_fourth_planet__bone",
+  "metrics": {
+    "avg_sentence_length": 15.173361522198732,
+    "avg_word_length": 4.178347498954995,
+    "sentence_count": 473,
+    "token_count": 8014,
+    "word_count": 7177
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/on_the_fourth_planet__bone/story.json"
+}

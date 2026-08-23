@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54686,
+    "body_sha256": "e0a7ea1e9dee54d9433ea3978c144de5a0aa009b5ec4533b4fe7df2535d5039a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_happiness_rock__teichner/story.json"
+  },
+  "lcats_id": "mass_quantities/the_happiness_rock__teichner",
+  "metrics": {
+    "avg_sentence_length": 15.188998589562765,
+    "avg_word_length": 4.104559383415359,
+    "sentence_count": 709,
+    "token_count": 12843,
+    "word_count": 10769
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_happiness_rock__teichner/story.json"
+}

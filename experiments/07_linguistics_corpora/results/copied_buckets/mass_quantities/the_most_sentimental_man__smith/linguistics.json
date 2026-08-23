@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23314,
+    "body_sha256": "f0126e91c0c8d8be991ae9d848b0dd0ec3250e9a71244bf545ad7e7b026d6bd9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_most_sentimental_man__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_most_sentimental_man__smith",
+  "metrics": {
+    "avg_sentence_length": 21.306603773584907,
+    "avg_word_length": 4.174673455833518,
+    "sentence_count": 212,
+    "token_count": 5177,
+    "word_count": 4517
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_most_sentimental_man__smith/story.json"
+}

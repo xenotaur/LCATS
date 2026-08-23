@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40250,
+    "body_sha256": "8811e70b6bc2e3f380936660b54abb1ebbed07c4ad9a325baa54927232efc19a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/piper_in_the_woods__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/piper_in_the_woods__dick",
+  "metrics": {
+    "avg_sentence_length": 10.26,
+    "avg_word_length": 3.857699805068226,
+    "sentence_count": 800,
+    "token_count": 10269,
+    "word_count": 8208
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/piper_in_the_woods__dick/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29376,
+    "body_sha256": "13fe439ed847ab5af063f22dd6d524330051a779032cc9f7cb4359eaf1723fba",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/story.json"
+  },
+  "lcats_id": "wodehouse/romance_of_an_ugly_policeman",
+  "metrics": {
+    "avg_sentence_length": 13.579634464751958,
+    "avg_word_length": 4.638146510286483,
+    "sentence_count": 383,
+    "token_count": 6343,
+    "word_count": 5201
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/story.json"
+}

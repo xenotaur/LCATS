@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40232,
+    "body_sha256": "e710f347b8232a284694a25147208f03dc03830548329f5296e3b480f1678b95",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_derelict__broome/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cosmic_derelict__broome",
+  "metrics": {
+    "avg_sentence_length": 15.859437751004016,
+    "avg_word_length": 4.1149658141301595,
+    "sentence_count": 498,
+    "token_count": 9384,
+    "word_count": 7898
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_derelict__broome/story.json"
+}

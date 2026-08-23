@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42855,
+    "body_sha256": "7fbb9a19fd8340a56e9938afc1680c73e2918e2760e9ad36fa28519cc35d7318",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_takes_a_thief__miller/story.json"
+  },
+  "lcats_id": "mass_quantities/it_takes_a_thief__miller",
+  "metrics": {
+    "avg_sentence_length": 11.956090651558073,
+    "avg_word_length": 4.070844686648502,
+    "sentence_count": 706,
+    "token_count": 10115,
+    "word_count": 8441
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_takes_a_thief__miller/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13439,
+    "body_sha256": "53493d15f4cd031f536b7a9db677b6d83fc98c25c4e0f9669180ee5ed6a082bb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peril_orbit__wedlake/story.json"
+  },
+  "lcats_id": "mass_quantities/peril_orbit__wedlake",
+  "metrics": {
+    "avg_sentence_length": 13.84020618556701,
+    "avg_word_length": 4.055865921787709,
+    "sentence_count": 194,
+    "token_count": 3013,
+    "word_count": 2685
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peril_orbit__wedlake/story.json"
+}

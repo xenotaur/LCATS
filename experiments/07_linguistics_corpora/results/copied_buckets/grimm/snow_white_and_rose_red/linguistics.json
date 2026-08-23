@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13988,
+    "body_sha256": "9bb48e7a5002e9c51bf3f23b4eb7b0a638235ec18589267152fa1c1c1b9b7b3a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/snow_white_and_rose_red/story.json"
+  },
+  "lcats_id": "grimm/snow_white_and_rose_red",
+  "metrics": {
+    "avg_sentence_length": 25.721153846153847,
+    "avg_word_length": 4.230654205607476,
+    "sentence_count": 104,
+    "token_count": 3114,
+    "word_count": 2675
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/snow_white_and_rose_red/story.json"
+}

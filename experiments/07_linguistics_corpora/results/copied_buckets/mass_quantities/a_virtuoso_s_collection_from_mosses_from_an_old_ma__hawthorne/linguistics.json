@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7900,
+    "body_sha256": "dd35f8eb39511df7876a588774b413790fa123e116e575fa0e9d88e84a2826c0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_virtuoso_s_collection_from_mosses_from_an_old_ma__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/a_virtuoso_s_collection_from_mosses_from_an_old_ma__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 26.50877192982456,
+    "avg_word_length": 4.253474520185308,
+    "sentence_count": 57,
+    "token_count": 1729,
+    "word_count": 1511
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_virtuoso_s_collection_from_mosses_from_an_old_ma__hawthorne/story.json"
+}

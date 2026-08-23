@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36907,
+    "body_sha256": "1e83cf12cf34e34e85667d6954f10eaf762c8f8b33d22091a2a041cac89958be",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/duel_on_syrtis__anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/duel_on_syrtis__anderson",
+  "metrics": {
+    "avg_sentence_length": 15.843683083511777,
+    "avg_word_length": 4.033382889579673,
+    "sentence_count": 467,
+    "token_count": 8440,
+    "word_count": 7399
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/duel_on_syrtis__anderson/story.json"
+}

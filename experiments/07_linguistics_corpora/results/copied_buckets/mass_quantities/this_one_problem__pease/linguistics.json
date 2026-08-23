@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18241,
+    "body_sha256": "5e9ba4d82130a53aa7d73d051b2977f7420106b28364e9f1c7c6597a70e8ef94",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/this_one_problem__pease/story.json"
+  },
+  "lcats_id": "mass_quantities/this_one_problem__pease",
+  "metrics": {
+    "avg_sentence_length": 13.15807560137457,
+    "avg_word_length": 3.7837555497518935,
+    "sentence_count": 291,
+    "token_count": 4534,
+    "word_count": 3829
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/this_one_problem__pease/story.json"
+}

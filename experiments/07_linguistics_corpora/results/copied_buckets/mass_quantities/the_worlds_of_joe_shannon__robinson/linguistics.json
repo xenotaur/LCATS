@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20721,
+    "body_sha256": "15863fce6373a9e4a4717b6c9bd305e7128e5827a6b2c237214e95f05e4fb887",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_worlds_of_joe_shannon__robinson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_worlds_of_joe_shannon__robinson",
+  "metrics": {
+    "avg_sentence_length": 14.952702702702704,
+    "avg_word_length": 3.7053773158608223,
+    "sentence_count": 296,
+    "token_count": 5203,
+    "word_count": 4426
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_worlds_of_joe_shannon__robinson/story.json"
+}

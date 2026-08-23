@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47741,
+    "body_sha256": "cf080fd571d723d4d34e17702ba2f2a7ede9593b8b7c308668dc61eefef23c9b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hunt_pack__white/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hunt_pack__white",
+  "metrics": {
+    "avg_sentence_length": 17.167557932263815,
+    "avg_word_length": 4.005399231647804,
+    "sentence_count": 561,
+    "token_count": 11247,
+    "word_count": 9631
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hunt_pack__white/story.json"
+}

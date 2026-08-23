@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27180,
+    "body_sha256": "b592243f8e6d5b9ece280c0f0725785374f5915ac18833f47ffee7559de0a6dc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hermit_of_mars__bartholomew/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hermit_of_mars__bartholomew",
+  "metrics": {
+    "avg_sentence_length": 13.719298245614034,
+    "avg_word_length": 3.987943003288272,
+    "sentence_count": 399,
+    "token_count": 6381,
+    "word_count": 5474
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hermit_of_mars__bartholomew/story.json"
+}

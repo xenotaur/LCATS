@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33013,
+    "body_sha256": "3ce7e57a9f2547d027549bb65443689ff649ac3a29f59650e15496aa7ea4f837",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/contamination_crew__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/contamination_crew__nourse",
+  "metrics": {
+    "avg_sentence_length": 14.636155606407323,
+    "avg_word_length": 4.199343339587242,
+    "sentence_count": 437,
+    "token_count": 7564,
+    "word_count": 6396
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/contamination_crew__nourse/story.json"
+}

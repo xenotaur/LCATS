@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9819,
+    "body_sha256": "0cc2f8627b8843629cbc628e2afda774fea6dc5316d31d2e2d1cc88df485ad52",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/blue_light/story.json"
+  },
+  "lcats_id": "grimm/blue_light",
+  "metrics": {
+    "avg_sentence_length": 22.914634146341463,
+    "avg_word_length": 4.176157530601384,
+    "sentence_count": 82,
+    "token_count": 2238,
+    "word_count": 1879
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/blue_light/story.json"
+}

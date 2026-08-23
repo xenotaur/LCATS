@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21728,
+    "body_sha256": "a22206d2555bbf6fffd9e58ae56e0a26fa2c2bffb270681e4c493763343ef92f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beauty_interrupted__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/beauty_interrupted__fontenay",
+  "metrics": {
+    "avg_sentence_length": 16.114503816793892,
+    "avg_word_length": 4.162482235907153,
+    "sentence_count": 262,
+    "token_count": 4939,
+    "word_count": 4222
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beauty_interrupted__fontenay/story.json"
+}

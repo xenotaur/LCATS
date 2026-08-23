@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10844,
+    "body_sha256": "ab0cac54b5ef1c5e069e98052ef6f1470bf248b2001d961a202724296cb1e25b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/thy_rocks_and_rills__gilbert/story.json"
+  },
+  "lcats_id": "mass_quantities/thy_rocks_and_rills__gilbert",
+  "metrics": {
+    "avg_sentence_length": 13.243589743589743,
+    "avg_word_length": 4.263310745401743,
+    "sentence_count": 156,
+    "token_count": 2433,
+    "word_count": 2066
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/thy_rocks_and_rills__gilbert/story.json"
+}

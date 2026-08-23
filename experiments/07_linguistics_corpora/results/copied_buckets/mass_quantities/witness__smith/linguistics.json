@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12499,
+    "body_sha256": "8d120043e93175381c34636841da3301e78c84a024f4bde1da5db5d3f7a544f1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/witness__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/witness__smith",
+  "metrics": {
+    "avg_sentence_length": 14.054945054945055,
+    "avg_word_length": 3.8991399530883504,
+    "sentence_count": 182,
+    "token_count": 3016,
+    "word_count": 2558
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/witness__smith/story.json"
+}

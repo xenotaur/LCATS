@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20362,
+    "body_sha256": "10706584d27cd636dfb136b1b41a1493c708040d8880993c6ec55e76ce085abb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/les_machines__love/story.json"
+  },
+  "lcats_id": "mass_quantities/les_machines__love",
+  "metrics": {
+    "avg_sentence_length": 10.234413965087281,
+    "avg_word_length": 3.8993664717348926,
+    "sentence_count": 401,
+    "token_count": 5246,
+    "word_count": 4104
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/les_machines__love/story.json"
+}

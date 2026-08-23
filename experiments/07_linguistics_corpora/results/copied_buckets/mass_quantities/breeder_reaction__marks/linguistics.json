@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23794,
+    "body_sha256": "ce8a1ca624318331f76ada544e0bab41faa21d4249c442420ba444315deda56d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breeder_reaction__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/breeder_reaction__marks",
+  "metrics": {
+    "avg_sentence_length": 16.311643835616437,
+    "avg_word_length": 4.008398068444258,
+    "sentence_count": 292,
+    "token_count": 5704,
+    "word_count": 4763
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breeder_reaction__marks/story.json"
+}

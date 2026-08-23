@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26362,
+    "body_sha256": "ebcadb6f3a1e3b325a3deaa99cd1b32d7a8b23e906f283cc4f3efea21d8b307b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_whole_glorious_weeks__mohler/story.json"
+  },
+  "lcats_id": "mass_quantities/two_whole_glorious_weeks__mohler",
+  "metrics": {
+    "avg_sentence_length": 19.796934865900383,
+    "avg_word_length": 4.127346622798529,
+    "sentence_count": 261,
+    "token_count": 5955,
+    "word_count": 5167
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_whole_glorious_weeks__mohler/story.json"
+}

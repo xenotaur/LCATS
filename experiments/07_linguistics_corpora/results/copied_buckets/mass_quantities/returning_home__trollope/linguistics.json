@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47739,
+    "body_sha256": "4f690690e1b69b1bd958cda9bb0ef57e41aacbb5ff763aa56d82a469915442a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/returning_home__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/returning_home__trollope",
+  "metrics": {
+    "avg_sentence_length": 25.089514066496164,
+    "avg_word_length": 3.922935779816514,
+    "sentence_count": 391,
+    "token_count": 11015,
+    "word_count": 9810
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/returning_home__trollope/story.json"
+}

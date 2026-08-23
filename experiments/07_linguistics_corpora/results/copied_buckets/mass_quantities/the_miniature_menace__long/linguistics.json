@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52245,
+    "body_sha256": "f3e31d82fb03f9424b376ac91e619f30d683e59641549fc77d84970eb0103343",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_miniature_menace__long/story.json"
+  },
+  "lcats_id": "mass_quantities/the_miniature_menace__long",
+  "metrics": {
+    "avg_sentence_length": 14.26657458563536,
+    "avg_word_length": 4.081614870752251,
+    "sentence_count": 724,
+    "token_count": 12104,
+    "word_count": 10329
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_miniature_menace__long/story.json"
+}

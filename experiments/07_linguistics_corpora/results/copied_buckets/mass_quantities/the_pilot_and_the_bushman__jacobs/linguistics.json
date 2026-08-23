@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54062,
+    "body_sha256": "a8353e63a37d722320bf7d8ed1f4a314f3ea91f2cd5ff8ff6f1209aa2e357bc6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pilot_and_the_bushman__jacobs/story.json"
+  },
+  "lcats_id": "mass_quantities/the_pilot_and_the_bushman__jacobs",
+  "metrics": {
+    "avg_sentence_length": 18.067590987868286,
+    "avg_word_length": 4.214484412470024,
+    "sentence_count": 577,
+    "token_count": 12265,
+    "word_count": 10425
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pilot_and_the_bushman__jacobs/story.json"
+}

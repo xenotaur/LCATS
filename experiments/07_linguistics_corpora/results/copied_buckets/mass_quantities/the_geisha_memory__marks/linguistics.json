@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25923,
+    "body_sha256": "0e0d09bec85997fbcc965f11f8fcd170f2e5c44b32ccd08e2d44115f66c5429f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_geisha_memory__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/the_geisha_memory__marks",
+  "metrics": {
+    "avg_sentence_length": 13.187335092348285,
+    "avg_word_length": 4.2316926770708285,
+    "sentence_count": 379,
+    "token_count": 5775,
+    "word_count": 4998
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_geisha_memory__marks/story.json"
+}

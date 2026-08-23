@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53366,
+    "body_sha256": "1c9440b41c65d9f23c6d2c9c2c58630970e1e1d261ff02a7838914711523da84",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_prior_claim__kelly/story.json"
+  },
+  "lcats_id": "mass_quantities/the_prior_claim__kelly",
+  "metrics": {
+    "avg_sentence_length": 13.526510480887794,
+    "avg_word_length": 3.8086599817684594,
+    "sentence_count": 811,
+    "token_count": 13571,
+    "word_count": 10970
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_prior_claim__kelly/story.json"
+}

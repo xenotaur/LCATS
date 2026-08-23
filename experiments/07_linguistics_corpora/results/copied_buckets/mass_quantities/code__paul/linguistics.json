@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20675,
+    "body_sha256": "a66b20bcbb3a9d448495e7e30b2fee6b25e47c4004c363dd75dce40263030ac6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/code__paul/story.json"
+  },
+  "lcats_id": "mass_quantities/code__paul",
+  "metrics": {
+    "avg_sentence_length": 10.989664082687339,
+    "avg_word_length": 3.8034328709146483,
+    "sentence_count": 387,
+    "token_count": 5346,
+    "word_count": 4253
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/code__paul/story.json"
+}

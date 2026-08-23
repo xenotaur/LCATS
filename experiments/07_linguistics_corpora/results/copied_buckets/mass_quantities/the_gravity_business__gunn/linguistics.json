@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39227,
+    "body_sha256": "2932ff2c5d9d35fe910623b67b05fd59f35dfea9f5f8b06f491e06605273666e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gravity_business__gunn/story.json"
+  },
+  "lcats_id": "mass_quantities/the_gravity_business__gunn",
+  "metrics": {
+    "avg_sentence_length": 11.962962962962964,
+    "avg_word_length": 4.015737874097007,
+    "sentence_count": 648,
+    "token_count": 9826,
+    "word_count": 7752
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gravity_business__gunn/story.json"
+}

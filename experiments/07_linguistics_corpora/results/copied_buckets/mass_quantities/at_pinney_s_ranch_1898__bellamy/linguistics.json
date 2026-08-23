@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31103,
+    "body_sha256": "1788db68ae372d842b289851b8d2d45dc9dd248d60fe4efa775da5721b0d6657",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/at_pinney_s_ranch_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/at_pinney_s_ranch_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 21.692307692307693,
+    "avg_word_length": 4.037072856221792,
+    "sentence_count": 286,
+    "token_count": 7092,
+    "word_count": 6204
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/at_pinney_s_ranch_1898__bellamy/story.json"
+}

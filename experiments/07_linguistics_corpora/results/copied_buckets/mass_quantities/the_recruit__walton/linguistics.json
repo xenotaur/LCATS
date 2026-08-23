@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20147,
+    "body_sha256": "fcd061596b090f3d3eb0df3e888589287586eabda3d3a44172009ef618a83eb5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_recruit__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_recruit__walton",
+  "metrics": {
+    "avg_sentence_length": 11.723032069970845,
+    "avg_word_length": 4.012932106441184,
+    "sentence_count": 343,
+    "token_count": 4855,
+    "word_count": 4021
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_recruit__walton/story.json"
+}

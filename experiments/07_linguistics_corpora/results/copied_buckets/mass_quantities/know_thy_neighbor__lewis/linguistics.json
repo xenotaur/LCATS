@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20098,
+    "body_sha256": "a0d511c8935a9db23b5abfcbdb0084633e455a9a3bd50bb7a5e632645caea2dc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/know_thy_neighbor__lewis/story.json"
+  },
+  "lcats_id": "mass_quantities/know_thy_neighbor__lewis",
+  "metrics": {
+    "avg_sentence_length": 12.951923076923077,
+    "avg_word_length": 3.971789161098738,
+    "sentence_count": 312,
+    "token_count": 4781,
+    "word_count": 4041
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/know_thy_neighbor__lewis/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20723,
+    "body_sha256": "bc8475e98ac234b8bddc97673b1c9a99d750f72096f3b5c28aa277ed59053e8d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/an_elephant_for_the_prinkip__stecher/story.json"
+  },
+  "lcats_id": "mass_quantities/an_elephant_for_the_prinkip__stecher",
+  "metrics": {
+    "avg_sentence_length": 15.36140350877193,
+    "avg_word_length": 3.7670169026952944,
+    "sentence_count": 285,
+    "token_count": 5086,
+    "word_count": 4378
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/an_elephant_for_the_prinkip__stecher/story.json"
+}

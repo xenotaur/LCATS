@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12983,
+    "body_sha256": "3bb19e5d78b41213ccec2868f9a4ef763ef6a5787f687611b7d88e7975b2b6ec",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/suzy__parker/story.json"
+  },
+  "lcats_id": "mass_quantities/suzy__parker",
+  "metrics": {
+    "avg_sentence_length": 14.82010582010582,
+    "avg_word_length": 3.6244198500535525,
+    "sentence_count": 189,
+    "token_count": 3381,
+    "word_count": 2801
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/suzy__parker/story.json"
+}

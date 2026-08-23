@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40308,
+    "body_sha256": "8c6eb1e4da27fbca88410989d2d0b249b1613bd2c697ca978bf861004ce62876",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monsoons_of_death__vance/story.json"
+  },
+  "lcats_id": "mass_quantities/monsoons_of_death__vance",
+  "metrics": {
+    "avg_sentence_length": 15.71259842519685,
+    "avg_word_length": 4.094086695063893,
+    "sentence_count": 508,
+    "token_count": 9195,
+    "word_count": 7982
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monsoons_of_death__vance/story.json"
+}

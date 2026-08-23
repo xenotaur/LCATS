@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 2921,
+    "body_sha256": "9fe715a248f3cb4eb63d6aabffa3c04d190409f97aecd2826e26f50ff57f3b8b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/straw_the_coal_and_the_bean/story.json"
+  },
+  "lcats_id": "grimm/straw_the_coal_and_the_bean",
+  "metrics": {
+    "avg_sentence_length": 24.772727272727273,
+    "avg_word_length": 4.322935779816514,
+    "sentence_count": 22,
+    "token_count": 646,
+    "word_count": 545
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/straw_the_coal_and_the_bean/story.json"
+}

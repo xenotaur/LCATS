@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25915,
+    "body_sha256": "a9b99ac90e4a0425511b3f661c9a86b8800daef504ddb2f022457556a294f999",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_strings_attached__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/no_strings_attached__del_rey",
+  "metrics": {
+    "avg_sentence_length": 14.735211267605633,
+    "avg_word_length": 3.961575224622443,
+    "sentence_count": 355,
+    "token_count": 6149,
+    "word_count": 5231
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_strings_attached__del_rey/story.json"
+}

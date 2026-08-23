@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53182,
+    "body_sha256": "7fd3b9cfc831c87a1a4a8f421d442eea268bf5a74206dba7325f311367a5f558",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/copper_beeches/story.json"
+  },
+  "lcats_id": "sherlock/copper_beeches",
+  "metrics": {
+    "avg_sentence_length": 20.410881801125704,
+    "avg_word_length": 3.8708521003768728,
+    "sentence_count": 533,
+    "token_count": 12822,
+    "word_count": 10879
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/copper_beeches/story.json"
+}

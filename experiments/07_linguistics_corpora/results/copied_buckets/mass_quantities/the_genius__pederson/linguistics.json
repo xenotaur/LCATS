@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34040,
+    "body_sha256": "7367b5fb0f93c515cd48e867495301e62897a3d00bddb5aedfa8f19b11813ac9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_genius__pederson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_genius__pederson",
+  "metrics": {
+    "avg_sentence_length": 11.653448275862068,
+    "avg_word_length": 4.011836070424619,
+    "sentence_count": 580,
+    "token_count": 8291,
+    "word_count": 6759
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_genius__pederson/story.json"
+}

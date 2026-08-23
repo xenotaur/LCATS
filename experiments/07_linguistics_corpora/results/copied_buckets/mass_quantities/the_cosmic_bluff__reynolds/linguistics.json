@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44242,
+    "body_sha256": "cd9ab6969736e0d0d69973b013648429bf5a4dc58bcf804581e7dba1b3f716f6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_bluff__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cosmic_bluff__reynolds",
+  "metrics": {
+    "avg_sentence_length": 14.44888178913738,
+    "avg_word_length": 3.914096185737977,
+    "sentence_count": 626,
+    "token_count": 10643,
+    "word_count": 9045
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_bluff__reynolds/story.json"
+}

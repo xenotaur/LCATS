@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12419,
+    "body_sha256": "9f906d211e4f18b0c21f1b02fa127fd7ff29993abf7f41ed10995d12cef24423",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/goose_girl/story.json"
+  },
+  "lcats_id": "grimm/goose_girl",
+  "metrics": {
+    "avg_sentence_length": 26.236559139784948,
+    "avg_word_length": 4.075819672131147,
+    "sentence_count": 93,
+    "token_count": 2886,
+    "word_count": 2440
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/goose_girl/story.json"
+}

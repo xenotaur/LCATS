@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9470,
+    "body_sha256": "0eb5a83b7d7f770e7a069f6461dd33afa3d8dd13c5f70b00485ac0402c2a6b08",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/man_about_town/story.json"
+  },
+  "lcats_id": "ohenry-four_million/man_about_town",
+  "metrics": {
+    "avg_sentence_length": 17.354545454545455,
+    "avg_word_length": 3.961236249345207,
+    "sentence_count": 110,
+    "token_count": 2237,
+    "word_count": 1909
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/man_about_town/story.json"
+}

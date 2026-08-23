@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34526,
+    "body_sha256": "8d496c356b00c56c2dc8c8c3965e6980de67576147f3528738c251b07f9ac9cb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_makes_a_mistake__mcgivern/story.json"
+  },
+  "lcats_id": "mass_quantities/death_makes_a_mistake__mcgivern",
+  "metrics": {
+    "avg_sentence_length": 11.800341296928327,
+    "avg_word_length": 3.9891540130151846,
+    "sentence_count": 586,
+    "token_count": 8329,
+    "word_count": 6915
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_makes_a_mistake__mcgivern/story.json"
+}

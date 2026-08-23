@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24389,
+    "body_sha256": "d331ecbad516665617a723300e4a17386f3ab1a7593d1954b209c08e7a948f54",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_the_hunter__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/world_of_the_hunter__marlowe",
+  "metrics": {
+    "avg_sentence_length": 10.37037037037037,
+    "avg_word_length": 4.101890756302521,
+    "sentence_count": 459,
+    "token_count": 5834,
+    "word_count": 4760
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_of_the_hunter__marlowe/story.json"
+}

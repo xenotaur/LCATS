@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43878,
+    "body_sha256": "4768e06bcc09fec0248fd1efc81bcb21d1fa15130252d39d07806271a045b8bf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/evans_of_the_earth_guard__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/evans_of_the_earth_guard__hamilton",
+  "metrics": {
+    "avg_sentence_length": 21.93266832917706,
+    "avg_word_length": 4.038544627629335,
+    "sentence_count": 401,
+    "token_count": 10196,
+    "word_count": 8795
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/evans_of_the_earth_guard__hamilton/story.json"
+}

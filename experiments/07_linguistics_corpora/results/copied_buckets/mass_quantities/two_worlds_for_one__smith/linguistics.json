@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14982,
+    "body_sha256": "770c5e0e9910a2e7869df9a6a8033402f942e6c322c8e2b05c2eb1421ba5781f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_worlds_for_one__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/two_worlds_for_one__smith",
+  "metrics": {
+    "avg_sentence_length": 13.857142857142858,
+    "avg_word_length": 4.286171347316032,
+    "sentence_count": 203,
+    "token_count": 3510,
+    "word_count": 2813
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_worlds_for_one__smith/story.json"
+}

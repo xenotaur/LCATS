@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16775,
+    "body_sha256": "f4627ee3cd2f46ab88b21fa024b82383c45cb150cd3794af5234591998dbf34a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/hansel_and_gretel/story.json"
+  },
+  "lcats_id": "grimm/hansel_and_gretel",
+  "metrics": {
+    "avg_sentence_length": 23.197080291970803,
+    "avg_word_length": 4.230018879798616,
+    "sentence_count": 137,
+    "token_count": 3805,
+    "word_count": 3178
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/hansel_and_gretel/story.json"
+}

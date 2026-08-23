@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23089,
+    "body_sha256": "2e0d1f485129091c58062fa3e161f1d85f19d37edf55bf8994a6954a655db27b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/today_is_forever__aycock/story.json"
+  },
+  "lcats_id": "mass_quantities/today_is_forever__aycock",
+  "metrics": {
+    "avg_sentence_length": 18.11522633744856,
+    "avg_word_length": 4.284416174466152,
+    "sentence_count": 243,
+    "token_count": 5163,
+    "word_count": 4402
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/today_is_forever__aycock/story.json"
+}

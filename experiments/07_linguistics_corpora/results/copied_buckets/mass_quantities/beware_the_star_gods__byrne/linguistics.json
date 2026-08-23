@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24356,
+    "body_sha256": "3563584e28174474b9f03e02d22f2db30d6c5ab1923040bec585e23f0dbccbd1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beware_the_star_gods__byrne/story.json"
+  },
+  "lcats_id": "mass_quantities/beware_the_star_gods__byrne",
+  "metrics": {
+    "avg_sentence_length": 12.739240506329114,
+    "avg_word_length": 3.8368441971383147,
+    "sentence_count": 395,
+    "token_count": 6033,
+    "word_count": 5032
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beware_the_star_gods__byrne/story.json"
+}

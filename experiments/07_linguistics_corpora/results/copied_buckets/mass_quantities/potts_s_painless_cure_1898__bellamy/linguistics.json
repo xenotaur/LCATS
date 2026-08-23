@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48049,
+    "body_sha256": "de76297a58b394e8e6621b082d14e8b27060a0d889507be194124be9eddffd3c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/potts_s_painless_cure_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/potts_s_painless_cure_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 26.03581267217631,
+    "avg_word_length": 4.117236271294043,
+    "sentence_count": 363,
+    "token_count": 10753,
+    "word_count": 9451
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/potts_s_painless_cure_1898__bellamy/story.json"
+}

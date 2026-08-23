@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36845,
+    "body_sha256": "db24c3a4fe72bc515bd7d6d12b895a6bba74e61211aadf293f1e704ade5331fc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_giants_return__abernathy/story.json"
+  },
+  "lcats_id": "mass_quantities/the_giants_return__abernathy",
+  "metrics": {
+    "avg_sentence_length": 19.0,
+    "avg_word_length": 4.1293628808864264,
+    "sentence_count": 380,
+    "token_count": 8411,
+    "word_count": 7220
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_giants_return__abernathy/story.json"
+}

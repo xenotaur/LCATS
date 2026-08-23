@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37420,
+    "body_sha256": "8583da28261d37b3f1c215b6218a81ec0f7587a8a6482281352f27fa780f400e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/diplomatic_immunity__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/diplomatic_immunity__sheckley",
+  "metrics": {
+    "avg_sentence_length": 10.537117903930131,
+    "avg_word_length": 4.120182345627849,
+    "sentence_count": 687,
+    "token_count": 9207,
+    "word_count": 7239
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/diplomatic_immunity__sheckley/story.json"
+}

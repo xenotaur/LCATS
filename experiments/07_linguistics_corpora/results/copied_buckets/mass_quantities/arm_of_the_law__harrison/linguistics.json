@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35031,
+    "body_sha256": "bd539a77bb915bd070ef6fd9f282020ba0037314051c84bb4a5fa07006ebb7ef",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/arm_of_the_law__harrison/story.json"
+  },
+  "lcats_id": "mass_quantities/arm_of_the_law__harrison",
+  "metrics": {
+    "avg_sentence_length": 14.203809523809523,
+    "avg_word_length": 3.740780474721738,
+    "sentence_count": 525,
+    "token_count": 8434,
+    "word_count": 7457
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/arm_of_the_law__harrison/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34853,
+    "body_sha256": "9671e07300154bc46a43442c20d7d910b7845b3e5e8253cfa78278e18e33cc89",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_castaway__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/the_castaway__bond",
+  "metrics": {
+    "avg_sentence_length": 12.176776429809358,
+    "avg_word_length": 3.9363791631084544,
+    "sentence_count": 577,
+    "token_count": 8659,
+    "word_count": 7026
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_castaway__bond/story.json"
+}

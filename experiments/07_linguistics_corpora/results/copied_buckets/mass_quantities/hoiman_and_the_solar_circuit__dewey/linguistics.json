@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22110,
+    "body_sha256": "c2057492ddee05c4866e499edcd00dc1679ac168340d21310f07a8e9c1091a21",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hoiman_and_the_solar_circuit__dewey/story.json"
+  },
+  "lcats_id": "mass_quantities/hoiman_and_the_solar_circuit__dewey",
+  "metrics": {
+    "avg_sentence_length": 14.108761329305135,
+    "avg_word_length": 3.752248394004283,
+    "sentence_count": 331,
+    "token_count": 5433,
+    "word_count": 4670
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hoiman_and_the_solar_circuit__dewey/story.json"
+}

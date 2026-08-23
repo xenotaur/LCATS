@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12195,
+    "body_sha256": "a075f393aa0d709007b2d42ab0f0b2b0ac4d394f4efab4dca1083401c00db28a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earthmen_ask_no_quarter__holden/story.json"
+  },
+  "lcats_id": "mass_quantities/earthmen_ask_no_quarter__holden",
+  "metrics": {
+    "avg_sentence_length": 12.840425531914894,
+    "avg_word_length": 4.041010770505385,
+    "sentence_count": 188,
+    "token_count": 2933,
+    "word_count": 2414
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earthmen_ask_no_quarter__holden/story.json"
+}

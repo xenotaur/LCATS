@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37954,
+    "body_sha256": "2afd7fa58483778484a6f6f98321331dfcc6fc1f3d6d8297b489ff467b87af9a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sam_this_is_you__leinster/story.json"
+  },
+  "lcats_id": "mass_quantities/sam_this_is_you__leinster",
+  "metrics": {
+    "avg_sentence_length": 14.964285714285714,
+    "avg_word_length": 3.7911066448938575,
+    "sentence_count": 532,
+    "token_count": 9374,
+    "word_count": 7961
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sam_this_is_you__leinster/story.json"
+}

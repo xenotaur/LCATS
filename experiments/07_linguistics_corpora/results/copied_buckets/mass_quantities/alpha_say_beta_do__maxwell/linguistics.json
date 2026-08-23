@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31278,
+    "body_sha256": "fb68532585140a601697e1170048b8ea9e3e860ed4d01aa06e9c97748927146e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/alpha_say_beta_do__maxwell/story.json"
+  },
+  "lcats_id": "mass_quantities/alpha_say_beta_do__maxwell",
+  "metrics": {
+    "avg_sentence_length": 12.818947368421053,
+    "avg_word_length": 4.130234849729019,
+    "sentence_count": 475,
+    "token_count": 7267,
+    "word_count": 6089
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/alpha_say_beta_do__maxwell/story.json"
+}

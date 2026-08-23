@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44353,
+    "body_sha256": "09c86e4f1f15643a2a0087b0f0828f3d6719be013a50bca63d50c5d5a5af574f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vocation__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/vocation__smith",
+  "metrics": {
+    "avg_sentence_length": 14.430693069306932,
+    "avg_word_length": 4.0469982847341335,
+    "sentence_count": 606,
+    "token_count": 10739,
+    "word_count": 8745
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vocation__smith/story.json"
+}

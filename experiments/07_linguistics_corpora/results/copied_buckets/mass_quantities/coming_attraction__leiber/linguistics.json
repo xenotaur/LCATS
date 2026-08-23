@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27409,
+    "body_sha256": "e11f60d5b2b5d2cc1a0a36fe70e99c100c7e9d2d451c35683514c569fb3b90c2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/coming_attraction__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/coming_attraction__leiber",
+  "metrics": {
+    "avg_sentence_length": 12.85813953488372,
+    "avg_word_length": 3.958582022065473,
+    "sentence_count": 430,
+    "token_count": 6621,
+    "word_count": 5529
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/coming_attraction__leiber/story.json"
+}

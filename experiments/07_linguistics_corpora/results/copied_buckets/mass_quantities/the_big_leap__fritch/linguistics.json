@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21496,
+    "body_sha256": "8e0e3acd81d0ae9d49a0cf5a002bbda616dd9a3fa52cd702e53f48262e14d4b6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_leap__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/the_big_leap__fritch",
+  "metrics": {
+    "avg_sentence_length": 14.349315068493151,
+    "avg_word_length": 4.117183770883055,
+    "sentence_count": 292,
+    "token_count": 5068,
+    "word_count": 4190
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_leap__fritch/story.json"
+}

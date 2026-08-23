@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22785,
+    "body_sha256": "3581421ecbaaf50c5b41ad53331af7d34357688cdb1a255779f13a69786e4274",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_oddly_elusive_brunette__peterson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_oddly_elusive_brunette__peterson",
+  "metrics": {
+    "avg_sentence_length": 14.537459283387623,
+    "avg_word_length": 4.104414071252521,
+    "sentence_count": 307,
+    "token_count": 5498,
+    "word_count": 4463
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_oddly_elusive_brunette__peterson/story.json"
+}

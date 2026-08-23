@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52855,
+    "body_sha256": "0f9935d8735091498315367eec331afa2f6a6b1546a0ea1787d44286c9e04687",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/bearly_reasonable__tuttle",
+  "metrics": {
+    "avg_sentence_length": 16.536404160475485,
+    "avg_word_length": 3.688830982118789,
+    "sentence_count": 673,
+    "token_count": 14075,
+    "word_count": 11129
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/story.json"
+}

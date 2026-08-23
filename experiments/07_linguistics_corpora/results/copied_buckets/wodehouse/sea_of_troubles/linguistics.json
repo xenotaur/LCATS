@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26475,
+    "body_sha256": "439fe41e952ad6171614a096b1f6b04297c67919133140290e2a114aa1e38a9d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/sea_of_troubles/story.json"
+  },
+  "lcats_id": "wodehouse/sea_of_troubles",
+  "metrics": {
+    "avg_sentence_length": 16.679715302491104,
+    "avg_word_length": 4.670578195007468,
+    "sentence_count": 281,
+    "token_count": 5432,
+    "word_count": 4687
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wodehouse/sea_of_troubles/story.json"
+}

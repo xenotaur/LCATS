@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21836,
+    "body_sha256": "7bfbc926f38097949226734d61e3b0e6d7bc1ba3eed297fa97c5c39fe72fe661",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_incredible_life_form__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/the_incredible_life_form__marks",
+  "metrics": {
+    "avg_sentence_length": 20.883838383838384,
+    "avg_word_length": 4.339782345828295,
+    "sentence_count": 198,
+    "token_count": 4781,
+    "word_count": 4135
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_incredible_life_form__marks/story.json"
+}

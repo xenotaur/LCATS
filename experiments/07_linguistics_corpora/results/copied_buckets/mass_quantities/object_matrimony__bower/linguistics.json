@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22124,
+    "body_sha256": "dde353bef3798c35d0eefa2142134b4a5cbe41e5299db1312dd29683b7cd1207",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/object_matrimony__bower/story.json"
+  },
+  "lcats_id": "mass_quantities/object_matrimony__bower",
+  "metrics": {
+    "avg_sentence_length": 22.393364928909953,
+    "avg_word_length": 3.7206349206349207,
+    "sentence_count": 211,
+    "token_count": 5508,
+    "word_count": 4725
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/object_matrimony__bower/story.json"
+}

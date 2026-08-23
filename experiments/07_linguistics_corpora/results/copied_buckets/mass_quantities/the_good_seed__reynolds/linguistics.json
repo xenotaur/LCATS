@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24896,
+    "body_sha256": "53b74933b4ba0499152c0e36a5f522ebb6d910450a4a21d17ad811b9bbb89c0a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_good_seed__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/the_good_seed__reynolds",
+  "metrics": {
+    "avg_sentence_length": 15.541033434650457,
+    "avg_word_length": 3.849794641110894,
+    "sentence_count": 329,
+    "token_count": 6133,
+    "word_count": 5113
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_good_seed__reynolds/story.json"
+}

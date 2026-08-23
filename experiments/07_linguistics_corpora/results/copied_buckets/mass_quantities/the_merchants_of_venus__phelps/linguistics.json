@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29150,
+    "body_sha256": "e6994661ff57637a2f529b06f5be483ce886a3c26d18dc5175798c82e3cf2628",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_merchants_of_venus__phelps/story.json"
+  },
+  "lcats_id": "mass_quantities/the_merchants_of_venus__phelps",
+  "metrics": {
+    "avg_sentence_length": 15.238961038961039,
+    "avg_word_length": 3.9884097494460544,
+    "sentence_count": 385,
+    "token_count": 6844,
+    "word_count": 5867
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_merchants_of_venus__phelps/story.json"
+}

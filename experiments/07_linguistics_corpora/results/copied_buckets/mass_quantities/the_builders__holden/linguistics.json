@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20708,
+    "body_sha256": "8dedec035a93968a48179a6eb95295c034caf2497477c7f9cf663a451549f67d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_builders__holden/story.json"
+  },
+  "lcats_id": "mass_quantities/the_builders__holden",
+  "metrics": {
+    "avg_sentence_length": 17.310344827586206,
+    "avg_word_length": 4.18550796812749,
+    "sentence_count": 232,
+    "token_count": 4767,
+    "word_count": 4016
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_builders__holden/story.json"
+}

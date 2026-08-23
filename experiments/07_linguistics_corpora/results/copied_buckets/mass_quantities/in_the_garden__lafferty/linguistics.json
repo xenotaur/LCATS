@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18119,
+    "body_sha256": "1527d9997a97d3b6e72c18ce7a0b1d2a373da0fe33d734921d656c64b9dc62a2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_the_garden__lafferty/story.json"
+  },
+  "lcats_id": "mass_quantities/in_the_garden__lafferty",
+  "metrics": {
+    "avg_sentence_length": 13.80377358490566,
+    "avg_word_length": 3.925915800984144,
+    "sentence_count": 265,
+    "token_count": 4465,
+    "word_count": 3658
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_the_garden__lafferty/story.json"
+}

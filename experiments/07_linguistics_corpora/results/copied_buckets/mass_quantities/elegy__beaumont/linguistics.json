@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30811,
+    "body_sha256": "81cb08f38ea2fb46ff789085b1fd76053077f91711d414075933484f9511bc9e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/elegy__beaumont/story.json"
+  },
+  "lcats_id": "mass_quantities/elegy__beaumont",
+  "metrics": {
+    "avg_sentence_length": 13.85876993166287,
+    "avg_word_length": 4.018080210387903,
+    "sentence_count": 439,
+    "token_count": 7648,
+    "word_count": 6084
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/elegy__beaumont/story.json"
+}

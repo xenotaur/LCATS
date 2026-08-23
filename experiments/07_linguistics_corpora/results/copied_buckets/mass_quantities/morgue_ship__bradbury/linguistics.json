@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21914,
+    "body_sha256": "0ad3de8c8565f6ab4b39532b8fd15ee5685a8fd98323898081dfb56559f08be0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/morgue_ship__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/morgue_ship__bradbury",
+  "metrics": {
+    "avg_sentence_length": 11.122137404580153,
+    "avg_word_length": 4.020590253946465,
+    "sentence_count": 393,
+    "token_count": 5315,
+    "word_count": 4371
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/morgue_ship__bradbury/story.json"
+}

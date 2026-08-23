@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33896,
+    "body_sha256": "5dd400a667d7952ae2f52d6af06b19d46da0d206b311821adfafd3578a9310e5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/grifters_asteroid__gold/story.json"
+  },
+  "lcats_id": "mass_quantities/grifters_asteroid__gold",
+  "metrics": {
+    "avg_sentence_length": 13.119675456389452,
+    "avg_word_length": 4.196660482374768,
+    "sentence_count": 493,
+    "token_count": 8126,
+    "word_count": 6468
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/grifters_asteroid__gold/story.json"
+}

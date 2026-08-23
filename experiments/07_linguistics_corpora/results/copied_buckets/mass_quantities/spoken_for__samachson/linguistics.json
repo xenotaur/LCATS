@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14557,
+    "body_sha256": "4e33d74ee295d3954f91f4897c3075d0e33d93d92509dd16b16da91b3be2c6d8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spoken_for__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/spoken_for__samachson",
+  "metrics": {
+    "avg_sentence_length": 14.452380952380953,
+    "avg_word_length": 3.799011532125206,
+    "sentence_count": 210,
+    "token_count": 3658,
+    "word_count": 3035
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/spoken_for__samachson/story.json"
+}

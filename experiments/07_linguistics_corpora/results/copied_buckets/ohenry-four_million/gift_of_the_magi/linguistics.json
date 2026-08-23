@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11259,
+    "body_sha256": "04a36b6297d4f7b822513bd66bdda846f2a2cd7237a0dee57d731c5bb286b536",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/gift_of_the_magi/story.json"
+  },
+  "lcats_id": "ohenry-four_million/gift_of_the_magi",
+  "metrics": {
+    "avg_sentence_length": 14.915584415584416,
+    "avg_word_length": 3.9242490204614713,
+    "sentence_count": 154,
+    "token_count": 2651,
+    "word_count": 2297
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/gift_of_the_magi/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 59147,
+    "body_sha256": "15eda348edf8594f6c8a5ce27c5d1f6f9a5abe0a4354c61d881f7f1eb6937652",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_risk_profession__westlake/story.json"
+  },
+  "lcats_id": "mass_quantities/the_risk_profession__westlake",
+  "metrics": {
+    "avg_sentence_length": 15.88888888888889,
+    "avg_word_length": 3.825174825174825,
+    "sentence_count": 774,
+    "token_count": 14528,
+    "word_count": 12298
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_risk_profession__westlake/story.json"
+}

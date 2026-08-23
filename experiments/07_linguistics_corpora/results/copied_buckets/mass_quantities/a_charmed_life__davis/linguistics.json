@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26058,
+    "body_sha256": "75d0dd193cd3ce3368313322c950e5dccb4577412098e40e632e6db12f4a5905",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_charmed_life__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/a_charmed_life__davis",
+  "metrics": {
+    "avg_sentence_length": 16.38006230529595,
+    "avg_word_length": 3.9378090528718146,
+    "sentence_count": 321,
+    "token_count": 6233,
+    "word_count": 5258
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_charmed_life__davis/story.json"
+}

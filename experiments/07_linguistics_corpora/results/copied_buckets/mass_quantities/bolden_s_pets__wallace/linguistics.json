@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38376,
+    "body_sha256": "e8aaf4aeb30c9fe9271a1681ca3884a5c8ed917df4a55e5bf402674014878280",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bolden_s_pets__wallace/story.json"
+  },
+  "lcats_id": "mass_quantities/bolden_s_pets__wallace",
+  "metrics": {
+    "avg_sentence_length": 12.068037974683545,
+    "avg_word_length": 4.051134128753114,
+    "sentence_count": 632,
+    "token_count": 8932,
+    "word_count": 7627
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bolden_s_pets__wallace/story.json"
+}

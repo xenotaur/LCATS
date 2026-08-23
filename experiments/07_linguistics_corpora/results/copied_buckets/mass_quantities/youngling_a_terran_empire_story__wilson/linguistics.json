@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18596,
+    "body_sha256": "45503fa944ed512bbd6584c5c9f50734af8835a4dbb70b38e0b40608d22dfb42",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/youngling_a_terran_empire_story__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/youngling_a_terran_empire_story__wilson",
+  "metrics": {
+    "avg_sentence_length": 13.80072463768116,
+    "avg_word_length": 3.8834339721711735,
+    "sentence_count": 276,
+    "token_count": 4642,
+    "word_count": 3809
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/youngling_a_terran_empire_story__wilson/story.json"
+}

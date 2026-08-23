@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27001,
+    "body_sha256": "1e76be0abdba8f8a7f1a0bfeb40b418502e962324b86bee3f25ae8095cbd0a3b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/we_run_from_the_hunted__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/we_run_from_the_hunted__marlowe",
+  "metrics": {
+    "avg_sentence_length": 11.329979879275655,
+    "avg_word_length": 3.7650506126798082,
+    "sentence_count": 497,
+    "token_count": 7003,
+    "word_count": 5631
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/we_run_from_the_hunted__marlowe/story.json"
+}

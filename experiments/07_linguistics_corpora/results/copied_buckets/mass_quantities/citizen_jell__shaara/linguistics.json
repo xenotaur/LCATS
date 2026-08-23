@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17733,
+    "body_sha256": "5b76f708c01f3f860d3b9780e439735258668c3a0d25255f24cebeb193ff7222",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/citizen_jell__shaara/story.json"
+  },
+  "lcats_id": "mass_quantities/citizen_jell__shaara",
+  "metrics": {
+    "avg_sentence_length": 21.89090909090909,
+    "avg_word_length": 3.9482281284606864,
+    "sentence_count": 165,
+    "token_count": 4093,
+    "word_count": 3612
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/citizen_jell__shaara/story.json"
+}

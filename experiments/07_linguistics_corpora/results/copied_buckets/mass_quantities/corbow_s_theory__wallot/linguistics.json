@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36008,
+    "body_sha256": "093b8f4702e7c866c65648b887c034b4939af9d1ccd244f85a4695d83022d30d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/corbow_s_theory__wallot/story.json"
+  },
+  "lcats_id": "mass_quantities/corbow_s_theory__wallot",
+  "metrics": {
+    "avg_sentence_length": 15.256900212314225,
+    "avg_word_length": 4.038129696632341,
+    "sentence_count": 471,
+    "token_count": 8263,
+    "word_count": 7186
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/corbow_s_theory__wallot/story.json"
+}

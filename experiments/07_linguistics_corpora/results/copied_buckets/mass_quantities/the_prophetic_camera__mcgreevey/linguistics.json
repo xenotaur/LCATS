@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25126,
+    "body_sha256": "6453420a699f96dcd86e83ef2fb5a9a3537c54a8c32dc748f4b73c211e504aae",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_prophetic_camera__mcgreevey/story.json"
+  },
+  "lcats_id": "mass_quantities/the_prophetic_camera__mcgreevey",
+  "metrics": {
+    "avg_sentence_length": 10.224948875255624,
+    "avg_word_length": 3.984,
+    "sentence_count": 489,
+    "token_count": 6195,
+    "word_count": 5000
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_prophetic_camera__mcgreevey/story.json"
+}

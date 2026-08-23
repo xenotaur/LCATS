@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11865,
+    "body_sha256": "4d600e947d4e2614aacf16eb095fe3c2b2b28e653cca6e348f6ed68d512ec9fd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/restricted_tool__morehart/story.json"
+  },
+  "lcats_id": "mass_quantities/restricted_tool__morehart",
+  "metrics": {
+    "avg_sentence_length": 10.83495145631068,
+    "avg_word_length": 4.299731182795699,
+    "sentence_count": 206,
+    "token_count": 2704,
+    "word_count": 2232
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/restricted_tool__morehart/story.json"
+}

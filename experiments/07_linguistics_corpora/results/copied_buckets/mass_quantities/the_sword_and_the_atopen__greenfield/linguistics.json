@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20272,
+    "body_sha256": "ccae4ddf1dd159a8fc04c7a92a996675edc4b6b8b5ed537ac5d436bd27ec8e84",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sword_and_the_atopen__greenfield/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sword_and_the_atopen__greenfield",
+  "metrics": {
+    "avg_sentence_length": 22.892857142857142,
+    "avg_word_length": 4.319552782111284,
+    "sentence_count": 168,
+    "token_count": 4305,
+    "word_count": 3846
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sword_and_the_atopen__greenfield/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29872,
+    "body_sha256": "91a1a050382b31ddf891f6e94820afbb8f13d63990c0fe2a52958834dfc985c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/scrambled_world__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/scrambled_world__wells",
+  "metrics": {
+    "avg_sentence_length": 13.692488262910798,
+    "avg_word_length": 4.125150008571919,
+    "sentence_count": 426,
+    "token_count": 6976,
+    "word_count": 5833
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/scrambled_world__wells/story.json"
+}

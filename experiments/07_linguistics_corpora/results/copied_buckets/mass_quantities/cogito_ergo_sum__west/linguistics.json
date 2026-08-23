@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16286,
+    "body_sha256": "b617b34f40153f6bc2e0c96804a996b2063aed9d6fe35f1075e42bb53c9db50c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cogito_ergo_sum__west/story.json"
+  },
+  "lcats_id": "mass_quantities/cogito_ergo_sum__west",
+  "metrics": {
+    "avg_sentence_length": 11.066889632107024,
+    "avg_word_length": 3.9208220006044123,
+    "sentence_count": 299,
+    "token_count": 3976,
+    "word_count": 3309
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cogito_ergo_sum__west/story.json"
+}

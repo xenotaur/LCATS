@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33963,
+    "body_sha256": "6361a6371201d00b1f71fd4a3f3f0d91854680204404ec6151b6789e05d443bf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_coming_of_the_ice__peyton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_coming_of_the_ice__peyton",
+  "metrics": {
+    "avg_sentence_length": 16.613526570048307,
+    "avg_word_length": 3.9332654841523698,
+    "sentence_count": 414,
+    "token_count": 8014,
+    "word_count": 6878
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_coming_of_the_ice__peyton/story.json"
+}

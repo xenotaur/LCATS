@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5249,
+    "body_sha256": "64ec12698279ca6030a6b66f5eb31538e9375f826026fdd209be0162e6f66c60",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/three_languages/story.json"
+  },
+  "lcats_id": "grimm/three_languages",
+  "metrics": {
+    "avg_sentence_length": 26.076923076923077,
+    "avg_word_length": 4.127826941986234,
+    "sentence_count": 39,
+    "token_count": 1190,
+    "word_count": 1017
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/three_languages/story.json"
+}

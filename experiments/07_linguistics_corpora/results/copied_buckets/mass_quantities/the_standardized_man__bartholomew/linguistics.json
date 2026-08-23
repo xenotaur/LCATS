@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20138,
+    "body_sha256": "899421d640c5fb17a466ba137723ec9aa1f137086c1be17412e3c330899e6d52",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_standardized_man__bartholomew/story.json"
+  },
+  "lcats_id": "mass_quantities/the_standardized_man__bartholomew",
+  "metrics": {
+    "avg_sentence_length": 18.752380952380953,
+    "avg_word_length": 4.159217877094972,
+    "sentence_count": 210,
+    "token_count": 4537,
+    "word_count": 3938
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_standardized_man__bartholomew/story.json"
+}

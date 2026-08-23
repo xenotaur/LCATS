@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37218,
+    "body_sha256": "df22de945f3602c7fa19bd9983a47124f4df9643abd6da2fecbf812a3ead3214",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/down_went_mcginty__holden/story.json"
+  },
+  "lcats_id": "mass_quantities/down_went_mcginty__holden",
+  "metrics": {
+    "avg_sentence_length": 15.82716049382716,
+    "avg_word_length": 3.8620644825793033,
+    "sentence_count": 486,
+    "token_count": 9090,
+    "word_count": 7692
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/down_went_mcginty__holden/story.json"
+}

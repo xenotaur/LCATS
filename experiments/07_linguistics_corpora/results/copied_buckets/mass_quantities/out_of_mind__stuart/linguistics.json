@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34015,
+    "body_sha256": "548351de37501e32e9bf6672463a93c632f5e3ce37e0f5bd15314d006f564f97",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/out_of_mind__stuart/story.json"
+  },
+  "lcats_id": "mass_quantities/out_of_mind__stuart",
+  "metrics": {
+    "avg_sentence_length": 12.724271844660194,
+    "avg_word_length": 4.1500076300930875,
+    "sentence_count": 515,
+    "token_count": 8112,
+    "word_count": 6553
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/out_of_mind__stuart/story.json"
+}

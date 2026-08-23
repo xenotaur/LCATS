@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33186,
+    "body_sha256": "ca6c2edc6e1066e4f2568e6fdd724b61e0b9ab496db84f3fa141eab841ec0f37",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sound_of_silence__constant/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sound_of_silence__constant",
+  "metrics": {
+    "avg_sentence_length": 18.435754189944134,
+    "avg_word_length": 3.998939393939394,
+    "sentence_count": 358,
+    "token_count": 7844,
+    "word_count": 6600
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sound_of_silence__constant/story.json"
+}

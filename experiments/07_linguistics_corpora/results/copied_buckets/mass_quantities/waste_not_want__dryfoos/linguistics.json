@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14523,
+    "body_sha256": "f7ad3ae8465981daf4e4685a5fff79328dcb837b2345d7944dbf982b652b1ad2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/waste_not_want__dryfoos/story.json"
+  },
+  "lcats_id": "mass_quantities/waste_not_want__dryfoos",
+  "metrics": {
+    "avg_sentence_length": 15.412698412698413,
+    "avg_word_length": 4.022313765877103,
+    "sentence_count": 189,
+    "token_count": 3433,
+    "word_count": 2913
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/waste_not_want__dryfoos/story.json"
+}

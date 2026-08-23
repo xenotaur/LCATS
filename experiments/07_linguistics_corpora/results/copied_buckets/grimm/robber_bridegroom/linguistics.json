@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8458,
+    "body_sha256": "aa879668da39b6c0bd4ef3aee77c78e15d7ac4d933e3fb592beb74763e20ad04",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/robber_bridegroom/story.json"
+  },
+  "lcats_id": "grimm/robber_bridegroom",
+  "metrics": {
+    "avg_sentence_length": 23.529411764705884,
+    "avg_word_length": 4.2725,
+    "sentence_count": 68,
+    "token_count": 1869,
+    "word_count": 1600
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/robber_bridegroom/story.json"
+}

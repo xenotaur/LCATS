@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54621,
+    "body_sha256": "dddfcab64d621e9e480cffceaeced169794496ce5c7efd021348c0f0e0498fc9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/exiles_of_the_three_red_moons__selwyn/story.json"
+  },
+  "lcats_id": "mass_quantities/exiles_of_the_three_red_moons__selwyn",
+  "metrics": {
+    "avg_sentence_length": 10.448478900883218,
+    "avg_word_length": 4.122475814783507,
+    "sentence_count": 1019,
+    "token_count": 12782,
+    "word_count": 10647
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/exiles_of_the_three_red_moons__selwyn/story.json"
+}

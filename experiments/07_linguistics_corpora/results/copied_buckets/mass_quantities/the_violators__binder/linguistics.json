@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15029,
+    "body_sha256": "7853fe1d09f2437afc0ce836f6c8c843728d4ed2ac34cc30f9bc1822000fbf86",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_violators__binder/story.json"
+  },
+  "lcats_id": "mass_quantities/the_violators__binder",
+  "metrics": {
+    "avg_sentence_length": 12.820960698689957,
+    "avg_word_length": 4.125,
+    "sentence_count": 229,
+    "token_count": 3459,
+    "word_count": 2936
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_violators__binder/story.json"
+}

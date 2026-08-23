@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25922,
+    "body_sha256": "b7e741f272729c06c13f0bd8221dea0d376d1609ce43995b63fbfacdb9fbdafd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vassi__lewis/story.json"
+  },
+  "lcats_id": "mass_quantities/vassi__lewis",
+  "metrics": {
+    "avg_sentence_length": 9.355218855218855,
+    "avg_word_length": 3.6361346050026992,
+    "sentence_count": 594,
+    "token_count": 6868,
+    "word_count": 5557
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/vassi__lewis/story.json"
+}

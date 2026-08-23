@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27459,
+    "body_sha256": "0f509828a39ceae6115addff733db287470426b60d34d8f42534417eec642b5e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_dark_goddess__shaver/story.json"
+  },
+  "lcats_id": "mass_quantities/the_dark_goddess__shaver",
+  "metrics": {
+    "avg_sentence_length": 21.248091603053435,
+    "avg_word_length": 3.958146218789294,
+    "sentence_count": 262,
+    "token_count": 6318,
+    "word_count": 5567
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_dark_goddess__shaver/story.json"
+}
