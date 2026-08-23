@@ -326,6 +326,56 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         self.assertFalse(result.valid)
         self.assertIn("invalid_rubric_version", finding_kinds)
 
+    def test_loaded_validation_rejects_malformed_analysis_failures(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        failed = copy.deepcopy(data["analyses"]["knight"][0])
+        failed["analysis_id"] = "knight-failed"
+        failed["status"] = "failed"
+        failed["failures"] = [1]
+        data["analyses"]["knight"].append(failed)
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("wrong_type", finding_kinds)
+
+    def test_loaded_validation_rejects_unexplained_analysis_failure(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        failed = copy.deepcopy(data["analyses"]["knight"][0])
+        failed["analysis_id"] = "knight-failed"
+        failed["status"] = "failed"
+        failed["failures"] = []
+        data["analyses"]["knight"].append(failed)
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("missing_required_field", finding_kinds)
+
+    def test_loaded_validation_rejects_malformed_quarantined_evidence(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["evidence_sets"][0]["quarantined"] = [1]
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("wrong_type", finding_kinds)
+
+    def test_loaded_validation_rejects_invalid_analysis_provenance_costs(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        provenance = data["analyses"]["knight"][0]["provenance"]
+        provenance["token_usage"] = {"prompt": -1}
+        provenance["estimated_cost_usd"] = -3
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("wrong_type", finding_kinds)
+
     def test_loaded_validation_rejects_error_findings_when_stored_valid(self):
         data = pipeline.assemble_sidecar_data(_inputs())
         data["validation"] = {
@@ -692,11 +742,22 @@ class ScienceFictionPipelineCheckpointTest(unittest.TestCase):
                 allow_protected_root=True,
             )
 
+    def test_publish_sidecar_rejects_item_id_mismatch(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+
+        with self.assertRaisesRegex(ValueError, "does not match"):
+            pipeline.publish_sidecar(
+                output_root=self.working_root,
+                item_id="other/story",
+                data=data,
+                allow_protected_root=True,
+            )
+
     def test_publish_interruption_preserves_prior_sidecar(self):
         data = pipeline.assemble_sidecar_data(_inputs())
         path = pipeline.publish_sidecar(
             output_root=self.working_root,
-            item_id="story_a",
+            item_id=data["lcats_id"],
             data=data,
             allow_protected_root=True,
         )
@@ -709,7 +770,7 @@ class ScienceFictionPipelineCheckpointTest(unittest.TestCase):
             with self.assertRaises(KeyboardInterrupt):
                 pipeline.publish_sidecar(
                     output_root=self.working_root,
-                    item_id="story_a",
+                    item_id=data["lcats_id"],
                     data=data,
                     allow_protected_root=True,
                 )

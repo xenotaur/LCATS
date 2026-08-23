@@ -201,6 +201,11 @@ def publish_sidecar(
         allow_protected_root=allow_protected_root,
     )
     output_path = _sidecar_output_path(roots.working_root, item_id)
+    sidecar_id = data.get("lcats_id")
+    if sidecar_id != item_id:
+        raise ValueError(
+            f"item_id {item_id!r} does not match sidecar lcats_id {sidecar_id!r}"
+        )
     sidecar.write_json_atomic(output_path, data)
     return output_path
 

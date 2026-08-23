@@ -259,12 +259,16 @@ def _validate_evidence_sets(
                 )
             evidence_ids_by_set.setdefault(evidence_set_id, set())
         records = _require_list(item, "records", f"{base}.records", findings)
-        _require_list(item, "quarantined", f"{base}.quarantined", findings)
+        quarantined = _require_list(
+            item, "quarantined", f"{base}.quarantined", findings
+        )
         conflicts = _require_list(item, "conflicts", f"{base}.conflicts", findings)
         if isinstance(records, list) and _is_non_empty_string(evidence_set_id):
             _validate_evidence_records(
                 records, base, evidence_ids_by_set[evidence_set_id], findings
             )
+        if isinstance(quarantined, list):
+            _validate_quarantined_evidence(quarantined, f"{base}.quarantined", findings)
         if isinstance(conflicts, list) and _is_non_empty_string(evidence_set_id):
             _validate_evidence_conflicts(
                 conflicts,
@@ -341,6 +345,68 @@ def _validate_evidence_records(
                     )
                 )
             evidence_ids.add(evidence_id)
+
+
+def _validate_quarantined_evidence(
+    quarantined: list[Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    for index, item in enumerate(quarantined):
+        item_path = f"{path}[{index}]"
+        if not isinstance(item, dict):
+            findings.append(
+                _finding(
+                    item_path,
+                    "wrong_type",
+                    f"expected object, got {type(item).__name__}",
+                )
+            )
+            continue
+        _require_string(item, "reason", f"{item_path}.reason", findings)
+        candidate = _require_mapping(
+            item, "candidate", f"{item_path}.candidate", findings
+        )
+        if isinstance(candidate, dict):
+            _validate_evidence_candidate(candidate, f"{item_path}.candidate", findings)
+
+
+def _validate_evidence_candidate(
+    candidate: dict[str, Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    _optional_string_or_none(candidate, "raw_id", f"{path}.raw_id", findings)
+    _require_string_value(candidate, "evidence_type", f"{path}.evidence_type", findings)
+    _require_string_value(candidate, "quote", f"{path}.quote", findings)
+    _validate_string_items(
+        candidate, "paragraph_ids", f"{path}.paragraph_ids", findings
+    )
+    _require_optional_int(candidate, "start_char", f"{path}.start_char", findings)
+    _require_optional_int(candidate, "end_char", f"{path}.end_char", findings)
+    _require_string_value(candidate, "paraphrase", f"{path}.paraphrase", findings)
+    _validate_string_items(candidate, "entity_ids", f"{path}.entity_ids", findings)
+    _validate_string_items(candidate, "event_ids", f"{path}.event_ids", findings)
+    _require_number(candidate, "confidence", f"{path}.confidence", findings)
+    if (
+        isinstance(candidate.get("confidence"), (int, float))
+        and not isinstance(candidate.get("confidence"), bool)
+        and not 0.0 <= candidate["confidence"] <= 1.0
+    ):
+        findings.append(
+            _finding(
+                f"{path}.confidence",
+                "invalid_confidence",
+                "confidence must be between 0 and 1",
+            )
+        )
+    _optional_string_or_none(
+        candidate, "source_chunk_id", f"{path}.source_chunk_id", findings
+    )
+    _require_string_value(candidate, "source", f"{path}.source", findings)
+    _validate_string_items(
+        candidate, "schema_errors", f"{path}.schema_errors", findings
+    )
 
 
 def _validate_evidence_conflicts(
@@ -448,8 +514,22 @@ def _validate_analyses(
             analysis, "evidence_set_id", f"{base}.evidence_set_id", findings
         )
         _require_string(analysis, "status", f"{base}.status", findings)
-        _require_list(analysis, "failures", f"{base}.failures", findings)
+        failures = _require_list(analysis, "failures", f"{base}.failures", findings)
+        if isinstance(failures, list):
+            _validate_failure_records(failures, f"{base}.failures", findings)
         status = analysis.get("status")
+        if (
+            status in {"failed", "partial"}
+            and isinstance(failures, list)
+            and not failures
+        ):
+            findings.append(
+                _finding(
+                    f"{base}.failures",
+                    "missing_required_field",
+                    "failed or partial analyses require at least one failure record",
+                )
+            )
         if _is_non_empty_string(status) and status not in models.ANALYSIS_STATES:
             findings.append(
                 _finding(
@@ -1176,6 +1256,15 @@ def _validate_failure_record(
         _validate_stage_name(stage, f"{path}.stage", findings)
 
 
+def _validate_failure_records(
+    failures: list[Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    for index, failure in enumerate(failures):
+        _validate_failure_record(failure, f"{path}[{index}]", findings)
+
+
 def _validate_stored_validation(
     data: Any,
     findings: list[models.ValidationFinding],
@@ -1257,6 +1346,75 @@ def _validate_provenance(
                 f"expected {expected_rubric_version!r}",
             )
         )
+    for key in (
+        "code_commit",
+        "backend",
+        "model",
+        "prompt_hash",
+        "schema_hash",
+        "chunk_config_hash",
+        "generated_at",
+        "parent_evidence_set_id",
+    ):
+        _optional_string_or_none(provenance, key, f"{path}.{key}", findings)
+    generation_parameters = provenance.get("generation_parameters")
+    if generation_parameters is not None and not isinstance(
+        generation_parameters, dict
+    ):
+        findings.append(
+            _finding(
+                f"{path}.generation_parameters",
+                "wrong_type",
+                f"expected object or null, got {type(generation_parameters).__name__}",
+            )
+        )
+    token_usage = provenance.get("token_usage")
+    if token_usage is not None:
+        if not isinstance(token_usage, dict):
+            findings.append(
+                _finding(
+                    f"{path}.token_usage",
+                    "wrong_type",
+                    f"expected object or null, got {type(token_usage).__name__}",
+                )
+            )
+        else:
+            for token_key, token_value in token_usage.items():
+                token_path = f"{path}.token_usage.{token_key}"
+                if not _is_non_empty_string(token_key):
+                    findings.append(
+                        _finding(
+                            f"{path}.token_usage",
+                            "wrong_type",
+                            "token_usage keys must be non-empty strings",
+                        )
+                    )
+                if (
+                    isinstance(token_value, bool)
+                    or not isinstance(token_value, int)
+                    or token_value < 0
+                ):
+                    findings.append(
+                        _finding(
+                            token_path,
+                            "wrong_type",
+                            "token_usage values must be non-negative integers",
+                        )
+                    )
+    estimated_cost = provenance.get("estimated_cost_usd")
+    if estimated_cost is not None:
+        if (
+            isinstance(estimated_cost, bool)
+            or not isinstance(estimated_cost, (int, float))
+            or estimated_cost < 0
+        ):
+            findings.append(
+                _finding(
+                    f"{path}.estimated_cost_usd",
+                    "wrong_type",
+                    "estimated_cost_usd must be a non-negative number or null",
+                )
+            )
 
 
 def _require_mapping(
@@ -1460,6 +1618,24 @@ def _require_int(
         findings.append(
             _finding(
                 path, "wrong_type", f"expected int, got {type(data[key]).__name__}"
+            )
+        )
+
+
+def _require_optional_int(
+    data: dict[str, Any],
+    key: str,
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if key not in data or data[key] is None:
+        return
+    if isinstance(data[key], bool) or not isinstance(data[key], int):
+        findings.append(
+            _finding(
+                path,
+                "wrong_type",
+                f"expected int or null, got {type(data[key]).__name__}",
             )
         )
 
