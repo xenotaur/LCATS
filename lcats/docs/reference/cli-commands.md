@@ -333,6 +333,10 @@ chart. Story is the document unit; IDF is fit across the whole corpus
 regardless of `--genre`, so a genre-subset run ranks terms distinguishing
 that subset from the corpus at large.
 
+*(This description matches the command's own `--help` text verbatim, but
+is only fully accurate with `--contrast` -- read the Accuracy note below
+before relying on it.)*
+
 **Accuracy note:** the description above matches the command's own
 `--help` text, but the ranking it produces *without* `--contrast` is the
 selected group's mean TF-IDF only -- it does not compute or subtract the

@@ -81,10 +81,17 @@ concrete:
 `king`, `princess`, and `tree` were already present in the salience
 ranking too (fantasy is a strong enough genre signal that they show up
 either way), but `said`/`not`/`all` -- generic narrative vocabulary with
-no genre content -- outrank them under salience and are correctly
-demoted (filtered out entirely, since their contrast score is at or
-below zero) under contrast. This is the concrete illustration of the gap
-`WI-VISUALIZE-0090` was scoped to close.
+no genre content -- outrank them under salience and are demoted under
+contrast, though not uniformly filtered out: `said` still has a positive
+contrast score and remains in the contrast ranking, just demoted from
+rank 1 to rank 3; `not` likewise remains, demoted to rank 9; only `all`
+drops out of the top 20 entirely (its contrast score, 0.014, is still
+positive -- it is outranked by 20 more fantasy-distinctive terms, not
+filtered to zero). This is the concrete illustration of the gap
+`WI-VISUALIZE-0090` was scoped to close: contrast systematically
+demotes generic vocabulary relative to salience, even where -- as with
+`said` and `not` here -- it doesn't remove a term from the ranking
+outright.
 
 ## Outputs (`figures/`)
 
