@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45706,
+    "body_sha256": "2608370b69129e84cc1751ccb22a90a3a1e18b44dd42408a989a3a6eef944f6b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_missionary__bone/story.json"
+  },
+  "lcats_id": "mass_quantities/the_missionary__bone",
+  "metrics": {
+    "avg_sentence_length": 14.085235920852359,
+    "avg_word_length": 3.94553706505295,
+    "sentence_count": 657,
+    "token_count": 10891,
+    "word_count": 9254
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_missionary__bone/story.json"
+}

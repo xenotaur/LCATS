@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23925,
+    "body_sha256": "952d274202f22d0c3ef6f6a9b812c1412157f1d9ec6d9973d45a0a179a10dd2c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/story.json"
+  },
+  "lcats_id": "mass_quantities/30deg_cattywonkus__bell",
+  "metrics": {
+    "avg_sentence_length": 13.846820809248555,
+    "avg_word_length": 3.9855979962429555,
+    "sentence_count": 346,
+    "token_count": 5736,
+    "word_count": 4791
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/story.json"
+}

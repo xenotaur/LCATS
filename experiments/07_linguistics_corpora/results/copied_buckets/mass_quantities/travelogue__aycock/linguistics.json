@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30029,
+    "body_sha256": "a8bea8251676beea27874371321f41915f73754570a36fb575788d5d77e54c02",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/travelogue__aycock/story.json"
+  },
+  "lcats_id": "mass_quantities/travelogue__aycock",
+  "metrics": {
+    "avg_sentence_length": 19.40268456375839,
+    "avg_word_length": 4.241438948460741,
+    "sentence_count": 298,
+    "token_count": 6673,
+    "word_count": 5782
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/travelogue__aycock/story.json"
+}

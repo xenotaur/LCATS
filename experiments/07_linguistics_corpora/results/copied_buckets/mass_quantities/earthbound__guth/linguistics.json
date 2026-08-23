@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21797,
+    "body_sha256": "5025d83d18b69057d56b58b3e9edea229af6e9a1a440a39c5f462a9c71eabb64",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earthbound__guth/story.json"
+  },
+  "lcats_id": "mass_quantities/earthbound__guth",
+  "metrics": {
+    "avg_sentence_length": 11.822033898305085,
+    "avg_word_length": 4.213859020310633,
+    "sentence_count": 354,
+    "token_count": 5023,
+    "word_count": 4185
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/earthbound__guth/story.json"
+}

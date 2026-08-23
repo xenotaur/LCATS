@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34715,
+    "body_sha256": "5ae3f7a5cb27c776308ef2fc897d3b7193305c70d4cd622421d4ed7c6ed18984",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/assignment_in_the_dawn__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/assignment_in_the_dawn__walton",
+  "metrics": {
+    "avg_sentence_length": 10.132018209408194,
+    "avg_word_length": 4.179421896061105,
+    "sentence_count": 659,
+    "token_count": 8176,
+    "word_count": 6677
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/assignment_in_the_dawn__walton/story.json"
+}

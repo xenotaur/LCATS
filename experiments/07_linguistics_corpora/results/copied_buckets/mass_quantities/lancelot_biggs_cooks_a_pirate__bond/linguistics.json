@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30603,
+    "body_sha256": "bea019bdae8ee597d5f15c0ba3e21bef6e96f003897046590b1e9a367196bd5b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lancelot_biggs_cooks_a_pirate__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/lancelot_biggs_cooks_a_pirate__bond",
+  "metrics": {
+    "avg_sentence_length": 12.266666666666667,
+    "avg_word_length": 3.860613810741688,
+    "sentence_count": 510,
+    "token_count": 7690,
+    "word_count": 6256
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lancelot_biggs_cooks_a_pirate__bond/story.json"
+}

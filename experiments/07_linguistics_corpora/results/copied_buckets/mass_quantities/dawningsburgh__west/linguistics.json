@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16795,
+    "body_sha256": "133c47bd77056d5778a3ac2d8598449fce9421c0da74e50d2346734e75daeab0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dawningsburgh__west/story.json"
+  },
+  "lcats_id": "mass_quantities/dawningsburgh__west",
+  "metrics": {
+    "avg_sentence_length": 14.013452914798206,
+    "avg_word_length": 4.37664,
+    "sentence_count": 223,
+    "token_count": 3711,
+    "word_count": 3125
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dawningsburgh__west/story.json"
+}

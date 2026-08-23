@@ -1,0 +1,23 @@
+{
+  "source_path": "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json",
+  "source_revision": "7f0c12e43e7ac0baf55a764f818f50b81ed08c131d861a3a010d8cbb656bef43",
+  "total_stories": 1868,
+  "counted_total": 1868,
+  "no_usable_signal_count": 267,
+  "counts": {
+    "science fiction": 1308,
+    "no usable signal": 267,
+    "fantasy": 120,
+    "western": 46,
+    "horror": 43,
+    "mystery": 34,
+    "romance": 24,
+    "humor": 20,
+    "adventure": 6
+  },
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "seed": 42
+}

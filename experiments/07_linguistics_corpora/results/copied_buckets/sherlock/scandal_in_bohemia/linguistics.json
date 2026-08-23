@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46611,
+    "body_sha256": "dce8adb39b76bbeb6b98d247fba108abd3ee417e40ebf57d7c8cc01fcee64ad9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/scandal_in_bohemia/story.json"
+  },
+  "lcats_id": "sherlock/scandal_in_bohemia",
+  "metrics": {
+    "avg_sentence_length": 16.77361853832442,
+    "avg_word_length": 3.9234856535600424,
+    "sentence_count": 561,
+    "token_count": 11358,
+    "word_count": 9410
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/scandal_in_bohemia/story.json"
+}

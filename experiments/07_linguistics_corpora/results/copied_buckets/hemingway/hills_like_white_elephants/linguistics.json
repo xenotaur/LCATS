@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7596,
+    "body_sha256": "31a74f3b9c7f843a458cf4df7a4aeee0c1daf63b619c0d8e01856e684959a865",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/hills_like_white_elephants/story.json"
+  },
+  "lcats_id": "hemingway/hills_like_white_elephants",
+  "metrics": {
+    "avg_sentence_length": 12.2,
+    "avg_word_length": 3.3199547767100057,
+    "sentence_count": 145,
+    "token_count": 2253,
+    "word_count": 1769
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/hills_like_white_elephants/story.json"
+}

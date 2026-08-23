@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40377,
+    "body_sha256": "06188e4b303ba28ca7f79012a95c72b83fa3e417e842b60a6bd3dfb7bb674578",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_evolution__wood/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_evolution__wood",
+  "metrics": {
+    "avg_sentence_length": 18.071599045346062,
+    "avg_word_length": 4.335974643423138,
+    "sentence_count": 419,
+    "token_count": 8950,
+    "word_count": 7572
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_evolution__wood/story.json"
+}

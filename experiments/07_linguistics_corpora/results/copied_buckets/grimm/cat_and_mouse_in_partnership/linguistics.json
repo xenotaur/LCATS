@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5519,
+    "body_sha256": "42800be17d5c5bb5a6726a78c267ca35fb6141c11f0fec1c7ab2eef1be71cd46",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/cat_and_mouse_in_partnership/story.json"
+  },
+  "lcats_id": "grimm/cat_and_mouse_in_partnership",
+  "metrics": {
+    "avg_sentence_length": 20.53846153846154,
+    "avg_word_length": 4.084269662921348,
+    "sentence_count": 52,
+    "token_count": 1321,
+    "word_count": 1068
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/cat_and_mouse_in_partnership/story.json"
+}

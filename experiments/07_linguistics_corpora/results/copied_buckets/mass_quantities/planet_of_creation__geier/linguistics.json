@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20309,
+    "body_sha256": "de779005e94bd5260601a17c9cb61be9e524527eac76bd00845e0e524abce2f9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_of_creation__geier/story.json"
+  },
+  "lcats_id": "mass_quantities/planet_of_creation__geier",
+  "metrics": {
+    "avg_sentence_length": 12.50498338870432,
+    "avg_word_length": 4.406748140276302,
+    "sentence_count": 301,
+    "token_count": 4460,
+    "word_count": 3764
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_of_creation__geier/story.json"
+}

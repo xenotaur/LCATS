@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32292,
+    "body_sha256": "94484a4a389da321b5c64c0f1c042c2149c5dc562a613d07df970bafb7e299f3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bulldog__brand/story.json"
+  },
+  "lcats_id": "mass_quantities/bulldog__brand",
+  "metrics": {
+    "avg_sentence_length": 19.028985507246375,
+    "avg_word_length": 3.943031226199543,
+    "sentence_count": 345,
+    "token_count": 7528,
+    "word_count": 6565
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bulldog__brand/story.json"
+}

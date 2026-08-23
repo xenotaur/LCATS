@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42768,
+    "body_sha256": "990c9559270c949b8ec89e3f447a61566d3ae03b9af75fbbf6fa9aceebdd8a4f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pied_piper_of_mars__kummer/story.json"
+  },
+  "lcats_id": "mass_quantities/pied_piper_of_mars__kummer",
+  "metrics": {
+    "avg_sentence_length": 13.585406301824213,
+    "avg_word_length": 4.194091796875,
+    "sentence_count": 603,
+    "token_count": 9891,
+    "word_count": 8192
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pied_piper_of_mars__kummer/story.json"
+}

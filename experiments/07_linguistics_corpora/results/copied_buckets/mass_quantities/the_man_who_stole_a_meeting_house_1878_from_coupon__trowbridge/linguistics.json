@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43057,
+    "body_sha256": "9d7373655f81189c1173142d1f9fbfbd03a7f6ce3bee7d31cf00c19e77888039",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_stole_a_meeting_house_1878_from_coupon__trowbridge/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_who_stole_a_meeting_house_1878_from_coupon__trowbridge",
+  "metrics": {
+    "avg_sentence_length": 23.909326424870468,
+    "avg_word_length": 3.634088200238379,
+    "sentence_count": 386,
+    "token_count": 11260,
+    "word_count": 9229
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_stole_a_meeting_house_1878_from_coupon__trowbridge/story.json"
+}

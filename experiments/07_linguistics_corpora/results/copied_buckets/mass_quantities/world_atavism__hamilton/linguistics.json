@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52988,
+    "body_sha256": "48fe06be2b7ef64eaa6574ebe76e410f7ee992fa6520074b38a839d4b69a6bbb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_atavism__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/world_atavism__hamilton",
+  "metrics": {
+    "avg_sentence_length": 23.79764705882353,
+    "avg_word_length": 4.295432074352383,
+    "sentence_count": 425,
+    "token_count": 11340,
+    "word_count": 10114
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_atavism__hamilton/story.json"
+}

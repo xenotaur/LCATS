@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38956,
+    "body_sha256": "d975503181b039169b061800c85fe3ae1572a465ef6a6a1d7bbb6dba5d74954a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_among_the_robots__mcdowell/story.json"
+  },
+  "lcats_id": "mass_quantities/love_among_the_robots__mcdowell",
+  "metrics": {
+    "avg_sentence_length": 11.40695915279879,
+    "avg_word_length": 4.1485411140583555,
+    "sentence_count": 661,
+    "token_count": 9263,
+    "word_count": 7540
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_among_the_robots__mcdowell/story.json"
+}

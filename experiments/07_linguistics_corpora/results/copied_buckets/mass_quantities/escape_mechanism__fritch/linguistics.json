@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33446,
+    "body_sha256": "2fef267fc0440b468524af131ea07097484b3163b1ca013097d1a24c43853f82",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/escape_mechanism__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/escape_mechanism__fritch",
+  "metrics": {
+    "avg_sentence_length": 14.324618736383442,
+    "avg_word_length": 4.076197718631179,
+    "sentence_count": 459,
+    "token_count": 7924,
+    "word_count": 6575
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/escape_mechanism__fritch/story.json"
+}

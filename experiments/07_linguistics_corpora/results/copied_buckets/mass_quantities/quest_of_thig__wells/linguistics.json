@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25619,
+    "body_sha256": "ada862301c4b549c21ea6d85b3bd371cf350d69d0456497e7c70926d7e86fe0a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/quest_of_thig__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/quest_of_thig__wells",
+  "metrics": {
+    "avg_sentence_length": 18.577205882352942,
+    "avg_word_length": 4.123095190975658,
+    "sentence_count": 272,
+    "token_count": 5673,
+    "word_count": 5053
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/quest_of_thig__wells/story.json"
+}

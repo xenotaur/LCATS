@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48324,
+    "body_sha256": "67357678d911697922055611a4b2b31a8439d2d41054a7df0b52ccc030ff4846",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_god_in_the_box__wright/story.json"
+  },
+  "lcats_id": "mass_quantities/the_god_in_the_box__wright",
+  "metrics": {
+    "avg_sentence_length": 17.984732824427482,
+    "avg_word_length": 4.100063667232598,
+    "sentence_count": 524,
+    "token_count": 11339,
+    "word_count": 9424
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_god_in_the_box__wright/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29945,
+    "body_sha256": "687dae41930f3667b247fbd3f3bb3f20f44562e00477520af36588a21fb4f359",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tea_tray_in_the_sky__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/tea_tray_in_the_sky__smith",
+  "metrics": {
+    "avg_sentence_length": 15.031662269129287,
+    "avg_word_length": 4.230296647358259,
+    "sentence_count": 379,
+    "token_count": 7006,
+    "word_count": 5697
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tea_tray_in_the_sky__smith/story.json"
+}

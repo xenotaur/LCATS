@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24413,
+    "body_sha256": "7ba6cb7de232aac840287df71fb0d2b9aaa890452fdd9c2286d6136bc8eaff7b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sweet_tooth__young/story.json"
+  },
+  "lcats_id": "mass_quantities/sweet_tooth__young",
+  "metrics": {
+    "avg_sentence_length": 15.996655518394649,
+    "avg_word_length": 4.1143633702697056,
+    "sentence_count": 299,
+    "token_count": 5682,
+    "word_count": 4783
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sweet_tooth__young/story.json"
+}

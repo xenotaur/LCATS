@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35214,
+    "body_sha256": "2eceb15104349629f7c9f0b59acdcda555edd0589fa769760e3f40698bd2c9c1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/each_man_kills__glad/story.json"
+  },
+  "lcats_id": "mass_quantities/each_man_kills__glad",
+  "metrics": {
+    "avg_sentence_length": 11.939739413680782,
+    "avg_word_length": 3.7833856226981313,
+    "sentence_count": 614,
+    "token_count": 8756,
+    "word_count": 7331
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/each_man_kills__glad/story.json"
+}

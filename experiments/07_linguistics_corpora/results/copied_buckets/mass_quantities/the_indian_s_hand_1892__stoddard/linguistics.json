@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16511,
+    "body_sha256": "06b23b88d6acb78cd9bfd105b4d4b02bca2372772905e4bd085223a466162db9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_indian_s_hand_1892__stoddard/story.json"
+  },
+  "lcats_id": "mass_quantities/the_indian_s_hand_1892__stoddard",
+  "metrics": {
+    "avg_sentence_length": 13.022900763358779,
+    "avg_word_length": 3.820046893317702,
+    "sentence_count": 262,
+    "token_count": 4069,
+    "word_count": 3412
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_indian_s_hand_1892__stoddard/story.json"
+}

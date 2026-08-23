@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31247,
+    "body_sha256": "9f527e212886c7d81cee5c6e4e214ef63d4e54967116e4ddf1b49851bbbd4ad4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/journey_for_the_brave__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/journey_for_the_brave__nourse",
+  "metrics": {
+    "avg_sentence_length": 14.06140350877193,
+    "avg_word_length": 3.876325639426076,
+    "sentence_count": 456,
+    "token_count": 7656,
+    "word_count": 6412
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/journey_for_the_brave__nourse/story.json"
+}

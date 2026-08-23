@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27968,
+    "body_sha256": "b5a67896afd13580eaaed2b60401d7a11e1314700387ea4d69daeb8e42d8835a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/remember_the_4th__loomis/story.json"
+  },
+  "lcats_id": "mass_quantities/remember_the_4th__loomis",
+  "metrics": {
+    "avg_sentence_length": 14.394088669950738,
+    "avg_word_length": 3.801334702258727,
+    "sentence_count": 406,
+    "token_count": 6895,
+    "word_count": 5844
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/remember_the_4th__loomis/story.json"
+}

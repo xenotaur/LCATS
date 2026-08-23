@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 57333,
+    "body_sha256": "8a674520f134e92115c8c4a98625b49c27bbcb0cb5d51d8e0b7bca0823a32dd0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pandora_s_millions__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/pandora_s_millions__smith",
+  "metrics": {
+    "avg_sentence_length": 14.521410579345089,
+    "avg_word_length": 3.966088464874241,
+    "sentence_count": 794,
+    "token_count": 14069,
+    "word_count": 11530
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pandora_s_millions__smith/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34553,
+    "body_sha256": "6bf89bb3be5c0e714e89272f1553ac630f9b6a0020f36cbfbbc14a905c96f8b3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/collectivum__lewis/story.json"
+  },
+  "lcats_id": "mass_quantities/collectivum__lewis",
+  "metrics": {
+    "avg_sentence_length": 10.14410480349345,
+    "avg_word_length": 3.9215095422585735,
+    "sentence_count": 687,
+    "token_count": 8786,
+    "word_count": 6969
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/collectivum__lewis/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26726,
+    "body_sha256": "7128f7cabb4f81d07e651a9a0cd9f5c4f0bda0f964e761dd01fca7caa5a627e4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/honor_o_callaghan__mitford/story.json"
+  },
+  "lcats_id": "mass_quantities/honor_o_callaghan__mitford",
+  "metrics": {
+    "avg_sentence_length": 37.785185185185185,
+    "avg_word_length": 4.258968829641247,
+    "sentence_count": 135,
+    "token_count": 5871,
+    "word_count": 5101
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/honor_o_callaghan__mitford/story.json"
+}

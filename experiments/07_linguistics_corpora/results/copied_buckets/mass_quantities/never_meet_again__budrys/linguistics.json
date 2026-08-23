@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34778,
+    "body_sha256": "73d904596a46d9d6c6b61314d6cc455e9d9833b03d9dfa28559658c555f940d5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/never_meet_again__budrys/story.json"
+  },
+  "lcats_id": "mass_quantities/never_meet_again__budrys",
+  "metrics": {
+    "avg_sentence_length": 13.376218323586745,
+    "avg_word_length": 4.060040804430195,
+    "sentence_count": 513,
+    "token_count": 8123,
+    "word_count": 6862
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/never_meet_again__budrys/story.json"
+}

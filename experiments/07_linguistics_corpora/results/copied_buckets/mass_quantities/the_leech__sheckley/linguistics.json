@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32488,
+    "body_sha256": "86dd3ada0110d34e97c8ab4521ecb811a8bd06f5560b596406546ea6e447ad02",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_leech__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/the_leech__sheckley",
+  "metrics": {
+    "avg_sentence_length": 11.330357142857142,
+    "avg_word_length": 4.1065405831363275,
+    "sentence_count": 560,
+    "token_count": 7764,
+    "word_count": 6345
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_leech__sheckley/story.json"
+}

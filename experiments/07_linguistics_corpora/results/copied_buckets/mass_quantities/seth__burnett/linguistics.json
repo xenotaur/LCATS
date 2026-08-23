@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43971,
+    "body_sha256": "48fa35ad7f846166ccc9d08eacfa7506b04a7023a97f2b6f0e43f405f7519890",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/seth__burnett/story.json"
+  },
+  "lcats_id": "mass_quantities/seth__burnett",
+  "metrics": {
+    "avg_sentence_length": 19.28913043478261,
+    "avg_word_length": 3.8932717232052294,
+    "sentence_count": 460,
+    "token_count": 10968,
+    "word_count": 8873
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/seth__burnett/story.json"
+}

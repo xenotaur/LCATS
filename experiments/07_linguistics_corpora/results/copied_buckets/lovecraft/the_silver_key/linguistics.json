@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28409,
+    "body_sha256": "bc9eca074121110df2daae497e531232c16e24fbe8b838d03f0615737612ff68",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_silver_key/story.json"
+  },
+  "lcats_id": "lovecraft/the_silver_key",
+  "metrics": {
+    "avg_sentence_length": 31.164772727272727,
+    "avg_word_length": 4.2490428441203285,
+    "sentence_count": 176,
+    "token_count": 6009,
+    "word_count": 5485
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_silver_key/story.json"
+}

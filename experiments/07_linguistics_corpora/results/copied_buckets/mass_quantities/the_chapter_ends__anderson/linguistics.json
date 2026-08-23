@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48581,
+    "body_sha256": "b11216d6ab9c7567ae4195969704eea587c1f715c4da42b6363aab32e9dfa804",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_chapter_ends__anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_chapter_ends__anderson",
+  "metrics": {
+    "avg_sentence_length": 14.619402985074627,
+    "avg_word_length": 3.948443083205717,
+    "sentence_count": 670,
+    "token_count": 11785,
+    "word_count": 9795
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_chapter_ends__anderson/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10917,
+    "body_sha256": "dac0ac787ddc352193906bb21b391123c59782f9554f3322fcfef42cc492f238",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_small_bears__henderson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_small_bears__henderson",
+  "metrics": {
+    "avg_sentence_length": 15.218978102189782,
+    "avg_word_length": 4.274340527577937,
+    "sentence_count": 137,
+    "token_count": 2429,
+    "word_count": 2085
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_small_bears__henderson/story.json"
+}

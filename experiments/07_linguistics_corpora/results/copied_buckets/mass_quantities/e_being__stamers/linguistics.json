@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20669,
+    "body_sha256": "7722802837265ae2f8b5d0c5efa1b60095ec1d3c07c83ee101e2a61a7b350fd0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/e_being__stamers/story.json"
+  },
+  "lcats_id": "mass_quantities/e_being__stamers",
+  "metrics": {
+    "avg_sentence_length": 13.57516339869281,
+    "avg_word_length": 3.9872412132883968,
+    "sentence_count": 306,
+    "token_count": 4891,
+    "word_count": 4154
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/e_being__stamers/story.json"
+}

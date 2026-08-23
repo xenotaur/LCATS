@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12335,
+    "body_sha256": "91251595a3d8d82cd1b33366f28cbbfe34d383f8dee875020ef683b945cd916f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/sisters_of_the_golden_circle/story.json"
+  },
+  "lcats_id": "ohenry-four_million/sisters_of_the_golden_circle",
+  "metrics": {
+    "avg_sentence_length": 19.384,
+    "avg_word_length": 4.128353281056541,
+    "sentence_count": 125,
+    "token_count": 2795,
+    "word_count": 2423
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/sisters_of_the_golden_circle/story.json"
+}

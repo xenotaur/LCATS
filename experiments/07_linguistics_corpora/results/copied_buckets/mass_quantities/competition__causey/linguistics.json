@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17079,
+    "body_sha256": "9bbd6e28d83a8e3cef34b2130f24385882e73b71097ba4e98766578a72c8dc6e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/competition__causey/story.json"
+  },
+  "lcats_id": "mass_quantities/competition__causey",
+  "metrics": {
+    "avg_sentence_length": 8.695090439276486,
+    "avg_word_length": 4.07815750371471,
+    "sentence_count": 387,
+    "token_count": 4163,
+    "word_count": 3365
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/competition__causey/story.json"
+}

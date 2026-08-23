@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24406,
+    "body_sha256": "6ec21f0a068f369c1b0f33281e1cafcf5d1b2b6c263da1260f8349b0e1dd08f9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/satellite_of_fear__kummer/story.json"
+  },
+  "lcats_id": "mass_quantities/satellite_of_fear__kummer",
+  "metrics": {
+    "avg_sentence_length": 12.183206106870228,
+    "avg_word_length": 4.064745196324144,
+    "sentence_count": 393,
+    "token_count": 5838,
+    "word_count": 4788
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/satellite_of_fear__kummer/story.json"
+}

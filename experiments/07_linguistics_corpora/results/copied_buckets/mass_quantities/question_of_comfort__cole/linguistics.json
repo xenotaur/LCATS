@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39987,
+    "body_sha256": "1b227dd3d1b7fccd03476b40ba3fe3fe7b0c3db0a144571a5d749c1acd77c1a8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/question_of_comfort__cole/story.json"
+  },
+  "lcats_id": "mass_quantities/question_of_comfort__cole",
+  "metrics": {
+    "avg_sentence_length": 12.28149300155521,
+    "avg_word_length": 4.033557046979865,
+    "sentence_count": 643,
+    "token_count": 9832,
+    "word_count": 7897
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/question_of_comfort__cole/story.json"
+}

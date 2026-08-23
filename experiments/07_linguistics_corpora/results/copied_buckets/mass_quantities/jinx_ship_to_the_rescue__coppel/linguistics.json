@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24648,
+    "body_sha256": "3c19978ccc1ca107d4e8b29c5800ceac5b8fd58c16c949ba61788181f8f0c319",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jinx_ship_to_the_rescue__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/jinx_ship_to_the_rescue__coppel",
+  "metrics": {
+    "avg_sentence_length": 11.91851851851852,
+    "avg_word_length": 4.099854982390719,
+    "sentence_count": 405,
+    "token_count": 5798,
+    "word_count": 4827
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jinx_ship_to_the_rescue__coppel/story.json"
+}

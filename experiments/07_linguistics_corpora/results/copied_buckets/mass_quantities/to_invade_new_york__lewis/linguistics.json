@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26757,
+    "body_sha256": "aaa0f51e67c4c68ff64ea4eafb7d6c45b15d3769b66b5192d9d0cd533c015820",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_invade_new_york__lewis/story.json"
+  },
+  "lcats_id": "mass_quantities/to_invade_new_york__lewis",
+  "metrics": {
+    "avg_sentence_length": 11.934977578475337,
+    "avg_word_length": 3.9862859289874133,
+    "sentence_count": 446,
+    "token_count": 6506,
+    "word_count": 5323
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_invade_new_york__lewis/story.json"
+}

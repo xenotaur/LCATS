@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18762,
+    "body_sha256": "01ca18208919b1bc49db83b370b6250a8767b177d10fbfb3ef10a21889c3956b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/strange_alliance__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/strange_alliance__walton",
+  "metrics": {
+    "avg_sentence_length": 10.425655976676385,
+    "avg_word_length": 4.239653243847875,
+    "sentence_count": 343,
+    "token_count": 4313,
+    "word_count": 3576
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/strange_alliance__walton/story.json"
+}

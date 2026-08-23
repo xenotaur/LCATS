@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14845,
+    "body_sha256": "4e7e9c96f2ef4ad52c3e6441dbbffbebf348f6ead2895a69544187c517f31a68",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_father_the_cat__slesar/story.json"
+  },
+  "lcats_id": "mass_quantities/my_father_the_cat__slesar",
+  "metrics": {
+    "avg_sentence_length": 15.164948453608247,
+    "avg_word_length": 4.028891910265126,
+    "sentence_count": 194,
+    "token_count": 3560,
+    "word_count": 2942
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_father_the_cat__slesar/story.json"
+}

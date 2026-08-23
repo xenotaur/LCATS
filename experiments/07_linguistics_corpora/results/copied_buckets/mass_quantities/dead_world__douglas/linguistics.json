@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30311,
+    "body_sha256": "4ad1a011a800d9e4b8c84d74d28b0586ec18173087ee674840d690bd262f757b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_world__douglas/story.json"
+  },
+  "lcats_id": "mass_quantities/dead_world__douglas",
+  "metrics": {
+    "avg_sentence_length": 11.56672760511883,
+    "avg_word_length": 3.8089141773352297,
+    "sentence_count": 547,
+    "token_count": 7424,
+    "word_count": 6327
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_world__douglas/story.json"
+}

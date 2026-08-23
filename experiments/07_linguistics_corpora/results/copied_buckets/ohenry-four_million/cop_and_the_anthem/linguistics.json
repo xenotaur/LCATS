@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13115,
+    "body_sha256": "5660abeebbf6c3045682f45dc730e51bd6cf757c01628457bd405ae0079250a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/cop_and_the_anthem/story.json"
+  },
+  "lcats_id": "ohenry-four_million/cop_and_the_anthem",
+  "metrics": {
+    "avg_sentence_length": 16.91275167785235,
+    "avg_word_length": 4.250793650793651,
+    "sentence_count": 149,
+    "token_count": 2859,
+    "word_count": 2520
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/cop_and_the_anthem/story.json"
+}

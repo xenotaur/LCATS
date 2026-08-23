@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35588,
+    "body_sha256": "c8323ad4422b3a231e53cd926a9afe981ebf07ff1257692954bc9508a7f9cdda",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_black_tide__stangland/story.json"
+  },
+  "lcats_id": "mass_quantities/the_black_tide__stangland",
+  "metrics": {
+    "avg_sentence_length": 14.312625250501002,
+    "avg_word_length": 4.002800336040325,
+    "sentence_count": 499,
+    "token_count": 8437,
+    "word_count": 7142
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_black_tide__stangland/story.json"
+}

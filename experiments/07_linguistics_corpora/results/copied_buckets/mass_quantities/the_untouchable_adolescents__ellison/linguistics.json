@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33250,
+    "body_sha256": "781ceacc87d851d4d9c878ba449c8888beeabe6303af65807b725487218e945e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_untouchable_adolescents__ellison/story.json"
+  },
+  "lcats_id": "mass_quantities/the_untouchable_adolescents__ellison",
+  "metrics": {
+    "avg_sentence_length": 14.128540305010894,
+    "avg_word_length": 4.166538164996145,
+    "sentence_count": 459,
+    "token_count": 7574,
+    "word_count": 6485
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_untouchable_adolescents__ellison/story.json"
+}

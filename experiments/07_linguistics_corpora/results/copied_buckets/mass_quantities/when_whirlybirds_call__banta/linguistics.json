@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12181,
+    "body_sha256": "f60d65f1df1304cfb393131fbbfcdbff58e95c74e3df4dc3b8c682b591cbadee",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_whirlybirds_call__banta/story.json"
+  },
+  "lcats_id": "mass_quantities/when_whirlybirds_call__banta",
+  "metrics": {
+    "avg_sentence_length": 17.586466165413533,
+    "avg_word_length": 4.221889696451475,
+    "sentence_count": 133,
+    "token_count": 2792,
+    "word_count": 2339
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_whirlybirds_call__banta/story.json"
+}

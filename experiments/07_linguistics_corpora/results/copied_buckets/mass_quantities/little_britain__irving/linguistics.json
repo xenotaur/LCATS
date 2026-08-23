@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29440,
+    "body_sha256": "005fda5751ce09cc76b69ad4c5172764c13c5f5ff308b9f4a1bdaf35dd57c40b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/little_britain__irving/story.json"
+  },
+  "lcats_id": "mass_quantities/little_britain__irving",
+  "metrics": {
+    "avg_sentence_length": 36.06410256410256,
+    "avg_word_length": 4.266797013864202,
+    "sentence_count": 156,
+    "token_count": 6412,
+    "word_count": 5626
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/little_britain__irving/story.json"
+}

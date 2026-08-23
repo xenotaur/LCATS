@@ -1,0 +1,35 @@
+{
+  "corpus_source_path": "corpora",
+  "corpus_source_revision": "523543e4844103674db8a4e099eb218e926acc29fe6ab798c738a1110cb89331",
+  "story_count": 122,
+  "top_terms": {
+    "said": 0.08591549961292586,
+    "not": 0.0657125697964431,
+    "king": 0.0600318505641846,
+    "all": 0.05524749995683111,
+    "then": 0.04781953674380371,
+    "there": 0.04300554911279794,
+    "one": 0.04226829674829622,
+    "out": 0.04028844666992199,
+    "little": 0.03746643051284327,
+    "princess": 0.03700312335237004,
+    "came": 0.03230275777509581,
+    "old": 0.031237010578460737,
+    "went": 0.029043208106269928,
+    "could": 0.027920076060920555,
+    "down": 0.026101688155850008,
+    "tree": 0.025805113307391665,
+    "would": 0.025778126779264283,
+    "now": 0.024204060854968255,
+    "very": 0.023831971464816727,
+    "man": 0.023211573174241905
+  },
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "top_k": 20,
+  "genre": "fantasy",
+  "candidates_source_path": "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl",
+  "candidates_source_revision": "ea52c53d60a39d703d168f709a929e64527494d1af3902268b26ef4883fa107d"
+}

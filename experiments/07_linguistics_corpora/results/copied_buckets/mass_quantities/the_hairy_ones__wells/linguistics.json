@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28939,
+    "body_sha256": "d36655d82f89fa2dfb11e8710797cdd9218a72d8185b917873020f5100cd986e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hairy_ones__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hairy_ones__wells",
+  "metrics": {
+    "avg_sentence_length": 16.68358208955224,
+    "avg_word_length": 4.221506530685275,
+    "sentence_count": 335,
+    "token_count": 6382,
+    "word_count": 5589
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hairy_ones__wells/story.json"
+}

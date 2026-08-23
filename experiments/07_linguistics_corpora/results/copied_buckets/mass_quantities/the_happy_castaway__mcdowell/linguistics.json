@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24125,
+    "body_sha256": "0b49057b64a991e0517a50c1091f4652e056acaecc83f380441bc69daf19180c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_happy_castaway__mcdowell/story.json"
+  },
+  "lcats_id": "mass_quantities/the_happy_castaway__mcdowell",
+  "metrics": {
+    "avg_sentence_length": 9.902040816326531,
+    "avg_word_length": 3.934460016488046,
+    "sentence_count": 490,
+    "token_count": 6006,
+    "word_count": 4852
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_happy_castaway__mcdowell/story.json"
+}

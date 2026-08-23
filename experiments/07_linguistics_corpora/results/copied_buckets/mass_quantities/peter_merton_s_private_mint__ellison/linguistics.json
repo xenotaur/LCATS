@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27019,
+    "body_sha256": "684de6c8c7f9fa71c360b28f8f0215fb98d4b8fda6fe55ecf9271e02b39dad70",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peter_merton_s_private_mint__ellison/story.json"
+  },
+  "lcats_id": "mass_quantities/peter_merton_s_private_mint__ellison",
+  "metrics": {
+    "avg_sentence_length": 13.379310344827585,
+    "avg_word_length": 3.970360824742268,
+    "sentence_count": 406,
+    "token_count": 6556,
+    "word_count": 5432
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peter_merton_s_private_mint__ellison/story.json"
+}

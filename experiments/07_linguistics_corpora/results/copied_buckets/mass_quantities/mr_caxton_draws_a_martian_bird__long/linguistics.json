@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23811,
+    "body_sha256": "700507207cea0d6318fef90749f3681a8db548eef398f1c13c4aba9a0d347ae1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_caxton_draws_a_martian_bird__long/story.json"
+  },
+  "lcats_id": "mass_quantities/mr_caxton_draws_a_martian_bird__long",
+  "metrics": {
+    "avg_sentence_length": 16.372013651877133,
+    "avg_word_length": 3.9983322910152177,
+    "sentence_count": 293,
+    "token_count": 5591,
+    "word_count": 4797
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_caxton_draws_a_martian_bird__long/story.json"
+}

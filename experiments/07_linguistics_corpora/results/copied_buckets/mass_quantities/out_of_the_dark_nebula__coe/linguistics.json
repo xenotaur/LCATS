@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35508,
+    "body_sha256": "c5704de91c4707849991806d6aa30211d3590a65e435d75db2e9b64e318ad1ba",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/out_of_the_dark_nebula__coe/story.json"
+  },
+  "lcats_id": "mass_quantities/out_of_the_dark_nebula__coe",
+  "metrics": {
+    "avg_sentence_length": 14.96774193548387,
+    "avg_word_length": 4.098850574712643,
+    "sentence_count": 465,
+    "token_count": 8306,
+    "word_count": 6960
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/out_of_the_dark_nebula__coe/story.json"
+}

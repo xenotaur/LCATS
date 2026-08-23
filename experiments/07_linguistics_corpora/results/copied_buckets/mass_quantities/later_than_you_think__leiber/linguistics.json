@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14990,
+    "body_sha256": "4c202c6c5a9fc091dd2b371159243e405e4f41bce09d396d7be1afe736b9ebc3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/later_than_you_think__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/later_than_you_think__leiber",
+  "metrics": {
+    "avg_sentence_length": 14.282051282051283,
+    "avg_word_length": 4.3888689407540395,
+    "sentence_count": 195,
+    "token_count": 3302,
+    "word_count": 2785
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/later_than_you_think__leiber/story.json"
+}

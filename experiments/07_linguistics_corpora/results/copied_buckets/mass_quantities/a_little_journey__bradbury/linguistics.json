@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14313,
+    "body_sha256": "49465eb413e0a5d24fe4400cd025a93219426fad7cd32da0a15597ca59dcc53f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_little_journey__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/a_little_journey__bradbury",
+  "metrics": {
+    "avg_sentence_length": 15.754098360655737,
+    "avg_word_length": 3.96704821366632,
+    "sentence_count": 183,
+    "token_count": 3473,
+    "word_count": 2883
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_little_journey__bradbury/story.json"
+}

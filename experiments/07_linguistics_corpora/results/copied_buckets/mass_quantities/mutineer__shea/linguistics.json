@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20868,
+    "body_sha256": "722060e005dc558787f6550ddd5e0504381e9bfe66139b57c841d6540c270731",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mutineer__shea/story.json"
+  },
+  "lcats_id": "mass_quantities/mutineer__shea",
+  "metrics": {
+    "avg_sentence_length": 9.455357142857142,
+    "avg_word_length": 3.9117091595845137,
+    "sentence_count": 448,
+    "token_count": 5222,
+    "word_count": 4236
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mutineer__shea/story.json"
+}

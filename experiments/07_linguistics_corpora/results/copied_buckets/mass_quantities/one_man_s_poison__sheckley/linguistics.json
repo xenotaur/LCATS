@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26390,
+    "body_sha256": "8a97c947b60c32127541af7a811b52b899430381641ae3e1d6678560a4b934bd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_man_s_poison__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/one_man_s_poison__sheckley",
+  "metrics": {
+    "avg_sentence_length": 11.056034482758621,
+    "avg_word_length": 4.120077972709551,
+    "sentence_count": 464,
+    "token_count": 6396,
+    "word_count": 5130
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_man_s_poison__sheckley/story.json"
+}

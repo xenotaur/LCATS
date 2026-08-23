@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30905,
+    "body_sha256": "6f71045a89066711632e7a3092f6b8fea600340f024544a6020b5755a0507692",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_premiere__sabia/story.json"
+  },
+  "lcats_id": "mass_quantities/the_premiere__sabia",
+  "metrics": {
+    "avg_sentence_length": 13.986516853932585,
+    "avg_word_length": 3.9559768637532136,
+    "sentence_count": 445,
+    "token_count": 7521,
+    "word_count": 6224
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_premiere__sabia/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36369,
+    "body_sha256": "81dbb130f8ccc33fb80e7a42f3cf9fc1b512702c7242e274e5ad205bf1c6b982",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/imitation_of_death__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/imitation_of_death__del_rey",
+  "metrics": {
+    "avg_sentence_length": 18.4020618556701,
+    "avg_word_length": 4.127170868347339,
+    "sentence_count": 388,
+    "token_count": 8217,
+    "word_count": 7140
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/imitation_of_death__del_rey/story.json"
+}

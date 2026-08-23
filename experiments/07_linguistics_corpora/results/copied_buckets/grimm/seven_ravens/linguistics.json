@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5606,
+    "body_sha256": "9c79bdc91b9553fc9918b3bf6b81e53cf191fe5223ba00977c3576f3f0214f89",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/seven_ravens/story.json"
+  },
+  "lcats_id": "grimm/seven_ravens",
+  "metrics": {
+    "avg_sentence_length": 35.29032258064516,
+    "avg_word_length": 4.13254113345521,
+    "sentence_count": 31,
+    "token_count": 1247,
+    "word_count": 1094
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/seven_ravens/story.json"
+}

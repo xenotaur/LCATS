@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25695,
+    "body_sha256": "973c8e33338e68901b93c308f72828c583c789e4d6d346235ee0bb7e6e8dc9d7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/counterweight__sohl/story.json"
+  },
+  "lcats_id": "mass_quantities/counterweight__sohl",
+  "metrics": {
+    "avg_sentence_length": 14.521489971346705,
+    "avg_word_length": 4.079518547750592,
+    "sentence_count": 349,
+    "token_count": 6052,
+    "word_count": 5068
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/counterweight__sohl/story.json"
+}

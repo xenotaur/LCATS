@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34166,
+    "body_sha256": "5ce25c58eb065fe12e0b9088941d3836653e6fc7092d3032ea7d165488e3c026",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/feline_red__sampson/story.json"
+  },
+  "lcats_id": "mass_quantities/feline_red__sampson",
+  "metrics": {
+    "avg_sentence_length": 10.0929203539823,
+    "avg_word_length": 3.9769107116761653,
+    "sentence_count": 678,
+    "token_count": 8368,
+    "word_count": 6843
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/feline_red__sampson/story.json"
+}

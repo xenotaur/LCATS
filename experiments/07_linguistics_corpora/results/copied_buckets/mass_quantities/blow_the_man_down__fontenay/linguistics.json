@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40555,
+    "body_sha256": "4a5fce4443fd35de52071c076d31a30f79370b910dfd28aa4088556fbdec3f59",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/blow_the_man_down__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/blow_the_man_down__fontenay",
+  "metrics": {
+    "avg_sentence_length": 15.080675422138837,
+    "avg_word_length": 4.0686737994526005,
+    "sentence_count": 533,
+    "token_count": 9543,
+    "word_count": 8038
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/blow_the_man_down__fontenay/story.json"
+}

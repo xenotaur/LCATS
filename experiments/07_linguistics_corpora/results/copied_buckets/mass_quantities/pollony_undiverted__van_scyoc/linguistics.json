@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18978,
+    "body_sha256": "02d7fae5dc683534b7b2247e77a8dc2e8d645651128fb9b7e28209bfc67f9442",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pollony_undiverted__van_scyoc/story.json"
+  },
+  "lcats_id": "mass_quantities/pollony_undiverted__van_scyoc",
+  "metrics": {
+    "avg_sentence_length": 9.251231527093596,
+    "avg_word_length": 4.039137380191693,
+    "sentence_count": 406,
+    "token_count": 4638,
+    "word_count": 3756
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pollony_undiverted__van_scyoc/story.json"
+}

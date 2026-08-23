@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19593,
+    "body_sha256": "09d60c459a4fa343762178c8517da6fc74d5da3c55c16755da4b62da1fae931a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/membership_drive__yaco/story.json"
+  },
+  "lcats_id": "mass_quantities/membership_drive__yaco",
+  "metrics": {
+    "avg_sentence_length": 15.27710843373494,
+    "avg_word_length": 4.1650893796004205,
+    "sentence_count": 249,
+    "token_count": 4533,
+    "word_count": 3804
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/membership_drive__yaco/story.json"
+}

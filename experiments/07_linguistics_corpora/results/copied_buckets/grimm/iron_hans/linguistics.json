@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17864,
+    "body_sha256": "c08a97185fe88a75344a524c9d1c150093ac181121af161e0ce1f474316caa6c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/iron_hans/story.json"
+  },
+  "lcats_id": "grimm/iron_hans",
+  "metrics": {
+    "avg_sentence_length": 23.16,
+    "avg_word_length": 4.1102475532527345,
+    "sentence_count": 150,
+    "token_count": 4083,
+    "word_count": 3474
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/iron_hans/story.json"
+}

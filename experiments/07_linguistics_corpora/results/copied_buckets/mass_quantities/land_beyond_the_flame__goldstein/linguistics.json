@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38089,
+    "body_sha256": "54e25ed0006987f5d4755197d4215490437e208cfeb389f16e7e70921744828d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/land_beyond_the_flame__goldstein/story.json"
+  },
+  "lcats_id": "mass_quantities/land_beyond_the_flame__goldstein",
+  "metrics": {
+    "avg_sentence_length": 10.331015299026426,
+    "avg_word_length": 4.126413570274637,
+    "sentence_count": 719,
+    "token_count": 8853,
+    "word_count": 7428
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/land_beyond_the_flame__goldstein/story.json"
+}

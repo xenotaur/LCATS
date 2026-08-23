@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19951,
+    "body_sha256": "d96db9fde17a7b14fca7dc5b6b7f81e1be8791252afcf89f07a788858ddc7b48",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/man_made__teichner/story.json"
+  },
+  "lcats_id": "mass_quantities/man_made__teichner",
+  "metrics": {
+    "avg_sentence_length": 16.521008403361346,
+    "avg_word_length": 4.115208545269583,
+    "sentence_count": 238,
+    "token_count": 4476,
+    "word_count": 3932
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/man_made__teichner/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27263,
+    "body_sha256": "f7737997ac12db3df8173e40bcf5acca5fa27b598e2a089d5158fc7cc88ba671",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_dictator__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/the_dictator__marlowe",
+  "metrics": {
+    "avg_sentence_length": 12.297235023041475,
+    "avg_word_length": 4.080944350758854,
+    "sentence_count": 434,
+    "token_count": 6588,
+    "word_count": 5337
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_dictator__marlowe/story.json"
+}

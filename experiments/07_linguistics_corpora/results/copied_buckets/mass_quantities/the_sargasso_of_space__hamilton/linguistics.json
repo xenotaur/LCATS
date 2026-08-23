@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51525,
+    "body_sha256": "7ef583dde7abcf26a5076b5d4c9f1efc22286ac139cf098638033e8bcba80570",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sargasso_of_space__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sargasso_of_space__hamilton",
+  "metrics": {
+    "avg_sentence_length": 16.9185667752443,
+    "avg_word_length": 3.971024258760108,
+    "sentence_count": 614,
+    "token_count": 12697,
+    "word_count": 10388
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sargasso_of_space__hamilton/story.json"
+}

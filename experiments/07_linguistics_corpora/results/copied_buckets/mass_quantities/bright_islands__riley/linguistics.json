@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13866,
+    "body_sha256": "e99d14d590c78150389ceac4336c45106c39c1816469ca00d03f82ec8680a0d0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bright_islands__riley/story.json"
+  },
+  "lcats_id": "mass_quantities/bright_islands__riley",
+  "metrics": {
+    "avg_sentence_length": 18.01360544217687,
+    "avg_word_length": 4.231873111782478,
+    "sentence_count": 147,
+    "token_count": 3132,
+    "word_count": 2648
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bright_islands__riley/story.json"
+}

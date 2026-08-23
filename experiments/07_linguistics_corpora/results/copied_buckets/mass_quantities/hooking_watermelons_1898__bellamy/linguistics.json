@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41880,
+    "body_sha256": "ac9c17cfeec4fc29c1cfb38f2fecabc1b49f4b5106bfc43fe272c2e14df19f37",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hooking_watermelons_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/hooking_watermelons_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 23.283333333333335,
+    "avg_word_length": 4.021116678596994,
+    "sentence_count": 360,
+    "token_count": 9699,
+    "word_count": 8382
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hooking_watermelons_1898__bellamy/story.json"
+}

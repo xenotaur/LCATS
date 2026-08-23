@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44535,
+    "body_sha256": "0c5c70f6c0cfe89648a15048be71b2c1ed56f45a89d5f0e33f7c7e19a9cff739",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/unexpected/story.json"
+  },
+  "lcats_id": "london/unexpected",
+  "metrics": {
+    "avg_sentence_length": 17.81783681214421,
+    "avg_word_length": 3.8592119275825345,
+    "sentence_count": 527,
+    "token_count": 10851,
+    "word_count": 9390
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/london/unexpected/story.json"
+}

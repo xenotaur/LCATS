@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32062,
+    "body_sha256": "8f08c1e19558b051c6c12fdb959f1aaafd73fa7c071c6744d1823cd512fa919a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_valley__stockham/story.json"
+  },
+  "lcats_id": "mass_quantities/the_valley__stockham",
+  "metrics": {
+    "avg_sentence_length": 13.784810126582279,
+    "avg_word_length": 3.9017447199265383,
+    "sentence_count": 474,
+    "token_count": 7785,
+    "word_count": 6534
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_valley__stockham/story.json"
+}

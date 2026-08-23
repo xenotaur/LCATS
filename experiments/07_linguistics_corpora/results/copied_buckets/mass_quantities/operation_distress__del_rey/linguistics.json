@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23494,
+    "body_sha256": "9f21f6865d7255224eb46c5226ff4fbb7c76793c2f86045e8b2ce1290fc409de",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/operation_distress__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/operation_distress__del_rey",
+  "metrics": {
+    "avg_sentence_length": 14.981072555205047,
+    "avg_word_length": 3.9740998104864182,
+    "sentence_count": 317,
+    "token_count": 5493,
+    "word_count": 4749
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/operation_distress__del_rey/story.json"
+}

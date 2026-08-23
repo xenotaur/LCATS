@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17288,
+    "body_sha256": "02b6c3832e1d8c918a3ae7bc1558760b8fec755e1b369d8d9b27e907f42e1f0b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pacifists__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/the_pacifists__fritch",
+  "metrics": {
+    "avg_sentence_length": 11.889273356401384,
+    "avg_word_length": 4.009604190919674,
+    "sentence_count": 289,
+    "token_count": 4236,
+    "word_count": 3436
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_pacifists__fritch/story.json"
+}

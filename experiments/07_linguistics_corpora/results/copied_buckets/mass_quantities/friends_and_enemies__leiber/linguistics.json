@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35682,
+    "body_sha256": "ead7a256a4b3a9262c275a71f89df47e10934ee61aa755fb19a66c1dc32a4066",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/friends_and_enemies__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/friends_and_enemies__leiber",
+  "metrics": {
+    "avg_sentence_length": 13.340264650283554,
+    "avg_word_length": 4.051013178404421,
+    "sentence_count": 529,
+    "token_count": 8605,
+    "word_count": 7057
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/friends_and_enemies__leiber/story.json"
+}

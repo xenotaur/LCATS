@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39139,
+    "body_sha256": "dfe26427eb6a5de18f831b9ffc5a8126a9a2f30b171ae8fcfc111f7f5bc50da7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peacemaker__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/peacemaker__nourse",
+  "metrics": {
+    "avg_sentence_length": 16.75877192982456,
+    "avg_word_length": 4.148913896885632,
+    "sentence_count": 456,
+    "token_count": 8807,
+    "word_count": 7642
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peacemaker__nourse/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14990,
+    "body_sha256": "1a1421deab5675bf6f8282474415ae2286311177081e22fb2a684900d5c98ab8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sloths_of_kruvny__fearing/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sloths_of_kruvny__fearing",
+  "metrics": {
+    "avg_sentence_length": 11.771653543307087,
+    "avg_word_length": 3.9508361204013376,
+    "sentence_count": 254,
+    "token_count": 3770,
+    "word_count": 2990
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sloths_of_kruvny__fearing/story.json"
+}

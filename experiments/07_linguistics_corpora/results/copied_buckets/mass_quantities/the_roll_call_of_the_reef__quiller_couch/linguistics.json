@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34051,
+    "body_sha256": "2d395a51b6803539964a50231302a463cd768f023db22676017ea036a6b4087f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_roll_call_of_the_reef__quiller_couch/story.json"
+  },
+  "lcats_id": "mass_quantities/the_roll_call_of_the_reef__quiller_couch",
+  "metrics": {
+    "avg_sentence_length": 27.67704280155642,
+    "avg_word_length": 3.7662027274005343,
+    "sentence_count": 257,
+    "token_count": 8485,
+    "word_count": 7113
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_roll_call_of_the_reef__quiller_couch/story.json"
+}

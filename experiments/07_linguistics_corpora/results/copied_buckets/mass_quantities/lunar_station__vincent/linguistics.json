@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34624,
+    "body_sha256": "eae1300a1e812505d3efb30a7bda70b6333b87da0a079ef4a24f03cd7c8528d2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lunar_station__vincent/story.json"
+  },
+  "lcats_id": "mass_quantities/lunar_station__vincent",
+  "metrics": {
+    "avg_sentence_length": 10.920065252854812,
+    "avg_word_length": 4.15551239916343,
+    "sentence_count": 613,
+    "token_count": 8203,
+    "word_count": 6694
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lunar_station__vincent/story.json"
+}

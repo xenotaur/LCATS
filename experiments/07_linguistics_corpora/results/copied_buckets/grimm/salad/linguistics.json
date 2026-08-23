@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11974,
+    "body_sha256": "17dd71c81e2f03de8e6c941ea25984cd7d0e8c708b0e35f4dc87aad845ebcd4b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/salad/story.json"
+  },
+  "lcats_id": "grimm/salad",
+  "metrics": {
+    "avg_sentence_length": 30.371794871794872,
+    "avg_word_length": 4.022794428028704,
+    "sentence_count": 78,
+    "token_count": 2779,
+    "word_count": 2369
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/salad/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35272,
+    "body_sha256": "53012c401218f3cb96047a6dc7642395f68b628a79722b4e079fcb5a3a8689b3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_house_from_nowhere__stangland/story.json"
+  },
+  "lcats_id": "mass_quantities/the_house_from_nowhere__stangland",
+  "metrics": {
+    "avg_sentence_length": 14.477272727272727,
+    "avg_word_length": 4.062508919651777,
+    "sentence_count": 484,
+    "token_count": 8281,
+    "word_count": 7007
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_house_from_nowhere__stangland/story.json"
+}

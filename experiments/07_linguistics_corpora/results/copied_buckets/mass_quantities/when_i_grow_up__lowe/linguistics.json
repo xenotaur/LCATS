@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19003,
+    "body_sha256": "3c3b9df916d024ba86983826f333e56904eec683b92e987de60104680c2abb4f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_i_grow_up__lowe/story.json"
+  },
+  "lcats_id": "mass_quantities/when_i_grow_up__lowe",
+  "metrics": {
+    "avg_sentence_length": 13.663003663003662,
+    "avg_word_length": 4.077211796246649,
+    "sentence_count": 273,
+    "token_count": 4523,
+    "word_count": 3730
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_i_grow_up__lowe/story.json"
+}

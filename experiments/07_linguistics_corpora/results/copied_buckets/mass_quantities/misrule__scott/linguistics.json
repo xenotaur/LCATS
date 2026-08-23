@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18946,
+    "body_sha256": "9cbf6af6a8e74b2661758d65151d372efa3e0f03763c69aa3a7dc8bd831cf32e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/misrule__scott/story.json"
+  },
+  "lcats_id": "mass_quantities/misrule__scott",
+  "metrics": {
+    "avg_sentence_length": 11.29129129129129,
+    "avg_word_length": 4.023670212765958,
+    "sentence_count": 333,
+    "token_count": 4526,
+    "word_count": 3760
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/misrule__scott/story.json"
+}

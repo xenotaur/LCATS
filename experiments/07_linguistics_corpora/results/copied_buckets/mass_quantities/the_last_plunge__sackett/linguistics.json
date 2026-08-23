@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29692,
+    "body_sha256": "f57c62b032a3443c7da9a9ca2b20f59932f47852cd2fb71a50ec88bd5da1209e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_plunge__sackett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_plunge__sackett",
+  "metrics": {
+    "avg_sentence_length": 14.052873563218391,
+    "avg_word_length": 3.8645509569769345,
+    "sentence_count": 435,
+    "token_count": 7215,
+    "word_count": 6113
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_plunge__sackett/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48445,
+    "body_sha256": "8319170f6b1d035b30ce1ab042500d51240ecf01c51fb2889d3dab048c958289",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_chateau_of_prince_polignac__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/the_chateau_of_prince_polignac__trollope",
+  "metrics": {
+    "avg_sentence_length": 25.53488372093023,
+    "avg_word_length": 3.9309856304391824,
+    "sentence_count": 387,
+    "token_count": 11437,
+    "word_count": 9882
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_chateau_of_prince_polignac__trollope/story.json"
+}

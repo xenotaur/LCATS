@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32754,
+    "body_sha256": "929dba2de6c66f5d3c98b6aa451b0dc82f0543bdc3ab74e83ab88d2ddbe90568",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/west_o_mars__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/west_o_mars__fontenay",
+  "metrics": {
+    "avg_sentence_length": 16.3855421686747,
+    "avg_word_length": 3.8344117647058824,
+    "sentence_count": 415,
+    "token_count": 7865,
+    "word_count": 6800
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/west_o_mars__fontenay/story.json"
+}

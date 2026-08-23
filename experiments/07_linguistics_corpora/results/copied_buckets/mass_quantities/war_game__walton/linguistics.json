@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15287,
+    "body_sha256": "c571e62b42f0eca734eba6fa12a9d7f156f49ee0c2eaa02cc6d2ec79c9e5b4ed",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/war_game__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/war_game__walton",
+  "metrics": {
+    "avg_sentence_length": 13.619047619047619,
+    "avg_word_length": 4.363636363636363,
+    "sentence_count": 210,
+    "token_count": 3348,
+    "word_count": 2860
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/war_game__walton/story.json"
+}

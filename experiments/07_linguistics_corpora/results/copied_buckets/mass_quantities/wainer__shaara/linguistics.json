@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23860,
+    "body_sha256": "c009ee8c6d7c841f1968042c06ee8c7437c0cceb8cb37a50929149912d0412e0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wainer__shaara/story.json"
+  },
+  "lcats_id": "mass_quantities/wainer__shaara",
+  "metrics": {
+    "avg_sentence_length": 18.59622641509434,
+    "avg_word_length": 3.861607142857143,
+    "sentence_count": 265,
+    "token_count": 5617,
+    "word_count": 4928
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wainer__shaara/story.json"
+}

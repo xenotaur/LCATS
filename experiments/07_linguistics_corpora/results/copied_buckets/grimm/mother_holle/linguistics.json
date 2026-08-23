@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7207,
+    "body_sha256": "5532f1034684e80ea3d4e260ca8816258a90b59e50fa99585f7391495190e163",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/mother_holle/story.json"
+  },
+  "lcats_id": "grimm/mother_holle",
+  "metrics": {
+    "avg_sentence_length": 26.673076923076923,
+    "avg_word_length": 4.198269646719538,
+    "sentence_count": 52,
+    "token_count": 1606,
+    "word_count": 1387
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/mother_holle/story.json"
+}

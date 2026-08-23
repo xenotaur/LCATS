@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 49590,
+    "body_sha256": "e5e76bdb76afac8271ee4ba40a0db81644793db5b4bfec0e282cc23a82d42df3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mistletoe_bough__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/the_mistletoe_bough__trollope",
+  "metrics": {
+    "avg_sentence_length": 19.804511278195488,
+    "avg_word_length": 3.727600607441154,
+    "sentence_count": 532,
+    "token_count": 12392,
+    "word_count": 10536
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mistletoe_bough__trollope/story.json"
+}

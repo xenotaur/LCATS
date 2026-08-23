@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35304,
+    "body_sha256": "aa27a2eb0bccb02640449aa8af485e31571dce73450de085035b0101609a929e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beasts_in_the_void__fairman/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beasts_in_the_void__fairman",
+  "metrics": {
+    "avg_sentence_length": 10.233333333333333,
+    "avg_word_length": 3.820032573289902,
+    "sentence_count": 720,
+    "token_count": 8672,
+    "word_count": 7368
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beasts_in_the_void__fairman/story.json"
+}

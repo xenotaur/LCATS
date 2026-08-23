@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30416,
+    "body_sha256": "f20d1f097d5a034c03017f3de037e832f405e41d9551cdee9f03d115c0ee2bbd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_tweedham_s_elogarsn__williams/story.json"
+  },
+  "lcats_id": "mass_quantities/miss_tweedham_s_elogarsn__williams",
+  "metrics": {
+    "avg_sentence_length": 10.73913043478261,
+    "avg_word_length": 3.905425101214575,
+    "sentence_count": 575,
+    "token_count": 7529,
+    "word_count": 6175
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/miss_tweedham_s_elogarsn__williams/story.json"
+}

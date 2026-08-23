@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37360,
+    "body_sha256": "0f9fcdee4d1fd908c9941d243452543714141cdce25796abd37a5f7b0835fdf8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_summer_evening_s_dream_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/a_summer_evening_s_dream_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 25.594405594405593,
+    "avg_word_length": 4.134153005464481,
+    "sentence_count": 286,
+    "token_count": 8360,
+    "word_count": 7320
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_summer_evening_s_dream_1898__bellamy/story.json"
+}

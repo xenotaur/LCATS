@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28785,
+    "body_sha256": "a137da3ebee6c625e1511d5b130f335c8a1c4db488e2d676d3c47152a8668068",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hop_o_my_thumb__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/hop_o_my_thumb__samachson",
+  "metrics": {
+    "avg_sentence_length": 15.742382271468143,
+    "avg_word_length": 4.07883160302657,
+    "sentence_count": 361,
+    "token_count": 6719,
+    "word_count": 5683
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hop_o_my_thumb__samachson/story.json"
+}

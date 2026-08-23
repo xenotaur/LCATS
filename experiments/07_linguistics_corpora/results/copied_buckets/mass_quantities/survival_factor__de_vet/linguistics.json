@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35197,
+    "body_sha256": "f996b5b66611e0535730ee3deb1e373a1052ecb3e3db93ff7d22f603d6f918ab",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_factor__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/survival_factor__de_vet",
+  "metrics": {
+    "avg_sentence_length": 13.363288718929255,
+    "avg_word_length": 4.036915152382315,
+    "sentence_count": 523,
+    "token_count": 8401,
+    "word_count": 6989
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_factor__de_vet/story.json"
+}

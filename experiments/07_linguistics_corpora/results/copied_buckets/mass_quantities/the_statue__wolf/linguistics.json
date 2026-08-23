@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34783,
+    "body_sha256": "beb2d6830a637b254292061fc72365a656b946355b6f64ffc0f65c6e62be6064",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_statue__wolf/story.json"
+  },
+  "lcats_id": "mass_quantities/the_statue__wolf",
+  "metrics": {
+    "avg_sentence_length": 10.791176470588235,
+    "avg_word_length": 3.7093213409648405,
+    "sentence_count": 680,
+    "token_count": 9020,
+    "word_count": 7338
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_statue__wolf/story.json"
+}

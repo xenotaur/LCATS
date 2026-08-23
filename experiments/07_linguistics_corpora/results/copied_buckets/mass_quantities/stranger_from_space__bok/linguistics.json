@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24662,
+    "body_sha256": "f9355a18325eddd0d078823888b16eab6500d9965f8e82795ede8f0ab5787a34",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stranger_from_space__bok/story.json"
+  },
+  "lcats_id": "mass_quantities/stranger_from_space__bok",
+  "metrics": {
+    "avg_sentence_length": 12.101990049751244,
+    "avg_word_length": 4.029599177800617,
+    "sentence_count": 402,
+    "token_count": 5961,
+    "word_count": 4865
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stranger_from_space__bok/story.json"
+}

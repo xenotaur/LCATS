@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9600,
+    "body_sha256": "1f8a13a44f03ca492666fcb3cbeb9491f3cce5c39736192baa6fba26fcf7d090",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/memoirs_of_a_yellow_dog/story.json"
+  },
+  "lcats_id": "ohenry-four_million/memoirs_of_a_yellow_dog",
+  "metrics": {
+    "avg_sentence_length": 21.838709677419356,
+    "avg_word_length": 3.7804037419990153,
+    "sentence_count": 93,
+    "token_count": 2330,
+    "word_count": 2031
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/memoirs_of_a_yellow_dog/story.json"
+}

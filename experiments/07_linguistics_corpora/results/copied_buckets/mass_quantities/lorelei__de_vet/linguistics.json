@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17258,
+    "body_sha256": "a711c731466017f02c7f604ff50ca25d61ad7d06b24dde854f89e080f63141b3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lorelei__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/lorelei__de_vet",
+  "metrics": {
+    "avg_sentence_length": 12.635036496350365,
+    "avg_word_length": 4.006932409012132,
+    "sentence_count": 274,
+    "token_count": 4013,
+    "word_count": 3462
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lorelei__de_vet/story.json"
+}

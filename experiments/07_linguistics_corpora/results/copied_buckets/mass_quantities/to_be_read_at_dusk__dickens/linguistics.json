@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24988,
+    "body_sha256": "1b787e7994d4ff85fbcf128f459c3249fc65fda9abd6cee54f5a47c81f37ab50",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_be_read_at_dusk__dickens/story.json"
+  },
+  "lcats_id": "mass_quantities/to_be_read_at_dusk__dickens",
+  "metrics": {
+    "avg_sentence_length": 18.630434782608695,
+    "avg_word_length": 3.8564760793465576,
+    "sentence_count": 276,
+    "token_count": 6209,
+    "word_count": 5142
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/to_be_read_at_dusk__dickens/story.json"
+}

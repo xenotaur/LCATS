@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14435,
+    "body_sha256": "390fd378de267c57b8dac47dd081f69b30af614a1c6119255fea10300356f829",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/ashputtel/story.json"
+  },
+  "lcats_id": "grimm/ashputtel",
+  "metrics": {
+    "avg_sentence_length": 27.10576923076923,
+    "avg_word_length": 4.0982617949627524,
+    "sentence_count": 104,
+    "token_count": 3345,
+    "word_count": 2819
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/ashputtel/story.json"
+}

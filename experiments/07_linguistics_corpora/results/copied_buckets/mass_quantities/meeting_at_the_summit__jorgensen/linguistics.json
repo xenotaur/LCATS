@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19998,
+    "body_sha256": "ee09d7f2e653258627c43c515a9c5251c127f935b984ae4b6fe75802e71a9c4c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meeting_at_the_summit__jorgensen/story.json"
+  },
+  "lcats_id": "mass_quantities/meeting_at_the_summit__jorgensen",
+  "metrics": {
+    "avg_sentence_length": 13.111842105263158,
+    "avg_word_length": 4.023331660812845,
+    "sentence_count": 304,
+    "token_count": 4729,
+    "word_count": 3986
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/meeting_at_the_summit__jorgensen/story.json"
+}

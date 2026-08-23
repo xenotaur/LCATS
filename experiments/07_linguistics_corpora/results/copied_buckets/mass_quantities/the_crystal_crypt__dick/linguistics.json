@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41515,
+    "body_sha256": "768046f61e4cfb16090d950c35387be7ad13baaea6f357af9954cd16d5c61f6f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_crystal_crypt__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/the_crystal_crypt__dick",
+  "metrics": {
+    "avg_sentence_length": 10.120838471023427,
+    "avg_word_length": 3.9939083820662766,
+    "sentence_count": 811,
+    "token_count": 10358,
+    "word_count": 8208
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_crystal_crypt__dick/story.json"
+}

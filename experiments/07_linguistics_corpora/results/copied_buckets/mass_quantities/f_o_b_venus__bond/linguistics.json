@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28854,
+    "body_sha256": "94343c4d216cdaa8e89dfc302474da66b91dcb1078132a8bc4b9b4edbf6ff426",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/f_o_b_venus__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/f_o_b_venus__bond",
+  "metrics": {
+    "avg_sentence_length": 11.429961089494164,
+    "avg_word_length": 3.881531914893617,
+    "sentence_count": 514,
+    "token_count": 7352,
+    "word_count": 5875
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/f_o_b_venus__bond/story.json"
+}

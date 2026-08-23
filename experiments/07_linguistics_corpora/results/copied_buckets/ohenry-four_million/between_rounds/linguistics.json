@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11582,
+    "body_sha256": "0657c63de407837723a225f5fee85a6c8d521ca841f4bc4c980c20a11b0be1d5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/between_rounds/story.json"
+  },
+  "lcats_id": "ohenry-four_million/between_rounds",
+  "metrics": {
+    "avg_sentence_length": 16.37142857142857,
+    "avg_word_length": 4.038394415357766,
+    "sentence_count": 140,
+    "token_count": 2782,
+    "word_count": 2292
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/between_rounds/story.json"
+}

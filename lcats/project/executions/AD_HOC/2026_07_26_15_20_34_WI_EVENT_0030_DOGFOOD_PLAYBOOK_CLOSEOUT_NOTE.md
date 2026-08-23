@@ -7,7 +7,7 @@ rerun_of: 2026_07_26_14_55_34_WI_EVENT_0030_DOGFOOD_PLAYBOOK
 pr: https://github.com/xenotaur/LCATS/pull/164
 commit: 94d48585
 agent: claude_app
-instruction_source: "Execute Proposed Work Item to Closeout" playbook, Step 8 closeout-note for PR #164
+instruction_source: '"Execute Proposed Work Item to Closeout" playbook, Step 8 closeout-note for PR #164'
 session_transcript: pending
 created_at: 2026-07-26T15:20:34-04:00
 ---

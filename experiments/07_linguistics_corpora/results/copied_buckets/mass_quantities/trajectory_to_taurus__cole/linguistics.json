@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37378,
+    "body_sha256": "7555389f8b471c8abbb6516132fbcf291dbb9938ccd3eb4f2743291a3beadb88",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/trajectory_to_taurus__cole/story.json"
+  },
+  "lcats_id": "mass_quantities/trajectory_to_taurus__cole",
+  "metrics": {
+    "avg_sentence_length": 11.797124600638977,
+    "avg_word_length": 4.047122545700745,
+    "sentence_count": 626,
+    "token_count": 8952,
+    "word_count": 7385
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/trajectory_to_taurus__cole/story.json"
+}

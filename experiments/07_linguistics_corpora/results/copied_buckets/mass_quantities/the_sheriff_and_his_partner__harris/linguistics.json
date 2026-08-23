@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39377,
+    "body_sha256": "42eaefcfcdd488b703700cfff839755415c601129501b832439f4f9f808b466a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sheriff_and_his_partner__harris/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sheriff_and_his_partner__harris",
+  "metrics": {
+    "avg_sentence_length": 22.14876033057851,
+    "avg_word_length": 3.8835820895522386,
+    "sentence_count": 363,
+    "token_count": 9658,
+    "word_count": 8040
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sheriff_and_his_partner__harris/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31828,
+    "body_sha256": "5e22ecb2cda5653eaabd8360ec6488ef361a2d2ac0ab2028f0d729ce6ebd69a1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/venus_has_green_eyes__selwyn/story.json"
+  },
+  "lcats_id": "mass_quantities/venus_has_green_eyes__selwyn",
+  "metrics": {
+    "avg_sentence_length": 11.468197879858657,
+    "avg_word_length": 3.890925897396395,
+    "sentence_count": 566,
+    "token_count": 7779,
+    "word_count": 6491
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/venus_has_green_eyes__selwyn/story.json"
+}

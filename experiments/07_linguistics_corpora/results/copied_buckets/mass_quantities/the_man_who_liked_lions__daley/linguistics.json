@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30614,
+    "body_sha256": "039b37371bd0ec5eb33e58106457ab58d22783f757938da0d0f45c0f6e1d186f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_liked_lions__daley/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_who_liked_lions__daley",
+  "metrics": {
+    "avg_sentence_length": 13.457883369330453,
+    "avg_word_length": 3.8874979939014604,
+    "sentence_count": 463,
+    "token_count": 7530,
+    "word_count": 6231
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_liked_lions__daley/story.json"
+}

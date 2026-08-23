@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38141,
+    "body_sha256": "1ec1d44d1f2b917520a9d9bc601403ab68ba7ab1039b3f4a9d568d517d773fe6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/requiem__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/requiem__hamilton",
+  "metrics": {
+    "avg_sentence_length": 17.959619952494062,
+    "avg_word_length": 4.073270731384738,
+    "sentence_count": 421,
+    "token_count": 8739,
+    "word_count": 7561
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/requiem__hamilton/story.json"
+}

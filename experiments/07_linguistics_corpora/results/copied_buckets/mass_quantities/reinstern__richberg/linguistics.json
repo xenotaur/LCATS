@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35057,
+    "body_sha256": "2b29a0005e9ecc27652ebb8f722844b45b171a122fff96c24036c06965af2161",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/reinstern__richberg/story.json"
+  },
+  "lcats_id": "mass_quantities/reinstern__richberg",
+  "metrics": {
+    "avg_sentence_length": 27.780269058295964,
+    "avg_word_length": 4.6440677966101696,
+    "sentence_count": 223,
+    "token_count": 7539,
+    "word_count": 6195
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/reinstern__richberg/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27548,
+    "body_sha256": "d7eef62f58c7fcbf37bafdf1f19bb9f3013e489a4f3309cee94e21d8d7a58b84",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/problem__nourse",
+  "metrics": {
+    "avg_sentence_length": 11.211498973305956,
+    "avg_word_length": 4.015201465201465,
+    "sentence_count": 487,
+    "token_count": 6813,
+    "word_count": 5460
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem__nourse/story.json"
+}

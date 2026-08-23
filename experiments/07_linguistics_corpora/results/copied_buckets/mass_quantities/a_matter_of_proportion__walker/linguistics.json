@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30343,
+    "body_sha256": "f06769bd58660013ada077984d8c43b5937170acf97457487926c66a7177744a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_proportion__walker/story.json"
+  },
+  "lcats_id": "mass_quantities/a_matter_of_proportion__walker",
+  "metrics": {
+    "avg_sentence_length": 15.84020618556701,
+    "avg_word_length": 3.9472827855515784,
+    "sentence_count": 388,
+    "token_count": 7248,
+    "word_count": 6146
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_proportion__walker/story.json"
+}

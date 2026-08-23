@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29155,
+    "body_sha256": "9e71ba37a93101f2679f0f6f6055a642165cf93ef412c89bf98c008fc6fa89dd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/equation_for_time__winterbotham/story.json"
+  },
+  "lcats_id": "mass_quantities/equation_for_time__winterbotham",
+  "metrics": {
+    "avg_sentence_length": 15.4296875,
+    "avg_word_length": 3.9556118143459917,
+    "sentence_count": 384,
+    "token_count": 6869,
+    "word_count": 5925
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/equation_for_time__winterbotham/story.json"
+}

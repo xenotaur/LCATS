@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22034,
+    "body_sha256": "ff211ab267a2d25d8d4c52179bb9501461687d24be209a181813e94b51284e9d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/viewpoint__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/viewpoint__garrett",
+  "metrics": {
+    "avg_sentence_length": 14.335483870967742,
+    "avg_word_length": 3.9705220522052205,
+    "sentence_count": 310,
+    "token_count": 5155,
+    "word_count": 4444
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/viewpoint__garrett/story.json"
+}

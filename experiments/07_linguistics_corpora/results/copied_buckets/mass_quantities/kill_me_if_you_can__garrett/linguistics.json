@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24296,
+    "body_sha256": "2fe01968460ec552ab029d008366f31064d27545d1925eee099ae9697b3b6645",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/kill_me_if_you_can__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/kill_me_if_you_can__garrett",
+  "metrics": {
+    "avg_sentence_length": 11.799504950495049,
+    "avg_word_length": 4.119991608978393,
+    "sentence_count": 404,
+    "token_count": 5592,
+    "word_count": 4767
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/kill_me_if_you_can__garrett/story.json"
+}

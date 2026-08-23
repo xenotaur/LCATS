@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16039,
+    "body_sha256": "c98386fde9dda13025a8bc85b54572c118b6d7954cbf09aead0fe773d6e3b460",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_with_the_golden_eyes__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_with_the_golden_eyes__hamilton",
+  "metrics": {
+    "avg_sentence_length": 11.46712802768166,
+    "avg_word_length": 3.8059746529873264,
+    "sentence_count": 289,
+    "token_count": 4095,
+    "word_count": 3314
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_with_the_golden_eyes__hamilton/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53335,
+    "body_sha256": "5f2655758e04054214b2f939655b36ce03ffe3adcd46d1b8df78cc1f6b9ebfb7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lost_art__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/lost_art__smith",
+  "metrics": {
+    "avg_sentence_length": 15.155807365439093,
+    "avg_word_length": 3.973177570093458,
+    "sentence_count": 706,
+    "token_count": 12988,
+    "word_count": 10700
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lost_art__smith/story.json"
+}

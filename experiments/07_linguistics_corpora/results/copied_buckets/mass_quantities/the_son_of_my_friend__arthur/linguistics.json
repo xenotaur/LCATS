@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30243,
+    "body_sha256": "c6a0c36ddb6c1fc73d85e5cee495f873d496a958d30af8f4801ca14642db4dc3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_son_of_my_friend__arthur/story.json"
+  },
+  "lcats_id": "mass_quantities/the_son_of_my_friend__arthur",
+  "metrics": {
+    "avg_sentence_length": 17.519886363636363,
+    "avg_word_length": 3.9119507053672775,
+    "sentence_count": 352,
+    "token_count": 7208,
+    "word_count": 6167
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_son_of_my_friend__arthur/story.json"
+}

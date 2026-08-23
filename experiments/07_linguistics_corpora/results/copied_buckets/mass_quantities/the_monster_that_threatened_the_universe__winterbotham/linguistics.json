@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26739,
+    "body_sha256": "9162e126916e6d967c427b7e5c0bfccbf5a85d845f79cf3ae2f7c1f140f50d6f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_monster_that_threatened_the_universe__winterbotham/story.json"
+  },
+  "lcats_id": "mass_quantities/the_monster_that_threatened_the_universe__winterbotham",
+  "metrics": {
+    "avg_sentence_length": 12.907766990291263,
+    "avg_word_length": 4.034787514103046,
+    "sentence_count": 412,
+    "token_count": 6372,
+    "word_count": 5318
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_monster_that_threatened_the_universe__winterbotham/story.json"
+}

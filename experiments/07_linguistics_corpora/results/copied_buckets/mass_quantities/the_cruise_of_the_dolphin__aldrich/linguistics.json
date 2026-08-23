@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24140,
+    "body_sha256": "cebbbd9583a54c4cf1205b7cfc542b58276306226102cfad1a844789f6b1744c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cruise_of_the_dolphin__aldrich/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cruise_of_the_dolphin__aldrich",
+  "metrics": {
+    "avg_sentence_length": 23.519417475728154,
+    "avg_word_length": 4.014035087719298,
+    "sentence_count": 206,
+    "token_count": 5518,
+    "word_count": 4845
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cruise_of_the_dolphin__aldrich/story.json"
+}

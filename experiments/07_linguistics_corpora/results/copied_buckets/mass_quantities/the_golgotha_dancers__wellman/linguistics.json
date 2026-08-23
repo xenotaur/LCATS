@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19957,
+    "body_sha256": "2c257cfad632af702ee2e4afccc536ddec9f1fef608e72632c2773f3a6a8c1be",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_golgotha_dancers__wellman/story.json"
+  },
+  "lcats_id": "mass_quantities/the_golgotha_dancers__wellman",
+  "metrics": {
+    "avg_sentence_length": 14.874074074074073,
+    "avg_word_length": 3.9663844621513946,
+    "sentence_count": 270,
+    "token_count": 4720,
+    "word_count": 4016
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_golgotha_dancers__wellman/story.json"
+}

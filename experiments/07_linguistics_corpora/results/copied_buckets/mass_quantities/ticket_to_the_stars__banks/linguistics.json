@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30938,
+    "body_sha256": "8b0c36a22a2dfaf57c919b150606858bb1c6d2a6d4880a660785429ec81e426d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ticket_to_the_stars__banks/story.json"
+  },
+  "lcats_id": "mass_quantities/ticket_to_the_stars__banks",
+  "metrics": {
+    "avg_sentence_length": 13.036659877800407,
+    "avg_word_length": 3.8376816122480863,
+    "sentence_count": 491,
+    "token_count": 7561,
+    "word_count": 6401
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ticket_to_the_stars__banks/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27543,
+    "body_sha256": "2f845aa3b75892a3eafd5c174a55e803a63f847e7f423f2c33d80db565fe60ca",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_survivors__hamm/story.json"
+  },
+  "lcats_id": "mass_quantities/the_survivors__hamm",
+  "metrics": {
+    "avg_sentence_length": 15.23768115942029,
+    "avg_word_length": 4.264789804070762,
+    "sentence_count": 345,
+    "token_count": 6166,
+    "word_count": 5257
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_survivors__hamm/story.json"
+}

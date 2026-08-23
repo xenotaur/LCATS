@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29194,
+    "body_sha256": "9c3754eaa147ae9066ab1516cd2e8873e8a3395c85ccffd04a1735a7eb80a9cd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forty_minutes_late_1909__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/forty_minutes_late_1909__smith",
+  "metrics": {
+    "avg_sentence_length": 20.39527027027027,
+    "avg_word_length": 3.835845618684777,
+    "sentence_count": 296,
+    "token_count": 7143,
+    "word_count": 6037
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/forty_minutes_late_1909__smith/story.json"
+}

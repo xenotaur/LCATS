@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25195,
+    "body_sha256": "ccbfa1e0ec804f5f57243185b9c7d673d946ae6ba0f981d1e5099e85d6c26017",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bargain_basement__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/bargain_basement__fontenay",
+  "metrics": {
+    "avg_sentence_length": 13.697612732095491,
+    "avg_word_length": 3.8512780790085204,
+    "sentence_count": 377,
+    "token_count": 6394,
+    "word_count": 5164
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bargain_basement__fontenay/story.json"
+}

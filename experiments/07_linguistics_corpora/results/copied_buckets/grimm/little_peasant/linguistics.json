@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11718,
+    "body_sha256": "8ec1fe360e4145ace2d0a7e5afc2c759042e1e787180d4121e8a91cb48d2db15",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/little_peasant/story.json"
+  },
+  "lcats_id": "grimm/little_peasant",
+  "metrics": {
+    "avg_sentence_length": 22.626262626262626,
+    "avg_word_length": 4.164285714285715,
+    "sentence_count": 99,
+    "token_count": 2712,
+    "word_count": 2240
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/little_peasant/story.json"
+}

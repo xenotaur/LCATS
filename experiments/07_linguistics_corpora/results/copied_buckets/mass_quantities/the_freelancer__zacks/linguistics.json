@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26444,
+    "body_sha256": "9014a12f2cca7fe1c66d420fe2a738077d53e0bcbcf5521c6c27400b4fe9a5b1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_freelancer__zacks/story.json"
+  },
+  "lcats_id": "mass_quantities/the_freelancer__zacks",
+  "metrics": {
+    "avg_sentence_length": 14.640449438202246,
+    "avg_word_length": 4.063507290867229,
+    "sentence_count": 356,
+    "token_count": 6307,
+    "word_count": 5212
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_freelancer__zacks/story.json"
+}

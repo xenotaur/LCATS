@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20366,
+    "body_sha256": "d6284f83916e19e084c910a298d29f71c864c1d6f1a27757c0123deacfb71849",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_there_was_light__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/and_there_was_light__del_rey",
+  "metrics": {
+    "avg_sentence_length": 18.38532110091743,
+    "avg_word_length": 4.095808383233533,
+    "sentence_count": 218,
+    "token_count": 4634,
+    "word_count": 4008
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_there_was_light__del_rey/story.json"
+}

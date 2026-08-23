@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25727,
+    "body_sha256": "bf6d6719339f88ac2a80e8ff9f67e5ccbefd2e89c3a14abba75d29ecf5c52d2e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lights_on_precipice_peak__tall/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lights_on_precipice_peak__tall",
+  "metrics": {
+    "avg_sentence_length": 12.402409638554216,
+    "avg_word_length": 3.972411113269866,
+    "sentence_count": 415,
+    "token_count": 6289,
+    "word_count": 5147
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lights_on_precipice_peak__tall/story.json"
+}

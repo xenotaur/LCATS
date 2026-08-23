@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 57332,
+    "body_sha256": "c155fa4f6c334a45256f62c137a81a7389da6d454bb4cd66f546ec6edc646ffd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sentiment_inc__anderson/story.json"
+  },
+  "lcats_id": "mass_quantities/sentiment_inc__anderson",
+  "metrics": {
+    "avg_sentence_length": 12.612267250821468,
+    "avg_word_length": 3.947286148501954,
+    "sentence_count": 913,
+    "token_count": 14286,
+    "word_count": 11515
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sentiment_inc__anderson/story.json"
+}

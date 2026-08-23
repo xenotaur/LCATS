@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47286,
+    "body_sha256": "60eb2cc22b5674e11bcce0b48fa2ce3210bd35859758ee2c6e8bcbe3ff5bc9bf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vortex_blaster__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_vortex_blaster__smith",
+  "metrics": {
+    "avg_sentence_length": 19.0,
+    "avg_word_length": 4.159641843197204,
+    "sentence_count": 482,
+    "token_count": 10916,
+    "word_count": 9158
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_vortex_blaster__smith/story.json"
+}

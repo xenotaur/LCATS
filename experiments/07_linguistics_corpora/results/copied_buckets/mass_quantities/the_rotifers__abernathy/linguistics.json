@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30702,
+    "body_sha256": "9b85eef3acf6f7f6a09f410809d9b12b3aa46c7cc21feba6ef543458ee232442",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rotifers__abernathy/story.json"
+  },
+  "lcats_id": "mass_quantities/the_rotifers__abernathy",
+  "metrics": {
+    "avg_sentence_length": 18.672782874617738,
+    "avg_word_length": 4.027186374058303,
+    "sentence_count": 327,
+    "token_count": 7219,
+    "word_count": 6106
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rotifers__abernathy/story.json"
+}

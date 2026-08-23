@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11055,
+    "body_sha256": "d6e072d69aab1ad978b3c70e211d7ce9a585de5d841ddaf3872006dc1b433d85",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/story.json"
+  },
+  "lcats_id": "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope",
+  "metrics": {
+    "avg_sentence_length": 19.605263157894736,
+    "avg_word_length": 3.942281879194631,
+    "sentence_count": 114,
+    "token_count": 2712,
+    "word_count": 2235
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/story.json"
+}

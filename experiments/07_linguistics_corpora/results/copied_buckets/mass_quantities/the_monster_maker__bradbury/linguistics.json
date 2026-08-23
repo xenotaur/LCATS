@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31912,
+    "body_sha256": "1d47c663ae786a82067322bd60d6c4070af4d2635630220ae108157a7f9d4268",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_monster_maker__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/the_monster_maker__bradbury",
+  "metrics": {
+    "avg_sentence_length": 10.616554054054054,
+    "avg_word_length": 4.043754972155927,
+    "sentence_count": 592,
+    "token_count": 7902,
+    "word_count": 6285
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_monster_maker__bradbury/story.json"
+}

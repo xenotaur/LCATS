@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37983,
+    "body_sha256": "3dad20b8f8b2968ebe87c3d1880369b6e8143c59f8d67542301a4bc45ea24959",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_played_to_lose__janifer/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_who_played_to_lose__janifer",
+  "metrics": {
+    "avg_sentence_length": 13.914185639229421,
+    "avg_word_length": 3.7558212712397734,
+    "sentence_count": 571,
+    "token_count": 9643,
+    "word_count": 7945
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_played_to_lose__janifer/story.json"
+}

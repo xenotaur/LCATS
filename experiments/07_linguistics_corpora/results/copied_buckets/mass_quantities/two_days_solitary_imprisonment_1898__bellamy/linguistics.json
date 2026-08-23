@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34595,
+    "body_sha256": "f0b396ee997c42cb48721472e44f8ba98e56ffc7f845f6e9229a8b58a1f4b65f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_days_solitary_imprisonment_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/two_days_solitary_imprisonment_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 24.915129151291513,
+    "avg_word_length": 4.160248815165877,
+    "sentence_count": 271,
+    "token_count": 7658,
+    "word_count": 6752
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/two_days_solitary_imprisonment_1898__bellamy/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9722,
+    "body_sha256": "97b58d89fe82f56f2ea651d85456125e97486a50875c4f0bebb64e8086bff046",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/love_philtre_of_ikey_schoenstein/story.json"
+  },
+  "lcats_id": "ohenry-four_million/love_philtre_of_ikey_schoenstein",
+  "metrics": {
+    "avg_sentence_length": 19.42156862745098,
+    "avg_word_length": 3.9313478041393237,
+    "sentence_count": 102,
+    "token_count": 2336,
+    "word_count": 1981
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/love_philtre_of_ikey_schoenstein/story.json"
+}

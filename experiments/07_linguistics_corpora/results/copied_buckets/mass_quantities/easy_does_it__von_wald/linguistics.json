@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21683,
+    "body_sha256": "c0955d8c14ed899b8feae1c752368fc941b63fef88bb2c5e5a56e1f494fb9345",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/easy_does_it__von_wald/story.json"
+  },
+  "lcats_id": "mass_quantities/easy_does_it__von_wald",
+  "metrics": {
+    "avg_sentence_length": 12.252906976744185,
+    "avg_word_length": 4.113641755634638,
+    "sentence_count": 344,
+    "token_count": 5189,
+    "word_count": 4215
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/easy_does_it__von_wald/story.json"
+}

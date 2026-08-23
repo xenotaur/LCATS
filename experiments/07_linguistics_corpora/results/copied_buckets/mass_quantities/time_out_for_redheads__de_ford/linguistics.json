@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31580,
+    "body_sha256": "3172b800d7d33c44637596d393c4659d62f6c21cf36f82a2f859cadd8468260d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_out_for_redheads__de_ford/story.json"
+  },
+  "lcats_id": "mass_quantities/time_out_for_redheads__de_ford",
+  "metrics": {
+    "avg_sentence_length": 13.959488272921108,
+    "avg_word_length": 3.818390102336948,
+    "sentence_count": 469,
+    "token_count": 7879,
+    "word_count": 6547
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_out_for_redheads__de_ford/story.json"
+}

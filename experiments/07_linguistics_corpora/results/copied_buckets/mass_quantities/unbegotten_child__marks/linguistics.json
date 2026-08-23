@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18065,
+    "body_sha256": "9e97dcca5999ca33ea151f8781cba9151333638554811d44b535ad8e63a87394",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/unbegotten_child__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/unbegotten_child__marks",
+  "metrics": {
+    "avg_sentence_length": 14.108,
+    "avg_word_length": 4.122200170116246,
+    "sentence_count": 250,
+    "token_count": 4229,
+    "word_count": 3527
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/unbegotten_child__marks/story.json"
+}

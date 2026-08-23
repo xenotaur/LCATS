@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21855,
+    "body_sha256": "18f4f499e91e7fd64783405554d31c2b2b9273a36a5ca288ad7f167799c2f372",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dream_town__slesar/story.json"
+  },
+  "lcats_id": "mass_quantities/dream_town__slesar",
+  "metrics": {
+    "avg_sentence_length": 9.795964125560538,
+    "avg_word_length": 3.9240100709544516,
+    "sentence_count": 446,
+    "token_count": 5678,
+    "word_count": 4369
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dream_town__slesar/story.json"
+}

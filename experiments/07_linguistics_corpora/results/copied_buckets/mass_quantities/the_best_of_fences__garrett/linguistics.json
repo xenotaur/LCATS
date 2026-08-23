@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35370,
+    "body_sha256": "4dec3d0c019932c4ea4efcc9ea47ecf43fba097384283e9a89995d3ad5bf003e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_best_of_fences__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_best_of_fences__garrett",
+  "metrics": {
+    "avg_sentence_length": 14.10441767068273,
+    "avg_word_length": 4.05253416856492,
+    "sentence_count": 498,
+    "token_count": 8380,
+    "word_count": 7024
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_best_of_fences__garrett/story.json"
+}

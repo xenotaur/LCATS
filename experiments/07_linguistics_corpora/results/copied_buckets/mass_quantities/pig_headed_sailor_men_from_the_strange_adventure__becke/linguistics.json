@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29452,
+    "body_sha256": "3cd5831cf551984f91bf4c6d72b93420f73349cdac33ce468d1a95ccf9bbaf14",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pig_headed_sailor_men_from_the_strange_adventure__becke/story.json"
+  },
+  "lcats_id": "mass_quantities/pig_headed_sailor_men_from_the_strange_adventure__becke",
+  "metrics": {
+    "avg_sentence_length": 33.37988826815643,
+    "avg_word_length": 3.954644351464435,
+    "sentence_count": 179,
+    "token_count": 6834,
+    "word_count": 5975
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pig_headed_sailor_men_from_the_strange_adventure__becke/story.json"
+}

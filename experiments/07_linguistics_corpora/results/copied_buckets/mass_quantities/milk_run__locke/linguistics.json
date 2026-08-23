@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19954,
+    "body_sha256": "719c9bb427b40348cd3b123fd8df9617b3e52f9a43d32ad11b16ac7b1aefed8a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/milk_run__locke/story.json"
+  },
+  "lcats_id": "mass_quantities/milk_run__locke",
+  "metrics": {
+    "avg_sentence_length": 14.6015625,
+    "avg_word_length": 4.378277153558052,
+    "sentence_count": 256,
+    "token_count": 4356,
+    "word_count": 3738
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/milk_run__locke/story.json"
+}

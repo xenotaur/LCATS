@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28936,
+    "body_sha256": "c43639575c03a34958e1e9bfbbea733239b8d45cc84a84ee432226b5e4961684",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rough_translation__janis/story.json"
+  },
+  "lcats_id": "mass_quantities/rough_translation__janis",
+  "metrics": {
+    "avg_sentence_length": 11.278978388998036,
+    "avg_word_length": 3.98972304476572,
+    "sentence_count": 509,
+    "token_count": 7305,
+    "word_count": 5741
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rough_translation__janis/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37122,
+    "body_sha256": "d579eada6d2cdbe46d84d059e28df0473273173abd6b0cfd0cf442e5df016b71",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wolf_s_head_1911__craddock/story.json"
+  },
+  "lcats_id": "mass_quantities/wolf_s_head_1911__craddock",
+  "metrics": {
+    "avg_sentence_length": 20.907246376811596,
+    "avg_word_length": 4.144461389158464,
+    "sentence_count": 345,
+    "token_count": 8597,
+    "word_count": 7213
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wolf_s_head_1911__craddock/story.json"
+}

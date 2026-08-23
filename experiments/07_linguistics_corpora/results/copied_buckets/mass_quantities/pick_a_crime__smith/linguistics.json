@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32230,
+    "body_sha256": "f1c2e8d1c5b533295bd4e8f34f689590a74c2df63ff11c81f2f3352d153b4776",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pick_a_crime__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/pick_a_crime__smith",
+  "metrics": {
+    "avg_sentence_length": 15.20138888888889,
+    "avg_word_length": 3.9352824729709153,
+    "sentence_count": 432,
+    "token_count": 7674,
+    "word_count": 6567
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pick_a_crime__smith/story.json"
+}

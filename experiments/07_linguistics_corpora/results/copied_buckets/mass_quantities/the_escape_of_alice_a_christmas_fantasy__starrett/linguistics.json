@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29858,
+    "body_sha256": "16b9b221f9645b955caec591c96372e42a06b5f0f2d842b69c8dc19e6c1e649f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_escape_of_alice_a_christmas_fantasy__starrett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_escape_of_alice_a_christmas_fantasy__starrett",
+  "metrics": {
+    "avg_sentence_length": 17.17784256559767,
+    "avg_word_length": 4.017820773930754,
+    "sentence_count": 343,
+    "token_count": 7297,
+    "word_count": 5892
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_escape_of_alice_a_christmas_fantasy__starrett/story.json"
+}

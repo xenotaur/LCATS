@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 58029,
+    "body_sha256": "af0964b716c4b35a2e6e80306b28366a68a3a0c8ffdd8503741469d9e0644708",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brigade_commander__de_forest/story.json"
+  },
+  "lcats_id": "mass_quantities/the_brigade_commander__de_forest",
+  "metrics": {
+    "avg_sentence_length": 17.87617554858934,
+    "avg_word_length": 4.073213502849628,
+    "sentence_count": 638,
+    "token_count": 13652,
+    "word_count": 11405
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brigade_commander__de_forest/story.json"
+}

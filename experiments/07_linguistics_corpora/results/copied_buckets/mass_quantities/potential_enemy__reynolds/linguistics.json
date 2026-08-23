@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23389,
+    "body_sha256": "8260671a6eedeca6c721cd0c73d3f22ec810dd0b8c734f564c33bf366a87905d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/potential_enemy__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/potential_enemy__reynolds",
+  "metrics": {
+    "avg_sentence_length": 14.733766233766234,
+    "avg_word_length": 4.170118995152049,
+    "sentence_count": 308,
+    "token_count": 5333,
+    "word_count": 4538
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/potential_enemy__reynolds/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24017,
+    "body_sha256": "d8fe8ecdbd4fe797f82f7046d3144be5a28f2ceb7ece96cc7ae123ce9a4b80dc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/history_repeats__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/history_repeats__smith",
+  "metrics": {
+    "avg_sentence_length": 14.463636363636363,
+    "avg_word_length": 4.000838047349675,
+    "sentence_count": 330,
+    "token_count": 5954,
+    "word_count": 4773
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/history_repeats__smith/story.json"
+}

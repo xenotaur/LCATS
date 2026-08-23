@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20764,
+    "body_sha256": "af95374c68779eb9ccb8630e1ea776f66662955d03634f711d5b66c897b09637",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mid_pleasures_and_palaces__mckimmey/story.json"
+  },
+  "lcats_id": "mass_quantities/mid_pleasures_and_palaces__mckimmey",
+  "metrics": {
+    "avg_sentence_length": 11.926136363636363,
+    "avg_word_length": 3.911148165793235,
+    "sentence_count": 352,
+    "token_count": 5221,
+    "word_count": 4198
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mid_pleasures_and_palaces__mckimmey/story.json"
+}

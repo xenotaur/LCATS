@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26950,
+    "body_sha256": "23973627547cd3869c3c681773030f0bc0912cbccd8d3e6462fa87c543018c5d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/asteroid_justice__thiessen/story.json"
+  },
+  "lcats_id": "mass_quantities/asteroid_justice__thiessen",
+  "metrics": {
+    "avg_sentence_length": 11.684100418410042,
+    "avg_word_length": 3.8245299910474486,
+    "sentence_count": 478,
+    "token_count": 6666,
+    "word_count": 5585
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/asteroid_justice__thiessen/story.json"
+}

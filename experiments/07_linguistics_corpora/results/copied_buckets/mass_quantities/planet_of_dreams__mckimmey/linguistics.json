@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15153,
+    "body_sha256": "cd19f4f556369bc1f8876b2ec54780d9ba7495823cdd03aeee2b2892fcbf62c1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_of_dreams__mckimmey/story.json"
+  },
+  "lcats_id": "mass_quantities/planet_of_dreams__mckimmey",
+  "metrics": {
+    "avg_sentence_length": 13.069868995633188,
+    "avg_word_length": 4.049448713665218,
+    "sentence_count": 229,
+    "token_count": 3625,
+    "word_count": 2993
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_of_dreams__mckimmey/story.json"
+}

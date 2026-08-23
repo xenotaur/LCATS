@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20117,
+    "body_sha256": "71d94e883fbbac0c203c1dbecf2429330b819e3d6f2eb858f628d2f4afbb93d9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/subject_to_change__goulart/story.json"
+  },
+  "lcats_id": "mass_quantities/subject_to_change__goulart",
+  "metrics": {
+    "avg_sentence_length": 10.676844783715012,
+    "avg_word_length": 3.7907530981887514,
+    "sentence_count": 393,
+    "token_count": 5044,
+    "word_count": 4196
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/subject_to_change__goulart/story.json"
+}

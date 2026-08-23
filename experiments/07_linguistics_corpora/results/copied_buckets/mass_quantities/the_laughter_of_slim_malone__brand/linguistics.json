@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35066,
+    "body_sha256": "e024cd64eca8c7a9ff4dbbe2c93997298d3de0433793dfca5e7ccc69762d0187",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_laughter_of_slim_malone__brand/story.json"
+  },
+  "lcats_id": "mass_quantities/the_laughter_of_slim_malone__brand",
+  "metrics": {
+    "avg_sentence_length": 21.44578313253012,
+    "avg_word_length": 3.9640449438202245,
+    "sentence_count": 332,
+    "token_count": 8132,
+    "word_count": 7120
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_laughter_of_slim_malone__brand/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4454,
+    "body_sha256": "e2c13ee51949c58b72c5a6cab322635d29d784cbe4908abe12d4feb4a2d7cc1f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/wedding_of_mrs_fox/story.json"
+  },
+  "lcats_id": "grimm/wedding_of_mrs_fox",
+  "metrics": {
+    "avg_sentence_length": 22.512820512820515,
+    "avg_word_length": 4.030751708428246,
+    "sentence_count": 39,
+    "token_count": 1095,
+    "word_count": 878
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/wedding_of_mrs_fox/story.json"
+}

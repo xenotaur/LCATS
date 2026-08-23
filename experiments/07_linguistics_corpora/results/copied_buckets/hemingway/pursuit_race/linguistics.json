@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8528,
+    "body_sha256": "9d8947c52bc29dc951e8c3cceff0a7214e59c8e7b3985c40f9085c6d3f28e9f1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/pursuit_race/story.json"
+  },
+  "lcats_id": "hemingway/pursuit_race",
+  "metrics": {
+    "avg_sentence_length": 11.233532934131736,
+    "avg_word_length": 3.5575692963752665,
+    "sentence_count": 167,
+    "token_count": 2364,
+    "word_count": 1876
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/pursuit_race/story.json"
+}

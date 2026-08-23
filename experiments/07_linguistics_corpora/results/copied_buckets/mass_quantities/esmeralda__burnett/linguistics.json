@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50291,
+    "body_sha256": "87881b26a27caaa62be555f90f88906b0ecfe35c2f4c5e447c3f4d1a8958afdb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/esmeralda__burnett/story.json"
+  },
+  "lcats_id": "mass_quantities/esmeralda__burnett",
+  "metrics": {
+    "avg_sentence_length": 17.735087719298246,
+    "avg_word_length": 3.9694331783559207,
+    "sentence_count": 570,
+    "token_count": 12105,
+    "word_count": 10109
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/esmeralda__burnett/story.json"
+}

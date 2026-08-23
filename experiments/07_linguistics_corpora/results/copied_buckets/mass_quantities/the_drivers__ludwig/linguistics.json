@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7409,
+    "body_sha256": "a0d3fc3c0113eb1368522c917139ee791c9eb5330c7a0d6f56c0939816e45519",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_drivers__ludwig/story.json"
+  },
+  "lcats_id": "mass_quantities/the_drivers__ludwig",
+  "metrics": {
+    "avg_sentence_length": 10.040816326530612,
+    "avg_word_length": 4.046070460704607,
+    "sentence_count": 147,
+    "token_count": 1761,
+    "word_count": 1476
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_drivers__ludwig/story.json"
+}

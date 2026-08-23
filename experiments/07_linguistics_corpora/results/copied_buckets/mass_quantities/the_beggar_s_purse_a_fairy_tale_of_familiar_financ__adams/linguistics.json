@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34529,
+    "body_sha256": "6ccb5effdf5d67645ea71950b29f781340fccfce6aae90cc6cb1be6bd4228da9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beggar_s_purse_a_fairy_tale_of_familiar_financ__adams/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beggar_s_purse_a_fairy_tale_of_familiar_financ__adams",
+  "metrics": {
+    "avg_sentence_length": 16.646464646464647,
+    "avg_word_length": 4.192050970873787,
+    "sentence_count": 396,
+    "token_count": 7851,
+    "word_count": 6592
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beggar_s_purse_a_fairy_tale_of_familiar_financ__adams/story.json"
+}

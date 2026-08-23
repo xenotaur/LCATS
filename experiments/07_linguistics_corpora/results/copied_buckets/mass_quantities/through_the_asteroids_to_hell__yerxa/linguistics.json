@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50028,
+    "body_sha256": "716a07dd64618417c2c60d25ab86c56f7e08c9eb715574eb13964bff842b8adc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/through_the_asteroids_to_hell__yerxa/story.json"
+  },
+  "lcats_id": "mass_quantities/through_the_asteroids_to_hell__yerxa",
+  "metrics": {
+    "avg_sentence_length": 10.967880085653105,
+    "avg_word_length": 3.885201093322921,
+    "sentence_count": 934,
+    "token_count": 12315,
+    "word_count": 10244
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/through_the_asteroids_to_hell__yerxa/story.json"
+}

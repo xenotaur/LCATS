@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19124,
+    "body_sha256": "6305db0f0167fc9335a61370c406749650db665b6b042a76eba811c6ea93f9ba",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/fir_tree/story.json"
+  },
+  "lcats_id": "anderson/fir_tree",
+  "metrics": {
+    "avg_sentence_length": 17.2390243902439,
+    "avg_word_length": 4.376344086021505,
+    "sentence_count": 205,
+    "token_count": 4253,
+    "word_count": 3534
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/fir_tree/story.json"
+}

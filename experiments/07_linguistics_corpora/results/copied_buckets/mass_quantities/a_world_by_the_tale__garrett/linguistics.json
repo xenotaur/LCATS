@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48062,
+    "body_sha256": "63477426f64f19c6048dfe0b13eca343b84ff172c4f91a7f7ef9ec1fdc700328",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_world_by_the_tale__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/a_world_by_the_tale__garrett",
+  "metrics": {
+    "avg_sentence_length": 14.702194357366771,
+    "avg_word_length": 4.133582089552239,
+    "sentence_count": 638,
+    "token_count": 11067,
+    "word_count": 9380
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_world_by_the_tale__garrett/story.json"
+}

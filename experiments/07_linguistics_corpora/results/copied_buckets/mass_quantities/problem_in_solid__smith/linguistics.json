@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46404,
+    "body_sha256": "48c1b56d9f9a3d7b446cbff40b7bb4a0ec87c09fdfde1aee55f987f2c1be5d06",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem_in_solid__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/problem_in_solid__smith",
+  "metrics": {
+    "avg_sentence_length": 15.03,
+    "avg_word_length": 4.1097804391217565,
+    "sentence_count": 600,
+    "token_count": 11166,
+    "word_count": 9018
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem_in_solid__smith/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28794,
+    "body_sha256": "4f57075401b68d5e6ab0c9feaf6a9b8b72f82f12d92d2669fb2402e63841286e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/oogie_finds_love__livingston/story.json"
+  },
+  "lcats_id": "mass_quantities/oogie_finds_love__livingston",
+  "metrics": {
+    "avg_sentence_length": 14.252450980392156,
+    "avg_word_length": 3.9552880481513326,
+    "sentence_count": 408,
+    "token_count": 6682,
+    "word_count": 5815
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/oogie_finds_love__livingston/story.json"
+}

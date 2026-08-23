@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21669,
+    "body_sha256": "570e016958716a4b20a7412028661accd0957906578c22fa13179a1030a35b15",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_day_wednesday__olin/story.json"
+  },
+  "lcats_id": "mass_quantities/all_day_wednesday__olin",
+  "metrics": {
+    "avg_sentence_length": 9.781857451403887,
+    "avg_word_length": 3.7390152351512476,
+    "sentence_count": 463,
+    "token_count": 5645,
+    "word_count": 4529
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_day_wednesday__olin/story.json"
+}

@@ -30,7 +30,7 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - A design recommendation document compares candidate NLP libraries (spaCy, NLTK, Stanza, UDPipe, or explicitly recommending none for now) against LCATS's actual needs: accuracy on older/public-domain literary prose, offline/no-network CI compatibility, dependency and model-download weight, and license compatibility
+  - "A design recommendation document compares candidate NLP libraries (spaCy, NLTK, Stanza, UDPipe, or explicitly recommending none for now) against LCATS's actual needs: accuracy on older/public-domain literary prose, offline/no-network CI compatibility, dependency and model-download weight, and license compatibility"
   - The recommendation states plainly whether library adoption is justified now or should remain deferred, with a one-line rationale
   - If adoption is recommended, the document sketches which WI-EVENT-0024 surface-feature fields would be affected and roughly how, without implementing the change
   - lrh validate reports 0 errors

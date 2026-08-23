@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 57096,
+    "body_sha256": "9511afd5ed236d15997f0d943a7b2882d7ca2e4f06ff65cc582e9999d50791a8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/story.json"
+  },
+  "lcats_id": "mass_quantities/isle_of_the_undead__eshbach",
+  "metrics": {
+    "avg_sentence_length": 15.447042640990372,
+    "avg_word_length": 4.103383793410508,
+    "sentence_count": 727,
+    "token_count": 13059,
+    "word_count": 11230
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/story.json"
+}

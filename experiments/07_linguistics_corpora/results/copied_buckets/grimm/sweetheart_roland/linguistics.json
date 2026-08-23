@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8326,
+    "body_sha256": "dbb35010ba1cc3c95b7f52be6b4030552b17872ccf4bfc2d01fc42de9f39926c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/sweetheart_roland/story.json"
+  },
+  "lcats_id": "grimm/sweetheart_roland",
+  "metrics": {
+    "avg_sentence_length": 27.46551724137931,
+    "avg_word_length": 4.197112366603892,
+    "sentence_count": 58,
+    "token_count": 1869,
+    "word_count": 1593
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/sweetheart_roland/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30484,
+    "body_sha256": "be76d14bf98bacec3d4dda43b2221e232198c46cfca35a0824d4279a36c6038d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_self_defense__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/in_self_defense__tuttle",
+  "metrics": {
+    "avg_sentence_length": 15.748148148148148,
+    "avg_word_length": 3.6956726246472247,
+    "sentence_count": 405,
+    "token_count": 8197,
+    "word_count": 6378
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/in_self_defense__tuttle/story.json"
+}

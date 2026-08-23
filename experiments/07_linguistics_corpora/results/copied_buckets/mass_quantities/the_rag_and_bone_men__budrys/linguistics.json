@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15810,
+    "body_sha256": "596d1298e337e3e8f60b7e2cf5cd3b59f4b0533e3cb4137c6db88ebe5ba7d055",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rag_and_bone_men__budrys/story.json"
+  },
+  "lcats_id": "mass_quantities/the_rag_and_bone_men__budrys",
+  "metrics": {
+    "avg_sentence_length": 15.92156862745098,
+    "avg_word_length": 3.8685344827586206,
+    "sentence_count": 204,
+    "token_count": 3808,
+    "word_count": 3248
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rag_and_bone_men__budrys/story.json"
+}

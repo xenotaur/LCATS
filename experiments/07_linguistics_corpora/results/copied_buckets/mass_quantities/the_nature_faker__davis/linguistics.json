@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25965,
+    "body_sha256": "95f11cc3d6902ab38333c6db05eed010f83557a3330a1100cb5c8f2af5591597",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nature_faker__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_nature_faker__davis",
+  "metrics": {
+    "avg_sentence_length": 18.586330935251798,
+    "avg_word_length": 4.024385523514612,
+    "sentence_count": 278,
+    "token_count": 6087,
+    "word_count": 5167
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nature_faker__davis/story.json"
+}

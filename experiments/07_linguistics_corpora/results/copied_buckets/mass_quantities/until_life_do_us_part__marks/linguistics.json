@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18503,
+    "body_sha256": "f7d0e15c134ed38bf410ed891a3352dd8f62f5610b1609f9cc2af4b158224128",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/until_life_do_us_part__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/until_life_do_us_part__marks",
+  "metrics": {
+    "avg_sentence_length": 12.75268817204301,
+    "avg_word_length": 4.2119168071950535,
+    "sentence_count": 279,
+    "token_count": 4278,
+    "word_count": 3558
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/until_life_do_us_part__marks/story.json"
+}

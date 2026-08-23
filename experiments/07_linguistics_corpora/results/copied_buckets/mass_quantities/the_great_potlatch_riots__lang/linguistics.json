@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42743,
+    "body_sha256": "aa39e35a543c27bfb7e3c48567e32b01c09dffd677def5ac786a6b6b71fef20a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_potlatch_riots__lang/story.json"
+  },
+  "lcats_id": "mass_quantities/the_great_potlatch_riots__lang",
+  "metrics": {
+    "avg_sentence_length": 16.356,
+    "avg_word_length": 4.2059183174370265,
+    "sentence_count": 500,
+    "token_count": 10131,
+    "word_count": 8178
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_potlatch_riots__lang/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39552,
+    "body_sha256": "75ca83d53a3e83807a84e2fa7f921d11a097137267389264563bcf165e366d71",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dr_kometevsky_s_day__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/dr_kometevsky_s_day__leiber",
+  "metrics": {
+    "avg_sentence_length": 15.217564870259482,
+    "avg_word_length": 4.2099947534102835,
+    "sentence_count": 501,
+    "token_count": 8968,
+    "word_count": 7624
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dr_kometevsky_s_day__leiber/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36596,
+    "body_sha256": "0acd8644c9761f30d08793d53d000bcf6313c9142318bc54f49a48cbd8c3ae06",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_moving_parts__yaco/story.json"
+  },
+  "lcats_id": "mass_quantities/no_moving_parts__yaco",
+  "metrics": {
+    "avg_sentence_length": 14.08266129032258,
+    "avg_word_length": 4.226628489620616,
+    "sentence_count": 496,
+    "token_count": 8539,
+    "word_count": 6985
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_moving_parts__yaco/story.json"
+}

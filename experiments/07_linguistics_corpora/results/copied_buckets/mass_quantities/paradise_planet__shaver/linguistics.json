@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32181,
+    "body_sha256": "06bddd33d49b7bad22d001cc3507c76e6f7a354603c0db991dc9ee0393761673",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/paradise_planet__shaver/story.json"
+  },
+  "lcats_id": "mass_quantities/paradise_planet__shaver",
+  "metrics": {
+    "avg_sentence_length": 14.396017699115044,
+    "avg_word_length": 3.9079452896880285,
+    "sentence_count": 452,
+    "token_count": 7726,
+    "word_count": 6507
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/paradise_planet__shaver/story.json"
+}

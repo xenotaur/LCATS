@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13650,
+    "body_sha256": "aeb7ecf805545bbd82e26f55d88af18860c99589ec1d7a95e446c858b3393a87",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_in_a_mirror__teichner/story.json"
+  },
+  "lcats_id": "mass_quantities/world_in_a_mirror__teichner",
+  "metrics": {
+    "avg_sentence_length": 14.467032967032967,
+    "avg_word_length": 4.22521838207368,
+    "sentence_count": 182,
+    "token_count": 3076,
+    "word_count": 2633
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_in_a_mirror__teichner/story.json"
+}

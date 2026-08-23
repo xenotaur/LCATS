@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52815,
+    "body_sha256": "974ab4c8bade5f30faa2647225b4a4bf3e1a7931b6248d95303363678456a3e7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ambassadors_from_venus__crossen/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ambassadors_from_venus__crossen",
+  "metrics": {
+    "avg_sentence_length": 17.40199335548173,
+    "avg_word_length": 4.065292096219931,
+    "sentence_count": 602,
+    "token_count": 12032,
+    "word_count": 10476
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ambassadors_from_venus__crossen/story.json"
+}

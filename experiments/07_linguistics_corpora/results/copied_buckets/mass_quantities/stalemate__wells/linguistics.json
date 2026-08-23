@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26441,
+    "body_sha256": "687da7a9733b59cd164e224c781b005d6da4d766bd823050fef10ce31780bb44",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stalemate__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/stalemate__wells",
+  "metrics": {
+    "avg_sentence_length": 12.002277904328018,
+    "avg_word_length": 4.023723666729929,
+    "sentence_count": 439,
+    "token_count": 6249,
+    "word_count": 5269
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stalemate__wells/story.json"
+}

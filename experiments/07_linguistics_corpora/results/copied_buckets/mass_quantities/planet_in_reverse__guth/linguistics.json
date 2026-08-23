@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33407,
+    "body_sha256": "ed643b6342c5bc7949c5251353f9aecc7a6ff9289c6ef6da6d2ab38a8e95d994",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_in_reverse__guth/story.json"
+  },
+  "lcats_id": "mass_quantities/planet_in_reverse__guth",
+  "metrics": {
+    "avg_sentence_length": 10.151937984496124,
+    "avg_word_length": 4.117593158216249,
+    "sentence_count": 645,
+    "token_count": 7653,
+    "word_count": 6548
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/planet_in_reverse__guth/story.json"
+}

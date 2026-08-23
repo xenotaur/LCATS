@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34087,
+    "body_sha256": "7fa38a5b232bc4ed2830eeb2625f6d7c9296a6b586e05b185da6e100c4c9ac64",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/henry_horn_s_x_ray_eye_glasses__swain/story.json"
+  },
+  "lcats_id": "mass_quantities/henry_horn_s_x_ray_eye_glasses__swain",
+  "metrics": {
+    "avg_sentence_length": 11.57094017094017,
+    "avg_word_length": 3.9940907076377603,
+    "sentence_count": 585,
+    "token_count": 8596,
+    "word_count": 6769
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/henry_horn_s_x_ray_eye_glasses__swain/story.json"
+}

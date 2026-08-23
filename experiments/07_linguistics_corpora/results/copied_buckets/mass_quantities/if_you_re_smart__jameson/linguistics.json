@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29447,
+    "body_sha256": "cda3a0c3cfdc06bc453b91154012e9e8057dfd3a2d32d636654c9591f55c983f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/if_you_re_smart__jameson/story.json"
+  },
+  "lcats_id": "mass_quantities/if_you_re_smart__jameson",
+  "metrics": {
+    "avg_sentence_length": 14.450381679389313,
+    "avg_word_length": 4.204085226272231,
+    "sentence_count": 393,
+    "token_count": 6674,
+    "word_count": 5679
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/if_you_re_smart__jameson/story.json"
+}

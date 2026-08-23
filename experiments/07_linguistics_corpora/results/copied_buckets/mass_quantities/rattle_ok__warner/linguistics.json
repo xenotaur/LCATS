@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38687,
+    "body_sha256": "75d0ec1000a0be73b165b60ad5eed2b24845de9420743b47c882caf2d3b6b876",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rattle_ok__warner/story.json"
+  },
+  "lcats_id": "mass_quantities/rattle_ok__warner",
+  "metrics": {
+    "avg_sentence_length": 12.902356902356903,
+    "avg_word_length": 4.07098121085595,
+    "sentence_count": 594,
+    "token_count": 9076,
+    "word_count": 7664
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rattle_ok__warner/story.json"
+}

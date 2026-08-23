@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32882,
+    "body_sha256": "0188eaf43331126b2c4c8658fd872a9af7d740e7a0db41e2e1c831aa845fb625",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_that_goes_up__brooks/story.json"
+  },
+  "lcats_id": "mass_quantities/all_that_goes_up__brooks",
+  "metrics": {
+    "avg_sentence_length": 16.0625,
+    "avg_word_length": 3.715665081423836,
+    "sentence_count": 432,
+    "token_count": 8370,
+    "word_count": 6939
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_that_goes_up__brooks/story.json"
+}

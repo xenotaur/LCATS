@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 49616,
+    "body_sha256": "c30d891d0cae6b70e4c7df37def109258f5e14fa59bb685d472702f7ecd6e17f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_of_the_fittest__henderson/story.json"
+  },
+  "lcats_id": "mass_quantities/survival_of_the_fittest__henderson",
+  "metrics": {
+    "avg_sentence_length": 16.732984293193716,
+    "avg_word_length": 4.158322903629537,
+    "sentence_count": 573,
+    "token_count": 11622,
+    "word_count": 9588
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival_of_the_fittest__henderson/story.json"
+}

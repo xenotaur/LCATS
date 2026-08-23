@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32345,
+    "body_sha256": "7f16d9a8caf415e9f793b11965e943789c2cd56c9ef34d6ae3421fb65c82e843",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_without_war__von_wald/story.json"
+  },
+  "lcats_id": "mass_quantities/world_without_war__von_wald",
+  "metrics": {
+    "avg_sentence_length": 11.960302457466918,
+    "avg_word_length": 4.085348506401138,
+    "sentence_count": 529,
+    "token_count": 7836,
+    "word_count": 6327
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/world_without_war__von_wald/story.json"
+}

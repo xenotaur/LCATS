@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35807,
+    "body_sha256": "7f9a591214e681180ffc1fb188880569e35ce6fef2dc7abf08cadeb01ebf6356",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_childhood__simak/story.json"
+  },
+  "lcats_id": "mass_quantities/second_childhood__simak",
+  "metrics": {
+    "avg_sentence_length": 14.483101391650099,
+    "avg_word_length": 3.8958133150308853,
+    "sentence_count": 503,
+    "token_count": 8684,
+    "word_count": 7285
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_childhood__simak/story.json"
+}

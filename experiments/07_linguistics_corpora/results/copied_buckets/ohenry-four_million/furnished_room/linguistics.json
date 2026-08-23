@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13879,
+    "body_sha256": "e18fa2700ef9790aebe9d5807a8d5365b5055dd5be2adea15fd29f43fe7c16cb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/furnished_room/story.json"
+  },
+  "lcats_id": "ohenry-four_million/furnished_room",
+  "metrics": {
+    "avg_sentence_length": 17.603896103896105,
+    "avg_word_length": 4.117668756916267,
+    "sentence_count": 154,
+    "token_count": 3184,
+    "word_count": 2711
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/furnished_room/story.json"
+}

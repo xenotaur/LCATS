@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37985,
+    "body_sha256": "90847afeb6e0654743d920d52eb779b3d5c135d3090a6dc141925863bc222f27",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/eye_of_apollo/story.json"
+  },
+  "lcats_id": "chesterton/eye_of_apollo",
+  "metrics": {
+    "avg_sentence_length": 21.954692556634303,
+    "avg_word_length": 4.605542452830188,
+    "sentence_count": 309,
+    "token_count": 7864,
+    "word_count": 6784
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/eye_of_apollo/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31027,
+    "body_sha256": "9910a9872ee221798bb14414ed9e210b20158d5b74476739410d711609b54597",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jimsy_and_the_monsters__sheldon/story.json"
+  },
+  "lcats_id": "mass_quantities/jimsy_and_the_monsters__sheldon",
+  "metrics": {
+    "avg_sentence_length": 12.105577689243027,
+    "avg_word_length": 4.089024189567221,
+    "sentence_count": 502,
+    "token_count": 7434,
+    "word_count": 6077
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jimsy_and_the_monsters__sheldon/story.json"
+}

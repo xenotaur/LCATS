@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12816,
+    "body_sha256": "e3dc1a83760206da38b873a3da97ae77d7ae36c384f9dda275c6e6473586fe1d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/hans_in_luck/story.json"
+  },
+  "lcats_id": "grimm/hans_in_luck",
+  "metrics": {
+    "avg_sentence_length": 22.883928571428573,
+    "avg_word_length": 3.9477175185329694,
+    "sentence_count": 112,
+    "token_count": 3087,
+    "word_count": 2563
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/hans_in_luck/story.json"
+}

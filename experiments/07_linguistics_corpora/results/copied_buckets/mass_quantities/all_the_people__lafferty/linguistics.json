@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20681,
+    "body_sha256": "627d3b89c262f27e88b6a226755bc607baa2c8d0fa03aec83fee48846ba3cacc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_the_people__lafferty/story.json"
+  },
+  "lcats_id": "mass_quantities/all_the_people__lafferty",
+  "metrics": {
+    "avg_sentence_length": 13.954248366013072,
+    "avg_word_length": 3.830679156908665,
+    "sentence_count": 306,
+    "token_count": 5125,
+    "word_count": 4270
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_the_people__lafferty/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32224,
+    "body_sha256": "6cf31759e22a009b83cc5500e33f69ff73a91ae47879baacd9f681d14d23a619",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mating_of_the_moons__walton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_mating_of_the_moons__walton",
+  "metrics": {
+    "avg_sentence_length": 14.505747126436782,
+    "avg_word_length": 4.0996830427892235,
+    "sentence_count": 435,
+    "token_count": 7595,
+    "word_count": 6310
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mating_of_the_moons__walton/story.json"
+}

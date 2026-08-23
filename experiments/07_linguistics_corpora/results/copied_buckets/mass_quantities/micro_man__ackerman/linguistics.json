@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15187,
+    "body_sha256": "0d6dfb42a609a112c724c2b90fc5d3bd9f71999a96b91ee48ac5ded5e9e73e2e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/micro_man__ackerman/story.json"
+  },
+  "lcats_id": "mass_quantities/micro_man__ackerman",
+  "metrics": {
+    "avg_sentence_length": 14.892682926829268,
+    "avg_word_length": 3.982967572879135,
+    "sentence_count": 205,
+    "token_count": 3528,
+    "word_count": 3053
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/micro_man__ackerman/story.json"
+}

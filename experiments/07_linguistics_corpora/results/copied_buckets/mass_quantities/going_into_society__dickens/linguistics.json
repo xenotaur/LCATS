@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27512,
+    "body_sha256": "29a9d37bfdee99b88c77f0d119effb1600fcb9ef5710cca116b1ee9e7c66fdc9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/going_into_society__dickens/story.json"
+  },
+  "lcats_id": "mass_quantities/going_into_society__dickens",
+  "metrics": {
+    "avg_sentence_length": 25.4,
+    "avg_word_length": 3.7305717220130092,
+    "sentence_count": 230,
+    "token_count": 6864,
+    "word_count": 5842
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/going_into_society__dickens/story.json"
+}

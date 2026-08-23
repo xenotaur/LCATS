@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25955,
+    "body_sha256": "8c6e4ff69992239254e2eaf4ab4d145629835f987ac9644b63495fc6c9732851",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_course_of_logic__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/the_course_of_logic__del_rey",
+  "metrics": {
+    "avg_sentence_length": 13.2109375,
+    "avg_word_length": 4.137985412970629,
+    "sentence_count": 384,
+    "token_count": 5877,
+    "word_count": 5073
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_course_of_logic__del_rey/story.json"
+}

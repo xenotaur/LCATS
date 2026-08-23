@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11404,
+    "body_sha256": "41457968ec5a61e8754407b5def78c9bf1365259b4a1e6ca7625c61c03deecb8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/marry_month_of_may/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/marry_month_of_may",
+  "metrics": {
+    "avg_sentence_length": 16.736842105263158,
+    "avg_word_length": 4.0844564240790655,
+    "sentence_count": 133,
+    "token_count": 2758,
+    "word_count": 2226
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/marry_month_of_may/story.json"
+}

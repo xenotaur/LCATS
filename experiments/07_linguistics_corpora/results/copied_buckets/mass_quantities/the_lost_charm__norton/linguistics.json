@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46932,
+    "body_sha256": "aa91f13ad3589040ad36cadc0c87f4d0e24f5f62fffa5247cce634a2b2244e4b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lost_charm__norton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_lost_charm__norton",
+  "metrics": {
+    "avg_sentence_length": 26.253369272237197,
+    "avg_word_length": 3.8675564681724848,
+    "sentence_count": 371,
+    "token_count": 11008,
+    "word_count": 9740
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_lost_charm__norton/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15021,
+    "body_sha256": "7ececc64869e524bab648ba700bd5529c9014de17c4545e4cccb3b59169690d2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/calloway_s_code/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/calloway_s_code",
+  "metrics": {
+    "avg_sentence_length": 17.849397590361445,
+    "avg_word_length": 4.094836314546068,
+    "sentence_count": 166,
+    "token_count": 3533,
+    "word_count": 2963
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/calloway_s_code/story.json"
+}

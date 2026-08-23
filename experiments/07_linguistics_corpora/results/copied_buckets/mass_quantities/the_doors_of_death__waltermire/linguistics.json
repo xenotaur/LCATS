@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21746,
+    "body_sha256": "d6019d356918f509cab20ec8a7b1287cb6f1b0ae33b2315b3c3ff1c2175912f4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_doors_of_death__waltermire/story.json"
+  },
+  "lcats_id": "mass_quantities/the_doors_of_death__waltermire",
+  "metrics": {
+    "avg_sentence_length": 16.776470588235295,
+    "avg_word_length": 4.030388031790556,
+    "sentence_count": 255,
+    "token_count": 5385,
+    "word_count": 4278
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_doors_of_death__waltermire/story.json"
+}

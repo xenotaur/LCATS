@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32791,
+    "body_sha256": "422c948cc0dc6cebf1d58e2592f6c487985489c2d07853b68b859af4b1b28da1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/an_experiment_in_gyro_hats__butler/story.json"
+  },
+  "lcats_id": "mass_quantities/an_experiment_in_gyro_hats__butler",
+  "metrics": {
+    "avg_sentence_length": 27.766393442622952,
+    "avg_word_length": 3.869963099630996,
+    "sentence_count": 244,
+    "token_count": 7663,
+    "word_count": 6775
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/an_experiment_in_gyro_hats__butler/story.json"
+}

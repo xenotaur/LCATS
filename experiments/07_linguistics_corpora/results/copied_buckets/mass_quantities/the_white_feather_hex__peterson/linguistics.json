@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26847,
+    "body_sha256": "35199b995c0757f238e76547dc2e7ea6f526b19ddf639c1dd562db10e9a1597c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_white_feather_hex__peterson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_white_feather_hex__peterson",
+  "metrics": {
+    "avg_sentence_length": 17.58360655737705,
+    "avg_word_length": 4.03095282491143,
+    "sentence_count": 305,
+    "token_count": 6137,
+    "word_count": 5363
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_white_feather_hex__peterson/story.json"
+}

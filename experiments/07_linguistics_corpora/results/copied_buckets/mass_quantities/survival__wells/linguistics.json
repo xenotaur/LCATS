@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41839,
+    "body_sha256": "b193270fc2630a0334aaba73d37bdd57aecb49f61d6acb3ab2f11f4eb9a7875a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/survival__wells",
+  "metrics": {
+    "avg_sentence_length": 14.976190476190476,
+    "avg_word_length": 4.137703314173902,
+    "sentence_count": 546,
+    "token_count": 9567,
+    "word_count": 8177
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/survival__wells/story.json"
+}

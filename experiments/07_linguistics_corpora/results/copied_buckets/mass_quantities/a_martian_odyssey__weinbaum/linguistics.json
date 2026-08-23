@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 56753,
+    "body_sha256": "457ddc236bab05c7ea0cacb492d652f84f857c591f54fd52e3343cd9f56b18ad",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_martian_odyssey__weinbaum/story.json"
+  },
+  "lcats_id": "mass_quantities/a_martian_odyssey__weinbaum",
+  "metrics": {
+    "avg_sentence_length": 15.71951219512195,
+    "avg_word_length": 3.860615464184122,
+    "sentence_count": 738,
+    "token_count": 14216,
+    "word_count": 11601
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_martian_odyssey__weinbaum/story.json"
+}

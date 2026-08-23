@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27981,
+    "body_sha256": "3e43dacae1c47d95ad5a57d2ef933e90f308866b5e10ccfbb5eb5e615fbd5e81",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/greener_than_spruce__farris/story.json"
+  },
+  "lcats_id": "mass_quantities/greener_than_spruce__farris",
+  "metrics": {
+    "avg_sentence_length": 16.72316384180791,
+    "avg_word_length": 3.733445945945946,
+    "sentence_count": 354,
+    "token_count": 7086,
+    "word_count": 5920
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/greener_than_spruce__farris/story.json"
+}

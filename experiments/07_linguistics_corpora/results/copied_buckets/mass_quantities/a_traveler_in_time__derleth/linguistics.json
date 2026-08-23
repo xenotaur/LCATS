@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26982,
+    "body_sha256": "1488863446f75de3ea924dae2fafe8c35e817105c83ffc4d8088268a77c5fc1e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_traveler_in_time__derleth/story.json"
+  },
+  "lcats_id": "mass_quantities/a_traveler_in_time__derleth",
+  "metrics": {
+    "avg_sentence_length": 14.138539042821158,
+    "avg_word_length": 3.770354534117228,
+    "sentence_count": 397,
+    "token_count": 6910,
+    "word_count": 5613
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_traveler_in_time__derleth/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25815,
+    "body_sha256": "77c1a9c907bcad86257e2b9b31a7a62507505b629bca534226447b53c892fd5e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/assassin__jones/story.json"
+  },
+  "lcats_id": "mass_quantities/assassin__jones",
+  "metrics": {
+    "avg_sentence_length": 13.799457994579946,
+    "avg_word_length": 4.107030636292223,
+    "sentence_count": 369,
+    "token_count": 5849,
+    "word_count": 5092
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/assassin__jones/story.json"
+}

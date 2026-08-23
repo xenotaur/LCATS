@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46424,
+    "body_sha256": "58a0603f503dc4a8d266258c35bf49a7b1295f578c1ed7f90bd2d93003716119",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/queer_feet/story.json"
+  },
+  "lcats_id": "chesterton/queer_feet",
+  "metrics": {
+    "avg_sentence_length": 22.549865229110512,
+    "avg_word_length": 4.560124312694239,
+    "sentence_count": 371,
+    "token_count": 9650,
+    "word_count": 8366
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/queer_feet/story.json"
+}

@@ -3,7 +3,7 @@ resolution: "Implemented and merged via PR #324 (commit ad7717e2, merged 1db7a49
 blocked_reason: null
 blocked: false
 id: WI-SEGMENT-0070
-title: Fix segmentation alignment anchor-matching gaps: paragraph-marker leakage and quote/dash typography
+title: "Fix segmentation alignment anchor-matching gaps: paragraph-marker leakage and quote/dash typography"
 type: deliverable
 status: resolved
 priority: high

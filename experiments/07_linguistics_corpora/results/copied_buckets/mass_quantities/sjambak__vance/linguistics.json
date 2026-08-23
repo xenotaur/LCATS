@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54880,
+    "body_sha256": "ad7ada74b7f564d73afbc8f0c148e5a4f7d45690688e0e9191977e744a65f377",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sjambak__vance/story.json"
+  },
+  "lcats_id": "mass_quantities/sjambak__vance",
+  "metrics": {
+    "avg_sentence_length": 11.96536312849162,
+    "avg_word_length": 4.063031095340368,
+    "sentence_count": 895,
+    "token_count": 13722,
+    "word_count": 10709
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sjambak__vance/story.json"
+}

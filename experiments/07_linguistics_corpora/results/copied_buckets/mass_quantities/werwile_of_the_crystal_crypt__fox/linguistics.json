@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53192,
+    "body_sha256": "70be5b90ce29a2f6af07c128cef1559dc205167c29ab3ce0ecdbd140bc2c06f2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/werwile_of_the_crystal_crypt__fox/story.json"
+  },
+  "lcats_id": "mass_quantities/werwile_of_the_crystal_crypt__fox",
+  "metrics": {
+    "avg_sentence_length": 12.029612756264237,
+    "avg_word_length": 4.025752698352584,
+    "sentence_count": 878,
+    "token_count": 12589,
+    "word_count": 10562
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/werwile_of_the_crystal_crypt__fox/story.json"
+}

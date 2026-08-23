@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37074,
+    "body_sha256": "fcedcf202d07afdf68eae33c8aa5e2e00f9fabef882a5d78873ecfe2a1b4929e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dearest__piper/story.json"
+  },
+  "lcats_id": "mass_quantities/dearest__piper",
+  "metrics": {
+    "avg_sentence_length": 15.391949152542374,
+    "avg_word_length": 4.0718513420509295,
+    "sentence_count": 472,
+    "token_count": 8855,
+    "word_count": 7265
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dearest__piper/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26442,
+    "body_sha256": "d6b397fdaf6f324e4418d001fa41337a0587243add2f8d00b038050b09864d27",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stop_you_re_killing_me__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/stop_you_re_killing_me__marlowe",
+  "metrics": {
+    "avg_sentence_length": 13.08294930875576,
+    "avg_word_length": 3.6676646706586826,
+    "sentence_count": 434,
+    "token_count": 6743,
+    "word_count": 5678
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stop_you_re_killing_me__marlowe/story.json"
+}

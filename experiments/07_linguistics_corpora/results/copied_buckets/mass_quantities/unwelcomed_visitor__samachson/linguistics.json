@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 2623,
+    "body_sha256": "b87a31008a9bdc2b7e8d8c1574239caa814f6d3b95533445bf7d7fb480970e36",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/unwelcomed_visitor__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/unwelcomed_visitor__samachson",
+  "metrics": {
+    "avg_sentence_length": 18.77777777777778,
+    "avg_word_length": 4.183431952662722,
+    "sentence_count": 27,
+    "token_count": 587,
+    "word_count": 507
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/unwelcomed_visitor__samachson/story.json"
+}

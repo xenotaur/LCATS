@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34111,
+    "body_sha256": "25cdadd4ed114367e3d2e54ee3217e2a728000688f67ac8d0a0869b710106e03",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_ride_with_a_mad_horse_in_a_freight_car_1898__murray/story.json"
+  },
+  "lcats_id": "mass_quantities/a_ride_with_a_mad_horse_in_a_freight_car_1898__murray",
+  "metrics": {
+    "avg_sentence_length": 24.46785714285714,
+    "avg_word_length": 3.9817544883958544,
+    "sentence_count": 280,
+    "token_count": 7823,
+    "word_count": 6851
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_ride_with_a_mad_horse_in_a_freight_car_1898__murray/story.json"
+}

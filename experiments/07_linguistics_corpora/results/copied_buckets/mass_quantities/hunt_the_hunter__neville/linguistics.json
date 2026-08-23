@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31688,
+    "body_sha256": "16b7a3e444bd775d34becd5a096fcab3b1b6292e0ce59361e2c00bbc73dff7ae",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hunt_the_hunter__neville/story.json"
+  },
+  "lcats_id": "mass_quantities/hunt_the_hunter__neville",
+  "metrics": {
+    "avg_sentence_length": 9.581709145427286,
+    "avg_word_length": 3.8688781098419653,
+    "sentence_count": 667,
+    "token_count": 8379,
+    "word_count": 6391
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hunt_the_hunter__neville/story.json"
+}

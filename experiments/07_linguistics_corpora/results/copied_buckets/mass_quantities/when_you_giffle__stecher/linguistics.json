@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20177,
+    "body_sha256": "b95169f95174a0c016ef47c0ecc44761c6fc8ef8f7489fcfafe37a832c4fc0a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_you_giffle__stecher/story.json"
+  },
+  "lcats_id": "mass_quantities/when_you_giffle__stecher",
+  "metrics": {
+    "avg_sentence_length": 18.30263157894737,
+    "avg_word_length": 3.8114066618739515,
+    "sentence_count": 228,
+    "token_count": 5043,
+    "word_count": 4173
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/when_you_giffle__stecher/story.json"
+}

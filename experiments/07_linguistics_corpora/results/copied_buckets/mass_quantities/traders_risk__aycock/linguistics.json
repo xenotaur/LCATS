@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28827,
+    "body_sha256": "2d9c2686feec123a0c91840ff1c726e51bdcae36c0f36e9ac0ec6e25eb0d3960",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/traders_risk__aycock/story.json"
+  },
+  "lcats_id": "mass_quantities/traders_risk__aycock",
+  "metrics": {
+    "avg_sentence_length": 16.236686390532544,
+    "avg_word_length": 4.294642857142857,
+    "sentence_count": 338,
+    "token_count": 6406,
+    "word_count": 5488
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/traders_risk__aycock/story.json"
+}

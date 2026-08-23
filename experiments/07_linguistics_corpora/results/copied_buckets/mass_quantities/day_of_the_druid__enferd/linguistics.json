@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27024,
+    "body_sha256": "02dccae148208e69ea381b18bb19a344862eddca040614bda732a344eb055747",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/day_of_the_druid__enferd/story.json"
+  },
+  "lcats_id": "mass_quantities/day_of_the_druid__enferd",
+  "metrics": {
+    "avg_sentence_length": 10.782524271844661,
+    "avg_word_length": 3.8878083918602555,
+    "sentence_count": 515,
+    "token_count": 6462,
+    "word_count": 5553
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/day_of_the_druid__enferd/story.json"
+}

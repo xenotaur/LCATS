@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14118,
+    "body_sha256": "7d6ff668658a46bdbdc6373b285a6600f647c7452327fbc9af22e922cc1ce3e6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/distress_signal__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/distress_signal__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 11.13127413127413,
+    "avg_word_length": 3.8983697537287547,
+    "sentence_count": 259,
+    "token_count": 3464,
+    "word_count": 2883
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/distress_signal__rocklynne/story.json"
+}

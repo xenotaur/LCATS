@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 45056,
+    "body_sha256": "dad41aaa6c78a01d1053230f6d1af5fe8a0fc93da12dbff29e04953d3f1c6c79",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_fix__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_big_fix__wilson",
+  "metrics": {
+    "avg_sentence_length": 13.115384615384615,
+    "avg_word_length": 3.7480100544616675,
+    "sentence_count": 728,
+    "token_count": 11138,
+    "word_count": 9548
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_fix__wilson/story.json"
+}

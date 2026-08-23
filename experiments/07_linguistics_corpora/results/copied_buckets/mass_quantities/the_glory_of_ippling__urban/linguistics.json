@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27189,
+    "body_sha256": "810e3c52408370fe449a6d2181039af47877ddb8d0822e324e9be5e07ee154dd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_glory_of_ippling__urban/story.json"
+  },
+  "lcats_id": "mass_quantities/the_glory_of_ippling__urban",
+  "metrics": {
+    "avg_sentence_length": 16.681967213114753,
+    "avg_word_length": 4.373624213836478,
+    "sentence_count": 305,
+    "token_count": 5949,
+    "word_count": 5088
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_glory_of_ippling__urban/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22819,
+    "body_sha256": "7fc69096c1662416f222b33115489a733aba2bed08fa936c430bf5453d79318a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_president__arr/story.json"
+  },
+  "lcats_id": "mass_quantities/mr_president__arr",
+  "metrics": {
+    "avg_sentence_length": 16.514814814814816,
+    "avg_word_length": 4.112805561785153,
+    "sentence_count": 270,
+    "token_count": 5308,
+    "word_count": 4459
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_president__arr/story.json"
+}

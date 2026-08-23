@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18731,
+    "body_sha256": "a918e6bef93baa9c231c3ac61a02cb031b61f88524eb53c978e39653f0155c6f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brides_of_ool__cummings/story.json"
+  },
+  "lcats_id": "mass_quantities/the_brides_of_ool__cummings",
+  "metrics": {
+    "avg_sentence_length": 12.428571428571429,
+    "avg_word_length": 3.8915882967607107,
+    "sentence_count": 308,
+    "token_count": 4562,
+    "word_count": 3828
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brides_of_ool__cummings/story.json"
+}

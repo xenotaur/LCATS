@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32554,
+    "body_sha256": "37544921481c5df9b74dd166ebc0c25ed1d2586ce320aa96fb2541be82fa8b05",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_voyage_of_vanishing_men__mullen/story.json"
+  },
+  "lcats_id": "mass_quantities/the_voyage_of_vanishing_men__mullen",
+  "metrics": {
+    "avg_sentence_length": 12.188571428571429,
+    "avg_word_length": 4.090014064697609,
+    "sentence_count": 525,
+    "token_count": 7602,
+    "word_count": 6399
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_voyage_of_vanishing_men__mullen/story.json"
+}

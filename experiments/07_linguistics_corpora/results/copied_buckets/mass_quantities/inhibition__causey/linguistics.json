@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13859,
+    "body_sha256": "57672411a61b7589bcd0882c1810bc0a0f63fc15bdaa644fa25f9dbd95d4b8ef",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/inhibition__causey/story.json"
+  },
+  "lcats_id": "mass_quantities/inhibition__causey",
+  "metrics": {
+    "avg_sentence_length": 9.480427046263346,
+    "avg_word_length": 4.1775525525525525,
+    "sentence_count": 281,
+    "token_count": 3340,
+    "word_count": 2664
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/inhibition__causey/story.json"
+}

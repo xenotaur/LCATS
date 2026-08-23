@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28060,
+    "body_sha256": "779c016a590aec2f55458f6b4b8779dae05f4adfcc0e2da2f598207a33cf5bfb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dust_unto_dust__hinckley/story.json"
+  },
+  "lcats_id": "mass_quantities/dust_unto_dust__hinckley",
+  "metrics": {
+    "avg_sentence_length": 11.732608695652173,
+    "avg_word_length": 4.135630906058922,
+    "sentence_count": 460,
+    "token_count": 6842,
+    "word_count": 5397
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dust_unto_dust__hinckley/story.json"
+}

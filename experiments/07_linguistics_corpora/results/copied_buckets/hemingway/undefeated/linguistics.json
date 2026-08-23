@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 56040,
+    "body_sha256": "16be10ab00fe8268ee3050d85623c99fffe30f4852f9d9526de4a1a3dfb155ff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/undefeated/story.json"
+  },
+  "lcats_id": "hemingway/undefeated",
+  "metrics": {
+    "avg_sentence_length": 12.142857142857142,
+    "avg_word_length": 3.6990886495443247,
+    "sentence_count": 994,
+    "token_count": 14604,
+    "word_count": 12070
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/undefeated/story.json"
+}

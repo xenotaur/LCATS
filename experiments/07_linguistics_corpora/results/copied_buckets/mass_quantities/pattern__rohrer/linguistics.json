@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24238,
+    "body_sha256": "8188f496db1ed2ebe96767d97955dd127cbf1e3e68e4e7685c2ef916acc2f631",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pattern__rohrer/story.json"
+  },
+  "lcats_id": "mass_quantities/pattern__rohrer",
+  "metrics": {
+    "avg_sentence_length": 16.68794326241135,
+    "avg_word_length": 4.186570335741607,
+    "sentence_count": 282,
+    "token_count": 5401,
+    "word_count": 4706
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pattern__rohrer/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27866,
+    "body_sha256": "2747be8c08a01c150a21fb7817a8435be321acefb434b5f5eb30d22ccc20d2d3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_inmate_of_the_dungeon_1894__morrow/story.json"
+  },
+  "lcats_id": "mass_quantities/the_inmate_of_the_dungeon_1894__morrow",
+  "metrics": {
+    "avg_sentence_length": 18.960912052117266,
+    "avg_word_length": 3.774609173681498,
+    "sentence_count": 307,
+    "token_count": 6824,
+    "word_count": 5821
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_inmate_of_the_dungeon_1894__morrow/story.json"
+}

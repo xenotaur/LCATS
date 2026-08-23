@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43358,
+    "body_sha256": "c38c56d9459db026d9ef0f637a0c61e7ecb6a59f527bbb3954decbb27f2fce62",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mistake_inside__blish/story.json"
+  },
+  "lcats_id": "mass_quantities/mistake_inside__blish",
+  "metrics": {
+    "avg_sentence_length": 15.738656987295826,
+    "avg_word_length": 3.9983856088560885,
+    "sentence_count": 551,
+    "token_count": 10354,
+    "word_count": 8672
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mistake_inside__blish/story.json"
+}

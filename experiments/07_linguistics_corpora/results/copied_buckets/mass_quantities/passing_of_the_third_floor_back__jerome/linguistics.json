@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40908,
+    "body_sha256": "b75d6d2bab596e8600c36aa1efadeec3ad7d6c2593ff8b624e9e38be2077d8e4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/passing_of_the_third_floor_back__jerome/story.json"
+  },
+  "lcats_id": "mass_quantities/passing_of_the_third_floor_back__jerome",
+  "metrics": {
+    "avg_sentence_length": 17.76629213483146,
+    "avg_word_length": 4.141285099924108,
+    "sentence_count": 445,
+    "token_count": 9726,
+    "word_count": 7906
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/passing_of_the_third_floor_back__jerome/story.json"
+}

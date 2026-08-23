@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5687,
+    "body_sha256": "457de343ac0168c58348dbb36624a3e190df1e53e6398db061b06b59ee8ea4a0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/superjoemulloy__grenville/story.json"
+  },
+  "lcats_id": "mass_quantities/superjoemulloy__grenville",
+  "metrics": {
+    "avg_sentence_length": 15.205479452054794,
+    "avg_word_length": 4.178378378378379,
+    "sentence_count": 73,
+    "token_count": 1291,
+    "word_count": 1110
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/superjoemulloy__grenville/story.json"
+}

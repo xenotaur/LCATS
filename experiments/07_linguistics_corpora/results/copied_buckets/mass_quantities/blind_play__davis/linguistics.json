@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26839,
+    "body_sha256": "9fbf8f4821786616c1384f072f22e1da3de436767aad8448c9a26d5de845d0b7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/blind_play__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/blind_play__davis",
+  "metrics": {
+    "avg_sentence_length": 16.75541795665635,
+    "avg_word_length": 4.005358462675535,
+    "sentence_count": 323,
+    "token_count": 6233,
+    "word_count": 5412
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/blind_play__davis/story.json"
+}

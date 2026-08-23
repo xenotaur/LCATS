@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19108,
+    "body_sha256": "c07a4217e34c9944eac7d429500b90e7a9a33137430d74c70c14b552e6ebfb12",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/filthy_rich__sheinbaum/story.json"
+  },
+  "lcats_id": "mass_quantities/filthy_rich__sheinbaum",
+  "metrics": {
+    "avg_sentence_length": 11.95638629283489,
+    "avg_word_length": 3.972120896300156,
+    "sentence_count": 321,
+    "token_count": 4610,
+    "word_count": 3838
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/filthy_rich__sheinbaum/story.json"
+}

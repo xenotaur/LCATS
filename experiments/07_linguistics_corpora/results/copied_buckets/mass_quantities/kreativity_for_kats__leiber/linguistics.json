@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19185,
+    "body_sha256": "5a48d4d400162f6d8fb78759096f6cd937bd7ede78d2955a4e4260e73b484444",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/kreativity_for_kats__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/kreativity_for_kats__leiber",
+  "metrics": {
+    "avg_sentence_length": 19.643617021276597,
+    "avg_word_length": 4.2420796100731115,
+    "sentence_count": 188,
+    "token_count": 4259,
+    "word_count": 3693
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/kreativity_for_kats__leiber/story.json"
+}

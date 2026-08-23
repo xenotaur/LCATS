@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11838,
+    "body_sha256": "6a30a504aab110ae1d5802b46895a9b763a7aa87abbe62d3533373eceb3ff276",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_magnitude__sevcik/story.json"
+  },
+  "lcats_id": "mass_quantities/a_matter_of_magnitude__sevcik",
+  "metrics": {
+    "avg_sentence_length": 13.506024096385541,
+    "avg_word_length": 4.252899197145406,
+    "sentence_count": 166,
+    "token_count": 2778,
+    "word_count": 2242
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_matter_of_magnitude__sevcik/story.json"
+}

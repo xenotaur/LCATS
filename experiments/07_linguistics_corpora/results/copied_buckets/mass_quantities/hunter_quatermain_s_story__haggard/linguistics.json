@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36171,
+    "body_sha256": "9f647d4a15eda65af9b4aa5e5bb72406d235b4543f388def77a93255e97f60f6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hunter_quatermain_s_story__haggard/story.json"
+  },
+  "lcats_id": "mass_quantities/hunter_quatermain_s_story__haggard",
+  "metrics": {
+    "avg_sentence_length": 27.139705882352942,
+    "avg_word_length": 3.8874288810620428,
+    "sentence_count": 272,
+    "token_count": 8669,
+    "word_count": 7382
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hunter_quatermain_s_story__haggard/story.json"
+}

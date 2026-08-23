@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22761,
+    "body_sha256": "4f01e180f10980bdef4f7f875e5fe7e1d067feb15a05176220a187c3a36b9017",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/story.json"
+  },
+  "lcats_id": "mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain",
+  "metrics": {
+    "avg_sentence_length": 18.7578125,
+    "avg_word_length": 3.771137026239067,
+    "sentence_count": 256,
+    "token_count": 5452,
+    "word_count": 4802
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/story.json"
+}

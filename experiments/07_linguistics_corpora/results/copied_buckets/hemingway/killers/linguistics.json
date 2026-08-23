@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15689,
+    "body_sha256": "5cd0a422d202d761d1387ad437c85384edf520f78c95bcc6da3c2256bb2fcff6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/killers/story.json"
+  },
+  "lcats_id": "hemingway/killers",
+  "metrics": {
+    "avg_sentence_length": 11.105263157894736,
+    "avg_word_length": 3.3468079174797882,
+    "sentence_count": 323,
+    "token_count": 4776,
+    "word_count": 3587
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/killers/story.json"
+}

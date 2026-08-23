@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33091,
+    "body_sha256": "9c9fe0a3031fc0bdf8341423418f6eb2757650ad0f83f2fcf79c24f0728735c7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_invaders__ferris/story.json"
+  },
+  "lcats_id": "mass_quantities/the_invaders__ferris",
+  "metrics": {
+    "avg_sentence_length": 11.052276559865092,
+    "avg_word_length": 4.022123893805309,
+    "sentence_count": 593,
+    "token_count": 8054,
+    "word_count": 6554
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_invaders__ferris/story.json"
+}

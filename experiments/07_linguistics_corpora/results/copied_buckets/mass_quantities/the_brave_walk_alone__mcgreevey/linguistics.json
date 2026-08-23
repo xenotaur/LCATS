@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33427,
+    "body_sha256": "56fe6f96f27af31020affcd48f3cd93e02ac2cb6fc089cdfb0ca3d05f5713cd2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brave_walk_alone__mcgreevey/story.json"
+  },
+  "lcats_id": "mass_quantities/the_brave_walk_alone__mcgreevey",
+  "metrics": {
+    "avg_sentence_length": 11.840501792114695,
+    "avg_word_length": 4.070228545482064,
+    "sentence_count": 558,
+    "token_count": 7803,
+    "word_count": 6607
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_brave_walk_alone__mcgreevey/story.json"
+}

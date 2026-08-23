@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30099,
+    "body_sha256": "24907528d1d5fd4f241d82cd6059adea7f2a13a7dc47c33d4a898f2bb4b91643",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beyond_the_wall__leverage/story.json"
+  },
+  "lcats_id": "mass_quantities/beyond_the_wall__leverage",
+  "metrics": {
+    "avg_sentence_length": 10.716262975778546,
+    "avg_word_length": 3.8511462705844366,
+    "sentence_count": 578,
+    "token_count": 7640,
+    "word_count": 6194
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/beyond_the_wall__leverage/story.json"
+}

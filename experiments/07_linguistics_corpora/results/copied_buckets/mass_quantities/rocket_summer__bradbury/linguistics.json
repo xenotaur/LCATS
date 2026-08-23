@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26746,
+    "body_sha256": "df895600830ac1bf203ac07dc823e12a58f583d0cfc1a684eb40421f3beffc1e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rocket_summer__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/rocket_summer__bradbury",
+  "metrics": {
+    "avg_sentence_length": 10.570552147239264,
+    "avg_word_length": 4.146643451344554,
+    "sentence_count": 489,
+    "token_count": 6423,
+    "word_count": 5169
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rocket_summer__bradbury/story.json"
+}

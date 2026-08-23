@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50044,
+    "body_sha256": "bddc0f95f54fa42ed81f3921620715724196b37f528e6fd8efa13848345214af",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/racketty_packetty_house_as_told_by_queen_crosspatc__burnett/story.json"
+  },
+  "lcats_id": "mass_quantities/racketty_packetty_house_as_told_by_queen_crosspatc__burnett",
+  "metrics": {
+    "avg_sentence_length": 21.458333333333332,
+    "avg_word_length": 3.9149514563106798,
+    "sentence_count": 480,
+    "token_count": 11694,
+    "word_count": 10300
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/racketty_packetty_house_as_told_by_queen_crosspatc__burnett/story.json"
+}

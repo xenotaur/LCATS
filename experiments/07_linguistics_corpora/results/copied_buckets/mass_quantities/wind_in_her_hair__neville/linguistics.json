@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39745,
+    "body_sha256": "abf651ab7db1c2cb0f60e8a662c4ca3c0d9273286e326d7a48724bfefbbc64da",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wind_in_her_hair__neville/story.json"
+  },
+  "lcats_id": "mass_quantities/wind_in_her_hair__neville",
+  "metrics": {
+    "avg_sentence_length": 9.887409200968523,
+    "avg_word_length": 3.7904983470062446,
+    "sentence_count": 826,
+    "token_count": 10350,
+    "word_count": 8167
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wind_in_her_hair__neville/story.json"
+}

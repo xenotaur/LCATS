@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 62926,
+    "body_sha256": "1d4cb9f58db248a0d497c052926a8c73fa9dc6eeacc4bd6f41a709d29a413590",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doctor_marigold__dickens/story.json"
+  },
+  "lcats_id": "mass_quantities/doctor_marigold__dickens",
+  "metrics": {
+    "avg_sentence_length": 22.110576923076923,
+    "avg_word_length": 3.612596941364065,
+    "sentence_count": 624,
+    "token_count": 15869,
+    "word_count": 13797
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/doctor_marigold__dickens/story.json"
+}

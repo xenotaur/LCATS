@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9390,
+    "body_sha256": "717c1995b6ce158549c71007d321a2a44c017ddac2f227d9d7b51e5e8d9b312d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/four_clever_brothers/story.json"
+  },
+  "lcats_id": "grimm/four_clever_brothers",
+  "metrics": {
+    "avg_sentence_length": 32.80357142857143,
+    "avg_word_length": 4.070767555797496,
+    "sentence_count": 56,
+    "token_count": 2174,
+    "word_count": 1837
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/four_clever_brothers/story.json"
+}

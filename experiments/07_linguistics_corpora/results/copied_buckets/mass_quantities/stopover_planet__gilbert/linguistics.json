@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14506,
+    "body_sha256": "624c33c1d234f5607e7dd161b6c4c383ebb26d1e8157f2f725f4871ec0fae121",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stopover_planet__gilbert/story.json"
+  },
+  "lcats_id": "mass_quantities/stopover_planet__gilbert",
+  "metrics": {
+    "avg_sentence_length": 10.574144486692015,
+    "avg_word_length": 4.192017259978425,
+    "sentence_count": 263,
+    "token_count": 3412,
+    "word_count": 2781
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stopover_planet__gilbert/story.json"
+}

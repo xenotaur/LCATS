@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25137,
+    "body_sha256": "01f7d1b12927d0e90da33519f1ed095676d35d5d2f1d484b86c0fe8d62b28e7d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/where_the_phph_pebbles_go__de_ford/story.json"
+  },
+  "lcats_id": "mass_quantities/where_the_phph_pebbles_go__de_ford",
+  "metrics": {
+    "avg_sentence_length": 19.888446215139442,
+    "avg_word_length": 4.073717948717949,
+    "sentence_count": 251,
+    "token_count": 5722,
+    "word_count": 4992
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/where_the_phph_pebbles_go__de_ford/story.json"
+}

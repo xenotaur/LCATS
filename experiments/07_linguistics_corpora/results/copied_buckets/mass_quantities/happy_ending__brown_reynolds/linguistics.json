@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29730,
+    "body_sha256": "7ad1c81b09319ec1d54818425fa15b4b239f6a90ba257d64861f058d54b732a5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/happy_ending__brown_reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/happy_ending__brown_reynolds",
+  "metrics": {
+    "avg_sentence_length": 15.1675,
+    "avg_word_length": 3.9218724245920553,
+    "sentence_count": 400,
+    "token_count": 7080,
+    "word_count": 6067
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/happy_ending__brown_reynolds/story.json"
+}

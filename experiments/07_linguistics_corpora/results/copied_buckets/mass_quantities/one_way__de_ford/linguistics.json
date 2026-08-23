@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19342,
+    "body_sha256": "025c3f0245676b7898b12a689b08c22ed32cc8ddd743c63b4b17c8a5c180c53d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_way__de_ford/story.json"
+  },
+  "lcats_id": "mass_quantities/one_way__de_ford",
+  "metrics": {
+    "avg_sentence_length": 16.345238095238095,
+    "avg_word_length": 3.71546491866958,
+    "sentence_count": 252,
+    "token_count": 4832,
+    "word_count": 4119
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_way__de_ford/story.json"
+}

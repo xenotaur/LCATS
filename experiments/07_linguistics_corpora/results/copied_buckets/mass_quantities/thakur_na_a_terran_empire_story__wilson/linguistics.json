@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35431,
+    "body_sha256": "2bdc27436527bee30dcd7aa2860b67af7f44de1046e40ac6bce7ad740a04d184",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/thakur_na_a_terran_empire_story__wilson/story.json"
+  },
+  "lcats_id": "mass_quantities/thakur_na_a_terran_empire_story__wilson",
+  "metrics": {
+    "avg_sentence_length": 18.692708333333332,
+    "avg_word_length": 3.9647534132070215,
+    "sentence_count": 384,
+    "token_count": 8534,
+    "word_count": 7178
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/thakur_na_a_terran_empire_story__wilson/story.json"
+}

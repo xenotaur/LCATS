@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25779,
+    "body_sha256": "218c3a35158fcdf4150c7f3807aad028f299373ec51e3f6f890175d5cb66644d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_delegate_from_venus__slesar/story.json"
+  },
+  "lcats_id": "mass_quantities/the_delegate_from_venus__slesar",
+  "metrics": {
+    "avg_sentence_length": 14.32112676056338,
+    "avg_word_length": 4.0743509047993705,
+    "sentence_count": 355,
+    "token_count": 6164,
+    "word_count": 5084
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_delegate_from_venus__slesar/story.json"
+}

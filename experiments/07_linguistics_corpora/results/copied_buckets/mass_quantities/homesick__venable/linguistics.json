@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13524,
+    "body_sha256": "cd7fc86548c4723f89edf03e371e470fd850a69c094cc1751c2e5e9d21d21c2a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/homesick__venable/story.json"
+  },
+  "lcats_id": "mass_quantities/homesick__venable",
+  "metrics": {
+    "avg_sentence_length": 14.047619047619047,
+    "avg_word_length": 4.071939736346516,
+    "sentence_count": 189,
+    "token_count": 3197,
+    "word_count": 2655
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/homesick__venable/story.json"
+}

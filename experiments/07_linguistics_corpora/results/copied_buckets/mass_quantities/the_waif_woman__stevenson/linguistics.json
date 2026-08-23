@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35575,
+    "body_sha256": "9c48cef5339649ec2166fa327f5d2a4c630756f72ec72b2819290e2275cbc187",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_waif_woman__stevenson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_waif_woman__stevenson",
+  "metrics": {
+    "avg_sentence_length": 19.332506203473944,
+    "avg_word_length": 3.5721986907970735,
+    "sentence_count": 403,
+    "token_count": 9203,
+    "word_count": 7791
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_waif_woman__stevenson/story.json"
+}

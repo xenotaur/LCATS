@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22717,
+    "body_sha256": "31f779dea0995d1a73bc9a3f5b0c230b66e16ac0e3e0dd07fa4ff5f02934b616",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_imitation_of_earth__stamers/story.json"
+  },
+  "lcats_id": "mass_quantities/the_imitation_of_earth__stamers",
+  "metrics": {
+    "avg_sentence_length": 15.671480144404333,
+    "avg_word_length": 4.275512554710896,
+    "sentence_count": 277,
+    "token_count": 4940,
+    "word_count": 4341
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_imitation_of_earth__stamers/story.json"
+}

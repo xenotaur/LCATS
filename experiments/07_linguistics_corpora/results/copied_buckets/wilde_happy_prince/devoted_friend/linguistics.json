@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22599,
+    "body_sha256": "16087103c2de588a3607c3a3cf79bd77fffc035514a01c687904bb30c1b36f97",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/devoted_friend/story.json"
+  },
+  "lcats_id": "wilde_happy_prince/devoted_friend",
+  "metrics": {
+    "avg_sentence_length": 25.354166666666668,
+    "avg_word_length": 3.628800328677075,
+    "sentence_count": 192,
+    "token_count": 5943,
+    "word_count": 4868
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/wilde_happy_prince/devoted_friend/story.json"
+}

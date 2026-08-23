@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32920,
+    "body_sha256": "33654fab00d8a2f76b49737cc26eac2bd19d1adba9c668221270d72e86c2d563",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/surly_tim_a_lancashire_story__burnett/story.json"
+  },
+  "lcats_id": "mass_quantities/surly_tim_a_lancashire_story__burnett",
+  "metrics": {
+    "avg_sentence_length": 21.682779456193355,
+    "avg_word_length": 3.4591054758255537,
+    "sentence_count": 331,
+    "token_count": 9211,
+    "word_count": 7177
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/surly_tim_a_lancashire_story__burnett/story.json"
+}

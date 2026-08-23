@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38411,
+    "body_sha256": "01fd3c9082cde23747335b97d9d41fcac437bbe297eabecc33a7f6f1f7a24cc4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/freudian_slip__abel/story.json"
+  },
+  "lcats_id": "mass_quantities/freudian_slip__abel",
+  "metrics": {
+    "avg_sentence_length": 15.921775898520085,
+    "avg_word_length": 4.08179524631523,
+    "sentence_count": 473,
+    "token_count": 9144,
+    "word_count": 7531
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/freudian_slip__abel/story.json"
+}

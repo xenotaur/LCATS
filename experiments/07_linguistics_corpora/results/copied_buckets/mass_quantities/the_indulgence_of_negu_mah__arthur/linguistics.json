@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22586,
+    "body_sha256": "f495e8a40f0f4d5fcfc78be982554378cba6163107ca623ae47ff59265552a51",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_indulgence_of_negu_mah__arthur/story.json"
+  },
+  "lcats_id": "mass_quantities/the_indulgence_of_negu_mah__arthur",
+  "metrics": {
+    "avg_sentence_length": 17.192307692307693,
+    "avg_word_length": 4.068008948545861,
+    "sentence_count": 260,
+    "token_count": 5189,
+    "word_count": 4470
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_indulgence_of_negu_mah__arthur/story.json"
+}

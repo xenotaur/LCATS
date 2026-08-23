@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26153,
+    "body_sha256": "2f01c718c37d42a687257dd87b0cf57592b9e5569f7e345184acd8bbdcc4a799",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/obil_keeper_of_camels_b_being_the_parable_of_the_m__bell/story.json"
+  },
+  "lcats_id": "mass_quantities/obil_keeper_of_camels_b_being_the_parable_of_the_m__bell",
+  "metrics": {
+    "avg_sentence_length": 19.682656826568266,
+    "avg_word_length": 3.922947131608549,
+    "sentence_count": 271,
+    "token_count": 6171,
+    "word_count": 5334
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/obil_keeper_of_camels_b_being_the_parable_of_the_m__bell/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31110,
+    "body_sha256": "fdddc25ee0d4a16346fb594babeb5b8e5d7905c2d55fd58901a59a3329b708af",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/blackjack_bargainer/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/blackjack_bargainer",
+  "metrics": {
+    "avg_sentence_length": 18.321428571428573,
+    "avg_word_length": 4.05003248862898,
+    "sentence_count": 336,
+    "token_count": 7309,
+    "word_count": 6156
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/blackjack_bargainer/story.json"
+}

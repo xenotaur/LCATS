@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 55923,
+    "body_sha256": "82ac217f106eb2e2e9b1e94e3492c3b25af7c87b5704dce2675e9ae1db30b228",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/x_marks_the_asteroid__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/x_marks_the_asteroid__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 11.177484787018255,
+    "avg_word_length": 4.091098811360131,
+    "sentence_count": 986,
+    "token_count": 13184,
+    "word_count": 11021
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/x_marks_the_asteroid__rocklynne/story.json"
+}

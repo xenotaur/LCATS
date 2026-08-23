@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38141,
+    "body_sha256": "3bf907579ada03f649a164345266e6c620feb1d5a15de8ccb0e8f986ad1c6641",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/story.json"
+  },
+  "lcats_id": "mass_quantities/a_gift_for_terra__holden",
+  "metrics": {
+    "avg_sentence_length": 13.810661764705882,
+    "avg_word_length": 4.065353387461733,
+    "sentence_count": 544,
+    "token_count": 8883,
+    "word_count": 7513
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/story.json"
+}

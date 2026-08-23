@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34850,
+    "body_sha256": "822fcd31f7e3d0fb4078a3a528d8b5e21c32fbdab7722e37bf393360577048bc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/abijah_s_bubble__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/abijah_s_bubble__smith",
+  "metrics": {
+    "avg_sentence_length": 15.61987041036717,
+    "avg_word_length": 3.8134679203539825,
+    "sentence_count": 463,
+    "token_count": 8671,
+    "word_count": 7232
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/abijah_s_bubble__smith/story.json"
+}

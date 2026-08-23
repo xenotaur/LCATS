@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24467,
+    "body_sha256": "5c5ad0b0891c11296d0dbd00f9c841b04e0d704e20f7f90fa3af5d75d0694671",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ring_bonanza__binder/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ring_bonanza__binder",
+  "metrics": {
+    "avg_sentence_length": 14.203438395415473,
+    "avg_word_length": 3.954004438168247,
+    "sentence_count": 349,
+    "token_count": 5809,
+    "word_count": 4957
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ring_bonanza__binder/story.json"
+}

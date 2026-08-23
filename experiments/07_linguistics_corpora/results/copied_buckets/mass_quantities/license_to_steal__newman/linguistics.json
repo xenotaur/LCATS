@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20078,
+    "body_sha256": "d41ca656fea31737c0960c1d6e0d9ab2d1d05158cc6bb58497a1ed0ef04f08ab",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/license_to_steal__newman/story.json"
+  },
+  "lcats_id": "mass_quantities/license_to_steal__newman",
+  "metrics": {
+    "avg_sentence_length": 31.100840336134453,
+    "avg_word_length": 4.472845176979194,
+    "sentence_count": 119,
+    "token_count": 4200,
+    "word_count": 3701
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/license_to_steal__newman/story.json"
+}

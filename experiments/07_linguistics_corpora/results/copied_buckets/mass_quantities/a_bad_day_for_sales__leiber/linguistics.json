@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13279,
+    "body_sha256": "e5e49716d1c021663ba3cb2f805e34d196d23b8513cea9bb17429616baadc4cf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/a_bad_day_for_sales__leiber",
+  "metrics": {
+    "avg_sentence_length": 12.36231884057971,
+    "avg_word_length": 4.17116060961313,
+    "sentence_count": 207,
+    "token_count": 3120,
+    "word_count": 2559
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/story.json"
+}

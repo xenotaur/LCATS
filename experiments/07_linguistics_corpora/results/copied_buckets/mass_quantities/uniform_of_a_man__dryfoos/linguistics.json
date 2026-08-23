@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28667,
+    "body_sha256": "3603f039c093a85f1541db4d759a9ae6ea110267ff6ab85103e5737f481cb659",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/uniform_of_a_man__dryfoos/story.json"
+  },
+  "lcats_id": "mass_quantities/uniform_of_a_man__dryfoos",
+  "metrics": {
+    "avg_sentence_length": 13.943765281173594,
+    "avg_word_length": 4.026126600035069,
+    "sentence_count": 409,
+    "token_count": 6821,
+    "word_count": 5703
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/uniform_of_a_man__dryfoos/story.json"
+}

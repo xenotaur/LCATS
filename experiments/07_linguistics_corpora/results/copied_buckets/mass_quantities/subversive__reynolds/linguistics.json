@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39871,
+    "body_sha256": "7fe4517640c2139a80606ae6baee4f74cd8358f8bba21fec0b956766a37b8fd8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/subversive__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/subversive__reynolds",
+  "metrics": {
+    "avg_sentence_length": 13.473136915077989,
+    "avg_word_length": 4.122073578595318,
+    "sentence_count": 577,
+    "token_count": 9432,
+    "word_count": 7774
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/subversive__reynolds/story.json"
+}

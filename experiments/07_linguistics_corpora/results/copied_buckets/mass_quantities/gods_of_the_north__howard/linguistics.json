@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18117,
+    "body_sha256": "decebf25137cabf5dcaedc63de146702101803c491f27f206daa4420cb082278",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gods_of_the_north__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/gods_of_the_north__howard",
+  "metrics": {
+    "avg_sentence_length": 18.26,
+    "avg_word_length": 3.9764512595837895,
+    "sentence_count": 200,
+    "token_count": 4237,
+    "word_count": 3652
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gods_of_the_north__howard/story.json"
+}

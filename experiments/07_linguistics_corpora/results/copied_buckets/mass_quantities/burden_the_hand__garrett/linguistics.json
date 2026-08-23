@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21932,
+    "body_sha256": "4a51f3c27e7e9ca70f1b1809eec33d99a3b2310dbd122d8de2ef372fb724bed7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/burden_the_hand__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/burden_the_hand__garrett",
+  "metrics": {
+    "avg_sentence_length": 13.735384615384616,
+    "avg_word_length": 3.9007616487455197,
+    "sentence_count": 325,
+    "token_count": 5387,
+    "word_count": 4464
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/burden_the_hand__garrett/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33810,
+    "body_sha256": "51ff1dc1a7278622e9f9bac9f28719110f1513271dc703c25ea2c2c99859a5da",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beast_jewel_of_mars__thiessen/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beast_jewel_of_mars__thiessen",
+  "metrics": {
+    "avg_sentence_length": 13.922,
+    "avg_word_length": 3.8503088636690133,
+    "sentence_count": 500,
+    "token_count": 8158,
+    "word_count": 6961
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beast_jewel_of_mars__thiessen/story.json"
+}

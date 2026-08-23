@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30537,
+    "body_sha256": "dd602d5199a984f6c38997ad42d61678431f60c5174362b2011d334df469041a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_giftie_gien__jameson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_giftie_gien__jameson",
+  "metrics": {
+    "avg_sentence_length": 14.445497630331754,
+    "avg_word_length": 4.010498687664042,
+    "sentence_count": 422,
+    "token_count": 7203,
+    "word_count": 6096
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_giftie_gien__jameson/story.json"
+}

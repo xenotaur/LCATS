@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33503,
+    "body_sha256": "368ed0dfe7bb4f9b630a77fa25519998e87ed84743d3a6ba52ae671836f9dca0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_toothache_on_zenob__ellanby/story.json"
+  },
+  "lcats_id": "mass_quantities/a_toothache_on_zenob__ellanby",
+  "metrics": {
+    "avg_sentence_length": 15.12442396313364,
+    "avg_word_length": 4.104052407068861,
+    "sentence_count": 434,
+    "token_count": 7812,
+    "word_count": 6564
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_toothache_on_zenob__ellanby/story.json"
+}

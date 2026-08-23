@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24711,
+    "body_sha256": "711dbe13cb9404816849a974cdcd4f9cc6001581f116a3f2b45ff32a41d8351a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_thought_for_tomorrow__gilbert/story.json"
+  },
+  "lcats_id": "mass_quantities/a_thought_for_tomorrow__gilbert",
+  "metrics": {
+    "avg_sentence_length": 13.294277929155314,
+    "avg_word_length": 4.0645624103299856,
+    "sentence_count": 367,
+    "token_count": 5828,
+    "word_count": 4879
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_thought_for_tomorrow__gilbert/story.json"
+}

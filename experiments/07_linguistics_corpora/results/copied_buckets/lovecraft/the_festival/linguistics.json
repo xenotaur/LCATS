@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20315,
+    "body_sha256": "3e2e8453f2831989458687bb12c07c204dbf0f5e1b9fa3885080ed26a76e2a0e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_festival/story.json"
+  },
+  "lcats_id": "lovecraft/the_festival",
+  "metrics": {
+    "avg_sentence_length": 33.888888888888886,
+    "avg_word_length": 4.188650693568726,
+    "sentence_count": 117,
+    "token_count": 4396,
+    "word_count": 3965
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_festival/story.json"
+}

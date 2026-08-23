@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25756,
+    "body_sha256": "fc828d27dbea6e84436037072791822da67cf2e013b880d84bbfc4104a6de04f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/outcast_of_the_stars__silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/outcast_of_the_stars__silverberg",
+  "metrics": {
+    "avg_sentence_length": 12.78484107579462,
+    "avg_word_length": 3.9342130426467774,
+    "sentence_count": 409,
+    "token_count": 6241,
+    "word_count": 5229
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/outcast_of_the_stars__silverberg/story.json"
+}

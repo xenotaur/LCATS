@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 9922,
+    "body_sha256": "3dfc0b911128c4d7c288f1a1f292ce0c2fc896d93917db09839999ea5d56565a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_expendables__harmon/story.json"
+  },
+  "lcats_id": "mass_quantities/the_expendables__harmon",
+  "metrics": {
+    "avg_sentence_length": 15.444444444444445,
+    "avg_word_length": 4.120246659815005,
+    "sentence_count": 126,
+    "token_count": 2306,
+    "word_count": 1946
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_expendables__harmon/story.json"
+}

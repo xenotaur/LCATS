@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 48684,
+    "body_sha256": "b48358f9f0157b93e720b676753166ba5720a64b8cb0705bea59dd8020ebde3a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/easy_money__sinclair/story.json"
+  },
+  "lcats_id": "mass_quantities/easy_money__sinclair",
+  "metrics": {
+    "avg_sentence_length": 14.360294117647058,
+    "avg_word_length": 3.9980542754736303,
+    "sentence_count": 680,
+    "token_count": 11440,
+    "word_count": 9765
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/easy_money__sinclair/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27786,
+    "body_sha256": "ab0a3b91ec94f455adf01b4f822866619594043218fe9bc00bc855abf3ab4731",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/amateur_in_chancery__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/amateur_in_chancery__smith",
+  "metrics": {
+    "avg_sentence_length": 14.453367875647668,
+    "avg_word_length": 3.962896576447392,
+    "sentence_count": 386,
+    "token_count": 6840,
+    "word_count": 5579
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/amateur_in_chancery__smith/story.json"
+}

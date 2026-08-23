@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22783,
+    "body_sha256": "6783172748c9fe9a0ae7803f3a9d8a9c2d71057a065bb926fab8fc2615759f65",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gangway_for_homer__hahn/story.json"
+  },
+  "lcats_id": "mass_quantities/gangway_for_homer__hahn",
+  "metrics": {
+    "avg_sentence_length": 14.618055555555555,
+    "avg_word_length": 4.408076009501188,
+    "sentence_count": 288,
+    "token_count": 5037,
+    "word_count": 4210
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/gangway_for_homer__hahn/story.json"
+}

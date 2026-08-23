@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32653,
+    "body_sha256": "7e94345c8d218993f9ebc058d7e8a7814089474ab2c3594a083c702f50e57e2d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_flight_of_the_eagle__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/the_flight_of_the_eagle__coppel",
+  "metrics": {
+    "avg_sentence_length": 14.394793926247289,
+    "avg_word_length": 3.949668474984931,
+    "sentence_count": 461,
+    "token_count": 7576,
+    "word_count": 6636
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_flight_of_the_eagle__coppel/story.json"
+}

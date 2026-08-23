@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 56683,
+    "body_sha256": "b530da03eeda3cdd91c62d6ddd7b742ca1ed059f00ff04fcc1e44a3d735a0945",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/her_country__andrews/story.json"
+  },
+  "lcats_id": "mass_quantities/her_country__andrews",
+  "metrics": {
+    "avg_sentence_length": 15.625169147496617,
+    "avg_word_length": 3.902658699229237,
+    "sentence_count": 739,
+    "token_count": 13869,
+    "word_count": 11547
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/her_country__andrews/story.json"
+}

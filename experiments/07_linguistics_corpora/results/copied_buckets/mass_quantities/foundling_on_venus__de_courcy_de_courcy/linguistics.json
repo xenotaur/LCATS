@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17265,
+    "body_sha256": "87621a61e8c553bf8c6d34db867a827442fb8dac4e1b2b532ca54848051d9731",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/foundling_on_venus__de_courcy_de_courcy/story.json"
+  },
+  "lcats_id": "mass_quantities/foundling_on_venus__de_courcy_de_courcy",
+  "metrics": {
+    "avg_sentence_length": 12.1280276816609,
+    "avg_word_length": 3.9089871611982883,
+    "sentence_count": 289,
+    "token_count": 4239,
+    "word_count": 3505
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/foundling_on_venus__de_courcy_de_courcy/story.json"
+}

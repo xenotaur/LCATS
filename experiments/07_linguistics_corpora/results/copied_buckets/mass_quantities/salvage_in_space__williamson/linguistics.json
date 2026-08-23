@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 49076,
+    "body_sha256": "b6fae344c2bc0d4decd4a1c9d4caaa6996503413b121d4ff58750439e17bfc1a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/salvage_in_space__williamson/story.json"
+  },
+  "lcats_id": "mass_quantities/salvage_in_space__williamson",
+  "metrics": {
+    "avg_sentence_length": 14.920062695924765,
+    "avg_word_length": 4.17386280071436,
+    "sentence_count": 638,
+    "token_count": 11043,
+    "word_count": 9519
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/salvage_in_space__williamson/story.json"
+}

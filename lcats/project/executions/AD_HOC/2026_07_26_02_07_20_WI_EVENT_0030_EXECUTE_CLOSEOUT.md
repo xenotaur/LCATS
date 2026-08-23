@@ -7,7 +7,7 @@ rerun_of: 2026_07_26_00_56_37_WI_EVENT_0030
 pr: https://github.com/xenotaur/LCATS/pull/158
 commit: 17fdd927
 agent: claude_app
-instruction_source: "Execute a Work Item to Closeout" playbook, applied to WI-EVENT-0030
+instruction_source: '"Execute a Work Item to Closeout" playbook, applied to WI-EVENT-0030'
 session_transcript: pending
 created_at: 2026-07-26T02:07:20-04:00
 ---

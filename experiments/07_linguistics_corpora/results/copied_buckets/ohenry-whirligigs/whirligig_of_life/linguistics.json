@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12198,
+    "body_sha256": "90c1d2a7028c6ab7b07ab3b8f0ff57d27dccbaac409865561c389145860e3787",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/whirligig_of_life/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/whirligig_of_life",
+  "metrics": {
+    "avg_sentence_length": 17.680851063829788,
+    "avg_word_length": 3.8912956277577218,
+    "sentence_count": 141,
+    "token_count": 3030,
+    "word_count": 2493
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/whirligig_of_life/story.json"
+}

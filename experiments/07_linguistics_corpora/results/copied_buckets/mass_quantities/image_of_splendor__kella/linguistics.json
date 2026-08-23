@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28226,
+    "body_sha256": "62741d5d384df5d01db916c7e6022d4764154d3e663fe6e29077df0ce581d50d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/image_of_splendor__kella/story.json"
+  },
+  "lcats_id": "mass_quantities/image_of_splendor__kella",
+  "metrics": {
+    "avg_sentence_length": 14.810958904109588,
+    "avg_word_length": 4.21291157972623,
+    "sentence_count": 365,
+    "token_count": 6588,
+    "word_count": 5406
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/image_of_splendor__kella/story.json"
+}

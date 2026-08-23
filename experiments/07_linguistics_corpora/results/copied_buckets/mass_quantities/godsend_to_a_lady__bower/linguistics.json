@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 53772,
+    "body_sha256": "0d21e0f7654a37b8b9d916cca2f0e5268dcb44b99c3093fc68fc007456bff4b7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/godsend_to_a_lady__bower/story.json"
+  },
+  "lcats_id": "mass_quantities/godsend_to_a_lady__bower",
+  "metrics": {
+    "avg_sentence_length": 19.501748251748253,
+    "avg_word_length": 3.854504706409682,
+    "sentence_count": 572,
+    "token_count": 12837,
+    "word_count": 11155
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/godsend_to_a_lady__bower/story.json"
+}

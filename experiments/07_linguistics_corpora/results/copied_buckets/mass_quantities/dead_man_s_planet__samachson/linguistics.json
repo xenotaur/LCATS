@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24292,
+    "body_sha256": "2f941fb45e2dec1a3feecb3ab0d70820fd4c9a23558d1badebea4dd35a97746d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_man_s_planet__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/dead_man_s_planet__samachson",
+  "metrics": {
+    "avg_sentence_length": 12.733830845771145,
+    "avg_word_length": 3.7366673178355145,
+    "sentence_count": 402,
+    "token_count": 6246,
+    "word_count": 5119
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_man_s_planet__samachson/story.json"
+}

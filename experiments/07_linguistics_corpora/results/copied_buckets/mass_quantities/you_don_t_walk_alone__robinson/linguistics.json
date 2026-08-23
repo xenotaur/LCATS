@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24041,
+    "body_sha256": "5e8e2ae3b70573e63f81a0b9a585cb6bb9238ed2094e1b7413c4f94bc73361aa",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/you_don_t_walk_alone__robinson/story.json"
+  },
+  "lcats_id": "mass_quantities/you_don_t_walk_alone__robinson",
+  "metrics": {
+    "avg_sentence_length": 14.127777777777778,
+    "avg_word_length": 3.7599292174596934,
+    "sentence_count": 360,
+    "token_count": 5882,
+    "word_count": 5086
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/you_don_t_walk_alone__robinson/story.json"
+}

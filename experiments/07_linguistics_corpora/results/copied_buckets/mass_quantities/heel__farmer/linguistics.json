@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29463,
+    "body_sha256": "809479bec1b4d348b1c15f23333549d5c48f01f1ca931b45f61afcb68249e686",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heel__farmer/story.json"
+  },
+  "lcats_id": "mass_quantities/heel__farmer",
+  "metrics": {
+    "avg_sentence_length": 14.150234741784038,
+    "avg_word_length": 3.8876907763769077,
+    "sentence_count": 426,
+    "token_count": 7149,
+    "word_count": 6028
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heel__farmer/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10145,
+    "body_sha256": "e167bff4032017e9749a24bef6d966efa2f076254ed1aba8f4a3b12bc052267c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/alpine_idyll/story.json"
+  },
+  "lcats_id": "hemingway/alpine_idyll",
+  "metrics": {
+    "avg_sentence_length": 10.591549295774648,
+    "avg_word_length": 3.50177304964539,
+    "sentence_count": 213,
+    "token_count": 2841,
+    "word_count": 2256
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/alpine_idyll/story.json"
+}

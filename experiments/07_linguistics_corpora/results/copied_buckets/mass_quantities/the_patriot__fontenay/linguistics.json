@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24865,
+    "body_sha256": "fb748e1ed105c0a223820ce4d8a197e070ff2e595a8aa14b5fd8a9c8814e09c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_patriot__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/the_patriot__fontenay",
+  "metrics": {
+    "avg_sentence_length": 17.405017921146953,
+    "avg_word_length": 4.1532125205930805,
+    "sentence_count": 279,
+    "token_count": 5681,
+    "word_count": 4856
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_patriot__fontenay/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24054,
+    "body_sha256": "f2e7afef5856872630fd1bf4b0cc3c2d6d14e7083eb05e5c9d65f6fcbac6a188",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dumbwaiter__stamers/story.json"
+  },
+  "lcats_id": "mass_quantities/dumbwaiter__stamers",
+  "metrics": {
+    "avg_sentence_length": 15.352750809061488,
+    "avg_word_length": 4.059443507588533,
+    "sentence_count": 309,
+    "token_count": 5767,
+    "word_count": 4744
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dumbwaiter__stamers/story.json"
+}

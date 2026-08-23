@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54897,
+    "body_sha256": "fab01d4e9edeae0959cc4ffeb0f58a5fd3c33475c68d560511d13633937f126e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/story.json"
+  },
+  "lcats_id": "mass_quantities/le_monsieur_de_la_petite_dame__burnett",
+  "metrics": {
+    "avg_sentence_length": 15.21835883171071,
+    "avg_word_length": 3.986931091208189,
+    "sentence_count": 719,
+    "token_count": 13272,
+    "word_count": 10942
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/story.json"
+}

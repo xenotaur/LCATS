@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28473,
+    "body_sha256": "2c4c66c2846bb3f9f4213bb9ab8e7b49eda7876ed1b2174747f22dca7851e5f0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_voice_in_the_fog__leverage/story.json"
+  },
+  "lcats_id": "mass_quantities/the_voice_in_the_fog__leverage",
+  "metrics": {
+    "avg_sentence_length": 20.729323308270676,
+    "avg_word_length": 4.1788175553137465,
+    "sentence_count": 266,
+    "token_count": 6691,
+    "word_count": 5514
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_voice_in_the_fog__leverage/story.json"
+}

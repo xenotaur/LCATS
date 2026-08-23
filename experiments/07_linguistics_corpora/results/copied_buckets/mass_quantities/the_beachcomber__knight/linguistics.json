@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21255,
+    "body_sha256": "55d3a90cb10c943853ff2e9da97eaa877f5efa01941204f55b04afdae341467d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beachcomber__knight/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beachcomber__knight",
+  "metrics": {
+    "avg_sentence_length": 13.309148264984227,
+    "avg_word_length": 4.003555344868452,
+    "sentence_count": 317,
+    "token_count": 5234,
+    "word_count": 4219
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beachcomber__knight/story.json"
+}

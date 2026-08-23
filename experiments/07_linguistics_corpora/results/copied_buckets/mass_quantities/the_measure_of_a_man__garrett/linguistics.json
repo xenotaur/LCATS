@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22954,
+    "body_sha256": "953e3144764088e780ab340548c30c574ea788025703ef0ecf62577ea0472f88",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_measure_of_a_man__garrett/story.json"
+  },
+  "lcats_id": "mass_quantities/the_measure_of_a_man__garrett",
+  "metrics": {
+    "avg_sentence_length": 13.528735632183908,
+    "avg_word_length": 3.9226847918436705,
+    "sentence_count": 348,
+    "token_count": 5404,
+    "word_count": 4708
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_measure_of_a_man__garrett/story.json"
+}

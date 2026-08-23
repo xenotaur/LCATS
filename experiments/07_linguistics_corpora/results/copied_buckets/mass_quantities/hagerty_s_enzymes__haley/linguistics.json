@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27269,
+    "body_sha256": "6a2381a2ed2e1cebd6171b474a87f3c838caf5068d70a2d4de2dd9e80190a9db",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hagerty_s_enzymes__haley/story.json"
+  },
+  "lcats_id": "mass_quantities/hagerty_s_enzymes__haley",
+  "metrics": {
+    "avg_sentence_length": 11.411016949152541,
+    "avg_word_length": 4.0753806164129225,
+    "sentence_count": 472,
+    "token_count": 6437,
+    "word_count": 5386
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hagerty_s_enzymes__haley/story.json"
+}

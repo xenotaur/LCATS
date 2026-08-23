@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11581,
+    "body_sha256": "af7bdfe14848204de9ab865fdf201ab68b4961c0e1eadaa7c8b0c46e1c90294f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_carnivore__maclean/story.json"
+  },
+  "lcats_id": "mass_quantities/the_carnivore__maclean",
+  "metrics": {
+    "avg_sentence_length": 17.365671641791046,
+    "avg_word_length": 3.999140524280189,
+    "sentence_count": 134,
+    "token_count": 2657,
+    "word_count": 2327
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_carnivore__maclean/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 16321,
+    "body_sha256": "d6b13f09bb9b33eaffb06d8c515c9dbea7fc57c8b4755b665fe53edf5d737ec4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nothing_equation__godwin/story.json"
+  },
+  "lcats_id": "mass_quantities/the_nothing_equation__godwin",
+  "metrics": {
+    "avg_sentence_length": 19.076470588235296,
+    "avg_word_length": 4.094665433240826,
+    "sentence_count": 170,
+    "token_count": 3590,
+    "word_count": 3243
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_nothing_equation__godwin/story.json"
+}

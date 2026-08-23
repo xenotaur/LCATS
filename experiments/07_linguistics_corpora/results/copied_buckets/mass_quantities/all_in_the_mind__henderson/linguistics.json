@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38864,
+    "body_sha256": "2f2bd2720f65bfe8c0acac53d56c45f5b30dd55a461fd11d71b9c184762d61b9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_in_the_mind__henderson/story.json"
+  },
+  "lcats_id": "mass_quantities/all_in_the_mind__henderson",
+  "metrics": {
+    "avg_sentence_length": 17.077262693156733,
+    "avg_word_length": 4.065020682523268,
+    "sentence_count": 453,
+    "token_count": 8792,
+    "word_count": 7736
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/all_in_the_mind__henderson/story.json"
+}

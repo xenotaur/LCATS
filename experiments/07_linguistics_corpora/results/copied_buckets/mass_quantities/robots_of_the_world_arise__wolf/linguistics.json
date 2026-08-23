@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36329,
+    "body_sha256": "68c23f1b66e4fd32efa22a322fd5fedf36ee6f30467ded7a396be35a4a2af0f6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/robots_of_the_world_arise__wolf/story.json"
+  },
+  "lcats_id": "mass_quantities/robots_of_the_world_arise__wolf",
+  "metrics": {
+    "avg_sentence_length": 11.751962323390895,
+    "avg_word_length": 3.846112743788405,
+    "sentence_count": 637,
+    "token_count": 9051,
+    "word_count": 7486
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/robots_of_the_world_arise__wolf/story.json"
+}

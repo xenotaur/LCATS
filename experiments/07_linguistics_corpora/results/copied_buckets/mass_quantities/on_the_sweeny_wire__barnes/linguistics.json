@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28955,
+    "body_sha256": "05d8f0ce96c574a81eee26bb468477d6afe4eaaa007344e8d90a25df9aee12cb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/on_the_sweeny_wire__barnes/story.json"
+  },
+  "lcats_id": "mass_quantities/on_the_sweeny_wire__barnes",
+  "metrics": {
+    "avg_sentence_length": 16.885245901639344,
+    "avg_word_length": 3.620064724919094,
+    "sentence_count": 366,
+    "token_count": 7778,
+    "word_count": 6180
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/on_the_sweeny_wire__barnes/story.json"
+}

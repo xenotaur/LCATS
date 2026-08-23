@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20980,
+    "body_sha256": "2796924759585a03d16992de2eedc7f7f76a4ba56f178c3ac2486d442d37d34f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/puppet_government__revelle/story.json"
+  },
+  "lcats_id": "mass_quantities/puppet_government__revelle",
+  "metrics": {
+    "avg_sentence_length": 10.679389312977099,
+    "avg_word_length": 3.97855611150822,
+    "sentence_count": 393,
+    "token_count": 5145,
+    "word_count": 4197
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/puppet_government__revelle/story.json"
+}

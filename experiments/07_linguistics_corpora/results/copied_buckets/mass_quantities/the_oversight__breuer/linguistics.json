@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41900,
+    "body_sha256": "e87df793f0ba6d4bca8d80c7ec088488ca51cbc362833252d9955bc2bc080659",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_oversight__breuer/story.json"
+  },
+  "lcats_id": "mass_quantities/the_oversight__breuer",
+  "metrics": {
+    "avg_sentence_length": 15.161710037174721,
+    "avg_word_length": 4.158146377344612,
+    "sentence_count": 538,
+    "token_count": 9452,
+    "word_count": 8157
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_oversight__breuer/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7636,
+    "body_sha256": "e777aff9ef4fc9cbb4dc5349aac8067b583c6bffa071a5cd4abf0743fa2f223b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_used_people_lot__fang/story.json"
+  },
+  "lcats_id": "mass_quantities/the_used_people_lot__fang",
+  "metrics": {
+    "avg_sentence_length": 15.179245283018869,
+    "avg_word_length": 3.7663144810441267,
+    "sentence_count": 106,
+    "token_count": 1888,
+    "word_count": 1609
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_used_people_lot__fang/story.json"
+}

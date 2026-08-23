@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26126,
+    "body_sha256": "eaab9260578fe6dd8eb5a39e7a879d2c65c4f46a72641cf8cf501a2d7f180d68",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_messengers__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_messengers__davis",
+  "metrics": {
+    "avg_sentence_length": 19.423791821561338,
+    "avg_word_length": 3.9992344497607655,
+    "sentence_count": 269,
+    "token_count": 6109,
+    "word_count": 5225
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_messengers__davis/story.json"
+}

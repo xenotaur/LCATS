@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23164,
+    "body_sha256": "d5a607e1da63029211856f56219cfdca070f2922427c334332fe26eec9914f3f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_flying_cuspidors__francis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_flying_cuspidors__francis",
+  "metrics": {
+    "avg_sentence_length": 18.81853281853282,
+    "avg_word_length": 3.739228559704555,
+    "sentence_count": 259,
+    "token_count": 5784,
+    "word_count": 4874
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_flying_cuspidors__francis/story.json"
+}

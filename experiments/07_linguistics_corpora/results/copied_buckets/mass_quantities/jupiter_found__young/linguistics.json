@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26743,
+    "body_sha256": "f979a5650389ddf4da5e24eb45cb46a5bedc99f491f058005821b931f52467c2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jupiter_found__young/story.json"
+  },
+  "lcats_id": "mass_quantities/jupiter_found__young",
+  "metrics": {
+    "avg_sentence_length": 18.96808510638298,
+    "avg_word_length": 4.010469246588148,
+    "sentence_count": 282,
+    "token_count": 6321,
+    "word_count": 5349
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/jupiter_found__young/story.json"
+}

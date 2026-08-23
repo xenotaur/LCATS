@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38991,
+    "body_sha256": "3c35bd74f3167610312b2a0b52d5e7996fc249e2425a0f3db974a6e9cc554be3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cosmic_yo_yo__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/cosmic_yo_yo__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 13.825539568345324,
+    "avg_word_length": 4.07415116430337,
+    "sentence_count": 556,
+    "token_count": 9252,
+    "word_count": 7687
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/cosmic_yo_yo__rocklynne/story.json"
+}

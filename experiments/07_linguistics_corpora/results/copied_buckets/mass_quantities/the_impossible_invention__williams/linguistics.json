@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29658,
+    "body_sha256": "b3224054bb8e2347b6a2e3f48e703a60f44a1afee1c2c8f0ab105249b1397e20",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_impossible_invention__williams/story.json"
+  },
+  "lcats_id": "mass_quantities/the_impossible_invention__williams",
+  "metrics": {
+    "avg_sentence_length": 13.460496613995485,
+    "avg_word_length": 3.9902733523394263,
+    "sentence_count": 443,
+    "token_count": 6979,
+    "word_count": 5963
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_impossible_invention__williams/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 70070,
+    "body_sha256": "1679e8e273771600a31fd2accd4c2090e64f2e67732708dfc493daa2eff396c3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_call_of_cthulhu/story.json"
+  },
+  "lcats_id": "lovecraft/the_call_of_cthulhu",
+  "metrics": {
+    "avg_sentence_length": 30.55787037037037,
+    "avg_word_length": 4.374592833876221,
+    "sentence_count": 432,
+    "token_count": 14636,
+    "word_count": 13201
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_call_of_cthulhu/story.json"
+}

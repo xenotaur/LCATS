@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34168,
+    "body_sha256": "ebb152d7f812fb41bb49c091def392814608baabcdaa0975f10f067c3efae051",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/captain_peabody__phillips/story.json"
+  },
+  "lcats_id": "mass_quantities/captain_peabody__phillips",
+  "metrics": {
+    "avg_sentence_length": 19.40983606557377,
+    "avg_word_length": 3.8482545045045047,
+    "sentence_count": 366,
+    "token_count": 8018,
+    "word_count": 7104
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/captain_peabody__phillips/story.json"
+}

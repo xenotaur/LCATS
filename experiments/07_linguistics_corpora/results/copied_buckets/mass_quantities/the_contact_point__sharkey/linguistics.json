@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19263,
+    "body_sha256": "e466eeee5a3e8660e01de927d819b87e6a29b20ac7e74517b13313ebf3398a34",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_contact_point__sharkey/story.json"
+  },
+  "lcats_id": "mass_quantities/the_contact_point__sharkey",
+  "metrics": {
+    "avg_sentence_length": 13.556737588652481,
+    "avg_word_length": 3.9942453570494374,
+    "sentence_count": 282,
+    "token_count": 4836,
+    "word_count": 3823
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_contact_point__sharkey/story.json"
+}

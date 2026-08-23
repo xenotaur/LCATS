@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 43244,
+    "body_sha256": "9da19466ed4258d272f9773f92b5e355b819d3f3c85d18b1dd0aaaede3bd2dc3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/failure_on_titan__abernathy/story.json"
+  },
+  "lcats_id": "mass_quantities/failure_on_titan__abernathy",
+  "metrics": {
+    "avg_sentence_length": 18.445887445887447,
+    "avg_word_length": 4.0831964327622625,
+    "sentence_count": 462,
+    "token_count": 10018,
+    "word_count": 8522
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/failure_on_titan__abernathy/story.json"
+}

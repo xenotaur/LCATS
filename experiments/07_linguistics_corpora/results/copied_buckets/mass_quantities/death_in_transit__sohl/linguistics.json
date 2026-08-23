@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32797,
+    "body_sha256": "aa8b0d7610c159c16c83798d8e8d5b2153b7b9fb22e68e21f032d1184ed8d93e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_in_transit__sohl/story.json"
+  },
+  "lcats_id": "mass_quantities/death_in_transit__sohl",
+  "metrics": {
+    "avg_sentence_length": 12.505555555555556,
+    "avg_word_length": 3.859173700577521,
+    "sentence_count": 540,
+    "token_count": 7985,
+    "word_count": 6753
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_in_transit__sohl/story.json"
+}

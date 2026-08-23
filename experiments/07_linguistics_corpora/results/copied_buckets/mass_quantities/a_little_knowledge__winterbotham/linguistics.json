@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18932,
+    "body_sha256": "3d1193d23e5baa1cac415c7fd0e1479741f5069f3f2703a93ac7d026696eeac5",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_little_knowledge__winterbotham/story.json"
+  },
+  "lcats_id": "mass_quantities/a_little_knowledge__winterbotham",
+  "metrics": {
+    "avg_sentence_length": 13.819852941176471,
+    "avg_word_length": 3.9843043362596435,
+    "sentence_count": 272,
+    "token_count": 4729,
+    "word_count": 3759
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_little_knowledge__winterbotham/story.json"
+}

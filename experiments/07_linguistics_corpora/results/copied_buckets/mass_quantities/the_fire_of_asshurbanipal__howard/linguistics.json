@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51801,
+    "body_sha256": "72599ac5db472f22f0e016495f890d5e04be352fdb32aa3ad4399763b26d2f37",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_fire_of_asshurbanipal__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/the_fire_of_asshurbanipal__howard",
+  "metrics": {
+    "avg_sentence_length": 20.876267748478703,
+    "avg_word_length": 4.0603381267003495,
+    "sentence_count": 493,
+    "token_count": 11896,
+    "word_count": 10292
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_fire_of_asshurbanipal__howard/story.json"
+}

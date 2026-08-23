@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25914,
+    "body_sha256": "c1bcc3029345630be65c32114cda380a027af69f21da3b57429594cdc69a63be",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/step_4__brown/story.json"
+  },
+  "lcats_id": "mass_quantities/step_4__brown",
+  "metrics": {
+    "avg_sentence_length": 14.26771653543307,
+    "avg_word_length": 3.7236938925680647,
+    "sentence_count": 381,
+    "token_count": 6613,
+    "word_count": 5436
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/step_4__brown/story.json"
+}

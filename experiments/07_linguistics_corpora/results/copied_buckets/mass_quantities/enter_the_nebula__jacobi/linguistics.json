@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 56620,
+    "body_sha256": "8d68c46ee61e1dae0d1a446e341de2d90b5afe8aac4cb3c8cbf84976c2373623",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/enter_the_nebula__jacobi/story.json"
+  },
+  "lcats_id": "mass_quantities/enter_the_nebula__jacobi",
+  "metrics": {
+    "avg_sentence_length": 13.869240348692404,
+    "avg_word_length": 4.109095806770226,
+    "sentence_count": 803,
+    "token_count": 13024,
+    "word_count": 11137
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/enter_the_nebula__jacobi/story.json"
+}

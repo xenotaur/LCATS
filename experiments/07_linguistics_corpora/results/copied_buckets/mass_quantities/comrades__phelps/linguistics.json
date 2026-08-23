@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39462,
+    "body_sha256": "df3648eb5ef93e4017c44101b4b4fd3ee19e7daa4b9f785d89b434dcadbf0e97",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/comrades__phelps/story.json"
+  },
+  "lcats_id": "mass_quantities/comrades__phelps",
+  "metrics": {
+    "avg_sentence_length": 14.960573476702509,
+    "avg_word_length": 3.761020603737422,
+    "sentence_count": 558,
+    "token_count": 10039,
+    "word_count": 8348
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/comrades__phelps/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26858,
+    "body_sha256": "ce4cddbf2c91cdcccd42b45ec1b31e1df1611fd3b2f37937a21271be5084eb10",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_angel_of_lonesome_hill_a_story_of_a_president__landis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_angel_of_lonesome_hill_a_story_of_a_president__landis",
+  "metrics": {
+    "avg_sentence_length": 20.00369003690037,
+    "avg_word_length": 3.952038369304556,
+    "sentence_count": 271,
+    "token_count": 6469,
+    "word_count": 5421
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_angel_of_lonesome_hill_a_story_of_a_president__landis/story.json"
+}

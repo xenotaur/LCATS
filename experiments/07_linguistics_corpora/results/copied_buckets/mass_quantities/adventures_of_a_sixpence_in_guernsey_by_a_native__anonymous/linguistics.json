@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24966,
+    "body_sha256": "ad539dd71b3d923be07297a87c01c25e6026cccece294a482d712a9509cdddb3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/adventures_of_a_sixpence_in_guernsey_by_a_native__anonymous/story.json"
+  },
+  "lcats_id": "mass_quantities/adventures_of_a_sixpence_in_guernsey_by_a_native__anonymous",
+  "metrics": {
+    "avg_sentence_length": 31.432098765432098,
+    "avg_word_length": 3.9177140612725845,
+    "sentence_count": 162,
+    "token_count": 5881,
+    "word_count": 5092
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/adventures_of_a_sixpence_in_guernsey_by_a_native__anonymous/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15872,
+    "body_sha256": "f5f56881140b47a98f7482ddce4c9f758247efd2803c71d78e5899d4ad1a8f9e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cuckoo_clock__barefoot/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cuckoo_clock__barefoot",
+  "metrics": {
+    "avg_sentence_length": 9.26086956521739,
+    "avg_word_length": 3.926134585289515,
+    "sentence_count": 345,
+    "token_count": 4033,
+    "word_count": 3195
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cuckoo_clock__barefoot/story.json"
+}

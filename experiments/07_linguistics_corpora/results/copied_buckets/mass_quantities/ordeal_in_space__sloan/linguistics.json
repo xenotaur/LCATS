@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27431,
+    "body_sha256": "d7bdce24def8f98e3bc3e355f94f03f954fb8a6f0db93840ff3559e787786c76",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ordeal_in_space__sloan/story.json"
+  },
+  "lcats_id": "mass_quantities/ordeal_in_space__sloan",
+  "metrics": {
+    "avg_sentence_length": 11.475890985324948,
+    "avg_word_length": 4.02648885641213,
+    "sentence_count": 477,
+    "token_count": 6471,
+    "word_count": 5474
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/ordeal_in_space__sloan/story.json"
+}

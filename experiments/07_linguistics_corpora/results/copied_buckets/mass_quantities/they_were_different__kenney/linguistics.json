@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36371,
+    "body_sha256": "266e3e255f7b9d4f8e2cea8143b011452a3920e1e4da5bbc2bc18c47d7f282ee",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/they_were_different__kenney/story.json"
+  },
+  "lcats_id": "mass_quantities/they_were_different__kenney",
+  "metrics": {
+    "avg_sentence_length": 17.041379310344826,
+    "avg_word_length": 3.985161203291515,
+    "sentence_count": 435,
+    "token_count": 8158,
+    "word_count": 7413
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/they_were_different__kenney/story.json"
+}

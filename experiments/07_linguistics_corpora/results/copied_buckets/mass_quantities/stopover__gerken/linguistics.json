@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17959,
+    "body_sha256": "4b0ebd65c8ac44c96fc01e7d26f256938d66a9c2d65b009467f2e9bae11b7795",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stopover__gerken/story.json"
+  },
+  "lcats_id": "mass_quantities/stopover__gerken",
+  "metrics": {
+    "avg_sentence_length": 15.196,
+    "avg_word_length": 3.730455382995525,
+    "sentence_count": 250,
+    "token_count": 4486,
+    "word_count": 3799
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stopover__gerken/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38182,
+    "body_sha256": "e81788224f02b79a5932afff6baaafec2c9971bb8d2d9bae907d9d0984285a82",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_men_of_boru__nelson/story.json"
+  },
+  "lcats_id": "mass_quantities/the_men_of_boru__nelson",
+  "metrics": {
+    "avg_sentence_length": 11.358407079646017,
+    "avg_word_length": 3.9450720685625242,
+    "sentence_count": 678,
+    "token_count": 9291,
+    "word_count": 7701
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_men_of_boru__nelson/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25911,
+    "body_sha256": "d7cde9ddb6c59ab06cba87d44ba51b8c91fc65b77af590eee9233a6dd047e1df",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_might_have_happened_otherwise__pendexter/story.json"
+  },
+  "lcats_id": "mass_quantities/it_might_have_happened_otherwise__pendexter",
+  "metrics": {
+    "avg_sentence_length": 18.37184115523466,
+    "avg_word_length": 4.149734721949303,
+    "sentence_count": 277,
+    "token_count": 5704,
+    "word_count": 5089
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_might_have_happened_otherwise__pendexter/story.json"
+}

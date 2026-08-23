@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15324,
+    "body_sha256": "e11d26af272c534ef878c8cab8454d36ee551e1b46485b45a85648657a0a51fa",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/tobin_s_palm/story.json"
+  },
+  "lcats_id": "ohenry-four_million/tobin_s_palm",
+  "metrics": {
+    "avg_sentence_length": 20.254777070063696,
+    "avg_word_length": 3.7955974842767297,
+    "sentence_count": 157,
+    "token_count": 3806,
+    "word_count": 3180
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/tobin_s_palm/story.json"
+}

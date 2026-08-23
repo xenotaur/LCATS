@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8418,
+    "body_sha256": "fe392cb1ca64ddb573ec1bc52f6292aa1a4d712528fe4ff3fc2ae0817eb16580",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/ten_indians/story.json"
+  },
+  "lcats_id": "hemingway/ten_indians",
+  "metrics": {
+    "avg_sentence_length": 11.761006289308176,
+    "avg_word_length": 3.4909090909090907,
+    "sentence_count": 159,
+    "token_count": 2417,
+    "word_count": 1870
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/ten_indians/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29980,
+    "body_sha256": "10545569dae8178b787741c6ecc17edf4a9b04915e4cd8f6cc910eaab070155b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_touch_of_terra__bok/story.json"
+  },
+  "lcats_id": "mass_quantities/one_touch_of_terra__bok",
+  "metrics": {
+    "avg_sentence_length": 14.566502463054187,
+    "avg_word_length": 4.088772404463984,
+    "sentence_count": 406,
+    "token_count": 7079,
+    "word_count": 5914
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/one_touch_of_terra__bok/story.json"
+}

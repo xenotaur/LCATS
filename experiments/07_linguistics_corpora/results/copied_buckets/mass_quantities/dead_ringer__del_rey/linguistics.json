@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22466,
+    "body_sha256": "ce67bf8f37079dcdf1a29b174b6f686ee0b23c7e2b97a00697bd51abb48c96c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_ringer__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/dead_ringer__del_rey",
+  "metrics": {
+    "avg_sentence_length": 14.25236593059937,
+    "avg_word_length": 4.003098716246127,
+    "sentence_count": 317,
+    "token_count": 5193,
+    "word_count": 4518
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dead_ringer__del_rey/story.json"
+}

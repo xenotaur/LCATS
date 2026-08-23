@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31351,
+    "body_sha256": "4b936da00718242c8e97d21da21cd94f7522827c88192e0b9124abb7e97491b9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_in_the_round__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/time_in_the_round__leiber",
+  "metrics": {
+    "avg_sentence_length": 14.514354066985646,
+    "avg_word_length": 4.175045327179825,
+    "sentence_count": 418,
+    "token_count": 7297,
+    "word_count": 6067
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_in_the_round__leiber/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34863,
+    "body_sha256": "6d96d44979edaa296927b9ecbd10761dce20e1600941318e5c00445e5a73752f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_tantalus_death__rocklynne/story.json"
+  },
+  "lcats_id": "mass_quantities/the_tantalus_death__rocklynne",
+  "metrics": {
+    "avg_sentence_length": 13.193737769080235,
+    "avg_word_length": 4.153366953426283,
+    "sentence_count": 511,
+    "token_count": 8149,
+    "word_count": 6742
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_tantalus_death__rocklynne/story.json"
+}

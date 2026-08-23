@@ -1,0 +1,35 @@
+{
+  "corpus_source_path": "corpora",
+  "corpus_source_revision": "523543e4844103674db8a4e099eb218e926acc29fe6ab798c738a1110cb89331",
+  "story_count": 1308,
+  "top_terms": {
+    "said": 0.05260531360400192,
+    "there": 0.04349359043196223,
+    "not": 0.040227232297992944,
+    "out": 0.03959294086862646,
+    "all": 0.03929599050876274,
+    "one": 0.035720281074357395,
+    "would": 0.03052534198682033,
+    "then": 0.02845716234150099,
+    "could": 0.028004077773264073,
+    "like": 0.027212371154860387,
+    "been": 0.026791457785796582,
+    "can": 0.024486821387001804,
+    "man": 0.02410945266694837,
+    "back": 0.024038611844670328,
+    "now": 0.023568215654080127,
+    "about": 0.023250370194509776,
+    "time": 0.0225872105941513,
+    "ship": 0.02034375205380439,
+    "down": 0.020130712717283308,
+    "just": 0.020044565217866135
+  },
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "top_k": 20,
+  "genre": "science fiction",
+  "candidates_source_path": "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl",
+  "candidates_source_revision": "ea52c53d60a39d703d168f709a929e64527494d1af3902268b26ef4883fa107d"
+}

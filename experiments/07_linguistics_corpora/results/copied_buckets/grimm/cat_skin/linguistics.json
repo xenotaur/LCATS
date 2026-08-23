@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11544,
+    "body_sha256": "6b857c84cc796bc0549b957292a098d17cc502dba02837560681a16a55e9aa93",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/cat_skin/story.json"
+  },
+  "lcats_id": "grimm/cat_skin",
+  "metrics": {
+    "avg_sentence_length": 31.175675675675677,
+    "avg_word_length": 3.978326831382748,
+    "sentence_count": 74,
+    "token_count": 2699,
+    "word_count": 2307
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/cat_skin/story.json"
+}

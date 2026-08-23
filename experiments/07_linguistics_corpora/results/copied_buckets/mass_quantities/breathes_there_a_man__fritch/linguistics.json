@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34418,
+    "body_sha256": "9a6f4bd24bbf74271b5d2e4657c9f0f91332c83725a05d218c1d7e0bb4357997",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breathes_there_a_man__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/breathes_there_a_man__fritch",
+  "metrics": {
+    "avg_sentence_length": 15.02283105022831,
+    "avg_word_length": 4.211854103343465,
+    "sentence_count": 438,
+    "token_count": 7987,
+    "word_count": 6580
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/breathes_there_a_man__fritch/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25388,
+    "body_sha256": "70f96e21dd8ab927a21112f3426653bfbb286a124991c8040348eef5f37e0d97",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hitch_hikers__mccain/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hitch_hikers__mccain",
+  "metrics": {
+    "avg_sentence_length": 17.888475836431226,
+    "avg_word_length": 4.340814630091438,
+    "sentence_count": 269,
+    "token_count": 5484,
+    "word_count": 4812
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hitch_hikers__mccain/story.json"
+}

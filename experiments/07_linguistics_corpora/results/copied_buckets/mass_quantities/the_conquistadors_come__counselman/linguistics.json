@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32657,
+    "body_sha256": "d04c8b9314b682b24365a7483312f3211df812bc054d56da2f2bf9f6c46725f6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_conquistadors_come__counselman/story.json"
+  },
+  "lcats_id": "mass_quantities/the_conquistadors_come__counselman",
+  "metrics": {
+    "avg_sentence_length": 13.126050420168067,
+    "avg_word_length": 4.174935979513444,
+    "sentence_count": 476,
+    "token_count": 7653,
+    "word_count": 6248
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_conquistadors_come__counselman/story.json"
+}

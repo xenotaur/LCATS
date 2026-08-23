@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39797,
+    "body_sha256": "d84de9690f4095e7c558d180e80da984e595b993b6144f14328f75fee2d96792",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_question_of_latitude__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/a_question_of_latitude__davis",
+  "metrics": {
+    "avg_sentence_length": 17.64189189189189,
+    "avg_word_length": 4.065236818588025,
+    "sentence_count": 444,
+    "token_count": 9280,
+    "word_count": 7833
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_question_of_latitude__davis/story.json"
+}

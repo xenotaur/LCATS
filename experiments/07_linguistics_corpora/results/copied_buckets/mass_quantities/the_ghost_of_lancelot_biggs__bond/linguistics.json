@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22112,
+    "body_sha256": "e2f4940159f88ead9c3c56fdc1f76537affd9ec65a77c300cb6c8f34430fa06a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ghost_of_lancelot_biggs__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ghost_of_lancelot_biggs__bond",
+  "metrics": {
+    "avg_sentence_length": 12.92485549132948,
+    "avg_word_length": 3.9246422182468694,
+    "sentence_count": 346,
+    "token_count": 5488,
+    "word_count": 4472
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ghost_of_lancelot_biggs__bond/story.json"
+}

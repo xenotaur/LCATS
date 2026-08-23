@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 3832,
+    "body_sha256": "c5f3cafe7175a339ea9448ce785f69fcf761ab8b3a0d8be56423ba09cb71b701",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mcgonigal_s_worm__lafferty/story.json"
+  },
+  "lcats_id": "mass_quantities/mcgonigal_s_worm__lafferty",
+  "metrics": {
+    "avg_sentence_length": 13.607142857142858,
+    "avg_word_length": 4.040682414698162,
+    "sentence_count": 56,
+    "token_count": 902,
+    "word_count": 762
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mcgonigal_s_worm__lafferty/story.json"
+}

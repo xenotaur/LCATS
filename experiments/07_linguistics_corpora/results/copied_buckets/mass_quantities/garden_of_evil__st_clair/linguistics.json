@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25045,
+    "body_sha256": "80f16b51047276cccfcadc57f8ecda8fefc86b1cbf79e319a1662e0a0507e552",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/garden_of_evil__st_clair/story.json"
+  },
+  "lcats_id": "mass_quantities/garden_of_evil__st_clair",
+  "metrics": {
+    "avg_sentence_length": 15.027190332326285,
+    "avg_word_length": 4.037796542018496,
+    "sentence_count": 331,
+    "token_count": 5813,
+    "word_count": 4974
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/garden_of_evil__st_clair/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10078,
+    "body_sha256": "1df777adf769bcbb8e792e763e2bd03a0666d4b0ffba1ce454550f929e0fd903",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sam_bass__cunningham/story.json"
+  },
+  "lcats_id": "mass_quantities/sam_bass__cunningham",
+  "metrics": {
+    "avg_sentence_length": 20.382978723404257,
+    "avg_word_length": 4.280793319415449,
+    "sentence_count": 94,
+    "token_count": 2233,
+    "word_count": 1916
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sam_bass__cunningham/story.json"
+}

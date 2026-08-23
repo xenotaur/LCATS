@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37263,
+    "body_sha256": "dcc096b5b84b6e4013baff6981e4f18257fb1120805cc4292882a7bacee6b5bc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sugar_plum__bretnor/story.json"
+  },
+  "lcats_id": "mass_quantities/sugar_plum__bretnor",
+  "metrics": {
+    "avg_sentence_length": 10.578417266187051,
+    "avg_word_length": 4.024347116430903,
+    "sentence_count": 695,
+    "token_count": 9342,
+    "word_count": 7352
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/sugar_plum__bretnor/story.json"
+}

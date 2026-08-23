@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32349,
+    "body_sha256": "8f6e9d67ebf0c76fc5876e1028bb63c0b5af3d051087f0820efc7954a9ed643e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_is_posat__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/what_is_posat__smith",
+  "metrics": {
+    "avg_sentence_length": 15.72979797979798,
+    "avg_word_length": 4.23422700272917,
+    "sentence_count": 396,
+    "token_count": 7143,
+    "word_count": 6229
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_is_posat__smith/story.json"
+}

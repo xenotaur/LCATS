@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36290,
+    "body_sha256": "cfad1b0e65afe1f587a3d681bad1ca31f007f4ea003563889b5334c76e34f278",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_madness_of_lancelot_biggs__bond/story.json"
+  },
+  "lcats_id": "mass_quantities/the_madness_of_lancelot_biggs__bond",
+  "metrics": {
+    "avg_sentence_length": 13.638733705772811,
+    "avg_word_length": 3.9270890223921353,
+    "sentence_count": 537,
+    "token_count": 9093,
+    "word_count": 7324
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_madness_of_lancelot_biggs__bond/story.json"
+}

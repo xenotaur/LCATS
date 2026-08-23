@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 4777,
+    "body_sha256": "de02086e6f3aef038ba6e50d2a82407054562d5f362492400c3d7f0e8a79cae4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/naughty_boy/story.json"
+  },
+  "lcats_id": "anderson/naughty_boy",
+  "metrics": {
+    "avg_sentence_length": 19.29787234042553,
+    "avg_word_length": 4.226019845644983,
+    "sentence_count": 47,
+    "token_count": 1080,
+    "word_count": 907
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/anderson/naughty_boy/story.json"
+}

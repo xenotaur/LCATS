@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31934,
+    "body_sha256": "4764493c99fac68c012b723e08570afcf9b19e1db221a069ab7227baf6b6b922",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mind_digger__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/the_mind_digger__marks",
+  "metrics": {
+    "avg_sentence_length": 14.589164785553047,
+    "avg_word_length": 3.9563670122234256,
+    "sentence_count": 443,
+    "token_count": 7700,
+    "word_count": 6463
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_mind_digger__marks/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12319,
+    "body_sha256": "dac2b97eda56c5dbcdb7e9bb5956c4d76cd280a17d9bf944b2380fc8afda2c74",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_one_and_the_many__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/the_one_and_the_many__marlowe",
+  "metrics": {
+    "avg_sentence_length": 13.924731182795698,
+    "avg_word_length": 3.7393822393822393,
+    "sentence_count": 186,
+    "token_count": 3090,
+    "word_count": 2590
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_one_and_the_many__marlowe/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42990,
+    "body_sha256": "0819a87fed42dd4856d21ecde253c14244f2e586c68c4870899de4d66e1acc5b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/billy_and_the_big_stick__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/billy_and_the_big_stick__davis",
+  "metrics": {
+    "avg_sentence_length": 16.83300198807157,
+    "avg_word_length": 4.061533010511397,
+    "sentence_count": 503,
+    "token_count": 10187,
+    "word_count": 8467
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/billy_and_the_big_stick__davis/story.json"
+}

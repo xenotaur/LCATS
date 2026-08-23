@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40411,
+    "body_sha256": "1969f954e45fbcd1cb3f0b4d5e3b21c8f33ba3e5c6bd8bbe3e9894ac0c4b273b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_deflector__coblentz/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cosmic_deflector__coblentz",
+  "metrics": {
+    "avg_sentence_length": 16.14928425357873,
+    "avg_word_length": 4.117639609978473,
+    "sentence_count": 489,
+    "token_count": 9418,
+    "word_count": 7897
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cosmic_deflector__coblentz/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 54282,
+    "body_sha256": "aadbe9cd17c4030a6c41c6b7e99c4f27853a020d7c7cfe48224d3df96bf94928",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monopoly__phillips_roberts/story.json"
+  },
+  "lcats_id": "mass_quantities/monopoly__phillips_roberts",
+  "metrics": {
+    "avg_sentence_length": 11.734649122807017,
+    "avg_word_length": 4.0671837039805645,
+    "sentence_count": 912,
+    "token_count": 12911,
+    "word_count": 10702
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/monopoly__phillips_roberts/story.json"
+}

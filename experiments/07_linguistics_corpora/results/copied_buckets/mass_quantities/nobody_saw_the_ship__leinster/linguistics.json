@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40796,
+    "body_sha256": "315979813ab2289d130915b1612137b718b93678d2b4d479bc0083dc03a77d02",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nobody_saw_the_ship__leinster/story.json"
+  },
+  "lcats_id": "mass_quantities/nobody_saw_the_ship__leinster",
+  "metrics": {
+    "avg_sentence_length": 17.823798627002287,
+    "avg_word_length": 4.283091539350366,
+    "sentence_count": 437,
+    "token_count": 8939,
+    "word_count": 7789
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nobody_saw_the_ship__leinster/story.json"
+}

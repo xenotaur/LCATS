@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 65408,
+    "body_sha256": "1ff53ae55974470bd6663e1f9a4c9def9d72a1f37346891e44c603f7c27a35d3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_marching_morons__kornbluth/story.json"
+  },
+  "lcats_id": "mass_quantities/the_marching_morons__kornbluth",
+  "metrics": {
+    "avg_sentence_length": 15.978696741854636,
+    "avg_word_length": 4.154654536899066,
+    "sentence_count": 798,
+    "token_count": 15186,
+    "word_count": 12751
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_marching_morons__kornbluth/story.json"
+}

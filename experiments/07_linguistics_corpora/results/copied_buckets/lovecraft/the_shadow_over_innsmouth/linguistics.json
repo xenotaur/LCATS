@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 96264,
+    "body_sha256": "60ad45a501ae41ed8bbf3e09706cd78e5a806c369ccd0b9e92399fc7acce16e3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_shadow_over_innsmouth/story.json"
+  },
+  "lcats_id": "lovecraft/the_shadow_over_innsmouth",
+  "metrics": {
+    "avg_sentence_length": 25.94808743169399,
+    "avg_word_length": 4.11629988417395,
+    "sentence_count": 732,
+    "token_count": 21452,
+    "word_count": 18994
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/lovecraft/the_shadow_over_innsmouth/story.json"
+}

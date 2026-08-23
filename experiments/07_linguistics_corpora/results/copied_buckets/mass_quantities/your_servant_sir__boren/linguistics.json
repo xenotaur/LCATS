@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23498,
+    "body_sha256": "019631e7bc4c06fee4dd0b01b90153c9d10e68d4d6437dad34060abaf1d24ca7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/your_servant_sir__boren/story.json"
+  },
+  "lcats_id": "mass_quantities/your_servant_sir__boren",
+  "metrics": {
+    "avg_sentence_length": 13.914826498422713,
+    "avg_word_length": 4.304012695533893,
+    "sentence_count": 317,
+    "token_count": 5470,
+    "word_count": 4411
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/your_servant_sir__boren/story.json"
+}

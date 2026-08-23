@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32864,
+    "body_sha256": "380676bb22853aeb593ae9cfbd062a3f807e1106362da7ccbcf6fa106fa149ba",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rivals_of_the_clouds__whitfield/story.json"
+  },
+  "lcats_id": "mass_quantities/rivals_of_the_clouds__whitfield",
+  "metrics": {
+    "avg_sentence_length": 11.891891891891891,
+    "avg_word_length": 3.994242424242424,
+    "sentence_count": 555,
+    "token_count": 7731,
+    "word_count": 6600
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rivals_of_the_clouds__whitfield/story.json"
+}

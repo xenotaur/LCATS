@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32958,
+    "body_sha256": "60224b287f473c2b06d21288694584993de45c20c5f1b0087949db3412618d69",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/business_for_the_lawyers__robin/story.json"
+  },
+  "lcats_id": "mass_quantities/business_for_the_lawyers__robin",
+  "metrics": {
+    "avg_sentence_length": 16.365535248041777,
+    "avg_word_length": 4.286534779834078,
+    "sentence_count": 383,
+    "token_count": 7330,
+    "word_count": 6268
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/business_for_the_lawyers__robin/story.json"
+}

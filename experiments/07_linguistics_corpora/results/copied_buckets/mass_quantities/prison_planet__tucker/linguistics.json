@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30530,
+    "body_sha256": "f67bf42d1397f3eddd6938ea965e0d39d6085f94fc3dbf4893517998edce6f56",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/prison_planet__tucker/story.json"
+  },
+  "lcats_id": "mass_quantities/prison_planet__tucker",
+  "metrics": {
+    "avg_sentence_length": 8.225237449118046,
+    "avg_word_length": 3.939458924447377,
+    "sentence_count": 737,
+    "token_count": 7828,
+    "word_count": 6062
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/prison_planet__tucker/story.json"
+}

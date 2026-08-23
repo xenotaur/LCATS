@@ -7,7 +7,7 @@ rerun_of: 2026_07_26_18_37_26_WI_EVENT_0030_PILOT_NLP_BACKEND_REUSE
 pr: https://github.com/xenotaur/LCATS/pull/165
 commit: e9149fa2
 agent: claude_app
-instruction_source: "Execute Proposed Work Item to Closeout" playbook, Step 8 closeout-note for PR #165
+instruction_source: '"Execute Proposed Work Item to Closeout" playbook, Step 8 closeout-note for PR #165'
 session_transcript: pending
 created_at: 2026-07-26T18:57:21-04:00
 ---

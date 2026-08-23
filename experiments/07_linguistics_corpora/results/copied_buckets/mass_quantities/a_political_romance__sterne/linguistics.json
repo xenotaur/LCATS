@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8354,
+    "body_sha256": "dceb863ea0a9ad6ccbd6b128145fb9c12aff650f14c0190e6da424c646d51976",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_political_romance__sterne/story.json"
+  },
+  "lcats_id": "mass_quantities/a_political_romance__sterne",
+  "metrics": {
+    "avg_sentence_length": 50.114285714285714,
+    "avg_word_length": 3.8586088939566703,
+    "sentence_count": 35,
+    "token_count": 1970,
+    "word_count": 1754
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_political_romance__sterne/story.json"
+}

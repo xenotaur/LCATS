@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25974,
+    "body_sha256": "5f268e2ccec6ddd5c497c0e330be1da0fc9460bad6f26eab9f8855ba4100135e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_1st__ludwig/story.json"
+  },
+  "lcats_id": "mass_quantities/the_1st__ludwig",
+  "metrics": {
+    "avg_sentence_length": 11.680995475113122,
+    "avg_word_length": 4.049970947123765,
+    "sentence_count": 442,
+    "token_count": 6167,
+    "word_count": 5163
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_1st__ludwig/story.json"
+}

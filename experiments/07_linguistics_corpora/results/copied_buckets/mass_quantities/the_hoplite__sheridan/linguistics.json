@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7129,
+    "body_sha256": "e9c95a51aecbddb4f80f7b0d04e16d35ba1b78a2b2f116042f64cdc79a0cef7e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hoplite__sheridan/story.json"
+  },
+  "lcats_id": "mass_quantities/the_hoplite__sheridan",
+  "metrics": {
+    "avg_sentence_length": 12.94392523364486,
+    "avg_word_length": 4.176895306859206,
+    "sentence_count": 107,
+    "token_count": 1589,
+    "word_count": 1385
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_hoplite__sheridan/story.json"
+}

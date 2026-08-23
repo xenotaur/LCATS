@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 57457,
+    "body_sha256": "6619846e2ad75c2cf22f3d726959eef9e7e5dde15f37b0bcec5954d0ff72b758",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_devil_s_asteroid__wellman/story.json"
+  },
+  "lcats_id": "mass_quantities/the_devil_s_asteroid__wellman",
+  "metrics": {
+    "avg_sentence_length": 12.737797956867196,
+    "avg_word_length": 4.073783639279986,
+    "sentence_count": 881,
+    "token_count": 13923,
+    "word_count": 11222
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_devil_s_asteroid__wellman/story.json"
+}

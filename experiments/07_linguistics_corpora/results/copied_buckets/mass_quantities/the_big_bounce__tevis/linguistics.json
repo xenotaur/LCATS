@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19820,
+    "body_sha256": "c18fd578eab405b4afa41c2f4f69a5b942b35c1ee660e04f26cc1d7a8e3ec901",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_bounce__tevis/story.json"
+  },
+  "lcats_id": "mass_quantities/the_big_bounce__tevis",
+  "metrics": {
+    "avg_sentence_length": 16.481781376518217,
+    "avg_word_length": 3.8707934168508964,
+    "sentence_count": 247,
+    "token_count": 4811,
+    "word_count": 4071
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_big_bounce__tevis/story.json"
+}

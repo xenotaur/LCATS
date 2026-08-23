@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47063,
+    "body_sha256": "808ae65945aa8ea67d3ff648476ea8733d022a839259f54a7f6e45919930082e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_planet_for_your_thoughts__norman/story.json"
+  },
+  "lcats_id": "mass_quantities/a_planet_for_your_thoughts__norman",
+  "metrics": {
+    "avg_sentence_length": 11.00360576923077,
+    "avg_word_length": 4.132932823593665,
+    "sentence_count": 832,
+    "token_count": 11166,
+    "word_count": 9155
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_planet_for_your_thoughts__norman/story.json"
+}

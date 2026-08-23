@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22198,
+    "body_sha256": "d34101dc3feecbbc4fa14eec8aeba84fc8593edc856aee2eb37551d4a7102da0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shango__jakes/story.json"
+  },
+  "lcats_id": "mass_quantities/shango__jakes",
+  "metrics": {
+    "avg_sentence_length": 14.968641114982578,
+    "avg_word_length": 4.165037243947858,
+    "sentence_count": 287,
+    "token_count": 5072,
+    "word_count": 4296
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shango__jakes/story.json"
+}

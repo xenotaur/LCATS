@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21444,
+    "body_sha256": "292d12b3892576e7a365be1b706eb462f647a6feb7b2165016f246c1ac3c4148",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/join_our_gang__lanier/story.json"
+  },
+  "lcats_id": "mass_quantities/join_our_gang__lanier",
+  "metrics": {
+    "avg_sentence_length": 17.23076923076923,
+    "avg_word_length": 4.332837301587301,
+    "sentence_count": 234,
+    "token_count": 4724,
+    "word_count": 4032
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/join_our_gang__lanier/story.json"
+}

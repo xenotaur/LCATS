@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39222,
+    "body_sha256": "7a7219da530afba22bbf874236ad10b6818b6b9e5d8f27ff0eefa143ecfe3d18",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/upside_down_or_backwards__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/upside_down_or_backwards__tuttle",
+  "metrics": {
+    "avg_sentence_length": 15.242085661080074,
+    "avg_word_length": 3.7623701893708,
+    "sentence_count": 537,
+    "token_count": 10167,
+    "word_count": 8185
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/upside_down_or_backwards__tuttle/story.json"
+}

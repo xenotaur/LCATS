@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32775,
+    "body_sha256": "be74feaf51004e09ff5af22b76ae214b8095a55358737d1ca725cdfd2ca14bb1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/raiders_of_the_second_moon__wells/story.json"
+  },
+  "lcats_id": "mass_quantities/raiders_of_the_second_moon__wells",
+  "metrics": {
+    "avg_sentence_length": 17.120104438642297,
+    "avg_word_length": 4.034466981851456,
+    "sentence_count": 383,
+    "token_count": 7514,
+    "word_count": 6557
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/raiders_of_the_second_moon__wells/story.json"
+}

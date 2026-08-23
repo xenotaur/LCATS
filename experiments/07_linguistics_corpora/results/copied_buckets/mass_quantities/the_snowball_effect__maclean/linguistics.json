@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27929,
+    "body_sha256": "488a1a516314d5c274967bb6537a19a1cc9b41ad35e404aa5cd3d6524a06ac61",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_snowball_effect__maclean/story.json"
+  },
+  "lcats_id": "mass_quantities/the_snowball_effect__maclean",
+  "metrics": {
+    "avg_sentence_length": 17.888524590163936,
+    "avg_word_length": 4.1537756598240465,
+    "sentence_count": 305,
+    "token_count": 6304,
+    "word_count": 5456
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_snowball_effect__maclean/story.json"
+}

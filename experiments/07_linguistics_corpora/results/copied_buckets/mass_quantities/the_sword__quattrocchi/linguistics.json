@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22205,
+    "body_sha256": "200121e11def8a5bd2db01291d97f6a27b68e2141d34b9494cf92581c34e5653",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sword__quattrocchi/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sword__quattrocchi",
+  "metrics": {
+    "avg_sentence_length": 11.826923076923077,
+    "avg_word_length": 4.144483159117305,
+    "sentence_count": 364,
+    "token_count": 5236,
+    "word_count": 4305
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sword__quattrocchi/story.json"
+}

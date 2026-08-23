@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22052,
+    "body_sha256": "c018ab718ca6c7f6f412aaa388624fc3e49117fbc8a6603ffdb9bd7abd38000c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_akkra_case__de_ford/story.json"
+  },
+  "lcats_id": "mass_quantities/the_akkra_case__de_ford",
+  "metrics": {
+    "avg_sentence_length": 22.078534031413614,
+    "avg_word_length": 4.271520037941665,
+    "sentence_count": 191,
+    "token_count": 4809,
+    "word_count": 4217
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_akkra_case__de_ford/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33777,
+    "body_sha256": "42fc8f90710a32ed90bc0a02eb8f64d371ba0b636096f617708feea08d7e0334",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_terrors_of_the_upper_air__orndorff/story.json"
+  },
+  "lcats_id": "mass_quantities/the_terrors_of_the_upper_air__orndorff",
+  "metrics": {
+    "avg_sentence_length": 17.718670076726344,
+    "avg_word_length": 3.915704387990762,
+    "sentence_count": 391,
+    "token_count": 7753,
+    "word_count": 6928
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_terrors_of_the_upper_air__orndorff/story.json"
+}

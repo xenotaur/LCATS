@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20856,
+    "body_sha256": "4f0f22a7322e025affbb06b638b9c1b4301302a0308d8b3496983e2a00723c49",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cold_snap_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/the_cold_snap_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 21.956756756756757,
+    "avg_word_length": 4.178483505662236,
+    "sentence_count": 185,
+    "token_count": 4533,
+    "word_count": 4062
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_cold_snap_1898__bellamy/story.json"
+}

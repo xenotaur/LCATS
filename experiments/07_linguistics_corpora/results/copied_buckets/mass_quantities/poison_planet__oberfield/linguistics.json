@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32500,
+    "body_sha256": "b513aee03e4aa8836abb57526c0bcb70bc3cb26ffa5419100f375922df2e5a75",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/poison_planet__oberfield/story.json"
+  },
+  "lcats_id": "mass_quantities/poison_planet__oberfield",
+  "metrics": {
+    "avg_sentence_length": 11.956284153005464,
+    "avg_word_length": 3.9629798903107862,
+    "sentence_count": 549,
+    "token_count": 7727,
+    "word_count": 6564
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/poison_planet__oberfield/story.json"
+}

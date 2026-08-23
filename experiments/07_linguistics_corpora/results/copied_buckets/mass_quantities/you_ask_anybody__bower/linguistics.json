@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47582,
+    "body_sha256": "358e55affd4b3c6eb8680762d5303401078185b23b16484788346f932ae4c60a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/you_ask_anybody__bower/story.json"
+  },
+  "lcats_id": "mass_quantities/you_ask_anybody__bower",
+  "metrics": {
+    "avg_sentence_length": 21.197849462365593,
+    "avg_word_length": 3.8663893679618546,
+    "sentence_count": 465,
+    "token_count": 11247,
+    "word_count": 9857
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/you_ask_anybody__bower/story.json"
+}

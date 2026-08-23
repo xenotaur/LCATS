@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 49419,
+    "body_sha256": "e9d2775ebdfc95bbbd4cab4be986567558000a25c5d1f4e90de48d586f55533c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/red_headed_league/story.json"
+  },
+  "lcats_id": "sherlock/red_headed_league",
+  "metrics": {
+    "avg_sentence_length": 20.883817427385893,
+    "avg_word_length": 3.8896284522153786,
+    "sentence_count": 482,
+    "token_count": 12015,
+    "word_count": 10066
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/red_headed_league/story.json"
+}

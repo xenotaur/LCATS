@@ -3,7 +3,7 @@ resolution: "Implemented and merged in PR #363 (commit 65f83868)."
 blocked_reason: null
 blocked: false
 id: WI-VISUALIZE-0085
-title: Word-frequency visualization: lcats visualize words
+title: "Word-frequency visualization: lcats visualize words"
 type: deliverable
 status: resolved
 owner: unassigned
@@ -51,8 +51,8 @@ required_evidence:
   - lrh_validate
   - manual_review
 artifacts_expected:
-  - lcats/src/lcats/visualize/sources.py (extended: story-text + genre-membership loading)
-  - lcats/src/lcats/visualize/analysis.py (extended: word-frequency functions)
+  - "lcats/src/lcats/visualize/sources.py (extended: story-text + genre-membership loading)"
+  - "lcats/src/lcats/visualize/analysis.py (extended: word-frequency functions)"
   - lcats/src/lcats/visualize/rendering.py (extended or reused)
   - lcats/src/lcats/visualize/cli.py (new words subcommand)
   - lcats/src/lcats/cli.py (registration)

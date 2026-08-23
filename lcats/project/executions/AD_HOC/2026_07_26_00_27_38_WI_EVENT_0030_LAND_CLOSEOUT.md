@@ -7,7 +7,7 @@ rerun_of: 2026_07_26_00_26_09_WI_EVENT_0030
 pr: https://github.com/xenotaur/LCATS/pull/157
 commit: 42902e1e
 agent: claude_app
-instruction_source: "Land an Open PR to Closeout" playbook, applied to PR #157
+instruction_source: '"Land an Open PR to Closeout" playbook, applied to PR #157'
 session_transcript: pending
 created_at: 2026-07-26T00:27:38-04:00
 ---

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28966,
+    "body_sha256": "8bc9cedf5c3eaa74249127da3a9cf6cb2d637f71392cb8d02c66a9a76e2f429b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/return_engagement__st_clair/story.json"
+  },
+  "lcats_id": "mass_quantities/return_engagement__st_clair",
+  "metrics": {
+    "avg_sentence_length": 16.3876404494382,
+    "avg_word_length": 3.982002056907782,
+    "sentence_count": 356,
+    "token_count": 6878,
+    "word_count": 5834
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/return_engagement__st_clair/story.json"
+}

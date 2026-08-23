@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24300,
+    "body_sha256": "c9e528e9aa512a138b8f9d4568a5e72644633b6b512d2fbecd0ffc13798ad2cb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/scent_makes_a_difference__stamers/story.json"
+  },
+  "lcats_id": "mass_quantities/scent_makes_a_difference__stamers",
+  "metrics": {
+    "avg_sentence_length": 14.076487252124647,
+    "avg_word_length": 3.8526866572751057,
+    "sentence_count": 353,
+    "token_count": 6151,
+    "word_count": 4969
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/scent_makes_a_difference__stamers/story.json"
+}

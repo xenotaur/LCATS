@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17840,
+    "body_sha256": "865146dc097b58c3f24237499eacdc67668b0a4d623c59772a624004f1bca7d3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/alien_equivalent__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/alien_equivalent__smith",
+  "metrics": {
+    "avg_sentence_length": 12.698529411764707,
+    "avg_word_length": 4.197741748697163,
+    "sentence_count": 272,
+    "token_count": 4081,
+    "word_count": 3454
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/alien_equivalent__smith/story.json"
+}

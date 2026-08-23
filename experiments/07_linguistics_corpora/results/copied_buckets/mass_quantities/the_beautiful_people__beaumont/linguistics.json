@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32184,
+    "body_sha256": "89da73596c7120df831767149e969aa4313ccdd95da60fd2b7109e02fedaf764",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beautiful_people__beaumont/story.json"
+  },
+  "lcats_id": "mass_quantities/the_beautiful_people__beaumont",
+  "metrics": {
+    "avg_sentence_length": 10.722314049586776,
+    "avg_word_length": 3.934792662247572,
+    "sentence_count": 605,
+    "token_count": 8131,
+    "word_count": 6487
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_beautiful_people__beaumont/story.json"
+}

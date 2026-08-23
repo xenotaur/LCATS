@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23058,
+    "body_sha256": "a31bb9c0cf4dadee88f4675ede644e2f6500f0d77d68a97289ac232bccdc275d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ethical_way__farrell/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ethical_way__farrell",
+  "metrics": {
+    "avg_sentence_length": 10.88443396226415,
+    "avg_word_length": 3.9878656554712895,
+    "sentence_count": 424,
+    "token_count": 5612,
+    "word_count": 4615
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ethical_way__farrell/story.json"
+}

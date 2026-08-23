@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22248,
+    "body_sha256": "be007f7b7b8fab1d1fff8f6f155eb9c9194f199f97d32bcf07acb604d4f680db",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nightmare_on_the_nose__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/nightmare_on_the_nose__smith",
+  "metrics": {
+    "avg_sentence_length": 11.933862433862434,
+    "avg_word_length": 3.8867213478164486,
+    "sentence_count": 378,
+    "token_count": 5670,
+    "word_count": 4511
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nightmare_on_the_nose__smith/story.json"
+}

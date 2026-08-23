@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23881,
+    "body_sha256": "62e388b33c1be2cb134489bb3ea23838f60492282f9e9cf84447d4f0933baa2a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/crisis_on_titan__adams/story.json"
+  },
+  "lcats_id": "mass_quantities/crisis_on_titan__adams",
+  "metrics": {
+    "avg_sentence_length": 16.204225352112676,
+    "avg_word_length": 4.204476314645806,
+    "sentence_count": 284,
+    "token_count": 5380,
+    "word_count": 4602
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/crisis_on_titan__adams/story.json"
+}

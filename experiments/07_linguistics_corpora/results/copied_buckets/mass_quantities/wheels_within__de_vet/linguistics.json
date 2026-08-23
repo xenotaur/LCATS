@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33131,
+    "body_sha256": "66ff58aedf225ec3c38a9b4d6afd838a1948416c5d81cfde91ebda6f522e1868",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wheels_within__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/wheels_within__de_vet",
+  "metrics": {
+    "avg_sentence_length": 15.282051282051283,
+    "avg_word_length": 4.057809640024405,
+    "sentence_count": 429,
+    "token_count": 7783,
+    "word_count": 6556
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wheels_within__de_vet/story.json"
+}

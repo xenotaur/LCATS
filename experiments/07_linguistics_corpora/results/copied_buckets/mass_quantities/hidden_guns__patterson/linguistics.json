@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21671,
+    "body_sha256": "5cb9eb33064f8fa88b0c3bb2580750ab02510a8d316d1a3b9f6920fdf80f1f93",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hidden_guns__patterson/story.json"
+  },
+  "lcats_id": "mass_quantities/hidden_guns__patterson",
+  "metrics": {
+    "avg_sentence_length": 15.79642857142857,
+    "avg_word_length": 3.875423920416007,
+    "sentence_count": 280,
+    "token_count": 5359,
+    "word_count": 4423
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/hidden_guns__patterson/story.json"
+}

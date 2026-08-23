@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 51143,
+    "body_sha256": "46735ae6085aa8616af946fa130e3b8eb231dd368ed0e77d321dc8efe90b0255",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/beryl_coronet/story.json"
+  },
+  "lcats_id": "sherlock/beryl_coronet",
+  "metrics": {
+    "avg_sentence_length": 19.607407407407408,
+    "avg_word_length": 3.811956932376275,
+    "sentence_count": 540,
+    "token_count": 12502,
+    "word_count": 10588
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/sherlock/beryl_coronet/story.json"
+}

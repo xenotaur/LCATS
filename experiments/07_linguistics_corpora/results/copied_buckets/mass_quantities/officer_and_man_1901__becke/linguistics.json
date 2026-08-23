@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33150,
+    "body_sha256": "eb85241b9068c64f9cf558942c81eec15c491b56e6e73ac15536f7614117d4a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/officer_and_man_1901__becke/story.json"
+  },
+  "lcats_id": "mass_quantities/officer_and_man_1901__becke",
+  "metrics": {
+    "avg_sentence_length": 21.36392405063291,
+    "avg_word_length": 3.8988298029921493,
+    "sentence_count": 316,
+    "token_count": 8097,
+    "word_count": 6751
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/officer_and_man_1901__becke/story.json"
+}

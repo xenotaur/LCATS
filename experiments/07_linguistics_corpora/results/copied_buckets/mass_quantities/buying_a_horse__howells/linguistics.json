@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37109,
+    "body_sha256": "9fd80484c8920ac7da21b944147a1f1d5964cb94e129eaf73734dbbd6c7cb2d0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/buying_a_horse__howells/story.json"
+  },
+  "lcats_id": "mass_quantities/buying_a_horse__howells",
+  "metrics": {
+    "avg_sentence_length": 26.250883392226147,
+    "avg_word_length": 4.028940638040113,
+    "sentence_count": 283,
+    "token_count": 8469,
+    "word_count": 7429
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/buying_a_horse__howells/story.json"
+}

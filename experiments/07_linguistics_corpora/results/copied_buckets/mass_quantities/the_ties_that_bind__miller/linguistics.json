@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 59313,
+    "body_sha256": "72c669fafc135ad1c72f7a45f73468bca79ac53dcfc9e6b72be0206e0ddb6d44",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ties_that_bind__miller/story.json"
+  },
+  "lcats_id": "mass_quantities/the_ties_that_bind__miller",
+  "metrics": {
+    "avg_sentence_length": 14.230865746549561,
+    "avg_word_length": 4.217598307176865,
+    "sentence_count": 797,
+    "token_count": 13784,
+    "word_count": 11342
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_ties_that_bind__miller/story.json"
+}

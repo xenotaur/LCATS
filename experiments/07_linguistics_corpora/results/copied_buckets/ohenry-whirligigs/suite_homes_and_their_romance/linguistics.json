@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10575,
+    "body_sha256": "db4e4d657f13f7b01adfd7b199625cffbee3f424bebe29fae1d36e561710d86c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/suite_homes_and_their_romance/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/suite_homes_and_their_romance",
+  "metrics": {
+    "avg_sentence_length": 17.60169491525424,
+    "avg_word_length": 4.110255175734232,
+    "sentence_count": 118,
+    "token_count": 2447,
+    "word_count": 2077
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/suite_homes_and_their_romance/story.json"
+}

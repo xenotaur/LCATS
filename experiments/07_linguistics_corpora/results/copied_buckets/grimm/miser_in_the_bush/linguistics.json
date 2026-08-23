@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6525,
+    "body_sha256": "10279ce555041cac52fac1beb287e028b0ce0c9836a933db5c2cfa9e77b19f06",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/miser_in_the_bush/story.json"
+  },
+  "lcats_id": "grimm/miser_in_the_bush",
+  "metrics": {
+    "avg_sentence_length": 26.4375,
+    "avg_word_length": 4.098502758077226,
+    "sentence_count": 48,
+    "token_count": 1513,
+    "word_count": 1269
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/miser_in_the_bush/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28643,
+    "body_sha256": "a0acd22f7bb457049d6b9c9ce93addaa8df6207821ad089a3b1d2293eb5694cc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fiddles_1909__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/fiddles_1909__smith",
+  "metrics": {
+    "avg_sentence_length": 23.404,
+    "avg_word_length": 3.885489659887199,
+    "sentence_count": 250,
+    "token_count": 6948,
+    "word_count": 5851
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fiddles_1909__smith/story.json"
+}

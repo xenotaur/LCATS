@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39920,
+    "body_sha256": "8bfcbbfc410fa6fd79532aff9472dd4db8abc2bce5f131ea997307234cd930ed",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/point_of_departure__shelton/story.json"
+  },
+  "lcats_id": "mass_quantities/point_of_departure__shelton",
+  "metrics": {
+    "avg_sentence_length": 15.197392923649907,
+    "avg_word_length": 3.901850263448107,
+    "sentence_count": 537,
+    "token_count": 9645,
+    "word_count": 8161
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/point_of_departure__shelton/story.json"
+}

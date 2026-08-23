@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22858,
+    "body_sha256": "61b6efa53830999a17a2b768e882c832c52604f5dcdac2e47c0778c433189e17",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/story.json"
+  },
+  "lcats_id": "mass_quantities/the_marriage_of_william_durrant__cummings",
+  "metrics": {
+    "avg_sentence_length": 15.053125,
+    "avg_word_length": 3.7689433257214033,
+    "sentence_count": 320,
+    "token_count": 5674,
+    "word_count": 4817
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/story.json"
+}

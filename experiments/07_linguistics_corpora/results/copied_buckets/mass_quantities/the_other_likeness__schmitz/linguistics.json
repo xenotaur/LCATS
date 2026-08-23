@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36843,
+    "body_sha256": "8a85ea98ccae3e52fb3df6892e6585486b19d45f2734c6b464233f5f7a966eaf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_other_likeness__schmitz/story.json"
+  },
+  "lcats_id": "mass_quantities/the_other_likeness__schmitz",
+  "metrics": {
+    "avg_sentence_length": 17.44776119402985,
+    "avg_word_length": 4.271029369831765,
+    "sentence_count": 402,
+    "token_count": 8178,
+    "word_count": 7014
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_other_likeness__schmitz/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23081,
+    "body_sha256": "cf305842d9679cf07648b5b771a5cd0f24b65eae3dd989588ac7b31286bf2c11",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/security_risk__clinton/story.json"
+  },
+  "lcats_id": "mass_quantities/security_risk__clinton",
+  "metrics": {
+    "avg_sentence_length": 13.581538461538461,
+    "avg_word_length": 4.2127322156773905,
+    "sentence_count": 325,
+    "token_count": 5339,
+    "word_count": 4414
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/security_risk__clinton/story.json"
+}

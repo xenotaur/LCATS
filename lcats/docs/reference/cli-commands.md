@@ -266,6 +266,123 @@ See [`../how-to/run-linguistics.md`](../how-to/run-linguistics.md) for setup
 and examples, and [`linguistics-sidecar.md`](linguistics-sidecar.md) for exact
 sidecar and run-summary schemas.
 
+## `visualize`
+
+```
+lcats visualize {genres,words,tfidf,topics} ...
+```
+
+Generate reproducible, publication-useful figures from LCATS corpus
+metadata and story text. Each subcommand shares a common `sources` /
+`analysis` / `rendering` / `cli` split, reuses
+`lcats.analysis.graph_plotters` for conventional charts, and emits an
+input-revision/content-identity manifest alongside its figures so any
+output can be regenerated and audited.
+
+### `visualize genres`
+
+```
+lcats visualize genres [--summary-json SUMMARY_JSON]
+                       [--output-dir OUTPUT_DIR] [--formats FORMATS]
+                       [--seed SEED]
+```
+
+Visualize the full-corpus genre distribution from the metadata-genre-prefilter
+full scan as a word cloud and a conventional bar chart.
+
+| Argument / Flag | Description |
+|---|---|
+| `--summary-json SUMMARY_JSON` | Path to the full-scan `summary.json` (default: `experiments/05_metadata_genre_prefilter/results/full_scan/summary.json`). |
+| `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `genre_viz`). |
+| `--formats FORMATS` | Comma-separated output formats, e.g. `png,svg,pdf` (default: `png,svg`). |
+| `--seed SEED` | Deterministic random seed for word-cloud layout (default: `42`). |
+
+### `visualize words`
+
+```
+lcats visualize words [--corpus-root CORPUS_ROOT] [--genre GENRE]
+                      [--candidates-jsonl CANDIDATES_JSONL] [--top-k TOP_K]
+                      [--output-dir OUTPUT_DIR] [--formats FORMATS]
+                      [--seed SEED]
+```
+
+Visualize word frequency across the whole corpus, or a genre subset, as a
+word cloud and a conventional ranked-frequency bar chart.
+
+| Argument / Flag | Description |
+|---|---|
+| `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
+| `--genre GENRE` | If provided, restrict to stories whose candidate genres (from `candidates.jsonl`) include this genre. Omit for the whole-corpus view. |
+| `--candidates-jsonl CANDIDATES_JSONL` | Path to the full-scan `candidates.jsonl` (used only with `--genre`; default: `experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl`). |
+| `--top-k TOP_K` | Number of top words to include; must be `>= 1` (default: `50`). |
+| `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `words_viz`). |
+| `--formats FORMATS` | Comma-separated output formats (default: `png,svg`). |
+| `--seed SEED` | Deterministic random seed for word-cloud layout (default: `42`). |
+
+### `visualize tfidf`
+
+```
+lcats visualize tfidf [--corpus-root CORPUS_ROOT] [--genre GENRE]
+                      [--candidates-jsonl CANDIDATES_JSONL] [--top-k TOP_K]
+                      [--output-dir OUTPUT_DIR] [--formats FORMATS]
+```
+
+Visualize the top TF-IDF-ranked terms for a comparison group -- by default
+the whole corpus, or a genre subset via `--genre` -- as a conventional bar
+chart. Story is the document unit; IDF is fit across the whole corpus
+regardless of `--genre`, so a genre-subset run ranks terms distinguishing
+that subset from the corpus at large.
+
+**Accuracy note:** the description above matches the command's own
+`--help` text, but the ranking it produces is the selected group's mean
+TF-IDF only -- it does not compute or subtract the complement group's
+mean, so it is not a rigorous distinguishing/contrast metric. See
+[`../how-to/run-visualize.md`](../how-to/run-visualize.md) (`tfidf` section)
+for what the ranking actually measures.
+
+| Argument / Flag | Description |
+|---|---|
+| `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
+| `--genre GENRE` | If provided, rank terms for stories whose candidate genres include this genre. Omit to rank terms across the whole corpus. |
+| `--candidates-jsonl CANDIDATES_JSONL` | Path to the full-scan `candidates.jsonl` (used only with `--genre`). |
+| `--top-k TOP_K` | Number of top terms to include; must be `>= 1` (default: `20`). |
+| `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `tfidf_viz`). |
+| `--formats FORMATS` | Comma-separated output formats (default: `png,svg`). |
+
+### `visualize topics`
+
+```
+lcats visualize topics [--corpus-root CORPUS_ROOT] [--n-topics N_TOPICS]
+                       [--top-k TOP_K] [--seed SEED]
+                       [--init {nndsvd,nndsvda,nndsvdar,random}]
+                       [--max-iter MAX_ITER] [--output-dir OUTPUT_DIR]
+                       [--formats FORMATS]
+```
+
+Visualize a classical topic-model baseline (scikit-learn `NMF`) over the
+whole corpus as one top-weighted-term bar chart per topic. A baseline, not
+a final technique choice -- embedding-based topic models (e.g. BERTopic)
+are explicitly deferred.
+
+| Argument / Flag | Description |
+|---|---|
+| `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
+| `--n-topics N_TOPICS` | Number of topics to fit; must be `>= 1` (default: `8`). |
+| `--top-k TOP_K` | Number of top terms per topic to include; must be `>= 1` (default: `10`). |
+| `--seed SEED` | Random seed for the NMF solver and its initialization (default: `42`). Affects the fitted topics under every `--init` choice, not only `random` -- scikit-learn's `nndsvd`-family initializers compute their starting point via a randomized SVD seeded by `--seed`. |
+| `--init {nndsvd,nndsvda,nndsvdar,random}` | NMF initialization strategy (default: `nndsvda`). |
+| `--max-iter MAX_ITER` | Maximum NMF solver iterations; must be `>= 1` (default: `400`). |
+| `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `topics_viz`). |
+| `--formats FORMATS` | Comma-separated output formats (default: `png,svg`). |
+
+**Preprocessing defaults** (`words`, `tfidf`, `topics`, via
+`lcats.analysis.story_analysis.get_keywords`): terms are lowercased,
+restricted to ASCII alphabetic tokens, require a minimum length of 3
+characters, and are filtered through a hardcoded stopword set.
+
+See [`../how-to/run-visualize.md`](../how-to/run-visualize.md) for setup
+and worked examples.
+
 ## Placeholder commands
 
 These commands are declared but not yet implemented — running them prints a

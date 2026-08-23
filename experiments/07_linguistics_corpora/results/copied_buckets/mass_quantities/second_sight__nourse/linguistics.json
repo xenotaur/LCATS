@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25632,
+    "body_sha256": "48f2638641828b20ad7e541b1f240db27c672083566f15946997c2e670486e9a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_sight__nourse/story.json"
+  },
+  "lcats_id": "mass_quantities/second_sight__nourse",
+  "metrics": {
+    "avg_sentence_length": 12.180616740088105,
+    "avg_word_length": 3.6629294755877035,
+    "sentence_count": 454,
+    "token_count": 6552,
+    "word_count": 5530
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/second_sight__nourse/story.json"
+}

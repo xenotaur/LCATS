@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24032,
+    "body_sha256": "5edc05c1d3b824a5c0148c0c48f87c11797821415c1eed866125f90b6bcf079b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/he__lovecraft/story.json"
+  },
+  "lcats_id": "mass_quantities/he__lovecraft",
+  "metrics": {
+    "avg_sentence_length": 34.262773722627735,
+    "avg_word_length": 4.17895185342991,
+    "sentence_count": 137,
+    "token_count": 5221,
+    "word_count": 4694
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/he__lovecraft/story.json"
+}

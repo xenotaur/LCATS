@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30033,
+    "body_sha256": "85a82a5014a12062f854d5c1be59351d78238eb5f70ecc1f59f56a8160cfeef8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fee_of_the_frontier__fyfe/story.json"
+  },
+  "lcats_id": "mass_quantities/fee_of_the_frontier__fyfe",
+  "metrics": {
+    "avg_sentence_length": 13.968253968253968,
+    "avg_word_length": 3.877435064935065,
+    "sentence_count": 441,
+    "token_count": 7324,
+    "word_count": 6160
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fee_of_the_frontier__fyfe/story.json"
+}

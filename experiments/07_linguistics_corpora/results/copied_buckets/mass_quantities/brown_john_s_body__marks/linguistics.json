@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24598,
+    "body_sha256": "bad433f1e8caa4aa02c55600541708cc852af9a02839676c1943685090fc7a10",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/brown_john_s_body__marks/story.json"
+  },
+  "lcats_id": "mass_quantities/brown_john_s_body__marks",
+  "metrics": {
+    "avg_sentence_length": 10.518828451882845,
+    "avg_word_length": 3.8844470962609385,
+    "sentence_count": 478,
+    "token_count": 6141,
+    "word_count": 5028
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/brown_john_s_body__marks/story.json"
+}

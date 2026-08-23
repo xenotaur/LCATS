@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 47526,
+    "body_sha256": "1fe402b873ba11468b0befa8a0a446513a68f51555df687bafe0a5a8b157932c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wanted_one_sane_man__robinson/story.json"
+  },
+  "lcats_id": "mass_quantities/wanted_one_sane_man__robinson",
+  "metrics": {
+    "avg_sentence_length": 13.699259259259259,
+    "avg_word_length": 4.153130745106521,
+    "sentence_count": 675,
+    "token_count": 10763,
+    "word_count": 9247
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wanted_one_sane_man__robinson/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35759,
+    "body_sha256": "3b144841bd3a8c9e7918f352a96a04988d7f8da7d1184cc172c5e7446de0b94d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peace_manoeuvres__davis/story.json"
+  },
+  "lcats_id": "mass_quantities/peace_manoeuvres__davis",
+  "metrics": {
+    "avg_sentence_length": 13.362292051756008,
+    "avg_word_length": 3.9095310554710196,
+    "sentence_count": 541,
+    "token_count": 8850,
+    "word_count": 7229
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/peace_manoeuvres__davis/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14735,
+    "body_sha256": "f97d78d1f885d46699a0862e125974932a7844df00013169a550cdb91718e009",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_gentleman__magill/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_gentleman__magill",
+  "metrics": {
+    "avg_sentence_length": 11.3796992481203,
+    "avg_word_length": 3.8625702015196564,
+    "sentence_count": 266,
+    "token_count": 3650,
+    "word_count": 3027
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_gentleman__magill/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38326,
+    "body_sha256": "4434b87f83a53f55813133792eac2f1029b8d6f24c3112456b1470a2fcd034a2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_was_she_from_the_atlantic_monthly_for_septembe__taylor/story.json"
+  },
+  "lcats_id": "mass_quantities/who_was_she_from_the_atlantic_monthly_for_septembe__taylor",
+  "metrics": {
+    "avg_sentence_length": 21.63142857142857,
+    "avg_word_length": 4.060229824329679,
+    "sentence_count": 350,
+    "token_count": 8881,
+    "word_count": 7571
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/who_was_she_from_the_atlantic_monthly_for_septembe__taylor/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12694,
+    "body_sha256": "92d31302ea540d1e541f1a96c2a52f2192c5f4d6611065b79a0836aa2c2ffeeb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/skylight_room/story.json"
+  },
+  "lcats_id": "ohenry-four_million/skylight_room",
+  "metrics": {
+    "avg_sentence_length": 18.05,
+    "avg_word_length": 4.02413929560744,
+    "sentence_count": 140,
+    "token_count": 2984,
+    "word_count": 2527
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/skylight_room/story.json"
+}

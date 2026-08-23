@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36113,
+    "body_sha256": "eeed8d16d0eddbea5585fc0a76b1c48ba0a28615ec6a1d7ad4e32f3ea47fa684",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/divinity__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/divinity__samachson",
+  "metrics": {
+    "avg_sentence_length": 16.697727272727274,
+    "avg_word_length": 3.951272628283653,
+    "sentence_count": 440,
+    "token_count": 8342,
+    "word_count": 7347
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/divinity__samachson/story.json"
+}

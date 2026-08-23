@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25669,
+    "body_sha256": "21f267df520eb90b2d528d2a7744e977fb10bf735d1c46966492dd67c3253d49",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/marianson_from_mackinac_and_lake_stories_1899__catherwood/story.json"
+  },
+  "lcats_id": "mass_quantities/marianson_from_mackinac_and_lake_stories_1899__catherwood",
+  "metrics": {
+    "avg_sentence_length": 17.737201365187712,
+    "avg_word_length": 3.96074658456802,
+    "sentence_count": 293,
+    "token_count": 5981,
+    "word_count": 5197
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/marianson_from_mackinac_and_lake_stories_1899__catherwood/story.json"
+}

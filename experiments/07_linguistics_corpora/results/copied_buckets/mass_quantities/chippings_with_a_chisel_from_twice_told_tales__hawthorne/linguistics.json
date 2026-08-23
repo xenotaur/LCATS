@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22458,
+    "body_sha256": "cdd61f09eaf009d78547fbcf90399a669b1846a5821c89bcedbe374fae9fef12",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/chippings_with_a_chisel_from_twice_told_tales__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/chippings_with_a_chisel_from_twice_told_tales__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 38.0,
+    "avg_word_length": 4.191762013729977,
+    "sentence_count": 115,
+    "token_count": 4960,
+    "word_count": 4370
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/chippings_with_a_chisel_from_twice_told_tales__hawthorne/story.json"
+}

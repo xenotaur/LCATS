@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29190,
+    "body_sha256": "53d52a3386ae7750c5823727e17d345b09fed4b6ecc738ee4677a30f44fb185e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heart__slesar/story.json"
+  },
+  "lcats_id": "mass_quantities/heart__slesar",
+  "metrics": {
+    "avg_sentence_length": 11.203065134099617,
+    "avg_word_length": 3.954856361149111,
+    "sentence_count": 522,
+    "token_count": 7354,
+    "word_count": 5848
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/heart__slesar/story.json"
+}

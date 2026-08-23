@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22235,
+    "body_sha256": "5299fe9ac27b980aa49a7f26aac99c0571b8119c2218ffb89556c5cfe853d03b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/accept_no_substitutes__sheckley/story.json"
+  },
+  "lcats_id": "mass_quantities/accept_no_substitutes__sheckley",
+  "metrics": {
+    "avg_sentence_length": 10.79040404040404,
+    "avg_word_length": 4.189094313128949,
+    "sentence_count": 396,
+    "token_count": 5202,
+    "word_count": 4273
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/accept_no_substitutes__sheckley/story.json"
+}

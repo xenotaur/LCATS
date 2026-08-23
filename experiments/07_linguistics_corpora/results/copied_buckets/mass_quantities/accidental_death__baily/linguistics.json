@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 17436,
+    "body_sha256": "cf2261790eba31926dfb38334fa2b996ca51b8cfa1146e2e024b3751653ab5dc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/accidental_death__baily/story.json"
+  },
+  "lcats_id": "mass_quantities/accidental_death__baily",
+  "metrics": {
+    "avg_sentence_length": 13.919540229885058,
+    "avg_word_length": 3.8557665840902837,
+    "sentence_count": 261,
+    "token_count": 4137,
+    "word_count": 3633
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/accidental_death__baily/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19426,
+    "body_sha256": "5061e710e47a315ec4c33d49de27345674f2985599a4f5bbcc7ba5042a83e0da",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/houlihan_s_equation__sheldon/story.json"
+  },
+  "lcats_id": "mass_quantities/houlihan_s_equation__sheldon",
+  "metrics": {
+    "avg_sentence_length": 15.361216730038024,
+    "avg_word_length": 3.8027227722772277,
+    "sentence_count": 263,
+    "token_count": 4842,
+    "word_count": 4040
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/houlihan_s_equation__sheldon/story.json"
+}

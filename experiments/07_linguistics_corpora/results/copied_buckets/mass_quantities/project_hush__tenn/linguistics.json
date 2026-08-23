@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13461,
+    "body_sha256": "7bc6ba003ef80f04d2387aa6fb3d69b32b1108ce1deb622645aa64e621143270",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/project_hush__tenn/story.json"
+  },
+  "lcats_id": "mass_quantities/project_hush__tenn",
+  "metrics": {
+    "avg_sentence_length": 15.988235294117647,
+    "avg_word_length": 3.9613686534216335,
+    "sentence_count": 170,
+    "token_count": 3231,
+    "word_count": 2718
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/project_hush__tenn/story.json"
+}

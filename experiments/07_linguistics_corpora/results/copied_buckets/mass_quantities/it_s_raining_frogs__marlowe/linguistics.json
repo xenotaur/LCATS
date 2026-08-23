@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 52913,
+    "body_sha256": "3bfe40aa442d74e356c981779e2319180f4bd77ca087ea5f05cc3b3e76d5bb74",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_s_raining_frogs__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/it_s_raining_frogs__marlowe",
+  "metrics": {
+    "avg_sentence_length": 11.393660531697341,
+    "avg_word_length": 3.7241317419007447,
+    "sentence_count": 978,
+    "token_count": 13669,
+    "word_count": 11143
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/it_s_raining_frogs__marlowe/story.json"
+}

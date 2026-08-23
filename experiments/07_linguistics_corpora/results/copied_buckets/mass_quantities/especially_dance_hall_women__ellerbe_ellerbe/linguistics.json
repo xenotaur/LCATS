@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26084,
+    "body_sha256": "af22f450c7e55b6e3d77da271565aa2d6ce049e867adb2107bc57e66169fd270",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/story.json"
+  },
+  "lcats_id": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe",
+  "metrics": {
+    "avg_sentence_length": 18.06354515050167,
+    "avg_word_length": 3.8665062025550823,
+    "sentence_count": 299,
+    "token_count": 6164,
+    "word_count": 5401
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26828,
+    "body_sha256": "a9dc8aded0668938b1d8a230fc0a6fb3c57c6dec0a196c6fe6050edbaea87db8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lost_1898__bellamy/story.json"
+  },
+  "lcats_id": "mass_quantities/lost_1898__bellamy",
+  "metrics": {
+    "avg_sentence_length": 23.990867579908677,
+    "avg_word_length": 4.136086791016369,
+    "sentence_count": 219,
+    "token_count": 5935,
+    "word_count": 5254
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/lost_1898__bellamy/story.json"
+}

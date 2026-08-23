@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29055,
+    "body_sha256": "7a7cb7f66b12550dcf9c5bed9e869595c206c08f81c3bb5530e8b37b033a9b2a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pen_pal__marlowe/story.json"
+  },
+  "lcats_id": "mass_quantities/pen_pal__marlowe",
+  "metrics": {
+    "avg_sentence_length": 15.628032345013477,
+    "avg_word_length": 4.022593997930321,
+    "sentence_count": 371,
+    "token_count": 6829,
+    "word_count": 5798
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/pen_pal__marlowe/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24963,
+    "body_sha256": "66643452a310031a9323b6394072f94795f7ce7a26169fcad2419a4a6f5fc433",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/runaway__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/runaway__samachson",
+  "metrics": {
+    "avg_sentence_length": 15.651234567901234,
+    "avg_word_length": 3.9420232695720765,
+    "sentence_count": 324,
+    "token_count": 5970,
+    "word_count": 5071
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/runaway__samachson/story.json"
+}

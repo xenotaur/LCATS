@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27558,
+    "body_sha256": "a75759e102abad693d504dbea8dd7d08a13e0664f0cb896c3f11dd6f2d8459cf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bridge_crossing__dryfoos/story.json"
+  },
+  "lcats_id": "mass_quantities/bridge_crossing__dryfoos",
+  "metrics": {
+    "avg_sentence_length": 13.745635910224438,
+    "avg_word_length": 4.012518142235123,
+    "sentence_count": 401,
+    "token_count": 6556,
+    "word_count": 5512
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bridge_crossing__dryfoos/story.json"
+}

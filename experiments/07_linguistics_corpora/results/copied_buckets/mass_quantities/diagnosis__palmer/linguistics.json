@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22432,
+    "body_sha256": "5126711a6e79fe5dbea222e76bba9259960b1a635bd01e28c87dd590219fbb5b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/diagnosis__palmer/story.json"
+  },
+  "lcats_id": "mass_quantities/diagnosis__palmer",
+  "metrics": {
+    "avg_sentence_length": 13.363636363636363,
+    "avg_word_length": 3.885012069343867,
+    "sentence_count": 341,
+    "token_count": 5605,
+    "word_count": 4557
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/diagnosis__palmer/story.json"
+}

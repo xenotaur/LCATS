@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 36105,
+    "body_sha256": "5326a544e97147e4058f806e6ae871c42003b946b98beddae01622674012e930",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_band_played_on__shook/story.json"
+  },
+  "lcats_id": "mass_quantities/the_band_played_on__shook",
+  "metrics": {
+    "avg_sentence_length": 18.573426573426573,
+    "avg_word_length": 3.5647590361445785,
+    "sentence_count": 429,
+    "token_count": 8981,
+    "word_count": 7968
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_band_played_on__shook/story.json"
+}

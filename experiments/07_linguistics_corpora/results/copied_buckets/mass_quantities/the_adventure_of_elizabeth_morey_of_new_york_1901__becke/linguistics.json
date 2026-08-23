@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26395,
+    "body_sha256": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/story.json"
+  },
+  "lcats_id": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke",
+  "metrics": {
+    "avg_sentence_length": 32.879746835443036,
+    "avg_word_length": 4.12781520692974,
+    "sentence_count": 158,
+    "token_count": 5867,
+    "word_count": 5195
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/story.json"
+}

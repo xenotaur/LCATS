@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18404,
+    "body_sha256": "9011fc9f4595cf4f458a83b133d64f8a9d710ccd5c5d4add6d96f943d1ea2ffc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shepherd_of_the_planets__mattox/story.json"
+  },
+  "lcats_id": "mass_quantities/shepherd_of_the_planets__mattox",
+  "metrics": {
+    "avg_sentence_length": 11.926282051282051,
+    "avg_word_length": 3.919376511690406,
+    "sentence_count": 312,
+    "token_count": 4530,
+    "word_count": 3721
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/shepherd_of_the_planets__mattox/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 10786,
+    "body_sha256": "7b5f50bba245b7dd623e950415adaeab0e62389f36b666564023a020da46739b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/exit_from_asteroid_60__james/story.json"
+  },
+  "lcats_id": "mass_quantities/exit_from_asteroid_60__james",
+  "metrics": {
+    "avg_sentence_length": 15.633587786259541,
+    "avg_word_length": 4.28955078125,
+    "sentence_count": 131,
+    "token_count": 2408,
+    "word_count": 2048
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/exit_from_asteroid_60__james/story.json"
+}

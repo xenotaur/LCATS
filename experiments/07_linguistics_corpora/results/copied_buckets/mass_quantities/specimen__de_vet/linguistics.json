@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35664,
+    "body_sha256": "2ebe09caf5ca8d4cfed13e9ad7e7380efc9891303bac461290e06c75093c1854",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/specimen__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/specimen__de_vet",
+  "metrics": {
+    "avg_sentence_length": 13.863813229571985,
+    "avg_word_length": 4.023435307325288,
+    "sentence_count": 514,
+    "token_count": 8266,
+    "word_count": 7126
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/specimen__de_vet/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34211,
+    "body_sha256": "3b3c1ddecc2e0c65decbab0ed226720af6a8962bb8b58e3b63e8a1b297590e3f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_mixture_of_genius__castle/story.json"
+  },
+  "lcats_id": "mass_quantities/a_mixture_of_genius__castle",
+  "metrics": {
+    "avg_sentence_length": 13.15953307392996,
+    "avg_word_length": 4.054997043169722,
+    "sentence_count": 514,
+    "token_count": 8227,
+    "word_count": 6764
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/a_mixture_of_genius__castle/story.json"
+}

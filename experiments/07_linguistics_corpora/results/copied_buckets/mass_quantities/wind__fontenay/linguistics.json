@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32619,
+    "body_sha256": "a47e1e5010dcf5070ab0070ae1eeae15458c82f0a6ab9a3073e76038ded9c4a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wind__fontenay/story.json"
+  },
+  "lcats_id": "mass_quantities/wind__fontenay",
+  "metrics": {
+    "avg_sentence_length": 15.6256038647343,
+    "avg_word_length": 4.064615860256608,
+    "sentence_count": 414,
+    "token_count": 7586,
+    "word_count": 6469
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/wind__fontenay/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31255,
+    "body_sha256": "ede4acfa3b802831987174f5c2390b7729a3df236e115765d3b881d7c9e5be24",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/once_upon_a_planet__allerton/story.json"
+  },
+  "lcats_id": "mass_quantities/once_upon_a_planet__allerton",
+  "metrics": {
+    "avg_sentence_length": 13.915584415584416,
+    "avg_word_length": 3.849121169699798,
+    "sentence_count": 462,
+    "token_count": 7543,
+    "word_count": 6429
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/once_upon_a_planet__allerton/story.json"
+}

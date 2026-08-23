@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24870,
+    "body_sha256": "affe363a883115b8d439929fee491161f0a2b90df56853bf28fedab88ebfc4a4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/defense_mech__bradbury/story.json"
+  },
+  "lcats_id": "mass_quantities/defense_mech__bradbury",
+  "metrics": {
+    "avg_sentence_length": 8.887931034482758,
+    "avg_word_length": 3.7627546071774978,
+    "sentence_count": 580,
+    "token_count": 6634,
+    "word_count": 5155
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/defense_mech__bradbury/story.json"
+}

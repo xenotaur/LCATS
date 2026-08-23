@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 23578,
+    "body_sha256": "1acfc25d67fc780ec7e9d8b1dad05e1cfdaedfe906f203f1fd668a652df2499a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_deadly_ones__wallace/story.json"
+  },
+  "lcats_id": "mass_quantities/the_deadly_ones__wallace",
+  "metrics": {
+    "avg_sentence_length": 12.17557251908397,
+    "avg_word_length": 3.9648902821316616,
+    "sentence_count": 393,
+    "token_count": 5531,
+    "word_count": 4785
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_deadly_ones__wallace/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 50883,
+    "body_sha256": "bff1aac46757bc6cf3f44bca945522d9a04d593fe292c2102982722529089333",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/circle_of_confusion__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/circle_of_confusion__smith",
+  "metrics": {
+    "avg_sentence_length": 17.59375,
+    "avg_word_length": 4.0352279455299,
+    "sentence_count": 576,
+    "token_count": 12131,
+    "word_count": 10134
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/circle_of_confusion__smith/story.json"
+}

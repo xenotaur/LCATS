@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 14553,
+    "body_sha256": "de192d076ddc55ec04dabd1114f02c70abd9e2c92a66d6bacecfc110f140b5e2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_alien_dies_at_dawn__garrett_silverberg/story.json"
+  },
+  "lcats_id": "mass_quantities/the_alien_dies_at_dawn__garrett_silverberg",
+  "metrics": {
+    "avg_sentence_length": 13.252252252252251,
+    "avg_word_length": 3.9615907545887152,
+    "sentence_count": 222,
+    "token_count": 3481,
+    "word_count": 2942
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_alien_dies_at_dawn__garrett_silverberg/story.json"
+}

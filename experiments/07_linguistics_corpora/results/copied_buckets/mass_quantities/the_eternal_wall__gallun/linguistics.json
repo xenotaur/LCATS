@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24201,
+    "body_sha256": "c472bc6a790b535b276cfb8d33e278d3d3b1d698269f10e7c9b2d29574c3a8b4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eternal_wall__gallun/story.json"
+  },
+  "lcats_id": "mass_quantities/the_eternal_wall__gallun",
+  "metrics": {
+    "avg_sentence_length": 13.934328358208955,
+    "avg_word_length": 4.168808911739503,
+    "sentence_count": 335,
+    "token_count": 5543,
+    "word_count": 4668
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_eternal_wall__gallun/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31808,
+    "body_sha256": "bee0314017a8bbb65736f3bfe621f2b20bab2498708260552b9b9818701908ed",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/murder_beneath_the_polar_ice__howard/story.json"
+  },
+  "lcats_id": "mass_quantities/murder_beneath_the_polar_ice__howard",
+  "metrics": {
+    "avg_sentence_length": 16.92876712328767,
+    "avg_word_length": 4.198899498300696,
+    "sentence_count": 365,
+    "token_count": 7124,
+    "word_count": 6179
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/murder_beneath_the_polar_ice__howard/story.json"
+}

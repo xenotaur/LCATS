@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27895,
+    "body_sha256": "105c7e461c7314ba420f4eab1a35ad760591ef791bd523214433b9bc356f6442",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_need_of_man__calin/story.json"
+  },
+  "lcats_id": "mass_quantities/what_need_of_man__calin",
+  "metrics": {
+    "avg_sentence_length": 12.38888888888889,
+    "avg_word_length": 4.0337219730941705,
+    "sentence_count": 450,
+    "token_count": 6470,
+    "word_count": 5575
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/what_need_of_man__calin/story.json"
+}

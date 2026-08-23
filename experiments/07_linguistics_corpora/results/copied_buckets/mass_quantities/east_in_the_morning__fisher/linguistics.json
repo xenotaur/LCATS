@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24582,
+    "body_sha256": "82e391ff482e26cfc00f649ee8630572e318264c4e8b34f511bb46503f9ba7a0",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/east_in_the_morning__fisher/story.json"
+  },
+  "lcats_id": "mass_quantities/east_in_the_morning__fisher",
+  "metrics": {
+    "avg_sentence_length": 16.10855263157895,
+    "avg_word_length": 4.065346130283848,
+    "sentence_count": 304,
+    "token_count": 5650,
+    "word_count": 4897
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/east_in_the_morning__fisher/story.json"
+}

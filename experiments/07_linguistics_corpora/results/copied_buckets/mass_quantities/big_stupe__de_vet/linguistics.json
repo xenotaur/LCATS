@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21245,
+    "body_sha256": "f919b93387ca1fb5852afb3850592894266cd7d9e5e34442b9db0c52525339e9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/big_stupe__de_vet/story.json"
+  },
+  "lcats_id": "mass_quantities/big_stupe__de_vet",
+  "metrics": {
+    "avg_sentence_length": 15.75,
+    "avg_word_length": 4.151755651755652,
+    "sentence_count": 264,
+    "token_count": 4795,
+    "word_count": 4158
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/big_stupe__de_vet/story.json"
+}

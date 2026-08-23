@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35899,
+    "body_sha256": "f6cabafa33fe5d2f4502d984b505a566c7ee230c022b4f9d9ae990d4e3f0a989",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gallery__phillips/story.json"
+  },
+  "lcats_id": "mass_quantities/the_gallery__phillips",
+  "metrics": {
+    "avg_sentence_length": 15.791578947368421,
+    "avg_word_length": 3.8248233568857484,
+    "sentence_count": 475,
+    "token_count": 8506,
+    "word_count": 7501
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gallery__phillips/story.json"
+}

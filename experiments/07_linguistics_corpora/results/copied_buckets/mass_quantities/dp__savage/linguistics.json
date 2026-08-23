@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30042,
+    "body_sha256": "b6e1c84b110385838c412f103de0070dcc33d9c97942728702f3119fcea50812",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dp__savage/story.json"
+  },
+  "lcats_id": "mass_quantities/dp__savage",
+  "metrics": {
+    "avg_sentence_length": 15.071794871794872,
+    "avg_word_length": 4.131507315413406,
+    "sentence_count": 390,
+    "token_count": 6884,
+    "word_count": 5878
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dp__savage/story.json"
+}

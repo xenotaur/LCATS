@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 37778,
+    "body_sha256": "4f3c65e198e754758ea974c32d777903a7aff2b2cbe0b85d06ea37c40bfc4a6f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_talked_too_much__norton/story.json"
+  },
+  "lcats_id": "mass_quantities/the_man_who_talked_too_much__norton",
+  "metrics": {
+    "avg_sentence_length": 17.59628770301624,
+    "avg_word_length": 3.9787710970464136,
+    "sentence_count": 431,
+    "token_count": 9016,
+    "word_count": 7584
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_man_who_talked_too_much__norton/story.json"
+}

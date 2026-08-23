@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6550,
+    "body_sha256": "434cfb467a352349b7a22d92c9efdf428c80f4a5d96d0e2232d272637917aa72",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/after_twenty_years/story.json"
+  },
+  "lcats_id": "ohenry-four_million/after_twenty_years",
+  "metrics": {
+    "avg_sentence_length": 15.235955056179776,
+    "avg_word_length": 3.823746312684366,
+    "sentence_count": 89,
+    "token_count": 1616,
+    "word_count": 1356
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-four_million/after_twenty_years/story.json"
+}

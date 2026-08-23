@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38335,
+    "body_sha256": "85e9da820b08b54b0e1635125ca24caf6e94ecb6cd9effaa07c65a6e967e9fc6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_martian__van_houten/story.json"
+  },
+  "lcats_id": "mass_quantities/the_last_martian__van_houten",
+  "metrics": {
+    "avg_sentence_length": 20.525885558583106,
+    "avg_word_length": 4.152396123722289,
+    "sentence_count": 367,
+    "token_count": 8483,
+    "word_count": 7533
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_last_martian__van_houten/story.json"
+}

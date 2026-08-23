@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42290,
+    "body_sha256": "bf677862af41dce369c9da20f0b687ae63ca6c309c0c31b6aef1f6fb82824f2a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/sign_of_the_broken_sword/story.json"
+  },
+  "lcats_id": "chesterton/sign_of_the_broken_sword",
+  "metrics": {
+    "avg_sentence_length": 21.369014084507043,
+    "avg_word_length": 4.576061165304508,
+    "sentence_count": 355,
+    "token_count": 8845,
+    "word_count": 7586
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/sign_of_the_broken_sword/story.json"
+}

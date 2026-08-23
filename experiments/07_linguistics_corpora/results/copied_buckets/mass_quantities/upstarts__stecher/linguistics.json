@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29858,
+    "body_sha256": "220628218831a13f770b4e65c4ab4016a70b965c747a5744bae3ac77265eead2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/upstarts__stecher/story.json"
+  },
+  "lcats_id": "mass_quantities/upstarts__stecher",
+  "metrics": {
+    "avg_sentence_length": 17.73170731707317,
+    "avg_word_length": 4.14786795048143,
+    "sentence_count": 328,
+    "token_count": 6836,
+    "word_count": 5816
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/upstarts__stecher/story.json"
+}

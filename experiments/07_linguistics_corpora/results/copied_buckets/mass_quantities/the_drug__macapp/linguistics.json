@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26358,
+    "body_sha256": "6d3515d9cfef626cdad2ab6a36b0b5416142e5b01d25db9fe22a3d5192011911",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_drug__macapp/story.json"
+  },
+  "lcats_id": "mass_quantities/the_drug__macapp",
+  "metrics": {
+    "avg_sentence_length": 13.275,
+    "avg_word_length": 3.970056497175141,
+    "sentence_count": 400,
+    "token_count": 6401,
+    "word_count": 5310
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_drug__macapp/story.json"
+}

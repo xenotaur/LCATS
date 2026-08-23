@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 12152,
+    "body_sha256": "0b82ec073cf93cebfc09f81e66d0eb7ea799d1a4331a7fa4625898f1cd66c6d6",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/advanced_chemistry__huekels/story.json"
+  },
+  "lcats_id": "mass_quantities/advanced_chemistry__huekels",
+  "metrics": {
+    "avg_sentence_length": 16.305555555555557,
+    "avg_word_length": 4.2001703577512775,
+    "sentence_count": 144,
+    "token_count": 2715,
+    "word_count": 2348
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/advanced_chemistry__huekels/story.json"
+}

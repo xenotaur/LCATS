@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20282,
+    "body_sha256": "4131c83bd597b5a4eea63bc72190ed25e7d6e7d84ebc0f0b7068cd218b5e81f8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/murderer_s_chain__brown/story.json"
+  },
+  "lcats_id": "mass_quantities/murderer_s_chain__brown",
+  "metrics": {
+    "avg_sentence_length": 16.54980079681275,
+    "avg_word_length": 3.9412614347616755,
+    "sentence_count": 251,
+    "token_count": 4661,
+    "word_count": 4154
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/murderer_s_chain__brown/story.json"
+}

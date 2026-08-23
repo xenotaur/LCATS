@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22051,
+    "body_sha256": "cefc0878b233206f530def08ea46d2de2e5c631c4ebde872e807077244587898",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/ransom_of_red_chief/story.json"
+  },
+  "lcats_id": "ohenry-whirligigs/ransom_of_red_chief",
+  "metrics": {
+    "avg_sentence_length": 18.51394422310757,
+    "avg_word_length": 3.7540348612007746,
+    "sentence_count": 251,
+    "token_count": 5447,
+    "word_count": 4647
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/ransom_of_red_chief/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5901,
+    "body_sha256": "c3871377d7680bc2ac620813c64a0619805b2ae842182027cb50c2290b2e5cde",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/danger_in_the_void__fritch/story.json"
+  },
+  "lcats_id": "mass_quantities/danger_in_the_void__fritch",
+  "metrics": {
+    "avg_sentence_length": 12.061224489795919,
+    "avg_word_length": 3.9746192893401013,
+    "sentence_count": 98,
+    "token_count": 1469,
+    "word_count": 1182
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/danger_in_the_void__fritch/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33827,
+    "body_sha256": "9d02a906516eadf1356176a68afb5c81fa190bc474ac833231fe2dd09f49831b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/proxy_planeteers__hamilton/story.json"
+  },
+  "lcats_id": "mass_quantities/proxy_planeteers__hamilton",
+  "metrics": {
+    "avg_sentence_length": 13.577083333333333,
+    "avg_word_length": 4.203314408470155,
+    "sentence_count": 480,
+    "token_count": 7810,
+    "word_count": 6517
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/proxy_planeteers__hamilton/story.json"
+}

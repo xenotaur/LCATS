@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 5843,
+    "body_sha256": "d7402c633889fc92e6b584fb313d80f54205395321fb313cb638373fe02008a1",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/to_day_is_friday/story.json"
+  },
+  "lcats_id": "hemingway/to_day_is_friday",
+  "metrics": {
+    "avg_sentence_length": 10.546875,
+    "avg_word_length": 3.477777777777778,
+    "sentence_count": 128,
+    "token_count": 1658,
+    "word_count": 1350
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/hemingway/to_day_is_friday/story.json"
+}

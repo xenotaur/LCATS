@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 39685,
+    "body_sha256": "e74371e8baffa879293fe26cc2c064c34c8ccb65986fcacb5b48f282c2708097",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/aunt_deborah__mitford/story.json"
+  },
+  "lcats_id": "mass_quantities/aunt_deborah__mitford",
+  "metrics": {
+    "avg_sentence_length": 39.943005181347154,
+    "avg_word_length": 4.175379426644182,
+    "sentence_count": 193,
+    "token_count": 8831,
+    "word_count": 7709
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/aunt_deborah__mitford/story.json"
+}

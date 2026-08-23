@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31059,
+    "body_sha256": "dbe412ceff1807109f8f203437646e7ff173ad681e8b45c571b09ea435d78bac",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mutiny__offenbecker/story.json"
+  },
+  "lcats_id": "mass_quantities/mutiny__offenbecker",
+  "metrics": {
+    "avg_sentence_length": 12.183953033268102,
+    "avg_word_length": 4.025698682942499,
+    "sentence_count": 511,
+    "token_count": 7255,
+    "word_count": 6226
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mutiny__offenbecker/story.json"
+}

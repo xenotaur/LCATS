@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 46413,
+    "body_sha256": "294a30b823897fd9487a1c2455fb6ae29cf8348ee0a43a0c234465418faae91e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/story.json"
+  },
+  "lcats_id": "mass_quantities/the_gray_brotherhood__leverage",
+  "metrics": {
+    "avg_sentence_length": 11.344242424242424,
+    "avg_word_length": 3.9543754674644727,
+    "sentence_count": 825,
+    "token_count": 11456,
+    "word_count": 9359
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 38913,
+    "body_sha256": "c890d6109fe69e6306cdc7c0380d287cf94fa12ddc893a63de7de65112e1ef87",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_and_time_again__piper/story.json"
+  },
+  "lcats_id": "mass_quantities/time_and_time_again__piper",
+  "metrics": {
+    "avg_sentence_length": 14.356746765249538,
+    "avg_word_length": 3.9876400154499807,
+    "sentence_count": 541,
+    "token_count": 9473,
+    "word_count": 7767
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/time_and_time_again__piper/story.json"
+}

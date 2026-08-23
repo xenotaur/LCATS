@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25773,
+    "body_sha256": "600e400f93558e24be9e9cd9f9dc662a13e8bbb965554c19d8b252b5df58fd63",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_envoy_her__fyfe/story.json"
+  },
+  "lcats_id": "mass_quantities/the_envoy_her__fyfe",
+  "metrics": {
+    "avg_sentence_length": 14.497076023391813,
+    "avg_word_length": 4.207543364259783,
+    "sentence_count": 342,
+    "token_count": 5874,
+    "word_count": 4958
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_envoy_her__fyfe/story.json"
+}

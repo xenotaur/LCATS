@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 7402,
+    "body_sha256": "12667b6792cc2081379fc2972ce3675b05fbeb7aa5e804ce6d48eb777a79e0ff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_replogle_s_dream__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/mr_replogle_s_dream__smith",
+  "metrics": {
+    "avg_sentence_length": 15.23157894736842,
+    "avg_word_length": 4.082930200414651,
+    "sentence_count": 95,
+    "token_count": 1785,
+    "word_count": 1447
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/mr_replogle_s_dream__smith/story.json"
+}

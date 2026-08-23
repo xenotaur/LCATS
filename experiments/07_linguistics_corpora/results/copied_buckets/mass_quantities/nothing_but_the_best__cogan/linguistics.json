@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21376,
+    "body_sha256": "ff3b95550ab8a4aeb62a4bfd0bec90b29595da079b03c6ee8e3b407333470e1a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nothing_but_the_best__cogan/story.json"
+  },
+  "lcats_id": "mass_quantities/nothing_but_the_best__cogan",
+  "metrics": {
+    "avg_sentence_length": 14.840677966101694,
+    "avg_word_length": 3.8990406578346275,
+    "sentence_count": 295,
+    "token_count": 5226,
+    "word_count": 4378
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/nothing_but_the_best__cogan/story.json"
+}

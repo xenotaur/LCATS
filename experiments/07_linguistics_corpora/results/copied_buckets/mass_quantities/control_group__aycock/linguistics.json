@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 29405,
+    "body_sha256": "e5e3c4f4b78208d7140f22c68a8228f29e019c9503ae95420b4ae9bdea864cdb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/control_group__aycock/story.json"
+  },
+  "lcats_id": "mass_quantities/control_group__aycock",
+  "metrics": {
+    "avg_sentence_length": 19.548042704626333,
+    "avg_word_length": 4.405425086473694,
+    "sentence_count": 281,
+    "token_count": 6390,
+    "word_count": 5493
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/control_group__aycock/story.json"
+}

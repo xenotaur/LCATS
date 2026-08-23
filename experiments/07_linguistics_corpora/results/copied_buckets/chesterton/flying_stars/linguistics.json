@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 33136,
+    "body_sha256": "3c2e451e9d0fd43f5206d540ddeac7a4136fe1953e21c748a39a1971eb68662d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/flying_stars/story.json"
+  },
+  "lcats_id": "chesterton/flying_stars",
+  "metrics": {
+    "avg_sentence_length": 22.613026819923373,
+    "avg_word_length": 4.611318197221281,
+    "sentence_count": 261,
+    "token_count": 6954,
+    "word_count": 5902
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/chesterton/flying_stars/story.json"
+}

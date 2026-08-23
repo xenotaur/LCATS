@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28317,
+    "body_sha256": "089abfc0a7b15fffb2bff7c0593b1baf50fd4633ff4da7068b796ea5845a1566",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/test_for_the_pearl__garson/story.json"
+  },
+  "lcats_id": "mass_quantities/test_for_the_pearl__garson",
+  "metrics": {
+    "avg_sentence_length": 12.09421841541756,
+    "avg_word_length": 4.0173512747875355,
+    "sentence_count": 467,
+    "token_count": 6732,
+    "word_count": 5648
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/test_for_the_pearl__garson/story.json"
+}

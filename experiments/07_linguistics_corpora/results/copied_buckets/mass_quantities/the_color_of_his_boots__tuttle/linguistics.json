@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40554,
+    "body_sha256": "352ed00109cc46a7c040897133d6ff01799c6ededc8241fee7081bb7fd08f6f8",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_color_of_his_boots__tuttle/story.json"
+  },
+  "lcats_id": "mass_quantities/the_color_of_his_boots__tuttle",
+  "metrics": {
+    "avg_sentence_length": 13.734177215189874,
+    "avg_word_length": 3.655990783410138,
+    "sentence_count": 632,
+    "token_count": 10637,
+    "word_count": 8680
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_color_of_his_boots__tuttle/story.json"
+}

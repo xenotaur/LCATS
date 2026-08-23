@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24896,
+    "body_sha256": "12121ddc54ed4d6c3f831a2e22d05b4a760f913928eab979cede0d6c59dce8c9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fresh_air_fiend__neville/story.json"
+  },
+  "lcats_id": "mass_quantities/fresh_air_fiend__neville",
+  "metrics": {
+    "avg_sentence_length": 13.421052631578947,
+    "avg_word_length": 3.8841176470588237,
+    "sentence_count": 380,
+    "token_count": 6027,
+    "word_count": 5100
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/fresh_air_fiend__neville/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26600,
+    "body_sha256": "79a76d31030541f0d151afacb9aa235334bf5dea32ea95acbe90fd94b3389c0b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_it_comes_out_here__del_rey/story.json"
+  },
+  "lcats_id": "mass_quantities/and_it_comes_out_here__del_rey",
+  "metrics": {
+    "avg_sentence_length": 15.72191011235955,
+    "avg_word_length": 3.788815436841165,
+    "sentence_count": 356,
+    "token_count": 6480,
+    "word_count": 5597
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_it_comes_out_here__del_rey/story.json"
+}

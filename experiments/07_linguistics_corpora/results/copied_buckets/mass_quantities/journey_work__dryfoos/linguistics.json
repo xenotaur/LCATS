@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26794,
+    "body_sha256": "55b3379a24cbf23eda2168344f431277707b7d31a8799d103fe1b3404e4b5328",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/journey_work__dryfoos/story.json"
+  },
+  "lcats_id": "mass_quantities/journey_work__dryfoos",
+  "metrics": {
+    "avg_sentence_length": 14.305483028720626,
+    "avg_word_length": 3.9140354079211535,
+    "sentence_count": 383,
+    "token_count": 6494,
+    "word_count": 5479
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/journey_work__dryfoos/story.json"
+}

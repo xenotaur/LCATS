@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27254,
+    "body_sha256": "af9946534d7628851f149141af5705bb5ec65258b004af8c983d8a8614ba7291",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/not_in_the_rules__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/not_in_the_rules__reynolds",
+  "metrics": {
+    "avg_sentence_length": 14.970189701897018,
+    "avg_word_length": 3.974837074583635,
+    "sentence_count": 369,
+    "token_count": 6359,
+    "word_count": 5524
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/not_in_the_rules__reynolds/story.json"
+}

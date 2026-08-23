@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21193,
+    "body_sha256": "fda39993afefab22ea4058419645df9a3e243a750c3236d3b7aead0027128eff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/story_of_the_youth_who_went_forth_to_learn_what_fear_was/story.json"
+  },
+  "lcats_id": "grimm/story_of_the_youth_who_went_forth_to_learn_what_fear_was",
+  "metrics": {
+    "avg_sentence_length": 19.126168224299064,
+    "avg_word_length": 4.091375519179087,
+    "sentence_count": 214,
+    "token_count": 5038,
+    "word_count": 4093
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/story_of_the_youth_who_went_forth_to_learn_what_fear_was/story.json"
+}

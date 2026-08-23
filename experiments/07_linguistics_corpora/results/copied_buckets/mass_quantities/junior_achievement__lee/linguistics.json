@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27360,
+    "body_sha256": "ba9c1b531b5412a691611ac99ad08860314c31f73a0e0521c2a27dc199687042",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/junior_achievement__lee/story.json"
+  },
+  "lcats_id": "mass_quantities/junior_achievement__lee",
+  "metrics": {
+    "avg_sentence_length": 15.534090909090908,
+    "avg_word_length": 3.988478419897586,
+    "sentence_count": 352,
+    "token_count": 6628,
+    "word_count": 5468
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/junior_achievement__lee/story.json"
+}

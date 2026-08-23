@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35426,
+    "body_sha256": "206a24c713ea45faaec64e0a979040846832a31c1fa96938092df43b8bb538c2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/community_property__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/community_property__coppel",
+  "metrics": {
+    "avg_sentence_length": 12.29391304347826,
+    "avg_word_length": 4.017682840571509,
+    "sentence_count": 575,
+    "token_count": 8454,
+    "word_count": 7069
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/community_property__coppel/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30384,
+    "body_sha256": "7ec611b0c398f5aad18007cd15aa8179a4c5d8b234c0e5be9ba6a70398f7389a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_blue_tower__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/the_blue_tower__smith",
+  "metrics": {
+    "avg_sentence_length": 15.699731903485254,
+    "avg_word_length": 4.161031420765028,
+    "sentence_count": 373,
+    "token_count": 7085,
+    "word_count": 5856
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_blue_tower__smith/story.json"
+}

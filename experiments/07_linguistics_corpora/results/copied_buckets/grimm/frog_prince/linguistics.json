@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6569,
+    "body_sha256": "b728fac0f83caaca223aa4df00ae12ff821d7952134827ea5305f7d1050f93fb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/frog_prince/story.json"
+  },
+  "lcats_id": "grimm/frog_prince",
+  "metrics": {
+    "avg_sentence_length": 32.4,
+    "avg_word_length": 4.0378086419753085,
+    "sentence_count": 40,
+    "token_count": 1533,
+    "word_count": 1296
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/frog_prince/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 40333,
+    "body_sha256": "37d5b75fce8b416c3047e4ea1e4ca3ec68e5f743cad6c7cbda7321412a9ab8a7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/run_little_monster__geier/story.json"
+  },
+  "lcats_id": "mass_quantities/run_little_monster__geier",
+  "metrics": {
+    "avg_sentence_length": 13.68590831918506,
+    "avg_word_length": 4.017119464086342,
+    "sentence_count": 589,
+    "token_count": 9367,
+    "word_count": 8061
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/run_little_monster__geier/story.json"
+}

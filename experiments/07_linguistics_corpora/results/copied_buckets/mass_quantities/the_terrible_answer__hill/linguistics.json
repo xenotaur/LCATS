@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 18756,
+    "body_sha256": "4adf1f23145a4c0faeb3d1a9646a62df40b615d0236f2c1a4e593aa927c88bed",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_terrible_answer__hill/story.json"
+  },
+  "lcats_id": "mass_quantities/the_terrible_answer__hill",
+  "metrics": {
+    "avg_sentence_length": 9.811827956989248,
+    "avg_word_length": 4.101643835616438,
+    "sentence_count": 372,
+    "token_count": 4525,
+    "word_count": 3650
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_terrible_answer__hill/story.json"
+}

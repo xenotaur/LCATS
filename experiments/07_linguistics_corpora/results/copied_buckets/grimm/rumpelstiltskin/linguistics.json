@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 6386,
+    "body_sha256": "824e06471b4e31430b7e4e40cf9d341513f9728ef96ed0487746607fae5e07fe",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/rumpelstiltskin/story.json"
+  },
+  "lcats_id": "grimm/rumpelstiltskin",
+  "metrics": {
+    "avg_sentence_length": 27.130434782608695,
+    "avg_word_length": 4.076121794871795,
+    "sentence_count": 46,
+    "token_count": 1504,
+    "word_count": 1248
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/grimm/rumpelstiltskin/story.json"
+}

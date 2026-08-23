@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27487,
+    "body_sha256": "c8e23d96119fbe022841fb751b28bff312311dde875cbcb649eaca2dd6bbd1cc",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_minister_had_to_wait__aycock/story.json"
+  },
+  "lcats_id": "mass_quantities/the_minister_had_to_wait__aycock",
+  "metrics": {
+    "avg_sentence_length": 19.12982456140351,
+    "avg_word_length": 4.098312545854732,
+    "sentence_count": 285,
+    "token_count": 6287,
+    "word_count": 5452
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_minister_had_to_wait__aycock/story.json"
+}

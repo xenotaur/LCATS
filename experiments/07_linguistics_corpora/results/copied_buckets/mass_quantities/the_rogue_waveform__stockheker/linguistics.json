@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26575,
+    "body_sha256": "0506329377ce55010104229929f79bb136294df69348af80195c936ab583f063",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rogue_waveform__stockheker/story.json"
+  },
+  "lcats_id": "mass_quantities/the_rogue_waveform__stockheker",
+  "metrics": {
+    "avg_sentence_length": 13.40389294403893,
+    "avg_word_length": 3.845888546015611,
+    "sentence_count": 411,
+    "token_count": 6423,
+    "word_count": 5509
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_rogue_waveform__stockheker/story.json"
+}

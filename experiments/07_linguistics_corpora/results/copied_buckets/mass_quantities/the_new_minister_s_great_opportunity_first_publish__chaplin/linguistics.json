@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26720,
+    "body_sha256": "03945551aabfd38f63b086e0d356f59728aa43ec1cec7b396e06248c7c132e05",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_new_minister_s_great_opportunity_first_publish__chaplin/story.json"
+  },
+  "lcats_id": "mass_quantities/the_new_minister_s_great_opportunity_first_publish__chaplin",
+  "metrics": {
+    "avg_sentence_length": 23.112068965517242,
+    "avg_word_length": 3.957292055203282,
+    "sentence_count": 232,
+    "token_count": 6493,
+    "word_count": 5362
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_new_minister_s_great_opportunity_first_publish__chaplin/story.json"
+}

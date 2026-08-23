@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27736,
+    "body_sha256": "2d3965edb3d0a8d05c3ffe054b56f93ab0ce79e31e37a8c2cfc0bfd33d0f38ac",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/turning_point__coppel/story.json"
+  },
+  "lcats_id": "mass_quantities/turning_point__coppel",
+  "metrics": {
+    "avg_sentence_length": 12.55607476635514,
+    "avg_word_length": 4.160960178637886,
+    "sentence_count": 428,
+    "token_count": 6434,
+    "word_count": 5374
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/turning_point__coppel/story.json"
+}

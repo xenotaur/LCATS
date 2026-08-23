@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 15579,
+    "body_sha256": "31af141fa24138c46c183309d3df4b064aebc0c01cb21fa093f50512a605fa93",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_human_element__kelley/story.json"
+  },
+  "lcats_id": "mass_quantities/the_human_element__kelley",
+  "metrics": {
+    "avg_sentence_length": 15.612244897959183,
+    "avg_word_length": 4.138888888888889,
+    "sentence_count": 196,
+    "token_count": 3465,
+    "word_count": 3060
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_human_element__kelley/story.json"
+}

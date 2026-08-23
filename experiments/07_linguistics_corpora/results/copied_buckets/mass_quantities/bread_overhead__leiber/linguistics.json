@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30908,
+    "body_sha256": "61d200dd33cbce478598495fc560c0aaeda9ca49b23d84e7890d144fd6e124e3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bread_overhead__leiber/story.json"
+  },
+  "lcats_id": "mass_quantities/bread_overhead__leiber",
+  "metrics": {
+    "avg_sentence_length": 21.559386973180075,
+    "avg_word_length": 4.531899768971033,
+    "sentence_count": 261,
+    "token_count": 6565,
+    "word_count": 5627
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/bread_overhead__leiber/story.json"
+}

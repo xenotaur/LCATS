@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28783,
+    "body_sha256": "5e0fab22d2a69877c7c83858fa453c297450d9dea50540c2848010ed58d08ded",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rat_race__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/rat_race__smith",
+  "metrics": {
+    "avg_sentence_length": 13.344186046511627,
+    "avg_word_length": 4.000522830254444,
+    "sentence_count": 430,
+    "token_count": 6963,
+    "word_count": 5738
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/rat_race__smith/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 41226,
+    "body_sha256": "d2767ca73c01cdcf75603671652bc531a256fb14eb30d5e3aefa26d5237be9dd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_christmas_banquet_from_mosses_from_an_old_mans__hawthorne/story.json"
+  },
+  "lcats_id": "mass_quantities/the_christmas_banquet_from_mosses_from_an_old_mans__hawthorne",
+  "metrics": {
+    "avg_sentence_length": 29.237735849056605,
+    "avg_word_length": 4.343572534847703,
+    "sentence_count": 265,
+    "token_count": 8906,
+    "word_count": 7748
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_christmas_banquet_from_mosses_from_an_old_mans__hawthorne/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 22729,
+    "body_sha256": "4e6deb36f8a54f18654ab7f46aaf81bde25518a0e5c0db4dd490d6405c97eee4",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spinster_1905__hichens/story.json"
+  },
+  "lcats_id": "mass_quantities/the_spinster_1905__hichens",
+  "metrics": {
+    "avg_sentence_length": 12.89920424403183,
+    "avg_word_length": 3.6370553156487766,
+    "sentence_count": 377,
+    "token_count": 5974,
+    "word_count": 4863
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_spinster_1905__hichens/story.json"
+}

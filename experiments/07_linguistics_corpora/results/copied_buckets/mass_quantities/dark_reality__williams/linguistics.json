@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13159,
+    "body_sha256": "3a49717ea372043d8d7ecf14ff6a1c8464072083c7e6601da734234aa867d53a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dark_reality__williams/story.json"
+  },
+  "lcats_id": "mass_quantities/dark_reality__williams",
+  "metrics": {
+    "avg_sentence_length": 10.28957528957529,
+    "avg_word_length": 3.9039399624765476,
+    "sentence_count": 259,
+    "token_count": 3267,
+    "word_count": 2665
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/dark_reality__williams/story.json"
+}

@@ -39,7 +39,7 @@ acceptance:
   - export.build_analysis_tables includes story-level relations in its "relations" table
   - Story-level relation IDs are made globally unique (segment-qualified, e.g. "{segment_id}:{relation_id}", mirroring how reconcile_story_annotations already qualifies event IDs) before any deduplication is attempted, since raw relation_id values are not unique across segments today and reusing them for dedup would silently discard unrelated relations
   - baseline.summarize_annotations includes story-level relations in relations_per_1000_words, with deduplication keyed on the new globally-unique relation identity against per-segment relations
-  - Story-level relations preserve the weakly_inferred/explicit/strongly_implied certainty partition into their reporting: weakly_inferred story-level relations are counted under weakly_inferred_relations_per_1000_words (as per-segment weakly_inferred relations already are), not mixed into the primary relations_per_1000_words density metric
+  - "Story-level relations preserve the weakly_inferred/explicit/strongly_implied certainty partition into their reporting: weakly_inferred story-level relations are counted under weakly_inferred_relations_per_1000_words (as per-segment weakly_inferred relations already are), not mixed into the primary relations_per_1000_words density metric"
   - The corpus's actual story-length distribution is checked to decide whether option A's long-story windowing caveat (hierarchical chapter-then-story pass) must be built now, with the decision and rationale documented
   - lrh validate reports 0 errors and scripts/test passes
 required_evidence:

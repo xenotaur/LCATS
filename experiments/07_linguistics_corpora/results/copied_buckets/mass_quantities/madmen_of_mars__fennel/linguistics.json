@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 44875,
+    "body_sha256": "de11ae0ecbd57cc31cc8b75b2c42d600b181fed1b489fbf0e3ade7aa306edea9",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/madmen_of_mars__fennel/story.json"
+  },
+  "lcats_id": "mass_quantities/madmen_of_mars__fennel",
+  "metrics": {
+    "avg_sentence_length": 13.677272727272728,
+    "avg_word_length": 4.015619807244932,
+    "sentence_count": 660,
+    "token_count": 10450,
+    "word_count": 9027
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/madmen_of_mars__fennel/story.json"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19858,
+    "body_sha256": "2051607c56ee294fd6438c136cfd072283485b41fe509f1f6b82cde601c3f164",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/star_of_rebirth__wall/story.json"
+  },
+  "lcats_id": "mass_quantities/star_of_rebirth__wall",
+  "metrics": {
+    "avg_sentence_length": 18.40888888888889,
+    "avg_word_length": 3.8372766779333656,
+    "sentence_count": 225,
+    "token_count": 4608,
+    "word_count": 4142
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/star_of_rebirth__wall/story.json"
+}

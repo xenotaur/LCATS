@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32179,
+    "body_sha256": "77f1c4eafd4742140a2bdedfa2e4632b7bf101e3484d710f4e216e909b1e894c",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sky_trap__long/story.json"
+  },
+  "lcats_id": "mass_quantities/the_sky_trap__long",
+  "metrics": {
+    "avg_sentence_length": 13.494600431965443,
+    "avg_word_length": 4.186299615877081,
+    "sentence_count": 463,
+    "token_count": 7374,
+    "word_count": 6248
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_sky_trap__long/story.json"
+}

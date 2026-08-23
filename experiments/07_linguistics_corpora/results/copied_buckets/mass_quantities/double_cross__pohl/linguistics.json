@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 19187,
+    "body_sha256": "8a34bf65ea2865eb9a6bd3678deaa0502f95a8b0c4df4d08a46dca0349f151de",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/double_cross__pohl/story.json"
+  },
+  "lcats_id": "mass_quantities/double_cross__pohl",
+  "metrics": {
+    "avg_sentence_length": 11.128279883381925,
+    "avg_word_length": 3.9756353156929527,
+    "sentence_count": 343,
+    "token_count": 4706,
+    "word_count": 3817
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/double_cross__pohl/story.json"
+}

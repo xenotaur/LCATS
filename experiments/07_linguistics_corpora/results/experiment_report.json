@@ -1,0 +1,37 @@
+{
+  "analysis_exclusion_count": 1,
+  "analysis_exclusions": [
+    {
+      "reason": "empty_body",
+      "story_id": "ohenry-whirligigs/madame_bo_peep_of_the_ranches",
+      "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/madame_bo_peep_of_the_ranches/story.json"
+    }
+  ],
+  "analysis_story_count": 1867,
+  "backend_name": "spacy",
+  "copied_bucket_bytes": 58548447,
+  "copied_bucket_root": "experiments/07_linguistics_corpora/results/copied_buckets",
+  "copied_sidecar_count": 1867,
+  "copied_story_count": 1868,
+  "corpora_modified": false,
+  "corpus_linguistics_sidecars_found": [],
+  "dry_run": false,
+  "elapsed_seconds": 3979.96,
+  "experiment": "experiments/07_linguistics_corpora",
+  "failures": [],
+  "model_name": "",
+  "overwrite": true,
+  "resume": false,
+  "run_clean": true,
+  "run_counts": {
+    "written": 1867
+  },
+  "run_summary_path": "experiments/07_linguistics_corpora/results/linguistics_run_summary.json",
+  "schema_version": "linguistics-corpora-report-v1",
+  "selected_story_count": 1868,
+  "smoke_count": null,
+  "snapshot_manifest_path": "experiments/07_linguistics_corpora/results/snapshot_manifest.json",
+  "source_commit": "51ca31c5c0bd977c39d51d368c1870abf9a8ad5c",
+  "source_story_count": 1868,
+  "story_list_path": "experiments/07_linguistics_corpora/results/story-list.txt"
+}

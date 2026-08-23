@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30557,
+    "body_sha256": "b3abb3eb27b9c4ef4ce6c9f409ff1a4ab1825371e2108a7b1a3fa67b4c8e62de",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_illusion__banister/story.json"
+  },
+  "lcats_id": "mass_quantities/the_great_illusion__banister",
+  "metrics": {
+    "avg_sentence_length": 11.174157303370787,
+    "avg_word_length": 4.067202949555891,
+    "sentence_count": 534,
+    "token_count": 7400,
+    "word_count": 5967
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_great_illusion__banister/story.json"
+}

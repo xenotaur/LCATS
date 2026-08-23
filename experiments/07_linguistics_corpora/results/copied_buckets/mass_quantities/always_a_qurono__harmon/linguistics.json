@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26388,
+    "body_sha256": "0a375acbde358667c5136ae2970a630744f562e409e15497078705062853584e",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/always_a_qurono__harmon/story.json"
+  },
+  "lcats_id": "mass_quantities/always_a_qurono__harmon",
+  "metrics": {
+    "avg_sentence_length": 14.440677966101696,
+    "avg_word_length": 4.222417840375587,
+    "sentence_count": 354,
+    "token_count": 5840,
+    "word_count": 5112
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/always_a_qurono__harmon/story.json"
+}

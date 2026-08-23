@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 21144,
+    "body_sha256": "6cfe57e771a3b24db2438757322a4d71fa8857b68fd4c3373ac374384b86325a",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_of_a_b_e_m__livingston/story.json"
+  },
+  "lcats_id": "mass_quantities/death_of_a_b_e_m__livingston",
+  "metrics": {
+    "avg_sentence_length": 13.006060606060606,
+    "avg_word_length": 3.9135601118359737,
+    "sentence_count": 330,
+    "token_count": 5108,
+    "word_count": 4292
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/death_of_a_b_e_m__livingston/story.json"
+}

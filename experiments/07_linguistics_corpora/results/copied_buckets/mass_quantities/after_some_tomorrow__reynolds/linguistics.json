@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28631,
+    "body_sha256": "7077576b8a0351c329d15872509d87dcdab5d23ecd2f0fac7952bbf576f3a8a3",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/after_some_tomorrow__reynolds/story.json"
+  },
+  "lcats_id": "mass_quantities/after_some_tomorrow__reynolds",
+  "metrics": {
+    "avg_sentence_length": 14.026506024096385,
+    "avg_word_length": 3.911870812575159,
+    "sentence_count": 415,
+    "token_count": 6957,
+    "word_count": 5821
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/after_some_tomorrow__reynolds/story.json"
+}

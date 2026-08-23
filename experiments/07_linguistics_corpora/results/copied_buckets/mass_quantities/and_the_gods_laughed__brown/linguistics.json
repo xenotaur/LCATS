@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 8549,
+    "body_sha256": "f447106099d1fcab1b9bc1e143069da2248b2c043889f3e632c8fbf5862995e2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_the_gods_laughed__brown/story.json"
+  },
+  "lcats_id": "mass_quantities/and_the_gods_laughed__brown",
+  "metrics": {
+    "avg_sentence_length": 18.04,
+    "avg_word_length": 3.7527716186252773,
+    "sentence_count": 100,
+    "token_count": 2125,
+    "word_count": 1804
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/and_the_gods_laughed__brown/story.json"
+}

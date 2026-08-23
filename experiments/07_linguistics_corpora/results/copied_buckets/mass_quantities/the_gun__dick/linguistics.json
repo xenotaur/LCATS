@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 27158,
+    "body_sha256": "34ab3bc80eaa0160e168b58df4f44af952892e7fd614980da7e591d3ed703acb",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gun__dick/story.json"
+  },
+  "lcats_id": "mass_quantities/the_gun__dick",
+  "metrics": {
+    "avg_sentence_length": 9.379965457685666,
+    "avg_word_length": 3.9390535812925798,
+    "sentence_count": 579,
+    "token_count": 6867,
+    "word_count": 5431
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_gun__dick/story.json"
+}

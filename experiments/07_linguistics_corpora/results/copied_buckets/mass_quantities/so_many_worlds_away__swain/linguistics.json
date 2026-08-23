@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 42259,
+    "body_sha256": "77aa2b9ed08f08293e2e310a9c99f1927a60d9664ef11392429e4917416a8e43",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/so_many_worlds_away__swain/story.json"
+  },
+  "lcats_id": "mass_quantities/so_many_worlds_away__swain",
+  "metrics": {
+    "avg_sentence_length": 10.824607329842932,
+    "avg_word_length": 4.097097944377267,
+    "sentence_count": 764,
+    "token_count": 10161,
+    "word_count": 8270
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/so_many_worlds_away__swain/story.json"
+}

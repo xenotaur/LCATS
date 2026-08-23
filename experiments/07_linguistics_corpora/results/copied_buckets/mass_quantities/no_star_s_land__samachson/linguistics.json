@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 31345,
+    "body_sha256": "89057290d96c7ad0834d35c087117f5b98dce75693f8b9a646460eb7a8c1a82b",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_star_s_land__samachson/story.json"
+  },
+  "lcats_id": "mass_quantities/no_star_s_land__samachson",
+  "metrics": {
+    "avg_sentence_length": 14.754761904761905,
+    "avg_word_length": 4.078425044376311,
+    "sentence_count": 420,
+    "token_count": 7315,
+    "word_count": 6197
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/no_star_s_land__samachson/story.json"
+}

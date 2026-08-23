@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 28393,
+    "body_sha256": "4481765b0ac0903a35fd383aa474aad1aac36a6e0504e63e100dfc3de2a2c2ff",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tepondicon__jacobi/story.json"
+  },
+  "lcats_id": "mass_quantities/tepondicon__jacobi",
+  "metrics": {
+    "avg_sentence_length": 14.336708860759494,
+    "avg_word_length": 4.025251633409853,
+    "sentence_count": 395,
+    "token_count": 6685,
+    "word_count": 5663
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/tepondicon__jacobi/story.json"
+}

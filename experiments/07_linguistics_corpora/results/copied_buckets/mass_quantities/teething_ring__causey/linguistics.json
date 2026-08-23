@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 13652,
+    "body_sha256": "d5af478fdee8d96e77259421770699b8faffba12b56c60e610d2418f09d6d1bf",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/teething_ring__causey/story.json"
+  },
+  "lcats_id": "mass_quantities/teething_ring__causey",
+  "metrics": {
+    "avg_sentence_length": 10.579166666666667,
+    "avg_word_length": 4.312721543914927,
+    "sentence_count": 240,
+    "token_count": 3231,
+    "word_count": 2539
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/teething_ring__causey/story.json"
+}

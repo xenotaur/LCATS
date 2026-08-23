@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 11698,
+    "body_sha256": "8d71ca681cf8e76adafd37c13b7a1a11e169854591b4ccb0714bdc4e5f8b2044",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/short_snorter__einstein/story.json"
+  },
+  "lcats_id": "mass_quantities/short_snorter__einstein",
+  "metrics": {
+    "avg_sentence_length": 13.207865168539326,
+    "avg_word_length": 3.900893236920459,
+    "sentence_count": 178,
+    "token_count": 3017,
+    "word_count": 2351
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/short_snorter__einstein/story.json"
+}

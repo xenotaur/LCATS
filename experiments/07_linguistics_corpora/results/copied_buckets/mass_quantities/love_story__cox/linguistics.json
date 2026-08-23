@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 34627,
+    "body_sha256": "1976e32f250db7435926410467d2dc08502857362d71018e20294b3ff739064f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_story__cox/story.json"
+  },
+  "lcats_id": "mass_quantities/love_story__cox",
+  "metrics": {
+    "avg_sentence_length": 15.41255605381166,
+    "avg_word_length": 4.059645039278441,
+    "sentence_count": 446,
+    "token_count": 7985,
+    "word_count": 6874
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/love_story__cox/story.json"
+}

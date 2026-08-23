@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 24039,
+    "body_sha256": "9a742e418cf9f547bd3ede9f91569630ae3ad9c8105716b61d37aacfe43021ca",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/phone_me_in_central_park__mcconnell/story.json"
+  },
+  "lcats_id": "mass_quantities/phone_me_in_central_park__mcconnell",
+  "metrics": {
+    "avg_sentence_length": 12.372703412073491,
+    "avg_word_length": 4.109673313534153,
+    "sentence_count": 381,
+    "token_count": 5561,
+    "word_count": 4714
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/phone_me_in_central_park__mcconnell/story.json"
+}

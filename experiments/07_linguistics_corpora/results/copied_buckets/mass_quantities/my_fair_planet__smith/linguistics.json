@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 32045,
+    "body_sha256": "26e4ccce4cfd2cc2693276b2187d48b7bbd38ffe5ad209273feaf2c4b6e40b20",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_fair_planet__smith/story.json"
+  },
+  "lcats_id": "mass_quantities/my_fair_planet__smith",
+  "metrics": {
+    "avg_sentence_length": 15.612590799031477,
+    "avg_word_length": 3.943238213399504,
+    "sentence_count": 413,
+    "token_count": 7935,
+    "word_count": 6448
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/my_fair_planet__smith/story.json"
+}

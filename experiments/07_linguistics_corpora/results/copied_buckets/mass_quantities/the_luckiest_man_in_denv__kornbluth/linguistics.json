@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 25504,
+    "body_sha256": "5352f37eac5fa4d169160ae3138153165e797bf1bc446452b3617dc5815ecb9f",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_luckiest_man_in_denv__kornbluth/story.json"
+  },
+  "lcats_id": "mass_quantities/the_luckiest_man_in_denv__kornbluth",
+  "metrics": {
+    "avg_sentence_length": 13.469816272965879,
+    "avg_word_length": 3.970966484801247,
+    "sentence_count": 381,
+    "token_count": 6174,
+    "word_count": 5132
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/the_luckiest_man_in_denv__kornbluth/story.json"
+}

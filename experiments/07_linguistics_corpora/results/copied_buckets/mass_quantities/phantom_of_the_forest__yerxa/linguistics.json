@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 30197,
+    "body_sha256": "7ddb0b43c6ebbbfcc83b0f834d9b7b9daea5fc36709e4cb7fd70776c0a5f6acd",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/phantom_of_the_forest__yerxa/story.json"
+  },
+  "lcats_id": "mass_quantities/phantom_of_the_forest__yerxa",
+  "metrics": {
+    "avg_sentence_length": 10.68041237113402,
+    "avg_word_length": 3.847168597168597,
+    "sentence_count": 582,
+    "token_count": 7622,
+    "word_count": 6216
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/phantom_of_the_forest__yerxa/story.json"
+}

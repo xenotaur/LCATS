@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 26289,
+    "body_sha256": "b638b45b7a2f6250f2ae1e06da00f139fe8e7832d965eb01301cd58a869e47f2",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem_planet__winterbotham/story.json"
+  },
+  "lcats_id": "mass_quantities/problem_planet__winterbotham",
+  "metrics": {
+    "avg_sentence_length": 13.394607843137255,
+    "avg_word_length": 3.792131747483989,
+    "sentence_count": 408,
+    "token_count": 6688,
+    "word_count": 5465
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/problem_planet__winterbotham/story.json"
+}

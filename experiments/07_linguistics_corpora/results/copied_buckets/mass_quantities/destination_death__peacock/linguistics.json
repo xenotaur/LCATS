@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 20732,
+    "body_sha256": "bb34941377fc9afba0af091ef21bfaa804bd3bebda0c712d34673e08965cc7e7",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/destination_death__peacock/story.json"
+  },
+  "lcats_id": "mass_quantities/destination_death__peacock",
+  "metrics": {
+    "avg_sentence_length": 15.609848484848484,
+    "avg_word_length": 4.054355738898326,
+    "sentence_count": 264,
+    "token_count": 4906,
+    "word_count": 4121
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/destination_death__peacock/story.json"
+}

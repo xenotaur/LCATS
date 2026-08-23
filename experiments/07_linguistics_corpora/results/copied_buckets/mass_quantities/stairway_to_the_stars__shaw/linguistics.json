@@ -1,0 +1,31 @@
+{
+  "backend": {
+    "model": "core_web_sm@3.8.0",
+    "name": "spacy",
+    "package_version": "3.8.14"
+  },
+  "extractor": {
+    "name": "lcats.analysis.linguistics",
+    "version": "v1"
+  },
+  "input": {
+    "body_char_count": 35097,
+    "body_sha256": "9adea48e58733aa269a114908a009b0c3f6bcc5a4674b6150bb7c0d71989856d",
+    "source_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stairway_to_the_stars__shaw/story.json"
+  },
+  "lcats_id": "mass_quantities/stairway_to_the_stars__shaw",
+  "metrics": {
+    "avg_sentence_length": 16.261904761904763,
+    "avg_word_length": 4.158272327964861,
+    "sentence_count": 420,
+    "token_count": 8005,
+    "word_count": 6830
+  },
+  "options": {
+    "backend_name": "spacy",
+    "include_token_detail": false,
+    "model_name": ""
+  },
+  "schema_version": "linguistics-sidecar-v1",
+  "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/mass_quantities/stairway_to_the_stars__shaw/story.json"
+}
