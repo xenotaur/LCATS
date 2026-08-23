@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import pathlib
 import tempfile
@@ -177,6 +178,80 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         self.assertFalse(result.valid)
         self.assertIn("wrong_type", finding_kinds)
 
+    def test_loaded_validation_requires_complete_knight_payload(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        del data["analyses"]["knight"][0]["criteria"]
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("missing_required_field", finding_kinds)
+
+    def test_loaded_validation_requires_complete_suvin_payload(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        del data["analyses"]["suvin_novum"][0]["candidates"]
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("missing_required_field", finding_kinds)
+
+    def test_loaded_validation_rejects_forged_novum_conjunction(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        candidate = data["analyses"]["suvin_novum"][0]["candidates"][0]
+        candidate["narrative_hegemony"]["status"] = "absent"
+        candidate["narrative_hegemony"]["supporting_evidence"] = []
+        candidate["qualified_novum"] = True
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("invalid_qualified_novum", finding_kinds)
+
+    def test_loaded_validation_reports_malformed_nested_collections(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        bad_criteria = copy.deepcopy(data)
+        bad_criteria["analyses"]["knight"][0]["criteria"] = 1
+        bad_evidence = copy.deepcopy(data)
+        bad_evidence["analyses"]["knight"][0]["criteria"][0]["supporting_evidence"] = 1
+
+        criteria_result = sidecar.validate_sidecar(bad_criteria)
+        evidence_result = sidecar.validate_sidecar(bad_evidence)
+
+        self.assertFalse(criteria_result.valid)
+        self.assertFalse(evidence_result.valid)
+        self.assertIn(
+            "wrong_type", {finding.kind for finding in criteria_result.findings}
+        )
+        self.assertIn(
+            "wrong_type", {finding.kind for finding in evidence_result.findings}
+        )
+
+    def test_loaded_validation_rejects_stored_failed_validation(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["validation"] = {
+            "valid": False,
+            "findings": [
+                {
+                    "path": "$.fixture",
+                    "severity": "error",
+                    "kind": "fixture_failure",
+                    "message": "fixture invalid",
+                }
+            ],
+        }
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("stored_validation_failed", finding_kinds)
+        with self.assertRaisesRegex(ValueError, "invalid"):
+            sidecar.render_sidecar_json(data)
+
     def test_loaded_validation_rejects_invalid_current_pointer(self):
         evidence_set = _evidence_set()
         failed = knight.failed_analysis(
@@ -243,6 +318,43 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         self.assertEqual(
             "suvin_novum", data["partial_success"]["failed_stages"][0]["stage"]
         )
+
+    def test_partial_success_rejects_conflicting_or_unknown_stages(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["partial_success"] = {
+            "completed_stages": ["knight"],
+            "failed_stages": [
+                {
+                    "stage": "knight",
+                    "kind": "pipeline_failure",
+                    "message": "contradiction",
+                    "recoverable": True,
+                },
+                {
+                    "stage": "unknown_stage",
+                    "kind": "pipeline_failure",
+                    "message": "unknown",
+                    "recoverable": True,
+                },
+            ],
+        }
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("conflicting_stage_outcome", finding_kinds)
+        self.assertIn("invalid_stage", finding_kinds)
+
+    def test_partial_success_rejects_empty_record(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["partial_success"] = {"completed_stages": [], "failed_stages": []}
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("missing_required_field", finding_kinds)
 
     def test_rendered_json_is_byte_stable(self):
         data = pipeline.assemble_sidecar_data(_inputs())

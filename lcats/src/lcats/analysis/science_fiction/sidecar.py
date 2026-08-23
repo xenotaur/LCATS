@@ -12,6 +12,16 @@ from lcats.analysis.science_fiction import models
 
 SCHEMA_VERSION = models.SCIENCE_FICTION_SIDECAR_VERSION
 SIDECAR_FILENAME = "science-fiction.json"
+PARTIAL_SUCCESS_STAGE_NAMES = frozenset(
+    {
+        "preparation",
+        "evidence",
+        "knight",
+        "suvin_novum",
+        "sidecar",
+        "publication",
+    }
+)
 
 
 def validate_envelope(
@@ -356,6 +366,10 @@ def _validate_analyses(
                     )
                 )
             index_by_id.setdefault(analysis_id, analysis)
+        if label == "Knight":
+            _validate_knight_analysis(analysis, base, findings)
+        elif label == "Suvin novum":
+            _validate_suvin_analysis(analysis, base, findings)
         if _is_non_empty_string(evidence_set_id):
             _validate_analysis_references(
                 analysis,
@@ -365,6 +379,302 @@ def _validate_analyses(
                 findings=findings,
             )
     return index_by_id
+
+
+def _validate_knight_analysis(
+    analysis: dict[str, Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    criteria = _require_list(analysis, "criteria", f"{base}.criteria", findings)
+    interval = _require_mapping(analysis, "interval", f"{base}.interval", findings)
+    _require_mapping(analysis, "provenance", f"{base}.provenance", findings)
+    if isinstance(interval, dict):
+        for key in ("definite_count", "possible_count", "total_count"):
+            _require_int(interval, key, f"{base}.interval.{key}", findings)
+    if not isinstance(criteria, list):
+        return
+    criterion_ids: list[str] = []
+    for index, criterion in enumerate(criteria):
+        criterion_base = f"{base}.criteria[{index}]"
+        if not isinstance(criterion, dict):
+            findings.append(
+                _finding(
+                    criterion_base,
+                    "wrong_type",
+                    f"expected object, got {type(criterion).__name__}",
+                )
+            )
+            continue
+        criterion_id = criterion.get("criterion_id")
+        status = criterion.get("status")
+        materiality = criterion.get("materiality")
+        _require_string(
+            criterion, "criterion_id", f"{criterion_base}.criterion_id", findings
+        )
+        _require_string(criterion, "status", f"{criterion_base}.status", findings)
+        supporting = _require_list(
+            criterion,
+            "supporting_evidence",
+            f"{criterion_base}.supporting_evidence",
+            findings,
+        )
+        _require_list(
+            criterion, "counterevidence", f"{criterion_base}.counterevidence", findings
+        )
+        _require_string_value(
+            criterion, "rationale", f"{criterion_base}.rationale", findings
+        )
+        _validate_optional_confidence(
+            criterion, f"{criterion_base}.confidence", findings
+        )
+        if _is_non_empty_string(criterion_id):
+            criterion_ids.append(criterion_id)
+            if criterion_id not in models.KNIGHT_CRITERION_IDS:
+                findings.append(
+                    _finding(
+                        f"{criterion_base}.criterion_id",
+                        "invalid_criterion_id",
+                        "criterion_id must identify one Knight criterion",
+                    )
+                )
+        if _is_non_empty_string(status) and status not in models.DECISION_STATES:
+            findings.append(
+                _finding(
+                    f"{criterion_base}.status",
+                    "invalid_status",
+                    f"expected one of {sorted(models.DECISION_STATES)!r}",
+                )
+            )
+        if materiality is not None:
+            if not _is_non_empty_string(materiality):
+                findings.append(
+                    _finding(
+                        f"{criterion_base}.materiality",
+                        "wrong_type",
+                        f"expected non-empty string or null, got {type(materiality).__name__}",
+                    )
+                )
+            elif materiality not in models.MATERIALITY_STATES:
+                findings.append(
+                    _finding(
+                        f"{criterion_base}.materiality",
+                        "invalid_materiality",
+                        f"expected one of {sorted(models.MATERIALITY_STATES)!r}",
+                    )
+                )
+        if status == "present" and isinstance(supporting, list) and not supporting:
+            findings.append(
+                _finding(
+                    f"{criterion_base}.supporting_evidence",
+                    "missing_required_field",
+                    "present Knight criteria require supporting evidence",
+                )
+            )
+        if status in {"absent", "not_assessable"} and materiality is not None:
+            findings.append(
+                _finding(
+                    f"{criterion_base}.materiality",
+                    "invalid_materiality",
+                    "materiality applies only to present or ambiguous criteria",
+                )
+            )
+    if sorted(criterion_ids) != sorted(models.KNIGHT_CRITERION_IDS):
+        findings.append(
+            _finding(
+                f"{base}.criteria",
+                "invalid_criteria",
+                "Knight analysis must contain seven unique criteria",
+            )
+        )
+
+
+def _validate_suvin_analysis(
+    analysis: dict[str, Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    candidates = _require_list(analysis, "candidates", f"{base}.candidates", findings)
+    systems = _require_list(
+        analysis, "novum_systems", f"{base}.novum_systems", findings
+    )
+    _require_mapping(analysis, "provenance", f"{base}.provenance", findings)
+    dominant_novum_id = _optional_string_or_none(
+        analysis, "dominant_novum_id", f"{base}.dominant_novum_id", findings
+    )
+    candidate_ids: list[str] = []
+    qualified_ids: set[str] = set()
+    if isinstance(candidates, list):
+        for index, candidate in enumerate(candidates):
+            candidate_base = f"{base}.candidates[{index}]"
+            if not isinstance(candidate, dict):
+                findings.append(
+                    _finding(
+                        candidate_base,
+                        "wrong_type",
+                        f"expected object, got {type(candidate).__name__}",
+                    )
+                )
+                continue
+            candidate_id = candidate.get("candidate_id")
+            _require_string(
+                candidate, "candidate_id", f"{candidate_base}.candidate_id", findings
+            )
+            _require_string(
+                candidate, "description", f"{candidate_base}.description", findings
+            )
+            _require_list(candidate, "evidence", f"{candidate_base}.evidence", findings)
+            dimension_statuses = {
+                name: _validate_novum_dimension(
+                    candidate, candidate_base, name, findings
+                )
+                for name in (
+                    "novelty",
+                    "cognitive_validation",
+                    "narrative_hegemony",
+                )
+            }
+            _validate_estrangement(candidate, candidate_base, findings)
+            computed_qualified = all(
+                status == "present" for status in dimension_statuses.values()
+            )
+            if not isinstance(candidate.get("qualified_novum"), bool):
+                findings.append(
+                    _finding(
+                        f"{candidate_base}.qualified_novum",
+                        "wrong_type",
+                        f"expected bool, got {type(candidate.get('qualified_novum')).__name__}",
+                    )
+                )
+            elif candidate.get("qualified_novum") != computed_qualified:
+                findings.append(
+                    _finding(
+                        f"{candidate_base}.qualified_novum",
+                        "invalid_qualified_novum",
+                        "qualified_novum must equal the N/C/H conjunction",
+                    )
+                )
+            if _is_non_empty_string(candidate_id):
+                if candidate_id in candidate_ids:
+                    findings.append(
+                        _finding(
+                            f"{candidate_base}.candidate_id",
+                            "duplicate_reference",
+                            "candidate id is not unique",
+                        )
+                    )
+                candidate_ids.append(candidate_id)
+                if computed_qualified:
+                    qualified_ids.add(candidate_id)
+    if dominant_novum_id is not None and dominant_novum_id not in qualified_ids:
+        findings.append(
+            _finding(
+                f"{base}.dominant_novum_id",
+                "missing_reference",
+                "dominant_novum_id must reference a qualified candidate",
+            )
+        )
+    if isinstance(systems, list):
+        for index, system in enumerate(systems):
+            system_base = f"{base}.novum_systems[{index}]"
+            if not isinstance(system, dict):
+                findings.append(
+                    _finding(
+                        system_base,
+                        "wrong_type",
+                        f"expected object, got {type(system).__name__}",
+                    )
+                )
+                continue
+            _require_string(system, "system_id", f"{system_base}.system_id", findings)
+            candidate_items = _require_list(
+                system, "candidate_ids", f"{system_base}.candidate_ids", findings
+            )
+            _require_string_value(
+                system, "rationale", f"{system_base}.rationale", findings
+            )
+            if isinstance(candidate_items, list):
+                if len(candidate_items) < 2:
+                    findings.append(
+                        _finding(
+                            f"{system_base}.candidate_ids",
+                            "missing_required_field",
+                            "novum systems require at least two candidates",
+                        )
+                    )
+                for candidate_index, candidate_id in enumerate(candidate_items):
+                    candidate_path = f"{system_base}.candidate_ids[{candidate_index}]"
+                    if not _is_non_empty_string(candidate_id):
+                        findings.append(
+                            _finding(
+                                candidate_path,
+                                "wrong_type",
+                                f"expected non-empty string, got {type(candidate_id).__name__}",
+                            )
+                        )
+                    elif candidate_id not in qualified_ids:
+                        findings.append(
+                            _finding(
+                                candidate_path,
+                                "missing_reference",
+                                "novum systems may reference only qualified candidates",
+                            )
+                        )
+
+
+def _validate_novum_dimension(
+    candidate: dict[str, Any],
+    candidate_base: str,
+    name: str,
+    findings: list[models.ValidationFinding],
+) -> str | None:
+    path = f"{candidate_base}.{name}"
+    dimension = _require_mapping(candidate, name, path, findings)
+    if not isinstance(dimension, dict):
+        return None
+    status = dimension.get("status")
+    _require_string(dimension, "status", f"{path}.status", findings)
+    supporting = _require_list(
+        dimension, "supporting_evidence", f"{path}.supporting_evidence", findings
+    )
+    _require_list(dimension, "counterevidence", f"{path}.counterevidence", findings)
+    _require_string_value(dimension, "rationale", f"{path}.rationale", findings)
+    _validate_optional_confidence(dimension, f"{path}.confidence", findings)
+    if _is_non_empty_string(status) and status not in models.DECISION_STATES:
+        findings.append(
+            _finding(
+                f"{path}.status",
+                "invalid_status",
+                f"expected one of {sorted(models.DECISION_STATES)!r}",
+            )
+        )
+    if status == "present" and isinstance(supporting, list) and not supporting:
+        findings.append(
+            _finding(
+                f"{path}.supporting_evidence",
+                "missing_required_field",
+                "present Novum dimensions require supporting evidence",
+            )
+        )
+    return status if _is_non_empty_string(status) else None
+
+
+def _validate_estrangement(
+    candidate: dict[str, Any],
+    candidate_base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    path = f"{candidate_base}.estrangement"
+    estrangement = _require_mapping(candidate, "estrangement", path, findings)
+    if not isinstance(estrangement, dict):
+        return
+    for key in (
+        "reader_facing_evidence",
+        "storyworld_consequence_evidence",
+        "character_reaction_evidence",
+    ):
+        _require_list(estrangement, key, f"{path}.{key}", findings)
+    _require_string_value(estrangement, "rationale", f"{path}.rationale", findings)
 
 
 def _validate_analysis_references(
@@ -427,22 +737,34 @@ def _iter_reference_dicts(
     analysis: dict[str, Any], base: str
 ) -> tuple[tuple[str, Any], ...]:
     references: list[tuple[str, Any]] = []
-    for criteria_index, criterion in enumerate(analysis.get("criteria", ()) or ()):
+    criteria = analysis.get("criteria", ())
+    if not isinstance(criteria, list):
+        criteria = ()
+    for criteria_index, criterion in enumerate(criteria):
         if not isinstance(criterion, dict):
             continue
         criterion_base = f"{base}.criteria[{criteria_index}]"
         for field in ("supporting_evidence", "counterevidence"):
+            items = criterion.get(field, ())
+            if not isinstance(items, list):
+                continue
             references.extend(
                 (f"{criterion_base}.{field}[{index}]", item)
-                for index, item in enumerate(criterion.get(field, ()) or ())
+                for index, item in enumerate(items)
             )
-    for candidate_index, candidate in enumerate(analysis.get("candidates", ()) or ()):
+    candidates = analysis.get("candidates", ())
+    if not isinstance(candidates, list):
+        candidates = ()
+    for candidate_index, candidate in enumerate(candidates):
         if not isinstance(candidate, dict):
             continue
         candidate_base = f"{base}.candidates[{candidate_index}]"
+        evidence_items = candidate.get("evidence", ())
+        if not isinstance(evidence_items, list):
+            evidence_items = ()
         references.extend(
             (f"{candidate_base}.evidence[{index}]", item)
-            for index, item in enumerate(candidate.get("evidence", ()) or ())
+            for index, item in enumerate(evidence_items)
         )
         for dimension_name in ("novelty", "cognitive_validation", "narrative_hegemony"):
             dimension = candidate.get(dimension_name)
@@ -450,9 +772,12 @@ def _iter_reference_dicts(
                 continue
             dimension_base = f"{candidate_base}.{dimension_name}"
             for field in ("supporting_evidence", "counterevidence"):
+                items = dimension.get(field, ())
+                if not isinstance(items, list):
+                    continue
                 references.extend(
                     (f"{dimension_base}.{field}[{index}]", item)
-                    for index, item in enumerate(dimension.get(field, ()) or ())
+                    for index, item in enumerate(items)
                 )
         estrangement = candidate.get("estrangement")
         if isinstance(estrangement, dict):
@@ -461,9 +786,12 @@ def _iter_reference_dicts(
                 "storyworld_consequence_evidence",
                 "character_reaction_evidence",
             ):
+                items = estrangement.get(field, ())
+                if not isinstance(items, list):
+                    continue
                 references.extend(
                     (f"{candidate_base}.estrangement.{field}[{index}]", item)
-                    for index, item in enumerate(estrangement.get(field, ()) or ())
+                    for index, item in enumerate(items)
                 )
     return tuple(references)
 
@@ -554,12 +882,41 @@ def _validate_partial_success(
                     )
                 )
             else:
+                _validate_stage_name(
+                    stage, f"$.partial_success.completed_stages[{index}]", findings
+                )
                 seen.add(stage)
     if isinstance(failed, list):
         for index, failure in enumerate(failed):
             _validate_failure_record(
                 failure, f"$.partial_success.failed_stages[{index}]", findings
             )
+            if (
+                isinstance(failure, dict)
+                and _is_non_empty_string(failure.get("stage"))
+                and isinstance(completed, list)
+                and failure["stage"] in completed
+            ):
+                findings.append(
+                    _finding(
+                        f"$.partial_success.failed_stages[{index}].stage",
+                        "conflicting_stage_outcome",
+                        "failed stage must not also be listed as completed",
+                    )
+                )
+    if (
+        isinstance(completed, list)
+        and isinstance(failed, list)
+        and not completed
+        and not failed
+    ):
+        findings.append(
+            _finding(
+                "$.partial_success",
+                "missing_required_field",
+                "partial_success must record at least one completed or failed stage",
+            )
+        )
 
 
 def _validate_failure_record(
@@ -576,6 +933,9 @@ def _validate_failure_record(
         return
     for key in ("stage", "kind", "message"):
         _require_string(failure, key, f"{path}.{key}", findings)
+    stage = failure.get("stage")
+    if _is_non_empty_string(stage):
+        _validate_stage_name(stage, f"{path}.stage", findings)
 
 
 def _validate_stored_validation(
@@ -590,6 +950,14 @@ def _validate_stored_validation(
                 "$.validation.valid",
                 "wrong_type",
                 f"expected bool, got {type(data.get('valid')).__name__}",
+            )
+        )
+    elif data.get("valid") is False:
+        findings.append(
+            _finding(
+                "$.validation.valid",
+                "stored_validation_failed",
+                "stored validation outcome must be true for publication",
             )
         )
     stored_findings = _require_list(data, "findings", "$.validation.findings", findings)
@@ -664,6 +1032,24 @@ def _require_string(
         )
 
 
+def _require_string_value(
+    data: dict[str, Any],
+    key: str,
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if key not in data:
+        findings.append(_missing(path))
+    elif not isinstance(data[key], str):
+        findings.append(
+            _finding(
+                path,
+                "wrong_type",
+                f"expected string, got {type(data[key]).__name__}",
+            )
+        )
+
+
 def _optional_string_or_none(
     data: dict[str, Any],
     key: str,
@@ -692,10 +1078,61 @@ def _require_number(
 ) -> None:
     if key not in data:
         findings.append(_missing(path))
-    elif not isinstance(data[key], int | float):
+    elif isinstance(data[key], bool) or not isinstance(data[key], (int, float)):
         findings.append(
             _finding(
                 path, "wrong_type", f"expected number, got {type(data[key]).__name__}"
+            )
+        )
+
+
+def _require_int(
+    data: dict[str, Any],
+    key: str,
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if key not in data:
+        findings.append(_missing(path))
+    elif not isinstance(data[key], int):
+        findings.append(
+            _finding(
+                path, "wrong_type", f"expected int, got {type(data[key]).__name__}"
+            )
+        )
+
+
+def _validate_optional_confidence(
+    data: dict[str, Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if "confidence" not in data:
+        findings.append(_missing(path))
+        return
+    if data["confidence"] is None:
+        return
+    _require_number(data, "confidence", path, findings)
+    if (
+        isinstance(data["confidence"], (int, float))
+        and not 0.0 <= data["confidence"] <= 1.0
+    ):
+        findings.append(
+            _finding(path, "invalid_confidence", "confidence must be between 0 and 1")
+        )
+
+
+def _validate_stage_name(
+    stage: str,
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if stage not in PARTIAL_SUCCESS_STAGE_NAMES:
+        findings.append(
+            _finding(
+                path,
+                "invalid_stage",
+                f"expected one of {sorted(PARTIAL_SUCCESS_STAGE_NAMES)!r}",
             )
         )
 
