@@ -1,0 +1,136 @@
+{
+  "backend": "fixture",
+  "cases": [
+    {
+      "case_id": "clear-sf",
+      "lcats_id": "fixtures/clear_sf",
+      "scenario": "clear_science_fiction",
+      "story_hash": "hash-clear-sf",
+      "story_path": "fixtures/clear_sf/story.json",
+      "tags": [
+        "clear_science_fiction",
+        "positive"
+      ]
+    },
+    {
+      "case_id": "no-novum",
+      "lcats_id": "fixtures/no_novum",
+      "scenario": "no_novum_control",
+      "story_hash": "hash-no-novum",
+      "story_path": "fixtures/no_novum/story.json",
+      "tags": [
+        "negative",
+        "no_novum_control"
+      ]
+    },
+    {
+      "case_id": "supernatural",
+      "lcats_id": "fixtures/supernatural_contrast",
+      "scenario": "supernatural_contrast",
+      "story_hash": "hash-supernatural",
+      "story_path": "fixtures/supernatural_contrast/story.json",
+      "tags": [
+        "negative",
+        "supernatural_contrast"
+      ]
+    },
+    {
+      "case_id": "ambiguous-cognition",
+      "lcats_id": "fixtures/ambiguous_cognition",
+      "scenario": "ambiguous_cognitive_validation",
+      "story_hash": "hash-ambiguous-cognition",
+      "story_path": "fixtures/ambiguous_cognition/story.json",
+      "tags": [
+        "ambiguous_cognitive_validation"
+      ]
+    },
+    {
+      "case_id": "incidental-tech",
+      "lcats_id": "fixtures/incidental_technology",
+      "scenario": "incidental_technology",
+      "story_hash": "hash-incidental-tech",
+      "story_path": "fixtures/incidental_technology/story.json",
+      "tags": [
+        "incidental_technology",
+        "narrative_hegemony_control"
+      ]
+    },
+    {
+      "case_id": "multi-novum",
+      "lcats_id": "fixtures/multiple_novum_system",
+      "scenario": "multiple_novum_system",
+      "story_hash": "hash-multi-novum",
+      "story_path": "fixtures/multiple_novum_system/story.json",
+      "tags": [
+        "multiple_novum_systems",
+        "positive"
+      ]
+    },
+    {
+      "case_id": "cross-chunk",
+      "lcats_id": "fixtures/cross_chunk_evidence",
+      "scenario": "cross_chunk_evidence",
+      "story_hash": "hash-cross-chunk",
+      "story_path": "fixtures/cross_chunk_evidence/story.json",
+      "tags": [
+        "cross_chunk_evidence",
+        "positive"
+      ]
+    },
+    {
+      "case_id": "overlap-conflict",
+      "lcats_id": "fixtures/overlap_duplicate_conflict",
+      "scenario": "overlap_duplicate_conflict",
+      "story_hash": "hash-overlap-conflict",
+      "story_path": "fixtures/overlap_duplicate_conflict/story.json",
+      "tags": [
+        "overlap_conflicts",
+        "overlap_duplicates"
+      ]
+    },
+    {
+      "case_id": "malformed-output",
+      "lcats_id": "fixtures/malformed_model_output",
+      "scenario": "malformed_model_output",
+      "story_hash": "hash-malformed-output",
+      "story_path": "fixtures/malformed_model_output/story.json",
+      "tags": [
+        "malformed_model_output"
+      ]
+    },
+    {
+      "case_id": "stale-hash",
+      "expect_failure_kind": "story_hash_mismatch",
+      "lcats_id": "fixtures/stale_story_hash",
+      "scenario": "stale_story_hash",
+      "story_hash": "hash-stale-story",
+      "story_path": "fixtures/stale_story_hash/story.json",
+      "tags": [
+        "stale_story_hash"
+      ]
+    },
+    {
+      "case_id": "interrupted-stage",
+      "expect_failure_kind": "interrupted_stage",
+      "lcats_id": "fixtures/interrupted_stage",
+      "scenario": "interrupted_stage",
+      "story_hash": "hash-interrupted-stage",
+      "story_path": "fixtures/interrupted_stage/story.json",
+      "tags": [
+        "interrupted_stages"
+      ]
+    },
+    {
+      "case_id": "partial-suvin",
+      "lcats_id": "fixtures/partial_suvin_success",
+      "scenario": "partial_suvin_failure",
+      "story_hash": "hash-partial-suvin",
+      "story_path": "fixtures/partial_suvin_success/story.json",
+      "tags": [
+        "partial_knight_novum_success"
+      ]
+    }
+  ],
+  "estimated_cost_usd": 0.0,
+  "version": "science-fiction-trial-manifest-v1"
+}

@@ -1,0 +1,17 @@
+{
+  "required_tags": [
+    "ambiguous_cognitive_validation",
+    "clear_science_fiction",
+    "cross_chunk_evidence",
+    "incidental_technology",
+    "interrupted_stages",
+    "malformed_model_output",
+    "multiple_novum_systems",
+    "no_novum_control",
+    "overlap_conflicts",
+    "overlap_duplicates",
+    "partial_knight_novum_success",
+    "stale_story_hash",
+    "supernatural_contrast"
+  ]
+}
