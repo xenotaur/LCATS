@@ -19,10 +19,11 @@ work_items:
   - WI-VISUALIZE-0087
   - WI-VISUALIZE-0088
   - WI-VISUALIZE-0089
+  - WI-VISUALIZE-0090
 exit_criteria:
   - lcats visualize genres produces genre-distribution figures (word cloud + conventional chart, PNG and vector) from a named, reproducible genre source (genre.json sidecars / whatever artifact PROP-GENRE-EVIDENCE-SIDECARS or the genre-census tooling actually produces), reusing lcats.analysis.graph_plotters for conventional charts, and any figure built from a sample rather than a full-corpus source explicitly discloses population, sample size/mode, and denominator rather than presenting the sample as the whole corpus
   - lcats visualize words produces word-frequency visualizations for the whole corpus and selected genre subsets, with explicit documented preprocessing defaults
-  - lcats visualize tfidf produces TF-IDF comparison visualizations using story as the default document unit and genre (or another corpus selector) as the explicit comparison group
+  - "lcats visualize tfidf produces TF-IDF comparison visualizations using story as the default document unit and genre (or another corpus selector) as the explicit comparison group -- satisfied by tfidf --contrast (WI-VISUALIZE-0090), a genuine group-vs-complement metric; the default (no --contrast) mode computes within-group mean TF-IDF salience only, not a comparison, and does not on its own satisfy this criterion (confirmed during WI-VISUALIZE-0089's review round -- WI-VISUALIZE-0086's original tfidf_top_terms never computes a complement/background mean)"
   - lcats visualize topics produces a topic-model baseline visualization
   - every command intended for paper use emits an input-revision/content-identity value alongside its output, not just selectors/parameters/seed
   - wordcloud and scikit-learn are added as core LCATS dependencies alongside the already-core matplotlib, with no parallel rendering API duplicating lcats.analysis.graph_plotters
@@ -70,6 +71,7 @@ This workstream coordinates implementation of `PROP-LCATS-CORPUS-TEXT-VISUALIZAT
 4. `WI-VISUALIZE-0087` — Topic baseline.
 5. `WI-VISUALIZE-0088` — Dogfood against the LCATS corpus and paper figures (blocked by items 3-4).
 6. `WI-VISUALIZE-0089` — Documentation and examples (blocked by items 3-4).
+7. `WI-VISUALIZE-0090` — TF-IDF distinguishing-terms contrast metric (`tfidf --contrast`), added after WI-VISUALIZE-0089's review round established that item 3's original `tfidf` delivery only satisfies within-group salience, not the WS's own "comparison visualizations" exit criterion. Additive: extends item 3's `tfidf` command with a new mode rather than changing its existing behavior.
 
 ## Non-Goals
 

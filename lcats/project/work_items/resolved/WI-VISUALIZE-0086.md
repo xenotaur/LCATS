@@ -3,7 +3,7 @@ resolution: "Implemented and merged in PR #366 (commit 47596adf)."
 blocked_reason: null
 blocked: false
 id: WI-VISUALIZE-0086
-title: TF-IDF comparison visualization: lcats visualize tfidf
+title: "TF-IDF comparison visualization: lcats visualize tfidf"
 type: deliverable
 status: resolved
 owner: unassigned
@@ -51,7 +51,7 @@ required_evidence:
   - manual_review
 artifacts_expected:
   - lcats/src/lcats/visualize/sources.py (reused; extended only if a new source need appears)
-  - lcats/src/lcats/visualize/analysis.py (extended: TF-IDF functions)
+  - "lcats/src/lcats/visualize/analysis.py (extended: TF-IDF functions)"
   - lcats/src/lcats/visualize/rendering.py (extended or reused)
   - lcats/src/lcats/visualize/cli.py (new tfidf subcommand)
   - lcats/tests/visualize_tests/ (new tests)

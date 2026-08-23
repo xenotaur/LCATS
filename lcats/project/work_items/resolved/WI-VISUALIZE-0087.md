@@ -3,7 +3,7 @@ resolution: "Implemented and merged in PR #372 (commit 7234dcc0)."
 blocked_reason: null
 blocked: false
 id: WI-VISUALIZE-0087
-title: Topic-model baseline visualization: lcats visualize topics
+title: "Topic-model baseline visualization: lcats visualize topics"
 type: deliverable
 status: resolved
 owner: unassigned
@@ -52,7 +52,7 @@ required_evidence:
   - manual_review
 artifacts_expected:
   - lcats/src/lcats/visualize/sources.py (reused; extended only if a new source need appears)
-  - lcats/src/lcats/visualize/analysis.py (extended: topic-model functions)
+  - "lcats/src/lcats/visualize/analysis.py (extended: topic-model functions)"
   - lcats/src/lcats/visualize/rendering.py (extended or reused)
   - lcats/src/lcats/visualize/cli.py (new topics subcommand)
   - lcats/tests/visualize_tests/ (new tests)
