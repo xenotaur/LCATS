@@ -385,7 +385,7 @@ def _record(
         evidence_type=evidence_type,
         quote=quote,
         anchor=evidence.EvidenceAnchor(
-            paragraph_ids=(f"{case.case_id}-p0001",),
+            paragraph_ids=_paragraph_ids(case, evidence_id),
             start_char=offset,
             end_char=offset + len(quote),
         ),
@@ -394,11 +394,29 @@ def _record(
         provenance=(
             evidence.EvidenceProvenance(
                 source="fixture",
-                source_chunk_id=f"{case.case_id}-chunk-0001",
+                source_chunk_id=_source_chunk_id(case, evidence_id),
                 backend=FIXTURE_BACKEND,
             ),
         ),
     )
+
+
+def _paragraph_ids(case: TrialCase, evidence_id: str) -> tuple[str, ...]:
+    if case.scenario == "cross_chunk_evidence" and evidence_id in {
+        "cognition",
+        "hegemony",
+    }:
+        return (f"{case.case_id}-p0002",)
+    return (f"{case.case_id}-p0001",)
+
+
+def _source_chunk_id(case: TrialCase, evidence_id: str) -> str:
+    if case.scenario == "cross_chunk_evidence" and evidence_id in {
+        "cognition",
+        "hegemony",
+    }:
+        return f"{case.case_id}-chunk-0002"
+    return f"{case.case_id}-chunk-0001"
 
 
 def _knight_analyses(

@@ -77,6 +77,33 @@ class ScienceFictionExperimentRunnerTest(unittest.TestCase):
             self.assertEqual(case["lcats_id"], data["lcats_id"])
         self.assertTrue((output_root / "run_summary.json").exists())
 
+    def test_cross_chunk_fixture_uses_multiple_chunks_and_paragraphs(self):
+        output_root = self.root / "cross-chunk"
+
+        summary = run_trial.run_trial(
+            run_trial.RunnerOptions(
+                manifest_path=self.manifest_path,
+                output_root=output_root,
+            )
+        )
+
+        cross_chunk = next(
+            case for case in summary["cases"] if case["case_id"] == "cross-chunk"
+        )
+        data = sidecar.load_json(pathlib.Path(cross_chunk["sidecar_path"]))
+        records = data["evidence_sets"][0]["records"]
+        paragraph_sets = {
+            tuple(record["anchor"]["paragraph_ids"]) for record in records
+        }
+        source_chunks = {
+            provenance["source_chunk_id"]
+            for record in records
+            for provenance in record["provenance"]
+        }
+
+        self.assertGreaterEqual(len(paragraph_sets), 2)
+        self.assertGreaterEqual(len(source_chunks), 2)
+
     def test_resume_reuses_existing_checkpoint(self):
         output_root = self.root / "resume"
         options = run_trial.RunnerOptions(
