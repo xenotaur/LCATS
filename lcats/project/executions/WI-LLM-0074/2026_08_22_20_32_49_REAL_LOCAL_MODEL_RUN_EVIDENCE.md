@@ -32,6 +32,19 @@ files: `gpt-oss:20b` agrees with Opus directly 69.9% of the time
 default to a generic "other" label rather than a wrong-but-specific
 genre).
 
+**Correction (later commit on this same PR, `cae8ece2`):** a review
+finding (Copilot) caught a real bug - `gpt-oss:20b` returned
+`"science_fiction"` (underscore) instead of the canonical
+`"science fiction"` for 3/146 stories, silently miscounted as
+disagreements. Fixed at the source
+(`assess._canonicalize_detected_genre()`) and re-run for just those 3
+stories. **Corrected figure: 71.2% (104/146)** local-vs-Opus agreement
+- this section's own number above is left as originally written (not
+silently edited) per this project's convention of noting corrections
+explicitly rather than rewriting history; see the `_CONFIRM` record and
+`WI-LLM-0074.md`'s own Findings section for the fully corrected
+write-up.
+
 Landed via PR #361: the three evidence files
 (`validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl`/
 `_summary.json`/`_run_log.jsonl`) under
