@@ -103,6 +103,7 @@ def run_checkpointed_stage(
     stage: str,
     fingerprint: dict[str, Any],
     materialize: Callable[[], Any],
+    validate_reuse: Callable[[Any], bool] | None = None,
     allow_protected_root: bool = False,
 ) -> CheckpointedStageResult:
     """Run or reuse one checkpointed stage.
@@ -123,11 +124,18 @@ def run_checkpointed_stage(
         fingerprint,
     )
     if existing.done:
-        return CheckpointedStageResult(
-            data=existing.data,
-            fingerprint=fingerprint,
-            reused=True,
-        )
+        reusable = validate_reuse is None
+        if validate_reuse is not None:
+            try:
+                reusable = validate_reuse(existing.data)
+            except Exception:
+                reusable = False
+        if reusable:
+            return CheckpointedStageResult(
+                data=existing.data,
+                fingerprint=fingerprint,
+                reused=True,
+            )
 
     try:
         data = materialize()
@@ -174,6 +182,7 @@ def run_checkpointed_assembly(
         stage=ASSEMBLY_STAGE,
         fingerprint=fingerprint,
         materialize=lambda: assemble_sidecar_data(inputs),
+        validate_reuse=lambda data: sidecar.validate_sidecar(data).valid,
         allow_protected_root=allow_protected_root,
     )
 

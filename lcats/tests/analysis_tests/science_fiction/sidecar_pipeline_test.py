@@ -547,6 +547,30 @@ class ScienceFictionPipelineCheckpointTest(unittest.TestCase):
         self.assertTrue(second.reused)
         self.assertEqual(first.data, second.data)
 
+    def test_checkpointed_assembly_rematerializes_invalid_success_checkpoint(self):
+        inputs = _inputs()
+        checkpoint.write_checkpoint(
+            self.working_root,
+            "story_a",
+            pipeline.ASSEMBLY_STAGE,
+            outcome="success",
+            fingerprint=pipeline.effective_fingerprint(inputs),
+            data={
+                "schema_version": models.SCIENCE_FICTION_SIDECAR_VERSION,
+                "validation": {"valid": False},
+            },
+        )
+
+        result = pipeline.run_checkpointed_assembly(
+            working_root=self.working_root,
+            item_id="story_a",
+            inputs=inputs,
+            allow_protected_root=True,
+        )
+
+        self.assertFalse(result.reused)
+        self.assertTrue(sidecar.validate_sidecar(result.data).valid)
+
     def test_checkpointed_stage_rematerializes_stale_or_failed_checkpoint(self):
         calls = {"count": 0}
 
