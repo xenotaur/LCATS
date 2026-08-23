@@ -395,8 +395,7 @@ def _validate_knight_analysis(
         findings=findings,
     )
     if isinstance(interval, dict):
-        for key in ("definite_count", "possible_count", "total_count"):
-            _require_int(interval, key, f"{base}.interval.{key}", findings)
+        _validate_knight_interval(interval, f"{base}.interval", findings)
     if not isinstance(criteria, list):
         return
     criterion_ids: list[str] = []
@@ -490,6 +489,90 @@ def _validate_knight_analysis(
                 f"{base}.criteria",
                 "invalid_criteria",
                 "Knight analysis must contain seven unique criteria",
+            )
+        )
+    elif isinstance(interval, dict):
+        _validate_knight_interval_matches_criteria(
+            interval, criteria, f"{base}.interval", findings
+        )
+
+
+def _validate_knight_interval(
+    interval: dict[str, Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    for key in ("definite_count", "possible_count", "total_count"):
+        _require_int(interval, key, f"{base}.{key}", findings)
+    definite = interval.get("definite_count")
+    possible = interval.get("possible_count")
+    total = interval.get("total_count")
+    if not all(
+        isinstance(value, int) and not isinstance(value, bool)
+        for value in (definite, possible, total)
+    ):
+        return
+    if total != len(models.KNIGHT_CRITERION_IDS):
+        findings.append(
+            _finding(
+                f"{base}.total_count",
+                "invalid_knight_interval",
+                "total_count must equal the number of Knight criteria",
+            )
+        )
+    if definite < 0 or possible < 0 or total < 0:
+        findings.append(
+            _finding(
+                base,
+                "invalid_knight_interval",
+                "Knight interval counts must be non-negative",
+            )
+        )
+    if definite > possible or possible > total:
+        findings.append(
+            _finding(
+                base,
+                "invalid_knight_interval",
+                "Knight interval must satisfy definite_count <= possible_count <= total_count",
+            )
+        )
+
+
+def _validate_knight_interval_matches_criteria(
+    interval: dict[str, Any],
+    criteria: list[Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    definite = interval.get("definite_count")
+    possible = interval.get("possible_count")
+    total = interval.get("total_count")
+    if not all(
+        isinstance(value, int) and not isinstance(value, bool)
+        for value in (definite, possible, total)
+    ):
+        return
+    computed_definite = sum(
+        1
+        for criterion in criteria
+        if isinstance(criterion, dict) and criterion.get("status") == "present"
+    )
+    computed_possible = sum(
+        1
+        for criterion in criteria
+        if isinstance(criterion, dict)
+        and criterion.get("status") in {"present", "ambiguous"}
+    )
+    if (
+        definite != computed_definite
+        or possible != computed_possible
+        or total != len(criteria)
+    ):
+        findings.append(
+            _finding(
+                base,
+                "knight_interval_mismatch",
+                "Knight interval counts must match criterion statuses",
             )
         )
 

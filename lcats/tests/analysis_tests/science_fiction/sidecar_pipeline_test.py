@@ -313,6 +313,47 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         self.assertFalse(result.valid)
         self.assertIn("wrong_type", finding_kinds)
 
+    def test_loaded_validation_rejects_forged_knight_interval(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["analyses"]["knight"][0]["interval"]["definite_count"] = 7
+        data["analyses"]["knight"][0]["interval"]["possible_count"] = 7
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("knight_interval_mismatch", finding_kinds)
+
+    def test_loaded_validation_rejects_invalid_knight_interval_bounds(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        negative = copy.deepcopy(data)
+        negative["analyses"]["knight"][0]["interval"]["definite_count"] = -1
+        inverted = copy.deepcopy(data)
+        inverted["analyses"]["knight"][0]["interval"]["definite_count"] = 2
+        inverted["analyses"]["knight"][0]["interval"]["possible_count"] = 1
+        wrong_total = copy.deepcopy(data)
+        wrong_total["analyses"]["knight"][0]["interval"]["total_count"] = 99
+
+        negative_result = sidecar.validate_sidecar(negative)
+        inverted_result = sidecar.validate_sidecar(inverted)
+        wrong_total_result = sidecar.validate_sidecar(wrong_total)
+
+        self.assertFalse(negative_result.valid)
+        self.assertFalse(inverted_result.valid)
+        self.assertFalse(wrong_total_result.valid)
+        self.assertIn(
+            "invalid_knight_interval",
+            {finding.kind for finding in negative_result.findings},
+        )
+        self.assertIn(
+            "invalid_knight_interval",
+            {finding.kind for finding in inverted_result.findings},
+        )
+        self.assertIn(
+            "invalid_knight_interval",
+            {finding.kind for finding in wrong_total_result.findings},
+        )
+
     def test_loaded_validation_rejects_invalid_current_pointer(self):
         evidence_set = _evidence_set()
         failed = knight.failed_analysis(
