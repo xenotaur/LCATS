@@ -21,6 +21,7 @@ depends_on:
   - WI-VISUALIZE-0073
   - WI-VISUALIZE-0085
   - WI-VISUALIZE-0086
+  - WI-VISUALIZE-0089
 blocked_by: []
 expected_actions:
   - create_file
