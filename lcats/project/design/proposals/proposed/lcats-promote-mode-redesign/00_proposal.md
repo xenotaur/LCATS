@@ -120,10 +120,15 @@ overwrite-allowed modes. Options considered for naming: `mirror`, `sync`,
 CLI shape: `lcats promote <insert|upsert|replace> [collection] [options]`,
 mode as a mandatory positional subcommand (`argparse`
 `add_subparsers(dest="mode", required=True)`), not a required flag.
-Verified empirically that this composes with zero changes to `cli.py`'s
-existing `parents=[...]` wiring pattern (used identically across all six
-existing subcommands) — the entire cost is contained to
-`promote_cli.py`'s own internal structure.
+Verified empirically that this composes with zero changes to the
+top-level `lcats/src/lcats/cli.py`'s existing `parents=[...]` wiring
+pattern (distinct from `analysis/corpus/cli.py`, a same-named but
+different file cited elsewhere in this document — correction, review
+finding PR #369). That pattern is used identically for 9 subcommands
+total, 8 besides `promote` itself (`survey`, `assess`, `stats`,
+`repair-specials`, `annotate`, `clean`, `linguistics`, `visualize`), not
+six as an earlier draft stated — the entire cost of this redesign is
+contained to `promote_cli.py`'s own internal structure.
 
 ### Decision 3: No in-sidecar content merge in `promote.py`
 
@@ -174,12 +179,28 @@ filename constants); hardcode per-kind validator imports directly in
 **Chosen: a new, dedicated module** in `analysis/corpus/` (exact filename
 TBD at implementation time, e.g. `sidecar_validators.py`), mapping
 registered sidecar filenames to validator callables
-(`Callable[[Any], ValidationResult]`). `discovery.py` today is a true
-dependency-free leaf with six existing, mostly-unrelated importers
-(`annotate_cli.py`, `assess_cli.py`, `cli.py`, `output.py`,
-`processing.py`, `promote.py`); extending it would give all six a new,
-transitively-inherited dependency on every registered producer subpackage
-even though most have nothing to do with sidecar validation. Hardcoding
+(`Callable[[Any], ValidationResult]`). `discovery.py`'s own imports are
+`os, pathlib, sys, typing` only — it does no validation-related importing
+today — but it is imported far more widely than a small, contained set:
+14+ files across `analysis/corpus/` and beyond depend on it directly,
+including `annotate_cli.py`, `assess_cli.py`, `cli.py`, `output.py`,
+`processing.py`, `promote.py`, `corpus_survey.py`, `corpus_surveyor.py`,
+`linguistics/runner.py`, `science_fiction/preparation.py`,
+`datasets/torchdata.py`, `gatherers/downloaders.py`, `stories.py`, and
+`visualize/sources.py` (correction, review finding PR #369 — an earlier
+draft undercounted this at six). Extending `discovery.py` to import a
+producer's own validator (e.g. `linguistics.sidecar`) would give every
+one of these importers a new, transitively-inherited dependency, even
+though most have nothing to do with sidecar validation — a wider blast
+radius than originally stated, reinforcing rather than weakening the
+case for a separate module. One nuance worth being explicit about:
+`linguistics/runner.py` already imports `discovery.py` today, so
+`analysis/corpus/` and `analysis/linguistics/` already have a real,
+bidirectional coupling at the subpackage level — `discovery.py` is not
+entirely uninvolved with the linguistics subpackage. It remains a leaf
+specifically *with respect to sidecar-validation logic*, which is the
+property this decision actually depends on; that narrower framing is
+what the "leaf module" language above should be read as. Hardcoding
 directly in `promote.py` would reintroduce the exact coupling a prior
 review finding (PR #248) already fixed once for filename constants.
 
@@ -220,7 +241,8 @@ scenario PR #362's review finding described, made concrete by an
 imminent whole-corpus `linguistics.json` rollout. An interactive prompt
 was rejected — this codebase has zero existing interactive confirmations
 anywhere (`grep` for `input(`/`are you sure` across
-`src/lcats/analysis/corpus/*.py` and `cli.py` returns nothing), and one
+`src/lcats/analysis/corpus/*.py` and the top-level `src/lcats/cli.py`
+returns nothing), and one
 would break `docs/reference/prepare-corpora-release.md`'s scripted
 release process. A generic destination-only-file diff was rejected for
 false-positive risk (legitimately corpora-only content unrelated to
