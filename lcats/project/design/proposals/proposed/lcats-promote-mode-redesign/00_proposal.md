@@ -159,9 +159,11 @@ eliminate.
 
 Escape hatch: `--allow-unvalidated`, chosen over generic `--force`/
 `--unsafe`/`--noschema` to match the existing `--allow-smart` house
-convention (`specials.py:172`) for "loosen an otherwise-strict check,"
-and to name the specific thing being bypassed rather than acting as a
-catch-all a future, independent safety check might also reach for.
+convention (flag defined at `cli.py:169-171`, with a second copy at
+`specials_cli.py:60`; consumed by `specials.py`'s `is_allowed()`) for
+"loosen an otherwise-strict check," and to name the specific thing being
+bypassed rather than acting as a catch-all a future, independent safety
+check might also reach for.
 
 ### Decision 5: Sidecar-validator registry as a new, dedicated module
 
@@ -180,9 +182,29 @@ transitively-inherited dependency on every registered producer subpackage
 even though most have nothing to do with sidecar validation. Hardcoding
 directly in `promote.py` would reintroduce the exact coupling a prior
 review finding (PR #248) already fixed once for filename constants.
-`genre_sidecar.validate_sidecar()` and `linguistics/sidecar.py`'s
-`validate_sidecar()` already share the identical interface shape, so
-registering both requires no interface redesign.
+
+**Registry scope must cover every currently-produced sidecar kind, not
+only the two used as illustrative examples above** (review finding, PR
+#369) — `genre.json` and `linguistics.json` are not the only kinds
+already in production. `promote.py`'s own `_SIDECAR_REQUIRED_KEYS`
+(`promote.py:44-47`) already recognizes a third, `scenes.json`; and
+`linguistics/sidecar.py` produces and validates a fourth,
+`linguistics.tokens.json` (`TOKEN_DETAIL_FILENAME`,
+`linguistics/sidecar.py:22`, validated by its own
+`validate_token_detail()`, `linguistics/sidecar.py:236`). Registering
+only two of the four would leave `scenes.json` and
+`linguistics.tokens.json` unprotected by both Decision 4 (they'd force
+`insert`/`upsert` into `--allow-unvalidated`) and Decision 6 (`replace`
+could still silently delete a destination-only copy of either) —
+directly contradicting this proposal's own all-kinds safety guarantee.
+All four registry entries must ship together for Decisions 4 and 6 to
+hold as stated; `genre_sidecar.validate_sidecar()` and `linguistics/
+sidecar.py`'s `validate_sidecar()`/`validate_token_detail()` already
+share compatible interface shapes, so registering all four requires no
+interface redesign — `_SIDECAR_REQUIRED_KEYS`'s existing shape-only
+check for `scenes.json` can be wrapped as a `Callable[[Any],
+ValidationResult]`-shaped adapter rather than needing a new validator
+written from scratch.
 
 ### Decision 6: `replace` gets a targeted, registry-based orphaned-sidecar guard
 
@@ -313,6 +335,7 @@ the companion workstream is adopted.
 - Prior implementation this generalizes: `WI-GENRE-0075` (resolved),
   `promote_sidecar_tranche()`
 - Existing house convention followed: `--allow-smart`
-  (`lcats/src/lcats/analysis/corpus/specials.py:172`)
+  (`lcats/src/lcats/analysis/corpus/cli.py:169-171`, second copy at
+  `specials_cli.py:60`)
 - Existing coupling-avoidance precedent followed: `discovery.py:12-16`
   (review finding, PR #248)

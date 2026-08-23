@@ -15,7 +15,7 @@ work_items: []
 exit_criteria:
   - lcats promote requires an explicit insert/upsert/replace mode; no silent default exists
   - insert and upsert both require a registered sidecar validator by default, with --allow-unvalidated as the only override
-  - a shared sidecar-validator registry exists, registering at minimum genre.json and linguistics.json, with no direct promote.py import of either producer subpackage
+  - a shared sidecar-validator registry exists, registering every currently-produced sidecar kind (genre.json, scenes.json, linguistics.json, linguistics.tokens.json), with no direct promote.py import of any producer subpackage
   - replace refuses by default when it would delete a registered sidecar kind absent from source, overridable only via --allow-orphaned-sidecar-deletion
   - insert and upsert can source records from a live directory scan of data/, not only a pre-built manifest
   - all work items resolved and lrh validate reports 0 errors
