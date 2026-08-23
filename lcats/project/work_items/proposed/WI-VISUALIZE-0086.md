@@ -18,7 +18,9 @@ related_design:
   - project/design/proposals/adopted/corpus-text-visualization/00_proposal.md
   - lcats/src/lcats/stories.py
   - lcats/src/lcats/visualize/
-depends_on: []
+depends_on:
+  - WI-VISUALIZE-0073
+  - WI-VISUALIZE-0085
 blocked_by: []
 expected_actions:
   - create_file

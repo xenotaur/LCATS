@@ -26,6 +26,8 @@ blocked_by:
   - WI-VISUALIZE-0086
   - WI-VISUALIZE-0087
 expected_actions:
+  - create_file
+  - edit_file
   - run_tests
   - create_pr
   - write_docs
