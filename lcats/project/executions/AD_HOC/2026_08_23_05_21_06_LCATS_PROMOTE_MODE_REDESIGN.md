@@ -8,7 +8,7 @@ pr: https://github.com/xenotaur/LCATS/pull/369
 commit: 55ee68c7432e2900fc8c558b966120e5f500d22a
 agent: claude_app
 instruction_source: project/design/proposals/proposed/lcats-promote-mode-redesign/00_proposal.md
-session_transcript: pending
+session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
 created_at: 2026-08-23T05:21:06+00:00
 ---
 
