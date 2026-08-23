@@ -259,6 +259,79 @@ class TestRunWords(unittest.TestCase):
             with capture.suppress_output(), self.assertRaises(ValueError):
                 visualize_cli.run(parsed_args=args)
 
+    def test_missing_story_in_candidates_raises(self):
+        """A corpus story absent from candidates.jsonl also raises (bidirectional)."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle")
+            _write_story(corpora_root, "anderson", "fir_tree", body="detective clue")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"anderson/bell": ["fantasy"]}
+            )
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "words",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--genre",
+                    "fantasy",
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_non_positive_top_k_raises(self):
+        """--top-k below 1 raises a clear ValueError, not a rendering crash."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "words",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--top-k",
+                    "0",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_empty_frequencies_raises_before_rendering(self):
+        """A selection with no usable tokens raises a clear error, not a WordCloud crash."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="a an to")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "words",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_help_discloses_preprocessing_defaults(self):
+        """words --help documents the tokenization/stopword defaults."""
+        parser = visualize_cli.build_visualize_parser()
+        with capture.capture_output() as captured, self.assertRaises(SystemExit):
+            parser.parse_args(["words", "--help"])
+        help_text = captured.stdout.getvalue()
+        for term in ("lowercased", "alphabetic", "3", "stopword"):
+            self.assertIn(term, help_text)
+
 
 if __name__ == "__main__":
     unittest.main()

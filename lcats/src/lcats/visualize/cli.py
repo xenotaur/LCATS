@@ -75,7 +75,11 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         description=(
             "Visualize word frequency across the whole corpus, or a genre "
             "subset, as a word cloud and a conventional ranked-frequency "
-            "bar chart, each in PNG and (where supported) vector formats."
+            "bar chart, each in PNG and (where supported) vector formats. "
+            "Preprocessing defaults (from lcats.analysis.story_analysis."
+            "get_keywords): terms are lowercased, restricted to ASCII "
+            "alphabetic tokens, require a minimum length of 3 characters, "
+            "and are filtered through a hardcoded stopword set."
         ),
     )
     words_parser.add_argument(
@@ -104,7 +108,7 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         "--top-k",
         type=int,
         default=50,
-        help="Number of top words to include (default: 50).",
+        help="Number of top words to include; must be >= 1 (default: 50).",
     )
     words_parser.add_argument(
         "--output-dir",
@@ -176,21 +180,26 @@ def run_genres(args) -> int:
 
 def run_words(args) -> int:
     """Run the words subcommand."""
+    if args.top_k < 1:
+        raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+
     corpus = sources.load_corpus_stories(args.corpus_root)
 
     membership = None
     if args.genre:
         membership = sources.load_candidates_genre_membership(args.candidates_jsonl)
-        missing = [
-            story_id
-            for story_id in membership.story_genres
-            if story_id not in corpus.texts
-        ]
-        if missing:
+        candidate_ids = set(membership.story_genres)
+        corpus_ids = set(corpus.texts)
+        missing_from_corpus = sorted(candidate_ids - corpus_ids)
+        missing_from_candidates = sorted(corpus_ids - candidate_ids)
+        if missing_from_corpus or missing_from_candidates:
             raise ValueError(
-                f"{len(missing)} candidates.jsonl story_id(s) not found in the "
-                f"corpus snapshot, e.g. {missing[:3]!r} -- join coverage "
-                "incomplete."
+                "join coverage incomplete between the corpus snapshot and "
+                "candidates.jsonl -- required a complete one-to-one join: "
+                f"{len(missing_from_corpus)} candidates.jsonl story_id(s) not "
+                f"found in the corpus (e.g. {missing_from_corpus[:3]!r}), "
+                f"{len(missing_from_candidates)} corpus story_id(s) not found "
+                f"in candidates.jsonl (e.g. {missing_from_candidates[:3]!r})."
             )
         selected_ids = [
             story_id
@@ -203,6 +212,13 @@ def run_words(args) -> int:
         texts = list(corpus.texts.values())
 
     frequencies = analysis.word_frequencies(texts, top_k=args.top_k)
+    if not frequencies:
+        raise ValueError(
+            "No word frequencies to visualize: the selected stories "
+            f"(story_count={len(texts)}) yielded no usable tokens after "
+            "preprocessing. Try a different --genre or check the corpus "
+            "contents."
+        )
 
     output_dir = pathlib.Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

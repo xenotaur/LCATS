@@ -7,11 +7,14 @@ rather than assuming genre already lives on ``Story``.
 
 For per-story identity (needed to join external artifacts like
 ``candidates.jsonl`` to loaded story text), this module derives ``story_id``
-directly from ``discovery.iter_collection_story_files``'s yielded paths.
-``lcats.stories.Corpora.get_corpora()`` cannot be used for this: it discards
-story paths entirely, returning bare ``Story`` objects (``name``/``body``/
-``metadata`` only), and both title-matching and deriving identity from
-``metadata.name`` are demonstrably ambiguous/lossy against the real corpus.
+directly from ``discovery.iter_collection_story_files``'s yielded paths, not
+from ``lcats.stories.Corpora.get_corpora()``: it discards story paths
+entirely, returning bare ``Story`` objects (``name``/``body``/``metadata``
+only), and both title-matching and deriving identity from ``metadata.name``
+are demonstrably ambiguous/lossy against the real corpus. Story *content* is
+still consumed through ``lcats.stories.Story`` itself (``Story.from_dict``)
+rather than a parallel hand-rolled parse -- only the per-story identity
+comes from ``discovery`` instead of ``Corpora``.
 """
 
 import dataclasses
@@ -20,6 +23,7 @@ import json
 import pathlib
 
 from lcats.analysis.corpus import discovery
+from lcats.stories import Story
 
 DEFAULT_FULL_SCAN_SUMMARY_PATH = (
     "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json"
@@ -153,8 +157,8 @@ def load_corpus_stories(
         for story_path in discovery.iter_collection_story_files(collection_dir):
             story_id = f"{collection_dir.name}/{story_path.parent.name}"
             raw_bytes = story_path.read_bytes()
-            data = json.loads(raw_bytes)
-            texts[story_id] = data.get("body", "")
+            story = Story.from_dict(json.loads(raw_bytes))
+            texts[story_id] = story.body
             file_hashes.append(f"{story_id}:{hashlib.sha256(raw_bytes).hexdigest()}")
 
     revision = hashlib.sha256(
@@ -176,6 +180,11 @@ def load_candidates_genre_membership(
     from each row. ``target_candidates`` is multi-label -- a story may
     belong to more than one genre's subset; this is preserved as-is, not
     deduplicated or reduced to a single "primary" genre.
+
+    Raises ``ValueError`` if the same ``story_id`` appears in more than one
+    row: silently keeping the last row would make the selected genre and
+    resulting frequencies depend on file order, while a later join-coverage
+    check comparing key sets alone could not detect the ambiguity.
     """
     path = _resolve_repo_relative_path(candidates_jsonl_path)
     raw_bytes = path.read_bytes()
@@ -185,8 +194,15 @@ def load_candidates_genre_membership(
         if not line:
             continue
         row = json.loads(line)
+        story_id = row["story_id"]
+        if story_id in story_genres:
+            raise ValueError(
+                f"{path}: duplicate story_id {story_id!r} -- candidates.jsonl "
+                "must contain at most one row per story_id for an "
+                "unambiguous join."
+            )
         candidates = row["metadata_assessment"]["result"]["target_candidates"]
-        story_genres[row["story_id"]] = list(candidates)
+        story_genres[story_id] = list(candidates)
 
     return GenreMembership(
         story_genres=story_genres,

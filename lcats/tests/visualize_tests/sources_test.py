@@ -239,6 +239,28 @@ class TestLoadCandidatesGenreMembership(unittest.TestCase):
             result_b = sources.load_candidates_genre_membership(str(path_b))
         self.assertNotEqual(result_a.source_revision, result_b.source_revision)
 
+    def test_duplicate_story_id_raises(self):
+        """A story_id appearing in more than one row raises ValueError."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = Path(tmp_dir) / "candidates.jsonl"
+            path.write_text(
+                "\n".join(
+                    json.dumps(
+                        {
+                            "story_id": "anderson/bell",
+                            "metadata_assessment": {
+                                "result": {"target_candidates": genres}
+                            },
+                        }
+                    )
+                    for genres in (["fantasy"], ["horror"])
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError):
+                sources.load_candidates_genre_membership(str(path))
+
 
 if __name__ == "__main__":
     unittest.main()
