@@ -59,7 +59,15 @@ lcats visualize words --genre fantasy --output-dir figures/words_fantasy --top-k
 `candidates.jsonl`) include the named genre -- a *multi-label* selector,
 not the same field `genres` uses (see below).
 
-### `tfidf` -- top-salience terms by mean TF-IDF
+### `tfidf` -- two modes: within-group salience, or a genuine contrast
+
+`tfidf` has two ranking modes, selected by `--contrast`. Both fit IDF
+across the whole corpus and require `--genre` (or another
+comparison-group selector) to select a subset narrower than the whole
+corpus; `--contrast` additionally *requires* `--genre` to be set, since
+it needs a complement (everything outside the group) to compare against.
+
+**Default mode (no `--contrast`): within-group salience.**
 
 ```bash
 # Whole corpus
@@ -84,6 +92,36 @@ smaller, more distinctive genre often (not guaranteed) surfaces more
 genre-evocative terms, simply because its member stories share more
 vocabulary with each other than with the corpus at large -- not because
 the metric itself measures distinctiveness.
+
+**`--contrast` mode: a genuine group-vs-complement comparison.**
+
+```bash
+lcats visualize tfidf --genre fantasy --contrast --output-dir figures/tfidf_contrast_fantasy --top-k 20 --formats png,svg
+```
+
+This is the mode that actually does what the default mode's `--help`
+wording describes: it computes both the selected group's mean TF-IDF and
+the complement's (every corpus story *not* in the group), over the same
+corpus-wide-fit matrix, and ranks by `group_mean - complement_mean`. A
+term common everywhere nets out near zero (or negative, if it's actually
+*more* common in the complement) and drops out of the ranking entirely
+-- only terms genuinely more prominent in the selected group than in the
+rest of the corpus surface. This is a simple mean-difference baseline,
+not a statistical significance test (no notion of sample-size confidence
+or a p-value); a term from a very small group can still register a large
+difference on thin evidence. `--contrast` with no `--genre` raises a
+clear error rather than silently degenerating, since a whole-corpus
+selection has no complement to contrast against.
+
+The manifest's `mode` field discloses which mode produced a given
+figure (`"salience"` or `"contrast"`) -- check it before citing a
+`tfidf` result as a "distinguishing terms" figure. See
+`experiments/08_visualize_dogfood/README.md`'s "Salience vs. contrast"
+section for a real side-by-side comparison on the same fantasy subset:
+the salience-mode top terms are dominated by generic narrative
+vocabulary (`said`, `not`, `all`), while contrast mode correctly demotes
+those and surfaces genre-distinctive terms (`king`, `princess`, `tree`,
+`fox`) instead.
 
 ### `topics` -- classical NMF baseline
 

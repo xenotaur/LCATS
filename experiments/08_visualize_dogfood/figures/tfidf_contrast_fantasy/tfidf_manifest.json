@@ -1,0 +1,36 @@
+{
+  "corpus_source_path": "corpora",
+  "corpus_source_revision": "523543e4844103674db8a4e099eb218e926acc29fe6ab798c738a1110cb89331",
+  "story_count": 122,
+  "top_terms": {
+    "king": 0.05801885541035426,
+    "princess": 0.03666387195307286,
+    "said": 0.03401415130923836,
+    "tree": 0.022987978370648587,
+    "fox": 0.02265751374642605,
+    "hans": 0.022278231847355764,
+    "little": 0.021046887255617732,
+    "prince": 0.01986571689899714,
+    "not": 0.01928382608086037,
+    "castle": 0.018810183556669715,
+    "then": 0.01854354831834215,
+    "thou": 0.018383763563811977,
+    "came": 0.018208993798663538,
+    "went": 0.016824655816893054,
+    "old": 0.016735393623270325,
+    "dwarf": 0.01669240504371593,
+    "shall": 0.016599744062405268,
+    "wolf": 0.016495728631011737,
+    "carter": 0.016019400489089793,
+    "mother": 0.015917236625646772
+  },
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "top_k": 20,
+  "mode": "contrast",
+  "genre": "fantasy",
+  "candidates_source_path": "experiments/05_metadata_genre_prefilter/results/full_scan/candidates.jsonl",
+  "candidates_source_revision": "ea52c53d60a39d703d168f709a929e64527494d1af3902268b26ef4883fa107d"
+}

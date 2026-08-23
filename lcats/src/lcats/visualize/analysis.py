@@ -42,21 +42,44 @@ def word_frequencies(texts: list, top_k: int = 50) -> dict:
     return {item["term"]: item["count"] for item in ranked}
 
 
-def tfidf_top_terms(corpus_texts: list, group_indices: list, top_k: int = 20) -> dict:
-    """Rank terms by mean TF-IDF score within a story-index subset.
+def tfidf_top_terms(
+    corpus_texts: list, group_indices: list, top_k: int = 20, contrast: bool = False
+) -> dict:
+    """Rank terms by TF-IDF score within a story-index subset.
 
     ``corpus_texts`` is the full document set the IDF is fit against, and
     *story* is the document unit -- each element is one story's text.
     ``group_indices`` selects which of those documents form the comparison
-    group whose mean TF-IDF is ranked; passing every index (the whole
-    corpus) is a valid degenerate case -- a corpus-wide ranking rather than
-    a subset-vs-background comparison.
+    group; passing every index (the whole corpus) is a valid degenerate case
+    for the default mode -- a corpus-wide ranking rather than a
+    subset-vs-background comparison.
 
     Uses scikit-learn's ``TfidfVectorizer`` for the TF-IDF computation
     itself, with ``story_analysis.get_keywords`` as its tokenizer -- the
     same lowercase/alphabetic/minimum-length-3/stopword-filtered preprocessing
     ``word_frequencies`` above uses, so preprocessing defaults stay
     consistent across the `words`/`tfidf` commands rather than diverging.
+
+    Two modes, selected by ``contrast``:
+
+    - ``contrast=False`` (default, unchanged since this function's original
+      delivery): ranks terms by the selected group's own mean TF-IDF only
+      (``matrix[group_indices].mean(axis=0)``) -- a within-group *salience*
+      measure. It never looks at documents outside ``group_indices``, so a
+      term common everywhere in the corpus can still rank highly here simply
+      because it is also common within the group.
+    - ``contrast=True``: ranks terms by ``group_mean - complement_mean``,
+      where ``complement_mean`` is the mean TF-IDF over every document *not*
+      in ``group_indices`` (all computed over the same corpus-wide-fit
+      matrix). This is a genuine group-vs-background comparison: a term
+      common only within the group scores highly, a term equally common in
+      both scores near zero, and a term more common in the complement scores
+      negatively (and is filtered out, per the ``> 0`` cutoff below, the
+      same as any other non-positive score). This is a simple mean-difference
+      baseline, not a statistical significance test -- log-odds/chi-square-
+      style weighting is deliberately deferred. Calling with an empty
+      complement (``group_indices`` covering every document) returns ``{}``,
+      since there is nothing to contrast against.
 
     Returns an empty mapping (not a raised exception) when ``corpus_texts``
     tokenizes to an empty vocabulary -- e.g. every document is only
@@ -79,13 +102,18 @@ def tfidf_top_terms(corpus_texts: list, group_indices: list, top_k: int = 20) ->
             return {}
         raise
     terms = vectorizer.get_feature_names_out()
-    mean_scores = np.asarray(matrix[group_indices].mean(axis=0)).ravel()
+    group_set = set(group_indices)
+    if contrast:
+        complement_indices = [i for i in range(matrix.shape[0]) if i not in group_set]
+        if not complement_indices:
+            return {}
+        group_mean = np.asarray(matrix[group_indices].mean(axis=0)).ravel()
+        complement_mean = np.asarray(matrix[complement_indices].mean(axis=0)).ravel()
+        scores = group_mean - complement_mean
+    else:
+        scores = np.asarray(matrix[group_indices].mean(axis=0)).ravel()
     ranked = sorted(
-        (
-            (terms[i], float(mean_scores[i]))
-            for i in range(len(terms))
-            if mean_scores[i] > 0
-        ),
+        ((terms[i], float(scores[i])) for i in range(len(terms)) if scores[i] > 0),
         key=lambda term_score: (-term_score[1], term_score[0]),
     )[:top_k]
     return dict(ranked)

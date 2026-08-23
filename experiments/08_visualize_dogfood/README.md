@@ -6,6 +6,15 @@ corpus, producing real figures for the Worldcon 2026 talk and poster
 (`FOCUS-WORLDCON-2026`) rather than synthetic test fixtures. It closes
 `WI-VISUALIZE-0088`.
 
+**Addendum (`WI-VISUALIZE-0090`).** The `tfidf_contrast_fantasy/` entry
+below was added by `WI-VISUALIZE-0090`, which extends `tfidf` with a new,
+additive `--contrast` mode: a genuine group-vs-complement comparison
+(`group_mean - complement_mean`), rather than the original mode's
+within-group mean *salience* (`tfidf_fantasy/` and `tfidf_science_fiction/`
+below, produced by `WI-VISUALIZE-0086`, unchanged). Both modes remain
+valid and are shown side by side deliberately — see "Salience vs.
+contrast" below.
+
 **Interim figures location.** No Worldcon 2026 paper/talk source
 repository or directory exists anywhere in this codebase yet (confirmed
 by search at implementation time). This directory follows the repo's
@@ -43,6 +52,40 @@ stories" from the same underlying `05_metadata_genre_prefilter`
 artifact; the `tfidf_fantasy` figure's actual denominator is 122, not
 120 — do not conflate the two when citing a count for a specific figure.
 
+## Salience vs. contrast
+
+`WI-VISUALIZE-0086`'s original `tfidf` computation (`tfidf_fantasy/`,
+`tfidf_science_fiction/`, `tfidf_whole_corpus/`) ranks terms by the
+selected group's own mean TF-IDF only -- it never looks at the rest of
+the corpus, so a term that is simply common everywhere (e.g. `said`,
+`not`, `all`) can still rank at the top of a genre-subset run just
+because it is also frequent within that subset. `WI-VISUALIZE-0089`'s
+review round caught this and corrected the documentation to describe it
+accurately as within-group *salience*, not a comparison.
+
+`tfidf_contrast_fantasy/` (`WI-VISUALIZE-0090`, `--contrast`) instead
+ranks by `group_mean - complement_mean`, so generic high-frequency terms
+that are just as common outside the group net out near zero and drop
+out of the ranking, while genuinely fantasy-distinctive terms surface.
+Comparing the same fantasy subset under both modes makes the difference
+concrete:
+
+| Rank | Salience (`tfidf_fantasy/`) | Contrast (`tfidf_contrast_fantasy/`) |
+|---|---|---|
+| 1 | `said` | `king` |
+| 2 | `not` | `princess` |
+| 3 | `king` | `said` |
+| 4 | `all` | `tree` |
+| 5 | `then` | `fox` |
+
+`king`, `princess`, and `tree` were already present in the salience
+ranking too (fantasy is a strong enough genre signal that they show up
+either way), but `said`/`not`/`all` -- generic narrative vocabulary with
+no genre content -- outrank them under salience and are correctly
+demoted (filtered out entirely, since their contrast score is at or
+below zero) under contrast. This is the concrete illustration of the gap
+`WI-VISUALIZE-0090` was scoped to close.
+
 ## Outputs (`figures/`)
 
 Each subdirectory is one real `lcats visualize` invocation's output
@@ -56,7 +99,8 @@ selectors/parameters/seed and input-revision content hashes used):
 | `words_science_fiction/` | `lcats visualize words --genre "science fiction" --top-k 30` | science fiction subset |
 | `tfidf_whole_corpus/` | `lcats visualize tfidf --top-k 20` | whole corpus |
 | `tfidf_science_fiction/` | `lcats visualize tfidf --genre "science fiction" --top-k 20` | science fiction subset |
-| `tfidf_fantasy/` | `lcats visualize tfidf --genre fantasy --top-k 20` | fantasy subset |
+| `tfidf_fantasy/` | `lcats visualize tfidf --genre fantasy --top-k 20` | fantasy subset (salience mode) |
+| `tfidf_contrast_fantasy/` | `lcats visualize tfidf --genre fantasy --contrast --top-k 20` | fantasy subset (contrast mode) |
 | `topics_whole_corpus/` | `lcats visualize topics --n-topics 6 --top-k 10` | whole corpus, classical NMF baseline |
 
 Every manifest's `corpus_source_revision` for this run is
@@ -88,6 +132,11 @@ corpus/candidates content hashes match.
 - `tfidf` against the majority genre (science fiction, ~70% of the
   corpus) is a weak "distinguishing terms" comparison by construction —
   documented above under Genre selections, not a defect in the command.
+- `--contrast` (`WI-VISUALIZE-0090`) confirmed the gap it was scoped to
+  close: run against the same fantasy subset as `tfidf_fantasy/`, it
+  visibly demotes generic high-frequency terms (`said`, `not`, `all`)
+  that the salience mode ranked at the top, surfacing genre-distinctive
+  terms instead — see "Salience vs. contrast" above.
 
 ## Reproduction
 
@@ -98,5 +147,6 @@ lcats visualize words --genre "science fiction" --output-dir experiments/08_visu
 lcats visualize tfidf --output-dir experiments/08_visualize_dogfood/figures/tfidf_whole_corpus --top-k 20 --formats png,svg
 lcats visualize tfidf --genre "science fiction" --output-dir experiments/08_visualize_dogfood/figures/tfidf_science_fiction --top-k 20 --formats png,svg
 lcats visualize tfidf --genre fantasy --output-dir experiments/08_visualize_dogfood/figures/tfidf_fantasy --top-k 20 --formats png,svg
+lcats visualize tfidf --genre fantasy --contrast --output-dir experiments/08_visualize_dogfood/figures/tfidf_contrast_fantasy --top-k 20 --formats png,svg
 lcats visualize topics --output-dir experiments/08_visualize_dogfood/figures/topics_whole_corpus --n-topics 6 --top-k 10 --formats png,svg
 ```

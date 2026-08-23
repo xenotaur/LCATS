@@ -374,6 +374,7 @@ class TestRunTfidf(unittest.TestCase):
             self.assertIn("corpus_source_revision", manifest)
             self.assertNotIn("genre", manifest)
             self.assertIn("dragon", manifest["top_terms"])
+            self.assertEqual(manifest["mode"], "salience")
 
     def test_genre_subset_filters_and_emits_dual_revision(self):
         """--genre restricts the group and discloses both snapshots."""
@@ -470,6 +471,93 @@ class TestRunTfidf(unittest.TestCase):
         help_text = captured.stdout.getvalue()
         for term in ("lowercased", "alphabetic", "3", "stopword"):
             self.assertIn(term, help_text)
+
+    def test_contrast_without_genre_raises(self):
+        """--contrast with no --genre raises a clear, documented error."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "tfidf",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--contrast",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError) as ctx:
+                visualize_cli.run(parsed_args=args)
+            self.assertIn("--contrast requires --genre", str(ctx.exception))
+
+    def test_contrast_produces_distinct_result_and_discloses_mode(self):
+        """--contrast with --genre yields a genuine group-vs-rest ranking,
+        visibly different from the default salience-mode ranking for the
+        same genre, and discloses mode: contrast in the manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root, "anderson", "bell", body="dragon dragon castle shared"
+            )
+            _write_story(
+                corpora_root, "anderson", "fir_tree", body="shared detective clue clue"
+            )
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "anderson/bell": ["fantasy"],
+                    "anderson/fir_tree": ["mystery"],
+                },
+            )
+            common_args = [
+                "--corpus-root",
+                str(corpora_root),
+                "--genre",
+                "fantasy",
+                "--candidates-jsonl",
+                str(candidates_path),
+                "--formats",
+                "png",
+            ]
+            parser = visualize_cli.build_visualize_parser()
+
+            salience_dir = Path(tmp_dir) / "out_salience"
+            salience_args = parser.parse_args(
+                ["tfidf", *common_args, "--output-dir", str(salience_dir)]
+            )
+            with capture.suppress_output():
+                salience_status = visualize_cli.run(parsed_args=salience_args)
+            salience_manifest = json.loads(
+                (salience_dir / "tfidf_manifest.json").read_text()
+            )
+
+            contrast_dir = Path(tmp_dir) / "out_contrast"
+            contrast_args = parser.parse_args(
+                [
+                    "tfidf",
+                    *common_args,
+                    "--contrast",
+                    "--output-dir",
+                    str(contrast_dir),
+                ]
+            )
+            with capture.suppress_output():
+                contrast_status = visualize_cli.run(parsed_args=contrast_args)
+            contrast_manifest = json.loads(
+                (contrast_dir / "tfidf_manifest.json").read_text()
+            )
+
+        self.assertEqual(salience_status, 0)
+        self.assertEqual(contrast_status, 0)
+        self.assertEqual(salience_manifest["mode"], "salience")
+        self.assertEqual(contrast_manifest["mode"], "contrast")
+        self.assertNotEqual(
+            salience_manifest["top_terms"], contrast_manifest["top_terms"]
+        )
+        self.assertIn("dragon", contrast_manifest["top_terms"])
+        self.assertNotIn("shared", contrast_manifest["top_terms"])
 
 
 class TestRunTopics(unittest.TestCase):

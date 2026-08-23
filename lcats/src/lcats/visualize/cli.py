@@ -176,6 +176,18 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         help="Number of top terms to include; must be >= 1 (default: 20).",
     )
     tfidf_parser.add_argument(
+        "--contrast",
+        action="store_true",
+        help=(
+            "Rank terms by group-vs-complement mean TF-IDF difference "
+            "instead of within-group mean salience -- a genuine comparison "
+            "against the rest of the corpus, not just the selected group's "
+            "own terms. Requires --genre (or another comparison-group "
+            "selector); a whole-corpus run has no complement to contrast "
+            "against."
+        ),
+    )
+    tfidf_parser.add_argument(
         "--output-dir",
         default="tfidf_viz",
         help="Directory to write output figures to (default: tfidf_viz).",
@@ -401,6 +413,12 @@ def run_tfidf(args) -> int:
     """Run the tfidf subcommand."""
     if args.top_k < 1:
         raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+    if args.contrast and not args.genre:
+        raise ValueError(
+            "--contrast requires --genre (or another comparison-group "
+            "selector): a whole-corpus run has no complement to contrast "
+            "against."
+        )
 
     corpus = sources.load_corpus_stories(args.corpus_root)
     story_ids = list(corpus.texts.keys())
@@ -430,13 +448,16 @@ def run_tfidf(args) -> int:
     else:
         group_indices = list(range(len(story_ids)))
 
-    scores = analysis.tfidf_top_terms(corpus_texts, group_indices, top_k=args.top_k)
+    scores = analysis.tfidf_top_terms(
+        corpus_texts, group_indices, top_k=args.top_k, contrast=args.contrast
+    )
     if not scores:
         raise ValueError(
             "No TF-IDF terms to visualize: the selected stories "
             f"(story_count={len(group_indices)}) yielded no usable tokens "
-            "after preprocessing. Try a different --genre or check the "
-            "corpus contents."
+            "after preprocessing, or (in --contrast mode) no term scored "
+            "higher in the group than in its complement. Try a different "
+            "--genre or check the corpus contents."
         )
 
     output_dir = pathlib.Path(args.output_dir)
@@ -457,6 +478,7 @@ def run_tfidf(args) -> int:
         "top_terms": scores,
         "formats": formats,
         "top_k": args.top_k,
+        "mode": "contrast" if args.contrast else "salience",
     }
     if membership is not None:
         manifest["genre"] = args.genre

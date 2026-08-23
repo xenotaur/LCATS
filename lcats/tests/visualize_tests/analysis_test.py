@@ -142,6 +142,54 @@ class TestTfidfTopTerms(unittest.TestCase):
         )
         self.assertEqual(result, {})
 
+    def test_contrast_ranks_group_only_term_above_shared_and_complement_only(self):
+        """contrast=True ranks group-vs-complement mean difference.
+
+        A term appearing only in the group scores positively and ranks
+        first; a term equally common (by TF-IDF weight) in the group and
+        its complement scores ~0 and is filtered out (same > 0 cutoff as
+        the default mode); a term appearing only in the complement scores
+        negatively and is also filtered out. This directly checks the
+        acceptance criterion: group-only ranks above group-and-complement
+        ranks above complement-only.
+        """
+        corpus_texts = [
+            "grouponly grouponly shared",
+            "shared complementonly complementonly",
+        ]
+        result = analysis.tfidf_top_terms(
+            corpus_texts, group_indices=[0], top_k=10, contrast=True
+        )
+        self.assertIn("grouponly", result)
+        self.assertGreater(result["grouponly"], 0)
+        self.assertNotIn("shared", result)
+        self.assertNotIn("complementonly", result)
+
+    def test_contrast_default_is_false_and_matches_salience_mode(self):
+        """Omitting contrast (or passing False) reproduces the original,
+        unchanged within-group salience ranking."""
+        corpus_texts = [
+            "dragon castle dragon knight",
+            "forest shadow forest path",
+            "castle knight castle path",
+        ]
+        default_result = analysis.tfidf_top_terms(
+            corpus_texts, group_indices=[0], top_k=10
+        )
+        explicit_false_result = analysis.tfidf_top_terms(
+            corpus_texts, group_indices=[0], top_k=10, contrast=False
+        )
+        self.assertEqual(default_result, explicit_false_result)
+
+    def test_contrast_with_whole_corpus_group_returns_empty(self):
+        """contrast=True with no complement (group covers every document)
+        has nothing to contrast against and returns {}."""
+        corpus_texts = ["dragon castle knight", "forest shadow path"]
+        result = analysis.tfidf_top_terms(
+            corpus_texts, group_indices=[0, 1], top_k=10, contrast=True
+        )
+        self.assertEqual(result, {})
+
 
 class TestTopicModel(unittest.TestCase):
     """Tests for topic_model."""

@@ -324,7 +324,7 @@ word cloud and a conventional ranked-frequency bar chart.
 ```
 lcats visualize tfidf [--corpus-root CORPUS_ROOT] [--genre GENRE]
                       [--candidates-jsonl CANDIDATES_JSONL] [--top-k TOP_K]
-                      [--output-dir OUTPUT_DIR] [--formats FORMATS]
+                      [--contrast] [--output-dir OUTPUT_DIR] [--formats FORMATS]
 ```
 
 Visualize the top TF-IDF-ranked terms for a comparison group -- by default
@@ -334,11 +334,18 @@ regardless of `--genre`, so a genre-subset run ranks terms distinguishing
 that subset from the corpus at large.
 
 **Accuracy note:** the description above matches the command's own
-`--help` text, but the ranking it produces is the selected group's mean
-TF-IDF only -- it does not compute or subtract the complement group's
-mean, so it is not a rigorous distinguishing/contrast metric. See
+`--help` text, but the ranking it produces *without* `--contrast` is the
+selected group's mean TF-IDF only -- it does not compute or subtract the
+complement group's mean, so it is not a rigorous distinguishing/contrast
+metric on its own. `--contrast` (added by `WI-VISUALIZE-0090`) is the
+mode that actually delivers what the description above says: it ranks by
+`group_mean - complement_mean`, a genuine group-vs-rest-of-corpus
+comparison, and requires `--genre` (or another comparison-group
+selector) since a whole-corpus run has no complement. The output
+manifest's `mode` field (`"salience"` or `"contrast"`) discloses which
+ranking produced a given figure. See
 [`../how-to/run-visualize.md`](../how-to/run-visualize.md) (`tfidf` section)
-for what the ranking actually measures.
+for what each mode actually measures, with a real side-by-side example.
 
 | Argument / Flag | Description |
 |---|---|
@@ -346,6 +353,7 @@ for what the ranking actually measures.
 | `--genre GENRE` | If provided, rank terms for stories whose candidate genres include this genre. Omit to rank terms across the whole corpus. |
 | `--candidates-jsonl CANDIDATES_JSONL` | Path to the full-scan `candidates.jsonl` (used only with `--genre`). |
 | `--top-k TOP_K` | Number of top terms to include; must be `>= 1` (default: `20`). |
+| `--contrast` | Rank by group-vs-complement mean TF-IDF difference instead of within-group salience. Requires `--genre`. |
 | `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `tfidf_viz`). |
 | `--formats FORMATS` | Comma-separated output formats (default: `png,svg`). |
 
