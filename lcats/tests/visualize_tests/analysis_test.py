@@ -143,5 +143,55 @@ class TestTfidfTopTerms(unittest.TestCase):
         self.assertEqual(result, {})
 
 
+class TestTopicModel(unittest.TestCase):
+    """Tests for topic_model."""
+
+    def _make_two_topic_corpus(self):
+        return [
+            "dragon castle knight dragon castle",
+            "castle dragon knight castle knight",
+            "ocean ship sailor ocean ship",
+            "ship sailor ocean sailor ship",
+        ]
+
+    def test_returns_requested_number_of_topics(self):
+        """n_topics topics are fit and returned as topic_0..topic_{n-1}."""
+        result = analysis.topic_model(
+            self._make_two_topic_corpus(), n_topics=2, top_k=10, seed=42
+        )
+        self.assertEqual(set(result.keys()), {"topic_0", "topic_1"})
+
+    def test_top_k_limits_terms_per_topic(self):
+        """Each topic has at most top_k terms."""
+        result = analysis.topic_model(
+            self._make_two_topic_corpus(), n_topics=2, top_k=2, seed=42
+        )
+        for term_weights in result.values():
+            self.assertLessEqual(len(term_weights), 2)
+
+    def test_empty_corpus_returns_empty(self):
+        """An empty corpus returns an empty mapping."""
+        self.assertEqual(analysis.topic_model([], n_topics=2), {})
+
+    def test_empty_vocabulary_returns_empty(self):
+        """A corpus with only stopwords/short tokens returns an empty mapping."""
+        result = analysis.topic_model(["the a of it is", "an at to on in"], n_topics=2)
+        self.assertEqual(result, {})
+
+    def test_n_topics_clamped_to_available_documents(self):
+        """Requesting more topics than documents/terms does not raise."""
+        result = analysis.topic_model(
+            ["dragon castle knight"], n_topics=5, top_k=5, seed=42
+        )
+        self.assertLessEqual(len(result), 1)
+
+    def test_deterministic_with_same_seed(self):
+        """The same seed produces the same topic-term result."""
+        corpus = self._make_two_topic_corpus()
+        result_a = analysis.topic_model(corpus, n_topics=2, top_k=5, seed=7)
+        result_b = analysis.topic_model(corpus, n_topics=2, top_k=5, seed=7)
+        self.assertEqual(result_a, result_b)
+
+
 if __name__ == "__main__":
     unittest.main()

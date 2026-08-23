@@ -189,6 +189,74 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         ),
     )
 
+    topics_parser = visualize_subparsers.add_parser(
+        "topics",
+        add_help=True,
+        help="Visualize a classical topic-model baseline as per-topic bar charts.",
+        description=(
+            "Visualize a classical topic-model baseline (scikit-learn NMF) "
+            "over the whole corpus as one top-weighted-term bar chart per "
+            "topic. This is a baseline, not a final technique choice -- "
+            "embedding-based topic models (e.g. BERTopic) are explicitly "
+            "deferred. Preprocessing defaults (from "
+            "lcats.analysis.story_analysis.get_keywords): terms are "
+            "lowercased, restricted to ASCII alphabetic tokens, require a "
+            "minimum length of 3 characters, and are filtered through a "
+            "hardcoded stopword set. NMF is fit with a fixed "
+            'init="nndsvda" strategy (deterministic, no randomness in '
+            "initialization) -- not exposed as an option, since it is an "
+            "algorithm-selection detail rather than a paper-relevant knob."
+        ),
+    )
+    topics_parser.add_argument(
+        "--corpus-root",
+        default=sources.DEFAULT_CORPORA_ROOT,
+        help=f"Root directory of story collections (default: {sources.DEFAULT_CORPORA_ROOT}).",
+    )
+    topics_parser.add_argument(
+        "--n-topics",
+        type=int,
+        default=analysis.DEFAULT_N_TOPICS,
+        help=(
+            "Number of topics to fit; must be >= 1 "
+            f"(default: {analysis.DEFAULT_N_TOPICS})."
+        ),
+    )
+    topics_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=10,
+        help="Number of top terms per topic to include; must be >= 1 (default: 10).",
+    )
+    topics_parser.add_argument(
+        "--seed",
+        type=int,
+        default=42,
+        help="Deterministic random seed for the NMF solver (default: 42).",
+    )
+    topics_parser.add_argument(
+        "--max-iter",
+        type=int,
+        default=analysis.DEFAULT_NMF_MAX_ITER,
+        help=(
+            "Maximum NMF solver iterations; must be >= 1 "
+            f"(default: {analysis.DEFAULT_NMF_MAX_ITER})."
+        ),
+    )
+    topics_parser.add_argument(
+        "--output-dir",
+        default="topics_viz",
+        help="Directory to write output figures to (default: topics_viz).",
+    )
+    topics_parser.add_argument(
+        "--formats",
+        default=DEFAULT_FORMATS,
+        help=(
+            "Comma-separated output formats, e.g. png,svg,pdf "
+            f"(default: {DEFAULT_FORMATS})."
+        ),
+    )
+
     return parser
 
 
@@ -390,6 +458,64 @@ def run_tfidf(args) -> int:
     return 0
 
 
+def run_topics(args) -> int:
+    """Run the topics subcommand."""
+    if args.n_topics < 1:
+        raise ValueError(f"--n-topics must be >= 1, got {args.n_topics}.")
+    if args.top_k < 1:
+        raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+    if args.max_iter < 1:
+        raise ValueError(f"--max-iter must be >= 1, got {args.max_iter}.")
+
+    corpus = sources.load_corpus_stories(args.corpus_root)
+    corpus_texts = list(corpus.texts.values())
+
+    topics = analysis.topic_model(
+        corpus_texts,
+        n_topics=args.n_topics,
+        top_k=args.top_k,
+        seed=args.seed,
+        max_iter=args.max_iter,
+    )
+    if not topics:
+        raise ValueError(
+            "No topics to visualize: the corpus "
+            f"(story_count={len(corpus_texts)}) yielded no usable tokens "
+            "after preprocessing, or no topic could be fit. Check the "
+            "corpus contents or --n-topics."
+        )
+
+    output_dir = pathlib.Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    formats = _parse_formats(args.formats)
+
+    for topic_label, term_weights in topics.items():
+        for fmt in formats:
+            fig, _ = rendering.plot_topic_bar_chart(
+                term_weights,
+                topic_label=topic_label,
+                save_path=str(output_dir / f"{topic_label}_bar.{fmt}"),
+            )
+            plt.close(fig)
+
+    manifest = {
+        "corpus_source_path": corpus.source_path,
+        "corpus_source_revision": corpus.source_revision,
+        "story_count": len(corpus_texts),
+        "n_topics": len(topics),
+        "topics": topics,
+        "formats": formats,
+        "top_k": args.top_k,
+        "seed": args.seed,
+        "max_iter": args.max_iter,
+    }
+    manifest_path = output_dir / "topics_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    print(json.dumps(manifest, indent=2))
+    return 0
+
+
 def run(
     argv: Optional[Sequence[str]] = None,
     parsed_args: Optional[argparse.Namespace] = None,
@@ -405,6 +531,8 @@ def run(
         return run_words(args)
     if visualize_command == "tfidf":
         return run_tfidf(args)
+    if visualize_command == "topics":
+        return run_topics(args)
 
     parser.print_help(file=sys.stderr)
     return 1

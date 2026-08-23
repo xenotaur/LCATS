@@ -150,6 +150,32 @@ class TestPlotTfidfBarChart(unittest.TestCase):
         self.assertEqual(ax.get_ylabel(), "Mean TF-IDF score")
 
 
+class TestPlotTopicBarChart(unittest.TestCase):
+    """Tests for plot_topic_bar_chart."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_returns_fig_ax(self):
+        """Function returns a (fig, ax) tuple."""
+        with capture.suppress_output():
+            fig, ax = rendering.plot_topic_bar_chart(
+                {"dragon": 0.5, "castle": 0.3}, topic_label="topic_0"
+            )
+        self.assertIsInstance(fig, plt.Figure)
+        self.assertIsNotNone(ax)
+
+    def test_title_includes_topic_label(self):
+        """Title and axis labels are topic-specific."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_topic_bar_chart(
+                {"dragon": 0.5}, topic_label="topic_0"
+            )
+        self.assertEqual(ax.get_title(), "Topic: topic_0")
+        self.assertEqual(ax.get_xlabel(), "Term")
+        self.assertEqual(ax.get_ylabel(), "Weight")
+
+
 class TestPlotBarChartGeneric(unittest.TestCase):
     """Tests for the shared plot_bar_chart primitive."""
 

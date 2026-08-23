@@ -472,5 +472,185 @@ class TestRunTfidf(unittest.TestCase):
             self.assertIn(term, help_text)
 
 
+class TestRunTopics(unittest.TestCase):
+    """CLI integration/smoke tests for `lcats visualize topics`."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_creates_expected_output_files(self):
+        """Running topics creates one bar chart per topic and a manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root,
+                "anderson",
+                "bell",
+                body="dragon castle knight dragon castle knight dragon",
+            )
+            _write_story(
+                corpora_root,
+                "anderson",
+                "fir_tree",
+                body="ocean ship sailor ocean ship sailor ocean",
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--n-topics",
+                    "2",
+                    "--top-k",
+                    "5",
+                    "--output-dir",
+                    str(output_dir),
+                    "--formats",
+                    "png,svg",
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+
+            self.assertEqual(status, 0)
+            manifest = json.loads((output_dir / "topics_manifest.json").read_text())
+
+            self.assertEqual(status, 0)
+            self.assertEqual(manifest["story_count"], 2)
+            self.assertEqual(manifest["n_topics"], 2)
+            self.assertIn("corpus_source_revision", manifest)
+            self.assertEqual(manifest["seed"], 42)
+            for topic_label in manifest["topics"]:
+                for fmt in ("png", "svg"):
+                    path = output_dir / f"{topic_label}_bar.{fmt}"
+                    self.assertTrue(path.exists(), f"missing {path.name}")
+                    self.assertGreater(path.stat().st_size, 0, f"empty {path.name}")
+
+    def test_n_topics_clamped_does_not_raise(self):
+        """Requesting more topics than the corpus supports does not crash."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--n-topics",
+                    "10",
+                    "--output-dir",
+                    str(output_dir),
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+            self.assertEqual(status, 0)
+
+    def test_non_positive_n_topics_raises(self):
+        """--n-topics below 1 raises a clear ValueError."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--n-topics",
+                    "0",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_non_positive_top_k_raises(self):
+        """--top-k below 1 raises a clear ValueError."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--top-k",
+                    "0",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_non_positive_max_iter_raises(self):
+        """--max-iter below 1 raises a clear ValueError."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--max-iter",
+                    "0",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_max_iter_disclosed_in_manifest(self):
+        """The manifest discloses the max_iter hyperparameter used."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root,
+                "anderson",
+                "bell",
+                body="dragon castle knight dragon castle knight dragon",
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--n-topics",
+                    "1",
+                    "--max-iter",
+                    "50",
+                    "--output-dir",
+                    str(output_dir),
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+            manifest = json.loads((output_dir / "topics_manifest.json").read_text())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["max_iter"], 50)
+
+    def test_help_discloses_preprocessing_defaults(self):
+        """topics --help documents the tokenization/stopword defaults."""
+        parser = visualize_cli.build_visualize_parser()
+        with capture.capture_output() as captured, self.assertRaises(SystemExit):
+            parser.parse_args(["topics", "--help"])
+        help_text = captured.stdout.getvalue()
+        for term in ("lowercased", "alphabetic", "3", "stopword"):
+            self.assertIn(term, help_text)
+
+
 if __name__ == "__main__":
     unittest.main()

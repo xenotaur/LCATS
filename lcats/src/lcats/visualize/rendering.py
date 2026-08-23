@@ -140,3 +140,16 @@ def plot_tfidf_bar_chart(scores: dict, *, save_path: str | None = None):
         ylabel="Mean TF-IDF score",
         save_path=save_path,
     )
+
+
+def plot_topic_bar_chart(
+    term_weights: dict, *, topic_label: str, save_path: str | None = None
+):
+    """Conventional bar chart of a single topic's top-weighted terms."""
+    return plot_bar_chart(
+        term_weights,
+        title=f"Topic: {topic_label}",
+        xlabel="Term",
+        ylabel="Weight",
+        save_path=save_path,
+    )
