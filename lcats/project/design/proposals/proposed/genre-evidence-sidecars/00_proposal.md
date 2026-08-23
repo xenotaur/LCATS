@@ -17,7 +17,7 @@ related_design:
   - lcats/project/design/proposals/proposed/erw-local-model-evaluation/00_proposal.md
   - lcats/project/workstreams/proposed/WS-WORLDCON-FAST-PATH-ANNOTATION.md
   - lcats/project/work_items/proposed/WI-ASSESS-0051.md
-  - lcats/project/work_items/proposed/WI-LLM-0066.md
+  - lcats/project/work_items/resolved/WI-LLM-0066.md
 ---
 
 ## Summary
@@ -442,7 +442,7 @@ This is a multi-stage workstream. Suggested delivery order:
   - local model evaluation context.
 - `lcats/project/work_items/proposed/WI-ASSESS-0051.md` - current
   8-genre model census.
-- `lcats/project/work_items/proposed/WI-LLM-0066.md` - local
+- `lcats/project/work_items/resolved/WI-LLM-0066.md` - local
   `gpt-oss:20b` genre-census wiring.
 
 ## Open Questions
