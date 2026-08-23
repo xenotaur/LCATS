@@ -1878,6 +1878,18 @@ def main() -> int:
             for usage_row in usage_rows:
                 f.write(json.dumps(usage_row, sort_keys=True) + "\n")
 
+        # Manually logged (not RunLog's own automatic bare run_end) so an
+        # aborted run's log carries an explicit aborted=True marker as its
+        # final event, instead of leaving a bare run_end that's
+        # indistinguishable from a fully successful run without scanning
+        # every earlier event (review finding, PR #371 - mirrors
+        # run_prefilter.py's own run_end payload from WI-RUNLOG-0079).
+        log.event(
+            "run_end",
+            aborted=aborted,
+            processed_count=len(rows),
+        )
+
     summary = summarize_by_genre(rows)
     summary_path = output_dir / "pilot_summary.json"
     with summary_path.open("w", encoding="utf-8") as f:

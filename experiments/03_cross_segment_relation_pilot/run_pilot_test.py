@@ -1538,6 +1538,8 @@ class TestRunLogging(unittest.TestCase):
             event_names = [e["event"] for e in events]
             self.assertEqual(event_names[0], "run_start")
             self.assertEqual(event_names[-1], "run_end")
+            self.assertFalse(events[-1]["aborted"])
+            self.assertEqual(events[-1]["processed_count"], 1)
             self.assertIn("story_completed", event_names)
             story_events = [e for e in events if e["event"] == "story_completed"]
             self.assertEqual(story_events[0]["story_id"], "test_collection__story_a")
@@ -1610,6 +1612,14 @@ class TestRunLogging(unittest.TestCase):
             self.assertIn("run_aborted_fatal", event_names)
             fatal_event = next(e for e in events if e["event"] == "run_aborted_fatal")
             self.assertEqual(fatal_event["story_id"], "test_collection__story_b")
+            # The manually-logged trailing run_end (not RunLog's bare
+            # automatic one) still fires here since FatalPilotError is
+            # caught inside _run_stories() rather than propagating out of
+            # the `with` block - but it must carry aborted=True so the
+            # log is distinguishable from a fully successful run without
+            # scanning every earlier event (review finding, PR #371).
+            self.assertEqual(event_names[-1], "run_end")
+            self.assertTrue(events[-1]["aborted"])
 
     def test_output_write_failure_produces_run_aborted_unexpected_not_run_end(self):
         """WI-RUNLOG-0080's own scope (mirroring the review finding fixed
