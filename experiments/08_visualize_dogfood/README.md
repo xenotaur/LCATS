@@ -27,11 +27,21 @@ The corpus is dominated by science fiction (1308/1868 stories, ~70%) —
 expected for a Worldcon-focused corpus, but it means a science-fiction
 subset barely differs from the whole corpus by mean TF-IDF (the
 "distinguishing terms" comparison degenerates when the subset *is*
-most of the population). Fantasy (120 stories, the next-largest genre)
-gives a visibly sharper contrast (`king`, `princess`, `tree` vs. the
-whole corpus), so both are included: science fiction for corpus-scale
-`words`, and both science fiction and fantasy for `tfidf` to show the
-contrast directly.
+most of the population). Fantasy gives a visibly sharper contrast
+(`king`, `princess`, `tree` vs. the whole corpus), so both are
+included: science fiction for corpus-scale `words`, and both science
+fiction and fantasy for `tfidf` to show the contrast directly.
+
+**Note on the two fantasy counts.** `figures/genres/genres_manifest.json` (the
+`genres` command's non-overlapping *primary*-genre distribution) reports
+120 fantasy stories. `figures/tfidf_fantasy/tfidf_manifest.json` (the `tfidf`
+command's `--genre fantasy` selector, membership in the multi-label
+`target_candidates` field) reports `story_count: 122` — 2 stories carry
+fantasy as a secondary candidate genre without it being their primary
+genre. These are two different, both-correct definitions of "fantasy
+stories" from the same underlying `05_metadata_genre_prefilter`
+artifact; the `tfidf_fantasy` figure's actual denominator is 122, not
+120 — do not conflate the two when citing a count for a specific figure.
 
 ## Outputs (`figures/`)
 
@@ -51,7 +61,7 @@ selectors/parameters/seed and input-revision content hashes used):
 
 Every manifest's `corpus_source_revision` for this run is
 `523543e4844103674db8a4e099eb218e926acc29fe6ab798c738a1110cb89331`
-(content hash over every consumed story file); `genres/genres_manifest.json`'s
+(content hash over every consumed story file); `figures/genres/genres_manifest.json`'s
 `source_revision` (over `summary.json`) is
 `7f0c12e43e7ac0baf55a764f818f50b81ed08c131d861a3a010d8cbb656bef43`; the
 `--genre`-filtered runs additionally disclose
