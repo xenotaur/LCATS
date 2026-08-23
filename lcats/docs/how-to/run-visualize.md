@@ -30,7 +30,7 @@ implementation's own help text changes.
 Each example below was run against the real, checked-in corpus as part of
 `WI-VISUALIZE-0088`'s dogfooding pass; the actual committed output lives
 under
-[`experiments/08_visualize_dogfood/figures/`](../../../experiments/08_visualize_dogfood/)
+[`experiments/08_visualize_dogfood/figures/`](../../../experiments/08_visualize_dogfood/figures/)
 if you want to see real results without running anything yourself.
 
 ### `genres` -- whole-corpus genre distribution
@@ -59,22 +59,31 @@ lcats visualize words --genre fantasy --output-dir figures/words_fantasy --top-k
 `candidates.jsonl`) include the named genre -- a *multi-label* selector,
 not the same field `genres` uses (see below).
 
-### `tfidf` -- top distinguishing terms
+### `tfidf` -- top-salience terms by mean TF-IDF
 
 ```bash
-# Whole corpus (a valid degenerate case: ranks terms distinguishing
-# nothing in particular, just corpus-wide salience)
+# Whole corpus
 lcats visualize tfidf --output-dir figures/tfidf --top-k 20 --formats png,svg
 
-# A genre subset, to see what distinguishes it from the corpus at large
+# A genre subset
 lcats visualize tfidf --genre fantasy --output-dir figures/tfidf_fantasy --top-k 20 --formats png,svg
 ```
 
-The comparison is only as sharp as the subset is distinctive: a majority
-genre (e.g. one that's 70% of the corpus) barely differs from the whole
-corpus by mean TF-IDF, since the "background" it's compared against is
-mostly itself. A smaller, more distinctive genre produces a visibly
-sharper contrast.
+**What this actually ranks.** `--genre` fits IDF across the whole
+corpus, then ranks the *selected group's own* mean TF-IDF -- it does not
+compute or subtract the complement group's mean, so this is not a true
+distinguishing/contrast metric despite the `--help` text's wording. A
+term common to the whole corpus can still rank highly for a subset if
+it's frequent within that subset, even if it's no more characteristic of
+that subset than of the corpus at large. Treat the result as "top terms
+by within-group mean TF-IDF salience," not as a rigorous
+this-vs-everything-else comparison. In practice a majority genre (e.g.
+one that's 70% of the corpus) tends to rank very similarly to the
+whole-corpus run, since its own mean is close to the corpus mean; a
+smaller, more distinctive genre often (not guaranteed) surfaces more
+genre-evocative terms, simply because its member stories share more
+vocabulary with each other than with the corpus at large -- not because
+the metric itself measures distinctiveness.
 
 ### `topics` -- classical NMF baseline
 
@@ -113,13 +122,21 @@ definitions agree.
 
 ## Regenerating a figure
 
-Every manifest (`<output-dir>/<command>_manifest.json`) discloses
-`corpus_source_revision` (and, for genre-filtered runs,
-`candidates_source_revision`) -- content hashes over the exact files
-consumed. Re-running the same command against a checkout whose corpus
-(and `candidates.jsonl`, if used) hash to the same values reproduces the
-figure exactly; seeded commands (`genres`, `words`, `topics`) are
-additionally deterministic given the same `--seed`.
+Every manifest (`<output-dir>/<command>_manifest.json`) discloses a
+content hash over the exact file(s) consumed, so any figure can be
+reproduced and audited:
+
+- `words`, `tfidf`, `topics` -- `corpus_source_revision` (hash over every
+  consumed story file), plus `candidates_source_revision` for
+  genre-filtered `words`/`tfidf` runs.
+- `genres` -- a different key, `source_revision` (hash over
+  `summary.json` alone; `genres` doesn't read individual story files, so
+  it has no `corpus_source_revision` to disclose).
+
+Re-running the same command against a checkout whose inputs hash to the
+same value(s) reproduces the figure exactly; seeded commands (`genres`,
+`words`, `topics`) are additionally deterministic given the same
+`--seed`.
 
 ## See also
 

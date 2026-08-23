@@ -333,6 +333,13 @@ chart. Story is the document unit; IDF is fit across the whole corpus
 regardless of `--genre`, so a genre-subset run ranks terms distinguishing
 that subset from the corpus at large.
 
+**Accuracy note:** the description above matches the command's own
+`--help` text, but the ranking it produces is the selected group's mean
+TF-IDF only -- it does not compute or subtract the complement group's
+mean, so it is not a rigorous distinguishing/contrast metric. See
+[`../how-to/run-visualize.md`](../how-to/run-visualize.md) (`tfidf` section)
+for what the ranking actually measures.
+
 | Argument / Flag | Description |
 |---|---|
 | `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
