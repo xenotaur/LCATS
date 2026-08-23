@@ -129,3 +129,14 @@ def plot_word_frequency_wordcloud(
         figsize=figsize,
         save_path=save_path,
     )
+
+
+def plot_tfidf_bar_chart(scores: dict, *, save_path: str | None = None):
+    """Conventional bar chart of top-ranked TF-IDF terms."""
+    return plot_bar_chart(
+        scores,
+        title="TF-IDF Top Terms",
+        xlabel="Term",
+        ylabel="Mean TF-IDF score",
+        save_path=save_path,
+    )

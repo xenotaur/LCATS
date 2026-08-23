@@ -84,5 +84,56 @@ class TestWordFrequencies(unittest.TestCase):
         self.assertEqual(analysis.word_frequencies([]), {})
 
 
+class TestTfidfTopTerms(unittest.TestCase):
+    """Tests for tfidf_top_terms."""
+
+    def test_group_terms_ranked_above_common_terms(self):
+        """A term unique to the group outranks a term common to every document."""
+        corpus_texts = [
+            "dragon castle dragon knight",
+            "forest shadow forest path",
+            "castle knight castle path",
+        ]
+        result = analysis.tfidf_top_terms(corpus_texts, group_indices=[0], top_k=10)
+        self.assertIn("dragon", result)
+        top_term = max(result, key=result.get)
+        self.assertEqual(top_term, "dragon")
+
+    def test_whole_corpus_group_is_valid_degenerate_case(self):
+        """Passing every index (whole corpus) still returns a ranked mapping."""
+        corpus_texts = ["dragon castle knight", "forest shadow path"]
+        result = analysis.tfidf_top_terms(corpus_texts, group_indices=[0, 1], top_k=10)
+        self.assertTrue(result)
+        for term in ("dragon", "castle", "knight", "forest", "shadow", "path"):
+            self.assertIn(term, result)
+
+    def test_top_k_limits_result_size(self):
+        """At most top_k terms are returned."""
+        corpus_texts = [
+            "alpha beta gamma delta epsilon zeta eta theta iota kappa lambda"
+        ]
+        result = analysis.tfidf_top_terms(corpus_texts, group_indices=[0], top_k=3)
+        self.assertLessEqual(len(result), 3)
+
+    def test_empty_corpus_returns_empty(self):
+        """An empty corpus returns an empty mapping."""
+        self.assertEqual(analysis.tfidf_top_terms([], group_indices=[], top_k=10), {})
+
+    def test_empty_group_indices_returns_empty(self):
+        """An empty group selection returns an empty mapping."""
+        result = analysis.tfidf_top_terms(["dragon castle"], group_indices=[], top_k=10)
+        self.assertEqual(result, {})
+
+    def test_excludes_stopwords_and_short_tokens(self):
+        """Preprocessing matches word_frequencies (stopwords/short tokens excluded)."""
+        result = analysis.tfidf_top_terms(
+            ["the a of dragon castle"], group_indices=[0], top_k=10
+        )
+        self.assertNotIn("the", result)
+        self.assertNotIn("a", result)
+        self.assertNotIn("of", result)
+        self.assertIn("dragon", result)
+
+
 if __name__ == "__main__":
     unittest.main()

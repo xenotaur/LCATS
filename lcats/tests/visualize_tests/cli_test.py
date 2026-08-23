@@ -333,5 +333,144 @@ class TestRunWords(unittest.TestCase):
             self.assertIn(term, help_text)
 
 
+class TestRunTfidf(unittest.TestCase):
+    """CLI integration/smoke tests for `lcats visualize tfidf`."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_whole_corpus_creates_expected_output_files(self):
+        """Running tfidf with no --genre creates figures and a manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            _write_story(
+                corpora_root, "anderson", "fir_tree", body="forest dragon shadow"
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "tfidf",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--output-dir",
+                    str(output_dir),
+                    "--formats",
+                    "png,svg",
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+
+            self.assertEqual(status, 0)
+            for name in ("tfidf_bar.png", "tfidf_bar.svg", "tfidf_manifest.json"):
+                path = output_dir / name
+                self.assertTrue(path.exists(), f"missing {name}")
+                self.assertGreater(path.stat().st_size, 0, f"empty {name}")
+
+            manifest = json.loads((output_dir / "tfidf_manifest.json").read_text())
+            self.assertEqual(manifest["story_count"], 2)
+            self.assertIn("corpus_source_revision", manifest)
+            self.assertNotIn("genre", manifest)
+            self.assertIn("dragon", manifest["top_terms"])
+
+    def test_genre_subset_filters_and_emits_dual_revision(self):
+        """--genre restricts the group and discloses both snapshots."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle")
+            _write_story(corpora_root, "anderson", "fir_tree", body="detective clue")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "anderson/bell": ["fantasy"],
+                    "anderson/fir_tree": ["mystery"],
+                },
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "tfidf",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--genre",
+                    "fantasy",
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--output-dir",
+                    str(output_dir),
+                    "--formats",
+                    "png",
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+            manifest = json.loads((output_dir / "tfidf_manifest.json").read_text())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["story_count"], 1)
+        self.assertEqual(manifest["genre"], "fantasy")
+        self.assertIn("candidates_source_revision", manifest)
+        self.assertIn("corpus_source_revision", manifest)
+        self.assertIn("dragon", manifest["top_terms"])
+        self.assertNotIn("detective", manifest["top_terms"])
+
+    def test_missing_story_in_corpus_raises(self):
+        """A candidates.jsonl story_id absent from the corpus snapshot raises."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"anderson/nonexistent": ["fantasy"]}
+            )
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "tfidf",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--genre",
+                    "fantasy",
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_non_positive_top_k_raises(self):
+        """--top-k below 1 raises a clear ValueError, not a rendering crash."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle knight")
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "tfidf",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--top-k",
+                    "0",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+    def test_help_discloses_preprocessing_defaults(self):
+        """tfidf --help documents the tokenization/stopword defaults."""
+        parser = visualize_cli.build_visualize_parser()
+        with capture.capture_output() as captured, self.assertRaises(SystemExit):
+            parser.parse_args(["tfidf", "--help"])
+        help_text = captured.stdout.getvalue()
+        for term in ("lowercased", "alphabetic", "3", "stopword"):
+            self.assertIn(term, help_text)
+
+
 if __name__ == "__main__":
     unittest.main()

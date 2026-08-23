@@ -130,6 +130,65 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         help="Deterministic random seed for word-cloud layout (default: 42).",
     )
 
+    tfidf_parser = visualize_subparsers.add_parser(
+        "tfidf",
+        add_help=True,
+        help="Visualize TF-IDF top distinguishing terms as a bar chart.",
+        description=(
+            "Visualize the top TF-IDF-ranked terms for a comparison group -- "
+            "by default the whole corpus, or a genre subset via --genre -- "
+            "as a conventional bar chart. Story is the document unit; IDF is "
+            "fit across the whole corpus regardless of --genre, so a "
+            "genre-subset run ranks terms distinguishing that subset from "
+            "the corpus at large. Preprocessing defaults (from "
+            "lcats.analysis.story_analysis.get_keywords): terms are "
+            "lowercased, restricted to ASCII alphabetic tokens, require a "
+            "minimum length of 3 characters, and are filtered through a "
+            "hardcoded stopword set."
+        ),
+    )
+    tfidf_parser.add_argument(
+        "--corpus-root",
+        default=sources.DEFAULT_CORPORA_ROOT,
+        help=f"Root directory of story collections (default: {sources.DEFAULT_CORPORA_ROOT}).",
+    )
+    tfidf_parser.add_argument(
+        "--genre",
+        default=None,
+        help=(
+            "If provided, rank terms for stories whose candidate genres "
+            "(from candidates.jsonl) include this genre. Omit to rank terms "
+            "across the whole corpus."
+        ),
+    )
+    tfidf_parser.add_argument(
+        "--candidates-jsonl",
+        default=sources.DEFAULT_CANDIDATES_JSONL_PATH,
+        help=(
+            "Path to the full-scan candidates.jsonl (used only with "
+            f"--genre; default: {sources.DEFAULT_CANDIDATES_JSONL_PATH})."
+        ),
+    )
+    tfidf_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=20,
+        help="Number of top terms to include; must be >= 1 (default: 20).",
+    )
+    tfidf_parser.add_argument(
+        "--output-dir",
+        default="tfidf_viz",
+        help="Directory to write output figures to (default: tfidf_viz).",
+    )
+    tfidf_parser.add_argument(
+        "--formats",
+        default=DEFAULT_FORMATS,
+        help=(
+            "Comma-separated output formats, e.g. png,svg,pdf "
+            f"(default: {DEFAULT_FORMATS})."
+        ),
+    )
+
     return parser
 
 
@@ -258,6 +317,79 @@ def run_words(args) -> int:
     return 0
 
 
+def run_tfidf(args) -> int:
+    """Run the tfidf subcommand."""
+    if args.top_k < 1:
+        raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+
+    corpus = sources.load_corpus_stories(args.corpus_root)
+    story_ids = list(corpus.texts.keys())
+    corpus_texts = [corpus.texts[story_id] for story_id in story_ids]
+
+    membership = None
+    if args.genre:
+        membership = sources.load_candidates_genre_membership(args.candidates_jsonl)
+        candidate_ids = set(membership.story_genres)
+        corpus_ids = set(corpus.texts)
+        missing_from_corpus = sorted(candidate_ids - corpus_ids)
+        missing_from_candidates = sorted(corpus_ids - candidate_ids)
+        if missing_from_corpus or missing_from_candidates:
+            raise ValueError(
+                "join coverage incomplete between the corpus snapshot and "
+                "candidates.jsonl -- required a complete one-to-one join: "
+                f"{len(missing_from_corpus)} candidates.jsonl story_id(s) not "
+                f"found in the corpus (e.g. {missing_from_corpus[:3]!r}), "
+                f"{len(missing_from_candidates)} corpus story_id(s) not found "
+                f"in candidates.jsonl (e.g. {missing_from_candidates[:3]!r})."
+            )
+        group_indices = [
+            i
+            for i, story_id in enumerate(story_ids)
+            if args.genre in membership.story_genres[story_id]
+        ]
+    else:
+        group_indices = list(range(len(story_ids)))
+
+    scores = analysis.tfidf_top_terms(corpus_texts, group_indices, top_k=args.top_k)
+    if not scores:
+        raise ValueError(
+            "No TF-IDF terms to visualize: the selected stories "
+            f"(story_count={len(group_indices)}) yielded no usable tokens "
+            "after preprocessing. Try a different --genre or check the "
+            "corpus contents."
+        )
+
+    output_dir = pathlib.Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    formats = _parse_formats(args.formats)
+
+    for fmt in formats:
+        fig, _ = rendering.plot_tfidf_bar_chart(
+            scores,
+            save_path=str(output_dir / f"tfidf_bar.{fmt}"),
+        )
+        plt.close(fig)
+
+    manifest = {
+        "corpus_source_path": corpus.source_path,
+        "corpus_source_revision": corpus.source_revision,
+        "story_count": len(group_indices),
+        "top_terms": scores,
+        "formats": formats,
+        "top_k": args.top_k,
+    }
+    if membership is not None:
+        manifest["genre"] = args.genre
+        manifest["candidates_source_path"] = membership.source_path
+        manifest["candidates_source_revision"] = membership.source_revision
+
+    manifest_path = output_dir / "tfidf_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    print(json.dumps(manifest, indent=2))
+    return 0
+
+
 def run(
     argv: Optional[Sequence[str]] = None,
     parsed_args: Optional[argparse.Namespace] = None,
@@ -271,6 +403,8 @@ def run(
         return run_genres(args)
     if visualize_command == "words":
         return run_words(args)
+    if visualize_command == "tfidf":
+        return run_tfidf(args)
 
     parser.print_help(file=sys.stderr)
     return 1
