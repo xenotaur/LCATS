@@ -15,8 +15,10 @@ Generated sidecars must not be written into `corpora/`.
 ## Inputs
 
 - Source stories: `corpora/<collection>/<story>/story.json`
-- Source snapshot: all discovered `story.json` paths are sorted
-  deterministically and copied before analysis begins.
+- Source snapshot: discovered `story.json` paths are sorted deterministically.
+  Full runs copy every discovered story bucket before analysis begins; smoke
+  runs copy only the selected `--smoke-count` prefix while recording both the
+  full discovered count and selected count in `snapshot_manifest.json`.
 
 The checked-in full run records the source commit and story hashes in
 `results/snapshot_manifest.json`, so later corpus changes do not silently
