@@ -135,12 +135,12 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         add_help=True,
         help="Visualize TF-IDF top distinguishing terms as a bar chart.",
         description=(
-            "Visualize the top TF-IDF-ranked terms for a comparison group -- "
-            "by default the whole corpus, or a genre subset via --genre -- "
-            "as a conventional bar chart. Story is the document unit; IDF is "
-            "fit across the whole corpus regardless of --genre, so a "
-            "genre-subset run ranks terms distinguishing that subset from "
-            "the corpus at large. Preprocessing defaults (from "
+            "Visualize the top TF-IDF-ranked terms for a comparison group: "
+            "by default the whole corpus, or a genre subset selected with "
+            "--genre, as a conventional bar chart. Story is the document "
+            "unit; IDF is fit across the whole corpus regardless of "
+            "--genre, so a genre-subset run ranks terms distinguishing "
+            "that subset from the corpus at large. Preprocessing defaults (from "
             "lcats.analysis.story_analysis.get_keywords): terms are "
             "lowercased, restricted to ASCII alphabetic tokens, require a "
             "minimum length of 3 characters, and are filtered through a "
@@ -254,7 +254,7 @@ def run_words(args) -> int:
         if missing_from_corpus or missing_from_candidates:
             raise ValueError(
                 "join coverage incomplete between the corpus snapshot and "
-                "candidates.jsonl -- required a complete one-to-one join: "
+                "candidates.jsonl -- requires a complete one-to-one join: "
                 f"{len(missing_from_corpus)} candidates.jsonl story_id(s) not "
                 f"found in the corpus (e.g. {missing_from_corpus[:3]!r}), "
                 f"{len(missing_from_candidates)} corpus story_id(s) not found "
@@ -336,7 +336,7 @@ def run_tfidf(args) -> int:
         if missing_from_corpus or missing_from_candidates:
             raise ValueError(
                 "join coverage incomplete between the corpus snapshot and "
-                "candidates.jsonl -- required a complete one-to-one join: "
+                "candidates.jsonl -- requires a complete one-to-one join: "
                 f"{len(missing_from_corpus)} candidates.jsonl story_id(s) not "
                 f"found in the corpus (e.g. {missing_from_corpus[:3]!r}), "
                 f"{len(missing_from_candidates)} corpus story_id(s) not found "

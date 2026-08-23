@@ -134,6 +134,14 @@ class TestTfidfTopTerms(unittest.TestCase):
         self.assertNotIn("of", result)
         self.assertIn("dragon", result)
 
+    def test_empty_vocabulary_returns_empty_not_raises(self):
+        """Documents with only stopwords/short tokens return {} instead of
+        propagating TfidfVectorizer's raw empty-vocabulary ValueError."""
+        result = analysis.tfidf_top_terms(
+            ["the a of it is", "an at to on in"], group_indices=[0, 1], top_k=10
+        )
+        self.assertEqual(result, {})
+
 
 if __name__ == "__main__":
     unittest.main()

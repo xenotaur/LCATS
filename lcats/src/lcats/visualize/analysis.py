@@ -51,9 +51,16 @@ def tfidf_top_terms(corpus_texts: list, group_indices: list, top_k: int = 20) ->
 
     Uses scikit-learn's ``TfidfVectorizer`` for the TF-IDF computation
     itself, with ``story_analysis.get_keywords`` as its tokenizer -- the
-    same lowercase/alphabetic/length->=3/stopword-filtered preprocessing
+    same lowercase/alphabetic/minimum-length-3/stopword-filtered preprocessing
     ``word_frequencies`` above uses, so preprocessing defaults stay
     consistent across the `words`/`tfidf` commands rather than diverging.
+
+    Returns an empty mapping (not a raised exception) when ``corpus_texts``
+    tokenizes to an empty vocabulary -- e.g. every document is only
+    stopwords/short tokens -- translating ``TfidfVectorizer``'s own raw
+    ``ValueError: empty vocabulary`` into the same "nothing to rank" result
+    an empty ``corpus_texts``/``group_indices`` input already produces, so
+    callers have one uniform empty-result signal to handle rather than two.
     """
     if not corpus_texts or not group_indices:
         return {}
@@ -62,7 +69,12 @@ def tfidf_top_terms(corpus_texts: list, group_indices: list, top_k: int = 20) ->
         preprocessor=lambda text: text,
         token_pattern=None,
     )
-    matrix = vectorizer.fit_transform(corpus_texts)
+    try:
+        matrix = vectorizer.fit_transform(corpus_texts)
+    except ValueError as exc:
+        if "empty vocabulary" in str(exc):
+            return {}
+        raise
     terms = vectorizer.get_feature_names_out()
     mean_scores = np.asarray(matrix[group_indices].mean(axis=0)).ravel()
     ranked = sorted(
