@@ -1408,7 +1408,7 @@ class TestSegmentationUsagePreservedOnUnexpectedException(unittest.TestCase):
             run_pilot,
             "_run_erw_extraction",
             side_effect=RuntimeError("simulated unexpected mid-pipeline failure"),
-        ):
+        ), run_pilot.run_log.RunLog(self.roots, "pilot_run_log.jsonl") as log:
             rows, usage_rows, aborted = run_pilot._run_stories(
                 [("science fiction", self.story_path)],
                 fake,
@@ -1420,6 +1420,7 @@ class TestSegmentationUsagePreservedOnUnexpectedException(unittest.TestCase):
                 "fake",
                 None,
                 dry_run=False,
+                log=log,
             )
 
         self.assertFalse(aborted)
@@ -1489,6 +1490,176 @@ class TestCappedExcludeReason(unittest.TestCase):
 
         self.assertNotRegex(capped, r"more errors?")
         self.assertTrue(capped.endswith("...(truncated)"))
+
+
+class TestRunLogging(unittest.TestCase):
+    """WI-RUNLOG-0080: run_pilot.py gets a crash-safe, incremental run-event
+    log (via lcats.utils.run_log.RunLog) closing the gap that
+    WI-EVENT-0032's exception-handling fix alone does not - a hard kill
+    mid-run still discarded everything in memory, even though per-item
+    checkpointing already existed."""
+
+    def _write_story(self, collection_dir: pathlib.Path, name: str, body: str) -> None:
+        story_dir = collection_dir / name
+        story_dir.mkdir(parents=True)
+        (story_dir / "story.json").write_text(
+            json.dumps({"name": name, "author": "Test Author", "body": body}),
+            encoding="utf-8",
+        )
+
+    def test_run_log_records_start_and_per_story_and_end_in_order(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "data"
+            collection_dir = data_dir / "test_collection"
+            collection_dir.mkdir(parents=True)
+            output_dir = pathlib.Path(tmp) / "results"
+            self._write_story(collection_dir, "story_a", "Story A body text.")
+
+            argv = [
+                "run_pilot.py",
+                "--dry-run",
+                "--data-dir",
+                str(data_dir),
+                "--sample-size",
+                "1",
+                "--output",
+                str(output_dir),
+            ]
+            with patch.object(sys, "argv", argv):
+                exit_code = run_pilot.main()
+
+            self.assertEqual(exit_code, 0)
+            log_path = output_dir / "pilot_run_log.jsonl"
+            self.assertTrue(log_path.exists())
+            events = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+            ]
+            event_names = [e["event"] for e in events]
+            self.assertEqual(event_names[0], "run_start")
+            self.assertEqual(event_names[-1], "run_end")
+            self.assertIn("story_completed", event_names)
+            story_events = [e for e in events if e["event"] == "story_completed"]
+            self.assertEqual(story_events[0]["story_id"], "test_collection__story_a")
+
+    def test_crash_mid_run_leaves_a_readable_partial_log(self):
+        """A FatalPilotError partway through the run must not corrupt or
+        truncate the already-written log entries - every line up to the
+        abort remains valid, readable JSON, and a run_aborted_fatal event
+        is recorded for the story that triggered it."""
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "data"
+            collection_dir = data_dir / "test_collection"
+            collection_dir.mkdir(parents=True)
+            output_dir = pathlib.Path(tmp) / "results"
+            self._write_story(collection_dir, "story_a", "Story A body text.")
+            self._write_story(collection_dir, "story_b", "Story B body text.")
+
+            # --story-list processes entries in file order (unlike the
+            # full stratified-sample path, whose genre-detect scan order
+            # isn't deterministic by filename) - needed here so story_a
+            # reliably runs before story_b crashes the run.
+            list_path = pathlib.Path(tmp) / "manifest.txt"
+            list_path.write_text(
+                "test_collection/story_a:science fiction\n"
+                "test_collection/story_b:science fiction\n",
+                encoding="utf-8",
+            )
+
+            real_row = {
+                "path": "",
+                "story_id": "test_collection__story_a",
+                "genre": "science fiction",
+                "excluded": False,
+                "exclude_reason": "",
+                "word_count": 3,
+                "segment_count": 1,
+                "cross_segment_density_per_1000_words": 0.0,
+                "weakly_inferred_cross_segment_density_per_1000_words": 0.0,
+                "folded_relations_per_1000_words": 0.0,
+                "folded_weakly_inferred_relations_per_1000_words": 0.0,
+            }
+
+            def fake_run_story(path, genre, *args, **kwargs):
+                if path.parent.name == "story_b":
+                    raise run_pilot.FatalPilotError("simulated fatal API failure")
+                return dict(real_row), []
+
+            argv = [
+                "run_pilot.py",
+                "--dry-run",
+                "--story-list",
+                str(list_path),
+                "--data-dir",
+                str(data_dir),
+                "--output",
+                str(output_dir),
+            ]
+            with patch.object(sys, "argv", argv), patch.object(
+                run_pilot, "run_story", side_effect=fake_run_story
+            ):
+                exit_code = run_pilot.main()
+
+            self.assertEqual(exit_code, 3)
+            log_path = output_dir / "pilot_run_log.jsonl"
+            lines = log_path.read_text(encoding="utf-8").splitlines()
+            events = [json.loads(line) for line in lines]
+            event_names = [e["event"] for e in events]
+            self.assertEqual(event_names[0], "run_start")
+            self.assertIn("story_completed", event_names)
+            self.assertIn("run_aborted_fatal", event_names)
+            fatal_event = next(e for e in events if e["event"] == "run_aborted_fatal")
+            self.assertEqual(fatal_event["story_id"], "test_collection__story_b")
+
+    def test_output_write_failure_produces_run_aborted_unexpected_not_run_end(self):
+        """WI-RUNLOG-0080's own scope (mirroring the review finding fixed
+        for WI-RUNLOG-0079): the RunLog scope wraps the pilot_stories.jsonl/
+        pilot_usage.jsonl write block, not just _run_stories() - a failure
+        writing those files must produce run_aborted_unexpected, never a
+        false run_end implying success."""
+        with tempfile.TemporaryDirectory() as tmp:
+            data_dir = pathlib.Path(tmp) / "data"
+            collection_dir = data_dir / "test_collection"
+            collection_dir.mkdir(parents=True)
+            output_dir = pathlib.Path(tmp) / "results"
+            self._write_story(collection_dir, "story_a", "Story A body text.")
+
+            argv = [
+                "run_pilot.py",
+                "--dry-run",
+                "--data-dir",
+                str(data_dir),
+                "--sample-size",
+                "1",
+                "--output",
+                str(output_dir),
+            ]
+            # Only the pilot_stories.jsonl write itself fails - a blanket
+            # Path.open patch would also break story reads inside
+            # _run_stories() (Path.read_text() calls self.open()
+            # internally), producing the failure at the wrong site.
+            real_open = pathlib.Path.open
+
+            def selective_open(self, *args, **kwargs):
+                if self.name == "pilot_stories.jsonl":
+                    raise OSError("simulated disk-full failure")
+                return real_open(self, *args, **kwargs)
+
+            with patch.object(sys, "argv", argv), patch.object(
+                pathlib.Path, "open", selective_open
+            ):
+                with self.assertRaises(OSError):
+                    run_pilot.main()
+
+            log_path = output_dir / "pilot_run_log.jsonl"
+            self.assertTrue(log_path.exists())
+            events = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+            ]
+            event_names = [e["event"] for e in events]
+            self.assertNotIn("run_end", event_names)
+            self.assertIn("run_aborted_unexpected", event_names)
 
 
 if __name__ == "__main__":

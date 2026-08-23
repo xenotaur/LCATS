@@ -153,6 +153,7 @@ from lcats.analysis.event_role_world import (
 )
 from lcats.analysis.event_role_world import surface_feature_extractor as erw_surface
 from lcats.utils import checkpoint
+from lcats.utils import run_log
 from lcats.utils.secrets import load_secrets
 
 GENRES = ("science fiction", "horror", "western", "romance")
@@ -1411,6 +1412,7 @@ def _run_stories(
     nlp_backend_name: str,
     stage_models: Optional[StageModels],
     dry_run: bool,
+    log: run_log.RunLog,
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], bool]:
     """Run run_story() over every (genre, path) pair in order, handling
     FatalPilotError (abort, preserving already-accumulated usage) and any
@@ -1418,6 +1420,16 @@ def _run_stories(
     shared by both the full stratified-sample path and the targeted
     --story/--story-list path (WI-PILOT-0051), so this error-handling
     logic exists in exactly one place.
+
+    Also appends one event per story to ``log`` (a
+    ``lcats.utils.run_log.RunLog``, per-run-scoped by the caller) - a
+    human-readable, append-and-flush record of what happened and when,
+    distinct from the per-item checkpoints run_story() itself writes:
+    checkpoints answer "is this item done and resume-safe?", this log
+    answers "what happened, in order, including why the run stopped?"
+    ``run_start``/``run_end`` are the caller's responsibility (via
+    ``log``'s own context-manager lifecycle), not this function's - see
+    ``main()``.
 
     Returns (rows, usage_rows, aborted).
     """
@@ -1456,6 +1468,12 @@ def _run_stories(
                 "Results gathered so far are still written out below.",
                 file=sys.stderr,
             )
+            log.event(
+                "run_aborted_fatal",
+                story_id=_story_identity(path),
+                genre=genre,
+                error=str(exc),
+            )
             aborted = True
             break
         except Exception as exc:  # noqa: BLE001 - see docstring below
@@ -1490,12 +1508,25 @@ def _run_stories(
                     "elapsed_seconds": time.monotonic() - t0,
                 }
             )
+            log.event(
+                "story_unexpected_error",
+                story_id=_story_identity(path),
+                genre=genre,
+                error=repr(exc),
+            )
             continue
         row["elapsed_seconds"] = time.monotonic() - t0
         rows.append(row)
         usage_rows.extend(story_usage_rows)
         if row["excluded"]:
             print(f"  excluded: {_capped_exclude_reason(row['exclude_reason'])}")
+        log.event(
+            "story_completed",
+            story_id=row["story_id"],
+            genre=genre,
+            excluded=row["excluded"],
+            exclude_reason=row.get("exclude_reason"),
+        )
 
     return rows, usage_rows, aborted
 
@@ -1808,28 +1839,44 @@ def main() -> int:
     print(f"Loading NLP backend: {args.nlp_backend}...")
     nlp_backend = _make_nlp_backend(args.nlp_backend)
     print(f"NLP backend ready: {args.nlp_backend}")
-    rows, usage_rows, aborted = _run_stories(
-        story_genre_pairs,
-        backend,
-        model,
-        args.backend,
+    # RunLog wraps both _run_stories() and the pilot_stories.jsonl/
+    # pilot_usage.jsonl write block below in one scope: an exception
+    # anywhere in either -- including during output writing, not just the
+    # per-story loop -- still produces a terminal event, and run_end is
+    # only ever emitted once both have actually succeeded (mirrors
+    # run_prefilter.py's RunLog wrapping, review finding, PR #352 on
+    # WI-RUNLOG-0079).
+    with run_log.RunLog(
         roots,
-        extractors,
-        nlp_backend,
-        args.nlp_backend,
-        stage_models,
-        args.dry_run,
-    )
+        "pilot_run_log.jsonl",
+        model=model,
+        backend_name=args.backend,
+        story_count=len(story_genre_pairs),
+        dry_run=args.dry_run,
+    ) as log:
+        rows, usage_rows, aborted = _run_stories(
+            story_genre_pairs,
+            backend,
+            model,
+            args.backend,
+            roots,
+            extractors,
+            nlp_backend,
+            args.nlp_backend,
+            stage_models,
+            args.dry_run,
+            log,
+        )
 
-    stories_path = output_dir / "pilot_stories.jsonl"
-    with stories_path.open("w", encoding="utf-8") as f:
-        for row in rows:
-            f.write(json.dumps(row, sort_keys=True) + "\n")
+        stories_path = output_dir / "pilot_stories.jsonl"
+        with stories_path.open("w", encoding="utf-8") as f:
+            for row in rows:
+                f.write(json.dumps(row, sort_keys=True) + "\n")
 
-    usage_path = output_dir / "pilot_usage.jsonl"
-    with usage_path.open("w", encoding="utf-8") as f:
-        for usage_row in usage_rows:
-            f.write(json.dumps(usage_row, sort_keys=True) + "\n")
+        usage_path = output_dir / "pilot_usage.jsonl"
+        with usage_path.open("w", encoding="utf-8") as f:
+            for usage_row in usage_rows:
+                f.write(json.dumps(usage_row, sort_keys=True) + "\n")
 
     summary = summarize_by_genre(rows)
     summary_path = output_dir / "pilot_summary.json"
