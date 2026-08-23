@@ -40,6 +40,7 @@ sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 from lcats.analysis.corpus import discovery  # noqa: E402
 from lcats.analysis.corpus import genre_sidecar  # noqa: E402
 from lcats.utils import checkpoint  # noqa: E402
+from lcats.utils import run_log  # noqa: E402
 
 CANDIDATES_FILENAME = "candidates.jsonl"
 PILOT_FILENAME = "pilot_40_manifest.jsonl"
@@ -1002,31 +1003,6 @@ class _UnexpectedFailureResult:
         self.output_tokens = 0
 
 
-def _log_run_event(log_path: pathlib.Path, event: str, **fields: Any) -> None:
-    """Append one timestamped JSON line to the run log, then close.
-
-    Distinct from per-item checkpointing (which answers "is this item
-    done and resume-safe?"): this answers "what actually happened, when,
-    and in what order, including why the run stopped?" - a single place
-    to `tail -f`/`cat` for a human, not a resume mechanism.
-
-    Opens, writes, and closes per call rather than holding a long-lived
-    handle across the whole run, so a hard interruption (kill -9, power
-    loss) never loses a buffered-but-unflushed line - the exact failure
-    mode this log exists to survive. The per-call open/close cost is
-    negligible next to a real API call's own latency.
-    """
-    record = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc)
-        .isoformat()
-        .replace("+00:00", "Z"),
-        "event": event,
-        **fields,
-    }
-    with log_path.open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record, sort_keys=True) + "\n")
-
-
 def _validation_item_id(story_id: str) -> str:
     """Checkpoint-safe item_id for a story - mirrors the collection__slug
     identity convention run_census.py's _story_identity and this file's
@@ -1123,7 +1099,8 @@ def run_validation(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
-    log_path: pathlib.Path,
+    log: run_log.RunLog,
+    run_id: str,
     backend_name: str = "anthropic",
     base_url: str | None = None,
     is_local_endpoint: bool = False,
@@ -1161,25 +1138,17 @@ def run_validation(
     caller must write those out regardless (never silently discard
     already-paid-for work).
 
-    Also appends one event per story (plus a run-start and run-end event)
-    to log_path via _log_run_event() - a human-readable, append-and-flush
-    record of what happened and when, distinct from the per-item
-    checkpoints above: checkpoints answer "is this item done and
-    resume-safe?", this log answers "what happened, in order, including
-    why the run stopped?" (see _log_run_event()'s own docstring).
+    Also appends one event per story to ``log`` (a
+    ``lcats.utils.run_log.RunLog``, per-run-scoped by the caller) - a
+    human-readable, append-and-flush record of what happened and when,
+    distinct from the per-item checkpoints above: checkpoints answer "is
+    this item done and resume-safe?", this log answers "what happened, in
+    order, including why the run stopped?" ``run_start``/``run_end`` are
+    the caller's responsibility (via ``log``'s own context-manager
+    lifecycle), not this function's - see ``_run_validate_mode()``.
     """
     from lcats.analysis.corpus import assess as corpus_assess
 
-    run_id = (
-        datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
-    )
-    _log_run_event(
-        log_path,
-        "run_start",
-        run_id=run_id,
-        model=model,
-        story_count=len(selected_rows),
-    )
     results = []
     agreement_count = 0
     error_count = 0
@@ -1211,8 +1180,7 @@ def run_validation(
             total_input_tokens += cached.data.get("input_tokens", 0)
             total_output_tokens += cached.data.get("output_tokens", 0)
             print(f"  [{index}/{total}] {row['story_id']} (cached)")
-            _log_run_event(
-                log_path,
+            log.event(
                 "story_cached",
                 story_id=row["story_id"],
                 index=index,
@@ -1262,8 +1230,7 @@ def run_validation(
                     f"  [{index}/{total}] {row['story_id']} -> "
                     f"{model_assessment['result']['detected_genre']}"
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "story_completed",
                     story_id=row["story_id"],
                     index=index,
@@ -1281,8 +1248,7 @@ def run_validation(
                     "far are preserved and written out below.",
                     file=sys.stderr,
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "run_aborted_fatal",
                     story_id=row["story_id"],
                     index=index,
@@ -1318,8 +1284,7 @@ def run_validation(
                     .isoformat()
                     .replace("+00:00", "Z"),
                 )
-                _log_run_event(
-                    log_path,
+                log.event(
                     "story_unexpected_error",
                     story_id=row["story_id"],
                     index=index,
@@ -1374,16 +1339,11 @@ def run_validation(
         "total_output_tokens": total_output_tokens,
         "total_estimated_cost_usd": real_cost,
     }
-    _log_run_event(
-        log_path,
-        "run_end",
-        run_id=run_id,
-        aborted=aborted,
-        processed_count=len(results),
-        error_count=error_count,
-        agreement_count=agreement_count,
-        total_estimated_cost_usd=real_cost,
-    )
+    # run_end is deliberately NOT logged here -- it belongs to the caller,
+    # after write_validation_outputs() has actually succeeded (review
+    # finding, PR #352 on WI-RUNLOG-0079: logging it here, before that
+    # write, left a real output-writing failure with no terminal event at
+    # all). See _run_validate_mode().
     return results, summary, aborted
 
 
@@ -1789,29 +1749,59 @@ def _run_validate_mode(args: argparse.Namespace) -> dict[str, Any]:
         + (f" @ {redacted_base_url}" if redacted_base_url else "")
         + " (resuming from any checkpoints)."
     )
-    log_path = args.output / filenames["run_log"]
-    results, validation_summary, aborted = run_validation(
-        selected_rows,
-        corpus_root=args.corpus_root,
-        backend=backend,
+    run_id = (
+        datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+    )
+    # RunLog wraps both run_validation() and write_validation_outputs()
+    # below in one scope: an exception anywhere in either -- including
+    # during output writing, not just the per-story loop -- still
+    # produces a terminal event, and run_end is only ever emitted once
+    # both have actually succeeded (review finding, PR #352 on
+    # WI-RUNLOG-0079).
+    with run_log.RunLog(
+        roots,
+        filenames["run_log"],
+        run_id=run_id,
         model=args.model,
-        roots=roots,
-        log_path=log_path,
-        backend_name=args.backend,
-        base_url=redacted_base_url,
-        is_local_endpoint=is_local_endpoint,
-    )
-    # Always write whatever completed, aborted or not - never silently
-    # discard already-paid-for results (see run_validation()'s own
-    # docstring / run_pilot.py's WI-EVENT-0032 precedent).
-    validation_summary["outputs"] = write_validation_outputs(
-        results,
-        validation_summary,
-        args.output,
-        results_filename=filenames["results"],
-        summary_filename=filenames["summary"],
-    )
-    validation_summary["outputs"]["validation_run_log"] = str(log_path)
+        story_count=len(selected_rows),
+    ) as log:
+        results, validation_summary, aborted = run_validation(
+            selected_rows,
+            corpus_root=args.corpus_root,
+            backend=backend,
+            model=args.model,
+            roots=roots,
+            log=log,
+            run_id=run_id,
+            backend_name=args.backend,
+            base_url=redacted_base_url,
+            is_local_endpoint=is_local_endpoint,
+        )
+        # Always write whatever completed, aborted or not - never silently
+        # discard already-paid-for results (see run_validation()'s own
+        # docstring / run_pilot.py's WI-EVENT-0032 precedent).
+        validation_summary["outputs"] = write_validation_outputs(
+            results,
+            validation_summary,
+            args.output,
+            results_filename=filenames["results"],
+            summary_filename=filenames["summary"],
+        )
+        validation_summary["outputs"]["validation_run_log"] = str(log.log_path)
+        # Manually logged (not RunLog's own automatic bare run_end) so the
+        # same rich summary payload the reference implementation always
+        # carried is preserved; logging it here, as literally the last
+        # statement before this `with` block exits cleanly, guarantees it
+        # only fires once output writing above has actually succeeded.
+        log.event(
+            "run_end",
+            run_id=run_id,
+            aborted=aborted,
+            processed_count=validation_summary["processed_count"],
+            error_count=validation_summary["error_count"],
+            agreement_count=validation_summary["agreement_count"],
+            total_estimated_cost_usd=validation_summary["total_estimated_cost_usd"],
+        )
     return validation_summary
 
 

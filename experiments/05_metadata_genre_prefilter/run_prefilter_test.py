@@ -1128,6 +1128,48 @@ class TestValidationResilience(unittest.TestCase):
             self.assertEqual(len(written), 1)
             self.assertEqual(written[0]["lcats_id"], "horror_col/story_a")
 
+    def test_output_write_failure_produces_run_aborted_unexpected_not_run_end(self):
+        """A failure while writing outputs must not leave a false run_end.
+
+        Regression test for the review finding on PR #352 (WI-RUNLOG-0079):
+        run_end used to be logged before write_validation_outputs() ran,
+        so a crash during that write left a terminal event on disk
+        implying success even though the run's actual output was never
+        published. RunLog now wraps both calls in one scope, so a failure
+        here must surface as run_aborted_unexpected instead, and the
+        exception must still propagate to the caller (not be swallowed).
+        """
+        rows = [_validation_manifest_row("horror_col", "story_a", "horror")]
+        with tempfile.TemporaryDirectory() as tmp:
+            _corpus_root, output_dir, args = self._setup_manifest(tmp, rows)
+            log_path = output_dir / run_prefilter.VALIDATION_RUN_LOG_FILENAME
+
+            with unittest.mock.patch(
+                "lcats.analysis.corpus.assess.assess_story"
+            ) as mock_assess:
+                mock_assess.return_value = _FakeAssessmentResult(
+                    detected_genre="horror"
+                )
+                with unittest.mock.patch(
+                    "lcats.llm.anthropic_backend.AnthropicBackend"
+                ):
+                    with unittest.mock.patch.object(
+                        run_prefilter,
+                        "write_validation_outputs",
+                        side_effect=OSError("disk full"),
+                    ):
+                        with self.assertRaises(OSError):
+                            run_prefilter._run_validate_mode(args)
+
+            events = [
+                json.loads(line)
+                for line in log_path.read_text(encoding="utf-8").splitlines()
+            ]
+            self.assertEqual(
+                [e["event"] for e in events],
+                ["run_start", "story_completed", "run_aborted_unexpected"],
+            )
+
     def test_run_log_records_events_in_order_and_appends_across_resumes(self):
         rows = [
             _validation_manifest_row("horror_col", "story_a", "horror"),

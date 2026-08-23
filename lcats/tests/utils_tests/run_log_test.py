@@ -140,6 +140,23 @@ class RunLogTest(unittest.TestCase):
         self.assertEqual(events, ["run_start", "story_completed", "run_end"])
         self.assertEqual(lines[0]["model"], "x")
 
+    def test_manually_logged_run_end_suppresses_the_automatic_one(self):
+        """A caller-supplied, richer run_end is not followed by a bare one.
+
+        Lets a caller emit its own run_end with custom summary fields
+        (e.g. aggregate counts) as the last statement in the `with`
+        block, instead of the bare event __exit__ would otherwise add.
+        """
+        working = self.tmp_dir / "results"
+
+        with run_log.RunLog(working, "run.jsonl") as log:
+            log.event("run_end", processed_count=3, aborted=False)
+
+        lines = self._read_lines(working / "run.jsonl")
+        events = [line["event"] for line in lines]
+        self.assertEqual(events, ["run_start", "run_end"])
+        self.assertEqual(lines[1]["processed_count"], 3)
+
     def test_fatal_exception_emits_run_aborted_fatal(self):
         working = self.tmp_dir / "results"
 

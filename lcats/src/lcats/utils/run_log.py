@@ -162,10 +162,21 @@ class RunLog:
         validated.working_root.mkdir(parents=True, exist_ok=True)
         self.fatal_exceptions = tuple(fatal_exceptions)
         self._run_fields = dict(run_fields)
+        self._run_end_logged = False
 
     def event(self, event: str, **fields: Any) -> None:
-        """Log one mid-run event (e.g. a per-item outcome)."""
+        """Log one mid-run event (e.g. a per-item outcome).
+
+        A caller that needs ``run_end`` to carry its own summary fields
+        (rather than the bare event ``__exit__`` would otherwise emit)
+        can call ``log.event("run_end", **fields)`` itself, as the last
+        statement before its ``with`` block exits cleanly -- ``__exit__``
+        detects this and skips its own redundant auto-emission (see
+        ``__exit__`` below).
+        """
         log_event(self.log_path, event, **fields)
+        if event == "run_end":
+            self._run_end_logged = True
 
     def __enter__(self) -> "RunLog":
         self.event("run_start", **self._run_fields)
@@ -173,10 +184,14 @@ class RunLog:
 
     def __exit__(self, exc_type, exc, tb) -> bool:
         if exc_type is None:
-            # No active exception to protect -- a failure writing run_end
-            # here is itself the only error worth reporting, so let it
-            # propagate normally.
-            self.event("run_end")
+            # No active exception to protect. If the caller already
+            # logged its own run_end (e.g. with a richer payload than
+            # this bare form), don't also emit a redundant second one --
+            # otherwise a failure writing *this* fallback run_end is
+            # itself the only error worth reporting, so let it propagate
+            # normally.
+            if not self._run_end_logged:
+                self.event("run_end")
             return False
         # An exception is already propagating. If writing the terminal
         # abort event itself fails (disk full, output directory removed,
