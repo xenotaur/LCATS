@@ -1,0 +1,43 @@
+{
+  "corpus_source_path": "corpora",
+  "corpus_source_revision": "523543e4844103674db8a4e099eb218e926acc29fe6ab798c738a1110cb89331",
+  "story_count": 1868,
+  "top_words": {
+    "said": 48946,
+    "not": 42092,
+    "there": 39743,
+    "all": 37107,
+    "out": 35890,
+    "one": 34229,
+    "would": 27485,
+    "then": 26838,
+    "been": 24513,
+    "could": 24342,
+    "like": 24190,
+    "man": 23439,
+    "now": 21377,
+    "about": 20843,
+    "can": 20633,
+    "back": 20408,
+    "down": 18999,
+    "time": 18985,
+    "over": 17279,
+    "know": 17194,
+    "more": 16750,
+    "just": 15765,
+    "don": 15323,
+    "only": 15250,
+    "some": 14957,
+    "get": 14769,
+    "did": 14638,
+    "little": 14333,
+    "see": 14288,
+    "here": 14166
+  },
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "seed": 42,
+  "top_k": 30
+}
