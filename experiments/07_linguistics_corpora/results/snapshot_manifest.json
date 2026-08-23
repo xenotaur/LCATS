@@ -1,11 +1,19 @@
 {
+  "analysis_exclusions": [
+    {
+      "reason": "empty_body",
+      "story_id": "ohenry-whirligigs/madame_bo_peep_of_the_ranches",
+      "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/madame_bo_peep_of_the_ranches/story.json"
+    }
+  ],
+  "analysis_story_count": 1867,
   "copied_bucket_root": "experiments/07_linguistics_corpora/results/copied_buckets",
   "corpus_root": "corpora",
   "experiment": "experiments/07_linguistics_corpora",
   "schema_version": "linguistics-corpora-snapshot-v1",
   "selected_story_count": 1868,
   "smoke_count": null,
-  "source_commit": "eecf36e0446a858e26c8b448d8ce2aa7bf7d7607",
+  "source_commit": "51ca31c5c0bd977c39d51d368c1870abf9a8ad5c",
   "source_story_count": 1868,
   "stories": [
     {

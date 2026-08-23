@@ -70,6 +70,9 @@ class ExperimentHarnessTest(unittest.TestCase):
 
             self.assertTrue(report["run_clean"])
             self.assertEqual(report["source_story_count"], 2)
+            self.assertEqual(report["selected_story_count"], 2)
+            self.assertEqual(report["analysis_story_count"], 2)
+            self.assertEqual(report["analysis_exclusion_count"], 0)
             self.assertEqual(report["copied_story_count"], 2)
             self.assertEqual(report["copied_sidecar_count"], 2)
             self.assertFalse(report["corpora_modified"])
@@ -90,7 +93,9 @@ class ExperimentHarnessTest(unittest.TestCase):
             snapshot = json.loads(
                 (output_dir / "snapshot_manifest.json").read_text(encoding="utf-8")
             )
+            self.assertEqual(snapshot["source_story_count"], 2)
             self.assertEqual(snapshot["selected_story_count"], 2)
+            self.assertEqual(snapshot["analysis_story_count"], 2)
             self.assertEqual(len(snapshot["stories"]), 2)
 
     def test_smoke_count_limits_selected_stories(self):
@@ -109,11 +114,53 @@ class ExperimentHarnessTest(unittest.TestCase):
                 overwrite=True,
             )
 
-            self.assertEqual(report["source_story_count"], 1)
+            self.assertEqual(report["source_story_count"], 2)
             self.assertEqual(report["selected_story_count"], 1)
+            self.assertEqual(report["analysis_story_count"], 1)
             self.assertEqual(report["run_counts"], {"written": 1})
             self.assertTrue((output_dir / "copied_buckets" / "alpha" / "one").exists())
             self.assertFalse((output_dir / "copied_buckets" / "beta" / "two").exists())
+
+    def test_empty_body_stories_are_copied_but_excluded_from_analysis(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            _write_story(corpus_root, "alpha", "one")
+            empty_story = _write_story(corpus_root, "beta", "empty", "")
+
+            report = run_linguistics_corpora.run_corpora(
+                corpus_root=corpus_root,
+                output_dir=output_dir,
+                backend_name="fake",
+                overwrite=True,
+            )
+
+            copied_empty = output_dir / "copied_buckets" / "beta" / "empty"
+            self.assertTrue(report["run_clean"])
+            self.assertEqual(report["source_story_count"], 2)
+            self.assertEqual(report["selected_story_count"], 2)
+            self.assertEqual(report["analysis_story_count"], 1)
+            self.assertEqual(report["analysis_exclusion_count"], 1)
+            self.assertEqual(report["copied_story_count"], 2)
+            self.assertEqual(report["copied_sidecar_count"], 1)
+            self.assertEqual(report["run_counts"], {"written": 1})
+            self.assertTrue((copied_empty / "story.json").exists())
+            self.assertFalse((copied_empty / "linguistics.json").exists())
+            self.assertEqual(
+                report["analysis_exclusions"],
+                [
+                    {
+                        "story_id": "beta/empty",
+                        "story_path": (copied_empty / "story.json").resolve().as_posix(),
+                        "reason": "empty_body",
+                    }
+                ],
+            )
+            story_list = (output_dir / "story-list.txt").read_text(encoding="utf-8")
+            self.assertIn("copied_buckets/alpha/one/story.json", story_list)
+            self.assertNotIn("copied_buckets/beta/empty/story.json", story_list)
+            self.assertFalse((empty_story.parent / "linguistics.json").exists())
 
     def test_default_refuses_existing_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:

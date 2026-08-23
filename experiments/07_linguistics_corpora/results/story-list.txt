@@ -1821,7 +1821,6 @@ experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/geor
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/girl/story.json
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/hypotheses_of_failure/story.json
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/little_local_colour/story.json
-experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/madame_bo_peep_of_the_ranches/story.json
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/marry_month_of_may/story.json
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/matter_of_mean_elevation/story.json
 experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/newspaper_story/story.json

@@ -1,7 +1,7 @@
 {
   "backend_name": "spacy",
   "counts": {
-    "written": 1868
+    "written": 1867
   },
   "existing": "skip",
   "include_token_detail": false,
@@ -10944,12 +10944,6 @@
       "sidecar_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/little_local_colour/linguistics.json",
       "status": "written",
       "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/little_local_colour/story.json"
-    },
-    {
-      "message": "wrote linguistic sidecar",
-      "sidecar_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/madame_bo_peep_of_the_ranches/linguistics.json",
-      "status": "written",
-      "story_path": "experiments/07_linguistics_corpora/results/copied_buckets/ohenry-whirligigs/madame_bo_peep_of_the_ranches/story.json"
     },
     {
       "message": "wrote linguistic sidecar",

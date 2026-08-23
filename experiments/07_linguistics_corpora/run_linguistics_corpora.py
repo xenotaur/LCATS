@@ -24,6 +24,7 @@ from typing import Any, Iterable
 _REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 
+from lcats.analysis.corpus import cli as corpus_cli  # noqa: E402
 from lcats.analysis.linguistics import runner, sidecar  # noqa: E402
 
 EXPERIMENT_NAME = "experiments/07_linguistics_corpora"
@@ -53,6 +54,22 @@ class StorySnapshot:
             "copied_story_path": _repo_relative(self.copied_story_path),
             "source_story_sha256": self.source_story_sha256,
             "copied_story_sha256": self.copied_story_sha256,
+        }
+
+
+@dataclasses.dataclass(frozen=True)
+class AnalysisExclusion:
+    """One copied story excluded from linguistic analysis."""
+
+    story_id: str
+    story_path: pathlib.Path
+    reason: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "story_id": self.story_id,
+            "story_path": _repo_relative(self.story_path),
+            "reason": self.reason,
         }
 
 
@@ -93,6 +110,7 @@ def run_corpora(
     mirror_root = output_dir / COPIED_BUCKETS_DIRNAME
     snapshot_path = output_dir / SNAPSHOT_MANIFEST_FILENAME
     source_story_paths = discover_story_paths(corpus_root)
+    discovered_source_story_count = len(source_story_paths)
     selected_story_paths = (
         source_story_paths[:smoke_count] if smoke_count is not None else source_story_paths
     )
@@ -108,6 +126,7 @@ def run_corpora(
             _repo_path(item["copied_story_path"])
             for item in snapshot_manifest["stories"]
         ]
+        analysis_exclusions = find_analysis_exclusions(copied_story_paths)
     else:
         if snapshot_path.exists() or mirror_root.exists():
             if not overwrite:
@@ -121,11 +140,24 @@ def run_corpora(
             selected_story_paths,
             corpus_root=corpus_root,
             mirror_root=mirror_root,
+            discovered_source_story_count=discovered_source_story_count,
             smoke_count=smoke_count,
+        )
+        analysis_exclusions = find_analysis_exclusions(copied_story_paths)
+        snapshot_manifest["analysis_exclusions"] = [
+            exclusion.to_dict() for exclusion in analysis_exclusions
+        ]
+        snapshot_manifest["analysis_story_count"] = len(copied_story_paths) - len(
+            analysis_exclusions
         )
         sidecar.write_json_atomic(snapshot_path, snapshot_manifest)
 
-    analysis_story_paths = [_invocation_path(path) for path in copied_story_paths]
+    excluded_paths = {exclusion.story_path.resolve() for exclusion in analysis_exclusions}
+    analysis_story_paths = [
+        _invocation_path(path)
+        for path in copied_story_paths
+        if path.resolve() not in excluded_paths
+    ]
     story_list_path = output_dir / STORY_LIST_FILENAME
     write_story_list(analysis_story_paths, story_list_path)
 
@@ -171,6 +203,7 @@ def copy_story_buckets_and_snapshot(
     *,
     corpus_root: pathlib.Path,
     mirror_root: pathlib.Path,
+    discovered_source_story_count: int,
     smoke_count: int | None,
 ) -> tuple[dict[str, Any], list[pathlib.Path]]:
     """Copy story buckets and return snapshot manifest data."""
@@ -203,9 +236,11 @@ def copy_story_buckets_and_snapshot(
         "source_commit": _git_commit(),
         "corpus_root": _repo_relative(corpus_root),
         "copied_bucket_root": _repo_relative(mirror_root),
-        "source_story_count": len(story_paths),
+        "source_story_count": discovered_source_story_count,
         "selected_story_count": len(story_paths),
         "smoke_count": smoke_count,
+        "analysis_story_count": len(story_paths),
+        "analysis_exclusions": [],
         "stories": [snapshot.to_dict() for snapshot in snapshots],
     }
     return manifest, copied_story_paths
@@ -255,7 +290,35 @@ def load_and_validate_snapshot(
             )
     if data.get("selected_story_count") != len(stories):
         raise ValueError(f"{snapshot_path}: selected_story_count differs from stories")
+    exclusions = [exclusion.to_dict() for exclusion in find_analysis_exclusions(
+        [_repo_path(item["copied_story_path"]) for item in stories]
+    )]
+    if data.get("analysis_exclusions", []) != exclusions:
+        raise ValueError(f"{snapshot_path}: analysis exclusions differ")
+    if data.get("analysis_story_count") != len(stories) - len(exclusions):
+        raise ValueError(f"{snapshot_path}: analysis_story_count differs")
     return data
+
+
+def find_analysis_exclusions(story_paths: Iterable[pathlib.Path]) -> list[AnalysisExclusion]:
+    """Return copied stories that should not be analyzed as observations."""
+    exclusions: list[AnalysisExclusion] = []
+    for story_path in story_paths:
+        story_path = pathlib.Path(story_path)
+        try:
+            story_data = corpus_cli.read_story_data(story_path)
+        except Exception:  # noqa: BLE001 - runner records malformed stories as failures.
+            continue
+        body = corpus_cli.coerce_story_text(story_data.get("body", ""))
+        if not body.strip():
+            exclusions.append(
+                AnalysisExclusion(
+                    story_id=sidecar.story_identity(story_path),
+                    story_path=story_path,
+                    reason="empty_body",
+                )
+            )
+    return exclusions
 
 
 def prune_results(output_dir: pathlib.Path) -> None:
@@ -311,6 +374,9 @@ def build_report(
         "snapshot_manifest_path": _repo_relative(output_dir / SNAPSHOT_MANIFEST_FILENAME),
         "source_story_count": snapshot_manifest["source_story_count"],
         "selected_story_count": snapshot_manifest["selected_story_count"],
+        "analysis_story_count": snapshot_manifest["analysis_story_count"],
+        "analysis_exclusion_count": len(snapshot_manifest["analysis_exclusions"]),
+        "analysis_exclusions": snapshot_manifest["analysis_exclusions"],
         "smoke_count": smoke_count,
         "backend_name": backend_name,
         "model_name": model_name,
