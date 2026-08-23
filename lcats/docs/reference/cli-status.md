@@ -17,6 +17,7 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 - `clean`
 - `linguistics`
 - `annotate`
+- `visualize` (`genres`, `words`, `tfidf`, `topics` subcommands)
 
 ## Placeholder commands (declared, not implemented)
 
