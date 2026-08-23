@@ -1,0 +1,400 @@
+{
+  "version": "science-fiction-phase2-sample-manifest-v1",
+  "work_item": "WI-SF-0007",
+  "proposal": "PROP-LCATS-KNIGHT-NOVUM-ANALYSIS-SIDECAR",
+  "created_for": "Phase 2 preregistration; not a pilot result",
+  "estimated_cost_usd": 0.0,
+  "paid_model_calls_authorized": false,
+  "pilot_execution_authorized": false,
+  "selection_rule": {
+    "description": "Deterministic hand-curated contrastive sample selected before Phase 2 execution from existing LCATS feasibility and metadata-selection artifacts. Entries are ordered by stratum, then by sample_id. Provisional strata are sampling targets only; human annotation creates the gold labels.",
+    "source_artifacts": [
+      "experimental/annotation_feasibility_trial/subset_manifest.md",
+      "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+      "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md",
+      "project/work_items/resolved/WI-SF-0006.md"
+    ],
+    "target_counts": {
+      "clear_sf_positive": 10,
+      "boundary_or_adjacent": 10,
+      "negative_control": 10
+    },
+    "story_path_root": "corpora/",
+    "deterministic_order": [
+      "stratum",
+      "sample_id"
+    ]
+  },
+  "annotation": {
+    "gold_labels_are_pre_execution": false,
+    "model_outputs_visible_to_annotators": false,
+    "minimum_double_annotated_subset": 12,
+    "preferred_double_annotated_count": 30,
+    "adjudication_required": true
+  },
+  "sample": [
+    {
+      "sample_id": "p2-sf-001",
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "corpora/mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B",
+      "author": "Kurt Vonnegut",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Dystopian-future SF candidate from the existing annotation-feasibility science-fiction subset.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md",
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-002",
+      "story_id": "mass_quantities/a_bad_day_for_sales__leiber",
+      "story_path": "corpora/mass_quantities/a_bad_day_for_sales__leiber/story.json",
+      "title": "A Bad Day for Sales",
+      "author": "Fritz Leiber",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Genre-balanced metadata sample marks this as science fiction; included for non-space technological/social extrapolation coverage.",
+      "source_artifacts": [
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-003",
+      "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+      "story_path": "corpora/mass_quantities/a_case_of_sunburn__fontenay/story.json",
+      "title": "A Case of Sunburn",
+      "author": "Charles L. Fontenay",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Genre-balanced metadata sample marks this as science fiction; included for science/technology explanation coverage.",
+      "source_artifacts": [
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-004",
+      "story_id": "mass_quantities/a_city_near_centaurus__doede",
+      "story_path": "corpora/mass_quantities/a_city_near_centaurus__doede/story.json",
+      "title": "A City Near Centaurus",
+      "author": "William R. Doede",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Interstellar-title SF candidate reused from the annotation-feasibility science-fiction subset.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md",
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-005",
+      "story_id": "mass_quantities/a_gift_for_terra__holden",
+      "story_path": "corpora/mass_quantities/a_gift_for_terra__holden/story.json",
+      "title": "A Gift For Terra",
+      "author": "Fox B. Holden",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Genre-balanced metadata sample marks this as science fiction; included for planetary/space-fiction contrast.",
+      "source_artifacts": [
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-006",
+      "story_id": "mass_quantities/a_hitch_in_space__leiber",
+      "story_path": "corpora/mass_quantities/a_hitch_in_space__leiber/story.json",
+      "title": "A Hitch in Space",
+      "author": "Fritz Leiber",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Genre-balanced metadata sample marks this as science fiction; included for space-travel evidence coverage.",
+      "source_artifacts": [
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-007",
+      "story_id": "mass_quantities/a_martian_odyssey__weinbaum",
+      "story_path": "corpora/mass_quantities/a_martian_odyssey__weinbaum/story.json",
+      "title": "A Martian Odyssey",
+      "author": "Stanley G. Weinbaum",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Classic Mars-exploration and alien-contact SF candidate from the annotation-feasibility subset.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-008",
+      "story_id": "mass_quantities/raiders_of_the_second_moon__wells",
+      "story_path": "corpora/mass_quantities/raiders_of_the_second_moon__wells/story.json",
+      "title": "Raiders of the Second Moon",
+      "author": "Gene Ellerman Wells",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Science-fiction candidate from the local corpus list; included for space-adventure overlap.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-009",
+      "story_id": "mass_quantities/the_solar_magnet__meek",
+      "story_path": "corpora/mass_quantities/the_solar_magnet__meek/story.json",
+      "title": "The Solar Magnet",
+      "author": "S. P. Meek",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Science/technology-title SF candidate from the local corpus list; included for technical-explanation coverage.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-sf-010",
+      "story_id": "mass_quantities/what_is_posat__smith",
+      "story_path": "corpora/mass_quantities/what_is_posat__smith/story.json",
+      "title": "What Is Posat?",
+      "author": "Phyllis Sterling Smith",
+      "stratum": "clear_sf_positive",
+      "selection_rationale": "Science-fiction candidate from the local corpus list; included to diversify author/title signals in the positive stratum.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-001",
+      "story_id": "lovecraft/the_colour_out_of_space",
+      "story_path": "corpora/lovecraft/the_colour_out_of_space/story.json",
+      "title": "The Colour out of Space",
+      "author": "H. P. Lovecraft",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Existing feasibility horror entry and metadata science-fiction entry; useful alien-contamination boundary case for cognitive validation and horror adjacency.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md",
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-002",
+      "story_id": "lovecraft/the_call_of_cthulhu",
+      "story_path": "corpora/lovecraft/the_call_of_cthulhu/story.json",
+      "title": "The Call of Cthulhu",
+      "author": "H. P. Lovecraft",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Cosmic-horror feasibility entry; tests whether supernatural or occult hegemony is kept distinct from Suvinian cognition.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-003",
+      "story_id": "lovecraft/the_dunwich_horror",
+      "story_path": "corpora/lovecraft/the_dunwich_horror/story.json",
+      "title": "The Dunwich Horror",
+      "author": "H. P. Lovecraft",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Supernatural/cosmic-horror feasibility entry; tests fantasy/horror false positives.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-004",
+      "story_id": "grimm/rapunzel",
+      "story_path": "corpora/grimm/rapunzel/story.json",
+      "title": "Rapunzel",
+      "author": "Jacob Grimm and Wilhelm Grimm",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Fairy-tale fantasy feasibility entry; tests novelty without cognitive validation.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-005",
+      "story_id": "grimm/hansel_and_gretel",
+      "story_path": "corpora/grimm/hansel_and_gretel/story.json",
+      "title": "Hansel and Gretel",
+      "author": "Jacob Grimm and Wilhelm Grimm",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Fairy-tale fantasy feasibility entry; tests supernatural contrast and narrative hegemony.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-006",
+      "story_id": "anderson/snow_queen",
+      "story_path": "corpora/anderson/snow_queen/story.json",
+      "title": "The Snow Queen",
+      "author": "Hans Christian Andersen",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Genre-balanced fantasy sample; tests sustained estrangement without scientific cognition.",
+      "source_artifacts": [
+        "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-007",
+      "story_id": "mass_quantities/disturbing_sun__richardson",
+      "story_path": "corpora/mass_quantities/disturbing_sun__richardson/story.json",
+      "title": "Disturbing Sun",
+      "author": "Philip Latham",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Corpus SF-adjacent catastrophe/title candidate; tests disaster or astronomical threat without assuming novum qualification.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-008",
+      "story_id": "mass_quantities/the_god_on_the_36th_floor__kastle",
+      "story_path": "corpora/mass_quantities/the_god_on_the_36th_floor__kastle/story.json",
+      "title": "The God on the 36th Floor",
+      "author": "Herbert D. Kastle",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Title suggests supernatural or metaphysical ambiguity; tests novum versus non-cognitive estrangement.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-009",
+      "story_id": "mass_quantities/the_last_generation_a_story_of_the_future__flecker",
+      "story_path": "corpora/mass_quantities/the_last_generation_a_story_of_the_future__flecker/story.json",
+      "title": "The Last Generation: A Story of the Future",
+      "author": "James Elroy Flecker",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Future-story catastrophe/last-generation candidate; tests cognitive validation and narrative hegemony under apocalyptic framing.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-boundary-010",
+      "story_id": "mass_quantities/the_monster_maker__bradbury",
+      "story_path": "corpora/mass_quantities/the_monster_maker__bradbury/story.json",
+      "title": "The Monster Maker",
+      "author": "Ray Bradbury",
+      "stratum": "boundary_or_adjacent",
+      "selection_rationale": "Monster/science-horror title candidate; tests SF/horror adjacency and possible cognitive explanation ambiguity.",
+      "source_artifacts": [
+        "project/design/proposals/adopted/knight-novum-analysis-sidecar/00_proposal.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-001",
+      "story_id": "sherlock/scandal_in_bohemia",
+      "story_path": "corpora/sherlock/scandal_in_bohemia/story.json",
+      "title": "A Scandal in Bohemia",
+      "author": "Arthur Conan Doyle",
+      "stratum": "negative_control",
+      "selection_rationale": "Canonical detective-mystery feasibility entry; negative control for inquiry without SF novum.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-002",
+      "story_id": "sherlock/red_headed_league",
+      "story_path": "corpora/sherlock/red_headed_league/story.json",
+      "title": "The Red-Headed League",
+      "author": "Arthur Conan Doyle",
+      "stratum": "negative_control",
+      "selection_rationale": "Detective-mystery feasibility entry; tests scientific/inquiry evidence that should not imply SF classification.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-003",
+      "story_id": "wodehouse/extricating_young_gussie",
+      "story_path": "corpora/wodehouse/extricating_young_gussie/story.json",
+      "title": "Extricating Young Gussie",
+      "author": "P. G. Wodehouse",
+      "stratum": "negative_control",
+      "selection_rationale": "Humor feasibility entry; negative control for non-speculative social comedy.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-004",
+      "story_id": "wodehouse/crowned_heads",
+      "story_path": "corpora/wodehouse/crowned_heads/story.json",
+      "title": "Crowned Heads",
+      "author": "P. G. Wodehouse",
+      "stratum": "negative_control",
+      "selection_rationale": "Humor feasibility entry; negative control for plot-driven comedy without novum.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-005",
+      "story_id": "ohenry-four_million/gift_of_the_magi",
+      "story_path": "corpora/ohenry-four_million/gift_of_the_magi/story.json",
+      "title": "The Gift of the Magi",
+      "author": "O. Henry",
+      "stratum": "negative_control",
+      "selection_rationale": "Romance/sentimental feasibility entry; negative control for realist emotional hegemony.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-006",
+      "story_id": "ohenry-four_million/service_of_love",
+      "story_path": "corpora/ohenry-four_million/service_of_love/story.json",
+      "title": "A Service of Love",
+      "author": "O. Henry",
+      "stratum": "negative_control",
+      "selection_rationale": "Romance feasibility entry; negative control for non-speculative narrative centrality.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-007",
+      "story_id": "london/love_of_life",
+      "story_path": "corpora/london/love_of_life/story.json",
+      "title": "Love of Life",
+      "author": "Jack London",
+      "stratum": "negative_control",
+      "selection_rationale": "Adventure/survival feasibility entry; negative control for physical danger without novum.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-008",
+      "story_id": "london/story_of_keesh",
+      "story_path": "corpora/london/story_of_keesh/story.json",
+      "title": "The Story of Keesh",
+      "author": "Jack London",
+      "stratum": "negative_control",
+      "selection_rationale": "Adventure feasibility entry; negative control for skillful method and survival reasoning without SF.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-009",
+      "story_id": "mass_quantities/the_sheriff_and_his_partner__harris",
+      "story_path": "corpora/mass_quantities/the_sheriff_and_his_partner__harris/story.json",
+      "title": "The Sheriff and His Partner",
+      "author": "Frank Harris",
+      "stratum": "negative_control",
+      "selection_rationale": "Western feasibility entry; negative control for genre action and frontier setting.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    },
+    {
+      "sample_id": "p2-negative-010",
+      "story_id": "mass_quantities/the_cowboy_and_the_lady_and_her_pa_b_a_story_of_a__cobb",
+      "story_path": "corpora/mass_quantities/the_cowboy_and_the_lady_and_her_pa_b_a_story_of_a__cobb/story.json",
+      "title": "The Cowboy and the Lady and Her Pa",
+      "author": "Irvin S. Cobb",
+      "stratum": "negative_control",
+      "selection_rationale": "Western feasibility entry; negative control for adventure/romance-adjacent but non-SF material.",
+      "source_artifacts": [
+        "experimental/annotation_feasibility_trial/subset_manifest.md"
+      ]
+    }
+  ]
+}
