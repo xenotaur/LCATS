@@ -230,6 +230,24 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
             "wrong_type", {finding.kind for finding in evidence_result.findings}
         )
 
+    def test_loaded_validation_rejects_malformed_evidence_records(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        record = data["evidence_sets"][0]["records"][0]
+        record["evidence_type"] = "not-a-type"
+        record["confidence"] = 99
+        record["anchor"]["start_char"] = 10
+        record["anchor"]["end_char"] = 1
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("invalid_evidence_type", finding_kinds)
+        self.assertIn("invalid_confidence", finding_kinds)
+        self.assertIn("invalid_anchor", finding_kinds)
+        with self.assertRaisesRegex(ValueError, "invalid"):
+            sidecar.render_sidecar_json(data)
+
     def test_loaded_validation_rejects_stored_failed_validation(self):
         data = pipeline.assemble_sidecar_data(_inputs())
         data["validation"] = {
@@ -354,6 +372,22 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
             {finding.kind for finding in wrong_total_result.findings},
         )
 
+    def test_loaded_validation_rejects_duplicate_novum_system_members(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["analyses"]["suvin_novum"][0]["novum_systems"] = [
+            {
+                "system_id": "system-1",
+                "candidate_ids": ["novum-1", "novum-1"],
+                "rationale": "fixture system",
+            }
+        ]
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("duplicate_reference", finding_kinds)
+
     def test_loaded_validation_rejects_invalid_current_pointer(self):
         evidence_set = _evidence_set()
         failed = knight.failed_analysis(
@@ -447,6 +481,26 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         self.assertFalse(result.valid)
         self.assertIn("conflicting_stage_outcome", finding_kinds)
         self.assertIn("invalid_stage", finding_kinds)
+
+    def test_partial_success_rejects_malformed_recoverable_flag(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["partial_success"] = {
+            "completed_stages": ["evidence"],
+            "failed_stages": [
+                {
+                    "stage": "knight",
+                    "kind": "pipeline_failure",
+                    "message": "malformed output",
+                    "recoverable": "yes",
+                },
+            ],
+        }
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("wrong_type", finding_kinds)
 
     def test_partial_success_rejects_empty_record(self):
         data = pipeline.assemble_sidecar_data(_inputs())

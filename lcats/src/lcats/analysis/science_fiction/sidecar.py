@@ -8,6 +8,7 @@ import pathlib
 import tempfile
 from typing import Any
 
+from lcats.analysis.science_fiction import evidence
 from lcats.analysis.science_fiction import models
 
 SCHEMA_VERSION = models.SCIENCE_FICTION_SIDECAR_VERSION
@@ -223,6 +224,17 @@ def _validate_evidence_sets(
             continue
         evidence_set_id = item.get("evidence_set_id")
         _require_string(item, "version", f"{base}.version", findings)
+        if (
+            _is_non_empty_string(item.get("version"))
+            and item.get("version") != evidence.EVIDENCE_SET_VERSION
+        ):
+            findings.append(
+                _finding(
+                    f"{base}.version",
+                    "invalid_evidence_set_version",
+                    "evidence set version does not match science-fiction-evidence-set-v1",
+                )
+            )
         _require_string(item, "evidence_set_id", f"{base}.evidence_set_id", findings)
         _require_string(item, "story_hash", f"{base}.story_hash", findings)
         if (
@@ -276,11 +288,42 @@ def _validate_evidence_records(
         evidence_id = record.get("evidence_id")
         _require_string(record, "evidence_id", f"{base}.evidence_id", findings)
         _require_string(record, "evidence_type", f"{base}.evidence_type", findings)
+        if (
+            _is_non_empty_string(record.get("evidence_type"))
+            and record.get("evidence_type") not in evidence.EVIDENCE_TYPES
+        ):
+            findings.append(
+                _finding(
+                    f"{base}.evidence_type",
+                    "invalid_evidence_type",
+                    "evidence_type is not a science-fiction neutral evidence type",
+                )
+            )
         _require_string(record, "quote", f"{base}.quote", findings)
-        _require_mapping(record, "anchor", f"{base}.anchor", findings)
+        anchor = _require_mapping(record, "anchor", f"{base}.anchor", findings)
+        if isinstance(anchor, dict):
+            _validate_evidence_anchor(anchor, f"{base}.anchor", findings)
         _require_string(record, "paraphrase", f"{base}.paraphrase", findings)
         _require_number(record, "confidence", f"{base}.confidence", findings)
-        _require_list(record, "provenance", f"{base}.provenance", findings)
+        if (
+            isinstance(record.get("confidence"), (int, float))
+            and not isinstance(record.get("confidence"), bool)
+            and not 0.0 <= record["confidence"] <= 1.0
+        ):
+            findings.append(
+                _finding(
+                    f"{base}.confidence",
+                    "invalid_confidence",
+                    "confidence must be between 0 and 1",
+                )
+            )
+        _validate_string_items(record, "entity_ids", f"{base}.entity_ids", findings)
+        _validate_string_items(record, "event_ids", f"{base}.event_ids", findings)
+        provenance = _require_list(record, "provenance", f"{base}.provenance", findings)
+        if isinstance(provenance, list):
+            _validate_evidence_provenance_items(
+                provenance, f"{base}.provenance", findings
+            )
         if _is_non_empty_string(evidence_id):
             if evidence_id in evidence_ids:
                 findings.append(
@@ -695,6 +738,7 @@ def _validate_suvin_analysis(
                             "novum systems require at least two candidates",
                         )
                     )
+                seen_candidate_ids: set[str] = set()
                 for candidate_index, candidate_id in enumerate(candidate_items):
                     candidate_path = f"{system_base}.candidate_ids[{candidate_index}]"
                     if not _is_non_empty_string(candidate_id):
@@ -705,6 +749,14 @@ def _validate_suvin_analysis(
                                 f"expected non-empty string, got {type(candidate_id).__name__}",
                             )
                         )
+                    elif candidate_id in seen_candidate_ids:
+                        findings.append(
+                            _finding(
+                                candidate_path,
+                                "duplicate_reference",
+                                "novum systems may not repeat candidate ids",
+                            )
+                        )
                     elif candidate_id not in qualified_ids:
                         findings.append(
                             _finding(
@@ -713,6 +765,8 @@ def _validate_suvin_analysis(
                                 "novum systems may reference only qualified candidates",
                             )
                         )
+                    if _is_non_empty_string(candidate_id):
+                        seen_candidate_ids.add(candidate_id)
 
 
 def _validate_novum_dimension(
@@ -1026,6 +1080,16 @@ def _validate_failure_record(
         return
     for key in ("stage", "kind", "message"):
         _require_string(failure, key, f"{path}.{key}", findings)
+    if "recoverable" not in failure:
+        findings.append(_missing(f"{path}.recoverable"))
+    elif not isinstance(failure["recoverable"], bool):
+        findings.append(
+            _finding(
+                f"{path}.recoverable",
+                "wrong_type",
+                f"expected bool, got {type(failure['recoverable']).__name__}",
+            )
+        )
     stage = failure.get("stage")
     if _is_non_empty_string(stage):
         _validate_stage_name(stage, f"{path}.stage", findings)
@@ -1184,6 +1248,87 @@ def _require_string_value(
                 f"expected string, got {type(data[key]).__name__}",
             )
         )
+
+
+def _validate_string_items(
+    data: dict[str, Any],
+    key: str,
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    if key not in data:
+        findings.append(_missing(path))
+        return
+    items = _require_list(data, key, path, findings)
+    if not isinstance(items, list):
+        return
+    for index, item in enumerate(items):
+        if not _is_non_empty_string(item):
+            findings.append(
+                _finding(
+                    f"{path}[{index}]",
+                    "wrong_type",
+                    f"expected non-empty string, got {type(item).__name__}",
+                )
+            )
+
+
+def _validate_evidence_anchor(
+    anchor: dict[str, Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    _validate_string_items(anchor, "paragraph_ids", f"{path}.paragraph_ids", findings)
+    _require_int(anchor, "start_char", f"{path}.start_char", findings)
+    _require_int(anchor, "end_char", f"{path}.end_char", findings)
+    start_char = anchor.get("start_char")
+    end_char = anchor.get("end_char")
+    if (
+        isinstance(start_char, int)
+        and not isinstance(start_char, bool)
+        and isinstance(end_char, int)
+        and not isinstance(end_char, bool)
+    ):
+        if start_char < 0 or end_char < 0:
+            findings.append(
+                _finding(
+                    path,
+                    "invalid_anchor",
+                    "anchor character offsets must be non-negative",
+                )
+            )
+        if end_char < start_char:
+            findings.append(
+                _finding(
+                    path,
+                    "invalid_anchor",
+                    "anchor end_char must be greater than or equal to start_char",
+                )
+            )
+
+
+def _validate_evidence_provenance_items(
+    provenance: list[Any],
+    path: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    for index, item in enumerate(provenance):
+        item_path = f"{path}[{index}]"
+        if not isinstance(item, dict):
+            findings.append(
+                _finding(
+                    item_path,
+                    "wrong_type",
+                    f"expected object, got {type(item).__name__}",
+                )
+            )
+            continue
+        _require_string(item, "source", f"{item_path}.source", findings)
+        _optional_string_or_none(
+            item, "source_chunk_id", f"{item_path}.source_chunk_id", findings
+        )
+        _optional_string_or_none(item, "raw_id", f"{item_path}.raw_id", findings)
+        _optional_string_or_none(item, "backend", f"{item_path}.backend", findings)
 
 
 def _optional_string_or_none(
