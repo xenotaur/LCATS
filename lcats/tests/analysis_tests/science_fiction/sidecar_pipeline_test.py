@@ -248,6 +248,31 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invalid"):
             sidecar.render_sidecar_json(data)
 
+    def test_loaded_validation_rejects_zero_length_evidence_anchor(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        anchor = data["evidence_sets"][0]["records"][0]["anchor"]
+        anchor["start_char"] = 10
+        anchor["end_char"] = 10
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("invalid_anchor", finding_kinds)
+
+    def test_loaded_validation_rejects_malformed_evidence_conflicts(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["evidence_sets"][0]["conflicts"] = [
+            {"conflict_id": "conflict-1", "evidence_ids": ["missing"]}
+        ]
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("missing_required_field", finding_kinds)
+        self.assertIn("missing_reference", finding_kinds)
+
     def test_loaded_validation_rejects_stored_failed_validation(self):
         data = pipeline.assemble_sidecar_data(_inputs())
         data["validation"] = {
@@ -643,14 +668,29 @@ class ScienceFictionPipelineCheckpointTest(unittest.TestCase):
 
         path = pipeline.publish_sidecar(
             output_root=self.working_root,
-            item_id="story_a",
+            item_id=data["lcats_id"],
             data=data,
             allow_protected_root=True,
         )
 
+        self.assertEqual(
+            self.working_root / "collection" / "story" / sidecar.SIDECAR_FILENAME,
+            path,
+        )
         self.assertEqual(path.name, sidecar.SIDECAR_FILENAME)
         loaded = json.loads(path.read_text(encoding="utf-8"))
         self.assertTrue(sidecar.validate_sidecar(loaded).valid)
+
+    def test_publish_sidecar_rejects_unsafe_item_id(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+
+        with self.assertRaisesRegex(ValueError, "parent"):
+            pipeline.publish_sidecar(
+                output_root=self.working_root,
+                item_id="../escape",
+                data=data,
+                allow_protected_root=True,
+            )
 
     def test_publish_interruption_preserves_prior_sidecar(self):
         data = pipeline.assemble_sidecar_data(_inputs())

@@ -200,13 +200,22 @@ def publish_sidecar(
         output_root,
         allow_protected_root=allow_protected_root,
     )
-    output_path = checkpoint.checkpoint_path(
-        roots.working_root,
-        item_id,
-        sidecar.SIDECAR_FILENAME.removesuffix(".json"),
-    )
+    output_path = _sidecar_output_path(roots.working_root, item_id)
     sidecar.write_json_atomic(output_path, data)
     return output_path
+
+
+def _sidecar_output_path(output_root: pathlib.Path, item_id: str) -> pathlib.Path:
+    item_path = pathlib.PurePosixPath(item_id)
+    if item_path.is_absolute() or not item_path.parts:
+        raise ValueError(
+            f"item_id must be a relative story bucket path, got {item_id!r}"
+        )
+    if any(part in ("", ".", "..") for part in item_path.parts):
+        raise ValueError(
+            f"item_id must not contain empty, dot, or parent segments: {item_id!r}"
+        )
+    return output_root.joinpath(*item_path.parts, sidecar.SIDECAR_FILENAME)
 
 
 def _select_current(inputs: SidecarAssemblyInputs) -> models.CurrentPointers:

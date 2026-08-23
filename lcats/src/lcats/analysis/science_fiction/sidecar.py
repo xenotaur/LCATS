@@ -260,10 +260,17 @@ def _validate_evidence_sets(
             evidence_ids_by_set.setdefault(evidence_set_id, set())
         records = _require_list(item, "records", f"{base}.records", findings)
         _require_list(item, "quarantined", f"{base}.quarantined", findings)
-        _require_list(item, "conflicts", f"{base}.conflicts", findings)
+        conflicts = _require_list(item, "conflicts", f"{base}.conflicts", findings)
         if isinstance(records, list) and _is_non_empty_string(evidence_set_id):
             _validate_evidence_records(
                 records, base, evidence_ids_by_set[evidence_set_id], findings
+            )
+        if isinstance(conflicts, list) and _is_non_empty_string(evidence_set_id):
+            _validate_evidence_conflicts(
+                conflicts,
+                base,
+                evidence_ids_by_set[evidence_set_id],
+                findings,
             )
     return evidence_ids_by_set
 
@@ -334,6 +341,80 @@ def _validate_evidence_records(
                     )
                 )
             evidence_ids.add(evidence_id)
+
+
+def _validate_evidence_conflicts(
+    conflicts: list[Any],
+    evidence_set_path: str,
+    evidence_ids: set[str],
+    findings: list[models.ValidationFinding],
+) -> None:
+    conflict_ids: set[str] = set()
+    for index, conflict in enumerate(conflicts):
+        base = f"{evidence_set_path}.conflicts[{index}]"
+        if not isinstance(conflict, dict):
+            findings.append(
+                _finding(
+                    base,
+                    "wrong_type",
+                    f"expected object, got {type(conflict).__name__}",
+                )
+            )
+            continue
+        conflict_id = conflict.get("conflict_id")
+        _require_string(conflict, "conflict_id", f"{base}.conflict_id", findings)
+        if _is_non_empty_string(conflict_id):
+            if conflict_id in conflict_ids:
+                findings.append(
+                    _finding(
+                        f"{base}.conflict_id",
+                        "duplicate_reference",
+                        "conflict id is not unique within evidence set",
+                    )
+                )
+            conflict_ids.add(conflict_id)
+        conflict_evidence_ids = _require_list(
+            conflict, "evidence_ids", f"{base}.evidence_ids", findings
+        )
+        if not isinstance(conflict_evidence_ids, list):
+            continue
+        if len(conflict_evidence_ids) < 2:
+            findings.append(
+                _finding(
+                    f"{base}.evidence_ids",
+                    "missing_required_field",
+                    "evidence conflicts require at least two evidence ids",
+                )
+            )
+        seen_conflict_evidence_ids: set[str] = set()
+        for evidence_index, evidence_id in enumerate(conflict_evidence_ids):
+            evidence_path = f"{base}.evidence_ids[{evidence_index}]"
+            if not _is_non_empty_string(evidence_id):
+                findings.append(
+                    _finding(
+                        evidence_path,
+                        "wrong_type",
+                        f"expected non-empty string, got {type(evidence_id).__name__}",
+                    )
+                )
+            elif evidence_id in seen_conflict_evidence_ids:
+                findings.append(
+                    _finding(
+                        evidence_path,
+                        "duplicate_reference",
+                        "evidence conflicts may not repeat evidence ids",
+                    )
+                )
+            elif evidence_id not in evidence_ids:
+                findings.append(
+                    _finding(
+                        evidence_path,
+                        "missing_reference",
+                        "evidence conflicts must reference records in the same evidence set",
+                    )
+                )
+            if _is_non_empty_string(evidence_id):
+                seen_conflict_evidence_ids.add(evidence_id)
 
 
 def _validate_analyses(
@@ -1297,12 +1378,12 @@ def _validate_evidence_anchor(
                     "anchor character offsets must be non-negative",
                 )
             )
-        if end_char < start_char:
+        if end_char <= start_char:
             findings.append(
                 _finding(
                     path,
                     "invalid_anchor",
-                    "anchor end_char must be greater than or equal to start_char",
+                    "anchor end_char must be greater than start_char",
                 )
             )
 
