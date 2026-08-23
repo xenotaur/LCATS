@@ -192,6 +192,28 @@ class TestTopicModel(unittest.TestCase):
         result_b = analysis.topic_model(corpus, n_topics=2, top_k=5, seed=7)
         self.assertEqual(result_a, result_b)
 
+    def test_seed_affects_nndsvda_initialization(self):
+        """A different seed can change the nndsvda-initialized result.
+
+        Guards against re-introducing the (incorrect) claim that
+        init="nndsvda" has no randomness to seed -- scikit-learn's
+        nndsvd-family initializers compute their starting point via a
+        randomized SVD seeded by random_state, so the default init is
+        seed-sensitive too, not just init="random".
+        """
+        corpus = self._make_two_topic_corpus()
+        result_a = analysis.topic_model(corpus, n_topics=2, top_k=5, seed=1)
+        result_b = analysis.topic_model(corpus, n_topics=2, top_k=5, seed=999)
+        self.assertNotEqual(result_a, result_b)
+
+    def test_init_option_is_honored(self):
+        """A non-default init strategy is passed through to NMF."""
+        corpus = self._make_two_topic_corpus()
+        result = analysis.topic_model(
+            corpus, n_topics=2, top_k=5, seed=42, init="random"
+        )
+        self.assertEqual(set(result.keys()), {"topic_0", "topic_1"})
+
 
 if __name__ == "__main__":
     unittest.main()

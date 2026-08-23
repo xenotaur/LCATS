@@ -92,6 +92,8 @@ def tfidf_top_terms(corpus_texts: list, group_indices: list, top_k: int = 20) ->
 
 
 DEFAULT_NMF_MAX_ITER = 400
+DEFAULT_NMF_INIT = "nndsvda"
+NMF_INIT_CHOICES = ("nndsvd", "nndsvda", "nndsvdar", "random")
 
 
 def topic_model(
@@ -100,6 +102,7 @@ def topic_model(
     top_k: int = 10,
     seed: int = 42,
     max_iter: int = DEFAULT_NMF_MAX_ITER,
+    init: str = DEFAULT_NMF_INIT,
 ) -> dict:
     """Fit a classical NMF topic-model baseline and return top terms per topic.
 
@@ -110,14 +113,18 @@ def topic_model(
 
     Uses the same ``TfidfVectorizer`` + ``story_analysis.get_keywords``
     tokenizer as ``tfidf_top_terms`` for input features, then decomposes
-    via scikit-learn's ``NMF``. ``init="nndsvda"`` is a fixed
-    implementation choice (deterministic -- no randomness in
-    initialization, unlike ``NMF``'s default random init), not exposed as
-    a CLI option: it is an algorithm-selection detail, not a
-    scientifically meaningful, paper-relevant knob the way topic count,
-    seed, and iteration budget are. ``random_state=seed`` still controls
-    the solver itself for reproducibility even though ``nndsvda``'s own
-    initialization has no randomness to seed.
+    via scikit-learn's ``NMF``. ``init`` selects the initialization
+    strategy (``nndsvda`` by default) and is an explicit, documented
+    parameter -- not hardcoded. ``random_state=seed`` genuinely affects
+    every ``init`` choice here, including ``nndsvd*``: scikit-learn's
+    NNDSVD-family initializers compute their starting point via a
+    *randomized* SVD seeded by ``random_state``, so changing ``seed`` can
+    change the initial factorization and the resulting topics even under
+    ``nndsvda`` -- confirmed empirically (two runs of this function with
+    different seeds on the same corpus produced different topic-term
+    assignments). Earlier revisions of this docstring incorrectly
+    described ``nndsvda`` as having "no randomness in initialization";
+    that was wrong and has been corrected here.
 
     Returns ``{"topic_0": {term: weight, ...}, "topic_1": {...}, ...}``,
     one entry per fitted topic in index order, each inner mapping ranked
@@ -147,7 +154,7 @@ def topic_model(
 
     model = NMF(
         n_components=n_topics_actual,
-        init="nndsvda",
+        init=init,
         random_state=seed,
         max_iter=max_iter,
     )

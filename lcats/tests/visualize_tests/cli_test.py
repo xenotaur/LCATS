@@ -517,7 +517,6 @@ class TestRunTopics(unittest.TestCase):
             self.assertEqual(status, 0)
             manifest = json.loads((output_dir / "topics_manifest.json").read_text())
 
-            self.assertEqual(status, 0)
             self.assertEqual(manifest["story_count"], 2)
             self.assertEqual(manifest["n_topics"], 2)
             self.assertIn("corpus_source_revision", manifest)
@@ -641,6 +640,38 @@ class TestRunTopics(unittest.TestCase):
 
         self.assertEqual(status, 0)
         self.assertEqual(manifest["max_iter"], 50)
+
+    def test_init_option_disclosed_in_manifest(self):
+        """--init is honored and disclosed in the manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root,
+                "anderson",
+                "bell",
+                body="dragon castle knight dragon castle knight dragon",
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "topics",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--n-topics",
+                    "1",
+                    "--init",
+                    "random",
+                    "--output-dir",
+                    str(output_dir),
+                ]
+            )
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+            manifest = json.loads((output_dir / "topics_manifest.json").read_text())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["init"], "random")
 
     def test_help_discloses_preprocessing_defaults(self):
         """topics --help documents the tokenization/stopword defaults."""

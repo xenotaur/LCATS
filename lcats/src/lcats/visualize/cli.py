@@ -202,10 +202,12 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "lcats.analysis.story_analysis.get_keywords): terms are "
             "lowercased, restricted to ASCII alphabetic tokens, require a "
             "minimum length of 3 characters, and are filtered through a "
-            "hardcoded stopword set. NMF is fit with a fixed "
-            'init="nndsvda" strategy (deterministic, no randomness in '
-            "initialization) -- not exposed as an option, since it is an "
-            "algorithm-selection detail rather than a paper-relevant knob."
+            "hardcoded stopword set. NMF's initialization strategy is a "
+            "documented CLI option (--init); note that scikit-learn's "
+            "nndsvd-family initializers (the default and its variants) "
+            "compute their starting point via a randomized SVD seeded by "
+            "--seed, so --seed affects the fitted topics under every "
+            "--init choice, not only 'random'."
         ),
     )
     topics_parser.add_argument(
@@ -232,7 +234,17 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         "--seed",
         type=int,
         default=42,
-        help="Deterministic random seed for the NMF solver (default: 42).",
+        help=(
+            "Random seed for the NMF solver and its initialization " "(default: 42)."
+        ),
+    )
+    topics_parser.add_argument(
+        "--init",
+        choices=analysis.NMF_INIT_CHOICES,
+        default=analysis.DEFAULT_NMF_INIT,
+        help=(
+            "NMF initialization strategy " f"(default: {analysis.DEFAULT_NMF_INIT})."
+        ),
     )
     topics_parser.add_argument(
         "--max-iter",
@@ -476,6 +488,7 @@ def run_topics(args) -> int:
         top_k=args.top_k,
         seed=args.seed,
         max_iter=args.max_iter,
+        init=args.init,
     )
     if not topics:
         raise ValueError(
@@ -508,6 +521,7 @@ def run_topics(args) -> int:
         "top_k": args.top_k,
         "seed": args.seed,
         "max_iter": args.max_iter,
+        "init": args.init,
     }
     manifest_path = output_dir / "topics_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
