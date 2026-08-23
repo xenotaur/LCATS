@@ -252,6 +252,67 @@ class ScienceFictionSidecarValidationTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "invalid"):
             sidecar.render_sidecar_json(data)
 
+    def test_loaded_validation_rejects_invalid_knight_provenance(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        missing = copy.deepcopy(data)
+        missing["analyses"]["knight"][0]["provenance"] = {}
+        wrong = copy.deepcopy(data)
+        wrong["analyses"]["knight"][0]["provenance"]["rubric_version"] = "wrong"
+
+        missing_result = sidecar.validate_sidecar(missing)
+        wrong_result = sidecar.validate_sidecar(wrong)
+
+        self.assertFalse(missing_result.valid)
+        self.assertFalse(wrong_result.valid)
+        self.assertIn(
+            "missing_required_field",
+            {finding.kind for finding in missing_result.findings},
+        )
+        self.assertIn(
+            "invalid_rubric_version",
+            {finding.kind for finding in wrong_result.findings},
+        )
+
+    def test_loaded_validation_rejects_invalid_suvin_provenance(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["analyses"]["suvin_novum"][0]["provenance"]["rubric_version"] = "wrong"
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("invalid_rubric_version", finding_kinds)
+
+    def test_loaded_validation_rejects_error_findings_when_stored_valid(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["validation"] = {
+            "valid": True,
+            "findings": [
+                {
+                    "path": "$.fixture",
+                    "severity": "error",
+                    "kind": "fixture_failure",
+                    "message": "fixture invalid",
+                }
+            ],
+        }
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("stored_validation_error_finding", finding_kinds)
+
+    def test_loaded_validation_rejects_bool_interval_counts(self):
+        data = pipeline.assemble_sidecar_data(_inputs())
+        data["analyses"]["knight"][0]["interval"]["definite_count"] = True
+
+        result = sidecar.validate_sidecar(data)
+        finding_kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("wrong_type", finding_kinds)
+
     def test_loaded_validation_rejects_invalid_current_pointer(self):
         evidence_set = _evidence_set()
         failed = knight.failed_analysis(

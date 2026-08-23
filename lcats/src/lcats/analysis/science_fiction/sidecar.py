@@ -388,7 +388,12 @@ def _validate_knight_analysis(
 ) -> None:
     criteria = _require_list(analysis, "criteria", f"{base}.criteria", findings)
     interval = _require_mapping(analysis, "interval", f"{base}.interval", findings)
-    _require_mapping(analysis, "provenance", f"{base}.provenance", findings)
+    _validate_provenance(
+        analysis,
+        f"{base}.provenance",
+        expected_rubric_version=models.KNIGHT_RUBRIC_VERSION,
+        findings=findings,
+    )
     if isinstance(interval, dict):
         for key in ("definite_count", "possible_count", "total_count"):
             _require_int(interval, key, f"{base}.interval.{key}", findings)
@@ -498,7 +503,12 @@ def _validate_suvin_analysis(
     systems = _require_list(
         analysis, "novum_systems", f"{base}.novum_systems", findings
     )
-    _require_mapping(analysis, "provenance", f"{base}.provenance", findings)
+    _validate_provenance(
+        analysis,
+        f"{base}.provenance",
+        expected_rubric_version=models.SUVIN_RUBRIC_VERSION,
+        findings=findings,
+    )
     dominant_novum_id = _optional_string_or_none(
         analysis, "dominant_novum_id", f"{base}.dominant_novum_id", findings
     )
@@ -963,19 +973,62 @@ def _validate_stored_validation(
     stored_findings = _require_list(data, "findings", "$.validation.findings", findings)
     if isinstance(stored_findings, list):
         for index, stored in enumerate(stored_findings):
+            finding_base = f"$.validation.findings[{index}]"
             if not isinstance(stored, dict):
                 findings.append(
                     _finding(
-                        f"$.validation.findings[{index}]",
+                        finding_base,
                         "wrong_type",
                         f"expected object, got {type(stored).__name__}",
                     )
                 )
                 continue
             for key in ("path", "severity", "kind", "message"):
-                _require_string(
-                    stored, key, f"$.validation.findings[{index}].{key}", findings
-                )
+                _require_string(stored, key, f"{finding_base}.{key}", findings)
+            severity = stored.get("severity")
+            if _is_non_empty_string(severity):
+                if severity not in models.VALIDATION_SEVERITIES:
+                    findings.append(
+                        _finding(
+                            f"{finding_base}.severity",
+                            "invalid_severity",
+                            f"expected one of {sorted(models.VALIDATION_SEVERITIES)!r}",
+                        )
+                    )
+                elif severity == "error":
+                    findings.append(
+                        _finding(
+                            finding_base,
+                            "stored_validation_error_finding",
+                            "stored validation findings must not contain errors when valid is true",
+                        )
+                    )
+
+
+def _validate_provenance(
+    data: dict[str, Any],
+    path: str,
+    *,
+    expected_rubric_version: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    provenance = _require_mapping(data, "provenance", path, findings)
+    if not isinstance(provenance, dict):
+        return
+    _require_string(provenance, "run_id", f"{path}.run_id", findings)
+    _require_string(provenance, "rubric_version", f"{path}.rubric_version", findings)
+    rubric_version = provenance.get("rubric_version")
+    if (
+        _is_non_empty_string(rubric_version)
+        and rubric_version != expected_rubric_version
+    ):
+        findings.append(
+            _finding(
+                f"{path}.rubric_version",
+                "invalid_rubric_version",
+                f"expected {expected_rubric_version!r}",
+            )
+        )
 
 
 def _require_mapping(
@@ -1094,7 +1147,7 @@ def _require_int(
 ) -> None:
     if key not in data:
         findings.append(_missing(path))
-    elif not isinstance(data[key], int):
+    elif isinstance(data[key], bool) or not isinstance(data[key], int):
         findings.append(
             _finding(
                 path, "wrong_type", f"expected int, got {type(data[key]).__name__}"
