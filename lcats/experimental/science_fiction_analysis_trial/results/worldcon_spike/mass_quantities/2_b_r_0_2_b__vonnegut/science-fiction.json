@@ -1,0 +1,393 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e89532494ab0b7b1",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e89532494ab0b7b1",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e89532494ab0b7b1",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-d5b138d6318a5358",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-d5b138d6318a5358",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:smoke:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 3885,
+            "output": 941
+          }
+        },
+        "status": "complete",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats explanatory evidence as cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e2c3f84f96038bd1",
+                  "evidence_set_id": "sfes-d5b138d6318a5358"
+                }
+              ]
+            },
+            "description": "No-cost smoke candidate derived from story text.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-7bea5356674b1011",
+                  "evidence_set_id": "sfes-d5b138d6318a5358"
+                }
+              ],
+              "rationale": "Estrangement evidence is recorded separately.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-521bf8f468749b31",
+                  "evidence_set_id": "sfes-d5b138d6318a5358"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e89532494ab0b7b1",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              },
+              {
+                "evidence_id": "sfev-e2c3f84f96038bd1",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              },
+              {
+                "evidence_id": "sfev-62f488592844c06d",
+                "evidence_set_id": "sfes-d5b138d6318a5358"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats consequence evidence as hegemony.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-62f488592844c06d",
+                  "evidence_set_id": "sfes-d5b138d6318a5358"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats the storyworld contrast as novelty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e89532494ab0b7b1",
+                  "evidence_set_id": "sfes-d5b138d6318a5358"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "novum-1",
+        "evidence_set_id": "sfes-d5b138d6318a5358",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-d5b138d6318a5358",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:smoke:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 3885,
+            "output": 941
+          }
+        },
+        "status": "complete",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-d5b138d6318a5358",
+    "knight_analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-d5b138d6318a5358",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 300,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 226
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-521bf8f468749b31",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Spike evidence for reader_facing_contrast.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-contrast",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The population of the United States was stabilized at forty-million\nsouls."
+        },
+        {
+          "anchor": {
+            "end_char": 224,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 166
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-62f488592844c06d",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Spike evidence for extrapolative_consequence.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-consequence",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Death, barring accidents, was an adventure for volunteers."
+        },
+        {
+          "anchor": {
+            "end_char": 480,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 302
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7bea5356674b1011",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Spike evidence for character_reaction.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-reaction",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One bright morning in the Chicago Lying-in Hospital, a man named Edward\nK. Wehling, Jr., waited for his wife to give birth. He was the only man\nwaiting. Not many people were born"
+        },
+        {
+          "anchor": {
+            "end_char": 164,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 120
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d97b46ede427003e",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Spike evidence for inquiry_or_scientific_method.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-method",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All diseases were conquered. So was old age."
+        },
+        {
+          "anchor": {
+            "end_char": 118,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 33
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e2c3f84f96038bd1",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Spike evidence for scientific_or_technical_explanation.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-explanation",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There were no prisons, no slums, no insane asylums, no cripples, no\npoverty, no wars."
+        },
+        {
+          "anchor": {
+            "end_char": 31,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e89532494ab0b7b1",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Spike evidence for storyworld_change.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-storyworld",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Everything was perfectly swell."
+        }
+      ],
+      "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

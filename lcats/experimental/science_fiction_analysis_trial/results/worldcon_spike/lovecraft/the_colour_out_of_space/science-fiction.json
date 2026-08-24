@@ -1,0 +1,393 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_colour_out_of_space-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-2e31b72a927a882d",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-2e31b72a927a882d",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-2e31b72a927a882d",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-20d4ab9dee328eb7",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-20d4ab9dee328eb7",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:smoke:lovecraft__the_colour_out_of_space",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 17813,
+            "output": 1011
+          }
+        },
+        "status": "complete",
+        "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_colour_out_of_space-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats explanatory evidence as cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-82775fe28e8eddc7",
+                  "evidence_set_id": "sfes-20d4ab9dee328eb7"
+                }
+              ]
+            },
+            "description": "No-cost smoke candidate derived from story text.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-e482cd2eec3162b6",
+                  "evidence_set_id": "sfes-20d4ab9dee328eb7"
+                }
+              ],
+              "rationale": "Estrangement evidence is recorded separately.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-d5dff03fbb8e8c2e",
+                  "evidence_set_id": "sfes-20d4ab9dee328eb7"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-2e31b72a927a882d",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              },
+              {
+                "evidence_id": "sfev-82775fe28e8eddc7",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              },
+              {
+                "evidence_id": "sfev-4d5defd0c894ea3e",
+                "evidence_set_id": "sfes-20d4ab9dee328eb7"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats consequence evidence as hegemony.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-4d5defd0c894ea3e",
+                  "evidence_set_id": "sfes-20d4ab9dee328eb7"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats the storyworld contrast as novelty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-2e31b72a927a882d",
+                  "evidence_set_id": "sfes-20d4ab9dee328eb7"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "novum-1",
+        "evidence_set_id": "sfes-20d4ab9dee328eb7",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-20d4ab9dee328eb7",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:smoke:lovecraft__the_colour_out_of_space",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 17813,
+            "output": 1011
+          }
+        },
+        "status": "complete",
+        "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-20d4ab9dee328eb7",
+    "knight_analysis_id": "lovecraft__the_colour_out_of_space-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__the_colour_out_of_space-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-20d4ab9dee328eb7",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 23,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2e31b72a927a882d",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Spike evidence for storyworld_change.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-storyworld",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "THE COLOUR OUT OF SPACE"
+        },
+        {
+          "anchor": {
+            "end_char": 411,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 234
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4d5defd0c894ea3e",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Spike evidence for extrapolative_consequence.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-consequence",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Here is a totally different story that we can highly recommend to you. We could wax rhapsodical in our praise, as the story is one of the finest pieces of literature it has been"
+        },
+        {
+          "anchor": {
+            "end_char": 43,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 25
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-82775fe28e8eddc7",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Spike evidence for scientific_or_technical_explanation.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-explanation",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By H. P. Lovecraft"
+        },
+        {
+          "anchor": {
+            "end_char": 222,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 45
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9184d5c3fc30ddde",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Spike evidence for inquiry_or_scientific_method.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-method",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "[Transcriber's Note: This etext was produced from Amazing Stories September 1927. Extensive research did not uncover any evidence that the U.S. copyright on this publication was"
+        },
+        {
+          "anchor": {
+            "end_char": 803,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 624
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d5dff03fbb8e8c2e",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Spike evidence for reader_facing_contrast.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-contrast",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "West of Arkham the hills rise wild, and there are valleys with deep\nwoods that no axe has ever cut. There are dark narrow glens where the\ntrees slope fantastically, and where thin"
+        },
+        {
+          "anchor": {
+            "end_char": 1341,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 1167
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e482cd2eec3162b6",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Spike evidence for character_reaction.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-reaction",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The old folk have gone away, and foreigners do not like to live there.\nFrench-Canadians have tried it, Italians have tried it, and the Poles\nhave come and departed. It is not"
+        }
+      ],
+      "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_colour_out_of_space",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b",
+  "story_path": "lovecraft/the_colour_out_of_space/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

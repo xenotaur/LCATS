@@ -1,0 +1,393 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__bell-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f1ae1b069873d772",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f1ae1b069873d772",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "central",
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f1ae1b069873d772",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No-cost deterministic smoke decision.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-56547b51f95e66ea",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-56547b51f95e66ea",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:smoke:anderson__bell",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 3125,
+            "output": 1094
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__bell-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats explanatory evidence as cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-288be428c35465c0",
+                  "evidence_set_id": "sfes-56547b51f95e66ea"
+                }
+              ]
+            },
+            "description": "No-cost smoke candidate derived from story text.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-b0985dcc4dca500c",
+                  "evidence_set_id": "sfes-56547b51f95e66ea"
+                }
+              ],
+              "rationale": "Estrangement evidence is recorded separately.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ccd1e3c2a565f4ab",
+                  "evidence_set_id": "sfes-56547b51f95e66ea"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-f1ae1b069873d772",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              },
+              {
+                "evidence_id": "sfev-288be428c35465c0",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              },
+              {
+                "evidence_id": "sfev-18b7ad48898c74a6",
+                "evidence_set_id": "sfes-56547b51f95e66ea"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats consequence evidence as hegemony.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-18b7ad48898c74a6",
+                  "evidence_set_id": "sfes-56547b51f95e66ea"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Smoke fixture treats the storyworld contrast as novelty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-f1ae1b069873d772",
+                  "evidence_set_id": "sfes-56547b51f95e66ea"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "novum-1",
+        "evidence_set_id": "sfes-56547b51f95e66ea",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "fake",
+          "chunk_config_hash": null,
+          "code_commit": "a31a0fa7273b4e5a03e296e4ad92457da6666b3b",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "fake-worldcon-spike",
+          "parent_evidence_set_id": "sfes-56547b51f95e66ea",
+          "prompt_hash": "aa1c9e455c7ad291f480d93573b417cdcf200f0828366c6012b8ab7888180223",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:smoke:anderson__bell",
+          "schema_hash": "26f7c2100b30a01adfe39baf3eb27cd34bf13570f25e6179bb0540fd715ed673",
+          "token_usage": {
+            "input": 3125,
+            "output": 1094
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-56547b51f95e66ea",
+    "knight_analysis_id": "anderson__bell-knight-v1",
+    "suvin_novum_analysis_id": "anderson__bell-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-56547b51f95e66ea",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 2467,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 2295
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-18b7ad48898c74a6",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Spike evidence for extrapolative_consequence.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-consequence",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Many persons now went to the wood, for the sake of getting the place, but\n      one only returned with a sort of explanation; for nobody went far enough,\n      that one not"
+        },
+        {
+          "anchor": {
+            "end_char": 511,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 338
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-288be428c35465c0",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Spike evidence for scientific_or_technical_explanation.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-explanation",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Those persons who were walking outside the town, where the houses were\n      farther apart, with gardens or little fields between them, could see the\n      evening sky still"
+        },
+        {
+          "anchor": {
+            "end_char": 4410,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 4234
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b0985dcc4dca500c",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Spike evidence for character_reaction.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-reaction",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There were three, therefore, that did not go; the others hastened on. The\n      sun shone, the birds sang, and the children sang too, and each held the\n      other by the hand;"
+        },
+        {
+          "anchor": {
+            "end_char": 3122,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 2945
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ccd1e3c2a565f4ab",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Spike evidence for reader_facing_contrast.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-contrast",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was the day of confirmation. The clergyman had spoken so touchingly,\n      the children who were confirmed had been greatly moved; it was an eventful\n      day for them; from"
+        },
+        {
+          "anchor": {
+            "end_char": 904,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 728
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d0e0d0aa6603269f",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Spike evidence for inquiry_or_scientific_method.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-method",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A long time passed, and people said to each other—“I wonder if there\n      is a church out in the wood? The bell has a tone that is wondrous sweet;\n      let us stroll thither,"
+        },
+        {
+          "anchor": {
+            "end_char": 179,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f1ae1b069873d772",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Spike evidence for storyworld_change.",
+          "provenance": [
+            {
+              "backend": "fake",
+              "raw_id": "ev-storyworld",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "People said “The Evening Bell is sounding, the sun is setting.” For a\n      strange wondrous tone was heard in the narrow streets of a large town. It\n      was like the sound of a"
+        }
+      ],
+      "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+  "story_path": "anderson/bell/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

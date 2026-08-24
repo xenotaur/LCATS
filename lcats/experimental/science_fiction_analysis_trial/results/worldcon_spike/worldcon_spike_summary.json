@@ -1,0 +1,97 @@
+{
+  "backend_kind": "fake",
+  "manifest_path": "experimental/science_fiction_analysis_trial/manifests/worldcon_spike_manifest.json",
+  "mode": "smoke",
+  "model": "fake-worldcon-spike",
+  "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike",
+  "plan": {
+    "approve_full_sample": false,
+    "approve_paid": false,
+    "backend_kind": "fake",
+    "base_url": null,
+    "estimated_cost_usd": 0.0,
+    "manifest_fingerprint": "f752f750faaf16b74d4fc22aa95ea5877a04bbd482a01ae8c716d93766df4755",
+    "max_stories": 3,
+    "mode": "smoke",
+    "model": "fake-worldcon-spike",
+    "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike",
+    "paid_model_calls_authorized": false,
+    "story_count": 3,
+    "story_ids": [
+      "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "lovecraft/the_colour_out_of_space",
+      "anderson/bell"
+    ]
+  },
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "status": "complete",
+  "stories": [
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 3885,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.007,
+      "output_tokens": 941,
+      "qualified_novum_count": 1,
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/mass_quantities/2_b_r_0_2_b__vonnegut/science-fiction.json",
+      "status": "complete",
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B"
+    },
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 17813,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.009,
+      "output_tokens": 1011,
+      "qualified_novum_count": 1,
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/lovecraft/the_colour_out_of_space/science-fiction.json",
+      "status": "complete",
+      "story_id": "lovecraft/the_colour_out_of_space",
+      "story_path": "lovecraft/the_colour_out_of_space/story.json",
+      "title": "The Colour out of Space by H. P. Lovecraft"
+    },
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 3125,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.005,
+      "output_tokens": 1094,
+      "qualified_novum_count": 1,
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/anderson/bell/science-fiction.json",
+      "status": "complete",
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell"
+    }
+  ],
+  "totals": {
+    "complete": 3,
+    "failed": 0,
+    "input_tokens": 24823,
+    "latency_seconds": 0.021,
+    "output_tokens": 3046,
+    "stories": 3
+  },
+  "version": "worldcon-knight-novum-spike-summary-v1",
+  "work_item": "WI-SF-0012"
+}
