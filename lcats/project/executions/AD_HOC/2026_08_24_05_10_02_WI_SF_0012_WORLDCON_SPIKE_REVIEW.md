@@ -8,7 +8,7 @@ instruction_source: https://github.com/xenotaur/LCATS/pull/384
 session_transcript: pending
 rerun_of: 2026_08_24_04_31_14_WI_SF_0012
 pr: https://github.com/xenotaur/LCATS/pull/384
-commit: 
+commit:
 created_at: 2026-08-24T05:10:02+00:00
 ---
 
