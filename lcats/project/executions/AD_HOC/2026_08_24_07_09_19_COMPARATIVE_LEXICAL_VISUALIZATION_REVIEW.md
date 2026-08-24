@@ -33,9 +33,10 @@ carried the substitute review's non-thread finding explicitly.
 
 - `scripts/version tools`: LCATS `0.1.1.dev2+g8cd79433f`, Python 3.12.13,
   Ruff 0.15.0, Black 25.11.0.
-- The canonical formatter wrapper retains its pre-existing nonexistent
-  `tools/` default, and sandbox socket restrictions prevent Black's
-  multiprocessing check. No Python files changed.
+- This session's sparse checkout omitted the repository's tracked `tools/`
+  directory, preventing the canonical formatter wrapper's default invocation;
+  sandbox socket restrictions also prevented Black's multiprocessing check.
+  No Python files changed.
 - `ruff check src tests`: all checks passed.
 - `scripts/test`, without injected sandbox proxy variables: 2,108 tests OK,
   3 skipped.

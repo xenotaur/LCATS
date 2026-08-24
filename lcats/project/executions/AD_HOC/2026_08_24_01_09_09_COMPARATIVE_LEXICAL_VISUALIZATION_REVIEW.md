@@ -34,10 +34,10 @@ skipped.
 
 - `scripts/version tools`: LCATS `0.1.1.dev2+g8cd79433f`, Python 3.12.13,
   Ruff 0.15.0, Black 25.11.0.
-- Canonical `scripts/format --check --diff`: blocked by the wrapper's stale
-  nonexistent `tools/` default; direct Black validation was also blocked by
-  the execution sandbox's prohibition on multiprocessing sockets. No Python
-  files changed in this review response.
+- Canonical `scripts/format --check --diff`: blocked because this session's
+  sparse checkout omitted the repository's tracked `tools/` directory; direct
+  Black validation was also blocked by the execution sandbox's prohibition on
+  multiprocessing sockets. No Python files changed in this review response.
 - `ruff check src tests`: all checks passed.
 - `scripts/test`: 2,108 tests OK, 3 skipped.
 - `lrh validate`: 0 errors, 237 repository warnings.

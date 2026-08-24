@@ -39,10 +39,10 @@ skipped. The fixes were published in commit
 
 - `scripts/version tools`: LCATS `0.1.1.dev2+g8cd79433f`, Python 3.12.13,
   Ruff 0.15.0, Black 25.11.0.
-- Canonical `scripts/format --check --diff`: the wrapper's pre-existing
-  nonexistent `tools/` default prevents the default invocation; an explicit
-  `src tests` run was blocked by the sandbox's prohibition on Black
-  multiprocessing sockets. No Python files changed.
+- Canonical `scripts/format --check --diff`: this session's sparse checkout
+  omitted the repository's tracked `tools/` directory, preventing the default
+  invocation; an explicit `src tests` run was blocked by the sandbox's
+  prohibition on Black multiprocessing sockets. No Python files changed.
 - `ruff check src tests`: all checks passed.
 - `scripts/test`, rerun without sandbox proxy variables: 2,108 tests OK, 3
   skipped. The initial run's three errors were caused by the injected SOCKS
