@@ -1,4 +1,4 @@
-# Knight/Novum Contract Canary Runbook
+# Knight/Suvin (Novum) Contract Canary Runbook
 
 This runbook describes the experiment-local canary governed by `WI-SF-0015`.
 It is a run procedure, not a paid-run approval and not a claim of theoretical
@@ -30,7 +30,7 @@ theoretical validation set.
 1. Run the deterministic unit and structural test suite.
 2. Create the reviewed `contract_canary_manifest.json` with story hashes and
    the selected backend/configuration.
-3. Run three local or fixture trials first. Keep `max_failures=3`.
+3. Run three local-model semantic trials first. Keep `max_failures=3`. Fixture mode may be used for structural contract tests, but it does not count as a semantic canary unless its outputs are explicitly contrastive and case-specific.
 4. Inspect every trial's raw output, canonical output, normalization findings,
    quarantine records, checkpoints, sidecars, and JSONL logs.
 5. Stop and replan if any output silently invents evidence, silently drops an
@@ -40,6 +40,15 @@ theoretical validation set.
 7. After explicit approval, run no more than two Opus trials and no more than
    five total two-story trials.
 8. Write `contract_canary_report.md` and decide proceed, revise, or stop.
+
+## Fixture restriction
+
+The existing deterministic spike fixture emits positive Knight and N/C/H
+decisions for every story. It is therefore suitable for exercising persistence,
+validation, and quarantine paths, but not for evaluating the positive/negative
+semantic expectations in this runbook. A fixture-backed semantic trial must
+provide case-specific contrastive outputs and document that mapping in the
+manifest; otherwise use the local model backend.
 
 ## Per-trial output layout
 
