@@ -31,7 +31,7 @@ exit_criteria:
   - Ordered multi-subset and universe-relative complement figures share a declared vocabulary, term order, metric semantics, and visible scale, with selector overlap recorded
   - Token-detail-v2 and linguistics-lexicon-v1 are implemented, documented, validated, and backward compatible with existing compact and v1 artifacts
   - A new 146-story experiment reports rich-data validation, POS audit quality, runtime, storage, and a full-corpus go/no-go recommendation without writing generated sidecars into corpora/
-  - POS-aware noun comparison figures and a reproducible paper/presentation figure package are produced with adjacent CSV and manifest evidence
+  - If the pilot authorizes sample POS figures, POS-aware noun comparisons are produced with adjacent CSV and manifest evidence; otherwise the POS integration item and figure package record an evidence-backed defer/no-go outcome without using rejected data
   - The conditional full-corpus item records either a validated rich-data run or an explicit evidence-backed no-go/defer decision
   - All listed work items are resolved and lrh validate reports 0 errors introduced by the workstream
 ---
@@ -61,7 +61,9 @@ figure production.
 - Introduce backward-compatible rich-token-v2 and derived lexical-v1 artifacts
   with strict validation and reproducible provenance.
 - Run a 146-story pilot with human POS audit and measured performance/storage.
-- Integrate UPOS filters and produce noun-aware comparison charts.
+- Integrate UPOS filters and, when the pilot authorizes them, produce noun-aware
+  comparison charts; otherwise close the dependent work with explicit
+  evidence-backed defer/no-go records.
 - Make the full-corpus rich run conditional on pilot gates and package final
   reproducible paper/presentation figures.
 
@@ -104,27 +106,29 @@ figure production.
   surface/lemma/UPOS counts and denominators from v2 token details.
 - **WI-LINGUISTICS-0007 — 146-story rich linguistic pilot.** Run the balanced
   sample, audit noun-family POS quality, and measure runtime/storage.
-- **WI-VISUALIZE-0093 — POS-aware comparison and noun figures.** Integrate the
-  lexical artifacts with comparison filters and produce reviewed noun charts.
+- **WI-VISUALIZE-0093 — POS-aware comparison and noun figures.** On a pilot go
+  result, integrate lexical artifacts and produce reviewed noun charts; on
+  defer/no-go, record the decision and required remediation without figures.
 - **WI-LINGUISTICS-0008 — Conditional full-corpus rich run.** Apply the pilot
   gates and either run/validate the full corpus or record a no-go/defer result.
 - **WI-VISUALIZE-0095 — Aligned multi-subset comparison figures.** Compose
   ordered panels such as `S1`, `S2`, `S3` or their universe-relative
   complements with shared vocabulary, ordering, scale, and provenance.
 - **WI-VISUALIZE-0094 — Paper figure package and dogfooding.** Produce the final
-  count, frequency, TF-IDF, complement, overlay, stopword, and noun variants
-  with reproducibility evidence.
+  count, frequency, TF-IDF, complement, overlay, and stopword variants plus
+  pilot-authorized noun variants, all with reproducibility evidence.
 
 ## Dependencies / Delivery Order
 
 `WI-VISUALIZE-0091` and `WI-LINGUISTICS-0005` may start in parallel.
 `WI-VISUALIZE-0092` follows 0091; `WI-LINGUISTICS-0006` follows 0005; the
 sample pilot follows both linguistics items. POS integration follows the
-renderer, lexical artifact, and accepted pilot. The conditional full-corpus
-decision follows the pilot but does not block sample-based paper figures. The
-multi-subset figure follows the comparison engine and two-series renderer.
-Final dogfooding follows the renderer, POS integration, and multi-panel
-composer.
+renderer, lexical artifact, and resolved pilot: it implements authorized
+figures after a go result or records an evidence-backed defer/no-go resolution.
+The conditional full-corpus decision follows the pilot but does not block the
+paper package. The multi-subset figure follows the comparison engine and
+two-series renderer. Final dogfooding follows the renderer, resolution of POS
+integration, and the multi-panel composer.
 
 ## Exit Criteria
 
@@ -139,8 +143,10 @@ composer.
   count-reconciliation, and deterministic-regeneration validation.
 - The 146-story pilot includes preregistered human audit results and a clear
   quality/performance/storage recommendation.
-- Noun figures state whether `NOUN`, `PROPN`, or both were selected and ship
-  with adjacent CSV/manifest evidence.
+- On a pilot go result, noun figures state whether `NOUN`, `PROPN`, or both were
+  selected and ship with adjacent CSV/manifest evidence; on defer/no-go, the
+  downstream items resolve with linked decision evidence and no noun outputs
+  from rejected data.
 - The full-corpus item resolves with either successful validated evidence or a
   documented, reviewable no-go/defer outcome.
 - All nine items are resolved without modifying existing command defaults or

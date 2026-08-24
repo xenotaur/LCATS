@@ -47,7 +47,7 @@ required_evidence:
   - manual_review
 artifacts_expected:
   - src/lcats/visualize/
-  - tests/visualize/
+  - tests/visualize_tests/
   - docs/how-to/run-visualize.md
 ---
 

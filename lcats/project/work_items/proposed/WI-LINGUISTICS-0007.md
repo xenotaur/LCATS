@@ -39,7 +39,7 @@ acceptance:
   - A preregistered stratified human audit reports NOUN, PROPN, and combined noun-family precision, recall, confusion, and genre slices with adjudication guidance
   - The report measures completion, validation, runtime, peak memory where practical, bytes per story/token, lexical size, and projected full-corpus cost
   - The pilot applies the proposed combined noun-family 0.90 precision/recall gate and a preregistered severe-genre-failure rule, then records a clear quality recommendation
-  - Results include a retention recommendation and explicit go/no-go gates for WI-LINGUISTICS-0008; no corpora/ files change
+  - Results include separate explicit proceed/defer/no-go decisions for sample POS figures in WI-VISUALIZE-0093 and the full-corpus run in WI-LINGUISTICS-0008; no corpora/ files change
 required_evidence:
   - test_output
   - validation_output
@@ -105,7 +105,9 @@ prose well enough and that rich artifacts have an acceptable operational cost.
 5. Report failures, confusion, overall/by-genre metrics, completion, elapsed
    time, memory where practical, artifact sizes, projection assumptions, and
    retained-output options.
-6. Give `WI-LINGUISTICS-0008` an explicit proceed/defer/no-go recommendation.
+6. Give `WI-VISUALIZE-0093` and `WI-LINGUISTICS-0008` separate explicit
+   proceed/defer/no-go recommendations; a failed sample-figure gate must identify
+   required remediation without authorizing figures from rejected data.
 
 ## Non-Goals
 
@@ -145,5 +147,6 @@ prose well enough and that rich artifacts have an acceptable operational cost.
 
 ## Dependencies / Order
 
-Starts only after v2 and lexical artifacts are implemented. Its gate controls
-the conditional full-corpus item and acceptance of POS-aware paper figures.
+Starts only after v2 and lexical artifacts are implemented. Its separate gates
+control the conditional full-corpus item and acceptance of POS-aware paper
+figures; either gate may resolve as proceed, defer, or no-go.

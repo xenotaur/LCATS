@@ -269,6 +269,13 @@ reviewable no-go/defer decision. Generated bulk-artifact retention is selected
 from ordinary checked-in files, compressed release/archive storage, columnar
 export, or manifests plus derived lexical artifacts based on pilot evidence.
 
+The pilot records a separate sample-figure decision. A proceed result authorizes
+POS integration and noun figures from the validated sample artifacts. A
+defer/no-go result is also a valid completion path: the POS integration and
+paper-package items record the decision and required remediation, omit noun
+figures, and must not use rejected pilot data. This keeps the workstream
+resolvable without weakening the quality gate.
+
 ## Output Contract
 
 Each comparison run produces:
@@ -317,7 +324,8 @@ Delivery is split into nine reviewable items:
 4. `WI-LINGUISTICS-0006` adds the deterministic derived lexical artifact.
 5. `WI-LINGUISTICS-0007` runs and audits the new 146-story rich-data pilot.
 6. `WI-VISUALIZE-0093` integrates lexical/POS filtering and produces the noun
-   comparison figures.
+   comparison figures after a pilot go result, or records an evidence-backed
+   defer/no-go resolution without producing them.
 7. `WI-LINGUISTICS-0008` evaluates the gates and conditionally runs rich
    extraction over the full corpus.
 8. `WI-VISUALIZE-0095` composes aligned small-multiple figures for several
@@ -327,10 +335,11 @@ Delivery is split into nine reviewable items:
 
 Items 1 and 3 may proceed in parallel. Item 2 depends on item 1; item 4 depends
 on item 3; item 5 depends on items 3 and 4; item 6 depends on items 2, 4, and 5.
-The conditional full run depends on the pilot but does not block sample-based
-paper figures. The multi-panel composer depends on the comparison engine and
-two-series renderer. Final figure dogfooding depends on the renderer, POS
-integration, and multi-panel composer.
+The conditional full run depends on the pilot but does not block the paper
+package. Sample-based noun figures are conditional on the pilot's separate
+POS-figure gate. The multi-panel composer depends on the comparison engine and
+two-series renderer. Final figure dogfooding depends on the renderer, resolution
+of POS integration, and the multi-panel composer.
 
 ## Cross-References
 

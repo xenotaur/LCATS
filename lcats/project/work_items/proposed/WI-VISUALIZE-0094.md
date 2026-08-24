@@ -36,7 +36,7 @@ forbidden_actions:
   - claim_statistical_significance
   - require_full_corpus_rich_run
 acceptance:
-  - A preregistered figure matrix covers whole-corpus and 146-story universes, science-fiction versus reference and complement, mirrored, overlay, and aligned multi-subset styles, and agreed raw/normalized/TF-IDF/stopword/noun variants
+  - A preregistered figure matrix covers whole-corpus and 146-story universes, science-fiction versus reference and complement, mirrored, overlay, and aligned multi-subset styles, and agreed raw/normalized/TF-IDF/stopword variants; noun variants are included only when the pilot authorizes them
   - Every committed final figure has adjacent authoritative CSV and comparison manifest with exact selections, denominators, filters, vocabulary/order, revisions, model provenance where applicable, and output hashes
   - Figures are reviewed for numerical agreement, readable labels, grayscale/color-blind interpretation, vector rendering, and consistent paper/presentation typography
   - The report records unsuccessful or rejected variants and selection rationale rather than cherry-picking unexplained outputs
@@ -104,7 +104,8 @@ records why final figures were selected.
    stopword policy, term form, POS set, style, dimensions, and output formats.
 2. Generate immediate non-POS figures from current corpus text and the fixed
    sample; include an aligned several-subset or several-complement figure; add
-   noun figures from accepted pilot lexical artifacts.
+   noun figures only from pilot-authorized lexical artifacts, or record their
+   evidence-backed omission after a defer/no-go outcome.
 3. Store each figure beside CSV and manifest; build `figure_index.json` with
    title, intended claim, status, paths, command, and review notes.
 4. Verify plotted values against CSV, selectors against story lists, and output
@@ -130,7 +131,9 @@ records why final figures were selected.
   science fiction versus the 126-story sample complement.
 - At least one final candidate compares several ordered subsets or their
   universe-relative complements using one aligned vocabulary and term order.
-- Noun figures explicitly distinguish `NOUN` from `PROPN` policy.
+- When authorized, noun figures explicitly distinguish `NOUN` from `PROPN`
+  policy; after defer/no-go, the package records the omission and links the
+  pilot decision instead of treating noun figures as required.
 - Selected figures reproduce from documented commands in a clean output path.
 - Editorial review identifies which figure/variant serves each paper claim.
 
@@ -154,6 +157,7 @@ records why final figures were selected.
 
 ## Dependencies / Order
 
-Starts after the renderer, POS integration, and multi-panel composer. It may
-incorporate full-corpus rich results if `WI-LINGUISTICS-0008` completes with a
-go outcome, but does not depend on them.
+Starts after the renderer, resolution of the POS-integration item, and the
+multi-panel composer. It may incorporate noun figures only after a POS-figure
+go outcome and full-corpus rich results only after `WI-LINGUISTICS-0008`
+completes with a go outcome; neither conditional output blocks the package.
