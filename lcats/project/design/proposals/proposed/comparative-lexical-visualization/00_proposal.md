@@ -4,7 +4,7 @@ type: design_proposal
 title: Comparative Lexical Visualization and Rich Linguistic Annotations
 status: proposed
 created_on: 2026-08-23
-updated_on: 2026-08-23
+updated_on: 2026-08-24
 implementation_status: not_started
 implemented_by:
   - WI-VISUALIZE-0091
