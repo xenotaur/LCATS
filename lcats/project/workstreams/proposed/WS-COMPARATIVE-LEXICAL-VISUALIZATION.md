@@ -5,7 +5,7 @@ title: Comparative Lexical Visualization
 status: proposed
 stage: planned
 origin: design_review
-summary: Deliver aligned mirrored and reference-overlay lexical charts, rich token annotations, a queryable lexical index, a 146-story POS pilot, and gated paper figures.
+summary: Deliver aligned mirrored, reference-overlay, and multi-subset lexical charts, rich token annotations, a queryable lexical index, a 146-story POS pilot, and gated paper figures.
 related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap:
@@ -23,12 +23,14 @@ work_items:
   - WI-LINGUISTICS-0007
   - WI-VISUALIZE-0093
   - WI-LINGUISTICS-0008
+  - WI-VISUALIZE-0095
   - WI-VISUALIZE-0094
 execution_records: []
 evidence: []
 exit_criteria:
   - A versioned comparison specification and selector engine produce deterministic aligned comparison tables with explicit universe, membership, metric, denominator, vocabulary, order, and provenance semantics
   - Mirrored-pair and commensurate reference-overlay figures are available through reusable Python APIs and a thin CLI without changing existing visualize defaults
+  - Ordered multi-subset and universe-relative complement figures share a declared vocabulary, term order, metric semantics, and visible scale, with selector overlap recorded
   - Token-detail-v2 and linguistics-lexicon-v1 are implemented, documented, validated, and backward compatible with existing compact and v1 artifacts
   - A new 146-story experiment reports rich-data validation, POS audit quality, runtime, storage, and a full-corpus go/no-go recommendation without writing generated sidecars into corpora/
   - POS-aware noun comparison figures and a reproducible paper/presentation figure package are produced with adjacent CSV and manifest evidence
@@ -56,6 +58,8 @@ figure production.
   denominator, vocabulary, ordering, and preprocessing semantics.
 - Add mirrored-pair and gray-reference overlay charts through reusable analysis
   and rendering APIs plus a thin `lcats visualize compare` command.
+- Add aligned small-multiple figures for ordered subsets or their complements,
+  with common vocabulary/order/scale and explicit overlap provenance.
 - Introduce backward-compatible rich-token-v2 and derived lexical-v1 artifacts
   with strict validation and reproducible provenance.
 - Run a 146-story pilot with human POS audit and measured performance/storage.
@@ -106,6 +110,9 @@ figure production.
   lexical artifacts with comparison filters and produce reviewed noun charts.
 - **WI-LINGUISTICS-0008 — Conditional full-corpus rich run.** Apply the pilot
   gates and either run/validate the full corpus or record a no-go/defer result.
+- **WI-VISUALIZE-0095 — Aligned multi-subset comparison figures.** Compose
+  ordered panels such as `S1`, `S2`, `S3` or their universe-relative
+  complements with shared vocabulary, ordering, scale, and provenance.
 - **WI-VISUALIZE-0094 — Paper figure package and dogfooding.** Produce the final
   count, frequency, TF-IDF, complement, overlay, stopword, and noun variants
   with reproducibility evidence.
@@ -116,8 +123,10 @@ figure production.
 `WI-VISUALIZE-0092` follows 0091; `WI-LINGUISTICS-0006` follows 0005; the
 sample pilot follows both linguistics items. POS integration follows the
 renderer, lexical artifact, and accepted pilot. The conditional full-corpus
-decision follows the pilot but does not block sample-based paper figures. Final
-dogfooding follows the renderer and POS integration.
+decision follows the pilot but does not block sample-based paper figures. The
+multi-subset figure follows the comparison engine and two-series renderer.
+Final dogfooding follows the renderer, POS integration, and multi-panel
+composer.
 
 ## Exit Criteria
 
@@ -125,6 +134,9 @@ dogfooding follows the renderer and POS integration.
   vocabulary, order, values, and displayed differences deterministically.
 - The mirrored and overlay charts pass analysis/rendering/CLI tests and include
   color-independent encodings for reference, overlap, excess, and deficit.
+- Multi-subset figures preserve one declared universe, aligned vocabulary and
+  order, common metric semantics, and a common visible scale by default; their
+  manifests report selector sizes and pairwise overlaps.
 - Rich token and lexical artifacts pass schema, identity, span, dependency,
   count-reconciliation, and deterministic-regeneration validation.
 - The 146-story pilot includes preregistered human audit results and a clear
@@ -133,7 +145,7 @@ dogfooding follows the renderer and POS integration.
   with adjacent CSV/manifest evidence.
 - The full-corpus item resolves with either successful validated evidence or a
   documented, reviewable no-go/defer outcome.
-- All eight items are resolved without modifying existing command defaults or
+- All nine items are resolved without modifying existing command defaults or
   promoting generated linguistic sidecars into `corpora/` implicitly.
 
 ## Non-Goals

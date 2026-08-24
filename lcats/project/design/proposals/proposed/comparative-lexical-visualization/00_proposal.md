@@ -14,6 +14,7 @@ implemented_by:
   - WI-LINGUISTICS-0007
   - WI-VISUALIZE-0093
   - WI-LINGUISTICS-0008
+  - WI-VISUALIZE-0095
   - WI-VISUALIZE-0094
 supersedes: []
 superseded_by: null
@@ -178,21 +179,27 @@ frequency. Ordering may be controlled by left value, right value, signed
 difference, absolute difference, alphabetical order, or an explicit term list.
 Ties use a documented deterministic secondary order.
 
-### Decision 5: Provide two related but semantically distinct chart types
+### Decision 5: Provide related two-series and multi-panel chart types
 
 Options considered:
 
 - only a conventional grouped bar chart;
 - only a population-pyramid/mirrored chart;
-- a mirrored pair plus a reference-overlay variant.
+- a mirrored pair plus a reference-overlay variant;
+- aligned small multiples for comparing several subsets or their complements.
 
-**Chosen: both variants.** The mirrored pair places one aligned series left of
+**Chosen: all three variants.** The mirrored pair places one aligned series left of
 the zero line and the other right, with independent scales permitted when axes
 are clearly labelled. The reference-overlay chart places the target on the
 right over a gray reference bar, uses a narrower and/or hatched target mark,
 and encodes signed excess or deficit beyond the overlap. Texture and labels
 carry meaning independently of color. A configurable reference selector can be
-the full universe or the target’s complement.
+the full universe or the target’s complement. The multi-panel variant composes
+an ordered sequence such as `S1`, `S2`, `S3` or `U - S1`, `U - S2`, `U - S3`
+against one aligned vocabulary and term order. It uses a common visible scale
+by default, records pairwise selector overlap, and supports a shared or
+per-panel reference/complement overlay without implying that overlapping genre
+labels partition the universe.
 
 ### Decision 6: Treat preprocessing and POS selection as query policy
 
@@ -300,7 +307,7 @@ than brittle pixel-perfect images.
 
 The governing workstream is
 `project/workstreams/proposed/WS-COMPARATIVE-LEXICAL-VISUALIZATION.md`.
-Delivery is split into eight reviewable items:
+Delivery is split into nine reviewable items:
 
 1. `WI-VISUALIZE-0091` defines `ComparisonSpec`, selector algebra, aligned
    vocabulary, metrics, tabular output, and provenance.
@@ -313,14 +320,17 @@ Delivery is split into eight reviewable items:
    comparison figures.
 7. `WI-LINGUISTICS-0008` evaluates the gates and conditionally runs rich
    extraction over the full corpus.
-8. `WI-VISUALIZE-0094` dogfoods the supported variants and produces the final
+8. `WI-VISUALIZE-0095` composes aligned small-multiple figures for several
+   subsets or their universe-relative complements.
+9. `WI-VISUALIZE-0094` dogfoods the supported variants and produces the final
    paper/presentation figure package.
 
 Items 1 and 3 may proceed in parallel. Item 2 depends on item 1; item 4 depends
 on item 3; item 5 depends on items 3 and 4; item 6 depends on items 2, 4, and 5.
 The conditional full run depends on the pilot but does not block sample-based
-paper figures. Final figure dogfooding depends on the renderer and POS
-integration.
+paper figures. The multi-panel composer depends on the comparison engine and
+two-series renderer. Final figure dogfooding depends on the renderer, POS
+integration, and multi-panel composer.
 
 ## Cross-References
 
