@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from lcats.analysis import story_analysis
 
 
-class MembershipMode(enum.StrEnum):
+class MembershipMode(str, enum.Enum):
     """Supported genre-membership interpretations."""
 
     CANDIDATE = "candidate"
@@ -22,7 +22,7 @@ class MembershipMode(enum.StrEnum):
     SELECTION = "selection"
 
 
-class SelectorKind(enum.StrEnum):
+class SelectorKind(str, enum.Enum):
     """Selector variants resolved against an explicit universe."""
 
     ALL = "all"
@@ -33,7 +33,7 @@ class SelectorKind(enum.StrEnum):
     COMPLEMENT = "complement"
 
 
-class MetricName(enum.StrEnum):
+class MetricName(str, enum.Enum):
     """Supported comparison metrics."""
 
     RAW_COUNT = "raw_count"
@@ -45,7 +45,7 @@ class MetricName(enum.StrEnum):
     TFIDF_CONTRAST = "tfidf_contrast"
 
 
-class VocabularyPolicy(enum.StrEnum):
+class VocabularyPolicy(str, enum.Enum):
     """Candidate-vocabulary construction policies."""
 
     ALL = "all"
@@ -57,7 +57,7 @@ class VocabularyPolicy(enum.StrEnum):
     INTERSECTION_TOP = "intersection_top"
 
 
-class Ordering(enum.StrEnum):
+class Ordering(str, enum.Enum):
     """Display-order controllers for an aligned comparison table."""
 
     LEFT_VALUE = "left_value"
@@ -68,7 +68,7 @@ class Ordering(enum.StrEnum):
     EXPLICIT = "explicit"
 
 
-class ComparisonStyle(enum.StrEnum):
+class ComparisonStyle(str, enum.Enum):
     """Rendering styles whose compatibility rules affect analysis output."""
 
     MIRRORED = "mirrored"
@@ -142,7 +142,7 @@ class MetricSpec:
     """Metric plus normalization metadata."""
 
     name: MetricName
-    denominator: str = "included_tokens"
+    denominator: str = "auto"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -204,6 +204,15 @@ class MetricSeries:
 
 
 @dataclasses.dataclass(frozen=True)
+class TfidfFit:
+    """One TF-IDF matrix fit over the declared universe."""
+
+    terms: tuple[str, ...]
+    matrix: Any
+    index_by_id: Mapping[str, int]
+
+
+@dataclasses.dataclass(frozen=True)
 class ComparisonRow:
     """One authoritative aligned term row."""
 
@@ -246,21 +255,18 @@ def compare(corpus: ComparisonCorpus, spec: ComparisonSpec) -> ComparisonResult:
     left_resolution = resolve_selector(corpus, universe_ids, spec.left)
     right_resolution = resolve_selector(corpus, universe_ids, spec.right)
     tokenized = _tokenize_universe(corpus, universe_ids, spec.token_filter)
+    tfidf_fit = _fit_tfidf(corpus, universe_ids, spec.token_filter)
     left_series = _metric_series(
-        corpus=corpus,
-        universe_ids=universe_ids,
         selected_ids=left_resolution.story_ids,
         tokenized=tokenized,
         metric=spec.left_metric,
-        token_filter=spec.token_filter,
+        tfidf_fit=tfidf_fit,
     )
     right_series = _metric_series(
-        corpus=corpus,
-        universe_ids=universe_ids,
         selected_ids=right_resolution.story_ids,
         tokenized=tokenized,
         metric=spec.right_metric,
-        token_filter=spec.token_filter,
+        tfidf_fit=tfidf_fit,
     )
     terms = _select_vocabulary(left_series, right_series, spec.vocabulary)
     rows = _build_rows(terms, left_series, right_series, spec.ordering)
@@ -331,6 +337,8 @@ def validate_reference_overlay_compatibility(spec: ComparisonSpec) -> None:
 
 
 def _validate_spec(spec: ComparisonSpec) -> None:
+    if spec.universe.kind not in ("corpus", "story_list", "manifest"):
+        raise ValueError(f"unsupported universe kind: {spec.universe.kind!r}")
     if spec.vocabulary.top_k is not None and spec.vocabulary.top_k < 1:
         raise ValueError("vocabulary.top_k must be >= 1 when provided.")
     if spec.vocabulary.min_document_count < 1:
@@ -341,14 +349,39 @@ def _validate_spec(spec: ComparisonSpec) -> None:
         raise ValueError(
             "only term_form='surface' is supported before lexical artifacts."
         )
+    _validate_metric_denominator(spec.left_metric)
+    _validate_metric_denominator(spec.right_metric)
     validate_reference_overlay_compatibility(spec)
+
+
+def _validate_metric_denominator(metric: MetricSpec) -> None:
+    effective = _effective_denominator(metric.name)
+    if metric.denominator not in ("auto", effective):
+        raise ValueError(
+            f"{metric.name.value} supports denominator 'auto' or "
+            f"{effective!r}; got {metric.denominator!r}."
+        )
+
+
+def _effective_denominator(metric_name: MetricName) -> str:
+    if metric_name in (MetricName.RAW_COUNT, MetricName.DOCUMENT_COUNT):
+        return "none"
+    if metric_name == MetricName.PER_MILLION:
+        return "included_tokens"
+    if metric_name == MetricName.DOCUMENT_PERCENTAGE:
+        return "documents"
+    if metric_name == MetricName.MEAN_DOCUMENT_RELATIVE_FREQUENCY:
+        return "included_tokens_per_document"
+    if metric_name in (MetricName.MEAN_TFIDF, MetricName.TFIDF_CONTRAST):
+        return "tfidf_l2_norm"
+    raise ValueError(f"unsupported metric: {metric_name!r}")
 
 
 def _resolve_universe(
     corpus: ComparisonCorpus, universe: UniverseSpec
 ) -> tuple[str, ...]:
     all_ids = tuple(document.story_id for document in corpus.documents)
-    if not universe.story_ids:
+    if universe.kind == "corpus" and not universe.story_ids:
         return all_ids
     all_set = set(all_ids)
     requested = _known_story_ids(universe.story_ids, all_set)
@@ -388,7 +421,7 @@ def _tokenize_universe(
 
 
 def _tokenize(text: str, token_filter: TokenFilter) -> list[str]:
-    if not token_filter.include_stopwords:
+    if not token_filter.include_stopwords and token_filter.lowercase:
         return [
             token
             for token in story_analysis.get_keywords(text)
@@ -397,17 +430,19 @@ def _tokenize(text: str, token_filter: TokenFilter) -> list[str]:
     tokens = re.findall(r"[A-Za-z]+", text)
     if token_filter.lowercase:
         tokens = [token.lower() for token in tokens]
+    if not token_filter.include_stopwords:
+        tokens = [
+            token for token in tokens if token.lower() not in story_analysis._STOPWORDS
+        ]
     return [token for token in tokens if len(token) >= token_filter.min_length]
 
 
 def _metric_series(
     *,
-    corpus: ComparisonCorpus,
-    universe_ids: tuple[str, ...],
     selected_ids: tuple[str, ...],
     tokenized: Mapping[str, tuple[str, ...]],
     metric: MetricSpec,
-    token_filter: TokenFilter,
+    tfidf_fit: TfidfFit | None,
 ) -> MetricSeries:
     raw_counts, document_counts = _support_counts(selected_ids, tokenized)
     token_denominator = sum(len(tokenized[story_id]) for story_id in selected_ids)
@@ -432,9 +467,10 @@ def _metric_series(
     elif metric.name == MetricName.MEAN_DOCUMENT_RELATIVE_FREQUENCY:
         values = _mean_document_relative_frequency(selected_ids, tokenized)
     elif metric.name in (MetricName.MEAN_TFIDF, MetricName.TFIDF_CONTRAST):
-        values = _tfidf_values(
-            corpus, universe_ids, selected_ids, metric.name, token_filter
-        )
+        if tfidf_fit is None:
+            values = {}
+        else:
+            values = _tfidf_values(tfidf_fit, selected_ids, metric.name)
     else:
         raise ValueError(f"unsupported metric: {metric.name!r}")
 
@@ -477,15 +513,13 @@ def _mean_document_relative_frequency(
     return {term: value / denominator for term, value in values.items()}
 
 
-def _tfidf_values(
+def _fit_tfidf(
     corpus: ComparisonCorpus,
     universe_ids: tuple[str, ...],
-    selected_ids: tuple[str, ...],
-    metric_name: MetricName,
     token_filter: TokenFilter,
-) -> dict[str, float]:
-    if not universe_ids or not selected_ids:
-        return {}
+) -> TfidfFit | None:
+    if not universe_ids:
+        return None
     by_story_id = corpus.by_story_id
     texts = [by_story_id[story_id].text for story_id in universe_ids]
     vectorizer = TfidfVectorizer(
@@ -497,16 +531,32 @@ def _tfidf_values(
         matrix = vectorizer.fit_transform(texts)
     except ValueError as exc:
         if "empty vocabulary" in str(exc):
-            return {}
+            return None
         raise
-    terms = vectorizer.get_feature_names_out()
-    index_by_id = {story_id: i for i, story_id in enumerate(universe_ids)}
-    selected_indices = [index_by_id[story_id] for story_id in selected_ids]
+    return TfidfFit(
+        terms=tuple(str(term) for term in vectorizer.get_feature_names_out()),
+        matrix=matrix,
+        index_by_id={story_id: i for i, story_id in enumerate(universe_ids)},
+    )
+
+
+def _tfidf_values(
+    tfidf_fit: TfidfFit,
+    selected_ids: tuple[str, ...],
+    metric_name: MetricName,
+) -> dict[str, float]:
+    if not selected_ids:
+        return {}
+    matrix = tfidf_fit.matrix
+    terms = tfidf_fit.terms
+    selected_indices = [tfidf_fit.index_by_id[story_id] for story_id in selected_ids]
     selected_mean = np.asarray(matrix[selected_indices].mean(axis=0)).ravel()
     if metric_name == MetricName.TFIDF_CONTRAST:
         selected_set = set(selected_ids)
         complement_indices = [
-            i for i, story_id in enumerate(universe_ids) if story_id not in selected_set
+            index
+            for story_id, index in tfidf_fit.index_by_id.items()
+            if story_id not in selected_set
         ]
         if not complement_indices:
             return {}
@@ -663,8 +713,8 @@ def _manifest(
             "story_ids": intersection,
         },
         "metrics": {
-            "left": dataclasses.asdict(spec.left_metric),
-            "right": dataclasses.asdict(spec.right_metric),
+            "left": _metric_dict(spec.left_metric),
+            "right": _metric_dict(spec.right_metric),
             "tfidf_fit_scope": (
                 "universe"
                 if (
@@ -681,7 +731,11 @@ def _manifest(
             "token_filter": dataclasses.asdict(spec.token_filter),
             "tokenizer": (
                 "lcats.analysis.story_analysis.get_keywords"
-                if not spec.token_filter.include_stopwords
+                if (
+                    not spec.token_filter.include_stopwords
+                    and spec.token_filter.lowercase
+                    and spec.token_filter.min_length >= 3
+                )
                 else "lcats.visualize.comparison.alpha_tokenizer"
             ),
             "stopword_policy": (
@@ -697,6 +751,14 @@ def _manifest(
         "output_formats": list(spec.output_formats),
         "warnings": warnings,
         "note": "Visual differences and TF-IDF contrasts are not significance tests.",
+    }
+
+
+def _metric_dict(metric: MetricSpec) -> dict[str, Any]:
+    return {
+        "name": metric.name.value,
+        "denominator": metric.denominator,
+        "effective_denominator": _effective_denominator(metric.name),
     }
 
 

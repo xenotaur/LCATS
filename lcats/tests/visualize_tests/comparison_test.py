@@ -3,6 +3,7 @@
 import dataclasses
 import json
 import unittest
+from unittest import mock
 
 from lcats.visualize import analysis
 from lcats.visualize import comparison
@@ -110,6 +111,17 @@ class TestSelectors(unittest.TestCase):
         with self.assertRaises(ValueError):
             comparison.compare(_corpus(), spec)
 
+    def test_explicit_empty_story_list_universe_stays_empty(self):
+        """An explicit empty universe is not treated as the whole corpus."""
+        spec = _spec(
+            universe=comparison.UniverseSpec(kind="story_list", story_ids=()),
+        )
+        result = comparison.compare(_corpus(), spec)
+
+        self.assertEqual(result.manifest["universe"]["story_ids"], [])
+        self.assertEqual(result.manifest["left"]["story_ids"], [])
+        self.assertEqual(result.manifest["right"]["story_ids"], [])
+
 
 class TestMetrics(unittest.TestCase):
     """Metric and support-count behavior."""
@@ -152,6 +164,21 @@ class TestMetrics(unittest.TestCase):
 
         self.assertEqual(rows["shared"].left_value, 100.0)
         self.assertEqual(rows["shared"].right_value, 100.0)
+        self.assertEqual(
+            result.manifest["metrics"]["left"]["effective_denominator"], "documents"
+        )
+
+    def test_metric_rejects_unsupported_denominator(self):
+        """Metric provenance cannot claim a denominator the calculation ignores."""
+        spec = _spec(
+            left_metric=comparison.MetricSpec(
+                comparison.MetricName.PER_MILLION,
+                denominator="documents",
+            )
+        )
+
+        with self.assertRaises(ValueError):
+            comparison.compare(_corpus(), spec)
 
     def test_tfidf_contrast_fits_once_over_universe(self):
         """TF-IDF contrast uses the shared universe and records that provenance."""
@@ -207,6 +234,55 @@ class TestMetrics(unittest.TestCase):
         result = comparison.compare(corpus, spec)
 
         self.assertIn("the", [row.term for row in result.rows])
+
+    def test_tfidf_fit_is_shared_between_sides(self):
+        """Both TF-IDF series are derived from one universe fit."""
+        spec = _spec(
+            left_metric=comparison.MetricSpec(comparison.MetricName.MEAN_TFIDF),
+            right_metric=comparison.MetricSpec(comparison.MetricName.TFIDF_CONTRAST),
+        )
+
+        with mock.patch(
+            "lcats.visualize.comparison._fit_tfidf",
+            wraps=comparison._fit_tfidf,
+        ) as fit_tfidf:
+            comparison.compare(_corpus(), spec)
+
+        self.assertEqual(fit_tfidf.call_count, 1)
+
+    def test_stopword_filter_can_preserve_case(self):
+        """Stopword removal does not force lowercase when lowercase=False."""
+        corpus = comparison.ComparisonCorpus(
+            documents=(
+                comparison.ComparisonDocument("a/one", "Apple apple the"),
+                comparison.ComparisonDocument("b/two", "pear"),
+            )
+        )
+        spec = comparison.ComparisonSpec(
+            universe=comparison.UniverseSpec(),
+            left=comparison.Selector(comparison.SelectorKind.ALL),
+            right=comparison.Selector(
+                comparison.SelectorKind.STORY_LIST, story_ids=("b/two",)
+            ),
+            left_metric=comparison.MetricSpec(comparison.MetricName.RAW_COUNT),
+            right_metric=comparison.MetricSpec(comparison.MetricName.RAW_COUNT),
+            token_filter=comparison.TokenFilter(
+                include_stopwords=False,
+                min_length=1,
+                lowercase=False,
+            ),
+            vocabulary=comparison.VocabularySpec(
+                policy=comparison.VocabularyPolicy.ALL,
+                top_k=None,
+            ),
+            ordering=comparison.OrderingSpec(comparison.Ordering.ALPHABETICAL),
+        )
+        result = comparison.compare(corpus, spec)
+        rows = {row.term: row for row in result.rows}
+
+        self.assertEqual(rows["Apple"].left_raw_count, 1)
+        self.assertEqual(rows["apple"].left_raw_count, 1)
+        self.assertNotIn("the", rows)
 
     def test_analysis_module_adapter_returns_comparison_result(self):
         """Existing analysis module exposes the comparison entry point."""
