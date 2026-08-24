@@ -49,9 +49,13 @@ four stories from each stratum using manifest order positions 1, 4, 7, and 10.
 Annotators record:
 
 - Knight criterion state for each of the seven criteria:
-  `definite`, `possible`, `absent`, `ambiguous`, or `not_assessable`.
+  `present`, `absent`, `ambiguous`, or `not_assessable`.
 - Evidence materiality for each supported Knight criterion:
-  `primary`, `supporting`, `incidental`, or `none`.
+  `central`, `substantial`, or `incidental`; absent and not-assessable
+  criteria have no materiality value.
+- Knight `definite_count` and `possible_count` values are deterministic
+  aggregate fields computed from the criterion evidence, not annotator labels
+  for individual criteria.
 - Novum candidate records, including novelty, cognitive validation, narrative
   hegemony, dominant-novum status, and optional system membership.
 - Estrangement separately from novum qualification.
@@ -123,7 +127,8 @@ recorded.
 | Repeated-run stability | With nondeterministic provenance fields normalized, deterministic output fields are byte-stable across repeated runs; model-dependent adjudication state changes are reported and must not alter more than 10% of assessable story-level decisions. |
 | Whole-story versus chunked comparison | No material evidence class may show systematic loss in chunked mode without a revise decision; any loss above 5 absolute percentage points blocks scaling. |
 | Failure rate | Pipeline failures, malformed outputs, and stale-hash quarantines together affect no more than 10% of stories. |
-| Cost and latency | Actual cost is at or below 120% of the approved estimate, and median review time per story is low enough for a 100-200 story Phase 3 audit plan to be feasible. |
+| Cost and token budget | Actual dollar cost is at or below both the approved budget and 120% of the approved estimate. Total model input plus output tokens are at or below 120% of the approved estimate, with median tokens per story at or below 75,000 and p90 tokens per story at or below 150,000. |
+| Latency and human review time | Median end-to-end pipeline latency is at or below 8 minutes per story and p90 latency is at or below 20 minutes per story, excluding queued human time but including retries. Median human review time is at or below 20 minutes per story, p90 human review time is at or below 45 minutes per story, and adjudication time is at or below 30 minutes per disagreed story. |
 
 ## Reporting Requirements
 

@@ -19,7 +19,8 @@
       "boundary_or_adjacent": 10,
       "negative_control": 10
     },
-    "story_path_root": "corpora/",
+    "story_path_root": null,
+    "story_path_semantics": "sample story_path values are repository-relative paths from the LCATS repository root",
     "deterministic_order": [
       "stratum",
       "sample_id"
@@ -124,7 +125,7 @@
       "story_id": "mass_quantities/raiders_of_the_second_moon__wells",
       "story_path": "corpora/mass_quantities/raiders_of_the_second_moon__wells/story.json",
       "title": "Raiders of the Second Moon",
-      "author": "Gene Ellerman Wells",
+      "author": "Basil Wells",
       "stratum": "clear_sf_positive",
       "selection_rationale": "Science-fiction candidate from the local corpus list; included for space-adventure overlap.",
       "source_artifacts": [
@@ -233,7 +234,7 @@
       "story_id": "mass_quantities/disturbing_sun__richardson",
       "story_path": "corpora/mass_quantities/disturbing_sun__richardson/story.json",
       "title": "Disturbing Sun",
-      "author": "Philip Latham",
+      "author": "Robert S. Richardson",
       "stratum": "boundary_or_adjacent",
       "selection_rationale": "Corpus SF-adjacent catastrophe/title candidate; tests disaster or astronomical threat without assuming novum qualification.",
       "source_artifacts": [
