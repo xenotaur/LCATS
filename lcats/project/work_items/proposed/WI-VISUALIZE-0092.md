@@ -131,7 +131,7 @@ selectors.
 - `scripts/test`
 - `lrh validate`
 - `lcats visualize compare --help`
-- `lcats visualize compare --universe manifest --manifest ../experiments/05_metadata_genre_prefilter/results/selected_stories.json --right-genre science_fiction --right-reference complement --metric per_million --output-dir /tmp/lcats_compare_smoke`
+- `lcats visualize compare --universe manifest --manifest ../experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl --right-genre science_fiction --right-reference complement --metric per_million --output-dir /tmp/lcats_compare_smoke`
 
 ## Risk Notes
 

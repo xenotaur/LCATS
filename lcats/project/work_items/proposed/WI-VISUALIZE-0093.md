@@ -133,7 +133,7 @@ explicitly resolves its quality gate.
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `lcats visualize compare --universe manifest --manifest ../experiments/05_metadata_genre_prefilter/results/selected_stories.json --right-genre science_fiction --pos NOUN --term-form lemma --right-reference complement --output-dir /tmp/lcats_noun_compare`
+- `lcats visualize compare --universe manifest --manifest ../experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl --right-genre science_fiction --pos NOUN --term-form lemma --right-reference complement --output-dir /tmp/lcats_noun_compare`
 
 ## Risk Notes
 

@@ -25,8 +25,6 @@ work_items:
   - WI-LINGUISTICS-0008
   - WI-VISUALIZE-0095
   - WI-VISUALIZE-0094
-execution_records: []
-evidence: []
 exit_criteria:
   - A versioned comparison specification and selector engine produce deterministic aligned comparison tables with explicit universe, membership, metric, denominator, vocabulary, order, and provenance semantics
   - Mirrored-pair and commensurate reference-overlay figures are available through reusable Python APIs and a thin CLI without changing existing visualize defaults
