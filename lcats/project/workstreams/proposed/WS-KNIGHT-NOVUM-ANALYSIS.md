@@ -31,6 +31,7 @@ work_items:
   - WI-SF-0009
   - WI-SF-0010
   - WI-SF-0011
+  - WI-SF-0012
 exit_criteria:
   - All approved Phase 1 work items are resolved with no-cost tests and lrh validate passing
   - The approximately 30-story feasibility pilot completes and satisfies or explicitly fails its preregistered gates
@@ -89,6 +90,7 @@ The following work items are created by this planning PR through `/lrh-work-item
 - **WI-SF-0009 - Phase 3 Worldcon manifest and paid-run gate.** Reconcile Phase 3 with the final current Worldcon sample manifest from `WI-GENRE-0004`, freeze rubrics/prompts/schemas/code commit/backend/model/generation parameters/chunk config, and prepare reviewed sample and cost manifests. Depends on WI-GENRE-0004 and Phase 2 exit.
 - **WI-SF-0010 - Phase 3 Worldcon pilot execution and report.** Run the 100-200-story pilot resumably after explicit paid-run approval, quarantine invalid output, human-audit a stratified sample, compare with Phase 2, and publish metrics, failure taxonomy, cost report, and datasheet-style documentation. Depends on WI-SF-0009.
 - **WI-SF-0011 - Later corpus-integration gate design.** If Phase 3 recommends integration, design the separately authorized production path: canonical sidecar filename, survey/promotion validation, transaction-safe promotion, opt-in annotation or dedicated command, canaries, rollback, append-only evolution, and corpus-wide coverage/quality reporting. Depends on Phase 3 decision; does not implement production integration by itself.
+- **WI-SF-0012 - Worldcon Knight/Novum spike.** Build and run a bounded experiment-local spike that first performs a no-cost 2-3 story smoke test, then supports a 5-10 story local and/or paid sample after smoke success, and finally offers a separate explicit approval gate for a possible 146-story Worldcon-scale sample. Paid calls remain blocked without a reviewed manifest, estimated budget, pinned configuration, and explicit approval. Depends on WI-SF-0006, WI-GENRE-0004, and WI-LLM-0074; does not satisfy WI-SF-0008 or Phase 2 validation.
 
 ### Dependency graph
 
@@ -109,6 +111,9 @@ WI-GENRE-0004 final sample
   + WI-SF-0008 passed Phase 2 scale decision -> WI-SF-0009 -> WI-SF-0010
 
 WI-SF-0010 decision -> WI-SF-0011 (separate integration gate)
+
+WI-SF-0006 + WI-GENRE-0004 + WI-LLM-0074
+  -> WI-SF-0012 (Worldcon spike; corrective fast path, not Phase 2 validation)
 ```
 
 ### Parallelizable leaves
