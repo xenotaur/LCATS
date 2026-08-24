@@ -5,6 +5,7 @@ from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from lcats.analysis import story_analysis
+from lcats.visualize import comparison
 
 DEFAULT_N_TOPICS = 8
 
@@ -200,3 +201,15 @@ def topic_model(
         )[:top_k]
         topics[f"topic_{topic_idx}"] = dict(ranked)
     return topics
+
+
+def compare_lexical(
+    corpus: comparison.ComparisonCorpus,
+    spec: comparison.ComparisonSpec,
+) -> comparison.ComparisonResult:
+    """Return an authoritative aligned lexical comparison table.
+
+    This keeps the analysis-module entry point stable while the comparison
+    contract itself lives in ``lcats.visualize.comparison``.
+    """
+    return comparison.compare(corpus, spec)
