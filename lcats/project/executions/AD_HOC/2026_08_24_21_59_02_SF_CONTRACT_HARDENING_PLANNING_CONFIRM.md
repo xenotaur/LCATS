@@ -4,12 +4,12 @@ prompt_id: PROMPT(AD_HOC:SF_CONTRACT_HARDENING_PLANNING_CONFIRM)[2026-08-24T21:4
 work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_08_24_21_09_01_SF_CONTRACT_HARDENING_PLANNING_CONFIRM
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/390
+commit: 93289fcc8b6a78fb58981ddf9630f168fdd00609
 created_at: 2026-08-24T21:59:02+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/390
-session_transcript: pending
+session_transcript: codex-app:01a02338-d9c7-7313-8ed5-fb9c1643bef1
 ---
 
 # Summary
