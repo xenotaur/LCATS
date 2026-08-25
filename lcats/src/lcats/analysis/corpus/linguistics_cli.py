@@ -60,6 +60,14 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--include-lexicon",
+        action="store_true",
+        help=(
+            "Also write linguistics.lexicon.json derived from token-detail-v2. "
+            "Requires --include-token-detail --token-detail-version v2."
+        ),
+    )
+    parser.add_argument(
         "--existing",
         choices=[
             runner.EXISTING_SKIP,
@@ -126,6 +134,7 @@ def run(argv=None, parsed_args=None) -> int:
             existing=args.existing,
             dry_run=args.dry_run,
             output_root=args.output_root,
+            include_lexicon=args.include_lexicon,
         )
         summary = runner.with_prepended_results(
             summary, runner.missing_input_results(resolved.missing_paths)

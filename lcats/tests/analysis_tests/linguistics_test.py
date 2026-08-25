@@ -10,7 +10,7 @@ from unittest import mock
 
 from lcats.analysis.corpus import linguistics_cli
 from lcats.analysis.event_role_world import nlp_backend
-from lcats.analysis.linguistics import runner, sidecar
+from lcats.analysis.linguistics import lexicon, runner, sidecar
 from lcats import stories
 
 
@@ -520,6 +520,173 @@ class LinguisticsWriterTest(unittest.TestCase):
             self.assertEqual([], list(path.parent.glob(".*.tmp")))
 
 
+class LinguisticsLexiconTest(unittest.TestCase):
+    def test_build_lexicon_records_deterministic_surface_lemma_upos_counts(self):
+        body = "Alice saw Alice."
+        alice_1 = _offset_token(body, "Alice", "PROPN", 2, 0)
+        saw = _offset_token(body, "saw", "VERB", 0, alice_1.end_char or 0)
+        alice_2 = _offset_token(body, "Alice", "PROPN", 2, saw.end_char or 0)
+        period = _offset_token(body, ".", "PUNCT", 2, alice_2.end_char or 0)
+        backend = nlp_backend.FakeNLPBackend(
+            sentences=[
+                nlp_backend.SentenceRecord(
+                    tokens=[alice_1, saw, alice_2, period],
+                    start_char=0,
+                    end_char=len(body),
+                )
+            ]
+        )
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+        _, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=backend,
+            options=options,
+        )
+
+        data = lexicon.build_lexicon(detail)
+        index = lexicon.LexiconIndex.from_artifact(data)
+
+        self.assertEqual(lexicon.SCHEMA_VERSION, data["schema_version"])
+        self.assertEqual(4, data["denominators"]["token_count"])
+        self.assertEqual(
+            [
+                {"count": 1, "lemma": ".", "surface": ".", "upos": "PUNCT"},
+                {"count": 2, "lemma": "alice", "surface": "Alice", "upos": "PROPN"},
+                {"count": 1, "lemma": "saw", "surface": "saw", "upos": "VERB"},
+            ],
+            data["counts"],
+        )
+        self.assertEqual(2, index.surface_count("Alice"))
+        self.assertEqual(2, index.lemma_count("alice"))
+        self.assertEqual(2, index.upos_count("PROPN"))
+
+    def test_validate_lexicon_rejects_mutation_against_source_detail(self):
+        body = "The old machine hummed."
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+        _, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=_v2_backend(body),
+            options=options,
+        )
+        data = lexicon.build_lexicon(detail)
+        data["counts"][0]["count"] += 1
+
+        result = lexicon.validate_lexicon(data, source_token_detail=detail)
+        kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("token_count_mismatch", kinds)
+        self.assertIn("regeneration_mismatch", kinds)
+
+    def test_validate_lexicon_rejects_stale_source_fingerprint(self):
+        body = "The old machine hummed."
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+        _, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=_v2_backend(body),
+            options=options,
+        )
+        data = lexicon.build_lexicon(detail)
+        changed_detail = json.loads(sidecar.dumps_json(detail))
+        changed_detail["sentences"][0]["tokens"][1]["lemma"] = "machines"
+
+        result = lexicon.validate_lexicon(data, source_token_detail=changed_detail)
+        kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("source_token_detail_mismatch", kinds)
+        self.assertIn("regeneration_mismatch", kinds)
+
+    def test_validate_lexicon_rejects_boolean_integer_fields(self):
+        body = "The old machine hummed."
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+        _, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=_v2_backend(body),
+            options=options,
+        )
+        data = lexicon.build_lexicon(detail)
+        data["counts"][0]["count"] = True
+        data["denominators"]["token_count"] = True
+        data["denominators"]["sentence_count"] = False
+        data["denominators"]["lexical_row_count"] = True
+
+        result = lexicon.validate_lexicon(data, source_token_detail=detail)
+        paths = {finding.path for finding in result.findings}
+        kinds = {finding.kind for finding in result.findings}
+
+        self.assertFalse(result.valid)
+        self.assertIn("$.counts[0].count", paths)
+        self.assertIn("$.denominators.token_count", paths)
+        self.assertIn("$.denominators.sentence_count", paths)
+        self.assertIn("$.denominators.lexical_row_count", paths)
+        self.assertIn("regeneration_mismatch", kinds)
+
+    def test_query_benchmark_uses_indexed_lexicon_rows(self):
+        body = "Alice saw Alice."
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+        _, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=nlp_backend.FakeNLPBackend(
+                sentences=[
+                    nlp_backend.SentenceRecord(
+                        tokens=[
+                            _offset_token(body, "Alice", "PROPN", 2, 0),
+                            _offset_token(body, "saw", "VERB", 0, 0),
+                            _offset_token(body, "Alice", "PROPN", 2, 10),
+                            _offset_token(body, ".", "PUNCT", 2, 10),
+                        ],
+                        start_char=0,
+                        end_char=len(body),
+                    )
+                ]
+            ),
+            options=options,
+        )
+        data = lexicon.build_lexicon(detail)
+
+        report = lexicon.benchmark_queries(
+            data,
+            [
+                {"field": "surface", "value": "Alice"},
+                {"field": "lemma", "value": "alice"},
+                {"field": "upos", "value": "PROPN"},
+                {"field": "upos", "value": "NOUN"},
+            ],
+        )
+
+        self.assertEqual([2, 2, 2, 0], report["results"])
+        self.assertEqual(16, report["token_scan_row_visits"])
+        self.assertEqual(7, report["indexed_row_visits"])
+        self.assertGreater(report["estimated_row_visits_saved"], 0)
+        self.assertGreaterEqual(report["elapsed_ns"], 0)
+
+
 class LinguisticsRunnerTest(unittest.TestCase):
     def test_run_story_writes_sidecar_and_detail(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -609,6 +776,51 @@ class LinguisticsRunnerTest(unittest.TestCase):
             self.assertEqual(sidecar.DETAIL_V2_SCHEMA_VERSION, detail["schema_version"])
             self.assertEqual("v2", detail["options"]["token_detail_version"])
             self.assertEqual(redirected_detail, result.detail_path)
+
+    def test_run_story_writes_lexicon_from_v2_token_detail(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body = "The old machine hummed."
+            story_path = _write_story(
+                pathlib.Path(tmp) / "collection" / "story", body=body
+            )
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake",
+                include_token_detail=True,
+                token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+            )
+
+            result = runner.run_story(
+                story_path,
+                backend=_v2_backend(body),
+                options=options,
+                include_lexicon=True,
+            )
+
+            lexicon_path = story_path.parent / lexicon.LEXICON_FILENAME
+            detail = sidecar.load_json(
+                story_path.parent / sidecar.TOKEN_DETAIL_FILENAME
+            )
+            data = sidecar.load_json(lexicon_path)
+            self.assertEqual(runner.STATUS_WRITTEN, result.status)
+            self.assertEqual(lexicon_path, result.lexicon_path)
+            self.assertTrue(
+                lexicon.validate_lexicon(data, source_token_detail=detail).valid
+            )
+
+    def test_lexicon_requires_v2_token_detail_option(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            story_path = _write_story(pathlib.Path(tmp) / "collection" / "story")
+
+            result = runner.run_story(
+                story_path,
+                backend=_backend(),
+                options=sidecar.LinguisticsOptions(backend_name="fake"),
+                include_lexicon=True,
+            )
+
+            self.assertEqual(runner.STATUS_FAILED, result.status)
+            self.assertIn("token-detail-version v2", result.message)
+            self.assertFalse((story_path.parent / lexicon.LEXICON_FILENAME).exists())
 
     def test_matching_existing_output_skips_without_backend_call(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -774,6 +986,112 @@ class LinguisticsRunnerTest(unittest.TestCase):
 
             self.assertEqual(runner.STATUS_FAILED, second.status)
             self.assertIn("source_span_mismatch", second.message)
+            self.assertEqual([], second_backend.calls)
+
+    def test_lexicon_resume_requires_existing_lexicon_artifact(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body = "The old machine hummed."
+            story_path = _write_story(
+                pathlib.Path(tmp) / "collection" / "story", body=body
+            )
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake",
+                include_token_detail=True,
+                token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+            )
+            first = runner.run_story(
+                story_path,
+                backend=_v2_backend(body),
+                options=options,
+                include_lexicon=True,
+            )
+            self.assertEqual(runner.STATUS_WRITTEN, first.status)
+            (story_path.parent / lexicon.LEXICON_FILENAME).unlink()
+            second_backend = _v2_backend(body)
+
+            second = runner.run_story(
+                story_path,
+                backend=second_backend,
+                options=options,
+                include_lexicon=True,
+            )
+
+            self.assertEqual(runner.STATUS_FAILED, second.status)
+            self.assertIn("existing lexicon is missing", second.message)
+            self.assertEqual([], second_backend.calls)
+
+    def test_lexicon_resume_validates_against_existing_v2_detail(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body = "The old machine hummed."
+            story_path = _write_story(
+                pathlib.Path(tmp) / "collection" / "story", body=body
+            )
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake",
+                include_token_detail=True,
+                token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+            )
+            first = runner.run_story(
+                story_path,
+                backend=_v2_backend(body),
+                options=options,
+                include_lexicon=True,
+            )
+            self.assertEqual(runner.STATUS_WRITTEN, first.status)
+            lexicon_path = story_path.parent / lexicon.LEXICON_FILENAME
+            data = sidecar.load_json(lexicon_path)
+            data["counts"][0]["count"] += 1
+            sidecar.write_json_atomic(lexicon_path, data)
+            second_backend = _v2_backend(body)
+
+            second = runner.run_story(
+                story_path,
+                backend=second_backend,
+                options=options,
+                include_lexicon=True,
+            )
+
+            self.assertEqual(runner.STATUS_FAILED, second.status)
+            self.assertIn("existing lexicon is invalid", second.message)
+            self.assertEqual([], second_backend.calls)
+
+    def test_lexicon_resume_rejects_boolean_count_fields(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body = "The old machine hummed."
+            story_path = _write_story(
+                pathlib.Path(tmp) / "collection" / "story", body=body
+            )
+            options = sidecar.LinguisticsOptions(
+                backend_name="fake",
+                include_token_detail=True,
+                token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+            )
+            first = runner.run_story(
+                story_path,
+                backend=_v2_backend(body),
+                options=options,
+                include_lexicon=True,
+            )
+            self.assertEqual(runner.STATUS_WRITTEN, first.status)
+            lexicon_path = story_path.parent / lexicon.LEXICON_FILENAME
+            data = sidecar.load_json(lexicon_path)
+            data["counts"][0]["count"] = True
+            data["denominators"]["token_count"] = True
+            data["denominators"]["sentence_count"] = False
+            data["denominators"]["lexical_row_count"] = True
+            sidecar.write_json_atomic(lexicon_path, data)
+            second_backend = _v2_backend(body)
+
+            second = runner.run_story(
+                story_path,
+                backend=second_backend,
+                options=options,
+                include_lexicon=True,
+            )
+
+            self.assertEqual(runner.STATUS_FAILED, second.status)
+            self.assertIn("existing lexicon is invalid", second.message)
+            self.assertIn("wrong_type", second.message)
             self.assertEqual([], second_backend.calls)
 
     def test_explicit_overwrite_replaces_existing_output(self):
@@ -1040,6 +1358,39 @@ class LinguisticsCliTest(unittest.TestCase):
             self.assertEqual(0, status)
             self.assertEqual(sidecar.DETAIL_V2_SCHEMA_VERSION, detail["schema_version"])
             self.assertEqual("v2", summary["token_detail_version"])
+
+    def test_cli_can_request_lexicon_from_v2_token_detail(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            body = "The old machine hummed."
+            story_path = _write_story(root / "collection" / "story", body=body)
+
+            with mock.patch.object(
+                runner, "make_backend", return_value=_v2_backend(body)
+            ):
+                status = linguistics_cli.run(
+                    [
+                        str(story_path),
+                        "--backend",
+                        "fake",
+                        "--include-token-detail",
+                        "--token-detail-version",
+                        "v2",
+                        "--include-lexicon",
+                        "--summary-output",
+                        str(root / "summary.json"),
+                    ]
+                )
+
+            data = sidecar.load_json(story_path.parent / lexicon.LEXICON_FILENAME)
+            summary = sidecar.load_json(root / "summary.json")
+            self.assertEqual(0, status)
+            self.assertTrue(lexicon.validate_lexicon(data).valid)
+            self.assertTrue(summary["include_lexicon"])
+            self.assertEqual(
+                (story_path.parent / lexicon.LEXICON_FILENAME).as_posix(),
+                summary["results"][0]["lexicon_path"],
+            )
 
 
 class LinguisticsFixtureTest(unittest.TestCase):

@@ -9,6 +9,7 @@ from typing import Any, Iterable, Optional
 
 from lcats.analysis.corpus import cli as corpus_cli
 from lcats.analysis.corpus import discovery
+from lcats.analysis.linguistics import lexicon
 from lcats.analysis.linguistics import sidecar
 
 STATUS_WRITTEN = "written"
@@ -38,6 +39,7 @@ class StoryRunResult:
     status: str
     message: str = ""
     detail_path: Optional[pathlib.Path] = None
+    lexicon_path: Optional[pathlib.Path] = None
 
     def to_dict(self) -> dict[str, Any]:
         data = {
@@ -48,6 +50,8 @@ class StoryRunResult:
         }
         if self.detail_path is not None:
             data["detail_path"] = self.detail_path.as_posix()
+        if self.lexicon_path is not None:
+            data["lexicon_path"] = self.lexicon_path.as_posix()
         return data
 
 
@@ -57,6 +61,7 @@ class StoryOutputPaths:
 
     sidecar_path: pathlib.Path
     detail_path: Optional[pathlib.Path] = None
+    lexicon_path: Optional[pathlib.Path] = None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -69,6 +74,7 @@ class RunSummary:
     existing: str
     include_token_detail: bool
     token_detail_version: str
+    include_lexicon: bool = False
     output_root: Optional[pathlib.Path] = None
 
     @property
@@ -86,6 +92,7 @@ class RunSummary:
             "existing": self.existing,
             "include_token_detail": self.include_token_detail,
             "token_detail_version": self.token_detail_version,
+            "include_lexicon": self.include_lexicon,
             "counts": counts,
             "results": [result.to_dict() for result in self.results],
         }
@@ -185,6 +192,7 @@ def run(
     existing: str = EXISTING_SKIP,
     dry_run: bool = False,
     output_root: Optional[pathlib.Path] = None,
+    include_lexicon: bool = False,
 ) -> RunSummary:
     """Analyze stories and write sidecars with per-story failure isolation."""
     results: list[StoryRunResult] = []
@@ -196,6 +204,7 @@ def run(
                 output_paths = output_paths_for_story(
                     story_path,
                     include_token_detail=options.include_token_detail,
+                    include_lexicon=include_lexicon,
                     output_root=output_root,
                 )
                 sidecar_target = _canonical_target_key(output_paths.sidecar_path)
@@ -208,6 +217,7 @@ def run(
                         story_path=story_path,
                         sidecar_path=output_paths.sidecar_path,
                         detail_path=output_paths.detail_path,
+                        lexicon_path=output_paths.lexicon_path,
                         status=STATUS_FAILED,
                         message=(
                             "multiple stories resolve to the same output sidecar "
@@ -226,6 +236,7 @@ def run(
                     existing=existing,
                     dry_run=dry_run,
                     output_root=output_root,
+                    include_lexicon=include_lexicon,
                 )
             )
             continue
@@ -237,6 +248,7 @@ def run(
                 existing=existing,
                 dry_run=dry_run,
                 output_root=output_root,
+                include_lexicon=include_lexicon,
             )
         )
     return RunSummary(
@@ -246,6 +258,7 @@ def run(
         existing=existing,
         include_token_detail=options.include_token_detail,
         token_detail_version=options.token_detail_version,
+        include_lexicon=include_lexicon,
         output_root=pathlib.Path(output_root) if output_root is not None else None,
     )
 
@@ -258,23 +271,42 @@ def run_story(
     existing: str = EXISTING_SKIP,
     dry_run: bool = False,
     output_root: Optional[pathlib.Path] = None,
+    include_lexicon: bool = False,
 ) -> StoryRunResult:
     """Analyze one story and write its linguistic sidecar."""
     try:
         output_paths = output_paths_for_story(
             story_path,
             include_token_detail=options.include_token_detail,
+            include_lexicon=include_lexicon,
             output_root=output_root,
         )
     except Exception as error:  # noqa: BLE001 - isolate per-story failures.
         return _output_path_failure(story_path, output_root, error)
     sidecar_path = output_paths.sidecar_path
     detail_path = output_paths.detail_path
+    lexicon_path = output_paths.lexicon_path
+    if include_lexicon and (
+        not options.include_token_detail
+        or options.token_detail_version != sidecar.TOKEN_DETAIL_VERSION_V2
+    ):
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message=(
+                "lexicon output requires --include-token-detail "
+                "--token-detail-version v2"
+            ),
+        )
     if dry_run:
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
             detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_DRY_RUN,
             message="would analyze story",
         )
@@ -300,6 +332,7 @@ def run_story(
                 story_path=story_path,
                 sidecar_path=sidecar_path,
                 detail_path=detail_path,
+                lexicon_path=lexicon_path,
                 expected_fingerprint=current_fingerprint,
                 expected_detail_fingerprint=expected_detail_fingerprint,
                 source_body=body,
@@ -318,10 +351,15 @@ def run_story(
         sidecar.write_json_atomic(sidecar_path, computed_sidecar)
         if detail_path is not None and detail is not None:
             sidecar.write_json_atomic(detail_path, detail)
+        if lexicon_path is not None:
+            if detail is None:
+                raise ValueError("lexicon output requires token-detail-v2 data")
+            sidecar.write_json_atomic(lexicon_path, lexicon.build_lexicon(detail))
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
             detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_WRITTEN,
             message="wrote linguistic sidecar",
         )
@@ -330,6 +368,7 @@ def run_story(
             story_path=story_path,
             sidecar_path=sidecar_path,
             detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_FAILED,
             message=str(error),
         )
@@ -340,6 +379,7 @@ def _existing_result(
     story_path: pathlib.Path,
     sidecar_path: pathlib.Path,
     detail_path: Optional[pathlib.Path],
+    lexicon_path: Optional[pathlib.Path],
     expected_fingerprint: dict[str, Any],
     expected_detail_fingerprint: dict[str, Any],
     source_body: str,
@@ -351,6 +391,8 @@ def _existing_result(
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_FAILED,
             message=(
                 "existing sidecar is unreadable; use --existing overwrite: " f"{error}"
@@ -362,6 +404,8 @@ def _existing_result(
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_FAILED,
             message=(
                 "existing sidecar is invalid; use --existing overwrite: " f"{kinds}"
@@ -378,10 +422,19 @@ def _existing_result(
         )
         if detail_result is not None:
             return detail_result
+        lexicon_result = _validate_existing_lexicon(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+        )
+        if lexicon_result is not None:
+            return lexicon_result
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
             detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_SKIPPED,
             message="existing sidecar matches current input and options",
         )
@@ -389,12 +442,16 @@ def _existing_result(
         return StoryRunResult(
             story_path=story_path,
             sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
             status=STATUS_FAILED,
             message="existing sidecar is valid but stale for current input/options",
         )
     return StoryRunResult(
         story_path=story_path,
         sidecar_path=sidecar_path,
+        detail_path=detail_path,
+        lexicon_path=lexicon_path,
         status=STATUS_FAILED,
         message="existing sidecar differs; use --existing overwrite to replace it",
     )
@@ -424,6 +481,7 @@ def with_prepended_results(
         existing=summary.existing,
         include_token_detail=summary.include_token_detail,
         token_detail_version=summary.token_detail_version,
+        include_lexicon=summary.include_lexicon,
         output_root=summary.output_root,
     )
 
@@ -440,6 +498,7 @@ def output_paths_for_story(
     story_path: pathlib.Path,
     *,
     include_token_detail: bool,
+    include_lexicon: bool = False,
     output_root: Optional[pathlib.Path] = None,
 ) -> StoryOutputPaths:
     """Return compact and optional detail output paths for one story."""
@@ -459,6 +518,9 @@ def output_paths_for_story(
         sidecar_path=output_dir / sidecar.SIDECAR_FILENAME,
         detail_path=(
             output_dir / sidecar.TOKEN_DETAIL_FILENAME if include_token_detail else None
+        ),
+        lexicon_path=(
+            output_dir / lexicon.LEXICON_FILENAME if include_lexicon else None
         ),
     )
 
@@ -537,6 +599,84 @@ def _validate_existing_detail(
             message=(
                 "existing token detail differs; use --existing overwrite to replace it"
             ),
+        )
+    return None
+
+
+def _validate_existing_lexicon(
+    *,
+    story_path: pathlib.Path,
+    sidecar_path: pathlib.Path,
+    detail_path: Optional[pathlib.Path],
+    lexicon_path: Optional[pathlib.Path],
+) -> Optional[StoryRunResult]:
+    if lexicon_path is None:
+        return None
+    if detail_path is None:
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message="lexicon output requires token detail; use --existing overwrite",
+        )
+    if not lexicon_path.exists():
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message="existing lexicon is missing; use --existing overwrite",
+        )
+    try:
+        detail = sidecar.load_json(detail_path)
+    except Exception as error:  # noqa: BLE001
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message=(
+                "existing token detail is unreadable; use --existing overwrite: "
+                f"{error}"
+            ),
+        )
+    try:
+        current = sidecar.load_json(lexicon_path)
+    except Exception as error:  # noqa: BLE001
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message=(
+                "existing lexicon is unreadable; use --existing overwrite: " f"{error}"
+            ),
+        )
+    validation = lexicon.validate_lexicon(current, source_token_detail=detail)
+    if not validation.valid:
+        kinds = ", ".join(finding.kind for finding in validation.findings)
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message=(
+                "existing lexicon is invalid; use --existing overwrite: " f"{kinds}"
+            ),
+        )
+    if lexicon.fingerprint_for_lexicon(current) != lexicon.expected_fingerprint(detail):
+        return StoryRunResult(
+            story_path=story_path,
+            sidecar_path=sidecar_path,
+            detail_path=detail_path,
+            lexicon_path=lexicon_path,
+            status=STATUS_FAILED,
+            message="existing lexicon differs; use --existing overwrite to replace it",
         )
     return None
 

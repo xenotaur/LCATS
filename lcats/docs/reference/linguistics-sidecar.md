@@ -10,6 +10,9 @@ The default artifact is `linguistics.json`, a compact story-level sidecar using
 enabled, the command also writes `linguistics.tokens.json`. The default detail
 schema remains `linguistics-token-detail-v1`; pass `--token-detail-version v2`
 to write the richer `linguistics-token-detail-v2` shape.
+When `--include-lexicon` is set with v2 token detail, the command also writes
+the derived `linguistics.lexicon.json` artifact documented in
+`docs/reference/linguistics-lexicon.md`.
 
 Both artifacts are deterministic JSON: UTF-8, sorted keys, two-space
 indentation, and a trailing newline. LCATS publishes them atomically by writing
@@ -193,6 +196,7 @@ Top-level fields:
 | `existing` | string | Existing-output mode: `skip`, `validate`, or `overwrite`. |
 | `include_token_detail` | boolean | Whether token-detail output was requested. |
 | `token_detail_version` | string | Requested token-detail version, currently `v1` or `v2`. |
+| `include_lexicon` | boolean | Whether derived lexicon output was requested. |
 | `output_root` | string | Present only when `--output-root` was used; records the redirect root for sidecar outputs. |
 | `counts` | object | Count of per-story results by status. |
 | `results` | array | Per-story outcomes. |
@@ -206,6 +210,7 @@ Each result object contains:
 | `status` | string | One of `written`, `skipped`, `failed`, or `dry_run`. |
 | `message` | string | Human-readable outcome or diagnostic. |
 | `detail_path` | string | Present only on result objects that carry a token-detail target path. It appears for dry runs, writes, skips, write exceptions, and existing-token-detail validation failures when `--include-token-detail` is set; some failures detected while validating an existing compact sidecar omit it. |
+| `lexicon_path` | string | Present only on result objects that carry a derived lexicon target path. It appears when `--include-lexicon` is set. |
 
 ## Fingerprint and Resume Behavior
 
