@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import pathlib
+import sys
 import tempfile
 import unittest
+from io import StringIO
 from unittest import mock
 
 from lcats.analysis.corpus import linguistics_cli
@@ -686,6 +688,31 @@ class LinguisticsLexiconTest(unittest.TestCase):
         self.assertGreater(report["estimated_row_visits_saved"], 0)
         self.assertGreaterEqual(report["elapsed_ns"], 0)
 
+    def test_query_benchmark_guards_unvalidated_denominators(self):
+        data = {
+            "denominators": {"token_count": "not-an-int"},
+            "counts": [
+                {"surface": "Alice", "lemma": "alice", "upos": "PROPN", "count": 2}
+            ],
+        }
+
+        report = lexicon.benchmark_queries(
+            data, [{"field": "surface", "value": "Alice"}]
+        )
+
+        self.assertEqual([2], report["results"])
+        self.assertEqual(0, report["token_row_count"])
+        self.assertEqual(1, report["lexicon_row_count"])
+        self.assertEqual(0, report["token_scan_row_visits"])
+
+        malformed_report = lexicon.benchmark_queries(
+            {"denominators": None, "counts": "not-rows"},
+            [{"field": "surface", "value": "Alice"}],
+        )
+        self.assertEqual([0], malformed_report["results"])
+        self.assertEqual(0, malformed_report["token_row_count"])
+        self.assertEqual(0, malformed_report["lexicon_row_count"])
+
 
 class LinguisticsRunnerTest(unittest.TestCase):
     def test_run_story_writes_sidecar_and_detail(self):
@@ -1358,6 +1385,23 @@ class LinguisticsCliTest(unittest.TestCase):
             self.assertEqual(0, status)
             self.assertEqual(sidecar.DETAIL_V2_SCHEMA_VERSION, detail["schema_version"])
             self.assertEqual("v2", summary["token_detail_version"])
+
+    def test_cli_rejects_lexicon_flags_before_backend_loading(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            story_path = _write_story(root / "collection" / "story")
+
+            with (
+                mock.patch.object(runner, "make_backend") as make_backend,
+                mock.patch.object(sys, "stderr", new=StringIO()) as stderr,
+            ):
+                status = linguistics_cli.run(
+                    [str(story_path), "--include-lexicon", "--backend", "spacy"]
+                )
+
+            self.assertEqual(2, status)
+            make_backend.assert_not_called()
+            self.assertIn("--include-token-detail", stderr.getvalue())
 
     def test_cli_can_request_lexicon_from_v2_token_detail(self):
         with tempfile.TemporaryDirectory() as tmp:

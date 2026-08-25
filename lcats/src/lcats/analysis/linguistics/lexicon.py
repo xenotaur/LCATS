@@ -225,8 +225,14 @@ def benchmark_queries(
         else:
             results.append(0)
     elapsed_ns = time.perf_counter_ns() - start_ns
-    token_count = data.get("denominators", {}).get("token_count", 0)
-    row_count = len(data.get("counts", []))
+    denominators = data.get("denominators", {})
+    token_count = (
+        _non_negative_integer(denominators.get("token_count"))
+        if isinstance(denominators, dict)
+        else 0
+    )
+    counts = data.get("counts", [])
+    row_count = len(counts) if isinstance(counts, list) else 0
     token_scan_row_visits = token_count * len(query_list)
     indexed_row_visits = row_count + len(query_list)
     return {
@@ -244,6 +250,12 @@ def benchmark_queries(
 def token_detail_sha256(token_detail: dict[str, Any]) -> str:
     """Return a content hash for canonical token-detail JSON."""
     return hashlib.sha256(sidecar.dumps_json(token_detail).encode("utf-8")).hexdigest()
+
+
+def _non_negative_integer(value: Any) -> int:
+    if _is_integer(value) and value >= 0:
+        return value
+    return 0
 
 
 def _source_token_detail_record(token_detail: dict[str, Any]) -> dict[str, Any]:

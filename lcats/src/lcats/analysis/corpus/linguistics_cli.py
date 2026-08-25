@@ -102,6 +102,16 @@ def run(argv=None, parsed_args=None) -> int:
     """Run lcats linguistics and return a process status code."""
     parser = build_parser()
     args = parsed_args if parsed_args is not None else parser.parse_args(argv)
+    if args.include_lexicon and (
+        not args.include_token_detail
+        or args.token_detail_version != sidecar.TOKEN_DETAIL_VERSION_V2
+    ):
+        print(
+            "error: --include-lexicon requires --include-token-detail "
+            "--token-detail-version v2",
+            file=sys.stderr,
+        )
+        return 2
     try:
         resolved = runner.resolve_story_inputs(
             args.inputs, story_list_files=args.story_list
