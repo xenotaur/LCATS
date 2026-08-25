@@ -18,12 +18,23 @@ def _make_counts():
     return {"fantasy": 5, "horror": 3, "science fiction": 12}
 
 
-def _comparison_result(*, metric_name="raw_count"):
-    metric = {
-        "name": metric_name,
-        "denominator": "auto",
-        "effective_denominator": "none",
-    }
+def _comparison_result(
+    *,
+    metric_name="raw_count",
+    left_metric=None,
+    right_metric=None,
+):
+    metric = (
+        {
+            "name": metric_name,
+            "denominator": "auto",
+            "effective_denominator": "none",
+        }
+        if left_metric is None or right_metric is None
+        else None
+    )
+    left_metric = left_metric or metric
+    right_metric = right_metric or metric
     return comparison.ComparisonResult(
         rows=(
             comparison.ComparisonRow(
@@ -62,7 +73,7 @@ def _comparison_result(*, metric_name="raw_count"):
         manifest={
             "left": {"label": "reference"},
             "right": {"label": "target"},
-            "metrics": {"left": metric, "right": metric},
+            "metrics": {"left": left_metric, "right": right_metric},
             "preprocessing": {"term_form": "surface"},
         },
     )
@@ -284,6 +295,31 @@ class TestPlotMirroredComparison(unittest.TestCase):
             self.assertTrue(os.path.getsize(path) > 0)
         finally:
             os.unlink(path)
+
+    def test_mixed_metrics_use_independent_scales(self):
+        """Mixed mirrored metrics get separately labeled and scaled axes."""
+        result = _comparison_result(
+            left_metric={
+                "name": "raw_count",
+                "denominator": "auto",
+                "effective_denominator": "none",
+            },
+            right_metric={
+                "name": "per_million",
+                "denominator": "auto",
+                "effective_denominator": "included_tokens",
+            },
+        )
+
+        with capture.suppress_output():
+            fig, ax = rendering.plot_mirrored_comparison(result)
+
+        self.assertIs(ax, fig.axes[0])
+        self.assertEqual(len(fig.axes), 2)
+        self.assertIn("Left: raw count", fig.axes[0].get_xlabel())
+        self.assertIn("Right: per million", fig.axes[1].get_xlabel())
+        self.assertGreater(fig.axes[0].get_xlim()[0], fig.axes[0].get_xlim()[1])
+        self.assertNotEqual(fig.axes[0].get_xlim(), fig.axes[1].get_xlim())
 
 
 class TestPlotReferenceOverlayComparison(unittest.TestCase):

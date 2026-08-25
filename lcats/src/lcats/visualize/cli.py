@@ -707,7 +707,7 @@ def run_compare(args) -> int:
     corpus = sources.load_comparison_corpus(
         corpora_root=args.corpus_root,
         candidates_jsonl_path=args.candidates_jsonl,
-        manifest_jsonl_path=args.manifest if args.universe == "manifest" else None,
+        manifest_jsonl_path=args.manifest,
     )
     spec = _build_comparison_spec(args)
     result = analysis.compare_lexical(corpus, spec)

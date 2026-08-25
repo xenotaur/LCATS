@@ -873,6 +873,82 @@ class TestRunCompare(unittest.TestCase):
         self.assertEqual(manifest["style"], "mirrored")
         self.assertIn("figures", manifest["cli"]["outputs"])
 
+    def test_selection_membership_loads_manifest_for_corpus_universe(self):
+        """Selection labels are loaded even when U remains the whole corpus."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root,
+                "sf",
+                "rocket",
+                body="rocket rocket planet shared",
+            )
+            _write_story(
+                corpora_root,
+                "fantasy",
+                "dragon",
+                body="dragon dragon castle shared",
+            )
+            _write_story(
+                corpora_root,
+                "mystery",
+                "clue",
+                body="detective clue shared",
+            )
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "sf/rocket": ["science fiction"],
+                    "fantasy/dragon": ["fantasy"],
+                    "mystery/clue": ["mystery"],
+                },
+            )
+            manifest_path = _write_selection_manifest(
+                tmp_dir,
+                {
+                    "sf/rocket": "selection-sf",
+                },
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--universe",
+                    "corpus",
+                    "--manifest",
+                    str(manifest_path),
+                    "--membership-mode",
+                    "selection",
+                    "--right-genre",
+                    "selection-sf",
+                    "--right-reference",
+                    "complement",
+                    "--metric",
+                    "raw_count",
+                    "--top-k",
+                    "3",
+                    "--output-dir",
+                    str(output_dir),
+                    "--formats",
+                    "png",
+                ]
+            )
+
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+            manifest = json.loads((output_dir / "comparison_manifest.json").read_text())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["universe"]["kind"], "corpus")
+        self.assertEqual(manifest["universe"]["story_count"], 3)
+        self.assertEqual(manifest["right"]["story_count"], 1)
+        self.assertEqual(manifest["left"]["story_count"], 2)
+
     def test_reference_overlay_rejects_incompatible_side_metrics(self):
         """Overlay CLI requests fail before a figure is written when metrics differ."""
         with tempfile.TemporaryDirectory() as tmp_dir:

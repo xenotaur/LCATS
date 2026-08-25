@@ -33,6 +33,10 @@ def _comparison_rows(result: comparison.ComparisonResult):
     return sorted(result.rows, key=lambda row: row.display_order)
 
 
+def _metric_specs_match(result: comparison.ComparisonResult) -> bool:
+    return result.manifest["metrics"]["left"] == result.manifest["metrics"]["right"]
+
+
 def plot_mirrored_comparison(
     result: comparison.ComparisonResult,
     *,
@@ -41,6 +45,11 @@ def plot_mirrored_comparison(
     figsize: tuple = (10, 7),
 ):
     """Plot a mirrored horizontal bar chart from an aligned comparison table."""
+    if not _metric_specs_match(result):
+        return _plot_mirrored_comparison_independent_scales(
+            result, title=title, save_path=save_path, figsize=figsize
+        )
+
     rows = _comparison_rows(result)
     terms = [row.term for row in rows]
     positions = list(range(len(rows)))
@@ -82,6 +91,74 @@ def plot_mirrored_comparison(
     if save_path:
         fig.savefig(save_path, dpi=150)
     return fig, ax
+
+
+def _plot_mirrored_comparison_independent_scales(
+    result: comparison.ComparisonResult,
+    *,
+    title: str,
+    save_path: str | None,
+    figsize: tuple,
+):
+    rows = _comparison_rows(result)
+    terms = [row.term for row in rows]
+    positions = list(range(len(rows)))
+    left_values = [row.left_value for row in rows]
+    right_values = [row.right_value for row in rows]
+
+    fig, (left_ax, right_ax) = plt.subplots(
+        ncols=2,
+        sharey=True,
+        figsize=figsize,
+        layout="constrained",
+        gridspec_kw={"wspace": 0.02},
+    )
+    left_ax.barh(
+        positions,
+        left_values,
+        color="#d9d9d9",
+        edgecolor="black",
+        hatch="//",
+        label=result.manifest["left"]["label"],
+    )
+    right_ax.barh(
+        positions,
+        right_values,
+        color="#4d4d4d",
+        edgecolor="black",
+        label=result.manifest["right"]["label"],
+    )
+
+    left_ax.set_yticks(positions)
+    left_ax.set_yticklabels(terms)
+    left_ax.invert_yaxis()
+    right_ax.tick_params(axis="y", left=False, labelleft=False)
+
+    left_metric = _metric_label(result.manifest["metrics"]["left"])
+    right_metric = _metric_label(result.manifest["metrics"]["right"])
+    left_ax.set_xlabel(f"Left: {left_metric}")
+    right_ax.set_xlabel(f"Right: {right_metric}")
+    fig.suptitle(title)
+
+    left_limit = max(left_values, default=0.0) * 1.05 or 1.0
+    right_limit = max(right_values, default=0.0) * 1.05 or 1.0
+    left_ax.set_xlim(left_limit, 0)
+    right_ax.set_xlim(0, right_limit)
+    for ax in (left_ax, right_ax):
+        ax.grid(axis="x", linestyle=":", linewidth=0.6, color="#bdbdbd")
+
+    handles = [
+        left_ax.patches[0] if left_ax.patches else None,
+        right_ax.patches[0] if right_ax.patches else None,
+    ]
+    handles = [handle for handle in handles if handle is not None]
+    labels = [result.manifest["left"]["label"], result.manifest["right"]["label"]]
+    if handles:
+        fig.legend(handles, labels[: len(handles)], loc="upper right")
+
+    if save_path:
+        fig.savefig(save_path, dpi=150)
+    return fig, left_ax
 
 
 def plot_reference_overlay_comparison(
