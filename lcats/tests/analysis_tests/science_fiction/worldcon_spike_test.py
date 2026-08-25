@@ -42,6 +42,34 @@ class _MalformedNestedBackend:
         )
 
 
+class _SuvinFailureBackend:
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+
+    def complete(self, **kwargs):
+        if kwargs["tool"]["name"] == run_worldcon_spike.SUVIN_TOOL_NAME:
+            return llm_backend.BackendResponse(
+                text="",
+                tool_result="malformed Suvin result",
+                model="suvin-failure",
+                input_tokens=19,
+                output_tokens=5,
+            )
+        return self.delegate.complete(**kwargs)
+
+
+class _NoToolCallJsonBackend:
+    def complete(self, **kwargs):
+        payload = json.loads(kwargs["messages"][-1]["content"])
+        result = run_worldcon_spike._fake_stage_result(payload, kwargs["tool"])
+        raise llm_backend.NoToolCallError(
+            "local runtime returned JSON content without a tool call",
+            input_tokens=23,
+            output_tokens=31,
+            raw_content=json.dumps(result),
+        )
+
+
 class WorldconSpikeRunnerTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -146,14 +174,111 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual("complete", summary["status"])
         self.assertEqual(10, len(summary["stories"]))
 
-    def test_tool_schema_uses_provider_accepted_top_level_fields(self):
-        schema = run_worldcon_spike._tool_schema()
-
-        self.assertEqual(
-            {"name", "description", "input_schema", "strict"},
-            set(schema),
+    def test_stage_schemas_are_small_strict_provider_contracts(self):
+        schemas = (
+            (
+                run_worldcon_spike._evidence_tool_schema,
+                run_worldcon_spike.EVIDENCE_TOOL_NAME,
+                "evidence",
+                "evidence_type",
+            ),
+            (
+                run_worldcon_spike._knight_tool_schema,
+                run_worldcon_spike.KNIGHT_TOOL_NAME,
+                "knight_criteria",
+                "criterion_id",
+            ),
+            (
+                run_worldcon_spike._suvin_tool_schema,
+                run_worldcon_spike.SUVIN_TOOL_NAME,
+                "novum_candidates",
+                "cognitive_validation",
+            ),
         )
-        self.assertNotIn("decision_states", schema)
+        for schema_factory, tool_name, top_key, nested_key in schemas:
+            with self.subTest(tool_name=tool_name):
+                schema = schema_factory()
+                self.assertEqual(tool_name, schema["name"])
+                self.assertTrue(schema["strict"])
+                self.assertEqual(
+                    {"name", "description", "input_schema", "strict"},
+                    set(schema),
+                )
+                item = schema["input_schema"]["properties"][top_key]["items"]
+                self.assertIn(nested_key, item["properties"])
+                self.assertFalse(item["additionalProperties"])
+
+    def test_suvin_failure_preserves_evidence_and_knight_partial_success(self):
+        output_root = self.root / "partial-success"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_SuvinFailureBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        self.assertEqual("complete", summary["status"])
+        story = summary["stories"][0]
+        self.assertEqual("complete", story["status"])
+        self.assertIsNotNone(story["knight_interval"])
+        self.assertIsNone(story["qualified_novum_count"])
+        sidecar_data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+        self.assertTrue(sidecar.validate_sidecar(sidecar_data).valid)
+        self.assertEqual(1, len(sidecar_data["evidence_sets"]))
+        self.assertEqual("complete", sidecar_data["analyses"]["knight"][0]["status"])
+        self.assertEqual("failed", sidecar_data["analyses"]["suvin_novum"][0]["status"])
+        self.assertEqual(
+            [run_worldcon_spike.SUVIN_RECORD_STAGE],
+            [item["stage"] for item in sidecar_data["partial_success"]["failed_stages"]],
+        )
+        self.assertIsNone(sidecar_data["current"]["suvin_novum_analysis_id"])
+        raw_stage_path = pathlib.Path(story["raw_response_path"]) / (
+            f"{run_worldcon_spike.SUVIN_STAGE}.json"
+        )
+        quarantine_stage_path = output_root / "_quarantine" / raw_stage_path.parent.name / (
+            f"{run_worldcon_spike.SUVIN_STAGE}.json"
+        )
+        self.assertTrue(raw_stage_path.exists())
+        self.assertTrue(quarantine_stage_path.exists())
+
+    def test_no_tool_call_json_fallback_persists_and_completes(self):
+        output_root = self.root / "no-tool-call-json"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_NoToolCallJsonBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        self.assertEqual("complete", summary["status"])
+        story = summary["stories"][0]
+        self.assertEqual("complete", story["status"])
+        raw_root = pathlib.Path(story["raw_response_path"])
+        self.assertEqual(
+            3,
+            len(tuple(raw_root.glob("sf_*.json"))),
+        )
+        events = [
+            json.loads(line)["event"]
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+        ]
+        self.assertEqual(3, events.count("no_tool_call_json_fallback"))
 
     def test_stop_on_first_failure_flushes_story_artifacts(self):
         output_root = self.root / "stop-first"
