@@ -3,7 +3,7 @@ execution_id: 2026_08_24_21_09_01_SF_CONTRACT_HARDENING_PLANNING_CONFIRM
 prompt_id: PROMPT(AD_HOC:SF_CONTRACT_HARDENING_PLANNING_CONFIRM)[2026-08-24T21:02:18+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/390
 commit: 2988676e
 created_at: 2026-08-24T21:09:01+00:00

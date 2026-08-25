@@ -3,7 +3,7 @@ execution_id: 2026_08_24_20_59_52_SF_CONTRACT_HARDENING_PLANNING_REVIEW
 prompt_id: PROMPT(AD_HOC:SF_CONTRACT_HARDENING_PLANNING_REVIEW)[2026-08-24T20:37:04+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/390
 commit: 20721b3a
 created_at: 2026-08-24T20:59:52+00:00
