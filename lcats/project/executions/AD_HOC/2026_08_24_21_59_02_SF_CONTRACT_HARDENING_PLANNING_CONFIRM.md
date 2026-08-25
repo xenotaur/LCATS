@@ -26,4 +26,4 @@ The authoritative review-thread list is empty: all four earlier threads are reso
 
 # Follow-up
 
-Re-check review coverage and CI against the post-record commit, then present the SHA-locked merge and closeout plan if green. `session_transcript` remains `pending` until a durable Codex task pointer is available.
+Re-check review coverage and CI against the post-record commit, then present the SHA-locked merge and closeout plan if green. The durable Codex session pointer is recorded in frontmatter.
