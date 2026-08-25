@@ -2,8 +2,9 @@
 
 `lcats visualize` turns LCATS corpus metadata and story text into
 reproducible, publication-useful figures: `genres` (genre distribution),
-`words` (word-frequency), `tfidf` (TF-IDF comparison), and `topics`
-(classical topic-model baseline). All four share a common
+`words` (word-frequency), `tfidf` (TF-IDF comparison), `topics`
+(classical topic-model baseline), and `compare` (aligned two-series lexical
+comparison). These commands share a common
 `sources`/`analysis`/`rendering`/`cli` split under
 `lcats.visualize`, reuse `lcats.analysis.graph_plotters` for conventional
 charts rather than a parallel plotting API, and write a JSON manifest
@@ -16,7 +17,7 @@ for the full flag reference.
 
 ## Preprocessing defaults
 
-`words`, `tfidf`, and `topics` all tokenize story text via
+`words`, `tfidf`, `topics`, and `compare` all tokenize story text via
 `lcats.analysis.story_analysis.get_keywords`: terms are lowercased,
 restricted to ASCII alphabetic tokens, require a minimum length of 3
 characters, and are filtered through a hardcoded stopword set. This is the
@@ -137,6 +138,40 @@ around distinctive named characters rather than broader themes; treat a
 single baseline run as exploratory, not a definitive corpus
 characterization.
 
+### `compare` -- aligned mirrored or reference-overlay charts
+
+```bash
+lcats visualize compare \
+  --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --right-genre "science fiction" \
+  --right-reference complement \
+  --metric per_million \
+  --output-dir figures/compare_sf \
+  --formats png,svg
+```
+
+`compare` constructs a `ComparisonSpec`, runs the reusable aligned analysis,
+and then renders either a mirrored chart (`--style mirrored`, the default) or
+a commensurate reference overlay (`--style reference-overlay`). The command
+writes `comparison_<style>.<format>` figures, `comparison.csv` as the
+authoritative table used by the renderer, and `comparison_manifest.json`
+containing universe, selector, overlap, metric, preprocessing, vocabulary,
+order, and output provenance.
+
+`--right-reference complement` makes the left/reference selector `U - S`, where
+`S` is the right selector and `U` is the declared universe. `--right-reference
+universe` uses the whole universe as the reference. Genre selectors use
+candidate membership by default; pass `--membership-mode selection` for a
+manifest's `selection_genre` labels. Reference-overlay requests require
+compatible metrics and denominators and fail before writing figures when the
+two sides are incommensurate. The current CLI source adapters support candidate
+membership from `candidates.jsonl` and selection membership from manifest
+`selection_genre` labels; primary membership is rejected until a per-story
+primary source is available. Explicit term ordering is part of the reusable
+analysis contract but is rejected by the CLI until a term-list option is
+exposed.
+
 ## A note on the two genre-count definitions
 
 `experiments/05_metadata_genre_prefilter`'s `summary.json` carries two
@@ -167,6 +202,8 @@ reproduced and audited:
 - `words`, `tfidf`, `topics` -- `corpus_source_revision` (hash over every
   consumed story file), plus `candidates_source_revision` for
   genre-filtered `words`/`tfidf` runs.
+- `compare` -- `corpus.source_revision` and, when a manifest universe is used,
+  `universe.source_revision`; the adjacent CSV is the table rendered.
 - `genres` -- a different key, `source_revision` (hash over
   `summary.json` alone; `genres` doesn't read individual story files, so
   it has no `corpus_source_revision` to disclose).

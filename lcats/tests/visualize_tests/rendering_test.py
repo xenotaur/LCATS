@@ -10,11 +10,62 @@ import matplotlib.pyplot as plt
 matplotlib.use("Agg")  # non-interactive backend for testing
 
 from lcats.utils import capture
+from lcats.visualize import comparison
 from lcats.visualize import rendering
 
 
 def _make_counts():
     return {"fantasy": 5, "horror": 3, "science fiction": 12}
+
+
+def _comparison_result(*, metric_name="raw_count"):
+    metric = {
+        "name": metric_name,
+        "denominator": "auto",
+        "effective_denominator": "none",
+    }
+    return comparison.ComparisonResult(
+        rows=(
+            comparison.ComparisonRow(
+                term="dragon",
+                display_order=1,
+                left_value=2.0,
+                right_value=5.0,
+                left_raw_count=2,
+                right_raw_count=5,
+                left_document_count=1,
+                right_document_count=2,
+                left_token_denominator=10,
+                right_token_denominator=12,
+                left_document_denominator=1,
+                right_document_denominator=2,
+                signed_difference=-3.0,
+                absolute_difference=3.0,
+            ),
+            comparison.ComparisonRow(
+                term="rocket",
+                display_order=2,
+                left_value=4.0,
+                right_value=1.0,
+                left_raw_count=4,
+                right_raw_count=1,
+                left_document_count=1,
+                right_document_count=1,
+                left_token_denominator=10,
+                right_token_denominator=12,
+                left_document_denominator=1,
+                right_document_denominator=2,
+                signed_difference=3.0,
+                absolute_difference=3.0,
+            ),
+        ),
+        manifest={
+            "left": {"label": "reference"},
+            "right": {"label": "target"},
+            "metrics": {"left": metric, "right": metric},
+            "preprocessing": {"term_form": "surface"},
+        },
+    )
 
 
 class TestPlotGenreBarChart(unittest.TestCase):
@@ -204,6 +255,67 @@ class TestPlotWordcloudGeneric(unittest.TestCase):
         with capture.suppress_output():
             _, ax = rendering.plot_wordcloud(_make_counts(), title="Custom Cloud")
         self.assertEqual(ax.get_title(), "Custom Cloud")
+
+
+class TestPlotMirroredComparison(unittest.TestCase):
+    """Tests for mirrored comparative charts."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_preserves_term_order_and_labels_axes(self):
+        """Mirrored bars use the authoritative row order and metric labels."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_mirrored_comparison(_comparison_result())
+
+        self.assertEqual(
+            [label.get_text() for label in ax.get_yticklabels()], ["dragon", "rocket"]
+        )
+        self.assertIn("Left: raw count", ax.get_xlabel())
+        self.assertIn("Right: raw count", ax.get_xlabel())
+
+    def test_save_path_writes_file(self):
+        """Mirrored comparison figures can be written to disk."""
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+            path = f.name
+        try:
+            with capture.suppress_output():
+                rendering.plot_mirrored_comparison(_comparison_result(), save_path=path)
+            self.assertTrue(os.path.getsize(path) > 0)
+        finally:
+            os.unlink(path)
+
+
+class TestPlotReferenceOverlayComparison(unittest.TestCase):
+    """Tests for reference-overlay comparative charts."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_draws_reference_target_and_difference_layers(self):
+        """Overlay charts expose reference, overlap, excess, and deficit marks."""
+        with capture.suppress_output():
+            _, ax = rendering.plot_reference_overlay_comparison(_comparison_result())
+
+        self.assertEqual(
+            [label.get_text() for label in ax.get_yticklabels()], ["dragon", "rocket"]
+        )
+        self.assertGreaterEqual(len(ax.patches), 8)
+        legend_labels = [text.get_text() for text in ax.get_legend().get_texts()]
+        self.assertIn("target excess", legend_labels)
+        self.assertIn("target deficit", legend_labels)
+
+    def test_mismatched_metrics_raise_before_plotting(self):
+        """Reference overlays reject incommensurate metric provenance."""
+        result = _comparison_result()
+        result.manifest["metrics"]["right"] = {
+            "name": "per_million",
+            "denominator": "auto",
+            "effective_denominator": "included_tokens",
+        }
+
+        with self.assertRaises(ValueError):
+            rendering.plot_reference_overlay_comparison(result)
 
 
 if __name__ == "__main__":

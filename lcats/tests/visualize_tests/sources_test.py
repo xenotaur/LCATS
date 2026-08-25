@@ -262,5 +262,136 @@ class TestLoadCandidatesGenreMembership(unittest.TestCase):
                 sources.load_candidates_genre_membership(str(path))
 
 
+class TestLoadManifestSelection(unittest.TestCase):
+    """Tests for manifest selection loading."""
+
+    def test_reads_story_ids_and_selection_genres(self):
+        """Manifest rows expose ordered story IDs and selection labels."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = Path(tmp_dir) / "manifest.jsonl"
+            path.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "story_id": "anderson/bell",
+                                "selection_genre": "fantasy",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "story_id": "chesterton/blue_cross",
+                                "selection_genre": "mystery",
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            result = sources.load_manifest_selection(str(path))
+
+        self.assertEqual(result.story_ids, ("anderson/bell", "chesterton/blue_cross"))
+        self.assertEqual(result.selection_genres["anderson/bell"], ["fantasy"])
+        self.assertIn("source_revision", result.__dataclass_fields__)
+
+    def test_duplicate_manifest_story_id_raises(self):
+        """Duplicate manifest story IDs are rejected."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            path = Path(tmp_dir) / "manifest.jsonl"
+            path.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "story_id": "anderson/bell",
+                                "selection_genre": "fantasy",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "story_id": "anderson/bell",
+                                "selection_genre": "mystery",
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaises(ValueError):
+                sources.load_manifest_selection(str(path))
+
+
+class TestLoadComparisonCorpus(unittest.TestCase):
+    """Tests for comparison corpus source adaptation."""
+
+    def test_joins_corpus_candidates_and_manifest_selection(self):
+        """Comparison documents carry candidate and selection genre facts."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle")
+            _write_story(corpora_root, "chesterton", "blue_cross", body="detective")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "anderson/bell": ["fantasy"],
+                    "chesterton/blue_cross": ["mystery"],
+                },
+            )
+            manifest_path = Path(tmp_dir) / "manifest.jsonl"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "story_id": "anderson/bell",
+                        "selection_genre": "sample-fantasy",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            result = sources.load_comparison_corpus(
+                corpora_root=str(corpora_root),
+                candidates_jsonl_path=str(candidates_path),
+                manifest_jsonl_path=str(manifest_path),
+            )
+
+        documents = {document.story_id: document for document in result.documents}
+        self.assertEqual(documents["anderson/bell"].candidate_genres, ("fantasy",))
+        self.assertEqual(
+            documents["anderson/bell"].selection_genres, ("sample-fantasy",)
+        )
+        self.assertEqual(documents["chesterton/blue_cross"].selection_genres, ())
+
+    def test_manifest_story_missing_from_corpus_raises(self):
+        """A manifest cannot silently select a story outside the corpus."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "anderson", "bell", body="dragon castle")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"anderson/bell": ["fantasy"]}
+            )
+            manifest_path = Path(tmp_dir) / "manifest.jsonl"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "story_id": "anderson/missing",
+                        "selection_genre": "fantasy",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaises(ValueError):
+                sources.load_comparison_corpus(
+                    corpora_root=str(corpora_root),
+                    candidates_jsonl_path=str(candidates_path),
+                    manifest_jsonl_path=str(manifest_path),
+                )
+
+
 if __name__ == "__main__":
     unittest.main()

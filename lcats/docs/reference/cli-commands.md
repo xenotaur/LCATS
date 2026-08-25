@@ -269,7 +269,7 @@ sidecar and run-summary schemas.
 ## `visualize`
 
 ```
-lcats visualize {genres,words,tfidf,topics} ...
+lcats visualize {genres,words,tfidf,topics,compare} ...
 ```
 
 Generate reproducible, publication-useful figures from LCATS corpus
@@ -394,6 +394,56 @@ characters, and are filtered through a hardcoded stopword set.
 
 See [`../how-to/run-visualize.md`](../how-to/run-visualize.md) for setup
 and worked examples.
+
+### `visualize compare`
+
+```
+lcats visualize compare [--corpus-root CORPUS_ROOT]
+                        [--candidates-jsonl CANDIDATES_JSONL]
+                        [--universe {corpus,manifest}] [--manifest MANIFEST]
+                        [--left-genre LEFT_GENRE] [--right-genre RIGHT_GENRE]
+                        [--membership-mode {candidate,primary,selection}]
+                        [--right-reference {none,complement,universe}]
+                        [--metric METRIC] [--left-metric METRIC]
+                        [--right-metric METRIC]
+                        [--style {mirrored,reference-overlay}]
+                        [--top-k TOP_K] [--vocabulary VOCABULARY]
+                        [--order-by ORDER_BY] [--include-stopwords]
+                        [--min-length MIN_LENGTH]
+                        [--output-dir OUTPUT_DIR] [--formats FORMATS]
+```
+
+Render an aligned lexical comparison from a declared universe and selectors.
+The command writes figure files, `comparison.csv`, and
+`comparison_manifest.json` with the universe, selector, metric, preprocessing,
+vocabulary, ordering, overlap, and output provenance.
+
+| Argument / Flag | Description |
+|---|---|
+| `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
+| `--candidates-jsonl CANDIDATES_JSONL` | Path to full-scan `candidates.jsonl`. |
+| `--universe {corpus,manifest}` | Use the full corpus or a manifest story list as `U` (default: `corpus`). |
+| `--manifest MANIFEST` | Manifest JSONL path required by `--universe manifest`. |
+| `--left-genre LEFT_GENRE` / `--right-genre RIGHT_GENRE` | Genre selectors for the left/reference and right/target side. |
+| `--membership-mode {candidate,primary,selection}` | Genre membership semantics (default: `candidate`). The current CLI source adapters support `candidate` and manifest `selection`; `primary` is rejected until a per-story primary source is available. |
+| `--right-reference {none,complement,universe}` | Derive the left/reference selector from the right selector: no derivation, `U - S`, or all of `U`. |
+| `--metric METRIC` | Metric for both sides unless side-specific metric flags are supplied. |
+| `--left-metric METRIC` / `--right-metric METRIC` | Side-specific metric override. |
+| `--style {mirrored,reference-overlay}` | Render a mirrored chart or a commensurate reference overlay (default: `mirrored`). |
+| `--top-k TOP_K` | Number of aligned terms; must be `>= 1` (default: `20`). |
+| `--vocabulary VOCABULARY` | Aligned vocabulary policy. |
+| `--order-by ORDER_BY` | Display order policy. `explicit` is rejected by the CLI until an explicit term-list option is exposed. |
+| `--include-stopwords` | Include stopwords in tokenization. |
+| `--min-length MIN_LENGTH` | Minimum alphabetic token length (default: `3`). |
+| `--output-dir OUTPUT_DIR` | Directory for figures, CSV, and manifest (default: `compare_viz`). |
+| `--formats FORMATS` | Comma-separated figure formats (default: `png,svg`). |
+
+```
+lcats visualize compare --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --right-genre "science fiction" --right-reference complement \
+  --metric per_million --output-dir /tmp/lcats_compare_smoke
+```
 
 ## Placeholder commands
 

@@ -144,6 +144,22 @@ def _write_candidates_jsonl(tmp_path, rows):
     return path
 
 
+def _write_selection_manifest(tmp_path, rows):
+    path = Path(tmp_path) / "manifest.jsonl"
+    with path.open("w", encoding="utf-8") as f:
+        for story_id, selection_genre in rows.items():
+            f.write(
+                json.dumps(
+                    {
+                        "story_id": story_id,
+                        "selection_genre": selection_genre,
+                    }
+                )
+                + "\n"
+            )
+    return path
+
+
 class TestRunWords(unittest.TestCase):
     """CLI integration/smoke tests for `lcats visualize words`."""
 
@@ -768,6 +784,234 @@ class TestRunTopics(unittest.TestCase):
             parser.parse_args(["topics", "--help"])
         help_text = captured.stdout.getvalue()
         for term in ("lowercased", "alphabetic", "3", "stopword"):
+            self.assertIn(term, help_text)
+
+
+class TestRunCompare(unittest.TestCase):
+    """CLI integration/smoke tests for `lcats visualize compare`."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_manifest_genre_vs_complement_creates_figures_data_and_manifest(self):
+        """Running compare writes figures, authoritative CSV, and manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(
+                corpora_root,
+                "sf",
+                "rocket",
+                body="rocket rocket planet shared",
+            )
+            _write_story(
+                corpora_root,
+                "fantasy",
+                "dragon",
+                body="dragon dragon castle shared",
+            )
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "sf/rocket": ["science fiction"],
+                    "fantasy/dragon": ["fantasy"],
+                },
+            )
+            manifest_path = _write_selection_manifest(
+                tmp_dir,
+                {
+                    "sf/rocket": "science fiction",
+                    "fantasy/dragon": "fantasy",
+                },
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--universe",
+                    "manifest",
+                    "--manifest",
+                    str(manifest_path),
+                    "--right-genre",
+                    "science fiction",
+                    "--right-reference",
+                    "complement",
+                    "--metric",
+                    "per_million",
+                    "--output-dir",
+                    str(output_dir),
+                    "--formats",
+                    "png,svg",
+                ]
+            )
+
+            with capture.suppress_output():
+                status = visualize_cli.run(parsed_args=args)
+
+            expected_files = (
+                "comparison_mirrored.png",
+                "comparison_mirrored.svg",
+                "comparison.csv",
+                "comparison_manifest.json",
+            )
+            for name in expected_files:
+                path = output_dir / name
+                self.assertTrue(path.exists(), f"missing {name}")
+                self.assertGreater(path.stat().st_size, 0, f"empty {name}")
+            manifest = json.loads((output_dir / "comparison_manifest.json").read_text())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["schema_version"], "lcats-comparison-v1")
+        self.assertEqual(manifest["universe"]["story_count"], 2)
+        self.assertEqual(manifest["right"]["story_count"], 1)
+        self.assertEqual(manifest["left"]["story_count"], 1)
+        self.assertEqual(manifest["metrics"]["left"]["name"], "per_million")
+        self.assertEqual(manifest["style"], "mirrored")
+        self.assertIn("figures", manifest["cli"]["outputs"])
+
+    def test_reference_overlay_rejects_incompatible_side_metrics(self):
+        """Overlay CLI requests fail before a figure is written when metrics differ."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "sf", "rocket", body="rocket planet")
+            _write_story(corpora_root, "fantasy", "dragon", body="dragon castle")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir,
+                {
+                    "sf/rocket": ["science fiction"],
+                    "fantasy/dragon": ["fantasy"],
+                },
+            )
+            output_dir = Path(tmp_dir) / "out"
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--right-genre",
+                    "science fiction",
+                    "--right-reference",
+                    "complement",
+                    "--style",
+                    "reference-overlay",
+                    "--left-metric",
+                    "raw_count",
+                    "--right-metric",
+                    "per_million",
+                    "--output-dir",
+                    str(output_dir),
+                ]
+            )
+
+            with capture.suppress_output(), self.assertRaises(ValueError):
+                visualize_cli.run(parsed_args=args)
+
+            self.assertFalse(output_dir.exists())
+
+    def test_primary_membership_mode_rejected_until_source_adapter_exists(self):
+        """Primary genre membership cannot silently produce empty selections."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "sf", "rocket", body="rocket planet")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"sf/rocket": ["science fiction"]}
+            )
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--right-genre",
+                    "science fiction",
+                    "--membership-mode",
+                    "primary",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+
+            with capture.suppress_output(), self.assertRaises(ValueError) as ctx:
+                visualize_cli.run(parsed_args=args)
+
+        self.assertIn("primary is not available", str(ctx.exception))
+
+    def test_selection_membership_requires_manifest_source(self):
+        """Selection membership cannot silently run without selection labels."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "sf", "rocket", body="rocket planet")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"sf/rocket": ["science fiction"]}
+            )
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--right-genre",
+                    "science fiction",
+                    "--membership-mode",
+                    "selection",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+
+            with capture.suppress_output(), self.assertRaises(ValueError) as ctx:
+                visualize_cli.run(parsed_args=args)
+
+        self.assertIn("selection requires --manifest", str(ctx.exception))
+
+    def test_explicit_ordering_rejected_until_explicit_terms_are_exposed(self):
+        """Explicit ordering cannot degrade into alphabetical ordering."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root = Path(tmp_dir) / "corpora"
+            _write_story(corpora_root, "sf", "rocket", body="rocket planet")
+            candidates_path = _write_candidates_jsonl(
+                tmp_dir, {"sf/rocket": ["science fiction"]}
+            )
+            parser = visualize_cli.build_visualize_parser()
+            args = parser.parse_args(
+                [
+                    "compare",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--right-genre",
+                    "science fiction",
+                    "--order-by",
+                    "explicit",
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                ]
+            )
+
+            with capture.suppress_output(), self.assertRaises(ValueError) as ctx:
+                visualize_cli.run(parsed_args=args)
+
+        self.assertIn("--order-by explicit requires", str(ctx.exception))
+
+    def test_compare_help_lists_selector_and_output_controls(self):
+        """compare --help documents the new selector and output options."""
+        parser = visualize_cli.build_visualize_parser()
+        with capture.capture_output() as captured, self.assertRaises(SystemExit):
+            parser.parse_args(["compare", "--help"])
+        help_text = captured.stdout.getvalue()
+        for term in ("--universe", "--right-genre", "--right-reference", "--style"):
             self.assertIn(term, help_text)
 
 
