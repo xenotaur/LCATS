@@ -58,20 +58,6 @@ class _SuvinFailureBackend:
         return self.delegate.complete(**kwargs)
 
 
-class _KnightUsageFailureBackend:
-    def __init__(self):
-        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
-
-    def complete(self, **kwargs):
-        if kwargs["tool"]["name"] == run_worldcon_spike.KNIGHT_TOOL_NAME:
-            error = RuntimeError("Knight provider failure")
-            error.input_tokens = 7
-            error.output_tokens = 9
-            error.raw_content = "partial Knight response"
-            raise error
-        return self.delegate.complete(**kwargs)
-
-
 class _NoToolCallJsonBackend:
     def complete(self, **kwargs):
         payload = json.loads(kwargs["messages"][-1]["content"])
@@ -82,35 +68,6 @@ class _NoToolCallJsonBackend:
             output_tokens=31,
             raw_content=json.dumps(result),
         )
-
-
-class _MalformedNoToolCallJsonBackend:
-    def complete(self, **_kwargs):
-        raise llm_backend.NoToolCallError(
-            "local runtime returned malformed JSON content",
-            input_tokens=2,
-            output_tokens=3,
-            raw_content="{malformed",
-        )
-
-
-class _EmptyNoToolCallBackend:
-    def complete(self, **_kwargs):
-        raise llm_backend.NoToolCallError(
-            "local runtime returned no tool call or content",
-            input_tokens=4,
-            output_tokens=5,
-            raw_content="",
-        )
-
-
-class _BackendErrorBackend:
-    def complete(self, **_kwargs):
-        error = RuntimeError("provider disconnected")
-        error.input_tokens = 29
-        error.output_tokens = 0
-        error.raw_content = "partial provider content"
-        raise error
 
 
 class WorldconSpikeRunnerTest(unittest.TestCase):
@@ -164,9 +121,6 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
             self.assertTrue(sidecar.validate_sidecar(data).valid)
             self.assertEqual(story["story_id"], data["lcats_id"])
-            self.assertEqual(
-                story["run_id"], data["analyses"]["knight"][0]["provenance"]["run_id"]
-            )
             self.assertEqual(
                 {"definite_count": 3, "possible_count": 3, "total_count": 7},
                 story["knight_interval"],
@@ -282,224 +236,17 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual("failed", sidecar_data["analyses"]["suvin_novum"][0]["status"])
         self.assertEqual(
             [run_worldcon_spike.SUVIN_RECORD_STAGE],
-            [
-                item["stage"]
-                for item in sidecar_data["partial_success"]["failed_stages"]
-            ],
+            [item["stage"] for item in sidecar_data["partial_success"]["failed_stages"]],
         )
         self.assertIsNone(sidecar_data["current"]["suvin_novum_analysis_id"])
         raw_stage_path = pathlib.Path(story["raw_response_path"]) / (
             f"{run_worldcon_spike.SUVIN_STAGE}.json"
         )
-        quarantine_stage_path = (
-            output_root
-            / "_quarantine"
-            / story["run_id"]
-            / raw_stage_path.parent.name
-            / (f"{run_worldcon_spike.SUVIN_STAGE}.json")
+        quarantine_stage_path = output_root / "_quarantine" / raw_stage_path.parent.name / (
+            f"{run_worldcon_spike.SUVIN_STAGE}.json"
         )
         self.assertTrue(raw_stage_path.exists())
         self.assertTrue(quarantine_stage_path.exists())
-
-    def test_failed_knight_provenance_preserves_backend_usage(self):
-        output_root = self.root / "knight-usage-failure"
-
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            return_value=_KnightUsageFailureBackend(),
-        ):
-            summary = run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                )
-            )
-
-        story = summary["stories"][0]
-        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
-        knight = data["analyses"]["knight"][0]
-        self.assertEqual("failed", knight["status"])
-        self.assertEqual(
-            {"input": 7, "output": 9},
-            knight["provenance"]["token_usage"],
-        )
-
-    def test_evidence_failure_quarantine_references_exact_raw_file(self):
-        output_root = self.root / "evidence-quarantine-path"
-
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            return_value=_MalformedToolBackend(),
-        ):
-            summary = run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                    stop_on_first_failure=True,
-                )
-            )
-
-        story = summary["stories"][0]
-        raw_path = pathlib.Path(story["raw_response_path"])
-        quarantine = pathlib.Path(story["quarantine_path"])
-        self.assertTrue(raw_path.is_file())
-        self.assertEqual(
-            story["raw_response_path"],
-            json.loads(quarantine.read_text())["raw_response_path"],
-        )
-
-    def test_run_ids_isolate_raw_artifacts_and_jsonl_rows(self):
-        output_root = self.root / "reruns"
-
-        first = run_worldcon_spike.run_spike(
-            run_worldcon_spike.RunnerOptions(
-                manifest_path=self.manifest_path,
-                output_root=output_root,
-                max_stories=1,
-            )
-        )
-        second = run_worldcon_spike.run_spike(
-            run_worldcon_spike.RunnerOptions(
-                manifest_path=self.manifest_path,
-                output_root=output_root,
-                max_stories=1,
-            )
-        )
-
-        self.assertNotEqual(first["run_id"], second["run_id"])
-        self.assertNotEqual(
-            first["stories"][0]["raw_response_path"],
-            second["stories"][0]["raw_response_path"],
-        )
-        rows = (
-            (output_root / "worldcon_spike_story_results.jsonl")
-            .read_text(encoding="utf-8")
-            .splitlines()
-        )
-        self.assertEqual(2, len(rows))
-        self.assertEqual(
-            {first["run_id"], second["run_id"]},
-            {json.loads(row)["run_id"] for row in rows},
-        )
-
-    def test_backend_construction_failure_is_logged_as_run_abort(self):
-        output_root = self.root / "backend-construction-failure"
-
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            side_effect=RuntimeError("backend unavailable"),
-        ):
-            with self.assertRaisesRegex(RuntimeError, "backend unavailable"):
-                run_worldcon_spike.run_spike(
-                    run_worldcon_spike.RunnerOptions(
-                        manifest_path=self.manifest_path,
-                        output_root=output_root,
-                        max_stories=1,
-                    )
-                )
-
-        events = [
-            json.loads(line)
-            for line in (output_root / "worldcon_spike_run_log.jsonl")
-            .read_text(encoding="utf-8")
-            .splitlines()
-        ]
-        self.assertEqual("run_start", events[0]["event"])
-        self.assertEqual("run_aborted_unexpected", events[-1]["event"])
-        self.assertEqual(events[0]["run_id"], events[-1]["run_id"])
-
-    def test_backend_stage_failure_persists_raw_error_before_quarantine(self):
-        output_root = self.root / "backend-stage-failure"
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            return_value=_BackendErrorBackend(),
-        ):
-            summary = run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                    stop_on_first_failure=True,
-                )
-            )
-
-        story = summary["stories"][0]
-        raw_error = pathlib.Path(story["raw_response_path"])
-        self.assertTrue(raw_error.exists())
-        self.assertEqual(
-            "partial provider content",
-            json.loads(raw_error.read_text(encoding="utf-8"))["raw_content"],
-        )
-        quarantine = (
-            output_root
-            / "_quarantine"
-            / story["run_id"]
-            / pathlib.Path(story["raw_response_path"]).parent.name
-            / "story.json"
-        )
-        self.assertEqual(
-            raw_error.parent.resolve(),
-            (output_root / "_raw" / story["run_id"] / raw_error.parent.name).resolve(),
-        )
-        self.assertTrue(quarantine.exists())
-
-    def test_protected_root_consent_is_forwarded_to_logging_and_pipeline(self):
-        output_root = self.root / "forwarding"
-        real_run_log = run_worldcon_spike.run_log.RunLog
-        real_assembly = run_worldcon_spike.pipeline.run_checkpointed_assembly
-        real_publish = run_worldcon_spike.pipeline.publish_sidecar
-        with (
-            patch.object(
-                run_worldcon_spike.run_log,
-                "RunLog",
-                wraps=real_run_log,
-            ) as log_factory,
-            patch.object(
-                run_worldcon_spike.pipeline,
-                "run_checkpointed_assembly",
-                wraps=real_assembly,
-            ) as assembly,
-            patch.object(
-                run_worldcon_spike.pipeline,
-                "publish_sidecar",
-                wraps=real_publish,
-            ) as publish,
-        ):
-            run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                    allow_protected_root=True,
-                )
-            )
-
-        self.assertTrue(log_factory.call_args.kwargs["allow_protected_root"])
-        self.assertTrue(assembly.call_args.kwargs["allow_protected_root"])
-        self.assertTrue(publish.call_args.kwargs["allow_protected_root"])
-
-    def test_sidecar_provenance_matches_current_code_commit(self):
-        output_root = self.root / "commit-match"
-        summary = run_worldcon_spike.run_spike(
-            run_worldcon_spike.RunnerOptions(
-                manifest_path=self.manifest_path,
-                output_root=output_root,
-                max_stories=1,
-            )
-        )
-        story = summary["stories"][0]
-        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
-        self.assertEqual(run_worldcon_spike._git_commit(), summary["code_commit"])
-        self.assertEqual(
-            summary["code_commit"],
-            data["analyses"]["knight"][0]["provenance"]["code_commit"],
-        )
 
     def test_no_tool_call_json_fallback_persists_and_completes(self):
         output_root = self.root / "no-tool-call-json"
@@ -533,67 +280,6 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         ]
         self.assertEqual(3, events.count("no_tool_call_json_fallback"))
 
-    def test_malformed_no_tool_call_preserves_raw_path_and_usage(self):
-        output_root = self.root / "malformed-no-tool-call"
-
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            return_value=_MalformedNoToolCallJsonBackend(),
-        ):
-            summary = run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                    stop_on_first_failure=True,
-                )
-            )
-
-        story = summary["stories"][0]
-        self.assertEqual("failed", story["status"])
-        self.assertEqual(2, story["input_tokens"])
-        self.assertEqual(3, story["output_tokens"])
-        raw_path = pathlib.Path(story["raw_response_path"])
-        self.assertEqual(
-            run_worldcon_spike.EVIDENCE_STAGE,
-            raw_path.stem,
-        )
-        self.assertEqual("{malformed", json.loads(raw_path.read_text())["text"])
-        quarantine = pathlib.Path(story["quarantine_path"])
-        self.assertEqual(
-            story["raw_response_path"],
-            json.loads(quarantine.read_text())["raw_response_path"],
-        )
-
-    def test_empty_no_tool_call_persists_backend_failure_and_usage(self):
-        output_root = self.root / "empty-no-tool-call"
-
-        with patch.object(
-            run_worldcon_spike,
-            "_make_backend",
-            return_value=_EmptyNoToolCallBackend(),
-        ):
-            summary = run_worldcon_spike.run_spike(
-                run_worldcon_spike.RunnerOptions(
-                    manifest_path=self.manifest_path,
-                    output_root=output_root,
-                    max_stories=1,
-                    stop_on_first_failure=True,
-                )
-            )
-
-        story = summary["stories"][0]
-        self.assertEqual("failed", story["status"])
-        self.assertEqual(4, story["input_tokens"])
-        self.assertEqual(5, story["output_tokens"])
-        raw_path = pathlib.Path(story["raw_response_path"])
-        self.assertTrue(raw_path.exists())
-        self.assertEqual(
-            "NoToolCallError",
-            json.loads(raw_path.read_text())["backend_error"],
-        )
-
     def test_stop_on_first_failure_flushes_story_artifacts(self):
         output_root = self.root / "stop-first"
 
@@ -617,11 +303,9 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual("ValueError", story["failure_kind"])
         self.assertTrue(pathlib.Path(story["raw_response_path"]).exists())
         self.assertTrue(pathlib.Path(story["quarantine_path"]).exists())
-        story_rows = (
-            (output_root / "worldcon_spike_story_results.jsonl")
-            .read_text(encoding="utf-8")
-            .splitlines()
-        )
+        story_rows = (output_root / "worldcon_spike_story_results.jsonl").read_text(
+            encoding="utf-8"
+        ).splitlines()
         self.assertEqual(1, len(story_rows))
         events = [
             json.loads(line)["event"]
