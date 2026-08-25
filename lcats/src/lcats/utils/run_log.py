@@ -124,6 +124,8 @@ class RunLog:
     -- callers with a real fatal-exception class (e.g.
     ``FatalValidationError``) should pass it explicitly.
 
+    ``allow_protected_root`` is an explicit opt-in for callers that have
+    independently approved a working root under ``data/`` or ``corpora/``.
     ``**run_fields`` are attached to the ``run_start`` event (e.g.
     ``model=...``, ``story_count=...``).
     """
@@ -134,6 +136,7 @@ class RunLog:
         filename: str,
         *,
         fatal_exceptions: tuple = (),
+        allow_protected_root: bool = False,
         **run_fields: Any,
     ) -> None:
         if isinstance(roots, checkpoint.CheckpointRoots):
@@ -142,7 +145,11 @@ class RunLog:
         else:
             working_root = roots
             source_root = None
-        validated = checkpoint.resolve_roots(working_root, source_root)
+        validated = checkpoint.resolve_roots(
+            working_root,
+            source_root,
+            allow_protected_root=allow_protected_root,
+        )
         self.roots = validated
         # filename is a caller-supplied identifier, not a path -- without
         # this check, an absolute value or one containing ".." would

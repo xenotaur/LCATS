@@ -112,6 +112,17 @@ class RunLogTest(unittest.TestCase):
         with self.assertRaises(checkpoint.ProtectedRootError):
             run_log.RunLog(working, "run.jsonl")
 
+    def test_allows_protected_root_with_explicit_override(self):
+        working = self.tmp_dir / "data" / "mycollection"
+
+        log = run_log.RunLog(
+            working,
+            "run.jsonl",
+            allow_protected_root=True,
+        )
+
+        self.assertEqual(log.log_path, working / "run.jsonl")
+
     def test_rejects_directly_constructed_checkpoint_roots_under_protected_root(self):
         """A hand-built CheckpointRoots is never trusted as pre-validated.
 
