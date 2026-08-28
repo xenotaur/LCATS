@@ -99,7 +99,7 @@ def gather(
     verbose=True,
     log_dir=DEFAULT_GATHER_LOG_DIR,
 ):
-    """Run DataGatherers for the a corpus.
+    """Run DataGatherers for a corpus.
 
     Wraps the download loop in a run_log.RunLog scope (log path
     ``<log_dir>/<corpus>_gather_run_log.jsonl``, outside the protected
@@ -142,7 +142,18 @@ def gather(
                     paragraph_finder=paragraph_finder,
                 ),
             )
-            log.event("story_downloaded", filename=filename, corpus=corpus)
+            # download() only adds to gatherer.downloads when it actually
+            # performed a fresh download (downloaders.py:239-279) - not
+            # when the canonical file already existed and it skipped -
+            # so this distinguishes the two without needing download()
+            # itself to change its return contract (review finding, PR
+            # #404).
+            event = (
+                "story_downloaded"
+                if filename in gatherer.downloads
+                else "story_skipped"
+            )
+            log.event(event, filename=filename, corpus=corpus)
     if verbose:
         print(f" - Total stories in {corpus} corpus: {len(gatherer.downloads)}")
     return gatherer.downloads

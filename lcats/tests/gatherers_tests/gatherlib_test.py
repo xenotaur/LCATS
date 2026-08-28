@@ -288,6 +288,14 @@ class TestGatherRunLogging(unittest.TestCase):
     ):
         mock_instance = MagicMock()
         mock_instance.downloads = {}
+        # download() only populates .downloads on a real (non-skipped)
+        # download (downloaders.py:239-279) - simulate that here so the
+        # per-story event is "story_downloaded", not "story_skipped".
+        mock_instance.download.side_effect = (
+            lambda filename, *a, **kw: mock_instance.downloads.__setitem__(
+                filename, f"/fake/{filename}.json"
+            )
+        )
         mock_gatherer_cls.return_value = mock_instance
 
         gatherlib.gather(
@@ -325,10 +333,14 @@ class TestGatherRunLogging(unittest.TestCase):
         with a readable trail of what happened first."""
         mock_instance = MagicMock()
         mock_instance.downloads = {}
-        mock_instance.download.side_effect = [
-            None,
-            RuntimeError("simulated download failure"),
-        ]
+
+        def _download_side_effect(filename, *args, **kwargs):
+            if filename == "swineherd":
+                mock_instance.downloads[filename] = f"/fake/{filename}.json"
+                return None
+            raise RuntimeError("simulated download failure")
+
+        mock_instance.download.side_effect = _download_side_effect
         mock_gatherer_cls.return_value = mock_instance
 
         with self.assertRaises(RuntimeError):
@@ -358,6 +370,43 @@ class TestGatherRunLogging(unittest.TestCase):
             "only the first (successful) download should have logged an event",
         )
         self.assertEqual(event_names[-1], "run_aborted_unexpected")
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_already_downloaded_story_logs_skipped_not_downloaded(
+        self, mock_gatherer_cls
+    ):
+        """download() leaves .downloads untouched when the canonical file
+        already exists and it skips the fetch (downloaders.py:278-279) -
+        the per-story event must reflect that, not falsely report every
+        already-gathered story as freshly downloaded on a rerun (review
+        finding, PR #404)."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        # Real download() is a no-op on this side_effect: .downloads is
+        # never populated, matching the "file already exists" branch.
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            gutenberg_url=EXAMPLE_GUTENBERG,
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        log_path = self.log_dir / "anderson_gather_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertNotIn("story_downloaded", event_names)
+        self.assertEqual(event_names.count("story_skipped"), len(EXAMPLE_HEADINGS))
 
 
 if __name__ == "__main__":

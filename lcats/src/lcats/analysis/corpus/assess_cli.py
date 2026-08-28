@@ -120,7 +120,9 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "per story processed, plus run_start/run_end markers) - "
             "useful for tracing a crash or interruption mid-run. Omit to "
             "skip logging entirely (assess has no other durable working "
-            "directory to default to). Never data/, corpora/, or cache/."
+            "directory to default to). Never data/ or corpora/ (rejected "
+            "by validation); avoid cache/ too, though it isn't enforced "
+            "the same way."
         ),
     )
     parser.add_argument("--progress", dest="progress", action="store_true")
@@ -330,9 +332,14 @@ def run(
                 elif args.format == "human":
                     _write_human(output_stream, result)
 
-        if args.format == "json" and all_results:
-            json.dump(all_results, output_stream, indent=2)
-            print(file=output_stream)
+            # Kept inside the RunLog scope (not after it) - a failure
+            # serializing the accumulated --format json results is a
+            # real run failure and must produce run_aborted_unexpected,
+            # not a bare run_end implying the run completed cleanly
+            # (review finding, PR #404).
+            if args.format == "json" and all_results:
+                json.dump(all_results, output_stream, indent=2)
+                print(file=output_stream)
 
         return 0
 

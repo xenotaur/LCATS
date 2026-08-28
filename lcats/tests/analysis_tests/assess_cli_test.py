@@ -13,8 +13,8 @@ import tempfile
 import unittest
 import unittest.mock
 
+from lcats.analysis.corpus import assess
 from lcats.analysis.corpus import assess_cli
-from lcats.analysis.corpus.assess import AssessmentResult
 
 
 def _write_story(collection_dir: pathlib.Path, name: str, body: str) -> None:
@@ -30,8 +30,8 @@ def _write_story(collection_dir: pathlib.Path, name: str, body: str) -> None:
     )
 
 
-def _fake_result(file_path) -> AssessmentResult:
-    return AssessmentResult(
+def _fake_result(file_path) -> assess.AssessmentResult:
+    return assess.AssessmentResult(
         file_path=str(file_path),
         title="Title",
         author="Author",
