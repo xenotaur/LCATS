@@ -304,6 +304,23 @@ class SurveyCollectionTest(unittest.TestCase):
 class PromoteCollectionsTest(unittest.TestCase):
     """Tests for the survey-gated promotion pass (acceptance criteria)."""
 
+    def setUp(self):
+        # promote_collections() now writes a run_log.RunLog by default -
+        # point every call in this class at a throwaway directory rather
+        # than the real default (logs/promote/ relative to cwd), so
+        # these unit tests don't leave real files behind in whatever
+        # directory happens to run them (WI-RUNLOG-0083). Patching the
+        # module-level constant (not passing log_dir= at each call site)
+        # works because promote_collections() resolves None -> the
+        # constant at call time, not at function-definition time.
+        self._log_tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._log_tmp.cleanup)
+        self._log_dir_patch = unittest.mock.patch.object(
+            promote, "DEFAULT_PROMOTE_LOG_DIR", pathlib.Path(self._log_tmp.name)
+        )
+        self._log_dir_patch.start()
+        self.addCleanup(self._log_dir_patch.stop)
+
     def test_seeded_defect_blocks_promotion(self):
         # WI-PROMOTE-0020 acceptance: a seeded-defect test proves the gate
         # blocks promotion of damaged text.
@@ -493,6 +510,111 @@ class PromoteCollectionsTest(unittest.TestCase):
             # phase, not an artifact of copying mid-loop.
             self.assertEqual(("a_clean",), report.promoted)
             self.assertEqual(1, len(report.blocked))
+
+
+class PromoteCollectionsRunLoggingTest(unittest.TestCase):
+    """WI-RUNLOG-0083: promote_collections() gets a crash-safe,
+    incremental run-event log via lcats.utils.run_log.RunLog, written
+    outside both --source and --dest (both protected roots by default)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.tmp_path = pathlib.Path(self._tmp.name)
+        self.log_dir = self.tmp_path / "promote_logs"
+
+    def test_run_log_records_start_promote_and_end_in_order(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+
+            report = promote.promote_collections(
+                source_root, dest_root, log_dir=self.log_dir
+            )
+
+            self.assertEqual(("clean",), report.promoted)
+
+        log_path = self.log_dir / "promote_run_log.jsonl"
+        self.assertTrue(log_path.exists())
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(
+            event_names, ["run_start", "promote_start", "promote_end", "run_end"]
+        )
+        self.assertEqual(events[0]["collection_names"], ["clean"])
+        self.assertEqual(events[1]["collection"], "clean")
+
+    def test_blocked_collection_logs_collection_blocked_not_promote_events(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "damaged", "story_one", "them a resumÃ©.")
+
+            report = promote.promote_collections(
+                source_root, dest_root, log_dir=self.log_dir
+            )
+
+            self.assertEqual((), report.promoted)
+
+        log_path = self.log_dir / "promote_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertIn("collection_blocked", event_names)
+        self.assertNotIn("promote_start", event_names)
+        self.assertNotIn("promote_end", event_names)
+        blocked_event = next(e for e in events if e["event"] == "collection_blocked")
+        self.assertEqual(blocked_event["collection"], "damaged")
+
+    def test_crash_mid_copy_leaves_a_readable_partial_log(self):
+        """An uncaught _copy_collection failure partway through multiple
+        collections must not corrupt already-written log entries, and
+        must surface as run_aborted_unexpected - promote.py has no
+        FatalPromoteError class, so nothing here could ever be
+        classified run_aborted_fatal instead."""
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "a_clean", "story_one", "A clean sentence.")
+            _write_story(source_root / "b_clean", "story_one", "Another sentence.")
+
+            with unittest.mock.patch.object(
+                promote,
+                "_copy_collection",
+                side_effect=[None, OSError("simulated disk failure")],
+            ):
+                with self.assertRaises(OSError):
+                    promote.promote_collections(
+                        source_root, dest_root, log_dir=self.log_dir
+                    )
+
+        log_path = self.log_dir / "promote_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(event_names[0], "run_start")
+        # a_clean completed (promote_start + promote_end); b_clean only
+        # got as far as promote_start before the simulated crash.
+        self.assertEqual(event_names.count("promote_start"), 2)
+        self.assertEqual(event_names.count("promote_end"), 1)
+        self.assertEqual(event_names[-1], "run_aborted_unexpected")
 
 
 def _valid_sidecar_record(lcats_id: str, story_path: str) -> dict:
@@ -1092,12 +1214,15 @@ class PromoteSidecarInsertUpsertTest(unittest.TestCase):
         with (
             tempfile.TemporaryDirectory() as source_tmp,
             tempfile.TemporaryDirectory() as dest_tmp,
+            tempfile.TemporaryDirectory() as log_tmp,
         ):
             source_root = pathlib.Path(source_tmp)
             dest_root = pathlib.Path(dest_tmp)
             _write_story(source_root / "clean", "story_one", "A clean sentence.")
 
-            report = promote.promote_collections(source_root, dest_root)
+            report = promote.promote_collections(
+                source_root, dest_root, log_dir=pathlib.Path(log_tmp)
+            )
 
             self.assertEqual(("clean",), report.promoted)
             self.assertTrue(report.all_promoted)
@@ -1105,6 +1230,18 @@ class PromoteSidecarInsertUpsertTest(unittest.TestCase):
 
 class PromoteCliTest(unittest.TestCase):
     """Tests for the promote CLI exit-code and reporting behavior."""
+
+    def setUp(self):
+        # See PromoteCollectionsTest.setUp - same rationale, since
+        # promote_cli.run(["replace", ...]) reaches the same
+        # promote_collections() default log_dir.
+        self._log_tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._log_tmp.cleanup)
+        self._log_dir_patch = unittest.mock.patch.object(
+            promote, "DEFAULT_PROMOTE_LOG_DIR", pathlib.Path(self._log_tmp.name)
+        )
+        self._log_dir_patch.start()
+        self.addCleanup(self._log_dir_patch.stop)
 
     def test_bare_invocation_with_no_mode_refuses(self):
         # WI-PROMOTE-0097 acceptance: an explicit mode is mandatory; a

@@ -28,8 +28,15 @@ from lcats.analysis.corpus import discovery
 from lcats.analysis.corpus import genre_sidecar
 from lcats.analysis.corpus import sidecar_validators
 from lcats.analysis.corpus import specials
+from lcats.utils import run_log
 
 BLOCKING_CLASSIFICATION = "likely_repairable"
+
+# Outside both --source (data/) and --dest (corpora/ by default), both
+# protected by run_log.RunLog's own re-validation - "logs" is a plain
+# sibling directory, relative to the current working directory like
+# every other env-overridable root in lcats.utils.env (WI-RUNLOG-0083).
+DEFAULT_PROMOTE_LOG_DIR = pathlib.Path("logs") / "promote"
 
 # (sidecar filename, required top-level key, expected value type) --
 # parse/shape-level checks only (per WI-ANNOTATE-0052's Non-Goals: no
@@ -305,6 +312,7 @@ def promote_collections(
     dest_root: pathlib.Path,
     collection_names: list[str] | None = None,
     dry_run: bool = False,
+    log_dir: pathlib.Path | None = None,
 ) -> PromotionReport:
     """Survey and promote data/ collections into corpora/.
 
@@ -320,6 +328,17 @@ def promote_collections(
     directory under its identity-mapped name (see ``destination_name``) so
     stale files from a prior promotion cannot linger.
 
+    The whole call (surveying and copying both) is wrapped in a
+    run_log.RunLog scope, log path ``<log_dir>/promote_run_log.jsonl``
+    (outside both source_root/dest_root, typically data/ and corpora/,
+    both protected roots by default) - a crash mid-copy (a destructive
+    local rmtree-then-copytree per collection) leaves a readable partial
+    log showing which collections completed and which was in flight
+    (WI-RUNLOG-0083). promote.py has no FatalPromoteError/account-level
+    fatal exception class, so any uncaught exception here -- from
+    surveying or from _copy_collection -- is classified
+    run_aborted_unexpected, never left uncategorized.
+
     Args:
         source_root: Root directory containing collection subdirectories
             (typically data/).
@@ -328,6 +347,11 @@ def promote_collections(
         collection_names: Collection directory names to consider; defaults to
             every subdirectory of source_root.
         dry_run: When True, survey and report but do not copy any files.
+        log_dir: Directory for the run-event log; None (the default)
+            resolves to DEFAULT_PROMOTE_LOG_DIR at call time -- not bound
+            as the parameter's own default value, so a test can patch
+            the module-level constant instead of passing an explicit
+            override at every one of this function's many call sites.
 
     Returns:
         A PromotionReport listing promoted collection names and blocked
@@ -336,6 +360,8 @@ def promote_collections(
     Raises:
         ValueError: If source_root and dest_root are the same or nested.
     """
+    if log_dir is None:
+        log_dir = DEFAULT_PROMOTE_LOG_DIR
     _validate_distinct_roots(source_root, dest_root)
 
     if collection_names is None:
@@ -345,21 +371,35 @@ def promote_collections(
 
     allowlist = specials.load_allowlist_config(specials.default_allowlist_config_path())
 
-    results = [
-        survey_collection(source_root / name, allowlist=allowlist)
-        for name in collection_names
-    ]
-
     promoted: list[str] = []
     blocked: list[CollectionSurveyResult] = []
-    for name, result in zip(collection_names, results):
-        if not result.clean:
-            blocked.append(result)
-            continue
+    with run_log.RunLog(
+        log_dir,
+        "promote_run_log.jsonl",
+        collection_names=list(collection_names),
+        dry_run=dry_run,
+    ) as log:
+        results = [
+            survey_collection(source_root / name, allowlist=allowlist)
+            for name in collection_names
+        ]
 
-        if not dry_run:
-            _copy_collection(source_root / name, dest_root / destination_name(name))
-        promoted.append(name)
+        for name, result in zip(collection_names, results):
+            if not result.clean:
+                blocked.append(result)
+                log.event(
+                    "collection_blocked",
+                    collection=name,
+                    finding_count=len(result.findings),
+                    sidecar_finding_count=len(result.sidecar_findings),
+                )
+                continue
+
+            log.event("promote_start", collection=name)
+            if not dry_run:
+                _copy_collection(source_root / name, dest_root / destination_name(name))
+            log.event("promote_end", collection=name)
+            promoted.append(name)
 
     return PromotionReport(promoted=tuple(promoted), blocked=tuple(blocked))
 
