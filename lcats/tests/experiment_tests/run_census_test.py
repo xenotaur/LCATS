@@ -355,8 +355,11 @@ class TestRunLogging(unittest.TestCase):
                 "--output",
                 str(output_dir),
             ]
-            with patch.object(sys, "argv", argv), patch.object(
-                run_census, "_classify_story", side_effect=fake_classify_story
+            with (
+                patch.object(sys, "argv", argv),
+                patch.object(
+                    run_census, "_classify_story", side_effect=fake_classify_story
+                ),
             ):
                 exit_code = run_census.main()
 
@@ -410,8 +413,9 @@ class TestRunLogging(unittest.TestCase):
                     raise OSError("simulated disk-full failure")
                 return real_open(self, *args, **kwargs)
 
-            with patch.object(sys, "argv", argv), patch.object(
-                pathlib.Path, "open", selective_open
+            with (
+                patch.object(sys, "argv", argv),
+                patch.object(pathlib.Path, "open", selective_open),
             ):
                 with self.assertRaises(OSError):
                     run_census.main()
