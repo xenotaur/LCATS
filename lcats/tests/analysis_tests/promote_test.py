@@ -616,6 +616,79 @@ class PromoteCollectionsRunLoggingTest(unittest.TestCase):
         self.assertEqual(event_names.count("promote_end"), 1)
         self.assertEqual(event_names[-1], "run_aborted_unexpected")
 
+    def test_log_dir_nested_under_source_root_is_rejected(self):
+        """A log_dir inside source_root would get wholesale-copied into
+        dest_root by _copy_collection's own unfiltered copytree,
+        contaminating the promoted corpus with an operational log file
+        (review finding, PR #407) - must be rejected before any file is
+        ever written, not merely produce a corrupted promotion."""
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+            nested_log_dir = source_root / "clean" / "logs"
+
+            with self.assertRaises(ValueError) as ctx:
+                promote.promote_collections(
+                    source_root, dest_root, log_dir=nested_log_dir
+                )
+
+            self.assertIn("source_root", str(ctx.exception))
+            # Nothing was promoted or logged - the rejection happens
+            # before entering the RunLog scope at all.
+            self.assertFalse((dest_root / "clean").exists())
+
+    def test_log_dir_nested_under_dest_root_is_rejected(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+            nested_log_dir = dest_root / "logs"
+
+            with self.assertRaises(ValueError) as ctx:
+                promote.promote_collections(
+                    source_root, dest_root, log_dir=nested_log_dir
+                )
+
+            self.assertIn("dest_root", str(ctx.exception))
+
+    def test_allowlist_load_failure_is_captured_as_run_aborted_unexpected(self):
+        """The allowlist config load moved inside the RunLog scope
+        (review finding, PR #407) - an unexpected failure there must
+        produce run_start then run_aborted_unexpected, not escape the
+        run log entirely."""
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "clean", "story_one", "A clean sentence.")
+
+            with unittest.mock.patch.object(
+                promote.specials,
+                "load_allowlist_config",
+                side_effect=RuntimeError("simulated config load failure"),
+            ):
+                with self.assertRaises(RuntimeError):
+                    promote.promote_collections(
+                        source_root, dest_root, log_dir=self.log_dir
+                    )
+
+        log_path = self.log_dir / "promote_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(event_names, ["run_start", "run_aborted_unexpected"])
+
 
 def _valid_sidecar_record(lcats_id: str, story_path: str) -> dict:
     """Build a minimal genre-sidecar-v1 record that passes

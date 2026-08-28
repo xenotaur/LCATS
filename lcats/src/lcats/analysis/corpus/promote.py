@@ -300,6 +300,38 @@ def _validate_distinct_roots(
         )
 
 
+def _validate_log_dir_outside_promotion_roots(
+    log_dir: pathlib.Path, source_root: pathlib.Path, dest_root: pathlib.Path
+) -> None:
+    """Raise ValueError if log_dir is source_root/dest_root themselves, or
+    nested inside either.
+
+    run_log.RunLog's own protected-root guard only checks against the
+    canonical environment data/corpora roots (checkpoint.py's
+    _protected_roots(), anchored to this project's own pyproject.toml) --
+    not against whatever source_root/dest_root this specific call was
+    given, which may be arbitrary caller-supplied paths (e.g. in tests,
+    or a custom --source/--dest). Without this check, a log_dir nested
+    under source_root would get silently wholesale-copied into dest_root
+    by _copy_collection's own unfiltered copytree, contaminating the
+    promoted corpus with an operational log file that was never part of
+    the source collection (review finding, PR #407).
+    """
+    resolved_log_dir = log_dir.resolve()
+    for label, root in (("source_root", source_root), ("dest_root", dest_root)):
+        resolved_root = root.resolve()
+        if (
+            resolved_log_dir == resolved_root
+            or resolved_root in resolved_log_dir.parents
+        ):
+            raise ValueError(
+                f"log_dir ({resolved_log_dir}) is {label} ({resolved_root}) "
+                "or is nested inside it; refusing to write the run log "
+                "there, since it could be wholesale-copied into a "
+                "promoted collection."
+            )
+
+
 def _copy_collection(source_dir: pathlib.Path, dest_dir: pathlib.Path) -> None:
     """Wholesale-replace dest_dir with a copy of source_dir's contents."""
     if dest_dir.exists():
@@ -358,18 +390,18 @@ def promote_collections(
         CollectionSurveyResult entries.
 
     Raises:
-        ValueError: If source_root and dest_root are the same or nested.
+        ValueError: If source_root and dest_root are the same or nested,
+            or if log_dir is nested inside either.
     """
     if log_dir is None:
         log_dir = DEFAULT_PROMOTE_LOG_DIR
     _validate_distinct_roots(source_root, dest_root)
+    _validate_log_dir_outside_promotion_roots(log_dir, source_root, dest_root)
 
     if collection_names is None:
         collection_names = sorted(
             entry.name for entry in source_root.iterdir() if entry.is_dir()
         )
-
-    allowlist = specials.load_allowlist_config(specials.default_allowlist_config_path())
 
     promoted: list[str] = []
     blocked: list[CollectionSurveyResult] = []
@@ -379,6 +411,13 @@ def promote_collections(
         collection_names=list(collection_names),
         dry_run=dry_run,
     ) as log:
+        # Loading the allowlist config lives inside the RunLog scope too
+        # (not before it), so an unexpected failure here is captured as
+        # run_aborted_unexpected instead of escaping the run log
+        # entirely (review finding, PR #407).
+        allowlist = specials.load_allowlist_config(
+            specials.default_allowlist_config_path()
+        )
         results = [
             survey_collection(source_root / name, allowlist=allowlist)
             for name in collection_names
