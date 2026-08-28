@@ -8,6 +8,15 @@ artifacts, and writes the stability-gate JSON/Markdown reports.
 Real mode makes paid Anthropic API calls. Do not run without --dry-run
 until an in-session human has approved the model choices, story count,
 expected call count, expected artifacts, and estimated spend.
+
+Run-log disposition (PROP-LCATS-RUN-LOG Decision 4, WI-RUNLOG-0084):
+assessed and found not to warrant its own incremental run-event log.
+_run_pilot() delegates to a run_pilot.py subprocess, already covered
+transitively by that script's own run log (WI-RUNLOG-0080);
+_run_genre_detection() does make its own paid, in-process
+assess_story() calls, not subprocess-delegated, but the fixed 2-fixture
+scope (EXPECTED_STORY_COUNT) is small/bounded enough that a crash mid-run
+costs at most 2 stories' worth of already-paid-for work to re-derive.
 """
 
 from __future__ import annotations
