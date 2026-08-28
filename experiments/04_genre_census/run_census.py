@@ -96,6 +96,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "lcats" / "
 from lcats.analysis.corpus import assess as corpus_assess
 from lcats.analysis.corpus import discovery
 from lcats.utils import checkpoint
+from lcats.utils import run_log
 from lcats.utils.secrets import load_secrets
 
 # Bumped whenever assess.py's classifier (prompts, schema, VALID_GENRES) OR
@@ -747,91 +748,139 @@ def main() -> int:
         targets = files
         print(f"Full mode: {len(targets)} stories (resuming from any checkpoints).")
 
+    # Computed here (not at the original point of use, right before the
+    # stories_path write) so it's available for the run-log filename below
+    # - every input it needs (mode, model, args.base_url, args.dry_run) is
+    # already known by this point.
+    prefix = _output_prefix(mode, model, args.base_url, args.dry_run)
+
     records: List[Dict[str, Any]] = []
     aborted = False
-    for i, path in enumerate(targets, start=1):
-        try:
-            record = _classify_story(
-                path, backend, model, args.backend, args.base_url, roots
-            )
-        except FatalCensusError as exc:
-            print(f"\nfatal: {exc}", file=sys.stderr)
+    # RunLog wraps the classification loop and the summary write below in
+    # one scope: run_end is emitted only after the write actually
+    # succeeds, not before it - a failure while writing the summary
+    # produces run_aborted_unexpected instead of a false run_end implying
+    # success (review finding, PR #352 on WI-RUNLOG-0081; mirrors
+    # run_prefilter.py's/run_pilot.py's own RunLog wrapping).
+    with run_log.RunLog(
+        roots,
+        f"{prefix}_run_log.jsonl",
+        model=model,
+        backend_name=args.backend,
+        mode=mode,
+        story_count=len(targets),
+        dry_run=args.dry_run,
+    ) as log:
+        for i, path in enumerate(targets, start=1):
+            try:
+                record = _classify_story(
+                    path, backend, model, args.backend, args.base_url, roots
+                )
+            except FatalCensusError as exc:
+                print(f"\nfatal: {exc}", file=sys.stderr)
+                print(
+                    "Aborting - this looks like a bad/expired API key or an "
+                    "exhausted account balance/quota, not a per-story problem. "
+                    "Every remaining story would fail identically.",
+                    file=sys.stderr,
+                )
+                log.event(
+                    "run_aborted_fatal",
+                    index=i,
+                    total=len(targets),
+                    error=str(exc),
+                )
+                aborted = True
+                break
+            records.append(record)
+            if record.get("from_cache"):
+                tag = "cached"
+            elif local_endpoint:
+                tag = "local"
+            else:
+                tag = "billed"
             print(
-                "Aborting - this looks like a bad/expired API key or an "
-                "exhausted account balance/quota, not a per-story problem. "
-                "Every remaining story would fail identically.",
-                file=sys.stderr,
+                f"  [{i}/{len(targets)}] {record['story_id']} -> "
+                f"{record['detected_genre']} ({tag})"
             )
-            aborted = True
-            break
-        records.append(record)
-        if record.get("from_cache"):
-            tag = "cached"
-        elif local_endpoint:
-            tag = "local"
-        else:
-            tag = "billed"
-        print(
-            f"  [{i}/{len(targets)}] {record['story_id']} -> "
-            f"{record['detected_genre']} ({tag})"
-        )
-
-    summary = summarize(records)
-    summary["mode"] = mode
-    summary["backend"] = args.backend
-    summary["model"] = model
-    summary["base_url"] = args.base_url or ""
-    summary["local_endpoint"] = local_endpoint
-    summary["dry_run"] = args.dry_run
-    summary["corpus_story_count"] = len(files)
-    if local_endpoint:
-        summary["local_call_count"] = _fresh_metered_call_count(records)
-        summary["billed_call_count"] = 0
-
-    if mode == "sample" and records:
-        # Use only freshly-classified (non-cached) records for the
-        # extrapolation mean, not summary["total_..."] over every record: a
-        # cache hit (served from a prior interrupted/re-run sample sharing
-        # the same --output/--seed) contributes $0 new spend this run, and
-        # averaging it in with len(records) as the denominator would dilute
-        # the mean and silently understate the cost estimate this script's
-        # entire cost gate depends on. A genuine $0 story (e.g. a file-read
-        # error) is NOT excluded here - that is a real, representative
-        # zero-cost outcome the full corpus will also see at roughly the
-        # same rate, unlike a cache hit.
-        fresh_records = [r for r in records if not r.get("from_cache")]
-        if not fresh_records:
-            print(
-                "warning: every sampled story was served from a prior "
-                "checkpoint cache - this run measured $0 new spend, so the "
-                "extrapolated estimate below reflects no fresh signal. "
-                "Use --output pointed at a fresh directory for a real "
-                "cost estimate.",
-                file=sys.stderr,
+            log.event(
+                "story_completed",
+                story_id=record["story_id"],
+                index=i,
+                total=len(targets),
+                detected_genre=record["detected_genre"],
+                from_cache=bool(record.get("from_cache")),
             )
-        denominator_records = fresh_records or records
-        fresh_cost = sum(r.get("estimated_cost_usd", 0.0) for r in denominator_records)
-        fresh_elapsed = sum(r.get("elapsed_seconds", 0.0) for r in denominator_records)
-        mean_cost = fresh_cost / len(denominator_records)
-        mean_elapsed = fresh_elapsed / len(denominator_records)
-        summary["extrapolated_full_corpus_cost_usd"] = mean_cost * len(files)
-        summary["extrapolated_full_corpus_wall_clock_seconds"] = mean_elapsed * len(
-            files
+
+        summary = summarize(records)
+        summary["mode"] = mode
+        summary["backend"] = args.backend
+        summary["model"] = model
+        summary["base_url"] = args.base_url or ""
+        summary["local_endpoint"] = local_endpoint
+        summary["dry_run"] = args.dry_run
+        summary["corpus_story_count"] = len(files)
+        if local_endpoint:
+            summary["local_call_count"] = _fresh_metered_call_count(records)
+            summary["billed_call_count"] = 0
+
+        if mode == "sample" and records:
+            # Use only freshly-classified (non-cached) records for the
+            # extrapolation mean, not summary["total_..."] over every record: a
+            # cache hit (served from a prior interrupted/re-run sample sharing
+            # the same --output/--seed) contributes $0 new spend this run, and
+            # averaging it in with len(records) as the denominator would dilute
+            # the mean and silently understate the cost estimate this script's
+            # entire cost gate depends on. A genuine $0 story (e.g. a file-read
+            # error) is NOT excluded here - that is a real, representative
+            # zero-cost outcome the full corpus will also see at roughly the
+            # same rate, unlike a cache hit.
+            fresh_records = [r for r in records if not r.get("from_cache")]
+            if not fresh_records:
+                print(
+                    "warning: every sampled story was served from a prior "
+                    "checkpoint cache - this run measured $0 new spend, so the "
+                    "extrapolated estimate below reflects no fresh signal. "
+                    "Use --output pointed at a fresh directory for a real "
+                    "cost estimate.",
+                    file=sys.stderr,
+                )
+            denominator_records = fresh_records or records
+            fresh_cost = sum(
+                r.get("estimated_cost_usd", 0.0) for r in denominator_records
+            )
+            fresh_elapsed = sum(
+                r.get("elapsed_seconds", 0.0) for r in denominator_records
+            )
+            mean_cost = fresh_cost / len(denominator_records)
+            mean_elapsed = fresh_elapsed / len(denominator_records)
+            summary["extrapolated_full_corpus_cost_usd"] = mean_cost * len(files)
+            summary["extrapolated_full_corpus_wall_clock_seconds"] = mean_elapsed * len(
+                files
+            )
+
+        stories_path = output_dir / f"{prefix}_stories.jsonl"
+        with stories_path.open("w", encoding="utf-8") as f:
+            for record in records:
+                f.write(json.dumps(record, sort_keys=True) + "\n")
+
+        reference_stories_path = output_dir / f"census_{mode}_stories.jsonl"
+        if args.base_url and mode == "sample" and reference_stories_path.exists():
+            _add_reference_comparison(summary, records, reference_stories_path)
+
+        summary_path = output_dir / f"{prefix}_summary.json"
+        with summary_path.open("w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2, sort_keys=True)
+
+        # Manually logged (not RunLog's own automatic bare run_end) so an
+        # aborted run's log carries an explicit aborted=True marker, and so
+        # this fires only once the summary write above has actually
+        # succeeded - never before it (review finding, PR #352).
+        log.event(
+            "run_end",
+            aborted=aborted,
+            processed_count=len(records),
         )
-
-    prefix = _output_prefix(mode, model, args.base_url, args.dry_run)
-    stories_path = output_dir / f"{prefix}_stories.jsonl"
-    with stories_path.open("w", encoding="utf-8") as f:
-        for record in records:
-            f.write(json.dumps(record, sort_keys=True) + "\n")
-
-    reference_stories_path = output_dir / f"census_{mode}_stories.jsonl"
-    if args.base_url and mode == "sample" and reference_stories_path.exists():
-        _add_reference_comparison(summary, records, reference_stories_path)
-
-    summary_path = output_dir / f"{prefix}_summary.json"
-    with summary_path.open("w", encoding="utf-8") as f:
-        json.dump(summary, f, indent=2, sort_keys=True)
 
     print("\nPer-genre counts:")
     for genre in list(corpus_assess.VALID_GENRES) + ["other"]:
