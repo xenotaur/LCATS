@@ -8,6 +8,7 @@ import unittest.mock
 
 from lcats.analysis.corpus import annotate, genre_sidecar
 from lcats.utils import checkpoint
+from lcats.utils import run_log
 
 _GENRE_TOOL_RESULT = {
     "verdict": "include",
@@ -887,3 +888,88 @@ class AnnotateCollectionsTest(unittest.TestCase):
         )
 
         self.assertEqual({"collection_a"}, set(results.keys()))
+
+
+class TestRunLogging(unittest.TestCase):
+    """WI-RUNLOG-0082: annotate.py's per-story/per-collection loop gets a
+    crash-safe, incremental run-event log (via lcats.utils.run_log.RunLog)
+    on top of its existing per-item checkpointing, threaded through
+    annotate_collections -> annotate_collection -> annotate_story - `log`
+    is optional (defaults to None) so every existing direct call above
+    stays unaffected."""
+
+    def setUp(self):
+        self._tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmpdir.cleanup)
+        self.tmp_path = pathlib.Path(self._tmpdir.name)
+        self.source_root = self.tmp_path / "data"
+        self.checkpoint_dir = self.tmp_path / "checkpoints"
+        self.source_root.mkdir()
+        self.roots = checkpoint.resolve_roots(
+            working_root=self.checkpoint_dir, source_root=self.source_root
+        )
+
+    def test_annotate_story_logs_one_event_when_log_is_given(self):
+        story_path = _write_story(
+            self.source_root / "collection_a", "story_one", "A dragon story."
+        )
+        backend = _DualToolFakeBackend()
+
+        with run_log.RunLog(self.roots, "annotate_run_log.jsonl") as log:
+            annotate.annotate_story(
+                story_path,
+                collection_name="collection_a",
+                backend=backend,
+                model="fake-model",
+                roots=self.roots,
+                log=log,
+            )
+
+        log_path = self.checkpoint_dir / "annotate_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(event_names, ["run_start", "story_annotated", "run_end"])
+
+    def test_annotate_story_without_log_does_not_raise(self):
+        """log defaults to None - every pre-existing direct caller of
+        annotate_story (see AnnotateStoryTest above) must keep working
+        unchanged."""
+        story_path = _write_story(
+            self.source_root / "collection_a", "story_one", "A dragon story."
+        )
+        backend = _DualToolFakeBackend()
+
+        result = annotate.annotate_story(
+            story_path,
+            collection_name="collection_a",
+            backend=backend,
+            model="fake-model",
+            roots=self.roots,
+        )
+
+        self.assertTrue(result.clean)
+
+    def test_annotate_collections_threads_log_to_every_story(self):
+        _write_story(self.source_root / "collection_a", "story_one", "Story A1.")
+        _write_story(self.source_root / "collection_b", "story_one", "Story B1.")
+        backend = _DualToolFakeBackend()
+
+        with run_log.RunLog(self.roots, "annotate_run_log.jsonl") as log:
+            annotate.annotate_collections(
+                self.source_root,
+                backend=backend,
+                model="fake-model",
+                roots=self.roots,
+                log=log,
+            )
+
+        log_path = self.checkpoint_dir / "annotate_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        story_events = [e for e in events if e["event"] == "story_annotated"]
+        self.assertEqual(len(story_events), 2)

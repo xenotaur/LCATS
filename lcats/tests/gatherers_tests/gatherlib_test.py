@@ -1,5 +1,7 @@
 """Tests for the Anderson gatherer module."""
 
+import pathlib
+import tempfile
 import unittest
 from unittest.mock import patch, MagicMock
 
@@ -187,6 +189,17 @@ class TestCreateDownloadCallback(unittest.TestCase):
 class TestGather(unittest.TestCase):
     """Unit tests for the gather() function."""
 
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        # gather() now writes a run_log.RunLog by default -- point it at a
+        # throwaway directory rather than the real default (logs/gather/
+        # relative to cwd), so these unit tests don't leave real files
+        # behind in whatever directory happens to run them (WI-RUNLOG-0082).
+        self.log_dir = pathlib.Path(self._tmp.name) / "gather_logs"
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
     @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
     def test_gather_calls_download_for_each_heading(self, mock_gatherer_cls):
         """gather() calls download once per entry in ANDERSON_HEADINGS."""
@@ -204,6 +217,7 @@ class TestGather(unittest.TestCase):
             headings=EXAMPLE_HEADINGS,
             gutenberg_url=EXAMPLE_GUTENBERG,
             verbose=False,
+            log_dir=self.log_dir,
         )
 
         self.assertEqual(mock_instance.download.call_count, len(EXAMPLE_HEADINGS))
@@ -226,6 +240,7 @@ class TestGather(unittest.TestCase):
             headings=EXAMPLE_HEADINGS,
             gutenberg_url=EXAMPLE_GUTENBERG,
             verbose=False,
+            log_dir=self.log_dir,
         )
 
         self.assertIs(result, expected)
@@ -247,10 +262,102 @@ class TestGather(unittest.TestCase):
             headings=EXAMPLE_HEADINGS,
             gutenberg_url=EXAMPLE_GUTENBERG,
             verbose=False,
+            log_dir=self.log_dir,
         )
 
         args, _ = mock_gatherer_cls.call_args
         self.assertEqual(args[0], EXAMPLE_DIRECTORY)
+
+
+class TestGatherRunLogging(unittest.TestCase):
+    """WI-RUNLOG-0082: gatherlib.gather()'s download loop gets a
+    crash-safe, incremental run-event log via lcats.utils.run_log.RunLog,
+    written outside the protected data/ tree target_directory lives
+    under."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.log_dir = pathlib.Path(self._tmp.name) / "gather_logs"
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_run_log_records_start_and_per_story_and_end_in_order(
+        self, mock_gatherer_cls
+    ):
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            gutenberg_url=EXAMPLE_GUTENBERG,
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        log_path = self.log_dir / "anderson_gather_run_log.jsonl"
+        self.assertTrue(log_path.exists())
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(event_names[0], "run_start")
+        self.assertEqual(event_names[-1], "run_end")
+        story_events = [e for e in events if e["event"] == "story_downloaded"]
+        self.assertEqual(len(story_events), len(EXAMPLE_HEADINGS))
+        self.assertEqual(story_events[0]["filename"], "swineherd")
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_crash_mid_run_leaves_a_readable_partial_log(self, mock_gatherer_cls):
+        """An unhandled download() failure partway through must not
+        corrupt the already-written log entries, and must surface as
+        run_aborted_unexpected - no per-story exception isolation existed
+        here before this change, so the whole call still aborts, but now
+        with a readable trail of what happened first."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_instance.download.side_effect = [
+            None,
+            RuntimeError("simulated download failure"),
+        ]
+        mock_gatherer_cls.return_value = mock_instance
+
+        with self.assertRaises(RuntimeError):
+            gatherlib.gather(
+                corpus="Anderson",
+                target_directory=EXAMPLE_DIRECTORY,
+                description="Anderson stories from the Gutenberg Project.",
+                license_text="Public domain, from Project Gutenberg.",
+                author="Anderson",
+                year=1911,
+                headings=EXAMPLE_HEADINGS,
+                gutenberg_url=EXAMPLE_GUTENBERG,
+                verbose=False,
+                log_dir=self.log_dir,
+            )
+
+        log_path = self.log_dir / "anderson_gather_run_log.jsonl"
+        events = [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+        ]
+        event_names = [e["event"] for e in events]
+        self.assertEqual(event_names[0], "run_start")
+        self.assertEqual(
+            event_names.count("story_downloaded"),
+            1,
+            "only the first (successful) download should have logged an event",
+        )
+        self.assertEqual(event_names[-1], "run_aborted_unexpected")
 
 
 if __name__ == "__main__":
