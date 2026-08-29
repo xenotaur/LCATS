@@ -51,26 +51,28 @@ differences are values that would become call-site arguments:
 instead of being threaded through as `gatherlib.gather()`'s own
 `author`/`year` parameters.
 
-**One real behavioral divergence found**, not just a naming difference:
-`sherlock.find_paragraphs_adventures` (`sherlock/gatherer.py:71-92`)
-only collects `<p>` tags (`current_element.name == "p"`,
-`sherlock/gatherer.py:88`), while `gatherlib.find_paragraphs`
-(`gatherlib.py:45`) also collects `<pre>` tags
-(`current_element.name == "p" or current_element.name == "pre"`).
-Reconciling onto `gatherlib.find_paragraphs` directly would widen
-Sherlock's extraction to include any `<pre>` blocks between the heading
-and the next division tag — a behavior change, even if a likely-benign
-one for this specific Gutenberg HTML source (Sherlock's source page has
-no `<pre>` blocks in the relevant sections, based on the story text
-already gathered successfully under the narrower version). This is the
-kind of "unambiguous, low-risk" case the WI's own Non-Goals name as
-eligible for in-run sign-off — but it is not fully unambiguous without
-someone confirming the source HTML has no `<pre>` content in scope,
-so this audit does not resolve it unilaterally; see Recommendation
-below.
+**A behavioral divergence exists between `sherlock.find_paragraphs_adventures`
+(`sherlock/gatherer.py:71-92`) and `gatherlib.find_paragraphs`
+(`gatherlib.py:20-49`)** — the former only collects `<p>` tags
+(`current_element.name == "p"`, `sherlock/gatherer.py:88`), the latter
+also collects `<pre>` tags (`gatherlib.py:45`) — **but this divergence
+does not need to be resolved to reconcile Sherlock, and the first draft
+of this design sketch was wrong to route through it** (review finding,
+PR #414). `gatherlib.gather()` already accepts a `paragraph_finder`
+callable parameter (`gatherlib.py:98`, defaulting to
+`gatherlib.find_paragraphs` but freely substitutable) specifically so a
+caller can supply its own extraction function. Since
+`find_paragraphs_adventures(soup, start_heading_text)` already matches
+the exact call shape `gatherlib.create_download_callback` invokes
+(`paragraph_finder(story_soup, start_heading_text)`, `gatherlib.py:71`),
+passing it in directly — unchanged, not replaced — reconciles Sherlock
+with **zero behavior change and no `<pre>`-tag risk at all**. No
+remote-HTML confirmation is needed; the divergence is simply never
+exercised.
 
 **Design sketch:** replace `sherlock/gatherer.py:123-141`'s `gather()`
-body with a direct call:
+body with a direct call, passing the existing
+`find_paragraphs_adventures` through unchanged:
 
 ```python
 def gather():
@@ -83,14 +85,15 @@ def gather():
         year=1891,
         headings=ADVENTURES_HEADINGS,
         gutenberg_url=ADVENTURES_GUTENBERG,
-        paragraph_finder=gatherlib.find_paragraphs,
+        paragraph_finder=find_paragraphs_adventures,
     )
 ```
 
-`find_paragraphs_adventures` and `create_download_callback` would then
-be dead code, removable. This also closes the run-log gap for this site
-as a side effect — no separate `WI-RUNLOG-*` follow-up needed for
-Sherlock specifically once reconciled.
+Only `create_download_callback` becomes dead code, removable — not
+`find_paragraphs_adventures`, which stays and is passed through as-is.
+This also closes the run-log gap for this site as a side effect — no
+separate `WI-RUNLOG-*` follow-up needed for Sherlock specifically once
+reconciled.
 
 ## Site 2: `lovecraft/gatherer.py` — **No reconciliation** (real structural incompatibility, corrected from the WI's own initial premise)
 
@@ -120,12 +123,31 @@ unsafe as a same-signature swap:
    the `paragraph_finder(soup, start_heading_text)` call shape
    `gatherlib.create_download_callback` invokes at `gatherlib.py:71`.
 
+**A third incompatibility, found on review** (PR #414): even the two
+extensions below are not sufficient to preserve Lovecraft's exact
+behavior. `gatherlib.create_download_callback` stores the *normalized
+filename* as `story_data["name"]`
+(`story_name`, threaded from `gatherlib.gather()`'s own loop variable
+`filename`, `gatherlib.py:77-82`, `gatherlib.py:130,138`), while
+`lovecraft.create_download_callback` stores the *display title*,
+`extractor.title`, as `story_data["name"]`
+(`lovecraft/gatherer.py:111-116`). Routing Lovecraft through
+`gatherlib.create_download_callback` unchanged would silently rewrite
+every story's stored `name` field from a human-readable title (e.g.
+`"The Call of Cthulhu"`) to a filename slug — a real data change, not
+cosmetic. Any reconciliation design needs a third extension: either a
+pluggable per-entry metadata-name source, or `gatherlib.gather()`
+accepting a `create_download_callback` override entirely rather than
+composing its own internally.
+
 **Design sketch, if pursued as a follow-up (not this audit's job to
-implement):** `gatherlib.gather()` would need two signature extensions —
-accepting a per-entry URL (e.g. `headings` entries carrying
+implement):** `gatherlib.gather()` would need at least three signature
+extensions — accepting a per-entry URL (e.g. `headings` entries carrying
 `(filename, url_or_heading, title)` with a mode flag, or a parallel
-`gather_by_id()` sibling function) and accepting a pluggable full
-extraction-strategy callable, not just a `paragraph_finder`. This is a
+`gather_by_id()` sibling function), accepting a pluggable full
+extraction-strategy callable (not just a `paragraph_finder`), and either
+a pluggable metadata-`name` source or a way to substitute the whole
+callback. This is a
 non-trivial widening of `gatherlib.gather()`'s own contract, not a small
 scoped patch — the kind of change this audit's own Non-Goals require
 explicit sign-off for, and given its size, better scoped as its own
@@ -186,26 +208,50 @@ verified directly against the code, not assumed):**
 This confirms the review finding on PR #412: the original premise that
 `mass_quantities` "already does its own per-story error collection ...
 unlike `gatherlib.gather()`'s current behavior" overstated what actually
-exists. In the one dimension that matters for the run-log
-question — does an unhandled exception mid-run abort everything or not —
-`mass_quantities` and `gatherlib.gather()` behave the same way today: no
-isolation, whole-call abort. There is no error-handling contract change
-that reconciling `mass_quantities` would require `gatherlib.gather()` to
-absorb, because `mass_quantities` does not actually have one beyond what
-`gatherlib.gather()` already has.
+exists — but **a follow-up review on PR #414 correctly flagged that the
+correction above itself overcorrected.** `mass_quantities` is *not*
+identical to `gatherlib.gather()`'s error-handling behavior: the one
+`try`/`except` that does exist (`parser.py:1402-1405`, around
+`api.load_etext()`) means that when *that specific* call fails,
+`gather_story()` returns an error tuple rather than raising, and
+`gather_stories()`'s loop (`mass_quantities/gatherer.py:49-56`) records
+it in `failed_stories` and continues to the next Gutenberg ID —
+`load_etext()` failing on one story does not abort the whole run. This
+is a real, narrower per-story exception contract that `gatherlib.gather()`
+does not have at all today: an unhandled `download()` failure there
+always aborts the whole call, with no equivalent single-call-type
+carve-out. So the accurate statement is neither "general isolation"
+(the original overstatement) nor "no isolation at all, identical to
+`gatherlib.gather()`" (this doc's own first-draft overcorrection):
+`mass_quantities` has *narrow* per-story recovery, scoped to exactly one
+failure mode (`load_etext()`), while every other exception path
+(metadata access, parsing, filename construction, normalization,
+directory creation, the JSON write) remains unprotected and would still
+abort the whole `gather_stories()` call, same as `gatherlib.gather()`
+today. Any hypothetical reconciliation would need to either preserve
+this narrow carve-out (e.g. `gatherlib.gather()` gaining an optional,
+explicitly-opted-into per-story-recoverable-exception-type parameter) or
+explicitly decide to drop it — not silently assume no error-handling
+change is needed at all.
 
 ## Recommendation
 
 | Site | Classification | Follow-up warranted? |
 |---|---|---|
-| `sherlock` | Full reconciliation | Yes — small, mechanical; recommend a new deliverable work item to (a) confirm the source HTML has no in-scope `<pre>` content (or accept the widened extraction as harmless), then (b) replace `gather()`'s body with the `gatherlib.gather()` call sketched above and delete the now-dead `find_paragraphs_adventures`/`create_download_callback`. This closes the run-log gap for Sherlock as a side effect. |
-| `lovecraft` | No reconciliation without extending `gatherlib.gather()` first | Only if `gatherlib.gather()` itself is deliberately widened (per-entry URL + pluggable extraction strategy) as its own separate, explicitly-scoped deliverable work item — not a byproduct of reconciling Lovecraft. Until then, Lovecraft stays separate and would need its own dedicated run-log work item (a small, scoped addition mirroring `WI-RUNLOG-0080`'s pattern) if run-log coverage is wanted for it specifically. |
-| `mass_quantities` | No reconciliation | No — structurally a different kind of gatherer (bulk ID scan + metadata filter, not corpus-with-headings). If run-log coverage is wanted for `mass_quantities` specifically, it needs its own dedicated work item wrapping `gather_stories()`'s own loop, not a `gatherlib.gather()` change. |
+| `sherlock` | Full reconciliation, zero behavior change | Yes — small, mechanical, and now unambiguous: recommend a new deliverable work item to replace `gather()`'s body with the `gatherlib.gather()` call sketched above, passing the existing `find_paragraphs_adventures` through unchanged, and delete the now-dead `create_download_callback`. No `<pre>`-tag confirmation needed. This closes the run-log gap for Sherlock as a side effect. |
+| `lovecraft` | No reconciliation without extending `gatherlib.gather()` first (3 incompatibilities: per-entry URL, extraction mechanism, metadata-name source) | Only if `gatherlib.gather()` itself is deliberately widened as its own separate, explicitly-scoped deliverable work item — not a byproduct of reconciling Lovecraft. Until then, Lovecraft stays separate and would need its own dedicated run-log work item (a small, scoped addition mirroring `WI-RUNLOG-0080`'s pattern) if run-log coverage is wanted for it specifically. |
+| `mass_quantities` | No reconciliation | No — structurally a different kind of gatherer (bulk ID scan + metadata filter, not corpus-with-headings), with a narrow `load_etext()`-only per-story recovery `gatherlib.gather()` doesn't share. If run-log coverage is wanted for `mass_quantities` specifically, it needs its own dedicated work item wrapping `gather_stories()`'s own loop, not a `gatherlib.gather()` change. |
 
-No implementation was made in this audit — per this WI's own Non-Goals,
-none of the three findings above is unambiguous enough to act on without
-a live human decision (Sherlock's `<pre>`-tag question is close, but not
-fully resolved by this pass alone; Lovecraft and `mass_quantities` both
-require new, separately-scoped work first). All three are reported here
-as findings for a human to act on via new work items, per the WI's own
-acceptance criterion.
+Sherlock's reconciliation is now unambiguous enough (zero behavior
+change, confirmed on review) that it would have qualified for the WI's
+own Non-Goals sign-off clause allowing in-run implementation — it is not
+implemented here regardless, since the finding only reached this
+clarity during this same PR's review-response, after the investigation
+itself was otherwise complete; it is reported as a ready-to-implement
+recommendation instead, for a human to act on via a new, separately
+tracked work item. `lovecraft` and `mass_quantities` both require new,
+separately-scoped work before any reconciliation decision can even be
+made (a `gatherlib.gather()` extension design for Lovecraft; an explicit
+decision on the `mass_quantities` `load_etext()` recovery carve-out).
+All three are reported here as findings for a human to act on, per the
+WI's own acceptance criterion — none implemented by this WI.
