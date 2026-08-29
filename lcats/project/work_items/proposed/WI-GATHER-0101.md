@@ -53,20 +53,39 @@ it's actually safe to do so.
 A quick read this session already found real structural differences
 worth investigating properly:
 
-- `sherlock/gatherer.py:123-141` and `lovecraft/gatherer.py:123-134` are
-  each near-identical reimplementations of `gatherlib.gather()`'s own
-  download-loop shape (a `DataGatherer` instance, one `.download()` call
-  per heading/extractor), just with their own hardcoded
-  author/year/description constants instead of calling the shared
-  function.
-- `mass_quantities/gatherer.py:26-58` is structurally different: it
-  extracts many standalone single stories via `parser.gather_story` (one
-  per Gutenberg ID, not a corpus split into multiple headings under one
-  `DataGatherer` target), and its `gather_stories()` already does its
-  own per-story error collection — returning a `failed_stories` dict
-  rather than letting an exception propagate and abort the whole run,
-  unlike `gatherlib.gather()`'s current behavior (no per-story exception
-  isolation, per WI-RUNLOG-0082's own Non-Goal).
+- `lcats/src/lcats/gatherers/sherlock/gatherer.py:123-141` reuses
+  `gatherlib.gather()`'s own download-loop shape (a `DataGatherer`
+  instance, one `.download()` call per heading), just with its own
+  hardcoded author/year/description constants instead of calling the
+  shared function — a strong reconciliation candidate on its face.
+- `lcats/src/lcats/gatherers/lovecraft/gatherer.py:123-134` shares that
+  same loop shape, but is NOT a near-identical case (review finding, PR
+  #412): each story is its own separate Gutenberg URL via a per-entry
+  `extractors.Extractor` object (`lovecraft/gatherer.py:11-13`, one
+  `url`/`title`/`author` per story, not one shared `gutenberg_url` for
+  every heading the way `gatherlib.gather()`'s signature assumes), and
+  it extracts a whole document with `extractors.extract_text_between_ids()`
+  (`lovecraft/gatherer.py:105`) rather than locating a heading through
+  `gatherlib.gather()`'s `paragraph_finder` callback shape. Any
+  reconciliation here would need `gatherlib.gather()` to accept a
+  per-entry URL and a pluggable extraction strategy, not just a rename.
+- `lcats/src/lcats/gatherers/mass_quantities/gatherer.py:26-58` is
+  structurally different again: it extracts many standalone single
+  stories via `parser.gather_story()` (one per Gutenberg ID, not a
+  corpus split into multiple headings under one `DataGatherer` target).
+  Its `gather_stories()` returns a `failed_stories` dict rather than
+  aborting the whole run on every failure, but this is **not** general
+  per-story exception isolation (review finding, PR #412):
+  `parser.gather_story()` (`parser.py:1365-1405`) only wraps
+  `api.load_etext()` in `try`/`except` — metadata access
+  (`api.get_metadata`, `parser.py:1377-1388`), parsing, normalization,
+  directory creation, and JSON writes are unprotected and can still
+  propagate. `failed_stories` mostly records rejection values
+  `gather_story()` explicitly returns (bad metadata, excluded story),
+  not a caught-and-classified exception. The audit must verify this
+  distinction directly rather than assume a non-propagating contract
+  exists, since assuming one could bias the investigation toward
+  recommending an unwarranted `gatherlib.gather()` extension.
 
 ### Duplication search
 - In-repo: No existing investigation of this reconciliation question.
@@ -77,10 +96,14 @@ worth investigating properly:
 
 ### Demand search
 - Work items: None found before this one.
-- Proposals: `PROP-LCATS-RUN-LOG`'s own Non-Goals section names these
-  three sites as explicitly out of scope; `WI-RUNLOG-0082`'s own
-  Non-Goals flags them as "a follow-up item if warranted" but does not
-  request this investigation directly.
+- Proposals: `PROP-LCATS-RUN-LOG`'s own Decision 4 table classifies
+  `lcats gather` as an aggregate "upgrade" site and does not itself name
+  `mass_quantities`/`sherlock`/`lovecraft` (review finding, PR #412 —
+  correcting an earlier misattribution to the proposal). The actual
+  exclusion was introduced by `WI-RUNLOG-0082`'s own Non-Goals
+  (resolved WI, lines 113-118), which names these three sites
+  explicitly and flags reconciliation as "a follow-up item if
+  warranted," without requesting this investigation directly.
 - Backlog: No matching entries in `project/design/backlog.md`.
 - Recommendation: Proceed — this work item is the first place the
   follow-up is formally scoped.
