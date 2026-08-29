@@ -182,7 +182,7 @@ An explicit mode is mandatory: `insert`, `upsert`, or `replace`. A bare
 `lcats promote` with no mode refuses rather than defaulting to any behavior.
 
 ```
-lcats promote replace [--source SOURCE] [--dest DEST] [--dry-run] [collections ...]
+lcats promote replace [--source SOURCE] [--dest DEST] [--dry-run] [--allow-orphaned-sidecar-deletion] [collections ...]
 lcats promote insert --sidecar KIND (--tranche-manifest PATH | --source DIR) [--dest DEST] [--allow-unvalidated] [--dry-run]
 lcats promote upsert --sidecar KIND (--tranche-manifest PATH | --source DIR) [--dest DEST] [--allow-unvalidated] [--dry-run]
 ```
@@ -190,6 +190,10 @@ lcats promote upsert --sidecar KIND (--tranche-manifest PATH | --source DIR) [--
 `replace` promotes `data/` collections into `corpora/` wholesale. A
 collection with any mojibake finding is skipped and reported rather than
 promoted; clean collections wholesale-replace their `corpora/` counterpart.
+An otherwise-clean collection is also blocked by default if the replace
+would delete a registered sidecar kind present at the destination but
+missing from source (the orphaned-sidecar guard) — see
+[`corpus-promotion.md`](corpus-promotion.md) for the full explanation.
 
 | Argument / Flag | Description |
 |---|---|
@@ -197,6 +201,7 @@ promoted; clean collections wholesale-replace their `corpora/` counterpart.
 | `--source SOURCE` | Root directory of source collections (default: `data/`). |
 | `--dest DEST` | Root directory to promote clean collections into (default: `../corpora`). |
 | `--dry-run` | Survey and report without copying any files. |
+| `--allow-orphaned-sidecar-deletion` | Allow replace to delete a registered sidecar kind present at the destination but missing from source. Without this flag, such a collection is blocked and reported rather than promoted. |
 
 `insert`/`upsert` promote sidecars into existing story buckets, without
 touching any other file in the destination. `insert` is create-only

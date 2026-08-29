@@ -512,6 +512,178 @@ class PromoteCollectionsTest(unittest.TestCase):
             self.assertEqual(1, len(report.blocked))
 
 
+class OrphanedSidecarGuardTest(unittest.TestCase):
+    """Tests for replace's targeted, registry-based orphaned-sidecar guard
+    (WI-PROMOTE-0101, Decision 6 of PROP-LCATS-PROMOTE-MODE-REDESIGN)."""
+
+    def setUp(self):
+        # Same rationale as PromoteCollectionsTest.setUp.
+        self._log_tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._log_tmp.cleanup)
+        self._log_dir_patch = unittest.mock.patch.object(
+            promote, "DEFAULT_PROMOTE_LOG_DIR", pathlib.Path(self._log_tmp.name)
+        )
+        self._log_dir_patch.start()
+        self.addCleanup(self._log_dir_patch.stop)
+
+    def _write_dest_sidecar(
+        self, dest_root: pathlib.Path, collection: str, story: str, body: str
+    ) -> pathlib.Path:
+        bucket_dir = dest_root / collection / story
+        bucket_dir.mkdir(parents=True, exist_ok=True)
+        (bucket_dir / "story.json").write_text(
+            json.dumps({"name": story, "body": body}), encoding="utf-8"
+        )
+        (bucket_dir / "genre.json").write_text(
+            json.dumps({"detected_genre": "fantasy"}), encoding="utf-8"
+        )
+        return bucket_dir
+
+    def test_orphaned_sidecar_blocks_replace_by_default(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            dest_bucket = self._write_dest_sidecar(
+                dest_root, "anderson", "bell", "stale body"
+            )
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual((), report.promoted)
+            self.assertEqual(1, len(report.blocked))
+            self.assertEqual(1, len(report.blocked[0].orphaned_sidecar_findings))
+            self.assertEqual(
+                "anderson/bell",
+                report.blocked[0].orphaned_sidecar_findings[0].lcats_id,
+            )
+            self.assertEqual(
+                "genre.json",
+                report.blocked[0].orphaned_sidecar_findings[0].sidecar_name,
+            )
+            # Nothing was touched -- the destination's stale files survive
+            # untouched, proving this is a refusal, not a partial copy.
+            self.assertTrue((dest_bucket / "genre.json").is_file())
+            self.assertEqual(
+                "stale body",
+                json.loads((dest_bucket / "story.json").read_text())["body"],
+            )
+
+    def test_allow_orphaned_sidecar_deletion_overrides_the_guard(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            self._write_dest_sidecar(dest_root, "anderson", "bell", "stale body")
+
+            report = promote.promote_collections(
+                source_root, dest_root, allow_orphaned_sidecar_deletion=True
+            )
+
+            self.assertEqual(("anderson",), report.promoted)
+            self.assertEqual((), report.blocked)
+            # The wholesale replace actually ran -- genre.json is gone, and
+            # story.json now reflects the source, not the stale destination.
+            self.assertFalse((dest_root / "anderson" / "bell" / "genre.json").is_file())
+
+    def test_fresh_destination_collection_is_never_blocked(self):
+        # A destination collection that doesn't exist yet has nothing to
+        # orphan -- the guard must not fire on a first-time promotion.
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual(("anderson",), report.promoted)
+            self.assertEqual((), report.blocked)
+
+    def test_destination_sidecar_also_present_in_source_is_not_orphaned(self):
+        # The sidecar exists at both source and destination -- not an
+        # orphan, must promote normally.
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            bucket_dir = source_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell", "body": "A clean sentence."}),
+                encoding="utf-8",
+            )
+            (bucket_dir / "genre.json").write_text(
+                json.dumps({"detected_genre": "fantasy"}), encoding="utf-8"
+            )
+            self._write_dest_sidecar(dest_root, "anderson", "bell", "stale body")
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual(("anderson",), report.promoted)
+            self.assertEqual((), report.blocked)
+
+    def test_orphaned_sidecar_check_only_covers_registered_kinds(self):
+        # An arbitrary destination-only file that is NOT a registered
+        # sidecar kind must never block -- this guard is targeted, not a
+        # generic destination-only-file diff (explicitly rejected in
+        # Decision 6 for false-positive risk on legitimate corpora-only
+        # content).
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            dest_bucket = dest_root / "anderson" / "bell"
+            dest_bucket.mkdir(parents=True)
+            (dest_bucket / "story.json").write_text(
+                json.dumps({"name": "bell", "body": "stale"}), encoding="utf-8"
+            )
+            (dest_bucket / "notes.txt").write_text(
+                "unrelated destination-only content", encoding="utf-8"
+            )
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual(("anderson",), report.promoted)
+            self.assertEqual((), report.blocked)
+
+    def test_insert_and_upsert_are_unaffected_by_the_guard(self):
+        # insert/upsert are structurally incapable of deleting anything --
+        # the guard is replace-only and does not touch their behavior or
+        # signatures at all. This is a sanity check that the guard's own
+        # implementation lives entirely inside promote_collections().
+        with (
+            tempfile.TemporaryDirectory() as manifest_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            dest_root = pathlib.Path(dest_tmp)
+            manifest_path = pathlib.Path(manifest_tmp) / "manifest.jsonl"
+            payload = _valid_sidecar_record("anderson/bell", "anderson/bell/story.json")
+            _write_manifest(manifest_path, [_envelope("anderson/bell", payload)])
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell"}), encoding="utf-8"
+            )
+
+            report = promote.promote_sidecar_insert(manifest_path, dest_root, "genre")
+
+            self.assertEqual(("anderson/bell",), report.promoted)
+
+
 class PromoteCollectionsRunLoggingTest(unittest.TestCase):
     """WI-RUNLOG-0083: promote_collections() gets a crash-safe,
     incremental run-event log via lcats.utils.run_log.RunLog, written
@@ -2089,6 +2261,88 @@ class PromoteCliTest(unittest.TestCase):
 
             self.assertEqual(0, exit_code)
             self.assertIn("promoted: clean", output.getvalue())
+
+    def test_replace_mode_orphaned_sidecar_blocks_and_reports(self):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell", "body": "stale"}), encoding="utf-8"
+            )
+            (bucket_dir / "genre.json").write_text(
+                json.dumps({"detected_genre": "fantasy"}), encoding="utf-8"
+            )
+
+            error_output = io.StringIO()
+            with unittest.mock.patch("sys.stderr", error_output):
+                exit_code = promote_cli.run(
+                    ["replace", "--source", str(source_root), "--dest", str(dest_root)]
+                )
+
+            self.assertEqual(1, exit_code)
+            self.assertIn("1 orphaned sidecar(s)", error_output.getvalue())
+            self.assertIn("genre.json", error_output.getvalue())
+            self.assertTrue((bucket_dir / "genre.json").is_file())
+
+    def test_replace_mode_allow_orphaned_sidecar_deletion_flag_reaches_promote_collections(
+        self,
+    ):
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            bucket_dir = dest_root / "anderson" / "bell"
+            bucket_dir.mkdir(parents=True)
+            (bucket_dir / "story.json").write_text(
+                json.dumps({"name": "bell", "body": "stale"}), encoding="utf-8"
+            )
+            (bucket_dir / "genre.json").write_text(
+                json.dumps({"detected_genre": "fantasy"}), encoding="utf-8"
+            )
+
+            output = io.StringIO()
+            with unittest.mock.patch("sys.stdout", output):
+                exit_code = promote_cli.run(
+                    [
+                        "replace",
+                        "--source",
+                        str(source_root),
+                        "--dest",
+                        str(dest_root),
+                        "--allow-orphaned-sidecar-deletion",
+                    ]
+                )
+
+            self.assertEqual(0, exit_code)
+            self.assertIn("promoted: anderson", output.getvalue())
+            self.assertFalse((bucket_dir / "genre.json").is_file())
+
+    def test_allow_orphaned_sidecar_deletion_flag_is_replace_only(self):
+        error_output = io.StringIO()
+        with (
+            unittest.mock.patch("sys.stderr", error_output),
+            self.assertRaises(SystemExit) as ctx,
+        ):
+            promote_cli.run(
+                [
+                    "insert",
+                    "--sidecar",
+                    "genre",
+                    "--source",
+                    "data/",
+                    "--allow-orphaned-sidecar-deletion",
+                ]
+            )
+        self.assertNotEqual(0, ctx.exception.code)
 
 
 class SidecarValidatorsRegistryTest(unittest.TestCase):

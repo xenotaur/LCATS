@@ -149,6 +149,17 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
         action="store_true",
         help="Survey and report without copying any files.",
     )
+    replace_parser.add_argument(
+        "--allow-orphaned-sidecar-deletion",
+        action="store_true",
+        help=(
+            "Allow replace to delete a registered sidecar kind that exists "
+            "at the destination for a story but is missing from source. "
+            "Without this flag, an otherwise-clean collection with any such "
+            "orphaned sidecar is blocked and reported rather than "
+            "promoted."
+        ),
+    )
 
     return parser
 
@@ -180,6 +191,7 @@ def _run_replace_mode(args) -> int:
         dest_root=args.dest,
         collection_names=collection_names,
         dry_run=args.dry_run,
+        allow_orphaned_sidecar_deletion=args.allow_orphaned_sidecar_deletion,
     )
 
     for name in report.promoted:
@@ -190,7 +202,8 @@ def _run_replace_mode(args) -> int:
         print(
             f"blocked: {result.collection} "
             f"({len(result.findings)} mojibake finding(s), "
-            f"{len(result.sidecar_findings)} malformed sidecar(s) "
+            f"{len(result.sidecar_findings)} malformed sidecar(s), "
+            f"{len(result.orphaned_sidecar_findings)} orphaned sidecar(s) "
             f"across {result.story_count} stories)",
             file=sys.stderr,
         )
@@ -204,6 +217,13 @@ def _run_replace_mode(args) -> int:
             print(
                 f"  {sidecar_finding.story_path}: {sidecar_finding.sidecar_name}: "
                 f"{sidecar_finding.error}",
+                file=sys.stderr,
+            )
+        for orphaned_finding in result.orphaned_sidecar_findings:
+            print(
+                f"  {orphaned_finding.lcats_id}: {orphaned_finding.sidecar_name} "
+                "exists at destination but is missing from source -- pass "
+                "--allow-orphaned-sidecar-deletion to delete it anyway",
                 file=sys.stderr,
             )
 

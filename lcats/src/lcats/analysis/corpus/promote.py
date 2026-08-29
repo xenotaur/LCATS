@@ -87,6 +87,17 @@ class MalformedSidecarFinding:
 
 
 @dataclasses.dataclass(frozen=True)
+class OrphanedSidecarFinding:
+    """One registered sidecar kind present at the destination for a story
+    but absent from the corresponding source -- a wholesale replace that
+    proceeded would silently delete it (WI-PROMOTE-0101, Decision 6 of
+    PROP-LCATS-PROMOTE-MODE-REDESIGN)."""
+
+    lcats_id: str
+    sidecar_name: str
+
+
+@dataclasses.dataclass(frozen=True)
 class CollectionSurveyResult:
     """Survey outcome for one collection directory."""
 
@@ -94,6 +105,7 @@ class CollectionSurveyResult:
     story_count: int
     findings: tuple[BlockingFinding, ...]
     sidecar_findings: tuple[MalformedSidecarFinding, ...] = ()
+    orphaned_sidecar_findings: tuple[OrphanedSidecarFinding, ...] = ()
 
     @property
     def clean(self) -> bool:
@@ -110,8 +122,21 @@ class CollectionSurveyResult:
         finding does (WI-ANNOTATE-0052) -- a story with valid prose but a
         corrupted genre.json/scenes.json is not safe to wholesale-copy
         into corpora/ either.
+
+        An orphaned sidecar (WI-PROMOTE-0101) blocks the same way --
+        ``orphaned_sidecar_findings`` is always empty from
+        ``survey_collection()`` itself (a source-only pass with no
+        destination awareness); ``promote_collections()`` populates it via
+        ``dataclasses.replace()`` after a separate destination-aware check,
+        so this property still correctly reflects promotability once that
+        happens.
         """
-        return not self.findings and not self.sidecar_findings and self.story_count > 0
+        return (
+            not self.findings
+            and not self.sidecar_findings
+            and not self.orphaned_sidecar_findings
+            and self.story_count > 0
+        )
 
 
 def _validate_sidecars(story_path: pathlib.Path) -> list[MalformedSidecarFinding]:
@@ -340,12 +365,52 @@ def _copy_collection(source_dir: pathlib.Path, dest_dir: pathlib.Path) -> None:
     shutil.copytree(source_dir, dest_dir)
 
 
+def _find_orphaned_sidecars(
+    source_dir: pathlib.Path, dest_dir: pathlib.Path
+) -> list[OrphanedSidecarFinding]:
+    """Compare a destination collection's registered sidecars against the
+    corresponding source story buckets, returning every sidecar that
+    exists at the destination for a story but is missing from source --
+    exactly what ``replace``'s wholesale ``rmtree``+``copytree`` would
+    silently delete (``WI-PROMOTE-0101``, Decision 6 of
+    ``PROP-LCATS-PROMOTE-MODE-REDESIGN``).
+
+    Iterates the *destination* collection's own story buckets, not the
+    source's -- the opposite traversal direction from every other check
+    in this module, since a sidecar can only be orphaned by existing at
+    the destination in the first place. A destination collection that
+    doesn't exist yet (a first-time promotion) trivially returns no
+    findings -- there is nothing to orphan. Only *registered* sidecar
+    kinds (via ``sidecar_validators.registered_filenames()``) are
+    checked -- not a generic "any destination-only file" diff, which was
+    rejected for false-positive risk on legitimate corpora-only content
+    unrelated to sidecar promotion.
+    """
+    if not dest_dir.is_dir():
+        return []
+    findings: list[OrphanedSidecarFinding] = []
+    registered = sidecar_validators.registered_filenames()
+    for dest_story_path in discovery.iter_collection_story_files(dest_dir):
+        bucket_dir = dest_story_path.parent
+        lcats_id = f"{dest_dir.name}/{bucket_dir.name}"
+        source_bucket_dir = source_dir / bucket_dir.name
+        for sidecar_name in registered:
+            if (bucket_dir / sidecar_name).is_file() and not (
+                source_bucket_dir / sidecar_name
+            ).is_file():
+                findings.append(
+                    OrphanedSidecarFinding(lcats_id=lcats_id, sidecar_name=sidecar_name)
+                )
+    return findings
+
+
 def promote_collections(
     source_root: pathlib.Path,
     dest_root: pathlib.Path,
     collection_names: list[str] | None = None,
     dry_run: bool = False,
     log_dir: pathlib.Path | None = None,
+    allow_orphaned_sidecar_deletion: bool = False,
 ) -> PromotionReport:
     """Survey and promote data/ collections into corpora/.
 
@@ -360,6 +425,17 @@ def promote_collections(
     regeneration. Promotion wholesale-replaces the destination collection
     directory under its identity-mapped name (see ``destination_name``) so
     stale files from a prior promotion cannot linger.
+
+    Unless ``allow_orphaned_sidecar_deletion`` is True, a collection that is
+    otherwise clean is additionally blocked if the wholesale replace would
+    delete a registered sidecar kind present at the destination for a story
+    but absent from source (see ``_find_orphaned_sidecars``,
+    ``WI-PROMOTE-0101``) -- the actual scenario a live Copilot review finding
+    on PR #362 described, made concrete by an imminent whole-corpus
+    ``linguistics.json`` rollout. This orphan check never applies when
+    ``allow_orphaned_sidecar_deletion`` is True, and never runs at all for a
+    destination collection that doesn't exist yet (nothing to orphan on a
+    first-time promotion).
 
     The whole call (surveying and copying both) is wrapped in a
     run_log.RunLog scope, log path ``<log_dir>/promote_run_log.jsonl``
@@ -385,6 +461,10 @@ def promote_collections(
             as the parameter's own default value, so a test can patch
             the module-level constant instead of passing an explicit
             override at every one of this function's many call sites.
+        allow_orphaned_sidecar_deletion: When True, skips the
+            orphaned-sidecar guard entirely, restoring today's unguarded
+            wholesale-replace behavior for every otherwise-clean
+            collection.
 
     Returns:
         A PromotionReport listing promoted collection names and blocked
@@ -432,8 +512,32 @@ def promote_collections(
                     collection=name,
                     finding_count=len(result.findings),
                     sidecar_finding_count=len(result.sidecar_findings),
+                    orphaned_sidecar_finding_count=len(
+                        result.orphaned_sidecar_findings
+                    ),
                 )
                 continue
+
+            if not allow_orphaned_sidecar_deletion:
+                orphaned_findings = _find_orphaned_sidecars(
+                    source_root / name, dest_root / destination_name(name)
+                )
+                if orphaned_findings:
+                    result = dataclasses.replace(
+                        result,
+                        orphaned_sidecar_findings=tuple(orphaned_findings),
+                    )
+                    blocked.append(result)
+                    log.event(
+                        "collection_blocked",
+                        collection=name,
+                        finding_count=len(result.findings),
+                        sidecar_finding_count=len(result.sidecar_findings),
+                        orphaned_sidecar_finding_count=len(
+                            result.orphaned_sidecar_findings
+                        ),
+                    )
+                    continue
 
             log.event("promote_start", collection=name)
             if not dry_run:

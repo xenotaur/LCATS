@@ -18,7 +18,7 @@ data-loss hazard between additive sidecar promotion and wholesale
 collection replacement — a mode name always says which one you're getting.
 
 ```bash
-lcats promote replace [collection ...] [--source data/] [--dest ../corpora] [--dry-run]
+lcats promote replace [collection ...] [--source data/] [--dest ../corpora] [--dry-run] [--allow-orphaned-sidecar-deletion]
 lcats promote insert --sidecar <kind> (--tranche-manifest <path.jsonl> | --source <dir>) [--dest ../corpora] [--allow-unvalidated] [--dry-run]
 lcats promote upsert --sidecar <kind> (--tranche-manifest <path.jsonl> | --source <dir>) [--dest ../corpora] [--allow-unvalidated] [--dry-run]
 ```
@@ -41,9 +41,25 @@ lcats promote upsert --sidecar <kind> (--tranche-manifest <path.jsonl> | --sourc
 - Refuses to run (exit `2`) if `--source` and `--dest` resolve to the same
   directory or are nested inside one another — this would otherwise delete
   the source before the copy could run.
+- **Orphaned-sidecar guard** (`WI-PROMOTE-0101`): an otherwise-clean
+  collection is also blocked by default if the wholesale replace would
+  delete a *registered* sidecar kind (via the same registry `insert`/
+  `upsert` use) that exists at the destination for a story but is missing
+  from the corresponding source — the scenario where a collection was
+  `upsert`-into since its last `replace`, and a later `replace` would
+  silently wipe that work. Only registered kinds are checked, never a
+  generic "any destination-only file" diff, to avoid false positives on
+  legitimate corpora-only content unrelated to sidecar promotion. A
+  destination collection that doesn't exist yet is never blocked — there
+  is nothing to orphan on a first-time promotion. `--allow-orphaned-
+  sidecar-deletion` overrides the guard and restores the unguarded
+  wholesale behavior, per invocation. `insert`/`upsert` are entirely
+  unaffected — they are structurally incapable of deleting anything
+  regardless of flags.
 - Exit code is `0` when every considered collection promoted, `1` if any
-  collection was blocked, `2` on a usage/environment error (missing source
-  directory, unknown collection name, unsafe source/dest paths).
+  collection was blocked (mojibake, malformed sidecar, or orphaned
+  sidecar), `2` on a usage/environment error (missing source directory,
+  unknown collection name, unsafe source/dest paths).
 - `--dry-run` surveys and reports without copying any files.
 
 This tool builds and gates promotion; it does not decide *when* to promote —
