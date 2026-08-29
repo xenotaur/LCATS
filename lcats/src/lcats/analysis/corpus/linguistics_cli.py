@@ -3,10 +3,10 @@
 Run-log disposition (PROP-LCATS-RUN-LOG Decision 4, WI-RUNLOG-0084):
 assessed and found not to warrant its own incremental run-event log.
 Each story's linguistics.json sidecar is written individually, gated on
-a fingerprint comparison (runner.py's expected_fingerprint/
-fingerprint_for_sidecar) that already acts as an implicit per-story
-checkpoint -- a resumed run after any interruption skips every
-already-completed story and only reprocesses the rest.
+a fingerprint comparison (sidecar.py's expected_fingerprint/
+fingerprint_for_sidecar, used from runner.py) that already acts as an
+implicit per-story checkpoint -- a resumed run after any interruption
+skips every already-completed story and only reprocesses the rest.
 """
 
 from __future__ import annotations
