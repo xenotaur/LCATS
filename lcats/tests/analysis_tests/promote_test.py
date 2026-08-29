@@ -569,7 +569,9 @@ class OrphanedSidecarGuardTest(unittest.TestCase):
             self.assertTrue((dest_bucket / "genre.json").is_file())
             self.assertEqual(
                 "stale body",
-                json.loads((dest_bucket / "story.json").read_text())["body"],
+                json.loads((dest_bucket / "story.json").read_text(encoding="utf-8"))[
+                    "body"
+                ],
             )
 
     def test_allow_orphaned_sidecar_deletion_overrides_the_guard(self):
@@ -632,6 +634,30 @@ class OrphanedSidecarGuardTest(unittest.TestCase):
 
             self.assertEqual(("anderson",), report.promoted)
             self.assertEqual((), report.blocked)
+
+    def test_destination_only_story_with_sidecar_does_not_block_replace(self):
+        # P1 review finding, PR #416: a story that exists ONLY at the
+        # destination (no story.json in the corresponding source bucket
+        # at all) is not an orphan even if it has a registered sidecar --
+        # replace legitimately removes a retired story wholesale, sidecar
+        # included. Flagging this as an "orphan" would block valid
+        # replaces whenever the destination has extra stories.
+        with (
+            tempfile.TemporaryDirectory() as source_tmp,
+            tempfile.TemporaryDirectory() as dest_tmp,
+        ):
+            source_root = pathlib.Path(source_tmp)
+            dest_root = pathlib.Path(dest_tmp)
+            _write_story(source_root / "anderson", "bell", "A clean sentence.")
+            # "retired" exists only at destination, never in source.
+            self._write_dest_sidecar(dest_root, "anderson", "retired", "old body")
+
+            report = promote.promote_collections(source_root, dest_root)
+
+            self.assertEqual(("anderson",), report.promoted)
+            self.assertEqual((), report.blocked)
+            # The wholesale replace actually removed the retired story.
+            self.assertFalse((dest_root / "anderson" / "retired").exists())
 
     def test_orphaned_sidecar_check_only_covers_registered_kinds(self):
         # An arbitrary destination-only file that is NOT a registered

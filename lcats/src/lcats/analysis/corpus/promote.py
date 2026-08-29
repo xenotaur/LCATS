@@ -385,6 +385,15 @@ def _find_orphaned_sidecars(
     checked -- not a generic "any destination-only file" diff, which was
     rejected for false-positive risk on legitimate corpora-only content
     unrelated to sidecar promotion.
+
+    A destination-only story -- one with no ``story.json`` at all in the
+    corresponding source bucket -- is never flagged, even if it has a
+    registered sidecar (review finding, PR #416): a wholesale ``replace``
+    legitimately removes a story that's been retired from source entirely,
+    and that is not the "sidecar quietly lost while the story itself
+    survives" scenario this guard exists to catch. Only a story that
+    exists in *both* trees, with the sidecar present at destination and
+    missing from that same source bucket, counts as orphaned.
     """
     if not dest_dir.is_dir():
         return []
@@ -394,6 +403,10 @@ def _find_orphaned_sidecars(
         bucket_dir = dest_story_path.parent
         lcats_id = f"{dest_dir.name}/{bucket_dir.name}"
         source_bucket_dir = source_dir / bucket_dir.name
+        if not (source_bucket_dir / discovery.CANONICAL_STORY_FILENAME).is_file():
+            # Destination-only story -- replace is expected to remove it
+            # wholesale, sidecars included; not an orphan.
+            continue
         for sidecar_name in registered:
             if (bucket_dir / sidecar_name).is_file() and not (
                 source_bucket_dir / sidecar_name
