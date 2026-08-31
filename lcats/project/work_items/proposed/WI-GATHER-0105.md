@@ -27,8 +27,8 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - mass_quantities/gatherer.py's gather_stories() loop is wrapped in a RunLog scope emitting run_start before the loop, a per-story event after each story's outcome resolves, run_end after the loop completes normally, and run_aborted_unexpected on an uncaught exception -- mirroring WI-RUNLOG-0080's pattern rather than reconciling onto gatherlib.gather()
-  - Log path lives outside data/ and corpora/, derived via RunLog's protected-root re-validation
+  - mass_quantities/gatherer.py's gather_stories() function itself opens the RunLog scope (not a wrapper around its callers) emitting run_start before the loop, a per-story event after each story's outcome resolves, run_end after the loop completes normally, and run_aborted_unexpected on an uncaught exception -- mirroring WI-RUNLOG-0080's pattern rather than reconciling onto gatherlib.gather(); scoped inside gather_stories() specifically because it has two independent production callers (gather() at mass_quantities/gatherer.py:21 and main() at mass_quantities/gatherer.py:64) as well as its own direct test coverage, so wrapping only one caller would leave the other without a run log or require duplicate scopes
+  - Log path is logs/gather/mass_quantities_gather_run_log.jsonl, matching gatherlib.gather()'s own DEFAULT_GATHER_LOG_DIR (logs/gather) and <corpus>_gather_run_log.jsonl naming convention (gatherlib.py:17,122) so the destination is deterministic and consistent with the other gatherers' run logs, derived via RunLog's protected-root re-validation
   - An explicit, recorded decision on whether to preserve gather_story()'s existing narrow load_etext()-only per-story recovery (parser.py:1402-1405) as-is -- default is preserve, no behavior change to that recovery path
   - A crash mid-run (e.g. simulated kill/exception) leaves a readable partial run log reflecting every story processed so far
   - mass_quantities_test.py covers the new logging, extended as needed
@@ -89,8 +89,9 @@ only run-log instrumentation around it.
 ## Scope
 
 - Wrap `mass_quantities/gatherer.py`'s `gather_stories()` loop in a
-  `RunLog` scope: `run_start`, a per-story event, `run_end`,
-  `run_aborted_unexpected`.
+  `RunLog` scope *inside `gather_stories()` itself*: `run_start`, a
+  per-story event, `run_end`, `run_aborted_unexpected` (not around one of
+  its two independent callers -- see Required Changes).
 - Preserve the existing narrow `load_etext()`-only per-story recovery
   exactly as-is by default.
 - Do not attempt reconciliation onto `gatherlib.gather()` -- out of scope
@@ -104,15 +105,25 @@ only run-log instrumentation around it.
   (narrow `load_etext()`-only recovery) without explicit human sign-off
   at the point any such change is proposed.
 
-## Required Changes
-
-1. Hook a per-story event inside `gather_stories()`'s loop
-   (`mass_quantities/gatherer.py:26-58`), after each story's outcome
-   (success, `load_etext()` failure, or other rejection) resolves.
-2. Wrap the call to `gather_stories()` in a `RunLog` scope in its caller,
-   emitting `run_start` before the call and `run_end` after, with
-   `run_aborted_unexpected` on an uncaught exception -- following
-   `WI-RUNLOG-0080`'s precedent for where the wrapping boundary belongs.
+1. Open the `RunLog` scope inside `gather_stories()` itself
+   (`mass_quantities/gatherer.py:26-58`), emitting `run_start` before the
+   loop and `run_end` after it completes normally, with
+   `run_aborted_unexpected` on an uncaught exception, and a per-story
+   event after each story's outcome (success, `load_etext()` failure, or
+   other rejection) resolves. Scope the `RunLog` here, not around a
+   caller (review finding, PR #419 -- `gather_stories()` has two
+   independent production callers, `gather()` at
+   `mass_quantities/gatherer.py:21` and `main()` at
+   `mass_quantities/gatherer.py:64`, plus its own direct test coverage;
+   wrapping only one caller leaves the other without a run log or
+   requires a duplicate scope, and conflicts with the acceptance
+   criterion that the loop itself is covered).
+2. Set the log destination to
+   `logs/gather/mass_quantities_gather_run_log.jsonl` (review finding,
+   PR #419 -- pinning this explicitly, matching
+   `gatherlib.gather()`'s own `DEFAULT_GATHER_LOG_DIR`/naming convention
+   at `gatherlib.py:17,122`, rather than leaving the destination
+   underspecified).
 3. Record explicitly (in this work item's execution record) the decision
    to preserve the existing narrow recovery path unchanged, per the
    audit's own finding.

@@ -24,9 +24,8 @@ forbidden_actions:
   - force_push
   - delete_branch
 acceptance:
-  - sherlock/gatherer.py's gather() calls gatherlib.gather() directly with author="Arthur Conan Doyle", year=1891, headings=ADVENTURES_HEADINGS, gutenberg_url=ADVENTURES_GUTENBERG, and paragraph_finder=find_paragraphs_adventures passed through unchanged (per the audit's ready-to-implement design sketch — zero behavior change, no gatherlib.find_paragraphs substitution)
-  - The now-dead create_download_callback in sherlock/gatherer.py is removed
-  - sherlock_gatherer_test.py's existing assertions pass unchanged, confirming output parity with the pre-reconciliation implementation
+  - sherlock/gatherer.py's gather() calls gatherlib.gather() directly with author="Arthur Conan Doyle", year=1891, headings=ADVENTURES_HEADINGS, gutenberg_url=ADVENTURES_GUTENBERG, paragraph_finder=find_paragraphs_adventures passed through unchanged, and verbose=False (gatherlib.gather() defaults verbose=True and prints its own start/total messages at gatherlib.py:115,157; sherlock's own main() already prints equivalent messages at sherlock/gatherer.py:146,148 -- passing verbose=False avoids duplicate console output while preserving the zero-behavior-change goal)
+  - The now-dead create_download_callback in sherlock/gatherer.py is removed, and sherlock_gatherer_test.py's TestCreateDownloadCallback class (lines 101-133) and the DataGatherer-construction-patching gather tests (lines ~135-167, which patch sherlock.gatherer.downloaders.DataGatherer -- no longer valid once construction happens inside gatherlib.gather() instead) are replaced with equivalent coverage retargeted at the new implementation, not left in place unchanged
   - Running gather() produces a logs/gather/*sherlock* run log, confirming sherlock inherits gatherlib.gather()'s existing RunLog coverage with no sherlock-specific code
   - lrh validate and scripts/test pass with 0 errors
 required_evidence:
@@ -41,12 +40,15 @@ artifacts_expected:
 
 `WI-GATHER-0101`'s audit (`project/design/gatherer-reconciliation-audit.md`)
 classified `sherlock/gatherer.py`'s `gather()` as ready for full
-reconciliation onto `gatherlib.gather()` with zero behavior change: it
-already accepts a `paragraph_finder` override, so `sherlock`'s existing
-`find_paragraphs_adventures` can be passed through unchanged rather than
-substituted for `gatherlib.find_paragraphs`. This closes both the
-run-log coverage gap `WI-RUNLOG-0082` left open for `sherlock` and a
-real code-duplication gap, with no behavioral risk.
+reconciliation onto `gatherlib.gather()` with zero extraction/output-file
+behavior change: it already accepts a `paragraph_finder` override, so
+`sherlock`'s existing `find_paragraphs_adventures` can be passed through
+unchanged rather than substituted for `gatherlib.find_paragraphs`.
+(Review finding, PR #419: the migration does need one deliberate flag,
+`verbose=False`, to avoid duplicating `main()`'s own console output --
+see Required Changes.) This closes both the run-log coverage gap
+`WI-RUNLOG-0082` left open for `sherlock` and a real code-duplication
+gap.
 
 ## Problem / Context
 
@@ -94,12 +96,22 @@ does not route through the shared function, it did not inherit the
    audit's design sketch: a direct `gatherlib.gather()` call with
    `author="Arthur Conan Doyle"`, `year=1891`,
    `headings=ADVENTURES_HEADINGS`, `gutenberg_url=ADVENTURES_GUTENBERG`,
-   `paragraph_finder=find_paragraphs_adventures`.
+   `paragraph_finder=find_paragraphs_adventures`, and `verbose=False`
+   (review finding, PR #419 — `gatherlib.gather()` defaults `verbose=True`
+   and prints its own status messages at `gatherlib.py:115,157`; `main()`
+   already prints equivalent messages at `sherlock/gatherer.py:146,148`,
+   so leaving the default would produce duplicate console output, a real
+   observable-behavior change the "zero behavior change" claim did not
+   account for).
 2. Remove `create_download_callback` from `sherlock/gatherer.py`.
-3. Run `sherlock_gatherer_test.py` and extend it only if a real gap is
-   found (e.g. asserting the run-log side-effect exists) — the audit's
-   own claim is zero behavior change, so existing assertions should pass
-   as written.
+3. Replace `sherlock_gatherer_test.py`'s `TestCreateDownloadCallback`
+   class and the `DataGatherer`-construction-patching assertions in the
+   gather tests (review finding, PR #419 — both directly exercise the
+   removed callback or patch `sherlock.gatherer.downloaders.DataGatherer`
+   construction, which no longer happens inside `sherlock/gatherer.py`
+   once `gather()` calls `gatherlib.gather()` directly; both break as
+   written, not pass unchanged) with equivalent coverage against the new
+   implementation.
 
 ## Acceptance Criteria
 

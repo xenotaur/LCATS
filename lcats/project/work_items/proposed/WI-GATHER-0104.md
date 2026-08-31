@@ -35,7 +35,7 @@ required_evidence:
   - test_output
 artifacts_expected:
   - lcats/src/lcats/gatherers/gatherlib.py
-  - lcats/src/lcats/gatherers/gatherlib_test.py
+  - lcats/tests/gatherers_tests/gatherlib_test.py
   - lcats/src/lcats/gatherers/lovecraft/gatherer.py
   - lcats/tests/gatherers_tests/lovecraft_gatherer_test.py
 ---
