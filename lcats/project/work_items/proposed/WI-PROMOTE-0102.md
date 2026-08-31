@@ -28,10 +28,10 @@ forbidden_actions:
   - force_push
   - delete_branch
   - implement_the_recommended_change
-  - modify_replace_wholesale_mechanism
+  - change_promote_wholesale_replacement_mechanism
   - retroactively_edit_resolved_execution_records
 acceptance:
-  - "A design note documents both current direct genre_sidecar imports in promote.py: _validate_sidecars' legacy-shape/v1 structural check (line ~189) and _promote_sidecar_records' legacy-flat overwrite guard (line ~916), their origin (WI-GENRE-0075/0076, PRs #350/#357), and confirmation neither was touched by WI-PROMOTE-0097 (PR #405)"
+  - "A design note documents both current direct genre_sidecar usage sites in promote.py: _validate_sidecars' legacy-shape/v1 structural check (line ~189) and _promote_sidecar_records' legacy-flat overwrite guard (line ~916), their origin (WI-GENRE-0075/0076, PRs #350/#357), and an accurate account of what WI-PROMOTE-0097 (PR #405) did to each -- _validate_sidecars was untouched, while _promote_sidecar_records' guard was restructured (nested under a new sidecar_filename == GENRE_SIDECAR_FILENAME conditional while generalizing the promotion engine to multiple sidecar kinds) with its check logic and the genre_sidecar.is_legacy_flat_sidecar() call itself preserved unchanged"
   - "The note evaluates, for each usage separately, whether routing it through sidecar_validators would preserve its actual behavior -- noting both serve purposes (structural shape-detection, legacy-overwrite guarding) distinct from the registry's validate-on-promotion dispatch -- and states a clear recommendation: route through the registry, or leave as-is"
   - "If leaving as-is is recommended, the note proposes exact replacement wording for WS-PROMOTE-MODE-REDESIGN's exit criterion 3 and WI-PROMOTE-0097's acceptance criterion, without editing those files directly in this investigation"
   - "lrh validate reports 0 errors"
@@ -47,7 +47,7 @@ artifacts_expected:
 ## Summary
 
 Investigate whether `promote.py`'s two remaining direct `genre_sidecar`
-imports should be routed through the `sidecar_validators` registry to
+usage sites should be routed through the `sidecar_validators` registry to
 satisfy `WS-PROMOTE-MODE-REDESIGN`'s exit criterion 3 /
 `WI-PROMOTE-0097`'s acceptance criterion literally, or whether that
 wording should be narrowed instead. The deliverable is a design note with
@@ -63,7 +63,7 @@ strongly: "promote.py imports only this registry, never genre_sidecar.py
 or linguistics/sidecar.py directly."
 
 `promote.py` on `main` still does `from lcats.analysis.corpus import
-genre_sidecar` directly, used in two places:
+genre_sidecar` directly, used at two call sites:
 
 1. `_validate_sidecars()` -- `replace`'s own pre-existing structural
    JSON-shape check (mojibake/malformed-sidecar findings), calling
@@ -76,9 +76,22 @@ genre_sidecar` directly, used in two places:
 Both usages predate `WI-PROMOTE-0097` entirely -- traced via `git log -S`
 to `WI-GENRE-0075`/`WI-GENRE-0076` (PRs #350, #357), well before the
 registry existed. `WI-PROMOTE-0097`'s merge commit (`9665a2d4`, PR #405)
-touches zero lines containing `genre_sidecar` -- it built the registry
-alongside these usages without altering them. Neither Copilot nor Codex
-flagged this on PR #405's review.
+did not touch usage 1 (`_validate_sidecars`) at all. It did touch usage 2:
+diffing the merge commit against its actual mainline parent (not the
+merge commit's own combined diff, which hides this) shows PR #405 nested
+the legacy-flat-overwrite guard under a new `sidecar_filename ==
+GENRE_SIDECAR_FILENAME` conditional while generalizing
+`promote_sidecar_tranche()` into the shared multi-sidecar-kind
+`_promote_sidecar_records()` engine -- the guard's own check logic and its
+`genre_sidecar.is_legacy_flat_sidecar()` call were preserved unchanged,
+only their structural nesting moved. Elsewhere in that same diff, PR #405
+did remove a direct `genre_sidecar.validate_sidecar(record)` call from the
+old tranche-validation path, replacing it with registry-driven dispatch --
+consistent with the registry's actual purpose, just not a full removal of
+every `genre_sidecar` reference. Review found: neither Copilot nor Codex
+flagged the usages themselves on PR #405's review; Codex did flag (P2,
+this WI's own first review round, PR #417) that an earlier draft of this
+WI overstated usage 2 as "untouched" by PR #405 -- corrected above.
 
 Neither usage bypasses the registry's actual safety property (uniform
 validator dispatch for insert/upsert's manifest-driven promotion) --
