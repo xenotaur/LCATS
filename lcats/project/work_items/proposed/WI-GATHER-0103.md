@@ -25,7 +25,7 @@ forbidden_actions:
   - delete_branch
 acceptance:
   - sherlock/gatherer.py's gather() calls gatherlib.gather() directly with author="Arthur Conan Doyle", year=1891, headings=ADVENTURES_HEADINGS, gutenberg_url=ADVENTURES_GUTENBERG, paragraph_finder=find_paragraphs_adventures passed through unchanged, and verbose=False (gatherlib.gather() defaults verbose=True and prints its own start/total messages at gatherlib.py:116,158; sherlock's own main() already prints equivalent messages at sherlock/gatherer.py:146,148 -- passing verbose=False avoids duplicate console output while preserving the zero-behavior-change goal)
-  - The now-dead create_download_callback in sherlock/gatherer.py is removed, and sherlock_gatherer_test.py's TestCreateDownloadCallback class (lines 101-169) and the DataGatherer-construction-patching TestGather class (lines 170-212, which patch sherlock.gatherer.downloaders.DataGatherer -- no longer valid once construction happens inside gatherlib.gather() instead) are replaced with equivalent coverage retargeted at the new implementation, not left in place unchanged
+  - The now-dead create_download_callback in sherlock/gatherer.py is removed, and sherlock_gatherer_test.py's TestCreateDownloadCallback class (lines 101-169) and the DataGatherer-construction-patching TestGather class (lines 170-208, which patch sherlock.gatherer.downloaders.DataGatherer -- no longer valid once construction happens inside gatherlib.gather() instead) are replaced with equivalent coverage retargeted at the new implementation, not left in place unchanged
   - Running gather() produces a logs/gather/*sherlock* run log, confirming sherlock inherits gatherlib.gather()'s existing RunLog coverage with no sherlock-specific code
   - lrh validate and scripts/test pass with 0 errors
 required_evidence:
@@ -106,7 +106,7 @@ does not route through the shared function, it did not inherit the
 2. Remove `create_download_callback` from `sherlock/gatherer.py`.
 3. Replace `sherlock_gatherer_test.py`'s `TestCreateDownloadCallback`
    class (lines 101-169) and the `TestGather` class's
-   `DataGatherer`-construction-patching assertions (lines 170-212, which
+   `DataGatherer`-construction-patching assertions (lines 170-208, which
    patch `sherlock.gatherer.downloaders.DataGatherer` — review finding,
    PR #419, correcting an earlier fix's own line-range citation error —
    both directly exercise the removed callback or patch construction that
