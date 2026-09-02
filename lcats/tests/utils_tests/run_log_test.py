@@ -143,13 +143,14 @@ class RunLogTest(unittest.TestCase):
     def test_clean_exit_emits_run_start_and_run_end(self):
         working = self.tmp_dir / "results"
 
-        with run_log.RunLog(working, "run.jsonl", model="x") as log:
+        with run_log.RunLog(working, "run.jsonl", model="x", run_id="run-1") as log:
             log.event("story_completed", story_id="a")
 
         lines = self._read_lines(working / "run.jsonl")
         events = [line["event"] for line in lines]
         self.assertEqual(events, ["run_start", "story_completed", "run_end"])
         self.assertEqual(lines[0]["model"], "x")
+        self.assertEqual(lines[2]["run_id"], "run-1")
 
     def test_manually_logged_run_end_suppresses_the_automatic_one(self):
         """A caller-supplied, richer run_end is not followed by a bare one.
@@ -172,23 +173,35 @@ class RunLogTest(unittest.TestCase):
         working = self.tmp_dir / "results"
 
         with self.assertRaises(FatalError):
-            with run_log.RunLog(working, "run.jsonl", fatal_exceptions=(FatalError,)):
+            with run_log.RunLog(
+                working,
+                "run.jsonl",
+                fatal_exceptions=(FatalError,),
+                run_id="run-1",
+            ):
                 raise FatalError("account exhausted")
 
         lines = self._read_lines(working / "run.jsonl")
         events = [line["event"] for line in lines]
         self.assertEqual(events, ["run_start", "run_aborted_fatal"])
+        self.assertEqual(lines[1]["run_id"], "run-1")
 
     def test_unclassified_exception_emits_run_aborted_unexpected(self):
         working = self.tmp_dir / "results"
 
         with self.assertRaises(RuntimeError):
-            with run_log.RunLog(working, "run.jsonl", fatal_exceptions=(FatalError,)):
+            with run_log.RunLog(
+                working,
+                "run.jsonl",
+                fatal_exceptions=(FatalError,),
+                run_id="run-1",
+            ):
                 raise RuntimeError("boom")
 
         lines = self._read_lines(working / "run.jsonl")
         events = [line["event"] for line in lines]
         self.assertEqual(events, ["run_start", "run_aborted_unexpected"])
+        self.assertEqual(lines[1]["run_id"], "run-1")
 
     def test_exception_with_no_fatal_exceptions_configured_is_unexpected(self):
         working = self.tmp_dir / "results"

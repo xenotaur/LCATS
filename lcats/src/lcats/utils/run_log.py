@@ -198,7 +198,7 @@ class RunLog:
             # itself the only error worth reporting, so let it propagate
             # normally.
             if not self._run_end_logged:
-                self.event("run_end")
+                self.event("run_end", **self._run_fields)
             return False
         # An exception is already propagating. If writing the terminal
         # abort event itself fails (disk full, output directory removed,
@@ -213,7 +213,7 @@ class RunLog:
         else:
             event_name = "run_aborted_unexpected"
         try:
-            self.event(event_name, error=repr(exc))
+            self.event(event_name, **self._run_fields, error=repr(exc))
         except Exception as log_error:  # noqa: BLE001 - see docstring above
             print(
                 f"run_log: failed to write {event_name} for {self.log_path}: "
