@@ -57,8 +57,14 @@ def create_download_callback(
     start_heading_text,
     description,
     paragraph_finder=find_paragraphs,
+    extraction_strategy=None,
 ):
-    """Create a download callback function for a specific story."""
+    """Create a download callback function for a specific story.
+
+    extraction_strategy(soup), when given, replaces the heading-text-search
+    paragraph_finder(soup, start_heading_text) contract entirely -- for
+    extraction that isn't heading-based (e.g. ID-anchored content, WI-GATHER-0104).
+    """
 
     def story_download_callback(contents):
         """Download a specific  story from the Gutenberg Project."""
@@ -68,7 +74,10 @@ def create_download_callback(
 
         story_soup = BeautifulSoup(contents, "lxml")
 
-        story_text = paragraph_finder(story_soup, start_heading_text)
+        if extraction_strategy is not None:
+            story_text = extraction_strategy(story_soup)
+        else:
+            story_text = paragraph_finder(story_soup, start_heading_text)
         if story_text is None:
             raise ValueError(
                 f"Failed to find text for {story_name} given {start_heading_text} in {url}"
@@ -94,8 +103,11 @@ def gather(
     author,
     year,
     headings,
-    gutenberg_url,
+    gutenberg_url=None,
     paragraph_finder=find_paragraphs,
+    extraction_strategy=None,
+    entry_url=None,
+    name_source=None,
     verbose=True,
     log_dir=DEFAULT_GATHER_LOG_DIR,
 ):
@@ -111,6 +123,20 @@ def gather(
     an unhandled download() failure still aborts the whole gather() call,
     now surfacing as run_aborted_unexpected via RunLog's own __exit__
     rather than a bare, unexplained traceback.
+
+    Three opt-in extension points (WI-GATHER-0104), each defaulting to
+    today's behavior when unset, added to reconcile gatherers whose
+    stories don't share one URL, use heading-text search, or want the
+    metadata ``name`` to be the normalized filename:
+
+    - ``entry_url(raw_filename, heading, title)``: per-entry URL,
+      overriding the single shared ``gutenberg_url`` when given.
+      ``gutenberg_url`` becomes optional (used for every entry) once a
+      caller supplies this instead.
+    - ``extraction_strategy(soup)``: see create_download_callback.
+    - ``name_source(raw_filename, heading, title)``: overrides the
+      ``story_data["name"]`` metadata value (normalized filename by
+      default) when given.
     """
     if verbose:
         print(f"Gathering {corpus} stories from Gutenberg...")
@@ -126,20 +152,24 @@ def gather(
         corpus=corpus,
         story_count=len(headings),
     ) as log:
-        for raw_filename, heading, title in headings:
+        for entry in headings:
+            raw_filename, heading, title = entry
             filename = names.normalize_basename(raw_filename)[0]
+            url = entry_url(*entry) if entry_url is not None else gutenberg_url
+            story_name = name_source(*entry) if name_source is not None else filename
 
             gatherer.download(
                 filename,
-                gutenberg_url,
+                url,
                 create_download_callback(
                     author=author,
                     year=year,
-                    story_name=filename,
-                    url=gutenberg_url,
+                    story_name=story_name,
+                    url=url,
                     start_heading_text=heading,
                     description=title,
                     paragraph_finder=paragraph_finder,
+                    extraction_strategy=extraction_strategy,
                 ),
             )
             # download() only adds to gatherer.downloads when it actually

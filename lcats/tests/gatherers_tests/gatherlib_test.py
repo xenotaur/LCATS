@@ -269,6 +269,151 @@ class TestGather(unittest.TestCase):
         self.assertEqual(args[0], EXAMPLE_DIRECTORY)
 
 
+class TestGatherExtensionPoints(unittest.TestCase):
+    """WI-GATHER-0104: gather()'s three opt-in extension points
+    (entry_url, extraction_strategy, name_source), tested independently
+    of any specific caller (e.g. lovecraft)."""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.log_dir = pathlib.Path(self._tmp.name) / "gather_logs"
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_entry_url_overrides_shared_gutenberg_url_per_entry(
+        self, mock_gatherer_cls
+    ):
+        """When entry_url is given, each download() call gets that
+        entry's own URL instead of one shared gutenberg_url."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+        per_entry_urls = {
+            "swineherd": "http://example.com/swineherd",
+            "real_princess": "http://example.com/real_princess",
+            "shoes_of_fortune": "http://example.com/shoes_of_fortune",
+        }
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            entry_url=lambda raw_filename, heading, title: per_entry_urls[raw_filename],
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        called_urls = [call.args[1] for call in mock_instance.download.call_args_list]
+        self.assertEqual(called_urls, list(per_entry_urls.values()))
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_extraction_strategy_replaces_paragraph_finder_entirely(
+        self, mock_gatherer_cls
+    ):
+        """When extraction_strategy is given, the callback uses it
+        instead of paragraph_finder(soup, start_heading_text)."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            gutenberg_url=EXAMPLE_GUTENBERG,
+            extraction_strategy=lambda soup: "fixed extraction result",
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        _filename, _url, callback = mock_instance.download.call_args_list[0].args
+        _description, text, _metadata = callback("<html></html>")
+        self.assertEqual(text, "fixed extraction result")
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_name_source_overrides_the_normalized_filename_metadata_name(
+        self, mock_gatherer_cls
+    ):
+        """When name_source is given, story_data["name"] uses it instead
+        of the normalized filename."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            gutenberg_url=EXAMPLE_GUTENBERG,
+            name_source=lambda raw_filename, heading, title: f"Display: {title}",
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        _filename, _url, callback = mock_instance.download.call_args_list[0].args
+        html = """
+        <html><body>
+        <h2>THE SWINEHERD</h2>
+        <p>Once upon a time.</p>
+        </body></html>
+        """
+        _description, _text, metadata = callback(html)
+        self.assertEqual(metadata["name"], f"Display: {EXAMPLE_HEADINGS[0][2]}")
+        self.assertNotEqual(metadata["name"], EXAMPLE_HEADINGS[0][0])
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_extension_points_default_to_prior_behavior_when_unset(
+        self, mock_gatherer_cls
+    ):
+        """Omitting all three extensions reproduces gather()'s original
+        behavior exactly -- shared gutenberg_url, paragraph_finder, and
+        normalized-filename metadata name."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherlib.gather(
+            corpus="Anderson",
+            target_directory=EXAMPLE_DIRECTORY,
+            description="Anderson stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Anderson",
+            year=1911,
+            headings=EXAMPLE_HEADINGS,
+            gutenberg_url=EXAMPLE_GUTENBERG,
+            verbose=False,
+            log_dir=self.log_dir,
+        )
+
+        called_urls = {call.args[1] for call in mock_instance.download.call_args_list}
+        self.assertEqual(called_urls, {EXAMPLE_GUTENBERG})
+
+        _filename, _url, callback = mock_instance.download.call_args_list[0].args
+        html = """
+        <html><body>
+        <h2>THE SWINEHERD</h2>
+        <p>Once upon a time.</p>
+        </body></html>
+        """
+        _description, text, metadata = callback(html)
+        self.assertIn("Once upon a time.", text)
+        self.assertEqual(metadata["name"], EXAMPLE_HEADINGS[0][0])
+
+
 class TestGatherRunLogging(unittest.TestCase):
     """WI-RUNLOG-0082: gatherlib.gather()'s download loop gets a
     crash-safe, incremental run-event log via lcats.utils.run_log.RunLog,
