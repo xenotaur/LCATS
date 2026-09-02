@@ -239,7 +239,7 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             ]
         )
 
-    def test_malformed_nested_tool_output_is_quarantined_not_crashing(self):
+    def test_malformed_nested_tool_output_is_normalized_without_crashing(self):
         output_root = self.root / "malformed-nested"
 
         with patch.object(

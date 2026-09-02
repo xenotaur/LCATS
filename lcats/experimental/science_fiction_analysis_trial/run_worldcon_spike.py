@@ -281,6 +281,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
         _write_report(output_root, summary)
         log.event(
             "run_end",
+            run_id=run_id,
             complete=sum(1 for item in results if item.status == "complete"),
             failed=sum(1 for item in results if item.status == "failed"),
             processed=len(results),
