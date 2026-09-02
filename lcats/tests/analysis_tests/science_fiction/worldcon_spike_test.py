@@ -402,6 +402,34 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertIn("run_aborted_unexpected", events)
         self.assertNotIn("run_end", events)
 
+    def test_backend_construction_failure_logs_abort(self):
+        output_root = self.root / "backend-construction-failure"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            side_effect=RuntimeError("backend setup failed"),
+        ):
+            with self.assertRaisesRegex(RuntimeError, "backend setup failed"):
+                run_worldcon_spike.run_spike(
+                    run_worldcon_spike.RunnerOptions(
+                        manifest_path=self.manifest_path,
+                        output_root=output_root,
+                        max_stories=0,
+                    )
+                )
+
+        records = [
+            json.loads(line)
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+        ]
+        events = [record["event"] for record in records]
+        self.assertIn("run_start", events)
+        self.assertIn("run_aborted_unexpected", events)
+        self.assertNotIn("run_end", events)
+
     def test_allow_protected_root_is_forwarded_to_run_log(self):
         output_root = self.root / "protected-opt-in"
         log = MagicMock()

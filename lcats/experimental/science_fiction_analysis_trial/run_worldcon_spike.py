@@ -205,7 +205,6 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             run_id=run_id,
         )
 
-    active_backend = _make_backend(options)
     results: list[StoryResult] = []
     failures = 0
     with run_log.RunLog(
@@ -219,6 +218,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
         planned_stories=len(selected_stories),
         allow_protected_root=options.allow_protected_root,
     ) as log:
+        active_backend = _make_backend(options)
         for story in selected_stories:
             log.event(
                 "story_start",
