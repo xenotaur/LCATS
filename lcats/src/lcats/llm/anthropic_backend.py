@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 from typing import Optional
 
@@ -123,6 +124,7 @@ class AnthropicBackend:
                     max_tokens=max_tokens,
                     input_tokens=message.usage.input_tokens,
                     output_tokens=message.usage.output_tokens,
+                    raw_content=_capture_content_blocks(message.content),
                 )
             tool_block = next(
                 (block for block in message.content if block.type == "tool_use"),
@@ -147,6 +149,7 @@ class AnthropicBackend:
                     f"content types: {content_types}; text: {text_preview!r}",
                     input_tokens=message.usage.input_tokens,
                     output_tokens=message.usage.output_tokens,
+                    raw_content=_capture_content_blocks(message.content),
                 )
             tool_result = tool_block.input
             text = ""
@@ -173,3 +176,16 @@ class AnthropicBackend:
             cache_read_input_tokens=getattr(usage, "cache_read_input_tokens", None),
             raw=message,
         )
+
+
+def _capture_content_blocks(content: list) -> str:
+    """Serialize provider content blocks for failure diagnostics."""
+
+    captured = []
+    for block in content:
+        item = {"type": getattr(block, "type", None)}
+        for field in ("id", "name", "text", "input"):
+            if hasattr(block, field):
+                item[field] = getattr(block, field)
+        captured.append(item)
+    return json.dumps(captured, sort_keys=True, default=str)

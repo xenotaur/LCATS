@@ -36,6 +36,17 @@ class _MalformedJsonBackend:
         )
 
 
+class _BackendError(RuntimeError):
+    input_tokens = 29
+    output_tokens = 31
+    raw_content = '{"partial":'
+
+
+class _RaisedBackend:
+    def complete(self, **_kwargs):
+        raise _BackendError("backend failed")
+
+
 class _MalformedNestedBackend:
     def complete(self, **kwargs):
         payload = json.loads(kwargs["messages"][-1]["content"])
@@ -48,6 +59,20 @@ class _MalformedNestedBackend:
             text="",
             tool_result=result,
             model="malformed-nested",
+            input_tokens=13,
+            output_tokens=17,
+        )
+
+
+class _MalformedCollectionBackend:
+    def complete(self, **kwargs):
+        payload = json.loads(kwargs["messages"][-1]["content"])
+        result = run_worldcon_spike._fake_tool_result(payload)
+        result["knight_criteria"] = None
+        return llm_backend.BackendResponse(
+            text="",
+            tool_result=result,
+            model="malformed-collection",
             input_tokens=13,
             output_tokens=17,
         )
@@ -104,6 +129,10 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
             self.assertTrue(sidecar.validate_sidecar(data).valid)
             self.assertEqual(story["story_id"], data["lcats_id"])
+            self.assertEqual(
+                story["run_id"],
+                data["analyses"]["knight"][0]["provenance"]["run_id"],
+            )
             self.assertEqual(
                 {"definite_count": 3, "possible_count": 3, "total_count": 7},
                 story["knight_interval"],
@@ -195,14 +224,20 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             .splitlines()
         )
         self.assertEqual(1, len(story_rows))
-        events = [
-            json.loads(line)["event"]
+        records = [
+            json.loads(line)
             for line in (output_root / "worldcon_spike_run_log.jsonl")
             .read_text(encoding="utf-8")
             .splitlines()
         ]
+        events = [record["event"] for record in records]
         self.assertIn("story_quarantined", events)
         self.assertIn("run_stopped", events)
+        self.assertTrue(
+            next(record for record in records if record["event"] == "run_stopped")[
+                "run_id"
+            ]
+        )
 
     def test_malformed_nested_tool_output_is_quarantined_not_crashing(self):
         output_root = self.root / "malformed-nested"
@@ -226,6 +261,28 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual("complete", story["status"])
         self.assertTrue(pathlib.Path(story["raw_response_path"]).exists())
         self.assertIsNone(story["quarantine_path"])
+
+    def test_malformed_required_collection_is_quarantined(self):
+        output_root = self.root / "malformed-collection"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_MalformedCollectionBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        story = summary["stories"][0]
+        self.assertEqual("failed", story["status"])
+        self.assertEqual("ValueError", story["failure_kind"])
+        self.assertIn("knight_criteria must be a list", story["failure_message"])
+        self.assertTrue(pathlib.Path(story["quarantine_path"]).exists())
 
     def test_malformed_json_persists_raw_and_quarantine(self):
         output_root = self.root / "malformed-json"
@@ -254,6 +311,29 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             "JSONDecodeError",
             json.loads(quarantine_path.read_text())["failure_kind"],
         )
+
+    def test_backend_exception_persists_raw_content_and_usage(self):
+        output_root = self.root / "backend-error"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_RaisedBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        story = summary["stories"][0]
+        raw = json.loads(pathlib.Path(story["raw_response_path"]).read_text())
+        self.assertEqual("_BackendError", raw["backend_error"])
+        self.assertEqual('{"partial":', raw["raw_content"])
+        self.assertEqual(29, story["input_tokens"])
+        self.assertEqual(31, story["output_tokens"])
 
     def test_reruns_use_distinct_attempt_artifacts(self):
         output_root = self.root / "reruns"
@@ -310,19 +390,33 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         log = MagicMock()
         log.__enter__.return_value = log
 
-        with patch.object(
-            run_worldcon_spike.run_log, "RunLog", return_value=log
-        ) as factory:
+        with (
+            patch.object(
+                run_worldcon_spike.run_log, "RunLog", return_value=log
+            ) as factory,
+            patch.object(
+                run_worldcon_spike.pipeline,
+                "run_checkpointed_assembly",
+                wraps=run_worldcon_spike.pipeline.run_checkpointed_assembly,
+            ) as assemble,
+            patch.object(
+                run_worldcon_spike.pipeline,
+                "publish_sidecar",
+                wraps=run_worldcon_spike.pipeline.publish_sidecar,
+            ) as publish,
+        ):
             run_worldcon_spike.run_spike(
                 run_worldcon_spike.RunnerOptions(
                     manifest_path=self.manifest_path,
                     output_root=output_root,
                     allow_protected_root=True,
-                    max_stories=0,
+                    max_stories=1,
                 )
             )
 
         self.assertTrue(factory.call_args.kwargs["allow_protected_root"])
+        self.assertTrue(assemble.call_args.kwargs["allow_protected_root"])
+        self.assertTrue(publish.call_args.kwargs["allow_protected_root"])
 
     def test_paid_backend_requires_both_manifest_and_cli_approval(self):
         with self.assertRaisesRegex(ValueError, "approve-paid"):
@@ -452,6 +546,31 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                     output_root=protected,
                     dry_run=True,
                 )
+            )
+
+    def test_story_result_log_rejects_symlink(self):
+        output_root = self.root / "symlink"
+        output_root.mkdir()
+        target = self.root / "outside.jsonl"
+        (output_root / "worldcon_spike_story_results.jsonl").symlink_to(target)
+
+        with self.assertRaises(OSError):
+            run_worldcon_spike._append_story_result(
+                output_root,
+                run_worldcon_spike.StoryResult(
+                    run_id="run-1",
+                    story_id="horror_col/story_a",
+                    title="Story",
+                    story_path="horror_col/story_a.txt",
+                    status="failed",
+                    sidecar_path=None,
+                    input_tokens=0,
+                    output_tokens=0,
+                    latency_seconds=0.0,
+                    knight_interval=None,
+                    qualified_novum_count=None,
+                    dominant_novum_id=None,
+                ),
             )
 
 

@@ -83,6 +83,7 @@ class OpenAIBackend:
                     max_tokens=max_tokens,
                     input_tokens=usage.prompt_tokens if usage else 0,
                     output_tokens=usage.completion_tokens if usage else 0,
+                    raw_content=_capture_message(choice.message),
                 )
             tool_calls = choice.message.tool_calls
             if not tool_calls:
@@ -109,7 +110,14 @@ class OpenAIBackend:
                     raw_content=choice.message.content or "",
                 )
             raw_arguments = tool_calls[0].function.arguments
-            tool_result = json.loads(raw_arguments)
+            try:
+                tool_result = json.loads(raw_arguments)
+            except json.JSONDecodeError as error:
+                usage = response.usage
+                error.raw_content = raw_arguments
+                error.input_tokens = usage.prompt_tokens if usage else 0
+                error.output_tokens = usage.completion_tokens if usage else 0
+                raise
             text = ""
         else:
             text = choice.message.content or ""
@@ -124,3 +132,29 @@ class OpenAIBackend:
             output_tokens=usage.completion_tokens if usage else 0,
             raw=response,
         )
+
+
+def _capture_message(message: object) -> str:
+    """Serialize available provider message content for failure diagnostics."""
+
+    tool_calls = []
+    for call in getattr(message, "tool_calls", None) or []:
+        function = getattr(call, "function", None)
+        tool_calls.append(
+            {
+                "id": getattr(call, "id", None),
+                "type": getattr(call, "type", None),
+                "function": {
+                    "name": getattr(function, "name", None),
+                    "arguments": getattr(function, "arguments", None),
+                },
+            }
+        )
+    return json.dumps(
+        {
+            "content": getattr(message, "content", None),
+            "tool_calls": tool_calls,
+        },
+        sort_keys=True,
+        default=str,
+    )

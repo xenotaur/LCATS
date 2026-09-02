@@ -53,6 +53,7 @@ FAKE_BACKEND = "fake"
 OPENAI_BACKEND = "openai"
 ANTHROPIC_BACKEND = "anthropic"
 OPENAI_COMPATIBLE_BACKEND = "openai-compatible"
+_O_NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -249,6 +250,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                 if options.stop_on_first_failure:
                     log.event(
                         "run_stopped",
+                        run_id=run_id,
                         reason="stop_on_first_failure",
                         failures=failures,
                     )
@@ -256,6 +258,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                 if options.max_failures is not None and failures >= options.max_failures:
                     log.event(
                         "run_stopped",
+                        run_id=run_id,
                         reason="max_failures",
                         failures=failures,
                         max_failures=options.max_failures,
@@ -339,10 +342,12 @@ def _run_story(
     raw_response_path: pathlib.Path | None = None
     quarantine_path: pathlib.Path | None = None
     tool_result: Any = None
+    backend_attempted = False
     try:
         story_file = _repo_root() / "corpora" / story.story_path
         prepared = preparation.prepare_story_file(story_file)
         payload = _prompt_payload(story, prepared)
+        backend_attempted = True
         response = active_backend.complete(
             system=_system_prompt(),
             messages=[{"role": "user", "content": _stable_json(payload)}],
@@ -378,16 +383,19 @@ def _run_story(
             tool_result=tool_result,
             options=options,
             response=response,
+            run_id=run_id,
         )
         assembled = pipeline.run_checkpointed_assembly(
             working_root=output_root,
             item_id=_checkpoint_item_id(story),
             inputs=sidecar_inputs,
+            allow_protected_root=options.allow_protected_root,
         )
         sidecar_path = pipeline.publish_sidecar(
             output_root=output_root,
             item_id=story.story_id,
             data=assembled.data,
+            allow_protected_root=options.allow_protected_root,
         )
         knight_analysis = sidecar_inputs.knight_analyses[0]
         suvin_analysis = sidecar_inputs.suvin_novum_analyses[0]
@@ -411,6 +419,15 @@ def _run_story(
             ),
         )
     except Exception as error:
+        input_tokens = getattr(error, "input_tokens", input_tokens)
+        output_tokens = getattr(error, "output_tokens", output_tokens)
+        if raw_response_path is None and backend_attempted:
+            raw_response_path = _write_backend_failure(
+                output_root=output_root,
+                run_id=run_id,
+                story=story,
+                error=error,
+            )
         quarantine_path = _write_quarantine(
             output_root=output_root,
             run_id=run_id,
@@ -454,9 +471,45 @@ def _run_story(
 def _append_story_result(output_root: pathlib.Path, result: StoryResult) -> pathlib.Path:
     output_root.mkdir(parents=True, exist_ok=True)
     path = output_root / "worldcon_spike_story_results.jsonl"
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(result.to_dict(), sort_keys=True) + "\n")
+    _append_json_line(path, result.to_dict())
+    return path
+
+
+def _append_json_line(path: pathlib.Path, data: dict[str, Any]) -> None:
+    """Append one JSON line without following a pre-existing symlink."""
+
+    fd = os.open(
+        os.fspath(path),
+        os.O_WRONLY | os.O_APPEND | os.O_CREAT | _O_NOFOLLOW,
+        0o644,
+    )
+    with os.fdopen(fd, "a", encoding="utf-8") as handle:
+        handle.write(json.dumps(data, sort_keys=True) + "\n")
         handle.flush()
+
+
+def _write_backend_failure(
+    *,
+    output_root: pathlib.Path,
+    run_id: str,
+    story: SpikeStory,
+    error: Exception,
+) -> pathlib.Path:
+    """Persist raw content exposed by a backend exception before quarantine."""
+
+    path = output_root / "_raw" / run_id / f"{_checkpoint_item_id(story)}.json"
+    payload = {
+        "run_id": run_id,
+        "story_id": story.story_id,
+        "story_path": story.story_path,
+        "title": story.title,
+        "backend_error": type(error).__name__,
+        "error_message": str(error),
+        "input_tokens": getattr(error, "input_tokens", 0),
+        "output_tokens": getattr(error, "output_tokens", 0),
+        "raw_content": getattr(error, "raw_content", None),
+    }
+    _write_json_atomic(path, payload)
     return path
 
 
@@ -531,6 +584,7 @@ def _sidecar_inputs(
     tool_result: Any,
     options: RunnerOptions,
     response: llm_backend.BackendResponse,
+    run_id: str,
 ) -> pipeline.SidecarAssemblyInputs:
     if not isinstance(tool_result, dict):
         raise ValueError(
@@ -538,13 +592,14 @@ def _sidecar_inputs(
         )
     evidence_set = evidence.build_evidence_set(
         prepared,
-        _list_field(tool_result, "evidence"),
+        _required_list_field(tool_result, "evidence"),
         backend=options.backend_kind,
     )
     provenance = _provenance(
         story=story,
         options=options,
         response=response,
+        run_id=run_id,
         parent_evidence_set_id=evidence_set.evidence_set_id,
     )
     knight_analysis = knight.build_analysis(
@@ -594,7 +649,7 @@ def _knight_decisions(
 ) -> tuple[knight.CriterionAdjudication, ...]:
     by_id = {
         item.get("criterion_id"): item
-        for item in _list_field(tool_result, "knight_criteria")
+        for item in _required_list_field(tool_result, "knight_criteria")
         if isinstance(item, dict)
     }
     fallback_evidence = _first_evidence_id(evidence_set)
@@ -631,7 +686,7 @@ def _novum_candidates(
 ) -> tuple[novum.CandidateAdjudication, ...]:
     candidates = []
     for index, raw_item in enumerate(
-        _list_field(tool_result, "novum_candidates"), start=1
+        _required_list_field(tool_result, "novum_candidates"), start=1
     ):
         if not isinstance(raw_item, dict):
             continue
@@ -717,10 +772,11 @@ def _provenance(
     story: SpikeStory,
     options: RunnerOptions,
     response: llm_backend.BackendResponse,
+    run_id: str,
     parent_evidence_set_id: str,
 ) -> models.ProvenanceRecord:
     return models.ProvenanceRecord(
-        run_id=f"worldcon-spike:{options.mode}:{_stable_slug(story.story_id)}",
+        run_id=run_id,
         rubric_version=models.KNIGHT_RUBRIC_VERSION,
         code_commit=_git_commit(),
         backend=options.backend_kind,
@@ -1189,11 +1245,12 @@ def _existing_evidence_ids(
     return tuple(available[item] for item in evidence_ids if item in available)
 
 
-def _list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:
-    value = data.get(key, ())
-    if isinstance(value, list | tuple):
-        return tuple(value)
-    return ()
+def _required_list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:
+    """Return a required collection or reject a schema-invalid shape."""
+
+    if key not in data or not isinstance(data[key], list | tuple):
+        raise ValueError(f"{key} must be a list")
+    return tuple(data[key])
 
 
 def _string_tuple(value: Any) -> tuple[str, ...]:
