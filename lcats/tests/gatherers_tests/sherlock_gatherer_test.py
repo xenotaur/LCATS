@@ -1,8 +1,7 @@
 """Tests for the Sherlock Holmes gatherer module."""
 
-import json
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from bs4 import BeautifulSoup
 
@@ -98,114 +97,44 @@ class TestFindParagraphsAdventures(unittest.TestCase):
         self.assertEqual(result, "")
 
 
-class TestCreateDownloadCallback(unittest.TestCase):
-    """Unit tests for create_download_callback."""
-
-    def _make_html_with_story(self, heading_text, para_text):
-        return f"""
-        <html><body>
-        <h2>{heading_text}</h2>
-        <p>{para_text}</p>
-        </body></html>
-        """
-
-    def test_successful_callback_returns_tuple(self):
-        """Callback returns (description, text, metadata) on valid HTML."""
-        html = self._make_html_with_story(
-            "A SCANDAL IN BOHEMIA", "To Sherlock Holmes she is always the woman."
-        )
-        callback = gatherer.create_download_callback(
-            story_name="scandal_in_bohemia",
-            url="http://example.com/sherlock",
-            start_heading_text="A SCANDAL IN BOHEMIA",
-            description="Sherlock Holmes - A Scandal in Bohemia",
-        )
-        description, text, metadata = callback(html)
-        self.assertEqual(description, "Sherlock Holmes - A Scandal in Bohemia")
-        self.assertIn("To Sherlock Holmes she is always the woman.", text)
-        self.assertEqual(metadata["name"], "scandal_in_bohemia")
-        self.assertEqual(metadata["author"], "Arthur Conan Doyle")
-        self.assertEqual(metadata["year"], 1891)
-        self.assertEqual(metadata["url"], "http://example.com/sherlock")
-
-    def test_callback_raises_on_none_contents(self):
-        """Callback raises ValueError when contents is None."""
-        callback = gatherer.create_download_callback(
-            story_name="scandal_in_bohemia",
-            url="http://example.com/sherlock",
-            start_heading_text="A SCANDAL IN BOHEMIA",
-            description="Sherlock Holmes - A Scandal in Bohemia",
-        )
-        with self.assertRaises(ValueError):
-            callback(None)
-
-    def test_callback_raises_when_heading_not_found(self):
-        """Callback raises ValueError when heading is not found in HTML."""
-        html = "<html><body><h2>OTHER HEADING</h2><p>Text.</p></body></html>"
-        callback = gatherer.create_download_callback(
-            story_name="scandal_in_bohemia",
-            url="http://example.com/sherlock",
-            start_heading_text="A SCANDAL IN BOHEMIA",
-            description="Sherlock Holmes - A Scandal in Bohemia",
-        )
-        with self.assertRaises(ValueError):
-            callback(html)
-
-    def test_metadata_structure_is_json_serializable(self):
-        """Metadata returned by callback can be serialized to JSON."""
-        html = self._make_html_with_story(
-            "THE RED-HEADED LEAGUE", "It was in the year 1890."
-        )
-        callback = gatherer.create_download_callback(
-            story_name="red_headed_league",
-            url="http://example.com/sherlock",
-            start_heading_text="THE RED-HEADED LEAGUE",
-            description="Sherlock Holmes - The Red-Headed League",
-        )
-        description, text, metadata = callback(html)
-        # Should not raise
-        json.dumps({"name": description, "body": text, "metadata": metadata})
-
-
 class TestGather(unittest.TestCase):
-    """Unit tests for the gather() function."""
+    """Unit tests for the gather() function.
 
-    @patch("lcats.gatherers.sherlock.gatherer.downloaders.DataGatherer")
-    def test_gather_calls_download_for_each_heading(self, mock_gatherer_cls):
-        """gather() calls download once per entry in ADVENTURES_HEADINGS."""
-        mock_instance = MagicMock()
-        mock_instance.downloads = {}
-        mock_gatherer_cls.return_value = mock_instance
+    gather() is now a thin wrapper around gatherlib.gather() (WI-GATHER-0103);
+    these tests replace the old direct-DataGatherer-construction tests and
+    the retired create_download_callback tests, verifying gather() delegates
+    with the correct sherlock-specific arguments instead.
+    """
+
+    @patch("lcats.gatherers.sherlock.gatherer.gatherlib.gather")
+    def test_gather_calls_gatherlib_gather_with_expected_arguments(self, mock_gather):
+        """gather() delegates to gatherlib.gather() with sherlock's arguments."""
+        mock_gather.return_value = {"scandal_in_bohemia": "/some/path.json"}
 
         gatherer.gather()
 
-        self.assertEqual(
-            mock_instance.download.call_count, len(gatherer.ADVENTURES_HEADINGS)
+        mock_gather.assert_called_once_with(
+            corpus="Sherlock Holmes",
+            target_directory=gatherer.TARGET_DIRECTORY,
+            description="Sherlock Holmes stories from the Gutenberg Project.",
+            license_text="Public domain, from Project Gutenberg.",
+            author="Arthur Conan Doyle",
+            year=1891,
+            headings=gatherer.ADVENTURES_HEADINGS,
+            gutenberg_url=gatherer.ADVENTURES_GUTENBERG,
+            paragraph_finder=gatherer.find_paragraphs_adventures,
+            verbose=False,
         )
 
-    @patch("lcats.gatherers.sherlock.gatherer.downloaders.DataGatherer")
-    def test_gather_returns_downloads(self, mock_gatherer_cls):
-        """gather() returns the downloads dict from the DataGatherer."""
-        mock_instance = MagicMock()
+    @patch("lcats.gatherers.sherlock.gatherer.gatherlib.gather")
+    def test_gather_returns_gatherlib_gather_result(self, mock_gather):
+        """gather() returns whatever gatherlib.gather() returns."""
         expected = {"scandal_in_bohemia": "/some/path.json"}
-        mock_instance.downloads = expected
-        mock_gatherer_cls.return_value = mock_instance
+        mock_gather.return_value = expected
 
         result = gatherer.gather()
 
         self.assertIs(result, expected)
-
-    @patch("lcats.gatherers.sherlock.gatherer.downloaders.DataGatherer")
-    def test_gather_uses_correct_target_directory(self, mock_gatherer_cls):
-        """gather() instantiates DataGatherer with TARGET_DIRECTORY='sherlock'."""
-        mock_instance = MagicMock()
-        mock_instance.downloads = {}
-        mock_gatherer_cls.return_value = mock_instance
-
-        gatherer.gather()
-
-        args, _ = mock_gatherer_cls.call_args
-        self.assertEqual(args[0], gatherer.TARGET_DIRECTORY)
 
 
 if __name__ == "__main__":
