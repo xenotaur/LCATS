@@ -335,6 +335,23 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual(29, story["input_tokens"])
         self.assertEqual(31, story["output_tokens"])
 
+    def test_raw_and_quarantine_artifacts_reject_symlinked_directories(self):
+        outside = self.root / "outside"
+        outside.mkdir()
+        for directory_name in ("_raw", "_quarantine"):
+            output_root = self.root / f"symlink-{directory_name}"
+            output_root.mkdir()
+            (output_root / directory_name).symlink_to(outside, target_is_directory=True)
+
+            with self.assertRaisesRegex(OSError, "must not be a symlink"):
+                run_worldcon_spike._write_json_atomic(
+                    output_root / directory_name / "run" / "story.json",
+                    {"ok": True},
+                    output_root=output_root,
+                )
+
+        self.assertEqual((), tuple(outside.iterdir()))
+
     def test_reruns_use_distinct_attempt_artifacts(self):
         output_root = self.root / "reruns"
         options = run_worldcon_spike.RunnerOptions(

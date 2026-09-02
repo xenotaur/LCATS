@@ -510,7 +510,7 @@ def _write_backend_failure(
         "output_tokens": getattr(error, "output_tokens", 0),
         "raw_content": getattr(error, "raw_content", None),
     }
-    _write_json_atomic(path, payload)
+    _write_json_atomic(path, payload, output_root=output_root)
     return path
 
 
@@ -536,7 +536,7 @@ def _write_raw_response(
         "text": response.text,
         "tool_result": tool_result,
     }
-    _write_json_atomic(path, payload)
+    _write_json_atomic(path, payload, output_root=output_root)
     return path
 
 
@@ -562,18 +562,48 @@ def _write_quarantine(
         ),
         "tool_result": tool_result,
     }
-    _write_json_atomic(path, payload)
+    _write_json_atomic(path, payload, output_root=output_root)
     return path
 
 
-def _write_json_atomic(path: pathlib.Path, data: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp_path = path.with_name(f".{path.name}.tmp")
+def _write_json_atomic(
+    path: pathlib.Path, data: Any, *, output_root: pathlib.Path
+) -> None:
+    """Write JSON atomically without traversing symlinked artifact folders."""
+
+    root = output_root.absolute()
+    if root.is_symlink():
+        raise OSError(f"output root must not be a symlink: {root}")
+    directory = path.parent.absolute()
     try:
-        tmp_path.write_text(_stable_json(data), encoding="utf-8")
+        relative_parts = directory.relative_to(root).parts
+    except ValueError as error:
+        raise ValueError(f"artifact path escapes output root: {path}") from error
+
+    current = root
+    for part in relative_parts:
+        current /= part
+        if current.is_symlink():
+            raise OSError(f"artifact directory must not be a symlink: {current}")
+        current.mkdir(parents=True, exist_ok=True)
+
+    tmp_path = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    fd = None
+    try:
+        fd = os.open(
+            os.fspath(tmp_path),
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | _O_NOFOLLOW,
+            0o644,
+        )
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            fd = None
+            handle.write(_stable_json(data))
+            handle.flush()
         os.replace(tmp_path, path)
     except BaseException:
-        if tmp_path.exists():
+        if fd is not None:
+            os.close(fd)
+        if tmp_path.exists() or tmp_path.is_symlink():
             tmp_path.unlink()
         raise
 
