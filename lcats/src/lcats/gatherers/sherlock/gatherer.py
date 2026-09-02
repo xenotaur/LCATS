@@ -91,7 +91,7 @@ def find_paragraphs_adventures(soup, start_heading_text):
 
 
 def gather():
-    """Run DataGatherers for the Sherlock Holmes corpus."""
+    """Gather the Sherlock Holmes corpus via gatherlib.gather()."""
     return gatherlib.gather(
         corpus="Sherlock Holmes",
         target_directory=TARGET_DIRECTORY,

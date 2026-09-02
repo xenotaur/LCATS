@@ -1,7 +1,9 @@
 """Tests for the Sherlock Holmes gatherer module."""
 
+import os
+import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from bs4 import BeautifulSoup
 
@@ -100,41 +102,110 @@ class TestFindParagraphsAdventures(unittest.TestCase):
 class TestGather(unittest.TestCase):
     """Unit tests for the gather() function.
 
-    gather() is now a thin wrapper around gatherlib.gather() (WI-GATHER-0103);
-    these tests replace the old direct-DataGatherer-construction tests and
-    the retired create_download_callback tests, verifying gather() delegates
-    with the correct sherlock-specific arguments instead.
-    """
+    gather() is now a thin wrapper around gatherlib.gather() (WI-GATHER-0103).
+    Per AGENTS.md's mocking philosophy (avoid heavy mocking; mock only at
+    true boundaries), these mock DataGatherer -- the network/external
+    boundary gatherlib.gather() itself mocks in its own tests
+    (gatherlib_test.py) -- rather than gatherlib.gather() itself, so the
+    real create_download_callback/find_paragraphs_adventures interaction
+    still gets exercised end to end with real HTML (review finding,
+    PR #421 -- mocking gatherlib.gather() directly, as an earlier version
+    of this file did, only verifies mock calls and would not have caught a
+    broken interaction between Sherlock's custom paragraph finder, the
+    shared callback, and DataGatherer, which the retired
+    TestCreateDownloadCallback tests used to cover)."""
 
-    @patch("lcats.gatherers.sherlock.gatherer.gatherlib.gather")
-    def test_gather_calls_gatherlib_gather_with_expected_arguments(self, mock_gather):
-        """gather() delegates to gatherlib.gather() with sherlock's arguments."""
-        mock_gather.return_value = {"scandal_in_bohemia": "/some/path.json"}
+    def setUp(self):
+        # gather() delegates to gatherlib.gather() without overriding
+        # log_dir, so it writes a real run log relative to the current
+        # working directory by default (gatherlib.DEFAULT_GATHER_LOG_DIR).
+        # Run each test from a throwaway directory so these unit tests
+        # don't leave real log files behind in the repo checkout.
+        self._tmp = tempfile.TemporaryDirectory()
+        self._original_cwd = os.getcwd()
+        os.chdir(self._tmp.name)
+
+    def tearDown(self):
+        os.chdir(self._original_cwd)
+        self._tmp.cleanup()
+
+    def _make_html_with_story(self, heading_text, para_text):
+        return f"""
+        <html><body>
+        <h2>{heading_text}</h2>
+        <p>{para_text}</p>
+        </body></html>
+        """
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_gather_calls_download_for_each_heading(self, mock_gatherer_cls):
+        """gather() calls download once per entry in ADVENTURES_HEADINGS."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
 
         gatherer.gather()
 
-        mock_gather.assert_called_once_with(
-            corpus="Sherlock Holmes",
-            target_directory=gatherer.TARGET_DIRECTORY,
-            description="Sherlock Holmes stories from the Gutenberg Project.",
-            license_text="Public domain, from Project Gutenberg.",
-            author="Arthur Conan Doyle",
-            year=1891,
-            headings=gatherer.ADVENTURES_HEADINGS,
-            gutenberg_url=gatherer.ADVENTURES_GUTENBERG,
-            paragraph_finder=gatherer.find_paragraphs_adventures,
-            verbose=False,
+        self.assertEqual(
+            mock_instance.download.call_count, len(gatherer.ADVENTURES_HEADINGS)
         )
 
-    @patch("lcats.gatherers.sherlock.gatherer.gatherlib.gather")
-    def test_gather_returns_gatherlib_gather_result(self, mock_gather):
-        """gather() returns whatever gatherlib.gather() returns."""
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_gather_returns_downloads(self, mock_gatherer_cls):
+        """gather() returns the downloads dict from the DataGatherer."""
+        mock_instance = MagicMock()
         expected = {"scandal_in_bohemia": "/some/path.json"}
-        mock_gather.return_value = expected
+        mock_instance.downloads = expected
+        mock_gatherer_cls.return_value = mock_instance
 
         result = gatherer.gather()
 
         self.assertIs(result, expected)
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_gather_uses_correct_target_directory(self, mock_gatherer_cls):
+        """gather() instantiates DataGatherer with TARGET_DIRECTORY='sherlock'."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherer.gather()
+
+        args, _ = mock_gatherer_cls.call_args
+        self.assertEqual(args[0], gatherer.TARGET_DIRECTORY)
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_gather_wires_real_paragraph_finder_through_the_download_callback(
+        self, mock_gatherer_cls
+    ):
+        """The callback gather() hands to download() uses
+        find_paragraphs_adventures on real HTML, not just a mocked
+        gatherlib.gather() call -- the interaction the P1 review finding
+        on PR #421 flagged as unverified."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherer.gather()
+
+        first_filename, first_heading, first_title = gatherer.ADVENTURES_HEADINGS[0]
+        (call_filename, call_url, callback), _ = mock_instance.download.call_args_list[
+            0
+        ]
+        self.assertEqual(call_filename, first_filename)
+        self.assertEqual(call_url, gatherer.ADVENTURES_GUTENBERG)
+
+        html = self._make_html_with_story(
+            first_heading, "To Sherlock Holmes she is always the woman."
+        )
+        description, text, metadata = callback(html)
+
+        self.assertEqual(description, first_title)
+        self.assertIn("To Sherlock Holmes she is always the woman.", text)
+        self.assertEqual(metadata["name"], first_filename)
+        self.assertEqual(metadata["author"], "Arthur Conan Doyle")
+        self.assertEqual(metadata["year"], 1891)
+        self.assertEqual(metadata["url"], gatherer.ADVENTURES_GUTENBERG)
 
 
 if __name__ == "__main__":
