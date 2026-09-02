@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/395
-commit: 36e9fb77e9b28be4a3313fdbed83e17268bf5d3c
+commit: 6566a883e4ff76e9604b20e2baf122f931cc91a1
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/395
 session_transcript: codex-app:01a02338-d9c7-7313-8ed5-fb9c1643bef1
@@ -43,6 +43,14 @@ occurred before `RunLog`, which omitted lifecycle events for setup failures.
 That finding was independently verified and fixed by constructing the backend
 inside the `RunLog` context, with a regression test for `run_start` and
 `run_aborted_unexpected`.
+
+A final exact-head review found that automatic `RunLog` abort events did not
+carry the stored invocation fields. That finding was independently verified
+and fixed by including those fields in automatic terminal events, with tests
+covering fatal, unexpected, and clean terminal records. The same review also
+reported a missing `run_id` on `max_failures`; direct inspection showed both
+stop branches already include it, so that portion was classified as a false
+positive.
 
 # Validation
 
