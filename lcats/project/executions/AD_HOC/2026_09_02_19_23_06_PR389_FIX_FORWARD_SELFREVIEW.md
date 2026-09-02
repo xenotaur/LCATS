@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/395
-commit: b82e26e444f0e9322a87cb949ac3a8852d736199
+commit: 36e9fb77e9b28be4a3313fdbed83e17268bf5d3c
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/395
 session_transcript: codex-app:01a02338-d9c7-7313-8ed5-fb9c1643bef1
@@ -37,6 +37,12 @@ The filesystem finding was routed through the confirm-fixes pass. This
 substitute review itself did not resolve GitHub threads or push changes.
 No primary implementation execution record for PR 395 exists in tracked
 `project/executions/`, so `rerun_of` is intentionally empty.
+
+A subsequent exact-head substitute review identified that backend construction
+occurred before `RunLog`, which omitted lifecycle events for setup failures.
+That finding was independently verified and fixed by constructing the backend
+inside the `RunLog` context, with a regression test for `run_start` and
+`run_aborted_unexpected`.
 
 # Validation
 
