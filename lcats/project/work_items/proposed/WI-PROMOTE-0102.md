@@ -27,7 +27,6 @@ expected_actions:
 forbidden_actions:
   - force_push
   - delete_branch
-  - implement_the_recommended_change
   - change_promote_wholesale_replacement_mechanism
   - retroactively_edit_resolved_execution_records
 acceptance:
@@ -133,6 +132,13 @@ that has not been formally assessed or decided.
 - Produce a design note stating the recommendation for each usage
   independently, plus, if applicable, proposed replacement wording for
   the two exit-criterion/acceptance-criterion texts.
+- If the recommended change for a usage is small, mechanical, and
+  behavior-preserving (e.g. swapping one call site to a registry lookup
+  with no semantic change), this WI's own PR may apply it directly rather
+  than deferring to a separate work item. Anything larger -- a change to
+  the registry's own interface, a behavior change, or a multi-file
+  refactor -- still requires a follow-up work item; use judgment and
+  favor deferring when in doubt.
 
 ## Required Changes
 
@@ -142,8 +148,10 @@ that has not been formally assessed or decided.
 
 ## Non-Goals
 
-- Does not implement the routing change even if recommended -- that
-  would be a separate, later work item.
+- Does not implement a large or behavior-changing routing change even if
+  recommended -- that would be a separate, later work item. A small,
+  mechanical, behavior-preserving fix may be applied directly in this
+  WI's own PR (see Scope).
 - Does not retroactively edit `WI-PROMOTE-0097`'s or
   `WS-PROMOTE-MODE-REDESIGN`'s files as part of this investigation --
   only proposes replacement wording in the design note.
@@ -167,14 +175,19 @@ that has not been formally assessed or decided.
 
 ## Dependencies / Order
 
-None. All three `WS-PROMOTE-MODE-REDESIGN` work items
-(`WI-PROMOTE-0097`, `WI-PROMOTE-0100`, `WI-PROMOTE-0101`) are already
-resolved; this is a follow-up cleanup assessment, not a blocker for the
-workstream's closure.
+None. All three of `WS-PROMOTE-MODE-REDESIGN`'s originally anticipated
+work items (`WI-PROMOTE-0097`, `WI-PROMOTE-0100`, `WI-PROMOTE-0101`) are
+already resolved. This item was surfaced afterward, by an exit-criteria
+audit -- per review feedback (Codex, PR #417), it is registered in the
+workstream's own `work_items:` list rather than linked for context only,
+so the workstream's "all work items resolved" exit criterion stays
+gated on this item's resolution (and, if the recommendation requires a
+follow-up implementation WI, on that item's resolution too) rather than
+closing while exit criterion 3's literal wording is still unmet.
 
 ## Related Workstream and Designs
 
 - Workstream: `project/workstreams/active/WS-PROMOTE-MODE-REDESIGN.md`
-  (linked for context only -- not added to its `work_items:` list, so it
-  does not reopen that workstream's exit criteria)
+  (registered in its `work_items:` list; workstream closure is gated on
+  this item's resolution)
 - Design: `project/design/proposals/adopted/lcats-promote-mode-redesign/00_proposal.md`

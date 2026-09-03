@@ -15,6 +15,7 @@ work_items:
   - WI-PROMOTE-0097
   - WI-PROMOTE-0100
   - WI-PROMOTE-0101
+  - WI-PROMOTE-0102
 exit_criteria:
   - lcats promote requires an explicit insert/upsert/replace mode; no silent default exists
   - insert and upsert both require a registered sidecar validator by default, with --allow-unvalidated as the only override
@@ -80,6 +81,12 @@ Implementation Plan):
 3. `insert`/`upsert` live-directory-scan sourcing — flagged as a priority
    given the imminent linguistics-sidecar rollout this directly de-risks.
    **Resolved — `WI-PROMOTE-0100` (PR #411).**
+4. Assess whether `promote.py`'s two remaining direct `genre_sidecar`
+   imports should route through the sidecar-validator registry, to
+   satisfy exit criterion 3 literally, or whether that criterion's
+   wording should be narrowed instead — surfaced by a post-Stage-3
+   exit-criteria audit, not part of the original Implementation Plan.
+   **In progress — `WI-PROMOTE-0102` (PR #417).**
 
 ## Non-Goals
 
