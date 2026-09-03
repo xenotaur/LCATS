@@ -309,8 +309,13 @@ class TestGatherExtensionPoints(unittest.TestCase):
             log_dir=self.log_dir,
         )
 
-        called_urls = [call.args[1] for call in mock_instance.download.call_args_list]
-        self.assertEqual(called_urls, list(per_entry_urls.values()))
+        # Assert the actual filename->URL mapping, not the call order, so
+        # this doesn't become order-sensitive if headings are reordered
+        # (review finding, PR #424).
+        called_url_by_filename = {
+            call.args[0]: call.args[1] for call in mock_instance.download.call_args_list
+        }
+        self.assertEqual(called_url_by_filename, per_entry_urls)
 
     @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
     def test_extraction_strategy_replaces_paragraph_finder_entirely(
@@ -412,6 +417,22 @@ class TestGatherExtensionPoints(unittest.TestCase):
         _description, text, metadata = callback(html)
         self.assertIn("Once upon a time.", text)
         self.assertEqual(metadata["name"], EXAMPLE_HEADINGS[0][0])
+
+    def test_raises_when_neither_gutenberg_url_nor_entry_url_given(self):
+        """gather() fails fast with a clear message rather than silently
+        passing url=None into download() (review finding, PR #424)."""
+        with self.assertRaises(ValueError):
+            gatherlib.gather(
+                corpus="Anderson",
+                target_directory=EXAMPLE_DIRECTORY,
+                description="Anderson stories from the Gutenberg Project.",
+                license_text="Public domain, from Project Gutenberg.",
+                author="Anderson",
+                year=1911,
+                headings=EXAMPLE_HEADINGS,
+                verbose=False,
+                log_dir=self.log_dir,
+            )
 
 
 class TestGatherRunLogging(unittest.TestCase):

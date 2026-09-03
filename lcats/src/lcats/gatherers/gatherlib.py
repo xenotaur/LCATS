@@ -76,12 +76,18 @@ def create_download_callback(
 
         if extraction_strategy is not None:
             story_text = extraction_strategy(story_soup)
+            if story_text is None:
+                raise ValueError(
+                    f"Failed to extract text for {story_name} via "
+                    f"extraction_strategy in {url}"
+                )
         else:
             story_text = paragraph_finder(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
+            if story_text is None:
+                raise ValueError(
+                    f"Failed to find text for {story_name} given "
+                    f"{start_heading_text} in {url}"
+                )
 
         story_data = {
             "author": author,
@@ -105,6 +111,7 @@ def gather(
     headings,
     gutenberg_url=None,
     paragraph_finder=find_paragraphs,
+    *,
     extraction_strategy=None,
     entry_url=None,
     name_source=None,
@@ -138,6 +145,11 @@ def gather(
       ``story_data["name"]`` metadata value (normalized filename by
       default) when given.
     """
+    if gutenberg_url is None and entry_url is None:
+        raise ValueError(
+            "gather() needs a URL source: pass gutenberg_url (shared) or "
+            "entry_url (per-entry)."
+        )
     if verbose:
         print(f"Gathering {corpus} stories from Gutenberg...")
     gatherer = downloaders.DataGatherer(

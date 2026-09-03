@@ -1,5 +1,6 @@
 """Tests for the Lovecraft gatherer module."""
 
+import json
 import os
 import tempfile
 import unittest
@@ -203,6 +204,10 @@ class TestGather(unittest.TestCase):
         self.assertEqual(metadata["author"], "H. P. Lovecraft")
         self.assertEqual(metadata["year"], 1925)
         self.assertEqual(metadata["url"], first_ext.url)
+        # tests/AGENTS.md:24-27 -- serializer/extractor invariant, restored
+        # after the retired TestCreateDownloadCallback's own version of
+        # this check was dropped along with it (review finding, PR #424).
+        json.dumps({"description": description, "body": text, "metadata": metadata})
 
 
 class TestMain(unittest.TestCase):
