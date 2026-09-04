@@ -220,6 +220,30 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         expected_path = self.log_dir / "mass_quantities_gather_run_log.jsonl"
         self.assertTrue(expected_path.exists())
 
+    @patch("lcats.gatherers.mass_quantities.gatherer.tqdm")
+    @patch("lcats.gatherers.mass_quantities.gatherer.parser")
+    @patch("lcats.gatherers.mass_quantities.gatherer.downloaders")
+    def test_accepts_a_non_sized_iterable(
+        self, mock_downloaders, mock_parser, mock_tqdm
+    ):
+        """A generator (no len()) doesn't raise before any work starts
+        (review finding, PR #426) -- story_count is logged as None."""
+        del mock_downloaders
+        mock_tqdm.side_effect = lambda x: x
+        mock_parser.gather_story.return_value = (1, "/path/1.json", None)
+
+        def story_ids():
+            yield 1
+
+        with capture.suppress_output():
+            gathered, _failed = gatherer.gather_stories(
+                story_ids(), log_dir=self.log_dir
+            )
+
+        self.assertEqual(gathered, {1: "/path/1.json"})
+        events = self._read_log_lines()
+        self.assertIsNone(events[0]["story_count"])
+
 
 class TestGather(unittest.TestCase):
     """Tests for gatherer.gather."""

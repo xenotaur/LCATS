@@ -68,10 +68,19 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR):
 
     gathered_stories = {}
     failed_stories = {}
+    try:
+        story_count = len(stories)
+    except TypeError:
+        # stories may be any iterable (e.g. a generator, as the
+        # commented-out range() alternatives below suggest) -- len()
+        # only works on sized containers, and this logging addition
+        # must not impose a new requirement the loop itself doesn't
+        # need (review finding, PR #426).
+        story_count = None
     with run_log.RunLog(
         log_dir,
         GATHER_LOG_FILENAME,
-        story_count=len(stories),
+        story_count=story_count,
     ) as log:
         # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
         for story in tqdm(stories):
