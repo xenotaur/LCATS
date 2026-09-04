@@ -105,6 +105,8 @@ only run-log instrumentation around it.
   (narrow `load_etext()`-only recovery) without explicit human sign-off
   at the point any such change is proposed.
 
+## Required Changes
+
 1. Open the `RunLog` scope inside `gather_stories()` itself
    (`mass_quantities/gatherer.py:26-58`), emitting `run_start` before the
    loop and `run_end` after it completes normally, with
