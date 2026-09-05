@@ -1,0 +1,90 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:mass_quantities__eve_s_diary_complete__twain:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Humor / satire",
+            "patterns": [
+              "humorous stories"
+            ]
+          },
+          {
+            "label": "Epistolary / diary fiction",
+            "patterns": [
+              "diary fiction"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Bible. Genesis -- History of Biblical events -- Fiction",
+          "Diary fiction",
+          "Eve (Biblical figure) -- Fiction",
+          "Humorous stories",
+          "PS"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 8525,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/8525/pg8525.txt",
+        "story_id": "mass_quantities/eve_s_diary_complete__twain",
+        "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json"
+      },
+      "result": {
+        "secondary_signals": [
+          "Epistolary / diary fiction"
+        ],
+        "suggestive_target_candidates": [],
+        "target_candidates": [
+          "humor"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:mass_quantities__eve_s_diary_complete__twain:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T19:09:47.796659Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 14199,
+        "output_tokens": 354,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "mass_quantities/eve_s_diary_complete__twain",
+        "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": true,
+        "detected_genre": "humor",
+        "detected_genre_confidence": 0.72,
+        "metadata_target_candidates": [
+          "humor"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "mass_quantities/eve_s_diary_complete__twain",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json"
+}
