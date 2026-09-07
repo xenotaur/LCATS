@@ -146,12 +146,12 @@ def extract_authors(author_field: Any) -> List[str]:
 
 
 # TODO(centaur): reconcile with the keyword counter above.
-_WORD_RE = re.compile(r"\S+")  # simple, robust word-ish segmentation
+# (Removed _WORD_RE as text.split() is faster and equivalent for \S+)
 
 
 def word_count(text: str) -> int:
-    """Count words in text using a simple regex-based tokenizer."""
-    return len(_WORD_RE.findall(text))
+    """Count words in text by splitting on whitespace."""
+    return len(text.split())
 
 
 def token_count(text: str, enc: Optional["tiktoken.Encoding"] = None) -> int:
