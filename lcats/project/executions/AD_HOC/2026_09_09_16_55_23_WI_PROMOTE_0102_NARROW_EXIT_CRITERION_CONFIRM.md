@@ -2,10 +2,10 @@
 execution_id: 2026_09_09_16_55_23_WI_PROMOTE_0102_NARROW_EXIT_CRITERION_CONFIRM
 prompt_id: PROMPT(AD_HOC:WI_PROMOTE_0102_NARROW_EXIT_CRITERION_CONFIRM)[2026-09-09T16:49:39+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_09_16_46_04_WI_PROMOTE_0102_NARROW_EXIT_CRITERION
 pr: https://github.com/xenotaur/LCATS/pull/430
-commit: c7ccf53a
+commit: 6095bab82854b9bb3d4944e59378c10feadc2537
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/430
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0

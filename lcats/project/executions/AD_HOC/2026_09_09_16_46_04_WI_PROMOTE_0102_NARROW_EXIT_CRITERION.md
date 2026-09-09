@@ -2,10 +2,10 @@
 execution_id: 2026_09_09_16_46_04_WI_PROMOTE_0102_NARROW_EXIT_CRITERION
 prompt_id: PROMPT(AD_HOC:WI_PROMOTE_0102_NARROW_EXIT_CRITERION)[2026-09-09T16:44:52+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_04_05_27_55_WI_PROMOTE_0102
 pr: https://github.com/xenotaur/LCATS/pull/430
-commit: ef173a22
+commit: 6095bab82854b9bb3d4944e59378c10feadc2537
 agent: claude_app
 instruction_source: project/design/promote-genre-sidecar-import-assessment.md
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
