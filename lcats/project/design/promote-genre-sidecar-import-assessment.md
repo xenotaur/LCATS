@@ -224,18 +224,24 @@ reader doesn't mistake "exempt" for "not real validation."
 > linguistics.json, linguistics.tokens.json), with no direct promote.py
 > import of any producer subpackage
 
-Proposed:
+Proposed (revised per review feedback, Codex, PR #430 — an earlier
+draft said "replace mode is out of scope for registry routing
+entirely," which is false: `replace`'s orphaned-sidecar guard,
+`WI-PROMOTE-0101`, calls `sidecar_validators.registered_filenames()`;
+the exemption is scoped to payload-validation dispatch specifically):
 
 > a shared sidecar-validator registry exists, registering every
 > currently-produced sidecar kind (genre.json, scenes.json,
-> linguistics.json, linguistics.tokens.json), and is the sole validation
-> path for insert/upsert's payload dispatch. replace mode is out of
-> scope for registry routing entirely — both its legacy-flat-genre.json
-> shape-detection/overwrite-guard logic (used by both replace and the
-> insert/upsert engine, structurally unroutable) and its validation of
-> current-format sidecars (technically routable, but exempted by
-> WI-PROMOTE-0097's own documented design choice that replace never
-> validates through the registry) — per WI-PROMOTE-0102
+> linguistics.json, linguistics.tokens.json), and is the sole
+> payload-validation dispatch path for insert/upsert. This does not
+> require replace mode to avoid the registry module entirely — replace's
+> orphaned-sidecar guard (WI-PROMOTE-0101) calls
+> sidecar_validators.registered_filenames() to enumerate registered
+> kinds, which is not validation dispatch. replace's own structural
+> pre-flight check (_validate_sidecars) retains a direct genre_sidecar
+> import for shape-detection and current-format validation of source
+> content, out of scope for this criterion by WI-PROMOTE-0097's original
+> design choice, per WI-PROMOTE-0102's analysis
 
 **`WI-PROMOTE-0097`'s acceptance criterion**, currently:
 
@@ -246,7 +252,11 @@ Proposed:
 > promote.py imports only this registry, never genre_sidecar.py or
 > linguistics/sidecar.py directly
 
-Proposed:
+Proposed (revised per review feedback, Codex, PR #430 — an earlier
+draft attributed the destination-overwrite guard to "replace mode's own"
+logic, which is wrong: that guard lives in `_promote_sidecar_records`,
+reached only by insert/upsert; `replace`'s own `_validate_sidecars` does
+only shape-detection, never destination-overwrite guarding):
 
 > A new, shared sidecar-validator registry module exists in
 > analysis/corpus/, mapping registered sidecar filenames to validator
@@ -254,12 +264,15 @@ Proposed:
 > (genre.json, scenes.json, linguistics.json, linguistics.tokens.json);
 > promote.py's insert/upsert payload-validation dispatch imports only
 > this registry, never genre_sidecar.py or linguistics/sidecar.py
-> directly. replace mode's own pre-existing validation logic — both its
-> legacy-flat-genre.json shape-detection/overwrite-guard (structurally
-> unroutable through the registry) and its validation of current-format
-> sidecars (technically routable, but out of scope by design — replace
-> never uses the registry, per this module's own docstring) — predates
-> this work item and is explicitly out of scope; see WI-PROMOTE-0102.
+> directly. Two direct genre_sidecar usages predate this work item and
+> are explicitly out of scope: insert/upsert's own destination-overwrite
+> guard in _promote_sidecar_records (checking for an existing
+> legacy-flat genre.json before writing) is a separate concern from
+> payload-validation dispatch and retains a direct genre_sidecar
+> shape-detection call; replace mode's own structural pre-flight check
+> (_validate_sidecars) separately retains a direct genre_sidecar import
+> for shape-detection and current-format validation of source content.
+> See WI-PROMOTE-0102.
 
 These are proposed text only; per this investigation's Non-Goals, neither
 file is edited here. Applying this wording change is a small, mechanical
