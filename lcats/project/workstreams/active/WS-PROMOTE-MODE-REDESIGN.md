@@ -19,7 +19,7 @@ work_items:
 exit_criteria:
   - lcats promote requires an explicit insert/upsert/replace mode; no silent default exists
   - insert and upsert both require a registered sidecar validator by default, with --allow-unvalidated as the only override
-  - a shared sidecar-validator registry exists, registering every currently-produced sidecar kind (genre.json, scenes.json, linguistics.json, linguistics.tokens.json), with no direct promote.py import of any producer subpackage
+  - a shared sidecar-validator registry exists, registering every currently-produced sidecar kind (genre.json, scenes.json, linguistics.json, linguistics.tokens.json), and is the sole validation path for insert/upsert's payload dispatch. replace mode is out of scope for registry routing entirely -- both its legacy-flat-genre.json shape-detection/overwrite-guard logic (used by both replace and the insert/upsert engine, structurally unroutable) and its validation of current-format sidecars (technically routable, but exempted by WI-PROMOTE-0097's own documented design choice that replace never validates through the registry) -- per WI-PROMOTE-0102
   - replace refuses by default when it would delete a registered sidecar kind absent from source, overridable only via --allow-orphaned-sidecar-deletion
   - insert and upsert can source records from a live directory scan of data/, not only a pre-built manifest
   - all work items resolved and lrh validate reports 0 errors
@@ -89,9 +89,8 @@ Implementation Plan):
    **Resolved — `WI-PROMOTE-0102` (PR #427).** Recommended narrowing
    exit criterion 3's wording rather than a partial code swap (see
    `project/design/promote-genre-sidecar-import-assessment.md` for the
-   full analysis and proposed replacement text) — **exit criterion 3
-   below has not yet been updated to match**; applying that wording
-   change is an open follow-up action.
+   full analysis) — exit criterion 3 below reflects that narrowed
+   wording.
 
 ## Non-Goals
 
