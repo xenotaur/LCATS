@@ -54,7 +54,8 @@ linear and must be revisited after the full-run gate.
 
 The experiment bridge exports the canonical token-detail JSON into sentence,
 story, and token tables and restores canonical JSON. Its tests exercise export,
-restore, manifest generation, optional fields, and invalid input handling. It
+restore, manifest generation, and optional fields. Invalid-input and mismatch
+rejection should be part of the future supported-library contract. The bridge
 is valuable evidence, but its experiment-local location and pandas/PyArrow
 dependency do not by themselves establish a project-wide API.
 
