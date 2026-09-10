@@ -236,7 +236,9 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             log.event(
                 "story_start", run_id=run_id, story_id=story.story_id, title=story.title
             )
-            result = _run_story(story, output_root, options, active_backend, run_id, log)
+            result = _run_story(
+                story, output_root, options, active_backend, run_id, log
+            )
             results.append(result)
             _append_story_result(output_root, result)
             log.event(
@@ -694,7 +696,13 @@ def _write_quarantine(
     run_id: str,
     stage: str = "story",
 ) -> pathlib.Path:
-    path = output_root / "_quarantine" / run_id / _checkpoint_item_id(story) / f"{stage}.json"
+    path = (
+        output_root
+        / "_quarantine"
+        / run_id
+        / _checkpoint_item_id(story)
+        / f"{stage}.json"
+    )
     payload = {
         "run_id": run_id,
         "story_id": story.story_id,

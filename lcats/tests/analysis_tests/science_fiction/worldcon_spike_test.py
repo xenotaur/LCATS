@@ -290,9 +290,11 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             first["stories"][0]["raw_response_path"],
             second["stories"][0]["raw_response_path"],
         )
-        rows = (output_root / "worldcon_spike_story_results.jsonl").read_text(
-            encoding="utf-8"
-        ).splitlines()
+        rows = (
+            (output_root / "worldcon_spike_story_results.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+        )
         self.assertEqual(2, len(rows))
         self.assertEqual(
             {first["run_id"], second["run_id"]},
