@@ -16,17 +16,19 @@ threads plainly satisfied by the pushed changes.
 
 # Result
 
-The three unresolved review threads were clear-satisfied: the citation path and
-3.24% ratio were corrected, WI-LINGUISTICS-0008 was wired to depend on
-WI-LINGUISTICS-0009 and its proposal, and the unsupported invalid-input test
-claim was removed. All three threads were resolved through GitHub's review API.
+The three unresolved review threads were clear-satisfied: the 3.24% ratio was
+corrected, WI-LINGUISTICS-0008 was wired to depend on WI-LINGUISTICS-0009 and
+its proposal, and the unsupported invalid-input test claim was removed. All
+three threads were resolved through GitHub's review API; the earlier citation
+path thread was already resolved before this batch.
 
 # Validation
 
 `git diff --check`: passed. `lrh validate`: 0 errors with existing repository
 warnings. Readiness for WI-LINGUISTICS-0008 and WI-LINGUISTICS-0009 was
-prompt_ready yes. PR checks were pending on the latest pushed commit at record
-creation.
+prompt_ready yes. PR checks were pending on the latest pushed commit at the
+observed record-creation check and passed in the subsequent post-push
+readiness check.
 
 # Follow-up
 

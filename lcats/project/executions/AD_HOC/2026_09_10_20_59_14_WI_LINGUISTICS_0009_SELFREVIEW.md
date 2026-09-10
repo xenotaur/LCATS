@@ -24,7 +24,8 @@ field was corrected. No substantive design or data inaccuracies were found.
 # Validation
 
 The self-review examined the PR diff and history. Direct verification reported
-the trailing-whitespace finding. Hosted CI was green for the reviewed HEAD.
+the trailing-whitespace finding. CI was intentionally not used as the
+self-review signal; it was checked separately after the fix push.
 
 # Follow-up
 
