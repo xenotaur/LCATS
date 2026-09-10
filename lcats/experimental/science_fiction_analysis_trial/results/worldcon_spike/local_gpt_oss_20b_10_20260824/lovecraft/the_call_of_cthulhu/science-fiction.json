@@ -1,0 +1,320 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_call_of_cthulhu-knight-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-f323da722c30ac58",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Knight criteria require supporting evidence",
+            "recoverable": true,
+            "stage": "knight"
+          }
+        ],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-f323da722c30ac58",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:lovecraft__the_call_of_cthulhu",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 17874,
+            "output": 674
+          }
+        },
+        "status": "failed",
+        "story_hash": "1679e8e273771600a31fd2accd4c2090e64f2e67732708dfc493daa2eff396c3"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_call_of_cthulhu-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-f323da722c30ac58",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-f323da722c30ac58",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:lovecraft__the_call_of_cthulhu",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 17776,
+            "output": 1189
+          }
+        },
+        "status": "complete",
+        "story_hash": "1679e8e273771600a31fd2accd4c2090e64f2e67732708dfc493daa2eff396c3"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-f323da722c30ac58",
+    "knight_analysis_id": null,
+    "suvin_novum_analysis_id": "lovecraft__the_call_of_cthulhu-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-f323da722c30ac58",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.92,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "paraphrase": "Description of the clay bas‑relief as a modern artifact with ancient‑style design, indicating its material composition and stylistic features.",
+            "quote": "",
+            "raw_id": "e1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.88,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "paraphrase": "Narrator’s systematic approach to examining the professor’s documents, showing a methodical investigative process.",
+            "quote": "",
+            "raw_id": "e2",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "paraphrase": "Wilcox’s sudden illness leading to incapacitation, constituting a personal catastrophe.",
+            "quote": "",
+            "raw_id": "e3",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.93,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00112"
+            ],
+            "paraphrase": "Narrator’s expression of dread after uncovering dangerous knowledge about the cult.",
+            "quote": "",
+            "raw_id": "e4",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.89,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "paraphrase": "Narrator’s internal conflict between a rationalist worldview and emerging supernatural evidence.",
+            "quote": "",
+            "raw_id": "e5",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.87,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00113"
+            ],
+            "paraphrase": "Speculation about Cthulhu’s continued existence and potential future impact on humanity.",
+            "quote": "",
+            "raw_id": "e6",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        }
+      ],
+      "records": [],
+      "story_hash": "1679e8e273771600a31fd2accd4c2090e64f2e67732708dfc493daa2eff396c3",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_call_of_cthulhu",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "suvin_novum"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Knight criteria require supporting evidence",
+        "recoverable": true,
+        "stage": "knight"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "1679e8e273771600a31fd2accd4c2090e64f2e67732708dfc493daa2eff396c3",
+  "story_path": "lovecraft/the_call_of_cthulhu/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

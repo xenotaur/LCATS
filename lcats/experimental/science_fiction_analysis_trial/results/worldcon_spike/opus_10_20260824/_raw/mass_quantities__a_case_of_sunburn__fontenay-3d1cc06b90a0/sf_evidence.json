@@ -1,0 +1,216 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 18030,
+  "model": "claude-opus-4-8",
+  "output_tokens": 3173,
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "A corporation monopolizes Earth-Mars space travel and governs a colonized Mars established in 1985.",
+        "quote": "Marscorp had held a monopoly on space travel between Earth and Mars since the first Martian colony was established at Mars City in the Earth year 1985.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "The corporation is also the official government of Mars, making and enforcing the laws.",
+        "quote": "Marscorp also was the OGM--the Official Government of Mars, or, as the colonists read the initials, \"Old Greedy Marscorp\"--and Marscorp made and enforced the laws.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "The action takes place on the Martian surface, at named Martian geographic features.",
+        "quote": "The sun was settling over the iron-red wastes of the Isidis Desert. The groundcars clustered like giant beetles at the top of the cliff that dropped straight down to the shadowed lowland of Syrtis Major.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00054"
+        ],
+        "paraphrase": "A dual calendar shows both Martian and Earth dates, placing events in 2020.",
+        "quote": "An automatic calendar on the G-boat's control board showed the date: upright, the Martian date, Aster 32, 24; reversed, the Earth date, June 1, 2020.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "The Egg is described as a lab and power station that amplifies Mars's magnetic field.",
+        "quote": "It's an experimental laboratory that amplifies the magnetic field of Mars, and they've been experimenting with it as an auxiliary power station.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00029"
+        ],
+        "paraphrase": "During Earth-sun conjunctions, everyone on Mars is sunburned because domes are transparent to heat.",
+        "quote": "There's an Earth-sun conjunction coming up. Every time the Earth swings between Mars and the sun, everybody on Mars gets a bad sunburn.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00039"
+        ],
+        "paraphrase": "Weapons use invisible heat beams.",
+        "quote": "A heat-gun beam is invisible.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "G-boats resist heat-gun fire because they're built for atmospheric friction temperatures.",
+        "quote": "The beams were futile, for G-boats were built to stand frictional temperatures it would take a heat-gun minutes to build to.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "The ship's escape trajectory is explained in orbital-mechanics terms.",
+        "quote": "It was a hyperbola that swung the ship against the direction of the planet's orbital travel, and, while speeding the ship away from the planet, slowed it in relation to the sun.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.95,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00191"
+        ],
+        "paraphrase": "A protective blue mist shields Mars from solar radiation but thins during conjunctions.",
+        "quote": "only the blue mist of Mars protects its surface from the hard rays of the sun. Without it, we'd have no more protection than a naked man in space. The reason we're in for a bad sunburn every year is that the blue mist dissipates partially at every Earth-sun conjunction.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.95,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00193"
+        ],
+        "paraphrase": "The Egg amplifies Earth's magnetic field, which disrupts Mars's protective mist during conjunction.",
+        "quote": "The Egg amplifies the effect of magnetic fields, the way a lens concentrates light rays. It's the Earth's magnetic field, not that of Mars, that interferes with the blue mist every time the Earth passes between Mars and the sun. And to amplify Earth's magnetic field, we had to place The Egg directly between Mars and Earth during the Earth-sun conjunction",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00033"
+        ],
+        "paraphrase": "Jonner reasons systematically to deduce which companion is a spy.",
+        "quote": "Jonner tried to assess the evidence, to decide which of his five companions was the Marscorp spy.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00111"
+        ],
+        "paraphrase": "Jonner uses process of elimination to identify the spy from opportunity.",
+        "quote": "Because you haven't been out of my sight since we took The Egg in tow, and you haven't been near that control board while we were on duty. Stein must have let Farlan get away from him again.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00195"
+        ],
+        "paraphrase": "Removing the mist caused mass burns and blindness that disabled the enemy army.",
+        "quote": "When the blue mist was stripped away completely this time, everyone on the surface was affected. Marscorp's troops were put out of action as an effective fighting force when they received severe burns over most of their bodies and were afflicted with acute conjunctivitis so badly they were half blinded.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00195"
+        ],
+        "paraphrase": "The Rebels retreated underground to survive the deadly conjunction and thus win.",
+        "quote": "That's why we abandoned Charax and Regina and pulled all our people to the Isidis base while the conjunction was under way, we were all protected from the sun ... underground!",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00187"
+        ],
+        "paraphrase": "Marscorp personnel are found blinded and burned by the solar catastrophe.",
+        "quote": "The few men and women they saw in Marscorp uniforms staggered around, groping blindly, their faces and arms fiery red and peeling from sunburn.",
+        "raw_id": "ev16"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00181"
+        ],
+        "paraphrase": "Jonner is astonished to see the damaged city dome.",
+        "quote": "\"What's happened to the Mars City dome?\" asked Jonner in astonishment as they approached the city. The once-transparent dome was cracked and badly discolored.",
+        "raw_id": "ev17"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00186"
+        ],
+        "paraphrase": "Sir Stanrich contrasts science-based warfare with traditional numbers and firepower.",
+        "quote": "\"Science wins wars now; my boy, not numbers and guns.\"",
+        "raw_id": "ev18"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00032"
+        ],
+        "paraphrase": "G-boats shuttle to Phobos, which serves as a space station, since spaceships can't enter Mars's atmosphere.",
+        "quote": "These were the heavy duty rockets that plied back and forth to Phobos, Mars' inner moon and Marscorp's natural space station, entering the planetary atmosphere of Mars where spaceships could not go.",
+        "raw_id": "ev19"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00162"
+        ],
+        "paraphrase": "Jonner is unhappy at the prospect of freedom by his side's defeat.",
+        "quote": "Jonner sighed unhappily. He didn't want that kind of freedom.",
+        "raw_id": "ev20"
+      }
+    ]
+  }
+}

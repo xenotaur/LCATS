@@ -1,0 +1,79 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 9503,
+  "model": "gpt-oss:20b",
+  "output_tokens": 3407,
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/long_odds__haggard",
+  "story_path": "mass_quantities/long_odds__haggard/story.json",
+  "text": "",
+  "title": "Long Odds",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.8,
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "Quatermain believes there are white people living in remote African highlands.",
+        "quotation": "He is persuaded that a white people, of which he has heard rumours all his life, exists somewhere on the highlands in the vast, still unexplored interior",
+        "raw_id": "swc-001"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00013"
+        ],
+        "paraphrase": "The cause of death for the local population is identified as fever.",
+        "quotation": "she told me that all the people whom I had seen had died of fever",
+        "raw_id": "ste-001"
+      },
+      {
+        "confidence": 0.85,
+        "paragraph_ids": [
+          "p00013"
+        ],
+        "paraphrase": "Quatermain uses observation of dead bodies to infer that the cause was fever.",
+        "quotation": "she told me that all the people whom I had seen had died of fever",
+        "raw_id": "ism-001"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "Quatermain travels from England to Africa.",
+        "quotation": "Shortly after that, the death of his only son so unsettled him that he immediately left England, accompanied by two companions",
+        "raw_id": "tsd-001"
+      },
+      {
+        "confidence": 0.95,
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "A lion kills an ox, causing a violent event.",
+        "quotation": "I heard a roar and saw something yellow flash past me and light on poor Kaptein... the lion put his teeth through the poor brute's neck",
+        "raw_id": "cat-001"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00018"
+        ],
+        "paraphrase": "Quatermain expresses anger toward Tom for losing the ox.",
+        "quotation": "'You mean that you have been asleep, and let them stray, you villain...'",
+        "raw_id": "cr-001"
+      },
+      {
+        "confidence": 0.8,
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "The narrator contrasts the scenic beauty with the presence of death.",
+        "quotation": "It was a beautiful place, but the beauty was the beauty of death",
+        "raw_id": "rfc-001"
+      }
+    ]
+  }
+}

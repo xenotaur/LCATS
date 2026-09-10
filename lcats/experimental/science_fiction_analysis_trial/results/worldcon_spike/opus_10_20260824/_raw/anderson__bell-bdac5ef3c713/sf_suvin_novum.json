@@ -1,0 +1,61 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 6394,
+  "model": "claude-opus-4-8",
+  "output_tokens": 976,
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "cand-invisible-bell",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-invisible-bell",
+        "character_reaction_evidence_ids": [
+          "sfev-95a075ca8083cc89"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-95a075ca8083cc89"
+          ],
+          "rationale": "The bell is never given any coherent, systematic, immanent, nonsupernatural account. The proffered explanations (a learned owl, a small ornamental bell) are explicitly rejected, and the final resolution is overtly supernatural/religious: an 'invisible holy bell' with blessed spirits floating and singing hallelujah. This is a spiritual/allegorical device, not imaginary science or social organization.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The mysterious, invisible bell whose deep, solemn tone is heard throughout the town and forest, whose source can never be located, and which is finally revealed at the story's climax as the sound of the 'vast church of nature and of poetry,' accompanied by blessed spirits and a hallelujah.",
+        "estrangement_rationale": "Readers encounter a bell-like tone heard across a whole town whose source defies all natural explanation and which finally is disclosed as a spiritual manifestation, contrasting with the ordinary empirical norm where sounds have identifiable material sources. Characters respond by feeling their minds 'attuned most solemnly.'",
+        "evidence_ids": [
+          "sfev-95a075ca8083cc89"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The bell drives the entire narrative logic: the townspeople's excursions, the king's contest, the confirmation-day quest, and the two boys' journeys all revolve around finding the source of the bell, which culminates the story.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-95a075ca8083cc89"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The unlocatable bell is a strange, wondrous difference from ordinary experience that organizes the whole tale, but it does not totalizingly alter the story universe into a new empirical order; the setting remains an ordinary town and forest, and the bell functions more as an allegorical/symbolic presence than a world-altering condition.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-95a075ca8083cc89"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-95a075ca8083cc89"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-95a075ca8083cc89"
+        ]
+      }
+    ]
+  }
+}

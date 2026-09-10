@@ -1,0 +1,56 @@
+{
+  "failure_kind": "ValueError",
+  "failure_message": "present Knight criteria require supporting evidence",
+  "raw_response_path": "/private/tmp/lcats-worldcon-local-10-20260824-fallback/_raw/mass_quantities__a_bad_day_for_sales__leiber-85ba265ca415/sf_knight.json",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_bad_day_for_sales__leiber",
+  "story_path": "mass_quantities/a_bad_day_for_sales__leiber/story.json",
+  "title": "A Bad Day for Sales",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "status": "present",
+        "supporting_evidence_ids": []
+      }
+    ],
+    "rubric_id": "knight-seven-v1"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 5072,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1255,
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "criterion_1": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "criterion_2": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "criterion_3": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "criterion_4": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "criterion_5": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "criterion_6": {
+      "counterevidence_ids": [],
+      "status": "absent",
+      "supporting_evidence_ids": []
+    },
+    "criterion_7": {
+      "counterevidence_ids": [],
+      "status": "present",
+      "supporting_evidence_ids": []
+    },
+    "rubric_id": "knight-seven-v1"
+  }
+}
