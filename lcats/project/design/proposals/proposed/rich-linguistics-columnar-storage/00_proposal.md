@@ -44,9 +44,9 @@ lexicons. The experiment-local Parquet export contains three tables and is
 | --- | ---: | --- |
 | Expanded experiment JSON mirror | 409,385,970 | `experiments/09_rich_linguistics_genre_sample/results/experiment_report.json` |
 | `tar.zst` of the JSON mirror | 38,013,312 | fresh local measurement from the pilot mirror; temporary archive, not a committed artifact |
-| Parquet package, Zstandard-compressed | 13,253,393 | `experiment_report.json` and `results/parquet/parquet_manifest.json` |
+| Parquet package, Zstandard-compressed | 13,253,393 | `experiments/09_rich_linguistics_genre_sample/results/experiment_report.json` and `experiments/09_rich_linguistics_genre_sample/results/parquet/parquet_manifest.json` |
 
-The Parquet package is about 3.4% of the expanded JSON mirror and about 35%
+The Parquet package is about 3.24% of the expanded JSON mirror and about 35%
 of the measured compressed JSON archive. These are storage measurements, not
 claims about statistical quality or significance. The report also projects
 roughly 5.24 GB of expanded rich output for 1,868 stories; that projection is
