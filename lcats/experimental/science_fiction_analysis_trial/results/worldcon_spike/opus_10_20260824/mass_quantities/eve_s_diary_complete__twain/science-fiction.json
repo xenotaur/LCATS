@@ -1,0 +1,657 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Eve conducts amateur natural-philosophy observations (water level, buoyancy, optical illusion of falling clods, stars melting), and there is speculative framing of a newly created world. But these are whimsical, satirical treatments of natural phenomena rather than a material scientific representation. The engagement with natural processes is present but decorative and comedic, not central to any scientific content.",
+            "status": "ambiguous",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No device, engineered system, or invention materially affects setting or outcome. Eve's discovery of fire is a natural/mythic first-discovery, and her makeshift fire-drilling is not an engineered invention driving the plot; the story is a humorous romantic monologue.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The narrative is set in the remote/mythic past of Eden's creation and includes an explicit temporal jump 'Forty Years Later,' a substantial narrative displacement structuring the arc from creation to Eve's grave.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1df40731e29c943b",
+                "evidence_set_id": "sfes-e0aa77b2a56828f7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "Eve extrapolates general laws from repeated observation (e.g., 'since one can melt, they can all melt'), a form of inference from premises. However this is comedic inductive over-reach rather than developed extrapolation of consequences from a scientific/social premise material to the work.",
+            "status": "ambiguous",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Systematic observation, hypothesis, and experiment materially drive Eve's understanding: 'It is best to prove things by actual experiment; then you KNOW,' repeated testing of buoyancy, the water-uphill hypothesis, and Adam's note that 'nothing ever satisfies her but demonstration; untested theories are not in her line.' This empirical method is a recurring, thematically substantial thread.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1df40731e29c943b",
+                "evidence_set_id": "sfes-e0aa77b2a56828f7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is Earth's Garden of Eden, not another planet, dimension, or nonordinary cosmic environment, and there are no visitors from such. References to stars and cosmos are decorative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No large-scale natural, technological, cosmic, or biological disaster is actual, impending, or causally central. The Fall and loss of the Garden are theological/personal turning points, and Eve's fear of the stars melting is fanciful speculation, not a material catastrophe.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-e0aa77b2a56828f7",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e0aa77b2a56828f7",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__eve_s_diary_complete__twain",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 14884,
+            "output": 1252
+          }
+        },
+        "status": "complete",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-e0aa77b2a56828f7",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e0aa77b2a56828f7",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__eve_s_diary_complete__twain",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 15321,
+            "output": 1464
+          }
+        },
+        "status": "failed",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-e0aa77b2a56828f7",
+    "knight_analysis_id": "mass_quantities__eve_s_diary_complete__twain-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-e0aa77b2a56828f7",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.72,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "The narrator concludes from her own feelings that she is an experiment.",
+            "quote": "I feel like an experiment, I feel exactly like an experiment; it would be impossible for a person to feel more like an experiment than I do, and so I am coming to feel convinced that that is what I AM--an experiment; just an experiment, and nothing more.",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.68,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "The world is depicted as newly created and nearly finished.",
+            "quote": "this majestic new world is indeed a most noble and beautiful work.  And certainly marvelously near to being perfect, notwithstanding the shortness of the time.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "catastrophe",
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "The moon detaches and falls out of the sky, described as a loss.",
+            "quote": "The moon got loose last night, and slid down and fell out of the scheme--a very great loss; it breaks my heart to think of it.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.62,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "paraphrase": "She attempts by trial to knock stars down, learning they are out of reach.",
+            "quote": "When they first showed, last night, I tried to knock some down with a pole, but it didn't reach, which astonished me; then I tried clods till I was all tired out, but I never got one.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "paraphrase": "She reasons that stars are much farther away than they appear.",
+            "quote": "You would be surprised to find how far off they are, for they do not look it.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.66,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "paraphrase": "She formulates a general axiom from experience with distances and thorns.",
+            "quote": "I learned a lesson; also I made an axiom, all out of my own head--my very first one; THE SCRATCHED EXPERIMENT SHUNS THE THORN.",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "paraphrase": "She observes and tracks the other creature to determine its purpose.",
+            "quote": "I followed the other Experiment around, yesterday afternoon, at a distance, to see what it might be for, if I could.",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.63,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "paraphrase": "She reacts with thrill to hearing another's speech for the first time.",
+            "quote": "It gave me a thrill, for it was the first time I had ever heard speech, except my own.  I did not understand the words, but they seemed expressive.",
+            "raw_id": "ev08",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.58,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "paraphrase": "She claims an immediate, inspired ability to name each animal.",
+            "quote": "The minute I set eyes on an animal I know what it is.  I don't have to reflect a moment; the right name comes out instantly",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00037"
+            ],
+            "paraphrase": "She names fire by sudden inspiration despite never having encountered it.",
+            "quote": "Suddenly the name of it occurred to me, though I had never heard of it before.  It was FIRE! I was as certain of it as a person could be of anything in the world.",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.72,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00038"
+            ],
+            "paraphrase": "She claims to have introduced fire, a new phenomenon, into the world.",
+            "quote": "I had created something that didn't exist before; I had added a new thing to the world's uncountable properties",
+            "raw_id": "ev11",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00040"
+            ],
+            "paraphrase": "She names smoke on first sight of it.",
+            "quote": "the blue spirit was towering up and stretching and rolling away like a cloud, and instantly I thought of the name of it--SMOKE!--though, upon my word, I had never heard of smoke before.",
+            "raw_id": "ev12",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.62,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00041"
+            ],
+            "paraphrase": "She reacts with joy and rapture to the sight of flames.",
+            "quote": "I had to clap my hands and laugh and dance in my rapture, it was so new and strange and so wonderful and so beautiful!",
+            "raw_id": "ev13",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.68,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00051"
+            ],
+            "paraphrase": "Through fire she discovers the emotion of fear for the first time.",
+            "quote": "the fire had revealed to me a new passion--quite new, and distinctly different from love, grief, and those others which I had already discovered--FEAR.  And it is horrible!",
+            "raw_id": "ev14",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "paraphrase": "Adam contrasts his and Eve's opposite reactions to the brontosaurus.",
+            "quote": "She wanted to domesticate it, I wanted to make it a present of the homestead and move out.",
+            "raw_id": "ev15",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "temporal_or_spatial_displacement",
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "paraphrase": "A living brontosaurus appears in their setting, mixing eras.",
+            "quote": "When the mighty brontosaurus came striding into camp, she regarded it as an acquisition, I considered it a calamity",
+            "raw_id": "ev16",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "paraphrase": "She articulates a method of proving things by experiment rather than conjecture.",
+            "quote": "It is best to prove things by actual experiment; then you KNOW; whereas if you depend on guessing and supposing and conjecturing, you never get educated.",
+            "raw_id": "ev17",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.66,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "paraphrase": "She reasons by cumulative evidence from experiments about floating.",
+            "quote": "By experiment I know that wood swims, and dry leaves, and feathers, and plenty of other things; therefore by all that cumulative evidence you know that a rock will swim",
+            "raw_id": "ev18",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00066"
+            ],
+            "paraphrase": "She proposes an optical-illusion explanation for observed falling objects.",
+            "quote": "Of course it DOESN'T come down, but why should it SEEM to? I suppose it is an optical illusion.",
+            "raw_id": "ev19",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "paraphrase": "She generalizes from observing meteors that all stars can melt away.",
+            "quote": "By watching, I know that the stars are not going to last. I have seen some of the best ones melt and run down the sky. Since one can melt, they can all melt",
+            "raw_id": "ev20",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00069"
+            ],
+            "paraphrase": "The Garden is now lost following the Fall, marking a changed state.",
+            "quote": "When I look back, the Garden is a dream to me.  It was beautiful, surpassingly beautiful, enchantingly beautiful; and now it is lost, and I shall not see it any more.",
+            "raw_id": "ev21",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "paragraph_ids": [
+              "p00082"
+            ],
+            "paraphrase": "Her feelings are projected forward as universal for all future wives.",
+            "quote": "a longing which shall never perish from the earth, but shall have place in the heart of every wife that loves, until the end of time",
+            "raw_id": "ev23",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 33643,
+            "paragraph_ids": [
+              "p00081"
+            ],
+            "start_char": 33626
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1df40731e29c943b",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The narrative jumps forward forty years in time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev22",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Forty Years Later"
+        }
+      ],
+      "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/eve_s_diary_complete__twain",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+  "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

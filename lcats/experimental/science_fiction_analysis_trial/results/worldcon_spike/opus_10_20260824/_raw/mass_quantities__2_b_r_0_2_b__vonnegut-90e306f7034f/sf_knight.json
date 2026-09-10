@@ -1,0 +1,116 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 16010,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1753,
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "The story is built on speculative biomedical science: all diseases conquered and a cure for aging found, producing an average population age of 129 and a two-hundred-year-old man. Scientific processes (population dynamics, drupelet/blackberry analogy, X-rays) materially ground the premise. Science is not decorative but the foundation of the world.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-f3caf5cee65ce1ae",
+          "sfev-0f8cc3802f22ea29",
+          "sfev-2fe65be42ff80e5e",
+          "sfev-93cd0a6733fa8dc6",
+          "sfev-5c21d0cb40321ee6"
+        ]
+      },
+      {
+        "confidence": 0.82,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The engineered system of municipal gas chambers (Ethical Suicide Studios) run by the Federal Bureau of Termination is a technological/institutional apparatus central to the plot: it enforces the death-for-birth law and drives the climactic killings and the painter's final call.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-ec35e407f6a176cc",
+          "sfev-1c86b914d20af765",
+          "sfev-ecc4e245329ead87",
+          "sfev-4e433ef9f9e85304"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The narrative is set in a speculative future United States after the year 2000 crisis, with a stabilized population of forty million and lifespans of centuries. The future setting is more than an incidental date; it defines the storyworld.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-4a62782f20bb88da",
+          "sfev-96f072da830e2570",
+          "sfev-a3125d84219c458d",
+          "sfev-2fe65be42ff80e5e"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The whole story extrapolates from the premise of cured aging/disease plus a finite planet: overpopulation necessitates a one-death-per-birth law, rare births, and state termination. Social consequences are systematically developed from the identifiable scientific/social premise, the core of the satire.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-61c3bd9968bdf521",
+          "sfev-7022456f809b9e96",
+          "sfev-96f072da830e2570",
+          "sfev-a3125d84219c458d",
+          "sfev-1cac3c17a40bbb77",
+          "sfev-f4b19aa2d8d0884d"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "Science is invoked expositionally (scientists 'stepped in and laid down the law,' X-ray diagnosis, the drupelet reasoning, the painter's contemplation of the finite-planet puzzle) but observation, hypothesis, testing, and evidential revision do not actively drive the characters' understanding or action within the story. It is reasoning-by-analogy and background rather than dramatized scientific method.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-93cd0a6733fa8dc6",
+          "sfev-2fe65be42ff80e5e",
+          "sfev-5c21d0cb40321ee6",
+          "sfev-f4b19aa2d8d0884d"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-f4b19aa2d8d0884d"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The story is set entirely on Earth (Chicago). Planetary imagery ('this old planet,' 'your planet thanks you') is metaphorical scale, not other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [
+          "sfev-fd5438c4c47f639d",
+          "sfev-4e433ef9f9e85304"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "A large-scale demographic catastrophe is remembered and causally central: runaway overpopulation toward twenty/forty/eighty/one hundred sixty billion, with water and food shortages ('nothing to eat but sea-weed') that prompted the entire population-control regime. The painter also recalls war, plague, and starvation. The individual shootings alone are personal, but the remembered global disaster drives the premise.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-2fe65be42ff80e5e",
+          "sfev-a3125d84219c458d",
+          "sfev-1cac3c17a40bbb77"
+        ]
+      }
+    ]
+  }
+}

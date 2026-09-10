@@ -1,0 +1,13 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 3470,
+  "model": "gpt-oss:20b",
+  "output_tokens": 2585,
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "{\"evidence\":[{\"quotation\":\"he said that the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.\",\"paragraph_ids\":[\"p00004\"],\"paraphrase\":\"Explanation attributing bell sound to an owl\u2019s head banging on branches.\",\"confidence\":0.9,\"raw_id\":\"e1\"},{\"quotation\":\"The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.\",\"paragraph_ids\":[\"p00003\"],\"paraphrase\":\"King offers incentive to investigate source of sound.\",\"confidence\":0.85,\"raw_id\":\"e2\"},{\"quotation\":\"It was as if the tones came from a church in the still forest; people looked thitherward, and felt their minds attuned most solemnly.\",\"paragraph_ids\":[\"p00002\"],\"paraphrase\":\"Sound appears to originate from distant location (forest) rather than town.\",\"confidence\":0.8,\"raw_id\":\"e3\"},{\"quotation\":\"The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.\",\"paragraph_ids\":[\"p00003\"],\"paraphrase\":\"King\u2019s promise creates social consequence for discovering source.\",\"confidence\":0.85,\"raw_id\":\"e4\"},{\"quotation\":\"They all immediately felt a wish to go thither; all except three.\",\"paragraph_ids\":[\"p00005\"],\"paraphrase\":\"Children react with eagerness to investigate the bell.\",\"confidence\":0.8,\"raw_id\":\"e5\"},{\"quotation\":\"Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!\",\"paragraph_ids\":[\"p00007\"],\"paraphrase\":\"Contrast between expectation of bell and realization it's imaginary.\",\"confidence\":0.75,\"raw_id\":\"e6\"},{\"quotation\":\"People said 'The Evening Bell is sounding, the sun is setting.' For a strange wondrous tone was heard in the narrow streets of a large town.\",\"paragraph_ids\":[\"p00001\"],\"paraphrase\":\"Bell sound alters perception of time and environment.\",\"confidence\":0.7,\"raw_id\":\"e7\"}]}",
+  "title": "Anderson - The Bell",
+  "tool_result": null
+}

@@ -1,0 +1,59 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 20032,
+  "model": "claude-opus-4-8",
+  "output_tokens": 775,
+  "stage": "sf_suvin_novum",
+  "story_id": "chesterton/blue_cross",
+  "story_path": "chesterton/blue_cross/story.json",
+  "text": "",
+  "title": "Chesterton - The Blue Cross",
+  "tool_result": {
+    "dominant_novum_id": "cand-detective-method-unreason",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-detective-method-unreason",
+        "character_reaction_evidence_ids": [
+          "sfev-7c27acef9cc75764"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The method is coherent and rationally explained (following the unforeseen, leaving a trail to attract pursuit), but coherence alone does not make it a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-7c27acef9cc75764"
+          ]
+        },
+        "description": "Valentin's method of reasoning by systematically following the unreasonable/random when no clue exists, and Father Brown's laying of a deliberate trail of oddities (salt in coffee, mispriced fruit, thrown soup, broken window) to guide pursuers.",
+        "estrangement_rationale": "The salt-in-coffee incident produces mild surprise but is a mundane trick within an ordinary detective story; it estranges only as a puzzle, not as a world-altering difference.",
+        "evidence_ids": [
+          "sfev-7c27acef9cc75764"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The trail of oddities does drive the whole plot, but a driving plot mechanism is not the same as a science-fictional novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-7c27acef9cc75764"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-7c27acef9cc75764"
+          ],
+          "rationale": "This is a clever detective method and plotting device, not a totalizing or world-altering difference from empirical norms. The story world is ordinary early-20th-century England; nothing about the universe is changed.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-7c27acef9cc75764"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

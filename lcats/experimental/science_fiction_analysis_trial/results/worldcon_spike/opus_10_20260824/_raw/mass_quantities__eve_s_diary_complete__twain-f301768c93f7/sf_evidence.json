@@ -1,0 +1,246 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 14829,
+  "model": "claude-opus-4-8",
+  "output_tokens": 3211,
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/eve_s_diary_complete__twain",
+  "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json",
+  "text": "",
+  "title": "Eve's Diary, Complete",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.72,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The narrator concludes from her own feelings that she is an experiment.",
+        "quote": "I feel like an experiment, I feel exactly like an experiment; it would be impossible for a person to feel more like an experiment than I do, and so I am coming to feel convinced that that is what I AM--an experiment; just an experiment, and nothing more.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.68,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The world is depicted as newly created and nearly finished.",
+        "quote": "this majestic new world is indeed a most noble and beautiful work.  And certainly marvelously near to being perfect, notwithstanding the shortness of the time.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The moon detaches and falls out of the sky, described as a loss.",
+        "quote": "The moon got loose last night, and slid down and fell out of the scheme--a very great loss; it breaks my heart to think of it.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.62,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "She attempts by trial to knock stars down, learning they are out of reach.",
+        "quote": "When they first showed, last night, I tried to knock some down with a pole, but it didn't reach, which astonished me; then I tried clods till I was all tired out, but I never got one.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "She reasons that stars are much farther away than they appear.",
+        "quote": "You would be surprised to find how far off they are, for they do not look it.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.66,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "She formulates a general axiom from experience with distances and thorns.",
+        "quote": "I learned a lesson; also I made an axiom, all out of my own head--my very first one; THE SCRATCHED EXPERIMENT SHUNS THE THORN.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "She observes and tracks the other creature to determine its purpose.",
+        "quote": "I followed the other Experiment around, yesterday afternoon, at a distance, to see what it might be for, if I could.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.63,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00015"
+        ],
+        "paraphrase": "She reacts with thrill to hearing another's speech for the first time.",
+        "quote": "It gave me a thrill, for it was the first time I had ever heard speech, except my own.  I did not understand the words, but they seemed expressive.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.58,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00020"
+        ],
+        "paraphrase": "She claims an immediate, inspired ability to name each animal.",
+        "quote": "The minute I set eyes on an animal I know what it is.  I don't have to reflect a moment; the right name comes out instantly",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00037"
+        ],
+        "paraphrase": "She names fire by sudden inspiration despite never having encountered it.",
+        "quote": "Suddenly the name of it occurred to me, though I had never heard of it before.  It was FIRE! I was as certain of it as a person could be of anything in the world.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.72,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00038"
+        ],
+        "paraphrase": "She claims to have introduced fire, a new phenomenon, into the world.",
+        "quote": "I had created something that didn't exist before; I had added a new thing to the world's uncountable properties",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00040"
+        ],
+        "paraphrase": "She names smoke on first sight of it.",
+        "quote": "the blue spirit was towering up and stretching and rolling away like a cloud, and instantly I thought of the name of it--SMOKE!--though, upon my word, I had never heard of smoke before.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.62,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00041"
+        ],
+        "paraphrase": "She reacts with joy and rapture to the sight of flames.",
+        "quote": "I had to clap my hands and laugh and dance in my rapture, it was so new and strange and so wonderful and so beautiful!",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.68,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00051"
+        ],
+        "paraphrase": "Through fire she discovers the emotion of fear for the first time.",
+        "quote": "the fire had revealed to me a new passion--quite new, and distinctly different from love, grief, and those others which I had already discovered--FEAR.  And it is horrible!",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "Adam contrasts his and Eve's opposite reactions to the brontosaurus.",
+        "quote": "She wanted to domesticate it, I wanted to make it a present of the homestead and move out.",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "A living brontosaurus appears in their setting, mixing eras.",
+        "quote": "When the mighty brontosaurus came striding into camp, she regarded it as an acquisition, I considered it a calamity",
+        "raw_id": "ev16"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00063"
+        ],
+        "paraphrase": "She articulates a method of proving things by experiment rather than conjecture.",
+        "quote": "It is best to prove things by actual experiment; then you KNOW; whereas if you depend on guessing and supposing and conjecturing, you never get educated.",
+        "raw_id": "ev17"
+      },
+      {
+        "confidence": 0.66,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00065"
+        ],
+        "paraphrase": "She reasons by cumulative evidence from experiments about floating.",
+        "quote": "By experiment I know that wood swims, and dry leaves, and feathers, and plenty of other things; therefore by all that cumulative evidence you know that a rock will swim",
+        "raw_id": "ev18"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00066"
+        ],
+        "paraphrase": "She proposes an optical-illusion explanation for observed falling objects.",
+        "quote": "Of course it DOESN'T come down, but why should it SEEM to? I suppose it is an optical illusion.",
+        "raw_id": "ev19"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00067"
+        ],
+        "paraphrase": "She generalizes from observing meteors that all stars can melt away.",
+        "quote": "By watching, I know that the stars are not going to last. I have seen some of the best ones melt and run down the sky. Since one can melt, they can all melt",
+        "raw_id": "ev20"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00069"
+        ],
+        "paraphrase": "The Garden is now lost following the Fall, marking a changed state.",
+        "quote": "When I look back, the Garden is a dream to me.  It was beautiful, surpassingly beautiful, enchantingly beautiful; and now it is lost, and I shall not see it any more.",
+        "raw_id": "ev21"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00081"
+        ],
+        "paraphrase": "The narrative jumps forward forty years in time.",
+        "quote": "Forty Years Later",
+        "raw_id": "ev22"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00082"
+        ],
+        "paraphrase": "Her feelings are projected forward as universal for all future wives.",
+        "quote": "a longing which shall never perish from the earth, but shall have place in the heart of every wife that loves, until the end of time",
+        "raw_id": "ev23"
+      }
+    ]
+  }
+}

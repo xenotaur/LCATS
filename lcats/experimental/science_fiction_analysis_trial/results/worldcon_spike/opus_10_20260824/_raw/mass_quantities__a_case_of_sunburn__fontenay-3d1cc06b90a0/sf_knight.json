@@ -1,0 +1,81 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 17325,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1490,
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "The story's resolution turns on real and speculative science: Mars' 'blue mist' shielding the surface from solar radiation, and the Earth's magnetic field interfering with that mist during Earth-sun conjunctions, amplified by The Egg (a magnetic-field-amplifying device). The catastrophic sunburn/conjunctivitis mechanism is developed in detail (p00191, p00193, p00195), and the theme 'Science wins wars now' is explicit. Speculative magnetic/atmospheric science is materially represented and drives the plot.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-3e1b910844920566"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The Egg is an engineered device (an experimental laboratory that amplifies magnetic fields, like a lens concentrates light, p00021, p00193) whose deployment into an Earthward orbit is the decisive action that wins the war by stripping away the protective mist. Spacecraft (G-boats, spaceships), heat-guns, and scrambler beams also materially affect the action, but The Egg is the invention central to the outcome.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The story is set in a speculative future (Earth date June 1, 2020 per p00054, with a Martian colony established in 1985 and interplanetary war), depicting colonized Mars with dome-cities, spaceports, and space travel. This future setting is substantially developed, though there is no time travel.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The premise (Mars protected only by a blue mist vulnerable to Earth's magnetic field during conjunction) is extrapolated into a full military strategy: Plan Blue positions The Egg to amplify Earth's field, strip the mist entirely, and incapacitate enemy troops with severe sunburn and conjunctivitis while Rebels shelter underground (p00191, p00195). Consequences are systematically developed from the identified scientific/social premise.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Jonner conducts systematic inference to identify the Marscorp spy: he assesses evidence, forms and revises hypotheses about which man is the spy, uses controlled observation (pairing, radio dial checks, disconnected transmitter as a trap), and reasons from reconnected wires to a definite conclusion (p00033-p00036, p00050-p00053, p00108-p00113). Also orbital-mechanics calculations govern action (p00146). This deductive/evidential method materially drives the action.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "The entire story is set on Mars and its moon Phobos, in orbital space, and in dome-cities on another planet\nordinary cosmic environments. These other places are the central setting throughout.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "A large-scale engineered disaster is deliberately induced: the complete stripping of Mars' protective blue mist across the inhabited hemisphere, causing planet-wide severe radiation burns and mass blinding of Marscorp forces (p00187, p00195). This technological/cosmic catastrophe is actual and causally central to the war's outcome.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

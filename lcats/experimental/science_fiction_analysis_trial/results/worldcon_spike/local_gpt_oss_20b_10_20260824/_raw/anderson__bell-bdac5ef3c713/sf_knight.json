@@ -1,0 +1,44 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 3565,
+  "model": "gpt-oss:20b",
+  "output_tokens": 781,
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "criterion_id": "criterion_1",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_2",
+        "status": "present"
+      },
+      {
+        "criterion_id": "criterion_3",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_4",
+        "status": "present"
+      },
+      {
+        "criterion_id": "criterion_5",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_6",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_7",
+        "status": "absent"
+      }
+    ]
+  }
+}

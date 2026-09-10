@@ -1,0 +1,965 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The story is built on speculative biomedical science: all diseases conquered and a cure for aging found, producing an average population age of 129 and a two-hundred-year-old man. Scientific processes (population dynamics, drupelet/blackberry analogy, X-rays) materially ground the premise. Science is not decorative but the foundation of the world.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f3caf5cee65ce1ae",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-0f8cc3802f22ea29",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-2fe65be42ff80e5e",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-93cd0a6733fa8dc6",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-5c21d0cb40321ee6",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.82,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The engineered system of municipal gas chambers (Ethical Suicide Studios) run by the Federal Bureau of Termination is a technological/institutional apparatus central to the plot: it enforces the death-for-birth law and drives the climactic killings and the painter's final call.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-ec35e407f6a176cc",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-1c86b914d20af765",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-ecc4e245329ead87",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-4e433ef9f9e85304",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The narrative is set in a speculative future United States after the year 2000 crisis, with a stabilized population of forty million and lifespans of centuries. The future setting is more than an incidental date; it defines the storyworld.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4a62782f20bb88da",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-96f072da830e2570",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-a3125d84219c458d",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-2fe65be42ff80e5e",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The whole story extrapolates from the premise of cured aging/disease plus a finite planet: overpopulation necessitates a one-death-per-birth law, rare births, and state termination. Social consequences are systematically developed from the identifiable scientific/social premise, the core of the satire.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-61c3bd9968bdf521",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-7022456f809b9e96",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-96f072da830e2570",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-a3125d84219c458d",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-1cac3c17a40bbb77",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-f4b19aa2d8d0884d",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Science is invoked expositionally (scientists 'stepped in and laid down the law,' X-ray diagnosis, the drupelet reasoning, the painter's contemplation of the finite-planet puzzle) but observation, hypothesis, testing, and evidential revision do not actively drive the characters' understanding or action within the story. It is reasoning-by-analogy and background rather than dramatized scientific method.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-93cd0a6733fa8dc6",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-2fe65be42ff80e5e",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-5c21d0cb40321ee6",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-f4b19aa2d8d0884d",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The story is set entirely on Earth (Chicago). Planetary imagery ('this old planet,' 'your planet thanks you') is metaphorical scale, not other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.72,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "substantial",
+            "rationale": "A large-scale demographic catastrophe is remembered and causally central: runaway overpopulation toward twenty/forty/eighty/one hundred sixty billion, with water and food shortages ('nothing to eat but sea-weed') that prompted the entire population-control regime. The painter also recalls war, plague, and starvation. The individual shootings alone are personal, but the remembered global disaster drives the premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-2fe65be42ff80e5e",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-a3125d84219c458d",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              },
+              {
+                "evidence_id": "sfev-1cac3c17a40bbb77",
+                "evidence_set_id": "sfes-76db3db5e0c843d4"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-76db3db5e0c843d4",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-76db3db5e0c843d4",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 16010,
+            "output": 1753
+          }
+        },
+        "status": "complete",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-76db3db5e0c843d4",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-76db3db5e0c843d4",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 16447,
+            "output": 362
+          }
+        },
+        "status": "failed",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-76db3db5e0c843d4",
+    "knight_analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-76db3db5e0c843d4",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 4782,
+            "paragraph_ids": [
+              "p00034"
+            ],
+            "start_char": 4710
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0204f33875c1924f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The painter voices disdain for the orderly society.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"The world could do with a good deal more\nmess, if you ask me,\" he said."
+        },
+        {
+          "anchor": {
+            "end_char": 1211,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 1163
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0484b52653b4960d",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "An old man is roughly two hundred years old.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "about two hundred years old, sat on a stepladder"
+        },
+        {
+          "anchor": {
+            "end_char": 1412,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 1344
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0f8cc3802f22ea29",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A cure for aging exists that halts further aging.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Aging had\ntouched him that much before the cure for aging was found."
+        },
+        {
+          "anchor": {
+            "end_char": 3083,
+            "paragraph_ids": [
+              "p00021"
+            ],
+            "start_char": 3028
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-12932db3c6e919d4",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A government agency exists to manage terminations.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the Chicago Office of the Federal Bureau of\nTermination"
+        },
+        {
+          "anchor": {
+            "end_char": 7588,
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "start_char": 7514
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1c86b914d20af765",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Leora admires Hitz for founding the first local gas chamber.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"He was\nresponsible for setting up the very first gas chamber in Chicago.\""
+        },
+        {
+          "anchor": {
+            "end_char": 14403,
+            "paragraph_ids": [
+              "p00115"
+            ],
+            "start_char": 14273
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1cac3c17a40bbb77",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The termination hostess frames suicide as a civic gift to the future.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev28",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Your city thanks you; your country\nthanks you; your planet thanks you. But the deepest thanks of all is\nfrom future generations.\""
+        },
+        {
+          "anchor": {
+            "end_char": 118,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 33
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2321d8677fd7136d",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The world has eliminated many longstanding social ills.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There were no prisons, no slums, no insane asylums, no cripples, no\npoverty, no wars."
+        },
+        {
+          "anchor": {
+            "end_char": 224,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 166
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2acd447e5f3a7dfa",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Death now occurs only by accident or voluntary choice.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Death, barring accidents, was an adventure for volunteers."
+        },
+        {
+          "anchor": {
+            "end_char": 11148,
+            "paragraph_ids": [
+              "p00087"
+            ],
+            "start_char": 10976
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2fe65be42ff80e5e",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Past overpopulation caused water and food shortages until scientists intervened.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev20",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the year 2000,\" said Dr. Hitz, \"before scientists stepped in and\nlaid down the law, there wasn't even enough drinking water to go around,\nand nothing to eat but sea-weed"
+        },
+        {
+          "anchor": {
+            "end_char": 13461,
+            "paragraph_ids": [
+              "p00107"
+            ],
+            "start_char": 13421
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-35888a43ac66b9b5",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The painter decides to stop painting after the killings.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev26",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He knew that he would never paint again."
+        },
+        {
+          "anchor": {
+            "end_char": 5525,
+            "paragraph_ids": [
+              "p00039"
+            ],
+            "start_char": 5473
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-38736af012306286",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Gas-chamber hostesses reportedly grow mustaches over time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "they all sprouted mustaches\nwithin five years or so."
+        },
+        {
+          "anchor": {
+            "end_char": 604,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 498
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a62782f20bb88da",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Human lifespans are drastically extended, making 56 young.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Wehling was fifty-six, a mere stripling in a population whose average\nage was one hundred and twenty-nine."
+        },
+        {
+          "anchor": {
+            "end_char": 12840,
+            "paragraph_ids": [
+              "p00102"
+            ],
+            "start_char": 12772
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4e433ef9f9e85304",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Wehling kills himself and Duncan to free space for his triplets.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev24",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And then he shot himself, making room for all three of his children."
+        },
+        {
+          "anchor": {
+            "end_char": 11341,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 11271
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4fc80168ac53dfed",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Wehling states he wants to keep all three children.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev21",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"I want those kids,\" said Wehling quietly. \"I want all three of them.\""
+        },
+        {
+          "anchor": {
+            "end_char": 667,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 606
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5c21d0cb40321ee6",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Medical imaging revealed the pregnancy was triplets.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "X-rays had revealed that his wife was going to have triplets."
+        },
+        {
+          "anchor": {
+            "end_char": 8941,
+            "paragraph_ids": [
+              "p00069"
+            ],
+            "start_char": 8814
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-61c3bd9968bdf521",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Law requires a volunteer death for each new birth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The law said that no newborn child could survive unless the parents of\nthe child could find someone who would volunteer to die."
+        },
+        {
+          "anchor": {
+            "end_char": 496,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 426
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7022456f809b9e96",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Births have become rare as a consequence of population control.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was the only man\nwaiting. Not many people were born a day any more."
+        },
+        {
+          "anchor": {
+            "end_char": 10757,
+            "paragraph_ids": [
+              "p00085"
+            ],
+            "start_char": 10655
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-93cd0a6733fa8dc6",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Hitz explains overcrowding via a blackberry analogy.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little\npulpy grains of a blackberry,\""
+        },
+        {
+          "anchor": {
+            "end_char": 300,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 226
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-96f072da830e2570",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The national population is held fixed at forty million.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The population of the United States was stabilized at forty-million\nsouls."
+        },
+        {
+          "anchor": {
+            "end_char": 10565,
+            "paragraph_ids": [
+              "p00083"
+            ],
+            "start_char": 10377
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a3125d84219c458d",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Hitz cites runaway population growth that prompted control.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Would you like to go back to the good old days, when the population of\nthe Earth was twenty billion--about to become forty billion, then eighty\nbillion, then one hundred and sixty billion?"
+        },
+        {
+          "anchor": {
+            "end_char": 10154,
+            "paragraph_ids": [
+              "p00080"
+            ],
+            "start_char": 10023
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b07be716aa187989",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Wehling bitterly describes having to choose which child lives.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All I have to do is pick\nout which one of the triplets is going to live, then deliver my maternal\ngrandfather to the Happy Hooligan"
+        },
+        {
+          "anchor": {
+            "end_char": 3317,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 3258
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d3e68ed2ebc861c5",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The painter contrasts the idealized mural with real life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"You think this is my idea of what life really looks\nlike?\""
+        },
+        {
+          "anchor": {
+            "end_char": 4327,
+            "paragraph_ids": [
+              "p00031"
+            ],
+            "start_char": 4214
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ec35e407f6a176cc",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A phone number connects citizens to state-run gas chambers.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"To be or not to be\" was the telephone number of the municipal gas\nchambers of the Federal Bureau of Termination."
+        },
+        {
+          "anchor": {
+            "end_char": 11995,
+            "paragraph_ids": [
+              "p00095"
+            ],
+            "start_char": 11829
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ecc4e245329ead87",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Euphemistic official naming contrasts with the grim reality of state killing.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev22",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He corrected\nhimself, gave the municipal gas chambers their official title, a title\nno one ever used in conversation. \"I should have said, 'Ethical Suicide\nStudios,'\""
+        },
+        {
+          "anchor": {
+            "end_char": 164,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 120
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f3caf5cee65ce1ae",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Disease and aging have been cured.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All diseases were conquered. So was old age."
+        },
+        {
+          "anchor": {
+            "end_char": 13225,
+            "paragraph_ids": [
+              "p00105"
+            ],
+            "start_char": 12995
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f4b19aa2d8d0884d",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The painter reflects on the fundamental problem of reproduction on a finite planet.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev25",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The painter pondered the mournful puzzle of life demanding to be born\nand, once born, demanding to be fruitful ... to multiply and to live as\nlong as possible--to do all that on a very small planet that would have\nto last forever."
+        },
+        {
+          "anchor": {
+            "end_char": 13733,
+            "paragraph_ids": [
+              "p00108",
+              "p00109"
+            ],
+            "start_char": 13642
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fb7731f244e5fb6f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The painter tries but cannot shoot himself.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev27",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He took Wehling's pistol, really intending to shoot himself.\n\nBut he didn't have the nerve."
+        },
+        {
+          "anchor": {
+            "end_char": 12668,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "start_char": 12591
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fd5438c4c47f639d",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Wehling murders Hitz to make room for a child.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev23",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Wehling shot Dr. Hitz dead. \"There's room for one--a great big one,\" he\nsaid."
+        }
+      ],
+      "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
