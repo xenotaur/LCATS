@@ -17,8 +17,10 @@ related_workstreams:
   - WS-COMPARATIVE-LEXICAL-VISUALIZATION
 related_design:
   - project/design/proposals/proposed/comparative-lexical-visualization/00_proposal.md
+  - project/design/proposals/proposed/rich-linguistics-columnar-storage/00_proposal.md
 depends_on:
   - WI-LINGUISTICS-0007
+  - WI-LINGUISTICS-0009
 blocked_by: []
 expected_actions:
   - create_file
