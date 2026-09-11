@@ -110,9 +110,10 @@ pipeline.
 ## Required Changes
 
 1. Define a small experiment-local audit record or ledger keyed by the existing
-   stable `token_key`, with an immutable SHA-256 row fingerprint over the
-   packet identity and observed fields (`story_id`, `selection_genre`,
-   `token_key`, token indices, `text`, `lemma`, `machine_upos`, and `context`).
+   stable `token_key`, with an immutable SHA-256 row fingerprint over all
+   reviewer-visible packet identity and observed fields (`story_id`,
+   `selection_genre`, `audit_bucket`, `audit_features`, `token_key`, token
+   indices, `text`, `lemma`, `machine_upos`, and `context`).
 2. Implement deterministic `status` and `next` operations that show progress
    and select the next unresolved row without changing sample order.
 3. Define and validate the canonical issue-code enum: `segmentation`,
