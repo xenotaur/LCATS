@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented the experiment-local resumable POS audit helper planning artifact in PR #434 (commit 3aa8dcc52668b670a6b7a224a447d25b7d085556)."
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0010
 title: Add a resumable POS audit helper
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
