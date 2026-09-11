@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import pathlib
+import subprocess
 import sys
 import time
 import uuid
@@ -27,20 +28,33 @@ from lcats.analysis.science_fiction import preparation
 from lcats.llm import anthropic_backend
 from lcats.llm import backend as llm_backend
 from lcats.llm import openai_backend
+from lcats.llm import tool_schema as tool_schema_module
 from lcats.utils import checkpoint
 from lcats.utils import paths
 from lcats.utils import run_log
 
+_O_NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
+
 MANIFEST_VERSION = "worldcon-knight-novum-spike-manifest-v1"
 SUMMARY_VERSION = "worldcon-knight-novum-spike-summary-v1"
 REPORT_VERSION = "worldcon-knight-novum-spike-report-v1"
+PROMPT_VERSION = "worldcon-knight-novum-spike-prompt-v2"
+EVIDENCE_STAGE = "sf_evidence"
+KNIGHT_STAGE = "sf_knight"
+SUVIN_STAGE = "sf_suvin_novum"
+EVIDENCE_RECORD_STAGE = "evidence"
+KNIGHT_RECORD_STAGE = "knight"
+SUVIN_RECORD_STAGE = "suvin_novum"
+EVIDENCE_TOOL_NAME = "record_science_fiction_evidence"
+KNIGHT_TOOL_NAME = "record_knight_adjudication"
+SUVIN_TOOL_NAME = "record_suvin_novum_adjudication"
 DEFAULT_MANIFEST = (
     pathlib.Path(__file__).resolve().parent
     / "manifests"
     / "worldcon_spike_manifest.json"
 )
-DEFAULT_RESULTS_ROOT = pathlib.Path(__file__).resolve().parent / "results" / (
-    "worldcon_spike"
+DEFAULT_RESULTS_ROOT = (
+    pathlib.Path(__file__).resolve().parent / "results" / ("worldcon_spike")
 )
 DEFAULT_MODEL = "fake-worldcon-spike"
 DEFAULT_MAX_TOKENS = 4096
@@ -53,7 +67,6 @@ FAKE_BACKEND = "fake"
 OPENAI_BACKEND = "openai"
 ANTHROPIC_BACKEND = "anthropic"
 OPENAI_COMPATIBLE_BACKEND = "openai-compatible"
-_O_NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -158,9 +171,9 @@ class DeterministicSpikeBackend:
     ) -> llm_backend.BackendResponse:
         """Return deterministic tool output derived from the prompt payload."""
 
-        del system, temperature, max_tokens, tool
+        del system, temperature, max_tokens
         payload = json.loads(messages[-1]["content"])
-        result = _fake_tool_result(payload)
+        result = _fake_stage_result(payload, tool)
         return llm_backend.BackendResponse(
             text="",
             tool_result=result,
@@ -221,25 +234,17 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
         active_backend = _make_backend(options)
         for story in selected_stories:
             log.event(
-                "story_start",
-                story_id=story.story_id,
-                run_id=run_id,
-                title=story.title,
+                "story_start", run_id=run_id, story_id=story.story_id, title=story.title
             )
             result = _run_story(
-                story,
-                output_root,
-                options,
-                active_backend,
-                run_id,
-                log,
+                story, output_root, options, active_backend, run_id, log
             )
             results.append(result)
             _append_story_result(output_root, result)
             log.event(
                 "story_end",
-                story_id=story.story_id,
                 run_id=run_id,
+                story_id=story.story_id,
                 status=result.status,
                 input_tokens=result.input_tokens,
                 output_tokens=result.output_tokens,
@@ -255,7 +260,10 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                         failures=failures,
                     )
                     break
-                if options.max_failures is not None and failures >= options.max_failures:
+                if (
+                    options.max_failures is not None
+                    and failures >= options.max_failures
+                ):
                     log.event(
                         "run_stopped",
                         run_id=run_id,
@@ -264,21 +272,6 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                         max_failures=options.max_failures,
                     )
                     break
-        results = tuple(results)
-        status = "complete" if all(
-            item.status == "complete" for item in results
-        ) else "failed"
-        summary = _summary(
-            status=status,
-            manifest=manifest,
-            options=options,
-            output_root=output_root,
-            plan=plan,
-            results=results,
-            run_id=run_id,
-        )
-        _write_summary(output_root, summary)
-        _write_report(output_root, summary)
         log.event(
             "run_end",
             run_id=run_id,
@@ -286,6 +279,21 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             failed=sum(1 for item in results if item.status == "failed"),
             processed=len(results),
         )
+    results = tuple(results)
+    status = (
+        "complete" if all(item.status == "complete" for item in results) else ("failed")
+    )
+    summary = _summary(
+        status=status,
+        manifest=manifest,
+        options=options,
+        output_root=output_root,
+        plan=plan,
+        results=results,
+        run_id=run_id,
+    )
+    _write_summary(output_root, summary)
+    _write_report(output_root, summary)
     return summary
 
 
@@ -297,8 +305,7 @@ def load_manifest(path: pathlib.Path) -> SpikeManifest:
     if data.get("version") != MANIFEST_VERSION:
         raise ValueError(f"manifest version must be {MANIFEST_VERSION}")
     gates = {
-        key: _load_gate(key, value)
-        for key, value in data.get("gates", {}).items()
+        key: _load_gate(key, value) for key, value in data.get("gates", {}).items()
     }
     for required in (SMOKE_MODE, SAMPLE_MODE, FULL_MODE):
         if required not in gates:
@@ -340,51 +347,79 @@ def _run_story(
     started = time.monotonic()
     input_tokens = 0
     output_tokens = 0
+    raw_response_dir: pathlib.Path | None = None
     raw_response_path: pathlib.Path | None = None
     quarantine_path: pathlib.Path | None = None
-    tool_result: Any = None
-    backend_attempted = False
+    evidence_tool_result: Any = None
+    knight_tool_result: Any = None
+    suvin_tool_result: Any = None
     try:
         story_file = _repo_root() / "corpora" / story.story_path
         prepared = preparation.prepare_story_file(story_file)
-        payload = _prompt_payload(story, prepared)
-        backend_attempted = True
-        response = active_backend.complete(
-            system=_system_prompt(),
-            messages=[{"role": "user", "content": _stable_json(payload)}],
-            model=options.model,
-            temperature=options.temperature,
-            max_tokens=options.max_tokens,
-            tool=_tool_schema(),
-        )
-        input_tokens = response.input_tokens
-        output_tokens = response.output_tokens
-        tool_result = response.tool_result
-        raw_response_path = _write_raw_response(
-            output_root=output_root,
-            run_id=run_id,
+        raw_response_dir = output_root / "_raw" / run_id / _checkpoint_item_id(story)
+
+        evidence_response, evidence_tool_result, evidence_raw_path = _run_model_stage(
+            stage=EVIDENCE_STAGE,
             story=story,
-            response=response,
-            tool_result=tool_result,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=_evidence_system_prompt(),
+            payload=_evidence_payload(story, prepared),
+            tool_schema=_evidence_tool_schema(),
+            run_id=run_id,
+            log=log,
         )
-        if log is not None:
-            log.event(
-                "model_response_received",
-                story_id=story.story_id,
-                run_id=run_id,
-                input_tokens=input_tokens,
-                output_tokens=output_tokens,
-                raw_response_path=_display_path(raw_response_path),
-            )
-        if tool_result is None:
-            tool_result = json.loads(response.text)
-        sidecar_inputs = _sidecar_inputs(
+        raw_response_path = evidence_raw_path
+        input_tokens += evidence_response.input_tokens
+        output_tokens += evidence_response.output_tokens
+        evidence_set = _build_evidence_set(
+            prepared,
+            evidence_tool_result,
+            backend=options.backend_kind,
+        )
+        knight_analysis, knight_response = _run_knight_stage(
             story=story,
             prepared=prepared,
-            tool_result=tool_result,
+            evidence_set=evidence_set,
             options=options,
-            response=response,
+            active_backend=active_backend,
+            output_root=output_root,
             run_id=run_id,
+            log=log,
+        )
+        input_tokens += knight_response.input_tokens
+        output_tokens += knight_response.output_tokens
+
+        suvin_analysis, suvin_response = _run_suvin_stage(
+            story=story,
+            prepared=prepared,
+            evidence_set=evidence_set,
+            options=options,
+            active_backend=active_backend,
+            output_root=output_root,
+            run_id=run_id,
+            log=log,
+        )
+        input_tokens += suvin_response.input_tokens
+        output_tokens += suvin_response.output_tokens
+
+        partial_success = _partial_success_record(knight_analysis, suvin_analysis)
+        sidecar_inputs = pipeline.SidecarAssemblyInputs(
+            lcats_id=story.story_id,
+            story_path=story.story_path,
+            story_hash=prepared.story_hash,
+            evidence_sets=(evidence_set,),
+            knight_analyses=(knight_analysis,),
+            suvin_novum_analyses=(suvin_analysis,),
+            partial_success=partial_success,
+            configuration={
+                "backend_kind": options.backend_kind,
+                "mode": options.mode,
+                "model": options.model,
+                "prompt_version": PROMPT_VERSION,
+                "report_version": REPORT_VERSION,
+            },
         )
         assembled = pipeline.run_checkpointed_assembly(
             working_root=output_root,
@@ -410,38 +445,62 @@ def _run_story(
             input_tokens=input_tokens,
             output_tokens=output_tokens,
             latency_seconds=round(time.monotonic() - started, 3),
-            knight_interval=knight_analysis.interval.to_dict(),
-            qualified_novum_count=sum(
-                1 for candidate in suvin_analysis.candidates if candidate.qualified_novum
+            knight_interval=(
+                knight_analysis.interval.to_dict()
+                if knight_analysis.status == "complete"
+                else None
             ),
-            dominant_novum_id=suvin_analysis.dominant_novum_id,
+            qualified_novum_count=(
+                sum(
+                    1
+                    for candidate in suvin_analysis.candidates
+                    if candidate.qualified_novum
+                )
+                if suvin_analysis.status == "complete"
+                else None
+            ),
+            dominant_novum_id=(
+                suvin_analysis.dominant_novum_id
+                if suvin_analysis.status == "complete"
+                else None
+            ),
             raw_response_path=(
-                _display_path(raw_response_path) if raw_response_path else None
+                _display_path(raw_response_dir) if raw_response_dir else None
             ),
         )
     except Exception as error:
         input_tokens = getattr(error, "input_tokens", input_tokens)
         output_tokens = getattr(error, "output_tokens", output_tokens)
-        if raw_response_path is None and backend_attempted:
-            raw_response_path = _write_backend_failure(
-                output_root=output_root,
-                run_id=run_id,
-                story=story,
-                error=error,
+        raw_response_path = getattr(error, "raw_response_path", raw_response_path)
+        tool_result = (
+            suvin_tool_result
+            if suvin_tool_result is not None
+            else (
+                knight_tool_result
+                if knight_tool_result is not None
+                else evidence_tool_result
             )
+        )
+        if raw_response_path is None and raw_response_dir is not None:
+            backend_error_path = (
+                raw_response_dir / f"{EVIDENCE_STAGE}-backend-error.json"
+            )
+            if backend_error_path.exists():
+                raw_response_path = backend_error_path
         quarantine_path = _write_quarantine(
             output_root=output_root,
-            run_id=run_id,
             story=story,
             error=error,
             tool_result=tool_result,
-            raw_response_path=raw_response_path,
+            raw_response_path=raw_response_path or raw_response_dir,
+            stage="story",
+            run_id=run_id,
         )
         if log is not None:
             log.event(
                 "story_quarantined",
-                story_id=story.story_id,
                 run_id=run_id,
+                story_id=story.story_id,
                 quarantine_path=_display_path(quarantine_path),
                 failure_kind=type(error).__name__,
             )
@@ -461,7 +520,9 @@ def _run_story(
             failure_kind=type(error).__name__,
             failure_message=str(error),
             raw_response_path=(
-                _display_path(raw_response_path) if raw_response_path else None
+                _display_path(raw_response_path or raw_response_dir)
+                if raw_response_path or raw_response_dir
+                else None
             ),
             quarantine_path=(
                 _display_path(quarantine_path) if quarantine_path else None
@@ -469,65 +530,147 @@ def _run_story(
         )
 
 
-def _append_story_result(output_root: pathlib.Path, result: StoryResult) -> pathlib.Path:
+def _append_story_result(
+    output_root: pathlib.Path, result: StoryResult
+) -> pathlib.Path:
     output_root.mkdir(parents=True, exist_ok=True)
     path = output_root / "worldcon_spike_story_results.jsonl"
-    _append_json_line(path, result.to_dict())
-    return path
-
-
-def _append_json_line(path: pathlib.Path, data: dict[str, Any]) -> None:
-    """Append one JSON line without following a pre-existing symlink."""
-
     fd = os.open(
-        os.fspath(path),
+        path,
         os.O_WRONLY | os.O_APPEND | os.O_CREAT | _O_NOFOLLOW,
         0o644,
     )
     with os.fdopen(fd, "a", encoding="utf-8") as handle:
-        handle.write(json.dumps(data, sort_keys=True) + "\n")
+        handle.write(json.dumps(result.to_dict(), sort_keys=True) + "\n")
         handle.flush()
-
-
-def _write_backend_failure(
-    *,
-    output_root: pathlib.Path,
-    run_id: str,
-    story: SpikeStory,
-    error: Exception,
-) -> pathlib.Path:
-    """Persist raw content exposed by a backend exception before quarantine."""
-
-    path = output_root / "_raw" / run_id / f"{_checkpoint_item_id(story)}.json"
-    payload = {
-        "run_id": run_id,
-        "story_id": story.story_id,
-        "story_path": story.story_path,
-        "title": story.title,
-        "backend_error": type(error).__name__,
-        "error_message": str(error),
-        "input_tokens": getattr(error, "input_tokens", 0),
-        "output_tokens": getattr(error, "output_tokens", 0),
-        "raw_content": getattr(error, "raw_content", None),
-    }
-    _write_json_atomic(path, payload, output_root=output_root)
     return path
+
+
+def _run_model_stage(
+    *,
+    stage: str,
+    story: SpikeStory,
+    output_root: pathlib.Path,
+    options: RunnerOptions,
+    active_backend: llm_backend.LLMBackend,
+    system_prompt: str,
+    payload: dict[str, Any],
+    tool_schema: dict[str, Any],
+    run_id: str,
+    log: run_log.RunLog | None,
+) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path]:
+    """Run one persisted model stage and return its raw tool result."""
+
+    if log is not None:
+        log.event("stage_start", run_id=run_id, story_id=story.story_id, stage=stage)
+    try:
+        response = active_backend.complete(
+            system=system_prompt,
+            messages=[{"role": "user", "content": _stable_json(payload)}],
+            model=options.model,
+            temperature=options.temperature,
+            max_tokens=options.max_tokens,
+            tool=tool_schema,
+        )
+    except llm_backend.NoToolCallError as error:
+        if not error.raw_content:
+            raw_path = _write_backend_failure(
+                output_root=output_root,
+                run_id=run_id,
+                story=story,
+                stage=stage,
+                error=error,
+            )
+            if log is not None:
+                log.event(
+                    "backend_failure_persisted",
+                    run_id=run_id,
+                    story_id=story.story_id,
+                    stage=stage,
+                    raw_response_path=_display_path(raw_path),
+                )
+            raise
+        response = llm_backend.BackendResponse(
+            text=error.raw_content,
+            tool_result=None,
+            model=options.model,
+            input_tokens=error.input_tokens,
+            output_tokens=error.output_tokens,
+        )
+        if log is not None:
+            log.event(
+                "no_tool_call_json_fallback",
+                run_id=run_id,
+                story_id=story.story_id,
+                stage=stage,
+                input_tokens=error.input_tokens,
+                output_tokens=error.output_tokens,
+            )
+    except Exception as error:
+        raw_path = _write_backend_failure(
+            output_root=output_root,
+            run_id=run_id,
+            story=story,
+            stage=stage,
+            error=error,
+        )
+        if log is not None:
+            log.event(
+                "backend_failure_persisted",
+                run_id=run_id,
+                story_id=story.story_id,
+                stage=stage,
+                raw_response_path=_display_path(raw_path),
+            )
+        raise
+    tool_result = response.tool_result
+    raw_path = _write_raw_response(
+        output_root=output_root,
+        story=story,
+        response=response,
+        tool_result=tool_result,
+        stage=stage,
+        run_id=run_id,
+    )
+    if log is not None:
+        log.event(
+            "model_response_received",
+            run_id=run_id,
+            story_id=story.story_id,
+            stage=stage,
+            input_tokens=response.input_tokens,
+            output_tokens=response.output_tokens,
+            raw_response_path=_display_path(raw_path),
+        )
+    if tool_result is None:
+        try:
+            tool_result = json.loads(response.text)
+        except json.JSONDecodeError as error:
+            setattr(error, "raw_response_path", raw_path)
+            setattr(error, "input_tokens", response.input_tokens)
+            setattr(error, "output_tokens", response.output_tokens)
+            raise
+    if log is not None:
+        log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
+    return response, tool_result, raw_path
 
 
 def _write_raw_response(
     *,
     output_root: pathlib.Path,
-    run_id: str,
     story: SpikeStory,
     response: llm_backend.BackendResponse,
     tool_result: Any,
+    run_id: str,
+    stage: str = "combined",
 ) -> pathlib.Path:
-    path = output_root / "_raw" / run_id / f"{_checkpoint_item_id(story)}.json"
+    path = output_root / "_raw" / run_id / _checkpoint_item_id(story) / f"{stage}.json"
     payload = {
         "run_id": run_id,
         "story_id": story.story_id,
         "story_path": story.story_path,
         "title": story.title,
+        "stage": stage,
         "model": response.model,
         "input_tokens": response.input_tokens,
         "output_tokens": response.output_tokens,
@@ -540,21 +683,60 @@ def _write_raw_response(
     return path
 
 
-def _write_quarantine(
+def _write_backend_failure(
     *,
     output_root: pathlib.Path,
     run_id: str,
     story: SpikeStory,
+    stage: str,
     error: Exception,
-    tool_result: Any,
-    raw_response_path: pathlib.Path | None,
 ) -> pathlib.Path:
-    path = output_root / "_quarantine" / run_id / f"{_checkpoint_item_id(story)}.json"
+    path = (
+        output_root
+        / "_raw"
+        / run_id
+        / _checkpoint_item_id(story)
+        / f"{stage}-backend-error.json"
+    )
     payload = {
         "run_id": run_id,
         "story_id": story.story_id,
         "story_path": story.story_path,
         "title": story.title,
+        "stage": stage,
+        "backend_error": type(error).__name__,
+        "error_message": str(error),
+        "input_tokens": getattr(error, "input_tokens", 0),
+        "output_tokens": getattr(error, "output_tokens", 0),
+        "raw_content": getattr(error, "raw_content", None),
+    }
+    _write_json_atomic(path, payload, output_root=output_root)
+    return path
+
+
+def _write_quarantine(
+    *,
+    output_root: pathlib.Path,
+    story: SpikeStory,
+    error: Exception,
+    tool_result: Any,
+    raw_response_path: pathlib.Path | None,
+    run_id: str,
+    stage: str = "story",
+) -> pathlib.Path:
+    path = (
+        output_root
+        / "_quarantine"
+        / run_id
+        / _checkpoint_item_id(story)
+        / f"{stage}.json"
+    )
+    payload = {
+        "run_id": run_id,
+        "story_id": story.story_id,
+        "story_path": story.story_path,
+        "title": story.title,
+        "stage": stage,
         "failure_kind": type(error).__name__,
         "failure_message": str(error),
         "raw_response_path": (
@@ -569,108 +751,357 @@ def _write_quarantine(
 def _write_json_atomic(
     path: pathlib.Path, data: Any, *, output_root: pathlib.Path
 ) -> None:
-    """Write JSON atomically without traversing symlinked artifact folders."""
-
-    root = output_root.absolute()
-    if root.is_symlink():
-        raise OSError(f"output root must not be a symlink: {root}")
-    directory = path.parent.absolute()
+    resolved_root = output_root.resolve()
+    if resolved_root.is_symlink():
+        raise ValueError(f"output root must not be a symlink: {output_root}")
+    resolved_path = path.resolve(strict=False)
     try:
-        relative_parts = directory.relative_to(root).parts
+        resolved_path.relative_to(resolved_root)
     except ValueError as error:
-        raise ValueError(f"artifact path escapes output root: {path}") from error
-
-    current = root
-    for part in relative_parts:
-        current /= part
-        if current.is_symlink():
-            raise OSError(f"artifact directory must not be a symlink: {current}")
-        current.mkdir(parents=True, exist_ok=True)
-
+        raise ValueError(f"artifact escapes output root: {path}") from error
+    relative_parent = resolved_path.parent.relative_to(resolved_root)
+    current = resolved_root
+    for part in relative_parent.parts:
+        current = current / part
+        if current.exists() and current.is_symlink():
+            raise ValueError(f"artifact directory must not be a symlink: {current}")
+    resolved_root.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
-    fd = None
     try:
         fd = os.open(
-            os.fspath(tmp_path),
+            tmp_path,
             os.O_WRONLY | os.O_CREAT | os.O_EXCL | _O_NOFOLLOW,
             0o644,
         )
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            fd = None
             handle.write(_stable_json(data))
             handle.flush()
         os.replace(tmp_path, path)
     except BaseException:
-        if fd is not None:
-            os.close(fd)
-        if tmp_path.exists() or tmp_path.is_symlink():
+        if tmp_path.exists():
             tmp_path.unlink()
         raise
 
 
-def _sidecar_inputs(
+def _build_evidence_set(
+    prepared: preparation.StoryPreparation,
+    tool_result: Any,
+    *,
+    backend: str,
+) -> evidence.EvidenceSet:
+    if not isinstance(tool_result, dict):
+        raise ValueError(
+            f"{EVIDENCE_STAGE} tool_result must be an object, "
+            f"got {type(tool_result).__name__}"
+        )
+    return evidence.build_evidence_set(
+        prepared,
+        _list_field(tool_result, "evidence"),
+        backend=backend,
+    )
+
+
+def _run_knight_stage(
     *,
     story: SpikeStory,
     prepared: preparation.StoryPreparation,
-    tool_result: Any,
+    evidence_set: evidence.EvidenceSet,
     options: RunnerOptions,
-    response: llm_backend.BackendResponse,
+    active_backend: llm_backend.LLMBackend,
+    output_root: pathlib.Path,
     run_id: str,
-) -> pipeline.SidecarAssemblyInputs:
-    if not isinstance(tool_result, dict):
-        raise ValueError(
-            f"tool_result must be an object, got {type(tool_result).__name__}"
-        )
-    evidence_set = evidence.build_evidence_set(
-        prepared,
-        _required_list_field(tool_result, "evidence"),
-        backend=options.backend_kind,
-    )
+    log: run_log.RunLog | None,
+) -> tuple[models.KnightAnalysis, llm_backend.BackendResponse]:
+    response = _empty_response(options)
+    tool_result: Any = None
+    raw_path: pathlib.Path | None = None
+    system_prompt = _knight_system_prompt()
+    tool_schema = _knight_tool_schema()
     provenance = _provenance(
         story=story,
         options=options,
         response=response,
-        run_id=run_id,
         parent_evidence_set_id=evidence_set.evidence_set_id,
+        system_prompt=system_prompt,
+        tool_schema=tool_schema,
+        run_id=run_id,
+        rubric_version=models.KNIGHT_RUBRIC_VERSION,
     )
-    knight_analysis = knight.build_analysis(
-        analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
-        story_hash=prepared.story_hash,
-        evidence_set=evidence_set,
-        decisions=_knight_decisions(tool_result, evidence_set),
-        provenance=dataclasses.replace(
-            provenance,
+    try:
+        response, tool_result, raw_path = _run_model_stage(
+            stage=KNIGHT_STAGE,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=_knight_payload(story, prepared, evidence_set),
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+        )
+        if not isinstance(tool_result, dict):
+            raise ValueError(
+                f"{KNIGHT_STAGE} tool_result must be an object, "
+                f"got {type(tool_result).__name__}"
+            )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
             rubric_version=models.KNIGHT_RUBRIC_VERSION,
-        ),
+        )
+        return (
+            knight.build_analysis(
+                analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                decisions=_knight_decisions(tool_result, evidence_set),
+                provenance=provenance,
+            ),
+            response,
+        )
+    except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.KNIGHT_RUBRIC_VERSION,
+        )
+        if raw_path is None:
+            candidate = (
+                output_root
+                / "_raw"
+                / run_id
+                / _checkpoint_item_id(story)
+                / f"{KNIGHT_STAGE}-backend-error.json"
+            )
+            if candidate.exists():
+                raw_path = candidate
+        _record_stage_failure(
+            output_root=output_root,
+            story=story,
+            stage=KNIGHT_STAGE,
+            error=error,
+            tool_result=tool_result,
+            raw_path=raw_path,
+            run_id=run_id,
+            log=log,
+        )
+        failure = models.FailureRecord(
+            stage=KNIGHT_RECORD_STAGE,
+            kind=type(error).__name__,
+            message=str(error),
+            recoverable=True,
+        )
+        return (
+            knight.failed_analysis(
+                analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
+                story_hash=prepared.story_hash,
+                evidence_set_id=evidence_set.evidence_set_id,
+                provenance=provenance,
+                failure=failure,
+            ),
+            response,
+        )
+
+
+def _run_suvin_stage(
+    *,
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+    options: RunnerOptions,
+    active_backend: llm_backend.LLMBackend,
+    output_root: pathlib.Path,
+    run_id: str,
+    log: run_log.RunLog | None,
+) -> tuple[models.SuvinNovumAnalysis, llm_backend.BackendResponse]:
+    response = _empty_response(options)
+    tool_result: Any = None
+    raw_path: pathlib.Path | None = None
+    system_prompt = _suvin_system_prompt()
+    tool_schema = _suvin_tool_schema()
+    provenance = _provenance(
+        story=story,
+        options=options,
+        response=response,
+        parent_evidence_set_id=evidence_set.evidence_set_id,
+        system_prompt=system_prompt,
+        tool_schema=tool_schema,
+        run_id=run_id,
+        rubric_version=models.SUVIN_RUBRIC_VERSION,
     )
-    novum_candidates = _novum_candidates(tool_result, evidence_set)
-    suvin_analysis = novum.build_analysis(
-        analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
-        story_hash=prepared.story_hash,
-        evidence_set=evidence_set,
-        candidates=novum_candidates,
-        provenance=dataclasses.replace(
-            provenance,
+    try:
+        response, tool_result, raw_path = _run_model_stage(
+            stage=SUVIN_STAGE,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=_suvin_payload(story, prepared, evidence_set),
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+        )
+        if not isinstance(tool_result, dict):
+            raise ValueError(
+                f"{SUVIN_STAGE} tool_result must be an object, "
+                f"got {type(tool_result).__name__}"
+            )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
             rubric_version=models.SUVIN_RUBRIC_VERSION,
-        ),
-        dominant_novum_id=_dominant_novum_id(
-            tool_result.get("dominant_novum_id"),
-            novum_candidates,
-        ),
+        )
+        candidates = _novum_candidates(tool_result, evidence_set)
+        return (
+            novum.build_analysis(
+                analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                candidates=candidates,
+                provenance=provenance,
+                dominant_novum_id=_dominant_novum_id(
+                    tool_result.get("dominant_novum_id"), candidates
+                ),
+            ),
+            response,
+        )
+    except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.SUVIN_RUBRIC_VERSION,
+        )
+        if raw_path is None:
+            candidate = (
+                output_root
+                / "_raw"
+                / run_id
+                / _checkpoint_item_id(story)
+                / f"{SUVIN_STAGE}-backend-error.json"
+            )
+            if candidate.exists():
+                raw_path = candidate
+        _record_stage_failure(
+            output_root=output_root,
+            story=story,
+            stage=SUVIN_STAGE,
+            error=error,
+            tool_result=tool_result,
+            raw_path=raw_path,
+            run_id=run_id,
+            log=log,
+        )
+        failure = models.FailureRecord(
+            stage=SUVIN_RECORD_STAGE,
+            kind=type(error).__name__,
+            message=str(error),
+            recoverable=True,
+        )
+        return (
+            novum.failed_analysis(
+                analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
+                story_hash=prepared.story_hash,
+                evidence_set_id=evidence_set.evidence_set_id,
+                provenance=provenance,
+                failure=failure,
+            ),
+            response,
+        )
+
+
+def _empty_response(options: RunnerOptions) -> llm_backend.BackendResponse:
+    return llm_backend.BackendResponse(
+        text="",
+        tool_result=None,
+        model=options.model,
+        input_tokens=0,
+        output_tokens=0,
     )
-    return pipeline.SidecarAssemblyInputs(
-        lcats_id=story.story_id,
-        story_path=story.story_path,
-        story_hash=prepared.story_hash,
-        evidence_sets=(evidence_set,),
-        knight_analyses=(knight_analysis,),
-        suvin_novum_analyses=(suvin_analysis,),
-        configuration={
-            "backend_kind": options.backend_kind,
-            "mode": options.mode,
-            "model": options.model,
-            "report_version": REPORT_VERSION,
-        },
+
+
+def _record_stage_failure(
+    *,
+    output_root: pathlib.Path,
+    story: SpikeStory,
+    stage: str,
+    error: Exception,
+    tool_result: Any,
+    raw_path: pathlib.Path | None,
+    run_id: str,
+    log: run_log.RunLog | None,
+) -> None:
+    quarantine_path = _write_quarantine(
+        output_root=output_root,
+        story=story,
+        error=error,
+        tool_result=tool_result,
+        raw_response_path=raw_path,
+        stage=stage,
+        run_id=run_id,
+    )
+    if log is not None:
+        log.event(
+            "stage_failed",
+            run_id=run_id,
+            story_id=story.story_id,
+            stage=stage,
+            failure_kind=type(error).__name__,
+            quarantine_path=_display_path(quarantine_path),
+        )
+
+
+def _partial_success_record(
+    knight_analysis: models.KnightAnalysis,
+    suvin_analysis: models.SuvinNovumAnalysis,
+) -> models.PartialSuccessRecord | None:
+    completed = [EVIDENCE_RECORD_STAGE]
+    failures: list[models.FailureRecord] = []
+    if knight_analysis.status == "complete":
+        completed.append(KNIGHT_RECORD_STAGE)
+    failures.extend(knight_analysis.failures)
+    if suvin_analysis.status == "complete":
+        completed.append(SUVIN_RECORD_STAGE)
+    failures.extend(suvin_analysis.failures)
+    if not failures:
+        return None
+    return models.PartialSuccessRecord(
+        completed_stages=tuple(completed),
+        failed_stages=tuple(failures),
     )
 
 
@@ -680,7 +1111,7 @@ def _knight_decisions(
 ) -> tuple[knight.CriterionAdjudication, ...]:
     by_id = {
         item.get("criterion_id"): item
-        for item in _required_list_field(tool_result, "knight_criteria")
+        for item in _list_field(tool_result, "knight_criteria")
         if isinstance(item, dict)
     }
     fallback_evidence = _first_evidence_id(evidence_set)
@@ -717,7 +1148,7 @@ def _novum_candidates(
 ) -> tuple[novum.CandidateAdjudication, ...]:
     candidates = []
     for index, raw_item in enumerate(
-        _required_list_field(tool_result, "novum_candidates"), start=1
+        _list_field(tool_result, "novum_candidates"), start=1
     ):
         if not isinstance(raw_item, dict):
             continue
@@ -740,6 +1171,12 @@ def _novum_candidates(
                     reader_facing_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(item.get("reader_facing_evidence_ids", ())),
+                    ),
+                    storyworld_consequence_evidence_ids=_existing_evidence_ids(
+                        evidence_set,
+                        _string_tuple(
+                            item.get("storyworld_consequence_evidence_ids", ())
+                        ),
                     ),
                     character_reaction_evidence_ids=_existing_evidence_ids(
                         evidence_set,
@@ -782,7 +1219,10 @@ def _dimension(
     evidence_set: evidence.EvidenceSet,
 ) -> novum.DimensionAdjudication:
     if not isinstance(raw, dict):
-        raw = {"status": "not_assessable", "rationale": f"malformed {type(raw).__name__}"}
+        raw = {
+            "status": "not_assessable",
+            "rationale": f"malformed {type(raw).__name__}",
+        }
     return novum.DimensionAdjudication(
         status=_decision_state(raw.get("status", "not_assessable")),
         supporting_evidence_ids=_existing_evidence_ids(
@@ -805,15 +1245,18 @@ def _provenance(
     response: llm_backend.BackendResponse,
     run_id: str,
     parent_evidence_set_id: str,
+    system_prompt: str,
+    tool_schema: dict[str, Any],
+    rubric_version: str,
 ) -> models.ProvenanceRecord:
     return models.ProvenanceRecord(
         run_id=run_id,
-        rubric_version=models.KNIGHT_RUBRIC_VERSION,
+        rubric_version=rubric_version,
         code_commit=_git_commit(),
         backend=options.backend_kind,
         model=response.model,
-        prompt_hash=_hash_text(_system_prompt()),
-        schema_hash=_hash_text(_stable_json(_tool_schema())),
+        prompt_hash=_hash_text(system_prompt),
+        schema_hash=_hash_text(_stable_json(tool_schema)),
         generation_parameters={
             "max_tokens": options.max_tokens,
             "temperature": options.temperature,
@@ -828,55 +1271,308 @@ def _provenance(
     )
 
 
-def _prompt_payload(
-    story: SpikeStory,
-    prepared: preparation.StoryPreparation,
+def _evidence_payload(
+    story: SpikeStory, prepared: preparation.StoryPreparation
 ) -> dict[str, Any]:
     return {
+        "stage": EVIDENCE_STAGE,
+        "prompt_version": PROMPT_VERSION,
         "story_id": story.story_id,
-        "title": story.title,
-        "selection_genre": story.selection_genre,
         "story_hash": prepared.story_hash,
-        "whole_story_eligible": prepared.whole_story_eligible,
-        "text": prepared.normalized_text,
-        "instructions": [
-            "Use exact quotations from text.",
-            "Do not combine Knight and Suvin judgments.",
-            "Return Knight interval inputs, not a genre probability.",
-            "Qualify Suvin novum only by novelty, cognitive validation, and hegemony.",
-        ],
+        "paragraph_ids": [item.paragraph_id for item in prepared.paragraphs],
+        "text": _indexed_story_text(prepared),
     }
 
 
-def _system_prompt() -> str:
-    return (
-        "You are an LCATS experiment-local science-fiction analysis extractor. "
-        "Return only the requested structured data. Use exact story quotations."
+def _knight_payload(
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+) -> dict[str, Any]:
+    return {
+        "stage": KNIGHT_STAGE,
+        "prompt_version": PROMPT_VERSION,
+        "story_id": story.story_id,
+        "story_hash": prepared.story_hash,
+        "evidence_set_id": evidence_set.evidence_set_id,
+        "text": _indexed_story_text(prepared),
+        "evidence": [item.to_dict() for item in evidence_set.records],
+    }
+
+
+def _suvin_payload(
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+) -> dict[str, Any]:
+    return {
+        "stage": SUVIN_STAGE,
+        "prompt_version": PROMPT_VERSION,
+        "story_id": story.story_id,
+        "story_hash": prepared.story_hash,
+        "evidence_set_id": evidence_set.evidence_set_id,
+        "text": _indexed_story_text(prepared),
+        "evidence": [item.to_dict() for item in evidence_set.records],
+    }
+
+
+def _indexed_story_text(prepared: preparation.StoryPreparation) -> str:
+    return "\n\n".join(
+        f"[{paragraph.paragraph_id}] {paragraph.text}"
+        for paragraph in prepared.paragraphs
     )
 
 
-def _tool_schema() -> dict[str, Any]:
-    return {
-        "name": "record_worldcon_knight_novum_spike",
-        "description": "Record a bounded Knight/Novum spike analysis.",
-        "input_schema": {
-            "type": "object",
-            "additionalProperties": False,
-            "properties": {
-                "evidence": {"type": "array", "items": {"type": "object"}},
-                "knight_criteria": {"type": "array", "items": {"type": "object"}},
-                "novum_candidates": {"type": "array", "items": {"type": "object"}},
-                "dominant_novum_id": {"type": ["string", "null"]},
+def _evidence_system_prompt() -> str:
+    return """
+You are the shared, theory-neutral evidence extractor for an LCATS
+science-fiction analysis. Read only the supplied story. Return only the
+record_science_fiction_evidence tool input.
+
+Extract concise candidate evidence for these controlled types:
+storyworld_change, scientific_or_technical_explanation,
+inquiry_or_scientific_method, temporal_or_spatial_displacement,
+extrapolative_consequence, catastrophe, character_reaction, and
+reader_facing_contrast.
+
+Every item must contain an exact quotation copied from the story, the
+paragraph IDs containing it, a short neutral paraphrase, a confidence from 0
+to 1, and a unique raw_id. Do not put paragraph markers inside quotations.
+Do not make Knight or Suvin judgments, identify a genre, calculate a score, or
+call anything a novum. Prefer fewer strong items to unsupported guesses.
+Return the exact keys required by the tool schema.
+""".strip()
+
+
+def _knight_system_prompt() -> str:
+    return """
+You are the independent Knight adjudicator in an LCATS science-fiction
+analysis. The shared evidence records are supplied by an earlier stage.
+Return only the record_knight_adjudication tool input.
+
+Use rubric_id knight-seven-v1 and return exactly criterion_1 through
+criterion_7. Use present, ambiguous, absent, or not_assessable. Do not return
+a score, probability, pass threshold, or arithmetic; Python computes the
+definite/possible interval.
+
+criterion_1 science: scientific facts, theories, discoveries, natural
+processes, or speculative sciences materially represented.
+criterion_2 technology_and_invention: a device, technique, engineered system,
+or invention materially affects the setting, problem, action, or outcome.
+criterion_3 future_remote_past_time_travel: a speculative future or remote
+past, or temporal displacement.
+criterion_4 extrapolation: consequences developed from an identifiable
+scientific, technological, social, or historical premise.
+criterion_5 scientific_method: observation, hypothesis, testing, measurement,
+evidential revision, or systematic inference materially drives understanding
+or action.
+criterion_6 other_places_and_visitors: other planets, dimensions,
+substantially nonordinary cosmic environments, or visitors from them.
+criterion_7 catastrophe: a natural, technological, cosmic, biological, or
+human-caused large-scale disaster that is actual, impending, remembered, or
+causally central.
+
+Do not count a mere mention, ordinary contemporary tool, decorative jargon,
+incidental date, generic investigation, ordinary foreign country, or personal
+misfortune without broader scale. For present or ambiguous criteria, use
+central, substantial, or incidental materiality; otherwise use materiality
+none. Cite supporting and counterevidence IDs from the supplied evidence.
+Return exactly the schema keys; do not substitute criterion or assessment for
+criterion_id or status.
+""".strip()
+
+
+def _suvin_system_prompt() -> str:
+    return """
+You are the independent Suvin Novum adjudicator in an LCATS science-fiction
+analysis. The story and shared neutral evidence are supplied by earlier
+stages. Return only the record_suvin_novum_adjudication tool input.
+
+Identify candidate nova, not every unusual object or gadget. For each
+candidate, decide independently:
+- novelty: a totalizing or world-altering difference from the authorial or
+  implied empirical norm that changes the story universe or a crucial aspect;
+- cognitive_validation: a coherent, systematic, immanent, nonsupernatural
+  account, including imaginary science or social organization. Present-day
+  buildability, scientific accuracy, engineering detail, and technobabble are
+  neither required nor sufficient;
+- narrative_hegemony: centrality sufficient to determine the whole or
+  overriding narrative logic, rather than an incidental device.
+
+Use present, ambiguous, absent, or not_assessable for each dimension. A
+candidate qualifies only when all three dimensions are present. Do not emit a
+numeric score or qualified_novum; Python computes the conjunction. Record
+reader-facing contrast, storyworld consequences, and optional character
+reaction separately as estrangement evidence. Character surprise is not
+required. Use only evidence IDs supplied in the prompt.
+""".strip()
+
+
+def _evidence_tool_schema() -> dict[str, Any]:
+    evidence_item = {
+        "type": "object",
+        "properties": {
+            "raw_id": {"type": "string"},
+            "evidence_type": {
+                "type": "string",
+                "enum": [
+                    "storyworld_change",
+                    "scientific_or_technical_explanation",
+                    "inquiry_or_scientific_method",
+                    "temporal_or_spatial_displacement",
+                    "extrapolative_consequence",
+                    "catastrophe",
+                    "character_reaction",
+                    "reader_facing_contrast",
+                ],
             },
-            "required": [
-                "evidence",
-                "knight_criteria",
-                "novum_candidates",
-                "dominant_novum_id",
-            ],
+            "quote": {"type": "string"},
+            "paragraph_ids": {"type": "array", "items": {"type": "string"}},
+            "paraphrase": {"type": "string"},
+            "confidence": {"type": "number"},
         },
-        "strict": False,
+        "required": [
+            "raw_id",
+            "evidence_type",
+            "quote",
+            "paragraph_ids",
+            "paraphrase",
+            "confidence",
+        ],
     }
+    return tool_schema_module.strict_tool_schema(
+        {
+            "name": EVIDENCE_TOOL_NAME,
+            "description": "Record neutral, story-grounded evidence candidates.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "evidence": {"type": "array", "items": evidence_item},
+                },
+                "required": ["evidence"],
+            },
+        }
+    )
+
+
+def _knight_tool_schema() -> dict[str, Any]:
+    criterion = {
+        "type": "object",
+        "properties": {
+            "criterion_id": {
+                "type": "string",
+                "enum": [f"criterion_{index}" for index in range(1, 8)],
+            },
+            "status": {
+                "type": "string",
+                "enum": ["present", "ambiguous", "absent", "not_assessable"],
+            },
+            "materiality": {
+                "type": "string",
+                "enum": ["central", "substantial", "incidental", "none"],
+            },
+            "supporting_evidence_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "counterevidence_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "rationale": {"type": "string"},
+            "confidence": {"type": "number"},
+        },
+        "required": [
+            "criterion_id",
+            "status",
+            "materiality",
+            "supporting_evidence_ids",
+            "counterevidence_ids",
+            "rationale",
+            "confidence",
+        ],
+    }
+    return tool_schema_module.strict_tool_schema(
+        {
+            "name": KNIGHT_TOOL_NAME,
+            "description": "Record seven independent Knight criterion decisions.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "knight_criteria": {
+                        "type": "array",
+                        "items": criterion,
+                    }
+                },
+                "required": ["knight_criteria"],
+            },
+        }
+    )
+
+
+def _suvin_tool_schema() -> dict[str, Any]:
+    evidence_ids = {"type": "array", "items": {"type": "string"}}
+    dimension = {
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string",
+                "enum": ["present", "ambiguous", "absent", "not_assessable"],
+            },
+            "supporting_evidence_ids": evidence_ids,
+            "counterevidence_ids": evidence_ids,
+            "rationale": {"type": "string"},
+            "confidence": {"type": "number"},
+        },
+        "required": [
+            "status",
+            "supporting_evidence_ids",
+            "counterevidence_ids",
+            "rationale",
+            "confidence",
+        ],
+    }
+    candidate = {
+        "type": "object",
+        "properties": {
+            "candidate_id": {"type": "string"},
+            "description": {"type": "string"},
+            "novelty": dimension,
+            "cognitive_validation": dimension,
+            "narrative_hegemony": dimension,
+            "reader_facing_evidence_ids": evidence_ids,
+            "storyworld_consequence_evidence_ids": evidence_ids,
+            "character_reaction_evidence_ids": evidence_ids,
+            "estrangement_rationale": {"type": "string"},
+            "evidence_ids": evidence_ids,
+        },
+        "required": [
+            "candidate_id",
+            "description",
+            "novelty",
+            "cognitive_validation",
+            "narrative_hegemony",
+            "reader_facing_evidence_ids",
+            "storyworld_consequence_evidence_ids",
+            "character_reaction_evidence_ids",
+            "estrangement_rationale",
+            "evidence_ids",
+        ],
+    }
+    return tool_schema_module.strict_tool_schema(
+        {
+            "name": SUVIN_TOOL_NAME,
+            "description": "Record independent candidate-based Suvin Novum decisions.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "novum_candidates": {"type": "array", "items": candidate},
+                    "dominant_novum_id": {"type": "string"},
+                },
+                "required": ["novum_candidates", "dominant_novum_id"],
+            },
+        }
+    )
 
 
 def _fake_tool_result(payload: dict[str, Any]) -> dict[str, Any]:
@@ -941,8 +1637,32 @@ def _fake_tool_result(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _fake_stage_result(
+    payload: dict[str, Any], tool: dict[str, Any] | None
+) -> dict[str, Any]:
+    result = _fake_tool_result(payload)
+    tool_name = tool.get("name") if isinstance(tool, dict) else None
+    if tool_name == EVIDENCE_TOOL_NAME:
+        return {"evidence": result["evidence"]}
+    if tool_name == KNIGHT_TOOL_NAME:
+        return {"knight_criteria": result["knight_criteria"]}
+    if tool_name == SUVIN_TOOL_NAME:
+        return {
+            "novum_candidates": result["novum_candidates"],
+            "dominant_novum_id": result["dominant_novum_id"],
+        }
+    return result
+
+
 def _story_quotes(text: str) -> tuple[str, str, str, str, str, str]:
-    paragraphs = [item.strip() for item in text.split("\n\n") if item.strip()]
+    paragraphs = []
+    for item in text.split("\n\n"):
+        cleaned = item.strip()
+        if not cleaned:
+            continue
+        if cleaned.startswith("[") and "] " in cleaned:
+            cleaned = cleaned.split("] ", 1)[1]
+        paragraphs.append(cleaned)
     if not paragraphs:
         paragraphs = [text.strip()]
     snippets = [_short_quote(item) for item in paragraphs]
@@ -996,9 +1716,7 @@ def _enforce_run_gate(
             pathlib.Path(options.smoke_summary).read_text(encoding="utf-8")
         )
         if smoke_summary.get("status") != "complete":
-            raise ValueError(
-                f"{options.mode} mode requires a successful smoke summary"
-            )
+            raise ValueError(f"{options.mode} mode requires a successful smoke summary")
     if gate.requires_full_sample_approval and not options.approve_full_sample:
         raise ValueError("full mode requires --approve-full-sample")
     if _paid_call_requested(options, gate):
@@ -1023,13 +1741,9 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
     if not gate.paid_model_calls_authorized:
         raise ValueError("manifest does not authorize paid model calls")
     if gate.approved_backend is None or gate.approved_model is None:
-        raise ValueError(
-            "paid model calls require approved_backend and approved_model"
-        )
+        raise ValueError("paid model calls require approved_backend and approved_model")
     if gate.approved_backend != options.backend_kind:
-        raise ValueError(
-            "paid model calls require backend to match approved_backend"
-        )
+        raise ValueError("paid model calls require backend to match approved_backend")
     if gate.approved_model != options.model:
         raise ValueError("paid model calls require model to match approved_model")
     if gate.estimated_cost_usd <= 0:
@@ -1061,9 +1775,7 @@ def _load_full_sample(manifest: SpikeManifest) -> tuple[SpikeStory, ...]:
                 )
             )
     if len(stories) != FULL_SAMPLE_LIMIT:
-        raise ValueError(
-            f"full sample source must contain {FULL_SAMPLE_LIMIT} stories"
-        )
+        raise ValueError(f"full sample source must contain {FULL_SAMPLE_LIMIT} stories")
     return tuple(stories)
 
 
@@ -1086,6 +1798,7 @@ def _summary(
         "mode": options.mode,
         "backend_kind": options.backend_kind,
         "model": options.model,
+        "code_commit": _git_commit(),
         "output_root": _display_path(output_root),
         "manifest_path": _display_path(manifest.manifest_path),
         "source_worldcon_manifest": manifest.source_worldcon_manifest,
@@ -1119,6 +1832,9 @@ def _plan(
         "backend_kind": options.backend_kind,
         "model": options.model,
         "base_url": options.base_url,
+        "code_commit": _git_commit(),
+        "max_tokens": options.max_tokens,
+        "temperature": options.temperature,
         "estimated_cost_usd": gate.estimated_cost_usd,
         "paid_model_calls_authorized": gate.paid_model_calls_authorized,
         "approve_paid": options.approve_paid,
@@ -1127,12 +1843,6 @@ def _plan(
         "manifest_fingerprint": _manifest_fingerprint(manifest),
         "story_ids": [story.story_id for story in stories],
     }
-
-
-def _new_run_id() -> str:
-    """Return a unique, path-safe identifier for one invocation."""
-
-    return f"run-{uuid.uuid4().hex}"
 
 
 def _write_summary(output_root: pathlib.Path, summary: dict[str, Any]) -> pathlib.Path:
@@ -1268,7 +1978,9 @@ def _existing_evidence_ids(
     evidence_set: evidence.EvidenceSet,
     evidence_ids: tuple[str, ...],
 ) -> tuple[str, ...]:
-    available = {record.evidence_id: record.evidence_id for record in evidence_set.records}
+    available = {
+        record.evidence_id: record.evidence_id for record in evidence_set.records
+    }
     for record in evidence_set.records:
         for provenance in record.provenance:
             if provenance.raw_id:
@@ -1276,12 +1988,11 @@ def _existing_evidence_ids(
     return tuple(available[item] for item in evidence_ids if item in available)
 
 
-def _required_list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:
-    """Return a required collection or reject a schema-invalid shape."""
-
-    if key not in data or not isinstance(data[key], list | tuple):
-        raise ValueError(f"{key} must be a list")
-    return tuple(data[key])
+def _list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:
+    value = data.get(key, ())
+    if isinstance(value, list | tuple):
+        return tuple(value)
+    return ()
 
 
 def _string_tuple(value: Any) -> tuple[str, ...]:
@@ -1305,6 +2016,8 @@ def _decision_state(value: Any) -> str:
 
 
 def _materiality(value: Any) -> str | None:
+    if value == "none":
+        return None
     if value in models.MATERIALITY_STATES:
         return str(value)
     return None
@@ -1360,16 +2073,21 @@ def _estimate_tokens(text: str) -> int:
 
 
 def _git_commit() -> str | None:
-    git_head = _repo_root() / ".git" / "HEAD"
-    if not git_head.exists():
+    result = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=_repo_root(),
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    if result.returncode != 0:
         return None
-    head = git_head.read_text(encoding="utf-8").strip()
-    if head.startswith("ref: "):
-        ref = _repo_root() / ".git" / head.removeprefix("ref: ")
-        if ref.exists():
-            return ref.read_text(encoding="utf-8").strip()
-        return None
-    return head
+    commit = result.stdout.strip()
+    return commit or None
+
+
+def _new_run_id() -> str:
+    return f"run-{uuid.uuid4().hex}"
 
 
 def _repo_root() -> pathlib.Path:
@@ -1402,7 +2120,9 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
         description="Run the bounded Worldcon Knight/Novum spike."
     )
     parser.add_argument("--manifest", type=pathlib.Path, default=DEFAULT_MANIFEST)
-    parser.add_argument("--output-root", type=pathlib.Path, default=DEFAULT_RESULTS_ROOT)
+    parser.add_argument(
+        "--output-root", type=pathlib.Path, default=DEFAULT_RESULTS_ROOT
+    )
     parser.add_argument(
         "--mode",
         choices=(SMOKE_MODE, SAMPLE_MODE, FULL_MODE),
@@ -1411,7 +2131,12 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument(
         "--backend",
         dest="backend_kind",
-        choices=(FAKE_BACKEND, OPENAI_BACKEND, OPENAI_COMPATIBLE_BACKEND, ANTHROPIC_BACKEND),
+        choices=(
+            FAKE_BACKEND,
+            OPENAI_BACKEND,
+            OPENAI_COMPATIBLE_BACKEND,
+            ANTHROPIC_BACKEND,
+        ),
         default=FAKE_BACKEND,
     )
     parser.add_argument("--model", default=DEFAULT_MODEL)
