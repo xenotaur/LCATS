@@ -154,9 +154,9 @@ pipeline.
 - `scripts/lint`
 - `scripts/test`
 - `lrh validate`
-- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py --help`
-- `python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
-- `git diff --exit-code -- corpora experiments/07_linguistics_corpora`
+- `python ../experiments/09_rich_linguistics_genre_sample/audit_pos.py --help`
+- `cd .. && python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
+- `git diff --exit-code -- ../corpora ../experiments/07_linguistics_corpora`
 
 ## Risk Notes
 
