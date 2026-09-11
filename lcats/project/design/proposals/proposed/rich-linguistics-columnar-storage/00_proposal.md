@@ -46,8 +46,13 @@ lexicons. The experiment-local Parquet export contains three tables and is
 | `tar.zst` of the JSON mirror | 38,013,312 | fresh local measurement from the pilot mirror; temporary archive, not a committed artifact |
 | Parquet package, Zstandard-compressed | 13,253,393 | `experiments/09_rich_linguistics_genre_sample/results/experiment_report.json` and `experiments/09_rich_linguistics_genre_sample/results/parquet/parquet_manifest.json` |
 
-The Parquet package is about 3.24% of the expanded JSON mirror and about 35%
-of the measured compressed JSON archive. These are storage measurements, not
+The expanded-mirror total is not a like-for-like comparison with Parquet: it
+includes source stories, compact sidecars, token-detail JSON, and derived
+lexicons, while the Parquet package contains token-detail sentence, story, and
+token tables only. The Parquet package is 3.49% of the token-detail JSON alone
+(13,253,393 / 379,609,077), and 3.24% of the all-in expanded mirror. It is
+about 35% of the measured compressed JSON archive, but that archive comparison
+also retains the other artifact classes. These are storage measurements, not
 claims about statistical quality or significance. The report also projects
 roughly 5.24 GB of expanded rich output for 1,868 stories; that projection is
 linear and must be revisited after the full-run gate.
@@ -166,16 +171,17 @@ needed, never as the storage default.
 
 Adopt a three-tier policy:
 
-1. **Canonical validation artifacts:** retain the existing per-story
-   `linguistics.json`, `linguistics.tokens.json`, and
-   `linguistics.lexicon.json` schemas, plus manifests, hashes, provenance, and
-   validation reports. Keep these in the experiment output or a durable release
-   archive. Do not promote them into `corpora/`.
-2. **Derived analysis artifacts:** produce Parquet tables from validated
-   token-detail-v2 data, using a versioned schema, Zstandard compression,
-   deterministic ordering, a manifest, and a tested JSON restore path. Use
-   DuckDB or Arrow as optional readers rather than committing their databases or
-   making them core dependencies.
+1. **Canonical validation artifacts:** retain the source story plus the
+   validated per-story `linguistics.json` and `linguistics.tokens.json`
+   artifacts, together with manifests, hashes, provenance, and validation
+   reports. Keep these in the experiment output or a durable release archive.
+   Do not promote generated sidecars into `corpora/`.
+2. **Derived analysis artifacts:** treat `linguistics.lexicon.json` as a
+   regenerable materialized view and produce Parquet tables from validated
+   token-detail-v2 data. Both derived forms use versioned schemas, deterministic
+   ordering, manifests, and tested linkage or restore paths. Use DuckDB or
+   Arrow as optional readers rather than committing their databases or making
+   them core dependencies.
 3. **Git contents:** check in the work item/proposal, schemas and validators,
    small reports, manifests, hashes, reproducible commands, and derived data
    only when it remains within repository artifact policy. Keep bulky canonical
