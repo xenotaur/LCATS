@@ -36,10 +36,10 @@ forbidden_actions:
   - produce_pos_figures
 acceptance:
   - An experiment-local helper presents the next unresolved audit row with stable token identity, story/genre, context, machine label, and audit guidance
-  - Human decisions are stored separately from the generated sample and support explicit reviewed, uncertain, blocked, and issue-bearing states
+  - Human decisions are stored separately from the generated sample using the canonical dispositions `pending`, `reviewed`, `uncertain`, and `blocked`, with issue codes orthogonal to disposition
   - Segmentation, tokenization, context, and POS issues use a canonical multi-valued issue-code vocabulary and can be recorded without silently discarding the affected example
   - The helper validates completeness, stable token keys, immutable row fingerprints, allowed labels, and explicit dispositions before scoring
-  - Scoring refuses unresolved or blocked rows until every row has a valid `NOUN`, `PROPN`, or `OTHER` label, while preserving issue metadata in the scored output
+  - Scoring refuses `pending`, `uncertain`, or `blocked` rows until every row has a valid `NOUN`, `PROPN`, or `OTHER` label, while preserving issue metadata in the scored output
   - Existing deterministic POS scoring remains authoritative, and tests cover resume behavior, invalid input, unresolved rows, issue recording, and scoring handoff
 required_evidence:
   - test_output
@@ -115,7 +115,15 @@ pipeline.
    stable `token_key`, with an immutable SHA-256 row fingerprint over all
    reviewer-visible packet identity and observed fields (`story_id`,
    `selection_genre`, `audit_bucket`, `audit_features`, `token_key`, token
-   indices, `text`, `lemma`, `machine_upos`, and `context`).
+   indices, `text`, `lemma`, `machine_upos`, and `context`). The packet is
+   exactly the repository-relative
+   `experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv`
+   with schema `rich-linguistics-pos-audit-v1`; canonical JSON uses the
+   declared `AUDIT_FIELDS` order, UTF-8, `ensure_ascii=false`, sorted keys,
+   and compact separators. The packet fingerprint is SHA-256 over the
+   newline-delimited row fingerprints in CSV order. The ledger must contain
+   exactly one entry for every packet row and reject duplicate, missing, or
+   extra entries.
    Store the ledger by default at
    `experiments/09_rich_linguistics_genre_sample/results/pos_audit_ledger.json`
    using schema `rich-linguistics-pos-audit-ledger-v1`, including a packet
@@ -127,19 +135,25 @@ pipeline.
 3. Define and validate the canonical issue-code enum: `segmentation`,
    `tokenization`, `context`, `pos_ambiguity`, and `other`; allow multiple
    codes per row and preserve notes and reviewer metadata.
-4. Implement decision recording with validation for allowed labels and
-   dispositions. Distinguish a completed label from an uncertain or blocked
-   review; do not silently count unresolved rows as negative labels.
+4. Implement decision recording with validation for the canonical dispositions
+   `pending`, `reviewed`, `uncertain`, and `blocked`. `reviewed` requires one
+   of `NOUN`, `PROPN`, or `OTHER`; `pending`, `uncertain`, and `blocked` do
+   not count as labels and must carry an explanatory note when persisted.
+   Issue codes are independent and may be attached to any disposition.
 5. Validate that every sample row is represented exactly once, all keys and
    row fingerprints match the generated packet, and every row has an explicit
    disposition before scoring.
-6. Make `score` refuse to run while any row is uncertain or blocked or lacks a
-   valid POS label. Adapt the completed ledger's labels into the existing
+6. Make `score` refuse to run while any row is `pending`, `uncertain`, or
+   `blocked` or lacks a valid POS label. A `reviewed` row may retain issue
+   codes; issue-bearing reviewed rows remain in the POS denominator and are
+   reported separately rather than silently excluded. Adapt the completed ledger's labels into the existing
    scorer, then write
    `experiments/09_rich_linguistics_genre_sample/results/pos_audit_scored.json`
    with schema `rich-linguistics-pos-audit-scored-v1`, the packet and ledger
    fingerprints, per-row labels/issues/notes/reviewer metadata, and the
-   existing aggregate, confusion, and per-genre metrics.
+   existing aggregate, confusion, and per-genre metrics, plus scorer source,
+   repository commit, effective threshold values, and scoring contract version
+   `rich-linguistics-pos-audit-scoring-v1`.
 7. Add tests for normal progression, resume behavior, malformed records,
    duplicate or stale token keys, fingerprint/schema mismatches, default
    start/resume paths, unresolved rows, issue recording, and scoring handoff
@@ -171,23 +185,24 @@ pipeline.
   skipped records are rejected before scoring.
 - Segmentation and tokenization defects use the canonical issue codes and
   remain available for review.
-- Scoring refuses uncertain or blocked rows and consumes only fully labeled
+- Scoring refuses pending, uncertain, or blocked rows and consumes only fully labeled
   validated decisions, producing the versioned scored report with issue
-  metadata preserved and without changing the registered thresholds or
+  metadata preserved, issue-bearing rows retained in the denominator, and
+  scorer provenance recorded without changing the registered thresholds or
   interpretation.
 - The README no longer directs reviewers to edit the generated sample CSV.
 - Tests and documentation demonstrate the complete review-to-score workflow.
 
 ## Validation
 
-- `scripts/version tools`
-- `scripts/format --check --diff`
-- `scripts/lint`
-- `scripts/test`
-- `lrh validate`
-- `python ../experiments/09_rich_linguistics_genre_sample/audit_pos.py --help`
-- `cd .. && python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
-- `git diff --exit-code -- ../corpora ../experiments/07_linguistics_corpora`
+- `(from lcats/): scripts/version tools`
+- `(from lcats/): scripts/format --check --diff`
+- `(from lcats/): scripts/lint`
+- `(from lcats/): scripts/test`
+- `(from lcats/): lrh validate`
+- `(from repository root): python experiments/09_rich_linguistics_genre_sample/audit_pos.py --help`
+- `(from repository root): python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
+- `(from repository root): git diff --exit-code -- corpora experiments/07_linguistics_corpora`
 
 ## Risk Notes
 
