@@ -2,10 +2,10 @@
 execution_id: 2026_09_11_06_25_27_WORLDCON_SPIKE_SAFETY_FIX_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WORLDCON_SPIKE_SAFETY_FIX_SELFREVIEW)[2026-09-11T06:25:27+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/433
-commit: 
+commit: 022334bb8c04fa7d8c62e994c63f63b28ab597dc
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/433
 session_transcript: pending
