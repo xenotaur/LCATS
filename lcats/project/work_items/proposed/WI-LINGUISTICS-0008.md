@@ -21,6 +21,7 @@ related_design:
 depends_on:
   - WI-LINGUISTICS-0007
   - WI-LINGUISTICS-0009
+  - WI-LINGUISTICS-0010
 blocked_by: []
 expected_actions:
   - create_file
