@@ -103,8 +103,9 @@ pipeline.
 - Display the token, lemma, machine UPOS, story, genre, context, audit
   features, and concise labeling guidance.
 - Store human review data separately from the generated sample.
-- Support `NOUN`, `PROPN`, and `OTHER`, plus explicit unresolved or blocked
-  dispositions.
+- Support `NOUN`, `PROPN`, and `OTHER`, plus the canonical `pending`,
+  `reviewed`, `uncertain`, and `blocked` dispositions. `pending`, `uncertain`,
+  and `blocked` are unresolved for `status` and `next`.
 - Preserve all reviewed examples, including ambiguous and defective examples,
   for later inspection and adjudication.
 - Reuse the existing deterministic precision/recall and genre-slice scoring.
@@ -112,15 +113,16 @@ pipeline.
 ## Required Changes
 
 1. Define a small experiment-local audit record or ledger keyed by the existing
-   stable `token_key`, with an immutable SHA-256 row fingerprint over all
-   reviewer-visible packet identity and observed fields (`story_id`,
-   `selection_genre`, `audit_bucket`, `audit_features`, `token_key`, token
-   indices, `text`, `lemma`, `machine_upos`, and `context`). The packet is
+   stable `token_key`, with an immutable SHA-256 row fingerprint over the
+   explicit immutable field list `story_id`, `selection_genre`,
+   `audit_bucket`, `audit_features`, `token_key`, `sentence_index`,
+   `token_index`, `global_token_index`, `text`, `lemma`, `machine_upos`, and
+   `context`. The editable `gold_upos` and `notes` fields are excluded. The packet is
    exactly the repository-relative
    `experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv`
    with schema `rich-linguistics-pos-audit-v1`; canonical JSON uses the
-   declared `AUDIT_FIELDS` order, UTF-8, `ensure_ascii=false`, sorted keys,
-   and compact separators. The packet fingerprint is SHA-256 over the
+   immutable field list order, UTF-8, `ensure_ascii=false`, no key sorting, and
+   compact separators. The packet fingerprint is SHA-256 over the
    newline-delimited row fingerprints in CSV order. The ledger must contain
    exactly one entry for every packet row and reject duplicate, missing, or
    extra entries.
@@ -130,7 +132,8 @@ pipeline.
    fingerprint derived from the ordered sample rows and the sample schema
    version. Reject a ledger with an incompatible schema or packet fingerprint.
 2. Implement deterministic `status` and `next` operations using that default
-   ledger path; show progress and select the next unresolved row without
+   ledger path; treat `pending`, `uncertain`, and `blocked` uniformly as
+   unresolved, show progress, and select the next unresolved row without
    changing sample order.
 3. Define and validate the canonical issue-code enum: `segmentation`,
    `tokenization`, `context`, `pos_ambiguity`, and `other`; allow multiple
@@ -157,7 +160,8 @@ pipeline.
 7. Add tests for normal progression, resume behavior, malformed records,
    duplicate or stale token keys, fingerprint/schema mismatches, default
    start/resume paths, unresolved rows, issue recording, and scoring handoff
-   with preserved issue metadata.
+   with preserved issue metadata. Verify that scoring leaves the generated
+   `pos_audit_sample.csv` byte-for-byte unchanged.
 8. Replace the README's current edit-in-place CSV instructions with detailed
    helper-based instructions for starting, resuming, validating, and scoring an
    audit while keeping the generated sample read-only.
@@ -179,6 +183,9 @@ pipeline.
 
 - A reviewer can start, pause, resume, and inspect progress without editing
   generated sample rows directly.
+- The supported dispositions are exactly `pending`, `reviewed`, `uncertain`,
+  and `blocked`; the latter three are unresolved for `status` and `next`, and
+  only `reviewed` rows may carry a scoring label.
 - Every audit row has a stable identity, visible context, an explicit review
   disposition, and preserved notes/issues.
 - Invalid, duplicate, stale, fingerprint-mismatched, incomplete, or silently
@@ -190,6 +197,8 @@ pipeline.
   metadata preserved, issue-bearing rows retained in the denominator, and
   scorer provenance recorded without changing the registered thresholds or
   interpretation.
+- Scoring does not modify the generated `pos_audit_sample.csv`; its byte-level
+  immutability is tested.
 - The README no longer directs reviewers to edit the generated sample CSV.
 - Tests and documentation demonstrate the complete review-to-score workflow.
 
