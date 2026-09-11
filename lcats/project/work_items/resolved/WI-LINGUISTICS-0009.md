@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented the durable rich-linguistics storage design proposal in PR #432 (commit 2655a13a1ca88e910cdc1909ad76241361103d4a)."
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0009
 title: Design durable columnar storage for rich linguistic artifacts
 type: investigation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
