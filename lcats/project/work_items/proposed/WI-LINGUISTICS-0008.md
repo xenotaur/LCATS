@@ -21,6 +21,7 @@ related_design:
 depends_on:
   - WI-LINGUISTICS-0007
   - WI-LINGUISTICS-0009
+  - WI-LINGUISTICS-0010
 blocked_by: []
 expected_actions:
   - create_file
@@ -37,6 +38,7 @@ forbidden_actions:
   - overwrite_experiment_07
 acceptance:
   - The item records an explicit human-reviewed decision against pilot quality, validation, runtime, storage, retention, and research-need gates before any full run
+  - The gate consumes `experiments/09_rich_linguistics_genre_sample/results/pos_audit_scored.json` as the authoritative human-audit input, verifies its schema, packet/ledger fingerprints, scorer provenance, and registered metrics, and refuses to proceed when it is missing or mismatched
   - If gates pass, a new numbered experiment runs v2 and lexical generation over the current corpus in an experiment-local/output-root layout with resume, full validation, timing, storage, and provenance reports
   - If any gate fails or need is insufficient, the item records an evidence-backed no-go/defer result and required follow-up without launching the full run
   - The selected retention policy is applied consistently and the report identifies which artifacts are checked in, archived, exported, or reproducibly omitted
