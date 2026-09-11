@@ -8,7 +8,7 @@ pr: https://github.com/xenotaur/LCATS/pull/434
 commit: efd138a8d5c0049bc6df265072582821bd727bb1
 created_at: 2026-09-11T08:06:16+00:00
 agent: codex_app
-instruction_source: /lrh-land https://github.com/xenotaur/LCATS/pull/434 (inline confirm-fixes)
+instruction_source: promptspace:lrh-land PR-434 (inline confirm-fixes)
 session_transcript: pending
 ---
 
