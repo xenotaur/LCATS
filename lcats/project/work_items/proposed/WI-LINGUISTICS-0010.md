@@ -156,7 +156,10 @@ pipeline.
    fingerprints, per-row labels/issues/notes/reviewer metadata, and the
    existing aggregate, confusion, and per-genre metrics, plus scorer source,
    repository commit, effective threshold values, and scoring contract version
-   `rich-linguistics-pos-audit-scoring-v1`.
+   `rich-linguistics-pos-audit-scoring-v1`. This scored report is the
+   authoritative human-audit input for `WI-LINGUISTICS-0008` and downstream
+   POS gates; it does not replace or overwrite the experiment-generated
+   `pos_audit.json` or `experiment_report.json`.
 7. Add tests for normal progression, resume behavior, malformed records,
    duplicate or stale token keys, fingerprint/schema mismatches, default
    start/resume paths, unresolved rows, issue recording, and scoring handoff
@@ -184,7 +187,8 @@ pipeline.
 - A reviewer can start, pause, resume, and inspect progress without editing
   generated sample rows directly.
 - The supported dispositions are exactly `pending`, `reviewed`, `uncertain`,
-  and `blocked`; the latter three are unresolved for `status` and `next`, and
+  and `blocked`; `pending`, `uncertain`, and `blocked` are unresolved for
+  `status` and `next`, and
   only `reviewed` rows may carry a scoring label.
 - Every audit row has a stable identity, visible context, an explicit review
   disposition, and preserved notes/issues.
