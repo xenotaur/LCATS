@@ -4,7 +4,7 @@ type: design_proposal
 title: Durable Storage for Rich Linguistic Artifacts
 status: proposed
 created_on: 2026-09-10
-updated_on: 2026-09-10
+updated_on: 2026-09-11
 implementation_status: not_started
 implemented_by:
   - WI-LINGUISTICS-0009
