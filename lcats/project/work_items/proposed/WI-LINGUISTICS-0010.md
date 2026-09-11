@@ -37,9 +37,15 @@ forbidden_actions:
 acceptance:
   - An experiment-local helper presents the next unresolved audit row with stable token identity, story/genre, context, machine label, and audit guidance
   - Human decisions are stored separately from the generated sample and support explicit reviewed, uncertain, blocked, and issue-bearing states
-  - Segmentation, tokenization, context, and POS issues can be recorded without silently discarding the affected example
-  - The helper validates completeness, stable token keys, allowed labels, and explicit dispositions before scoring
+  - Segmentation, tokenization, context, and POS issues use a canonical multi-valued issue-code vocabulary and can be recorded without silently discarding the affected example
+  - The helper validates completeness, stable token keys, immutable row fingerprints, allowed labels, and explicit dispositions before scoring
+  - Scoring refuses unresolved or blocked rows until every row has a valid `NOUN`, `PROPN`, or `OTHER` label, while preserving issue metadata in the scored output
   - Existing deterministic POS scoring remains authoritative, and tests cover resume behavior, invalid input, unresolved rows, issue recording, and scoring handoff
+required_evidence:
+  - test_output
+  - validation_output
+  - lrh_validate
+  - manual_review
 artifacts_expected:
   - experiments/09_rich_linguistics_genre_sample/audit_pos.py
   - experiments/09_rich_linguistics_genre_sample/audit_pos_test.py
@@ -104,21 +110,29 @@ pipeline.
 ## Required Changes
 
 1. Define a small experiment-local audit record or ledger keyed by the existing
-   stable `token_key`.
+   stable `token_key`, with an immutable SHA-256 row fingerprint over the
+   packet identity and observed fields (`story_id`, `selection_genre`,
+   `token_key`, token indices, `text`, `lemma`, `machine_upos`, and `context`).
 2. Implement deterministic `status` and `next` operations that show progress
    and select the next unresolved row without changing sample order.
-3. Implement decision and issue recording with validation for allowed labels,
-   issue codes, notes, and reviewer metadata.
-4. Distinguish a completed label from an uncertain or blocked review; do not
-   silently count unresolved rows as negative labels.
-5. Validate that every sample row is represented exactly once, all keys match
-   the generated packet, and every row has an explicit disposition before
-   scoring.
-6. Add tests for normal progression, resume behavior, malformed records,
-   duplicate or stale token keys, unresolved rows, segmentation issues, and
-   scoring handoff.
-7. Update the experiment README with detailed reviewer instructions and the
-   exact commands for starting, resuming, validating, and scoring an audit.
+3. Define and validate the canonical issue-code enum: `segmentation`,
+   `tokenization`, `context`, `pos_ambiguity`, and `other`; allow multiple
+   codes per row and preserve notes and reviewer metadata.
+4. Implement decision recording with validation for allowed labels and
+   dispositions. Distinguish a completed label from an uncertain or blocked
+   review; do not silently count unresolved rows as negative labels.
+5. Validate that every sample row is represented exactly once, all keys and
+   row fingerprints match the generated packet, and every row has an explicit
+   disposition before scoring.
+6. Make `score` refuse to run while any row is uncertain or blocked or lacks a
+   valid POS label; preserve issue metadata when the completed ledger is handed
+   to the existing scorer.
+7. Add tests for normal progression, resume behavior, malformed records,
+   duplicate or stale token keys, fingerprint mismatches, unresolved rows,
+   issue recording, and scoring handoff.
+8. Replace the README's current edit-in-place CSV instructions with detailed
+   helper-based instructions for starting, resuming, validating, and scoring an
+   audit while keeping the generated sample read-only.
 
 ## Non-Goals
 
@@ -139,12 +153,14 @@ pipeline.
   generated sample rows directly.
 - Every audit row has a stable identity, visible context, an explicit review
   disposition, and preserved notes/issues.
-- Invalid, duplicate, stale, incomplete, or silently skipped records are
-  rejected before scoring.
-- Segmentation and tokenization defects are represented as explicit issues and
+- Invalid, duplicate, stale, fingerprint-mismatched, incomplete, or silently
+  skipped records are rejected before scoring.
+- Segmentation and tokenization defects use the canonical issue codes and
   remain available for review.
-- The existing scorer consumes the validated decisions without changing its
-  registered thresholds or interpretation.
+- Scoring refuses uncertain or blocked rows and consumes only fully labeled
+  validated decisions without changing its registered thresholds or
+  interpretation.
+- The README no longer directs reviewers to edit the generated sample CSV.
 - Tests and documentation demonstrate the complete review-to-score workflow.
 
 ## Validation
