@@ -80,6 +80,16 @@ class _MalformedNoToolCallJsonBackend:
         )
 
 
+class _EmptyNoToolCallBackend:
+    def complete(self, **_kwargs):
+        raise llm_backend.NoToolCallError(
+            "local runtime returned no tool call or content",
+            input_tokens=4,
+            output_tokens=5,
+            raw_content="",
+        )
+
+
 class _BackendErrorBackend:
     def complete(self, **_kwargs):
         error = RuntimeError("provider disconnected")
@@ -489,6 +499,34 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual(
             story["raw_response_path"],
             json.loads(quarantine.read_text())["raw_response_path"],
+        )
+
+    def test_empty_no_tool_call_persists_backend_failure_and_usage(self):
+        output_root = self.root / "empty-no-tool-call"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_EmptyNoToolCallBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+
+        story = summary["stories"][0]
+        self.assertEqual("failed", story["status"])
+        self.assertEqual(4, story["input_tokens"])
+        self.assertEqual(5, story["output_tokens"])
+        raw_path = pathlib.Path(story["raw_response_path"])
+        self.assertTrue(raw_path.exists())
+        self.assertEqual(
+            "NoToolCallError",
+            json.loads(raw_path.read_text())["backend_error"],
         )
 
     def test_stop_on_first_failure_flushes_story_artifacts(self):

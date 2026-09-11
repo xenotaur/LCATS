@@ -570,6 +570,21 @@ def _run_model_stage(
         )
     except llm_backend.NoToolCallError as error:
         if not error.raw_content:
+            raw_path = _write_backend_failure(
+                output_root=output_root,
+                run_id=run_id,
+                story=story,
+                stage=stage,
+                error=error,
+            )
+            if log is not None:
+                log.event(
+                    "backend_failure_persisted",
+                    run_id=run_id,
+                    story_id=story.story_id,
+                    stage=stage,
+                    raw_response_path=_display_path(raw_path),
+                )
             raise
         response = llm_backend.BackendResponse(
             text=error.raw_content,
