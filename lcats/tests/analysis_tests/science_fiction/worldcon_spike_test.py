@@ -70,6 +70,16 @@ class _NoToolCallJsonBackend:
         )
 
 
+class _MalformedNoToolCallJsonBackend:
+    def complete(self, **_kwargs):
+        raise llm_backend.NoToolCallError(
+            "local runtime returned malformed JSON content",
+            input_tokens=2,
+            output_tokens=3,
+            raw_content="{malformed",
+        )
+
+
 class _BackendErrorBackend:
     def complete(self, **_kwargs):
         error = RuntimeError("provider disconnected")
@@ -447,6 +457,39 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             .splitlines()
         ]
         self.assertEqual(3, events.count("no_tool_call_json_fallback"))
+
+    def test_malformed_no_tool_call_preserves_raw_path_and_usage(self):
+        output_root = self.root / "malformed-no-tool-call"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_MalformedNoToolCallJsonBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+
+        story = summary["stories"][0]
+        self.assertEqual("failed", story["status"])
+        self.assertEqual(2, story["input_tokens"])
+        self.assertEqual(3, story["output_tokens"])
+        raw_path = pathlib.Path(story["raw_response_path"])
+        self.assertEqual(
+            run_worldcon_spike.EVIDENCE_STAGE,
+            raw_path.stem,
+        )
+        self.assertEqual("{malformed", json.loads(raw_path.read_text())["text"])
+        quarantine = pathlib.Path(story["quarantine_path"])
+        self.assertEqual(
+            story["raw_response_path"],
+            json.loads(quarantine.read_text())["raw_response_path"],
+        )
 
     def test_stop_on_first_failure_flushes_story_artifacts(self):
         output_root = self.root / "stop-first"

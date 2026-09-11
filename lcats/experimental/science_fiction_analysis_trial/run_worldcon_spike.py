@@ -467,6 +467,9 @@ def _run_story(
             ),
         )
     except Exception as error:
+        input_tokens = getattr(error, "input_tokens", input_tokens)
+        output_tokens = getattr(error, "output_tokens", output_tokens)
+        raw_response_dir = getattr(error, "raw_response_path", raw_response_dir)
         tool_result = (
             suvin_tool_result
             if suvin_tool_result is not None
@@ -621,7 +624,13 @@ def _run_model_stage(
             raw_response_path=_display_path(raw_path),
         )
     if tool_result is None:
-        tool_result = json.loads(response.text)
+        try:
+            tool_result = json.loads(response.text)
+        except json.JSONDecodeError as error:
+            setattr(error, "raw_response_path", raw_path)
+            setattr(error, "input_tokens", response.input_tokens)
+            setattr(error, "output_tokens", response.output_tokens)
+            raise
     if log is not None:
         log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
     return response, tool_result, raw_path
@@ -839,6 +848,12 @@ def _run_knight_stage(
             response,
         )
     except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
         if raw_path is None:
             candidate = (
                 output_root
@@ -946,6 +961,12 @@ def _run_suvin_stage(
             response,
         )
     except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
         if raw_path is None:
             candidate = (
                 output_root
