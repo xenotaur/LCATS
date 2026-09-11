@@ -348,6 +348,7 @@ def _run_story(
     input_tokens = 0
     output_tokens = 0
     raw_response_dir: pathlib.Path | None = None
+    raw_response_path: pathlib.Path | None = None
     quarantine_path: pathlib.Path | None = None
     evidence_tool_result: Any = None
     knight_tool_result: Any = None
@@ -357,7 +358,7 @@ def _run_story(
         prepared = preparation.prepare_story_file(story_file)
         raw_response_dir = output_root / "_raw" / run_id / _checkpoint_item_id(story)
 
-        evidence_response, evidence_tool_result, _ = _run_model_stage(
+        evidence_response, evidence_tool_result, evidence_raw_path = _run_model_stage(
             stage=EVIDENCE_STAGE,
             story=story,
             output_root=output_root,
@@ -369,6 +370,7 @@ def _run_story(
             run_id=run_id,
             log=log,
         )
+        raw_response_path = evidence_raw_path
         input_tokens += evidence_response.input_tokens
         output_tokens += evidence_response.output_tokens
         evidence_set = _build_evidence_set(
@@ -469,7 +471,7 @@ def _run_story(
     except Exception as error:
         input_tokens = getattr(error, "input_tokens", input_tokens)
         output_tokens = getattr(error, "output_tokens", output_tokens)
-        raw_response_dir = getattr(error, "raw_response_path", raw_response_dir)
+        raw_response_path = getattr(error, "raw_response_path", raw_response_path)
         tool_result = (
             suvin_tool_result
             if suvin_tool_result is not None
@@ -479,18 +481,18 @@ def _run_story(
                 else evidence_tool_result
             )
         )
-        if raw_response_dir is not None:
+        if raw_response_path is None and raw_response_dir is not None:
             backend_error_path = (
                 raw_response_dir / f"{EVIDENCE_STAGE}-backend-error.json"
             )
             if backend_error_path.exists():
-                raw_response_dir = backend_error_path
+                raw_response_path = backend_error_path
         quarantine_path = _write_quarantine(
             output_root=output_root,
             story=story,
             error=error,
             tool_result=tool_result,
-            raw_response_path=raw_response_dir,
+            raw_response_path=raw_response_path or raw_response_dir,
             stage="story",
             run_id=run_id,
         )
@@ -518,7 +520,9 @@ def _run_story(
             failure_kind=type(error).__name__,
             failure_message=str(error),
             raw_response_path=(
-                _display_path(raw_response_dir) if raw_response_dir else None
+                _display_path(raw_response_path or raw_response_dir)
+                if raw_response_path or raw_response_dir
+                else None
             ),
             quarantine_path=(
                 _display_path(quarantine_path) if quarantine_path else None
@@ -869,6 +873,16 @@ def _run_knight_stage(
             input_tokens=getattr(error, "input_tokens", response.input_tokens),
             output_tokens=getattr(error, "output_tokens", response.output_tokens),
         )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.KNIGHT_RUBRIC_VERSION,
+        )
         if raw_path is None:
             candidate = (
                 output_root
@@ -981,6 +995,16 @@ def _run_suvin_stage(
             response,
             input_tokens=getattr(error, "input_tokens", response.input_tokens),
             output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        provenance = _provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.SUVIN_RUBRIC_VERSION,
         )
         if raw_path is None:
             candidate = (

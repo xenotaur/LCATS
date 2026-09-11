@@ -58,6 +58,20 @@ class _SuvinFailureBackend:
         return self.delegate.complete(**kwargs)
 
 
+class _KnightUsageFailureBackend:
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+
+    def complete(self, **kwargs):
+        if kwargs["tool"]["name"] == run_worldcon_spike.KNIGHT_TOOL_NAME:
+            error = RuntimeError("Knight provider failure")
+            error.input_tokens = 7
+            error.output_tokens = 9
+            error.raw_content = "partial Knight response"
+            raise error
+        return self.delegate.complete(**kwargs)
+
+
 class _NoToolCallJsonBackend:
     def complete(self, **kwargs):
         payload = json.loads(kwargs["messages"][-1]["content"])
@@ -286,6 +300,57 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         )
         self.assertTrue(raw_stage_path.exists())
         self.assertTrue(quarantine_stage_path.exists())
+
+    def test_failed_knight_provenance_preserves_backend_usage(self):
+        output_root = self.root / "knight-usage-failure"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_KnightUsageFailureBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+        knight = data["analyses"]["knight"][0]
+        self.assertEqual("failed", knight["status"])
+        self.assertEqual(
+            {"input": 7, "output": 9},
+            knight["provenance"]["token_usage"],
+        )
+
+    def test_evidence_failure_quarantine_references_exact_raw_file(self):
+        output_root = self.root / "evidence-quarantine-path"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_MalformedToolBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+
+        story = summary["stories"][0]
+        raw_path = pathlib.Path(story["raw_response_path"])
+        quarantine = pathlib.Path(story["quarantine_path"])
+        self.assertTrue(raw_path.is_file())
+        self.assertEqual(
+            story["raw_response_path"],
+            json.loads(quarantine.read_text())["raw_response_path"],
+        )
 
     def test_run_ids_isolate_raw_artifacts_and_jsonl_rows(self):
         output_root = self.root / "reruns"
