@@ -1,8 +1,8 @@
 ---
 execution_id: 2026_09_11_14_39_28_WI_LINGUISTICS_0010_CLOSEOUT
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0010_CLOSEOUT)[2026-09-11T14:39:28+00:00]
-work_item: AD_HOC
-status: in_progress
+work_item: WI-LINGUISTICS-0010
+status: landed
 rerun_of: 2026_09_11_07_21_12_WI_LINGUISTICS_0010
 pr: https://github.com/xenotaur/LCATS/pull/434
 commit: 3aa8dcc52668b670a6b7a224a447d25b7d085556
