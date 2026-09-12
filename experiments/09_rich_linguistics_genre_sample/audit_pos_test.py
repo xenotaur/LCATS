@@ -189,6 +189,31 @@ class AuditPosTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
                 audit_pos.load_ledger(path)
 
+    def test_start_command_refuses_existing_and_protected_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger = root / "ledger.json"
+            write_packet(sample)
+            args = argparse.Namespace(sample=sample, ledger=ledger, force=False)
+            audit_pos.command_start(args)
+            self.assertEqual(2, len(audit_pos.load_ledger(ledger)["entries"]))
+            with self.assertRaises(FileExistsError):
+                audit_pos.command_start(args)
+            with self.assertRaisesRegex(ValueError, "protected input"):
+                audit_pos.command_start(
+                    argparse.Namespace(sample=sample, ledger=sample, force=True)
+                )
+
+    def test_incomplete_packet_row_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / "sample.csv"
+            path.write_text(
+                ",".join(audit_pos.PACKET_FIELDS) + "\n" + ",".join(["x"] * 12)
+            )
+            with self.assertRaisesRegex(ValueError, "canonical packet fields"):
+                audit_pos.load_packet(path)
+
     def test_status_reports_missing_entries_without_crashing(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

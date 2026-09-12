@@ -61,6 +61,11 @@ def load_packet(path: pathlib.Path = SAMPLE_PATH) -> list[dict[str, str]]:
         raise ValueError(f"{path}: audit packet is empty")
     if rows and list(rows[0]) != list(PACKET_FIELDS):
         raise ValueError(f"{path}: expected fields in canonical order: {PACKET_FIELDS}")
+    if any(
+        None in row or any(row.get(field) is None for field in PACKET_FIELDS)
+        for row in rows
+    ):
+        raise ValueError(f"{path}: every row must contain the canonical packet fields")
     keys = [row.get("token_key", "") for row in rows]
     if any(not key for key in keys):
         raise ValueError(f"{path}: every row must have a token_key")
@@ -110,6 +115,8 @@ def load_ledger(path: pathlib.Path = LEDGER_PATH) -> dict[str, Any]:
             ledger = json.load(handle, object_pairs_hook=_reject_duplicate_keys)
         except ValueError as error:
             raise ValueError(f"{path}: {error}") from error
+    if not isinstance(ledger, dict):
+        raise TypeError(f"{path}: ledger must be a JSON object")
     if ledger.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(f"{path}: unsupported ledger schema")
     return ledger
@@ -138,6 +145,8 @@ def validate_ledger(
     sample_path: pathlib.Path | None = None,
 ) -> list[str]:
     errors: list[str] = []
+    if ledger.get("schema_version") != SCHEMA_VERSION:
+        errors.append("ledger schema version mismatch")
     expected = {row["token_key"]: row for row in rows}
     entries = ledger.get("entries")
     if not isinstance(entries, dict):
@@ -163,8 +172,9 @@ def validate_ledger(
         if entry.get("row_fingerprint") != row_fingerprint(expected[key]):
             errors.append(f"row fingerprint mismatch for {key}")
         disposition = entry.get("disposition")
-        if disposition not in DISPOSITIONS:
+        if not isinstance(disposition, str) or disposition not in DISPOSITIONS:
             errors.append(f"invalid disposition for {key}: {disposition}")
+            continue
         label = entry.get("gold_upos")
         if disposition == "reviewed" and label not in LABELS:
             errors.append(f"reviewed row {key} needs NOUN, PROPN, or OTHER")
@@ -177,7 +187,7 @@ def validate_ledger(
             errors.append(f"unresolved row {key} needs an explanatory note")
         issues = entry.get("issue_codes", [])
         if not isinstance(issues, list) or any(
-            issue not in ISSUE_CODES for issue in issues
+            not isinstance(issue, str) or issue not in ISSUE_CODES for issue in issues
         ):
             errors.append(f"invalid issue code for {key}")
     return errors
@@ -280,6 +290,12 @@ def _relative(path: pathlib.Path) -> str:
         return str(path)
 
 
+def _reject_protected_output(path: pathlib.Path, *protected: pathlib.Path) -> None:
+    resolved = path.resolve()
+    if any(resolved == candidate.resolve() for candidate in protected):
+        raise ValueError(f"refusing to overwrite protected input: {path}")
+
+
 def write_json(path: pathlib.Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     content = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
@@ -306,6 +322,7 @@ def write_json(path: pathlib.Path, value: dict[str, Any]) -> None:
 
 def command_start(args: argparse.Namespace) -> None:
     rows = load_packet(args.sample)
+    _reject_protected_output(args.ledger, args.sample)
     if args.ledger.exists() and not args.force:
         raise FileExistsError(f"{args.ledger} exists; use --force or resume it")
     write_json(args.ledger, new_ledger(rows, args.sample))
@@ -401,6 +418,7 @@ def command_validate(args: argparse.Namespace) -> None:
 def command_score(args: argparse.Namespace) -> None:
     rows = load_packet(args.sample)
     ledger = load_ledger(args.ledger)
+    _reject_protected_output(args.output, args.sample, args.ledger)
     errors = validate_ledger(rows, ledger, args.sample)
     if errors:
         raise ValueError("cannot score audit: " + "; ".join(errors))
@@ -441,7 +459,7 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         args.function(args)
-    except (FileNotFoundError, OSError, ValueError) as error:
+    except (FileNotFoundError, OSError, TypeError, ValueError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 2
     return 0
