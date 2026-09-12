@@ -1,0 +1,89 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:mass_quantities__my_friend_the_murderer__doyle:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Mystery",
+            "patterns": [
+              "detective",
+              "mystery"
+            ]
+          },
+          {
+            "label": "Short stories only / unspecified genre",
+            "patterns": [
+              "short stories"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Detective and mystery stories",
+          "PR",
+          "Short stories"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 23059,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/23059/pg23059.txt",
+        "story_id": "mass_quantities/my_friend_the_murderer__doyle",
+        "story_path": "mass_quantities/my_friend_the_murderer__doyle/story.json"
+      },
+      "result": {
+        "secondary_signals": [
+          "Short stories only / unspecified genre"
+        ],
+        "suggestive_target_candidates": [],
+        "target_candidates": [
+          "mystery"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:mass_quantities__my_friend_the_murderer__doyle:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T19:13:08.394351Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 15771,
+        "output_tokens": 829,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "mass_quantities/my_friend_the_murderer__doyle",
+        "story_path": "mass_quantities/my_friend_the_murderer__doyle/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": false,
+        "detected_genre": "adventure",
+        "detected_genre_confidence": 0.6,
+        "metadata_target_candidates": [
+          "mystery"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "mass_quantities/my_friend_the_murderer__doyle",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "mass_quantities/my_friend_the_murderer__doyle/story.json"
+}
