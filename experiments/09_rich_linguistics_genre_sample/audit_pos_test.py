@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import csv
 import importlib.util
+import io
 import pathlib
 import tempfile
 import unittest
@@ -179,6 +181,33 @@ class AuditPosTest(unittest.TestCase):
             errors = audit_pos.validate_ledger(rows, ledger)
             self.assertIn("packet schema version mismatch", errors)
             self.assertIn("ledger row count mismatch", errors)
+
+    def test_duplicate_json_keys_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = pathlib.Path(tmp) / "ledger.json"
+            path.write_text('{"schema_version":"x","schema_version":"y"}')
+            with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+                audit_pos.load_ledger(path)
+
+    def test_status_reports_missing_entries_without_crashing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger = root / "ledger.json"
+            write_packet(sample)
+            audit_pos.write_json(
+                ledger,
+                {
+                    "schema_version": audit_pos.SCHEMA_VERSION,
+                    "packet_schema_version": audit_pos.PACKET_SCHEMA_VERSION,
+                },
+            )
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                audit_pos.command_status(
+                    argparse.Namespace(sample=sample, ledger=ledger)
+                )
+            self.assertIn('"valid": false', output.getvalue())
 
 
 if __name__ == "__main__":

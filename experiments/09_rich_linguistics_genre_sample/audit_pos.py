@@ -7,8 +7,10 @@ import csv
 import hashlib
 import importlib.util
 import json
+import os
 import pathlib
 import sys
+import tempfile
 from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -104,10 +106,22 @@ def new_ledger(
 
 def load_ledger(path: pathlib.Path = LEDGER_PATH) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
-        ledger = json.load(handle)
+        try:
+            ledger = json.load(handle, object_pairs_hook=_reject_duplicate_keys)
+        except ValueError as error:
+            raise ValueError(f"{path}: {error}") from error
     if ledger.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(f"{path}: unsupported ledger schema")
     return ledger
+
+
+def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
 
 
 def ledger_fingerprint(ledger: dict[str, Any]) -> str:
@@ -268,9 +282,26 @@ def _relative(path: pathlib.Path) -> str:
 
 def write_json(path: pathlib.Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    content = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+    temporary_path: pathlib.Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temporary_path = pathlib.Path(handle.name)
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary_path, path)
+        temporary_path = None
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
 
 def command_start(args: argparse.Namespace) -> None:
@@ -285,6 +316,9 @@ def command_status(args: argparse.Namespace) -> None:
     rows = load_packet(args.sample)
     ledger = load_ledger(args.ledger)
     errors = validate_ledger(rows, ledger, args.sample)
+    if not isinstance(ledger.get("entries"), dict):
+        print(json.dumps({"counts": {}, "valid": False, "errors": errors}))
+        return
     counts = {disposition: 0 for disposition in sorted(DISPOSITIONS)}
     for entry in ledger["entries"].values():
         if not isinstance(entry, dict):
