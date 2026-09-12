@@ -160,6 +160,8 @@ def download_raw_text(book_id: int, url_patterns: Optional[list[str]] = None) ->
     last_err = None
     for url_pattern in url_patterns:
         url = url_pattern.format(book_id=book_id)
+        if not (url.startswith("http://") or url.startswith("https://")):
+            raise ValueError(f"Invalid URL scheme in {url}")
         try:
             req = Request(url, headers={"User-Agent": USER_AGENT})
             with urlopen(req, timeout=30) as r:
