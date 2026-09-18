@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #436 (commit d65541c113059931589edef4ebd043cffb8bd567)."
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0010
 title: Add a resumable POS audit helper
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
