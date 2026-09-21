@@ -220,8 +220,8 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "documented CLI option (--init); note that scikit-learn's "
             "nndsvd-family initializers (the default and its variants) "
             "compute their starting point via a randomized SVD seeded by "
-            "--seed, so --seed affects the fitted topics under every "
-            "--init choice, not only 'random'."
+            "--seed. Different seeds may change initialization and may, but "
+            "need not, change the fitted topics."
         ),
     )
     topics_parser.add_argument(
