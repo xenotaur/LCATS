@@ -1,0 +1,91 @@
+{
+  "failure_kind": "ValueError",
+  "failure_message": "present Novum dimensions require supporting evidence",
+  "raw_response_path": "/private/tmp/lcats-worldcon-opus-10-20260824/_raw/mass_quantities__a_bad_day_for_sales__leiber-85ba265ca415/sf_suvin_novum.json",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/a_bad_day_for_sales__leiber",
+  "story_path": "mass_quantities/a_bad_day_for_sales__leiber/story.json",
+  "title": "A Bad Day for Sales",
+  "tool_result": {
+    "dominant_novum_id": "cand-mobile-sales-robot",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-mobile-sales-robot",
+        "character_reaction_evidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "Robie is described through a coherent, immanent, nonsupernatural technological logic: radar scanning, under-scanners for level changes, reference silhouettes for identifying customers, recorded voices, coin/bill rollers, novelty service circuits. Presented as an economic/engineering development requiring investment capital for mass production.",
+          "status": "present",
+          "supporting_evidence_ids": []
+        },
+        "description": "Robie, an autonomous mobile vending robot that actively roams city streets seeking customers, scanning them with radar and reference silhouettes, dispensing merchandise, and executing scripted sales pitches and novelty behaviors. He is the demonstration model for a planned mass-produced line of sales robots meant to blanket every street and highway.",
+        "estrangement_rationale": "The reader confronts a familiar commercial impulse (vending) taken to an estranging extreme: a machine that pursues customers and persists in sales scripts even amid mass death. The little girl pleading for her mother (sfev-8327f6c20bd414c0) and the burned survivor fleeing screaming (sfev-b3fb25ceea9893bc) dramatize the gulf between the robot's programmed commercialism and human need, exposing the dehumanizing logic of automated consumer capitalism.",
+        "evidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "Robie is the protagonist and organizing consciousness of the entire story; the narrative's ironic force depends wholly on the contrast between his mindless commercial routines and the human catastrophe around him. Every scene is structured around Robie's perception and behavior.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-8327f6c20bd414c0",
+            "sfev-b3fb25ceea9893bc"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "Robie represents a world-altering extrapolation of vending technology into autonomous mobile robots slated for mass deployment nationwide, transforming commerce and the urban environment. The text explicitly frames him as 'the logical conclusion of the development of vending machines,' a systematic difference from present-day static machines.",
+          "status": "present",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      },
+      {
+        "candidate_id": "cand-nuclear-attack",
+        "character_reaction_evidence_ids": [
+          "sfev-b3fb25ceea9893bc"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The attack is rendered with immanent, nonsupernatural technological detail (a warhead descending at three miles a second, radar-foiling paint, an atomic detonation) consistent with mid-century science.",
+          "status": "present",
+          "supporting_evidence_ids": []
+        },
+        "description": "A surprise nuclear strike on Manhattan delivered by a radar-evading warhead painted with a newly developed silver-green paint, occurring against a backdrop of the ongoing geopolitical 'Hot Truce' and Persian War.",
+        "estrangement_rationale": "The sudden nuclear devastation contrasts with the placid consumer scene of Times Square, and the burned survivor fleeing (sfev-b3fb25ceea9893bc) renders the horror concrete, estranging the reader from complacent everyday commerce.",
+        "evidence_ids": [
+          "sfev-b3fb25ceea9893bc"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The bombing is the pivotal catastrophic event that supplies the story's setting for irony, but narratively it functions as background context that throws the sales robot into relief rather than being the element whose logic governs the whole narrative. The organizing consciousness remains Robie. The bomb is closer to a catastrophic plot device than the dominant novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-b3fb25ceea9893bc"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The instantaneous nuclear annihilation of a major city, enabled by radar-foiling paint technology, is a world-altering event within the story and reflects a Cold War extrapolated norm distinct from mundane reality.",
+          "status": "present",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-b3fb25ceea9893bc"
+        ]
+      }
+    ]
+  }
+}

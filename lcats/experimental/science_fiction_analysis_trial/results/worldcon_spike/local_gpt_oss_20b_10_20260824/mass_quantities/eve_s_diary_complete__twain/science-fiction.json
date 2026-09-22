@@ -1,0 +1,492 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-knight-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Knight adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-5a1626ddfa14e8a3",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Knight criteria require supporting evidence",
+            "recoverable": true,
+            "stage": "knight"
+          }
+        ],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-5a1626ddfa14e8a3",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__eve_s_diary_complete__twain",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 10130,
+            "output": 1206
+          }
+        },
+        "status": "failed",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-1",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-5a1626ddfa14e8a3",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-5a1626ddfa14e8a3",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__eve_s_diary_complete__twain",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 10032,
+            "output": 760
+          }
+        },
+        "status": "complete",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-5a1626ddfa14e8a3",
+    "knight_analysis_id": null,
+    "suvin_novum_analysis_id": "mass_quantities__eve_s_diary_complete__twain-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-5a1626ddfa14e8a3",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.95,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Moon disappeared from its position in the sky.",
+            "quote": "",
+            "raw_id": "swc1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "paraphrase": "Stars will eventually melt and vanish.",
+            "quote": "",
+            "raw_id": "swc2",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00070"
+            ],
+            "paraphrase": "Garden destroyed or gone.",
+            "quote": "",
+            "raw_id": "swc3",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00037"
+            ],
+            "paraphrase": "Identified and named fire.",
+            "quote": "",
+            "raw_id": "sto1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00041"
+            ],
+            "paraphrase": "Created flames from smoke.",
+            "quote": "",
+            "raw_id": "sto2",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "paraphrase": "Observed water behavior via experiment.",
+            "quote": "",
+            "raw_id": "ism1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00045"
+            ],
+            "paraphrase": "Naming as part of scientific method.",
+            "quote": "",
+            "raw_id": "ism2",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Moon moved from its position.",
+            "quote": "",
+            "raw_id": "tsd1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "paraphrase": "Predicts eventual disappearance of stars.",
+            "quote": "",
+            "raw_id": "ec1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Moon disappearance is a major loss.",
+            "quote": "",
+            "raw_id": "cat1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Crying at frustration.",
+            "quote": "",
+            "raw_id": "cr1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "Self as experiment contrasted with normal humans.",
+            "quote": "",
+            "raw_id": "rfc1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        }
+      ],
+      "records": [],
+      "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/eve_s_diary_complete__twain",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "suvin_novum"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Knight criteria require supporting evidence",
+        "recoverable": true,
+        "stage": "knight"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+  "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
