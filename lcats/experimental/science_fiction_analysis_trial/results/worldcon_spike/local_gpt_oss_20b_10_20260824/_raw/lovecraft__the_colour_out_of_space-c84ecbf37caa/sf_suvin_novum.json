@@ -1,0 +1,23 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 17619,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1308,
+  "stage": "sf_suvin_novum",
+  "story_id": "lovecraft/the_colour_out_of_space",
+  "story_path": "lovecraft/the_colour_out_of_space/story.json",
+  "text": "",
+  "title": "The Colour out of Space by H. P. Lovecraft",
+  "tool_result": {
+    "dominant_novum_id": "meteorite_globule",
+    "novum_candidates": [
+      {
+        "candidate_id": "meteorite_globule",
+        "cognitive_validation": "present",
+        "narrative_hegemony": "present",
+        "novelty": "present"
+      }
+    ]
+  }
+}

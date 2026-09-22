@@ -1,0 +1,91 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 8046,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1412,
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_bad_day_for_sales__leiber",
+  "story_path": "mass_quantities/a_bad_day_for_sales__leiber/story.json",
+  "text": "",
+  "title": "A Bad Day for Sales",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The story materially represents speculative technologies grounded in scientific ideas: radar detection and scanning, a radar-foiling paint, and electronic vision. Though the evidence set is sparse, the narrative situates a nuclear-weapon detonation and its physical effects (blast, thermal radiation, flash burns) as central natural/physical processes. Confidence is limited by minimal supplied evidence anchors.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "Robie, the mobile sales robot, is an engineered invention central to the setting and action. The surviving girl pleads with the robot for help, and a burned survivor flees it, showing the robot's mechanical, unfeeling responses drive the story's irony and outcome. The device materially shapes problem and action.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The setting is a speculative near-future America (mobile sales robots not yet mass-produced, radar-foiling paint, the 'Persian War,' 'Hot Truce' geopolitics) distinct from an ordinary contemporary period. This future frame is more than an incidental date.",
+        "status": "present",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The story extrapolates from the identifiable premise of commercial vending automation ('logical conclusion of the development of vending machines') and Cold War nuclear tension, developing consequences: a mindless sales robot continuing its scripted pitches amid a nuclear catastrophe, indifferent to burned and dying survivors. This is a developed consequence, not mere mention.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "The robot performs scanning, weighing, and reference-silhouette matching, but these are automatic mechanical operations, not observation-hypothesis-testing or evidential revision driving understanding. No character engages the scientific method to shape action or understanding.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The story is set on Earth (Times Square, Manhattan). 'Mars Blood' is decorative advertising jargon and 'Junior Space Killers' is a comic title; there are no actual other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "central",
+        "rationale": "A nuclear weapon detonates over Manhattan, killing and maiming the crowd on a large scale. The burned survivor fleeing and the orphaned surviving child seeking her mother among the dead show the actual, causally central catastrophe that defines the story's climax and theme.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8327f6c20bd414c0",
+          "sfev-b3fb25ceea9893bc"
+        ]
+      }
+    ]
+  }
+}
