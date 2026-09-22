@@ -144,16 +144,10 @@ def topic_model(
     tokenizer as ``tfidf_top_terms`` for input features, then decomposes
     via scikit-learn's ``NMF``. ``init`` selects the initialization
     strategy (``nndsvda`` by default) and is an explicit, documented
-    parameter -- not hardcoded. ``random_state=seed`` genuinely affects
-    every ``init`` choice here, including ``nndsvd*``: scikit-learn's
-    NNDSVD-family initializers compute their starting point via a
-    *randomized* SVD seeded by ``random_state``, so changing ``seed`` can
-    change the initial factorization and the resulting topics even under
-    ``nndsvda`` -- confirmed empirically (two runs of this function with
-    different seeds on the same corpus produced different topic-term
-    assignments). Earlier revisions of this docstring incorrectly
-    described ``nndsvda`` as having "no randomness in initialization";
-    that was wrong and has been corrected here.
+    parameter -- not hardcoded. ``random_state=seed`` is passed through to
+    scikit-learn's ``NMF`` estimator. Different seeds may change the
+    initialization, but they do not guarantee different fitted topics:
+    small or low-rank inputs can converge to the same result.
 
     Returns ``{"topic_0": {term: weight, ...}, "topic_1": {...}, ...}``,
     one entry per fitted topic in index order, each inner mapping ranked

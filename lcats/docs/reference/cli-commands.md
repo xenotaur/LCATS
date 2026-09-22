@@ -411,7 +411,7 @@ are explicitly deferred.
 | `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
 | `--n-topics N_TOPICS` | Number of topics to fit; must be `>= 1` (default: `8`). |
 | `--top-k TOP_K` | Number of top terms per topic to include; must be `>= 1` (default: `10`). |
-| `--seed SEED` | Random seed for the NMF solver and its initialization (default: `42`). Affects the fitted topics under every `--init` choice, not only `random` -- scikit-learn's `nndsvd`-family initializers compute their starting point via a randomized SVD seeded by `--seed`. |
+| `--seed SEED` | Random seed for NMF initialization (default: `42`). Different seeds may change initialization and may, but need not, change the fitted topics. |
 | `--init {nndsvd,nndsvda,nndsvdar,random}` | NMF initialization strategy (default: `nndsvda`). |
 | `--max-iter MAX_ITER` | Maximum NMF solver iterations; must be `>= 1` (default: `400`). |
 | `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `topics_viz`). |
