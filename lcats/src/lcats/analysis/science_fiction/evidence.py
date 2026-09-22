@@ -76,6 +76,7 @@ class EvidenceCandidate:
     raw_id: str | None = None
     source: str = "model"
     schema_errors: tuple[str, ...] = ()
+    normalization_notes: tuple[str, ...] = ()
 
     @classmethod
     def from_mapping(
@@ -85,29 +86,40 @@ class EvidenceCandidate:
         default_source_chunk_id: str | None = None,
         source: str = "model",
     ) -> "EvidenceCandidate":
-        paragraph_ids, paragraph_errors = _string_tuple_field(data, "paragraph_ids")
-        entity_ids, entity_errors = _string_tuple_field(data, "entity_ids")
-        event_ids, event_errors = _string_tuple_field(data, "event_ids")
-        evidence_type, evidence_type_errors = _required_string_field(
-            data, "evidence_type"
+        normalized_data = dict(data)
+        normalization_notes: tuple[str, ...] = ()
+        if "evidence_type" not in normalized_data and "type" in normalized_data:
+            normalized_data["evidence_type"] = normalized_data["type"]
+            normalization_notes = ("coerced field type to evidence_type",)
+
+        paragraph_ids, paragraph_errors = _string_tuple_field(
+            normalized_data, "paragraph_ids"
         )
-        quote, quote_errors = _required_string_field(data, "quote")
-        paraphrase, paraphrase_errors = _required_string_field(data, "paraphrase")
+        entity_ids, entity_errors = _string_tuple_field(normalized_data, "entity_ids")
+        event_ids, event_errors = _string_tuple_field(normalized_data, "event_ids")
+        evidence_type, evidence_type_errors = _required_string_field(
+            normalized_data, "evidence_type"
+        )
+        quote, quote_errors = _required_string_field(normalized_data, "quote")
+        paraphrase, paraphrase_errors = _required_string_field(
+            normalized_data, "paraphrase"
+        )
         return cls(
             evidence_type=evidence_type,
             quote=quote,
             paraphrase=paraphrase,
-            confidence=_coerce_confidence(data.get("confidence", 0.0)),
+            confidence=_coerce_confidence(normalized_data.get("confidence", 0.0)),
             source_chunk_id=_optional_string(
-                data.get("source_chunk_id"), default_source_chunk_id
+                normalized_data.get("source_chunk_id"), default_source_chunk_id
             ),
             paragraph_ids=paragraph_ids,
-            start_char=_optional_int(data.get("start_char")),
-            end_char=_optional_int(data.get("end_char")),
+            start_char=_optional_int(normalized_data.get("start_char")),
+            end_char=_optional_int(normalized_data.get("end_char")),
             entity_ids=entity_ids,
             event_ids=event_ids,
-            raw_id=_optional_string(data.get("raw_id")),
+            raw_id=_optional_string(normalized_data.get("raw_id")),
             source=source,
+            normalization_notes=normalization_notes,
             schema_errors=(
                 evidence_type_errors
                 + quote_errors
@@ -133,6 +145,7 @@ class EvidenceCandidate:
             "source_chunk_id": self.source_chunk_id,
             "source": self.source,
             "schema_errors": list(self.schema_errors),
+            "normalization_notes": list(self.normalization_notes),
         }
 
 
@@ -144,6 +157,7 @@ class EvidenceProvenance:
     source_chunk_id: str | None = None
     raw_id: str | None = None
     backend: str | None = None
+    normalization_notes: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -151,6 +165,7 @@ class EvidenceProvenance:
             "source_chunk_id": self.source_chunk_id,
             "raw_id": self.raw_id,
             "backend": self.backend,
+            "normalization_notes": list(self.normalization_notes),
         }
 
 
@@ -583,6 +598,7 @@ def _record_from_candidate(
                 source_chunk_id=candidate.source_chunk_id,
                 raw_id=candidate.raw_id,
                 backend=backend,
+                normalization_notes=candidate.normalization_notes,
             ),
         ),
     )
