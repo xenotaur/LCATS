@@ -14,11 +14,11 @@
   },
   "deviation_definition": "panel_value - reference_value",
   "generator": {
-    "example": "kabob_direct",
+    "example": "direct_common",
     "generator": "experiments/08_visualize_dogfood/generators/make_worldcon_nway_genre_deviation.py"
   },
   "membership": {
-    "covers_universe": true,
+    "covers_universe": false,
     "pairwise_disjoint": true,
     "partition_claim": false,
     "semantics": "Panels are independent selections from one declared universe; they are not assumed to be disjoint or exhaustive."
@@ -35,80 +35,38 @@
   },
   "outputs": {
     "csv": {
-      "path": "lcats_146_nway_kabob_direct.csv",
-      "row_count": 160,
-      "sha256": "40fadbe1d9a6360569112ab257e7c3067ad25592164a05c4ea377842c2339977"
+      "path": "lcats_146_nway_direct_common.csv",
+      "row_count": 60,
+      "sha256": "44957d4ef375ec0a105058d3c92f54553722f32a71588fe2f8eb2567274574cb"
     },
     "figures": [
       {
-        "bytes": 311824,
+        "bytes": 203550,
         "format": "png",
-        "path": "lcats_146_nway_kabob_direct.png",
-        "sha256": "d1b8dec36bd97dd17b9247b3df5f66db1a522a863f9d69ddc71e834145ca631d"
+        "path": "lcats_146_nway_direct_common.png",
+        "sha256": "c589d5a0619c48fcac581439562ce0f910e5a660196f6f051cfa679ec79cfef4"
       },
       {
-        "bytes": 482987,
+        "bytes": 407733,
         "format": "svg",
-        "path": "lcats_146_nway_kabob_direct.svg",
-        "sha256": "b2608c8a769fc289f6a8080254c0285175b90fa8580ca4ab3304f3ef7e296665"
+        "path": "lcats_146_nway_direct_common.svg",
+        "sha256": "5e6f60a9daddb34ae9cb41a8cba6562672f745928f34e084fe57f6b8fc132187"
       },
       {
-        "bytes": 81109,
+        "bytes": 76660,
         "format": "pdf",
-        "path": "lcats_146_nway_kabob_direct.pdf",
-        "sha256": "9a585cad106098797ed4c99def3f7cea83c9b38976617bf8db02518c0eab0f18"
+        "path": "lcats_146_nway_direct_common.pdf",
+        "sha256": "4e111783df9e1998e3930caeb243d80230b55084fee252b2d84dc4418750d463"
       }
     ],
     "manifest": {
       "hash_policy": "The manifest does not hash itself; every other output is hashed after it is written.",
-      "path": "lcats_146_nway_kabob_direct_manifest.json"
+      "path": "lcats_146_nway_direct_common_manifest.json"
     }
   },
   "panel_mode": "direct",
   "panel_overlaps": [
     {
-      "left_panel_key": "adventure",
-      "right_panel_key": "fantasy",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "horror",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "humor",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "mystery",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "romance",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "science_fiction",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "adventure",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
       "left_panel_key": "fantasy",
       "right_panel_key": "horror",
       "story_count": 0,
@@ -116,156 +74,18 @@
     },
     {
       "left_panel_key": "fantasy",
-      "right_panel_key": "humor",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "fantasy",
-      "right_panel_key": "mystery",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "fantasy",
-      "right_panel_key": "romance",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "fantasy",
-      "right_panel_key": "science_fiction",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "fantasy",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "horror",
-      "right_panel_key": "humor",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "horror",
-      "right_panel_key": "mystery",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "horror",
-      "right_panel_key": "romance",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "horror",
       "right_panel_key": "science_fiction",
       "story_count": 0,
       "story_ids": []
     },
     {
       "left_panel_key": "horror",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "humor",
-      "right_panel_key": "mystery",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "humor",
-      "right_panel_key": "romance",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "humor",
       "right_panel_key": "science_fiction",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "humor",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "mystery",
-      "right_panel_key": "romance",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "mystery",
-      "right_panel_key": "science_fiction",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "mystery",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "romance",
-      "right_panel_key": "science_fiction",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "romance",
-      "right_panel_key": "western",
-      "story_count": 0,
-      "story_ids": []
-    },
-    {
-      "left_panel_key": "science_fiction",
-      "right_panel_key": "western",
       "story_count": 0,
       "story_ids": []
     }
   ],
   "panels": [
-    {
-      "base": null,
-      "key": "adventure",
-      "label": "Adventure",
-      "metric": {
-        "denominator": "auto",
-        "effective_denominator": "included_tokens",
-        "name": "per_million"
-      },
-      "order": 1,
-      "reference_key": "reference",
-      "selector": {
-        "exclude_story_ids": [],
-        "genre": "adventure",
-        "include_story_ids": [],
-        "kind": "manifest_genre",
-        "label": "Adventure",
-        "membership_mode": "selection",
-        "story_ids": []
-      },
-      "story_count": 6,
-      "story_ids": [
-        "mass_quantities/long_odds__haggard",
-        "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke",
-        "mass_quantities/the_red_fetish__long",
-        "mass_quantities/the_seven_missionaries__mcneile",
-        "mass_quantities/the_spring_of_a_lion__haggard",
-        "mass_quantities/to_the_lights__norton"
-      ]
-    },
     {
       "base": null,
       "key": "fantasy",
@@ -275,7 +95,7 @@
         "effective_denominator": "included_tokens",
         "name": "per_million"
       },
-      "order": 2,
+      "order": 1,
       "reference_key": "reference",
       "selector": {
         "exclude_story_ids": [],
@@ -319,7 +139,7 @@
         "effective_denominator": "included_tokens",
         "name": "per_million"
       },
-      "order": 3,
+      "order": 2,
       "reference_key": "reference",
       "selector": {
         "exclude_story_ids": [],
@@ -356,138 +176,6 @@
     },
     {
       "base": null,
-      "key": "humor",
-      "label": "Humor",
-      "metric": {
-        "denominator": "auto",
-        "effective_denominator": "included_tokens",
-        "name": "per_million"
-      },
-      "order": 4,
-      "reference_key": "reference",
-      "selector": {
-        "exclude_story_ids": [],
-        "genre": "humor",
-        "include_story_ids": [],
-        "kind": "manifest_genre",
-        "label": "Humor",
-        "membership_mode": "selection",
-        "story_ids": []
-      },
-      "story_count": 20,
-      "story_ids": [
-        "mass_quantities/eve_s_diary_complete__twain",
-        "mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain",
-        "mass_quantities/puppet_government__revelle",
-        "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
-        "mass_quantities/the_lamplighter__dickens",
-        "mass_quantities/the_pirate_s_pocket_book__calthrop",
-        "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope",
-        "mass_quantities/the_westminster_alice__saki",
-        "wodehouse/at_geisenheimer_s",
-        "wodehouse/bill_the_bloodhound",
-        "wodehouse/black_for_luck",
-        "wodehouse/crowned_heads",
-        "wodehouse/extricating_young_gussie",
-        "wodehouse/making_of_mac_s",
-        "wodehouse/man_with_two_left_feet",
-        "wodehouse/mixer",
-        "wodehouse/one_touch_of_nature",
-        "wodehouse/romance_of_an_ugly_policeman",
-        "wodehouse/sea_of_troubles",
-        "wodehouse/wilton_s_holiday"
-      ]
-    },
-    {
-      "base": null,
-      "key": "mystery",
-      "label": "Mystery",
-      "metric": {
-        "denominator": "auto",
-        "effective_denominator": "included_tokens",
-        "name": "per_million"
-      },
-      "order": 5,
-      "reference_key": "reference",
-      "selector": {
-        "exclude_story_ids": [],
-        "genre": "mystery",
-        "include_story_ids": [],
-        "kind": "manifest_genre",
-        "label": "Mystery",
-        "membership_mode": "selection",
-        "story_ids": []
-      },
-      "story_count": 20,
-      "story_ids": [
-        "chesterton/blue_cross",
-        "chesterton/eye_of_apollo",
-        "chesterton/flying_stars",
-        "chesterton/hammer_of_god",
-        "chesterton/honour_of_israel_gow",
-        "chesterton/invisible_man",
-        "chesterton/queer_feet",
-        "chesterton/secret_garden",
-        "chesterton/sign_of_the_broken_sword",
-        "chesterton/sins_of_prince_saradine",
-        "chesterton/three_tools_of_death",
-        "chesterton/wrong_shape",
-        "mass_quantities/back_home__davis",
-        "mass_quantities/my_friend_the_murderer__doyle",
-        "mass_quantities/splashes_of_red__davis",
-        "mass_quantities/the_adventure_of_the_dying_detective__doyle",
-        "mass_quantities/the_adventure_of_the_red_circle__doyle",
-        "mass_quantities/the_gray_brotherhood__leverage",
-        "mass_quantities/the_hunter_s_lodge_case__christie",
-        "mass_quantities/the_leak__futrelle"
-      ]
-    },
-    {
-      "base": null,
-      "key": "romance",
-      "label": "Romance",
-      "metric": {
-        "denominator": "auto",
-        "effective_denominator": "included_tokens",
-        "name": "per_million"
-      },
-      "order": 6,
-      "reference_key": "reference",
-      "selector": {
-        "exclude_story_ids": [],
-        "genre": "romance",
-        "include_story_ids": [],
-        "kind": "manifest_genre",
-        "label": "Romance",
-        "membership_mode": "selection",
-        "story_ids": []
-      },
-      "story_count": 20,
-      "story_ids": [
-        "mass_quantities/a_philanthropist__bacon",
-        "mass_quantities/a_reversion_to_type__bacon",
-        "mass_quantities/amy_foster__conrad",
-        "mass_quantities/country_lodgings__mitford",
-        "mass_quantities/death_and_taxes__hartzell",
-        "mass_quantities/in_the_valley_of_the_shadow__bacon",
-        "mass_quantities/into_the_blue__austin",
-        "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope",
-        "mass_quantities/julia_the_apostate__bacon",
-        "mass_quantities/le_monsieur_de_la_petite_dame__burnett",
-        "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope",
-        "mass_quantities/mrs_dud_s_sister__bacon",
-        "mass_quantities/mrs_general_talboys__trollope",
-        "mass_quantities/mrs_korner_sins_her_mercies__jerome",
-        "mass_quantities/one_day_at_arle__burnett",
-        "mass_quantities/passion_fruit__stacpoole",
-        "mass_quantities/the_courting_of_lady_jane__bacon",
-        "mass_quantities/the_girl_in_the_crowd__terhune",
-        "mass_quantities/the_house_of_heine_brothers_in_munich__trollope",
-        "mass_quantities/the_marriage_of_william_durrant__cummings"
-      ]
-    },
-    {
-      "base": null,
       "key": "science_fiction",
       "label": "Science Fiction",
       "metric": {
@@ -495,7 +183,7 @@
         "effective_denominator": "included_tokens",
         "name": "per_million"
       },
-      "order": 7,
+      "order": 3,
       "reference_key": "reference",
       "selector": {
         "exclude_story_ids": [],
@@ -528,50 +216,6 @@
         "mass_quantities/a_hitch_in_space__leiber",
         "mass_quantities/a_husband_for_my_wife__stuart",
         "mass_quantities/a_jar_of_jelly_beans__gregory"
-      ]
-    },
-    {
-      "base": null,
-      "key": "western",
-      "label": "Western",
-      "metric": {
-        "denominator": "auto",
-        "effective_denominator": "included_tokens",
-        "name": "per_million"
-      },
-      "order": 8,
-      "reference_key": "reference",
-      "selector": {
-        "exclude_story_ids": [],
-        "genre": "western",
-        "include_story_ids": [],
-        "kind": "manifest_genre",
-        "label": "Western",
-        "membership_mode": "selection",
-        "story_ids": []
-      },
-      "story_count": 20,
-      "story_ids": [
-        "london/brown_wolf",
-        "london/day_s_lodging",
-        "london/love_of_life",
-        "london/negore_the_coward",
-        "london/story_of_keesh",
-        "london/sun_dog_trail",
-        "london/unexpected",
-        "london/white_man_s_way",
-        "mass_quantities/a_drift_from_redwood_camp__harte",
-        "mass_quantities/a_prevaricated_parade__tuttle",
-        "mass_quantities/ajax_for_example__tuttle",
-        "mass_quantities/all_wool__tuttle",
-        "mass_quantities/bearly_reasonable__tuttle",
-        "mass_quantities/cinders__tuttle",
-        "mass_quantities/creepin_tintypes__tuttle",
-        "mass_quantities/dirty_work_for_doughgod__tuttle",
-        "mass_quantities/dough_or_dynamite__tuttle",
-        "mass_quantities/easy_come_easy_go__sabin",
-        "mass_quantities/easy_money__sinclair",
-        "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe"
       ]
     }
   ],
@@ -933,21 +577,11 @@
     },
     "dpi": 180,
     "figure_size_inches": [
-      18.2,
+      13.0,
       11.2
     ],
     "highlight_mode": "per-genre",
     "highlighted_cells": [
-      {
-        "panel_key": "adventure",
-        "plotted_value": 1415.686436628363,
-        "term": "down"
-      },
-      {
-        "panel_key": "adventure",
-        "plotted_value": -4275.931884685785,
-        "term": "said"
-      },
       {
         "panel_key": "fantasy",
         "plotted_value": -1743.9900735614679,
@@ -969,36 +603,6 @@
         "term": "some"
       },
       {
-        "panel_key": "humor",
-        "plotted_value": -677.3309270901423,
-        "term": "little"
-      },
-      {
-        "panel_key": "humor",
-        "plotted_value": 2997.6420691237845,
-        "term": "said"
-      },
-      {
-        "panel_key": "mystery",
-        "plotted_value": -1617.7259107153286,
-        "term": "not"
-      },
-      {
-        "panel_key": "mystery",
-        "plotted_value": 3445.533301847375,
-        "term": "said"
-      },
-      {
-        "panel_key": "romance",
-        "plotted_value": 4572.988869520237,
-        "term": "not"
-      },
-      {
-        "panel_key": "romance",
-        "plotted_value": -1892.3148573308172,
-        "term": "out"
-      },
-      {
         "panel_key": "science_fiction",
         "plotted_value": -1682.858715717091,
         "term": "man"
@@ -1007,65 +611,30 @@
         "panel_key": "science_fiction",
         "plotted_value": 1282.585300425063,
         "term": "out"
-      },
-      {
-        "panel_key": "western",
-        "plotted_value": 2807.9655584831726,
-        "term": "man"
-      },
-      {
-        "panel_key": "western",
-        "plotted_value": -4286.695801281987,
-        "term": "said"
       }
     ],
     "layout": {
       "band_count": 1,
       "bands": [
         [
-          "adventure",
           "fantasy",
           "horror",
-          "humor",
-          "mystery",
-          "romance",
-          "science_fiction",
-          "western"
+          "science_fiction"
         ]
       ],
       "max_columns": 8,
       "panel_positions": {
-        "adventure": {
+        "fantasy": {
           "band": 1,
           "column": 1
         },
-        "fantasy": {
+        "horror": {
           "band": 1,
           "column": 2
         },
-        "horror": {
-          "band": 1,
-          "column": 3
-        },
-        "humor": {
-          "band": 1,
-          "column": 4
-        },
-        "mystery": {
-          "band": 1,
-          "column": 5
-        },
-        "romance": {
-          "band": 1,
-          "column": 6
-        },
         "science_fiction": {
           "band": 1,
-          "column": 7
-        },
-        "western": {
-          "band": 1,
-          "column": 8
+          "column": 3
         }
       },
       "term_label_placement": "outside-right",
@@ -1115,20 +684,11 @@
       "note": "All panels share identical x-limits.",
       "padding_factor": 1.06,
       "panel_absolute_limits": {
-        "adventure": 8334.795639136402,
         "fantasy": 8334.795639136402,
         "horror": 8334.795639136402,
-        "humor": 8334.795639136402,
-        "mystery": 8334.795639136402,
-        "romance": 8334.795639136402,
-        "science_fiction": 8334.795639136402,
-        "western": 8334.795639136402
+        "science_fiction": 8334.795639136402
       },
       "panel_axis_limits": {
-        "adventure": [
-          -8834.883377484586,
-          8834.883377484586
-        ],
         "fantasy": [
           -8834.883377484586,
           8834.883377484586
@@ -1137,23 +697,7 @@
           -8834.883377484586,
           8834.883377484586
         ],
-        "humor": [
-          -8834.883377484586,
-          8834.883377484586
-        ],
-        "mystery": [
-          -8834.883377484586,
-          8834.883377484586
-        ],
-        "romance": [
-          -8834.883377484586,
-          8834.883377484586
-        ],
         "science_fiction": [
-          -8834.883377484586,
-          8834.883377484586
-        ],
-        "western": [
           -8834.883377484586,
           8834.883377484586
         ]

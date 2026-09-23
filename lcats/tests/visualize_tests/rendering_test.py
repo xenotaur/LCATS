@@ -185,12 +185,10 @@ def _analysis_nway_result(genres=("fantasy", "mystery", "horror"), **overrides):
         "vocabulary": comparison.NWayVocabularySpec(top_k=5),
     }
     fields.update(overrides)
-    fields.setdefault(
-        "ordering",
-        comparison.NWayOrderingSpec(
+    if "ordering" not in fields:
+        fields["ordering"] = comparison.NWayOrderingSpec(
             by=comparison.NWayOrdering(fields["vocabulary"].policy.value)
-        ),
-    )
+        )
     return comparison.compare_many(
         _analysis_corpus(), comparison.NWayComparisonSpec(**fields)
     )

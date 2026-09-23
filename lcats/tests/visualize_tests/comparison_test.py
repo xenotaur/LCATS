@@ -551,6 +551,58 @@ class TestNWayComparison(unittest.TestCase):
             )
         )
 
+    def test_complement_mode_records_base_overlaps(self):
+        """Complement panels also report intersections of their bases S."""
+        spec = self._nway_spec(panel_mode=comparison.NWayPanelMode.COMPLEMENT)
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(
+            result.manifest["base_overlaps"],
+            [
+                {
+                    "left_panel_key": "fantasy",
+                    "right_panel_key": "mystery",
+                    "story_count": 0,
+                    "story_ids": [],
+                }
+            ],
+        )
+        self.assertEqual(
+            comparison.compare_many(_corpus(), self._nway_spec()).manifest[
+                "base_overlaps"
+            ],
+            [],
+        )
+
+    def test_empty_per_panel_reference_warns(self):
+        """A panel equal to U has an empty complement, which is disclosed."""
+        panels = (
+            comparison.NWayPanelSpec(
+                "everything", comparison.Selector(comparison.SelectorKind.ALL)
+            ),
+            self._nway_spec().panels[1],
+        )
+        spec = self._nway_spec(
+            panels=panels,
+            reference=None,
+            reference_policy=comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT,
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.MAX_PANEL_VALUE
+            ),
+            ordering=comparison.NWayOrderingSpec(
+                by=comparison.NWayOrdering.MAX_PANEL_VALUE
+            ),
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertTrue(
+            any(
+                "everything:complement" in warning
+                for warning in result.manifest["warnings"]
+            )
+        )
+
     def test_complement_mode_rejects_complement_bases(self):
         """Complement mode takes S, so a pre-complemented base is ambiguous."""
         complement_panel = comparison.NWayPanelSpec(

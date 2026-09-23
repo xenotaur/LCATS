@@ -1087,6 +1087,7 @@ def run_compare_many(args) -> int:
     formats = _parse_formats(args.formats)
 
     spec = _build_nway_spec(args, genres)
+    comparison.validate_nway_spec(spec)
     render_spec = _build_nway_render_spec(args)
     corpus = sources.load_comparison_corpus(
         corpora_root=args.corpus_root,

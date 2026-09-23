@@ -905,7 +905,7 @@ def _nway_legend_handles(plan: NWayRenderPlan, result) -> list:
             Patch(
                 facecolor=_NWAY_REFERENCE_STYLE["facecolor"],
                 edgecolor=_NWAY_REFERENCE_STYLE["edgecolor"],
-                label="Reference frequency",
+                label="Reference value",
             )
         )
     if plan.plotted_quantity == "value":

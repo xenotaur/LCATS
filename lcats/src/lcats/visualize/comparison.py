@@ -505,7 +505,7 @@ def compare_many(
     Returns:
         Renderer-neutral aligned rows plus manifest-ready provenance.
     """
-    _validate_nway_spec(spec)
+    validate_nway_spec(spec)
     universe_ids = _resolve_universe(corpus, spec.universe)
     tokenized = _tokenize_universe(corpus, universe_ids, spec.token_filter)
     tfidf_fit = (
@@ -605,7 +605,8 @@ def _display_label(selector: Selector) -> str:
     return selector.label or _selector_label(selector)
 
 
-def _validate_nway_spec(spec: NWayComparisonSpec) -> None:
+def validate_nway_spec(spec: NWayComparisonSpec) -> None:
+    """Raise ``ValueError`` if an N-way spec is inconsistent or unsupported."""
     if spec.universe.kind not in ("corpus", "story_list", "manifest"):
         raise ValueError(f"unsupported universe kind: {spec.universe.kind!r}")
     if len(spec.panels) < 2:
@@ -1268,6 +1269,22 @@ def _nway_manifest(
                     "story_ids": intersection,
                 }
             )
+    base_overlap_records = []
+    if spec.panel_mode == NWayPanelMode.COMPLEMENT:
+        for index, left in enumerate(panels):
+            for right in panels[index + 1 :]:
+                intersection = sorted(
+                    set(left.base_resolution.story_ids)
+                    & set(right.base_resolution.story_ids)
+                )
+                base_overlap_records.append(
+                    {
+                        "left_panel_key": left.key,
+                        "right_panel_key": right.key,
+                        "story_count": len(intersection),
+                        "story_ids": intersection,
+                    }
+                )
     overlapping_pairs = [record for record in overlap_records if record["story_count"]]
     covered = set()
     for panel in panels:
@@ -1338,6 +1355,18 @@ def _nway_manifest(
     empty_panels = [panel.key for panel in panels if not panel.resolution.story_ids]
     if empty_panels:
         warnings.append(f"panels with no member stories: {empty_panels!r}.")
+    empty_references = sorted(
+        {
+            panel.reference.key
+            for panel in panels
+            if panel.reference is not None and not panel.reference.resolution.story_ids
+        }
+    )
+    if empty_references:
+        warnings.append(
+            f"references with no member stories: {empty_references!r}; their "
+            "deviations equal the panel values."
+        )
 
     return {
         "schema_version": "lcats-nway-comparison-v2",
@@ -1380,6 +1409,7 @@ def _nway_manifest(
             for panel in panels
         ],
         "panel_overlaps": overlap_records,
+        "base_overlaps": base_overlap_records,
         "complements": complements,
         "membership": {
             "semantics": (

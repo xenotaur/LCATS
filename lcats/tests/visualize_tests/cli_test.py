@@ -1302,6 +1302,27 @@ class TestRunCompareMany(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, message):
                 visualize_cli.run(parsed_args=args)
 
+    def test_spec_conflicts_fail_before_loading_corpus(self):
+        """Policy conflicts are reported without reading any story files."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            args = visualize_cli.build_visualize_parser().parse_args(
+                [
+                    "compare-many",
+                    "--corpus-root",
+                    str(Path(tmp_dir) / "missing"),
+                    "--candidates-jsonl",
+                    str(Path(tmp_dir) / "missing.jsonl"),
+                    "--panels",
+                    "fantasy,mystery",
+                    "--reference",
+                    "none",
+                    "--order-by",
+                    "reference_value",
+                ]
+            )
+            with self.assertRaisesRegex(ValueError, "reference_value"):
+                visualize_cli.run(parsed_args=args)
+
     def test_compare_many_help_lists_policy_and_layout_controls(self):
         """compare-many --help documents reference, scale, and layout options."""
         parser = visualize_cli.build_visualize_parser()

@@ -1,4 +1,24 @@
 {
+  "base_overlaps": [
+    {
+      "left_panel_key": "fantasy",
+      "right_panel_key": "horror",
+      "story_count": 0,
+      "story_ids": []
+    },
+    {
+      "left_panel_key": "fantasy",
+      "right_panel_key": "science_fiction",
+      "story_count": 0,
+      "story_ids": []
+    },
+    {
+      "left_panel_key": "horror",
+      "right_panel_key": "science_fiction",
+      "story_count": 0,
+      "story_ids": []
+    }
+  ],
   "commensurability": {
     "shared_metric": true,
     "shared_preprocessing": true,
@@ -77,22 +97,22 @@
     },
     "figures": [
       {
-        "bytes": 208757,
+        "bytes": 207945,
         "format": "png",
         "path": "lcats_146_nway_complement_common.png",
-        "sha256": "ccc1e3c44c792814c5c3823ac48c13b1453a9768d515bf858fa653ce747ad271"
+        "sha256": "c69c0e4223cdc8e56584c1ca7250d4dcbfdefbde5c6cf1a35d451daed02e9c2e"
       },
       {
-        "bytes": 413241,
+        "bytes": 412427,
         "format": "svg",
         "path": "lcats_146_nway_complement_common.svg",
-        "sha256": "2c828b53f8aacf1d14c22541de367e43ade3fd8a7cf6cbadce53d7b7daea35c2"
+        "sha256": "7f84ea1a3013c88959afdf0e87afe0576275d97461cf18ff5a1e84f2f5a6a589"
       },
       {
-        "bytes": 78544,
+        "bytes": 78181,
         "format": "pdf",
         "path": "lcats_146_nway_complement_common.pdf",
-        "sha256": "817469b15451220f2504c00e19f585ce330dbe1f84cd5befda8386d1a7a6da85"
+        "sha256": "5fd7f36ef21e2eedb8dc82482be5b97e4c4b894c85639bbe1b9d3ccca804f035"
       }
     ],
     "manifest": {

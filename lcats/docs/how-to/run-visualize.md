@@ -211,8 +211,11 @@ fails rather than silently choosing another ranking.
 
 **Overlap.** Genre selectors need not be disjoint or exhaustive. The manifest
 reports every pairwise intersection (including zero-size pairs) under
-`panel_overlaps`, and `membership` states `partition_claim: false` together
-with the observed `pairwise_disjoint` and `covers_universe` facts. Do not
+`panel_overlaps` (for complement panels, `base_overlaps` also reports the
+intersections of the underlying selectors `S`), and `membership` states
+`partition_claim: false` together with the observed `pairwise_disjoint` and
+`covers_universe` facts. A per-panel complement that is empty (a panel equal
+to `U`) is reported under `warnings`. Do not
 caption an overlapping figure as a partition of the corpus.
 
 **Scale.** All panels share one visible scale by default: one joint symmetric

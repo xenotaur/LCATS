@@ -78,6 +78,14 @@ EXAMPLES = {
         render_spec=rendering.NWayRenderSpec(highlight="global", max_columns=3),
         title="Genre deviations from the full {n}-story sample (wrapped)",
     ),
+    "direct_common": Example(
+        genres=("fantasy", "horror", "science fiction"),
+        membership_mode=comparison.MembershipMode.SELECTION,
+        panel_mode=comparison.NWayPanelMode.DIRECT,
+        reference_policy=comparison.NWayReferencePolicy.COMMON,
+        render_spec=rendering.NWayRenderSpec.from_preset("kabob"),
+        title="Genre deviations from the full {n}-story sample",
+    ),
     "complement_common": Example(
         genres=("fantasy", "horror", "science fiction"),
         membership_mode=comparison.MembershipMode.SELECTION,

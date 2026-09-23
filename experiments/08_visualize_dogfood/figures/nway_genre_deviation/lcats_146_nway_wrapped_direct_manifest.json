@@ -1,4 +1,5 @@
 {
+  "base_overlaps": [],
   "commensurability": {
     "shared_metric": true,
     "shared_preprocessing": true,
@@ -40,22 +41,22 @@
     },
     "figures": [
       {
-        "bytes": 513530,
+        "bytes": 512858,
         "format": "png",
         "path": "lcats_146_nway_wrapped_direct.png",
-        "sha256": "312f75778e213debce9719746ef57a02d89a7729f7391f5552fb21c01d118f43"
+        "sha256": "4f3b94f63c8d69fc2735d9f67e10c530c7d59bc42d72dbc1297037c6ab2a879c"
       },
       {
-        "bytes": 492697,
+        "bytes": 491883,
         "format": "svg",
         "path": "lcats_146_nway_wrapped_direct.svg",
-        "sha256": "4822c8799a849204395899736398353ca36d380731d548b7de1b40cb8cf71f35"
+        "sha256": "38a03136c905267e6bd492ef499521e9b130077a9a5f922d971255f9a91c7c63"
       },
       {
-        "bytes": 83317,
+        "bytes": 82955,
         "format": "pdf",
         "path": "lcats_146_nway_wrapped_direct.pdf",
-        "sha256": "6e595199342e19e5ffcf9edb9df41d6a32fcc88d8fe181242d33a71a23b2c486"
+        "sha256": "6dd6f7a53d4411e3e5cc6668a9216afd2c483a652e810f9b415bf490fab8c0ff"
       }
     ],
     "manifest": {

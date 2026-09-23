@@ -136,7 +136,8 @@ reference, the largest deviations') top 20 terms:
 |---|---|---|---|
 | `lcats_146_nway_kabob_direct` | all 8 selection genres | full sample | `kabob` preset: reference bars right, outside-right term labels, row guides, per-genre extrema |
 | `lcats_146_nway_wrapped_direct` | all 8 selection genres | full sample | standard layout wrapped to 3 columns (3 bands), global extrema |
-| `lcats_146_nway_complement_common` | `U - fantasy`, `U - horror`, `U - science fiction` | full sample | `kabob`; each complement is verified as `U - S` in the manifest |
+| `lcats_146_nway_direct_common` | fantasy, horror, science fiction | full sample | `kabob`; the direct counterpart of the complement example below |
+| `lcats_146_nway_complement_common` | `U - fantasy`, `U - horror`, `U - science fiction` | full sample | `kabob`; each complement is verified as `U - S` in the manifest, with base intersections under `base_overlaps` |
 | `lcats_146_nway_candidate_per_panel_complement` | adventure, romance, humor (candidate labels) | each panel's own complement | `kabob`; candidate labels overlap (adventure/romance share 1 story), recorded under `panel_overlaps` |
 
 Every panel within a figure shares one universe fingerprint, vocabulary, term
