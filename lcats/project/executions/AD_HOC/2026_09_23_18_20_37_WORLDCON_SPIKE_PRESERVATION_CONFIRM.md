@@ -3,7 +3,7 @@ execution_id: 2026_09_23_18_20_37_WORLDCON_SPIKE_PRESERVATION_CONFIRM
 prompt_id: PROMPT(AD_HOC:WORLDCON_SPIKE_PRESERVATION_CONFIRM)[2026-09-23T18:20:21+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/440
 commit: "7df841ef8c613155f35df44538252af027ca2039"
 agent: codex_app

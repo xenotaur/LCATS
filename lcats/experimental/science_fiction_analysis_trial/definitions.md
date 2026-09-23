@@ -80,20 +80,21 @@ of:
 > natural or manmade.
 
 Source: Douglas Robillard, “Uncertain Futures: Damon Knight's Science Fiction,”
-in *Voices for the Future*, vol. 3 (1984), as reproduced in the attached
-`enotes.com-Golden Age of Short Science Fiction Criticism Uncertain Futures
-Damon Knights Science Fiction - Doug.pdf`, PDF p. 10. Robillard's note 18
+in *Voices for the Future*, vol. 3 (1984), as reproduced in the external
+consulted copy `enotes.com-Golden Age of Short Science Fiction Criticism
+Uncertain Futures Damon Knights Science Fiction - Doug.pdf`, PDF p. 10.
+Robillard's note 18
 points to Damon Knight, “What Is Science Fiction?” in *Turning Points: Essays
 on the Art of Science Fiction*, ed. Damon Knight (1977), p. 63; the Knight
 essay itself is not included in the attachment.
 
-The attached dissertation reproduces a related list as six numbered items,
+The external consulted dissertation reproduces a related list as six numbered items,
 with “science, technology and invention” combined as item 1. Source: Vivian
 Elaine Jackson, *New Technology in Education as Viewed through the Utopic and
-Dystopic Worlds of Science Fiction*, attached PDF, PDF p. 96 and dissertation
+Dystopic Worlds of Science Fiction*, external consulted PDF, PDF p. 96 and dissertation
 page numbering around p. 103.
 
-The attached *A Sound of Thunder* presentation separates science from
+The external consulted *A Sound of Thunder* presentation separates science from
 technology and invention, giving seven displayed elements. It also attributes
 the rule “at least three” to Knight, with two as borderline and one or none as
 not science fiction. Source: attached `studylib.net-A Sound of Thunder Ray
