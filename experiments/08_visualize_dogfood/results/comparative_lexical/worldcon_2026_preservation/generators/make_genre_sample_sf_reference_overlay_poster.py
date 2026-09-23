@@ -24,6 +24,8 @@ from matplotlib.patches import Patch
 from matplotlib.ticker import FuncFormatter
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
+import preservation_guard
+
 
 GENERATOR_DIR = pathlib.Path(__file__).resolve().parent
 PRESERVATION_ROOT = GENERATOR_DIR.parent
@@ -118,11 +120,28 @@ def verify_saved_data(
     assert [row["term"] for row in rows] == terms
 
     max_difference = 0.0
-    for row, computed in zip(rows, zip(sample_rates, complement_rates, sf_rates)):
+    sf_vs_sample_percentages = [
+        ((sf_rate / sample_rate) - 1.0) * 100.0
+        for sample_rate, sf_rate in zip(sample_rates, sf_rates)
+    ]
+    sf_vs_complement_percentages = [
+        ((sf_rate / complement_rate) - 1.0) * 100.0
+        for complement_rate, sf_rate in zip(complement_rates, sf_rates)
+    ]
+    computed_rows = zip(
+        sample_rates,
+        complement_rates,
+        sf_rates,
+        sf_vs_sample_percentages,
+        sf_vs_complement_percentages,
+    )
+    for row, computed in zip(rows, computed_rows):
         saved = (
             float(row["sample_rate_per_million"]),
             float(row["non_sf_rate_per_million"]),
             float(row["science_fiction_rate_per_million"]),
+            float(row["sf_vs_sample_percent"]),
+            float(row["sf_vs_non_sf_percent"]),
         )
         max_difference = max(
             max_difference,
@@ -302,6 +321,12 @@ def render(
 
 
 def main() -> None:
+    preservation_guard.verify_inputs(
+        preservation_root=PRESERVATION_ROOT,
+        corpora_root=CORPORA,
+        selection_manifest=MANIFEST,
+        tokenizer_source=TOKENIZER_SOURCE,
+    )
     groups = load_counts()
     sample_counts, sample_tokens, sample_stories = groups["sample"]
     sf_counts, sf_tokens, sf_stories = groups["sf"]
@@ -324,7 +349,7 @@ def main() -> None:
                 "science_fiction_usable_tokens": sf_tokens,
                 "non_sf_complement_usable_tokens": complement_tokens,
                 "terms": terms,
-                "max_abs_rate_difference_vs_saved_csv": max_difference,
+                "max_abs_value_difference_vs_saved_csv": max_difference,
                 "outputs": [
                     str(OUTPUT_STEM.with_suffix(f".{ext}"))
                     for ext in ("png", "pdf", "svg")

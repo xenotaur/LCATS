@@ -24,6 +24,8 @@ from matplotlib.patches import Patch
 from matplotlib.ticker import FuncFormatter
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
+import preservation_guard
+
 
 GENERATOR_DIR = pathlib.Path(__file__).resolve().parent
 PRESERVATION_ROOT = GENERATOR_DIR.parent
@@ -383,6 +385,12 @@ def write_data(
 
 
 def main() -> None:
+    preservation_guard.verify_inputs(
+        preservation_root=PRESERVATION_ROOT,
+        corpora_root=CORPORA,
+        selection_manifest=MANIFEST,
+        tokenizer_source=TOKENIZER_SOURCE,
+    )
     (
         sample_counts,
         sample_tokens,
