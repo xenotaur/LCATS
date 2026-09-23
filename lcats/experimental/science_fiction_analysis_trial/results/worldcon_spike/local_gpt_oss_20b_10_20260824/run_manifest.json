@@ -1,0 +1,181 @@
+{
+  "version": "worldcon-knight-novum-spike-manifest-v1",
+  "work_item": "WI-SF-0012",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "source_worldcon_manifest_expected_count": 146,
+  "selection_note": "Deterministic smoke and sample subsets selected from WI-GENRE-0004's committed 146-story Worldcon sample. The full mode loads that source manifest directly and remains behind a separate explicit approval gate.",
+  "gates": {
+    "smoke": {
+      "max_stories": 3,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": false,
+      "requires_full_sample_approval": false,
+      "stop_conditions": [
+        "any story fails structural sidecar assembly",
+        "any output writes outside the experiment output root"
+      ]
+    },
+    "sample": {
+      "max_stories": 10,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "requires_full_sample_approval": false,
+      "stop_conditions": [
+        "smoke summary is absent or incomplete",
+        "paid backend requested without reviewed paid-run approval"
+      ]
+    },
+    "full": {
+      "max_stories": 146,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "requires_full_sample_approval": true,
+      "estimated_wall_clock_minutes": null,
+      "stop_conditions": [
+        "full-sample approval is absent",
+        "paid backend requested without reviewed paid-run approval",
+        "operator stop condition is reached"
+      ]
+    }
+  },
+  "smoke_stories": [
+    {
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "smoke",
+        "sample",
+        "clear_sf_positive"
+      ]
+    },
+    {
+      "story_id": "lovecraft/the_colour_out_of_space",
+      "story_path": "lovecraft/the_colour_out_of_space/story.json",
+      "title": "The Colour out of Space by H. P. Lovecraft",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "smoke",
+        "sample",
+        "boundary_horror_sf"
+      ]
+    },
+    {
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell",
+      "selection_genre": "fantasy",
+      "sample_roles": [
+        "smoke",
+        "sample",
+        "negative_or_adjacent_control"
+      ]
+    }
+  ],
+  "sample_stories": [
+    {
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "sample",
+        "clear_sf_positive"
+      ]
+    },
+    {
+      "story_id": "mass_quantities/a_bad_day_for_sales__leiber",
+      "story_path": "mass_quantities/a_bad_day_for_sales__leiber/story.json",
+      "title": "A Bad Day for Sales",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "sample",
+        "clear_sf_positive"
+      ]
+    },
+    {
+      "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+      "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+      "title": "A Case of Sunburn",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "sample",
+        "clear_sf_positive"
+      ]
+    },
+    {
+      "story_id": "lovecraft/the_colour_out_of_space",
+      "story_path": "lovecraft/the_colour_out_of_space/story.json",
+      "title": "The Colour out of Space by H. P. Lovecraft",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "sample",
+        "boundary_horror_sf"
+      ]
+    },
+    {
+      "story_id": "lovecraft/the_call_of_cthulhu",
+      "story_path": "lovecraft/the_call_of_cthulhu/story.json",
+      "title": "The Call of Cthulhu by H. P. Lovecraft",
+      "selection_genre": "horror",
+      "sample_roles": [
+        "sample",
+        "supernatural_contrast"
+      ]
+    },
+    {
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell",
+      "selection_genre": "fantasy",
+      "sample_roles": [
+        "sample",
+        "negative_or_adjacent_control"
+      ]
+    },
+    {
+      "story_id": "chesterton/blue_cross",
+      "story_path": "chesterton/blue_cross/story.json",
+      "title": "Chesterton - The Blue Cross",
+      "selection_genre": "mystery",
+      "sample_roles": [
+        "sample",
+        "negative_control"
+      ]
+    },
+    {
+      "story_id": "london/brown_wolf",
+      "story_path": "london/brown_wolf/story.json",
+      "title": "London - Brown Wolf",
+      "selection_genre": "western",
+      "sample_roles": [
+        "sample",
+        "negative_control"
+      ]
+    },
+    {
+      "story_id": "mass_quantities/eve_s_diary_complete__twain",
+      "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json",
+      "title": "Eve's Diary, Complete",
+      "selection_genre": "humor",
+      "sample_roles": [
+        "sample",
+        "negative_control"
+      ]
+    },
+    {
+      "story_id": "mass_quantities/long_odds__haggard",
+      "story_path": "mass_quantities/long_odds__haggard/story.json",
+      "title": "Long Odds",
+      "selection_genre": "adventure",
+      "sample_roles": [
+        "sample",
+        "negative_control"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 5957,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1025,
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-95a075ca8083cc89"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "This is Andersen's allegorical fairy tale 'The Bell.' No scientific facts, theories, discoveries, or speculative sciences are materially represented. The mock-scholarly 'treatise on the owl' is satire of pseudo-learning, not real science.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, technique, engineered system, or invention affects the setting or outcome. The unseen bell is a numinous, symbolic phenomenon, not an engineered artifact; the confectioner's clapperless decorative bell is an ordinary ornament.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story occurs in an ordinary, unspecified contemporary/timeless setting with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No consequences are systematically developed from an identifiable scientific, technological, social, or historical premise. The narrative is allegorical and moral, not extrapolative.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Characters seek the bell's source, but this is a spiritual quest rather than observation, hypothesis, testing, or evidential revision materially driving understanding. The 'explanation' about the owl is mocked pseudo-inquiry that leaves everyone 'just as wise as before.'",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors. The forest and 'vast church of nature' are earthly and metaphorical; blessed spirits are religious/allegorical imagery, not cosmic locales.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}
