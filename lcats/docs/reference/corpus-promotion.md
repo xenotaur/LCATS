@@ -103,7 +103,11 @@ if the destination sidecar already exists); `upsert` is create-or-overwrite
 - Every `--sidecar` kind is validated against a shared registry by default;
   `--allow-unvalidated` permits promoting a kind with **no registered
   validator** — it never bypasses a registered validator's own rejection of
-  malformed content.
+  malformed content. A registered validator checks the payload's own
+  internal shape, not just the envelope — for `genre` (`genre-sidecar-v1`),
+  the payload itself must carry its own top-level `lcats_id` and
+  `story_path` fields in addition to `assessments`, separate from (and in
+  addition to) the envelope's routing `lcats_id`.
 - Neither mode creates a destination story bucket — `lcats_id` must name a
   bucket that already has a `story.json`.
 
