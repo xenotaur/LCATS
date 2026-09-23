@@ -6,9 +6,33 @@ annotation.
 
 ## Source Classification
 
-### Primary source available: Suvin
+## Reproducibility and Source Availability
 
-The attached PDF is an excerpt headed `Science Fiction and the Novum (1977)`.
+The source PDFs used during the original prompt discussion are **not included
+in this repository**. They remain external research dependencies, not hidden
+inputs to the preserved experiment. The local filenames below identify the
+copies consulted at the time; the bibliographic descriptions are the durable
+record a future reviewer should use to retrieve or replace them.
+
+| Identifier | Status | Durable bibliographic/retrieval record |
+| --- | --- | --- |
+| `suvin-novum-excerpt` | External, unavailable dependency | Darko Suvin, “Science Fiction and the Novum (1977),” chapter 3 of *Metamorphoses of Science Fiction: On the Poetics and History of a Literary Genre* (Yale University Press, 1979), excerpt printed pp. 67–92; consulted copy: `1-suvin-dbah-contents_final-97-122.pdf`, printed pp. 67–74 / PDF pp. 1–8. |
+| `robillard-knight` | External, unavailable dependency | Douglas Robillard, “Uncertain Futures: Damon Knight’s Science Fiction,” in *Voices for the Future*, vol. 3 (1984), p. 10 of the consulted reproduction; the note identifies Damon Knight, “What Is Science Fiction?,” in *Turning Points: Essays on the Art of Science Fiction*, ed. Damon Knight (1977), p. 63. Consulted copy: `enotes.com-Golden Age of Short Science Fiction Criticism Uncertain Futures Damon Knights Science Fiction - Doug.pdf`. |
+| `jackson-dissertation` | External, unavailable dependency | Vivian Elaine Jackson, *New Technology in Education as Viewed through the Utopic and Dystopic Worlds of Science Fiction*, dissertation, consulted PDF p. 96 / dissertation pagination around p. 103. Consulted copy: `New Technology in Education as Viewed through the Utopic and Dyst.pdf`. |
+| `sound-of-thunder-slides` | External, unavailable dependency | *A Sound of Thunder: Ray Bradbury* presentation, consulted PDF pp. 3–4, including the educational attribution of a “at least three” rule to Knight. Consulted copy: `studylib.net-A Sound of Thunder Ray Bradbury Presentation.pdf`. |
+| `chatgpt-research-export` | External, unavailable dependency | ChatGPT research export, `ChatGPT-Essay Availability Online-20260921-1752.pdf`; secondary research lead only, not an authority. |
+
+The local filenames are provenance hints only. They are not repository paths,
+and a future prompt or rubric revision must not claim that these artifacts can
+be audited from a fresh checkout. If a source is later added to the
+repository, it should be added deliberately with licensing review, a stable
+repository path, and a recorded checksum; otherwise this availability table
+must be updated when a replacement edition is used.
+
+### Primary source consulted: Suvin
+
+The external PDF consulted for this experiment is an excerpt headed `Science
+Fiction and the Novum (1977)`.
 It is treated here as a primary-source excerpt of Darko Suvin's chapter:
 
 > My axiomatic premise in this chapter is that SF is distinguished by the
@@ -46,7 +70,7 @@ Source: `1-suvin-dbah-contents_final-97-122.pdf`, printed pp. 72-74, PDF pp.
 
 ### Secondary source only: Knight
 
-The attached Robillard essay is a secondary discussion. It reports that Knight
+The external Robillard essay consulted here is a secondary discussion. It reports that Knight
 said a story is perceived as science fiction when it contains the “right mix”
 of:
 
