@@ -2,10 +2,10 @@
 execution_id: 2026_09_23_18_20_37_WORLDCON_SPIKE_PRESERVATION_CONFIRM
 prompt_id: PROMPT(AD_HOC:WORLDCON_SPIKE_PRESERVATION_CONFIRM)[2026-09-23T18:20:21+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/440
-commit: "7df841ef8c613155f35df44538252af027ca2039"
+commit: "08b33fad994eb68d1bb2f83b31de2be6455a21c3"
 agent: codex_app
 instruction_source: "https://github.com/xenotaur/LCATS/pull/440 (inline confirm-fixes)"
 session_transcript: codex-app:01a02338-d9c7-7313-8ed5-fb9c1643bef1
@@ -39,6 +39,5 @@ mutation. No exception threads remained open at resolution time.
 
 # Follow-up
 
-The final merge and closeout remain pending the SHA-locked merge gate. The
-PR has no primary execution record; `/lrh-land` must create the required
-AD_HOC closeout backfill record after merge.
+PR 440 merged via the SHA-locked squash command. The dedicated closeout
+backfill record documents the absence of a primary implementation record.
