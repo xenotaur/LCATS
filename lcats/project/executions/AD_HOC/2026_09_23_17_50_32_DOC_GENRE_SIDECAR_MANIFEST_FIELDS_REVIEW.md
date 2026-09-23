@@ -2,10 +2,10 @@
 execution_id: 2026_09_23_17_50_32_DOC_GENRE_SIDECAR_MANIFEST_FIELDS_REVIEW
 prompt_id: PROMPT(AD_HOC:DOC_GENRE_SIDECAR_MANIFEST_FIELDS_REVIEW)[2026-09-23T17:49:56+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_23_17_46_08_DOC_GENRE_SIDECAR_MANIFEST_FIELDS
 pr: https://github.com/xenotaur/LCATS/pull/443
-commit: 56196ff9
+commit: 53aa2ad0a2d23c4de7e75d9cb8911b0b841239cf
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/443
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
