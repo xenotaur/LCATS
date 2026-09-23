@@ -497,6 +497,19 @@ class TestNWayComparison(unittest.TestCase):
         serialized = json.dumps(result.manifest, sort_keys=True)
         self.assertIn("lcats-nway-comparison-v1", serialized)
 
+    def test_custom_tokenizer_provenance_names_real_function(self):
+        """Non-default preprocessing identifies the function that implements it."""
+        spec = self._nway_spec(
+            token_filter=comparison.TokenFilter(include_stopwords=True, min_length=1)
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(
+            result.manifest["preprocessing"]["tokenizer"],
+            "lcats.visualize.comparison._tokenize",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

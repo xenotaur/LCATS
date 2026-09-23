@@ -1067,7 +1067,7 @@ def _nway_manifest(
                     and spec.token_filter.lowercase
                     and spec.token_filter.min_length >= 3
                 )
-                else "lcats.visualize.comparison.alpha_tokenizer"
+                else "lcats.visualize.comparison._tokenize"
             ),
             "stopword_policy": (
                 "excluded" if not spec.token_filter.include_stopwords else "included"
@@ -1146,7 +1146,7 @@ def _manifest(
                     and spec.token_filter.lowercase
                     and spec.token_filter.min_length >= 3
                 )
-                else "lcats.visualize.comparison.alpha_tokenizer"
+                else "lcats.visualize.comparison._tokenize"
             ),
             "stopword_policy": (
                 "excluded" if not spec.token_filter.include_stopwords else "included"
