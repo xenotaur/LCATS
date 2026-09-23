@@ -22,6 +22,16 @@ existing `experiments/NN_slug/` numbering convention as the interim
 committed-figures location, until the actual talk/poster source repo (or
 an in-repo `Papers/`-style location) exists to receive them.
 
+**Preserved comparative figures.** The poster- and presentation-specific
+146-story complement overlays produced before the reusable `compare` pipeline
+was available are preserved under
+[`results/comparative_lexical/worldcon_2026_preservation/`](results/comparative_lexical/worldcon_2026_preservation/README.md).
+They are historical, verified presentation artifacts—not the final
+`WI-VISUALIZE-0094` figure package and not a second production analysis API.
+Their README records the exact inputs, genre/token denominators, limitations,
+checksums, and migration path through `WI-VISUALIZE-0095` and
+`WI-VISUALIZE-0094`.
+
 ## Inputs
 
 - Corpus: `corpora/` (1868 stories).
@@ -120,6 +130,13 @@ Every manifest's `corpus_source_revision` for this run is
 over `candidates.jsonl`. Any of these figures can be regenerated exactly
 by running the command in the table above against a checkout whose
 corpus/candidates content hashes match.
+
+The separate `results/comparative_lexical/worldcon_2026_preservation/`
+subtree contains five paired/reference-overlay presentation figures in PNG,
+PDF, and SVG, their numeric CSVs, and the historical generators. See that
+subtree's README before reusing them: its 146-story selection and
+`selection_genre` complement semantics differ from the full-corpus inputs used
+by the commands above.
 
 ## Findings from dogfooding
 
