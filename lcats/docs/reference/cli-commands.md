@@ -299,7 +299,7 @@ sidecar and run-summary schemas.
 ## `visualize`
 
 ```
-lcats visualize {genres,words,tfidf,topics,compare} ...
+lcats visualize {genres,words,tfidf,topics,compare,compare-many} ...
 ```
 
 Generate reproducible, publication-useful figures from LCATS corpus
@@ -473,6 +473,70 @@ lcats visualize compare --universe manifest \
   --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
   --right-genre "science fiction" --right-reference complement \
   --metric per_million --output-dir /tmp/lcats_compare_smoke
+```
+
+### `visualize compare-many`
+
+```
+lcats visualize compare-many --panels PANELS
+                             [--corpus-root CORPUS_ROOT]
+                             [--candidates-jsonl CANDIDATES_JSONL]
+                             [--universe {corpus,manifest}] [--manifest MANIFEST]
+                             [--membership-mode {candidate,primary,selection}]
+                             [--panel-mode {direct,complement}]
+                             [--reference {universe,genre,per-panel-complement,none}]
+                             [--reference-genre REFERENCE_GENRE]
+                             [--metric METRIC] [--top-k TOP_K]
+                             [--vocabulary VOCABULARY] [--order-by ORDER_BY]
+                             [--include-stopwords] [--min-length MIN_LENGTH]
+                             [--layout {standard,kabob}]
+                             [--reference-direction {left,right}]
+                             [--term-labels {center-column,outside-left,outside-right}]
+                             [--hatching | --no-hatching]
+                             [--legend | --no-legend]
+                             [--row-guides | --no-row-guides]
+                             [--highlight {off,per-genre,global}]
+                             [--scale {shared,independent}]
+                             [--max-columns MAX_COLUMNS] [--title TITLE]
+                             [--stem STEM] [--output-dir OUTPUT_DIR]
+                             [--formats FORMATS]
+```
+
+Render an aligned N-way reference-deviation chart for an ordered list of
+genre panels or their universe complements. Writes `<stem>.<format>` figures,
+a long-form `<stem>.csv`, and `<stem>_manifest.json` with selectors,
+memberships, references, pairwise overlaps, complement construction, scale
+and layout decisions, and SHA-256 output hashes. See
+[`run-visualize.md`](../how-to/run-visualize.md#compare-many----aligned-n-way-reference-deviation-chart)
+for semantics.
+
+| Argument / Flag | Description |
+|---|---|
+| `--panels PANELS` | Comma-separated genres in display order; at least two, no repeats. |
+| `--corpus-root`, `--candidates-jsonl`, `--universe`, `--manifest`, `--membership-mode` | Same meaning as `visualize compare`. |
+| `--panel-mode {direct,complement}` | Show each selector `S` or `U - S` (default: `direct`). |
+| `--reference {universe,genre,per-panel-complement,none}` | Common `U` reference, common `--reference-genre`, each panel's complement, or no reference (default: `universe`). |
+| `--reference-genre REFERENCE_GENRE` | Common reference genre; valid only with `--reference genre`. |
+| `--metric METRIC` | Metric shared by every panel and reference (default: `per_million`; `tfidf_contrast` is not offered). |
+| `--top-k TOP_K` | Number of aligned terms; must be `>= 1` (default: `20`). |
+| `--vocabulary VOCABULARY` / `--order-by ORDER_BY` | N-way vocabulary and order policy; `auto` follows the reference policy (default: `auto`). |
+| `--include-stopwords`, `--min-length MIN_LENGTH` | Tokenization controls, as for `compare`. |
+| `--layout {standard,kabob}` | Presentation preset (default: `standard`); the flags below override preset fields. |
+| `--reference-direction {left,right}` | Common-reference bar direction. |
+| `--term-labels {center-column,outside-left,outside-right}` | Term-label placement. |
+| `--[no-]hatching`, `--[no-]legend`, `--[no-]row-guides` | Independent styling toggles. |
+| `--highlight {off,per-genre,global}` | Extrema-highlight scope (default: `per-genre`). |
+| `--scale {shared,independent}` | Panel scale policy (default: `shared`); `independent` is labeled on every panel and in the manifest. |
+| `--max-columns MAX_COLUMNS` | Panels per band before deterministic wrapping (default: `8`). |
+| `--title TITLE`, `--stem STEM` | Figure title and output file stem (default stem: `comparison_nway`). |
+| `--output-dir OUTPUT_DIR` | Output directory (default: `compare_many_viz`). |
+| `--formats FORMATS` | Comma-separated figure formats from `png,svg,pdf` (default: `png,svg`). |
+
+```
+lcats visualize compare-many --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --membership-mode selection --panels "fantasy,horror,science fiction" \
+  --layout kabob --output-dir /tmp/lcats_compare_many_smoke
 ```
 
 ## Placeholder commands

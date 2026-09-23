@@ -5,6 +5,8 @@ import json
 import unittest
 from unittest import mock
 
+from parameterized import parameterized
+
 from lcats.visualize import analysis
 from lcats.visualize import comparison
 
@@ -495,7 +497,235 @@ class TestNWayComparison(unittest.TestCase):
         result = comparison.compare_many(_corpus(), self._nway_spec())
 
         serialized = json.dumps(result.manifest, sort_keys=True)
-        self.assertIn("lcats-nway-comparison-v1", serialized)
+        self.assertIn("lcats-nway-comparison-v2", serialized)
+
+    def test_fewer_than_two_panels_raise(self):
+        """An N-way comparison needs an ordered sequence of at least two panels."""
+        spec = self._nway_spec(panels=self._nway_spec().panels[:1])
+
+        with self.assertRaisesRegex(ValueError, "at least two"):
+            comparison.compare_many(_corpus(), spec)
+
+    def test_long_table_follows_display_then_declared_panel_order(self):
+        """Long-form records are deterministic and carry per-cell references."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+        records = result.long_table()
+
+        self.assertEqual(
+            [(r["display_order"], r["panel_order"]) for r in records],
+            [(order, panel) for order in (1, 2, 3) for panel in (1, 2)],
+        )
+        self.assertEqual({r["reference_key"] for r in records}, {"reference"})
+        for record in records:
+            with self.subTest(term=record["term"], panel=record["panel_key"]):
+                self.assertAlmostEqual(
+                    record["deviation"], record["value"] - record["reference_value"]
+                )
+
+    def test_complement_panels_equal_universe_minus_selector(self):
+        """Complement mode displays U - S and proves the construction."""
+        spec = self._nway_spec(panel_mode=comparison.NWayPanelMode.COMPLEMENT)
+        result = comparison.compare_many(_corpus(), spec)
+        panels = {panel["key"]: panel for panel in result.manifest["panels"]}
+        universe = set(result.manifest["universe"]["story_ids"])
+
+        self.assertEqual(panels["fantasy"]["label"], "U - Fantasy")
+        self.assertEqual(panels["fantasy"]["story_ids"], ["c/three"])
+        self.assertEqual(panels["mystery"]["story_ids"], ["a/one", "b/two"])
+        for key, panel in panels.items():
+            with self.subTest(panel=key):
+                self.assertEqual(
+                    set(panel["story_ids"]),
+                    universe - set(panel["base"]["story_ids"]),
+                )
+        records = result.manifest["complements"]
+        self.assertEqual([record["role"] for record in records], ["panel", "panel"])
+        self.assertTrue(
+            all(record["verified_equals_universe_minus_base"] for record in records)
+        )
+        self.assertTrue(
+            all(
+                record["universe_fingerprint"]
+                == result.manifest["universe"]["fingerprint"]
+                for record in records
+            )
+        )
+
+    def test_complement_mode_rejects_complement_bases(self):
+        """Complement mode takes S, so a pre-complemented base is ambiguous."""
+        complement_panel = comparison.NWayPanelSpec(
+            "not_fantasy",
+            comparison.Selector(
+                comparison.SelectorKind.COMPLEMENT,
+                base=comparison.Selector(
+                    comparison.SelectorKind.GENRE, genre="fantasy"
+                ),
+            ),
+        )
+        spec = self._nway_spec(
+            panels=(complement_panel, self._nway_spec().panels[1]),
+            panel_mode=comparison.NWayPanelMode.COMPLEMENT,
+        )
+
+        with self.assertRaisesRegex(ValueError, "base selectors"):
+            comparison.compare_many(_corpus(), spec)
+
+    def test_per_panel_complement_reference_uses_each_panels_complement(self):
+        """Each cell is compared with U minus its own panel."""
+        spec = self._nway_spec(
+            reference=None,
+            reference_policy=comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT,
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.MAX_ABSOLUTE_DEVIATION,
+                top_k=None,
+            ),
+            ordering=comparison.NWayOrderingSpec(
+                by=comparison.NWayOrdering.MAX_ABSOLUTE_DEVIATION
+            ),
+        )
+        result = comparison.compare_many(_corpus(), spec)
+        references = {ref["panel_key"]: ref for ref in result.manifest["references"]}
+        dragon = next(row for row in result.rows if row.term == "dragon")
+        fantasy = next(cell for cell in dragon.panels if cell.panel_key == "fantasy")
+
+        self.assertIsNone(result.manifest["reference"])
+        self.assertIsNone(dragon.reference_value)
+        self.assertEqual(references["fantasy"]["story_ids"], ["c/three"])
+        self.assertEqual(references["mystery"]["story_ids"], ["a/one", "b/two"])
+        self.assertEqual(fantasy.reference_key, "fantasy:complement")
+        self.assertEqual(fantasy.reference_label, "U - Fantasy")
+        self.assertEqual(fantasy.reference_value, 0.0)
+        self.assertAlmostEqual(fantasy.deviation, fantasy.value)
+        self.assertEqual(
+            [record["role"] for record in result.manifest["complements"]],
+            ["reference", "reference"],
+        )
+        self.assertTrue(
+            all(
+                record["verified_equals_universe_minus_base"]
+                for record in result.manifest["complements"]
+            )
+        )
+
+    def test_no_reference_reports_values_without_deviation(self):
+        """The no-reference policy never fabricates a zero reference."""
+        spec = self._nway_spec(
+            reference=None,
+            reference_policy=comparison.NWayReferencePolicy.NONE,
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.MAX_PANEL_VALUE, top_k=2
+            ),
+            ordering=comparison.NWayOrderingSpec(
+                by=comparison.NWayOrdering.MAX_PANEL_VALUE
+            ),
+        )
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(result.manifest["references"], [])
+        self.assertIsNone(result.manifest["deviation_definition"])
+        self.assertTrue(
+            all(
+                cell.deviation is None and cell.reference_value is None
+                for row in result.rows
+                for cell in row.panels
+            )
+        )
+        maxima = [max(cell.value for cell in row.panels) for row in result.rows]
+        self.assertEqual(maxima, sorted(maxima, reverse=True))
+
+    @parameterized.expand(
+        [
+            ("common_without_reference", {"reference": None}, "requires a reference"),
+            (
+                "none_with_reference",
+                {"reference_policy": comparison.NWayReferencePolicy.NONE},
+                "set reference=None",
+            ),
+            (
+                "per_panel_reference_value_vocabulary",
+                {
+                    "reference": None,
+                    "reference_policy": (
+                        comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT
+                    ),
+                },
+                "reference_value",
+            ),
+            (
+                "none_absolute_deviation_order",
+                {
+                    "reference": None,
+                    "reference_policy": comparison.NWayReferencePolicy.NONE,
+                    "vocabulary": comparison.NWayVocabularySpec(
+                        policy=comparison.NWayVocabularyPolicy.MAX_PANEL_VALUE
+                    ),
+                    "ordering": comparison.NWayOrderingSpec(
+                        by=comparison.NWayOrdering.MAX_ABSOLUTE_DEVIATION
+                    ),
+                },
+                "max_absolute_deviation",
+            ),
+        ]
+    )
+    def test_reference_policy_conflicts_raise(self, _name, overrides, message):
+        """Reference policy, reference selector, and rankings must agree."""
+        with self.assertRaisesRegex(ValueError, message):
+            comparison.compare_many(_corpus(), self._nway_spec(**overrides))
+
+    def test_overlapping_selectors_record_every_pair_without_partition_claim(self):
+        """Overlap is reported pairwise; panels are never claimed to partition U."""
+        panels = (
+            *self._nway_spec().panels,
+            comparison.NWayPanelSpec(
+                "sf",
+                comparison.Selector(
+                    comparison.SelectorKind.GENRE,
+                    genre="science fiction",
+                    label="SF",
+                ),
+            ),
+        )
+        result = comparison.compare_many(_corpus(), self._nway_spec(panels=panels))
+        overlaps = {
+            (record["left_panel_key"], record["right_panel_key"]): record
+            for record in result.manifest["panel_overlaps"]
+        }
+        membership = result.manifest["membership"]
+
+        self.assertEqual(
+            list(overlaps),
+            [("fantasy", "mystery"), ("fantasy", "sf"), ("mystery", "sf")],
+        )
+        self.assertEqual(overlaps[("fantasy", "sf")]["story_ids"], ["b/two"])
+        self.assertEqual(overlaps[("fantasy", "mystery")]["story_count"], 0)
+        self.assertEqual(overlaps[("mystery", "sf")]["story_count"], 0)
+        self.assertFalse(membership["partition_claim"])
+        self.assertFalse(membership["pairwise_disjoint"])
+        self.assertTrue(membership["covers_universe"])
+        self.assertIn("overlap in 1 pair", result.manifest["warnings"][0])
+
+    def test_universe_fingerprint_is_stable_and_order_sensitive(self):
+        """All panels are bound to one fingerprinted universe."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+
+        self.assertEqual(
+            result.manifest["universe"]["fingerprint"],
+            comparison.story_id_fingerprint(("a/one", "b/two", "c/three")),
+        )
+        self.assertNotEqual(
+            comparison.story_id_fingerprint(("a/one", "b/two")),
+            comparison.story_id_fingerprint(("b/two", "a/one")),
+        )
+
+    def test_every_panel_and_reference_records_the_shared_metric(self):
+        """Commensurability evidence is explicit for panels and references."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+        entries = result.manifest["panels"] + result.manifest["references"]
+
+        self.assertTrue(
+            all(entry["metric"] == result.manifest["metric"] for entry in entries)
+        )
+        self.assertTrue(result.manifest["commensurability"]["shared_vocabulary"])
 
     def test_custom_tokenizer_provenance_names_real_function(self):
         """Non-default preprocessing identifies the function that implements it."""
