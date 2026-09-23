@@ -445,6 +445,24 @@ class TestPlotNWayDeviationComparison(unittest.TestCase):
             {("mystery", "dragon"), ("mystery", "rocket")},
         )
 
+    def test_fractional_tick_labels_preserve_nonzero_values(self):
+        """Normalized fractional metrics do not render as misleading zeros."""
+        self.assertEqual(rendering._unsigned_tick_label(10_000), "10,000")
+        self.assertEqual(rendering._unsigned_tick_label(0.125), "0.125")
+        self.assertEqual(rendering._signed_tick_label(-0.125), "-0.125")
+        self.assertEqual(rendering._signed_tick_label(0.125), "+0.125")
+
+    def test_highlight_off_omits_extrema_legend_entries(self):
+        """The disabled mode does not advertise dark extrema marks."""
+        with capture.suppress_output():
+            fig, _ = rendering.plot_nway_deviation_comparison(
+                _nway_result(), highlight="off"
+            )
+
+        labels = [text.get_text() for text in fig.legends[0].get_texts()]
+        self.assertFalse(any(label.startswith("Most ") for label in labels))
+        self.assertEqual(len(labels), 3)
+
     def test_save_path_writes_file(self):
         """The N-way figure can be written for handoff."""
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:

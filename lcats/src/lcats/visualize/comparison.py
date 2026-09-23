@@ -919,7 +919,9 @@ def _select_nway_vocabulary(
         >= vocabulary.min_document_count
     }
     if vocabulary.policy == NWayVocabularyPolicy.REFERENCE_VALUE:
-        selected = _top_terms(terms, reference.values, vocabulary.top_k)
+        selected = _top_terms(
+            terms & set(reference.values), reference.values, vocabulary.top_k
+        )
     elif vocabulary.policy == NWayVocabularyPolicy.MAX_ABSOLUTE_DEVIATION:
         selected = _top_terms(
             terms,
@@ -939,9 +941,13 @@ def _select_nway_vocabulary(
             vocabulary.top_k,
         )
     elif vocabulary.policy == NWayVocabularyPolicy.UNION_TOP:
-        selected = _top_terms(terms, reference.values, vocabulary.top_k)
+        selected = _top_terms(
+            terms & set(reference.values), reference.values, vocabulary.top_k
+        )
         for panel in panels:
-            selected |= _top_terms(terms, panel.values, vocabulary.top_k)
+            selected |= _top_terms(
+                terms & set(panel.values), panel.values, vocabulary.top_k
+            )
     else:
         raise ValueError(f"unsupported N-way vocabulary policy: {vocabulary.policy!r}")
     selected |= set(vocabulary.include_terms)

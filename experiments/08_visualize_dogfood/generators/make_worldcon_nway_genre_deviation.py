@@ -13,18 +13,20 @@ import dataclasses
 import json
 import os
 import pathlib
+import sys
 
 os.environ.setdefault("MPLBACKEND", "Agg")
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/lcats-matplotlib")
 
-import matplotlib.pyplot as plt
-
-from lcats.visualize import comparison
-from lcats.visualize import rendering
-from lcats.visualize import sources
-
-
 ROOT = pathlib.Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / "lcats" / "src"))
+
+import matplotlib.pyplot as plt  # noqa: E402
+
+from lcats.visualize import comparison  # noqa: E402
+from lcats.visualize import rendering  # noqa: E402
+from lcats.visualize import sources  # noqa: E402
+
 DEFAULT_MANIFEST = (
     ROOT
     / "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl"

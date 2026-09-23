@@ -41,6 +41,26 @@ def _metric_label(metric: dict) -> str:
     return name
 
 
+def _unsigned_tick_label(value: float) -> str:
+    """Format magnitudes without rounding valid fractional metrics to zero."""
+    magnitude = abs(value)
+    if magnitude >= 100:
+        return f"{magnitude:,.0f}"
+    if magnitude >= 1:
+        return f"{magnitude:,.2f}".rstrip("0").rstrip(".")
+    if magnitude >= 0.01:
+        return f"{magnitude:.3f}".rstrip("0").rstrip(".")
+    return f"{magnitude:.3g}"
+
+
+def _signed_tick_label(value: float) -> str:
+    """Format signed deviations with enough precision for fractional metrics."""
+    if value == 0:
+        return "0"
+    sign = "+" if value > 0 else "-"
+    return f"{sign}{_unsigned_tick_label(value)}"
+
+
 def _comparison_rows(result: comparison.ComparisonResult):
     return sorted(result.rows, key=lambda row: row.display_order)
 
@@ -371,7 +391,7 @@ def plot_nway_deviation_comparison(
     reference_ax.set_yticks(positions)
     reference_ax.tick_params(axis="y", left=False, labelleft=False)
     reference_ax.xaxis.set_major_formatter(
-        ticker.FuncFormatter(lambda value, _: f"{abs(value):,.0f}")
+        ticker.FuncFormatter(lambda value, _: _unsigned_tick_label(value))
     )
     reference_ax.grid(axis="x", linestyle=":", linewidth=0.5, color="#CBD5E1")
 
@@ -423,44 +443,47 @@ def plot_nway_deviation_comparison(
         axis.tick_params(axis="y", left=False, labelleft=False)
         axis.xaxis.set_major_locator(ticker.MaxNLocator(nbins=3, symmetric=True))
         axis.xaxis.set_major_formatter(
-            ticker.FuncFormatter(
-                lambda value, _: "0" if value == 0 else f"{value:+,.0f}"
-            )
+            ticker.FuncFormatter(lambda value, _: _signed_tick_label(value))
         )
         axis.grid(axis="x", linestyle=":", linewidth=0.5, color="#CBD5E1")
 
     reference_ax.invert_yaxis()
     fig.suptitle(title, fontsize=14, fontweight="bold")
+    legend_handles = [
+        Patch(facecolor="#D1D5DB", edgecolor="#475569", label="Reference frequency"),
+        Patch(
+            facecolor="#F4B6B0",
+            edgecolor="#7A271A",
+            hatch="////",
+            label="Below reference",
+        ),
+        Patch(
+            facecolor="#A9C7E8",
+            edgecolor="#1849A9",
+            hatch="...",
+            label="Above reference",
+        ),
+    ]
+    highlight_mode = ExtremaHighlight(highlight)
+    if highlight_mode != ExtremaHighlight.OFF:
+        legend_handles.extend(
+            [
+                Patch(
+                    facecolor="#B42318",
+                    edgecolor="#7A271A",
+                    label=f"Most below ({highlight_mode.value})",
+                ),
+                Patch(
+                    facecolor="#175CD3",
+                    edgecolor="#1849A9",
+                    label=f"Most above ({highlight_mode.value})",
+                ),
+            ]
+        )
     fig.legend(
-        handles=[
-            Patch(
-                facecolor="#D1D5DB", edgecolor="#475569", label="Reference frequency"
-            ),
-            Patch(
-                facecolor="#F4B6B0",
-                edgecolor="#7A271A",
-                hatch="////",
-                label="Below reference",
-            ),
-            Patch(
-                facecolor="#A9C7E8",
-                edgecolor="#1849A9",
-                hatch="...",
-                label="Above reference",
-            ),
-            Patch(
-                facecolor="#B42318",
-                edgecolor="#7A271A",
-                label=f"Most below ({ExtremaHighlight(highlight).value})",
-            ),
-            Patch(
-                facecolor="#175CD3",
-                edgecolor="#1849A9",
-                label=f"Most above ({ExtremaHighlight(highlight).value})",
-            ),
-        ],
+        handles=legend_handles,
         loc="outside lower center",
-        ncols=5,
+        ncols=len(legend_handles),
         frameon=False,
         fontsize=9,
     )

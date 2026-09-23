@@ -434,6 +434,62 @@ class TestNWayComparison(unittest.TestCase):
         with self.assertRaises(ValueError):
             comparison.compare_many(_corpus(), self._nway_spec(panels=(panel, panel)))
 
+    def test_reference_vocabulary_does_not_fill_with_panel_only_terms(self):
+        """Reference ranking never pads with zero-valued panel-only terms."""
+        spec = self._nway_spec(
+            reference=comparison.Selector(
+                comparison.SelectorKind.STORY_LIST,
+                story_ids=("a/one",),
+                label="one story",
+            ),
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.REFERENCE_VALUE,
+                top_k=20,
+            ),
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(
+            {row.term for row in result.rows}, {"castle", "dragon", "shared"}
+        )
+
+    def test_union_top_ignores_zero_valued_terms_for_empty_panel(self):
+        """An empty selector cannot add alphabetical zero-valued filler terms."""
+        spec = self._nway_spec(
+            reference=comparison.Selector(
+                comparison.SelectorKind.STORY_LIST,
+                story_ids=("a/one",),
+                label="one story",
+            ),
+            panels=(
+                comparison.NWayPanelSpec(
+                    "mystery",
+                    comparison.Selector(
+                        comparison.SelectorKind.GENRE,
+                        genre="mystery",
+                        label="Mystery",
+                    ),
+                ),
+                comparison.NWayPanelSpec(
+                    "empty",
+                    comparison.Selector(
+                        comparison.SelectorKind.STORY_LIST,
+                        story_ids=(),
+                        label="Empty",
+                    ),
+                ),
+            ),
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.UNION_TOP,
+                top_k=1,
+            ),
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual({row.term for row in result.rows}, {"clue", "dragon"})
+
     def test_manifest_is_json_serializable(self):
         """N-way provenance can be written beside figures and data."""
         result = comparison.compare_many(_corpus(), self._nway_spec())
