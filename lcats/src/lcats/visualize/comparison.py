@@ -75,6 +75,23 @@ class ComparisonStyle(str, enum.Enum):
     REFERENCE_OVERLAY = "reference_overlay"
 
 
+class NWayVocabularyPolicy(str, enum.Enum):
+    """Vocabulary ranking policies for reference-to-many comparisons."""
+
+    REFERENCE_VALUE = "reference_value"
+    MAX_ABSOLUTE_DEVIATION = "max_absolute_deviation"
+    UNION_TOP = "union_top"
+
+
+class NWayOrdering(str, enum.Enum):
+    """Display-order controllers for an N-way aligned comparison table."""
+
+    REFERENCE_VALUE = "reference_value"
+    MAX_ABSOLUTE_DEVIATION = "max_absolute_deviation"
+    ALPHABETICAL = "alphabetical"
+    EXPLICIT = "explicit"
+
+
 @dataclasses.dataclass(frozen=True)
 class ComparisonDocument:
     """One document available to a comparison universe."""
@@ -182,6 +199,49 @@ class ComparisonSpec:
 
 
 @dataclasses.dataclass(frozen=True)
+class NWayPanelSpec:
+    """One named panel in a reference-to-many comparison."""
+
+    key: str
+    selector: Selector
+
+
+@dataclasses.dataclass(frozen=True)
+class NWayVocabularySpec:
+    """Controls vocabulary construction for an N-way comparison."""
+
+    policy: NWayVocabularyPolicy = NWayVocabularyPolicy.REFERENCE_VALUE
+    top_k: int | None = 20
+    include_terms: tuple[str, ...] = ()
+    exclude_terms: tuple[str, ...] = ()
+    min_document_count: int = 1
+
+
+@dataclasses.dataclass(frozen=True)
+class NWayOrderingSpec:
+    """Controls deterministic row order for an N-way comparison."""
+
+    by: NWayOrdering = NWayOrdering.REFERENCE_VALUE
+    explicit_terms: tuple[str, ...] = ()
+
+
+@dataclasses.dataclass(frozen=True)
+class NWayComparisonSpec:
+    """Immutable specification for one reference and N comparison panels."""
+
+    universe: UniverseSpec
+    reference: Selector
+    panels: tuple[NWayPanelSpec, ...]
+    metric: MetricSpec
+    token_filter: TokenFilter = dataclasses.field(default_factory=TokenFilter)
+    term_form: str = "surface"
+    vocabulary: NWayVocabularySpec = dataclasses.field(
+        default_factory=NWayVocabularySpec
+    )
+    ordering: NWayOrderingSpec = dataclasses.field(default_factory=NWayOrderingSpec)
+
+
+@dataclasses.dataclass(frozen=True)
 class SelectorResolution:
     """Concrete story IDs and provenance for a resolved selector."""
 
@@ -248,6 +308,79 @@ class ComparisonResult:
         return [row.to_dict() for row in self.rows]
 
 
+@dataclasses.dataclass(frozen=True)
+class NWayPanelValue:
+    """One panel's value and signed deviation for an aligned term row."""
+
+    panel_key: str
+    panel_label: str
+    value: float
+    deviation: float
+    raw_count: int
+    document_count: int
+    token_denominator: int
+    document_denominator: int
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize the cell for CSV/JSON consumers."""
+        return dataclasses.asdict(self)
+
+
+@dataclasses.dataclass(frozen=True)
+class NWayComparisonRow:
+    """One authoritative aligned term row for an N-way comparison."""
+
+    term: str
+    display_order: int
+    reference_value: float
+    reference_raw_count: int
+    reference_document_count: int
+    reference_token_denominator: int
+    reference_document_denominator: int
+    panels: tuple[NWayPanelValue, ...]
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize the row, retaining the panel-cell structure."""
+        data = dataclasses.asdict(self)
+        data["panels"] = [panel.to_dict() for panel in self.panels]
+        return data
+
+
+@dataclasses.dataclass(frozen=True)
+class NWayComparisonResult:
+    """Renderer-neutral N-way table and manifest-ready provenance."""
+
+    rows: tuple[NWayComparisonRow, ...]
+    manifest: dict[str, Any]
+
+    def table(self) -> list[dict[str, Any]]:
+        """Return nested rows as serializable dictionaries."""
+        return [row.to_dict() for row in self.rows]
+
+    def long_table(self) -> list[dict[str, Any]]:
+        """Return one flat record per term and comparison panel."""
+        records = []
+        for row in self.rows:
+            for panel in row.panels:
+                records.append(
+                    {
+                        "term": row.term,
+                        "display_order": row.display_order,
+                        "reference_value": row.reference_value,
+                        "reference_raw_count": row.reference_raw_count,
+                        "reference_document_count": row.reference_document_count,
+                        "reference_token_denominator": (
+                            row.reference_token_denominator
+                        ),
+                        "reference_document_denominator": (
+                            row.reference_document_denominator
+                        ),
+                        **panel.to_dict(),
+                    }
+                )
+        return records
+
+
 def compare(corpus: ComparisonCorpus, spec: ComparisonSpec) -> ComparisonResult:
     """Resolve selectors, compute metrics, and return an aligned table."""
     _validate_spec(spec)
@@ -282,6 +415,92 @@ def compare(corpus: ComparisonCorpus, spec: ComparisonSpec) -> ComparisonResult:
         ),
     )
     return ComparisonResult(rows=tuple(rows), manifest=manifest)
+
+
+def compare_many(
+    corpus: ComparisonCorpus, spec: NWayComparisonSpec
+) -> NWayComparisonResult:
+    """Compare N selectors with one reference using one shared vocabulary.
+
+    Signed deviations are always ``panel value - reference value``.  Tokenization
+    and any TF-IDF fit are computed once over the declared universe, so every
+    panel is directly comparable and carries the same preprocessing provenance.
+    """
+    _validate_nway_spec(spec)
+    universe_ids = _resolve_universe(corpus, spec.universe)
+    reference_resolution = resolve_selector(corpus, universe_ids, spec.reference)
+    panel_resolutions = tuple(
+        (panel, resolve_selector(corpus, universe_ids, panel.selector))
+        for panel in spec.panels
+    )
+    tokenized = _tokenize_universe(corpus, universe_ids, spec.token_filter)
+    tfidf_fit = (
+        _fit_tfidf(corpus, universe_ids, spec.token_filter)
+        if spec.metric.name == MetricName.MEAN_TFIDF
+        else None
+    )
+    reference_series = _metric_series(
+        selected_ids=reference_resolution.story_ids,
+        tokenized=tokenized,
+        metric=spec.metric,
+        tfidf_fit=tfidf_fit,
+    )
+    panel_series = tuple(
+        (
+            panel,
+            resolution,
+            _metric_series(
+                selected_ids=resolution.story_ids,
+                tokenized=tokenized,
+                metric=spec.metric,
+                tfidf_fit=tfidf_fit,
+            ),
+        )
+        for panel, resolution in panel_resolutions
+    )
+    terms = _select_nway_vocabulary(
+        reference_series,
+        tuple(series for _, _, series in panel_series),
+        spec.vocabulary,
+    )
+    rows = _build_nway_rows(terms, reference_series, panel_series, spec.ordering)
+    manifest = _nway_manifest(
+        corpus=corpus,
+        spec=spec,
+        universe_ids=universe_ids,
+        reference_resolution=reference_resolution,
+        panel_resolutions=panel_resolutions,
+        rows=rows,
+    )
+    return NWayComparisonResult(rows=tuple(rows), manifest=manifest)
+
+
+def _validate_nway_spec(spec: NWayComparisonSpec) -> None:
+    if spec.universe.kind not in ("corpus", "story_list", "manifest"):
+        raise ValueError(f"unsupported universe kind: {spec.universe.kind!r}")
+    if not spec.panels:
+        raise ValueError("N-way comparison requires at least one panel.")
+    panel_keys = [panel.key for panel in spec.panels]
+    if any(not key for key in panel_keys):
+        raise ValueError("N-way panel keys must be non-empty.")
+    if len(panel_keys) != len(set(panel_keys)):
+        raise ValueError("N-way panel keys must be unique.")
+    if spec.vocabulary.top_k is not None and spec.vocabulary.top_k < 1:
+        raise ValueError("vocabulary.top_k must be >= 1 when provided.")
+    if spec.vocabulary.min_document_count < 1:
+        raise ValueError("vocabulary.min_document_count must be >= 1.")
+    if spec.token_filter.min_length < 1:
+        raise ValueError("token_filter.min_length must be >= 1.")
+    if spec.term_form != "surface":
+        raise ValueError(
+            "only term_form='surface' is supported before lexical artifacts."
+        )
+    if spec.metric.name == MetricName.TFIDF_CONTRAST:
+        raise ValueError(
+            "N-way reference deviations do not support tfidf_contrast; use a "
+            "non-contrast metric computed on the same reference and panels."
+        )
+    _validate_metric_denominator(spec.metric)
 
 
 def resolve_selector(
@@ -678,6 +897,191 @@ def _row_sorter(ordering: OrderingSpec):
     if ordering.by == Ordering.EXPLICIT:
         return lambda row: (explicit_index.get(row.term, len(explicit_index)), row.term)
     raise ValueError(f"unsupported ordering: {ordering.by!r}")
+
+
+def _select_nway_vocabulary(
+    reference: MetricSeries,
+    panels: tuple[MetricSeries, ...],
+    vocabulary: NWayVocabularySpec,
+) -> tuple[str, ...]:
+    terms = set(reference.values)
+    for panel in panels:
+        terms |= set(panel.values)
+    terms |= set(vocabulary.include_terms)
+    terms -= set(vocabulary.exclude_terms)
+    terms = {
+        term
+        for term in terms
+        if max(
+            [reference.document_counts.get(term, 0)]
+            + [panel.document_counts.get(term, 0) for panel in panels]
+        )
+        >= vocabulary.min_document_count
+    }
+    if vocabulary.policy == NWayVocabularyPolicy.REFERENCE_VALUE:
+        selected = _top_terms(terms, reference.values, vocabulary.top_k)
+    elif vocabulary.policy == NWayVocabularyPolicy.MAX_ABSOLUTE_DEVIATION:
+        selected = _top_terms(
+            terms,
+            {
+                term: max(
+                    (
+                        abs(
+                            panel.values.get(term, 0.0)
+                            - reference.values.get(term, 0.0)
+                        )
+                        for panel in panels
+                    ),
+                    default=0.0,
+                )
+                for term in terms
+            },
+            vocabulary.top_k,
+        )
+    elif vocabulary.policy == NWayVocabularyPolicy.UNION_TOP:
+        selected = _top_terms(terms, reference.values, vocabulary.top_k)
+        for panel in panels:
+            selected |= _top_terms(terms, panel.values, vocabulary.top_k)
+    else:
+        raise ValueError(f"unsupported N-way vocabulary policy: {vocabulary.policy!r}")
+    selected |= set(vocabulary.include_terms)
+    selected -= set(vocabulary.exclude_terms)
+    return tuple(sorted(selected))
+
+
+def _build_nway_rows(
+    terms: tuple[str, ...],
+    reference: MetricSeries,
+    panels: tuple[tuple[NWayPanelSpec, SelectorResolution, MetricSeries], ...],
+    ordering: NWayOrderingSpec,
+) -> list[NWayComparisonRow]:
+    unsorted_rows = []
+    for term in terms:
+        reference_value = reference.values.get(term, 0.0)
+        cells = tuple(
+            NWayPanelValue(
+                panel_key=panel.key,
+                panel_label=resolution.label,
+                value=series.values.get(term, 0.0),
+                deviation=series.values.get(term, 0.0) - reference_value,
+                raw_count=series.raw_counts.get(term, 0),
+                document_count=series.document_counts.get(term, 0),
+                token_denominator=series.token_denominator,
+                document_denominator=series.document_denominator,
+            )
+            for panel, resolution, series in panels
+        )
+        unsorted_rows.append(
+            NWayComparisonRow(
+                term=term,
+                display_order=0,
+                reference_value=reference_value,
+                reference_raw_count=reference.raw_counts.get(term, 0),
+                reference_document_count=reference.document_counts.get(term, 0),
+                reference_token_denominator=reference.token_denominator,
+                reference_document_denominator=reference.document_denominator,
+                panels=cells,
+            )
+        )
+    rows = sorted(unsorted_rows, key=_nway_row_sorter(ordering))
+    return [
+        dataclasses.replace(row, display_order=index + 1)
+        for index, row in enumerate(rows)
+    ]
+
+
+def _nway_row_sorter(ordering: NWayOrderingSpec):
+    explicit_index = {term: index for index, term in enumerate(ordering.explicit_terms)}
+    if ordering.by == NWayOrdering.REFERENCE_VALUE:
+        return lambda row: (-row.reference_value, row.term)
+    if ordering.by == NWayOrdering.MAX_ABSOLUTE_DEVIATION:
+        return lambda row: (
+            -max((abs(panel.deviation) for panel in row.panels), default=0.0),
+            row.term,
+        )
+    if ordering.by == NWayOrdering.ALPHABETICAL:
+        return lambda row: (row.term,)
+    if ordering.by == NWayOrdering.EXPLICIT:
+        return lambda row: (explicit_index.get(row.term, len(explicit_index)), row.term)
+    raise ValueError(f"unsupported N-way ordering: {ordering.by!r}")
+
+
+def _nway_manifest(
+    *,
+    corpus: ComparisonCorpus,
+    spec: NWayComparisonSpec,
+    universe_ids: tuple[str, ...],
+    reference_resolution: SelectorResolution,
+    panel_resolutions: tuple[tuple[NWayPanelSpec, SelectorResolution], ...],
+    rows: list[NWayComparisonRow],
+) -> dict[str, Any]:
+    overlap_records = []
+    for index, (left_panel, left_resolution) in enumerate(panel_resolutions):
+        for right_panel, right_resolution in panel_resolutions[index + 1 :]:
+            intersection = sorted(
+                set(left_resolution.story_ids) & set(right_resolution.story_ids)
+            )
+            if intersection:
+                overlap_records.append(
+                    {
+                        "left_panel_key": left_panel.key,
+                        "right_panel_key": right_panel.key,
+                        "story_count": len(intersection),
+                        "story_ids": intersection,
+                    }
+                )
+    return {
+        "schema_version": "lcats-nway-comparison-v1",
+        "deviation_definition": "panel_value - reference_value",
+        "corpus": {
+            "source_path": corpus.source_path,
+            "source_revision": corpus.source_revision,
+        },
+        "universe": {
+            "kind": spec.universe.kind,
+            "source_path": spec.universe.source_path,
+            "source_revision": spec.universe.source_revision,
+            "story_count": len(universe_ids),
+            "story_ids": list(universe_ids),
+        },
+        "reference": _resolution_dict(reference_resolution),
+        "panels": [
+            {"key": panel.key, **_resolution_dict(resolution)}
+            for panel, resolution in panel_resolutions
+        ],
+        "panel_overlaps": overlap_records,
+        "metric": _metric_dict(spec.metric),
+        "preprocessing": {
+            "term_form": spec.term_form,
+            "token_filter": dataclasses.asdict(spec.token_filter),
+            "tokenizer": (
+                "lcats.analysis.story_analysis.get_keywords"
+                if (
+                    not spec.token_filter.include_stopwords
+                    and spec.token_filter.lowercase
+                    and spec.token_filter.min_length >= 3
+                )
+                else "lcats.visualize.comparison.alpha_tokenizer"
+            ),
+            "stopword_policy": (
+                "excluded" if not spec.token_filter.include_stopwords else "included"
+            ),
+        },
+        "vocabulary": {
+            **dataclasses.asdict(spec.vocabulary),
+            "terms": [row.term for row in rows],
+        },
+        "ordering": dataclasses.asdict(spec.ordering),
+        "warnings": (
+            [
+                f"panel selectors overlap in {len(overlap_records)} pair(s); "
+                "genre selectors are not assumed to be mutually exclusive."
+            ]
+            if overlap_records
+            else []
+        ),
+        "note": "Visual deviations are descriptive and are not significance tests.",
+    }
 
 
 def _manifest(
