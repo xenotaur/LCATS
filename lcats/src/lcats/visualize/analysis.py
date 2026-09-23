@@ -207,3 +207,11 @@ def compare_lexical(
     contract itself lives in ``lcats.visualize.comparison``.
     """
     return comparison.compare(corpus, spec)
+
+
+def compare_lexical_many(
+    corpus: comparison.ComparisonCorpus,
+    spec: comparison.NWayComparisonSpec,
+) -> comparison.NWayComparisonResult:
+    """Return an authoritative reference-to-many lexical comparison table."""
+    return comparison.compare_many(corpus, spec)

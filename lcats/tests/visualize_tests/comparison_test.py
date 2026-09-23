@@ -372,5 +372,144 @@ class TestCompatibility(unittest.TestCase):
         self.assertIn("lcats-comparison-v1", serialized)
 
 
+class TestNWayComparison(unittest.TestCase):
+    """Reference-to-many analysis behavior."""
+
+    def _nway_spec(self, **overrides):
+        base = comparison.NWayComparisonSpec(
+            universe=comparison.UniverseSpec(),
+            reference=comparison.Selector(
+                comparison.SelectorKind.ALL, label="whole fixture"
+            ),
+            panels=(
+                comparison.NWayPanelSpec(
+                    "fantasy",
+                    comparison.Selector(
+                        comparison.SelectorKind.GENRE,
+                        genre="fantasy",
+                        membership_mode=comparison.MembershipMode.CANDIDATE,
+                        label="Fantasy",
+                    ),
+                ),
+                comparison.NWayPanelSpec(
+                    "mystery",
+                    comparison.Selector(
+                        comparison.SelectorKind.GENRE,
+                        genre="mystery",
+                        membership_mode=comparison.MembershipMode.CANDIDATE,
+                        label="Mystery",
+                    ),
+                ),
+            ),
+            metric=comparison.MetricSpec(comparison.MetricName.PER_MILLION),
+            vocabulary=comparison.NWayVocabularySpec(top_k=3),
+        )
+        return dataclasses.replace(base, **overrides)
+
+    def test_panel_deviation_is_panel_minus_reference(self):
+        """Signed cells use the documented panel-minus-reference direction."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+        shared = next(row for row in result.rows if row.term == "shared")
+        fantasy = next(cell for cell in shared.panels if cell.panel_key == "fantasy")
+
+        self.assertAlmostEqual(
+            fantasy.deviation, fantasy.value - shared.reference_value
+        )
+        self.assertEqual(
+            result.manifest["deviation_definition"], "panel_value - reference_value"
+        )
+
+    def test_all_panels_share_one_vocabulary_and_order(self):
+        """Every panel cell is aligned to the same deterministic term rows."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+
+        self.assertEqual(len(result.rows), 3)
+        self.assertTrue(all(len(row.panels) == 2 for row in result.rows))
+        self.assertEqual([row.display_order for row in result.rows], list(range(1, 4)))
+        self.assertEqual(len(result.long_table()), 6)
+
+    def test_duplicate_panel_keys_raise(self):
+        """Panel keys are stable identifiers and cannot be ambiguous."""
+        panel = self._nway_spec().panels[0]
+        with self.assertRaises(ValueError):
+            comparison.compare_many(_corpus(), self._nway_spec(panels=(panel, panel)))
+
+    def test_reference_vocabulary_does_not_fill_with_panel_only_terms(self):
+        """Reference ranking never pads with zero-valued panel-only terms."""
+        spec = self._nway_spec(
+            reference=comparison.Selector(
+                comparison.SelectorKind.STORY_LIST,
+                story_ids=("a/one",),
+                label="one story",
+            ),
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.REFERENCE_VALUE,
+                top_k=20,
+            ),
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(
+            {row.term for row in result.rows}, {"castle", "dragon", "shared"}
+        )
+
+    def test_union_top_ignores_zero_valued_terms_for_empty_panel(self):
+        """An empty selector cannot add alphabetical zero-valued filler terms."""
+        spec = self._nway_spec(
+            reference=comparison.Selector(
+                comparison.SelectorKind.STORY_LIST,
+                story_ids=("a/one",),
+                label="one story",
+            ),
+            panels=(
+                comparison.NWayPanelSpec(
+                    "mystery",
+                    comparison.Selector(
+                        comparison.SelectorKind.GENRE,
+                        genre="mystery",
+                        label="Mystery",
+                    ),
+                ),
+                comparison.NWayPanelSpec(
+                    "empty",
+                    comparison.Selector(
+                        comparison.SelectorKind.STORY_LIST,
+                        story_ids=(),
+                        label="Empty",
+                    ),
+                ),
+            ),
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.UNION_TOP,
+                top_k=1,
+            ),
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual({row.term for row in result.rows}, {"clue", "dragon"})
+
+    def test_manifest_is_json_serializable(self):
+        """N-way provenance can be written beside figures and data."""
+        result = comparison.compare_many(_corpus(), self._nway_spec())
+
+        serialized = json.dumps(result.manifest, sort_keys=True)
+        self.assertIn("lcats-nway-comparison-v1", serialized)
+
+    def test_custom_tokenizer_provenance_names_real_function(self):
+        """Non-default preprocessing identifies the function that implements it."""
+        spec = self._nway_spec(
+            token_filter=comparison.TokenFilter(include_stopwords=True, min_length=1)
+        )
+
+        result = comparison.compare_many(_corpus(), spec)
+
+        self.assertEqual(
+            result.manifest["preprocessing"]["tokenizer"],
+            "lcats.visualize.comparison._tokenize",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

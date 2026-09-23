@@ -79,6 +79,63 @@ def _comparison_result(
     )
 
 
+def _nway_result():
+    def cell(key, label, value, deviation):
+        return comparison.NWayPanelValue(
+            panel_key=key,
+            panel_label=label,
+            value=value,
+            deviation=deviation,
+            raw_count=int(value),
+            document_count=1,
+            token_denominator=10,
+            document_denominator=2,
+        )
+
+    return comparison.NWayComparisonResult(
+        rows=(
+            comparison.NWayComparisonRow(
+                term="dragon",
+                display_order=1,
+                reference_value=4.0,
+                reference_raw_count=4,
+                reference_document_count=2,
+                reference_token_denominator=20,
+                reference_document_denominator=3,
+                panels=(
+                    cell("fantasy", "Fantasy", 7.0, 3.0),
+                    cell("mystery", "Mystery", 2.0, -2.0),
+                ),
+            ),
+            comparison.NWayComparisonRow(
+                term="rocket",
+                display_order=2,
+                reference_value=3.0,
+                reference_raw_count=3,
+                reference_document_count=2,
+                reference_token_denominator=20,
+                reference_document_denominator=3,
+                panels=(
+                    cell("fantasy", "Fantasy", 2.0, -1.0),
+                    cell("mystery", "Mystery", 8.0, 5.0),
+                ),
+            ),
+        ),
+        manifest={
+            "reference": {"label": "Whole corpus"},
+            "panels": [
+                {"key": "fantasy", "label": "Fantasy"},
+                {"key": "mystery", "label": "Mystery"},
+            ],
+            "metric": {
+                "name": "per_million",
+                "denominator": "auto",
+                "effective_denominator": "included_tokens",
+            },
+        },
+    )
+
+
 class TestPlotGenreBarChart(unittest.TestCase):
     """Tests for plot_genre_bar_chart."""
 
@@ -352,6 +409,70 @@ class TestPlotReferenceOverlayComparison(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             rendering.plot_reference_overlay_comparison(result)
+
+
+class TestPlotNWayDeviationComparison(unittest.TestCase):
+    """Tests for the reusable reference-to-many deviation grid."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def test_joint_symmetric_scale_is_shared_by_all_panels(self):
+        """Every genre panel uses the same negative-to-positive scale."""
+        with capture.suppress_output():
+            _, axes = rendering.plot_nway_deviation_comparison(_nway_result())
+
+        limits = [axis.get_xlim() for axis in axes["panels"].values()]
+        self.assertTrue(all(limit == limits[0] for limit in limits))
+        self.assertAlmostEqual(abs(limits[0][0]), limits[0][1])
+
+    def test_extrema_modes_select_expected_cells(self):
+        """Off, per-genre, and global scopes implement distinct selections."""
+        result = _nway_result()
+
+        self.assertEqual(rendering.nway_extrema_cells(result, "off"), set())
+        self.assertEqual(
+            rendering.nway_extrema_cells(result, "per-genre"),
+            {
+                ("fantasy", "dragon"),
+                ("fantasy", "rocket"),
+                ("mystery", "dragon"),
+                ("mystery", "rocket"),
+            },
+        )
+        self.assertEqual(
+            rendering.nway_extrema_cells(result, "global"),
+            {("mystery", "dragon"), ("mystery", "rocket")},
+        )
+
+    def test_fractional_tick_labels_preserve_nonzero_values(self):
+        """Normalized fractional metrics do not render as misleading zeros."""
+        self.assertEqual(rendering._unsigned_tick_label(10_000), "10,000")
+        self.assertEqual(rendering._unsigned_tick_label(0.125), "0.125")
+        self.assertEqual(rendering._signed_tick_label(-0.125), "-0.125")
+        self.assertEqual(rendering._signed_tick_label(0.125), "+0.125")
+
+    def test_highlight_off_omits_extrema_legend_entries(self):
+        """The disabled mode does not advertise dark extrema marks."""
+        with capture.suppress_output():
+            fig, _ = rendering.plot_nway_deviation_comparison(
+                _nway_result(), highlight="off"
+            )
+
+        labels = [text.get_text() for text in fig.legends[0].get_texts()]
+        self.assertFalse(any(label.startswith("Most ") for label in labels))
+        self.assertEqual(len(labels), 3)
+
+    def test_save_path_writes_file(self):
+        """The N-way figure can be written for handoff."""
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+            path = f.name
+        try:
+            with capture.suppress_output():
+                rendering.plot_nway_deviation_comparison(_nway_result(), save_path=path)
+            self.assertTrue(os.path.getsize(path) > 0)
+        finally:
+            os.unlink(path)
 
 
 if __name__ == "__main__":
