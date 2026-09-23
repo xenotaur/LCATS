@@ -1,0 +1,4 @@
+# Matplotlib SVGs are generated presentation artifacts whose path serialization
+# includes significant-looking trailing spaces. Keep exact bytes and suppress
+# noisy source diffs; the adjacent CSVs carry the reviewable numerical data.
+figures/**/*.svg binary
