@@ -3,8 +3,9 @@
 `lcats visualize` turns LCATS corpus metadata and story text into
 reproducible, publication-useful figures: `genres` (genre distribution),
 `words` (word-frequency), `tfidf` (TF-IDF comparison), `topics`
-(classical topic-model baseline), and `compare` (aligned two-series lexical
-comparison). These commands share a common
+(classical topic-model baseline), `compare` (aligned two-series lexical
+comparison), and `compare-many` (aligned N-way reference-deviation chart).
+These commands share a common
 `sources`/`analysis`/`rendering`/`cli` split under
 `lcats.visualize`, reuse `lcats.analysis.graph_plotters` for conventional
 charts rather than a parallel plotting API, and write a JSON manifest
@@ -17,7 +18,7 @@ for the full flag reference.
 
 ## Preprocessing defaults
 
-`words`, `tfidf`, `topics`, and `compare` all tokenize story text via
+`words`, `tfidf`, `topics`, `compare`, and `compare-many` all tokenize story text via
 `lcats.analysis.story_analysis.get_keywords`: terms are lowercased,
 restricted to ASCII alphabetic tokens, require a minimum length of 3
 characters, and are filtered through a hardcoded stopword set. This is the
@@ -172,6 +173,98 @@ primary source is available. Explicit term ordering is part of the reusable
 analysis contract but is rejected by the CLI until a term-list option is
 exposed.
 
+### `compare-many` -- aligned N-way reference-deviation chart
+
+```bash
+lcats visualize compare-many \
+  --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --membership-mode selection \
+  --panels "fantasy,horror,science fiction" \
+  --reference universe \
+  --layout kabob \
+  --output-dir figures/compare_many \
+  --formats png,svg,pdf
+```
+
+`compare-many` composes an ordered sequence of two or more genre panels into
+one figure. Every panel is resolved against the same declared universe `U`
+(recorded with a SHA-256 fingerprint of its ordered story IDs) and shares one
+vocabulary, term order, metric, denominator, and preprocessing policy. Panels
+appear in the order given to `--panels`.
+
+**Panels.** `--panel-mode direct` (default) shows each selector `S`;
+`--panel-mode complement` shows `U - S`. The manifest's `complements` list
+records every constructed complement with its base size, complement size,
+universe size, and a `verified_equals_universe_minus_base` check.
+
+**Reference policy.** `--reference universe` (default) or `--reference genre
+--reference-genre G` compares every panel with one common reference and draws
+that reference as its own non-negative panel. `--reference
+per-panel-complement` compares each panel with `U` minus that panel.
+`--reference none` draws panel values only; no deviation is computed.
+Deviations are always `panel value - reference value`. The vocabulary and
+order default to `auto`: `reference_value` with a common reference,
+`max_absolute_deviation` for per-panel complements, and `max_panel_value`
+without a reference. A `reference_value` request without a common reference
+fails rather than silently choosing another ranking.
+
+**Overlap.** Genre selectors need not be disjoint or exhaustive. The manifest
+reports every pairwise intersection (including zero-size pairs) under
+`panel_overlaps` (for complement panels, `base_overlaps` also reports the
+intersections of the underlying selectors `S`), and `membership` states
+`partition_claim: false` together with the observed `pairwise_disjoint` and
+`covers_universe` facts. A per-panel complement that is empty (a panel equal
+to `U`) is reported under `warnings`. Do not
+caption an overlapping figure as a partition of the corpus.
+
+**Scale.** All panels share one visible scale by default: one joint symmetric
+scale for deviations, or one zero-based scale for values. `--scale
+independent` is an explicit opt-in; each panel title then says
+`[independent scale]`, each x-axis says `(own scale)`, the figure title warns
+that bar lengths differ by panel, and the manifest's `rendering.scale.note`
+records that lengths are not comparable across panels.
+
+**Layout.** Panels fill bands of at most `--max-columns` (default 8) left to
+right in declared order; each wrapped band repeats the reference panel and
+term labels and keeps panel columns aligned. `--layout kabob` is a named
+preset for the compact N-way reference-deviation chart: reference bars point
+right, term labels sit on the outside right edge (no dedicated central word
+column), and horizontal row guides run across the panels. The preset is only
+a starting point; each choice is independently overridable with
+`--reference-direction {left,right}`, `--term-labels
+{center-column,outside-left,outside-right}`, `--[no-]hatching`,
+`--[no-]legend`, `--[no-]row-guides`, and `--highlight
+{off,per-genre,global}`. The Python equivalent is
+`rendering.NWayRenderSpec.from_preset("kabob", ...)`.
+
+**Accessibility.** Sign is encoded by bar direction on every figure and, with
+hatching on (the default), by distinct hatches for below/above bars and
+their legend swatches, so the figure remains readable in grayscale. Extrema
+highlights are markedly darker than ordinary bars. For a single paper column,
+pass a smaller `figsize` and a lower `max_columns` through the Python API so
+labels stay legible; tick labels abbreviate thousands (`+6k`) to fit narrow
+panels.
+
+**Outputs.** The command writes `<stem>.<format>` figures, `<stem>.csv`, and
+`<stem>_manifest.json` (default stem `comparison_nway`). The CSV is long-form:
+one row per term and panel, with the panel's value, the reference it was
+compared with, the signed deviation, raw and document counts, token and
+document denominators, the plotted quantity and its axis limits, the scale
+policy, the panel's band/column position, and whether the cell was
+highlighted. The manifest adds the ordered selectors and resolved
+memberships, references, overlaps, complements, metric and preprocessing,
+vocabulary and term order, the full render spec and layout decisions, and a
+SHA-256 hash of every figure and the CSV computed after writing (the manifest
+does not hash itself). Figure metadata timestamps are stripped so re-running
+the same inputs reproduces byte-identical files.
+
+From Python, the same pipeline is `comparison.compare_many(corpus, spec)`
+with an `NWayComparisonSpec`, followed by
+`nway_outputs.write_nway_outputs(result, output_dir=..., stem=...,
+render_spec=...)`. Visual deviations are descriptive; they are not
+significance tests.
+
 ## A note on the two genre-count definitions
 
 `experiments/05_metadata_genre_prefilter`'s `summary.json` carries two
@@ -204,6 +297,8 @@ reproduced and audited:
   genre-filtered `words`/`tfidf` runs.
 - `compare` -- `corpus.source_revision` and, when a manifest universe is used,
   `universe.source_revision`; the adjacent CSV is the table rendered.
+- `compare-many` -- the same revisions plus `universe.fingerprint`; the
+  manifest's `outputs` section hashes every figure and the CSV.
 - `genres` -- a different key, `source_revision` (hash over
   `summary.json` alone; `genres` doesn't read individual story files, so
   it has no `corpus_source_revision` to disclose).

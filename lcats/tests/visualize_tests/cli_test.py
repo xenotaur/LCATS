@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 
 matplotlib.use("Agg")  # non-interactive backend for testing
 
+from parameterized import parameterized
+
 from lcats.utils import capture
 from lcats.visualize import cli as visualize_cli
 
@@ -1088,6 +1090,254 @@ class TestRunCompare(unittest.TestCase):
             parser.parse_args(["compare", "--help"])
         help_text = captured.stdout.getvalue()
         for term in ("--universe", "--right-genre", "--right-reference", "--style"):
+            self.assertIn(term, help_text)
+
+
+class TestRunCompareMany(unittest.TestCase):
+    """CLI integration tests for `lcats visualize compare-many`."""
+
+    def tearDown(self):
+        plt.close("all")
+
+    def _fixture(self, tmp_dir):
+        corpora_root = Path(tmp_dir) / "corpora"
+        stories = {
+            "sf/rocket": ("rocket rocket planet shared", ["science fiction"]),
+            "fantasy/dragon": ("dragon dragon castle shared", ["fantasy"]),
+            "fantasy/elf": ("elf castle shared rocket", ["fantasy", "science fiction"]),
+            "mystery/clue": ("detective clue shared", ["mystery"]),
+        }
+        for story_id, (body, _) in stories.items():
+            collection, slug = story_id.split("/")
+            _write_story(corpora_root, collection, slug, body=body)
+        candidates_path = _write_candidates_jsonl(
+            tmp_dir, {story_id: genres for story_id, (_, genres) in stories.items()}
+        )
+        return corpora_root, candidates_path
+
+    def _run(self, tmp_dir, *extra):
+        corpora_root, candidates_path = self._fixture(tmp_dir)
+        output_dir = Path(tmp_dir) / "out"
+        parser = visualize_cli.build_visualize_parser()
+        args = parser.parse_args(
+            [
+                "compare-many",
+                "--corpus-root",
+                str(corpora_root),
+                "--candidates-jsonl",
+                str(candidates_path),
+                "--output-dir",
+                str(output_dir),
+                *extra,
+            ]
+        )
+        with capture.suppress_output():
+            status = visualize_cli.run(parsed_args=args)
+        manifest = json.loads(
+            (output_dir / "comparison_nway_manifest.json").read_text()
+        )
+        return status, output_dir, manifest
+
+    def test_direct_panels_write_figures_csv_and_manifest(self):
+        """Three ordered panels produce hashed figures, CSV, and a manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            status, output_dir, manifest = self._run(
+                tmp_dir,
+                "--panels",
+                "science fiction,fantasy,mystery",
+                "--formats",
+                "png,svg,pdf",
+            )
+            names = sorted(path.name for path in output_dir.iterdir())
+
+        self.assertEqual(status, 0)
+        self.assertEqual(
+            names,
+            [
+                "comparison_nway.csv",
+                "comparison_nway.pdf",
+                "comparison_nway.png",
+                "comparison_nway.svg",
+                "comparison_nway_manifest.json",
+            ],
+        )
+        self.assertEqual(manifest["schema_version"], "lcats-nway-comparison-v2")
+        self.assertEqual(
+            [panel["key"] for panel in manifest["panels"]],
+            ["science_fiction", "fantasy", "mystery"],
+        )
+        self.assertEqual(manifest["reference_policy"], "common")
+        self.assertEqual(manifest["vocabulary"]["policy"], "reference_value")
+        self.assertEqual(
+            manifest["generator"]["command"], "lcats visualize compare-many"
+        )
+        overlap = manifest["panel_overlaps"][0]
+        self.assertEqual(overlap["story_ids"], ["fantasy/elf"])
+        self.assertFalse(manifest["membership"]["partition_claim"])
+
+    def test_complement_panels_with_per_panel_reference(self):
+        """Complement panels are compared with their own bases, S."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            status, _, manifest = self._run(
+                tmp_dir,
+                "--panels",
+                "fantasy,mystery",
+                "--panel-mode",
+                "complement",
+                "--reference",
+                "per-panel-complement",
+                "--formats",
+                "svg",
+            )
+
+        self.assertEqual(status, 0)
+        self.assertEqual(manifest["panel_mode"], "complement")
+        self.assertEqual(manifest["vocabulary"]["policy"], "max_absolute_deviation")
+        self.assertEqual(
+            [record["role"] for record in manifest["complements"]],
+            ["panel", "reference", "panel", "reference"],
+        )
+        references = {ref["panel_key"]: ref for ref in manifest["references"]}
+        self.assertEqual(
+            references["fantasy"]["story_ids"], ["fantasy/dragon", "fantasy/elf"]
+        )
+
+    def test_kabob_layout_flags_are_recorded(self):
+        """Preset choice and explicit overrides reach the rendering manifest."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _, _, manifest = self._run(
+                tmp_dir,
+                "--panels",
+                "science fiction,fantasy,mystery",
+                "--layout",
+                "kabob",
+                "--no-hatching",
+                "--highlight",
+                "global",
+                "--max-columns",
+                "2",
+                "--formats",
+                "png",
+            )
+
+        spec = manifest["rendering"]["render_spec"]
+        self.assertEqual(spec["preset"], "kabob")
+        self.assertEqual(spec["reference_direction"], "right")
+        self.assertEqual(spec["term_labels"], "outside-right")
+        self.assertFalse(spec["hatching"])
+        self.assertEqual(spec["highlight"], "global")
+        self.assertEqual(
+            manifest["rendering"]["layout"]["bands"],
+            [["science_fiction", "fantasy"], ["mystery"]],
+        )
+
+    def test_no_reference_uses_panel_values(self):
+        """The no-reference policy writes values and no deviations."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            _, output_dir, manifest = self._run(
+                tmp_dir,
+                "--panels",
+                "fantasy,mystery",
+                "--reference",
+                "none",
+                "--formats",
+                "png",
+            )
+            with (output_dir / "comparison_nway.csv").open(encoding="utf-8") as f:
+                header = f.readline()
+
+        self.assertEqual(manifest["rendering"]["plotted_quantity"], "value")
+        self.assertIn("plotted_value", header)
+        self.assertEqual(manifest["references"], [])
+
+    @parameterized.expand(
+        [
+            ("one_panel", ["--panels", "fantasy"], "at least two"),
+            ("repeated_panel", ["--panels", "fantasy,fantasy"], "must not repeat"),
+            (
+                "genre_reference_without_genre",
+                ["--panels", "fantasy,mystery", "--reference", "genre"],
+                "--reference-genre",
+            ),
+            (
+                "reference_genre_without_genre_policy",
+                ["--panels", "fantasy,mystery", "--reference-genre", "fantasy"],
+                "only valid",
+            ),
+            (
+                "zero_columns",
+                ["--panels", "fantasy,mystery", "--max-columns", "0"],
+                "--max-columns",
+            ),
+            (
+                "reference_value_without_reference",
+                [
+                    "--panels",
+                    "fantasy,mystery",
+                    "--reference",
+                    "none",
+                    "--vocabulary",
+                    "reference_value",
+                ],
+                "reference_value",
+            ),
+        ]
+    )
+    def test_invalid_requests_raise(self, _name, extra, message):
+        """Invalid panel, reference, and layout requests fail clearly."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            corpora_root, candidates_path = self._fixture(tmp_dir)
+            args = visualize_cli.build_visualize_parser().parse_args(
+                [
+                    "compare-many",
+                    "--corpus-root",
+                    str(corpora_root),
+                    "--candidates-jsonl",
+                    str(candidates_path),
+                    "--output-dir",
+                    str(Path(tmp_dir) / "out"),
+                    *extra,
+                ]
+            )
+            with self.assertRaisesRegex(ValueError, message):
+                visualize_cli.run(parsed_args=args)
+
+    def test_spec_conflicts_fail_before_loading_corpus(self):
+        """Policy conflicts are reported without reading any story files."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            args = visualize_cli.build_visualize_parser().parse_args(
+                [
+                    "compare-many",
+                    "--corpus-root",
+                    str(Path(tmp_dir) / "missing"),
+                    "--candidates-jsonl",
+                    str(Path(tmp_dir) / "missing.jsonl"),
+                    "--panels",
+                    "fantasy,mystery",
+                    "--reference",
+                    "none",
+                    "--order-by",
+                    "reference_value",
+                ]
+            )
+            with self.assertRaisesRegex(ValueError, "reference_value"):
+                visualize_cli.run(parsed_args=args)
+
+    def test_compare_many_help_lists_policy_and_layout_controls(self):
+        """compare-many --help documents reference, scale, and layout options."""
+        parser = visualize_cli.build_visualize_parser()
+        with capture.capture_output() as captured, self.assertRaises(SystemExit):
+            parser.parse_args(["compare-many", "--help"])
+        help_text = captured.stdout.getvalue()
+        for term in (
+            "--panels",
+            "--panel-mode",
+            "--reference",
+            "--scale",
+            "--layout",
+            "--max-columns",
+            "--term-labels",
+        ):
             self.assertIn(term, help_text)
 
 
