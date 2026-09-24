@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: 'Implemented and merged in PR #445 (commit f166f7f4): reusable ordered N-way comparison API and `lcats visualize compare-many` CLI with direct/complement panels, none/common/per-panel-complement references, shared scale by default with labeled independent opt-in, deterministic wrapping, `kabob` render preset, long-form CSV and manifests with overlap/complement provenance and output hashes, and five verified real-data examples.'
 blocked_reason: null
 blocked: false
 id: WI-VISUALIZE-0095
 title: Add aligned multi-subset comparison figures
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
