@@ -1112,17 +1112,17 @@ def _select_nway_vocabulary(
             vocabulary.top_k,
         )
     elif vocabulary.policy == NWayVocabularyPolicy.UNION_TOP:
-        selected = set()
-        if common_reference is not None:
-            reference_values = common_reference.series.values
-            selected = _top_terms(
-                terms & set(reference_values), reference_values, vocabulary.top_k
-            )
+        # Union the top terms of every compared series: the common reference,
+        # each panel, and each per-panel reference (e.g. U - panel).
+        ranked_series = [] if common_reference is None else [common_reference.series]
         for panel in panels:
+            ranked_series.append(panel.series)
+            if panel.reference is not None and panel.reference is not common_reference:
+                ranked_series.append(panel.reference.series)
+        selected = set()
+        for series in ranked_series:
             selected |= _top_terms(
-                terms & set(panel.series.values),
-                panel.series.values,
-                vocabulary.top_k,
+                terms & set(series.values), series.values, vocabulary.top_k
             )
     else:
         raise ValueError(f"unsupported N-way vocabulary policy: {vocabulary.policy!r}")

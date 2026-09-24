@@ -659,6 +659,47 @@ class TestNWayComparison(unittest.TestCase):
             )
         )
 
+    def test_union_top_includes_per_panel_reference_terms(self):
+        """A term that dominates each U - panel reference can be selected."""
+        corpus = comparison.ComparisonCorpus(
+            documents=(
+                comparison.ComparisonDocument(
+                    "a", "dragon dragon castle", candidate_genres=("f",)
+                ),
+                comparison.ComparisonDocument(
+                    "b", "rocket rocket planet", candidate_genres=("s",)
+                ),
+                comparison.ComparisonDocument(
+                    "c", "ghost ghost ghost", candidate_genres=("h",)
+                ),
+            )
+        )
+        spec = comparison.NWayComparisonSpec(
+            universe=comparison.UniverseSpec(),
+            reference=None,
+            panels=tuple(
+                comparison.NWayPanelSpec(
+                    genre,
+                    comparison.Selector(comparison.SelectorKind.GENRE, genre=genre),
+                )
+                for genre in ("f", "s")
+            ),
+            metric=comparison.MetricSpec(comparison.MetricName.RAW_COUNT),
+            vocabulary=comparison.NWayVocabularySpec(
+                policy=comparison.NWayVocabularyPolicy.UNION_TOP, top_k=1
+            ),
+            ordering=comparison.NWayOrderingSpec(
+                by=comparison.NWayOrdering.ALPHABETICAL
+            ),
+            reference_policy=comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT,
+        )
+
+        result = comparison.compare_many(corpus, spec)
+
+        self.assertEqual(
+            [row.term for row in result.rows], ["dragon", "ghost", "rocket"]
+        )
+
     def test_no_reference_reports_values_without_deviation(self):
         """The no-reference policy never fabricates a zero reference."""
         spec = self._nway_spec(
