@@ -8,6 +8,7 @@ import unittest
 import pandas as pd
 
 from lcats.analysis.corpus import cli
+from lcats.utils import capture
 from lcats.utils import test_utils
 
 
@@ -82,7 +83,8 @@ class TestRunStatsSelector(test_utils.TestCaseWithData):
             story_output=str(story_output),
             author_output=str(author_output),
         )
-        exit_code = cli.run_stats(parsed_args=args)
+        with capture.suppress_output():
+            exit_code = cli.run_stats(parsed_args=args)
         self.assertEqual(exit_code, 0)
         story_stats = pd.read_csv(story_output, sep="\t")
         return set(story_stats["path"])

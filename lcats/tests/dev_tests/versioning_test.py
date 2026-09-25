@@ -187,7 +187,10 @@ class TestPushTag(unittest.TestCase):
     def test_pushes_when_absent_on_remote(self):
         with _temporary_git_repo(with_remote=True) as repo_path:
             _git(repo_path, "tag", "v1.0.0")
-            with capture.capture_output() as captured:
+            with (
+                capture.suppress_output(suppress_file_descriptors=True),
+                capture.capture_output() as captured,
+            ):
                 versioning.push_tag("v1.0.0")
             remote_check = subprocess.run(
                 ["git", "ls-remote", "--tags", "origin", "v1.0.0"],

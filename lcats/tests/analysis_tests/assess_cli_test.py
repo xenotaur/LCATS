@@ -15,6 +15,7 @@ import unittest.mock
 
 from lcats.analysis.corpus import assess
 from lcats.analysis.corpus import assess_cli
+from lcats.utils import capture
 
 
 def _write_story(collection_dir: pathlib.Path, name: str, body: str) -> None:
@@ -59,6 +60,7 @@ class TestLogDirOmitted(unittest.TestCase):
                 unittest.mock.patch.dict(
                     "os.environ", {"ANTHROPIC_API_KEY": "fake-key"}, clear=True
                 ),
+                capture.suppress_output(),
             ):
                 exit_code = assess_cli.run(
                     [str(data_dir), "--format", "jsonl", "--no-progress"]

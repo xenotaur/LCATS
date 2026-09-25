@@ -2,6 +2,7 @@
 
 import contextlib
 import io
+import subprocess
 import sys
 import unittest
 
@@ -86,3 +87,13 @@ class CaptureUtilsTests(unittest.TestCase):
         # Stdout suppressed, stderr allowed through.
         self.assertEqual(outer_out.getvalue(), "")
         self.assertIn("noisy stderr", outer_err.getvalue())
+
+    def test_suppress_output_can_silence_child_processes(self):
+        with capture.capture_output() as outer:
+            with capture.suppress_output(suppress_file_descriptors=True):
+                subprocess.run(
+                    [sys.executable, "-c", "print('child output')"], check=True
+                )
+
+        self.assertEqual(outer.stdout.getvalue(), "")
+        self.assertEqual(outer.stderr.getvalue(), "")
