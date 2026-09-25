@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #447 (commit bfdd60824e0e7907e512be43a338a8bf18437469)"
 blocked_reason: null
 blocked: false
 id: WI-TEST-0107
 title: Survey and suppress extraneous LCATS test output
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
