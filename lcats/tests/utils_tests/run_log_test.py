@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from lcats.utils import checkpoint
+from lcats.utils import capture
 from lcats.utils import run_log
 
 
@@ -258,9 +259,10 @@ class RunLogTest(unittest.TestCase):
             try:
                 raise RuntimeError("the real failure")
             except RuntimeError as body_exc:
-                suppressed = log.__exit__(
-                    RuntimeError, body_exc, body_exc.__traceback__
-                )
+                with capture.suppress_output():
+                    suppressed = log.__exit__(
+                        RuntimeError, body_exc, body_exc.__traceback__
+                    )
 
         self.assertFalse(suppressed)
 

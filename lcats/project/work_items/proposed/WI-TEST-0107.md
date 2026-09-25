@@ -1,11 +1,11 @@
 ---
-resolution: "Planning work item created and merged in PR #446 (commit 46501db91946b0c25abf21ab765608cfb0f11e86)"
+resolution: null
 blocked_reason: null
 blocked: false
 id: WI-TEST-0107
 title: Survey and suppress extraneous LCATS test output
 type: deliverable
-status: resolved
+status: proposed
 owner: unassigned
 contributors: []
 assigned_agents: []

@@ -4,6 +4,7 @@ import pathlib
 import unittest
 
 from lcats.utils import test_utils
+from lcats.utils import capture
 from lcats.analysis.corpus import discovery
 
 
@@ -156,7 +157,8 @@ class TestFindJsonFiles(test_utils.TestCaseWithData):
         self.assertEqual(found, [p])
 
     def test_nonexistent_directory_is_skipped_with_warning(self):
-        found = list(discovery.find_json_files([self.root / "nonexistent"]))
+        with capture.suppress_output():
+            found = list(discovery.find_json_files([self.root / "nonexistent"]))
         self.assertEqual(found, [])
 
     def test_bucket_layout_survives_pointing_directly_at_collection_dir(self):

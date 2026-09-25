@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 from lcats.analysis.corpus import processing
+from lcats.utils import capture
 
 _REAL_RESOLVE = pathlib.Path.resolve
 
@@ -76,12 +77,13 @@ class TestProcessFileResolveGuard(unittest.TestCase):
 
     def test_normal_processing_unaffected(self):
         """Sanity check: the guard doesn't break the real success path."""
-        result = processing.process_file(
-            self.input_path,
-            corpora_root=self.corpora_root,
-            job_dir=self.output_root,
-            processor_function=_identity_processor,
-        )
+        with capture.suppress_output():
+            result = processing.process_file(
+                self.input_path,
+                corpora_root=self.corpora_root,
+                job_dir=self.output_root,
+                processor_function=_identity_processor,
+            )
         self.assertEqual(result["status"], "processed")
 
 
@@ -109,8 +111,11 @@ class TestProcessFilesBatchFaultIsolation(unittest.TestCase):
                 raise OSError("permission denied")
             return _REAL_RESOLVE(self_path, *args, **kwargs)
 
-        with patch(
-            "pathlib.Path.resolve", autospec=True, side_effect=_resolve_side_effect
+        with (
+            patch(
+                "pathlib.Path.resolve", autospec=True, side_effect=_resolve_side_effect
+            ),
+            capture.suppress_output(),
         ):
             result = processing.process_files(
                 [good1, good2, bad],
@@ -132,12 +137,13 @@ class TestProcessFilesBatchFaultIsolation(unittest.TestCase):
         _write_json(good1, {"name": "story1", "body": "text"})
         _write_json(good2, {"name": "story2", "body": "text"})
 
-        result = processing.process_files(
-            [good1, good2],
-            corpora_root=self.corpora_root,
-            output_root=self.output_root,
-            processor_function=_identity_processor,
-        )
+        with capture.suppress_output():
+            result = processing.process_files(
+                [good1, good2],
+                corpora_root=self.corpora_root,
+                output_root=self.output_root,
+                processor_function=_identity_processor,
+            )
 
         self.assertEqual(result["processed"], 2)
         self.assertEqual(result["errors"], [])

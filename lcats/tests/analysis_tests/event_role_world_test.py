@@ -16,6 +16,7 @@ from lcats.analysis.event_role_world import relation_extractor
 from lcats.analysis.event_role_world import schema
 from lcats.analysis.event_role_world import story_relation_extractor
 from lcats.analysis.event_role_world import surface_feature_extractor
+from lcats.utils import capture
 
 
 def _spacy_model_available() -> bool:
@@ -35,7 +36,8 @@ def _spacy_model_available() -> bool:
         return False
 
 
-_SPACY_AVAILABLE = _spacy_model_available()
+with capture.suppress_output(suppress_file_descriptors=True):
+    _SPACY_AVAILABLE = _spacy_model_available()
 
 
 class _SequencedFakeBackend:
@@ -357,6 +359,10 @@ def _stanza_model_available() -> bool:
         return False
 
 
+with capture.suppress_output(suppress_file_descriptors=True):
+    _STANZA_AVAILABLE = _stanza_model_available()
+
+
 class TestRealNLPBackends(unittest.TestCase):
     """Direct integration coverage for both supported real backends.
 
@@ -379,12 +385,13 @@ class TestRealNLPBackends(unittest.TestCase):
         self.assertEqual(sum(1 for t in tokens if t.head_index == 0), 1)
 
     @unittest.skipUnless(
-        _stanza_model_available(),
+        _STANZA_AVAILABLE,
         "Stanza 'en' model not downloaded; run stanza.download('en')",
     )
     def test_stanza_backend_produces_normalized_tokens(self):
-        backend = nlp_backend.StanzaBackend()
-        sentences = backend.analyze("The old machine hummed.")
+        with capture.suppress_output(suppress_file_descriptors=True):
+            backend = nlp_backend.StanzaBackend()
+            sentences = backend.analyze("The old machine hummed.")
         self.assertEqual(len(sentences), 1)
         tokens = sentences[0].tokens
         self.assertTrue(any(t.upos == "VERB" for t in tokens))

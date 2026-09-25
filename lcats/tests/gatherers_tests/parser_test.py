@@ -490,6 +490,11 @@ class TestFixBody(unittest.TestCase):
 class TestBodyOfText(unittest.TestCase):
     """Tests for parser.body_of_text."""
 
+    def setUp(self):
+        self._output_suppression = capture.suppress_output()
+        self._output_suppression.__enter__()
+        self.addCleanup(self._output_suppression.__exit__, None, None, None)
+
     def _make_story(self, title, author_line, body):
         """Helper to create a story text with title, author, and body."""
         return f"{title}\n\n{author_line}\n\n{body}"
@@ -565,6 +570,11 @@ class TestFixBodyAdditional(unittest.TestCase):
 
 class TestBodyOfTextAdditional(unittest.TestCase):
     """Additional tests for body_of_text covering the remaining break/continue branches."""
+
+    def setUp(self):
+        self._output_suppression = capture.suppress_output()
+        self._output_suppression.__enter__()
+        self.addCleanup(self._output_suppression.__exit__, None, None, None)
 
     def test_double_title_breaks_after_second_occurrence(self):
         """When the title appears twice, the loop breaks after both are found (line 612)."""

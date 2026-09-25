@@ -12,6 +12,8 @@ import tempfile
 import unittest
 import unittest.mock
 
+from lcats.utils import capture
+
 _RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_prefilter.py"
 _SPEC = importlib.util.spec_from_file_location("run_prefilter", _RUNNER_PATH)
 assert _SPEC is not None and _SPEC.loader is not None
@@ -390,7 +392,7 @@ class TestMetadataEvidence(unittest.TestCase):
             cache_db = root / "cache" / "gutenbergindex.db"
             output_dir = root / "results"
 
-            with self.assertRaises(ValueError):
+            with capture.suppress_output(), self.assertRaises(ValueError):
                 run_prefilter.run(
                     corpus_root=root / "missing",
                     output_dir=output_dir,
@@ -747,6 +749,11 @@ class TestSidecarRecords(unittest.TestCase):
 
 
 class TestValidationCostGate(unittest.TestCase):
+    def setUp(self):
+        self._output_suppression = capture.suppress_output()
+        self._output_suppression.__enter__()
+        self.addCleanup(self._output_suppression.__exit__, None, None, None)
+
     def test_default_cost_estimate_matches_the_real_measured_sample(self):
         # experiments/04_genre_census/results/census_sample_summary.json:
         # 268,975 input / 8,310 output tokens over 20 real claude-opus-4-8
@@ -923,7 +930,8 @@ class TestValidationCostGate(unittest.TestCase):
                 with unittest.mock.patch(
                     "lcats.llm.anthropic_backend.AnthropicBackend"
                 ):
-                    summary = run_prefilter._run_validate_mode(args)
+                    with capture.suppress_output():
+                        summary = run_prefilter._run_validate_mode(args)
 
             mock_assess.assert_called_once()
             called_path = mock_assess.call_args[0][0]
@@ -971,6 +979,11 @@ class TestValidationResilience(unittest.TestCase):
     intermediate work is saved, errors are logged, and the run is
     resumable - mirroring run_pilot.py's own checkpoint/fatal-abort/
     per-story-exception-isolation pattern (WI-EVENT-0032 precedent)."""
+
+    def setUp(self):
+        self._output_suppression = capture.suppress_output()
+        self._output_suppression.__enter__()
+        self.addCleanup(self._output_suppression.__exit__, None, None, None)
 
     def _setup_manifest(self, tmp, rows):
         root = pathlib.Path(tmp)
@@ -1049,7 +1062,8 @@ class TestValidationResilience(unittest.TestCase):
                 with unittest.mock.patch(
                     "lcats.llm.anthropic_backend.AnthropicBackend"
                 ):
-                    summary = run_prefilter._run_validate_mode(args)
+                    with capture.suppress_output():
+                        summary = run_prefilter._run_validate_mode(args)
 
             # All 3 stories processed - the exception on story_b did not
             # abort the run or lose story_c's results.
@@ -1109,7 +1123,8 @@ class TestValidationResilience(unittest.TestCase):
                 with unittest.mock.patch(
                     "lcats.llm.anthropic_backend.AnthropicBackend"
                 ):
-                    summary = run_prefilter._run_validate_mode(args)
+                    with capture.suppress_output():
+                        summary = run_prefilter._run_validate_mode(args)
 
             # story_c's call must never happen - the run aborted after
             # story_b's fatal (account-level) error.
@@ -1159,7 +1174,8 @@ class TestValidationResilience(unittest.TestCase):
                         side_effect=OSError("disk full"),
                     ):
                         with self.assertRaises(OSError):
-                            run_prefilter._run_validate_mode(args)
+                            with capture.suppress_output():
+                                run_prefilter._run_validate_mode(args)
 
             events = [
                 json.loads(line)
@@ -1189,7 +1205,8 @@ class TestValidationResilience(unittest.TestCase):
                 with unittest.mock.patch(
                     "lcats.llm.anthropic_backend.AnthropicBackend"
                 ):
-                    run_prefilter._run_validate_mode(args)
+                    with capture.suppress_output():
+                        run_prefilter._run_validate_mode(args)
 
             events = [
                 json.loads(line)
@@ -1397,7 +1414,8 @@ class TestValidationResilience(unittest.TestCase):
                 with unittest.mock.patch(
                     "lcats.llm.anthropic_backend.AnthropicBackend"
                 ):
-                    summary = run_prefilter._run_validate_mode(args)
+                    with capture.suppress_output():
+                        summary = run_prefilter._run_validate_mode(args)
 
             # assess_story is only ever called for the story that actually
             # exists - the missing one never reaches it.
@@ -1411,6 +1429,11 @@ class TestValidationLocalBackend(unittest.TestCase):
     """WI-LLM-0074: --validate's opt-in local OpenAI-compatible backend,
     mirroring run_census.py's own --backend/--base-url wiring
     (WI-LLM-0066)."""
+
+    def setUp(self):
+        self._output_suppression = capture.suppress_output()
+        self._output_suppression.__enter__()
+        self.addCleanup(self._output_suppression.__exit__, None, None, None)
 
     def _setup_manifest(self, tmp, rows, extra_argv):
         root = pathlib.Path(tmp)
