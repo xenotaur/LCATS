@@ -53,11 +53,11 @@ def suppress_output(
     """
     with open(os.devnull, "w", encoding="utf-8") as devnull:
         saved_fds = []
-        if suppress_file_descriptors:
-            for fd in (1, 2) if suppress_stderr else (1,):
-                saved_fds.append((fd, os.dup(fd)))
-                os.dup2(devnull.fileno(), fd)
         try:
+            if suppress_file_descriptors:
+                for fd in (1, 2) if suppress_stderr else (1,):
+                    saved_fds.append((fd, os.dup(fd)))
+                    os.dup2(devnull.fileno(), fd)
             with contextlib.redirect_stdout(devnull):
                 if suppress_stderr:
                     with contextlib.redirect_stderr(devnull):
