@@ -1,0 +1,297 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 8839,
+  "model": "claude-opus-4-8",
+  "output_tokens": 3290,
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The world has eliminated many longstanding social ills.",
+        "quote": "There were no prisons, no slums, no insane asylums, no cripples, no\npoverty, no wars.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.95,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "Disease and aging have been cured.",
+        "quote": "All diseases were conquered. So was old age.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "Death now occurs only by accident or voluntary choice.",
+        "quote": "Death, barring accidents, was an adventure for volunteers.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "The national population is held fixed at forty million.",
+        "quote": "The population of the United States was stabilized at forty-million\nsouls.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "Births have become rare as a consequence of population control.",
+        "quote": "He was the only man\nwaiting. Not many people were born a day any more.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "Human lifespans are drastically extended, making 56 young.",
+        "quote": "Wehling was fifty-six, a mere stripling in a population whose average\nage was one hundred and twenty-nine.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "Medical imaging revealed the pregnancy was triplets.",
+        "quote": "X-rays had revealed that his wife was going to have triplets.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "An old man is roughly two hundred years old.",
+        "quote": "about two hundred years old, sat on a stepladder",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "A cure for aging exists that halts further aging.",
+        "quote": "Aging had\ntouched him that much before the cure for aging was found.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "A government agency exists to manage terminations.",
+        "quote": "the Chicago Office of the Federal Bureau of\nTermination",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The painter contrasts the idealized mural with real life.",
+        "quote": "\"You think this is my idea of what life really looks\nlike?\"",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00031"
+        ],
+        "paraphrase": "A phone number connects citizens to state-run gas chambers.",
+        "quote": "\"To be or not to be\" was the telephone number of the municipal gas\nchambers of the Federal Bureau of Termination.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00034"
+        ],
+        "paraphrase": "The painter voices disdain for the orderly society.",
+        "quote": "\"The world could do with a good deal more\nmess, if you ask me,\" he said.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00039"
+        ],
+        "paraphrase": "Gas-chamber hostesses reportedly grow mustaches over time.",
+        "quote": "they all sprouted mustaches\nwithin five years or so.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "Leora admires Hitz for founding the first local gas chamber.",
+        "quote": "\"He was\nresponsible for setting up the very first gas chamber in Chicago.\"",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.95,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00069"
+        ],
+        "paraphrase": "Law requires a volunteer death for each new birth.",
+        "quote": "The law said that no newborn child could survive unless the parents of\nthe child could find someone who would volunteer to die.",
+        "raw_id": "ev16"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00080"
+        ],
+        "paraphrase": "Wehling bitterly describes having to choose which child lives.",
+        "quote": "All I have to do is pick\nout which one of the triplets is going to live, then deliver my maternal\ngrandfather to the Happy Hooligan",
+        "raw_id": "ev17"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00083"
+        ],
+        "paraphrase": "Hitz cites runaway population growth that prompted control.",
+        "quote": "Would you like to go back to the good old days, when the population of\nthe Earth was twenty billion--about to become forty billion, then eighty\nbillion, then one hundred and sixty billion?",
+        "raw_id": "ev18"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00085"
+        ],
+        "paraphrase": "Hitz explains overcrowding via a blackberry analogy.",
+        "quote": "\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little\npulpy grains of a blackberry,\"",
+        "raw_id": "ev19"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00087"
+        ],
+        "paraphrase": "Past overpopulation caused water and food shortages until scientists intervened.",
+        "quote": "In the year 2000,\" said Dr. Hitz, \"before scientists stepped in and\nlaid down the law, there wasn't even enough drinking water to go around,\nand nothing to eat but sea-weed",
+        "raw_id": "ev20"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00088"
+        ],
+        "paraphrase": "Wehling states he wants to keep all three children.",
+        "quote": "\"I want those kids,\" said Wehling quietly. \"I want all three of them.\"",
+        "raw_id": "ev21"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00095"
+        ],
+        "paraphrase": "Euphemistic official naming contrasts with the grim reality of state killing.",
+        "quote": "He corrected\nhimself, gave the municipal gas chambers their official title, a title\nno one ever used in conversation. \"I should have said, 'Ethical Suicide\nStudios,'\"",
+        "raw_id": "ev22"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00100"
+        ],
+        "paraphrase": "Wehling murders Hitz to make room for a child.",
+        "quote": "Wehling shot Dr. Hitz dead. \"There's room for one--a great big one,\" he\nsaid.",
+        "raw_id": "ev23"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "Wehling kills himself and Duncan to free space for his triplets.",
+        "quote": "And then he shot himself, making room for all three of his children.",
+        "raw_id": "ev24"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00105"
+        ],
+        "paraphrase": "The painter reflects on the fundamental problem of reproduction on a finite planet.",
+        "quote": "The painter pondered the mournful puzzle of life demanding to be born\nand, once born, demanding to be fruitful ... to multiply and to live as\nlong as possible--to do all that on a very small planet that would have\nto last forever.",
+        "raw_id": "ev25"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00107"
+        ],
+        "paraphrase": "The painter decides to stop painting after the killings.",
+        "quote": "He knew that he would never paint again.",
+        "raw_id": "ev26"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00108",
+          "p00109"
+        ],
+        "paraphrase": "The painter tries but cannot shoot himself.",
+        "quote": "He took Wehling's pistol, really intending to shoot himself.\n\nBut he didn't have the nerve.",
+        "raw_id": "ev27"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00115"
+        ],
+        "paraphrase": "The termination hostess frames suicide as a civic gift to the future.",
+        "quote": "\"Your city thanks you; your country\nthanks you; your planet thanks you. But the deepest thanks of all is\nfrom future generations.\"",
+        "raw_id": "ev28"
+      }
+    ]
+  }
+}

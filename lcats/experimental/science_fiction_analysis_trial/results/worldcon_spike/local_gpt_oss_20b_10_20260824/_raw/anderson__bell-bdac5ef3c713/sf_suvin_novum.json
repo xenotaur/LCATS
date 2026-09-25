@@ -1,0 +1,16 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 3467,
+  "model": "gpt-oss:20b",
+  "output_tokens": 717,
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": []
+  }
+}

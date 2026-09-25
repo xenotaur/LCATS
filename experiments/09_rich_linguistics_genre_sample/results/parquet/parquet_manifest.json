@@ -1,0 +1,24 @@
+{
+  "files": {
+    "token_detail_sentences.parquet": {
+      "bytes": 342224,
+      "path": "experiments/09_rich_linguistics_genre_sample/results/parquet/token_detail_sentences.parquet",
+      "sha256": "a37862f164b6cafcceb05f96c0102b895a7be78eff512d79c3c3acccdbe798de"
+    },
+    "token_detail_stories.parquet": {
+      "bytes": 71476,
+      "path": "experiments/09_rich_linguistics_genre_sample/results/parquet/token_detail_stories.parquet",
+      "sha256": "32d71db073d828b54ad63f9325afb3f7e02f2d154523364ea62ff1290017479c"
+    },
+    "token_detail_tokens.parquet": {
+      "bytes": 12839693,
+      "path": "experiments/09_rich_linguistics_genre_sample/results/parquet/token_detail_tokens.parquet",
+      "sha256": "2aa24e390c26e7c01be55761576b3b40babd722386d3f6cdd6965c1b8fd85384"
+    }
+  },
+  "schema_version": "rich-linguistics-token-detail-parquet-v1",
+  "sentence_count": 51490,
+  "source_root": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets",
+  "story_count": 146,
+  "token_count": 1087742
+}

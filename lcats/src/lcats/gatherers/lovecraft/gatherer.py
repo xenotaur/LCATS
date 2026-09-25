@@ -1,9 +1,7 @@
 """Corpus extractor for the Lovecraft stories."""
 
-from bs4 import BeautifulSoup
-
-import lcats.gatherers.downloaders as downloaders
 import lcats.gatherers.extractors as extractors
+from lcats.gatherers import gatherlib
 
 TARGET_DIRECTORY = "lovecraft"
 
@@ -92,46 +90,49 @@ THE_LOVECRAFT_FILES = [
 # The Curse of Yig: https://www.gutenberg.org/cache/epub/70912/pg70912-images.html:
 
 
-def create_download_callback(extractor):
-    """Create a download callback function for a specific story."""
+_EXTRACTOR_BY_FILE = {extractor.file: extractor for extractor in THE_LOVECRAFT_FILES}
 
-    def story_download_callback(contents):
-        """Download a specific Lovecraft story from the Gutenberg Project."""
-        if contents is None:
-            raise ValueError(f"Failed to download {extractor.url}")
 
-        story_soup = BeautifulSoup(contents, "lxml")
+def _entry_url(raw_filename, heading, title):
+    """Per-entry URL lookup for gatherlib.gather()'s entry_url extension --
+    each Lovecraft story is its own Gutenberg URL, not one shared URL."""
+    del heading, title  # unused, part of the shared 3-tuple entry shape
+    return _EXTRACTOR_BY_FILE[raw_filename].url
 
-        story_text = extractors.extract_text_between_ids(story_soup)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {extractor.title} given {extractor.title} in {extractor.url}"
-            )
 
-        story_data = {
-            "author": extractor.author,
-            "year": 1925,
-            "url": extractor.url,
-            "name": extractor.title,
-        }
+def _entry_name(raw_filename, heading, title):
+    """Per-entry metadata-name lookup for gatherlib.gather()'s name_source
+    extension -- the display title, not the normalized filename
+    gatherlib.gather() would otherwise store."""
+    del heading, title  # unused, part of the shared 3-tuple entry shape
+    return _EXTRACTOR_BY_FILE[raw_filename].title
 
-        return extractor.description, story_text, story_data
 
-    return story_download_callback
+def _extract_story_text(soup):
+    """ID-based extraction strategy for gatherlib.gather()'s
+    extraction_strategy extension -- Lovecraft stories are located between
+    fixed separator IDs, not found via heading-text search."""
+    return extractors.extract_text_between_ids(soup)
 
 
 def gather():
-    """Run DataGatherers for the Lovecraft corpus."""
-    gatherer = downloaders.DataGatherer(
-        TARGET_DIRECTORY,
+    """Gather the Lovecraft corpus via gatherlib.gather()."""
+    headings = [
+        (extractor.file, "", extractor.description) for extractor in THE_LOVECRAFT_FILES
+    ]
+    return gatherlib.gather(
+        corpus="Lovecraft",
+        target_directory=TARGET_DIRECTORY,
         description="Lovecraft stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.",
+        license_text="Public domain, from Project Gutenberg.",
+        author="H. P. Lovecraft",
+        year=1925,
+        headings=headings,
+        entry_url=_entry_url,
+        extraction_strategy=_extract_story_text,
+        name_source=_entry_name,
+        verbose=False,
     )
-    for extractor in THE_LOVECRAFT_FILES:
-        gatherer.download(
-            extractor.file, extractor.url, create_download_callback(extractor)
-        )
-    return gatherer.downloads
 
 
 def main():

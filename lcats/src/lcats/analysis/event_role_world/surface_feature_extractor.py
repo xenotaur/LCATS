@@ -42,14 +42,16 @@ def extract_surface_features(
     total_word_chars = sum(len(tok.text) for tok in word_tokens)
     avg_word_length = total_word_chars / word_count if word_count else 0.0
 
-    return schema.SurfaceFeatures(
+    features = schema.SurfaceFeatures(
         word_count=word_count,
         sentence_count=sentence_count,
         avg_sentence_length=avg_sentence_length,
         avg_word_length=avg_word_length,
         tokens=[tok.to_dict() for tok in all_tokens],
         backend_name=backend_name,
+        sentence_records=sentences,
     )
+    return features
 
 
 def make_nlp_backend(name: str) -> nlp_backend_module.NLPBackend:

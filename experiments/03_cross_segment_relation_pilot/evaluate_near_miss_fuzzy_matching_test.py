@@ -12,11 +12,16 @@ import evaluate_near_miss_fuzzy_matching as evaluator  # noqa: E402
 
 class EvaluateNearMissFuzzyMatchingTest(unittest.TestCase):
     def test_fixture_evaluation_counts_only_exact_span_recovery(self):
+        """WI-SEGMENT-0099 (2026-08-28) added 2 real positives from
+        WI-EVENT-0096 to the original 2-case corpus - both new cases
+        recover exactly, bringing the corpus to 4 positives / 3 exact
+        recoveries (75%), still short of this evaluation's own frozen
+        10+-positive threshold (see the design doc's 2026-08-28 update)."""
         result = evaluator.evaluate_fixture()
 
-        self.assertEqual(result["positive_total"], 2)
-        self.assertEqual(result["positive_recovered"], 1)
-        self.assertEqual(result["positive_recovery_rate"], 0.5)
+        self.assertEqual(result["positive_total"], 4)
+        self.assertEqual(result["positive_recovered"], 3)
+        self.assertEqual(result["positive_recovery_rate"], 0.75)
 
         by_case = {item["case_id"]: item for item in result["positive_results"]}
         self.assertTrue(
@@ -32,6 +37,16 @@ class EvaluateNearMissFuzzyMatchingTest(unittest.TestCase):
             by_case["way_of_a_rebel_start_exact_verb_substitution"][
                 "expected_span_end"
             ],
+        )
+        self.assertTrue(
+            by_case["problem_in_solid_end_exact_name_substitution"][
+                "recovered_expected_span"
+            ]
+        )
+        self.assertTrue(
+            by_case["last_days_of_l_a_start_exact_spelling_typo"][
+                "recovered_expected_span"
+            ]
         )
 
     def test_fixture_evaluation_rejects_negative_decoys(self):

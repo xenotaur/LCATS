@@ -1,5 +1,6 @@
 """Unit tests for lcats.llm.anthropic_backend."""
 
+import json
 import types
 import unittest
 
@@ -162,6 +163,7 @@ class TestAnthropicBackend(unittest.TestCase):
                 )
         self.assertEqual(ctx.exception.stop_reason, "max_tokens")
         self.assertEqual(ctx.exception.max_tokens, 4096)
+        self.assertIn('"type": "tool_use"', ctx.exception.raw_content)
 
     def test_truncation_error_preserves_billed_usage(self):
         """TruncatedResponseError carries the usage the provider already billed."""
@@ -201,13 +203,15 @@ class TestAnthropicBackend(unittest.TestCase):
         )
         with patch("anthropic.Anthropic", return_value=stub_client):
             backend_under_test = anthropic_backend.AnthropicBackend()
-            with self.assertRaises(backend.NoToolCallError):
+            with self.assertRaises(backend.NoToolCallError) as ctx:
                 backend_under_test.complete(
                     system="sys",
                     messages=[{"role": "user", "content": "hi"}],
                     model="claude-opus-4-8",
                     tool=tool_schema,
                 )
+        captured = json.loads(ctx.exception.raw_content)
+        self.assertEqual('{"verdict": "include"}', captured[0]["text"])
 
     def test_no_tool_call_error_preserves_billed_usage(self):
         """NoToolCallError carries the usage the provider already billed

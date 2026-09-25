@@ -1,0 +1,61 @@
+{
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "input_tokens": 18084,
+  "model": "claude-opus-4-8",
+  "output_tokens": 844,
+  "stage": "sf_suvin_novum",
+  "story_id": "london/brown_wolf",
+  "story_path": "london/brown_wolf/story.json",
+  "text": "",
+  "title": "London - Brown Wolf",
+  "tool_result": {
+    "dominant_novum_id": "cand-brown-wolf-choice",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-brown-wolf-choice",
+        "character_reaction_evidence_ids": [
+          "sfev-f239fb64a26adb83"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The dog's behavior is presented in a coherent, naturalistic, nonsupernatural manner (homing instinct, trained commands, physiological description of the pre-howl), but coherence alone does not create a novum absent a world-altering difference.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-f239fb64a26adb83"
+          ]
+        },
+        "description": "A part-wolf sled dog ('Wolf'/'Brown') is given a genuine choice between two masters and two lives (pastoral California vs. harsh Klondike), and his autonomous decision resolves the story.",
+        "estrangement_rationale": "The proof-of-ownership by sled commands provides a mild reader-facing contrast between domestic and frontier worlds, but produces recognition, not cognitive estrangement from an empirical norm.",
+        "evidence_ids": [
+          "sfev-f239fb64a26adb83"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The dog's identity and ultimate choice do drive the entire narrative logic, but centrality of a mundane element does not make it a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-f239fb64a26adb83"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-f239fb64a26adb83"
+          ],
+          "rationale": "Nothing in the story alters the empirical norm. A trained sled dog obeying driving commands, howling, and choosing to follow a former owner are all ordinary canine behaviors within the real world. There is no totalizing world-altering difference from the author's empirical reality; the setting is turn-of-the-century California and the Klondike as they actually were.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-f239fb64a26adb83"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-f239fb64a26adb83"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "story_id": "mass_quantities/wintry_peacock_from_the_new_decameron_volume_iii__lawrence",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 1,
+        "start_exact": "There was thin, crisp snow on the ground, the sky was blue, the wind\nvery cold, the air clear. Farmers were just turning out the cows for an\nhour or so in the midday, and the smell of cow-sheds was unendurable\nas I entered Tible.",
+        "end_exact": "They turned off\nto the shelter of an open shed.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0002] As I passed the end of the upper house, I saw a young woman just coming",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator arrives at Tible village on a snowy day, observes the landscape and encounters three tailless peacocks moving gracefully through the winter weather.",
+        "cohesion": {
+          "time": "midday, in winter",
+          "place": "Tible village, road and surroundings",
+          "characters": [
+            "narrator"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified setting and moment (snowy arrival at Tible) without dramatic conflict or clear character choice-making. Primarily descriptive and observational, establishing the wintry landscape and introducing the peacocks. No GACD or ERAC structure evident.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 2,
+        "end_par_id": 8,
+        "start_exact": "As I passed the end of the upper house, I saw a young woman just coming\nout of the back door. I had spoken to her in the summer. She recognised\nme at once, and waved to me.",
+        "end_exact": "She was searching me for something and her look was too\nnear. The frown was still on her keen, sallow brow.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0009] \"Can you speak French?\" she asked me abruptly.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Mrs. Goyte recognizes the narrator on the road, invites him to the cart-shed, and begins a conversation with intense scrutiny but no clear conflict yet.",
+        "cohesion": {
+          "time": "same day, midday",
+          "place": "road and open cart-shed at Tible",
+          "characters": [
+            "narrator",
+            "Mrs. Goyte"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified time/place (same encounter) with dialogue and initial social interaction. No GACD conflict or on-stage action pursuing a goal with resistance. No ERAC deliberation or aftermath of crisis. Functions as scene-setting before the core dramatic action.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 9,
+        "end_par_id": 75,
+        "start_exact": "\"Can you speak French?\" she asked me abruptly.",
+        "end_exact": "\"Oh well,\" said I--\"if you prefer to think that way.\"",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0076] \"What other reason has she for writing like that----?\"",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Mrs. Goyte asks narrator to read a French letter from her husband's Belgian lover, revealing an affair and illegitimate child. They debate the letter's meaning and her husband's infidelity, with the narrator resisting her attempts to confirm the worst interpretation.",
+        "cohesion": {
+          "time": "same afternoon, cart-shed",
+          "place": "open cart-shed at Tible",
+          "characters": [
+            "narrator",
+            "Mrs. Goyte"
+          ]
+        },
+        "gacd": {
+          "goal": "Mrs. Goyte seeks to confirm her husband's infidelity and emotional betrayal through reading and interpreting the French letter",
+          "action": "She asks narrator to read the letter, probes his interpretation, and proposes theories about the baby being Alfred's",
+          "conflict": "Narrator resists her catastrophic reading, defending the husband's honor and the ambiguity of the letter; Mrs. Goyte's emotional distress and accusatory tone create tension",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Clear GACD structure: Mrs. Goyte has the goal of confirming infidelity; she takes action (requesting the letter be read, pressing for interpretations); conflict emerges between her reading and the narrator's more charitable interpretation; outcome is her 'success' in getting confirmation of a child, though incomplete. Strong emotion, resistance, and on-stage confrontation meet the dramatic_scene threshold.",
+        "confidence": 0.78
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "narrative_scene",
+        "start_par_id": 76,
+        "end_par_id": 85,
+        "start_exact": "\"What other reason has she for writing like that----?\"\n\nI went out into the road and looked at the cattle.",
+        "end_exact": "She laughed into my face, witch-like, and we turned down the road.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0086] When I awoke, the morning after this episode, I found the house darkened",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator exits the cart-shed with Mrs. Goyte, shifts focus briefly to cattle, then Mrs. Goyte expresses scorn over her husband's deception and suspected theft, laughing wickedly before they walk down the road together.",
+        "cohesion": {
+          "time": "later that same afternoon",
+          "place": "cart-shed and road at Tible",
+          "characters": [
+            "narrator",
+            "Mrs. Goyte"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Continuation of the encounter at Tible, but the narrative shifts away from the core confrontation over the letter. No new GACD or ERAC structure; primarily dialogue reflecting on the infidelity theme. Unified time/place but serves as a trailing conclusion to the cart-shed scene.",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 86,
+        "end_par_id": 87,
+        "start_exact": "When I awoke, the morning after this episode, I found the house darkened\nwith deep, soft snow, which had blown against the large west windows,\ncovering them with a screen.",
+        "end_exact": "And the snow seemed to lay me bare to influences I wanted to\nescape.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0088] In the faint glow of half-clear light that came about four o'clock in",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator wakes to heavy snow the next morning, feels isolated and confined indoors, contemplates the snowy valley and thinks of Mrs. Goyte with discomfort.",
+        "cohesion": {
+          "time": "morning after the Tible encounter (next day)",
+          "place": "narrator's house in the valley",
+          "characters": [
+            "narrator"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Shift to new time (next morning) and new place (narrator's home, not Tible). Unified by setting and introspection. No GACD conflict or ERAC choice-making; primarily descriptive and reflective passage establishing mood and isolation.",
+        "confidence": 0.82
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 88,
+        "end_par_id": 95,
+        "start_exact": "In the faint glow of half-clear light that came about four o'clock in\nthe afternoon, I was roused to see a motion in the snow away below, near\nwhere the thorn-trees stood very black and dwarfed, like a little savage\ngroup, in the dismal white.",
+        "end_exact": "And so I set off with him, slithering down into the valley, making\ngood progress down in the pale shadows beside the rushing waters,\nthen climbing painfully up the arrested white valley-side, plumed with\nclusters of young pine-trees, into the paler white radiance of the snowy\nupper regions, where the wind cut fine.",
+        "start_prefix": "",
+        "end_suffix": " Joey seemed to watch all the\ntime with wide, anxious, unseeing eyes, brilliant and inscrutable.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator spots Joey the peacock struggling in the snow, rescues him, brings him to the house, nurses him overnight, and the next morning carries him back to Tible in a fish-bag.",
+        "cohesion": {
+          "time": "late afternoon through next day",
+          "place": "valley below narrator's house, narrator's house, and return journey to Tible",
+          "characters": [
+            "narrator",
+            "Joey (peacock)"
+          ]
+        },
+        "gacd": {
+          "goal": "Narrator aims to rescue Joey the peacock from the snow and restore him to health",
+          "action": "Narrator descends the slope, captures Joey, carries him to house, wipes and warms him, feeds him, and the next day returns him to Tible",
+          "conflict": "Joey is exhausted, near death in the snow; difficult terrain and struggle to carry him; Joey's condition is uncertain and he won't eat; narrator must navigate back through snow",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal to rescue Joey; action of descent, capture, nursing, and return; conflict from Joey's desperate condition and environmental obstacles; outcome is successful rescue and recovery. On-stage attempt with resistance and clear positive resolution within the segment.",
+        "confidence": 0.88
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 96,
+        "end_par_id": 135,
+        "start_exact": "Mrs. Goyte came darting past the end of the house, her head sticking\nforward in sharp scrutiny. She saw me, and came forward.",
+        "end_exact": "Yet she seemed almost in physical contact with me while I was with her.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0135] The sky was all pallid again, yellowish. When I went out there was no",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator returns Joey to Tible. Mrs. Goyte reunites with Joey, her in-laws (Alfred's parents and brother) arrive, they go indoors for tea, Alfred briefly appears and leaves abruptly when he sees Maggie with Joey. Narrator departs.",
+        "cohesion": {
+          "time": "same afternoon/early evening as Joey's return",
+          "place": "Tible farmhouse and surrounding area",
+          "characters": [
+            "narrator",
+            "Mrs. Goyte (Maggie)",
+            "Joey",
+            "Alfred Sr. (father-in-law)",
+            "Mrs. Goyte Sr. (mother-in-law)",
+            "Alfred Jr. (husband)"
+          ]
+        },
+        "gacd": {
+          "goal": "Narrator presents Joey to Mrs. Goyte; family reunites; underlying tension between Alfred and Maggie over the letter and Joey",
+          "action": "Narrator delivers Joey, family gathers, they go inside for tea, Alfred appears and leaves abruptly upon seeing Maggie with Joey",
+          "conflict": "Alfred's jealousy/anger upon seeing his wife intimately close to the peacock; emotional charge between husband and wife; narrator caught in domestic tension",
+          "outcome": "Unclear"
+        },
+        "erac": null,
+        "reason": "GACD present: narrative goal (deliver Joey), on-stage action (the return and family gathering), clear conflict (Alfred's reaction to Maggie and Joey's intimacy), but outcome is ambiguous\u2014Alfred leaves without confrontation. The narrator also departs, leaving the domestic tension unresolved. Meets dramatic_scene threshold with conflict and action, though outcome is not fully realized.",
+        "confidence": 0.72
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 136,
+        "end_par_id": 198,
+        "start_exact": "As I went\ncrunching over the laborious snow I became aware of a figure striding\nawkwardly down the steep scarp to intercept me. It was a man with his\nhanks in front of him, half stuck in his breeches pockets, and his\nshoulders square--a real knock-about fellow. Alfred, of course.",
+        "end_exact": "\"But I'll do that blasted Joey in----\" he mused, I ran down the hill,\nshouting also with laughter.",
+        "start_prefix": "The road made a loop down the sharp face of the slope. ",
+        "end_suffix": "",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Alfred intercepts narrator on the road, demands to know about the French letter, and narrator gradually reveals its contents. Alfred and narrator laugh together about the Belgian woman and child, Alfred's presumed deception of his wife, and the peacock Joey.",
+        "cohesion": {
+          "time": "same afternoon as return, as narrator walks away from Tible",
+          "place": "snowy road leaving Tible, stone fence area",
+          "characters": [
+            "narrator",
+            "Alfred Jr."
+          ]
+        },
+        "gacd": {
+          "goal": "Alfred seeks to learn the contents of the French letter and reassure himself about his wife's knowledge; narrator withholds and gradually reveals",
+          "action": "Alfred intercepts narrator, questions him, narrator carefully discloses letter details in stages",
+          "conflict": "Alfred's jealousy and anger about the letter; tension over what his wife knows; narrator's reluctance and strategic withholding; underlying threat of violence ('wreak vengeance')",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Strong GACD structure: Alfred has clear goal (learn letter contents); on-stage action (confrontation and dialogue); conflict (tension, wariness, threat, withholding); outcome is success\u2014narrator reveals enough, they bond through laughter, Alfred's anxiety is relieved. Meets dramatic_scene threshold strongly.",
+        "confidence": 0.88
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 13635,
+    "output_tokens": 3372
+  }
+}

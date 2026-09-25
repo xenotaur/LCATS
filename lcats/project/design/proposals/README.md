@@ -34,3 +34,6 @@ short index plus the proposal document.
 - [`PROP-LCATS-CROSS-SEGMENT-DENSITY-EXPERIMENT`](proposed/lcats-cross-segment-density-experiment/README.md)
   — proposed; implementation not started (governed by
   `WS-PILOT-CROSS-SEGMENT-DENSITY`).
+- [`PROP-LCATS-COMPARATIVE-LEXICAL-VISUALIZATION`](proposed/comparative-lexical-visualization/README.md)
+  — proposed; implementation not started (governed by
+  `WS-COMPARATIVE-LEXICAL-VISUALIZATION`).

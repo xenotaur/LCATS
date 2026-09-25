@@ -1,0 +1,703 @@
+{
+  "story_id": "mass_quantities/the_lost_charm__norton",
+  "outcome": "included",
+  "llm_call_made": true,
+  "segment_count": 12,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "other",
+      "start_par_id": 1,
+      "end_par_id": 1,
+      "start_exact": "With the help of Goliath, David doubles in _Sherlock Holmes_\n    and _The Good Samaritan_.",
+      "end_exact": "With the help of Goliath, David doubles in _Sherlock Holmes_\n    and _The Good Samaritan_.",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 4,
+      "end_char": 94,
+      "summary": "Title or epigraph about David and Goliath.",
+      "cohesion": {
+        "time": "N/A",
+        "place": "N/A",
+        "characters": []
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Non-narrative header/epigraph material; not a story scene.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 2,
+      "end_par_id": 3,
+      "start_exact": "A small, wiry, red-haired man scrambled through the thick growth of\nbrush, half slid and half plunged down a steep declivity and halted in\nthe middle of the hard, worn road where he drew a deep breath, wiped the\nsweat from his face and consulted a huge silver watch.",
+      "end_exact": "For fully fifteen minutes he sprawled\nlistlessly before he lifted his head and listened attentively with his\nface turned up the white, stony highway.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0004]",
+      "start_char": 96,
+      "end_char": 1574,
+      "summary": "David hurries down to the road, checks the time, and waits for the stage, observing the landscape.",
+      "cohesion": {
+        "time": "Around 10:15 AM",
+        "place": "Road at the Big Divide; hillside",
+        "characters": [
+          "David"
+        ]
+      },
+      "gacd": {
+        "goal": "Catch the down stage to mail letters",
+        "action": "Scrambles down to the road, waits by boulder",
+        "conflict": "Time pressure to arrive in time; need to intercept the stage",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David actively works to achieve his goal (catch the stage) with time-based conflict. Outcome is success when stage approaches. Clear GACD structure.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "narrative_scene",
+      "start_par_id": 4,
+      "end_par_id": 15,
+      "start_exact": "\"Here she comes,\" he commented, and straightened himself, arose from the\nboulder and walked into the middle of the road where he stood waiting to\nintercept the oncoming vehicle.",
+      "end_exact": "But David\nwas left standing in the middle of the road with his mouth open and an\nexpression of astonishment on his face.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0016]",
+      "start_char": 1576,
+      "end_char": 5279,
+      "summary": "Stage arrives; David hands off letters; driver and messenger mention a recent stage robbery of Shaughnessy's $7,500. David reacts with shock.",
+      "cohesion": {
+        "time": "Late morning, same day",
+        "place": "Road at the Big Divide",
+        "characters": [
+          "David",
+          "Stage driver",
+          "Express messenger"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place continuous with previous segment; David succeeds in handing letters but the dialogue about the holdup is primarily expository/informational. No clear GACD or ERAC within this segment; labeled narrative_scene.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 16,
+      "end_par_id": 27,
+      "start_exact": "\"Shaughnessy--it was Tom Shaughnessy's money that was looted, eh? Wonder\nwhy he sent--hang it all! I'll bet there was something crooked in that\nholdup--just because it was Tom's money!",
+      "end_exact": "For a long time he debated this and then made his decision for the\nlatter alternative, after which he again took to the hills to return to\nhis and his partners' claim and cabin.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0028]",
+      "start_char": 5281,
+      "end_char": 15034,
+      "summary": "David reflects on the robbery, suspects foul play involving Shaughnessy, examines the scene, finds clues (boot prints, cigar, watch charm), and deduces two robbers. Decides to wait before telling the sheriff.",
+      "cohesion": {
+        "time": "Late morning through afternoon, same day",
+        "place": "Road and hillside at/near the holdup scene",
+        "characters": [
+          "David"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Astonishment, intrigue, suspicion",
+        "reason": "Realizes Shaughnessy's involvement likely; traces boot prints and finds physical evidence; deduces two-man operation",
+        "anticipation": "Considers whether to tell sheriff immediately or wait to see what develops",
+        "choice": "Decides to wait a day or two before reporting"
+      },
+      "reason": "David experiences shock/intrigue, reasons through evidence, anticipates outcomes of reporting, and makes deliberate choice to delay. Clear ERAC threshold met; no active on-stage conflict. Strong dramatic_sequel structure.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "narrative_scene",
+      "start_par_id": 28,
+      "end_par_id": 42,
+      "start_exact": "Six days slipped away with the three partners waiting to hear any news\nconcerning the stage robbery, chuckling over the information received in\na roundabout way that no further developments had taken place, before\nthe spell was broken by the chance arrival of a lank prospector from\nWallula Camp who was invited to pass the night.",
+      "end_exact": "And suddenly, as if to divert the conversation, David began to talk\nvolubly of something else. It was not until their guest had gone to his\nblankets and the partners were left alone that night that Goliath\nremarked, \"Guess you're thinkin' about the same as I am, ain't you,\nDavy--that there's something fishy about that Ray deal, and that perhaps\nit was wise not to show too much interest or ask too many questions out\nthere at the supper table?\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0043]",
+      "start_char": 15036,
+      "end_char": 20093,
+      "summary": "Prospector Tim brings news that Ray, a tenderfoot from Iowa, has been arrested for the robbery; money was found in his cabin. David and Goliath recognize the frame-up and exchange knowing looks.",
+      "cohesion": {
+        "time": "Six days later; evening (supper time)",
+        "place": "David and Goliath's claim cabin",
+        "characters": [
+          "David",
+          "Goliath",
+          "Tim (prospector)",
+          "Mrs. Hank Mills"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Primarily exposition and dialogue reporting Ray's arrest and the recovery of the money. Time/place shifts from the road to the cabin but remains a single continuous scene. David and Goliath's silent recognition does not constitute full ERAC or GACD; labeled narrative_scene.",
+      "confidence": 0.78
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 43,
+      "end_par_id": 45,
+      "start_exact": "\"You've got it, Goliath,\" came the prompt reply. \"And to-morrow you and\nI are going to take a long trip. Clear down to the county seat and to\nthe county jail. If I'm not off that young feller Ray needs help about\nas badly as anybody ever did. It's up to us to give it.",
+      "end_exact": "The lank prospector might have been surprised on the following morning\nhad he known that within an hour after his departure David and Goliath\nwere driving away over the hills in the opposite direction in a creaking\nold buckboard behind a pair of fat mules that philosophically and\nleisurely trotted as if they had knowledge of a long journey ahead.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0046]",
+      "start_char": 20095,
+      "end_char": 20910,
+      "summary": "David and Goliath decide to help Ray and plan to visit the county jail. They depart early the next morning.",
+      "cohesion": {
+        "time": "Night after prospector's visit; next morning departure",
+        "place": "Cabin and hillside; transition to journey",
+        "characters": [
+          "David",
+          "Goliath"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Determination, sense of justice",
+        "reason": "David recognizes Ray is innocent and being framed",
+        "anticipation": "Expects to need legal help and investigation",
+        "choice": "Decides to go to county seat immediately to visit Ray and offer assistance"
+      },
+      "reason": "David and Goliath deliberate about helping Ray and commit to a plan. This is recovery/decision-making rather than on-stage action with conflict. ERAC threshold met.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "narrative_scene",
+      "start_par_id": 46,
+      "end_par_id": 60,
+      "start_exact": "It was nearly three o'clock in the afternoon when the partners left\ntheir mules in a feed stable, brushed the dust from their clothes, and\nafter a brief stop at a restaurant presented themselves at the county\njail and asked for the sheriff.",
+      "end_exact": "They gave him a few more words of encouragement, told him that if it\ncame to money for defense they would find it for him, and after he had\nbeen returned to his cell by a deputy went outside to the waiting\nsheriff.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0061]",
+      "start_char": 20912,
+      "end_char": 26594,
+      "summary": "David and Goliath visit Ray in the county jail, learn his story of innocence, take possession of Shaughnessy's letter, and reassure him of their support.",
+      "cohesion": {
+        "time": "Afternoon at county seat",
+        "place": "County jail and sheriff's office",
+        "characters": [
+          "David",
+          "Goliath",
+          "Ray",
+          "Sheriff"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unified (county seat, jail). Scene involves dialogue and interview but no strong GACD (no real conflict on-stage) or ERAC (no personal emotion/deliberation of a focal character). Labeled narrative_scene.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 61,
+      "end_par_id": 73,
+      "start_exact": "\"Sheriff,\" said David, \"we promised to tell you anything we could find\nout about this Ray case. Well, we're going to do it; but to save\nrepeating it, we'd like to have you go with us to the prosecuting\nattorney's office so he can hear what we have to say at the same time.",
+      "end_exact": "\"Goliath, old boss, I am,\" was all that the smaller man vouchsafed by\nway of explanation for the time being, and later actions proved that he\nhad confessed the truth.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0074]",
+      "start_char": 26596,
+      "end_char": 31290,
+      "summary": "David lays out his theory to the prosecutor: Shaughnessy framed Ray to acquire his mining claim. David proposes a 10-day investigation to gather evidence. He hints he has a plan.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Prosecutor's office at county seat",
+        "characters": [
+          "David",
+          "Goliath",
+          "Prosecutor Hillyer",
+          "Sheriff"
+        ]
+      },
+      "gacd": {
+        "goal": "Convince the prosecutor to delay Ray's conviction and give time for investigation",
+        "action": "Present detailed theory of the frame-up with evidence of watch charm, footprints, cigar",
+        "conflict": "Prosecutor is skeptical but willing; legal burden of proof is uncertain",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David takes action (presenting theory and evidence) toward a goal (proving innocence, securing time). He meets resistance (prosecutor's skepticism, burden of proof). Outcome is success when prosecutor agrees to 10 days. Clear GACD.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 74,
+      "end_par_id": 84,
+      "start_exact": "They drove away together; but on the following morning at a certain\npoint where the trail split they separated, and Goliath, after a \"So\nlong! Good luck,\" turned off on the home trail and David took to the\nroad, philosophically, for the long tramp to Wallula.",
+      "end_exact": "Furthermore so early was that next morning's start that it was not yet\nnoon when he was driven up to the cabin which was his destination and\nwas greeting Rosita Mills and complaining of hunger.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0085]",
+      "start_char": 31292,
+      "end_char": 35142,
+      "summary": "David travels to Wallula to investigate Pinder and MacPharlane's alibi. He enlists a trusted friend to question Bill Wainwright about a poker game. Returns home with information.",
+      "cohesion": {
+        "time": "Next morning through following day",
+        "place": "Road to Wallula; Wallula town; return journey",
+        "characters": [
+          "David",
+          "unnamed Wallula friend",
+          "Bill Wainwright (mentioned)"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Purposeful, anticipatory",
+        "reason": "David determines he needs to verify the alibis of the suspects",
+        "anticipation": "Hopes to find evidence that Pinder was absent from the scene",
+        "choice": "Decides to investigate Wallula and recruit assistance from trusted contacts"
+      },
+      "reason": "David plans and executes reconnaissance; his actions are deliberate but not met with conflict on-stage. Primary focus is investigative planning and reconnaissance, fitting ERAC pattern of decision-making.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 85,
+      "end_par_id": 89,
+      "start_exact": "\"And you may as well lay in plans, Rosy,\" he said to Mrs. Mills, \"to\ntake care of the man from the livery stable down in Wallula, because\nhe's going to stay here the rest of the day and part of to-morrow with\nus.",
+      "end_exact": "The first, a short, red-headed man,\ngrinned sardonically as he said, \"Hello, Tom. Glad to find you alone.\nDidn't expect us, I reckon.\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0090]",
+      "start_char": 35144,
+      "end_char": 38391,
+      "summary": "David and Hank plan to visit Shaughnessy with the man from the livery stable; they break into Shaughnessy's office at night to steal incriminating correspondence, then confront Shaughnessy in his office.",
+      "cohesion": {
+        "time": "Afternoon at cabin, then night at Wallula office, then evening at Shaughnessy's office",
+        "place": "Cabin; Wallula; Shaughnessy's office",
+        "characters": [
+          "David",
+          "Hank",
+          "Livery man",
+          "Shaughnessy"
+        ]
+      },
+      "gacd": {
+        "goal": "Obtain proof of Shaughnessy's guilt and confront him to extort repayment for Ray's claim",
+        "action": "Break into Shaughnessy's office, steal correspondence; arrive at his office after dark",
+        "conflict": "Risk of discovery, confrontation with Shaughnessy",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David actively pursues his goal (obtaining evidence and confronting Shaughnessy), faces real conflict (break-in, confrontation), and achieves success (reaches the confrontation scene). Clear GACD with on-stage conflict and outcome.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 90,
+      "end_par_id": 112,
+      "start_exact": "\"No, of course not, and don't know that I care to see either of you, as\nfar as that goes,\" the boss growled, leaning back in his chair and\nwondering what misfortune was about to disclose itself.",
+      "end_exact": "\"We'll be with you all the time, Shaughnessy, all the time, until the\nmoney is paid over in cash,\" David asserted sweetly. \"In a way, we'll\nact as if we were right fond of you--until then. Cash will talk. We'll\ngo with you to the county seat to-morrow to get Ray to make out the\ndeeds to the claim and to give you his receipt for the seventy-five\nhundred in cash. And after that--you can go to hell your own way as far\nas we're concerned!\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0113]",
+      "start_char": 38393,
+      "end_char": 46186,
+      "summary": "David confronts Shaughnessy with evidence of the frame-up (watch charm, footprints, cigar, paper). Demands $7,500 for Ray's mining claim as the price of silence. Shaughnessy capitulates.",
+      "cohesion": {
+        "time": "Evening at Shaughnessy's office",
+        "place": "Shaughnessy's private office, Wallula",
+        "characters": [
+          "David",
+          "Shaughnessy",
+          "Goliath"
+        ]
+      },
+      "gacd": {
+        "goal": "Force Shaughnessy to pay $7,500 for Ray's claim, thereby exonerating Ray and protecting the innocent",
+        "action": "Presents damning evidence (watch charm, footprints, cigar butt, paper evidence), threatens to expose the frame-up to authorities",
+        "conflict": "Shaughnessy denies, resists, threatens back; David counters with threat of arrest",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David pursues a concrete goal (force payment for claim) through direct action (presenting evidence, making threats), faces active resistance from Shaughnessy, and achieves success (Shaughnessy capitulates and agrees to pay). Clear GACD with strong conflict and decisive outcome.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 12,
+      "segment_type": "narrative_scene",
+      "start_par_id": 113,
+      "end_par_id": 114,
+      "start_exact": "It may be that Hillyer still wonders whether the right course was\npursued in the case of the last Big Divide stage robbery, but if so he\nhas never said anything and merely smiles when asked why he released\nyoung Mr. Ray who, overcome by his great good fortune, pocketed the\nproceeds of his mining experience and is now said to be a prosperous\nfarmer in the Middle West.",
+      "end_exact": "For a long time David never went near Wallula when he did not wear a\nwatch charm which, if Mr. Shaughnessy happened to be in sight, he\nfondled and twirled with an exaggerated air of proud possession. Mr.\nShaughnessy on such occasions invariably threatened to fall dead through\nan angry rush of blood to his bullet head, and needless to say, David\ninvariably hoped he would!",
+      "start_prefix": "\n\n",
+      "end_suffix": "\"\"\"",
+      "start_char": 46188,
+      "end_char": 46932,
+      "summary": "Ray is released and becomes a prosperous farmer. David taunts Shaughnessy by wearing the watch charm whenever visiting Wallula.",
+      "cohesion": {
+        "time": "After the resolution; unspecified later time",
+        "place": "Unspecified locations; Wallula (mentioned)",
+        "characters": [
+          "Hillyer",
+          "Ray",
+          "David",
+          "Shaughnessy"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Epilogue/denouement: reports on outcomes and long-term consequences. No specific time/place anchor; offers closure and character fates. Labeled narrative_scene.",
+      "confidence": 0.8
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "other",
+      "start_par_id": 1,
+      "end_par_id": 1,
+      "start_exact": "With the help of Goliath, David doubles in _Sherlock Holmes_\n    and _The Good Samaritan_.",
+      "end_exact": "With the help of Goliath, David doubles in _Sherlock Holmes_\n    and _The Good Samaritan_.",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 4,
+      "end_char": 94,
+      "summary": "Title or epigraph about David and Goliath.",
+      "cohesion": {
+        "time": "N/A",
+        "place": "N/A",
+        "characters": []
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Non-narrative header/epigraph material; not a story scene.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 2,
+      "end_par_id": 3,
+      "start_exact": "A small, wiry, red-haired man scrambled through the thick growth of\nbrush, half slid and half plunged down a steep declivity and halted in\nthe middle of the hard, worn road where he drew a deep breath, wiped the\nsweat from his face and consulted a huge silver watch.",
+      "end_exact": "For fully fifteen minutes he sprawled\nlistlessly before he lifted his head and listened attentively with his\nface turned up the white, stony highway.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0004]",
+      "start_char": 96,
+      "end_char": 1574,
+      "summary": "David hurries down to the road, checks the time, and waits for the stage, observing the landscape.",
+      "cohesion": {
+        "time": "Around 10:15 AM",
+        "place": "Road at the Big Divide; hillside",
+        "characters": [
+          "David"
+        ]
+      },
+      "gacd": {
+        "goal": "Catch the down stage to mail letters",
+        "action": "Scrambles down to the road, waits by boulder",
+        "conflict": "Time pressure to arrive in time; need to intercept the stage",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David actively works to achieve his goal (catch the stage) with time-based conflict. Outcome is success when stage approaches. Clear GACD structure.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "narrative_scene",
+      "start_par_id": 4,
+      "end_par_id": 15,
+      "start_exact": "\"Here she comes,\" he commented, and straightened himself, arose from the\nboulder and walked into the middle of the road where he stood waiting to\nintercept the oncoming vehicle.",
+      "end_exact": "But David\nwas left standing in the middle of the road with his mouth open and an\nexpression of astonishment on his face.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0016]",
+      "start_char": 1576,
+      "end_char": 5279,
+      "summary": "Stage arrives; David hands off letters; driver and messenger mention a recent stage robbery of Shaughnessy's $7,500. David reacts with shock.",
+      "cohesion": {
+        "time": "Late morning, same day",
+        "place": "Road at the Big Divide",
+        "characters": [
+          "David",
+          "Stage driver",
+          "Express messenger"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place continuous with previous segment; David succeeds in handing letters but the dialogue about the holdup is primarily expository/informational. No clear GACD or ERAC within this segment; labeled narrative_scene.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 16,
+      "end_par_id": 27,
+      "start_exact": "\"Shaughnessy--it was Tom Shaughnessy's money that was looted, eh? Wonder\nwhy he sent--hang it all! I'll bet there was something crooked in that\nholdup--just because it was Tom's money!",
+      "end_exact": "For a long time he debated this and then made his decision for the\nlatter alternative, after which he again took to the hills to return to\nhis and his partners' claim and cabin.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0028]",
+      "start_char": 5281,
+      "end_char": 15034,
+      "summary": "David reflects on the robbery, suspects foul play involving Shaughnessy, examines the scene, finds clues (boot prints, cigar, watch charm), and deduces two robbers. Decides to wait before telling the sheriff.",
+      "cohesion": {
+        "time": "Late morning through afternoon, same day",
+        "place": "Road and hillside at/near the holdup scene",
+        "characters": [
+          "David"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Astonishment, intrigue, suspicion",
+        "reason": "Realizes Shaughnessy's involvement likely; traces boot prints and finds physical evidence; deduces two-man operation",
+        "anticipation": "Considers whether to tell sheriff immediately or wait to see what develops",
+        "choice": "Decides to wait a day or two before reporting"
+      },
+      "reason": "David experiences shock/intrigue, reasons through evidence, anticipates outcomes of reporting, and makes deliberate choice to delay. Clear ERAC threshold met; no active on-stage conflict. Strong dramatic_sequel structure.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "narrative_scene",
+      "start_par_id": 28,
+      "end_par_id": 42,
+      "start_exact": "Six days slipped away with the three partners waiting to hear any news\nconcerning the stage robbery, chuckling over the information received in\na roundabout way that no further developments had taken place, before\nthe spell was broken by the chance arrival of a lank prospector from\nWallula Camp who was invited to pass the night.",
+      "end_exact": "And suddenly, as if to divert the conversation, David began to talk\nvolubly of something else. It was not until their guest had gone to his\nblankets and the partners were left alone that night that Goliath\nremarked, \"Guess you're thinkin' about the same as I am, ain't you,\nDavy--that there's something fishy about that Ray deal, and that perhaps\nit was wise not to show too much interest or ask too many questions out\nthere at the supper table?\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0043]",
+      "start_char": 15036,
+      "end_char": 20093,
+      "summary": "Prospector Tim brings news that Ray, a tenderfoot from Iowa, has been arrested for the robbery; money was found in his cabin. David and Goliath recognize the frame-up and exchange knowing looks.",
+      "cohesion": {
+        "time": "Six days later; evening (supper time)",
+        "place": "David and Goliath's claim cabin",
+        "characters": [
+          "David",
+          "Goliath",
+          "Tim (prospector)",
+          "Mrs. Hank Mills"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Primarily exposition and dialogue reporting Ray's arrest and the recovery of the money. Time/place shifts from the road to the cabin but remains a single continuous scene. David and Goliath's silent recognition does not constitute full ERAC or GACD; labeled narrative_scene.",
+      "confidence": 0.78
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 43,
+      "end_par_id": 45,
+      "start_exact": "\"You've got it, Goliath,\" came the prompt reply. \"And to-morrow you and\nI are going to take a long trip. Clear down to the county seat and to\nthe county jail. If I'm not off that young feller Ray needs help about\nas badly as anybody ever did. It's up to us to give it.",
+      "end_exact": "The lank prospector might have been surprised on the following morning\nhad he known that within an hour after his departure David and Goliath\nwere driving away over the hills in the opposite direction in a creaking\nold buckboard behind a pair of fat mules that philosophically and\nleisurely trotted as if they had knowledge of a long journey ahead.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0046]",
+      "start_char": 20095,
+      "end_char": 20910,
+      "summary": "David and Goliath decide to help Ray and plan to visit the county jail. They depart early the next morning.",
+      "cohesion": {
+        "time": "Night after prospector's visit; next morning departure",
+        "place": "Cabin and hillside; transition to journey",
+        "characters": [
+          "David",
+          "Goliath"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Determination, sense of justice",
+        "reason": "David recognizes Ray is innocent and being framed",
+        "anticipation": "Expects to need legal help and investigation",
+        "choice": "Decides to go to county seat immediately to visit Ray and offer assistance"
+      },
+      "reason": "David and Goliath deliberate about helping Ray and commit to a plan. This is recovery/decision-making rather than on-stage action with conflict. ERAC threshold met.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "narrative_scene",
+      "start_par_id": 46,
+      "end_par_id": 60,
+      "start_exact": "It was nearly three o'clock in the afternoon when the partners left\ntheir mules in a feed stable, brushed the dust from their clothes, and\nafter a brief stop at a restaurant presented themselves at the county\njail and asked for the sheriff.",
+      "end_exact": "They gave him a few more words of encouragement, told him that if it\ncame to money for defense they would find it for him, and after he had\nbeen returned to his cell by a deputy went outside to the waiting\nsheriff.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0061]",
+      "start_char": 20912,
+      "end_char": 26594,
+      "summary": "David and Goliath visit Ray in the county jail, learn his story of innocence, take possession of Shaughnessy's letter, and reassure him of their support.",
+      "cohesion": {
+        "time": "Afternoon at county seat",
+        "place": "County jail and sheriff's office",
+        "characters": [
+          "David",
+          "Goliath",
+          "Ray",
+          "Sheriff"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unified (county seat, jail). Scene involves dialogue and interview but no strong GACD (no real conflict on-stage) or ERAC (no personal emotion/deliberation of a focal character). Labeled narrative_scene.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 61,
+      "end_par_id": 73,
+      "start_exact": "\"Sheriff,\" said David, \"we promised to tell you anything we could find\nout about this Ray case. Well, we're going to do it; but to save\nrepeating it, we'd like to have you go with us to the prosecuting\nattorney's office so he can hear what we have to say at the same time.",
+      "end_exact": "\"Goliath, old boss, I am,\" was all that the smaller man vouchsafed by\nway of explanation for the time being, and later actions proved that he\nhad confessed the truth.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0074]",
+      "start_char": 26596,
+      "end_char": 31290,
+      "summary": "David lays out his theory to the prosecutor: Shaughnessy framed Ray to acquire his mining claim. David proposes a 10-day investigation to gather evidence. He hints he has a plan.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Prosecutor's office at county seat",
+        "characters": [
+          "David",
+          "Goliath",
+          "Prosecutor Hillyer",
+          "Sheriff"
+        ]
+      },
+      "gacd": {
+        "goal": "Convince the prosecutor to delay Ray's conviction and give time for investigation",
+        "action": "Present detailed theory of the frame-up with evidence of watch charm, footprints, cigar",
+        "conflict": "Prosecutor is skeptical but willing; legal burden of proof is uncertain",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David takes action (presenting theory and evidence) toward a goal (proving innocence, securing time). He meets resistance (prosecutor's skepticism, burden of proof). Outcome is success when prosecutor agrees to 10 days. Clear GACD.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 74,
+      "end_par_id": 84,
+      "start_exact": "They drove away together; but on the following morning at a certain\npoint where the trail split they separated, and Goliath, after a \"So\nlong! Good luck,\" turned off on the home trail and David took to the\nroad, philosophically, for the long tramp to Wallula.",
+      "end_exact": "Furthermore so early was that next morning's start that it was not yet\nnoon when he was driven up to the cabin which was his destination and\nwas greeting Rosita Mills and complaining of hunger.",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0085]",
+      "start_char": 31292,
+      "end_char": 35142,
+      "summary": "David travels to Wallula to investigate Pinder and MacPharlane's alibi. He enlists a trusted friend to question Bill Wainwright about a poker game. Returns home with information.",
+      "cohesion": {
+        "time": "Next morning through following day",
+        "place": "Road to Wallula; Wallula town; return journey",
+        "characters": [
+          "David",
+          "unnamed Wallula friend",
+          "Bill Wainwright (mentioned)"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Purposeful, anticipatory",
+        "reason": "David determines he needs to verify the alibis of the suspects",
+        "anticipation": "Hopes to find evidence that Pinder was absent from the scene",
+        "choice": "Decides to investigate Wallula and recruit assistance from trusted contacts"
+      },
+      "reason": "David plans and executes reconnaissance; his actions are deliberate but not met with conflict on-stage. Primary focus is investigative planning and reconnaissance, fitting ERAC pattern of decision-making.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 85,
+      "end_par_id": 89,
+      "start_exact": "\"And you may as well lay in plans, Rosy,\" he said to Mrs. Mills, \"to\ntake care of the man from the livery stable down in Wallula, because\nhe's going to stay here the rest of the day and part of to-morrow with\nus.",
+      "end_exact": "The first, a short, red-headed man,\ngrinned sardonically as he said, \"Hello, Tom. Glad to find you alone.\nDidn't expect us, I reckon.\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0090]",
+      "start_char": 35144,
+      "end_char": 38391,
+      "summary": "David and Hank plan to visit Shaughnessy with the man from the livery stable; they break into Shaughnessy's office at night to steal incriminating correspondence, then confront Shaughnessy in his office.",
+      "cohesion": {
+        "time": "Afternoon at cabin, then night at Wallula office, then evening at Shaughnessy's office",
+        "place": "Cabin; Wallula; Shaughnessy's office",
+        "characters": [
+          "David",
+          "Hank",
+          "Livery man",
+          "Shaughnessy"
+        ]
+      },
+      "gacd": {
+        "goal": "Obtain proof of Shaughnessy's guilt and confront him to extort repayment for Ray's claim",
+        "action": "Break into Shaughnessy's office, steal correspondence; arrive at his office after dark",
+        "conflict": "Risk of discovery, confrontation with Shaughnessy",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David actively pursues his goal (obtaining evidence and confronting Shaughnessy), faces real conflict (break-in, confrontation), and achieves success (reaches the confrontation scene). Clear GACD with on-stage conflict and outcome.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 90,
+      "end_par_id": 112,
+      "start_exact": "\"No, of course not, and don't know that I care to see either of you, as\nfar as that goes,\" the boss growled, leaning back in his chair and\nwondering what misfortune was about to disclose itself.",
+      "end_exact": "\"We'll be with you all the time, Shaughnessy, all the time, until the\nmoney is paid over in cash,\" David asserted sweetly. \"In a way, we'll\nact as if we were right fond of you--until then. Cash will talk. We'll\ngo with you to the county seat to-morrow to get Ray to make out the\ndeeds to the claim and to give you his receipt for the seventy-five\nhundred in cash. And after that--you can go to hell your own way as far\nas we're concerned!\"",
+      "start_prefix": "\n\n",
+      "end_suffix": "\n\n[P0113]",
+      "start_char": 38393,
+      "end_char": 46186,
+      "summary": "David confronts Shaughnessy with evidence of the frame-up (watch charm, footprints, cigar, paper). Demands $7,500 for Ray's mining claim as the price of silence. Shaughnessy capitulates.",
+      "cohesion": {
+        "time": "Evening at Shaughnessy's office",
+        "place": "Shaughnessy's private office, Wallula",
+        "characters": [
+          "David",
+          "Shaughnessy",
+          "Goliath"
+        ]
+      },
+      "gacd": {
+        "goal": "Force Shaughnessy to pay $7,500 for Ray's claim, thereby exonerating Ray and protecting the innocent",
+        "action": "Presents damning evidence (watch charm, footprints, cigar butt, paper evidence), threatens to expose the frame-up to authorities",
+        "conflict": "Shaughnessy denies, resists, threatens back; David counters with threat of arrest",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "David pursues a concrete goal (force payment for claim) through direct action (presenting evidence, making threats), faces active resistance from Shaughnessy, and achieves success (Shaughnessy capitulates and agrees to pay). Clear GACD with strong conflict and decisive outcome.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 12,
+      "segment_type": "narrative_scene",
+      "start_par_id": 113,
+      "end_par_id": 114,
+      "start_exact": "It may be that Hillyer still wonders whether the right course was\npursued in the case of the last Big Divide stage robbery, but if so he\nhas never said anything and merely smiles when asked why he released\nyoung Mr. Ray who, overcome by his great good fortune, pocketed the\nproceeds of his mining experience and is now said to be a prosperous\nfarmer in the Middle West.",
+      "end_exact": "For a long time David never went near Wallula when he did not wear a\nwatch charm which, if Mr. Shaughnessy happened to be in sight, he\nfondled and twirled with an exaggerated air of proud possession. Mr.\nShaughnessy on such occasions invariably threatened to fall dead through\nan angry rush of blood to his bullet head, and needless to say, David\ninvariably hoped he would!",
+      "start_prefix": "\n\n",
+      "end_suffix": "\"\"\"",
+      "start_char": 46188,
+      "end_char": 46932,
+      "summary": "Ray is released and becomes a prosperous farmer. David taunts Shaughnessy by wearing the watch charm whenever visiting Wallula.",
+      "cohesion": {
+        "time": "After the resolution; unspecified later time",
+        "place": "Unspecified locations; Wallula (mentioned)",
+        "characters": [
+          "Hillyer",
+          "Ray",
+          "David",
+          "Shaughnessy"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Epilogue/denouement: reports on outcomes and long-term consequences. No specific time/place anchor; offers closure and character fates. Labeled narrative_scene.",
+      "confidence": 0.8
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 16592,
+    "output_tokens": 5062
+  }
+}

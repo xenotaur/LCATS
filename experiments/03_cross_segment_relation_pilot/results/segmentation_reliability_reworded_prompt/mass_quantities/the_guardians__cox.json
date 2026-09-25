@@ -1,0 +1,282 @@
+{
+  "story_id": "mass_quantities/the_guardians__cox",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "other",
+        "start_par_id": 1,
+        "end_par_id": 3,
+        "start_exact": "_It's not always \"The Truth shall set you free!\"\nSometimes it's \"Want of the Truth shall drive\nyou to escape!\" And that can be dangerous!_",
+        "end_exact": "Illustrated by van Dongen\n\n",
+        "start_prefix": "",
+        "end_suffix": "\n[P0004]",
+        "start_char": 0,
+        "end_char": 101,
+        "summary": "Epigraph and illustration credit.",
+        "cohesion": {
+          "time": "NA",
+          "place": "NA",
+          "characters": []
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Front matter: epigraph and illustration attribution. Not narrative content.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 4,
+        "end_par_id": 23,
+        "start_exact": "Mryna Brill intended to ride the god-car above the rain mist. For a long\ntime she had not believed in the taboos or the Earth-god.",
+        "end_exact": "Sometimes they had to travel miles from the settlement to satisfy that inexplicable whim.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0025]",
+        "start_char": 102,
+        "end_char": 3654,
+        "summary": "Mryna, a young woman on Rythar, learns the planet's true nature and decides to escape aboard a god-car to reach the god-man above the rain mist.",
+        "cohesion": {
+          "time": "Six years; present day (Mryna at age 20)",
+          "place": "Rythar; answer house",
+          "characters": [
+            "Mryna Brill"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (Rythar settlement and answer house over six years of preparation). Exposition and setup without dramatic conflict or clear ERAC deliberation within a single segment. Multiple flashbacks and observations are logistical/informational rather than on-stage action meeting resistance.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 25,
+        "end_par_id": 31,
+        "start_exact": "For two weeks Mryna patiently ran off the endless films of new books and\nunloaded the god-car when it came.",
+        "end_exact": "The motors cut out and the lock door swung open.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0032]",
+        "start_char": 3655,
+        "end_char": 4657,
+        "summary": "Mryna boards the god-car and escapes Rythar, surviving decontamination spray and weightlessness as the ship reaches the Guardian Wheel.",
+        "cohesion": {
+          "time": "Single continuous sequence",
+          "place": "God-car in transit from Rythar to space station",
+          "characters": [
+            "Mryna Brill"
+          ]
+        },
+        "gacd": {
+          "goal": "Escape Rythar aboard the god-car",
+          "action": "Seals herself in the compartment, launches, endures acceleration, decontamination spray, and weightlessness",
+          "conflict": "Extreme physical stress: crushing acceleration, disintegration of clothing, antiseptic spray, loss of consciousness, terror",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (escape), action (boarding and launching), conflict (extreme physical hazards), and outcome (safe arrival at station, lock door opens). The segment ends with successful completion of the escape despite multiple dangers.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "narrative_scene",
+        "start_par_id": 32,
+        "end_par_id": 46,
+        "start_exact": "Mryna saw a circular room, brightly lighted with a glaring, blue light.",
+        "end_exact": "No one on Rythar was older than she was herself--a sturdy, healthy,\nlusty twenty. The old man's infirmity disgusted her; for the first time\nin her life she was conscious of the slow decay of death.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0047]",
+        "start_char": 4658,
+        "end_char": 6427,
+        "summary": "Mryna lands on the Guardian Wheel, struggles with zero gravity, finds clothing, and encounters an elderly man who mistakes her for a new patient.",
+        "cohesion": {
+          "time": "Continuous sequence immediately after landing",
+          "place": "Guardian Wheel: circular hub, corridors, dormitory rooms",
+          "characters": [
+            "Mryna Brill",
+            "old man"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (Guardian Wheel, immediately post-landing). Mryna explores the station and encounters the old man, but there is no on-stage conflict leading to a decisive outcome or on-stage ERAC deliberation. This is primarily exploratory narrative with character discovery.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 47,
+        "end_par_id": 72,
+        "start_exact": "The door of the supply room slid open. Mryna crouched low behind the\ncartons, but she was able to see the man and the woman who had entered",
+        "end_exact": "She had once asked for a definition of illness, and it was apparent to her that\nthis place which they called the Guardian Wheel was an expensive\nhospital for Earthmen.",
+        "start_prefix": "",
+        "end_suffix": " It was paid for by the sacrificial ores mined on Rythar. In a sense, Rythar was being enslaved and exploited by Earth.",
+        "start_char": 6428,
+        "end_char": 9168,
+        "summary": "Mryna hides and overhears medical staff discussing a trip to Earth; she discovers the Guardian Wheel is a hospital paid for by Rythar ore; she finds reports revealing the truth about Rythar and the Sickness.",
+        "cohesion": {
+          "time": "Continuous sequence",
+          "place": "Guardian Wheel: supply room, corridors, command headquarters",
+          "characters": [
+            "Mryna Brill",
+            "Dick (assistant medical director)",
+            "woman doctor",
+            "commander's reports"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (Guardian Wheel exploration). Mryna overhears dialogue and reads reports, gathering information. No on-stage conflict/outcome or clear ERAC deliberation within this segment. This is continued discovery and exposition.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 73,
+        "end_par_id": 88,
+        "start_exact": "\"And what, may I ask, is the meaning of this?\" Mryna dropped the report\nand swung toward the door.",
+        "end_exact": "They were gone.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0089]",
+        "start_char": 9169,
+        "end_char": 10457,
+        "summary": "A commander discovers Mryna reading classified reports. Mryna reveals her identity and origin from Rythar; alarms sound and armed personnel pursue and fire at her.",
+        "cohesion": {
+          "time": "Continuous sequence",
+          "place": "Guardian Wheel: command headquarters, corridors, hub",
+          "characters": [
+            "Mryna Brill",
+            "commander (woman)",
+            "armed personnel"
+          ]
+        },
+        "gacd": {
+          "goal": "Escape back to the god-car undetected",
+          "action": "Flees when discovered, swings through corridors exploiting weightlessness",
+          "conflict": "Armed pursuit, weapons fire, communication center damaged by gunfire, on-station chaos and emergency alarms",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (escape pursuit and reach god-car), action (flight through station), conflict (armed personnel, gunfire, destroyed comms center), outcome (successfully evades pursuers and reaches the hub area). The segment culminates with armed men fleeing past her down the corridor.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "narrative_scene",
+        "start_par_id": 89,
+        "end_par_id": 101,
+        "start_exact": "Mryna moved back into the spoke corridor. She felt her way silently\ntoward the circular hub room and the god-car.",
+        "end_exact": "And then the sound\nwas gone. The ship was floating in an impenetrable blackness.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0102]",
+        "start_char": 10458,
+        "end_char": 12479,
+        "summary": "Mryna overhears the station personnel discuss destroying the Wheel; she accidentally boards the wrong ship (auto-pickup to Earth); watches the Guardian Wheel explode; realizes she is being carried toward Earth as a carrier of the Sickness.",
+        "cohesion": {
+          "time": "Continuous sequence and transition to space flight",
+          "place": "Guardian Wheel and auto-pickup shuttle",
+          "characters": [
+            "Mryna Brill",
+            "Dick",
+            "woman (offstage)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place transition from station to shuttle, then extended space travel. Mryna overhears station personnel, boards the wrong ship, witnesses destruction, and begins en-route reflection. No on-stage conflict/outcome within this segment; primarily exposition and character realization. Transition to travel mode.",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "narrative_scene",
+        "start_par_id": 102,
+        "end_par_id": 115,
+        "start_exact": "Mryna had no idea how much time passed subjectively. When she became\nhungry, she took food from the cabinet.",
+        "end_exact": "Mryna shut off the projection. The words made sense, but the results did\nnot. And she knew precisely why Earth had failed. When they matured--in\nthose three words she had her answer.",
+        "start_prefix": "",
+        "end_suffix": "\n\nAnd now it didn't matter.",
+        "start_char": 12480,
+        "end_char": 14885,
+        "summary": "During flight to Earth, Mryna reviews films about Earth history, the colony, and the Guardian Wheel's hospital function; learns the full truth about Rythar, the Sickness, and Earth's colonial strategy.",
+        "cohesion": {
+          "time": "Subjective time during space transit",
+          "place": "Auto-pickup shuttle",
+          "characters": [
+            "Mryna Brill (reading films)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (shuttle during flight). Mryna consumes information, studies history, and reflects. No on-stage conflict or decision-making with resistance; primarily internalized discovery. Narrative exposition without dramatic structure.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 116,
+        "end_par_id": 137,
+        "start_exact": "Mryna had slept twice when the auto-pickup lurched out of the time drive\nand she was able to see the stars again.",
+        "end_exact": "No reply came from the speaker. Her auto-shuttle began to circle a large\ncity which lay at the southern tip of an inland lake.",
+        "start_prefix": "",
+        "end_suffix": " Three minutes\nmore. The ship nosed toward the spaceport.",
+        "start_char": 14886,
+        "end_char": 17065,
+        "summary": "Mryna spots Earth and contacts the spaceport; she speaks to Senator Brieson and reveals her Rytharian origin and the plague threat; pleads for the ship to be destroyed before landing; watches in horror as landing proceeds unchallenged.",
+        "cohesion": {
+          "time": "Final approach to Earth",
+          "place": "Auto-pickup shuttle approaching Chicago spaceport and Earth",
+          "characters": [
+            "Mryna Brill",
+            "Chicago spaceport manager",
+            "Senator Brieson"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Urgency, desperation, anticipation of death, horror",
+          "reason": "Mryna realizes she is helpless to stop the shuttle; she knows killing herself won't change the outcome; she recognizes Earth will not believe her warning; she has come to understand the Earthmen's sacrifice and accepts her culpability",
+          "anticipation": "She expects warships to be sent to destroy the shuttle; expects her death as payment for escaping Rythar; expects Earth to be infected with the Sickness",
+          "choice": "Chooses to reveal the truth to Senator Brieson and Earth authorities; chooses to accept destruction as the only just outcome; accepts her role in the catastrophe"
+        },
+        "reason": "Emotional decision-making dominates: Mryna processes horror and helplessness, reasons about consequences, anticipates destruction, and commits to a course (confession and acceptance of death) despite no on-stage conflict. This is a dramatic_sequel structure: she is reacting to the revelation that she cannot stop her ship, deliberating on options, and resolving to speak truth even though it will likely cost her life.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "narrative_scene",
+        "start_par_id": 138,
+        "end_par_id": 143,
+        "start_exact": "The shuttle settled into a metal rack. The lock hissed open. Mryna\nshrank back against the wall, looking out at what she would\ndestroy--what she had already destroyed.",
+        "end_exact": "You scientists have to give up the notion that you're our guardians; we're\nquite able to look out for ourselves.\"\"\"\"",
+        "start_prefix": "",
+        "end_suffix": "",
+        "start_char": 17066,
+        "end_char": 18399,
+        "summary": "Senator Brieson boards the shuttle and dismisses Mryna's warning as a hoax, attributing it to scientist Dr. Jameson. Mryna breaks down, and Brieson dismisses her concerns about the plague.",
+        "cohesion": {
+          "time": "Continuous sequence at landing",
+          "place": "Chicago spaceport, shuttle interior and ramp",
+          "characters": [
+            "Mryna Brill",
+            "Senator Brieson"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (spaceport landing). Dialogue-based encounter between Mryna and Senator Brieson; no on-stage conflict (no resistance to an active goal) and no deliberation with choice. Mryna's warning is simply disbelieved and dismissed. This is a narrative denouement rather than GACD or ERAC.",
+        "confidence": 0.8
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 13297,
+    "output_tokens": 3552
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "story_id": "mass_quantities/the_voice_in_the_fog__leverage",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=4: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 6,
+        "start_exact": "The _Seriphus_ was a ten thousand ton, straight bow ocean tanker, and her history was the common one of Clyde-built ships",
+        "end_exact": "close-headedness and scheming against owners.",
+        "start_prefix": "",
+        "end_suffix": " The _Seriphus_, after a round passage",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Introduction to the Seriphus tanker, Captain Ezra Morgan, and the rivalry between Morgan and Chief Engineer Paul Richter, whom the captain deliberately keeps as a competing force.",
+        "cohesion": {
+          "time": "Indefinite narrative frame",
+          "place": "The Seriphus tanker (various ports/seas)",
+          "characters": [
+            "Ezra Morgan",
+            "Paul Richter"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Expository passage establishing the tanker's history, the relationship between Morgan and Richter, and the competitive management philosophy. No time/place shift within, and no GACD/ERAC structure; unified as background narrative.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 7,
+        "end_par_id": 11,
+        "start_exact": "The _Seriphus_, after a round passage to Laichau Bay, which is in the Gulf of Pechili, returned to San Francisco and",
+        "end_exact": "ordered Gathright from the house and locked up his daughter.",
+        "start_prefix": "",
+        "end_suffix": " She cried for seven days.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The Seriphus arrives in San Francisco for dry-dock. Richter visits his daughter Hylda and discovers her engagement to marine electrician Gathright, which he forbids and locks her away.",
+        "cohesion": {
+          "time": "During dry-dock in San Francisco",
+          "place": "San Francisco (Richter's home and nearby)",
+          "characters": [
+            "Paul Richter",
+            "Hylda",
+            "Gathright"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Exposition of Richter's personal situation and his conflict with Hylda's choice. Time/place is unified (San Francisco dry-dock period), but the segment is primarily expository setup without clear GACD (no on-stage conflict/action toward a goal) or ERAC structure.",
+        "confidence": 0.88
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 12,
+        "end_par_id": 15,
+        "start_exact": "She cried for seven days. Gathright was seen in town. Richter's rage gave way to an engineer's calculation.",
+        "end_exact": "electrician aboard the _Seriphus_.\"",
+        "start_prefix": "",
+        "end_suffix": " Gathright went with Richter to San Francisco.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After locking up Hylda, Richter's initial rage shifts to calculated planning. He devises a scheme: he will offer Gathright a position aboard the Seriphus to gain his trust.",
+        "cohesion": {
+          "time": "Days following Hylda's confinement",
+          "place": "Richter's home / en route to San Francisco",
+          "characters": [
+            "Paul Richter",
+            "Gathright",
+            "Hylda"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Rage transitioning to cold calculation",
+          "reason": "Richter's engineering expertise and pragmatism lead him to abandon brute force and devise a manipulative scheme",
+          "anticipation": "Richter anticipates that offering Gathright a shipboard position and promising improved wages will gain the electrician's trust and cooperation",
+          "choice": "Richter resolves to send Hylda away and meet Gathright with a false promise of employment advancement aboard the Seriphus"
+        },
+        "reason": "This segment shows Richter's emotional state (rage subsiding), his deliberation and reasoning through options, his anticipation of how Gathright will respond, and his explicit choice/plan. No on-stage conflict or action-based outcome occurs; it is a moment of recovery and planning typical of dramatic_sequel.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 16,
+        "end_par_id": 26,
+        "start_exact": "Gathright went with Richter to San Francisco. They recrossed the Bay, without seeing Henningay, Jr., and, at dusk, climbed",
+        "end_exact": "to gain for his own personal benefit.",
+        "start_prefix": "",
+        "end_suffix": " There was nothing very unusual in Richter's",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Richter takes Gathright aboard the Seriphus in dry-dock, leads him to the boiler-room under the pretense of showing him the engine equipment, and murders him by striking his head with a flashlamp and hiding his body in the spare boiler.",
+        "cohesion": {
+          "time": "Evening during dry-dock period",
+          "place": "The Seriphus boiler-room in dry-dock",
+          "characters": [
+            "Paul Richter",
+            "Gathright"
+          ]
+        },
+        "gacd": {
+          "goal": "To eliminate Gathright as an obstacle to Richter's control over his daughter",
+          "action": "Richter lures Gathright to the boiler-room with a false premise, strikes him unconscious with a flashlamp, removes a man-hole plate from the spare boiler, and stuffs the body inside, then seals it and heats the boiler",
+          "conflict": "Gathright's suspicious demeanor; the physical difficulty of the body disposal; Richter's internal conflict and superstitious dread as he hears what seems to be a moan from the boiler",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment exhibits all four GACD elements: a clear Goal (dispose of Gathright), Action (the murder and concealment), Conflict (physical challenges, Gathright's caution, Richter's internal dread), and a definitive Success outcome (Gathright is sealed in the boiler with steam applied). The segment is unified by place (boiler-room) and time (the evening of their arrival), and ends with the body being hidden and the murder covered up.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 27,
+        "end_par_id": 46,
+        "start_exact": "",
+        "end_exact": "agony. The note died, resumed its piercing screeching. Richter's arm and hand shook when he mopped his brow and drew a wet s",
+        "start_prefix": " Richter succeeded in posting the letter, along with the Captain's",
+        "end_suffix": "leve away. ",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The morning after the murder, Richter maintains a false cover with the ship-keeper by claiming he was testing the spare boiler. The second engineer, Ferguson, expresses suspicion about the boiler's condition. When steam is vented, Richter is disturbed by a piercing whistle that he imagines is Gathright's voice crying out.",
+        "cohesion": {
+          "time": "Morning after the murder; continuing through the day in dry-dock",
+          "place": "Seriphus dry-dock (boiler-room and surrounding areas)",
+          "characters": [
+            "Paul Richter",
+            "Ferguson",
+            "Ship-keeper"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment covers Richter's immediate post-murder actions and paranoia. Although it shows Richter's mounting anxiety and guilt, it does not meet ERAC threshold (no clear deliberation/choice), and there is no GACD (no goal pursued with conflict outcome). It is a narrative scene unified by time/place and character action, showing psychological consequence without formal ERAC structure.",
+        "confidence": 0.82
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "narrative_scene",
+        "start_par_id": 47,
+        "end_par_id": 51,
+        "start_exact": "",
+        "end_exact": "musical crossheads.",
+        "start_prefix": " Richter covered his ears and staggered away.",
+        "end_suffix": " At mid-Paciflc, on a second voyage",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The Seriphus is repaired and departs for a voyage to Asia carrying oil. Richter goes about his duties, and the spare boiler is not used, allowing him temporary relief from his guilt and anxiety over Gathright's death.",
+        "cohesion": {
+          "time": "Post dry-dock; voyage across Pacific to Asian ports",
+          "place": "The Seriphus at sea and at various Eastern ports",
+          "characters": [
+            "Paul Richter",
+            "Ezra Morgan"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Narrative summary of the ship's voyage and cargo operations. Richter's relief is noted but not dramatized through ERAC (no deliberation, choice, or explicit emotional processing). Time shifts from dry-dock to voyage; place shifts to sea and Eastern ports. Unified thematically as a respite voyage where the boiler is not used.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 52,
+        "end_par_id": 61,
+        "start_exact": "At mid-Paciflc, on a second voyage--this time to an oilless country, if ever there were one, Mindanao--a frightened water-tender",
+        "end_exact": "snarled Richter, who resumed writing his letter.",
+        "start_prefix": "",
+        "end_suffix": " He hesitated once, chewed on the",
+        "start_char": null,
+        "end_char": null,
+        "summary": "During a second voyage to Mindanao, the port boiler develops a tube leak. Richter leads emergency repairs, successfully restoring steam to the Captain's satisfaction. Ferguson questions the condition of the spare boiler, which Richter dismisses.",
+        "cohesion": {
+          "time": "Mid-Pacific, second voyage to Mindanao",
+          "place": "The Seriphus boiler-room and engine-room",
+          "characters": [
+            "Paul Richter",
+            "Ferguson",
+            "Ezra Morgan",
+            "Water-tender"
+          ]
+        },
+        "gacd": {
+          "goal": "To restore steam pressure and meet the Captain's demand for speed following the port boiler's failure",
+          "action": "Richter strips to the waist and drives the engine crew to superhuman effort to repair the port boiler and bring the spare midship boiler online with fresh water and oil-jets started",
+          "conflict": "The port boiler has blown a tube and failed; the crew must work in extreme heat (117 degrees); the spare boiler exhibits foaming and gauge-glass breakage, suggesting further problems",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment shows Richter taking action to restore steam under pressure from the Captain, meeting a clear Goal with visible Conflict (the boiler failure and crew exhaustion) and Success (steam is restored). Time/place are unified (mid-voyage, boiler-room). The segment ends with Ferguson's concern and Richter's dismissive response, setting up future complications.",
+        "confidence": 0.88
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "narrative_scene",
+        "start_par_id": 62,
+        "end_par_id": 70,
+        "start_exact": "He hesitated once, chewed on the end of the pen, tried to frame the words he wanted to say to Hylda. Then he went on:",
+        "end_exact": "and the consequence of conscience.",
+        "start_prefix": "",
+        "end_suffix": " Limping, with three-quarters of the necessary steam",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Richter writes to Hylda, telling her to forget Gathright and promising to find her a suitable match. Later, Captain Morgan confronts him about the spare boiler's foaming and questions his report to Henningay. Richter evades and flees to the stern, brooding over his guilt.",
+        "cohesion": {
+          "time": "During the voyage to Mindanao (several days)",
+          "place": "Captain's bridge, boiler-room, and ship's stern",
+          "characters": [
+            "Paul Richter",
+            "Hylda (letter)",
+            "Ezra Morgan"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment covers Richter's letter-writing, the Captain's confrontation about the boiler, and Richter's guilty avoidance. Time/place are unified across the voyage period. While Richter exhibits anxiety and guilt, there is no ERAC structure (no formal emotion/reason/anticipation/choice deliberation) and no GACD with on-stage conflict outcome. It is a narrative scene showing exposition and character state.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "narrative_scene",
+        "start_par_id": 71,
+        "end_par_id": 79,
+        "start_exact": "Limping, with three-quarters of the necessary steam pressure, the _Seriphus_ reached Mindanao and was forced to return to",
+        "end_exact": "that afternoon he drank himself stupid on kummel, obtained from an engineer's club ashore. Another time, just after the tanker",
+        "start_prefix": "",
+        "end_suffix": "left the port of Aden on her homebound passage, a stowaway crawled",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The Seriphus returns to California for repairs. Richter sees his changed daughter, who remains distressed over Gathright's disappearance. Richter takes additional long voyages; he experiences mounting anxiety and paranoia, seeing signs (red rust) that remind him of blood and imagining Gathright's voice.",
+        "cohesion": {
+          "time": "Return to California through subsequent long voyages",
+          "place": "California shipyard, then at sea on multiple voyages (Chile, around the world)",
+          "characters": [
+            "Paul Richter",
+            "Hylda",
+            "Ferguson"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Narrative summary of multiple voyage cycles and Richter's growing psychological distress. Time and place shift across voyages; the segment covers an extended period of travel and emotional deterioration. No clear GACD or ERAC threshold is met; this is exposition of Richter's mounting guilt and paranoia.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 80,
+        "end_par_id": 102,
+        "start_exact": "Barometer pressure rose when the _Seriphus_ neared mid-Pacific. Ezra Morgan predicted a typhoon before the tanker was on the",
+        "end_exact": "Below with you, sir!\"",
+        "start_prefix": "",
+        "end_suffix": " The engine-room and boiler-room of",
+        "start_char": null,
+        "end_char": null,
+        "summary": "A typhoon strikes the Seriphus. After surviving the storm, Morgan spots a sinking freighter and heroically rescues four survivors, including a wireless operator and engineer. Morgan turns his cabin into a sick-room for the injured survivors and forces Richter below, accusing him of cowardice and drunkenness.",
+        "cohesion": {
+          "time": "Typhoon passage; mid-Pacific between Guam and San Francisco",
+          "place": "The Seriphus at sea during storm; bridge and cabin during rescue",
+          "characters": [
+            "Ezra Morgan",
+            "Paul Richter",
+            "Survivors (wireless operator, engineer, Japanese sailors)"
+          ]
+        },
+        "gacd": {
+          "goal": "To rescue survivors from the sinking freighter despite the danger and Richter's objections",
+          "action": "Morgan maneuvers the Seriphus, pours oil to calm the seas, lowers a boat with a mate, and successfully retrieves four half-dead survivors; he then commandeers Richter's cabin for a sick-room",
+          "conflict": "The typhoon and massive waves make rescue extremely dangerous; Richter resists the decision and argues about fuel consumption; the survivors are badly injured and require medical care",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment exhibits clear GACD: Morgan's Goal is to save the survivors despite danger, his Action is the complex rescue maneuver, the Conflict is the storm/waves and resistance from Richter, and the Outcome is Success (survivors rescued and brought aboard). The segment is unified by time (the typhoon and its immediate aftermath) and place (the Seriphus at sea). It demonstrates Morgan's moral character in contrast to Richter's self-interest.",
+        "confidence": 0.92
+      },
+      {
+        "segment_id": 11,
+        "segment_type": "narrative_scene",
+        "start_par_id": 103,
+        "end_par_id": 127,
+        "start_exact": "The engine-room and boiler-room of the tanker, she being in water ballast, was not unlike an inferno; the first mate, acting on",
+        "end_exact": "chilled his blood. \"_Hylda!_\"",
+        "start_prefix": "",
+        "end_suffix": " Now there was that",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Richter is relegated to a cramped cabin aft the engine-room. As the ship drives through rough seas at high speed, he becomes seasick and attempts to recover. When the starboard boiler's feed-pipes clog, Ferguson uses the spare boiler despite Richter's anxiety. Strange disturbances erupt: steam leaks, equipment malfunctions, and Richter hears a voice calling \"Hylda\" from within the boiler, which he interprets as a supernatural visitation from Gathright's spirit.",
+        "cohesion": {
+          "time": "Voyage aftermath of typhoon; at sea between Guam and San Francisco",
+          "place": "The Seriphus engine-room and boiler-room",
+          "characters": [
+            "Paul Richter",
+            "Ferguson",
+            "crew members"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment covers Richter's experience of the spare boiler being pressed into service and his psychological crisis. While it shows Richter's mounting paranoia and guilt, it does not clearly meet ERAC threshold (no deliberation/choice) nor GACD (no goal with conflict outcome). It is narrative exposition of Richter's mental deterioration unified by time (post-typhoon voyage) and place (engine/boiler-room and cabin).",
+        "confidence": 0.78
+      },
+      {
+        "segment_id": 12,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 128,
+        "end_par_id": 137,
+        "start_exact": "Now there was that in the ghostly voice that brought Richter's gin-swollen brain to the realization of the thing he had done in",
+        "end_exact": "there's something there, damit!\"",
+        "start_prefix": "",
+        "end_suffix": " Ezra Morgan came below, while the spare boiler",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Realizing the ghost is Gathright's voice, Richter is seized by insane rage and guilt. He plunges into the boiler-room through scalding steam, searching for the globe-valve to stop the fire, hearing the voice call Hylda repeatedly. Ferguson and a water tender drag him out, severely blistered. Richter, delirious, demands that the crew search the spare boiler for something hidden inside.",
+        "cohesion": {
+          "time": "During the passage crisis at sea",
+          "place": "The Seriphus boiler-room",
+          "characters": [
+            "Paul Richter",
+            "Ferguson",
+            "Water tender"
+          ]
+        },
+        "gacd": {
+          "goal": "To confront and lay the ghostly voice; to repair and silence the haunted spare boiler",
+          "action": "Richter plunges through scalding steam, searching for the globe-valve to shut off the fire and suppress the voice calling Hylda",
+          "conflict": "Intense heat from the boiler; the boiler's foaming and leaking; the piercing sound of Gathright's voice; Richter's own madness and guilt; the dangerous steam cloud",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "This segment shows Richter's Goal (to silence the boiler and the voice), his on-stage Action (searching for the valve through steam), clear Conflict (the extreme heat, the voice, his madness), and a Disaster Outcome (he is dragged out severely burned and delirious). It is a climactic moment unified by place (boiler-room) and time (the crisis at sea). The GACD structure is evident and the outcome is clearly negative.",
+        "confidence": 0.93
+      },
+      {
+        "segment_id": 13,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 138,
+        "end_par_id": 159,
+        "start_exact": "Ezra Morgan came below, while the spare boiler was cooling, and entered Richter's temporary cabin--the \"ditty-box\" with the play",
+        "end_exact": "The tanker, under reduced steam, made slow headway toward San Francisco.",
+        "start_prefix": "",
+        "end_suffix": " One morning, a day out from soundings, the chief engineer awoke",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After being rescued from the boiler-room, Richter is treated and administered morphine by Morgan. He awakens and questions Ferguson about what was found in the spare boiler. Ferguson reports finding only scale and soapy substance. Richter, in a daze, craftily suggests that a stowaway might have died in the boiler during the Oakland dry-dock. Ferguson's investigation reveals that the man-hole plates could have allowed escape, leaving Richter's crime technically unproven but psychologically devastating.",
+        "cohesion": {
+          "time": "Post-crisis recovery at sea, approaching San Francisco",
+          "place": "The Seriphus ditty-box cabin and boiler-room",
+          "characters": [
+            "Paul Richter",
+            "Ezra Morgan",
+            "Ferguson"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Richter is dazed, burnt, delirious, then gradually lucid but traumatized and numbed",
+          "reason": "After Morgan's morphine injection, Richter recovers enough to craft a plausible cover story about a stowaway, attempting to explain the boiler's foaming without admitting his crime",
+          "anticipation": "Richter fears Ferguson's investigation will reveal Gathright's body; he anticipates interrogation and attempts to pre-empt discovery with his stowaway narrative",
+          "choice": "Richter decides to admit no guilt while subtly planting the idea that a stowaway crawled in during the Oakland dry-dock and died inside the boiler"
+        },
+        "reason": "This segment exhibits ERAC: Richter's emotional state (dazed, burnt, morphine-induced), his reasoning through dialogue (discussing the boiler), his anticipation of consequences, and his choice of a cover story. There is no on-stage conflict or action-based outcome; it is a moment of recovery, interrogation, and strategic choice following the dramatic_scene disaster. Ferguson's final observation leaves ambiguity, but Richter's deliberate choice is clear.",
+        "confidence": 0.89
+      },
+      {
+        "segment_id": 14,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 160,
+        "end_par_id": 170,
+        "start_exact": "One morning, a day out from soundings, the chief engineer awoke, felt around in the gloom, and attempted to switch on the electric",
+        "end_exact": "Paul Richter covered his eyes.",
+        "start_prefix": "",
+        "end_suffix": " \"If she will atone for the harm I have done you,",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Richter awakens to discover the wireless operator survivor is not a stranger but Gathright, who survived the boiler, escaped unseen, and has been living under false identity for years. Gathright reveals himself, explains his survival and subsequent career, and confronts Richter with the knowledge that he knows the truth. Gathright demands Hylda as recompense.",
+        "cohesion": {
+          "time": "Early morning, one day out from San Francisco soundings",
+          "place": "The Seriphus ditty-box cabin",
+          "characters": [
+            "Paul Richter",
+            "Gathright (as the wireless operator)"
+          ]
+        },
+        "gacd": {
+          "goal": "For Gathright to confront Richter with his survival and demand Hylda as recompense",
+          "action": "Gathright reveals himself, explains his escape from the boiler and subsequent life at sea, and confronts Richter face-to-face in the cabin",
+          "conflict": "Richter's shock and horror upon learning Gathright survived; the moral weight of Gathright's survival and knowledge; the implicit threat to Richter's authority and safety",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment has clear GACD: Gathright's Goal (to confront Richter and reclaim Hylda), his Action (revealing himself and his story), Conflict (Richter's shock and the moral situation), and Outcome (Success\u2014Gathright achieves his confrontation and forces Richter to acknowledge the truth). It is unified by place (the cabin) and time (early morning arrival).",
+        "confidence": 0.91
+      },
+      {
+        "segment_id": 15,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 171,
+        "end_par_id": 171,
+        "start_exact": "\"If she will atone for the harm I have done you, Gathright, she is yours with her father's blessing.\"",
+        "end_exact": "\"If she will atone for the harm I have done you, Gathright, she is yours with her father's blessing.\"",
+        "start_prefix": "Paul Richter covered his eyes. ",
+        "end_suffix": "",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Richter, broken and defeated, consents to give his daughter Hylda to Gathright with his blessing, accepting his loss and the consequences of his crime.",
+        "cohesion": {
+          "time": "Immediately following Gathright's revelation",
+          "place": "The Seriphus ditty-box cabin",
+          "characters": [
+            "Paul Richter",
+            "Gathright"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Richter is broken, defeated, and resigned",
+          "reason": "Confronted with the evidence that Gathright survived and has reclaimed his identity, Richter realizes his crime is exposed and his resistance is futile",
+          "anticipation": "Richter anticipates that refusing Hylda to Gathright will only worsen his legal and moral situation",
+          "choice": "Richter chooses to surrender his daughter to Gathright with his blessing, accepting the consequences and ending his domination over her"
+        },
+        "reason": "This brief final segment exhibits ERAC: Richter's emotional collapse (covered eyes), his reasoning (recognizing Gathright's claims), his anticipation of consequences, and his choice (surrendering Hylda). There is no on-stage conflict or outcome struggle; it is a moment of acceptance and capitulation following the dramatic confrontation.",
+        "confidence": 0.87
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 12685,
+    "output_tokens": 6544
+  }
+}

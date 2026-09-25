@@ -1,0 +1,394 @@
+{
+  "story_id": "mass_quantities/junior__abernathy",
+  "outcome": "included",
+  "llm_call_made": true,
+  "word_count": 2400,
+  "segment_count": 6,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 1,
+      "end_par_id": 12,
+      "start_exact": "_All younger generations have been going to the dogs ... but this\n     one was genuinely sunk!_\n\n\"Junior!\" bellowed Pater.",
+      "end_exact": "\"JUNIOR!\" he roared in a voice that loosened\nthe coral along the reef.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0013]",
+      "start_char": 5,
+      "end_char": 1703,
+      "summary": "Pater and Mater search anxiously for their wayward son Junior in the shallows, fearing he's lost to the abyss or tide pools. Pater finally roars for him, attracting neighbors' attention.",
+      "cohesion": {
+        "time": "early evening, dusk",
+        "place": "reef/coastal shelf, their homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior"
+        ]
+      },
+      "gacd": {
+        "goal": "Find and locate Junior before he comes to harm",
+        "action": "Pater scans the shallows and deeper waters; bellows repeatedly for Junior",
+        "conflict": "Junior is missing; Mater fears sea monsters; darkness falls; Pater's reassurances fail to comfort her",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met. Clear Goal (locate Junior), Action (searching and calling), Conflict (missing child, darkening conditions, parental anxiety), and interim outcome (no Junior found yet, but Pater roars for him). Scene ends when neighbors gather; the crisis moment itself remains unresolved until P0017.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 13,
+      "end_par_id": 34,
+      "start_exact": "Round about, the couple's bereavement had begun attracting attention.\nIn the thickening dusk, tentacles paused from winnowing the sea for\ntheir owners' suppers, stalked heads turned curiously here and there in\nthe colony.",
+      "end_exact": "\"I won't!\" said Junior reflexively and backpaddled into the coral\nshadows of the reef.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0035]",
+      "start_char": 1707,
+      "end_char": 3994,
+      "summary": "Junior reappears overhead with a smooth stone from a reef crevice. When Pater interrogates him about straying toward the beach and demands obedience, Junior defiantly refuses to return, shocking the colony.",
+      "cohesion": {
+        "time": "same evening/dusk",
+        "place": "reef, Pater and Mater's homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior",
+          "neighbors",
+          "maiden aunts"
+        ]
+      },
+      "gacd": {
+        "goal": "Pater seeks to discipline and control Junior; Junior avoids punishment",
+        "action": "Pater questions Junior aggressively; demands he approach; Junior resists and backpaddles away",
+        "conflict": "Junior's defiance and Pater's authority clash; Junior refuses direct command; neighbors watch scandalized",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with strong conflict. Pater's Goal is to assert control and learn about the stone; Action is interrogation and command; Conflict is Junior's shocking defiance (\"I won't\"); Outcome is Disaster (loss of parental control, social scandal). Ends when Junior retreats into coral shadows.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 35,
+      "end_par_id": 48,
+      "start_exact": "\"That wallop,\" seethed Pater, \"wants a good polyping. I mean....\" He\nglowered suspiciously at Mater and the neighbors.",
+      "end_exact": "but Instinct urges him infallibly to assemble the\nmaterials for his future homesite.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0049]",
+      "start_char": 3996,
+      "end_char": 6617,
+      "summary": "Pater's anger subsides; Mater subtly redirects his attention to Junior's stone-carrying behavior as a sign of maturation. Pater reframes the defiance as Instinct-driven preparation for adulthood, restoring his composure and paternal confidence.",
+      "cohesion": {
+        "time": "same evening/dusk",
+        "place": "reef, homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "neighbors"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "seething anger, then embarrassment (glowering at Mater's gaze), then dawning realization/satisfaction",
+        "reason": "Mater's hint about stone-carrying suggests biological maturation rather than willful disobedience; Pater reconciles the rebellion with his theory of Instinct",
+        "anticipation": "Junior will soon mature into a sessile adult and settle down; Instinct will guide him correctly",
+        "choice": "Accept Mater's reframing; attribute Junior's behavior to natural maturation drives rather than defiance; resume confidence in biological determinism"
+      },
+      "reason": "Dramatic_sequel: ERAC threshold met. After the dramatic scene (defiance/disaster), Pater experiences Emotion (anger \u2192 embarrassment \u2192 satisfaction), Reason (Mater's hint redirects his thinking), Anticipation (Junior will mature correctly), and Choice (reframe the rebellion as Instinct). No on-stage conflict or new outcome; function is emotional recovery and reorientation. Ends when Pater declares his triumphant interpretation.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 49,
+      "end_par_id": 71,
+      "start_exact": "Junior let the rock fragment fall, and began plucking restlessly at a\ncoral outcropping.",
+      "end_exact": "\"Yes, dear,\" sighed Mater.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0072]",
+      "start_char": 6621,
+      "end_char": 10214,
+      "summary": "Mater coaxes Pater into giving Junior \"the talk\" about mating, rootedness, and reproductive strategy. Pater awkwardly explains site-selection, current management, and breeding as strategy (not crude tactics). Junior stubbornly resists, declaring he'd rather keep moving and explore the ocean, shocking his parents.",
+      "cohesion": {
+        "time": "same evening, ongoing",
+        "place": "reef, homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior",
+          "maiden aunts"
+        ]
+      },
+      "gacd": {
+        "goal": "Pater aims to counsel Junior on mating strategy and adult responsibilities; Junior seeks to avoid the lecture and adult settling",
+        "action": "Pater delivers an extended talk about site-selection, currents, and breeding; Junior listens and responds with insolence",
+        "conflict": "Junior's frank refusal (\"I don't want to grow down!\") contradicts Pater's biologistic worldview; Junior expresses desire for continued freedom and exploration",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with clear conflict. Pater's Goal is to enlighten Junior about adult responsibilities and mating; Action is the extended lecture; Conflict is Junior's stubborn refusal and stated desire to keep moving (a direct rejection of Pater's Biology). Outcome is Disaster (Pater scandalized, forced to dismiss Junior and admit the child \"may go\"). Ends when Pater tells Junior he may leave and reflects that children pass through larval stages.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "narrative_scene",
+      "start_par_id": 72,
+      "end_par_id": 87,
+      "start_exact": "At long last, Junior seemed to have resigned himself to making the best\nof it.\n\nWith considerable exertions, hampered by his increasing\nbottom-heaviness, he was fetching loads of stones, seaweed and other\ndebris to a spot downslope, and there laboring over what promised to\nbe a fairly ambitious cairn.",
+      "end_exact": "\"Yes, dear....\" said Mater meekly.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0088]",
+      "start_char": 10218,
+      "end_char": 13126,
+      "summary": "Junior gradually builds an ambitious homesite stone-and-debris cairn despite his previous resistance. Pater is pleased with the result; parents regard it as proof that biology and instinct triumph. Junior's site is complete and he takes root.",
+      "cohesion": {
+        "time": "later/over time (\"at long last\", \"the great day arrived\")",
+        "place": "reef and downslope cairn site",
+        "characters": [
+          "Junior",
+          "Pater",
+          "Mater",
+          "neighbors",
+          "companions"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Narrative_scene: Time/place unity (reef and cairn site, passage of time described) without clear GACD or ERAC. No dramatic conflict on-stage; Junior's internal resistance is noted as past (\"resigned himself\"). Pater's triumph is narrated, not acted. This is a transitional narrative passage describing Junior's gradual acceptance and homesite completion; lacks the threshold of conflict or emotional aftermath needed for dramatic classification.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 88,
+      "end_par_id": 100,
+      "start_exact": "Suddenly there were outcries of alarm from the dwellers down-reef. A\nwave of dismay swept audibly through all the nearer part of the colony.\nPater and Mater looked around, and froze.",
+      "end_exact": "\"Come back!\" gabbled the neighbors. \"You can't _do_ that!\"\n\nBut Junior was past listening to reason. Junior was on wheels.",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 13128,
+      "end_char": 14744,
+      "summary": "Immediately after rooting, Junior performs an unorthodox rotary paddling motion that propels his entire homesite structure sideways along the sandy bottom like a mobile vehicle. He escapes, defying all colony rules and expectations. Parents and neighbors cry in alarm and disbelief.",
+      "cohesion": {
+        "time": "immediately after Junior roots (\"the great day\", then \"suddenly\")",
+        "place": "reef and sandy bottom extending away",
+        "characters": [
+          "Junior",
+          "Pater",
+          "Mater",
+          "neighbors",
+          "polyps"
+        ]
+      },
+      "gacd": {
+        "goal": "Junior (implicitly) seeks to escape/move freely despite rooting; colony (Pater/Mater/neighbors) seeks to stop him and restore order",
+        "action": "Junior performs a rotary paddling twist that moves his entire rooted structure sideways; his structure rolls/trundles away; Pater and Mater cry out and demand he return",
+        "conflict": "Junior violates the fundamental biological law (rooted polyps cannot move); his escape defies all parental authority and colony norms; contradicts Pater's entire worldview (\"You CAN'T do that!\")",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with strong conflict. Junior's implicit Goal (or outcome of his construction) is to move freely; Action is the rotary paddling technique that propels his structure sideways; Conflict is massive\u2014violates all biology, authority, and colony rules; Outcome is Disaster for Pater/Mater/colony (loss of control, social upheaval, fundamental worldview collapse). Ends with realization that Junior \"was on wheels.\"",
+      "confidence": 0.92
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 1,
+      "end_par_id": 12,
+      "start_exact": "_All younger generations have been going to the dogs ... but this\n     one was genuinely sunk!_\n\n\"Junior!\" bellowed Pater.",
+      "end_exact": "\"JUNIOR!\" he roared in a voice that loosened\nthe coral along the reef.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0013]",
+      "start_char": 5,
+      "end_char": 1703,
+      "summary": "Pater and Mater search anxiously for their wayward son Junior in the shallows, fearing he's lost to the abyss or tide pools. Pater finally roars for him, attracting neighbors' attention.",
+      "cohesion": {
+        "time": "early evening, dusk",
+        "place": "reef/coastal shelf, their homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior"
+        ]
+      },
+      "gacd": {
+        "goal": "Find and locate Junior before he comes to harm",
+        "action": "Pater scans the shallows and deeper waters; bellows repeatedly for Junior",
+        "conflict": "Junior is missing; Mater fears sea monsters; darkness falls; Pater's reassurances fail to comfort her",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met. Clear Goal (locate Junior), Action (searching and calling), Conflict (missing child, darkening conditions, parental anxiety), and interim outcome (no Junior found yet, but Pater roars for him). Scene ends when neighbors gather; the crisis moment itself remains unresolved until P0017.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 13,
+      "end_par_id": 34,
+      "start_exact": "Round about, the couple's bereavement had begun attracting attention.\nIn the thickening dusk, tentacles paused from winnowing the sea for\ntheir owners' suppers, stalked heads turned curiously here and there in\nthe colony.",
+      "end_exact": "\"I won't!\" said Junior reflexively and backpaddled into the coral\nshadows of the reef.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0035]",
+      "start_char": 1707,
+      "end_char": 3994,
+      "summary": "Junior reappears overhead with a smooth stone from a reef crevice. When Pater interrogates him about straying toward the beach and demands obedience, Junior defiantly refuses to return, shocking the colony.",
+      "cohesion": {
+        "time": "same evening/dusk",
+        "place": "reef, Pater and Mater's homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior",
+          "neighbors",
+          "maiden aunts"
+        ]
+      },
+      "gacd": {
+        "goal": "Pater seeks to discipline and control Junior; Junior avoids punishment",
+        "action": "Pater questions Junior aggressively; demands he approach; Junior resists and backpaddles away",
+        "conflict": "Junior's defiance and Pater's authority clash; Junior refuses direct command; neighbors watch scandalized",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with strong conflict. Pater's Goal is to assert control and learn about the stone; Action is interrogation and command; Conflict is Junior's shocking defiance (\"I won't\"); Outcome is Disaster (loss of parental control, social scandal). Ends when Junior retreats into coral shadows.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 35,
+      "end_par_id": 48,
+      "start_exact": "\"That wallop,\" seethed Pater, \"wants a good polyping. I mean....\" He\nglowered suspiciously at Mater and the neighbors.",
+      "end_exact": "but Instinct urges him infallibly to assemble the\nmaterials for his future homesite.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0049]",
+      "start_char": 3996,
+      "end_char": 6617,
+      "summary": "Pater's anger subsides; Mater subtly redirects his attention to Junior's stone-carrying behavior as a sign of maturation. Pater reframes the defiance as Instinct-driven preparation for adulthood, restoring his composure and paternal confidence.",
+      "cohesion": {
+        "time": "same evening/dusk",
+        "place": "reef, homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "neighbors"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "seething anger, then embarrassment (glowering at Mater's gaze), then dawning realization/satisfaction",
+        "reason": "Mater's hint about stone-carrying suggests biological maturation rather than willful disobedience; Pater reconciles the rebellion with his theory of Instinct",
+        "anticipation": "Junior will soon mature into a sessile adult and settle down; Instinct will guide him correctly",
+        "choice": "Accept Mater's reframing; attribute Junior's behavior to natural maturation drives rather than defiance; resume confidence in biological determinism"
+      },
+      "reason": "Dramatic_sequel: ERAC threshold met. After the dramatic scene (defiance/disaster), Pater experiences Emotion (anger \u2192 embarrassment \u2192 satisfaction), Reason (Mater's hint redirects his thinking), Anticipation (Junior will mature correctly), and Choice (reframe the rebellion as Instinct). No on-stage conflict or new outcome; function is emotional recovery and reorientation. Ends when Pater declares his triumphant interpretation.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 49,
+      "end_par_id": 71,
+      "start_exact": "Junior let the rock fragment fall, and began plucking restlessly at a\ncoral outcropping.",
+      "end_exact": "\"Yes, dear,\" sighed Mater.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0072]",
+      "start_char": 6621,
+      "end_char": 10214,
+      "summary": "Mater coaxes Pater into giving Junior \"the talk\" about mating, rootedness, and reproductive strategy. Pater awkwardly explains site-selection, current management, and breeding as strategy (not crude tactics). Junior stubbornly resists, declaring he'd rather keep moving and explore the ocean, shocking his parents.",
+      "cohesion": {
+        "time": "same evening, ongoing",
+        "place": "reef, homesite",
+        "characters": [
+          "Pater",
+          "Mater",
+          "Junior",
+          "maiden aunts"
+        ]
+      },
+      "gacd": {
+        "goal": "Pater aims to counsel Junior on mating strategy and adult responsibilities; Junior seeks to avoid the lecture and adult settling",
+        "action": "Pater delivers an extended talk about site-selection, currents, and breeding; Junior listens and responds with insolence",
+        "conflict": "Junior's frank refusal (\"I don't want to grow down!\") contradicts Pater's biologistic worldview; Junior expresses desire for continued freedom and exploration",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with clear conflict. Pater's Goal is to enlighten Junior about adult responsibilities and mating; Action is the extended lecture; Conflict is Junior's stubborn refusal and stated desire to keep moving (a direct rejection of Pater's Biology). Outcome is Disaster (Pater scandalized, forced to dismiss Junior and admit the child \"may go\"). Ends when Pater tells Junior he may leave and reflects that children pass through larval stages.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "narrative_scene",
+      "start_par_id": 72,
+      "end_par_id": 87,
+      "start_exact": "At long last, Junior seemed to have resigned himself to making the best\nof it.\n\nWith considerable exertions, hampered by his increasing\nbottom-heaviness, he was fetching loads of stones, seaweed and other\ndebris to a spot downslope, and there laboring over what promised to\nbe a fairly ambitious cairn.",
+      "end_exact": "\"Yes, dear....\" said Mater meekly.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0088]",
+      "start_char": 10218,
+      "end_char": 13126,
+      "summary": "Junior gradually builds an ambitious homesite stone-and-debris cairn despite his previous resistance. Pater is pleased with the result; parents regard it as proof that biology and instinct triumph. Junior's site is complete and he takes root.",
+      "cohesion": {
+        "time": "later/over time (\"at long last\", \"the great day arrived\")",
+        "place": "reef and downslope cairn site",
+        "characters": [
+          "Junior",
+          "Pater",
+          "Mater",
+          "neighbors",
+          "companions"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Narrative_scene: Time/place unity (reef and cairn site, passage of time described) without clear GACD or ERAC. No dramatic conflict on-stage; Junior's internal resistance is noted as past (\"resigned himself\"). Pater's triumph is narrated, not acted. This is a transitional narrative passage describing Junior's gradual acceptance and homesite completion; lacks the threshold of conflict or emotional aftermath needed for dramatic classification.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 88,
+      "end_par_id": 100,
+      "start_exact": "Suddenly there were outcries of alarm from the dwellers down-reef. A\nwave of dismay swept audibly through all the nearer part of the colony.\nPater and Mater looked around, and froze.",
+      "end_exact": "\"Come back!\" gabbled the neighbors. \"You can't _do_ that!\"\n\nBut Junior was past listening to reason. Junior was on wheels.",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 13128,
+      "end_char": 14744,
+      "summary": "Immediately after rooting, Junior performs an unorthodox rotary paddling motion that propels his entire homesite structure sideways along the sandy bottom like a mobile vehicle. He escapes, defying all colony rules and expectations. Parents and neighbors cry in alarm and disbelief.",
+      "cohesion": {
+        "time": "immediately after Junior roots (\"the great day\", then \"suddenly\")",
+        "place": "reef and sandy bottom extending away",
+        "characters": [
+          "Junior",
+          "Pater",
+          "Mater",
+          "neighbors",
+          "polyps"
+        ]
+      },
+      "gacd": {
+        "goal": "Junior (implicitly) seeks to escape/move freely despite rooting; colony (Pater/Mater/neighbors) seeks to stop him and restore order",
+        "action": "Junior performs a rotary paddling twist that moves his entire rooted structure sideways; his structure rolls/trundles away; Pater and Mater cry out and demand he return",
+        "conflict": "Junior violates the fundamental biological law (rooted polyps cannot move); his escape defies all parental authority and colony norms; contradicts Pater's entire worldview (\"You CAN'T do that!\")",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Coarse dramatic_scene: GACD threshold met with strong conflict. Junior's implicit Goal (or outcome of his construction) is to move freely; Action is the rotary paddling technique that propels his structure sideways; Conflict is massive\u2014violates all biology, authority, and colony rules; Outcome is Disaster for Pater/Mater/colony (loss of control, social upheaval, fundamental worldview collapse). Ends with realization that Junior \"was on wheels.\"",
+      "confidence": 0.92
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 8177,
+    "output_tokens": 2884
+  }
+}

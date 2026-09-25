@@ -1,0 +1,666 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_case_of_sunburn__fontenay-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The story's resolution turns on real and speculative science: Mars' 'blue mist' shielding the surface from solar radiation, and the Earth's magnetic field interfering with that mist during Earth-sun conjunctions, amplified by The Egg (a magnetic-field-amplifying device). The catastrophic sunburn/conjunctivitis mechanism is developed in detail (p00191, p00193, p00195), and the theme 'Science wins wars now' is explicit. Speculative magnetic/atmospheric science is materially represented and drives the plot.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.95,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The Egg is an engineered device (an experimental laboratory that amplifies magnetic fields, like a lens concentrates light, p00021, p00193) whose deployment into an Earthward orbit is the decisive action that wins the war by stripping away the protective mist. Spacecraft (G-boats, spaceships), heat-guns, and scrambler beams also materially affect the action, but The Egg is the invention central to the outcome.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story is set in a speculative future (Earth date June 1, 2020 per p00054, with a Martian colony established in 1985 and interplanetary war), depicting colonized Mars with dome-cities, spaceports, and space travel. This future setting is substantially developed, though there is no time travel.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The premise (Mars protected only by a blue mist vulnerable to Earth's magnetic field during conjunction) is extrapolated into a full military strategy: Plan Blue positions The Egg to amplify Earth's field, strip the mist entirely, and incapacitate enemy troops with severe sunburn and conjunctivitis while Rebels shelter underground (p00191, p00195). Consequences are systematically developed from the identified scientific/social premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Jonner conducts systematic inference to identify the Marscorp spy: he assesses evidence, forms and revises hypotheses about which man is the spy, uses controlled observation (pairing, radio dial checks, disconnected transmitter as a trap), and reasons from reconnected wires to a definite conclusion (p00033-p00036, p00050-p00053, p00108-p00113). Also orbital-mechanics calculations govern action (p00146). This deductive/evidential method materially drives the action.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.95,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "central",
+            "rationale": "The entire story is set on Mars and its moon Phobos, in orbital space, and in dome-cities on another planet\nordinary cosmic environments. These other places are the central setting throughout.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "substantial",
+            "rationale": "A large-scale engineered disaster is deliberately induced: the complete stripping of Mars' protective blue mist across the inhabited hemisphere, causing planet-wide severe radiation burns and mass blinding of Marscorp forces (p00187, p00195). This technological/cosmic catastrophe is actual and causally central to the war's outcome.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-aaf86729dfec012d",
+        "failures": [],
+        "interval": {
+          "definite_count": 7,
+          "possible_count": 7,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-aaf86729dfec012d",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__a_case_of_sunburn__fontenay",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 17325,
+            "output": 1490
+          }
+        },
+        "status": "complete",
+        "story_hash": "0578a67b4f04961cb6298e295f96bb7c26c8b6b2fb703c19d1f81742a8647751"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_case_of_sunburn__fontenay-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-egg-magnetic-amplifier",
+            "cognitive_validation": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The story supplies a coherent, systematic, immanent, nonsupernatural (if physically loose) account: a device amplifying magnetic fields like a lens, Earth's magnetic field interacting with the Martian blue mist during conjunction, and the resulting sunburn/conjunctivitis. Imaginary science that is internally consistent satisfies cognition regardless of real-world accuracy.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3e1b910844920566",
+                  "evidence_set_id": "sfes-aaf86729dfec012d"
+                }
+              ]
+            },
+            "description": "The Egg: an ovoid orbital laboratory/auxiliary power station that amplifies magnetic fields as a lens concentrates light. Positioned between Mars and Earth during the Earth-sun conjunction, it amplifies Earth's magnetic field, which strips away the protective 'blue mist' of Mars and exposes the surface to lethal solar radiation.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "Sir Stanrich explicitly contrasts the new science-driven mode of warfare with traditional 'numbers and guns,' foregrounding the estranging shift by which a magnetic-amplification device overturns overwhelming military odds and wins the war.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-3e1b910844920566",
+                  "evidence_set_id": "sfes-aaf86729dfec012d"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-3e1b910844920566",
+                  "evidence_set_id": "sfes-aaf86729dfec012d"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-3e1b910844920566",
+                "evidence_set_id": "sfes-aaf86729dfec012d"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The entire plot (the seemingly pointless mission to tow The Egg into an Earthward orbit, Plan Blue, and the war's outcome) is organized around and resolved by this novum. Sir Stanrich's line 'Science wins wars now' encapsulates that the war is decided by this device, not conventional force.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3e1b910844920566",
+                  "evidence_set_id": "sfes-aaf86729dfec012d"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The Egg's magnetic-field amplification, coupled with the planetary 'blue mist' shielding mechanism, constitutes a world-altering capability: it can strip a planet's protective atmosphere-layer and incapacitate an entire army/population, decisively changing the war and the story universe. This differs totalizingly from the empirical norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3e1b910844920566",
+                  "evidence_set_id": "sfes-aaf86729dfec012d"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "novum-egg-magnetic-amplifier",
+        "evidence_set_id": "sfes-aaf86729dfec012d",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-aaf86729dfec012d",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__a_case_of_sunburn__fontenay",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 17762,
+            "output": 1016
+          }
+        },
+        "status": "complete",
+        "story_hash": "0578a67b4f04961cb6298e295f96bb7c26c8b6b2fb703c19d1f81742a8647751"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-aaf86729dfec012d",
+    "knight_analysis_id": "mass_quantities__a_case_of_sunburn__fontenay-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_case_of_sunburn__fontenay-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-aaf86729dfec012d",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "paraphrase": "A corporation monopolizes Earth-Mars space travel and governs a colonized Mars established in 1985.",
+            "quote": "Marscorp had held a monopoly on space travel between Earth and Mars since the first Martian colony was established at Mars City in the Earth year 1985.",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "paraphrase": "The corporation is also the official government of Mars, making and enforcing the laws.",
+            "quote": "Marscorp also was the OGM--the Official Government of Mars, or, as the colonists read the initials, \"Old Greedy Marscorp\"--and Marscorp made and enforced the laws.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "temporal_or_spatial_displacement",
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "The action takes place on the Martian surface, at named Martian geographic features.",
+            "quote": "The sun was settling over the iron-red wastes of the Isidis Desert. The groundcars clustered like giant beetles at the top of the cliff that dropped straight down to the shadowed lowland of Syrtis Major.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "temporal_or_spatial_displacement",
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "paraphrase": "A dual calendar shows both Martian and Earth dates, placing events in 2020.",
+            "quote": "An automatic calendar on the G-boat's control board showed the date: upright, the Martian date, Aster 32, 24; reversed, the Earth date, June 1, 2020.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00021"
+            ],
+            "paraphrase": "The Egg is described as a lab and power station that amplifies Mars's magnetic field.",
+            "quote": "It's an experimental laboratory that amplifies the magnetic field of Mars, and they've been experimenting with it as an auxiliary power station.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "paraphrase": "During Earth-sun conjunctions, everyone on Mars is sunburned because domes are transparent to heat.",
+            "quote": "There's an Earth-sun conjunction coming up. Every time the Earth swings between Mars and the sun, everybody on Mars gets a bad sunburn.",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00039"
+            ],
+            "paraphrase": "Weapons use invisible heat beams.",
+            "quote": "A heat-gun beam is invisible.",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00047"
+            ],
+            "paraphrase": "G-boats resist heat-gun fire because they're built for atmospheric friction temperatures.",
+            "quote": "The beams were futile, for G-boats were built to stand frictional temperatures it would take a heat-gun minutes to build to.",
+            "raw_id": "ev08",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00102"
+            ],
+            "paraphrase": "The ship's escape trajectory is explained in orbital-mechanics terms.",
+            "quote": "It was a hyperbola that swung the ship against the direction of the planet's orbital travel, and, while speeding the ship away from the planet, slowed it in relation to the sun.",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.95,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00191"
+            ],
+            "paraphrase": "A protective blue mist shields Mars from solar radiation but thins during conjunctions.",
+            "quote": "only the blue mist of Mars protects its surface from the hard rays of the sun. Without it, we'd have no more protection than a naked man in space. The reason we're in for a bad sunburn every year is that the blue mist dissipates partially at every Earth-sun conjunction.",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.95,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "paragraph_ids": [
+              "p00193"
+            ],
+            "paraphrase": "The Egg amplifies Earth's magnetic field, which disrupts Mars's protective mist during conjunction.",
+            "quote": "The Egg amplifies the effect of magnetic fields, the way a lens concentrates light rays. It's the Earth's magnetic field, not that of Mars, that interferes with the blue mist every time the Earth passes between Mars and the sun. And to amplify Earth's magnetic field, we had to place The Egg directly between Mars and Earth during the Earth-sun conjunction",
+            "raw_id": "ev11",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00033"
+            ],
+            "paraphrase": "Jonner reasons systematically to deduce which companion is a spy.",
+            "quote": "Jonner tried to assess the evidence, to decide which of his five companions was the Marscorp spy.",
+            "raw_id": "ev12",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "paragraph_ids": [
+              "p00111"
+            ],
+            "paraphrase": "Jonner uses process of elimination to identify the spy from opportunity.",
+            "quote": "Because you haven't been out of my sight since we took The Egg in tow, and you haven't been near that control board while we were on duty. Stein must have let Farlan get away from him again.",
+            "raw_id": "ev13",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "paragraph_ids": [
+              "p00195"
+            ],
+            "paraphrase": "Removing the mist caused mass burns and blindness that disabled the enemy army.",
+            "quote": "When the blue mist was stripped away completely this time, everyone on the surface was affected. Marscorp's troops were put out of action as an effective fighting force when they received severe burns over most of their bodies and were afflicted with acute conjunctivitis so badly they were half blinded.",
+            "raw_id": "ev14",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "paragraph_ids": [
+              "p00195"
+            ],
+            "paraphrase": "The Rebels retreated underground to survive the deadly conjunction and thus win.",
+            "quote": "That's why we abandoned Charax and Regina and pulled all our people to the Isidis base while the conjunction was under way, we were all protected from the sun ... underground!",
+            "raw_id": "ev15",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "catastrophe",
+            "paragraph_ids": [
+              "p00187"
+            ],
+            "paraphrase": "Marscorp personnel are found blinded and burned by the solar catastrophe.",
+            "quote": "The few men and women they saw in Marscorp uniforms staggered around, groping blindly, their faces and arms fiery red and peeling from sunburn.",
+            "raw_id": "ev16",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00181"
+            ],
+            "paraphrase": "Jonner is astonished to see the damaged city dome.",
+            "quote": "\"What's happened to the Mars City dome?\" asked Jonner in astonishment as they approached the city. The once-transparent dome was cracked and badly discolored.",
+            "raw_id": "ev17",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "paraphrase": "G-boats shuttle to Phobos, which serves as a space station, since spaceships can't enter Mars's atmosphere.",
+            "quote": "These were the heavy duty rockets that plied back and forth to Phobos, Mars' inner moon and Marscorp's natural space station, entering the planetary atmosphere of Mars where spaceships could not go.",
+            "raw_id": "ev19",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.65,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "paragraph_ids": [
+              "p00162"
+            ],
+            "paraphrase": "Jonner is unhappy at the prospect of freedom by his side's defeat.",
+            "quote": "Jonner sighed unhappily. He didn't want that kind of freedom.",
+            "raw_id": "ev20",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 33715,
+            "paragraph_ids": [
+              "p00186"
+            ],
+            "start_char": 33661
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3e1b910844920566",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Sir Stanrich contrasts science-based warfare with traditional numbers and firepower.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Science wins wars now; my boy, not numbers and guns.\""
+        }
+      ],
+      "story_hash": "0578a67b4f04961cb6298e295f96bb7c26c8b6b2fb703c19d1f81742a8647751",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "0578a67b4f04961cb6298e295f96bb7c26c8b6b2fb703c19d1f81742a8647751",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

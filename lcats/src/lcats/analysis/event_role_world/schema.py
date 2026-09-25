@@ -445,6 +445,8 @@ class SurfaceFeatures:
             has keys text, lemma, upos, xpos, feats, head_index, deprel.
         backend_name: Which NLPBackend produced `tokens` (e.g. "stanza",
             "spacy").
+        sentence_records: Backend sentence records used by richer downstream
+            sidecars that need sentence grouping and source offsets.
     """
 
     word_count: int
@@ -453,9 +455,17 @@ class SurfaceFeatures:
     avg_word_length: float
     tokens: List[Dict[str, Any]] = dataclasses.field(default_factory=list)
     backend_name: str = ""
+    sentence_records: List[Any] = dataclasses.field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:
-        return dataclasses.asdict(self)
+        return {
+            "word_count": self.word_count,
+            "sentence_count": self.sentence_count,
+            "avg_sentence_length": self.avg_sentence_length,
+            "avg_word_length": self.avg_word_length,
+            "tokens": self.tokens,
+            "backend_name": self.backend_name,
+        }
 
 
 @dataclasses.dataclass

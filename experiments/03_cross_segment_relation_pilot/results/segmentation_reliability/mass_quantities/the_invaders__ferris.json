@@ -1,0 +1,692 @@
+{
+  "story_id": "mass_quantities/the_invaders__ferris",
+  "outcome": "included",
+  "llm_call_made": true,
+  "word_count": 5756,
+  "segment_count": 11,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 19,
+      "start_exact": "Big Joe Merklos was the first of them. He appeared at the Wide Bend\nNational Bank one day, cash in hand.",
+      "end_exact": "Caruso got fined for his reply, and with the tinkle of coins in the luncheon club kitty the\nmen dispersed.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0020]",
+      "start_char": 0,
+      "end_char": 2519,
+      "summary": "Wide Bend Businessmen's Club discusses Joe Merklos' purchase of Dark Valley, a barren land. Speculation about his background and concern that old squatters (the Carvers) must leave.",
+      "cohesion": {
+        "time": "Recent day; Joe has just bought Dark Valley",
+        "place": "Wide Bend, at the Businessmen's Club",
+        "characters": [
+          "Jerry Bronson",
+          "Henderson",
+          "Caruso",
+          "MacAllister",
+          "Hammond",
+          "Tipton",
+          "Club members"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "This segment establishes the setting and introduces the mystery through exposition and dialogue at a single location. Characters discuss Merklos' purchase but there is no on-stage action, conflict, or goal pursuit. Unified by time (same day) and place (club); predominantly narrative/informational without GACD or ERAC structure.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 21,
+      "end_par_id": 33,
+      "start_exact": "Joe Merklos' relatives arrived that night. Henderson, who told Jerry\nBronson about it, had made an early morning delivery of feed nearby,",
+      "end_exact": "It was a good many miles, but it was perfectly possible.",
+      "start_prefix": "[P0020]\n\n",
+      "end_suffix": "\n\n[P0034]",
+      "start_char": 2523,
+      "end_char": 5864,
+      "summary": "Jerry drives to Dark Valley to investigate and observe Merklos' people working. He discovers water flowing from pumps and realizes the road is unused, creating a puzzling mystery.",
+      "cohesion": {
+        "time": "Early afternoon (Jerry decides to drive around 3pm)",
+        "place": "Dark Valley; Jerry's car on the valley road",
+        "characters": [
+          "Jerry Bronson",
+          "Merklos' relatives"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by time and place (Jerry's drive through Dark Valley and observations). Although Jerry experiences curiosity and proposes a rational explanation, the segment is primarily observational and descriptive. No clear goal, on-stage conflict, or choice outcome is established; the mysterious questions remain open. This is narrative scene establishing context and atmosphere.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 34,
+      "end_par_id": 52,
+      "start_exact": "His long legs hadn't taken him far from the car when he heard a harsh,\n\"Hold up!\"",
+      "end_exact": "The Carver brothers cackled suddenly. \"They better be! To farm that\nland.\"",
+      "start_prefix": "[P0033]\n\n",
+      "end_suffix": "\n\n[P0053]",
+      "start_char": 5937,
+      "end_char": 7461,
+      "summary": "Jerry encounters the Carver brothers armed with shotguns at the valley's western crest. He informs them that Merklos owns the valley including their property, and they discuss the newcomers.",
+      "cohesion": {
+        "time": "Same afternoon as Jerry's arrival",
+        "place": "Western crest of Dark Valley; Carver cabin yard",
+        "characters": [
+          "Jerry Bronson",
+          "Ed Carver",
+          "Mike Carver"
+        ]
+      },
+      "gacd": {
+        "goal": "Inform the Carver brothers that Merklos owns their land and they must move",
+        "action": "Jerry approaches the Carvers and explains the land ownership change",
+        "conflict": "The Carvers initially threaten Jerry with raised shotguns; cultural/language suspicion about the newcomers",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "This segment contains a clear goal (warn/inform the Carvers), on-stage action (confrontation with armed brothers), and conflict (threat with guns, defensive posture). The outcome is successful communication and lower tension by scene's end. Unified by time/place (western crest, afternoon). Meets GACD threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 55,
+      "end_par_id": 74,
+      "start_exact": "Wide Bend was a normal community. Along with its natural curiosity there\nwas a genuine feeling of neighborliness--heightened by the conviction",
+      "end_exact": "Oh, no trouble. But the middle fork of the river's started to run\nagain!\"",
+      "start_prefix": "[P0053]\n\n[P0054]\n\n",
+      "end_suffix": "\n\n[P0075]",
+      "start_char": 7679,
+      "end_char": 10579,
+      "summary": "Wide Bend townspeople visit Dark Valley and report observations: hard workers, good repairs, water flowing from pumps, green returning. Jerry sits on his porch pondering unexplained items, then Caruso brings news that the river is flowing again.",
+      "cohesion": {
+        "time": "Following days; evening on Jerry's porch",
+        "place": "Wide Bend (general community context) and Jerry's house porch",
+        "characters": [
+          "Jerry Bronson",
+          "Wide Bend community",
+          "Caruso"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Uneasiness, puzzlement, and growing concern about mysteries",
+        "reason": "Jerry reasons that despite rational explanations for oddities, he cannot explain how Merklos' people arrived without vehicles, the water returning, or items they needed appearing without purchase",
+        "anticipation": "Anticipates that the tribe's self-sufficiency and mysterious methods pose a potential problem for the community",
+        "choice": "Decides to gather the businessmen for discussion (implicit in next section)"
+      },
+      "reason": "This segment follows the dramatic scene and shows Jerry processing observations and growing emotional/intellectual unease. Contains emotion (uneasiness), reason (pondering mysteries), anticipation (sensing threat), and choice (decision to address the issue). No on-stage conflict or action outcome within the segment; characteristic of dramatic sequel pattern.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 76,
+      "end_par_id": 104,
+      "start_exact": "For a long time after Caruso had gone, Jerry sat with his cold pipe in\nhis mouth. There were reasonable explanations for every one of the small",
+      "end_exact": "Everybody was.",
+      "start_prefix": "[P0074]\n\n[P0075]\n\n",
+      "end_suffix": "\n\n[P0105]",
+      "start_char": 10583,
+      "end_char": 14457,
+      "summary": "Jerry and Henderson report missing items to Sheriff Watson and businessmen. They hold a meeting to discuss the situation. Watson proposes investigating the tribe for theft, which is agreed upon.",
+      "cohesion": {
+        "time": "Next day/morning; restaurant back room luncheon",
+        "place": "Wide Bend restaurant back room",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Henderson",
+          "MacAllister",
+          "business community members"
+        ]
+      },
+      "gacd": {
+        "goal": "Address the growing problem of missing items and prevent mob violence against Merklos' tribe",
+        "action": "Jerry calls a meeting, explains the situation (water, no vehicles, missing items, mysteries), and proposes a rational investigation",
+        "conflict": "Community is suspicious and angry; Tipton wants to accuse the tribe outright; Hammond questions the water phenomenon; heated discussion erupts",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear goal: prevent panic and obtain consensus on lawful investigation. On-stage action: Jerry presents evidence, proposes plan, manages heated discussion. Conflict: community anger, skepticism, competing interpretations. Outcome: Watson agrees to investigate, meeting concludes with unified plan. Meets GACD threshold.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 106,
+      "end_par_id": 134,
+      "start_exact": "Sheriff Watson frowned at the list as Jerry drove into the first\nbarnyard. They scattered chickens, ducks, and children--seen blurrily as",
+      "end_exact": "With each passing minute, that huge print seemed more\nunreal.",
+      "start_prefix": "[P0105]\n\n",
+      "end_suffix": "\n\n[P0135]",
+      "start_char": 14461,
+      "end_char": 18593,
+      "summary": "Jerry and Sheriff Watson investigate Dark Valley, finding stolen items that are subtly altered (scratches, design changes) making them impossible to identify. The Carvers show them a huge paw print and black hairs. Watson dismisses it as fabrication.",
+      "cohesion": {
+        "time": "Afternoon (Watson's investigation)",
+        "place": "Dark Valley farms and the Carver cabin area",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Ed Carver",
+          "Mike Carver"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine whether Merklos' tribe has stolen missing items",
+        "action": "Jerry and Watson search the farms, examine the stolen items in place, interview Carvers about the giant paw print",
+        "conflict": "Stolen items are found but subtly altered (aged, modified) making proof impossible; mysterious paw print suggests something beyond rational explanation",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Goal: investigate theft. Action: search and examination on-stage. Conflict: items mysteriously altered and aged beyond normal timeframe; paw print evidence. Outcome is Unclear because evidence is ambiguous and Watson dismisses it. Unified by time/place (investigation in valley). Meets GACD threshold but outcome indeterminate.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 136,
+      "end_par_id": 154,
+      "start_exact": "Halfway through the valley they stopped to look at the river. The bed\nwas half full--muddy, debris-laden, with a sheen of dust on the surface.",
+      "end_exact": "\"And who has ever gotten a single, clear look at one of the kids?\"",
+      "start_prefix": "[P0135]\n\n",
+      "end_suffix": "\n\n[P0155]",
+      "start_char": 18597,
+      "end_char": 20511,
+      "summary": "Jerry and Watson encounter Joe Merklos by the river. He evades their questions about the water and equipment, then abruptly leaves saying he hears something. Jerry observes no flowers, dogs, or clear sightings of children in Dark Valley.",
+      "cohesion": {
+        "time": "Same afternoon, as they're leaving the valley",
+        "place": "Dark Valley river; valley roads",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Joe Merklos"
+        ]
+      },
+      "gacd": {
+        "goal": "Confront Joe Merklos about how he obtained supplies and water",
+        "action": "Jerry and Watson approach Merklos at the river and question him directly",
+        "conflict": "Merklos gives evasive, non-committal answers; claims to plan ahead; abruptly ends conversation by claiming to hear something",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Goal: obtain answers from Merklos. Action: confront and question him. Conflict: Merklos evades and ends interaction suddenly. Outcome is Disaster because they learn nothing and realize the unnaturalness of Dark Valley (no flowers, no dogs, invisible children). Unified by place/time (valley, afternoon). Meets GACD threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 155,
+      "end_par_id": 173,
+      "start_exact": "Jerry spent a restless night. On the way to his office the next morning\nhe met Watson, talking to a farmer on the courthouse steps.",
+      "end_exact": "\"Well, won't they?\"",
+      "start_prefix": "[P0154]\n\n",
+      "end_suffix": "\n\n[P0174]",
+      "start_char": 20513,
+      "end_char": 23035,
+      "summary": "Farmer Carson reports that crops on the South Fork have stopped growing. Other farmers report similar problems. Jerry and Watson learn that the Simmons children have gone missing. Jerry experiences mounting fear and rationalization conflict.",
+      "cohesion": {
+        "time": "Next morning and office hours",
+        "place": "Wide Bend courthouse steps and Jerry's office",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Farmer Carson",
+          "townspeople"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Restless anxiety and internal conflict about accepting the impossible; fear",
+        "reason": "Jerry struggles between logic (crops failing naturally, children running away as before) and the mounting evidence of unnatural causation (selective crop failure on neighboring forks, missing children)",
+        "anticipation": "Recognizes that Dark Valley's fertility is linked to neighbors' loss; anticipates this will lead to panic and violence",
+        "choice": "Internally commits to accepting that rational explanations are failing; considers the supernatural"
+      },
+      "reason": "No on-stage conflict or resolution; segment shows Jerry's emotional turmoil, reasoning through contradictions, and growing conviction that supernatural explanation is necessary. Contains emotion, reason, anticipation, and implicit choice. Characteristic dramatic_sequel following investigation scene.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 175,
+      "end_par_id": 217,
+      "start_exact": "It was after midnight when the doorbell rang. It didn't wake Jerry--he\nwas sitting in bed, staring into the darkness. There was a pile of books",
+      "end_exact": "And believe me, Mike, I'm scared.\"",
+      "start_prefix": "[P0174]\n\n",
+      "end_suffix": "\n\n[P0217]",
+      "start_char": 23039,
+      "end_char": 27165,
+      "summary": "Mike Carver arrives with news that the creature killed his brother Ed. Shots didn't harm it. Jerry reveals he has read about witchcraft and made a silver cross. They discuss the supernatural threat and consider action.",
+      "cohesion": {
+        "time": "After midnight",
+        "place": "Jerry's house",
+        "characters": [
+          "Jerry Bronson",
+          "Mike Carver"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Fear, dread, resignation to the supernatural reality",
+        "reason": "Jerry has spent hours researching witchcraft and concludes it is the only explanation that fits the evidence; Mike provides confirmation with Ed's death",
+        "anticipation": "Both anticipate the creature will return; expect they must take action with crosses and fire",
+        "choice": "Jerry commits to believing in witchcraft and deciding to use fire and silver crosses to drive out the tribe"
+      },
+      "reason": "Segment shows recovery (Mike arriving in distress), emotional acceptance (Jerry's fear and conviction), reasoning (witchcraft research), anticipation (creature threat), and choice (decide to burn and drive out). No on-stage conflict within the segment; characteristic dramatic_sequel structure.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 218,
+      "end_par_id": 257,
+      "start_exact": "The shadows drew closer, thicker still. They seemed charged with menace.\nWith a catch in his voice, Jerry said, \"Maybe now's the time to try it.\"",
+      "end_exact": "Jerry swayed. The hand that held the cross was numb and tingling. Like\nan automaton, he turned, went back, and knelt beside the crumpled shape",
+      "start_prefix": "[P0217]\n\n",
+      "end_suffix": "\n\n[P0258]",
+      "start_char": 27169,
+      "end_char": 32093,
+      "summary": "Jerry and Mike execute their plan: they prepare torches soaked in oil, drive up Dark Valley burning farmhouses. The creature attacks but Jerry's cross destroys it. Mike is killed. Jerry burns multiple buildings and drives the tribe out.",
+      "cohesion": {
+        "time": "Night (continuing from midnight)",
+        "place": "Dark Valley; farmhouses and roads",
+        "characters": [
+          "Jerry Bronson",
+          "Mike Carver",
+          "Joe Merklos' tribe",
+          "the creature"
+        ]
+      },
+      "gacd": {
+        "goal": "Drive out Merklos' tribe by burning farmhouses with fire and crosses",
+        "action": "Jerry and Mike set fires at farms, brandish crosses, move up the valley burning buildings",
+        "conflict": "The creature attacks, kills Mike, physically wounds Jerry; darkness and supernatural terror assault them",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear goal: drive out the tribe using fire and crosses. On-stage action: fire-setting, torch-carrying, physical confrontation. Conflict: creature attack, Mike's death, multiple confrontations with the tribe. Outcome: Success (creature destroyed, tribe driven out, valley freed). Unified by time/place (night in Dark Valley). Meets GACD threshold decisively.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "narrative_scene",
+      "start_par_id": 258,
+      "end_par_id": 262,
+      "start_exact": "They met him as he was coming back--Watson, Henderson, Caruso, Miller,\nHammond and the rest. They had flashlights and guns and tear gas, and",
+      "end_exact": "They're gone. Dark Valley is free again.\"",
+      "start_prefix": "[P0257]\n\n",
+      "end_suffix": "\n\n_Big Joe Merklos was the first of them. He appeared at the Rocky\nMountain Trust Company one day, cash in hand. The charm of him, his\nflashing smile, the easy strength in his big body, were persuasive\nrecommendations. But the Company's appraisal scarcely got that far.\nWasn't he the first buyer they had ever had for that suburban\nreal-estate fiasco, Hidden Acres...?_",
+      "start_char": 32199,
+      "end_char": 32722,
+      "summary": "The town's men arrive to find Jerry burned and exhausted. He tells them the tribe has been driven out and Dark Valley is free. The story ends with an epilogue-like paragraph suggesting the cycle repeats elsewhere.",
+      "cohesion": {
+        "time": "Late night, after the burning",
+        "place": "Dark Valley road; transition",
+        "characters": [
+          "Jerry Bronson",
+          "Watson",
+          "Henderson",
+          "Caruso",
+          "Miller",
+          "Hammond",
+          "townspeople"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by time/place (late night, valley road) and characters (community reunion). Primarily a resolution/coda scene without GACD or ERAC structure. Jerry reports outcome but does not pursue a new goal or undergo deliberation. The final italicized paragraph is narrative exposition/epilogue suggesting the story repeats, which is non-narrative meta-commentary. Classified as narrative_scene for the main resolution.",
+      "confidence": 0.78
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 19,
+      "start_exact": "Big Joe Merklos was the first of them. He appeared at the Wide Bend\nNational Bank one day, cash in hand.",
+      "end_exact": "Caruso got fined for his reply, and with the tinkle of coins in the luncheon club kitty the\nmen dispersed.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0020]",
+      "start_char": 0,
+      "end_char": 2519,
+      "summary": "Wide Bend Businessmen's Club discusses Joe Merklos' purchase of Dark Valley, a barren land. Speculation about his background and concern that old squatters (the Carvers) must leave.",
+      "cohesion": {
+        "time": "Recent day; Joe has just bought Dark Valley",
+        "place": "Wide Bend, at the Businessmen's Club",
+        "characters": [
+          "Jerry Bronson",
+          "Henderson",
+          "Caruso",
+          "MacAllister",
+          "Hammond",
+          "Tipton",
+          "Club members"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "This segment establishes the setting and introduces the mystery through exposition and dialogue at a single location. Characters discuss Merklos' purchase but there is no on-stage action, conflict, or goal pursuit. Unified by time (same day) and place (club); predominantly narrative/informational without GACD or ERAC structure.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 21,
+      "end_par_id": 33,
+      "start_exact": "Joe Merklos' relatives arrived that night. Henderson, who told Jerry\nBronson about it, had made an early morning delivery of feed nearby,",
+      "end_exact": "It was a good many miles, but it was perfectly possible.",
+      "start_prefix": "[P0020]\n\n",
+      "end_suffix": "\n\n[P0034]",
+      "start_char": 2523,
+      "end_char": 5864,
+      "summary": "Jerry drives to Dark Valley to investigate and observe Merklos' people working. He discovers water flowing from pumps and realizes the road is unused, creating a puzzling mystery.",
+      "cohesion": {
+        "time": "Early afternoon (Jerry decides to drive around 3pm)",
+        "place": "Dark Valley; Jerry's car on the valley road",
+        "characters": [
+          "Jerry Bronson",
+          "Merklos' relatives"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by time and place (Jerry's drive through Dark Valley and observations). Although Jerry experiences curiosity and proposes a rational explanation, the segment is primarily observational and descriptive. No clear goal, on-stage conflict, or choice outcome is established; the mysterious questions remain open. This is narrative scene establishing context and atmosphere.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 34,
+      "end_par_id": 52,
+      "start_exact": "His long legs hadn't taken him far from the car when he heard a harsh,\n\"Hold up!\"",
+      "end_exact": "The Carver brothers cackled suddenly. \"They better be! To farm that\nland.\"",
+      "start_prefix": "[P0033]\n\n",
+      "end_suffix": "\n\n[P0053]",
+      "start_char": 5937,
+      "end_char": 7461,
+      "summary": "Jerry encounters the Carver brothers armed with shotguns at the valley's western crest. He informs them that Merklos owns the valley including their property, and they discuss the newcomers.",
+      "cohesion": {
+        "time": "Same afternoon as Jerry's arrival",
+        "place": "Western crest of Dark Valley; Carver cabin yard",
+        "characters": [
+          "Jerry Bronson",
+          "Ed Carver",
+          "Mike Carver"
+        ]
+      },
+      "gacd": {
+        "goal": "Inform the Carver brothers that Merklos owns their land and they must move",
+        "action": "Jerry approaches the Carvers and explains the land ownership change",
+        "conflict": "The Carvers initially threaten Jerry with raised shotguns; cultural/language suspicion about the newcomers",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "This segment contains a clear goal (warn/inform the Carvers), on-stage action (confrontation with armed brothers), and conflict (threat with guns, defensive posture). The outcome is successful communication and lower tension by scene's end. Unified by time/place (western crest, afternoon). Meets GACD threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 55,
+      "end_par_id": 74,
+      "start_exact": "Wide Bend was a normal community. Along with its natural curiosity there\nwas a genuine feeling of neighborliness--heightened by the conviction",
+      "end_exact": "Oh, no trouble. But the middle fork of the river's started to run\nagain!\"",
+      "start_prefix": "[P0053]\n\n[P0054]\n\n",
+      "end_suffix": "\n\n[P0075]",
+      "start_char": 7679,
+      "end_char": 10579,
+      "summary": "Wide Bend townspeople visit Dark Valley and report observations: hard workers, good repairs, water flowing from pumps, green returning. Jerry sits on his porch pondering unexplained items, then Caruso brings news that the river is flowing again.",
+      "cohesion": {
+        "time": "Following days; evening on Jerry's porch",
+        "place": "Wide Bend (general community context) and Jerry's house porch",
+        "characters": [
+          "Jerry Bronson",
+          "Wide Bend community",
+          "Caruso"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Uneasiness, puzzlement, and growing concern about mysteries",
+        "reason": "Jerry reasons that despite rational explanations for oddities, he cannot explain how Merklos' people arrived without vehicles, the water returning, or items they needed appearing without purchase",
+        "anticipation": "Anticipates that the tribe's self-sufficiency and mysterious methods pose a potential problem for the community",
+        "choice": "Decides to gather the businessmen for discussion (implicit in next section)"
+      },
+      "reason": "This segment follows the dramatic scene and shows Jerry processing observations and growing emotional/intellectual unease. Contains emotion (uneasiness), reason (pondering mysteries), anticipation (sensing threat), and choice (decision to address the issue). No on-stage conflict or action outcome within the segment; characteristic of dramatic sequel pattern.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 76,
+      "end_par_id": 104,
+      "start_exact": "For a long time after Caruso had gone, Jerry sat with his cold pipe in\nhis mouth. There were reasonable explanations for every one of the small",
+      "end_exact": "Everybody was.",
+      "start_prefix": "[P0074]\n\n[P0075]\n\n",
+      "end_suffix": "\n\n[P0105]",
+      "start_char": 10583,
+      "end_char": 14457,
+      "summary": "Jerry and Henderson report missing items to Sheriff Watson and businessmen. They hold a meeting to discuss the situation. Watson proposes investigating the tribe for theft, which is agreed upon.",
+      "cohesion": {
+        "time": "Next day/morning; restaurant back room luncheon",
+        "place": "Wide Bend restaurant back room",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Henderson",
+          "MacAllister",
+          "business community members"
+        ]
+      },
+      "gacd": {
+        "goal": "Address the growing problem of missing items and prevent mob violence against Merklos' tribe",
+        "action": "Jerry calls a meeting, explains the situation (water, no vehicles, missing items, mysteries), and proposes a rational investigation",
+        "conflict": "Community is suspicious and angry; Tipton wants to accuse the tribe outright; Hammond questions the water phenomenon; heated discussion erupts",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear goal: prevent panic and obtain consensus on lawful investigation. On-stage action: Jerry presents evidence, proposes plan, manages heated discussion. Conflict: community anger, skepticism, competing interpretations. Outcome: Watson agrees to investigate, meeting concludes with unified plan. Meets GACD threshold.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 106,
+      "end_par_id": 134,
+      "start_exact": "Sheriff Watson frowned at the list as Jerry drove into the first\nbarnyard. They scattered chickens, ducks, and children--seen blurrily as",
+      "end_exact": "With each passing minute, that huge print seemed more\nunreal.",
+      "start_prefix": "[P0105]\n\n",
+      "end_suffix": "\n\n[P0135]",
+      "start_char": 14461,
+      "end_char": 18593,
+      "summary": "Jerry and Sheriff Watson investigate Dark Valley, finding stolen items that are subtly altered (scratches, design changes) making them impossible to identify. The Carvers show them a huge paw print and black hairs. Watson dismisses it as fabrication.",
+      "cohesion": {
+        "time": "Afternoon (Watson's investigation)",
+        "place": "Dark Valley farms and the Carver cabin area",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Ed Carver",
+          "Mike Carver"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine whether Merklos' tribe has stolen missing items",
+        "action": "Jerry and Watson search the farms, examine the stolen items in place, interview Carvers about the giant paw print",
+        "conflict": "Stolen items are found but subtly altered (aged, modified) making proof impossible; mysterious paw print suggests something beyond rational explanation",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Goal: investigate theft. Action: search and examination on-stage. Conflict: items mysteriously altered and aged beyond normal timeframe; paw print evidence. Outcome is Unclear because evidence is ambiguous and Watson dismisses it. Unified by time/place (investigation in valley). Meets GACD threshold but outcome indeterminate.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 136,
+      "end_par_id": 154,
+      "start_exact": "Halfway through the valley they stopped to look at the river. The bed\nwas half full--muddy, debris-laden, with a sheen of dust on the surface.",
+      "end_exact": "\"And who has ever gotten a single, clear look at one of the kids?\"",
+      "start_prefix": "[P0135]\n\n",
+      "end_suffix": "\n\n[P0155]",
+      "start_char": 18597,
+      "end_char": 20511,
+      "summary": "Jerry and Watson encounter Joe Merklos by the river. He evades their questions about the water and equipment, then abruptly leaves saying he hears something. Jerry observes no flowers, dogs, or clear sightings of children in Dark Valley.",
+      "cohesion": {
+        "time": "Same afternoon, as they're leaving the valley",
+        "place": "Dark Valley river; valley roads",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Joe Merklos"
+        ]
+      },
+      "gacd": {
+        "goal": "Confront Joe Merklos about how he obtained supplies and water",
+        "action": "Jerry and Watson approach Merklos at the river and question him directly",
+        "conflict": "Merklos gives evasive, non-committal answers; claims to plan ahead; abruptly ends conversation by claiming to hear something",
+        "outcome": "Disaster"
+      },
+      "erac": null,
+      "reason": "Goal: obtain answers from Merklos. Action: confront and question him. Conflict: Merklos evades and ends interaction suddenly. Outcome is Disaster because they learn nothing and realize the unnaturalness of Dark Valley (no flowers, no dogs, invisible children). Unified by place/time (valley, afternoon). Meets GACD threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 155,
+      "end_par_id": 173,
+      "start_exact": "Jerry spent a restless night. On the way to his office the next morning\nhe met Watson, talking to a farmer on the courthouse steps.",
+      "end_exact": "\"Well, won't they?\"",
+      "start_prefix": "[P0154]\n\n",
+      "end_suffix": "\n\n[P0174]",
+      "start_char": 20513,
+      "end_char": 23035,
+      "summary": "Farmer Carson reports that crops on the South Fork have stopped growing. Other farmers report similar problems. Jerry and Watson learn that the Simmons children have gone missing. Jerry experiences mounting fear and rationalization conflict.",
+      "cohesion": {
+        "time": "Next morning and office hours",
+        "place": "Wide Bend courthouse steps and Jerry's office",
+        "characters": [
+          "Jerry Bronson",
+          "Sheriff Watson",
+          "Farmer Carson",
+          "townspeople"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Restless anxiety and internal conflict about accepting the impossible; fear",
+        "reason": "Jerry struggles between logic (crops failing naturally, children running away as before) and the mounting evidence of unnatural causation (selective crop failure on neighboring forks, missing children)",
+        "anticipation": "Recognizes that Dark Valley's fertility is linked to neighbors' loss; anticipates this will lead to panic and violence",
+        "choice": "Internally commits to accepting that rational explanations are failing; considers the supernatural"
+      },
+      "reason": "No on-stage conflict or resolution; segment shows Jerry's emotional turmoil, reasoning through contradictions, and growing conviction that supernatural explanation is necessary. Contains emotion, reason, anticipation, and implicit choice. Characteristic dramatic_sequel following investigation scene.",
+      "confidence": 0.82
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 175,
+      "end_par_id": 217,
+      "start_exact": "It was after midnight when the doorbell rang. It didn't wake Jerry--he\nwas sitting in bed, staring into the darkness. There was a pile of books",
+      "end_exact": "And believe me, Mike, I'm scared.\"",
+      "start_prefix": "[P0174]\n\n",
+      "end_suffix": "\n\n[P0217]",
+      "start_char": 23039,
+      "end_char": 27165,
+      "summary": "Mike Carver arrives with news that the creature killed his brother Ed. Shots didn't harm it. Jerry reveals he has read about witchcraft and made a silver cross. They discuss the supernatural threat and consider action.",
+      "cohesion": {
+        "time": "After midnight",
+        "place": "Jerry's house",
+        "characters": [
+          "Jerry Bronson",
+          "Mike Carver"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Fear, dread, resignation to the supernatural reality",
+        "reason": "Jerry has spent hours researching witchcraft and concludes it is the only explanation that fits the evidence; Mike provides confirmation with Ed's death",
+        "anticipation": "Both anticipate the creature will return; expect they must take action with crosses and fire",
+        "choice": "Jerry commits to believing in witchcraft and deciding to use fire and silver crosses to drive out the tribe"
+      },
+      "reason": "Segment shows recovery (Mike arriving in distress), emotional acceptance (Jerry's fear and conviction), reasoning (witchcraft research), anticipation (creature threat), and choice (decide to burn and drive out). No on-stage conflict within the segment; characteristic dramatic_sequel structure.",
+      "confidence": 0.87
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 218,
+      "end_par_id": 257,
+      "start_exact": "The shadows drew closer, thicker still. They seemed charged with menace.\nWith a catch in his voice, Jerry said, \"Maybe now's the time to try it.\"",
+      "end_exact": "Jerry swayed. The hand that held the cross was numb and tingling. Like\nan automaton, he turned, went back, and knelt beside the crumpled shape",
+      "start_prefix": "[P0217]\n\n",
+      "end_suffix": "\n\n[P0258]",
+      "start_char": 27169,
+      "end_char": 32093,
+      "summary": "Jerry and Mike execute their plan: they prepare torches soaked in oil, drive up Dark Valley burning farmhouses. The creature attacks but Jerry's cross destroys it. Mike is killed. Jerry burns multiple buildings and drives the tribe out.",
+      "cohesion": {
+        "time": "Night (continuing from midnight)",
+        "place": "Dark Valley; farmhouses and roads",
+        "characters": [
+          "Jerry Bronson",
+          "Mike Carver",
+          "Joe Merklos' tribe",
+          "the creature"
+        ]
+      },
+      "gacd": {
+        "goal": "Drive out Merklos' tribe by burning farmhouses with fire and crosses",
+        "action": "Jerry and Mike set fires at farms, brandish crosses, move up the valley burning buildings",
+        "conflict": "The creature attacks, kills Mike, physically wounds Jerry; darkness and supernatural terror assault them",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear goal: drive out the tribe using fire and crosses. On-stage action: fire-setting, torch-carrying, physical confrontation. Conflict: creature attack, Mike's death, multiple confrontations with the tribe. Outcome: Success (creature destroyed, tribe driven out, valley freed). Unified by time/place (night in Dark Valley). Meets GACD threshold decisively.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "narrative_scene",
+      "start_par_id": 258,
+      "end_par_id": 262,
+      "start_exact": "They met him as he was coming back--Watson, Henderson, Caruso, Miller,\nHammond and the rest. They had flashlights and guns and tear gas, and",
+      "end_exact": "They're gone. Dark Valley is free again.\"",
+      "start_prefix": "[P0257]\n\n",
+      "end_suffix": "\n\n_Big Joe Merklos was the first of them. He appeared at the Rocky\nMountain Trust Company one day, cash in hand. The charm of him, his\nflashing smile, the easy strength in his big body, were persuasive\nrecommendations. But the Company's appraisal scarcely got that far.\nWasn't he the first buyer they had ever had for that suburban\nreal-estate fiasco, Hidden Acres...?_",
+      "start_char": 32199,
+      "end_char": 32722,
+      "summary": "The town's men arrive to find Jerry burned and exhausted. He tells them the tribe has been driven out and Dark Valley is free. The story ends with an epilogue-like paragraph suggesting the cycle repeats elsewhere.",
+      "cohesion": {
+        "time": "Late night, after the burning",
+        "place": "Dark Valley road; transition",
+        "characters": [
+          "Jerry Bronson",
+          "Watson",
+          "Henderson",
+          "Caruso",
+          "Miller",
+          "Hammond",
+          "townspeople"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by time/place (late night, valley road) and characters (community reunion). Primarily a resolution/coda scene without GACD or ERAC structure. Jerry reports outcome but does not pursue a new goal or undergo deliberation. The final italicized paragraph is narrative exposition/epilogue suggesting the story repeats, which is non-narrative meta-commentary. Classified as narrative_scene for the main resolution.",
+      "confidence": 0.78
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 13833,
+    "output_tokens": 4651
+  }
+}

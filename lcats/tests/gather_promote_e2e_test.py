@@ -19,6 +19,7 @@ import pathlib
 import shutil
 import tempfile
 import unittest
+import unittest.mock
 
 from lcats.analysis.corpus import promote
 from lcats.gatherers import downloaders
@@ -62,6 +63,15 @@ class TestGatherThenPromoteEndToEnd(unittest.TestCase):
         self.data_root = pathlib.Path(self.tmp) / "data"
         self.corpora_root = pathlib.Path(self.tmp) / "corpora"
         self.cache_root = pathlib.Path(self.tmp) / "resource_cache"
+        # promote_collections() now writes a run_log.RunLog by default -
+        # point it at an isolated directory too, consistent with this
+        # test's own "never the real data/corpora/" guarantee
+        # (WI-RUNLOG-0083).
+        self._log_dir_patch = unittest.mock.patch.object(
+            promote, "DEFAULT_PROMOTE_LOG_DIR", pathlib.Path(self.tmp) / "logs"
+        )
+        self._log_dir_patch.start()
+        self.addCleanup(self._log_dir_patch.stop)
 
     def _gatherer(self, collection_name: str) -> downloaders.DataGatherer:
         return _make_fake_gatherer(collection_name, self.data_root, self.cache_root)

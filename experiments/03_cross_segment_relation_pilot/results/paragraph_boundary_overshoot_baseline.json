@@ -1,0 +1,5336 @@
+{
+  "results_dir": "experiments/03_cross_segment_relation_pilot/results/segmentation_reliability",
+  "total_segments": 177,
+  "total_checked": 177,
+  "total_outside_claimed_window": 12,
+  "total_anchors_checked": 350,
+  "total_anchors_outside_claimed_window": 12,
+  "per_story": {
+    "lovecraft/the_haunter_of_the_dark": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=6: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 5,
+          "claimed_window": [
+            0,
+            371
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              43
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              344,
+              371
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 6,
+          "end_par_id": 9,
+          "claimed_window": [
+            373,
+            3292
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              373,
+              482
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2509,
+              2576
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 10,
+          "end_par_id": 16,
+          "claimed_window": [
+            3294,
+            8772
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3294,
+              3400
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8738,
+              8772
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 17,
+          "end_par_id": 26,
+          "claimed_window": [
+            8774,
+            15877
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8774,
+              8877
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15816,
+              15877
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 27,
+          "end_par_id": 37,
+          "claimed_window": [
+            15879,
+            25296
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15879,
+              15961
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25033,
+              25069
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 38,
+          "end_par_id": 56,
+          "claimed_window": [
+            25298,
+            28164
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25298,
+              25396
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28056,
+              28164
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 57,
+          "end_par_id": 61,
+          "claimed_window": [
+            28166,
+            31036
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28240,
+              28373
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30868,
+              31036
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 62,
+          "end_par_id": 65,
+          "claimed_window": [
+            31038,
+            33890
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              31038,
+              31145
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              33822,
+              33890
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 66,
+          "end_par_id": 68,
+          "claimed_window": [
+            33892,
+            36648
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              33892,
+              33990
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35055,
+              35115
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 69,
+          "end_par_id": 72,
+          "claimed_window": [
+            36650,
+            40697
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35117,
+              35224
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 1533
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              40013,
+              40106
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 73,
+          "end_par_id": 78,
+          "claimed_window": [
+            40699,
+            43952
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              40699,
+              40779
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              43917,
+              43952
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 79,
+          "end_par_id": 89,
+          "claimed_window": [
+            43954,
+            52566
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              43954,
+              44064
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 13,
+          "start_par_id": 90,
+          "end_par_id": 99,
+          "claimed_window": [
+            52568,
+            54533
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              52568,
+              52644
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/calling_the_empress__smith": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=1: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 4,
+          "claimed_window": [
+            0,
+            1887
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              114
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1732,
+              1887
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 5,
+          "end_par_id": 8,
+          "claimed_window": [
+            1889,
+            3262
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1889,
+              2063
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3194,
+              3262
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 9,
+          "end_par_id": 12,
+          "claimed_window": [
+            3264,
+            4301
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3264,
+              3376
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4213,
+              4301
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 13,
+          "end_par_id": 21,
+          "claimed_window": [
+            4303,
+            5453
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3984,
+              4149
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 319
+          },
+          "end": {
+            "anchor_present": false
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 22,
+          "end_par_id": 54,
+          "claimed_window": [
+            5455,
+            10397
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5455,
+              5543
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10248,
+              10397
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 55,
+          "end_par_id": 77,
+          "claimed_window": [
+            10399,
+            15915
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10399,
+              10578
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 78,
+          "end_par_id": 96,
+          "claimed_window": [
+            15917,
+            19862
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15917,
+              15998
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19816,
+              19860
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 97,
+          "end_par_id": 130,
+          "claimed_window": [
+            19864,
+            27747
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19864,
+              19905
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27629,
+              27747
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 131,
+          "end_par_id": 158,
+          "claimed_window": [
+            27749,
+            32319
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27751,
+              27864
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29829,
+              30040
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 159,
+          "end_par_id": 183,
+          "claimed_window": [
+            32321,
+            37686
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              32321,
+              32404
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              37688,
+              37696
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 10
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 188,
+          "end_par_id": 209,
+          "claimed_window": [
+            37952,
+            42306
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              37954,
+              38060
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              42283,
+              42306
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 210,
+          "end_par_id": 228,
+          "claimed_window": [
+            42308,
+            44351
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              42310,
+              42386
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 13,
+          "start_par_id": 229,
+          "end_par_id": 238,
+          "claimed_window": [
+            44353,
+            46500
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              44353,
+              44527
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46438,
+              46497
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 14,
+          "start_par_id": 239,
+          "end_par_id": 262,
+          "claimed_window": [
+            46502,
+            50851
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46502,
+              46583
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              50658,
+              50851
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 15,
+          "start_par_id": 263,
+          "end_par_id": 287,
+          "claimed_window": [
+            50853,
+            54631
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              50853,
+              50941
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              54421,
+              54629
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 16,
+          "start_par_id": 288,
+          "end_par_id": 296,
+          "claimed_window": [
+            54633,
+            56521
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              54633,
+              54788
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              56508,
+              56521
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 17,
+          "start_par_id": 293,
+          "end_par_id": 296,
+          "claimed_window": [
+            55455,
+            56521
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              55455,
+              55526
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              56508,
+              56521
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/easy_money__sinclair": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 36,
+          "claimed_window": [
+            0,
+            7464
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4,
+              228
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7419,
+              7464
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 37,
+          "end_par_id": 89,
+          "claimed_window": [
+            7466,
+            22149
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7468,
+              7606
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22052,
+              22149
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 90,
+          "end_par_id": 117,
+          "claimed_window": [
+            22151,
+            30806
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22151,
+              22296
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30808,
+              31092
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 286
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 118,
+          "end_par_id": 142,
+          "claimed_window": [
+            30808,
+            35885
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              31588,
+              31790
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35854,
+              35885
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 143,
+          "end_par_id": 156,
+          "claimed_window": [
+            35887,
+            40245
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35889,
+              36165
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              40078,
+              40130
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 157,
+          "end_par_id": 180,
+          "claimed_window": [
+            40247,
+            45535
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              40249,
+              40457
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              45297,
+              45535
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 181,
+          "end_par_id": 197,
+          "claimed_window": [
+            45537,
+            48684
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              45539,
+              45725
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              48527,
+              48683
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/junior__abernathy": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 12,
+          "claimed_window": [
+            0,
+            1703
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5,
+              128
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1633,
+              1703
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 13,
+          "end_par_id": 34,
+          "claimed_window": [
+            1705,
+            3994
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1707,
+              1928
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3908,
+              3994
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 35,
+          "end_par_id": 48,
+          "claimed_window": [
+            3996,
+            6617
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3996,
+              4114
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6532,
+              6617
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 49,
+          "end_par_id": 71,
+          "claimed_window": [
+            6619,
+            10214
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6621,
+              6709
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10188,
+              10214
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 72,
+          "end_par_id": 87,
+          "claimed_window": [
+            10216,
+            13126
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10218,
+              10520
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13092,
+              13126
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 88,
+          "end_par_id": 100,
+          "claimed_window": [
+            13128,
+            14744
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13128,
+              13310
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14622,
+              14744
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/peace_manoeuvres__davis": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 3,
+          "claimed_window": [
+            0,
+            2667
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              97
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2652,
+              2667
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 4,
+          "end_par_id": 7,
+          "claimed_window": [
+            2669,
+            3268
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2669,
+              2726
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3130,
+              3268
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 8,
+          "end_par_id": 25,
+          "claimed_window": [
+            3270,
+            5080
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3270,
+              3407
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5059,
+              5080
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 26,
+          "end_par_id": 36,
+          "claimed_window": [
+            5082,
+            6347
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5082,
+              5123
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6289,
+              6347
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 37,
+          "end_par_id": 52,
+          "claimed_window": [
+            6349,
+            10424
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6349,
+              6565
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10265,
+              10423
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 53,
+          "end_par_id": 81,
+          "claimed_window": [
+            10426,
+            14443
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10426,
+              10464
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14355,
+              14443
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 82,
+          "end_par_id": 110,
+          "claimed_window": [
+            14445,
+            19181
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14445,
+              14508
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19154,
+              19181
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 111,
+          "end_par_id": 144,
+          "claimed_window": [
+            19183,
+            24052
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19183,
+              19280
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              24007,
+              24052
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 145,
+          "end_par_id": 162,
+          "claimed_window": [
+            24054,
+            27287
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              24054,
+              24140
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27242,
+              27287
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 163,
+          "end_par_id": 195,
+          "claimed_window": [
+            27289,
+            33700
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27289,
+              27404
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              33646,
+              33700
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 196,
+          "end_par_id": 208,
+          "claimed_window": [
+            33702,
+            35759
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              33702,
+              33757
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35578,
+              35627
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/problem_in_solid__smith": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=6: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 6,
+          "claimed_window": [
+            0,
+            1526
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              249
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1378,
+              1526
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 7,
+          "end_par_id": 26,
+          "claimed_window": [
+            1528,
+            4316
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1528,
+              1723
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4183,
+              4316
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 28,
+          "end_par_id": 58,
+          "claimed_window": [
+            4320,
+            8856
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4320,
+              4630
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8732,
+              8856
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 60,
+          "end_par_id": 75,
+          "claimed_window": [
+            8860,
+            10699
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8860,
+              8939
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10190,
+              10379
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 77,
+          "end_par_id": 121,
+          "claimed_window": [
+            10703,
+            15837
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10703,
+              11068
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15812,
+              15837
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 123,
+          "end_par_id": 184,
+          "claimed_window": [
+            15841,
+            24265
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15841,
+              15983
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 186,
+          "end_par_id": 227,
+          "claimed_window": [
+            24269,
+            27866
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              24269,
+              24459
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27778,
+              27864
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 228,
+          "end_par_id": 296,
+          "claimed_window": [
+            27868,
+            35866
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27868,
+              27984
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35870,
+              35957
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 91
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 297,
+          "end_par_id": 353,
+          "claimed_window": [
+            35868,
+            44309
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35870,
+              35957
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              44281,
+              44307
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 354,
+          "end_par_id": 372,
+          "claimed_window": [
+            44311,
+            46363
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              44311,
+              44650
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46259,
+              46363
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_guardians__cox": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=9: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 3,
+          "claimed_window": [
+            0,
+            167
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              138
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 4,
+          "end_par_id": 24,
+          "claimed_window": [
+            169,
+            6759
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              170,
+              300
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6636,
+              6759
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 25,
+          "end_par_id": 31,
+          "claimed_window": [
+            6761,
+            8590
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6762,
+              6958
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8542,
+              8590
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 32,
+          "end_par_id": 46,
+          "claimed_window": [
+            8592,
+            12806
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8592,
+              8774
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              12609,
+              12806
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 47,
+          "end_par_id": 67,
+          "claimed_window": [
+            12808,
+            17613
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              12809,
+              13015
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              17542,
+              17613
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 68,
+          "end_par_id": 88,
+          "claimed_window": [
+            17615,
+            21792
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              17615,
+              17744
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              21777,
+              21792
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 89,
+          "end_par_id": 102,
+          "claimed_window": [
+            21794,
+            25004
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              21795,
+              22030
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              24905,
+              25004
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 103,
+          "end_par_id": 115,
+          "claimed_window": [
+            25006,
+            29149
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25006,
+              25146
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29011,
+              29149
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 116,
+          "end_par_id": 142,
+          "claimed_window": [
+            29151,
+            34463
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29152,
+              29379
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              34609,
+              34918
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 455
+          },
+          "outside_claimed_window": true
+        }
+      ]
+    },
+    "mass_quantities/the_invaders__ferris": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 19,
+          "claimed_window": [
+            0,
+            2519
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              104
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2413,
+              2519
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 21,
+          "end_par_id": 33,
+          "claimed_window": [
+            2523,
+            5864
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2523,
+              2660
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5808,
+              5864
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 34,
+          "end_par_id": 52,
+          "claimed_window": [
+            5866,
+            7461
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5937,
+              6018
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7387,
+              7461
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 55,
+          "end_par_id": 74,
+          "claimed_window": [
+            7679,
+            10579
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7679,
+              7821
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10506,
+              10579
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 76,
+          "end_par_id": 104,
+          "claimed_window": [
+            10583,
+            14457
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10583,
+              10726
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14443,
+              14457
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 106,
+          "end_par_id": 134,
+          "claimed_window": [
+            14461,
+            18593
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14461,
+              14598
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18532,
+              18593
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 136,
+          "end_par_id": 154,
+          "claimed_window": [
+            18597,
+            20511
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18597,
+              18739
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20445,
+              20511
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 155,
+          "end_par_id": 173,
+          "claimed_window": [
+            20513,
+            23035
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20513,
+              20644
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              23016,
+              23035
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 175,
+          "end_par_id": 217,
+          "claimed_window": [
+            23039,
+            27167
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              23039,
+              23182
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27131,
+              27165
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 218,
+          "end_par_id": 257,
+          "claimed_window": [
+            27169,
+            32197
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              27169,
+              27315
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              31951,
+              32093
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 258,
+          "end_par_id": 262,
+          "claimed_window": [
+            32199,
+            33091
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              32199,
+              32339
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              32681,
+              32722
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_last_days_of_l_a__smith": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=13: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 1,
+          "claimed_window": [
+            0,
+            663
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              107
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              589,
+              663
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 2,
+          "end_par_id": 2,
+          "claimed_window": [
+            665,
+            1126
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              665,
+              767
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1047,
+              1126
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 3,
+          "end_par_id": 8,
+          "claimed_window": [
+            1128,
+            2812
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1128,
+              1204
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2460,
+              2559
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 9,
+          "end_par_id": 41,
+          "claimed_window": [
+            2814,
+            7602
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2814,
+              2949
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7365,
+              7515
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 42,
+          "end_par_id": 42,
+          "claimed_window": [
+            7604,
+            7683
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7604,
+              7683
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7604,
+              7683
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 44,
+          "end_par_id": 56,
+          "claimed_window": [
+            7687,
+            11732
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7687,
+              7780
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11632,
+              11732
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 57,
+          "end_par_id": 61,
+          "claimed_window": [
+            11734,
+            12593
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11734,
+              11879
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              12528,
+              12593
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 63,
+          "end_par_id": 65,
+          "claimed_window": [
+            12597,
+            13665
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              12597,
+              12726
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13530,
+              13665
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 66,
+          "end_par_id": 68,
+          "claimed_window": [
+            13667,
+            14462
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13667,
+              13781
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14433,
+              14462
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 69,
+          "end_par_id": 85,
+          "claimed_window": [
+            14464,
+            15391
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14464,
+              14588
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15312,
+              15391
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 86,
+          "end_par_id": 95,
+          "claimed_window": [
+            15393,
+            19103
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15393,
+              15600
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              17880,
+              17966
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 92,
+          "end_par_id": 95,
+          "claimed_window": [
+            17968,
+            19103
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              17968,
+              18107
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19009,
+              19103
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 13,
+          "start_par_id": 96,
+          "end_par_id": 111,
+          "claimed_window": [
+            19105,
+            21026
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": false
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20924,
+              21026
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 14,
+          "start_par_id": 113,
+          "end_par_id": 115,
+          "claimed_window": [
+            21030,
+            22388
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              21030,
+              21167
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22288,
+              22388
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 15,
+          "start_par_id": 116,
+          "end_par_id": 118,
+          "claimed_window": [
+            22390,
+            22928
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22390,
+              22624
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22875,
+              22928
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 16,
+          "start_par_id": 119,
+          "end_par_id": 145,
+          "claimed_window": [
+            22930,
+            28504
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22930,
+              23103
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28426,
+              28504
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 17,
+          "start_par_id": 147,
+          "end_par_id": 149,
+          "claimed_window": [
+            28508,
+            30391
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28508,
+              28648
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30317,
+              30391
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 18,
+          "start_par_id": 150,
+          "end_par_id": 162,
+          "claimed_window": [
+            30393,
+            32449
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30393,
+              30457
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              32383,
+              32449
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 19,
+          "start_par_id": 163,
+          "end_par_id": 164,
+          "claimed_window": [
+            32451,
+            34439
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              32451,
+              32549
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              34410,
+              34439
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 20,
+          "start_par_id": 165,
+          "end_par_id": 167,
+          "claimed_window": [
+            34441,
+            35357
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              34441,
+              34633
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35238,
+              35357
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 21,
+          "start_par_id": 168,
+          "end_par_id": 192,
+          "claimed_window": [
+            35359,
+            39272
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35359,
+              35574
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              39107,
+              39272
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 22,
+          "start_par_id": 193,
+          "end_par_id": 193,
+          "claimed_window": [
+            39274,
+            39513
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              39274,
+              39513
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              39274,
+              39513
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_lost_charm__norton": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 1,
+          "claimed_window": [
+            0,
+            94
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4,
+              64
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              73,
+              94
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 2,
+          "end_par_id": 4,
+          "claimed_window": [
+            96,
+            2196
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              96,
+              220
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1702,
+              1850
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 5,
+          "end_par_id": 14,
+          "claimed_window": [
+            2198,
+            4956
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2198,
+              2273
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4801,
+              4956
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 15,
+          "end_par_id": 27,
+          "claimed_window": [
+            4958,
+            15034
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4958,
+              5080
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14944,
+              15034
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 20,
+          "end_par_id": 26,
+          "claimed_window": [
+            7072,
+            14855
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7072,
+              7214
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14753,
+              14855
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 28,
+          "end_par_id": 44,
+          "claimed_window": [
+            15036,
+            20560
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15036,
+              15135
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20512,
+              20560
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 45,
+          "end_par_id": 60,
+          "claimed_window": [
+            20562,
+            26594
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20562,
+              20685
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              26503,
+              26594
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 61,
+          "end_par_id": 70,
+          "claimed_window": [
+            26596,
+            30688
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              26596,
+              26691
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30590,
+              30688
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 71,
+          "end_par_id": 74,
+          "claimed_window": [
+            30690,
+            31551
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              30690,
+              30795
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              31480,
+              31551
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 75,
+          "end_par_id": 86,
+          "claimed_window": [
+            31553,
+            35900
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              31553,
+              31693
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35767,
+              35900
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 87,
+          "end_par_id": 88,
+          "claimed_window": [
+            35902,
+            37653
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              35902,
+              36050
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              37587,
+              37653
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 89,
+          "end_par_id": 112,
+          "claimed_window": [
+            37655,
+            46186
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              37655,
+              37787
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46111,
+              46186
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 13,
+          "start_par_id": 113,
+          "end_par_id": 114,
+          "claimed_window": [
+            46188,
+            46932
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46188,
+              46310
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              46559,
+              46758
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_medici_boots__swet": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=10: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 3,
+          "claimed_window": [
+            0,
+            165
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5,
+              161
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": false
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 4,
+          "end_par_id": 8,
+          "claimed_window": [
+            167,
+            1799
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              168,
+              342
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1626,
+              1799
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 9,
+          "end_par_id": 23,
+          "claimed_window": [
+            1801,
+            5375
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1801,
+              1907
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5229,
+              5375
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 24,
+          "end_par_id": 31,
+          "claimed_window": [
+            5377,
+            6798
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5378,
+              5531
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6679,
+              6798
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 32,
+          "end_par_id": 45,
+          "claimed_window": [
+            6800,
+            11339
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              6804,
+              6974
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11221,
+              11339
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 46,
+          "end_par_id": 60,
+          "claimed_window": [
+            11341,
+            13270
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11342,
+              11521
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13092,
+              13270
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 61,
+          "end_par_id": 74,
+          "claimed_window": [
+            13272,
+            15788
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13273,
+              13553
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15499,
+              15788
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 75,
+          "end_par_id": 87,
+          "claimed_window": [
+            15790,
+            18502
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15791,
+              16003
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18390,
+              18502
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 88,
+          "end_par_id": 102,
+          "claimed_window": [
+            18504,
+            21239
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18505,
+              18640
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              21062,
+              21239
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 103,
+          "end_par_id": 125,
+          "claimed_window": [
+            21241,
+            25595
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              21242,
+              21422
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25599,
+              25955
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 360
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 126,
+          "end_par_id": 147,
+          "claimed_window": [
+            25597,
+            29778
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25598,
+              25955
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29488,
+              29778
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 147,
+          "end_par_id": 160,
+          "claimed_window": [
+            29488,
+            32197
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29488,
+              29778
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_secret_of_kralitz__kuttner": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 9,
+          "claimed_window": [
+            0,
+            2302
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              125
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2208,
+              2302
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 11,
+          "end_par_id": 20,
+          "claimed_window": [
+            2306,
+            5909
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2306,
+              2432
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5833,
+              5907
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 21,
+          "end_par_id": 35,
+          "claimed_window": [
+            5911,
+            11444
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5911,
+              6047
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11368,
+              11444
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 37,
+          "end_par_id": 41,
+          "claimed_window": [
+            11448,
+            13102
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11448,
+              11561
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13032,
+              13102
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 38,
+          "end_par_id": 41,
+          "claimed_window": [
+            11836,
+            13102
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              11836,
+              12033
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13032,
+              13102
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 42,
+          "end_par_id": 45,
+          "claimed_window": [
+            13104,
+            15127
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13104,
+              13242
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15047,
+              15127
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 46,
+          "end_par_id": 48,
+          "claimed_window": [
+            15129,
+            16001
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15129,
+              15244
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15907,
+              16001
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/the_voice_in_the_fog__leverage": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 6,
+          "claimed_window": [
+            0,
+            1981
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              136
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1823,
+              1981
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 7,
+          "end_par_id": 15,
+          "claimed_window": [
+            1983,
+            3596
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1983,
+              2153
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3363,
+              3596
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 16,
+          "end_par_id": 34,
+          "claimed_window": [
+            3598,
+            7311
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3598,
+              3841
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7225,
+              7391
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 80
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 35,
+          "end_par_id": 46,
+          "claimed_window": [
+            7313,
+            8996
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7313,
+              7459
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8710,
+              8811
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 48,
+          "end_par_id": 51,
+          "claimed_window": [
+            9000,
+            10343
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              9000,
+              9201
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10176,
+              10343
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 52,
+          "end_par_id": 70,
+          "claimed_window": [
+            10345,
+            13014
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10345,
+              10581
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13016,
+              13367
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 353
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 71,
+          "end_par_id": 79,
+          "claimed_window": [
+            13016,
+            14648
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              13016,
+              13322
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14602,
+              14648
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 80,
+          "end_par_id": 87,
+          "claimed_window": [
+            14650,
+            16094
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14650,
+              14924
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              16049,
+              16094
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 89,
+          "end_par_id": 103,
+          "claimed_window": [
+            16098,
+            19218
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              16098,
+              16386
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19220,
+              19595
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 377
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 104,
+          "end_par_id": 115,
+          "claimed_window": [
+            19220,
+            20762
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              19220,
+              19394
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20605,
+              20762
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 11,
+          "start_par_id": 116,
+          "end_par_id": 127,
+          "claimed_window": [
+            20764,
+            22428
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              20764,
+              20928
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22295,
+              22426
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 12,
+          "start_par_id": 128,
+          "end_par_id": 159,
+          "claimed_window": [
+            22430,
+            26975
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22430,
+              22616
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              26805,
+              26975
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 13,
+          "start_par_id": 160,
+          "end_par_id": 170,
+          "claimed_window": [
+            26977,
+            28370
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              26977,
+              27371
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28340,
+              28370
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 14,
+          "start_par_id": 170,
+          "end_par_id": 171,
+          "claimed_window": [
+            28340,
+            28473
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28340,
+              28473
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28372,
+              28473
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "mass_quantities/wintry_peacock_from_the_new_decameron_volume_iii__lawrence": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=9: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 1,
+          "claimed_window": [
+            0,
+            1091
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              0,
+              229
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1044,
+              1091
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 2,
+          "end_par_id": 35,
+          "claimed_window": [
+            1093,
+            8538
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1093,
+              1265
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8465,
+              8538
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 36,
+          "end_par_id": 85,
+          "claimed_window": [
+            8540,
+            14229
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8540,
+              8619
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14163,
+              14229
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 86,
+          "end_par_id": 87,
+          "claimed_window": [
+            14231,
+            15474
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14231,
+              14402
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15406,
+              15474
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 88,
+          "end_par_id": 93,
+          "claimed_window": [
+            15476,
+            18073
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              15476,
+              15719
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              17118,
+              17237
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 94,
+          "end_par_id": 95,
+          "claimed_window": [
+            18075,
+            19380
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18075,
+              18272
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18322,
+              18532
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 95,
+          "end_par_id": 115,
+          "claimed_window": [
+            18322,
+            22233
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18533,
+              18849
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22142,
+              22233
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 8,
+          "start_par_id": 116,
+          "end_par_id": 135,
+          "claimed_window": [
+            22235,
+            26560
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22235,
+              22399
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25760,
+              26035
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 9,
+          "start_par_id": 135,
+          "end_par_id": 162,
+          "claimed_window": [
+            26037,
+            28696
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              26037,
+              26370
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28698,
+              28804
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 108
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 10,
+          "start_par_id": 163,
+          "end_par_id": 198,
+          "claimed_window": [
+            28698,
+            31001
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              28698,
+              28804
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": false
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "ohenry-four_million/romance_of_a_busy_broker": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 9,
+          "claimed_window": [
+            0,
+            2356
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1,
+              79
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2271,
+              2356
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 10,
+          "end_par_id": 20,
+          "claimed_window": [
+            2358,
+            5567
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              2359,
+              2436
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5500,
+              5567
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 21,
+          "end_par_id": 32,
+          "claimed_window": [
+            5569,
+            7962
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              5570,
+              5642
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7879,
+              7961
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "ohenry-whirligigs/girl": {
+      "outcome": "included",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 5,
+          "claimed_window": [
+            0,
+            941
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              1,
+              80
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              915,
+              940
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 6,
+          "end_par_id": 16,
+          "claimed_window": [
+            943,
+            3223
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              944,
+              1013
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3181,
+              3223
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 17,
+          "end_par_id": 43,
+          "claimed_window": [
+            3225,
+            8011
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              3226,
+              3287
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7772,
+              8011
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 44,
+          "end_par_id": 60,
+          "claimed_window": [
+            8013,
+            9548
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              8014,
+              8121
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              9488,
+              9548
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 61,
+          "end_par_id": 67,
+          "claimed_window": [
+            9550,
+            10693
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              9551,
+              9625
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              10584,
+              10692
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    },
+    "wodehouse/romance_of_an_ugly_policeman": {
+      "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+      "segments": [
+        {
+          "segment_id": 1,
+          "start_par_id": 1,
+          "end_par_id": 8,
+          "claimed_window": [
+            0,
+            4638
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7,
+              79
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4567,
+              4633
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 2,
+          "start_par_id": 9,
+          "end_par_id": 27,
+          "claimed_window": [
+            4640,
+            7148
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              4646,
+              4718
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7010,
+              7078
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 3,
+          "start_par_id": 28,
+          "end_par_id": 53,
+          "claimed_window": [
+            7150,
+            14018
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              7156,
+              7230
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14026,
+              14076
+            ],
+            "inside_claimed_window": false,
+            "overshoot_chars": 58
+          },
+          "outside_claimed_window": true
+        },
+        {
+          "segment_id": 4,
+          "start_par_id": 54,
+          "end_par_id": 93,
+          "claimed_window": [
+            14020,
+            18667
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              14089,
+              14155
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18610,
+              18662
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 5,
+          "start_par_id": 94,
+          "end_par_id": 111,
+          "claimed_window": [
+            18669,
+            22356
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              18675,
+              18747
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22263,
+              22351
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 6,
+          "start_par_id": 112,
+          "end_par_id": 149,
+          "claimed_window": [
+            22358,
+            25775
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              22364,
+              22434
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25722,
+              25770
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        },
+        {
+          "segment_id": 7,
+          "start_par_id": 150,
+          "end_par_id": 193,
+          "claimed_window": [
+            25777,
+            29369
+          ],
+          "start": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              25783,
+              25808
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "end": {
+            "anchor_present": true,
+            "located": true,
+            "match_span": [
+              29350,
+              29363
+            ],
+            "inside_claimed_window": true,
+            "overshoot_chars": 0
+          },
+          "outside_claimed_window": false
+        }
+      ]
+    }
+  },
+  "label": "baseline"
+}

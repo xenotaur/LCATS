@@ -1,0 +1,19 @@
+# Resolved from pilot_stories.jsonl's 17 story_ids (WI-EVENT-0096) -
+# the exact 65% (11/17) parsing_error baseline cohort, not a fresh sample.
+corpora/mass_quantities/junior__abernathy
+corpora/mass_quantities/the_guardians__cox
+corpora/mass_quantities/calling_the_empress__smith
+corpora/mass_quantities/the_last_days_of_l_a__smith
+corpora/mass_quantities/problem_in_solid__smith
+corpora/mass_quantities/the_voice_in_the_fog__leverage
+corpora/mass_quantities/the_secret_of_kralitz__kuttner
+corpora/lovecraft/the_haunter_of_the_dark
+corpora/mass_quantities/the_invaders__ferris
+corpora/mass_quantities/the_medici_boots__swet
+corpora/mass_quantities/the_lost_charm__norton
+corpora/mass_quantities/easy_money__sinclair
+corpora/wodehouse/romance_of_an_ugly_policeman
+corpora/mass_quantities/wintry_peacock_from_the_new_decameron_volume_iii__lawrence
+corpora/mass_quantities/peace_manoeuvres__davis
+corpora/ohenry-four_million/romance_of_a_busy_broker
+corpora/ohenry-whirligigs/girl

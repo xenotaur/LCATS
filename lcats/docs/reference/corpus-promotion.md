@@ -2,17 +2,28 @@
 
 `corpora/` is a periodic release snapshot; `data/` is the live working corpus,
 cleared and regenerated after major changes (see `project/design/design.md`'s
-State and Persistence Boundary). Promotion copies collections from `data/`
-into `corpora/`, gated on a passing special-character survey, so stale
-encoding damage cannot silently re-enter the release snapshot the way the
-pre-2026-07 `corpora/` snapshot did (148 stories of stale mojibake, from a
-promotion that happened without a quality gate).
+State and Persistence Boundary). `replace` mode copies whole collections
+from `data/` into `corpora/`, gated on a passing special-character survey,
+so stale encoding damage cannot silently re-enter the release snapshot the
+way the pre-2026-07 `corpora/` snapshot did (148 stories of stale mojibake,
+from a promotion that happened without a quality gate). `insert`/`upsert`
+promote individual sidecars via a validated manifest instead — they are
+not survey-gated the way `replace` is.
 
 ## Command
 
+An explicit mode is mandatory (`WI-PROMOTE-0097`): `lcats promote` with no
+mode refuses rather than defaulting to any behavior. This closes the
+data-loss hazard between additive sidecar promotion and wholesale
+collection replacement — a mode name always says which one you're getting.
+
 ```bash
-lcats promote [collection ...] [--source data/] [--dest ../corpora] [--dry-run]
+lcats promote replace [collection ...] [--source data/] [--dest ../corpora] [--dry-run] [--allow-orphaned-sidecar-deletion]
+lcats promote insert --sidecar <kind> (--tranche-manifest <path.jsonl> | --source <dir>) [--dest ../corpora] [--allow-unvalidated] [--dry-run]
+lcats promote upsert --sidecar <kind> (--tranche-manifest <path.jsonl> | --source <dir>) [--dest ../corpora] [--allow-unvalidated] [--dry-run]
 ```
+
+### `replace` — wholesale collection replacement
 
 - With no `collection` arguments, every subdirectory under `--source` is
   considered.
@@ -30,13 +41,76 @@ lcats promote [collection ...] [--source data/] [--dest ../corpora] [--dry-run]
 - Refuses to run (exit `2`) if `--source` and `--dest` resolve to the same
   directory or are nested inside one another — this would otherwise delete
   the source before the copy could run.
+- **Orphaned-sidecar guard** (`WI-PROMOTE-0101`): an otherwise-clean
+  collection is also blocked by default if the wholesale replace would
+  delete a *registered* sidecar kind (via the same registry `insert`/
+  `upsert` use) that exists at the destination for a story but is missing
+  from the corresponding source — the scenario where a collection was
+  `upsert`-into since its last `replace`, and a later `replace` would
+  silently wipe that work. Only registered kinds are checked, never a
+  generic "any destination-only file" diff, to avoid false positives on
+  legitimate corpora-only content unrelated to sidecar promotion. A
+  destination collection that doesn't exist yet is never blocked — there
+  is nothing to orphan on a first-time promotion. `--allow-orphaned-
+  sidecar-deletion` overrides the guard and restores the unguarded
+  wholesale behavior, per invocation. `insert`/`upsert` are entirely
+  unaffected — they are structurally incapable of deleting anything
+  regardless of flags.
 - Exit code is `0` when every considered collection promoted, `1` if any
-  collection was blocked, `2` on a usage/environment error (missing source
-  directory, unknown collection name, unsafe source/dest paths).
+  collection was blocked (mojibake, malformed sidecar, or orphaned
+  sidecar), `2` on a usage/environment error (missing source directory,
+  unknown collection name, unsafe source/dest paths).
 - `--dry-run` surveys and reports without copying any files.
 
 This tool builds and gates promotion; it does not decide *when* to promote —
 running it (for real, not `--dry-run`) is a release-time human action.
+
+### `insert`/`upsert` — additive sidecar promotion
+
+Both modes promote sidecars named in a JSONL manifest into existing story
+buckets under `--dest`, without touching any other file in the destination
+bucket or collection. `insert` is create-only (refuses, does not overwrite,
+if the destination sidecar already exists); `upsert` is create-or-overwrite
+(whole-file only — it never merges sidecar content).
+
+- `--sidecar <kind>` selects the registered sidecar kind to promote (e.g.
+  `genre`, `scenes`, `linguistics`, `linguistics.tokens.json`). A value with
+  no `.` assumes `.json`; a value containing `.` is matched exactly against
+  the registry, with no inference.
+- Exactly one of two sourcing modes is required — `--tranche-manifest` and
+  `--source` are mutually exclusive:
+  - `--tranche-manifest <path.jsonl>` reads a JSONL manifest, one
+    **envelope** object per line: `{"lcats_id": "<destination story id>",
+    "payload": {<sidecar content>}}`. The envelope's `lcats_id` is what
+    routes the write — never the payload's own fields, since some sidecar
+    kinds (e.g. `scenes.json`) carry no story-identity field of their own.
+    A manifest line with no `"payload"` field is also accepted when it
+    carries its own non-empty top-level `lcats_id` (a bare legacy record,
+    e.g. an existing `genre-sidecar-v1` manifest) — the whole record is
+    then treated as the payload.
+  - `--source <dir>` scans `<dir>/<collection>/<story>/<sidecar-filename>`
+    directly — no manifest file needed. Every story bucket under `<dir>`
+    that already has the named `--sidecar` file is promoted; a bucket
+    without it is silently skipped, not reported. The bucket's own path
+    relative to `<dir>` (e.g. `anderson/bell`) is always the routing
+    `lcats_id` — a scanned sidecar's own identity field, if any, is
+    validated to agree with that routing `lcats_id` and rejected on
+    mismatch, the same as a manifest record would be.
+  Both modes feed the exact same validation, escape-check,
+  identity-agreement, and existing-destination-file logic — scanning is
+  purely an alternative way to source records, not a second promotion
+  engine.
+- Every `--sidecar` kind is validated against a shared registry by default;
+  `--allow-unvalidated` permits promoting a kind with **no registered
+  validator** — it never bypasses a registered validator's own rejection of
+  malformed content. A registered validator checks the payload's own
+  internal shape, not just the envelope — for `genre` (`genre-sidecar-v1`),
+  the payload itself must carry its own top-level `schema_version`
+  (`"genre-sidecar-v1"`), `lcats_id`, and `story_path` fields in addition
+  to `assessments`; `lcats_id` here is separate from (and in addition to)
+  the envelope's routing `lcats_id`.
+- Neither mode creates a destination story bucket — `lcats_id` must name a
+  bucket that already has a `story.json`.
 
 ## Collection-name mapping
 
@@ -67,7 +141,7 @@ real promotion under this scheme should include, as part of that same change:
 
 ```bash
 git rm -r corpora/ohenry corpora/wilde
-lcats promote  # populates ohenry-four_million, ohenry-whirligigs, wilde_happy_prince, ...
+lcats promote replace  # populates ohenry-four_million, ohenry-whirligigs, wilde_happy_prince, ...
 ```
 
 This is a one-time historical correction, not a recurring promotion step.

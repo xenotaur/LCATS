@@ -1075,3 +1075,89 @@ sample.
 (`project/work_items/resolved/WI-SEGMENT-0059.md`, prior art on why a
 full-document fallback is unsafe);
 `project/design/segmentation-alignment-failure-categories.md`.
+
+**2026-08-28 update - a second, cleaner sample from `WI-SEGMENT-0098`.**
+`WI-EVENT-0096`'s real post-`WI-EVENT-0033` measurement run (17-story
+cohort, `claude-haiku-4-5-20251001`, `tool_schema=` structured output)
+surfaced 6 more real cases of exactly this pattern, root-caused in
+`WI-SEGMENT-0098`
+(`project/design/segmentation-paragraph-boundary-truncation-investigation.md`,
+resolved via PR #403). Unlike this entry's original 6-case sample, the
+new sample is strikingly consistent: **all 6 undercount** `end_par_id`
+(the real text always lands in the paragraph immediately after the
+claimed range, never before, never overcounting), with small drift (1
+paragraph in 5/6 cases, 2 in the one outlier - which has a distinct,
+identified cause: an empty/zero-length paragraph between the claimed and
+real paragraph). `text_segmenter`'s own paragraph indexing was directly
+re-verified correct in every case. Whether this cleaner, one-directional
+signal reflects a genuinely more consistent underlying model behavior
+(e.g. tied to the `tool_schema=` retrofit changing how `end_par_id` gets
+produced) or is simply a smaller, more homogeneous sample than the
+original 6-of-21 case is not yet known - the two samples' directionality
+disagrees (this entry's original sample: 4 undercount, 2 overcount) in a
+way worth resolving before treating either as representative.
+`WI-SEGMENT-0098`'s own recommendation - a narrowly-scoped,
+end-boundary-only search-window widening, sized from a broader real
+sample before any production change - is consistent with, and adds real
+evidence toward, the "why not a fresh investigation-type WI yet" gate
+above; it does not yet clear that gate on its own (12 combined real
+cases across two samples, still short of a dedicated 100+-story sample
+with real statistical power). Also related: the full per-case breakdown
+lives in the dated execution record under
+`project/executions/WI-SEGMENT-0098/`.
+
+---
+
+### Explore an iterative/automated prompt optimizer for segmentation, using the fuzzy-match regression tester as a scoring function — P3, decision needed before any code
+
+Surfaced 2026-08-29 during design discussion following `WI-SEGMENT-0101`
+(paragraph-boundary prompt-consistency investigation) and `WI-SEGMENT-0102`
+(fuzzy-match regression-safety check). The idea: turn `WI-SEGMENT-0102`'s
+regression test (or an expanded version of it) into a scalar score, and
+search over prompt variants (e.g. `SCENE_SEQUEL_SYSTEM_PROMPT` in
+`lcats/src/lcats/analysis/scene_analysis.py`) to improve it automatically,
+using a cheap local-model backend for the search loop while keeping the
+existing multi-backend abstraction (`lcats/src/lcats/llm/backend.py`,
+already supporting Anthropic/OpenAI/fake backends, plus a real local-model
+precedent via `openai_backend.OpenAIBackend(api_key="ollama", ...)` in
+`experiments/05_metadata_genre_prefilter/run_prefilter.py:905`) available
+for cross-backend comparison.
+
+**Not literal gradient descent** unless using soft-prompt/prefix-tuning
+with white-box gradient access to model weights (Li & Liang 2021,
+"Prefix-Tuning"; Lester et al. 2021, "The Power of Scale for
+Parameter-Efficient Prompt Tuning") - a local *inference* server (Ollama)
+does not expose this. For discrete prompt-text search against a
+non-differentiable pipeline, the applicable established techniques are
+black-box/derivative-free: evolutionary search, Bayesian optimization, or
+LLM-as-optimizer meta-prompting (Zhou et al. 2022, "APE"; Yang et al.
+2023, "OPRO"; Stanford's DSPy framework generalizes this pattern).
+
+**Real, disqualifying-if-ignored risk already measured in this repo:**
+`WI-LLM-0051` (resolved) found Ollama's forced `tool_choice` - the same
+mechanism the segmentation extractor uses (`SEGMENT_TOOL_SCHEMA`,
+`scene_analysis.py:189-220`) - failed 0/5 at baseline and only reached
+40% (2/5) with an explicit mitigation. A local-model-scored search over
+this exact call shape would need that mitigation (or a cost/reliability
+tradeoff decision) built in from the start, not discovered mid-project.
+
+**Why not a WI yet:** this needs a real design pass before any code,
+covering at minimum: (1) a held-out validation split separate from the
+regression-test corpus used as the search objective, to avoid
+overfitting/Goodhart's-Law-style gaming of a narrow metric; (2) broadening
+the score beyond boundary-overshoot to also catch degraded
+`segment_type`/GACD/ERAC classification quality, per `WI-SEGMENT-0101`'s
+own Risk Notes; (3) a noise-handling strategy (repeated evaluation per
+candidate, or a noise-aware search method) given this project's own
+established distrust of single-call LLM comparisons; (4) confirmation a
+local-model runtime is actually available in the target environment. Cost
+and scope compound across all four, likely well beyond a single WI.
+
+**Related:** `WI-SEGMENT-0101`
+(`project/work_items/proposed/WI-SEGMENT-0101.md`); `WI-SEGMENT-0102`
+(`project/work_items/proposed/WI-SEGMENT-0102.md`); `WI-LLM-0051`
+(`project/work_items/resolved/WI-LLM-0051.md`, real local-model
+tool_choice reliability data); `WI-SEGMENT-0072`
+(`project/work_items/resolved/WI-SEGMENT-0072.md`, the frozen-thresholds
+precedent for not letting a favorable partial result loosen an adoption
+bar).

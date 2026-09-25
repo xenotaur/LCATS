@@ -1,11 +1,20 @@
 """Gathering functions for files typical of Gutenberg corpora."""
 
+import pathlib
+
 from bs4 import BeautifulSoup
 from lcats.gatherers import downloaders
 from lcats.utils import names
+from lcats.utils import run_log
 
 DEFAULT_DIVISION_TAGS = ["h2", "div"]
 DEFAULT_HEADING_TAGS = ["h2", "h3"]
+
+# Outside data/ and corpora/ (both protected by run_log.RunLog's own
+# re-validation) - "logs" is a plain sibling directory, relative to the
+# current working directory like every other env-overridable root in
+# lcats.utils.env (WI-RUNLOG-0082).
+DEFAULT_GATHER_LOG_DIR = pathlib.Path("logs") / "gather"
 
 
 def find_paragraphs(
@@ -48,8 +57,14 @@ def create_download_callback(
     start_heading_text,
     description,
     paragraph_finder=find_paragraphs,
+    extraction_strategy=None,
 ):
-    """Create a download callback function for a specific story."""
+    """Create a download callback function for a specific story.
+
+    extraction_strategy(soup), when given, replaces the heading-text-search
+    paragraph_finder(soup, start_heading_text) contract entirely -- for
+    extraction that isn't heading-based (e.g. ID-anchored content, WI-GATHER-0104).
+    """
 
     def story_download_callback(contents):
         """Download a specific  story from the Gutenberg Project."""
@@ -59,11 +74,20 @@ def create_download_callback(
 
         story_soup = BeautifulSoup(contents, "lxml")
 
-        story_text = paragraph_finder(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
+        if extraction_strategy is not None:
+            story_text = extraction_strategy(story_soup)
+            if story_text is None:
+                raise ValueError(
+                    f"Failed to extract text for {story_name} via "
+                    f"extraction_strategy in {url}"
+                )
+        else:
+            story_text = paragraph_finder(story_soup, start_heading_text)
+            if story_text is None:
+                raise ValueError(
+                    f"Failed to find text for {story_name} given "
+                    f"{start_heading_text} in {url}"
+                )
 
         story_data = {
             "author": author,
@@ -85,11 +109,47 @@ def gather(
     author,
     year,
     headings,
-    gutenberg_url,
+    gutenberg_url=None,
     paragraph_finder=find_paragraphs,
+    *,
+    extraction_strategy=None,
+    entry_url=None,
+    name_source=None,
     verbose=True,
+    log_dir=DEFAULT_GATHER_LOG_DIR,
 ):
-    """Run DataGatherers for the a corpus."""
+    """Run DataGatherers for a corpus.
+
+    Wraps the download loop in a run_log.RunLog scope (log path
+    ``<log_dir>/<corpus>_gather_run_log.jsonl``, outside the protected
+    data/ tree that target_directory itself lives under) - a crash
+    mid-run leaves a readable partial log of every story downloaded so
+    far, closing the gap the other audited run-log sites shared before
+    WI-RUNLOG-0078 (WI-RUNLOG-0082). No per-story exception isolation
+    existed here before this change and none is added now (Non-Goal) -
+    an unhandled download() failure still aborts the whole gather() call,
+    now surfacing as run_aborted_unexpected via RunLog's own __exit__
+    rather than a bare, unexplained traceback.
+
+    Three opt-in extension points (WI-GATHER-0104), each defaulting to
+    today's behavior when unset, added to reconcile gatherers whose
+    stories don't share one URL, use heading-text search, or want the
+    metadata ``name`` to be the normalized filename:
+
+    - ``entry_url(raw_filename, heading, title)``: per-entry URL,
+      overriding the single shared ``gutenberg_url`` when given.
+      ``gutenberg_url`` becomes optional (used for every entry) once a
+      caller supplies this instead.
+    - ``extraction_strategy(soup)``: see create_download_callback.
+    - ``name_source(raw_filename, heading, title)``: overrides the
+      ``story_data["name"]`` metadata value (normalized filename by
+      default) when given.
+    """
+    if gutenberg_url is None and entry_url is None:
+        raise ValueError(
+            "gather() needs a URL source: pass gutenberg_url (shared) or "
+            "entry_url (per-entry)."
+        )
     if verbose:
         print(f"Gathering {corpus} stories from Gutenberg...")
     gatherer = downloaders.DataGatherer(
@@ -97,22 +157,45 @@ def gather(
         description=description,
         license=license_text,
     )
-    for raw_filename, heading, title in headings:
-        filename = names.normalize_basename(raw_filename)[0]
+    log_filename = f"{names.normalize_basename(corpus)[0]}_gather_run_log.jsonl"
+    with run_log.RunLog(
+        log_dir,
+        log_filename,
+        corpus=corpus,
+        story_count=len(headings),
+    ) as log:
+        for entry in headings:
+            raw_filename, heading, title = entry
+            filename = names.normalize_basename(raw_filename)[0]
+            url = entry_url(*entry) if entry_url is not None else gutenberg_url
+            story_name = name_source(*entry) if name_source is not None else filename
 
-        gatherer.download(
-            filename,
-            gutenberg_url,
-            create_download_callback(
-                author=author,
-                year=year,
-                story_name=filename,
-                url=gutenberg_url,
-                start_heading_text=heading,
-                description=title,
-                paragraph_finder=paragraph_finder,
-            ),
-        )
+            gatherer.download(
+                filename,
+                url,
+                create_download_callback(
+                    author=author,
+                    year=year,
+                    story_name=story_name,
+                    url=url,
+                    start_heading_text=heading,
+                    description=title,
+                    paragraph_finder=paragraph_finder,
+                    extraction_strategy=extraction_strategy,
+                ),
+            )
+            # download() only adds to gatherer.downloads when it actually
+            # performed a fresh download (downloaders.py:239-279) - not
+            # when the canonical file already existed and it skipped -
+            # so this distinguishes the two without needing download()
+            # itself to change its return contract (review finding, PR
+            # #404).
+            event = (
+                "story_downloaded"
+                if filename in gatherer.downloads
+                else "story_skipped"
+            )
+            log.event(event, filename=filename, corpus=corpus)
     if verbose:
         print(f" - Total stories in {corpus} corpus: {len(gatherer.downloads)}")
     return gatherer.downloads

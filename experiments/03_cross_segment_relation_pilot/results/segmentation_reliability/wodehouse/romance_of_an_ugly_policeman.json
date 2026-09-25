@@ -1,0 +1,219 @@
+{
+  "story_id": "wodehouse/romance_of_an_ugly_policeman",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+  "llm_call_made": true,
+  "word_count": 4568,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 8,
+        "start_exact": "Crossing the Thames by Chelsea Bridge, the wanderer through London finds",
+        "end_exact": "Such is life at the back of York Mansions\u2014a busy, throbbing thing.",
+        "start_prefix": "",
+        "end_suffix": "",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Narrator describes Battersea Park Road and the life around York Mansions, introducing Constable Plimmer's beat and the domestic dramas typical of the street.",
+        "cohesion": {
+          "time": "Timeless/narrative present",
+          "place": "Battersea Park Road and York Mansions, London",
+          "characters": [
+            "Narrator",
+            "Constable Plimmer (introduced)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Establishes setting and introduces characters without a focal character's goal, action, or conflict. Primarily descriptive and expository narrative establishing place and context.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 9,
+        "end_par_id": 27,
+        "start_exact": "The peace of afternoon had fallen upon the world one day towards the end",
+        "end_exact": "Little Pansy-Face! And you couldn't arrest him for it! What a world!",
+        "start_prefix": "",
+        "end_suffix": " Constable Plimmer paced upon his way, a blue-clad volcano.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Constable Plimmer encounters Ellen Brown on a balcony, they chat briefly, and he learns of her acquaintance with the milkman Alf Brooks. Plimmer is struck by jealousy.",
+        "cohesion": {
+          "time": "Afternoon in Plimmer's second week on the beat",
+          "place": "Back of York Mansions",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown",
+            "Alf Brooks (mentioned)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Depicts meeting and dialogue with clear emotional reaction (jealousy), but lacks overt goal-directed action meeting resistance or a clear internal deliberation/choice structure. Remains within time/place unity as a narrative scene.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "narrative_scene",
+        "start_par_id": 28,
+        "end_par_id": 53,
+        "start_exact": "It is a terrible thing to be obsessed by a milkman. To Constable Plimmer's",
+        "end_exact": "'Grr-rr-rr!' he growled, and kicked the side-walk.",
+        "start_prefix": "",
+        "end_suffix": " And, even as he spoke, on the balcony of a second-floor flat there",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Plimmer broods over his jealousy of Alf Brooks, learning that Ellen and Alf are courting. His frustration builds as he realizes Battersea offers no action or outlet for his unhappiness.",
+        "cohesion": {
+          "time": "Following days on beat",
+          "place": "Battersea Park Road",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown (reported)",
+            "Alf Brooks (obsession)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Extended passage of internal brooding and emotional reaction without overt on-stage action or conflict, nor clear deliberation leading to a choice. Remains narrative scene unified by place and emotional tone.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 54,
+        "end_par_id": 93,
+        "start_exact": "And, even as he spoke, on the balcony of a second-floor flat there",
+        "end_exact": "'Will you come along, miss?' said Constable Plimmer.",
+        "start_prefix": " He stood in the road, and looked up at the placid buildings resentfully.",
+        "end_suffix": " Out in the street the sun shone gaily down on peaceful Battersea. It was",
+        "start_char": null,
+        "end_char": null,
+        "summary": "A woman calls for police aid, Plimmer investigates a theft allegation against Ellen (the cook). Ellen is found with the brooch and charged; Plimmer escorts her to the station.",
+        "cohesion": {
+          "time": "Same afternoon/early evening",
+          "place": "Second-floor flat at York Mansions, then street",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown",
+            "Sharp-faced woman",
+            "Henry (the husband)"
+          ]
+        },
+        "gacd": {
+          "goal": "To investigate the theft allegation and execute duty as a constable",
+          "action": "Plimmer runs up to the flat, interviews the woman, searches Ellen's room, finds the brooch, and arrests Ellen",
+          "conflict": "Ellen is accused of theft; the husband admits to taking money, complicating but not resolving the case; Plimmer must enforce the law despite complications",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD structure: Plimmer's goal is to investigate and perform his duty. His action is the investigation and arrest. Conflict arises from the messy circumstances (husband's confession, Ellen's claim of borrowing). Outcome is Disaster: Ellen is arrested and will be taken to the station, though it becomes clear she may be innocent of some charges.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 94,
+        "end_par_id": 111,
+        "start_exact": "Out in the street the sun shone gaily down on peaceful Battersea. It was",
+        "end_exact": "Alf Brooks tilted his hat over his eyes and walked past her, unseeing, a stranger.",
+        "start_prefix": "",
+        "end_suffix": " He hurried on. He was conscious of a curious feeling that somebody was",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Plimmer escorts Ellen past Alf Brooks on the street. Alf, realizing Ellen has been arrested, is shocked and shamed, then deliberately ignores and passes by her as a stranger.",
+        "cohesion": {
+          "time": "Immediately after arrest, afternoon on street",
+          "place": "Street corner of Battersea Park Road",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown",
+            "Alf Brooks"
+          ]
+        },
+        "gacd": {
+          "goal": "Alf Brooks' goal (implicit): to maintain his reputation and social standing",
+          "action": "Alf sees Ellen with the policeman, recognizes she has been 'pinched', and deliberately walks past her without acknowledgment",
+          "conflict": "Alf experiences shame and conflict between his loyalty to Ellen and his social reputation/pride",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "GACD is present: Alf's implicit goal is social preservation; his action is the deliberate avoidance/passing by; conflict is his internal turmoil and shame; outcome is a social/relational disaster (abandonment). The passage emphasizes his emotional state and the consequence of his choice.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 112,
+        "end_par_id": 149,
+        "start_exact": "He hurried on. He was conscious of a curious feeling that somebody was",
+        "end_exact": "'Would you have done all that for me?' she said.",
+        "start_prefix": "",
+        "end_suffix": " 'Yes.'",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After Alf's rejection, Ellen is devastated but composed. Plimmer experiences inner turmoil observing her misery; he decides to release her. She refuses, saying she'll face prison rather than let him sacrifice himself.",
+        "cohesion": {
+          "time": "Street, immediately after Alf's rejection",
+          "place": "Outside police station on Battersea Park Road",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Plimmer feels pity and anguish seeing Ellen's crushed face; Ellen feels misery at Alf's rejection but develops courage",
+          "reason": "Plimmer reasons that Ellen did not steal (recalling her integrity); Ellen reasons that sacrificing Plimmer would be wrong",
+          "anticipation": "Plimmer anticipates personal ruin if discovered; Ellen anticipates prison time but sees hope in Plimmer's feelings",
+          "choice": "Plimmer chooses to release her; Ellen chooses to insist on going to prison rather than ruin Plimmer"
+        },
+        "reason": "ERAC threshold met: Emotion (Plimmer's anguish, Ellen's devastation and emerging strength), Reason (Plimmer deduces innocence; Ellen reasons against sacrifice), Anticipation (consequences of release vs. prison), and Choice (Plimmer offers release; Ellen refuses). No on-stage conflict/outcome within this segment; it is a reactive, deliberative scene. Follows the dramatic_scene naturally and occupies same time/place.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 150,
+        "end_par_id": 193,
+        "start_exact": "'Yes.'\n       'Why?'",
+        "end_exact": "Eddie or Ted?",
+        "start_prefix": " 'Would you have done all that for me?' she said.",
+        "end_suffix": "\n\n\n",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Ellen insists on going to the station to face prison rather than let Plimmer be ruined. Plimmer confesses his love. Ellen accepts his feelings and chooses to use her prison time to forget Alf and grow fond of Plimmer.",
+        "cohesion": {
+          "time": "Continuous, outside police station",
+          "place": "Outside police station on Battersea Park Road",
+          "characters": [
+            "Constable Plimmer",
+            "Ellen Brown"
+          ]
+        },
+        "gacd": {
+          "goal": "Ellen's goal: to preserve Plimmer's career and reputation by accepting arrest and serving time; Plimmer's goal: to confess his love and win her commitment",
+          "action": "Ellen refuses release and insists on entering the station; Plimmer confesses his love and pleads with her to think of him during her incarceration; Ellen accepts his feelings and agrees to use her time to fall for him",
+          "conflict": "Ellen's loyalty to Plimmer vs. her own fate; Plimmer's love vs. his duty; the social and legal pressures bearing on both",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Strong GACD: Both characters pursue clear goals (Ellen to save Plimmer; Plimmer to declare love and secure her affection). Their actions\u2014Ellen's refusal, Plimmer's confession, Ellen's acceptance\u2014meet relational and emotional resistance. Outcome is Success: a mutual commitment is achieved, and Ellen agrees to 'change' and be fond of Plimmer. This is on-stage resolution, not mere planning.",
+        "confidence": 0.95
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 12630,
+    "output_tokens": 2745
+  }
+}

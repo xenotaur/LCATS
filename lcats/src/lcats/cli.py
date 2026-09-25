@@ -243,11 +243,12 @@ def build_parser() -> argparse.ArgumentParser:
     promote_parser = subparsers.add_parser(
         "promote",
         parents=[promote_parent],
-        help="Promote data/ collections into corpora/, gated on a passing specials survey.",
+        help="Promote sidecars or collections from data/ into corpora/ (insert/upsert/replace).",
         description=(
-            "Promote data/ collections into corpora/. A collection with any "
-            "mojibake finding is skipped and reported rather than promoted; "
-            "clean collections wholesale-replace their corpora/ counterpart."
+            "Promote sidecars or collections from data/ into corpora/. An "
+            "explicit mode is required: insert (create-only), upsert "
+            "(create-or-overwrite), or replace (wholesale collection "
+            "replacement, gated on a passing specials survey)."
         ),
     )
     promote_parser.set_defaults(handler=_handle_promote)

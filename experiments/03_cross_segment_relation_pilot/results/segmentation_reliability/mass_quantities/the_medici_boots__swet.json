@@ -1,0 +1,351 @@
+{
+  "story_id": "mass_quantities/the_medici_boots__swet",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=10: anchor text not found in story text')",
+  "llm_call_made": true,
+  "word_count": 5631,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "other",
+        "start_par_id": 1,
+        "end_par_id": 3,
+        "start_exact": "_The amethyst-covered boots had been worn by an evil wanton\n      in medieval Florence--but what malefic power did they carry\n      over into our own time?_",
+        "end_exact": "",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0004]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Story epigraph and blank paragraphs introducing the Medici boots.",
+        "cohesion": {
+          "time": "implicit (setting up the tale)",
+          "place": "N/A",
+          "characters": []
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Epigraph and blank space; not narrative content. Marked 'other'.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 4,
+        "end_par_id": 8,
+        "start_exact": "For fifty years they lay under glass in the Dickerson museum and they\nwere labeled \"The Medici Boots.\" They were fashioned of creamy\nleather, pliable as a young girl's hands.",
+        "end_exact": "Marthe, the old\nhousekeeper, with an impudent glitter. Marthe muttered a prayer and\ncrossed herself, before she ran like a scared rabbit with the news of\nthe master's death.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0009]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Description of the Medici boots in Silas Dickerson's museum, and discovery of Silas dead with the boots in his lap at noon.",
+        "cohesion": {
+          "time": "present day (unspecified modern era), noon when Silas found dead",
+          "place": "Dickerson museum (private museum in his house)",
+          "characters": [
+            "Silas Dickerson",
+            "Marthe (housekeeper)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (museum, discovery of Silas dead). No GACD structure (Silas is already dead; passive discovery). No ERAC (no character deliberation/choice after emotion). Labeled narrative_scene for cohesive exposition.",
+        "confidence": 0.88
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "narrative_scene",
+        "start_par_id": 9,
+        "end_par_id": 23,
+        "start_exact": "[Illustration: \"She imparted to me those terrible secrets of the Black\nArts which were deep in her soul.\"]",
+        "end_exact": "\"Maybe you think I'm not thankful for my chance at a bit more work at\nJohns Hopkins,\" said Eric, and they did not again speak of the Medici\nboots.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0024]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "John, Suzanne, and Eric read Silas's letter warning against the boots' curse. They discuss the warning; Suzanne expresses interest in trying them on; John decides to destroy them.",
+        "cohesion": {
+          "time": "same day as Silas's death (probate reading)",
+          "place": "Dickerson house (private museum/study area)",
+          "characters": [
+            "John Delameter",
+            "Suzanne Delameter",
+            "Eric Delameter"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (same day, same house). Dialogue and discussion of Silas's letter and the boots' curse, but no GACD (no conflict in action; decision to destroy boots is stated but not enacted). No ERAC structure (brief reactions to the letter, but no sustained emotion/deliberation/choice). Narrative exposition/dialogue. Labeled narrative_scene.",
+        "confidence": 0.82
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "narrative_scene",
+        "start_par_id": 24,
+        "end_par_id": 31,
+        "start_exact": "\nThe deaf old lawyer of the Dickerson estate arrived, and Suzanne, with\nthe easy capability that was part of her charm, saw that he was made\ncomfortable.",
+        "end_exact": "They scarcely breathed,\nand the summer night that was so mildly beautiful seemed to take on a\nsense of hovering danger.",
+        "start_prefix": "[P0023]",
+        "end_suffix": "\n\n[P0032]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Evening dinner on the terrace; John reads the story of the Medici boots from Silas's secret history book to Erskine, Suzanne, and Eric.",
+        "cohesion": {
+          "time": "evening, after Silas's death (that day)",
+          "place": "terrace of Dickerson house",
+          "characters": [
+            "John",
+            "Suzanne",
+            "Eric",
+            "Erskine (lawyer)",
+            "Marthe (implied)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (evening dinner on terrace). No GACD (reading and discussion; no action with conflict). No ERAC (listeners drawn in by story but no deliberation/choice/emotion outcome). Narrative exposition and dialogue. Labeled narrative_scene.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 32,
+        "end_par_id": 45,
+        "start_exact": "\"In the palace of Giuliano de' Medici I have lived long. I am\n    an old woman now, as the years are reckoned in this infamous\n    place, though I am but fifty and three.",
+        "end_exact": "                            \"MARIA MODENA DI CAVOURI.\n\n                                              \"Florence, 1476.\"",
+        "start_prefix": "[P0031]",
+        "end_suffix": "\n\n[P0046]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Full text of Maria Modena's account of cursing the Medici boots in 15th-century Florence to enact revenge on those who destroyed her life.",
+        "cohesion": {
+          "time": "15th-century Florence (1476, in the account); read aloud in present",
+          "place": "Florence palace (in the account); terrace of Dickerson house (reading location)",
+          "characters": [
+            "Maria Modena (author of account)",
+            "listeners: John, Suzanne, Eric, Erskine"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Primarily the historical account itself (in-story text). Time/place unity as a read narrative. No active GACD or ERAC in present action. Labeled narrative_scene for the reading/exposition of the curse story.",
+        "confidence": 0.87
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "narrative_scene",
+        "start_par_id": 46,
+        "end_par_id": 60,
+        "start_exact": "\n\"Whew!\" said old Erskine.\n\nJohn laughed. \"I don't suppose this charming history would have been\nany more thrilling if I had read it from the original book, in\nItalian, of course.",
+        "end_exact": "John said, \"I think I'll not disturb Suzanne.\" And he went to sleep in\na wide four-postered bed in a room next to his wife. Eric and the old\nlawyer were in rooms across the hall.",
+        "start_prefix": "[P0045]",
+        "end_suffix": "\n\n[P0061]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Reactions to the Medici boots history; Suzanne insists on trying them on; dialogue minimizes the curse; the group retires to bed.",
+        "cohesion": {
+          "time": "evening transitioning to night (same day)",
+          "place": "terrace and bedrooms of Dickerson house",
+          "characters": [
+            "John",
+            "Suzanne",
+            "Eric",
+            "Erskine"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (evening/night, terrace, bedrooms). Dialogue and minor actions (Suzanne wanting to try boots, group retiring) but no clear GACD or ERAC. Narrative exposition and dialogue. Labeled narrative_scene.",
+        "confidence": 0.83
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 61,
+        "end_par_id": 74,
+        "start_exact": "\nThe still summer night closed about the house of Silas Dickerson, and\nwhen the moon lay dying against the bank of cloud, puffed across a sky\nby the little wind that came before dawn, young Doctor Eric Delameter\nawoke, suddenly and completely, to a feeling of clammy apprehension.",
+        "end_exact": "Eric opened her door softly and with no gentle hand shoved Suzanne\ninside her room. She seemed like a little animal in his grasp. She\nhissed at him; clawed and scratched at his hand. But when he had shut\nthe door, she did not open it again, and after a moment he went back\nto his own room.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0075]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "In the pre-dawn hours, Eric awakens to find Suzanne in his room wearing the Medici boots and jewelry, acting seductively. He rejects her advances, shoves her out, and locks his door.",
+        "cohesion": {
+          "time": "night, hour before dawn",
+          "place": "Eric's bedroom and hallway of Dickerson house",
+          "characters": [
+            "Eric",
+            "Suzanne"
+          ]
+        },
+        "gacd": {
+          "goal": "Eric's goal is to reject Suzanne's advances and get her out of his room/restore propriety",
+          "action": "Eric wakes, talks to Suzanne, attempts to take her to John, then forcibly removes her from his room and locks the door",
+          "conflict": "Suzanne's seductive/uncharacteristic behavior, her resistance as he removes her (scratching, hissing), and Eric's horror at her appearance in the cursed boots",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "GACD threshold clearly met: Goal (remove Suzanne, maintain propriety), Action (direct attempt with physical struggle), Conflict (Suzanne's strange behavior, her physical resistance), Outcome (Success\u2014Eric forces her out and locks the door). On-stage conflict with clear resolution. Labeled dramatic_scene.",
+        "confidence": 0.92
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 75,
+        "end_par_id": 87,
+        "start_exact": "\nHis mouth set in a firm line, his heart beating fast, Eric locked his\ndoor with a noiseless turn of the key. It was almost dawn, and the\ngarden lay like a rare pastel outside his window; but Eric saw none of\nit.",
+        "end_exact": "Silly, perhaps, but----\" His thoughts went on and on, always returning\nto the Medici boots, in spite of himself.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0088]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After locking his door, Eric examines his scratched hand, realizes Suzanne wore the Medici boots, and later rides out troubled, mentally wrestling with the connection between the boots and Suzanne's behavior.",
+        "cohesion": {
+          "time": "immediately after the encounter (pre-dawn) and morning ride",
+          "place": "Eric's bedroom and surrounding countryside",
+          "characters": [
+            "Eric"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Horror, shock, confusion (\"Mad! Suzanne must be mad!\"), dread and troubled mind after the encounter; his heart beating fast, scarcely thinking, lips moving",
+          "reason": "Eric reasons that Suzanne was wearing the cursed Medici boots; recalls her uncharacteristic costume and behavior; reflects on John's cut wrist from his own nightmare",
+          "anticipation": "Anticipates that Suzanne's behavior was driven by the boots; fears what may happen next; dreads breakfast and seeing Suzanne",
+          "choice": "Eric decides not to tell John about Suzanne's visit; chooses to remain quiet and let the boots be destroyed before revealing anything; later chooses to ride out to process his thoughts"
+        },
+        "reason": "ERAC threshold met: Emotion (horror, dread, confused processing), Reason (deduction about the boots causing Suzanne's behavior), Anticipation (fear of what comes next), Choice (to remain silent, ride out to think). No on-stage conflict/outcome; focus on recovery and deliberation. Labeled dramatic_sequel.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "narrative_scene",
+        "start_par_id": 88,
+        "end_par_id": 102,
+        "start_exact": "\nEric came back from his ride at eleven o'clock, with as troubled a\nmind as when he began it. He almost feared to see Suzanne at lunch.",
+        "end_exact": "Suzanne ran lightly up the stairs. Eric followed more slowly. He\nentered his room thinking that there were some things which must be\nexplained in this house with the old museum.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0103]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Eric returns from his ride and lunches with John, Mr. Erskine, and Suzanne, who appears normal and innocent again. Eric is reassured but troubled.",
+        "cohesion": {
+          "time": "late morning/lunch time (same day)",
+          "place": "terrace and house of Dickerson estate",
+          "characters": [
+            "Eric",
+            "John",
+            "Suzanne",
+            "Erskine"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unity (lunch on terrace, house). Eric observes Suzanne's return to normalcy but remains troubled. No GACD or ERAC (no new goal/action/conflict for Eric; no new emotion/deliberation/choice resolved in this segment). Narrative observation and dialogue. Labeled narrative_scene.",
+        "confidence": 0.84
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 103,
+        "end_par_id": 125,
+        "start_exact": "\nTwenty minutes before dinner Eric and John were on the terrace waiting\nfor Suzanne. John was talkative, which was just as well, as he might\nhave wondered at his brother's silence.",
+        "end_exact": "Eric could only bow stiffly and offer his arm, while John walked\nslowly beside them, his face thoughtful, his gay spirits gone. During\ndinner, however, he tried to revive the lagging conversation. Suzanne\nspoke in a staccato voice and her choice of words seemed strange to\nEric, almost as though she were translating her own thoughts from a\nforeign tongue.",
+        "start_prefix": "[P0102]",
+        "end_suffix": "\n\n[P0126]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Before dinner, John tells Eric that Suzanne took the boots from the museum and plans to wear them at dinner. Suzanne arrives in the boots, ignores John, and flirts with Eric. She shows contempt for John and attraction to Eric.",
+        "cohesion": {
+          "time": "pre-dinner evening (same day)",
+          "place": "terrace and dining room of Dickerson house",
+          "characters": [
+            "Eric",
+            "John",
+            "Suzanne"
+          ]
+        },
+        "gacd": {
+          "goal": "John's implicit goal is to have a normal dinner with his wife; Eric's goal is to prevent harm and understand the situation; Suzanne's goal (under the curse) is to seduce Eric and reject John",
+          "action": "John learns Suzanne has the boots and plans to wear them; Suzanne arrives in the boots and jewelry, speaks strangely, ignores John, and flirts with Eric; John offers his arm; Suzanne accepts Eric's instead",
+          "conflict": "Suzanne's strange, hostile behavior toward John and seductive behavior toward Eric creates tension; John's hurt confusion; Eric's moral and emotional distress; the curse manifesting openly",
+          "outcome": "Unclear"
+        },
+        "erac": null,
+        "reason": "GACD threshold met: Goal (multiple: John seeks normalcy, Eric seeks understanding and prevention, Suzanne under curse seeks seduction/destruction), Action (arrival in boots, choice of companion, dialogue exchanges), Conflict (tension between the three; Suzanne's hostile behavior; John's hurt; Eric's distress; curse manifesting), Outcome (Unclear\u2014dinner is about to begin; no resolution yet, but clear midpoint of escalating conflict). Labeled dramatic_scene.",
+        "confidence": 0.89
+      },
+      {
+        "segment_id": 11,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 126,
+        "end_par_id": 147,
+        "start_exact": "\nEric could only bow stiffly and offer his arm, while John walked\nslowly beside them, his face thoughtful, his gay spirits gone. During\ndinner, however, he tried to revive the lagging conversation. Suzanne\nspoke in a staccato voice and her choice of words seemed strange to\nEric, almost as though she were translating her own thoughts from a\nforeign tongue.",
+        "end_exact": "With a bound that was almost involuntary, Eric reached them and struck\nat the knife in Suzanne's hand. It clattered to the floor. And as\nthough the fury of the storm and Suzanne's madness both were spent,\nthe slashing rain and the lightning stopped abruptly, and Suzanne\nceased to struggle.",
+        "start_prefix": "[P0125]",
+        "end_suffix": "\n\n[P0148]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "During dinner, Suzanne poisons John's dessert, kicks the kitten (which eats the poison and dies), laughs hysterically, then stabs at John during the storm-darkened room before Eric stops her.",
+        "cohesion": {
+          "time": "dinner time, during thunderstorm",
+          "place": "dining room of Dickerson house",
+          "characters": [
+            "Suzanne",
+            "John",
+            "Eric"
+          ]
+        },
+        "gacd": {
+          "goal": "Suzanne (under curse) seeks to poison and/or kill John; Eric seeks to stop her and protect John",
+          "action": "Suzanne sprinkles poison on John's dessert; redirects it via the kitten (which dies); stabs at John during the lightning-dimmed room",
+          "conflict": "Suzanne's murderous actions; the curse's power; the storm; Eric's intervention; John's confusion and vulnerability",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "GACD threshold met: Goal (clear: Suzanne attempts murder; Eric intervenes to stop it), Action (poisoning, stabbing\u2014direct attempts with manifest conflict), Conflict (struggle with knife, poisoning attempt, supernatural manifestation, storm creating darkness), Outcome (Success for Eric\u2014he strikes the knife away, Suzanne ceases to struggle). Dramatic action with clear resolution. Labeled dramatic_scene.",
+        "confidence": 0.94
+      },
+      {
+        "segment_id": 12,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 147,
+        "end_par_id": 160,
+        "start_exact": "With a bound that was almost involuntary, Eric reached them and struck\nat the knife in Suzanne's hand. It clattered to the floor. And as\nthough the fury of the storm and Suzanne's madness both were spent,\nthe slashing rain and the lightning stopped abruptly, and Suzanne\nceased to struggle.",
+        "end_exact": "For, as they passed the corner where the Medici boots lay slashed and\nbloodied, Eric could have sworn that there came to him a horrid odor,\nfetid, hotly offensive--the odor of iniquity and ancient bloody death.",
+        "start_prefix": "[P0146]",
+        "end_suffix": "\"\"\"",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After disarming Suzanne, Eric tends her wound with John's help. Eric demands the boots be removed and destroyed. He plans to tell John the full truth and burn the boots before dawn.",
+        "cohesion": {
+          "time": "immediately after the struggle (still same evening/night)",
+          "place": "dining room and terrace of Dickerson house",
+          "characters": [
+            "Eric",
+            "John",
+            "Suzanne"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Eric's grim determination and professional focus after the trauma; John's compassion and trembling voice (no reproach); both brothers reacting to Suzanne's wound and the boots' role",
+          "reason": "Eric reasons (and states) that the boots are 'at the bottom of this'; he deduces that removing them will restore Suzanne to herself",
+          "anticipation": "Eric anticipates that Suzanne will recover once the boots are removed; he plans to tell John the full truth afterward",
+          "choice": "Eric chooses to treat the wound professionally; orders the boots removed; commits to destroying them before dawn; chooses to reveal to John what he knows about the boots' curse"
+        },
+        "reason": "ERAC threshold met: Emotion (grim focus, determination, John's compassion), Reason (boots are the cause), Anticipation (boots removed = Suzanne restored; truth must be told; boots must be destroyed), Choice (medical action, removal of boots, plan to burn them, disclosure to John). No on-stage conflict/outcome within this segment; focus on recovery and planning. Labeled dramatic_sequel.",
+        "confidence": 0.91
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 13174,
+    "output_tokens": 5277
+  }
+}

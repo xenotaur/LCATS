@@ -12,6 +12,13 @@ The first N story JSON files (sorted alphabetically, .json only) from
 
 Each line is a JSON-serialised AssessmentResult dict augmented with
 backend/model/token fields for cost and latency analysis.
+
+Run-log disposition (PROP-LCATS-RUN-LOG Decision 4, WI-RUNLOG-0084):
+assessed and found not to warrant its own incremental run-event log.
+This is a small ad-hoc comparison tool, not a production pipeline; its
+existing per-row flush-to-JSONL write already gives near-equivalent
+crash-safety durability (each completed story's result is durably on
+disk before the next one starts) without a separate log format.
 """
 
 from __future__ import annotations

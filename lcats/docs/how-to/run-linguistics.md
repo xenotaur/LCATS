@@ -77,6 +77,16 @@ lcats linguistics corpora/sherlock/five_orange_pips \
   --include-token-detail
 ```
 
+Write the richer sentence-nested token-detail v2 artifact instead of the
+backward-compatible v1 shape:
+
+```bash
+lcats linguistics corpora/sherlock/five_orange_pips \
+  --backend spacy \
+  --include-token-detail \
+  --token-detail-version v2
+```
+
 ## Output
 
 The default sidecar is `linguistics.json`. It uses
@@ -92,7 +102,11 @@ The default sidecar is `linguistics.json`. It uses
 
 Full token/dependency records are intentionally not stored in
 `linguistics.json`. When `--include-token-detail` is set, they are written to
-`linguistics.tokens.json`.
+`linguistics.tokens.json`. The default token-detail schema is
+`linguistics-token-detail-v1` for backward compatibility. Pass
+`--token-detail-version v2` to write `linguistics-token-detail-v2`, which nests
+tokens under sentence records and includes stable sentence/token indices,
+source character offsets, backend capabilities, and model/config provenance.
 
 By default, both artifacts are written beside the analyzed `story.json`. With
 `--output-root`, LCATS writes them under the explicit root using the story

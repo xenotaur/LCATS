@@ -7,8 +7,12 @@ output root.
 
 The default artifact is `linguistics.json`, a compact story-level sidecar using
 `schema_version: linguistics-sidecar-v1`. When token detail is explicitly
-enabled, the command also writes `linguistics.tokens.json` using
-`schema_version: linguistics-token-detail-v1`.
+enabled, the command also writes `linguistics.tokens.json`. The default detail
+schema remains `linguistics-token-detail-v1`; pass `--token-detail-version v2`
+to write the richer `linguistics-token-detail-v2` shape.
+When `--include-lexicon` is set with v2 token detail, the command also writes
+the derived `linguistics.lexicon.json` artifact documented in
+`docs/reference/linguistics-lexicon.md`.
 
 Both artifacts are deterministic JSON: UTF-8, sorted keys, two-space
 indentation, and a trailing newline. LCATS publishes them atomically by writing
@@ -85,8 +89,8 @@ Top-level fields:
 
 `linguistics.tokens.json` is written only when `--include-token-detail` is set.
 It carries the same provenance envelope as `linguistics.json`, but its
-`schema_version` is `linguistics-token-detail-v1` and it replaces `metrics`
-with `tokens`.
+`schema_version` is `linguistics-token-detail-v1` by default and it replaces
+`metrics` with `tokens`.
 
 Top-level fields:
 
@@ -114,6 +118,67 @@ has these fixed fields:
 | `head_index` | integer | One-based syntactic-head index within the sentence, or `0` for root. |
 | `deprel` | string | Universal dependency relation to the head, or empty string when unavailable. |
 
+## `linguistics-token-detail-v2`
+
+`linguistics-token-detail-v2` is selected explicitly with
+`--include-token-detail --token-detail-version v2`. It is backward compatible
+at the command level: existing compact sidecars and v1 token-detail files
+remain readable, and v1 remains the default detail output.
+
+The v2 artifact uses the same filename, `linguistics.tokens.json`, and the
+same top-level compact provenance fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `schema_version` | string | Always `linguistics-token-detail-v2`. |
+| `lcats_id` | string | Same story identity as the compact sidecar. |
+| `story_path` | string | Same serialized story path as the compact sidecar. |
+| `extractor` | object | Same extractor provenance as the compact sidecar. |
+| `backend` | object | Same backend provenance as the compact sidecar. |
+| `input` | object | Same input provenance as the compact sidecar. |
+| `options` | object | Effective options, including `token_detail_version: "v2"`. |
+| `source` | object | Source identity copied from the compact sidecar: `lcats_id`, `body_sha256`, `body_char_count`, and `source_path`. |
+| `provenance` | object | Backend provenance plus capability metadata. |
+| `sentences` | array | Sentence records containing token records. |
+
+`provenance.backend` records the backend name, model, package version, and a
+small config object such as the requested model or Stanza processor set.
+`provenance.capabilities` records whether each schema feature was `required`,
+`optional`, or `unavailable`: sentence offsets, token offsets, lemma, UPOS,
+XPOS, morphology, dependency heads, and dependency relations.
+
+Sentence records:
+
+| Field | Type | Description |
+|---|---|---|
+| `sentence_index` | integer | One-based sentence index in source order. |
+| `start_char` | integer or null | Zero-based start offset into the story body, or null when the sentence cannot be source-aligned. |
+| `end_char` | integer or null | Exclusive end offset into the story body, or null when the sentence cannot be source-aligned. |
+| `tokens` | array | Token records in sentence-local order. |
+
+Token records:
+
+| Field | Type | Description |
+|---|---|---|
+| `token_index` | integer | One-based token index within the containing sentence. |
+| `global_token_index` | integer | One-based token index across the whole story. |
+| `start_char` | integer or null | Zero-based start offset into the story body, or null when the token cannot be source-aligned. |
+| `end_char` | integer or null | Exclusive end offset into the story body, or null when the token cannot be source-aligned. |
+| `text` | string | Exact source text covered by the token span when offsets are available. |
+| `lemma` | string | Dictionary form, or empty string when unavailable. |
+| `upos` | string | Universal part-of-speech tag. |
+| `xpos` | string | Fine-grained or treebank-specific POS tag, if available. |
+| `feats` | string | Universal Dependencies-style morphological feature string, or empty string. |
+| `head_index` | integer | Sentence-local one-based head index, or `0` for root. |
+| `deprel` | string | Universal dependency relation to the head, or empty string when unavailable. |
+
+Validation accepts both v1 and v2 detail artifacts. For v2 it enforces source
+identity, monotonic sentence/token/global indices, unique global token indices,
+integer-or-null offset pairs, in-bounds source-matching token spans when source
+text and offsets are supplied, recognized UPOS values, sentence-local dependency
+heads, exactly one root in each non-empty sentence, and reconciliation with the
+compact sidecar's `metrics.token_count` when the compact sidecar is supplied.
+
 ## Run Summary
 
 The CLI prints a machine-readable run summary to stdout, or writes it to the
@@ -130,6 +195,8 @@ Top-level fields:
 | `model_name` | string | Requested model name or language code. |
 | `existing` | string | Existing-output mode: `skip`, `validate`, or `overwrite`. |
 | `include_token_detail` | boolean | Whether token-detail output was requested. |
+| `token_detail_version` | string | Requested token-detail version, currently `v1` or `v2`. |
+| `include_lexicon` | boolean | Whether derived lexicon output was requested. |
 | `output_root` | string | Present only when `--output-root` was used; records the redirect root for sidecar outputs. |
 | `counts` | object | Count of per-story results by status. |
 | `results` | array | Per-story outcomes. |
@@ -143,6 +210,7 @@ Each result object contains:
 | `status` | string | One of `written`, `skipped`, `failed`, or `dry_run`. |
 | `message` | string | Human-readable outcome or diagnostic. |
 | `detail_path` | string | Present only on result objects that carry a token-detail target path. It appears for dry runs, writes, skips, write exceptions, and existing-token-detail validation failures when `--include-token-detail` is set; some failures detected while validating an existing compact sidecar omit it. |
+| `lexicon_path` | string | Present only on result objects that carry a derived lexicon target path. It appears when `--include-lexicon` is set. |
 
 ## Fingerprint and Resume Behavior
 
@@ -171,10 +239,10 @@ fingerprint still describes the source story and extraction configuration.
 Within one redirected batch, duplicate output targets are reported as
 per-story failures rather than silently overwriting an earlier result.
 
-The token-detail artifact uses its own `linguistics-token-detail-v1`
-fingerprint. This keeps compact sidecar resume checks independent from the
-optional detailed artifact while still detecting interrupted or stale detail
-writes.
+The token-detail artifact uses its own schema-specific fingerprint:
+`linguistics-token-detail-v1` or `linguistics-token-detail-v2`. This keeps
+compact sidecar resume checks independent from the optional detailed artifact
+while still detecting interrupted or stale detail writes.
 
 ## Corpus Status
 

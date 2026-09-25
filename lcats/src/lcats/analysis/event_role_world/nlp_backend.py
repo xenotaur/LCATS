@@ -39,9 +39,19 @@ class TokenRecord:
     feats: str
     head_index: int
     deprel: str
+    start_char: Optional[int] = None
+    end_char: Optional[int] = None
 
     def to_dict(self) -> Dict[str, Any]:
-        return dataclasses.asdict(self)
+        return {
+            "text": self.text,
+            "lemma": self.lemma,
+            "upos": self.upos,
+            "xpos": self.xpos,
+            "feats": self.feats,
+            "head_index": self.head_index,
+            "deprel": self.deprel,
+        }
 
 
 @dataclasses.dataclass
@@ -49,6 +59,8 @@ class SentenceRecord:
     """One sentence's worth of normalized tokens."""
 
     tokens: List[TokenRecord]
+    start_char: Optional[int] = None
+    end_char: Optional[int] = None
 
 
 @runtime_checkable
@@ -109,10 +121,18 @@ class StanzaBackend:
                     feats=word.feats or "",
                     head_index=word.head or 0,
                     deprel=word.deprel or "",
+                    start_char=getattr(word, "start_char", None),
+                    end_char=getattr(word, "end_char", None),
                 )
                 for word in sentence.words
             ]
-            sentences.append(SentenceRecord(tokens=tokens))
+            sentences.append(
+                SentenceRecord(
+                    tokens=tokens,
+                    start_char=getattr(sentence, "start_char", None),
+                    end_char=getattr(sentence, "end_char", None),
+                )
+            )
         return sentences
 
 
@@ -155,10 +175,18 @@ class SpacyBackend:
                         0 if tok.head.i == tok.i else index_in_sent.get(tok.head.i, 0)
                     ),
                     deprel=tok.dep_,
+                    start_char=tok.idx,
+                    end_char=tok.idx + len(tok.text),
                 )
                 for tok in sent_tokens
             ]
-            sentences.append(SentenceRecord(tokens=tokens))
+            sentences.append(
+                SentenceRecord(
+                    tokens=tokens,
+                    start_char=sent.start_char,
+                    end_char=sent.end_char,
+                )
+            )
         return sentences
 
 

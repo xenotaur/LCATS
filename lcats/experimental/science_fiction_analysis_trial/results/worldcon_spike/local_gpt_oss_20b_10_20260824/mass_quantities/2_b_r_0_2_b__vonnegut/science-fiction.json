@@ -1,0 +1,386 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-150e6cb342bbb60d",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-150e6cb342bbb60d",
+          "prompt_hash": "337684b381502b8cc578490c40a0c803e35e43373741fe47f162424e9d4503b3",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 5072,
+            "output": 1255
+          }
+        },
+        "status": "complete",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-1",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-150e6cb342bbb60d",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "7234b475bd2cdae17db0e342b4074e13c13cdc11",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-150e6cb342bbb60d",
+          "prompt_hash": "3c9eb699db73c4b39fe56eb8213bb04ed47d025c7d5620af0352fffb21052571",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "worldcon-spike:sample:mass_quantities__2_b_r_0_2_b__vonnegut",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 4974,
+            "output": 2071
+          }
+        },
+        "status": "complete",
+        "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-150e6cb342bbb60d",
+    "knight_analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__2_b_r_0_2_b__vonnegut-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-150e6cb342bbb60d",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.95,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "The world lacks traditional social ills such as prisons and poverty.",
+            "quote": "",
+            "raw_id": "e1",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "Medical advances have eliminated disease and aging.",
+            "quote": "",
+            "raw_id": "e2",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "paraphrase": "Population control policy has capped U.S. population.",
+            "quote": "",
+            "raw_id": "e3",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00029",
+              "p00030"
+            ],
+            "paraphrase": "A coded telephone number leads to a termination service with whimsical names.",
+            "quote": "",
+            "raw_id": "e4",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00106",
+              "p00107"
+            ],
+            "paraphrase": "The painter foresees dire consequences such as war and famine from the population policy.",
+            "quote": "",
+            "raw_id": "e5",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 1.0,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00100",
+              "p00101",
+              "p00102"
+            ],
+            "paraphrase": "A violent act results in the deaths of Dr. Hitz, Leora Duncan, and Wehling.",
+            "quote": "",
+            "raw_id": "e6",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00080",
+              "p00081"
+            ],
+            "paraphrase": "Wehling expresses acceptance of the policy while Dr. Hitz confronts him.",
+            "quote": "",
+            "raw_id": "e7",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "",
+            "paragraph_ids": [
+              "p00018",
+              "p00019"
+            ],
+            "paraphrase": "The mural titled 'The Happy Garden of Life' is praised, contrasting with later violence.",
+            "quote": "",
+            "raw_id": "e8",
+            "schema_errors": [
+              "evidence_type is required",
+              "quote is required"
+            ],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "evidence_type is required"
+        }
+      ],
+      "records": [],
+      "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "a51dee7ace494363160d6a783509d3d39c3fd5b9005a2e0f031dcdf26c6238f2",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

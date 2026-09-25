@@ -7,6 +7,7 @@ import sys
 
 from lcats.analysis.corpus import annotate
 from lcats.utils import checkpoint, env
+from lcats.utils import run_log
 
 
 def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
@@ -87,13 +88,24 @@ def run(argv=None, parsed_args=None) -> int:
             working_root=args.checkpoint_dir, source_root=args.source
         )
 
-        results = annotate.annotate_collections(
-            args.source,
-            backend=backend,
+        # log path lives under the existing --checkpoint-dir (reusing the
+        # same roots already resolved above) - annotate has real per-item
+        # checkpointing but no ordered, human-readable trail on top of it
+        # (WI-RUNLOG-0082).
+        with run_log.RunLog(
+            roots,
+            "annotate_run_log.jsonl",
             model=args.model,
-            roots=roots,
-            collection_names=collection_names,
-        )
+            source=str(args.source),
+        ) as log:
+            results = annotate.annotate_collections(
+                args.source,
+                backend=backend,
+                model=args.model,
+                roots=roots,
+                log=log,
+                collection_names=collection_names,
+            )
 
         all_clean = True
         for collection_name, story_results in results.items():

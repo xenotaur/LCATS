@@ -1,0 +1,23 @@
+{
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "input_tokens": 11299,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1859,
+  "stage": "sf_suvin_novum",
+  "story_id": "london/brown_wolf",
+  "story_path": "london/brown_wolf/story.json",
+  "text": "",
+  "title": "London - Brown Wolf",
+  "tool_result": {
+    "dominant_novum_id": "song-transmutation",
+    "novum_candidates": [
+      {
+        "cognitive_validation": "present",
+        "id": "song-transmutation",
+        "narrative_hegemony": "present",
+        "novelty": "present"
+      }
+    ]
+  }
+}
