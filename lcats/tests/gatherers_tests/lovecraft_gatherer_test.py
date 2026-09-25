@@ -1,9 +1,13 @@
 """Tests for the Lovecraft gatherer module."""
 
 import json
+import os
+import tempfile
 import unittest
 from io import StringIO
 from unittest.mock import MagicMock, patch
+
+from bs4 import BeautifulSoup
 
 from lcats.gatherers.lovecraft import gatherer
 
@@ -67,98 +71,68 @@ class TestTheLovecraftFiles(unittest.TestCase):
         self.assertIn("The Call of Cthulhu", titles)
 
 
-class TestCreateDownloadCallback(unittest.TestCase):
-    """Unit tests for create_download_callback."""
+class TestEntryHelpers(unittest.TestCase):
+    """Unit tests for the per-entry lookup helpers gather() wires into
+    gatherlib.gather()'s entry_url/name_source/extraction_strategy
+    extension points (WI-GATHER-0104)."""
 
-    def _make_html(self, para_text="Once upon a time."):
-        """Return minimal Gutenberg-style HTML with pg-start/end separator IDs."""
-        return f"""
+    def setUp(self):
+        self.ext = gatherer.THE_LOVECRAFT_FILES[0]
+
+    def test_entry_url_returns_extractor_url(self):
+        """_entry_url looks up the real per-story URL, not a shared one."""
+        result = gatherer._entry_url(self.ext.file, "", self.ext.description)
+        self.assertEqual(result, self.ext.url)
+
+    def test_entry_name_returns_display_title_not_filename(self):
+        """_entry_name returns the display title, matching the audit's
+        3rd incompatibility finding -- not the normalized filename
+        gatherlib.gather() would otherwise store as story_data["name"]."""
+        result = gatherer._entry_name(self.ext.file, "", self.ext.description)
+        self.assertEqual(result, self.ext.title)
+        self.assertNotEqual(result, self.ext.file)
+
+    def test_extract_story_text_finds_content_between_separator_ids(self):
+        """_extract_story_text uses ID-based extraction, not heading search."""
+        html = """
         <html><body>
         <div id="pg-start-separator"></div>
-        <p>{para_text}</p>
+        <p>Cosmic horror awaits.</p>
         <div id="pg-end-separator"></div>
         </body></html>
         """
-
-    def setUp(self):
-        """Create a simple Extractor for test use."""
-        self.ext = gatherer.make_extractor(
-            "The Call of Cthulhu", "http://example.com/cc"
-        )
-        self.callback = gatherer.create_download_callback(self.ext)
-
-    def test_returns_callable(self):
-        """create_download_callback returns a callable."""
-        self.assertTrue(callable(self.callback))
-
-    def test_callback_raises_on_none_contents(self):
-        """Callback raises ValueError when contents is None."""
-        with self.assertRaises(ValueError):
-            self.callback(None)
-
-    def test_callback_raises_when_text_not_found(self):
-        """Callback raises an error when story text cannot be extracted."""
-        html = "<html><body><p>No separators here.</p></body></html>"
-        with self.assertRaises(Exception):
-            self.callback(html)
-
-    def test_callback_returns_tuple_on_valid_html(self):
-        """Callback returns (description, text, metadata) for valid HTML."""
-        html = self._make_html("Cosmic horror awaits.")
-        result = self.callback(html)
-        self.assertIsInstance(result, tuple)
-        self.assertEqual(len(result), 3)
-
-    def test_callback_description_matches_extractor(self):
-        """Callback description matches the extractor's description."""
-        html = self._make_html("Cosmic horror awaits.")
-        description, _text, _meta = self.callback(html)
-        self.assertEqual(description, self.ext.description)
-
-    def test_callback_metadata_has_required_keys(self):
-        """Callback metadata contains author, year, url, and name keys."""
-        html = self._make_html("Cosmic horror awaits.")
-        _desc, _text, metadata = self.callback(html)
-        for key in ("author", "year", "url", "name"):
-            with self.subTest(key=key):
-                self.assertIn(key, metadata)
-
-    def test_callback_metadata_author_matches_extractor(self):
-        """Metadata author matches the extractor's author."""
-        html = self._make_html("Cosmic horror awaits.")
-        _desc, _text, metadata = self.callback(html)
-        self.assertEqual(metadata["author"], self.ext.author)
-
-    def test_callback_metadata_url_matches_extractor(self):
-        """Metadata url matches the extractor's url."""
-        html = self._make_html("Cosmic horror awaits.")
-        _desc, _text, metadata = self.callback(html)
-        self.assertEqual(metadata["url"], self.ext.url)
-
-    def test_callback_metadata_name_matches_extractor(self):
-        """Metadata name matches the extractor's title."""
-        html = self._make_html("Cosmic horror awaits.")
-        _desc, _text, metadata = self.callback(html)
-        self.assertEqual(metadata["name"], self.ext.title)
-
-    def test_callback_metadata_is_json_serializable(self):
-        """Metadata returned by callback can be serialized to JSON."""
-        html = self._make_html("Cosmic horror awaits.")
-        description, text, metadata = self.callback(html)
-        # Should not raise
-        json.dumps({"description": description, "body": text, "metadata": metadata})
-
-    def test_callback_text_contains_paragraph(self):
-        """The returned story text contains the paragraph from the HTML."""
-        html = self._make_html("Eldritch abomination approaches.")
-        _desc, text, _meta = self.callback(html)
-        self.assertIn("Eldritch abomination approaches.", text)
+        soup = BeautifulSoup(html, "lxml")
+        result = gatherer._extract_story_text(soup)
+        self.assertIn("Cosmic horror awaits.", result)
 
 
 class TestGather(unittest.TestCase):
-    """Unit tests for the gather() function."""
+    """Unit tests for the gather() function.
 
-    @patch("lcats.gatherers.lovecraft.gatherer.downloaders.DataGatherer")
+    gather() is now a thin wrapper around gatherlib.gather() (WI-GATHER-0104).
+    Per AGENTS.md's mocking philosophy (avoid heavy mocking; mock only at
+    true boundaries) and the P1 review finding on WI-GATHER-0103's own PR
+    (#421), these mock DataGatherer -- the network/external boundary
+    gatherlib.gather() itself mocks in its own tests (gatherlib_test.py) --
+    rather than gatherlib.gather() itself, so the real entry_url/
+    name_source/extraction_strategy wiring still gets exercised end to end
+    with real HTML."""
+
+    def setUp(self):
+        # gather() delegates to gatherlib.gather() without overriding
+        # log_dir, so it writes a real run log relative to the current
+        # working directory by default (gatherlib.DEFAULT_GATHER_LOG_DIR).
+        # Run each test from a throwaway directory so these unit tests
+        # don't leave real log files behind in the repo checkout.
+        self._tmp = tempfile.TemporaryDirectory()
+        self._original_cwd = os.getcwd()
+        os.chdir(self._tmp.name)
+
+    def tearDown(self):
+        os.chdir(self._original_cwd)
+        self._tmp.cleanup()
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
     def test_gather_calls_download_for_each_story(self, mock_gatherer_cls):
         """gather() calls download once per entry in THE_LOVECRAFT_FILES."""
         mock_instance = MagicMock()
@@ -171,7 +145,7 @@ class TestGather(unittest.TestCase):
             mock_instance.download.call_count, len(gatherer.THE_LOVECRAFT_FILES)
         )
 
-    @patch("lcats.gatherers.lovecraft.gatherer.downloaders.DataGatherer")
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
     def test_gather_returns_downloads(self, mock_gatherer_cls):
         """gather() returns the downloads dict from the DataGatherer."""
         mock_instance = MagicMock()
@@ -183,7 +157,7 @@ class TestGather(unittest.TestCase):
 
         self.assertIs(result, expected)
 
-    @patch("lcats.gatherers.lovecraft.gatherer.downloaders.DataGatherer")
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
     def test_gather_uses_correct_target_directory(self, mock_gatherer_cls):
         """gather() instantiates DataGatherer with TARGET_DIRECTORY."""
         mock_instance = MagicMock()
@@ -194,6 +168,46 @@ class TestGather(unittest.TestCase):
 
         args, _ = mock_gatherer_cls.call_args
         self.assertEqual(args[0], gatherer.TARGET_DIRECTORY)
+
+    @patch("lcats.gatherers.gatherlib.downloaders.DataGatherer")
+    def test_gather_wires_real_extraction_and_metadata_through_the_download_callback(
+        self, mock_gatherer_cls
+    ):
+        """The callback gather() hands to download() uses the real
+        per-entry URL, ID-based extraction, and display-title metadata
+        name -- not just a mocked gatherlib.gather() call."""
+        mock_instance = MagicMock()
+        mock_instance.downloads = {}
+        mock_gatherer_cls.return_value = mock_instance
+
+        gatherer.gather()
+
+        first_ext = gatherer.THE_LOVECRAFT_FILES[0]
+        (call_filename, call_url, callback), _ = mock_instance.download.call_args_list[
+            0
+        ]
+        self.assertEqual(call_filename, first_ext.file)
+        self.assertEqual(call_url, first_ext.url)
+
+        html = """
+        <html><body>
+        <div id="pg-start-separator"></div>
+        <p>Cosmic horror awaits.</p>
+        <div id="pg-end-separator"></div>
+        </body></html>
+        """
+        description, text, metadata = callback(html)
+
+        self.assertEqual(description, first_ext.description)
+        self.assertIn("Cosmic horror awaits.", text)
+        self.assertEqual(metadata["name"], first_ext.title)
+        self.assertEqual(metadata["author"], "H. P. Lovecraft")
+        self.assertEqual(metadata["year"], 1925)
+        self.assertEqual(metadata["url"], first_ext.url)
+        # tests/AGENTS.md:24-27 -- serializer/extractor invariant, restored
+        # after the retired TestCreateDownloadCallback's own version of
+        # this check was dropped along with it (review finding, PR #424).
+        json.dumps({"description": description, "body": text, "metadata": metadata})
 
 
 class TestMain(unittest.TestCase):

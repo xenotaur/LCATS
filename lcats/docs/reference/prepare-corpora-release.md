@@ -78,8 +78,8 @@ clear to just that gatherer, e.g. `lcats clean mass_quantities`. This
 intentionally does **not** touch `cache/`, and scope every following
 command in this runbook to that same collection name too (`lcats survey
 --mode specials data/mass_quantities --no-progress`, `lcats promote
-mass_quantities --dry-run`, `lcats promote mass_quantities`) rather than
-running the unscoped forms — those consider every collection under
+replace mass_quantities --dry-run`, `lcats promote replace
+mass_quantities`) rather than running the unscoped forms — those consider every collection under
 `data/`, including ones you did not just regenerate. Clear the cache too
 with `lcats clean --cache-only`, if you specifically need a from-network
 recheck of that one collection (see the note on `lcats gather` below).
@@ -170,7 +170,7 @@ Each line is one proposed fix (`rule_id`, `original_text`, `replacement_text`,
 **Directory:** `lcats/`.
 
 ```bash
-lcats promote --dry-run
+lcats promote replace --dry-run
 ```
 
 Reports, per collection, either `would promote: <name> -> <name>` or
@@ -206,7 +206,7 @@ Skip this step if it's already been done (i.e. `corpora/ohenry` and
 
 ```bash
 cd "$(git rev-parse --show-toplevel)/lcats"
-lcats promote
+lcats promote replace
 ```
 
 If this exits `0`, every collection promoted and `corpora/` now reflects the

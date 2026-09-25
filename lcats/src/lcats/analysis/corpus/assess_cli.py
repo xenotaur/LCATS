@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import csv
 import json
 import os
@@ -19,6 +20,8 @@ from lcats.analysis.corpus.assess import (
     assess_story,
     run_preflight,
 )
+from lcats.utils import checkpoint
+from lcats.utils import run_log
 
 TSV_COLUMNS = [
     "file_path",
@@ -108,6 +111,19 @@ def build_parser(add_help: bool = True) -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Run pre-flight QA checks and list files without calling the API.",
+    )
+    parser.add_argument(
+        "--log-dir",
+        default="",
+        help=(
+            "Directory for an incremental run-event log (one JSON line "
+            "per story processed, plus run_start/run_end markers) - "
+            "useful for tracing a crash or interruption mid-run. Omit to "
+            "skip logging entirely (assess has no other durable working "
+            "directory to default to). Never data/ or corpora/ (rejected "
+            "by validation); avoid cache/ too, though it isn't enforced "
+            "the same way."
+        ),
     )
     parser.add_argument("--progress", dest="progress", action="store_true")
     parser.add_argument("--no-progress", dest="progress", action="store_false")
@@ -241,6 +257,28 @@ def run(
         print("No JSON files found in the specified paths.", file=sys.stderr)
         return 0
 
+    # --log-dir is optional (assess has no other durable working
+    # directory to reuse, unlike gather/annotate) - omitted, no log is
+    # written at all; a nullcontext lets `with log_context as log:` below
+    # work unconditionally (log is None in that case, guarded per-call).
+    log_context: contextlib.AbstractContextManager = contextlib.nullcontext(None)
+    if args.log_dir:
+        try:
+            log_roots = checkpoint.resolve_roots(
+                working_root=pathlib.Path(args.log_dir)
+            )
+        except (checkpoint.ProtectedRootError, RuntimeError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        log_context = run_log.RunLog(
+            log_roots,
+            "assess_run_log.jsonl",
+            model=args.model,
+            genre=args.genre,
+            story_count=len(files),
+            dry_run=args.dry_run,
+        )
+
     output_stream = sys.stdout
     try:
         if args.output:
@@ -259,34 +297,49 @@ def run(
             tsv_writer.writeheader()
 
         all_results = []
-        for file_path in tqdm.tqdm(files, disable=not _show_progress(args.progress)):
-            if args.dry_run:
-                _dry_run_preview(file_path, args.genre, output_stream)
-                continue
+        with log_context as log:
+            for file_path in tqdm.tqdm(
+                files, disable=not _show_progress(args.progress)
+            ):
+                if args.dry_run:
+                    _dry_run_preview(file_path, args.genre, output_stream)
+                    continue
 
-            result = assess_story(
-                file_path=file_path,
-                genre=args.genre,
-                backend=backend,
-                model=args.model,
-                max_body_chars=args.max_body_chars,
-                max_tokens=args.max_tokens,
-            )
+                result = assess_story(
+                    file_path=file_path,
+                    genre=args.genre,
+                    backend=backend,
+                    model=args.model,
+                    max_body_chars=args.max_body_chars,
+                    max_tokens=args.max_tokens,
+                )
+                if log is not None:
+                    log.event(
+                        "story_assessed",
+                        file_path=str(file_path),
+                        verdict=result.verdict,
+                        error=result.error,
+                    )
 
-            if args.format == "jsonl":
-                print(json.dumps(result.to_dict()), file=output_stream)
-                output_stream.flush()
-            elif args.format == "json":
-                all_results.append(result.to_dict())
-            elif args.format == "tsv":
-                tsv_writer.writerow(_result_to_tsv_row(result))
-                output_stream.flush()
-            elif args.format == "human":
-                _write_human(output_stream, result)
+                if args.format == "jsonl":
+                    print(json.dumps(result.to_dict()), file=output_stream)
+                    output_stream.flush()
+                elif args.format == "json":
+                    all_results.append(result.to_dict())
+                elif args.format == "tsv":
+                    tsv_writer.writerow(_result_to_tsv_row(result))
+                    output_stream.flush()
+                elif args.format == "human":
+                    _write_human(output_stream, result)
 
-        if args.format == "json" and all_results:
-            json.dump(all_results, output_stream, indent=2)
-            print(file=output_stream)
+            # Kept inside the RunLog scope (not after it) - a failure
+            # serializing the accumulated --format json results is a
+            # real run failure and must produce run_aborted_unexpected,
+            # not a bare run_end implying the run completed cleanly
+            # (review finding, PR #404).
+            if args.format == "json" and all_results:
+                json.dump(all_results, output_stream, indent=2)
+                print(file=output_stream)
 
         return 0
 

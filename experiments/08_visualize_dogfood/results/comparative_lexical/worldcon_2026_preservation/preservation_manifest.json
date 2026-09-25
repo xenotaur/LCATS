@@ -1,0 +1,90 @@
+{
+  "schema": "lcats-worldcon-comparative-lexical-preservation-v1",
+  "status": "historical_interim",
+  "source_commit": "d7f4ff81a6763f9af206bb1dbae88341954ec69d",
+  "universe": {
+    "manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "manifest_sha256": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
+    "story_content_revision": "71faecb7057002c32d3171a13ee78c97c066970fecc8383b18f5a5aed5f63e17",
+    "stories": 146,
+    "usable_tokens": 353167,
+    "membership_semantics": "selection_genre",
+    "complement_semantics": "U - S"
+  },
+  "preprocessing": {
+    "term_form": "lowercase_surface",
+    "alphabetic_only": true,
+    "minimum_length": 3,
+    "include_stopwords": false,
+    "tokenization_source": "lcats/src/lcats/analysis/story_analysis.py",
+    "tokenization_source_sha256": "1e1feff9d18b5342973a5b1a00c0a3c6c2dd12a34484cd69fe571cfeaccb46fa",
+    "additional_stopwords": "sklearn.feature_extraction.text.ENGLISH_STOP_WORDS"
+  },
+  "metric": "occurrences_per_million_usable_tokens",
+  "terms": [
+    "said",
+    "man",
+    "like",
+    "old",
+    "little",
+    "did",
+    "time",
+    "know",
+    "don",
+    "come",
+    "came",
+    "got",
+    "just",
+    "went",
+    "way",
+    "eyes",
+    "good",
+    "away",
+    "think",
+    "say"
+  ],
+  "groups": {
+    "science fiction": {"stories": 20, "usable_tokens": 41334, "complement_stories": 126, "complement_usable_tokens": 311833},
+    "fantasy": {"stories": 20, "usable_tokens": 23955, "complement_stories": 126, "complement_usable_tokens": 329212},
+    "horror": {"stories": 20, "usable_tokens": 58239, "complement_stories": 126, "complement_usable_tokens": 294928},
+    "humor": {"stories": 20, "usable_tokens": 44079, "complement_stories": 126, "complement_usable_tokens": 309088},
+    "mystery": {"stories": 20, "usable_tokens": 55148, "complement_stories": 126, "complement_usable_tokens": 298019},
+    "romance": {"stories": 20, "usable_tokens": 56421, "complement_stories": 126, "complement_usable_tokens": 296746},
+    "western": {"stories": 20, "usable_tokens": 58732, "complement_stories": 126, "complement_usable_tokens": 294435},
+    "adventure": {"stories": 6, "usable_tokens": 15259, "complement_stories": 140, "complement_usable_tokens": 337908}
+  },
+  "figure_sets": [
+    {
+      "id": "science_fiction_vs_complement",
+      "generator": "generators/make_genre_sample_sf_reference_overlay_poster.py",
+      "directory": "figures/science_fiction_vs_complement"
+    },
+    {
+      "id": "science_fiction_vs_fantasy",
+      "generator": "generators/make_genre_sample_sf_vs_fantasy_complement_overlay_poster.py",
+      "directory": "figures/science_fiction_vs_fantasy"
+    },
+    {
+      "id": "horror_vs_humor",
+      "generator": "generators/make_genre_sample_complement_pair_overlays_presentation.py",
+      "directory": "figures/horror_vs_humor"
+    },
+    {
+      "id": "mystery_vs_romance",
+      "generator": "generators/make_genre_sample_complement_pair_overlays_presentation.py",
+      "directory": "figures/mystery_vs_romance"
+    },
+    {
+      "id": "western_vs_adventure",
+      "generator": "generators/make_genre_sample_complement_pair_overlays_presentation.py",
+      "directory": "figures/western_vs_adventure"
+    }
+  ],
+  "excluded": [
+    {
+      "artifact": "lcats_146_manual_nouns_non_sf_complement_overlay.png",
+      "reason": "Manual exploratory noun selection is not pilot-authorized POS evidence."
+    }
+  ],
+  "governing_work_items": ["WI-VISUALIZE-0094", "WI-VISUALIZE-0095"]
+}

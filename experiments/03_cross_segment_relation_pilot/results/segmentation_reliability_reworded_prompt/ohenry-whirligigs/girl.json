@@ -1,0 +1,215 @@
+{
+  "story_id": "ohenry-whirligigs/girl",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=2: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 5,
+        "start_exact": "In gilt letters on the ground glass of the door of room No. 962 were the words:\n\"Robbins & Hartley, Brokers.\" The clerks had gone. It was past\nfive, and with the solid tramp of a drove of prize Percherons, scrub-women were\ninvading the cloud-capped twenty-story office building.",
+        "end_exact": "\"Yes,\" said he, \"we always have cool nights in Floralhurst,\nespecially in the winter.\"",
+        "start_prefix": "",
+        "end_suffix": "\n\nA man with an air of mystery came in the door and went up to Hartley.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "In an office at closing time, Robbins and Hartley, two brokers, chat about the summer heat and the appeals of suburban versus city life.",
+        "cohesion": {
+          "time": "Late afternoon, around 5 p.m.",
+          "place": "Office room No. 962 of Robbins & Hartley, Brokers in a twenty-story office building",
+          "characters": [
+            "Robbins",
+            "Hartley"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified time (late afternoon) and place (office) with dialogue establishing character and situation. No clear GACD (no goal-driven action with conflict on-stage) or ERAC (no emotional reaction/planning). This is introductory narrative_scene.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 6,
+        "end_par_id": 14,
+        "start_exact": "A man with an air of mystery came in the door and went up to Hartley.\n\n\"I've found where she lives,\" he announced in the portentous\nhalf-whisper that makes the detective at work a marked being to his fellow men.",
+        "end_exact": "Walking a few squares, he came to the building that he sought. It was a new\nflathouse, bearing carved upon its cheap stone portal its sonorous name,\n\"The Vallambrosa.\"",
+        "start_prefix": "",
+        "end_suffix": " Fire-escapes zigzagged down its\nfront\u2014these laden with household goods, drying clothes, and squalling\nchildren evicted by the midsummer heat.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "A detective delivers Vivienne's address to Hartley; Hartley pays him, then travels by streetcar to a tenement building in a decaying neighborhood to find her.",
+        "cohesion": {
+          "time": "Late afternoon/evening, same day",
+          "place": "Office; Broadway car; crosstown streetcar; Vallambrosa flathouse on East street",
+          "characters": [
+            "Hartley",
+            "detective"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Hartley undertakes a logistical action (obtaining address, traveling to Vivienne's residence) but encounters no on-stage conflict during travel. The goal of finding her is achieved via administrative steps and locomotion, not dramatic action with resistance. Unified across office departure through arrival at building.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 15,
+        "end_par_id": 27,
+        "start_exact": "Hartley pressed the \"McComus\" button. The door latch clicked\nspasmodically\u2014now hospitably, now doubtfully, as though in anxiety\nwhether it might be admitting friends or duns. Hartley entered and began to\nclimb the stairs after the manner of those who seek their friends in city\nflat-houses\u2014which is the manner of a boy who climbs an apple-tree,\nstop",
+        "end_exact": "The girl sighed and looked down at her folded hands.",
+        "start_prefix": "\"The Vallambrosa.\" Fire-escapes zigzagged down its\nfront\u2014these laden with household goods, drying clothes, and squalling\nchildren evicted by the midsummer heat. Here and there a pale rubber plant\npeeped from the miscellaneous mass, as if wondering to what kingdom it\nbelonged\u2014vegetable, animal or artificial.\n\n",
+        "end_suffix": "\n\nA sudden jealous suspicion seized Hartley.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hartley finds Vivienne in her flat and proposes marriage. She is hesitant, torn between his offer of a comfortable life and her preference for city living. He tries to persuade her with promises and romantic reminiscence.",
+        "cohesion": {
+          "time": "Evening, same day",
+          "place": "Vivienne's flat in the Vallambrosa building, fourth floor",
+          "characters": [
+            "Hartley",
+            "Vivienne"
+          ]
+        },
+        "gacd": {
+          "goal": "Convince Vivienne to marry him and leave the city for his suburban home",
+          "action": "Hartley pleads with her, reminds her of their meeting at the Montgomerys', and offers her frequent access to the city for theatres and shopping",
+          "conflict": "Vivienne is ambivalent\u2014she was born a city girl and fears binding herself to quiet suburban life, despite recognizing his kindness and the advantages of his offer",
+          "outcome": "Unclear"
+        },
+        "erac": null,
+        "reason": "Clear GACD structure: Hartley has the goal of gaining Vivienne's promise to marry him; he takes action by pleading and appealing to her past connection and his generosity; Vivienne resists with her own doubts and hesitation about suburban life. Conflict is present as her resistance to his suit. Outcome is unclear (she has not yet committed). The segment ends with her sighing and looking down, signaling her internal deliberation rather than acceptance or rejection.",
+        "confidence": 0.92
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 28,
+        "end_par_id": 43,
+        "start_exact": "A sudden jealous suspicion seized Hartley.\n\n\"Tell me, Vivienne,\" he asked, regarding her keenly, \"is\nthere another\u2014is there some one else?\"\n\nA rosy flush crept slowly over her fair cheeks and neck.\n\n\"You shouldn't ask that, Mr. Hartley,\" she said, in some\nconfusion. \"But I will tell you. There is one other\u2014but he has no\nright\u2014I have promised him nothing.\"",
+        "end_exact": "\"All right,\" said Hartley. \"You shall have that lying plaster\nto stick upon your traitorous soul. But, go back.\" Townsend went\ndownstairs, leaving a bitter word to be wafted up the draught of the staircase.\nHartley went back to his wooing.",
+        "start_prefix": "",
+        "end_suffix": "\n\n\"Vivienne,\" said he, masterfully. \"I have got to have you. I\nwill take no more refusals or dilly-dallying.\"",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hartley grows jealous when learning of a rival, Rafford Townsend. When Townsend arrives, Hartley confronts him in the hall, invoking 'the Law of the Jungle' and ordering him to leave. Townsend departs after a weak excuse.",
+        "cohesion": {
+          "time": "Evening, same time",
+          "place": "Vivienne's flat and stairwell of the Vallambrosa",
+          "characters": [
+            "Hartley",
+            "Vivienne",
+            "Townsend"
+          ]
+        },
+        "gacd": {
+          "goal": "Eliminate the rival Townsend and secure Vivienne's commitment",
+          "action": "Hartley confronts Townsend in the hall, asserts dominance using the 'Law of the Jungle' metaphor, and forcefully orders him to leave",
+          "conflict": "Townsend arrives as a competing suitor; Hartley must drive him away before he can speak to Vivienne",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "GACD structure: Hartley's goal is to remove the rival; his action is a direct confrontation with physical presence and commanding authority; conflict is the arrival of Townsend as a threat; outcome is clear success\u2014Townsend leaves defeated and humiliated. This is a dramatic_scene with clear on-stage action and resistance.",
+        "confidence": 0.93
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 44,
+        "end_par_id": 57,
+        "start_exact": "\"Vivienne,\" said he, masterfully. \"I have got to have you. I\nwill take no more refusals or dilly-dallying.\"\n\n\"When do you want me?\" she asked.\n\n\"Now. As soon as you can get ready.\"\n\nShe stood calmly before him and looked him in the eye.\n\n\"Do you think for one moment,\" she said, \"that I would enter\nyour home while H\u00e9loise is there?\"",
+        "end_exact": "\"On my word and honour,\" repeated Vivienne, softly.",
+        "start_prefix": "",
+        "end_suffix": "\n\nAt the door he turned and gazed at her happily, but yet as one who scarcely\ntrusts the foundations of his joy.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hartley demands Vivienne come with him immediately, but she refuses to enter his home while his housekeeper H\u00e9loise remains. He resolves to dismiss H\u00e9loise that very night. Vivienne agrees to marry him on his promise to do so.",
+        "cohesion": {
+          "time": "Same evening",
+          "place": "Vivienne's flat",
+          "characters": [
+            "Hartley",
+            "Vivienne"
+          ]
+        },
+        "gacd": {
+          "goal": "Secure Vivienne's agreement to marry him by resolving her objection about H\u00e9loise",
+          "action": "Hartley commits to dismissing H\u00e9loise that night; Vivienne sets the condition as a test of his will",
+          "conflict": "Vivienne refuses to enter his home unless H\u00e9loise is removed; Hartley must decide whether to make this sacrifice",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "GACD structure: Hartley's goal is to win Vivienne's commitment; his action is making the concrete promise to send away H\u00e9loise; the conflict is her refusal to marry him under current household conditions; the outcome is clear success\u2014she accepts his promise and says 'yes.' This is a decisive turning point scene with on-stage action and dramatic resolution.",
+        "confidence": 0.94
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "narrative_scene",
+        "start_par_id": 58,
+        "end_par_id": 60,
+        "start_exact": "At the door he turned and gazed at her happily, but yet as one who scarcely\ntrusts the foundations of his joy.\n\n\"To-morrow,\" he said, with a forefinger of reminder uplifted.\n\n\"To-morrow,\" she repeated with a smile of truth and candour.",
+        "end_exact": "\"To-morrow,\" she repeated with a smile of truth and candour.",
+        "start_prefix": "\"On my word and honour,\" repeated Vivienne, softly.\n\n",
+        "end_suffix": "\n\nIn an hour and forty minutes Hartley stepped off the train at Floralhurst.",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hartley and Vivienne confirm their plan\u2014she will come to him tomorrow. He leaves the flat happy but uncertain.",
+        "cohesion": {
+          "time": "Same evening",
+          "place": "Vivienne's flat doorway",
+          "characters": [
+            "Hartley",
+            "Vivienne"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Brief closing exchange at the flat. While emotional (Hartley's happiness and lingering doubt), this is primarily a narrative wrap-up of the previous scene without new action or deliberation. Treated as narrative_scene for cohesion with the preceding time/place.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 61,
+        "end_par_id": 67,
+        "start_exact": "In an hour and forty minutes Hartley stepped off the train at Floralhurst. A\nbrisk walk of ten minutes brought him to the gate of a handsome two-story\ncottage set upon a wide and well-tended lawn. Halfway to the house he was met\nby a woman with jet-black braided hair and flowing white summer gown, who half\nstrangle",
+        "end_exact": "you must go right down into the kitchen and discharge H\u00e9loise. She has\nbeen drunk again the whole day long.\"",
+        "start_prefix": "",
+        "end_suffix": "",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hartley returns home to Floralhurst to discover his wife is present (and her mother). He whispers his plan to dismiss H\u00e9loise, and his wife joyfully reveals that Vivienne is coming as a cook\u2014not realizing Vivienne is Hartley's fianc\u00e9e.",
+        "cohesion": {
+          "time": "Same evening, upon Hartley's return from the city",
+          "place": "Hartley's cottage in Floralhurst",
+          "characters": [
+            "Hartley",
+            "his wife",
+            "wife's mother"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Shock and conflicted feelings; realization of a dark irony\u2014Vivienne arriving as a 'cook,' obscuring her true role",
+          "reason": "Hartley learns that his wife has already arranged for Vivienne to work in their home, unaware of the larger situation",
+          "anticipation": "The wife believes this is a domestic hiring; Hartley recognizes a grave complication to his plan",
+          "choice": "By his silence and his wife's directive, Hartley must now confront the need to dismiss H\u00e9loise and manage the deception about Vivienne's true identity"
+        },
+        "reason": "ERAC structure: Hartley experiences shock and emotional conflict upon learning that Vivienne is already coming\u2014but as a servant, not as his fianc\u00e9e. He must reason through the implications (his wife is present, her mother is present, Vivienne is arriving under a false premise). He anticipates complications. His choice becomes more complex: he must go to the kitchen and discharge H\u00e9loise, but now in the context of this unexpected household presence. This is a dramatic_sequel following the success of segment 5, showing Hartley's emotional and mental response to an unforeseen complication that forces him to reconsider his plan.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 7243,
+    "output_tokens": 3611
+  }
+}

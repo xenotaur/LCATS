@@ -121,9 +121,14 @@ def _normalize_typography(s: str) -> str:
 def _locate_anchor_span(
     text: str, anchor: str, lo: int, hi: int
 ) -> tuple[int, int] | None:
-    """Exact search first; if not found, try a whitespace-tolerant match
-    within [lo, hi). Returns the (start, end) absolute character span of
-    the actual matched text in `text`, or None if not found.
+    """Exact search first; if not found, try a whitespace-tolerant,
+    typography-normalized, case-insensitive match within [lo, hi).
+    Returns the (start, end) absolute character span of the actual
+    matched text in `text`, or None if not found.
+
+    The exact-match attempt is case-sensitive; only the fallback ignores
+    case (WI-SEGMENT-0097), alongside its existing typography and
+    whitespace-run tolerance.
 
     The matched span's length can differ from len(anchor): the
     whitespace-tolerant fallback can match a source whitespace run whose
@@ -161,6 +166,13 @@ def _locate_anchor_span(
     # doesn't reliably match the source's hard-wrap boundaries even when
     # every word is correct -- e.g. an anchor's "...the\nneighbors." vs.
     # source text's "...the neighbors." on the same line (WI-SEGMENT-0068).
+    # Matched case-insensitively -- real anchors have been observed to
+    # differ from the source only in a single letter's case (e.g. a
+    # sentence-initial capital the model transcribed lowercase), with no
+    # other difference; a deterministic case-fold carries no similarity-
+    # threshold risk, unlike bounded edit-distance fuzzy matching
+    # (WI-SEGMENT-0072, deliberately not reopened by this fix -
+    # WI-SEGMENT-0097).
     #
     # Strip a leaked paragraph-index marker (see _PARAGRAPH_MARKER_RE)
     # and normalize typography before building the fallback regex --
@@ -184,7 +196,7 @@ def _locate_anchor_span(
     # escaping, not after.
     parts = re.split(r"(\s+)", anchor_for_fallback)
     pattern = "".join(r"\s+" if part.isspace() else re.escape(part) for part in parts)
-    match = re.search(pattern, normalized_segment)
+    match = re.search(pattern, normalized_segment, re.IGNORECASE)
     if match is None:
         return None
     return lo + match.start(), lo + match.end()

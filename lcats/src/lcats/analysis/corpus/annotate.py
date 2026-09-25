@@ -35,6 +35,7 @@ from lcats.analysis.corpus import assess, discovery
 from lcats.analysis.corpus import cli as corpus_cli
 from lcats.analysis.corpus import genre_sidecar
 from lcats.utils import checkpoint
+from lcats.utils import run_log
 
 # Explicit defaults, passed through to assess_story/make_segment_extractor
 # and included in their fingerprints -- otherwise a future change to
@@ -592,6 +593,7 @@ def annotate_story(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
+    log: Optional[run_log.RunLog] = None,
     genre_max_tokens: int = DEFAULT_GENRE_MAX_TOKENS,
     scenes_max_tokens: int = DEFAULT_SCENES_MAX_TOKENS,
 ) -> AnnotateStoryResult:
@@ -684,6 +686,14 @@ def annotate_story(
 
     _write_readme(bucket_dir, story_data, story_path)
 
+    if log is not None:
+        log.event(
+            "story_annotated",
+            story_id=item_id,
+            genre_error=genre_error,
+            scenes_error=scenes_error,
+        )
+
     return AnnotateStoryResult(
         story_path=story_path, genre_error=genre_error, scenes_error=scenes_error
     )
@@ -695,6 +705,7 @@ def annotate_collection(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
+    log: Optional[run_log.RunLog] = None,
     genre_max_tokens: int = DEFAULT_GENRE_MAX_TOKENS,
     scenes_max_tokens: int = DEFAULT_SCENES_MAX_TOKENS,
 ) -> list[AnnotateStoryResult]:
@@ -726,6 +737,7 @@ def annotate_collection(
             backend=backend,
             model=model,
             roots=roots,
+            log=log,
             genre_max_tokens=genre_max_tokens,
             scenes_max_tokens=scenes_max_tokens,
         )
@@ -739,6 +751,7 @@ def annotate_collections(
     backend: Any,
     model: str,
     roots: checkpoint.CheckpointRoots,
+    log: Optional[run_log.RunLog] = None,
     collection_names: Optional[list[str]] = None,
 ) -> dict[str, list[AnnotateStoryResult]]:
     """Annotate every requested collection under source_root.
@@ -757,7 +770,7 @@ def annotate_collections(
 
     return {
         name: annotate_collection(
-            source_root / name, backend=backend, model=model, roots=roots
+            source_root / name, backend=backend, model=model, roots=roots, log=log
         )
         for name in collection_names
     }

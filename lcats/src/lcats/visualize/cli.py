@@ -1,14 +1,18 @@
 """CLI for lcats visualize."""
 
 import argparse
+import csv
 import json
 import pathlib
+import re
 import sys
 from typing import Optional, Sequence
 
 import matplotlib.pyplot as plt
 
 from lcats.visualize import analysis
+from lcats.visualize import comparison
+from lcats.visualize import nway_outputs
 from lcats.visualize import rendering
 from lcats.visualize import sources
 
@@ -218,8 +222,8 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
             "documented CLI option (--init); note that scikit-learn's "
             "nndsvd-family initializers (the default and its variants) "
             "compute their starting point via a randomized SVD seeded by "
-            "--seed, so --seed affects the fitted topics under every "
-            "--init choice, not only 'random'."
+            "--seed. Different seeds may change initialization and may, but "
+            "need not, change the fitted topics."
         ),
     )
     topics_parser.add_argument(
@@ -277,6 +281,339 @@ def build_visualize_parser(add_help: bool = True) -> argparse.ArgumentParser:
         default=DEFAULT_FORMATS,
         help=(
             "Comma-separated output formats, e.g. png,svg,pdf "
+            f"(default: {DEFAULT_FORMATS})."
+        ),
+    )
+
+    compare_parser = visualize_subparsers.add_parser(
+        "compare",
+        add_help=True,
+        help="Render aligned comparative lexical bar charts.",
+        description=(
+            "Render mirrored or reference-overlay lexical comparisons from an "
+            "explicit universe and selectors. The command writes figures plus "
+            "the authoritative comparison CSV and manifest used to draw them."
+        ),
+    )
+    compare_parser.add_argument(
+        "--corpus-root",
+        default=sources.DEFAULT_CORPORA_ROOT,
+        help=f"Root directory of story collections (default: {sources.DEFAULT_CORPORA_ROOT}).",
+    )
+    compare_parser.add_argument(
+        "--candidates-jsonl",
+        default=sources.DEFAULT_CANDIDATES_JSONL_PATH,
+        help=(
+            "Path to the full-scan candidates.jsonl "
+            f"(default: {sources.DEFAULT_CANDIDATES_JSONL_PATH})."
+        ),
+    )
+    compare_parser.add_argument(
+        "--universe",
+        choices=("corpus", "manifest"),
+        default="corpus",
+        help="Comparison universe source (default: corpus).",
+    )
+    compare_parser.add_argument(
+        "--manifest",
+        default=None,
+        help="Manifest JSONL path when --universe manifest is used.",
+    )
+    compare_parser.add_argument(
+        "--left-genre",
+        default=None,
+        help="Left/reference genre selector. Omit for all stories unless --right-reference is set.",
+    )
+    compare_parser.add_argument(
+        "--right-genre",
+        default=None,
+        help="Right/target genre selector. Omit for all stories.",
+    )
+    compare_parser.add_argument(
+        "--membership-mode",
+        choices=tuple(mode.value for mode in comparison.MembershipMode),
+        default=comparison.MembershipMode.CANDIDATE.value,
+        help="Genre membership semantics for genre selectors (default: candidate).",
+    )
+    compare_parser.add_argument(
+        "--right-reference",
+        choices=("none", "complement", "universe"),
+        default="none",
+        help=(
+            "Derive the left/reference selector from the right selector: "
+            "none, complement, or universe (default: none)."
+        ),
+    )
+    compare_parser.add_argument(
+        "--metric",
+        choices=tuple(metric.value for metric in comparison.MetricName),
+        default=comparison.MetricName.RAW_COUNT.value,
+        help="Metric for both sides unless side-specific flags override it.",
+    )
+    compare_parser.add_argument(
+        "--left-metric",
+        choices=tuple(metric.value for metric in comparison.MetricName),
+        default=None,
+        help="Metric for the left/reference side.",
+    )
+    compare_parser.add_argument(
+        "--right-metric",
+        choices=tuple(metric.value for metric in comparison.MetricName),
+        default=None,
+        help="Metric for the right/target side.",
+    )
+    compare_parser.add_argument(
+        "--style",
+        choices=("mirrored", "reference-overlay"),
+        default="mirrored",
+        help="Chart style to render (default: mirrored).",
+    )
+    compare_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=20,
+        help="Number of aligned terms to include; must be >= 1 (default: 20).",
+    )
+    compare_parser.add_argument(
+        "--vocabulary",
+        choices=tuple(policy.value for policy in comparison.VocabularyPolicy),
+        default=comparison.VocabularyPolicy.TOP_ABSOLUTE_DIFFERENCE.value,
+        help="Vocabulary policy used before rendering.",
+    )
+    compare_parser.add_argument(
+        "--order-by",
+        choices=tuple(ordering.value for ordering in comparison.Ordering),
+        default=comparison.Ordering.ABSOLUTE_DIFFERENCE.value,
+        help="Term ordering policy (default: absolute_difference).",
+    )
+    compare_parser.add_argument(
+        "--include-stopwords",
+        action="store_true",
+        help="Include stopwords in lexical tokenization.",
+    )
+    compare_parser.add_argument(
+        "--min-length",
+        type=int,
+        default=3,
+        help="Minimum alphabetic token length (default: 3).",
+    )
+    compare_parser.add_argument(
+        "--output-dir",
+        default="compare_viz",
+        help="Directory to write output figures and data to (default: compare_viz).",
+    )
+    compare_parser.add_argument(
+        "--formats",
+        default=DEFAULT_FORMATS,
+        help=(
+            "Comma-separated figure output formats, e.g. png,svg,pdf "
+            f"(default: {DEFAULT_FORMATS})."
+        ),
+    )
+
+    compare_many_parser = visualize_subparsers.add_parser(
+        "compare-many",
+        add_help=True,
+        help="Render an aligned N-way reference-deviation chart.",
+        description=(
+            "Compare an ordered list of genre panels, or their universe "
+            "complements, against no reference, one common reference, or each "
+            "panel's own complement. Every panel shares one universe, "
+            "vocabulary, term order, metric, and (by default) visible scale. "
+            "Writes figures plus the authoritative long-form CSV and manifest."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--corpus-root",
+        default=sources.DEFAULT_CORPORA_ROOT,
+        help=f"Root directory of story collections (default: {sources.DEFAULT_CORPORA_ROOT}).",
+    )
+    compare_many_parser.add_argument(
+        "--candidates-jsonl",
+        default=sources.DEFAULT_CANDIDATES_JSONL_PATH,
+        help=(
+            "Path to the full-scan candidates.jsonl "
+            f"(default: {sources.DEFAULT_CANDIDATES_JSONL_PATH})."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--universe",
+        choices=("corpus", "manifest"),
+        default="corpus",
+        help="Comparison universe source (default: corpus).",
+    )
+    compare_many_parser.add_argument(
+        "--manifest",
+        default=None,
+        help="Manifest JSONL path when --universe manifest or selection membership is used.",
+    )
+    compare_many_parser.add_argument(
+        "--panels",
+        required=True,
+        help=(
+            "Comma-separated genres in display order, e.g. "
+            "'fantasy,horror,science fiction'. At least two are required."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--membership-mode",
+        choices=tuple(mode.value for mode in comparison.MembershipMode),
+        default=comparison.MembershipMode.CANDIDATE.value,
+        help="Genre membership semantics for panel selectors (default: candidate).",
+    )
+    compare_many_parser.add_argument(
+        "--panel-mode",
+        choices=tuple(mode.value for mode in comparison.NWayPanelMode),
+        default=comparison.NWayPanelMode.DIRECT.value,
+        help="Show each selector S directly or as its complement U - S (default: direct).",
+    )
+    compare_many_parser.add_argument(
+        "--reference",
+        choices=("universe", "genre", "per-panel-complement", "none"),
+        default="universe",
+        help=(
+            "Reference policy: the whole universe, one --reference-genre, each "
+            "panel's own complement U - panel, or none (default: universe)."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--reference-genre",
+        default=None,
+        help="Genre used as the common reference when --reference genre is set.",
+    )
+    compare_many_parser.add_argument(
+        "--metric",
+        choices=tuple(
+            metric.value
+            for metric in comparison.MetricName
+            if metric != comparison.MetricName.TFIDF_CONTRAST
+        ),
+        default=comparison.MetricName.PER_MILLION.value,
+        help="Metric shared by every panel and reference (default: per_million).",
+    )
+    compare_many_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=20,
+        help="Number of aligned terms to include; must be >= 1 (default: 20).",
+    )
+    compare_many_parser.add_argument(
+        "--vocabulary",
+        choices=("auto",)
+        + tuple(policy.value for policy in comparison.NWayVocabularyPolicy),
+        default="auto",
+        help=(
+            "Vocabulary policy. auto uses reference_value with a common "
+            "reference, max_absolute_deviation for per-panel complements, and "
+            "max_panel_value without a reference (default: auto)."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--order-by",
+        choices=("auto",)
+        + tuple(
+            ordering.value
+            for ordering in comparison.NWayOrdering
+            if ordering != comparison.NWayOrdering.EXPLICIT
+        ),
+        default="auto",
+        help="Term ordering policy; auto follows --vocabulary's rule (default: auto).",
+    )
+    compare_many_parser.add_argument(
+        "--include-stopwords",
+        action="store_true",
+        help="Include stopwords in lexical tokenization.",
+    )
+    compare_many_parser.add_argument(
+        "--min-length",
+        type=int,
+        default=3,
+        help="Minimum alphabetic token length (default: 3).",
+    )
+    compare_many_parser.add_argument(
+        "--layout",
+        choices=tuple(preset.value for preset in rendering.NWayLayoutPreset),
+        default=rendering.NWayLayoutPreset.STANDARD.value,
+        help=(
+            "Presentation preset; kabob points reference bars right, puts term "
+            "labels on the outside right edge, and draws row guides "
+            "(default: standard). Individual flags below override the preset."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--reference-direction",
+        choices=tuple(direction.value for direction in rendering.ReferenceDirection),
+        default=None,
+        help="Direction of common-reference bars (default: from --layout).",
+    )
+    compare_many_parser.add_argument(
+        "--term-labels",
+        choices=tuple(placement.value for placement in rendering.TermLabelPlacement),
+        default=None,
+        help="Term-label placement (default: from --layout).",
+    )
+    compare_many_parser.add_argument(
+        "--hatching",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Hatch signed bars as a non-color sign cue (default: from --layout).",
+    )
+    compare_many_parser.add_argument(
+        "--legend",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Draw the figure legend (default: from --layout).",
+    )
+    compare_many_parser.add_argument(
+        "--row-guides",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Draw horizontal per-term row guides (default: from --layout).",
+    )
+    compare_many_parser.add_argument(
+        "--highlight",
+        choices=tuple(mode.value for mode in rendering.ExtremaHighlight),
+        default=None,
+        help="Extrema highlighting scope (default: from --layout, per-genre).",
+    )
+    compare_many_parser.add_argument(
+        "--scale",
+        choices=tuple(policy.value for policy in rendering.ScalePolicy),
+        default=None,
+        help=(
+            "Panel scale policy. independent is an explicit opt-in that is "
+            "labeled on every panel and in the manifest (default: shared)."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--max-columns",
+        type=int,
+        default=None,
+        help=(
+            "Maximum panels per band before deterministic wrapping "
+            f"(default: {rendering.DEFAULT_NWAY_MAX_COLUMNS})."
+        ),
+    )
+    compare_many_parser.add_argument(
+        "--title",
+        default=None,
+        help="Figure title (default: derived from the reference policy).",
+    )
+    compare_many_parser.add_argument(
+        "--stem",
+        default="comparison_nway",
+        help="Output file stem (default: comparison_nway).",
+    )
+    compare_many_parser.add_argument(
+        "--output-dir",
+        default="compare_many_viz",
+        help="Directory to write output figures and data to (default: compare_many_viz).",
+    )
+    compare_many_parser.add_argument(
+        "--formats",
+        default=DEFAULT_FORMATS,
+        help=(
+            "Comma-separated figure output formats, e.g. png,svg,pdf "
             f"(default: {DEFAULT_FORMATS})."
         ),
     )
@@ -552,6 +889,344 @@ def run_topics(args) -> int:
     return 0
 
 
+def run_compare(args) -> int:
+    """Run the compare subcommand."""
+    if args.top_k < 1:
+        raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+    if args.min_length < 1:
+        raise ValueError(f"--min-length must be >= 1, got {args.min_length}.")
+    if args.universe == "manifest" and not args.manifest:
+        raise ValueError("--universe manifest requires --manifest.")
+    if args.membership_mode == comparison.MembershipMode.PRIMARY.value:
+        raise ValueError(
+            "--membership-mode primary is not available from the current "
+            "comparison source adapters; use candidate or selection."
+        )
+    if (
+        args.membership_mode == comparison.MembershipMode.SELECTION.value
+        and not args.manifest
+    ):
+        raise ValueError("--membership-mode selection requires --manifest.")
+    if args.order_by == comparison.Ordering.EXPLICIT.value:
+        raise ValueError(
+            "--order-by explicit requires an explicit term list, which the "
+            "compare CLI does not expose yet."
+        )
+
+    corpus = sources.load_comparison_corpus(
+        corpora_root=args.corpus_root,
+        candidates_jsonl_path=args.candidates_jsonl,
+        manifest_jsonl_path=args.manifest,
+    )
+    spec = _build_comparison_spec(args)
+    result = analysis.compare_lexical(corpus, spec)
+    if not result.rows:
+        raise ValueError(
+            "No comparison terms to visualize: the selected universe and "
+            "selectors yielded no aligned vocabulary after preprocessing."
+        )
+
+    output_dir = pathlib.Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    formats = _parse_formats(args.formats)
+
+    style_slug = spec.style.value
+    for fmt in formats:
+        figure_path = output_dir / f"comparison_{style_slug}.{fmt}"
+        if spec.style == comparison.ComparisonStyle.REFERENCE_OVERLAY:
+            fig, _ = rendering.plot_reference_overlay_comparison(
+                result,
+                title=_comparison_title(result),
+                save_path=str(figure_path),
+            )
+        else:
+            fig, _ = rendering.plot_mirrored_comparison(
+                result,
+                title=_comparison_title(result),
+                save_path=str(figure_path),
+            )
+        plt.close(fig)
+
+    csv_path = output_dir / "comparison.csv"
+    _write_comparison_csv(result, csv_path)
+    manifest = {
+        **result.manifest,
+        "cli": {
+            "command": "lcats visualize compare",
+            "outputs": {
+                "csv": str(csv_path),
+                "figures": [
+                    str(output_dir / f"comparison_{style_slug}.{fmt}")
+                    for fmt in formats
+                ],
+            },
+        },
+    }
+    manifest_path = output_dir / "comparison_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    print(json.dumps(manifest, indent=2))
+    return 0
+
+
+def _build_comparison_spec(args) -> comparison.ComparisonSpec:
+    membership_mode = comparison.MembershipMode(args.membership_mode)
+    right_selector = _genre_or_all_selector(args.right_genre, membership_mode, "right")
+    if args.right_reference == "complement":
+        left_selector = comparison.Selector(
+            comparison.SelectorKind.COMPLEMENT,
+            base=right_selector,
+            label=f"U - {right_selector.label}",
+        )
+    elif args.right_reference == "universe":
+        left_selector = comparison.Selector(comparison.SelectorKind.ALL, label="U")
+    else:
+        left_selector = _genre_or_all_selector(args.left_genre, membership_mode, "left")
+
+    left_metric = comparison.MetricSpec(
+        comparison.MetricName(args.left_metric or args.metric)
+    )
+    right_metric = comparison.MetricSpec(
+        comparison.MetricName(args.right_metric or args.metric)
+    )
+    style = comparison.ComparisonStyle(args.style.replace("-", "_"))
+    universe = comparison.UniverseSpec(kind=args.universe)
+    if args.universe == "manifest":
+        manifest_selection = sources.load_manifest_selection(args.manifest)
+        universe = comparison.UniverseSpec(
+            kind="manifest",
+            story_ids=manifest_selection.story_ids,
+            source_path=manifest_selection.source_path,
+            source_revision=manifest_selection.source_revision,
+        )
+
+    return comparison.ComparisonSpec(
+        universe=universe,
+        left=left_selector,
+        right=right_selector,
+        left_metric=left_metric,
+        right_metric=right_metric,
+        token_filter=comparison.TokenFilter(
+            include_stopwords=args.include_stopwords,
+            min_length=args.min_length,
+        ),
+        vocabulary=comparison.VocabularySpec(
+            policy=comparison.VocabularyPolicy(args.vocabulary),
+            top_k=args.top_k,
+        ),
+        ordering=comparison.OrderingSpec(comparison.Ordering(args.order_by)),
+        style=style,
+        output_formats=tuple(_parse_formats(args.formats)),
+    )
+
+
+def _genre_or_all_selector(
+    genre: str | None,
+    membership_mode: comparison.MembershipMode,
+    label_prefix: str,
+) -> comparison.Selector:
+    if genre:
+        return comparison.Selector(
+            comparison.SelectorKind.GENRE,
+            genre=genre,
+            membership_mode=membership_mode,
+            label=f"{label_prefix}: {membership_mode.value}:{genre}",
+        )
+    return comparison.Selector(comparison.SelectorKind.ALL, label=f"{label_prefix}: U")
+
+
+def _write_comparison_csv(
+    result: comparison.ComparisonResult, csv_path: pathlib.Path
+) -> None:
+    rows = result.table()
+    fieldnames = list(rows[0])
+    with csv_path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def _comparison_title(result: comparison.ComparisonResult) -> str:
+    left = result.manifest["left"]["label"]
+    right = result.manifest["right"]["label"]
+    return f"{right} vs {left}"
+
+
+_AUTO_NWAY_POLICY = {
+    comparison.NWayReferencePolicy.COMMON: "reference_value",
+    comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT: "max_absolute_deviation",
+    comparison.NWayReferencePolicy.NONE: "max_panel_value",
+}
+
+
+def run_compare_many(args) -> int:
+    """Run the compare-many subcommand."""
+    if args.top_k < 1:
+        raise ValueError(f"--top-k must be >= 1, got {args.top_k}.")
+    if args.min_length < 1:
+        raise ValueError(f"--min-length must be >= 1, got {args.min_length}.")
+    if args.max_columns is not None and args.max_columns < 1:
+        raise ValueError(f"--max-columns must be >= 1, got {args.max_columns}.")
+    if args.universe == "manifest" and not args.manifest:
+        raise ValueError("--universe manifest requires --manifest.")
+    if args.membership_mode == comparison.MembershipMode.PRIMARY.value:
+        raise ValueError(
+            "--membership-mode primary is not available from the current "
+            "comparison source adapters; use candidate or selection."
+        )
+    if (
+        args.membership_mode == comparison.MembershipMode.SELECTION.value
+        and not args.manifest
+    ):
+        raise ValueError("--membership-mode selection requires --manifest.")
+    if args.reference == "genre" and not args.reference_genre:
+        raise ValueError("--reference genre requires --reference-genre.")
+    if args.reference != "genre" and args.reference_genre:
+        raise ValueError("--reference-genre is only valid with --reference genre.")
+    genres = _parse_panel_genres(args.panels)
+    formats = _parse_formats(args.formats)
+
+    spec = _build_nway_spec(args, genres)
+    comparison.validate_nway_spec(spec)
+    render_spec = _build_nway_render_spec(args)
+    corpus = sources.load_comparison_corpus(
+        corpora_root=args.corpus_root,
+        candidates_jsonl_path=args.candidates_jsonl,
+        manifest_jsonl_path=args.manifest,
+    )
+    result = analysis.compare_lexical_many(corpus, spec)
+    if not result.rows:
+        raise ValueError(
+            "No comparison terms to visualize: the selected universe and "
+            "panels yielded no aligned vocabulary after preprocessing."
+        )
+
+    manifest = nway_outputs.write_nway_outputs(
+        result,
+        output_dir=args.output_dir,
+        stem=args.stem,
+        render_spec=render_spec,
+        formats=formats,
+        title=args.title or _nway_title(result),
+        extra_manifest={
+            "command": "lcats visualize compare-many",
+            "panels": genres,
+            "reference": args.reference,
+            "reference_genre": args.reference_genre,
+        },
+    )
+    print(json.dumps(manifest["outputs"], indent=2))
+    return 0
+
+
+def _parse_panel_genres(panels: str) -> list[str]:
+    genres = [genre.strip() for genre in panels.split(",") if genre.strip()]
+    if len(genres) < 2:
+        raise ValueError("--panels requires at least two comma-separated genres.")
+    if len(genres) != len(set(genres)):
+        raise ValueError("--panels must not repeat a genre.")
+    return genres
+
+
+def _panel_key(genre: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "_", genre).strip("_").lower()
+
+
+def _build_nway_spec(args, genres: list[str]) -> comparison.NWayComparisonSpec:
+    membership_mode = comparison.MembershipMode(args.membership_mode)
+    keys = [_panel_key(genre) for genre in genres]
+    if len(keys) != len(set(keys)) or not all(keys):
+        raise ValueError(f"--panels produce ambiguous panel keys: {keys!r}.")
+    panels = tuple(
+        comparison.NWayPanelSpec(
+            key=key,
+            selector=comparison.Selector(
+                comparison.SelectorKind.GENRE,
+                genre=genre,
+                membership_mode=membership_mode,
+                label=genre,
+            ),
+        )
+        for key, genre in zip(keys, genres)
+    )
+    reference = None
+    if args.reference == "universe":
+        reference_policy = comparison.NWayReferencePolicy.COMMON
+        reference = comparison.Selector(comparison.SelectorKind.ALL, label="U")
+    elif args.reference == "genre":
+        reference_policy = comparison.NWayReferencePolicy.COMMON
+        reference = comparison.Selector(
+            comparison.SelectorKind.GENRE,
+            genre=args.reference_genre,
+            membership_mode=membership_mode,
+            label=args.reference_genre,
+        )
+    elif args.reference == "per-panel-complement":
+        reference_policy = comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT
+    else:
+        reference_policy = comparison.NWayReferencePolicy.NONE
+
+    universe = comparison.UniverseSpec(kind=args.universe)
+    if args.universe == "manifest":
+        manifest_selection = sources.load_manifest_selection(args.manifest)
+        universe = comparison.UniverseSpec(
+            kind="manifest",
+            story_ids=manifest_selection.story_ids,
+            source_path=manifest_selection.source_path,
+            source_revision=manifest_selection.source_revision,
+        )
+    auto_policy = _AUTO_NWAY_POLICY[reference_policy]
+    return comparison.NWayComparisonSpec(
+        universe=universe,
+        reference=reference,
+        panels=panels,
+        metric=comparison.MetricSpec(comparison.MetricName(args.metric)),
+        token_filter=comparison.TokenFilter(
+            include_stopwords=args.include_stopwords,
+            min_length=args.min_length,
+        ),
+        vocabulary=comparison.NWayVocabularySpec(
+            policy=comparison.NWayVocabularyPolicy(
+                auto_policy if args.vocabulary == "auto" else args.vocabulary
+            ),
+            top_k=args.top_k,
+        ),
+        ordering=comparison.NWayOrderingSpec(
+            by=comparison.NWayOrdering(
+                auto_policy if args.order_by == "auto" else args.order_by
+            )
+        ),
+        panel_mode=comparison.NWayPanelMode(args.panel_mode),
+        reference_policy=reference_policy,
+    )
+
+
+def _build_nway_render_spec(args) -> rendering.NWayRenderSpec:
+    overrides = {
+        "reference_direction": args.reference_direction,
+        "term_labels": args.term_labels,
+        "hatching": args.hatching,
+        "legend": args.legend,
+        "row_guides": args.row_guides,
+        "highlight": args.highlight,
+        "scale": args.scale,
+        "max_columns": args.max_columns,
+    }
+    return rendering.NWayRenderSpec.from_preset(
+        args.layout,
+        **{key: value for key, value in overrides.items() if value is not None},
+    )
+
+
+def _nway_title(result: comparison.NWayComparisonResult) -> str:
+    policy = result.manifest["reference_policy"]
+    if policy == comparison.NWayReferencePolicy.COMMON.value:
+        return f"Panel deviations from {result.manifest['reference']['label']}"
+    if policy == comparison.NWayReferencePolicy.PER_PANEL_COMPLEMENT.value:
+        return "Panel deviations from each panel's complement"
+    return "Panel values"
+
+
 def run(
     argv: Optional[Sequence[str]] = None,
     parsed_args: Optional[argparse.Namespace] = None,
@@ -569,6 +1244,10 @@ def run(
         return run_tfidf(args)
     if visualize_command == "topics":
         return run_topics(args)
+    if visualize_command == "compare":
+        return run_compare(args)
+    if visualize_command == "compare-many":
+        return run_compare_many(args)
 
     parser.print_help(file=sys.stderr)
     return 1

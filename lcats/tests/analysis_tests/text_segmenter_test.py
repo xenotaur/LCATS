@@ -1234,6 +1234,80 @@ class TestWiSegment0070MarkerAndTypographyReplay(unittest.TestCase):
         # length-preserving translate() mapping didn't shift positions.
         self.assertEqual(text[start:end], text)
 
+    def test_sentence_initial_capital_case_mismatch_resolves(self):
+        """Real case from WI-EVENT-0096's 2026-08-26 measurement run
+        (lovecraft/the_haunter_of_the_dark, segment 6, end_exact): the
+        model's anchor said "what had happened..." lowercase; the real
+        source says "What had happened..." (sentence-initial capital) -
+        no other difference (WI-SEGMENT-0097)."""
+        text = (
+            "The skull was in a very peculiar state. What had happened to "
+            "the skeleton during its four decades of silent entombment "
+            "here Blake could not imagine."
+        )
+        anchor = (
+            "what had happened to the skeleton during its four decades of "
+            "silent entombment here Blake could not imagine."
+        )
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(
+            text[start:end],
+            "What had happened to the skeleton during its four decades of "
+            "silent entombment here Blake could not imagine.",
+        )
+
+    def test_case_mismatch_combined_with_whitespace_difference_resolves(self):
+        """Real case from WI-EVENT-0096's 2026-08-26 measurement run
+        (mass_quantities/calling_the_empress__smith, segment 1,
+        end_exact): the model's anchor said "the _Empress..." lowercase
+        with a space; the real source says "The\\n_Empress..." (capital,
+        newline) - a case difference combined with a whitespace
+        difference the fallback already tolerated on its own
+        (WI-SEGMENT-0097)."""
+        text = "It died. The\n_Empress of Kolain_ was a little world in itself."
+        anchor = "the _Empress of Kolain_ was a little world in itself."
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        self.assertEqual(
+            text[start:end], "The\n_Empress of Kolain_ was a little world in itself."
+        )
+
+    def test_case_insensitivity_does_not_widen_match_beyond_paragraph_window(self):
+        """Decoy: two case-variant occurrences of similar text, only one
+        of which is inside the claimed [lo, hi) window. Case-insensitive
+        matching must not reach outside the window to find the wrong
+        occurrence (WI-SEGMENT-0097)."""
+        text = "the quick fox jumped.\n\nA fence stood nearby.\n\nThe Quick Fox jumped."
+        window_start = text.index("A fence")
+        anchor = "the quick fox jumped."
+        result = text_segmenter._locate_anchor_span(
+            text, anchor, window_start, len(text)
+        )
+        self.assertIsNotNone(result)
+        start, end = result
+        # Must resolve to the in-window occurrence ("The Quick Fox..."),
+        # not the earlier out-of-window one.
+        self.assertGreaterEqual(start, window_start)
+        self.assertEqual(text[start:end], "The Quick Fox jumped.")
+
+    def test_exact_match_attempt_stays_case_sensitive(self):
+        """The initial exact-match attempt in _locate_anchor_span must
+        remain case-sensitive - only the fallback ignores case. A
+        case-only difference should be resolved by the fallback's
+        whitespace-run regex, not by loosening the first, byte-exact
+        check (WI-SEGMENT-0097)."""
+        text = "Hello world."
+        anchor = "hello world."
+        result = text_segmenter._locate_anchor_span(text, anchor, 0, len(text))
+        self.assertIsNotNone(result)
+        start, end = result
+        # Recovered via the fallback (case-insensitive), matching the
+        # real "Hello world." text, not the anchor's own lowercase text.
+        self.assertEqual(text[start:end], "Hello world.")
+
 
 if __name__ == "__main__":
     unittest.main()

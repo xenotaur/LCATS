@@ -1,4 +1,12 @@
-"""CLI wrapper for clearing data/ and cache/ contents, symlink-safe."""
+"""CLI wrapper for clearing data/ and cache/ contents, symlink-safe.
+
+Run-log disposition (PROP-LCATS-RUN-LOG Decision 4, WI-RUNLOG-0084):
+assessed and found not to warrant its own incremental run-event log.
+Deletion is deterministic and idempotent -- rerunning after any
+interruption reaches the same end state (an already-empty target is a
+no-op), so there is no partial/in-flight state a run log would need to
+distinguish.
+"""
 
 import argparse
 import shutil

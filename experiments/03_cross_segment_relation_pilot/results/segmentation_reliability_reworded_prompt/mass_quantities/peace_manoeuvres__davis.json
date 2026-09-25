@@ -1,0 +1,475 @@
+{
+  "story_id": "mass_quantities/peace_manoeuvres__davis",
+  "outcome": "included",
+  "llm_call_made": true,
+  "segment_count": 8,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 2,
+      "start_exact": "The scout stood where three roads cut three green tunnels in the pine\nwoods, and met at his feet.",
+      "end_exact": "In the front tire of his bicycle was\na puncture, temporarily effaced by a plug. Laying the bicycle on the\nground, Lathrop spun the front wheel swiftly.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0003]",
+      "start_char": 0,
+      "end_char": 2484,
+      "summary": "Scout Lathrop at the crossroads junction struggles between duty and desire, ultimately deciding to let chance (spinning his bicycle wheel) determine which road to take toward Carver.",
+      "cohesion": {
+        "time": "Early afternoon during maneuvers",
+        "place": "Crossroads intersection where three roads meet",
+        "characters": [
+          "Private Lathrop"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unity (the crossroads). No clear GACD: Lathrop's internal conflict is psychological, not on-stage action meeting external resistance. No clear ERAC: no discrete emotion-reason-anticipation-choice sequence. Narrative description of deliberation and decision-making without meeting the thresholds.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 3,
+      "end_par_id": 8,
+      "start_exact": "\"If,\" he decided, \"the wheel stops with the puncture pointing at Carver\nCentre, I'll advance upon Carver Centre.",
+      "end_exact": "For the third time the wheel flashed, but as he waited for the impetus\nto die, the sound of galloping hoofs broke sharply on the silence.",
+      "start_prefix": "",
+      "end_suffix": " The\nscout threw himself and his bicycle over the nearest stone wall, and,\nunlimbering his rifle, pointed it down the road.",
+      "start_char": 2486,
+      "end_char": 3407,
+      "summary": "Lathrop spins his wheel three times at the crossroads; each spin points toward Middleboro, but a sudden sound of galloping hoofs interrupts, forcing him to take cover with his rifle.",
+      "cohesion": {
+        "time": "Continuing afternoon at the crossroads",
+        "place": "The same crossroads and adjacent stone wall",
+        "characters": [
+          "Private Lathrop"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Same time/place as Seg 1 (still at the crossroads, brief moment). Lathrop's spinning is pure chance/logistics, not goal-driven action meeting external conflict. The hoofbeats interrupt the action but do not complete a GACD within this narrow span. Merging with Seg 1 would exceed coarse granularity; this marks the transition to external event.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 9,
+      "end_par_id": 31,
+      "start_exact": "He saw approaching a small boy, in a white apron, seated in a white\nwagon, on which was painted, \"Pies and Pastry. East Wareham.\"",
+      "end_exact": "In every clump of bushes he saw an ambush. Behind each rock he beheld\nthe enemy.",
+      "start_prefix": "The scout threw himself and his bicycle over the nearest stone wall, and,\nunlimbering his rifle, pointed it down the road.",
+      "end_suffix": "\n\n[P0032]",
+      "start_char": 3532,
+      "end_char": 5941,
+      "summary": "Lathrop encounters a baker's boy and commandeers his cart to use as cover while advancing toward Carver Centre. He spots Portuguese pickers and nervously approaches Miss Farrar's summer home.",
+      "cohesion": {
+        "time": "Afternoon, continuing the same maneuver day",
+        "place": "Road from crossroads toward Carver Centre",
+        "characters": [
+          "Private Lathrop",
+          "baker's boy",
+          "Portuguese pickers"
+        ]
+      },
+      "gacd": {
+        "goal": "Advance on Carver Centre and scout for enemy",
+        "action": "Uses baker's cart for cover and moves stealthily down the road",
+        "conflict": "Uncertainty about enemy positions; tension with the baker's boy; nervous anticipation at each potential ambush point",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (advance on Carver Centre) is clear; Action (commandeering cart, moving stealthily) is on-stage; Conflict (enemy uncertainty, suspicion, caution) is indicated; Outcome is Unclear\u2014he reaches the vicinity of Miss Farrar's home but no decisive result. Meets dramatic_scene threshold.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 37,
+      "end_par_id": 89,
+      "start_exact": "The summer home of Miss Farrar stood close to the road. It had been so\nplaced by the farmer who built it, in order that the women folk might\nsit at the window and watch the passing of the stage-coach and the\npeddler.",
+      "end_exact": "He shrugged his shoulders and surrendered his gun.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0090]",
+      "start_char": 6349,
+      "end_char": 15746,
+      "summary": "Lathrop approaches Miss Farrar's house; they engage in romantic banter. Two Red soldiers ambush him; Lathrop is captured, and after tense negotiation, he feigns an escape attempt to avoid being marched away as a prisoner.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Miss Farrar's summer home and surrounding road",
+        "characters": [
+          "Private Lathrop",
+          "Miss Beatrice Farrar",
+          "Two Red soldiers (sergeant and rat-faced youth)"
+        ]
+      },
+      "gacd": {
+        "goal": "Maintain presence near Miss Farrar / scout for enemy",
+        "action": "Attempts to remain at Farrar's gate, engages with captured Red soldiers, negotiates escape",
+        "conflict": "Ambushed by enemy; captured; soldiers debate whether to kill or imprison him; Lathrop and Farrar at odds over his presence",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (dual: spy/stay near Farrar) is clear; Action (interaction, negotiation, attempted presence maintenance) is on-stage; Conflict (ambush, capture, soldiers' debate, Farrar's resistance) is strong; Outcome Unclear\u2014he surrenders rifle but negotiates an arrangement. Meets dramatic_scene threshold.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 90,
+      "end_par_id": 135,
+      "start_exact": "As he did so he gloomily scrutinized the insignia of his captors.\n\n\"Who took me?\" he asked.",
+      "end_exact": "\"Death was instantaneous,\" he called. He bent his body over the\nhandle-bar, and they watched him disappear rapidly around the turn in\nthe road.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0136]",
+      "start_char": 15748,
+      "end_char": 23026,
+      "summary": "Lathrop is captured but outmaneuvers his captors through clever repartee and a plan: he proposes to attempt escape so they can shoot him and avoid prisoner care. They agree; he \"escapes\" on his bicycle.",
+      "cohesion": {
+        "time": "Same afternoon at Farrar's gate",
+        "place": "Road in front of Miss Farrar's house",
+        "characters": [
+          "Private Lathrop",
+          "Two Red soldiers (sergeant and rat-faced private)"
+        ]
+      },
+      "gacd": {
+        "goal": "Escape captivity and remain in the area",
+        "action": "Proposes scheme to sergeant; mounts bicycle and rides away as if escaping",
+        "conflict": "Two opposing sergeants debate prisoner fate; Lathrop must convince them to let him 'escape'",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (escape and stay nearby) is clear; Action (negotiation, mounting bicycle, riding) is on-stage; Conflict (soldier debate, prisoner dilemma) is strong; Outcome Success\u2014he escapes. Meets dramatic_scene threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "narrative_scene",
+      "start_par_id": 136,
+      "end_par_id": 162,
+      "start_exact": "Miss Farrar sighed with relief.\n\n\"Thank you very much,\" she said.",
+      "end_exact": "As she opened the door the car halted at the gate, and voices called to\nher, but she pretended not to hear them, and continued up the stairs.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0163]",
+      "start_char": 23028,
+      "end_char": 27241,
+      "summary": "After Lathrop escapes, Miss Farrar thanks the sergeant. He offers to guard her house; she protests. An automobile approaches with Blue soldiers; the sergeant hides. Miss Farrar retreats into the house.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Miss Farrar's gate and house exterior",
+        "characters": [
+          "Miss Farrar",
+          "Red sergeant"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place continuity with Seg 5 but shift in focus: aftermath of escape. Sergeant's offer to guard and Miss Farrar's reaction are logistics/dialogue without clear on-stage conflict or decisive outcome. No GACD (no sustained goal-action-conflict). No ERAC (no emotional turn, reasoning, or choice). Narrative_scene label appropriate.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 163,
+      "end_par_id": 197,
+      "start_exact": "She mounted the stairs, and crossing a landing moved down a long hall,\nat the further end of which was her bedroom.",
+      "end_exact": "But the man had no idea of standing up to it. Howling with pain, he\nscrambled toward the door, and fled staggering down the hall.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0198]",
+      "start_char": 27289,
+      "end_char": 33888,
+      "summary": "Miss Farrar discovers the rat-faced soldier looting her bedroom. The sergeant arrives and threatens to choke her for jewelry information. Lathrop returns (he had circled back) and defeats both soldiers in combat.",
+      "cohesion": {
+        "time": "Same afternoon, shift to indoor",
+        "place": "Miss Farrar's bedroom",
+        "characters": [
+          "Miss Farrar",
+          "rat-faced soldier",
+          "Red sergeant",
+          "Private Lathrop"
+        ]
+      },
+      "gacd": {
+        "goal": "Miss Farrar's safety; Lathrop's goal to protect her",
+        "action": "Lathrop physically intervenes\u2014tackles rat-faced soldier, punches sergeant",
+        "conflict": "Armed looting soldiers; threat to Miss Farrar (revolver, strangulation threat)",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (protect Miss Farrar from soldiers) is clear; Action (physical combat, intervention) is on-stage and direct; Conflict (armed threat, multiple opponents) is strong; Outcome Success\u2014both soldiers are defeated. Meets dramatic_scene threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 198,
+      "end_par_id": 208,
+      "start_exact": "At the same moment the automobile that a few minutes before had passed\nup the road came limping to the gate, and a half-dozen men in uniform\nsprang out of it.",
+      "end_exact": "After a pause, in which peace came to all the world, he raised his head.\n\n\"Don't worry!\" he said. \"You can BET I won't leave you!\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 33890,
+      "end_char": 35759,
+      "summary": "Blue soldiers arrive and apprehend the looting soldier on the floor. Lathrop explains the soldiers were crooks. Miss Farrar, trembling and fearful, throws herself into Lathrop's arms, begging him never to leave her. Lathrop embraces her tenderly.",
+      "cohesion": {
+        "time": "Immediately following the fight, same afternoon",
+        "place": "Miss Farrar's bedroom",
+        "characters": [
+          "Miss Farrar",
+          "Private Lathrop",
+          "Blue soldiers",
+          "rat-faced soldier"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Fear, trembling; joy and tenderness",
+        "reason": "Recognizes the danger she faced and Lathrop's heroism; recalls her earlier rejection of him",
+        "anticipation": "Dreads being left alone again",
+        "choice": "Overcomes pride, commits to Lathrop; he commits to staying"
+      },
+      "reason": "ERAC test: Emotion (fear, tears, joy) strongly present; Reason (recalling past rejection, recognizing Lathrop's courage) evident; Anticipation (dread of abandonment) clear; Choice (mutual commitment, overcoming prior refusal) explicit. No on-stage conflict or external action meeting resistance\u2014primarily internal/emotional recovery and relationship resolution. Meets dramatic_sequel threshold.",
+      "confidence": 0.9
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 2,
+      "start_exact": "The scout stood where three roads cut three green tunnels in the pine\nwoods, and met at his feet.",
+      "end_exact": "In the front tire of his bicycle was\na puncture, temporarily effaced by a plug. Laying the bicycle on the\nground, Lathrop spun the front wheel swiftly.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0003]",
+      "start_char": 0,
+      "end_char": 2484,
+      "summary": "Scout Lathrop at the crossroads junction struggles between duty and desire, ultimately deciding to let chance (spinning his bicycle wheel) determine which road to take toward Carver.",
+      "cohesion": {
+        "time": "Early afternoon during maneuvers",
+        "place": "Crossroads intersection where three roads meet",
+        "characters": [
+          "Private Lathrop"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unity (the crossroads). No clear GACD: Lathrop's internal conflict is psychological, not on-stage action meeting external resistance. No clear ERAC: no discrete emotion-reason-anticipation-choice sequence. Narrative description of deliberation and decision-making without meeting the thresholds.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 3,
+      "end_par_id": 8,
+      "start_exact": "\"If,\" he decided, \"the wheel stops with the puncture pointing at Carver\nCentre, I'll advance upon Carver Centre.",
+      "end_exact": "For the third time the wheel flashed, but as he waited for the impetus\nto die, the sound of galloping hoofs broke sharply on the silence.",
+      "start_prefix": "",
+      "end_suffix": " The\nscout threw himself and his bicycle over the nearest stone wall, and,\nunlimbering his rifle, pointed it down the road.",
+      "start_char": 2486,
+      "end_char": 3407,
+      "summary": "Lathrop spins his wheel three times at the crossroads; each spin points toward Middleboro, but a sudden sound of galloping hoofs interrupts, forcing him to take cover with his rifle.",
+      "cohesion": {
+        "time": "Continuing afternoon at the crossroads",
+        "place": "The same crossroads and adjacent stone wall",
+        "characters": [
+          "Private Lathrop"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Same time/place as Seg 1 (still at the crossroads, brief moment). Lathrop's spinning is pure chance/logistics, not goal-driven action meeting external conflict. The hoofbeats interrupt the action but do not complete a GACD within this narrow span. Merging with Seg 1 would exceed coarse granularity; this marks the transition to external event.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 9,
+      "end_par_id": 31,
+      "start_exact": "He saw approaching a small boy, in a white apron, seated in a white\nwagon, on which was painted, \"Pies and Pastry. East Wareham.\"",
+      "end_exact": "In every clump of bushes he saw an ambush. Behind each rock he beheld\nthe enemy.",
+      "start_prefix": "The scout threw himself and his bicycle over the nearest stone wall, and,\nunlimbering his rifle, pointed it down the road.",
+      "end_suffix": "\n\n[P0032]",
+      "start_char": 3532,
+      "end_char": 5941,
+      "summary": "Lathrop encounters a baker's boy and commandeers his cart to use as cover while advancing toward Carver Centre. He spots Portuguese pickers and nervously approaches Miss Farrar's summer home.",
+      "cohesion": {
+        "time": "Afternoon, continuing the same maneuver day",
+        "place": "Road from crossroads toward Carver Centre",
+        "characters": [
+          "Private Lathrop",
+          "baker's boy",
+          "Portuguese pickers"
+        ]
+      },
+      "gacd": {
+        "goal": "Advance on Carver Centre and scout for enemy",
+        "action": "Uses baker's cart for cover and moves stealthily down the road",
+        "conflict": "Uncertainty about enemy positions; tension with the baker's boy; nervous anticipation at each potential ambush point",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (advance on Carver Centre) is clear; Action (commandeering cart, moving stealthily) is on-stage; Conflict (enemy uncertainty, suspicion, caution) is indicated; Outcome is Unclear\u2014he reaches the vicinity of Miss Farrar's home but no decisive result. Meets dramatic_scene threshold.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 37,
+      "end_par_id": 89,
+      "start_exact": "The summer home of Miss Farrar stood close to the road. It had been so\nplaced by the farmer who built it, in order that the women folk might\nsit at the window and watch the passing of the stage-coach and the\npeddler.",
+      "end_exact": "He shrugged his shoulders and surrendered his gun.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0090]",
+      "start_char": 6349,
+      "end_char": 15746,
+      "summary": "Lathrop approaches Miss Farrar's house; they engage in romantic banter. Two Red soldiers ambush him; Lathrop is captured, and after tense negotiation, he feigns an escape attempt to avoid being marched away as a prisoner.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Miss Farrar's summer home and surrounding road",
+        "characters": [
+          "Private Lathrop",
+          "Miss Beatrice Farrar",
+          "Two Red soldiers (sergeant and rat-faced youth)"
+        ]
+      },
+      "gacd": {
+        "goal": "Maintain presence near Miss Farrar / scout for enemy",
+        "action": "Attempts to remain at Farrar's gate, engages with captured Red soldiers, negotiates escape",
+        "conflict": "Ambushed by enemy; captured; soldiers debate whether to kill or imprison him; Lathrop and Farrar at odds over his presence",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (dual: spy/stay near Farrar) is clear; Action (interaction, negotiation, attempted presence maintenance) is on-stage; Conflict (ambush, capture, soldiers' debate, Farrar's resistance) is strong; Outcome Unclear\u2014he surrenders rifle but negotiates an arrangement. Meets dramatic_scene threshold.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 90,
+      "end_par_id": 135,
+      "start_exact": "As he did so he gloomily scrutinized the insignia of his captors.\n\n\"Who took me?\" he asked.",
+      "end_exact": "\"Death was instantaneous,\" he called. He bent his body over the\nhandle-bar, and they watched him disappear rapidly around the turn in\nthe road.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0136]",
+      "start_char": 15748,
+      "end_char": 23026,
+      "summary": "Lathrop is captured but outmaneuvers his captors through clever repartee and a plan: he proposes to attempt escape so they can shoot him and avoid prisoner care. They agree; he \"escapes\" on his bicycle.",
+      "cohesion": {
+        "time": "Same afternoon at Farrar's gate",
+        "place": "Road in front of Miss Farrar's house",
+        "characters": [
+          "Private Lathrop",
+          "Two Red soldiers (sergeant and rat-faced private)"
+        ]
+      },
+      "gacd": {
+        "goal": "Escape captivity and remain in the area",
+        "action": "Proposes scheme to sergeant; mounts bicycle and rides away as if escaping",
+        "conflict": "Two opposing sergeants debate prisoner fate; Lathrop must convince them to let him 'escape'",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (escape and stay nearby) is clear; Action (negotiation, mounting bicycle, riding) is on-stage; Conflict (soldier debate, prisoner dilemma) is strong; Outcome Success\u2014he escapes. Meets dramatic_scene threshold.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "narrative_scene",
+      "start_par_id": 136,
+      "end_par_id": 162,
+      "start_exact": "Miss Farrar sighed with relief.\n\n\"Thank you very much,\" she said.",
+      "end_exact": "As she opened the door the car halted at the gate, and voices called to\nher, but she pretended not to hear them, and continued up the stairs.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0163]",
+      "start_char": 23028,
+      "end_char": 27241,
+      "summary": "After Lathrop escapes, Miss Farrar thanks the sergeant. He offers to guard her house; she protests. An automobile approaches with Blue soldiers; the sergeant hides. Miss Farrar retreats into the house.",
+      "cohesion": {
+        "time": "Same afternoon",
+        "place": "Miss Farrar's gate and house exterior",
+        "characters": [
+          "Miss Farrar",
+          "Red sergeant"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place continuity with Seg 5 but shift in focus: aftermath of escape. Sergeant's offer to guard and Miss Farrar's reaction are logistics/dialogue without clear on-stage conflict or decisive outcome. No GACD (no sustained goal-action-conflict). No ERAC (no emotional turn, reasoning, or choice). Narrative_scene label appropriate.",
+      "confidence": 0.75
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 163,
+      "end_par_id": 197,
+      "start_exact": "She mounted the stairs, and crossing a landing moved down a long hall,\nat the further end of which was her bedroom.",
+      "end_exact": "But the man had no idea of standing up to it. Howling with pain, he\nscrambled toward the door, and fled staggering down the hall.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0198]",
+      "start_char": 27289,
+      "end_char": 33888,
+      "summary": "Miss Farrar discovers the rat-faced soldier looting her bedroom. The sergeant arrives and threatens to choke her for jewelry information. Lathrop returns (he had circled back) and defeats both soldiers in combat.",
+      "cohesion": {
+        "time": "Same afternoon, shift to indoor",
+        "place": "Miss Farrar's bedroom",
+        "characters": [
+          "Miss Farrar",
+          "rat-faced soldier",
+          "Red sergeant",
+          "Private Lathrop"
+        ]
+      },
+      "gacd": {
+        "goal": "Miss Farrar's safety; Lathrop's goal to protect her",
+        "action": "Lathrop physically intervenes\u2014tackles rat-faced soldier, punches sergeant",
+        "conflict": "Armed looting soldiers; threat to Miss Farrar (revolver, strangulation threat)",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD test: Goal (protect Miss Farrar from soldiers) is clear; Action (physical combat, intervention) is on-stage and direct; Conflict (armed threat, multiple opponents) is strong; Outcome Success\u2014both soldiers are defeated. Meets dramatic_scene threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 198,
+      "end_par_id": 208,
+      "start_exact": "At the same moment the automobile that a few minutes before had passed\nup the road came limping to the gate, and a half-dozen men in uniform\nsprang out of it.",
+      "end_exact": "After a pause, in which peace came to all the world, he raised his head.\n\n\"Don't worry!\" he said. \"You can BET I won't leave you!\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 33890,
+      "end_char": 35759,
+      "summary": "Blue soldiers arrive and apprehend the looting soldier on the floor. Lathrop explains the soldiers were crooks. Miss Farrar, trembling and fearful, throws herself into Lathrop's arms, begging him never to leave her. Lathrop embraces her tenderly.",
+      "cohesion": {
+        "time": "Immediately following the fight, same afternoon",
+        "place": "Miss Farrar's bedroom",
+        "characters": [
+          "Miss Farrar",
+          "Private Lathrop",
+          "Blue soldiers",
+          "rat-faced soldier"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Fear, trembling; joy and tenderness",
+        "reason": "Recognizes the danger she faced and Lathrop's heroism; recalls her earlier rejection of him",
+        "anticipation": "Dreads being left alone again",
+        "choice": "Overcomes pride, commits to Lathrop; he commits to staying"
+      },
+      "reason": "ERAC test: Emotion (fear, tears, joy) strongly present; Reason (recalling past rejection, recognizing Lathrop's courage) evident; Anticipation (dread of abandonment) clear; Choice (mutual commitment, overcoming prior refusal) explicit. No on-stage conflict or external action meeting resistance\u2014primarily internal/emotional recovery and relationship resolution. Meets dramatic_sequel threshold.",
+      "confidence": 0.9
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 14585,
+    "output_tokens": 3298
+  }
+}

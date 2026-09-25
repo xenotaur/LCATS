@@ -124,6 +124,8 @@ class RunLog:
     -- callers with a real fatal-exception class (e.g.
     ``FatalValidationError``) should pass it explicitly.
 
+    ``allow_protected_root`` is an explicit opt-in for callers that have
+    independently approved a working root under ``data/`` or ``corpora/``.
     ``**run_fields`` are attached to the ``run_start`` event (e.g.
     ``model=...``, ``story_count=...``).
     """
@@ -134,6 +136,7 @@ class RunLog:
         filename: str,
         *,
         fatal_exceptions: tuple = (),
+        allow_protected_root: bool = False,
         **run_fields: Any,
     ) -> None:
         if isinstance(roots, checkpoint.CheckpointRoots):
@@ -142,7 +145,11 @@ class RunLog:
         else:
             working_root = roots
             source_root = None
-        validated = checkpoint.resolve_roots(working_root, source_root)
+        validated = checkpoint.resolve_roots(
+            working_root,
+            source_root,
+            allow_protected_root=allow_protected_root,
+        )
         self.roots = validated
         # filename is a caller-supplied identifier, not a path -- without
         # this check, an absolute value or one containing ".." would
@@ -191,7 +198,7 @@ class RunLog:
             # itself the only error worth reporting, so let it propagate
             # normally.
             if not self._run_end_logged:
-                self.event("run_end")
+                self.event("run_end", **self._run_fields)
             return False
         # An exception is already propagating. If writing the terminal
         # abort event itself fails (disk full, output directory removed,
@@ -206,7 +213,7 @@ class RunLog:
         else:
             event_name = "run_aborted_unexpected"
         try:
-            self.event(event_name, error=repr(exc))
+            self.event(event_name, **self._run_fields, error=repr(exc))
         except Exception as log_error:  # noqa: BLE001 - see docstring above
             print(
                 f"run_log: failed to write {event_name} for {self.log_path}: "

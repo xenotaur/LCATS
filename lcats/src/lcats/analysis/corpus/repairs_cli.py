@@ -1,4 +1,11 @@
-"""CLI wrapper for conservative Unicode/special-character repair proposals."""
+"""CLI wrapper for conservative Unicode/special-character repair proposals.
+
+Run-log disposition (PROP-LCATS-RUN-LOG Decision 4, WI-RUNLOG-0084):
+assessed and found not to warrant its own incremental run-event log.
+This command is explicitly dry-run/proposal-only -- it never writes any
+repair to disk, only reports what it would suggest -- so there is no
+destructive or partially-applied state a run log would need to trace.
+"""
 
 import argparse
 import json

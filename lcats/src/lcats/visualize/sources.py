@@ -24,6 +24,7 @@ import pathlib
 
 from lcats.analysis.corpus import discovery
 from lcats.stories import Story
+from lcats.visualize import comparison
 
 DEFAULT_FULL_SCAN_SUMMARY_PATH = (
     "experiments/05_metadata_genre_prefilter/results/full_scan/summary.json"
@@ -59,6 +60,16 @@ class GenreMembership:
     """Per-story genre-candidate membership, with reproducibility metadata."""
 
     story_genres: dict
+    source_path: str
+    source_revision: str
+
+
+@dataclasses.dataclass(frozen=True)
+class ManifestSelection:
+    """Story IDs and selection genres loaded from a manifest JSONL file."""
+
+    story_ids: tuple[str, ...]
+    selection_genres: dict[str, list[str]]
     source_path: str
     source_revision: str
 
@@ -208,4 +219,98 @@ def load_candidates_genre_membership(
         story_genres=story_genres,
         source_path=str(path),
         source_revision=hashlib.sha256(raw_bytes).hexdigest(),
+    )
+
+
+def load_manifest_selection(manifest_jsonl_path: str) -> ManifestSelection:
+    """Load story IDs and selection labels from a JSONL selection manifest."""
+    path = _resolve_repo_relative_path(manifest_jsonl_path)
+    raw_bytes = path.read_bytes()
+    story_ids = []
+    selection_genres = {}
+    for line in raw_bytes.decode("utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        row = json.loads(line)
+        story_id = row["story_id"]
+        if story_id in selection_genres:
+            raise ValueError(
+                f"{path}: duplicate story_id {story_id!r} -- manifest story IDs "
+                "must be unique for deterministic comparison selection."
+            )
+        story_ids.append(story_id)
+        genre = row.get("selection_genre")
+        selection_genres[story_id] = [genre] if genre else []
+    return ManifestSelection(
+        story_ids=tuple(story_ids),
+        selection_genres=selection_genres,
+        source_path=str(path),
+        source_revision=hashlib.sha256(raw_bytes).hexdigest(),
+    )
+
+
+def load_comparison_corpus(
+    *,
+    corpora_root: str = DEFAULT_CORPORA_ROOT,
+    candidates_jsonl_path: str = DEFAULT_CANDIDATES_JSONL_PATH,
+    manifest_jsonl_path: str | None = None,
+) -> comparison.ComparisonCorpus:
+    """Load corpus text and genre metadata for comparative lexical analysis."""
+    corpus = load_corpus_stories(corpora_root)
+    membership = load_candidates_genre_membership(candidates_jsonl_path)
+    manifest_selection = (
+        load_manifest_selection(manifest_jsonl_path) if manifest_jsonl_path else None
+    )
+
+    corpus_ids = set(corpus.texts)
+    membership_ids = set(membership.story_genres)
+    missing_from_corpus = sorted(membership_ids - corpus_ids)
+    missing_from_candidates = sorted(corpus_ids - membership_ids)
+    if missing_from_corpus or missing_from_candidates:
+        raise ValueError(
+            "join coverage incomplete between the corpus snapshot and "
+            "candidates.jsonl -- requires a complete one-to-one join: "
+            f"{len(missing_from_corpus)} candidates.jsonl story_id(s) not found "
+            f"in the corpus (e.g. {missing_from_corpus[:3]!r}), "
+            f"{len(missing_from_candidates)} corpus story_id(s) not found "
+            f"in candidates.jsonl (e.g. {missing_from_candidates[:3]!r})."
+        )
+
+    manifest_story_ids: set[str] = set()
+    if manifest_selection is not None:
+        manifest_story_ids = set(manifest_selection.story_ids)
+        missing_manifest_ids = sorted(manifest_story_ids - corpus_ids)
+        if missing_manifest_ids:
+            raise ValueError(
+                f"{manifest_selection.source_path}: {len(missing_manifest_ids)} "
+                "manifest story_id(s) not found in the corpus "
+                f"(e.g. {missing_manifest_ids[:3]!r})."
+            )
+
+    documents = []
+    for story_id, text in corpus.texts.items():
+        selection_genres = ()
+        if manifest_selection is not None and story_id in manifest_story_ids:
+            selection_genres = tuple(manifest_selection.selection_genres[story_id])
+        documents.append(
+            comparison.ComparisonDocument(
+                story_id=story_id,
+                text=text,
+                candidate_genres=tuple(membership.story_genres[story_id]),
+                selection_genres=selection_genres,
+            )
+        )
+
+    source_parts = [corpus.source_path, membership.source_path]
+    revision_parts = [corpus.source_revision, membership.source_revision]
+    if manifest_selection is not None:
+        source_parts.append(manifest_selection.source_path)
+        revision_parts.append(manifest_selection.source_revision)
+    return comparison.ComparisonCorpus(
+        documents=tuple(documents),
+        source_path=";".join(source_parts),
+        source_revision=hashlib.sha256(
+            "\n".join(revision_parts).encode("utf-8")
+        ).hexdigest(),
     )

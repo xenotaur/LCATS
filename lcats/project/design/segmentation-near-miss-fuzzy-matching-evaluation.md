@@ -16,15 +16,25 @@ Related work:
 ## Summary
 
 A strict local fuzzy policy matched both committed near-miss positives available
-in the repository, but only one was an exact span recovery. The other accepted
-match overextended the expected source span by one newline. The same policy
-produced zero false positives on four hand-built decoy cases. That is useful
-evidence, but it is not enough to adopt fuzzy matching in production.
+in the repository at the time, but only one was an exact span recovery. The
+other accepted match overextended the expected source span by one newline. The
+same policy produced zero false positives on four hand-built decoy cases. That
+is useful evidence, but it is not enough to adopt fuzzy matching in
+production. (See the 2026-08-28 update below for the enlarged, still-growing
+corpus and its own results.)
 
 Recommendation: defer production fuzzy matching. Keep exact/normalized anchor
 grounding as the production behavior. Reconsider only after a broader,
 predeclared near-miss corpus exists with realistic decoys and a zero
 false-positive result.
+
+**2026-08-28 update (`WI-SEGMENT-0099`).** Two new real positive cases from
+`WI-EVENT-0096`'s 2026-08-26 measurement were added to the corpus (now 4
+positives, still the same 4 decoys). The enlarged-corpus result is
+directionally more positive - 3/4 exact recovery (75%), 0/4 false
+positives - but the corpus is still well short of this evaluation's own
+frozen thresholds (10+ positives, 20+ decoys). **Still defer**; see the
+new Results/Recommendation sections below for the full comparison.
 
 ## Evidence Source
 
@@ -167,3 +177,101 @@ matching becomes important enough to justify fresh spend.
 Do not file a production implementation WI yet. If follow-on work is filed, it
 should be an evidence-expansion WI first, with the thresholds above frozen
 before any real API calls.
+
+## 2026-08-28 Update: Two New Real Positives (`WI-SEGMENT-0099`)
+
+`WI-EVENT-0096`'s 2026-08-26 real measurement run (the exact 17-story
+`WI-EVENT-0033` baseline cohort, `claude-haiku-4-5-20251001`) surfaced two
+more genuine near-miss positives, both committed at
+`experiments/03_cross_segment_relation_pilot/results/segmentation_reliability/`.
+These were added to the tracked corpus (now 4 positive cases; the 4
+existing decoys were kept unchanged, per `WI-SEGMENT-0072`'s own Risk
+Notes against inventing decoys casually) and the evaluator was rerun
+unmodified.
+
+### New positive cases
+
+| Case | Real LLM anchor | Source text | Difference |
+|---|---|---|---|
+| `problem_in_solid__smith`, segment 6 `end_exact` | `Martina Evers` | `Martha Evers` | **name/content substitution** |
+| `the_last_days_of_l_a__smith`, segment 13 `start_exact` | `gratefuly` | `gratefully` | **spelling typo** (one letter) |
+
+**These are different risk classes, not both "spelling near-misses."**
+`gratefuly`/`gratefully` is a pure one-letter omission with the rest of
+the anchor byte-exact - the same category as `uroariously`/`uproariously`.
+`Martina`/`Martha` is different in kind: the model substituted a
+plausible-but-wrong character name, not a spelling slip. `sits`/`sat`
+belongs with the content-substitution class, not the spelling-omission
+class, despite its original case label ("verb substitution") — it swaps
+one word for a different word (present tense for past), the same kind of
+change as a wrong name, not a dropped letter. Grouping it with the pure
+spelling omissions understates how much of this corpus's "near-miss"
+label is actually content substitution: of the four positives, two
+(`sits`/`sat`, `Martina`/`Martha`) are word-level content changes and only
+two (`uroariously`/`uproariously`, `gratefuly`/`gratefully`) are
+letter-level spelling omissions. A future production policy recovering
+the spelling-omission class recovers a segment the model correctly
+identified but quoted sloppily. Recovering the content-substitution class
+means silently accepting a segment whose anchor names the wrong word or
+character - a content error, not a formatting one. Whether a production
+matcher should even attempt to recover content substitutions, versus
+treating them as a distinct failure mode that should keep failing loudly,
+is a real open question this evaluation does not resolve - it is noted
+here rather than folded into the "near-miss" bucket without comment.
+
+### Enlarged-corpus results
+
+| Metric | Original (2 positives) | Enlarged (4 positives) |
+|---|---:|---:|
+| Positive cases | 2 | 4 |
+| Positives recovered exactly | 1 | 3 |
+| Positive exact-recovery rate | 50% | **75%** |
+| Negative/decoy cases | 4 | 4 (unchanged) |
+| False positives | 0 | 0 |
+| False-positive rate | 0% | 0% |
+
+Both new cases recovered exactly on the first try, using the same
+`strict_local_fuzzy` policy unchanged:
+
+- `problem_in_solid_end_exact_name_substitution`: recovered source span
+  `[23981, 24265)` exactly, edit distance 2, similarity 0.9947,
+  contiguous-run ratio 0.7368.
+- `last_days_of_l_a_start_exact_spelling_typo`: recovered source span
+  `[19105, 19271)` exactly, edit distance 1, similarity 0.9970,
+  contiguous-run ratio 0.8848.
+
+The one still-unrecovered case (`way_of_a_rebel_start_exact_verb_substitution`,
+carried over from the original evaluation) still overextends its match by
+one trailing newline character, unchanged by this update.
+
+### Comparison against frozen thresholds
+
+| Threshold | Required | Current | Met? |
+|---|---:|---:|:---:|
+| Real positive anchors | ≥10 | 4 | No |
+| Negative/decoy cases | ≥20 | 4 | No |
+| Positive recovery rate | ≥90% | 75% | No |
+| False positives | 0 | 0 | Yes |
+| Matches outside claimed window | 0 | 0 | Yes |
+| Every accepted match unique | required | satisfied | Yes |
+
+Per this evaluation's own stop conditions, these thresholds are **not
+renegotiated or loosened** by a favorable partial result - the corpus
+size requirements alone are decisive regardless of the encouraging
+recovery/false-positive numbers.
+
+### Updated recommendation
+
+**Still defer production fuzzy matching.** The enlarged corpus is
+directionally encouraging (75% exact recovery, still 0 false positives),
+addressing the user's own framing directly: "if the rest of the text is
+correct this might be a useful win" - for 3 of 4 positives, the rest of
+the anchor genuinely was correct, and the policy recovered it cleanly.
+But 4 positives and 4 decoys remain far short of the 10+/20+ thresholds
+this evaluation itself set, and this update does not change that
+math - it is evidence toward eventually clearing the bar, not evidence
+that the bar has been cleared. The right next step remains what the
+original recommendation already said: accumulate more real near-miss
+`parsed_output` from future approved runs, or authorize a dedicated
+evidence-gathering run if fuzzy matching becomes important enough to
+justify the spend.

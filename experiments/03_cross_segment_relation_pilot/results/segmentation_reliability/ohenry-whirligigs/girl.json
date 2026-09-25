@@ -1,0 +1,314 @@
+{
+  "story_id": "ohenry-whirligigs/girl",
+  "outcome": "included",
+  "llm_call_made": true,
+  "word_count": 1857,
+  "segment_count": 5,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 5,
+      "start_exact": "In gilt letters on the ground glass of the door of room No. 962 were the words:",
+      "end_exact": "especially in the winter.",
+      "start_prefix": "",
+      "end_suffix": " A man with an",
+      "start_char": 1,
+      "end_char": 940,
+      "summary": "Two brokers at their office in a tall building at closing time; Robbins leaves for evening amusements while Hartley remains behind.",
+      "cohesion": {
+        "time": "Late afternoon, after 5 PM",
+        "place": "Room No. 962, Robbins & Hartley office, 20-story office building downtown",
+        "characters": [
+          "Robbins",
+          "Hartley"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified time/place (office closing): expository introduction of characters and setting. No GACD (no on-stage conflict/action with outcome) or ERAC (no emotion/reasoning/choice evidence). Labeled narrative_scene per Decision Rubric C.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 6,
+      "end_par_id": 16,
+      "start_exact": "A man with an air of mystery came in the door and went up to Hartley.",
+      "end_exact": "stopping when he comes upon what he wants.",
+      "start_prefix": " \"Yes,\" said he, \"we always have cool nights in Floralhurst,",
+      "end_suffix": " On the fourth floor",
+      "start_char": 944,
+      "end_char": 3223,
+      "summary": "Detective delivers Vivienne's address. Hartley travels across the city via streetcar and climbs the stairs to her apartment to seek her out.",
+      "cohesion": {
+        "time": "Early evening; travel and arrival at building",
+        "place": "Office \u2192 Broadway car \u2192 crosstown car \u2192 decaying avenue \u2192 The Vallambrosa apartment building",
+        "characters": [
+          "Hartley",
+          "Detective",
+          "Vivienne"
+        ]
+      },
+      "gacd": {
+        "goal": "Find and reach Vivienne at her new residence",
+        "action": "Boards streetcars and climbs apartment stairs to locate her flat",
+        "conflict": "Navigation of the city and the building; uncertainty of finding the right address",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: clear Goal (find Vivienne), Action (travel, climb stairs), Conflict (navigating city/building), and Success outcome. No ERAC evidence. Labeled dramatic_scene per Decision Rubric A. Ends at apartment arrival point before he meets her.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 17,
+      "end_par_id": 43,
+      "start_exact": "On the fourth floor he saw Vivienne standing in an open door.",
+      "end_exact": "\"All right,\" said Hartley. \"You shall have that lying plaster to stick upon your traitorous soul. But, go back.\" Townsend went downstairs, leaving a bitter word to be wafted up the draught of the staircase. Hartley went back to his wooing.",
+      "start_prefix": "stopping when he comes upon what he wants.",
+      "end_suffix": " \"Vivienne,\" said he,",
+      "start_char": 3226,
+      "end_char": 8011,
+      "summary": "Hartley meets Vivienne, courts her and seeks her hand in marriage. He learns Townsend also pursues her, confronts Townsend on the stairs, and forces him away, reclaiming his effort to win her.",
+      "cohesion": {
+        "time": "Same early evening, continuous action",
+        "place": "Vivienne's apartment on the fourth floor of The Vallambrosa building",
+        "characters": [
+          "Hartley",
+          "Vivienne",
+          "Townsend"
+        ]
+      },
+      "gacd": {
+        "goal": "Win Vivienne's agreement to marry and come home with him",
+        "action": "Enters her apartment, courts her earnestly, confronts and repels Townsend on the stairs",
+        "conflict": "Vivienne's hesitation about suburban life; Townsend's rival claim and presence; Hartley's emotional stakes",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (win Vivienne), Action (courtship conversation and physical confrontation with rival), Conflict (hesitation, rival suitor, jealousy, doubt). Outcome is transitional\u2014she does not yet say 'yes' unequivocally by the end of segment. Labeled dramatic_scene per Decision Rubric A.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 44,
+      "end_par_id": 60,
+      "start_exact": "\"Vivienne,\" said he, masterfully. \"I have got to have you. I will take no more refusals or dilly-dallying.\"",
+      "end_exact": "\"To-morrow,\" she repeated with a smile of truth and candour.",
+      "start_prefix": "Hartley went back to his wooing.",
+      "end_suffix": " In an hour and",
+      "start_char": 8014,
+      "end_char": 9548,
+      "summary": "Hartley demands Vivienne immediately, but she refuses unless he first dismisses his wife H\u00e9loise. He grimly commits to sending H\u00e9loise away 'to-night,' and Vivienne pledges to come to him tomorrow.",
+      "cohesion": {
+        "time": "Continuation of same evening visit",
+        "place": "Vivienne's apartment",
+        "characters": [
+          "Hartley",
+          "Vivienne"
+        ]
+      },
+      "gacd": {
+        "goal": "Secure Vivienne's commitment to marry him and come home",
+        "action": "Demands her answer masterfully; negotiates removal of obstacle (wife H\u00e9loise); commits to action 'to-night'",
+        "conflict": "Vivienne's condition (removal of rival woman in his home); emotional resistance from her past hesitation; stakes of his marriage",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (secure her commitment), Action (masterful demand, negotiation, commitment to dismiss wife), Conflict (her condition, emotional obstacle), Success (her 'yes' and vow 'on my word and honour'). Labeled dramatic_scene per Decision Rubric A.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 61,
+      "end_par_id": 67,
+      "start_exact": "In an hour and forty minutes Hartley stepped off the train at Floralhurst.",
+      "end_exact": "you must go right down into the kitchen and discharge H\u00e9loise. She has been drunk again the whole day long.\"",
+      "start_prefix": "\"To-morrow,\" she repeated with a smile of truth and candour.",
+      "end_suffix": "",
+      "start_char": 9551,
+      "end_char": 10692,
+      "summary": "Hartley arrives home at Floralhurst, greets his wife H\u00e9loise. He tells her he must dismiss the cook and bring Vivienne to replace her. His wife joyfully misunderstands this as a household staff change, not realizing Vivienne will replace her as wife.",
+      "cohesion": {
+        "time": "Same night, 1 hour 40 minutes after leaving the city",
+        "place": "Hartley's cottage home at Floralhurst (suburban home)",
+        "characters": [
+          "Hartley",
+          "H\u00e9loise (wife)",
+          "H\u00e9loise's mother"
+        ]
+      },
+      "gacd": {
+        "goal": "Inform his wife and mother-in-law of his intention to dismiss H\u00e9loise and bring Vivienne",
+        "action": "Arrives home, greets wife, whispers shocking news to her ear",
+        "conflict": "Ambiguity and misunderstanding; wife's and mother's misinterpretation of his words; moral/emotional stakes of the deception",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (inform about dismissal), Action (whispers revelation), Conflict (misunderstanding, false interpretation by wife/mother), Outcome unclear (they celebrate what they think is good news). Labeled dramatic_scene per Decision Rubric A; ends at comic/tragic revelation point.",
+      "confidence": 0.82
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 5,
+      "start_exact": "In gilt letters on the ground glass of the door of room No. 962 were the words:",
+      "end_exact": "especially in the winter.",
+      "start_prefix": "",
+      "end_suffix": " A man with an",
+      "start_char": 1,
+      "end_char": 940,
+      "summary": "Two brokers at their office in a tall building at closing time; Robbins leaves for evening amusements while Hartley remains behind.",
+      "cohesion": {
+        "time": "Late afternoon, after 5 PM",
+        "place": "Room No. 962, Robbins & Hartley office, 20-story office building downtown",
+        "characters": [
+          "Robbins",
+          "Hartley"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified time/place (office closing): expository introduction of characters and setting. No GACD (no on-stage conflict/action with outcome) or ERAC (no emotion/reasoning/choice evidence). Labeled narrative_scene per Decision Rubric C.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 6,
+      "end_par_id": 16,
+      "start_exact": "A man with an air of mystery came in the door and went up to Hartley.",
+      "end_exact": "stopping when he comes upon what he wants.",
+      "start_prefix": " \"Yes,\" said he, \"we always have cool nights in Floralhurst,",
+      "end_suffix": " On the fourth floor",
+      "start_char": 944,
+      "end_char": 3223,
+      "summary": "Detective delivers Vivienne's address. Hartley travels across the city via streetcar and climbs the stairs to her apartment to seek her out.",
+      "cohesion": {
+        "time": "Early evening; travel and arrival at building",
+        "place": "Office \u2192 Broadway car \u2192 crosstown car \u2192 decaying avenue \u2192 The Vallambrosa apartment building",
+        "characters": [
+          "Hartley",
+          "Detective",
+          "Vivienne"
+        ]
+      },
+      "gacd": {
+        "goal": "Find and reach Vivienne at her new residence",
+        "action": "Boards streetcars and climbs apartment stairs to locate her flat",
+        "conflict": "Navigation of the city and the building; uncertainty of finding the right address",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: clear Goal (find Vivienne), Action (travel, climb stairs), Conflict (navigating city/building), and Success outcome. No ERAC evidence. Labeled dramatic_scene per Decision Rubric A. Ends at apartment arrival point before he meets her.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 17,
+      "end_par_id": 43,
+      "start_exact": "On the fourth floor he saw Vivienne standing in an open door.",
+      "end_exact": "\"All right,\" said Hartley. \"You shall have that lying plaster to stick upon your traitorous soul. But, go back.\" Townsend went downstairs, leaving a bitter word to be wafted up the draught of the staircase. Hartley went back to his wooing.",
+      "start_prefix": "stopping when he comes upon what he wants.",
+      "end_suffix": " \"Vivienne,\" said he,",
+      "start_char": 3226,
+      "end_char": 8011,
+      "summary": "Hartley meets Vivienne, courts her and seeks her hand in marriage. He learns Townsend also pursues her, confronts Townsend on the stairs, and forces him away, reclaiming his effort to win her.",
+      "cohesion": {
+        "time": "Same early evening, continuous action",
+        "place": "Vivienne's apartment on the fourth floor of The Vallambrosa building",
+        "characters": [
+          "Hartley",
+          "Vivienne",
+          "Townsend"
+        ]
+      },
+      "gacd": {
+        "goal": "Win Vivienne's agreement to marry and come home with him",
+        "action": "Enters her apartment, courts her earnestly, confronts and repels Townsend on the stairs",
+        "conflict": "Vivienne's hesitation about suburban life; Townsend's rival claim and presence; Hartley's emotional stakes",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (win Vivienne), Action (courtship conversation and physical confrontation with rival), Conflict (hesitation, rival suitor, jealousy, doubt). Outcome is transitional\u2014she does not yet say 'yes' unequivocally by the end of segment. Labeled dramatic_scene per Decision Rubric A.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 44,
+      "end_par_id": 60,
+      "start_exact": "\"Vivienne,\" said he, masterfully. \"I have got to have you. I will take no more refusals or dilly-dallying.\"",
+      "end_exact": "\"To-morrow,\" she repeated with a smile of truth and candour.",
+      "start_prefix": "Hartley went back to his wooing.",
+      "end_suffix": " In an hour and",
+      "start_char": 8014,
+      "end_char": 9548,
+      "summary": "Hartley demands Vivienne immediately, but she refuses unless he first dismisses his wife H\u00e9loise. He grimly commits to sending H\u00e9loise away 'to-night,' and Vivienne pledges to come to him tomorrow.",
+      "cohesion": {
+        "time": "Continuation of same evening visit",
+        "place": "Vivienne's apartment",
+        "characters": [
+          "Hartley",
+          "Vivienne"
+        ]
+      },
+      "gacd": {
+        "goal": "Secure Vivienne's commitment to marry him and come home",
+        "action": "Demands her answer masterfully; negotiates removal of obstacle (wife H\u00e9loise); commits to action 'to-night'",
+        "conflict": "Vivienne's condition (removal of rival woman in his home); emotional resistance from her past hesitation; stakes of his marriage",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (secure her commitment), Action (masterful demand, negotiation, commitment to dismiss wife), Conflict (her condition, emotional obstacle), Success (her 'yes' and vow 'on my word and honour'). Labeled dramatic_scene per Decision Rubric A.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 61,
+      "end_par_id": 67,
+      "start_exact": "In an hour and forty minutes Hartley stepped off the train at Floralhurst.",
+      "end_exact": "you must go right down into the kitchen and discharge H\u00e9loise. She has been drunk again the whole day long.\"",
+      "start_prefix": "\"To-morrow,\" she repeated with a smile of truth and candour.",
+      "end_suffix": "",
+      "start_char": 9551,
+      "end_char": 10692,
+      "summary": "Hartley arrives home at Floralhurst, greets his wife H\u00e9loise. He tells her he must dismiss the cook and bring Vivienne to replace her. His wife joyfully misunderstands this as a household staff change, not realizing Vivienne will replace her as wife.",
+      "cohesion": {
+        "time": "Same night, 1 hour 40 minutes after leaving the city",
+        "place": "Hartley's cottage home at Floralhurst (suburban home)",
+        "characters": [
+          "Hartley",
+          "H\u00e9loise (wife)",
+          "H\u00e9loise's mother"
+        ]
+      },
+      "gacd": {
+        "goal": "Inform his wife and mother-in-law of his intention to dismiss H\u00e9loise and bring Vivienne",
+        "action": "Arrives home, greets wife, whispers shocking news to her ear",
+        "conflict": "Ambiguity and misunderstanding; wife's and mother's misinterpretation of his words; moral/emotional stakes of the deception",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "GACD threshold met: Goal (inform about dismissal), Action (whispers revelation), Conflict (misunderstanding, false interpretation by wife/mother), Outcome unclear (they celebrate what they think is good news). Labeled dramatic_scene per Decision Rubric A; ends at comic/tragic revelation point.",
+      "confidence": 0.82
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 7016,
+    "output_tokens": 2044
+  }
+}

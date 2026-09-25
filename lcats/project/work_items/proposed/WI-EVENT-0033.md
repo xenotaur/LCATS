@@ -231,6 +231,63 @@ broader audit and scoping step.
   fix — the audit's own finding is that `json_object` mode is *a* cause of
   the exclusion rate, not necessarily the only one.
 
+- **REAL MEASUREMENT (2026-08-26, `WI-EVENT-0096`, PR pending):** ran
+  `experiments/03_cross_segment_relation_pilot/check_segmentation_reliability.py`
+  against the exact original 17-story baseline cohort (resolved from
+  `experiments/03_cross_segment_relation_pilot/results/pilot_stories.jsonl`),
+  `claude-haiku-4-5-20251001`, 17 real API calls, actual cost $0.59. Full
+  data and write-up:
+  `experiments/03_cross_segment_relation_pilot/results/segmentation_reliability/SUMMARY.md`.
+
+  **The named `parsing_error` failure mode is structurally eliminated**:
+  `parsing_error` dropped from 11/17 (65%) to **0/17 (0%)** by switching
+  to the `tool_schema=` path, which removes the free-text JSON-parse step
+  that mode used to fail at. Note this 0/17 is not itself measured
+  evidence of improved reliability - `JSONPromptExtractor.extract()` sets
+  `parsing_error = None` unconditionally on the `tool_schema` path
+  (confirmed above, and by `check_segmentation_reliability.py`'s own
+  documented caveat), so a 0/17 `parsing_error` count is guaranteed by the
+  code path regardless of whether segmentation actually became more
+  reliable (review finding, PR #398, confirmed real before fixing this
+  paragraph's earlier, overclaiming wording). The only real, measured
+  evidence is the any-cause exclusion-rate comparison below.
+
+  **But the overall any-cause segmentation exclusion rate barely moved**
+  (65% → 59%, 11/17 → 10/17), because a different, pre-existing failure
+  mode was already present underneath and is now fully exposed:
+  10/10 new exclusions are `alignment_error: "anchor text not found in
+  story text"` — the exact near-miss-anchor category `WI-SEGMENT-0069`
+  investigated and `WI-SEGMENT-0072` evaluated (fuzzy-matching) and
+  declined to fix, due to false-positive risk. The model now
+  successfully returns a full, well-formed segment list, but one
+  segment's anchor text fails to align against the real story text, and
+  the whole story is still excluded as a result.
+
+  **One observed inclusion flip, not yet established as a regression**:
+  `romance`'s `wintry_peacock_from_the_new_decameron_volume_iii__lawrence`
+  was *included* in the original baseline and is *excluded* now
+  (`alignment_error`). `make_segment_extractor` samples at
+  `temperature=0.2`, and this compares one pre-fix call against one
+  post-fix call with no repeated trials or same-version control - the
+  flip could reflect ordinary model-output variance rather than a real
+  effect of the code change (review finding, PR #398). Reported as an
+  observed flip, not asserted as a regression, pending further evidence.
+  Per-genre: science fiction unchanged (1/5→1/5), horror improved
+  (1/5→2/5), western improved (0/2→1/2, no longer zero), romance's
+  observed count dropped (4/5→3/5).
+
+  **Per this item's own Risk Notes above, this measurement does not
+  resolve `WI-EVENT-0033`.** The improvement (6 points) is smaller than
+  the acceptance criterion's implicit expectation, and the honest
+  conclusion is that this item's fix was necessary but not sufficient:
+  segmentation reliability is now bottlenecked by the alignment-anchor
+  issue, not the parsing issue this item targeted. `WI-EVENT-0033`
+  remains `status: proposed`. Whether to reopen the near-miss-anchor
+  fuzzy-matching question (`WI-SEGMENT-0072`, previously declined) given
+  this new evidence that it is now the dominant real-world blocker is a
+  live open question for whoever picks this up next — not decided by
+  this measurement alone.
+
 ## Related Workstream and Designs
 
 - Workstream: `project/workstreams/proposed/WS-EVENT-STRUCTURED-OUTPUT-RELIABILITY.md`

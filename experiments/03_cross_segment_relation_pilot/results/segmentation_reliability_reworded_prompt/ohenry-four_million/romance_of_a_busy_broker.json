@@ -1,0 +1,243 @@
+{
+  "story_id": "ohenry-four_million/romance_of_a_busy_broker",
+  "outcome": "included",
+  "llm_call_made": true,
+  "segment_count": 4,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 9,
+      "start_exact": "Pitcher, confidential clerk in the office of Harvey Maxwell, broker, allowed a\nlook of mild interest and surprise to visit his usually expressionless\ncountenance when his employer briskly entered at half past nine in company with\nhis young lady stenographer.",
+      "end_exact": "And she went to her desk\nat once and hung the black turban hat with the gold-green macaw wing in its\naccustomed place.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0010]",
+      "start_char": 1,
+      "end_char": 2356,
+      "summary": "Harvey Maxwell arrives at his office with his stenographer Miss Leslie, who appears unusually radiant. Maxwell is absorbed in his work, and Leslie lingers uncertainly before asking Pitcher about engaging another stenographer, then returns to her desk.",
+      "cohesion": {
+        "time": "morning (half past nine) on a business day",
+        "place": "Harvey Maxwell's broker office",
+        "characters": [
+          "Pitcher",
+          "Harvey Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unity (Maxwell's office, morning) with multiple characters and actions, but no clear GACD (no evident goal pursued with conflict/outcome) or ERAC (no focal character's emotional recovery or deliberation with choice). Anchors span the introduction of characters and the stenographer's arrival at her desk.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 10,
+      "end_par_id": 19,
+      "start_exact": "He who has been denied the spectacle of a busy Manhattan broker during a rush\nof business is handicapped for the profession of anthropology.",
+      "end_exact": "that the \"old man\" seemed to get\nmore absent-minded and forgetful every day of the world.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0020]",
+      "start_char": 2359,
+      "end_char": 4903,
+      "summary": "A new stenographer from the agency arrives, but Maxwell, immersed in a hectic day of market activity, turns her away, insisting Miss Leslie's position is secure. Pitcher reflects that Maxwell is becoming forgetful.",
+      "cohesion": {
+        "time": "busy business day in the office",
+        "place": "Maxwell's broker office",
+        "characters": [
+          "Maxwell",
+          "Pitcher",
+          "Miss Leslie",
+          "stenographer from agency"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Continues in the same office setting as Segment 1, during the same busy morning. Covers the interior applicant's visit and Maxwell's response, but this is narrative exposition of the busy day's events rather than a focal character pursuing a goal with conflict and measurable outcome, or experiencing emotional recovery with deliberation.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 20,
+      "end_par_id": 26,
+      "start_exact": "The rush and pace of business grew fiercer and faster. On the floor they were\npounding half a dozen stocks in which Maxwell's customers were heavy\ninvestors.",
+      "end_exact": "He charged upon the desk of the stenographer.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0027]",
+      "start_char": 4906,
+      "end_char": 6553,
+      "summary": "During an intense period of market activity, Maxwell is momentarily distracted by the scent of lilac (Leslie's perfume). This triggers his decision to ask her to marry him, and he dashes into her office to propose.",
+      "cohesion": {
+        "time": "luncheon hour lull / same busy business day",
+        "place": "Maxwell's office, then inner office with stenographer's desk",
+        "characters": [
+          "Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": {
+        "goal": "propose to Miss Leslie and ask her to marry him",
+        "action": "Maxwell dashes into the inner office, charged upon her desk, and initiates a marriage proposal",
+        "conflict": "Maxwell is distracted from his urgent financial duties; he is conflicted between business obligations (the Exchange demands his attention) and his personal desire to propose",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD structure: Maxwell's goal is to propose (triggered by lilac scent reminding him of Leslie). His action is entering her office and charging to her desk to propose. Conflict is present: he is torn between urgent market demands and his personal desire, and must 'snatch a moment' despite pressure. The outcome is Success: he delivers the proposal (though we learn her actual response in the next segment). The segment spans the decision to act through the initial proposal, ending when he reaches her desk.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 27,
+      "end_par_id": 32,
+      "start_exact": "She looked up at him with a smile. A soft pink crept over her cheek, and her\neyes were kind and frank. Maxwell leaned one elbow on her desk.",
+      "end_exact": "We were married last evening at 8\no'clock in the Little Church Around the Corner.\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 6556,
+      "end_char": 7961,
+      "summary": "Maxwell proposes hurriedly to Leslie, asking her to marry him, and Leslie responds with tears and a smile before revealing that they were actually already married the previous evening at 8 o'clock.",
+      "cohesion": {
+        "time": "luncheon hour / same business day",
+        "place": "stenographer's inner office",
+        "characters": [
+          "Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Leslie is overcome with amazement, then tearful and smiling; Maxwell is anxious and restive",
+        "reason": "Leslie recalls they were already married the evening before; Maxwell has been so absorbed in business he forgot they were married",
+        "anticipation": "Leslie anticipates Maxwell's confusion and tries to remind him calmly",
+        "choice": "Leslie reveals the truth that they are already married, providing clarification"
+      },
+      "reason": "No on-stage conflict or outcome struggle here; instead, we see emotional reactions (amazement, tears, smiles) and Leslie's choice to remind Maxwell of their prior marriage. This is a moment of revelation and emotional response following Maxwell's dramatic proposal attempt in Segment 3. ERAC elements are present: emotion (amazement, tears, tenderness), reason (recollection of last night's marriage), choice (Leslie's decision to reveal the truth).",
+      "confidence": 0.9
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 9,
+      "start_exact": "Pitcher, confidential clerk in the office of Harvey Maxwell, broker, allowed a\nlook of mild interest and surprise to visit his usually expressionless\ncountenance when his employer briskly entered at half past nine in company with\nhis young lady stenographer.",
+      "end_exact": "And she went to her desk\nat once and hung the black turban hat with the gold-green macaw wing in its\naccustomed place.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0010]",
+      "start_char": 1,
+      "end_char": 2356,
+      "summary": "Harvey Maxwell arrives at his office with his stenographer Miss Leslie, who appears unusually radiant. Maxwell is absorbed in his work, and Leslie lingers uncertainly before asking Pitcher about engaging another stenographer, then returns to her desk.",
+      "cohesion": {
+        "time": "morning (half past nine) on a business day",
+        "place": "Harvey Maxwell's broker office",
+        "characters": [
+          "Pitcher",
+          "Harvey Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unity (Maxwell's office, morning) with multiple characters and actions, but no clear GACD (no evident goal pursued with conflict/outcome) or ERAC (no focal character's emotional recovery or deliberation with choice). Anchors span the introduction of characters and the stenographer's arrival at her desk.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 10,
+      "end_par_id": 19,
+      "start_exact": "He who has been denied the spectacle of a busy Manhattan broker during a rush\nof business is handicapped for the profession of anthropology.",
+      "end_exact": "that the \"old man\" seemed to get\nmore absent-minded and forgetful every day of the world.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0020]",
+      "start_char": 2359,
+      "end_char": 4903,
+      "summary": "A new stenographer from the agency arrives, but Maxwell, immersed in a hectic day of market activity, turns her away, insisting Miss Leslie's position is secure. Pitcher reflects that Maxwell is becoming forgetful.",
+      "cohesion": {
+        "time": "busy business day in the office",
+        "place": "Maxwell's broker office",
+        "characters": [
+          "Maxwell",
+          "Pitcher",
+          "Miss Leslie",
+          "stenographer from agency"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Continues in the same office setting as Segment 1, during the same busy morning. Covers the interior applicant's visit and Maxwell's response, but this is narrative exposition of the busy day's events rather than a focal character pursuing a goal with conflict and measurable outcome, or experiencing emotional recovery with deliberation.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 20,
+      "end_par_id": 26,
+      "start_exact": "The rush and pace of business grew fiercer and faster. On the floor they were\npounding half a dozen stocks in which Maxwell's customers were heavy\ninvestors.",
+      "end_exact": "He charged upon the desk of the stenographer.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0027]",
+      "start_char": 4906,
+      "end_char": 6553,
+      "summary": "During an intense period of market activity, Maxwell is momentarily distracted by the scent of lilac (Leslie's perfume). This triggers his decision to ask her to marry him, and he dashes into her office to propose.",
+      "cohesion": {
+        "time": "luncheon hour lull / same busy business day",
+        "place": "Maxwell's office, then inner office with stenographer's desk",
+        "characters": [
+          "Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": {
+        "goal": "propose to Miss Leslie and ask her to marry him",
+        "action": "Maxwell dashes into the inner office, charged upon her desk, and initiates a marriage proposal",
+        "conflict": "Maxwell is distracted from his urgent financial duties; he is conflicted between business obligations (the Exchange demands his attention) and his personal desire to propose",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD structure: Maxwell's goal is to propose (triggered by lilac scent reminding him of Leslie). His action is entering her office and charging to her desk to propose. Conflict is present: he is torn between urgent market demands and his personal desire, and must 'snatch a moment' despite pressure. The outcome is Success: he delivers the proposal (though we learn her actual response in the next segment). The segment spans the decision to act through the initial proposal, ending when he reaches her desk.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 27,
+      "end_par_id": 32,
+      "start_exact": "She looked up at him with a smile. A soft pink crept over her cheek, and her\neyes were kind and frank. Maxwell leaned one elbow on her desk.",
+      "end_exact": "We were married last evening at 8\no'clock in the Little Church Around the Corner.\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 6556,
+      "end_char": 7961,
+      "summary": "Maxwell proposes hurriedly to Leslie, asking her to marry him, and Leslie responds with tears and a smile before revealing that they were actually already married the previous evening at 8 o'clock.",
+      "cohesion": {
+        "time": "luncheon hour / same business day",
+        "place": "stenographer's inner office",
+        "characters": [
+          "Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Leslie is overcome with amazement, then tearful and smiling; Maxwell is anxious and restive",
+        "reason": "Leslie recalls they were already married the evening before; Maxwell has been so absorbed in business he forgot they were married",
+        "anticipation": "Leslie anticipates Maxwell's confusion and tries to remind him calmly",
+        "choice": "Leslie reveals the truth that they are already married, providing clarification"
+      },
+      "reason": "No on-stage conflict or outcome struggle here; instead, we see emotional reactions (amazement, tears, smiles) and Leslie's choice to remind Maxwell of their prior marriage. This is a moment of revelation and emotional response following Maxwell's dramatic proposal attempt in Segment 3. ERAC elements are present: emotion (amazement, tears, tenderness), reason (recollection of last night's marriage), choice (Leslie's decision to reveal the truth).",
+      "confidence": 0.9
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 6071,
+    "output_tokens": 1606
+  }
+}

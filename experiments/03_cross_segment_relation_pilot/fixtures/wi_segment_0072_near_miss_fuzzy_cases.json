@@ -1,7 +1,7 @@
 {
   "generated_for": "WI-SEGMENT-0072",
   "purpose": "Offline evaluation corpus for safe fuzzy matching of near-miss segmentation anchors. Positive cases come from real persisted parsed_output in the WI-SEGMENT-0071 replay fixture; negative cases are constructed decoys against committed source text.",
-  "positive_source_artifact": "experiments/03_cross_segment_relation_pilot/results/segmentation_paragraph_misnumbering_diagnostics/replay_fixture/",
+  "positive_source_artifact": "experiments/03_cross_segment_relation_pilot/results/segmentation_paragraph_misnumbering_diagnostics/replay_fixture/ (first 2 positives, WI-SEGMENT-0071) and experiments/03_cross_segment_relation_pilot/results/segmentation_reliability/ (last 2 positives, WI-EVENT-0096/WI-SEGMENT-0099, added 2026-08-28)",
   "positive_cases": [
     {
       "case_id": "no_charge_end_exact_missing_p",
@@ -24,6 +24,28 @@
       "expected_source_text": "Mitch Laskell switched off the short wave set and muttered an oath. He\nsqueezed his way up through the narrow conning tower and sat on the",
       "expected_span_start": 1575,
       "near_miss_reason": "The real LLM anchor says 'sits on the'; the source says 'sat on the'."
+    },
+    {
+      "case_id": "problem_in_solid_end_exact_name_substitution",
+      "story_id": "mass_quantities/problem_in_solid__smith",
+      "story_path": "corpora/mass_quantities/problem_in_solid__smith/story.json",
+      "parsed_output_path": "experiments/03_cross_segment_relation_pilot/results/segmentation_reliability/mass_quantities/problem_in_solid__smith.json",
+      "segment_id": 6,
+      "anchor_field": "end_exact",
+      "expected_source_text": "The scene tilted flat, finally, and traveled along the street on the\nlevel until the principal character was approached, whereupon the\naction began. The camera followed Jack Vanders into a bar where he met\nMartha Evers and ordered the Manhattan that was to become Gargantuan in\nsize--",
+      "expected_span_start": 23981,
+      "near_miss_reason": "WI-EVENT-0096 (2026-08-26 real run): the LLM anchor says 'Martina Evers'; the source says 'Martha Evers' - a name/content substitution, not a spelling or whitespace near-miss."
+    },
+    {
+      "case_id": "last_days_of_l_a_start_exact_spelling_typo",
+      "story_id": "mass_quantities/the_last_days_of_l_a__smith",
+      "story_path": "corpora/mass_quantities/the_last_days_of_l_a__smith/story.json",
+      "parsed_output_path": "experiments/03_cross_segment_relation_pilot/results/segmentation_reliability/mass_quantities/the_last_days_of_l_a__smith.json",
+      "segment_id": 13,
+      "anchor_field": "start_exact",
+      "expected_source_text": "No, the Space People don't seem to have the answer. With the headlines\nyou see at every corner chasing you, you head for The Bar and dive\ngratefully through the door.",
+      "expected_span_start": 19105,
+      "near_miss_reason": "WI-EVENT-0096 (2026-08-26 real run): the LLM anchor says 'gratefuly'; the source says 'gratefully' - a one-letter spelling omission, everything else exact."
     }
   ],
   "negative_cases": [

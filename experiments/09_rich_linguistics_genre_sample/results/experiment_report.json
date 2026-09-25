@@ -1,0 +1,1253 @@
+{
+  "backend_name": "spacy",
+  "bytes_per_story": 2804013.493150685,
+  "bytes_per_token": 376.3631173568732,
+  "compact_sidecar_count": 146,
+  "copied_bucket_bytes": 409385970,
+  "copied_bucket_root": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets",
+  "copied_story_count": 146,
+  "corpora_modified": false,
+  "decisions": {
+    "full_corpus_run": {
+      "decision": "defer",
+      "reason": "pilot quality gate cannot be evaluated before human audit"
+    },
+    "quality_recommendation": "manual_audit_pending",
+    "sample_pos_figures": {
+      "decision": "defer",
+      "reason": "human POS audit labels have not been supplied"
+    }
+  },
+  "dry_run": false,
+  "elapsed_seconds": 283.134,
+  "experiment": "experiments/09_rich_linguistics_genre_sample",
+  "lexical_row_total": 236566,
+  "lexicon_count": 146,
+  "manifest_path": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "manifest_row_count": 146,
+  "manifest_sha256": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
+  "model_name": "",
+  "overwrite": true,
+  "parquet_export": {
+    "byte_count": 13253393,
+    "manifest_path": "experiments/09_rich_linguistics_genre_sample/results/parquet/parquet_manifest.json",
+    "sentence_count": 51490,
+    "story_count": 146,
+    "token_count": 1087742
+  },
+  "peak_memory_bytes": 918126592,
+  "pilot_clean": true,
+  "pos_audit_path": "experiments/09_rich_linguistics_genre_sample/results/pos_audit.json",
+  "pos_audit_status": "manual_audit_pending",
+  "projected_full_corpus": {
+    "basis": "linear_projection_from_pilot_story_count",
+    "estimated_bytes": 5237897205,
+    "estimated_elapsed_seconds": 3622.57,
+    "scale_factor": 12.794520547945206,
+    "story_count": 1868
+  },
+  "resume": false,
+  "retention_options": [
+    "checked_in_experiment_results",
+    "compressed_release_or_external_archive",
+    "derived_lexicon_only_plus_regeneration_manifest"
+  ],
+  "run_clean": true,
+  "run_counts": {
+    "written": 146
+  },
+  "run_summary_path": "experiments/09_rich_linguistics_genre_sample/results/linguistics_run_summary.json",
+  "schema_version": "rich-linguistics-sample-report-v1",
+  "selected_story_count": 146,
+  "smoke_count": null,
+  "snapshot_manifest_path": "experiments/09_rich_linguistics_genre_sample/results/sample_snapshot_manifest.json",
+  "source_commit": "8d14332bd87b8d095a87ecc47d07daf70f5c4a84",
+  "story_list_path": "experiments/09_rich_linguistics_genre_sample/results/story-list.txt",
+  "token_detail_count": 146,
+  "token_total": 1087742,
+  "validation": {
+    "counts": {
+      "compact_invalid": 0,
+      "compact_valid": 146,
+      "lexicon_invalid": 0,
+      "lexicon_valid": 146,
+      "missing_outputs": 0,
+      "token_detail_invalid": 0,
+      "token_detail_valid": 146
+    },
+    "lexical_row_total": 236566,
+    "results": [
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/bell/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/bell/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/bell/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/bell/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/dream_of_little_tuk/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/elderbush/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/emperor_s_new_clothes/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/false_collar/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/false_collar/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/false_collar/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/false_collar/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/fir_tree/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/fir_tree/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/fir_tree/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/fir_tree/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/happy_family/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/happy_family/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/happy_family/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/happy_family/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/leap_frog/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/little_match_girl/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/naughty_boy/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/naughty_boy/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/naughty_boy/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/naughty_boy/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/old_house/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/old_house/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/old_house/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/old_house/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/real_princess/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/real_princess/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/real_princess/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/real_princess/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/red_shoes/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/red_shoes/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/red_shoes/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/red_shoes/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shadow/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shadow/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shadow/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shadow/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/shoes_of_fortune/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/snow_queen/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/story_of_a_mother/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/swineherd/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/swineherd/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/swineherd/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/anderson/swineherd/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/blue_cross/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/eye_of_apollo/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/eye_of_apollo/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/eye_of_apollo/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/eye_of_apollo/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/flying_stars/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/flying_stars/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/flying_stars/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/flying_stars/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/hammer_of_god/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/hammer_of_god/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/hammer_of_god/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/hammer_of_god/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/honour_of_israel_gow/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/invisible_man/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/queer_feet/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/queer_feet/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/queer_feet/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/queer_feet/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/secret_garden/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sign_of_the_broken_sword/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sign_of_the_broken_sword/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sign_of_the_broken_sword/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sign_of_the_broken_sword/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sins_of_prince_saradine/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sins_of_prince_saradine/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sins_of_prince_saradine/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/sins_of_prince_saradine/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/three_tools_of_death/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/chesterton/wrong_shape/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/adventures_of_chanticleer_and_partlet/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/adventures_of_chanticleer_and_partlet/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/adventures_of_chanticleer_and_partlet/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/adventures_of_chanticleer_and_partlet/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/ashputtel/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/ashputtel/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/ashputtel/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/grimm/ashputtel/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/brown_wolf/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/brown_wolf/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/brown_wolf/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/brown_wolf/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/day_s_lodging/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/day_s_lodging/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/day_s_lodging/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/day_s_lodging/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/love_of_life/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/love_of_life/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/love_of_life/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/love_of_life/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/negore_the_coward/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/story_of_keesh/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/story_of_keesh/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/story_of_keesh/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/story_of_keesh/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/sun_dog_trail/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/unexpected/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/unexpected/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/unexpected/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/unexpected/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/white_man_s_way/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/white_man_s_way/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/white_man_s_way/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/london/white_man_s_way/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/cool_air/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/cool_air/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/cool_air/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/cool_air/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/he/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/he/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/he/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/he/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_call_of_cthulhu/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_call_of_cthulhu/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_call_of_cthulhu/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_call_of_cthulhu/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_colour_out_of_space/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_festival/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_festival/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_festival/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_festival/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_haunter_of_the_dark/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_haunter_of_the_dark/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_haunter_of_the_dark/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_haunter_of_the_dark/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_horror_at_red_hook/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_horror_at_red_hook/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_horror_at_red_hook/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_horror_at_red_hook/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_lurking_fear/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_lurking_fear/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_lurking_fear/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_lurking_fear/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_shunned_house/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/lovecraft/the_thing_on_the_doorstep/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/1_000_a_plate__mckenty/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/2_b_r_0_2_b__vonnegut/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/30deg_cattywonkus__bell/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/6_frightened_men__silverberg/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/8_million_dollars_from_mars__marks/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_sales__leiber/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bad_day_for_vermin__laumer/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bottle_of_old_wine__lewis/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bottle_of_old_wine__lewis/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bottle_of_old_wine__lewis/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_bottle_of_old_wine__lewis/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_case_of_sunburn__fontenay/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_case_of_sunburn__fontenay/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_case_of_sunburn__fontenay/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_case_of_sunburn__fontenay/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_city_near_centaurus__doede/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_cold_night_for_crying__marlowe/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_cold_night_for_crying__marlowe/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_cold_night_for_crying__marlowe/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_cold_night_for_crying__marlowe/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_drift_from_redwood_camp__harte/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_fall_of_glass__lee/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_fall_of_glass__lee/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_fall_of_glass__lee/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_fall_of_glass__lee/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_filbert_is_a_nut__raphael/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_filbert_is_a_nut__raphael/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_filbert_is_a_nut__raphael/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_filbert_is_a_nut__raphael/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_for_terra__holden/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_from_earth__banister/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_from_earth__banister/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_from_earth__banister/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_gift_from_earth__banister/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_great_day_for_the_irish__hopf/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_great_day_for_the_irish__hopf/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_great_day_for_the_irish__hopf/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_great_day_for_the_irish__hopf/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_hitch_in_space__leiber/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_hitch_in_space__leiber/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_hitch_in_space__leiber/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_hitch_in_space__leiber/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_husband_for_my_wife__stuart/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_husband_for_my_wife__stuart/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_husband_for_my_wife__stuart/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_husband_for_my_wife__stuart/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_jar_of_jelly_beans__gregory/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_jar_of_jelly_beans__gregory/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_jar_of_jelly_beans__gregory/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_jar_of_jelly_beans__gregory/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_philanthropist__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_prevaricated_parade__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/a_reversion_to_type__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/ajax_for_example__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/ajax_for_example__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/ajax_for_example__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/ajax_for_example__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/all_wool__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/all_wool__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/all_wool__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/all_wool__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/amy_foster__conrad/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/amy_foster__conrad/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/amy_foster__conrad/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/amy_foster__conrad/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/back_home__davis/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/back_home__davis/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/back_home__davis/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/back_home__davis/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/bearly_reasonable__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/brown_john_s_body__marks/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/brown_john_s_body__marks/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/brown_john_s_body__marks/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/brown_john_s_body__marks/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cinders__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cinders__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cinders__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cinders__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cold_ghost__geier/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/cool_air__lovecraft/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/country_lodgings__mitford/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/country_lodgings__mitford/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/country_lodgings__mitford/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/country_lodgings__mitford/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/creepin_tintypes__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/death_and_taxes__hartzell/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/death_and_taxes__hartzell/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/death_and_taxes__hartzell/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/death_and_taxes__hartzell/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dig_me_no_grave__howard/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dirty_work_for_doughgod__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/don_t_think_about_it__stuart/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/doom_of_the_house_of_duryea__peirce/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/dough_or_dynamite__tuttle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/each_man_kills__glad/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/each_man_kills__glad/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/each_man_kills__glad/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/each_man_kills__glad/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_come_easy_go__sabin/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_come_easy_go__sabin/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_come_easy_go__sabin/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_come_easy_go__sabin/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_money__sinclair/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_money__sinclair/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_money__sinclair/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/easy_money__sinclair/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/eve_s_diary_complete__twain/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/eve_s_diary_complete__twain/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/eve_s_diary_complete__twain/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/eve_s_diary_complete__twain/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/he__lovecraft/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/he__lovecraft/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/he__lovecraft/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/he__lovecraft/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_dark__clark/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_dark__clark/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_dark__clark/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_dark__clark/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/in_the_valley_of_the_shadow__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/into_the_blue__austin/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/into_the_blue__austin/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/into_the_blue__austin/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/into_the_blue__austin/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/isle_of_the_undead__eshbach/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/julia_the_apostate__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/le_monsieur_de_la_petite_dame__burnett/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/listen_children_listen__west/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/listen_children_listen__west/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/listen_children_listen__west/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/listen_children_listen__west/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/long_odds__haggard/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_dud_s_sister__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_general_talboys__trollope/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_korner_sins_her_mercies__jerome/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_korner_sins_her_mercies__jerome/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_korner_sins_her_mercies__jerome/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/mrs_korner_sins_her_mercies__jerome/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/my_friend_the_murderer__doyle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/my_friend_the_murderer__doyle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/my_friend_the_murderer__doyle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/my_friend_the_murderer__doyle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/one_day_at_arle__burnett/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/one_day_at_arle__burnett/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/one_day_at_arle__burnett/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/one_day_at_arle__burnett/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/passion_fruit__stacpoole/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/passion_fruit__stacpoole/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/passion_fruit__stacpoole/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/passion_fruit__stacpoole/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/puppet_government__revelle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/puppet_government__revelle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/puppet_government__revelle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/puppet_government__revelle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/splashes_of_red__davis/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_dying_detective__doyle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_dying_detective__doyle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_dying_detective__doyle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_dying_detective__doyle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_adventure_of_the_red_circle__doyle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_courting_of_lady_jane__bacon/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_girl_in_the_crowd__terhune/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_gray_brotherhood__leverage/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_house_of_heine_brothers_in_munich__trollope/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_house_of_heine_brothers_in_munich__trollope/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_house_of_heine_brothers_in_munich__trollope/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_house_of_heine_brothers_in_munich__trollope/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_hunter_s_lodge_case__christie/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_hunter_s_lodge_case__christie/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_hunter_s_lodge_case__christie/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_hunter_s_lodge_case__christie/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_lamplighter__dickens/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_lamplighter__dickens/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_lamplighter__dickens/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_lamplighter__dickens/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_leak__futrelle/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_leak__futrelle/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_leak__futrelle/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_leak__futrelle/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_marriage_of_william_durrant__cummings/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_pirate_s_pocket_book__calthrop/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_red_fetish__long/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_red_fetish__long/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_red_fetish__long/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_red_fetish__long/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_seven_missionaries__mcneile/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_spring_of_a_lion__haggard/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_spring_of_a_lion__haggard/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_spring_of_a_lion__haggard/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_spring_of_a_lion__haggard/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_westminster_alice__saki/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_westminster_alice__saki/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_westminster_alice__saki/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/the_westminster_alice__saki/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/to_the_lights__norton/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/to_the_lights__norton/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/to_the_lights__norton/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/mass_quantities/to_the_lights__norton/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/at_geisenheimer_s/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/at_geisenheimer_s/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/at_geisenheimer_s/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/at_geisenheimer_s/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/bill_the_bloodhound/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/black_for_luck/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/crowned_heads/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/crowned_heads/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/crowned_heads/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/crowned_heads/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/extricating_young_gussie/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/making_of_mac_s/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/making_of_mac_s/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/making_of_mac_s/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/making_of_mac_s/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/man_with_two_left_feet/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/man_with_two_left_feet/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/man_with_two_left_feet/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/man_with_two_left_feet/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/mixer/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/mixer/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/mixer/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/mixer/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/one_touch_of_nature/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/one_touch_of_nature/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/one_touch_of_nature/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/one_touch_of_nature/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/romance_of_an_ugly_policeman/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/sea_of_troubles/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/sea_of_troubles/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/sea_of_troubles/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/sea_of_troubles/linguistics.tokens.json",
+        "valid": true
+      },
+      {
+        "compact_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/wilton_s_holiday/linguistics.json",
+        "findings": [],
+        "lexicon_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/wilton_s_holiday/linguistics.lexicon.json",
+        "story_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/wilton_s_holiday/story.json",
+        "token_detail_path": "experiments/09_rich_linguistics_genre_sample/results/copied_buckets/wodehouse/wilton_s_holiday/linguistics.tokens.json",
+        "valid": true
+      }
+    ],
+    "schema_version": "rich-linguistics-validation-summary-v1",
+    "token_total": 1087742
+  },
+  "validation_clean": true
+}

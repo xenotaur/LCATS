@@ -1,0 +1,42 @@
+{
+  "decisions": {
+    "full_corpus_run": {
+      "decision": "defer",
+      "reason": "pilot quality gate cannot be evaluated before human audit"
+    },
+    "quality_recommendation": "manual_audit_pending",
+    "sample_pos_figures": {
+      "decision": "defer",
+      "reason": "human POS audit labels have not been supplied"
+    }
+  },
+  "preregistration": {
+    "labels": [
+      "NOUN",
+      "PROPN",
+      "OTHER"
+    ],
+    "noun_family": [
+      "NOUN",
+      "PROPN"
+    ],
+    "overall_gate": {
+      "combined_noun_family_min_precision": 0.9,
+      "combined_noun_family_min_recall": 0.9
+    },
+    "sample_rows_per_genre": 24,
+    "schema_version": "rich-linguistics-pos-audit-preregistration-v1",
+    "selection_policy": "deterministic stratified rows by genre with per-genre quotas for machine NOUN, machine PROPN, and machine-negative OTHER candidates; non-letter tokens are excluded, and rows within each bucket prioritize proper names, contractions, hyphenation, archaic endings, and noun/verb ambiguity",
+    "severe_genre_slice_failure_rule": {
+      "combined_noun_family_min_precision": 0.8,
+      "combined_noun_family_min_recall": 0.8,
+      "minimum_audited_rows": 10
+    },
+    "stanza_comparison_policy": "spaCy alone satisfies the pilot when the scored human audit passes the overall and genre-slice gates; Stanza comparison is warranted only for a missed or inconclusive spaCy gate."
+  },
+  "sample_path": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv",
+  "sample_row_count": 192,
+  "schema_version": "rich-linguistics-pos-audit-v1",
+  "scoring": null,
+  "status": "manual_audit_pending"
+}

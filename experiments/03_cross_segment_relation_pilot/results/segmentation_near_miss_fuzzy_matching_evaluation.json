@@ -7,9 +7,9 @@
     "min_contiguous_run_ratio": 0.7,
     "uniqueness_margin": 0.02
   },
-  "positive_total": 2,
-  "positive_recovered": 1,
-  "positive_recovery_rate": 0.5,
+  "positive_total": 4,
+  "positive_recovered": 3,
+  "positive_recovery_rate": 0.75,
   "negative_total": 4,
   "negative_false_positives": 0,
   "negative_false_positive_rate": 0.0,
@@ -44,6 +44,38 @@
         "edit_distance": 2,
         "similarity_ratio": 0.9891696750902527,
         "contiguous_run_ratio": 0.9280575539568345
+      }
+    },
+    {
+      "case_id": "problem_in_solid_end_exact_name_substitution",
+      "expected": true,
+      "expected_span_start": 23981,
+      "expected_span_end": 24265,
+      "matched": true,
+      "recovered_expected_span": true,
+      "match": {
+        "start": 23981,
+        "end": 24265,
+        "text": "The scene tilted flat, finally, and traveled along the street on the\nlevel until the principal character was approached, whereupon the\naction began. The camera followed Jack Vanders into a bar where he met\nMartha Evers and ordered the Manhattan that was to become Gargantuan in\nsize--",
+        "edit_distance": 2,
+        "similarity_ratio": 0.9947275922671354,
+        "contiguous_run_ratio": 0.7368421052631579
+      }
+    },
+    {
+      "case_id": "last_days_of_l_a_start_exact_spelling_typo",
+      "expected": true,
+      "expected_span_start": 19105,
+      "expected_span_end": 19271,
+      "matched": true,
+      "recovered_expected_span": true,
+      "match": {
+        "start": 19105,
+        "end": 19271,
+        "text": "No, the Space People don't seem to have the answer. With the headlines\nyou see at every corner chasing you, you head for The Bar and dive\ngratefully through the door.",
+        "edit_distance": 1,
+        "similarity_ratio": 0.9969788519637462,
+        "contiguous_run_ratio": 0.8848484848484849
       }
     }
   ],

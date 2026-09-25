@@ -1,0 +1,182 @@
+{
+  "story_id": "ohenry-four_million/romance_of_a_busy_broker",
+  "outcome": "included",
+  "llm_call_made": true,
+  "word_count": 1368,
+  "segment_count": 3,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 9,
+      "start_exact": "Pitcher, confidential clerk in the office of Harvey Maxwell, broker, allowed a",
+      "end_exact": "and hung the black turban hat with the gold-green macaw wing in its accustomed place.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0010]",
+      "start_char": 1,
+      "end_char": 2356,
+      "summary": "Maxwell arrives at his office with his stenographer Miss Leslie. Pitcher notices her unusual radiance and lingering manner. Maxwell dismisses her curtly when she approaches his desk. Miss Leslie asks about a replacement stenographer being engaged.",
+      "cohesion": {
+        "time": "Morning (9:30\u20139:45 AM) in Maxwell's office",
+        "place": "Harvey Maxwell's broker office, Manhattan",
+        "characters": [
+          "Harvey Maxwell",
+          "Miss Leslie",
+          "Pitcher"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by continuous time (morning arrival and early business hours) and single place (Maxwell's office). Introduces Miss Leslie's emotional state and the setup regarding hiring. No clear GACD (no on-stage conflict/outcome from an attempt) or ERAC (no focal recovery/deliberation/choice after a prior event). Labeled narrative_scene.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 10,
+      "end_par_id": 20,
+      "start_exact": "He who has been denied the spectacle of a busy Manhattan broker during a rush",
+      "end_exact": "there was no room in it for the human world or the world of nature.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0021]",
+      "start_char": 2359,
+      "end_char": 5567,
+      "summary": "Maxwell works frantically during a busy market day. A replacement stenographer arrives but Maxwell refuses her, affirming his faith in Miss Leslie. Business intensifies with rapid trading and numerous transactions.",
+      "cohesion": {
+        "time": "Same morning, during busy market hours",
+        "place": "Maxwell's broker office, Manhattan",
+        "characters": [
+          "Harvey Maxwell",
+          "Pitcher",
+          "the new stenographer applicant"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Continuous time/place (same morning, same office, progressing through business rush). Includes the encounter with the new stenographer and Maxwell's dismissal of her, but this is narrative description of events rather than a focal character pursuing a goal through conflict. No clear GACD or ERAC structure. Labeled narrative_scene for continuity.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 21,
+      "end_par_id": 32,
+      "start_exact": "When the luncheon hour drew near there came a slight lull in the uproar.",
+      "end_exact": "We were married last evening at 8 o'clock in the Little Church Around the Corner.\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 5570,
+      "end_char": 7961,
+      "summary": "Maxwell encounters the scent of lilac and becomes preoccupied with Miss Leslie. He rushes to her desk and impulsively proposes marriage, admitting he loves her despite his usual focus on business. She reveals they are already married.",
+      "cohesion": {
+        "time": "Late morning (luncheon hour lull), same day",
+        "place": "Maxwell's office and inner stenographer's room",
+        "characters": [
+          "Harvey Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": {
+        "goal": "To propose marriage to Miss Leslie and declare his love",
+        "action": "Maxwell abandons his work during the business lull, enters the inner office, and makes an urgent marriage proposal to Miss Leslie",
+        "conflict": "The tension between his business obligations (men calling for him, the financial world demanding his attention) and his emotional need to confess his love; also the urgency imposed by his own work demands",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear dramatic_scene structure. Goal: propose to Miss Leslie. Action: rushes into inner office and makes an impulsive proposal. Conflict: his business world vs. emotional world; the time pressure ('those fellows are clubbing the stuffing out of Union Pacific'). Outcome: Success\u2014she accepts, though with the twist that they are already married. The segment ends with her revelation, which resolves the scene and provides an emotional/narrative resolution.",
+      "confidence": 0.9
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 9,
+      "start_exact": "Pitcher, confidential clerk in the office of Harvey Maxwell, broker, allowed a",
+      "end_exact": "and hung the black turban hat with the gold-green macaw wing in its accustomed place.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0010]",
+      "start_char": 1,
+      "end_char": 2356,
+      "summary": "Maxwell arrives at his office with his stenographer Miss Leslie. Pitcher notices her unusual radiance and lingering manner. Maxwell dismisses her curtly when she approaches his desk. Miss Leslie asks about a replacement stenographer being engaged.",
+      "cohesion": {
+        "time": "Morning (9:30\u20139:45 AM) in Maxwell's office",
+        "place": "Harvey Maxwell's broker office, Manhattan",
+        "characters": [
+          "Harvey Maxwell",
+          "Miss Leslie",
+          "Pitcher"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified by continuous time (morning arrival and early business hours) and single place (Maxwell's office). Introduces Miss Leslie's emotional state and the setup regarding hiring. No clear GACD (no on-stage conflict/outcome from an attempt) or ERAC (no focal recovery/deliberation/choice after a prior event). Labeled narrative_scene.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "narrative_scene",
+      "start_par_id": 10,
+      "end_par_id": 20,
+      "start_exact": "He who has been denied the spectacle of a busy Manhattan broker during a rush",
+      "end_exact": "there was no room in it for the human world or the world of nature.",
+      "start_prefix": "",
+      "end_suffix": "\n\n[P0021]",
+      "start_char": 2359,
+      "end_char": 5567,
+      "summary": "Maxwell works frantically during a busy market day. A replacement stenographer arrives but Maxwell refuses her, affirming his faith in Miss Leslie. Business intensifies with rapid trading and numerous transactions.",
+      "cohesion": {
+        "time": "Same morning, during busy market hours",
+        "place": "Maxwell's broker office, Manhattan",
+        "characters": [
+          "Harvey Maxwell",
+          "Pitcher",
+          "the new stenographer applicant"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Continuous time/place (same morning, same office, progressing through business rush). Includes the encounter with the new stenographer and Maxwell's dismissal of her, but this is narrative description of events rather than a focal character pursuing a goal through conflict. No clear GACD or ERAC structure. Labeled narrative_scene for continuity.",
+      "confidence": 0.8
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 21,
+      "end_par_id": 32,
+      "start_exact": "When the luncheon hour drew near there came a slight lull in the uproar.",
+      "end_exact": "We were married last evening at 8 o'clock in the Little Church Around the Corner.\"",
+      "start_prefix": "",
+      "end_suffix": "",
+      "start_char": 5570,
+      "end_char": 7961,
+      "summary": "Maxwell encounters the scent of lilac and becomes preoccupied with Miss Leslie. He rushes to her desk and impulsively proposes marriage, admitting he loves her despite his usual focus on business. She reveals they are already married.",
+      "cohesion": {
+        "time": "Late morning (luncheon hour lull), same day",
+        "place": "Maxwell's office and inner stenographer's room",
+        "characters": [
+          "Harvey Maxwell",
+          "Miss Leslie"
+        ]
+      },
+      "gacd": {
+        "goal": "To propose marriage to Miss Leslie and declare his love",
+        "action": "Maxwell abandons his work during the business lull, enters the inner office, and makes an urgent marriage proposal to Miss Leslie",
+        "conflict": "The tension between his business obligations (men calling for him, the financial world demanding his attention) and his emotional need to confess his love; also the urgency imposed by his own work demands",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear dramatic_scene structure. Goal: propose to Miss Leslie. Action: rushes into inner office and makes an impulsive proposal. Conflict: his business world vs. emotional world; the time pressure ('those fellows are clubbing the stuffing out of Union Pacific'). Outcome: Success\u2014she accepts, though with the twist that they are already married. The segment ends with her revelation, which resolves the scene and provides an emotional/narrative resolution.",
+      "confidence": 0.9
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 5844,
+    "output_tokens": 1105
+  }
+}

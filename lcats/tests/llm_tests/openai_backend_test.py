@@ -193,6 +193,9 @@ class TestOpenAIBackend(unittest.TestCase):
                 )
         self.assertEqual(ctx.exception.stop_reason, "length")
         self.assertEqual(ctx.exception.max_tokens, 4096)
+        self.assertIn(
+            '"arguments": "{\\"verdict\\": \\"incl"', ctx.exception.raw_content
+        )
 
     def test_truncation_error_preserves_billed_usage(self):
         """TruncatedResponseError carries the usage the provider already billed."""
@@ -280,6 +283,31 @@ class TestOpenAIBackend(unittest.TestCase):
                 )
         self.assertEqual(ctx.exception.input_tokens, 99)
         self.assertEqual(ctx.exception.output_tokens, 123)
+
+    def test_malformed_tool_arguments_preserve_raw_content_and_usage(self):
+        tool_schema = {
+            "name": "record_thing",
+            "input_schema": {"type": "object", "properties": {}},
+        }
+        stub_client = _StubOpenAIClient(
+            _make_response(
+                tool_call_arguments='{"verdict": "incl',
+                prompt_tokens=88,
+                completion_tokens=19,
+            )
+        )
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+            with self.assertRaises(json.JSONDecodeError) as ctx:
+                backend_under_test.complete(
+                    system="sys",
+                    messages=[{"role": "user", "content": "hi"}],
+                    model="gpt-4o-2024-08-06",
+                    tool=tool_schema,
+                )
+        self.assertEqual('{"verdict": "incl', ctx.exception.raw_content)
+        self.assertEqual(88, ctx.exception.input_tokens)
+        self.assertEqual(19, ctx.exception.output_tokens)
 
     def test_complete_without_tool_does_not_raise_on_length(self):
         """Truncation is only checked when a tool call was requested."""

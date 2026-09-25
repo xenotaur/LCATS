@@ -1,0 +1,403 @@
+{
+  "story_id": "mass_quantities/the_last_days_of_l_a__smith",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=7: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 1,
+        "start_exact": "You are having the same recurring dream, the dream that has haunted\nthe whole world since that day in 1945.",
+        "end_exact": "Horror makes you try again and\nsomehow you do scream and wake yourself up.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0002] Once more, this one more time,",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist experiences recurring nightmare of nuclear attack with atomic bomb destruction, mushroom cloud, and personal vaporization.",
+        "cohesion": {
+          "time": "night (dream time)",
+          "place": "bed/dreamscape",
+          "characters": [
+            "Protagonist"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified by time/place (dream/bed) but primarily expository and visceral nightmare imagery without clear GACD structure (no real goal/action/conflict within the dream itself, only psychological terror). No ERAC elements (emotion is expressed but not reasoned through or decided upon in this segment).",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 2,
+        "end_par_id": 8,
+        "start_exact": "Once more, this one more time, it is only a dream. You lie there\npanting, too weak from terror to move out of the puddle of your own\nsweat.",
+        "end_exact": "Maybe _they_ are the Master Race. Something else\ntugs at your memory, something you read somewhere. Oh yes, it was a\nstatement by an oceanographer.",
+        "start_prefix": "",
+        "end_suffix": " He said that even",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After waking, protagonist recovers from terror, reflects on hangover and day-to-day dread, observes rat in alley, recalls apocalyptic survival facts.",
+        "cohesion": {
+          "time": "morning after nightmare, daytime (wandering)",
+          "place": "bedroom, streets of Los Angeles",
+          "characters": [
+            "Protagonist"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "weak, terrified, dazed",
+          "reason": "reflects on state of the world\u2014things are going wrong, war is imminent",
+          "anticipation": "expects the end to come soon",
+          "choice": "gets dressed and goes out to wander, seeking distraction"
+        },
+        "reason": "Segment follows nightmare and shows emotional recovery (weakness, terror dissipating), deliberation about the state of the world (too much history, things going wrong), anticipation of war/end, and choice to get up and go out. No on-stage conflict or GACD outcome here\u2014just reflection and recovery/reorientation. Meets ERAC threshold.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "narrative_scene",
+        "start_par_id": 9,
+        "end_par_id": 42,
+        "start_exact": "Your friends are sitting in their usual places when you get to The Bar.",
+        "end_exact": "The others don't even notice when you get up and walk out to look for a\nchurch.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0043]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist meets friends at bar (John, Dale, Ian, Pat, Anna), discusses apocalypse and survival, philosophical debate about war/death/meaning, then leaves to find a church.",
+        "cohesion": {
+          "time": "afternoon/evening at bar",
+          "place": "The Bar (Los Angeles)",
+          "characters": [
+            "Protagonist",
+            "John Jones-Very",
+            "Dale Bushman",
+            "Ian",
+            "Pat O'Malley",
+            "Anna"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified by time/place (single location, The Bar) and social interaction. Though there is dialogue and debate, it lacks GACD (no attempt to achieve a goal that meets resistance in the scene itself; it's philosophizing) and lacks ERAC structure (no emotional resolution, reason-through, or decisive choice within the bar scene itself\u2014the decision to leave comes at the end, not as reasoned deliberation shown in this segment). Primarily exposition and character interaction.",
+        "confidence": 0.7
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "narrative_scene",
+        "start_par_id": 43,
+        "end_par_id": 61,
+        "start_exact": "Churches aren't hard to find in Los Angeles on any day of the week or\nat any hour of the day.",
+        "end_exact": "Christian Capitalism sends you home to bed by way of another bar.",
+        "start_prefix": "[P0043] \n\n[P0044] ",
+        "end_suffix": "\n\n[P0062]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist visits multiple churches seeking spiritual answers\u2014Church of New Cosmology, Church of Christian Capitalism\u2014encounters absurd theology, avoids police, continues drinking.",
+        "cohesion": {
+          "time": "late afternoon/evening (after leaving The Bar)",
+          "place": "streets and churches of Los Angeles (downtown)",
+          "characters": [
+            "Protagonist",
+            "preacher of New Cosmology",
+            "preacher of Christian Capitalism",
+            "policeman",
+            "various congregation members"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified by time/place (continuous street journey and visits to churches in downtown LA) and by unified action (searching for spiritual solace). Lacks GACD: protagonist has an implicit goal (find meaning/escape) but encounters no clear conflict in these visits\u2014churches are strange/funny but not resistant. Lacks ERAC: no emotional climax, reason-through, or decisive choice within this segment. Primarily experiential tour of absurd religion.",
+        "confidence": 0.65
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 63,
+        "end_par_id": 68,
+        "start_exact": "You're sitting in a room with people all around you. At first you don't\nknow why you're there and then you remember it's a party.",
+        "end_exact": "Perhaps you'd better do both.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0069]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist has vivid apocalyptic nightmare at a party (woman slashed by glass, building collapses, wakes with crushing weight), then struggles through morning hangover and decides to drink and/or go to church.",
+        "cohesion": {
+          "time": "night (dream) and morning after",
+          "place": "dream party location and bedroom",
+          "characters": [
+            "Protagonist",
+            "girl",
+            "crowd at party"
+          ]
+        },
+        "gacd": {
+          "goal": "survive or escape the nuclear attack/aftermath",
+          "action": "protagonist tries to stop bleeding, struggles against collapsing building",
+          "conflict": "fireballs, falling glass, collapsing masonry, inability to stop the bleeding or rescue the girl",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD structure: goal (survive/help), action (attempting to save girl, struggling against rubble), conflict (overwhelming destruction, glass shards, collapsing building), outcome (Disaster\u2014death/crushing weight). The nightmare segment itself contains dramatic action and conflict. The morning-after waking and deciding what to do is framed as a sequel-like recovery, but the paragraph boundary and focus remain on the vivid action and its failure.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "narrative_scene",
+        "start_par_id": 69,
+        "end_par_id": 111,
+        "start_exact": "A tall blond man in a black suit is standing on a platform in the\ncenter of a group of forty or fifty intensely quiet people as you\nenter.",
+        "end_exact": "You won't listen to any more of this. You get to your feet and stagger\nwith great dignity to the door.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0112]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist visits churches (wall-building exercises, gets tossed out); attends Flying Saucer Convention; presents theory about cosmic madhouse; witnesses space-people talks; returns to The Bar, argues with friends about purpose/moral renovation, leaves upset.",
+        "cohesion": {
+          "time": "day (after waking) through evening",
+          "place": "various churches, Flying Saucer Convention hall, The Bar",
+          "characters": [
+            "Protagonist",
+            "various preachers/leaders",
+            "space convention speaker",
+            "Ian",
+            "Jones-Very",
+            "Pat O'Malley",
+            "Anna",
+            "Dale Bushman"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Long continuous narrative sequence unified by time/place shifts (churches \u2192 convention \u2192 bar) and a thematic search for answers/spiritual direction. Contains social interactions and dialogue but lacks a single dramatic goal/conflict/outcome arc (it's a series of encounters). Contains no clear ERAC within the segment itself (the ending shows frustration/anger but not deliberative reasoning leading to a committed choice). Primarily a journey through various spiritual/philosophical venues.",
+        "confidence": 0.65
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 113,
+        "end_par_id": 116,
+        "start_exact": "You're dressed in high altitude equipment and you're sitting in the\nnose of a jet bomber listening to the vicious growling of the motors.",
+        "end_exact": "You look for a bar or a place to buy a bottle and then remember that\nyou haven't any money.",
+        "start_prefix": "",
+        "end_suffix": " You see Pat",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist dreams of piloting nuclear bomber, drops bombs on three cities, hears screams, goes mad, attempts to dive into chaos to stop them; wakes with guilt and hangover.",
+        "cohesion": {
+          "time": "night (dream) and morning",
+          "place": "dream (bomber cockpit) and bedroom/street",
+          "characters": [
+            "Protagonist",
+            "bomber crew (implied)"
+          ]
+        },
+        "gacd": {
+          "goal": "stop the screams and prevent/reverse the destruction",
+          "action": "tilts bomber nose and dives toward the screams, tries to scream back at them",
+          "conflict": "the screams are driving him mad, the bombs have already been dropped, he cannot actually stop the apocalypse, his own madness",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (stop the screams/destruction), action (diving the bomber toward the noise), conflict (psychological breakdown, inability to reverse irreversible destruction, madness), outcome (Disaster\u2014wakes in terror). The waking section is brief and frames recovery but doesn't contain reasoned choice/ERAC logic; it's primarily part of the aftermath.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 117,
+        "end_par_id": 145,
+        "start_exact": "You see Pat O'Malley up ahead of you in the\ncrowd and hurry to catch up with him. He hasn't any money either, so\nyou suggest that both of you go to church.",
+        "end_exact": "You head for the nearest bar, singing \"Rock of Ages\" at the top of your lungs.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0146]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist and Pat enter church, encounter charismatic preacher Dr. Elinda A. Egers; watch her demons/healing ministry; protagonist becomes obsessed with her as goddess/savior figure.",
+        "cohesion": {
+          "time": "day (after waking from bomber dream)",
+          "place": "church, then bar",
+          "characters": [
+            "Protagonist",
+            "Pat O'Malley",
+            "Dr. Elinda A. Egers",
+            "congregation members"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "fascinated, moved, desire, worship (emotional transformation)",
+          "reason": "realizes Elinda is what he seeks\u2014a goddess, a religion, a means of salvation from atomic fear",
+          "anticipation": "anticipates future visits, expects that Elinda/religion will protect him from nuclear worry",
+          "choice": "commits to returning to church every night, adopts Elinda as his savior/goddess, chooses religion/worship as his coping mechanism"
+        },
+        "reason": "Segment shows emotional trajectory (fascination \u2192 worship) and deliberative choice (commits to nightly attendance, adopts Elinda as savior). No on-stage conflict or outcome of a goal-driven action; rather, it's recovery from nightmare and reasoned choice to seek salvation through religious worship of Elinda. Clear ERAC structure.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 147,
+        "end_par_id": 156,
+        "start_exact": "You're running ... running, terror riding you like a jockey using the\nwhip. You're running while a boiling sea of flame rolls over the city.",
+        "end_exact": "Someone else is breathing heavily and you're not surprised to find it's\nyou.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0157]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist dreams of running from nuclear fireballs destroying city, watching people burn, bodies piling up, girl ignites in his arms; wakes to drink wine and realize he must see Elinda.",
+        "cohesion": {
+          "time": "night (dream) and morning",
+          "place": "dream (burning city) and bedroom",
+          "characters": [
+            "Protagonist",
+            "girl in evening dress",
+            "various fleeing civilians"
+          ]
+        },
+        "gacd": {
+          "goal": "survive/escape the nuclear fire",
+          "action": "runs toward underground shelter, tries to rescue burning girl",
+          "conflict": "spreading flames, dead bodies, girl catches fire and embraces him, overwhelming heat and suffering",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (survive), action (running, attempting rescue), conflict (inescapable apocalyptic fire, death everywhere), outcome (Disaster\u2014caught in flames, wakes in terror). The waking moment is brief and immediately transitions to choice (going to church), but the segment focuses on the nightmare drama itself.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "narrative_scene",
+        "start_par_id": 157,
+        "end_par_id": 162,
+        "start_exact": "If this is what you want, say Amen!\"\n\n[P0158]\n\"Amen!\" you shout before you realize you're not supposed to this time.",
+        "end_exact": "     \"_Come home, come home,\n    Ye who are weary,\n    Come home._\"",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0163]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist is at church again, aroused by Elinda's preaching about sexual sin and morality; responds emotionally to her sermon; she begins singing hymn.",
+        "cohesion": {
+          "time": "evening (another church visit)",
+          "place": "church/tabernacle",
+          "characters": [
+            "Protagonist",
+            "Elinda Egers",
+            "congregation"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Unified by time/place (single church service) but lacks clear GACD or ERAC structure. While the protagonist is emotionally engaged (aroused, affected), there is no goal pursued with conflict, nor deliberative reasoning leading to a choice within this segment. It's primarily observational/experiential\u2014the preaching and protagonist's visceral response.",
+        "confidence": 0.6
+      },
+      {
+        "segment_id": 11,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 163,
+        "end_par_id": 165,
+        "start_exact": "You are sitting in a metal room with telescreens on the wall and a big\nred button in front of you.",
+        "end_exact": "You're scared. The bloody world is coming to a bloody end. You know it\njust as sure as you're sitting here in the warm sun in MacArthur park\nwith the fifth you've bought and are drinking from in a paper bag.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0167]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist dreams of being in nuclear command center, torn between launching missiles and watching cities burn; cannot act; finally pushes button as walls collapse; wakes terrified.",
+        "cohesion": {
+          "time": "night (dream) and morning",
+          "place": "dream (military command room) and MacArthur Park",
+          "characters": [
+            "Protagonist"
+          ]
+        },
+        "gacd": {
+          "goal": "decide whether to launch nuclear missiles; save country from attack",
+          "action": "hesitates over red button while watching missiles fall on own country; finally forces hand down and pushes button",
+          "conflict": "paralysis/moral inability to kill vs. duty to retaliate; hearing screams of people; seeing cities destroyed; arm frozen; all screens show destruction",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (choose whether to launch), action (hesitation then button-push), conflict (psychological paralysis, duty vs. morality, overwhelming destruction), outcome (Disaster\u2014walls burst inward in destruction). Waking moment transitions to different location/reflection but segment focuses on nightmare drama.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 12,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 166,
+        "end_par_id": 168,
+        "start_exact": "It's close now. You're not sure how close but it's close. The world is\ncoming to an end and you know you can't convince anyone that it is.",
+        "end_exact": "It's up to you to lead them out to the city into the wilderness. You drink more and you drink it fast and the more you drink\nthe more a feeling of infinite compassion comes over you for your\nfellow men.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0169]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "After nightmare, protagonist realizes he must stop looking for a savior and become one himself\u2014the messiah. Drinks heavily in park, feels infinite compassion.",
+        "cohesion": {
+          "time": "daytime (morning in park)",
+          "place": "MacArthur Park, Los Angeles",
+          "characters": [
+            "Protagonist"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "fear transforming to compassion, determination, revelation",
+          "reason": "realizes he has been seeking a savior when he should have been helping others; understands he is the messiah",
+          "anticipation": "believes he can save his fellow men",
+          "choice": "decides to become the messiah; commits to helping/saving others"
+        },
+        "reason": "Clear ERAC: emotion (fear \u2192 realization \u2192 compassion), reason (insight that he is the one, not Elinda or others), anticipation (he can save them), choice (commits to becoming messiah/savior). No on-stage conflict or outcome of goal-pursuit; rather, internal reflection and resolution in park.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 13,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 169,
+        "end_par_id": 193,
+        "start_exact": "You can save them. You can do it. You drain about two-thirds of the\nbottle and then get up and walk toward a man in that uniform of\nsuccess, a gray flannel suit.",
+        "end_exact": "Then it's getting dark and you lie there and think how Henny Penny--or\nwas it Chicken Little?--must have felt. You want to tell someone about\nit but you don't. You just lie there and wait for the screaming sirens\nto come and take you away.",
+        "start_prefix": "",
+        "end_suffix": "\"\"\"",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Protagonist attempts to warn random people in park about apocalypse; grabs man in suit, blonde with baby, pounds garbage can, yells about bombs; crowd mistakes him for rapist, beats him severely; he lies bleeding.",
+        "cohesion": {
+          "time": "afternoon/evening in park, ending at dusk",
+          "place": "MacArthur Park",
+          "characters": [
+            "Protagonist",
+            "man in gray suit",
+            "blonde woman",
+            "teen girls",
+            "crowd members",
+            "old lady",
+            "sailor",
+            "working man"
+          ]
+        },
+        "gacd": {
+          "goal": "warn people about apocalypse/save them from disaster",
+          "action": "grabs people, pounds garbage can, yells warnings about H-bombs, C-bombs, ICBMs, nerve gas",
+          "conflict": "people avoid/reject him, police concerns, crowd misinterprets his actions as sexual assault, mob violence erupts",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "Clear GACD: goal (warn/save people), action (grabbing, pounding can, yelling), conflict (public rejection, mob violence, misunderstanding), outcome (Disaster\u2014beaten bloody by crowd, arrested/taken away). The segment shows a dramatic confrontation with resistance and a clear negative outcome.",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 15060,
+    "output_tokens": 5145
+  }
+}

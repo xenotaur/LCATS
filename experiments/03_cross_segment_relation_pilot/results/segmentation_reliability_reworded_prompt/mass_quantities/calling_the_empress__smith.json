@@ -1,0 +1,771 @@
+{
+  "story_id": "mass_quantities/calling_the_empress__smith",
+  "outcome": "included",
+  "llm_call_made": true,
+  "segment_count": 13,
+  "raw_output": "",
+  "parsed_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 4,
+      "start_exact": "The chart in the terminal building at Canalopsis Spaceport, Mars,",
+      "end_exact": "a hole in the sky. The glow was almost lost in the bright sunshine,",
+      "start_prefix": "",
+      "end_suffix": " and soon it died. The",
+      "start_char": 0,
+      "end_char": 1713,
+      "summary": "Description of a navigational chart at Mars spaceport showing interplanetary travel routes, then the _Empress of Kolain_ launches toward Venus.",
+      "cohesion": {
+        "time": "Launch day at Canalopsis Spaceport",
+        "place": "Canalopsis Spaceport, Mars & near Mars space",
+        "characters": [
+          "The _Empress of Kolain_"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unifies time/place at Mars departure with expository material about space travel and the launch itself. No clear GACD or ERAC structure; purely narrative/descriptive.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 5,
+      "end_par_id": 12,
+      "start_exact": "Driving upward, the _Empress of Kolain_ could not have been out of",
+      "end_exact": "Both men knew that nothing more could be done. If Channing couldn't",
+      "start_prefix": "",
+      "end_suffix": " do it, nobody could.",
+      "start_char": 1889,
+      "end_char": 4280,
+      "summary": "Warning bell alerts communications offices on Mars and Terra that the _Empress of Kolain_ has already launched with quarantined cargo and must be rerouted. Teams on Mars and Terra realize only Channing on Venus Equilateral can help.",
+      "cohesion": {
+        "time": "Moments after launch",
+        "place": "Communications offices on Mars, Terra, and in transit to Venus Equilateral",
+        "characters": [
+          "Keg Johnson",
+          "Vice President Williams",
+          "Don Channing"
+        ]
+      },
+      "gacd": {
+        "goal": "Reroute _Empress of Kolain_ before it reaches Venus to prevent quarantine loss",
+        "action": "Send emergency messages across space to Channing at Venus Equilateral relay station",
+        "conflict": "Ship has already launched; only minutes available before it reaches Venus; communication delay across vast distances",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Clear GACD structure: goal of rerouting the ship, action of sending urgent messages, strong conflict (launch timing, distance, quarantine threat), and outcome remains uncertain at segment end. Meets dramatic_scene threshold with all four GACD elements present and conflict strongly indicated.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 13,
+      "end_par_id": 27,
+      "start_exact": "Channing finished the 'gram and swore. It was a good-natured swear",
+      "end_exact": "\"Take off your coat, Walt. We've got a job.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 4303,
+      "end_char": 5938,
+      "summary": "Channing receives the message, confers with Arden and Walt Franks, and they decide to attempt the previously-thought-impossible task of contacting the _Empress_ in flight.",
+      "cohesion": {
+        "time": "Immediately after receiving message",
+        "place": "Don Channing's office at Venus Equilateral",
+        "characters": [
+          "Don Channing",
+          "Arden Wastphal",
+          "Walt Franks"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Channing swears (frustrated/determined); team recognizes the magnitude of the challenge",
+        "reason": "Channing questions feasibility but knows it must be attempted; Franks acknowledges the monumental difficulty",
+        "anticipation": "Anticipate a nearly impossible engineering challenge; Franks jokes about quitting",
+        "choice": "Decide to attempt contacting the ship despite seeming impossibility"
+      },
+      "reason": "Shows emotional reaction (swearing, nervous humor), reasoning about the problem's difficulty, anticipation of challenges ahead, and a clear choice to attempt the task. No on-stage conflict or outcome; recovery/planning cues present. Meets ERAC threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "narrative_scene",
+      "start_par_id": 28,
+      "end_par_id": 62,
+      "start_exact": "\"You mean--Hey! Remind me to quit Saturday.\"\n\n\"This is dead in",
+      "end_exact": "And the ship, like the projectile, would land if the men who knew of",
+      "start_prefix": "",
+      "end_suffix": " her failed in their purpose.",
+      "start_char": 5940,
+      "end_char": 13157,
+      "summary": "Channing and Franks discuss the technical difficulties of contacting a spaceship in flight. They debate various methods (beam width, power dissipation, etc.) before discovering a practical approach using precise calculations of the ship's trajectory.",
+      "cohesion": {
+        "time": "Same afternoon/evening at Venus Equilateral",
+        "place": "Don's office and surrounding areas at Venus Equilateral",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "Charles Thomas"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unified; primarily expository technical dialogue and problem-solving deliberation without clear GACD (no on-stage action/conflict beyond discussion) or completed ERAC structure. Treated as narrative_scene\u2014unified by location and ongoing collaborative reasoning.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 63,
+      "end_par_id": 95,
+      "start_exact": "Don Channing and Walt Franks found their man in the combined dining",
+      "end_exact": "\"That's her,\" said Don with a cheerful smile.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 13188,
+      "end_char": 19860,
+      "summary": "Channing and Franks consult Charles Thomas about using mass detectors. After critique and failed ideas (mirror, mass detectors), they realize they must calculate the ship's precise trajectory and devise a method to track and contact it.",
+      "cohesion": {
+        "time": "Same day, dining/bar area",
+        "place": "Venus Equilateral's dining room and bar",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Charles Thomas"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine how to locate and contact the _Empress of Kolain_ in space",
+        "action": "Consult with expert Thomas; debate mass detectors, mirrors, calculations; sketch trajectory model on tablecloth",
+        "conflict": "Each proposed method is shot down as technically unfeasible; distance and invisibility of ship create barriers",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of finding method, action of consulting and problem-solving, strong conflict as each idea fails, and success when Channing's trajectory-based approach (calculated from angular distance from Mars) emerges as viable. All four elements present.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "narrative_scene",
+      "start_par_id": 96,
+      "end_par_id": 116,
+      "start_exact": "\"Fine!\" said Thomas. \"Now what do we do?\"\n\n\"Clear up this mess so",
+      "end_exact": "is a good, healthy twelve hours before we can begin to squirt our signal.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 19864,
+      "end_char": 23382,
+      "summary": "The team takes the tablecloth drawing to the machine shop where Master Mechanic Walton agrees to fabricate the required cam in approximately nine to twelve hours.",
+      "cohesion": {
+        "time": "Later same day",
+        "place": "Venus Equilateral's dining room and machine shop",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Charles Thomas",
+          "Master Mechanic Walton"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified time/place; primarily logistical/administrative (moving drawing, giving specifications to mechanic, estimating fabrication time). No clear GACD conflict on-stage, no ERAC recovery/deliberation. Treated as narrative_scene.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "narrative_scene",
+      "start_par_id": 117,
+      "end_par_id": 130,
+      "start_exact": "Twelve hours is not much in the life of a man; it is less in the life",
+      "end_exact": "their eyes expectantly upon Don Channing and Walt Franks.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 23386,
+      "end_char": 27747,
+      "summary": "Passage of time as equipment is prepared: the _Empress of Kolain_ travels further while technicians work on the cam, install equipment, and prepare the beam control system for use.",
+      "cohesion": {
+        "time": "12-hour period of equipment preparation",
+        "place": "Venus Equilateral station",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "technicians"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Expository passage describing elapsed time and work-in-progress. Unifies time/place but has no clear GACD (no on-stage conflict/outcome) or ERAC structure. Narrative_scene appropriate for this transitional material.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 131,
+      "end_par_id": 157,
+      "start_exact": "Don spoke to the man chosen to control the beam. \"You can start any",
+      "end_exact": "\"Jim, get a relief for a half-hour. We'll keep the beam centered. Then",
+      "start_prefix": "",
+      "end_suffix": " he can take over when the going gets critical again.",
+      "start_char": 27751,
+      "end_char": 32263,
+      "summary": "First attempt to contact the _Empress of Kolain_ using the new beam system. Multiple hours of scanning yield no response. After extensive searching, Franks deduces that the reflected signal arrives offset by seven hundred miles due to orbital velocity.",
+      "cohesion": {
+        "time": "12+ hours of continuous beam operations",
+        "place": "Venus Equilateral's Beam Control Room",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Jim (beam controller)"
+        ]
+      },
+      "gacd": {
+        "goal": "Contact the _Empress of Kolain_ with the beam transmitter",
+        "action": "Scan space with the transmitter beam while monitoring for return signal; adjust beam position repeatedly; apply calculations to locate ship",
+        "conflict": "No signal returned for hours; initial approach fails; mechanical adjustments not finding the target",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Goal of contacting ship via beam, action of scanning and adjusting transmitter (meeting resistance through repeated failure), strong conflict (no response despite hours of effort), but outcome remains indeterminate\u2014success has not yet been achieved and methods must be revised. Meets dramatic_scene threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 158,
+      "end_par_id": 187,
+      "start_exact": "The mounting of two mirrors at either end of Venus Equilateral gave",
+      "end_exact": "\"You get your own girl,\" snorted Channing. \"And besides, you are needed",
+      "start_prefix": "",
+      "end_suffix": " up here. We've got work to do.\"",
+      "start_char": 32321,
+      "end_char": 37918,
+      "summary": "After many hours of failed attempts, the team realizes the reflected signal is offset. They set up mirrors as a range finder, requiring emergency rearrangement of station infrastructure. Arden brings coffee while the team prepares the new approach.",
+      "cohesion": {
+        "time": "After 13+ hours of failed attempts; continuing operations",
+        "place": "Venus Equilateral station (multiple areas including air plant, central channel, North end)",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "station personnel"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Franks discovers (or realizes) the offset problem; team becomes more determined despite setback",
+        "reason": "Franks calculates the reason for failure and proposes solution; the team reasons through the orbital velocity effect",
+        "anticipation": "Anticipate success with the new range-finder approach",
+        "choice": "Decide to build range-finder mirrors and implement the offset correction"
+      },
+      "reason": "Shows reasoning (orbital velocity calculation), anticipation (hope for new method), and choice (decide to build mirrors and proceed). Primarily focused on recovery/planning after the failed dramatic_scene. No on-stage conflict/outcome in this segment. Meets ERAC threshold.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "narrative_scene",
+      "start_par_id": 188,
+      "end_par_id": 227,
+      "start_exact": "Once again the signal lashed out. The invisible waves drove out and",
+      "end_exact": "it is there only when it spells in International Code!\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 37954,
+      "end_char": 44349,
+      "summary": "Range-finder approach still yields no response. Channing realizes they can electronically sweep (wave) the beam like a television scanning pattern to spray a wider area. Walt designs a phase-shift circuit to implement the electronic beam-waving method.",
+      "cohesion": {
+        "time": "Continuation of same operations period (approx. 20+ hours elapsed)",
+        "place": "Venus Equilateral Beam Control Room and lab",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "Freddy (pilot)"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Primarily technical brainstorming and implementation of new idea. While there is discussion of the goal and multiple attempts, the segment is more a progression of problem-solving steps without clear on-stage conflict or emotional/reflective structure. Narrative_scene captures the time/place unity and ongoing technical work.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 228,
+      "end_par_id": 241,
+      "start_exact": "Prying the toy transmitting key from young James Burke was a job",
+      "end_exact": "And it was doing fine.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 44353,
+      "end_char": 47104,
+      "summary": "Walt obtains a toy transmitting key, designs a thyraton circuit to key the beam, and adjusts the transmitter to the meteor spotter frequency. Meanwhile, the _Empress of Kolain_ continues its journey unaware.",
+      "cohesion": {
+        "time": "Concurrent: late stages of equipment modification and normal ship operations",
+        "place": "Venus Equilateral (bench/lab) and _Empress of Kolain_ (interior)",
+        "characters": [
+          "Walt Franks",
+          "James Burke",
+          "crew of _Empress of Kolain_"
+        ]
+      },
+      "gacd": {
+        "goal": "Successfully modulate the beam with keyed International Code signal",
+        "action": "Obtain transmitting key; design thyraton circuit; adjust transmitter frequency to match meteor spotter; file and adjust radiator elements for new frequency",
+        "conflict": "Fragile toy key cannot handle the power; must engineer robust circuit; full three hours required to adjust radiator length and director elements to new frequency",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of modulating the beam with code, action of designing and modifying circuits/radiators with technical resistance (power handling, frequency adjustment), strong conflict (multiple obstacles), and success when modifications are completed and Walt is ready to key. All four elements present.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 12,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 242,
+      "end_par_id": 286,
+      "start_exact": "Dinner was being served in the dining room. A group of shapely girls",
+      "end_exact": "Mr. Thomas was overwhelmed. He'd learn plenty--and that would help him",
+      "start_prefix": "",
+      "end_suffix": " when he applied for training as a space officer; unless he decided to",
+      "start_char": 47106,
+      "end_char": 54491,
+      "summary": "Aboard the _Empress of Kolain_, the crew experiences false meteor alerts from the intermittent signal. First Officer Hendall investigates, disables the meteor alert, and realizes an external agency is attempting contact. He broadcasts a call for anyone who knows International Code.",
+      "cohesion": {
+        "time": "Same period (signal now being transmitted)",
+        "place": "Bridge and throughout _Empress of Kolain_",
+        "characters": [
+          "First Officer Hendall",
+          "Chief Pilot Tony",
+          "Third Officer Jones",
+          "Freddy Thomas (boy passenger)"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine what is causing the meteor alerts and respond appropriately",
+        "action": "Investigate celestial globe readings; observe no visible object; disable meteor alert; plug meteor spotter into speaker; broadcast call for code expert",
+        "conflict": "Mysterious intermittent signal appears to be from a huge meteor, but nothing visible on telescope; realization that external contact is being attempted (unprecedented in space)",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of investigating the alerts, action of technical investigation and broadcast call, strong conflict (anomalous situation, unprecedented contact attempt), and success when Freddy Thomas is identified and brought to the bridge. All four elements present and outcome achieved within segment.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 13,
+      "segment_type": "narrative_scene",
+      "start_par_id": 287,
+      "end_par_id": 296,
+      "start_exact": "The signal faded from the little cruiser and silence prevailed. Don",
+      "end_exact": "DON CHANNING.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 54633,
+      "end_char": 56521,
+      "summary": "After Freddy Thomas decodes the message and the _Empress of Kolain_ acknowledges by changing course, Channing shuts down operations, congratulates the team, and sends a success message to Williams confirming the ship will divert to Terra as requested.",
+      "cohesion": {
+        "time": "Immediately after successful contact and response",
+        "place": "Venus Equilateral Beam Control Room and Venus Equilateral transmitter",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "technicians",
+          "Williams (message recipient)"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unifies time/place in the conclusion of operations. Primarily expository/administrative wrap-up: receiving acknowledgment, shutting down equipment, issuing congratulations, and sending the success report. No clear GACD conflict/outcome in this segment, no ERAC recovery/deliberation. Narrative_scene appropriate for resolution material.",
+      "confidence": 0.88
+    }
+  ],
+  "extracted_output": [
+    {
+      "segment_id": 1,
+      "segment_type": "narrative_scene",
+      "start_par_id": 1,
+      "end_par_id": 4,
+      "start_exact": "The chart in the terminal building at Canalopsis Spaceport, Mars,",
+      "end_exact": "a hole in the sky. The glow was almost lost in the bright sunshine,",
+      "start_prefix": "",
+      "end_suffix": " and soon it died. The",
+      "start_char": 0,
+      "end_char": 1713,
+      "summary": "Description of a navigational chart at Mars spaceport showing interplanetary travel routes, then the _Empress of Kolain_ launches toward Venus.",
+      "cohesion": {
+        "time": "Launch day at Canalopsis Spaceport",
+        "place": "Canalopsis Spaceport, Mars & near Mars space",
+        "characters": [
+          "The _Empress of Kolain_"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unifies time/place at Mars departure with expository material about space travel and the launch itself. No clear GACD or ERAC structure; purely narrative/descriptive.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 2,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 5,
+      "end_par_id": 12,
+      "start_exact": "Driving upward, the _Empress of Kolain_ could not have been out of",
+      "end_exact": "Both men knew that nothing more could be done. If Channing couldn't",
+      "start_prefix": "",
+      "end_suffix": " do it, nobody could.",
+      "start_char": 1889,
+      "end_char": 4280,
+      "summary": "Warning bell alerts communications offices on Mars and Terra that the _Empress of Kolain_ has already launched with quarantined cargo and must be rerouted. Teams on Mars and Terra realize only Channing on Venus Equilateral can help.",
+      "cohesion": {
+        "time": "Moments after launch",
+        "place": "Communications offices on Mars, Terra, and in transit to Venus Equilateral",
+        "characters": [
+          "Keg Johnson",
+          "Vice President Williams",
+          "Don Channing"
+        ]
+      },
+      "gacd": {
+        "goal": "Reroute _Empress of Kolain_ before it reaches Venus to prevent quarantine loss",
+        "action": "Send emergency messages across space to Channing at Venus Equilateral relay station",
+        "conflict": "Ship has already launched; only minutes available before it reaches Venus; communication delay across vast distances",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Clear GACD structure: goal of rerouting the ship, action of sending urgent messages, strong conflict (launch timing, distance, quarantine threat), and outcome remains uncertain at segment end. Meets dramatic_scene threshold with all four GACD elements present and conflict strongly indicated.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 3,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 13,
+      "end_par_id": 27,
+      "start_exact": "Channing finished the 'gram and swore. It was a good-natured swear",
+      "end_exact": "\"Take off your coat, Walt. We've got a job.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 4303,
+      "end_char": 5938,
+      "summary": "Channing receives the message, confers with Arden and Walt Franks, and they decide to attempt the previously-thought-impossible task of contacting the _Empress_ in flight.",
+      "cohesion": {
+        "time": "Immediately after receiving message",
+        "place": "Don Channing's office at Venus Equilateral",
+        "characters": [
+          "Don Channing",
+          "Arden Wastphal",
+          "Walt Franks"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Channing swears (frustrated/determined); team recognizes the magnitude of the challenge",
+        "reason": "Channing questions feasibility but knows it must be attempted; Franks acknowledges the monumental difficulty",
+        "anticipation": "Anticipate a nearly impossible engineering challenge; Franks jokes about quitting",
+        "choice": "Decide to attempt contacting the ship despite seeming impossibility"
+      },
+      "reason": "Shows emotional reaction (swearing, nervous humor), reasoning about the problem's difficulty, anticipation of challenges ahead, and a clear choice to attempt the task. No on-stage conflict or outcome; recovery/planning cues present. Meets ERAC threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 4,
+      "segment_type": "narrative_scene",
+      "start_par_id": 28,
+      "end_par_id": 62,
+      "start_exact": "\"You mean--Hey! Remind me to quit Saturday.\"\n\n\"This is dead in",
+      "end_exact": "And the ship, like the projectile, would land if the men who knew of",
+      "start_prefix": "",
+      "end_suffix": " her failed in their purpose.",
+      "start_char": 5940,
+      "end_char": 13157,
+      "summary": "Channing and Franks discuss the technical difficulties of contacting a spaceship in flight. They debate various methods (beam width, power dissipation, etc.) before discovering a practical approach using precise calculations of the ship's trajectory.",
+      "cohesion": {
+        "time": "Same afternoon/evening at Venus Equilateral",
+        "place": "Don's office and surrounding areas at Venus Equilateral",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "Charles Thomas"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Time/place unified; primarily expository technical dialogue and problem-solving deliberation without clear GACD (no on-stage action/conflict beyond discussion) or completed ERAC structure. Treated as narrative_scene\u2014unified by location and ongoing collaborative reasoning.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 5,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 63,
+      "end_par_id": 95,
+      "start_exact": "Don Channing and Walt Franks found their man in the combined dining",
+      "end_exact": "\"That's her,\" said Don with a cheerful smile.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 13188,
+      "end_char": 19860,
+      "summary": "Channing and Franks consult Charles Thomas about using mass detectors. After critique and failed ideas (mirror, mass detectors), they realize they must calculate the ship's precise trajectory and devise a method to track and contact it.",
+      "cohesion": {
+        "time": "Same day, dining/bar area",
+        "place": "Venus Equilateral's dining room and bar",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Charles Thomas"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine how to locate and contact the _Empress of Kolain_ in space",
+        "action": "Consult with expert Thomas; debate mass detectors, mirrors, calculations; sketch trajectory model on tablecloth",
+        "conflict": "Each proposed method is shot down as technically unfeasible; distance and invisibility of ship create barriers",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of finding method, action of consulting and problem-solving, strong conflict as each idea fails, and success when Channing's trajectory-based approach (calculated from angular distance from Mars) emerges as viable. All four elements present.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 6,
+      "segment_type": "narrative_scene",
+      "start_par_id": 96,
+      "end_par_id": 116,
+      "start_exact": "\"Fine!\" said Thomas. \"Now what do we do?\"\n\n\"Clear up this mess so",
+      "end_exact": "is a good, healthy twelve hours before we can begin to squirt our signal.\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 19864,
+      "end_char": 23382,
+      "summary": "The team takes the tablecloth drawing to the machine shop where Master Mechanic Walton agrees to fabricate the required cam in approximately nine to twelve hours.",
+      "cohesion": {
+        "time": "Later same day",
+        "place": "Venus Equilateral's dining room and machine shop",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Charles Thomas",
+          "Master Mechanic Walton"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unified time/place; primarily logistical/administrative (moving drawing, giving specifications to mechanic, estimating fabrication time). No clear GACD conflict on-stage, no ERAC recovery/deliberation. Treated as narrative_scene.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 7,
+      "segment_type": "narrative_scene",
+      "start_par_id": 117,
+      "end_par_id": 130,
+      "start_exact": "Twelve hours is not much in the life of a man; it is less in the life",
+      "end_exact": "their eyes expectantly upon Don Channing and Walt Franks.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 23386,
+      "end_char": 27747,
+      "summary": "Passage of time as equipment is prepared: the _Empress of Kolain_ travels further while technicians work on the cam, install equipment, and prepare the beam control system for use.",
+      "cohesion": {
+        "time": "12-hour period of equipment preparation",
+        "place": "Venus Equilateral station",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "technicians"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Expository passage describing elapsed time and work-in-progress. Unifies time/place but has no clear GACD (no on-stage conflict/outcome) or ERAC structure. Narrative_scene appropriate for this transitional material.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 8,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 131,
+      "end_par_id": 157,
+      "start_exact": "Don spoke to the man chosen to control the beam. \"You can start any",
+      "end_exact": "\"Jim, get a relief for a half-hour. We'll keep the beam centered. Then",
+      "start_prefix": "",
+      "end_suffix": " he can take over when the going gets critical again.",
+      "start_char": 27751,
+      "end_char": 32263,
+      "summary": "First attempt to contact the _Empress of Kolain_ using the new beam system. Multiple hours of scanning yield no response. After extensive searching, Franks deduces that the reflected signal arrives offset by seven hundred miles due to orbital velocity.",
+      "cohesion": {
+        "time": "12+ hours of continuous beam operations",
+        "place": "Venus Equilateral's Beam Control Room",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Jim (beam controller)"
+        ]
+      },
+      "gacd": {
+        "goal": "Contact the _Empress of Kolain_ with the beam transmitter",
+        "action": "Scan space with the transmitter beam while monitoring for return signal; adjust beam position repeatedly; apply calculations to locate ship",
+        "conflict": "No signal returned for hours; initial approach fails; mechanical adjustments not finding the target",
+        "outcome": "Unclear"
+      },
+      "erac": null,
+      "reason": "Goal of contacting ship via beam, action of scanning and adjusting transmitter (meeting resistance through repeated failure), strong conflict (no response despite hours of effort), but outcome remains indeterminate\u2014success has not yet been achieved and methods must be revised. Meets dramatic_scene threshold.",
+      "confidence": 0.9
+    },
+    {
+      "segment_id": 9,
+      "segment_type": "dramatic_sequel",
+      "start_par_id": 158,
+      "end_par_id": 187,
+      "start_exact": "The mounting of two mirrors at either end of Venus Equilateral gave",
+      "end_exact": "\"You get your own girl,\" snorted Channing. \"And besides, you are needed",
+      "start_prefix": "",
+      "end_suffix": " up here. We've got work to do.\"",
+      "start_char": 32321,
+      "end_char": 37918,
+      "summary": "After many hours of failed attempts, the team realizes the reflected signal is offset. They set up mirrors as a range finder, requiring emergency rearrangement of station infrastructure. Arden brings coffee while the team prepares the new approach.",
+      "cohesion": {
+        "time": "After 13+ hours of failed attempts; continuing operations",
+        "place": "Venus Equilateral station (multiple areas including air plant, central channel, North end)",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "station personnel"
+        ]
+      },
+      "gacd": null,
+      "erac": {
+        "emotion": "Franks discovers (or realizes) the offset problem; team becomes more determined despite setback",
+        "reason": "Franks calculates the reason for failure and proposes solution; the team reasons through the orbital velocity effect",
+        "anticipation": "Anticipate success with the new range-finder approach",
+        "choice": "Decide to build range-finder mirrors and implement the offset correction"
+      },
+      "reason": "Shows reasoning (orbital velocity calculation), anticipation (hope for new method), and choice (decide to build mirrors and proceed). Primarily focused on recovery/planning after the failed dramatic_scene. No on-stage conflict/outcome in this segment. Meets ERAC threshold.",
+      "confidence": 0.88
+    },
+    {
+      "segment_id": 10,
+      "segment_type": "narrative_scene",
+      "start_par_id": 188,
+      "end_par_id": 227,
+      "start_exact": "Once again the signal lashed out. The invisible waves drove out and",
+      "end_exact": "it is there only when it spells in International Code!\"",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 37954,
+      "end_char": 44349,
+      "summary": "Range-finder approach still yields no response. Channing realizes they can electronically sweep (wave) the beam like a television scanning pattern to spray a wider area. Walt designs a phase-shift circuit to implement the electronic beam-waving method.",
+      "cohesion": {
+        "time": "Continuation of same operations period (approx. 20+ hours elapsed)",
+        "place": "Venus Equilateral Beam Control Room and lab",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "Arden Wastphal",
+          "Freddy (pilot)"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Primarily technical brainstorming and implementation of new idea. While there is discussion of the goal and multiple attempts, the segment is more a progression of problem-solving steps without clear on-stage conflict or emotional/reflective structure. Narrative_scene captures the time/place unity and ongoing technical work.",
+      "confidence": 0.85
+    },
+    {
+      "segment_id": 11,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 228,
+      "end_par_id": 241,
+      "start_exact": "Prying the toy transmitting key from young James Burke was a job",
+      "end_exact": "And it was doing fine.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 44353,
+      "end_char": 47104,
+      "summary": "Walt obtains a toy transmitting key, designs a thyraton circuit to key the beam, and adjusts the transmitter to the meteor spotter frequency. Meanwhile, the _Empress of Kolain_ continues its journey unaware.",
+      "cohesion": {
+        "time": "Concurrent: late stages of equipment modification and normal ship operations",
+        "place": "Venus Equilateral (bench/lab) and _Empress of Kolain_ (interior)",
+        "characters": [
+          "Walt Franks",
+          "James Burke",
+          "crew of _Empress of Kolain_"
+        ]
+      },
+      "gacd": {
+        "goal": "Successfully modulate the beam with keyed International Code signal",
+        "action": "Obtain transmitting key; design thyraton circuit; adjust transmitter frequency to match meteor spotter; file and adjust radiator elements for new frequency",
+        "conflict": "Fragile toy key cannot handle the power; must engineer robust circuit; full three hours required to adjust radiator length and director elements to new frequency",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of modulating the beam with code, action of designing and modifying circuits/radiators with technical resistance (power handling, frequency adjustment), strong conflict (multiple obstacles), and success when modifications are completed and Walt is ready to key. All four elements present.",
+      "confidence": 0.92
+    },
+    {
+      "segment_id": 12,
+      "segment_type": "dramatic_scene",
+      "start_par_id": 242,
+      "end_par_id": 286,
+      "start_exact": "Dinner was being served in the dining room. A group of shapely girls",
+      "end_exact": "Mr. Thomas was overwhelmed. He'd learn plenty--and that would help him",
+      "start_prefix": "",
+      "end_suffix": " when he applied for training as a space officer; unless he decided to",
+      "start_char": 47106,
+      "end_char": 54491,
+      "summary": "Aboard the _Empress of Kolain_, the crew experiences false meteor alerts from the intermittent signal. First Officer Hendall investigates, disables the meteor alert, and realizes an external agency is attempting contact. He broadcasts a call for anyone who knows International Code.",
+      "cohesion": {
+        "time": "Same period (signal now being transmitted)",
+        "place": "Bridge and throughout _Empress of Kolain_",
+        "characters": [
+          "First Officer Hendall",
+          "Chief Pilot Tony",
+          "Third Officer Jones",
+          "Freddy Thomas (boy passenger)"
+        ]
+      },
+      "gacd": {
+        "goal": "Determine what is causing the meteor alerts and respond appropriately",
+        "action": "Investigate celestial globe readings; observe no visible object; disable meteor alert; plug meteor spotter into speaker; broadcast call for code expert",
+        "conflict": "Mysterious intermittent signal appears to be from a huge meteor, but nothing visible on telescope; realization that external contact is being attempted (unprecedented in space)",
+        "outcome": "Success"
+      },
+      "erac": null,
+      "reason": "Clear GACD: goal of investigating the alerts, action of technical investigation and broadcast call, strong conflict (anomalous situation, unprecedented contact attempt), and success when Freddy Thomas is identified and brought to the bridge. All four elements present and outcome achieved within segment.",
+      "confidence": 0.95
+    },
+    {
+      "segment_id": 13,
+      "segment_type": "narrative_scene",
+      "start_par_id": 287,
+      "end_par_id": 296,
+      "start_exact": "The signal faded from the little cruiser and silence prevailed. Don",
+      "end_exact": "DON CHANNING.",
+      "start_prefix": "",
+      "end_suffix": "\n\n",
+      "start_char": 54633,
+      "end_char": 56521,
+      "summary": "After Freddy Thomas decodes the message and the _Empress of Kolain_ acknowledges by changing course, Channing shuts down operations, congratulates the team, and sends a success message to Williams confirming the ship will divert to Terra as requested.",
+      "cohesion": {
+        "time": "Immediately after successful contact and response",
+        "place": "Venus Equilateral Beam Control Room and Venus Equilateral transmitter",
+        "characters": [
+          "Don Channing",
+          "Walt Franks",
+          "technicians",
+          "Williams (message recipient)"
+        ]
+      },
+      "gacd": null,
+      "erac": null,
+      "reason": "Unifies time/place in the conclusion of operations. Primarily expository/administrative wrap-up: receiving acknowledgment, shutting down equipment, issuing congratulations, and sending the success report. No clear GACD conflict/outcome in this segment, no ERAC recovery/deliberation. Narrative_scene appropriate for resolution material.",
+      "confidence": 0.88
+    }
+  ],
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 20189,
+    "output_tokens": 4712
+  }
+}

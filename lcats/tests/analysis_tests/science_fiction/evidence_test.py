@@ -110,9 +110,7 @@ class EvidenceTest(unittest.TestCase):
         self.assertEqual(1, len(evidence_set.records))
         self.assertFalse(evidence_set.quarantined)
         record = evidence_set.records[0]
-        self.assertEqual(
-            "scientific_or_technical_explanation", record.evidence_type
-        )
+        self.assertEqual("scientific_or_technical_explanation", record.evidence_type)
         self.assertEqual(
             ("coerced field type to evidence_type",),
             record.provenance[0].normalization_notes,

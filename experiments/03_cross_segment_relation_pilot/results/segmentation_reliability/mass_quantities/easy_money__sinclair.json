@@ -1,0 +1,222 @@
+{
+  "story_id": "mass_quantities/easy_money__sinclair",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+  "llm_call_made": true,
+  "word_count": 8717,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 1,
+        "end_par_id": 36,
+        "start_exact": "When Charlie Shaw, the carefree cow-puncher, was accused of\n    being a shallow josher, and therefore worthless for rounding\n    up cow thieves, Charlie got angry and proved that even a\n    \"kidder\" can get down to business.",
+        "end_exact": "Even a natural clown has his serious moments.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0037]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie Shaw is insulted by Elmer Duffy and fired from the Seventy-seven outfit. Charlie responds with determination to prove he is not a worthless josher, resolving to show Duffy he can handle serious business.",
+        "cohesion": {
+          "time": "Autumn day at Lonesome Prairie",
+          "place": "Lonesome Prairie and surrounding range",
+          "characters": [
+            "Charlie Shaw",
+            "Elmer Duffy",
+            "cow-punchers"
+          ]
+        },
+        "gacd": {
+          "goal": "Prove his worth and change Elmer's mind about his capabilities",
+          "action": "Charlie challenges Elmer's dismissal and confronts him, standing up for himself",
+          "conflict": "Elmer fires Charlie and insults him as a bonehead josher; other men intervene to prevent a fistfight",
+          "outcome": "Unclear"
+        },
+        "erac": null,
+        "reason": "This segment contains elements of both dramatic scene and dramatic sequel. Charlie has a conflict with Elmer (GACD), but it ends without a clear resolution of the original accusation. However, the latter part (P0031-P0036) shows Charlie's emotional reaction and determination, which leans toward sequel. Since the segment begins with clear conflict and action, and the dismissal is the immediate on-stage outcome, we label it dramatic_scene with Unclear outcome, as the larger challenge Charlie set for himself (proving his worth) remains to be pursued.",
+        "confidence": 0.72
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 37,
+        "end_par_id": 89,
+        "start_exact": "Darkness on the plains is like darkness on the sea. If the stars are\nhidden there is no guiding mark--nothing but an immensity of shrouded",
+        "end_exact": "And if Rock had known what worked in Charlie Shaw's mind, he would have mounted and followed him.",
+        "start_prefix": "",
+        "end_suffix": "\nAs it was, Charlie rode",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie rides through the dark to the TL ranch, is shot at by unknown parties, arrives at dawn, breakfasts with Rock Holloway, learns of stolen cattle, and decides to investigate alone before Rock leaves for Helena.",
+        "cohesion": {
+          "time": "Night ride through October; next morning at TL ranch",
+          "place": "Lonesome Prairie plains and TL ranch in Marias Valley",
+          "characters": [
+            "Charlie Shaw",
+            "Rock Holloway",
+            "Nona Holloway"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Regret, bewilderment, determination (wistful about his past); curiosity about the mysterious shots",
+          "reason": "Charlie recalls past dismissal and poverty risk; learns of stolen cattle (100 head from TL, similar to Seventy-seven losses); reflects on lack of steady employment",
+          "anticipation": "Suspects cattle theft by construction camps; curious about the shots fired at him; expects to gather information and possibly prove himself",
+          "choice": "Decides to scout the construction camps and the location of the night shooting, keeping the plan to himself for now"
+        },
+        "reason": "After the dismissal, Charlie travels, encounters danger (shots), arrives at the TL, and goes through a sequence of emotional reaction (regret, wistfulness), reasoning (about poverty and opportunity), and deliberation (deciding to investigate alone). Rock's offer of work and Charlie's refusal combined with his private decision to scout constitutes ERAC structure. No on-stage conflict or outcome occurs in this segment; instead, recovery, reflection, and planning dominate.",
+        "confidence": 0.78
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "narrative_scene",
+        "start_par_id": 90,
+        "end_par_id": 117,
+        "start_exact": "As it was, Charlie rode north alone. There had been a time when he never\nleft that ranch in the valley without a rifle under his stirrup leather.",
+        "end_exact": "Charlie ate his supper by the fire, watched the men and teams string in\nat six o'clock. It was a big camp. He estimated four hundred men. Four\nhundred men ate a lot of beef. And two other camps drew supplies from\nthere. He looked at the camp and at the grazing herd, and then he did a",
+        "start_prefix": "",
+        "end_suffix": "lot of thinking. He still lay thinking, looking up at the stars, long",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie investigates the mysterious location where shots were fired, finds evidence of cattle being dragged to a burning coal seam, discovers an old corral with hoof marks and wagon tracks, follows the wagon trail to a construction camp, observes the beef herd and commissary setup.",
+        "cohesion": {
+          "time": "From morning to evening, Charlie's scouting day",
+          "place": "Northern Lonesome Prairie, old corral, construction camp on Sweet Grass Trail",
+          "characters": [
+            "Charlie Shaw",
+            "herder youth"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment depicts Charlie's reconnaissance journey unified by time (one day) and place (Lonesome Prairie region and construction camp). While Charlie gathers evidence and makes observations (the dragged grass, the corral, the wagon trail, the camp's beef supply), he does not pursue a goal with on-stage conflict or reach an outcome. There is no clear ERAC either, as Charlie is in action/investigation mode rather than in a reflective recovery state. This is a narrative_scene of investigation and observation.",
+        "confidence": 0.65
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 118,
+        "end_par_id": 142,
+        "start_exact": "In the morning, with his own matutinal coffee bestowed where it would do\nthe most good, and the grading crews stringing out to work in a cold\ndawn, Charlie walked into the camp and sought the head cook.",
+        "end_exact": "Two scraggy cows a day? Hardly.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0143]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie attempts to sell beef to the camp contractor, offering progressively lower prices. The contractor claims he can get it cheaper, confirming to Charlie that stolen beef is being purchased. Charlie then observes the small herd and realizes only two cows per day are being butchered for 400+ men, indicating the real beef comes from elsewhere.",
+        "cohesion": {
+          "time": "Morning at construction camp",
+          "place": "Construction camp headquarters",
+          "characters": [
+            "Charlie Shaw",
+            "head cook",
+            "commissariat manager",
+            "herder"
+          ]
+        },
+        "gacd": {
+          "goal": "Determine whether the construction camp is buying stolen cattle at suspiciously low prices",
+          "action": "Charlie negotiates with the camp contractor, offering beef at progressively lower prices (from 4 cents to 3 cents per pound)",
+          "conflict": "The contractor resists, claiming he can get it cheaper, which contradicts legitimate market prices",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Charlie pursues a specific goal with on-stage action (negotiation with the contractor) that meets resistance and yields a clear success: Charlie confirms his suspicion that the camp is purchasing stolen beef at prices far below market value. The math proves the discrepancy\u2014two scraggy cows per day cannot feed 400+ men when prime beef from the meat house hangs from hooks.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 143,
+        "end_par_id": 156,
+        "start_exact": "Two miles south in a convenient hollow he picketed his horses. The rest\nof that day he lay low, keeping a more or less casual watch from a\ngrassy rise. Nothing like a wagon arrived or departed. When dusk fell\nagain, he packed his outfit and rode back to the construction camp.",
+        "end_exact": "To-morrow he would make Elmer sing a different tune.",
+        "start_prefix": "",
+        "end_suffix": "\nAnd the next",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie stakes out the camp during the day, returns at dusk, sneaks to the meat house, observes premium-grade beef inside (contradicting the scraggy cow herd claim), and exits. He then heads toward the old corral near the burning coal seam, confident he will soon have evidence to clear his name.",
+        "cohesion": {
+          "time": "Late afternoon through evening, same day",
+          "place": "Convenient hollow south of camp, then construction camp, then heading toward old corral",
+          "characters": [
+            "Charlie Shaw"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment depicts Charlie's stealthy reconnaissance: he observes the meat house and confirms his theory that prime beef is being used despite the claim of scraggy cows. The segment is unified by time (one continuous afternoon/evening) and place (the camp and surrounding terrain). However, it lacks a clear GACD (no explicit goal-action-conflict-outcome during this segment; rather, it is observation and movement) and lacks ERAC elements. This is a narrative_scene of surveillance and reconnaissance.",
+        "confidence": 0.68
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 157,
+        "end_par_id": 180,
+        "start_exact": "When Charlie revived to consciousness he found himself in a situation\nunique and dangerous. He lay flat on his back. His head was free. He\ncould twist it about. The pole height of the corral towered over him.",
+        "end_exact": "It was a little closer to the Seventy-seven than to Rock Holloway's, and Charlie felt that it would really be a lot of\nresponsibility off his shoulders if he delivered his prisoner and his\ninformation straight to the hands of Elmer Duffy.",
+        "start_prefix": "And the next moment he was borne to earth. A sharp rap on the head put a\nfull stop to his pleasant anticipations.\n\n[P0157]",
+        "end_suffix": "\n\n[P0181]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie is knocked unconscious and wrapped in a wet rawhide hide by the cattle rustlers. He escapes by pulling a concealed pistol from a Texas holster, shoots one rustler, subdues the other, and escorts his prisoner to the Seventy-seven ranch with the stolen beef wagon.",
+        "cohesion": {
+          "time": "Night at old corral and burning coal seam",
+          "place": "Old corral near burning coal seam, then traveling to Seventy-seven ranch",
+          "characters": [
+            "Charlie Shaw",
+            "rustlers (three, one killed, two captured/escaped)"
+          ]
+        },
+        "gacd": {
+          "goal": "Catch the cattle rustlers and recover the stolen beef",
+          "action": "Charlie sneaks up on the corral with his carbine, but is ambushed and knocked unconscious. He revives, escapes from the rawhide bondage using a hidden six-shooter, kills one rustler, subdues and captures the other",
+          "conflict": "Charlie is outnumbered, trapped, and nearly killed in an incinerator pit; he must fight his way out against the rustlers' intent to murder him",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment demonstrates clear GACD structure: Charlie's goal is to catch the rustlers; his action is the assault on the corral (though it initially fails due to ambush); the conflict is severe (capture, attempted murder by immolation); the outcome is success (he escapes, kills one attacker, subdues and captures the other, recovers the stolen beef wagon). This is a dramatic_scene of high stakes action and reversal.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 181,
+        "end_par_id": 197,
+        "start_exact": "Charlie lifted his head from a bunk in one corner of the Seventy-seven\nranch house. A wagon was clattering into the yard. Elmer Duffy and half\na dozen riders flanked it like a bodyguard.",
+        "end_exact": "I was born in El Paso. I come up the trail when it was a tough\nproposition. I'm twenty-six years old, an', by Judas priest, I ain't\nnever died a winter yet!",
+        "start_prefix": "",
+        "end_suffix": "\"\"\"",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Charlie arrives at the Seventy-seven with the stolen beef wagon and his prisoner. Elmer Duffy acknowledges Charlie's success, offers him $500 reward and a permanent job, but Charlie proudly refuses both, insisting he did it to prove his point and declaring his independence and self-reliance.",
+        "cohesion": {
+          "time": "Early morning at Seventy-seven ranch",
+          "place": "Seventy-seven ranch house and stables",
+          "characters": [
+            "Charlie Shaw",
+            "Elmer Duffy"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Pride, satisfaction, vindication (grinning expansively despite earlier doubt)",
+          "reason": "Charlie recalls Elmer's insults and has proven his point by solving the rustling problem",
+          "anticipation": "Acknowledges Elmer's offers but anticipates a hard winter and reflects on his resilience",
+          "choice": "Decides to refuse the money, job, and gratitude; chooses to leave on his own terms, asserting his independence and self-respect"
+        },
+        "reason": "After the intense action of capturing the rustlers, Charlie arrives at the Seventy-seven where Elmer Duffy makes offers of reward and employment. This segment shows Charlie's emotional response (pride, satisfaction), reasoning (he proved his point), and deliberate choice to reject Elmer's offers and ride away. There is no on-stage conflict or outcome within this segment; rather, it is a response, reflection, and decision-making moment typical of dramatic_sequel.",
+        "confidence": 0.82
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 17382,
+    "output_tokens": 3481
+  }
+}

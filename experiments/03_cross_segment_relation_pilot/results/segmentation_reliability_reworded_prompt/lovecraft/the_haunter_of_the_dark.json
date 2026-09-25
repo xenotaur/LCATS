@@ -1,0 +1,334 @@
+{
+  "story_id": "lovecraft/the_haunter_of_the_dark",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=3: anchor text not found in story text')",
+  "llm_call_made": true,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "other",
+        "start_par_id": 1,
+        "end_par_id": 9,
+        "start_exact": "The Haunter of the Dark",
+        "end_exact": "their chief actor.",
+        "start_prefix": "",
+        "end_suffix": " Young Blake returned to",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Story title, author attribution, transcriber's note, dedication, and framing commentary by skeptics vs. believers regarding Blake's death and the church.",
+        "cohesion": {
+          "time": "Narrative frame",
+          "place": "Frame/Preface",
+          "characters": [
+            "Robert Blake",
+            "Reader"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This opening section is framing material and meta-commentary on the story events, not a narrative scene itself. It functions as front matter establishing context and interpretive tension between rational and supernatural explanations.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "narrative_scene",
+        "start_par_id": 10,
+        "end_par_id": 16,
+        "start_exact": "Young Blake returned to Providence in the winter of 1934-5, taking the upper floor of a venerable dwelling in a grassy court off College Street",
+        "end_exact": "if ever he tried to seek it out and enter it in person.",
+        "start_prefix": "",
+        "end_suffix": " In the spring a",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake settles into his rented study in Providence, describing his house, studio, and sunset views of the distant Federal Hill church that captivates his imagination.",
+        "cohesion": {
+          "time": "Winter 1934-5 through early spring",
+          "place": "Blake's study and house on College Street, overlooking Federal Hill",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place unified (Blake's arrival and early residence). No clear GACD (no conflict or action meeting resistance) or ERAC (no emotion-driven decision). This is atmospheric exposition establishing Blake's observation of the church from afar and his growing fascination.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 16,
+        "end_par_id": 26,
+        "start_exact": "In the spring a deep restlessness gripped Blake...Blake found himself wading amidst the rotting, tangled growths of the deserted yard.",
+        "end_exact": "he conquered his mood and approached to try the three great doors in the fa\u00e7ade.",
+        "start_prefix": "",
+        "end_suffix": " All were securely locked",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake becomes restless and determines to visit Federal Hill in person. He navigates the Italian quarter, searches for the church, finds it, and approaches the black, decaying structure despite local fear and resistance.",
+        "cohesion": {
+          "time": "Late April, spring",
+          "place": "Federal Hill, Providence\u2014streets, alleys, and the church yard",
+          "characters": [
+            "Robert Blake",
+            "townspeople"
+          ]
+        },
+        "gacd": {
+          "goal": "To find and reach the black church on Federal Hill",
+          "action": "Blake travels through the city, asks directions, climbs uphill, and enters the church grounds despite physical barriers and social resistance",
+          "conflict": "Difficulty finding the church, the maze of alleys, townspeople's fear and avoidance (making the sign), locked gates and overgrown paths",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "Clear GACD: Blake has a goal (visit the church), takes action (travel, navigate, climb), meets conflict (barriers, fear, locked entrances), and achieves partial success (reaches the yard and attempts doors). Outcome is Success in reaching the structure, though doors are locked.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 26,
+        "end_par_id": 37,
+        "start_exact": "A yawning and unprotected cellar window in the rear furnished the needed aperture...Blake examined the latter with care, finding within it several bills",
+        "end_exact": "and a crumbling leather pocket-book.",
+        "start_prefix": "",
+        "end_suffix": " This paper held",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake enters the church through the cellar window, explores the interior, discovers forbidden books in the vestry, and finds a skeleton with a reporter's badge and notes dating to 1893.",
+        "cohesion": {
+          "time": "Same day, late afternoon",
+          "place": "Interior and basement of the deserted church on Federal Hill",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": {
+          "goal": "To explore and enter the abandoned church",
+          "action": "Blake climbs through the cellar window, crosses the basement, ascends stairs, explores rooms, examines books and the skeleton",
+          "conflict": "Dust, cobwebs, locked doors, oppressive atmosphere, and the discovery of forbidden occult texts and human remains",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "GACD present: Blake seeks to enter and explore (goal), takes action (climbing through window, searching rooms), encounters conflict (barriers, oppressive atmosphere, macabre discoveries), and achieves success (explores the structure).",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 38,
+        "end_par_id": 56,
+        "start_exact": "This paper held much of a puzzling nature, and Blake read it carefully...What had happened to the skeleton during its four decades of silent entombment here Blake could not imagine.",
+        "end_exact": "What had happened to the skeleton during its four decades of silent entombment here Blake could not imagine.",
+        "start_prefix": "and a crumbling leather pocket-book.",
+        "end_suffix": " \"He had come",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake reads the reporter's fragmented notes about the church's evil history, the Starry Wisdom sect, and mysterious disappearances. He examines the skeleton and notices its strange state of decay with charring and acid-like damage.",
+        "cohesion": {
+          "time": "Same day, late afternoon",
+          "place": "Tower room of the church, by the west window",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": {
+          "goal": "To understand the skeleton and read the cryptic notes",
+          "action": "Blake reads the pocket-book notes carefully, examining them at the dim window and studying the skeleton's physical state",
+          "conflict": "The incomprehensibility of the notes, the grotesque condition of the remains, and the mystery of what happened to the reporter",
+          "outcome": "Unclear"
+        },
+        "erac": null,
+        "reason": "GACD threshold met: goal (understand the skeleton's history), action (read notes and examine remains), conflict (mystery and shock), outcome unclear (Blake deduces implications but finds no definitive answer). The segment shows investigation and reaction to a macabre discovery.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 57,
+        "end_par_id": 61,
+        "start_exact": "Before he realized it, he was looking at the stone again, and letting its curious influence call up a nebulous pageantry in his mind...At the sharp click of that closing a soft stirring sound seemed to come from the steeple's eternal blackness overhead, beyond the trap-door.",
+        "end_exact": "Rats, without question\u2014the only living things to reveal their presence in this accursed pile since he had entered it.",
+        "start_prefix": "imagination. ",
+        "end_suffix": " And yet that stirring",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake falls under the hypnotic influence of the glowing stone, experiences visions of alien worlds, then panics at the sound from the steeple, closes the box, and flees down the stairs and out of the church.",
+        "cohesion": {
+          "time": "Same day, gathering twilight",
+          "place": "Tower room, staircase, and exit from the church",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": {
+          "goal": "To examine and understand the stone (Shining Trapezohedron)",
+          "action": "Blake gazes at the stone, experiences hypnotic visions, then attempts to close the box and flee",
+          "conflict": "The stone's alien influence and hypnotic power, the frightening sound from the steeple, Blake's overwhelming panic",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "GACD present: Blake's goal (examine the stone), his actions (gazing, closing the box, fleeing), conflict (hypnotic influence, terrifying sounds, panic), and outcome (Disaster\u2014he is forced to abandon the exploration in fear and flee).",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "dramatic_sequel",
+        "start_par_id": 62,
+        "end_par_id": 66,
+        "start_exact": "During the days which followed, Blake told no one of his expedition. Instead, he read much in certain books, examined long years of newspaper files downtown, and worked feverishly at the cryptogram in that leather volume from the cobwebbed vestry room.",
+        "end_exact": "and of a strengthening of the unholy rapport in his sleep.",
+        "start_prefix": "",
+        "end_suffix": " There is mention of a night",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake recovers from his expedition, secrecy intensifies, he researches the church's history, deciphers the cryptogram to learn of the Shining Trapezohedron and the Haunter of the Dark, and begins experiencing strange dreams and mental compulsion.",
+        "cohesion": {
+          "time": "Days and weeks following the expedition; June",
+          "place": "Blake's study and room",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": null,
+        "erac": {
+          "emotion": "Fear, shock, and mounting dread about the stone and the thing he has awakened",
+          "reason": "Blake deciphers the cryptogram and learns the stone is a window to alien realities and the source of a summoned entity; he reasons that street-lights are a bulwark against it",
+          "anticipation": "He dreads another electrical breakdown and the entity's escape into darkness; he anticipates the danger of gazing at the stone again",
+          "choice": "Blake decides to research and understand the cryptogram rather than immediately report or bury the stone; he resolves to study the history and works feverishly at translation"
+        },
+        "reason": "ERAC threshold met: emotion (fear and dread), reason (studying the cryptogram and history), anticipation (worry about power failure and the entity), and choice (deciding to research). No on-stage conflict or outcome; Blake is processing shock and planning next steps.",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "narrative_scene",
+        "start_par_id": 66,
+        "end_par_id": 72,
+        "start_exact": "Early in July the newspapers oddly supplement Blake's entries, though in so brief and casual a way that only the diary has called general attention to their contribution. It appears that a new fear had been growing on Federal Hill since a stranger had entered the dreaded church.",
+        "end_exact": "that monstrous thing of night which his rashness had called out of the ultimate black spaces.",
+        "start_prefix": "",
+        "end_suffix": " He seemed to feel a constant tugging",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Newspaper reports document strange phenomena in the church's steeple as the Italian community grows fearful. Blake feels mounting remorse and a psychic connection to the entity, experiencing compulsive urges and sleepwalking.",
+        "cohesion": {
+          "time": "Early to late July",
+          "place": "Federal Hill and Blake's study",
+          "characters": [
+            "Robert Blake",
+            "Italian community",
+            "unnamed watchers"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "Time/place stable across the city and weeks of observation. The segment lacks clear GACD (no focal conflict or action meeting on-stage resistance) or complete ERAC (while Blake experiences emotion and anticipation, there is no clear singular choice or deliberation within this span). This is atmospheric narrative showing the escalation of phenomena and Blake's mounting psychological distress.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 72,
+        "end_par_id": 78,
+        "start_exact": "The week following July 30 is recalled as the time of Blake's partial breakdown. He did not dress, and ordered all his food by telephone...On regaining consciousness in the morning he found himself lying on his study floor fully dressed.",
+        "end_exact": "and make wild entries in his diary.",
+        "start_prefix": "",
+        "end_suffix": " The great storm broke",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Blake suffers a breakdown after a sleepwalking episode in which he finds himself at the church. He experiences visions, terror, and physical injury, waking at home covered in dirt, cobwebs, and burnt hair.",
+        "cohesion": {
+          "time": "Night of July 30 and following days",
+          "place": "Blake's study and (in hallucination/dreams) the church tower",
+          "characters": [
+            "Robert Blake"
+          ]
+        },
+        "gacd": {
+          "goal": "Blake is compelled by the entity to return to the church (against his conscious will)",
+          "action": "He sleepwalks, climbs the church tower, experiences visions of cosmic chaos",
+          "conflict": "The entity's hypnotic pull on his mind, the overwhelming visions, his panic and disorientation, the physical hazards of the dark tower",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "GACD present: Blake is drawn/compelled (goal), takes action (sleepwalking to the tower), encounters severe conflict (entity's influence, visions, terror, physical injury), and reaches Disaster (nervous breakdown, confusion, injury).",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 79,
+        "end_par_id": 86,
+        "start_exact": "The great storm broke just before midnight on August 8th. Lightning struck repeatedly in all parts of the city...The phenomenon was most marked over College Hill, where the crash awaked all the sleeping inhabitants and led to a bewildered round of speculations.",
+        "end_exact": "whilst evidence concerning the momentary burned odor after the stroke is equally general.",
+        "start_prefix": "",
+        "end_suffix": " These points were",
+        "start_char": null,
+        "end_char": null,
+        "summary": "A massive electrical storm occurs on August 8th. The lights fail city-wide at 2:12 a.m.; Blake watches helplessly from his window. The entity escapes the church and travels toward Blake, manifesting as a dark blur with a terrible stench before seemingly being struck by lightning over College Hill.",
+        "cohesion": {
+          "time": "Night of August 8th, midnight to dawn",
+          "place": "Blake's study (overlooking the city), Federal Hill, and College Hill",
+          "characters": [
+            "Robert Blake",
+            "Italian community",
+            "Father Merluzzo",
+            "Patrolman Monahan",
+            "townspeople"
+          ]
+        },
+        "gacd": {
+          "goal": "Blake struggles to prevent the power failure and the entity's escape; wants to keep the lights on to contain the thing",
+          "action": "Blake telephones the power company in panic, watches the storm from his window, records events in his diary",
+          "conflict": "The uncontrollable storm, the failure of the lights, the entity's manifestation and escape into darkness, the approaching weather phenomenon moving toward Blake",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "GACD present: goal (prevent entity escape by maintaining lights), action (telephone company, watch window, record), conflict (storm, power failure, entity's movement toward him), outcome (Disaster\u2014the lights fail, the entity escapes and approaches him, he cannot stop it).",
+        "confidence": 0.9
+      },
+      {
+        "segment_id": 11,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 87,
+        "end_par_id": 99,
+        "start_exact": "These points were discussed very carefully because of their probable connection with the death of Robert Blake. Students in the Psi Delta house, whose upper rear windows looked into Blake's study, noticed the blurred white face at the westward window on the morning of the 9th, and wondered what was wrong with the expression. When they saw the same face in the same position that evening, they felt worried, and watched for the lights to come up in his apartment. Later they rang the bell of the darkened flat, and finally had a policeman force the door.",
+        "end_exact": "three-lobed burning eye.\"",
+        "start_prefix": "",
+        "end_suffix": "",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Students find Blake's rigid body at his desk with a look of absolute terror and bulging eyes. The coroner attributes the death to electrical shock. Blake's final diary entries record his descent into madness and the approach of the entity's three-lobed eye.",
+        "cohesion": {
+          "time": "Morning of August 9th through Blake's final moments during the storm",
+          "place": "Blake's study at his desk",
+          "characters": [
+            "Robert Blake",
+            "students",
+            "coroner",
+            "police",
+            "Father Merluzzo"
+          ]
+        },
+        "gacd": {
+          "goal": "Blake struggles to resist the entity's pull and maintain his sanity and identity",
+          "action": "Blake makes final diary entries, clings to his name and memory, attempts to resist the entity's mental influence",
+          "conflict": "The entity's overwhelming presence, the dissolution of light and darkness in his perception, the loss of distance and identity, the approach of the cosmic horror",
+          "outcome": "Disaster"
+        },
+        "erac": null,
+        "reason": "GACD present: goal (resist the entity, maintain identity and life), action (diary writing, attempts at mental resistance), conflict (the entity's inexorable approach and mental dominance), outcome (Disaster\u2014Blake dies in terror, the entity reaches him).",
+        "confidence": 0.95
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 17850,
+    "output_tokens": 4313
+  }
+}

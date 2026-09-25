@@ -1,0 +1,43 @@
+---
+execution_id: 2026_09_02_16_23_58_WI_GATHER_0104_CLOSEOUT_NOTE
+prompt_id: PROMPT(AD_HOC:WI_GATHER_0104_CLOSEOUT_NOTE)[2026-09-02T16:23:53+00:00]
+work_item: AD_HOC
+status: landed
+rerun_of: 2026_08_31_06_57_37_WI_GATHER_0104
+pr: https://github.com/xenotaur/LCATS/pull/419
+commit: f0fa6acb6324af78a415f59abb0c60a3db71a8d1
+created_at: 2026-09-02T16:23:58+00:00
+agent: claude_app
+instruction_source: https://github.com/xenotaur/LCATS/pull/419
+session_transcript: claude-app:7065c30d-504e-47af-9834-d062b53d7a74
+---
+
+# Summary
+
+`/lrh-land` Step 7 (inline `/lrh-closeout`) — closeout for PR #419,
+sibling record for `WI-GATHER-0104`'s creation (one `_CLOSEOUT_NOTE` per
+primary record, since this PR batched 3 primaries).
+
+# Result
+
+CHAIN-NOTE: `cycles=2; stops=0; gates=[chain-init, review-response-confirm,
+merge+closeout]; friction=2 real review-response findings (verbose flag,
+callback test breakage) plus 1 self-review-caught line-range citation
+error in an earlier fix; note="This is a WI-creation PR, not an
+implementation PR — WI-GATHER-0104 stays status: proposed (not resolved).
+9 execution records tied to this PR landed with commit f0fa6acb. No
+workstream or proposal action (related_workstreams: [])."`
+
+All 9 execution records tied to PR #419 updated to `status: landed`,
+`commit: f0fa6acb6324af78a415f59abb0c60a3db71a8d1`, `pr:
+https://github.com/xenotaur/LCATS/pull/419` (backfilling `pr:` on the
+`_REVIEW` and `_CONFIRM` records, an omission from their own creation).
+
+# Validation
+
+- `lrh validate` — see the batch validation run for this closeout.
+
+# Follow-up
+
+- `WI-GATHER-0104` itself remains `status: proposed`; next step is
+  `/lrh-execute WI-GATHER-0104` when the user is ready to implement it.

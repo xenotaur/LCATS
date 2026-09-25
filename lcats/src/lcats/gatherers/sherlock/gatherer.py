@@ -1,8 +1,6 @@
 """Corpus extractor for the Sherlock Holmes stories."""
 
-from bs4 import BeautifulSoup
-
-import lcats.gatherers.downloaders as downloaders
+from lcats.gatherers import gatherlib
 
 TARGET_DIRECTORY = "sherlock"
 
@@ -92,53 +90,20 @@ def find_paragraphs_adventures(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def create_download_callback(story_name, url, start_heading_text, description):
-    """Create a download callback function for a specific story."""
-
-    def story_download_callback(contents):
-        """Download a specific Sherlock story from the Gutenberg Project."""
-        if contents is None:
-            raise ValueError(f"Failed to download {url}")
-
-        story_soup = BeautifulSoup(contents, "lxml")
-
-        story_text = find_paragraphs_adventures(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
-
-        story_data = {
-            "author": "Arthur Conan Doyle",
-            "year": 1891,
-            "url": url,
-            "name": story_name,
-        }
-
-        return description, story_text, story_data
-
-    return story_download_callback
-
-
 def gather():
-    """Run DataGatherers for the Sherlock Holmes corpus."""
-    gatherer = downloaders.DataGatherer(
-        TARGET_DIRECTORY,
+    """Gather the Sherlock Holmes corpus via gatherlib.gather()."""
+    return gatherlib.gather(
+        corpus="Sherlock Holmes",
+        target_directory=TARGET_DIRECTORY,
         description="Sherlock Holmes stories from the Gutenberg Project.",
-        license="Public domain, from Project Gutenberg.",
+        license_text="Public domain, from Project Gutenberg.",
+        author="Arthur Conan Doyle",
+        year=1891,
+        headings=ADVENTURES_HEADINGS,
+        gutenberg_url=ADVENTURES_GUTENBERG,
+        paragraph_finder=find_paragraphs_adventures,
+        verbose=False,
     )
-    for filename, heading, title in ADVENTURES_HEADINGS:
-        gatherer.download(
-            filename,
-            ADVENTURES_GUTENBERG,
-            create_download_callback(
-                story_name=filename,
-                url=ADVENTURES_GUTENBERG,
-                start_heading_text=heading,
-                description=title,
-            ),
-        )
-    return gatherer.downloads
 
 
 def main():

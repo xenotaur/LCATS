@@ -302,6 +302,27 @@ class TestExtractSurfaceFeatures(unittest.TestCase):
         self.assertEqual(features.avg_sentence_length, 2.5)
         self.assertEqual(features.backend_name, "fake")
         self.assertEqual(len(features.tokens), 5)
+        self.assertEqual(sentences, features.sentence_records)
+
+    def test_sentence_records_are_not_serialized_in_surface_features(self):
+        tok = nlp_backend.TokenRecord(
+            text="The",
+            lemma="the",
+            upos="DET",
+            xpos="DT",
+            feats="",
+            head_index=0,
+            deprel="root",
+        )
+        sentence = nlp_backend.SentenceRecord(tokens=[tok], start_char=0, end_char=3)
+        backend = nlp_backend.FakeNLPBackend(sentences=[sentence])
+
+        features = surface_feature_extractor.extract_surface_features(
+            "The", backend, backend_name="fake"
+        )
+
+        self.assertEqual([sentence], features.sentence_records)
+        self.assertNotIn("sentence_records", features.to_dict())
 
     def test_empty_text_produces_zeroed_features(self):
         backend = nlp_backend.FakeNLPBackend()

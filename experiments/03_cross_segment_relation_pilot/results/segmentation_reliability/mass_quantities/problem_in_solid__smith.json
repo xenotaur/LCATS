@@ -1,0 +1,298 @@
+{
+  "story_id": "mass_quantities/problem_in_solid__smith",
+  "outcome": "alignment_error:alignment failed: ValueError('alignment failed for segment_id=6: anchor text not found in story text')",
+  "llm_call_made": true,
+  "word_count": 7954,
+  "segment_count": 0,
+  "raw_output": "",
+  "parsed_output": {
+    "segments": [
+      {
+        "segment_id": 1,
+        "segment_type": "narrative_scene",
+        "start_par_id": 1,
+        "end_par_id": 6,
+        "start_exact": "Martin Hammer should have been prepared for anything. As the world's\nforemost producer of motion pictures, he should have taken any\nsituation from earthquake to fatherhood without a qualm or a turned\neyebrow. But Hammer had not seen everything--yet.",
+        "end_exact": "The act ended as his hand entered the real doorknob and there was the\nhigh-pitch whine of metal against metal like cutting a tin can with a\nbandsaw.",
+        "start_prefix": "",
+        "end_suffix": "\n\n[P0007]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Martin Hammer, a motion picture producer, encounters a mysterious stranger who uses an imaginary door to enter his office, destroying the real door with impossible illusory gestures. The man introduces himself and lights a cigarette.",
+        "cohesion": {
+          "time": "afternoon/early evening at Hammer's office",
+          "place": "Hammer's office in Hollywood",
+          "characters": [
+            "Martin Hammer",
+            "Tim Woodart (the stranger)"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment is unified by time/place (Hammer's office) and introduces the impossible feat of the imaginary door. While it contains the arrival of the stranger and his demonstration, there is no clear GACD structure\u2014the 'action' is illusory and the 'conflict' is not yet explicit. Classified as narrative_scene.",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 2,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 7,
+        "end_par_id": 26,
+        "start_exact": "The intruder turned, walked across the office, and stood there in front\nof Martin Hammer. From a pocket he look a cigarette and a match and lit\nup, blowing a cloud of fragrant smoke into the air.",
+        "end_exact": "Hammer nodded. Whatever it was, Martin Hammer had just had his door\nbroken in by the first of all true three-dimensional photography!",
+        "start_prefix": "high-pitch whine of metal against metal like cutting a tin can with a\nbandsaw.\n\n",
+        "end_suffix": "\n\n[P0027]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hammer confronts the stranger angrily, lunges at him, but the man vanishes. The stranger reappears explaining he was demonstrating 3D photography and offers to bring his equipment. Hammer realizes the significance.",
+        "cohesion": {
+          "time": "continuous, same afternoon/early evening",
+          "place": "Hammer's office",
+          "characters": [
+            "Martin Hammer",
+            "Tim Woodart"
+          ]
+        },
+        "gacd": {
+          "goal": "Hammer aims to harm the intruder and understand what is happening",
+          "action": "Hammer leaps at the stranger with intent to do bodily harm, but the stranger vanishes; Hammer then questions and confronts Woodart",
+          "conflict": "The stranger's disappearance frustrates Hammer's attack; confusion over what is real vs. illusory; Hammer's anger at the destroyed door",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment exhibits clear GACD structure: Hammer's goal to confront/harm the intruder, his on-stage action (lunging, questioning), strong conflict (the vanishing, the confusion, the destroyed door), and a clear outcome (Hammer's realization and acceptance of Woodart's invention). Meets the dramatic_scene threshold.",
+        "confidence": 0.85
+      },
+      {
+        "segment_id": 3,
+        "segment_type": "narrative_scene",
+        "start_par_id": 28,
+        "end_par_id": 58,
+        "start_exact": "Harry Foster stood on a lonely stage and smiled at some mythical point\nin the mid distance. Dramatically he pointed, and as he pointed, across\nhis face there came a change over his features. Normally handsome,\nHarry Foster's \"bad\" face was thrice as bad for the distortion into\nhatred. It was excellent acting.",
+        "end_exact": "Then Harry Foster took a look around the living room of his apartment,\nshrugged, and left, tossing the pistol into a corner.",
+        "start_prefix": "\n\n[P0027]\n\n",
+        "end_suffix": "\n\n[P0059]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Harry Foster experiments with the 3D projection equipment and succeeds in stopping a projection to create a duplicate of himself. He then holds the duplicate at gunpoint, threatens it, and shoots it three times, killing it. He leaves the apartment nonchalantly.",
+        "cohesion": {
+          "time": "continuous, likely same day as Hammer's meeting; ending in the evening at Foster's apartment",
+          "place": "first the studio with the 3D camera, then Foster's apartment",
+          "characters": [
+            "Harry Foster",
+            "duplicate Foster"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "While this segment contains dramatic action (Foster's shooting of his duplicate), the focus is on narration of events: Foster's experiments, his obtaining a duplicate, his dialogue with it, and his execution of the duplicate. The 'outcome' of killing the duplicate is achieved, but the segment lacks clear opposing conflict\u2014the duplicate does not effectively resist, and Foster's 'goal' is unclear (is it to test the machine, to kill, or to prove dominance?). The dominant mode is narrative recounting rather than GACD or ERAC structure. Classified as narrative_scene.",
+        "confidence": 0.7
+      },
+      {
+        "segment_id": 4,
+        "segment_type": "narrative_scene",
+        "start_par_id": 60,
+        "end_par_id": 75,
+        "start_exact": "Lieutenant Miller looked down at the corpse. \"Someone sure hated him,\"\nhe said.",
+        "end_exact": "Miller looked at the coroner, who was just polishing up his job. Miller\nsaid, \"Whoever did it did Foster a favor. Between you and me, we'd have\nhad him between nutcrackers in another week.\"",
+        "start_prefix": "\n\n[P0059]\n\n",
+        "end_suffix": "\n\n[P0076]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Police (Miller, Jacobson, Mullaney) investigate Foster's death. They clear his wife (who has an alibi) and discuss Foster's crimes: blackmail, embezzlement, and larceny. They conclude the killer did them a favor.",
+        "cohesion": {
+          "time": "evening/night, immediately after Foster's murder",
+          "place": "Foster's apartment and surroundings",
+          "characters": [
+            "Lieutenant Miller",
+            "Jacobson (F.B.I.)",
+            "Sergeant Mullaney",
+            "Mrs. Foster",
+            "the coroner"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment is unified by time/place (the investigation at Foster's apartment) and primarily consists of dialogue and exposition about Foster's crimes and the police's conclusion. There is no on-stage GACD or ERAC\u2014no clear goal, action with resistance, or emotion/choice by a focal character. Classified as narrative_scene.",
+        "confidence": 0.8
+      },
+      {
+        "segment_id": 5,
+        "segment_type": "narrative_scene",
+        "start_par_id": 77,
+        "end_par_id": 121,
+        "start_exact": "Martha Evers watched her image on the stage in the studio theater.\nBeside her was Martin Hammer who was watching the performance with\ninterest. Martha was watching with wonder; Hammer had seen this thing\nat work before and was more concerned with the technical portions of\nthe opus than the wonder of watching a life-sized, living, breathing,\ntalking image perform.",
+        "end_exact": "Tim Woodart left quietly.",
+        "start_prefix": "\n\n[P0076]\n\n",
+        "end_suffix": "\n\n[P0122]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Hammer, Martha, Jenny Foster, and Woodart discuss the 3D projection technology during a film screening. They debate technical challenges (close-ups, scaling, realism) and nearly cause an accident when a sneeze projection creates a hurricane-force wind. Woodart leaves after the incident.",
+        "cohesion": {
+          "time": "continuous, same afternoon/evening (film screening)",
+          "place": "studio theater",
+          "characters": [
+            "Martha Evers",
+            "Martin Hammer",
+            "Tim Woodart",
+            "Jenny Foster",
+            "Jack Vanders"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment is unified by time/place (the studio theater screening). It consists primarily of dialogue about technical aspects and a comedic incident (the sneeze). There is no clear GACD structure\u2014no on-stage conflict that creates dramatic tension and resolution. The 'incident' (the sneeze disaster) is portrayed as comedic rather than a genuine dramatic scene. Classified as narrative_scene.",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 6,
+        "segment_type": "narrative_scene",
+        "start_par_id": 123,
+        "end_par_id": 184,
+        "start_exact": "Tim Woodart led Jenny Foster to a small table and ordered Martinis.\nJenny smiled at him and said: \"Tell me how you came to invent this\nthing?\"",
+        "end_exact": "The scene tilted flat, finally, and traveled along the street on the\nlevel until the principal character was approached, whereupon the\naction began. The camera followed Jack Vanders into a bar where he met\nMartina Evers and ordered the Manhattan that was to become Gargantuan in\nsize--",
+        "start_prefix": "\n\n[P0122]\n\n",
+        "end_suffix": "\n\n[P0185]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Tim and Jenny spend an evening together at a bar and in the studio theater. They discuss the technical aspects of the 3D invention. Meanwhile, hundreds of miles away, Harry Foster (who should be dead) is stopped by a motorcycle cop, evades arrest by claiming to be someone else, then learns his dead body has been verified. He reads a gossip column about Jenny and Tim.",
+        "cohesion": {
+          "time": "evening (different locations at roughly the same time); Foster's scene is a few hours earlier on a highway",
+          "place": "bar, studio theater, and highway south of the studio",
+          "characters": [
+            "Tim Woodart",
+            "Jenny Foster",
+            "Harry Foster",
+            "motorcycle policeman"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment spans two distinct locations (bar/studio vs. highway) and multiple subplots. The Foster subplot shows him discovering his death has been authenticated and reading gossip about Jenny and Tim, but there is no GACD or ERAC in the segment\u2014merely exposition of events and dialogue. The Tim/Jenny storyline is mostly exposition and getting-to-know-you interaction. Classified as narrative_scene due to time/place continuity within subplots but lack of clear dramatic structure.",
+        "confidence": 0.65
+      },
+      {
+        "segment_id": 7,
+        "segment_type": "narrative_scene",
+        "start_par_id": 186,
+        "end_par_id": 227,
+        "start_exact": "Jenny Foster put her face up for a good night kiss, and then shoved her\napartment door open as Tim turned to leave. Inside, the living room\nlight was on, and Jenny instantly called Tim back.",
+        "end_exact": "\"Laugh,\" leered Foster. \"You can't bring suit for divorce against a\ndead man, either!\"",
+        "start_prefix": "\n\n[P0185]\n\n",
+        "end_suffix": "\n\n[P0228]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Harry Foster, who is supposedly dead but alive, confronts Tim and Jenny in her apartment. He blackmails her for money/divorce, claiming he is now a 'ghost' and immune to the law. Tim fights him and throws him out. Foster threatens divorce complications.",
+        "cohesion": {
+          "time": "late evening/night, same night as the bar scene",
+          "place": "Jenny's apartment",
+          "characters": [
+            "Jenny Foster",
+            "Tim Woodart",
+            "Harry Foster"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment is unified by time/place (Jenny's apartment, same night). While it contains confrontation and dialogue, the structure is primarily narrative recounting of an encounter and threat rather than a clear GACD or ERAC. Tim's physical response to Foster (fighting him) is action, but there is no sustained conflict with a clear outcome within this segment\u2014Foster is thrown out but returns later. The segment ends with a threat/warning rather than a resolved goal. Classified as narrative_scene.",
+        "confidence": 0.7
+      },
+      {
+        "segment_id": 8,
+        "segment_type": "narrative_scene",
+        "start_par_id": 228,
+        "end_par_id": 296,
+        "start_exact": "Harry Foster opened the door to his apartment and nodded quite\ngenially. \"Come in, gentlemen,\" he said overpolitely.",
+        "end_exact": "\"Lieutenant Miller, when you came to the apartment of Harry Foster,\nwhat did you find?\"",
+        "start_prefix": "\n\n[P0227]\n\n",
+        "end_suffix": "\n\n[P0298]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "Police arrest Harry Foster at his apartment. Despite his legal maneuvering and refusal to cooperate, they take him into custody. The trial begins with State attorney Jones presenting the case that Foster created a duplicate and killed it. Tim Woodart testifies about the power expenditure proving duplication.",
+        "cohesion": {
+          "time": "late night (arrest), then next day(s) (trial courtroom scenes)",
+          "place": "Foster's apartment, then courtroom",
+          "characters": [
+            "Harry Foster",
+            "State Attorney Jones",
+            "Lieutenant Miller",
+            "Judge Carver",
+            "Defense Attorney Cranshaw",
+            "Tim Woodart"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment spans two time periods (arrest and trial) and two places (apartment and courtroom). It is primarily exposition and legal proceedings rather than a focused dramatic scene with GACD or ERAC. Foster's legal sparring is clever but not a goal-driven action meeting resistance in a single scene. Classified as narrative_scene.",
+        "confidence": 0.75
+      },
+      {
+        "segment_id": 9,
+        "segment_type": "narrative_scene",
+        "start_par_id": 297,
+        "end_par_id": 353,
+        "start_exact": "\"Lieutenant Miller, when you came to the apartment of Harry Foster,\nwhat did you find?\"",
+        "end_exact": "\"Shut up,\" snapped Foster.",
+        "start_prefix": "\n\n[P0296]\n\n",
+        "end_suffix": "\n\n[P0353]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The trial continues with Miller's testimony about duplicate guns, and Jones's attempt to question Foster about the duplication. Cranshaw's cross-examination and defense witnesses (Dr. Lewis) argue that a duplicate has a separate identity and killing one's duplicate is suicide, not murder.",
+        "cohesion": {
+          "time": "continuous, trial courtroom scenes over multiple days",
+          "place": "courtroom",
+          "characters": [
+            "State Attorney Jones",
+            "Lieutenant Miller",
+            "Harry Foster",
+            "Defense Attorney Cranshaw",
+            "Judge Carver",
+            "Dr. Lewis"
+          ]
+        },
+        "gacd": null,
+        "erac": null,
+        "reason": "This segment continues the trial proceedings with testimony and legal arguments. It is primarily exposition and legal debate rather than a focal character pursuing a goal with on-stage conflict and outcome. Classified as narrative_scene.",
+        "confidence": 0.78
+      },
+      {
+        "segment_id": 10,
+        "segment_type": "dramatic_scene",
+        "start_par_id": 354,
+        "end_par_id": 372,
+        "start_exact": "The jury returned after many hours, and the foreman arose. \"Your Honor,\nwe have deliberated this case and find that our decision requires\nexplanation. Suicide we reason, is self-murder. Since suicide requires\na certain amount of planning and contemplation, we find the defendant\nguilty on all charges including Murder in the First Degree!\"",
+        "end_exact": "\"They're equally fast and they're equally forewarned. Tough guy--it\ntook four of him to get rid of him.\"",
+        "start_prefix": "\n\n[P0353]\n\n",
+        "end_suffix": "\n\n[P0373]",
+        "start_char": null,
+        "end_char": null,
+        "summary": "The jury convicts Foster of murder. Later, Foster (now revealed to be yet another duplicate) appears in Jenny's apartment after the trial. Tim realizes a second duplicate exists and they lure it into the open, where the two duplicates kill each other in a gunfight.",
+        "cohesion": {
+          "time": "evening (trial verdict), then later that night (apartment confrontation)",
+          "place": "primarily Jenny's apartment (with reference to courtroom verdict earlier)",
+          "characters": [
+            "Tim Woodart",
+            "Jenny Foster",
+            "Harry Foster (duplicate)",
+            "Lieutenant Miller"
+          ]
+        },
+        "gacd": {
+          "goal": "Tim and Jenny aim to eliminate the threat posed by the duplicate Foster who claims immunity from prosecution",
+          "action": "Tim leaves the apartment door open and lures the duplicate Foster outside, where the second duplicate Foster confronts him and they engage in gunfire",
+          "conflict": "Foster's claim of double jeopardy immunity; the existence of another duplicate; the physical confrontation and gunfight between duplicates",
+          "outcome": "Success"
+        },
+        "erac": null,
+        "reason": "This segment contains a clear GACD structure: Tim and Jenny's goal to neutralize the Foster duplicate threat, their action of luring him out, the conflict of Foster's legal invulnerability and the presence of duplicates, and the outcome (the duplicates kill each other, resolving the immediate threat). While the outcome is achieved off-stage (gunfire 'quickly stopped'), the segment shows the focal characters' deliberate action and its success. Classified as dramatic_scene.",
+        "confidence": 0.82
+      }
+    ]
+  },
+  "extracted_output": null,
+  "api_error": null,
+  "extraction_error": null,
+  "usage": {
+    "input_tokens": 17400,
+    "output_tokens": 4353
+  }
+}

@@ -178,13 +178,22 @@ command is non-destructive — it never modifies the input files.
 
 ## `promote`
 
+An explicit mode is mandatory: `insert`, `upsert`, or `replace`. A bare
+`lcats promote` with no mode refuses rather than defaulting to any behavior.
+
 ```
-lcats promote [--source SOURCE] [--dest DEST] [--dry-run] [collections ...]
+lcats promote replace [--source SOURCE] [--dest DEST] [--dry-run] [--allow-orphaned-sidecar-deletion] [collections ...]
+lcats promote insert --sidecar KIND (--tranche-manifest PATH | --source DIR) [--dest DEST] [--allow-unvalidated] [--dry-run]
+lcats promote upsert --sidecar KIND (--tranche-manifest PATH | --source DIR) [--dest DEST] [--allow-unvalidated] [--dry-run]
 ```
 
-Promote `data/` collections into `corpora/`. A collection with any mojibake
-finding is skipped and reported rather than promoted; clean collections
-wholesale-replace their `corpora/` counterpart.
+`replace` promotes `data/` collections into `corpora/` wholesale. A
+collection with any mojibake finding is skipped and reported rather than
+promoted; clean collections wholesale-replace their `corpora/` counterpart.
+An otherwise-clean collection is also blocked by default if the replace
+would delete a registered sidecar kind present at the destination but
+missing from source (the orphaned-sidecar guard) — see
+[`corpus-promotion.md`](corpus-promotion.md) for the full explanation.
 
 | Argument / Flag | Description |
 |---|---|
@@ -192,9 +201,30 @@ wholesale-replace their `corpora/` counterpart.
 | `--source SOURCE` | Root directory of source collections (default: `data/`). |
 | `--dest DEST` | Root directory to promote clean collections into (default: `../corpora`). |
 | `--dry-run` | Survey and report without copying any files. |
+| `--allow-orphaned-sidecar-deletion` | Allow replace to delete a registered sidecar kind present at the destination but missing from source. Without this flag, such a collection is blocked and reported rather than promoted. |
+
+`insert`/`upsert` promote sidecars into existing story buckets, without
+touching any other file in the destination. `insert` is create-only
+(refuses if the destination already exists); `upsert` is create-or-overwrite
+(whole-file only, never merges content). Records come from exactly one of
+`--tranche-manifest` (a JSONL manifest of `{"lcats_id": ..., "payload":
+{...}}` envelopes) or `--source` (a live scan of
+`<dir>/<collection>/<story>/<sidecar-filename>` — every bucket that already
+has the named sidecar file is promoted; the bucket's own relative path is
+the routing `lcats_id`) — the two are mutually exclusive.
+
+| Argument / Flag | Description |
+|---|---|
+| `--sidecar KIND` | Registered sidecar kind to promote (e.g. `genre`, `scenes`, `linguistics`, `linguistics.tokens.json`). No `.` assumes `.json`; a value containing `.` is matched exactly. |
+| `--tranche-manifest PATH` | JSONL manifest of `{"lcats_id": ..., "payload": {...}}` envelopes. Mutually exclusive with `--source`. |
+| `--source DIR` | Root directory to scan for existing `<collection>/<story>/<sidecar-filename>` files instead of reading a manifest. Mutually exclusive with `--tranche-manifest`. |
+| `--dest DEST` | Root directory to promote into (default: `../corpora`). |
+| `--allow-unvalidated` | Allow a `--sidecar` kind with no registered validator. Never bypasses a registered validator's own rejection. |
+| `--dry-run` | Validate and report without writing any files. |
 
 See [`corpus-promotion.md`](corpus-promotion.md) for the full command
-explanation, collection-name mapping, and exit-code semantics.
+explanation, collection-name mapping, manifest envelope shape, and
+exit-code semantics.
 
 ## `annotate`
 
@@ -269,7 +299,7 @@ sidecar and run-summary schemas.
 ## `visualize`
 
 ```
-lcats visualize {genres,words,tfidf,topics} ...
+lcats visualize {genres,words,tfidf,topics,compare,compare-many} ...
 ```
 
 Generate reproducible, publication-useful figures from LCATS corpus
@@ -381,7 +411,7 @@ are explicitly deferred.
 | `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
 | `--n-topics N_TOPICS` | Number of topics to fit; must be `>= 1` (default: `8`). |
 | `--top-k TOP_K` | Number of top terms per topic to include; must be `>= 1` (default: `10`). |
-| `--seed SEED` | Random seed for the NMF solver and its initialization (default: `42`). Affects the fitted topics under every `--init` choice, not only `random` -- scikit-learn's `nndsvd`-family initializers compute their starting point via a randomized SVD seeded by `--seed`. |
+| `--seed SEED` | Random seed for NMF initialization (default: `42`). Different seeds may change initialization and may, but need not, change the fitted topics. |
 | `--init {nndsvd,nndsvda,nndsvdar,random}` | NMF initialization strategy (default: `nndsvda`). |
 | `--max-iter MAX_ITER` | Maximum NMF solver iterations; must be `>= 1` (default: `400`). |
 | `--output-dir OUTPUT_DIR` | Directory to write output figures to (default: `topics_viz`). |
@@ -394,6 +424,120 @@ characters, and are filtered through a hardcoded stopword set.
 
 See [`../how-to/run-visualize.md`](../how-to/run-visualize.md) for setup
 and worked examples.
+
+### `visualize compare`
+
+```
+lcats visualize compare [--corpus-root CORPUS_ROOT]
+                        [--candidates-jsonl CANDIDATES_JSONL]
+                        [--universe {corpus,manifest}] [--manifest MANIFEST]
+                        [--left-genre LEFT_GENRE] [--right-genre RIGHT_GENRE]
+                        [--membership-mode {candidate,primary,selection}]
+                        [--right-reference {none,complement,universe}]
+                        [--metric METRIC] [--left-metric METRIC]
+                        [--right-metric METRIC]
+                        [--style {mirrored,reference-overlay}]
+                        [--top-k TOP_K] [--vocabulary VOCABULARY]
+                        [--order-by ORDER_BY] [--include-stopwords]
+                        [--min-length MIN_LENGTH]
+                        [--output-dir OUTPUT_DIR] [--formats FORMATS]
+```
+
+Render an aligned lexical comparison from a declared universe and selectors.
+The command writes figure files, `comparison.csv`, and
+`comparison_manifest.json` with the universe, selector, metric, preprocessing,
+vocabulary, ordering, overlap, and output provenance.
+
+| Argument / Flag | Description |
+|---|---|
+| `--corpus-root CORPUS_ROOT` | Root directory of story collections (default: `corpora`). |
+| `--candidates-jsonl CANDIDATES_JSONL` | Path to full-scan `candidates.jsonl`. |
+| `--universe {corpus,manifest}` | Use the full corpus or a manifest story list as `U` (default: `corpus`). |
+| `--manifest MANIFEST` | Manifest JSONL path required by `--universe manifest`. |
+| `--left-genre LEFT_GENRE` / `--right-genre RIGHT_GENRE` | Genre selectors for the left/reference and right/target side. |
+| `--membership-mode {candidate,primary,selection}` | Genre membership semantics (default: `candidate`). The current CLI source adapters support `candidate` and manifest `selection`; `primary` is rejected until a per-story primary source is available. |
+| `--right-reference {none,complement,universe}` | Derive the left/reference selector from the right selector: no derivation, `U - S`, or all of `U`. |
+| `--metric METRIC` | Metric for both sides unless side-specific metric flags are supplied. |
+| `--left-metric METRIC` / `--right-metric METRIC` | Side-specific metric override. |
+| `--style {mirrored,reference-overlay}` | Render a mirrored chart or a commensurate reference overlay (default: `mirrored`). |
+| `--top-k TOP_K` | Number of aligned terms; must be `>= 1` (default: `20`). |
+| `--vocabulary VOCABULARY` | Aligned vocabulary policy. |
+| `--order-by ORDER_BY` | Display order policy. `explicit` is rejected by the CLI until an explicit term-list option is exposed. |
+| `--include-stopwords` | Include stopwords in tokenization. |
+| `--min-length MIN_LENGTH` | Minimum alphabetic token length (default: `3`). |
+| `--output-dir OUTPUT_DIR` | Directory for figures, CSV, and manifest (default: `compare_viz`). |
+| `--formats FORMATS` | Comma-separated figure formats (default: `png,svg`). |
+
+```
+lcats visualize compare --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --right-genre "science fiction" --right-reference complement \
+  --metric per_million --output-dir /tmp/lcats_compare_smoke
+```
+
+### `visualize compare-many`
+
+```
+lcats visualize compare-many --panels PANELS
+                             [--corpus-root CORPUS_ROOT]
+                             [--candidates-jsonl CANDIDATES_JSONL]
+                             [--universe {corpus,manifest}] [--manifest MANIFEST]
+                             [--membership-mode {candidate,primary,selection}]
+                             [--panel-mode {direct,complement}]
+                             [--reference {universe,genre,per-panel-complement,none}]
+                             [--reference-genre REFERENCE_GENRE]
+                             [--metric METRIC] [--top-k TOP_K]
+                             [--vocabulary VOCABULARY] [--order-by ORDER_BY]
+                             [--include-stopwords] [--min-length MIN_LENGTH]
+                             [--layout {standard,kabob}]
+                             [--reference-direction {left,right}]
+                             [--term-labels {center-column,outside-left,outside-right}]
+                             [--hatching | --no-hatching]
+                             [--legend | --no-legend]
+                             [--row-guides | --no-row-guides]
+                             [--highlight {off,per-genre,global}]
+                             [--scale {shared,independent}]
+                             [--max-columns MAX_COLUMNS] [--title TITLE]
+                             [--stem STEM] [--output-dir OUTPUT_DIR]
+                             [--formats FORMATS]
+```
+
+Render an aligned N-way reference-deviation chart for an ordered list of
+genre panels or their universe complements. Writes `<stem>.<format>` figures,
+a long-form `<stem>.csv`, and `<stem>_manifest.json` with selectors,
+memberships, references, pairwise overlaps, complement construction, scale
+and layout decisions, and SHA-256 output hashes. See
+[`run-visualize.md`](../how-to/run-visualize.md#compare-many----aligned-n-way-reference-deviation-chart)
+for semantics.
+
+| Argument / Flag | Description |
+|---|---|
+| `--panels PANELS` | Comma-separated genres in display order; at least two, no repeats. |
+| `--corpus-root`, `--candidates-jsonl`, `--universe`, `--manifest`, `--membership-mode` | Same meaning as `visualize compare`. |
+| `--panel-mode {direct,complement}` | Show each selector `S` or `U - S` (default: `direct`). |
+| `--reference {universe,genre,per-panel-complement,none}` | Common `U` reference, common `--reference-genre`, each panel's complement, or no reference (default: `universe`). |
+| `--reference-genre REFERENCE_GENRE` | Common reference genre; valid only with `--reference genre`. |
+| `--metric METRIC` | Metric shared by every panel and reference (default: `per_million`; `tfidf_contrast` is not offered). |
+| `--top-k TOP_K` | Number of aligned terms; must be `>= 1` (default: `20`). |
+| `--vocabulary VOCABULARY` / `--order-by ORDER_BY` | N-way vocabulary and order policy; `auto` follows the reference policy (default: `auto`). |
+| `--include-stopwords`, `--min-length MIN_LENGTH` | Tokenization controls, as for `compare`. |
+| `--layout {standard,kabob}` | Presentation preset (default: `standard`); the flags below override preset fields. |
+| `--reference-direction {left,right}` | Common-reference bar direction. |
+| `--term-labels {center-column,outside-left,outside-right}` | Term-label placement. |
+| `--[no-]hatching`, `--[no-]legend`, `--[no-]row-guides` | Independent styling toggles. |
+| `--highlight {off,per-genre,global}` | Extrema-highlight scope (default: `per-genre`). |
+| `--scale {shared,independent}` | Panel scale policy (default: `shared`); `independent` is labeled on every panel and in the manifest. |
+| `--max-columns MAX_COLUMNS` | Panels per band before deterministic wrapping (default: `8`). |
+| `--title TITLE`, `--stem STEM` | Figure title and output file stem (default stem: `comparison_nway`). |
+| `--output-dir OUTPUT_DIR` | Output directory (default: `compare_many_viz`). |
+| `--formats FORMATS` | Comma-separated figure formats from `png,svg,pdf` (default: `png,svg`). |
+
+```
+lcats visualize compare-many --universe manifest \
+  --manifest experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl \
+  --membership-mode selection --panels "fantasy,horror,science fiction" \
+  --layout kabob --output-dir /tmp/lcats_compare_many_smoke
+```
 
 ## Placeholder commands
 
