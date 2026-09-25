@@ -237,7 +237,12 @@ def cache_readiness(cache_db: pathlib.Path | None) -> dict[str, Any]:
             "warnings": ["No --cache-db supplied; metadata subjects were not read."],
         }
     status = {
-        "cache_db_path": str(cache_db),
+        # Basename only, never the full (often absolute, machine-specific)
+        # path -- this value flows through build_metadata_assessment()'s
+        # provenance into promoted corpora/*/genre.json records, where an
+        # absolute path like "/Users/<name>/.../gutenbergindex.db" would be
+        # unresolvable from another checkout (review finding, PR #362).
+        "cache_db_path": cache_db.name,
         "cache_root": str(cache_db.parent),
         "ready": False,
         "status": "missing",

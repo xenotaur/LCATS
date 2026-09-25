@@ -234,6 +234,19 @@ class TestMetadataEvidence(unittest.TestCase):
             )
             self.assertEqual(before, after)
 
+    def test_cache_readiness_reports_basename_not_full_path(self):
+        """cache_db_path flows into promoted corpora/*/genre.json provenance
+        (via build_metadata_assessment); it must never leak an absolute,
+        machine-specific path (review finding, PR #362)."""
+        with tempfile.TemporaryDirectory() as tmp:
+            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
+            _write_normalized_cache(cache_db, {1661: ["Crime -- Fiction"]})
+
+            status = run_prefilter.cache_readiness(cache_db)
+
+            self.assertEqual(status["cache_db_path"], "gutenbergindex.db")
+            self.assertNotIn(tmp, status["cache_db_path"])
+
     def test_flat_fixture_cache_schema_is_supported(self):
         with tempfile.TemporaryDirectory() as tmp:
             cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
