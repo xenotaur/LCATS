@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #450 (commit b15457af6eac5678a4ddf488967ddbe228a338f3)."
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0011
 title: Add an interactive POS audit session command
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
