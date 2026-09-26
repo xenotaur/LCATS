@@ -38,7 +38,7 @@ _O_NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
 MANIFEST_VERSION = "worldcon-knight-novum-spike-manifest-v1"
 SUMMARY_VERSION = "worldcon-knight-novum-spike-summary-v1"
 REPORT_VERSION = "worldcon-knight-novum-spike-report-v1"
-PROMPT_VERSION = "worldcon-knight-novum-spike-prompt-v2"
+PROMPT_VERSION = "worldcon-knight-novum-spike-prompt-v3"
 EVIDENCE_STAGE = "sf_evidence"
 KNIGHT_STAGE = "sf_knight"
 SUVIN_STAGE = "sf_suvin_novum"
@@ -1339,7 +1339,16 @@ Every item must contain an exact quotation copied from the story, the
 paragraph IDs containing it, a short neutral paraphrase, a confidence from 0
 to 1, and a unique raw_id. Do not put paragraph markers inside quotations.
 Do not make Knight or Suvin judgments, identify a genre, calculate a score, or
-call anything a novum. Prefer fewer strong items to unsupported guesses.
+call anything a novum. Prefer fewer strong items to unsupported guesses. An
+item is useful only when the quotation itself supports the assigned evidence
+type; do not infer a criterion decision from a vague paraphrase. If a passage
+could support more than one type, record the strongest neutral description and
+do not duplicate it merely to increase coverage. If there is no clear passage,
+return no item rather than inventing a quote or paragraph ID.
+
+Before submitting, check every item: the quote is copied exactly, every
+paragraph ID exists in the supplied story, the paraphrase is neutral, and the
+evidence type is materially supported by the quote.
 Return the exact keys required by the tool schema.
 """.strip()
 
@@ -1354,6 +1363,15 @@ Use rubric_id knight-seven-v1 and return exactly criterion_1 through
 criterion_7. Use present, ambiguous, absent, or not_assessable. Do not return
 a score, probability, pass threshold, or arithmetic; Python computes the
 definite/possible interval.
+
+Decision states are distinct. Use present only when the story and at least one
+supplied evidence record materially support the criterion. Use ambiguous when
+the evidence supports a plausible reading but materiality or interpretation is
+uncertain. Use absent when you considered the criterion and the story provides
+no material instance. Use not_assessable only when the supplied evidence is
+insufficient, conflicting, or unusable; do not use absent as a fallback for
+missing evidence. A present or ambiguous decision must include valid
+supporting evidence IDs and a short rationale. Never invent an evidence ID.
 
 criterion_1 science: scientific facts, theories, discoveries, natural
 processes, or speculative sciences materially represented.
@@ -1377,6 +1395,17 @@ incidental date, generic investigation, ordinary foreign country, or personal
 misfortune without broader scale. For present or ambiguous criteria, use
 central, substantial, or incidental materiality; otherwise use materiality
 none. Cite supporting and counterevidence IDs from the supplied evidence.
+
+Operational examples for this experiment, not claims about Knight's exact
+original wording: a contemporary telephone mentioned in passing is not
+technology/invention; a time machine that drives the plot can support
+technology/invention and future/remote past/time travel; a character who merely
+asks questions has not thereby demonstrated scientific method. A criterion may
+be absent even when a related word appears in the story.
+
+Before submitting, check that all seven criteria appear exactly once, every
+present or ambiguous criterion has supporting evidence, every cited ID exists,
+and no criterion is marked present solely because another criterion is present.
 Return exactly the schema keys; do not substitute criterion or assessment for
 criterion_id or status.
 """.strip()
@@ -1405,6 +1434,22 @@ numeric score or qualified_novum; Python computes the conjunction. Record
 reader-facing contrast, storyworld consequences, and optional character
 reaction separately as estrangement evidence. Character surprise is not
 required. Use only evidence IDs supplied in the prompt.
+
+Use absent when the candidate fails a dimension after consideration, and
+not_assessable only when the evidence is insufficient or conflicting. A
+candidate with an unusual gadget but no story-level change may have novelty or
+technology evidence while lacking narrative hegemony; it does not qualify.
+Conversely, a candidate may qualify without present-day engineering detail if
+the story develops a coherent cognitive or imaginary logic and the candidate
+governs the narrative consequences. These are operational examples for this
+experiment, not additions to Suvin's quoted theory.
+
+Before submitting, check each candidate independently across novelty,
+cognitive_validation, and narrative_hegemony; provide rationale and valid
+evidence IDs for every present or ambiguous dimension; keep estrangement
+evidence separate; and set dominant_novum_id only to a candidate that Python
+can validate as conjunctively qualified.
+
 """.strip()
 
 

@@ -96,6 +96,44 @@ class EvidenceTest(unittest.TestCase):
         )
         self.assertEqual("raw-1", record.provenance[0].raw_id)
 
+    def test_canonicalizes_type_alias_and_records_normalization(self):
+        prepared = _prepared_story()
+        candidate = {
+            "type": "scientific_or_technical_explanation",
+            "quote": "blue exhaust",
+            "paraphrase": "The exhaust is used in technical reasoning.",
+            "confidence": 0.82,
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertFalse(evidence_set.quarantined)
+        record = evidence_set.records[0]
+        self.assertEqual("scientific_or_technical_explanation", record.evidence_type)
+        self.assertEqual(
+            ("coerced field type to evidence_type",),
+            record.provenance[0].normalization_notes,
+        )
+
+    def test_explicit_evidence_type_wins_over_type_alias(self):
+        prepared = _prepared_story()
+        candidate = {
+            "type": "storyworld_change",
+            "evidence_type": "scientific_or_technical_explanation",
+            "quote": "blue exhaust",
+            "paraphrase": "The exhaust is used in technical reasoning.",
+            "confidence": 0.82,
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertEqual(
+            "scientific_or_technical_explanation", evidence_set.records[0].evidence_type
+        )
+        self.assertFalse(evidence_set.records[0].provenance[0].normalization_notes)
+
     def test_uses_candidate_offsets_when_repeated_quote_is_ambiguous(self):
         prepared = _prepared_story()
         repeated = "The city lifted on engines at dawn."
