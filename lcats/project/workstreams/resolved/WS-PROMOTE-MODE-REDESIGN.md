@@ -2,8 +2,8 @@
 id: WS-PROMOTE-MODE-REDESIGN
 kind: planning_node
 title: lcats promote Mode Redesign
-status: active
-stage: planned
+status: resolved
+stage: closed
 origin: design_review
 summary: Deliver PROP-LCATS-PROMOTE-MODE-REDESIGN — mandatory insert/upsert/replace modes for lcats promote, a shared sidecar-validator registry, and a targeted safety guard preventing replace from silently destroying tranche-promoted sidecars.
 related_focus: []
