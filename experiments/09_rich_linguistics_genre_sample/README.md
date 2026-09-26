@@ -43,6 +43,24 @@ immutable input and must not be edited:
 python experiments/09_rich_linguistics_genre_sample/audit_pos.py start
 ```
 
+For a guided, resumable session, use the interactive command instead. It
+stores the reviewer name in the ledger, shows one row and its context at a
+time, accepts `NOUN`, `PROPN`, `OTHER`, `uncertain`, or `blocked`, and pauses
+without losing progress when you choose `Q` or submit a blank command. If a
+ledger already exists, press Enter to keep its reviewer and answer `y` only if
+you intend to confirm a full restart; the second prompt requires typing
+`RESTART`:
+
+```bash
+python experiments/09_rich_linguistics_genre_sample/audit_pos.py audit
+```
+
+The interactive command asks for optional notes and comma-separated issue
+codes (`segmentation`, `tokenization`, `context`, `pos_ambiguity`, or `other`)
+for each row. It validates and scores automatically after the final row, with
+the same `results/pos_audit_scored.json` output as the non-interactive
+workflow.
+
 Inspect progress and retrieve the next unresolved row as JSON:
 
 ```bash
