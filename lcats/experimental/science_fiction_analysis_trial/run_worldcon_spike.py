@@ -219,6 +219,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
         )
 
     results: list[StoryResult] = []
+    summary: dict[str, Any]
     failures = 0
     with run_log.RunLog(
         output_root,
@@ -272,6 +273,23 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                         max_failures=options.max_failures,
                     )
                     break
+        results_tuple = tuple(results)
+        status = (
+            "complete"
+            if all(item.status == "complete" for item in results_tuple)
+            else "failed"
+        )
+        summary = _summary(
+            status=status,
+            manifest=manifest,
+            options=options,
+            output_root=output_root,
+            plan=plan,
+            results=results_tuple,
+            run_id=run_id,
+        )
+        _write_summary(output_root, summary)
+        _write_report(output_root, summary)
         log.event(
             "run_end",
             run_id=run_id,
@@ -279,21 +297,6 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             failed=sum(1 for item in results if item.status == "failed"),
             processed=len(results),
         )
-    results = tuple(results)
-    status = (
-        "complete" if all(item.status == "complete" for item in results) else ("failed")
-    )
-    summary = _summary(
-        status=status,
-        manifest=manifest,
-        options=options,
-        output_root=output_root,
-        plan=plan,
-        results=results,
-        run_id=run_id,
-    )
-    _write_summary(output_root, summary)
-    _write_report(output_root, summary)
     return summary
 
 

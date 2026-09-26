@@ -413,6 +413,32 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual("run_aborted_unexpected", events[-1]["event"])
         self.assertEqual(events[0]["run_id"], events[-1]["run_id"])
 
+    def test_final_artifact_failure_is_logged_as_run_abort(self):
+        output_root = self.root / "final-artifact-failure"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_write_report",
+            side_effect=OSError("report destination unavailable"),
+        ):
+            with self.assertRaisesRegex(OSError, "report destination unavailable"):
+                run_worldcon_spike.run_spike(
+                    run_worldcon_spike.RunnerOptions(
+                        manifest_path=self.manifest_path,
+                        output_root=output_root,
+                        max_stories=1,
+                    )
+                )
+
+        events = [
+            json.loads(line)
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+        ]
+        self.assertEqual("run_aborted_unexpected", events[-1]["event"])
+        self.assertNotIn("run_end", [event["event"] for event in events])
+
     def test_backend_stage_failure_persists_raw_error_before_quarantine(self):
         output_root = self.root / "backend-stage-failure"
         with patch.object(
