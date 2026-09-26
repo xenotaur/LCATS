@@ -2,10 +2,10 @@
 execution_id: 2026_09_26_00_15_23_GENRE_PREFILTER_CACHE_DB_PATH_SANITIZE_REVIEW
 prompt_id: PROMPT(AD_HOC:GENRE_PREFILTER_CACHE_DB_PATH_SANITIZE_REVIEW)[2026-09-26T00:15:14+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_25_21_59_21_GENRE_PREFILTER_CACHE_DB_PATH_SANITIZE
 pr: https://github.com/xenotaur/LCATS/pull/448
-commit: 8db6b3b9
+commit: 00a23dfd9b5a7c7aa343aa84f30e277e0252934b
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/448
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
