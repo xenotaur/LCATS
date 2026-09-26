@@ -1,0 +1,80 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:mass_quantities__the_facts_concerning_the_recent_carnival_of_crime__twain:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Humor / satire",
+            "patterns": [
+              "humorous stories"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Humorous stories, American",
+          "PS",
+          "United States -- Social life and customs -- Fiction"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 3183,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/3183/pg3183.txt",
+        "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+        "story_path": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json"
+      },
+      "result": {
+        "secondary_signals": [],
+        "suggestive_target_candidates": [],
+        "target_candidates": [
+          "humor"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:mass_quantities__the_facts_concerning_the_recent_carnival_of_crime__twain:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T19:15:51.077118Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 14813,
+        "output_tokens": 375,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+        "story_path": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": true,
+        "detected_genre": "humor",
+        "detected_genre_confidence": 0.9,
+        "metadata_target_candidates": [
+          "humor"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json"
+}
