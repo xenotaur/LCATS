@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import argparse
+import builtins
 import contextlib
 import csv
 import importlib.util
 import io
+import json
 import pathlib
 import tempfile
 import unittest
+from unittest import mock
 
 PATH = pathlib.Path(__file__).resolve().parent / "audit_pos.py"
 SPEC = importlib.util.spec_from_file_location("audit_pos", PATH)
@@ -77,6 +80,174 @@ class AuditPosTest(unittest.TestCase):
             self.assertEqual(
                 rows[0]["token_key"],
                 audit_pos.unresolved(ledger["entries"])[0]["token_key"],
+            )
+            self.assertIsNone(ledger["reviewer"])
+
+    def test_interactive_audit_records_reviewer_and_scores_when_complete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            output = root / "scored.json"
+            write_packet(sample)
+            answers = iter(["tester", "n", "", "", "o", "", ""])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                with mock.patch.object(
+                    audit_pos, "score", lambda rows, ledger: {"test_score": True}
+                ):
+                    audit_pos.command_audit(
+                        argparse.Namespace(
+                            sample=sample, ledger=ledger_path, output=output
+                        )
+                    )
+            ledger = audit_pos.load_ledger(ledger_path)
+            self.assertEqual("tester", ledger["reviewer"])
+            self.assertTrue(
+                all(e["disposition"] == "reviewed" for e in ledger["entries"].values())
+            )
+            self.assertEqual({"test_score": True}, json.loads(output.read_text()))
+
+    def test_interactive_audit_can_resume_and_pause(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            ledger = audit_pos.new_ledger(rows, sample)
+            ledger["reviewer"] = "tester"
+            audit_pos.write_json(ledger_path, ledger)
+            answers = iter(["", "", "q"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample,
+                        ledger=ledger_path,
+                        output=root / "scored.json",
+                    )
+                )
+            self.assertEqual("tester", audit_pos.load_ledger(ledger_path)["reviewer"])
+
+    def test_interactive_unresolved_rows_advance_to_later_rows(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            answers = iter(["tester", "u", "needs review", "", "o", "", "", "q"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample,
+                        ledger=ledger_path,
+                        output=root / "scored.json",
+                    )
+                )
+            ledger = audit_pos.load_ledger(ledger_path)
+            self.assertEqual(
+                "uncertain", ledger["entries"][rows[0]["token_key"]]["disposition"]
+            )
+            self.assertEqual(
+                "reviewed", ledger["entries"][rows[1]["token_key"]]["disposition"]
+            )
+
+    def test_interactive_blank_metadata_clears_existing_values(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            ledger = audit_pos.new_ledger(rows, sample)
+            ledger["reviewer"] = "tester"
+            ledger["entries"][rows[0]["token_key"]].update(
+                {
+                    "issue_codes": ["context"],
+                    "notes": "old note",
+                    "reviewer": "tester",
+                }
+            )
+            audit_pos.write_json(ledger_path, ledger)
+            answers = iter(["", "", "n", "", "", "q"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample,
+                        ledger=ledger_path,
+                        output=root / "scored.json",
+                    )
+                )
+            entry = audit_pos.load_ledger(ledger_path)["entries"][rows[0]["token_key"]]
+            self.assertEqual("reviewed", entry["disposition"])
+            self.assertEqual([], entry["issue_codes"])
+            self.assertEqual("", entry["notes"])
+
+    def test_interactive_restart_requires_exact_confirmation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            ledger = audit_pos.new_ledger(rows, sample)
+            ledger["reviewer"] = "original"
+            ledger["entries"][rows[0]["token_key"]].update(
+                {
+                    "disposition": "reviewed",
+                    "gold_upos": "NOUN",
+                    "notes": "keep me",
+                    "reviewer": "original",
+                }
+            )
+            audit_pos.write_json(ledger_path, ledger)
+            answers = iter(["new", "y", "NO", "q"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample,
+                        ledger=ledger_path,
+                        output=root / "scored.json",
+                    )
+                )
+            updated = audit_pos.load_ledger(ledger_path)
+            self.assertEqual("new", updated["reviewer"])
+            self.assertEqual(
+                "reviewed", updated["entries"][rows[0]["token_key"]]["disposition"]
+            )
+            self.assertEqual(
+                "keep me", updated["entries"][rows[0]["token_key"]]["notes"]
+            )
+
+    def test_interactive_restart_with_confirmation_resets_entries(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            ledger = audit_pos.new_ledger(rows, sample)
+            ledger["reviewer"] = "original"
+            ledger["entries"][rows[0]["token_key"]].update(
+                {
+                    "disposition": "reviewed",
+                    "gold_upos": "NOUN",
+                    "notes": "discard me",
+                    "reviewer": "original",
+                }
+            )
+            audit_pos.write_json(ledger_path, ledger)
+            answers = iter(["new", "y", "RESTART", "q"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample,
+                        ledger=ledger_path,
+                        output=root / "scored.json",
+                    )
+                )
+            updated = audit_pos.load_ledger(ledger_path)
+            self.assertEqual("new", updated["reviewer"])
+            self.assertEqual(
+                "pending", updated["entries"][rows[0]["token_key"]]["disposition"]
+            )
+            self.assertEqual(
+                "not yet reviewed", updated["entries"][rows[0]["token_key"]]["notes"]
             )
 
     def test_unresolved_rows_require_notes_and_scoring_waits(self):

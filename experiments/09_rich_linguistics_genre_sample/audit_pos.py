@@ -94,6 +94,7 @@ def new_ledger(
         "sample_path": _relative(sample_path),
         "packet_fingerprint": packet_fingerprint(rows),
         "row_count": len(rows),
+        "reviewer": None,
         "entries": {
             row["token_key"]: {
                 "token_key": row["token_key"],
@@ -137,6 +138,21 @@ def ledger_fingerprint(ledger: dict[str, Any]) -> str:
         ledger["entries"], ensure_ascii=False, sort_keys=True, separators=(",", ":")
     )
     return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def ledger_reviewer(ledger: dict[str, Any]) -> str | None:
+    """Return the persisted reviewer, including ledgers from before this field."""
+    reviewer = ledger.get("reviewer")
+    if isinstance(reviewer, str) and reviewer.strip():
+        return reviewer.strip()
+    entries = ledger.get("entries", {})
+    if isinstance(entries, dict):
+        for entry in entries.values():
+            if isinstance(entry, dict):
+                reviewer = entry.get("reviewer")
+                if isinstance(reviewer, str) and reviewer.strip():
+                    return reviewer.strip()
+    return None
 
 
 def validate_ledger(
@@ -383,17 +399,55 @@ def command_record(args: argparse.Namespace) -> None:
     ):
         raise ValueError("unresolved dispositions require --notes")
     issue_codes = args.issue_code or []
+    record_entry(
+        rows,
+        ledger,
+        args.token_key,
+        args.disposition,
+        args.label,
+        issue_codes,
+        args.notes,
+        args.reviewer,
+        args.ledger,
+    )
+    print(f"recorded {args.token_key}: {args.disposition}")
+
+
+def record_entry(
+    rows: list[dict[str, str]],
+    ledger: dict[str, Any],
+    token_key: str,
+    disposition: str,
+    label: str | None,
+    issue_codes: list[str],
+    notes: str | None,
+    reviewer: str | None,
+    ledger_path: pathlib.Path,
+    preserve_metadata: bool = True,
+) -> None:
+    """Record one decision and preserve the ledger's validation guarantees."""
+    if token_key not in ledger["entries"]:
+        raise ValueError(f"unknown token_key: {token_key}")
+    if disposition == "reviewed" and label not in LABELS:
+        raise ValueError("reviewed requires NOUN, PROPN, or OTHER")
+    if disposition != "reviewed" and label:
+        raise ValueError("only reviewed rows may carry a label")
+    if disposition != "reviewed" and (notes is None or not notes.strip()):
+        raise ValueError("unresolved dispositions require notes")
     issues = [item for item in issue_codes if item not in ISSUE_CODES]
     if issues:
         raise ValueError("invalid issue code: " + ", ".join(issues))
-    entry = ledger["entries"][args.token_key]
-    notes = args.notes if args.notes is not None else entry.get("notes", "")
-    issue_codes = issue_codes or entry.get("issue_codes", [])
-    reviewer = args.reviewer if args.reviewer is not None else entry.get("reviewer")
+    entry = ledger["entries"][token_key]
+    if preserve_metadata:
+        notes = notes if notes is not None else entry.get("notes", "")
+        issue_codes = issue_codes or entry.get("issue_codes", [])
+    else:
+        notes = notes or ""
+    reviewer = reviewer if reviewer is not None else entry.get("reviewer")
     entry.update(
         {
-            "disposition": args.disposition,
-            "gold_upos": args.label or None,
+            "disposition": disposition,
+            "gold_upos": label or None,
             "issue_codes": list(dict.fromkeys(issue_codes)),
             "notes": notes,
             "reviewer": reviewer,
@@ -402,8 +456,137 @@ def command_record(args: argparse.Namespace) -> None:
     errors = validate_ledger(rows, ledger)
     if errors:
         raise ValueError("record would invalidate ledger: " + "; ".join(errors))
-    write_json(args.ledger, ledger)
-    print(f"recorded {args.token_key}: {args.disposition}")
+    write_json(ledger_path, ledger)
+
+
+def _prompt_reviewer(existing: str | None) -> str:
+    prompt = "Reviewer name"
+    if existing:
+        prompt += f" [{existing}]"
+    while True:
+        reviewer = input(prompt + ": ").strip() or existing
+        if reviewer:
+            return reviewer
+        print("A reviewer name is required.")
+
+
+def _prompt_issue_codes() -> list[str]:
+    raw = input(
+        "Issue codes (comma-separated; leave blank for none) ["
+        + ", ".join(sorted(ISSUE_CODES))
+        + "]: "
+    ).strip()
+    if not raw:
+        return []
+    codes = [code.strip() for code in raw.split(",") if code.strip()]
+    invalid = [code for code in codes if code not in ISSUE_CODES]
+    if invalid:
+        raise ValueError("invalid issue code: " + ", ".join(invalid))
+    return codes
+
+
+def command_audit(args: argparse.Namespace) -> None:
+    """Run a resumable, human-readable audit session."""
+    rows = load_packet(args.sample)
+    _reject_protected_output(args.ledger, args.sample)
+    ledger: dict[str, Any]
+    if args.ledger.exists():
+        ledger = load_ledger(args.ledger)
+        errors = validate_ledger(rows, ledger, args.sample)
+        if errors:
+            raise ValueError("cannot resume invalid ledger: " + "; ".join(errors))
+        reviewer = _prompt_reviewer(ledger_reviewer(ledger))
+        restart = input("Restart this audit from scratch? [y/N]: ").strip().lower()
+        if restart in {"y", "yes"}:
+            confirmation = input("Type RESTART to confirm: ").strip()
+            if confirmation != "RESTART":
+                print("Restart cancelled; resuming existing audit.")
+            else:
+                ledger = new_ledger(rows, args.sample)
+                ledger["reviewer"] = reviewer
+                write_json(args.ledger, ledger)
+                print(f"restarted {len(rows)} audit rows")
+        if ledger.get("reviewer") != reviewer:
+            ledger["reviewer"] = reviewer
+            write_json(args.ledger, ledger)
+    else:
+        reviewer = _prompt_reviewer(None)
+        ledger = new_ledger(rows, args.sample)
+        ledger["reviewer"] = reviewer
+        write_json(args.ledger, ledger)
+        print(f"started {len(rows)} audit rows")
+
+    cursor = 0
+    while True:
+        errors = validate_ledger(rows, ledger, args.sample)
+        if errors:
+            raise ValueError("audit ledger became invalid: " + "; ".join(errors))
+        pending = unresolved(ledger["entries"])
+        reviewed = len(rows) - len(pending)
+        print(f"\nProgress: {reviewed}/{len(rows)} reviewed")
+        if not pending:
+            command_validate(argparse.Namespace(sample=args.sample, ledger=args.ledger))
+            command_score(
+                argparse.Namespace(
+                    sample=args.sample, ledger=args.ledger, output=args.output
+                )
+            )
+            return
+        pending_keys = {entry["token_key"] for entry in pending}
+        candidates = [row for row in rows[cursor:] if row["token_key"] in pending_keys]
+        if not candidates:
+            cursor = 0
+            candidates = [row for row in rows if row["token_key"] in pending_keys]
+        row = candidates[0]
+        row_index = rows.index(row)
+        print(f"\nToken: {row['text']}    key: {row['token_key']}")
+        print(f"Story: {row['story_id']}    genre: {row['selection_genre']}")
+        print(f"Context: {row['context']}")
+        print(f"Machine label: {row['machine_upos']}    lemma: {row['lemma']}")
+        for item in audit_guidance(row):
+            print(f"Guidance: {item}")
+        choice = (
+            input("Label [N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, " "[Q]uit: ")
+            .strip()
+            .lower()
+        )
+        if choice in {"", "q", "quit"}:
+            print(f"paused; resume with the next row using {args.ledger}")
+            return
+        dispositions = {
+            "n": ("reviewed", "NOUN"),
+            "p": ("reviewed", "PROPN"),
+            "o": ("reviewed", "OTHER"),
+            "u": ("uncertain", None),
+            "b": ("blocked", None),
+        }
+        if choice not in dispositions:
+            print("Please choose N, P, O, U, B, or Q.")
+            continue
+        disposition, label = dispositions[choice]
+        notes = input("Notes (optional for reviewed rows): ").strip()
+        if disposition != "reviewed" and not notes:
+            print("Notes are required for uncertain or blocked rows.")
+            continue
+        try:
+            issue_codes = _prompt_issue_codes()
+            record_entry(
+                rows,
+                ledger,
+                row["token_key"],
+                disposition,
+                label,
+                issue_codes,
+                notes or None,
+                reviewer,
+                args.ledger,
+                preserve_metadata=False,
+            )
+        except ValueError as error:
+            print(f"Not recorded: {error}")
+            continue
+        print(f"recorded {row['token_key']}: {disposition}")
+        cursor = row_index + 1
 
 
 def command_validate(args: argparse.Namespace) -> None:
@@ -441,6 +624,11 @@ def build_parser() -> argparse.ArgumentParser:
         ("validate", command_validate),
     ):
         subparsers.add_parser(name).set_defaults(function=function)
+    audit = subparsers.add_parser(
+        "audit", help="run a resumable interactive human POS audit"
+    )
+    audit.add_argument("--output", type=pathlib.Path, default=SCORED_PATH)
+    audit.set_defaults(function=command_audit)
     record = subparsers.add_parser("record")
     record.add_argument("--token-key", required=True)
     record.add_argument("--disposition", choices=sorted(DISPOSITIONS), required=True)
