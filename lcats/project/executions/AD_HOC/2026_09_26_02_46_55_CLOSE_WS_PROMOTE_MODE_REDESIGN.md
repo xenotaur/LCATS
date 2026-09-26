@@ -2,10 +2,10 @@
 execution_id: 2026_09_26_02_46_55_CLOSE_WS_PROMOTE_MODE_REDESIGN
 prompt_id: PROMPT(AD_HOC:CLOSE_WS_PROMOTE_MODE_REDESIGN)[2026-09-26T02:45:03+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/449
-commit: 3c277708
+commit: 079505086084afc2cf15a6cea141afd774f84d41
 agent: claude_app
 instruction_source: project/workstreams/resolved/WS-PROMOTE-MODE-REDESIGN.md
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
