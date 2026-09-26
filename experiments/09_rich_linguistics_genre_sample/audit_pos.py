@@ -423,6 +423,7 @@ def record_entry(
     notes: str | None,
     reviewer: str | None,
     ledger_path: pathlib.Path,
+    preserve_metadata: bool = True,
 ) -> None:
     """Record one decision and preserve the ledger's validation guarantees."""
     if token_key not in ledger["entries"]:
@@ -437,8 +438,11 @@ def record_entry(
     if issues:
         raise ValueError("invalid issue code: " + ", ".join(issues))
     entry = ledger["entries"][token_key]
-    notes = notes if notes is not None else entry.get("notes", "")
-    issue_codes = issue_codes or entry.get("issue_codes", [])
+    if preserve_metadata:
+        notes = notes if notes is not None else entry.get("notes", "")
+        issue_codes = issue_codes or entry.get("issue_codes", [])
+    else:
+        notes = notes or ""
     reviewer = reviewer if reviewer is not None else entry.get("reviewer")
     entry.update(
         {
@@ -512,6 +516,7 @@ def command_audit(args: argparse.Namespace) -> None:
         write_json(args.ledger, ledger)
         print(f"started {len(rows)} audit rows")
 
+    cursor = 0
     while True:
         errors = validate_ledger(rows, ledger, args.sample)
         if errors:
@@ -527,7 +532,13 @@ def command_audit(args: argparse.Namespace) -> None:
                 )
             )
             return
-        row = next(row for row in rows if row["token_key"] == pending[0]["token_key"])
+        pending_keys = {entry["token_key"] for entry in pending}
+        candidates = [row for row in rows[cursor:] if row["token_key"] in pending_keys]
+        if not candidates:
+            cursor = 0
+            candidates = [row for row in rows if row["token_key"] in pending_keys]
+        row = candidates[0]
+        row_index = rows.index(row)
         print(f"\nToken: {row['text']}    key: {row['token_key']}")
         print(f"Story: {row['story_id']}    genre: {row['selection_genre']}")
         print(f"Context: {row['context']}")
@@ -554,6 +565,9 @@ def command_audit(args: argparse.Namespace) -> None:
             continue
         disposition, label = dispositions[choice]
         notes = input("Notes (optional for reviewed rows): ").strip()
+        if disposition != "reviewed" and not notes:
+            print("Notes are required for uncertain or blocked rows.")
+            continue
         try:
             issue_codes = _prompt_issue_codes()
             record_entry(
@@ -566,11 +580,13 @@ def command_audit(args: argparse.Namespace) -> None:
                 notes or None,
                 reviewer,
                 args.ledger,
+                preserve_metadata=False,
             )
         except ValueError as error:
             print(f"Not recorded: {error}")
             continue
         print(f"recorded {row['token_key']}: {disposition}")
+        cursor = row_index + 1
 
 
 def command_validate(args: argparse.Namespace) -> None:
