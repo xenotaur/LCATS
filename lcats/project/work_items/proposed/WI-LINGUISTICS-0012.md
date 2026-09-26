@@ -38,8 +38,10 @@ acceptance:
   - "`R` returns to the immediately previous record visited in the current audit session"
   - "`G` jumps to a record by 1-based audit number or token key"
   - Revisiting a record displays its existing disposition, label, notes, and issue codes
+  - A fully reviewed ledger remains navigable so `G` can reopen an existing decision for correction
   - Navigation does not mutate the ledger until the reviewer records a new decision
-  - Enter retains existing metadata and an explicit input can clear notes or issue codes
+  - Enter retains existing metadata and the explicit `CLEAR` sentinel clears notes or issue codes
+  - Uncertain or blocked decisions still require non-empty notes after retain/clear processing
   - Tests cover rewind, goto, overwrite, first-record navigation, and ledger compatibility
   - README documents the navigation and editing behavior
 required_evidence:
@@ -82,7 +84,8 @@ The existing `audit` command supports linear review and resumable ledger updates
 - Add session-local `[R]ewind` navigation.
 - Add `[G]oto` navigation by audit ordinal or stable token key.
 - Prepopulate saved values when revisiting records.
-- Document and test safe overwrite and metadata-clearing behavior.
+- Keep completed ledgers navigable for correction of existing decisions.
+- Document and test safe overwrite, retain-on-Enter, and explicit metadata-clearing behavior.
 
 ## Required Changes
 
@@ -90,9 +93,11 @@ The existing `audit` command supports linear review and resumable ledger updates
 2. Maintain session-local visit history for rewind without changing persisted ledger state.
 3. Resolve goto targets deterministically by 1-based audit number or exact `token_key`.
 4. Display existing disposition, label, notes, and issue codes when revisiting a record.
-5. Ensure navigation alone never writes ledger changes.
-6. Define explicit retain and clear behavior for revisited notes and issue codes.
-7. Add focused tests and update the experiment README.
+5. Keep the interactive session available after all rows are reviewed so goto can reopen a saved decision.
+6. Ensure navigation alone never writes ledger changes.
+7. Define Enter as retain and the exact `CLEAR` sentinel as clear for revisited notes and issue codes.
+8. Preserve the existing rule that uncertain and blocked records require non-empty notes after metadata updates.
+9. Add focused tests, including completed-ledger navigation, retain-on-Enter, clear-sentinel, and update the experiment README.
 
 ## Non-Goals
 
@@ -108,8 +113,10 @@ The existing `audit` command supports linear review and resumable ledger updates
 - `R` returns to the prior record visited in the current session.
 - `G` accepts a valid ordinal and exact token key and reports invalid targets without mutating state.
 - Revisited records display their saved values.
+- A fully reviewed ledger remains interactive and permits `G` to reopen an existing decision.
 - A reviewer can overwrite a prior decision only by explicitly recording a new one.
-- Existing metadata is retained by default, with an explicit clearing mechanism.
+- Enter retains existing notes and issue codes; the exact `CLEAR` sentinel clears them.
+- Uncertain and blocked decisions reject an empty final notes value.
 - First-record rewind and empty-history cases are safe and understandable.
 - Existing tests and commands remain compatible.
 - Documentation explains the new controls.
@@ -117,13 +124,13 @@ The existing `audit` command supports linear review and resumable ledger updates
 
 ## Validation
 
-- `scripts/version tools`
-- `scripts/format --check --diff`
-- `scripts/lint`
-- `scripts/test`
-- `python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
-- `lrh validate`
-- `git diff --check`
+- From `lcats/`: `scripts/version tools`
+- From `lcats/`: `scripts/format --check --diff`
+- From `lcats/`: `scripts/lint`
+- From `lcats/`: `scripts/test`
+- From the repository root: `python -m unittest experiments/09_rich_linguistics_genre_sample/audit_pos_test.py`
+- From `lcats/`: `lrh validate`
+- From `lcats/`: `git diff --check`
 
 ## Risk Notes
 
