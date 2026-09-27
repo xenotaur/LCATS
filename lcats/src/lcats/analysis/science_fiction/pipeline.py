@@ -105,6 +105,7 @@ def run_checkpointed_stage(
     materialize: Callable[[], Any],
     validate_reuse: Callable[[Any], bool] | None = None,
     allow_protected_root: bool = False,
+    reuse_existing: bool = True,
 ) -> CheckpointedStageResult:
     """Run or reuse one checkpointed stage.
 
@@ -117,25 +118,26 @@ def run_checkpointed_stage(
         working_root,
         allow_protected_root=allow_protected_root,
     )
-    existing = checkpoint.read_checkpoint(
-        roots.working_root,
-        item_id,
-        stage,
-        fingerprint,
-    )
-    if existing.done:
-        reusable = validate_reuse is None
-        if validate_reuse is not None:
-            try:
-                reusable = validate_reuse(existing.data)
-            except Exception:
-                reusable = False
-        if reusable:
-            return CheckpointedStageResult(
-                data=existing.data,
-                fingerprint=fingerprint,
-                reused=True,
-            )
+    if reuse_existing:
+        existing = checkpoint.read_checkpoint(
+            roots.working_root,
+            item_id,
+            stage,
+            fingerprint,
+        )
+        if existing.done:
+            reusable = validate_reuse is None
+            if validate_reuse is not None:
+                try:
+                    reusable = validate_reuse(existing.data)
+                except Exception:
+                    reusable = False
+            if reusable:
+                return CheckpointedStageResult(
+                    data=existing.data,
+                    fingerprint=fingerprint,
+                    reused=True,
+                )
 
     try:
         data = materialize()

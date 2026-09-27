@@ -570,20 +570,6 @@ def _run_checkpointed_model_stage(
 ) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path]:
     """Run a model stage, reusing a matching persisted response on resume."""
 
-    if not resume:
-        return _run_model_stage(
-            stage=stage,
-            story=story,
-            output_root=output_root,
-            options=options,
-            active_backend=active_backend,
-            system_prompt=system_prompt,
-            payload=payload,
-            tool_schema=tool_schema,
-            run_id=run_id,
-            log=log,
-        )
-
     fingerprint = _model_stage_fingerprint(
         stage=stage,
         options=options,
@@ -615,6 +601,7 @@ def _run_checkpointed_model_stage(
         materialize=materialize,
         validate_reuse=_valid_checkpoint_response,
         allow_protected_root=options.allow_protected_root,
+        reuse_existing=resume,
     )
     data = checkpointed.data
     response = _response_from_checkpoint_data(data)
@@ -824,7 +811,7 @@ def _checkpoint_response_data(
         "effective_max_tokens": getattr(response, "effective_max_tokens", None),
         "text": response.text,
         "tool_result": tool_result,
-        "raw_response_path": _display_path(raw_path),
+        "raw_response_path": str(raw_path.resolve()),
     }
 
 
@@ -880,6 +867,12 @@ def _classify_stage_failure(error: Exception) -> str:
         error, (llm_backend.TransientProviderError, TimeoutError, ConnectionError)
     ):
         return "transient"
+    status = getattr(error, "status_code", getattr(error, "status", None))
+    try:
+        if int(status) in {429, 500, 502, 503, 504, 529}:
+            return "transient"
+    except (TypeError, ValueError):
+        pass
     if any(
         token in message
         for token in (
@@ -891,6 +884,7 @@ def _classify_stage_failure(error: Exception) -> str:
             "disconnected",
             "rate limit",
             "429",
+            "overloaded",
         )
     ):
         return "transient"

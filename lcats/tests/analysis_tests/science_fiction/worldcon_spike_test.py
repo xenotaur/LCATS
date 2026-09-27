@@ -869,6 +869,36 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             )
         self.assertEqual("complete", second["status"])
         self.assertEqual(0, second_backend.calls)
+
+    def test_non_resume_run_persists_model_checkpoints_for_later_resume(self):
+        output_root = self.root / "ordinary-checkpoints"
+        first_backend = run_worldcon_spike.DeterministicSpikeBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=first_backend
+        ):
+            first = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+        self.assertEqual("complete", first["status"])
+
+        second_backend = _UnexpectedBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=second_backend
+        ):
+            second = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertEqual("complete", second["status"])
+        self.assertEqual(0, second_backend.calls)
         events = [
             json.loads(line)["event"]
             for line in (output_root / "worldcon_spike_run_log.jsonl")
@@ -921,6 +951,20 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             )
         self.assertEqual("failed", summary["status"])
         self.assertEqual(1, backend.calls)
+
+    def test_provider_status_codes_and_overloaded_errors_are_transient(self):
+        for status in (429, 500, 502, 503, 504, 529):
+            error = RuntimeError(f"provider failure {status}")
+            error.status_code = status
+            self.assertEqual(
+                "transient", run_worldcon_spike._classify_stage_failure(error)
+            )
+        self.assertEqual(
+            "transient",
+            run_worldcon_spike._classify_stage_failure(
+                RuntimeError("overloaded_error")
+            ),
+        )
 
     def test_truncation_retry_records_effective_token_limit_in_provenance(self):
         output_root = self.root / "truncation-provenance"
