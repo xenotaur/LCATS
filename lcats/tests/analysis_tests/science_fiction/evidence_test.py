@@ -96,6 +96,80 @@ class EvidenceTest(unittest.TestCase):
         )
         self.assertEqual("raw-1", record.provenance[0].raw_id)
 
+    def test_canonicalizes_type_alias_and_records_normalization(self):
+        prepared = _prepared_story()
+        candidate = {
+            "type": "scientific_or_technical_explanation",
+            "quote": "blue exhaust",
+            "paraphrase": "The exhaust is used in technical reasoning.",
+            "confidence": 0.82,
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertFalse(evidence_set.quarantined)
+        record = evidence_set.records[0]
+        self.assertEqual("scientific_or_technical_explanation", record.evidence_type)
+        self.assertEqual(
+            ("coerced field type to evidence_type",),
+            record.provenance[0].normalization_notes,
+        )
+
+    def test_duplicate_provenance_order_includes_normalization_notes(self):
+        anchor = evidence.EvidenceAnchor(("p00001",), 0, 5)
+        first = evidence.EvidenceRecord(
+            evidence_id="evidence",
+            evidence_type="storyworld_change",
+            quote="engines",
+            anchor=anchor,
+            paraphrase="The engines change the storyworld.",
+            confidence=0.8,
+            provenance=(
+                evidence.EvidenceProvenance(
+                    source="model",
+                    source_chunk_id="chunk",
+                    raw_id="raw",
+                    backend="backend",
+                    normalization_notes=("alias-b",),
+                ),
+            ),
+        )
+        second = dataclasses.replace(
+            first,
+            confidence=0.9,
+            provenance=(
+                dataclasses.replace(
+                    first.provenance[0], normalization_notes=("alias-a",)
+                ),
+            ),
+        )
+
+        merged = evidence._merge_duplicate(first, second)
+
+        self.assertEqual(
+            [("alias-a",), ("alias-b",)],
+            [item.normalization_notes for item in merged.provenance],
+        )
+
+    def test_explicit_evidence_type_wins_over_type_alias(self):
+        prepared = _prepared_story()
+        candidate = {
+            "type": "storyworld_change",
+            "evidence_type": "scientific_or_technical_explanation",
+            "quote": "blue exhaust",
+            "paraphrase": "The exhaust is used in technical reasoning.",
+            "confidence": 0.82,
+        }
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertEqual(
+            "scientific_or_technical_explanation", evidence_set.records[0].evidence_type
+        )
+        self.assertFalse(evidence_set.records[0].provenance[0].normalization_notes)
+
     def test_uses_candidate_offsets_when_repeated_quote_is_ambiguous(self):
         prepared = _prepared_story()
         repeated = "The city lifted on engines at dawn."
