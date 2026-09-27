@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #452 (commit 4e3242d11590f9a73864b1d1d7d498965933b5dd)"
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0012
 title: Add rewind and goto navigation to the interactive POS audit
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []

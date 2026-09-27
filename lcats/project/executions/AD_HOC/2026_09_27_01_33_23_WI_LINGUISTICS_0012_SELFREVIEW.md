@@ -2,10 +2,10 @@
 execution_id: 2026_09_27_01_33_23_WI_LINGUISTICS_0012_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0012_SELFREVIEW)[2026-09-27T01:33:17+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/452
+commit: 4e3242d11590f9a73864b1d1d7d498965933b5dd
 created_at: 2026-09-27T01:33:23+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-LINGUISTICS-0012.md
