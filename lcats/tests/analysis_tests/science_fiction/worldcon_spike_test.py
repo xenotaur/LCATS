@@ -113,6 +113,42 @@ class _BackendErrorBackend:
         raise error
 
 
+class _FailOnceBackend:
+    def __init__(self, failure: Exception, target_tool: str):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.failure = failure
+        self.target_tool = target_tool
+        self.calls = []
+
+    def complete(self, **kwargs):
+        tool_name = kwargs["tool"]["name"]
+        self.calls.append((tool_name, kwargs["max_tokens"]))
+        if (
+            tool_name == self.target_tool
+            and sum(1 for name, _ in self.calls if name == tool_name) == 1
+        ):
+            raise self.failure
+        return self.delegate.complete(**kwargs)
+
+
+class _UnexpectedBackend:
+    def __init__(self):
+        self.calls = 0
+
+    def complete(self, **_kwargs):
+        self.calls += 1
+        raise AssertionError("backend should not be called for a reused checkpoint")
+
+
+class _ValidationConnectionBackend:
+    def __init__(self):
+        self.calls = 0
+
+    def complete(self, **_kwargs):
+        self.calls += 1
+        raise ValueError("invalid structured output: connection field is malformed")
+
+
 class WorldconSpikeRunnerTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -657,6 +693,198 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         ]
         self.assertIn("story_quarantined", events)
         self.assertIn("run_stopped", events)
+
+    def test_truncation_retries_once_with_higher_limit_and_persists_attempts(self):
+        output_root = self.root / "truncation-retry"
+        backend = _FailOnceBackend(
+            llm_backend.TruncatedResponseError(
+                "truncated",
+                stop_reason="max_tokens",
+                max_tokens=4096,
+                input_tokens=5,
+                output_tokens=7,
+                raw_content="partial",
+            ),
+            run_worldcon_spike.EVIDENCE_TOOL_NAME,
+        )
+
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+
+        self.assertEqual("complete", summary["status"])
+        evidence_calls = [
+            max_tokens
+            for name, max_tokens in backend.calls
+            if name == run_worldcon_spike.EVIDENCE_TOOL_NAME
+        ]
+        self.assertEqual([4096, 8192], evidence_calls)
+        raw_root = pathlib.Path(summary["stories"][0]["raw_response_path"])
+        self.assertTrue((raw_root / "sf_evidence-backend-error.json").exists())
+        self.assertTrue((raw_root / "sf_evidence-attempt-2.json").exists())
+
+    def test_transient_failure_retries_once_and_content_filter_does_not(self):
+        output_root = self.root / "typed-retries"
+        transient = _FailOnceBackend(
+            llm_backend.TransientProviderError(
+                "temporary provider failure", input_tokens=3, output_tokens=4
+            ),
+            run_worldcon_spike.EVIDENCE_TOOL_NAME,
+        )
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=transient):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual(
+            2,
+            sum(
+                1
+                for name, _ in transient.calls
+                if name == run_worldcon_spike.EVIDENCE_TOOL_NAME
+            ),
+        )
+
+        class ContentFilterBackend:
+            def __init__(self):
+                self.calls = 0
+
+            def complete(self, **_kwargs):
+                self.calls += 1
+                raise RuntimeError("provider content filter rejected request")
+
+        filtered = ContentFilterBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=filtered):
+            failed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=self.root / "content-filter",
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+        self.assertEqual("failed", failed["status"])
+        self.assertEqual(1, filtered.calls)
+
+    def test_resume_reuses_matching_model_stage_checkpoints(self):
+        output_root = self.root / "resume-stages"
+        first_backend = run_worldcon_spike.DeterministicSpikeBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=first_backend
+        ):
+            first = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertEqual("complete", first["status"])
+
+        second_backend = _UnexpectedBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=second_backend
+        ):
+            second = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertEqual("complete", second["status"])
+        self.assertEqual(0, second_backend.calls)
+        events = [
+            json.loads(line)["event"]
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+        ]
+        self.assertGreaterEqual(events.count("stage_reused"), 3)
+
+    def test_resume_reuses_package_relative_raw_paths(self):
+        package_root = run_worldcon_spike.paths.find_pyproject_root(
+            run_worldcon_spike.__file__
+        ).resolve()
+        with tempfile.TemporaryDirectory(dir=package_root) as temp_dir:
+            output_root = pathlib.Path(temp_dir)
+            first = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+            self.assertEqual("complete", first["status"])
+            second_backend = _UnexpectedBackend()
+            with patch.object(
+                run_worldcon_spike, "_make_backend", return_value=second_backend
+            ):
+                second = run_worldcon_spike.run_spike(
+                    run_worldcon_spike.RunnerOptions(
+                        manifest_path=self.manifest_path,
+                        output_root=output_root,
+                        max_stories=1,
+                        resume=True,
+                    )
+                )
+            self.assertEqual("complete", second["status"])
+            self.assertEqual(0, second_backend.calls)
+
+    def test_validation_error_with_transport_word_is_not_retried(self):
+        output_root = self.root / "validation-no-retry"
+        backend = _ValidationConnectionBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+        self.assertEqual("failed", summary["status"])
+        self.assertEqual(1, backend.calls)
+
+    def test_truncation_retry_records_effective_token_limit_in_provenance(self):
+        output_root = self.root / "truncation-provenance"
+        backend = _FailOnceBackend(
+            llm_backend.TruncatedResponseError(
+                "truncated",
+                stop_reason="max_tokens",
+                max_tokens=4096,
+                input_tokens=5,
+                output_tokens=7,
+            ),
+            run_worldcon_spike.KNIGHT_TOOL_NAME,
+        )
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                )
+            )
+        data = sidecar.load_json(pathlib.Path(summary["stories"][0]["sidecar_path"]))
+        self.assertEqual(
+            8192,
+            data["analyses"]["knight"][0]["provenance"]["generation_parameters"][
+                "max_tokens"
+            ],
+        )
 
     def test_malformed_nested_tool_output_is_quarantined_not_crashing(self):
         output_root = self.root / "malformed-nested"

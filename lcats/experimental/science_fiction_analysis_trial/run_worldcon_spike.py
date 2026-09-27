@@ -58,6 +58,7 @@ DEFAULT_RESULTS_ROOT = (
 )
 DEFAULT_MODEL = "fake-worldcon-spike"
 DEFAULT_MAX_TOKENS = 4096
+TRUNCATION_RETRY_MULTIPLIER = 2
 DEFAULT_TEMPERATURE = 0.0
 FULL_SAMPLE_LIMIT = 146
 SMOKE_MODE = "smoke"
@@ -129,6 +130,7 @@ class RunnerOptions:
     allow_protected_root: bool = False
     stop_on_first_failure: bool = False
     max_failures: int | None = None
+    resume: bool = False
 
 
 @dataclasses.dataclass(frozen=True)
@@ -361,17 +363,20 @@ def _run_story(
         prepared = preparation.prepare_story_file(story_file)
         raw_response_dir = output_root / "_raw" / run_id / _checkpoint_item_id(story)
 
-        evidence_response, evidence_tool_result, evidence_raw_path = _run_model_stage(
-            stage=EVIDENCE_STAGE,
-            story=story,
-            output_root=output_root,
-            options=options,
-            active_backend=active_backend,
-            system_prompt=_evidence_system_prompt(),
-            payload=_evidence_payload(story, prepared),
-            tool_schema=_evidence_tool_schema(),
-            run_id=run_id,
-            log=log,
+        evidence_response, evidence_tool_result, evidence_raw_path = (
+            _run_checkpointed_model_stage(
+                stage=EVIDENCE_STAGE,
+                story=story,
+                output_root=output_root,
+                options=options,
+                active_backend=active_backend,
+                system_prompt=_evidence_system_prompt(),
+                payload=_evidence_payload(story, prepared),
+                tool_schema=_evidence_tool_schema(),
+                run_id=run_id,
+                log=log,
+                resume=options.resume,
+            )
         )
         raw_response_path = evidence_raw_path
         input_tokens += evidence_response.input_tokens
@@ -549,6 +554,83 @@ def _append_story_result(
     return path
 
 
+def _run_checkpointed_model_stage(
+    *,
+    stage: str,
+    story: SpikeStory,
+    output_root: pathlib.Path,
+    options: RunnerOptions,
+    active_backend: llm_backend.LLMBackend,
+    system_prompt: str,
+    payload: dict[str, Any],
+    tool_schema: dict[str, Any],
+    run_id: str,
+    log: run_log.RunLog | None,
+    resume: bool,
+) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path]:
+    """Run a model stage, reusing a matching persisted response on resume."""
+
+    if not resume:
+        return _run_model_stage(
+            stage=stage,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=payload,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+        )
+
+    fingerprint = _model_stage_fingerprint(
+        stage=stage,
+        options=options,
+        system_prompt=system_prompt,
+        payload=payload,
+        tool_schema=tool_schema,
+    )
+
+    def materialize() -> dict[str, Any]:
+        response, tool_result, raw_path = _run_model_stage(
+            stage=stage,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=payload,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+        )
+        return _checkpoint_response_data(response, tool_result, raw_path)
+
+    checkpointed = pipeline.run_checkpointed_stage(
+        working_root=output_root,
+        item_id=_checkpoint_item_id(story),
+        stage=stage,
+        fingerprint=fingerprint,
+        materialize=materialize,
+        validate_reuse=_valid_checkpoint_response,
+        allow_protected_root=options.allow_protected_root,
+    )
+    data = checkpointed.data
+    response = _response_from_checkpoint_data(data)
+    raw_path = _stored_path(data["raw_response_path"])
+    if log is not None and checkpointed.reused:
+        log.event(
+            "stage_reused",
+            run_id=run_id,
+            story_id=story.story_id,
+            stage=stage,
+            checkpoint_fingerprint=fingerprint["sha256"],
+            raw_response_path=_display_path(raw_path),
+        )
+    return response, data["tool_result"], raw_path
+
+
 def _run_model_stage(
     *,
     stage: str,
@@ -566,66 +648,94 @@ def _run_model_stage(
 
     if log is not None:
         log.event("stage_start", run_id=run_id, story_id=story.story_id, stage=stage)
-    try:
-        response = active_backend.complete(
-            system=system_prompt,
-            messages=[{"role": "user", "content": _stable_json(payload)}],
-            model=options.model,
-            temperature=options.temperature,
-            max_tokens=options.max_tokens,
-            tool=tool_schema,
-        )
-    except llm_backend.NoToolCallError as error:
-        if not error.raw_content:
-            raw_path = _write_backend_failure(
-                output_root=output_root,
-                run_id=run_id,
-                story=story,
-                stage=stage,
-                error=error,
+    attempt = 1
+    max_tokens = options.max_tokens
+    total_input_tokens = 0
+    total_output_tokens = 0
+    retried_kinds: set[str] = set()
+    while True:
+        try:
+            response = active_backend.complete(
+                system=system_prompt,
+                messages=[{"role": "user", "content": _stable_json(payload)}],
+                model=options.model,
+                temperature=options.temperature,
+                max_tokens=max_tokens,
+                tool=tool_schema,
             )
-            if log is not None:
-                log.event(
-                    "backend_failure_persisted",
-                    run_id=run_id,
-                    story_id=story.story_id,
-                    stage=stage,
-                    raw_response_path=_display_path(raw_path),
+            response = dataclasses.replace(
+                response,
+                input_tokens=response.input_tokens + total_input_tokens,
+                output_tokens=response.output_tokens + total_output_tokens,
+            )
+            response.effective_max_tokens = max_tokens
+            break
+        except llm_backend.NoToolCallError as error:
+            if error.raw_content:
+                response = llm_backend.BackendResponse(
+                    text=error.raw_content,
+                    tool_result=None,
+                    model=options.model,
+                    input_tokens=error.input_tokens + total_input_tokens,
+                    output_tokens=error.output_tokens + total_output_tokens,
                 )
+                response.effective_max_tokens = max_tokens
+                if log is not None:
+                    log.event(
+                        "no_tool_call_json_fallback",
+                        run_id=run_id,
+                        story_id=story.story_id,
+                        stage=stage,
+                        input_tokens=error.input_tokens,
+                        output_tokens=error.output_tokens,
+                    )
+                break
+            _persist_backend_failure(
+                output_root, run_id, story, stage, error, attempt, log
+            )
+            total_input_tokens += getattr(error, "input_tokens", 0)
+            total_output_tokens += getattr(error, "output_tokens", 0)
+            _attach_usage(error, total_input_tokens, total_output_tokens)
+            error.raw_response_path = (
+                output_root
+                / "_raw"
+                / run_id
+                / _checkpoint_item_id(story)
+                / (
+                    f"{stage}-backend-error.json"
+                    if attempt == 1
+                    else f"{stage}-backend-error-attempt-{attempt}.json"
+                )
+            )
             raise
-        response = llm_backend.BackendResponse(
-            text=error.raw_content,
-            tool_result=None,
-            model=options.model,
-            input_tokens=error.input_tokens,
-            output_tokens=error.output_tokens,
-        )
-        if log is not None:
-            log.event(
-                "no_tool_call_json_fallback",
-                run_id=run_id,
-                story_id=story.story_id,
-                stage=stage,
-                input_tokens=error.input_tokens,
-                output_tokens=error.output_tokens,
+        except Exception as error:
+            kind = _classify_stage_failure(error)
+            error_input = getattr(error, "input_tokens", 0)
+            error_output = getattr(error, "output_tokens", 0)
+            total_input_tokens += error_input
+            total_output_tokens += error_output
+            raw_path = _persist_backend_failure(
+                output_root, run_id, story, stage, error, attempt, log
             )
-    except Exception as error:
-        raw_path = _write_backend_failure(
-            output_root=output_root,
-            run_id=run_id,
-            story=story,
-            stage=stage,
-            error=error,
-        )
-        if log is not None:
-            log.event(
-                "backend_failure_persisted",
-                run_id=run_id,
-                story_id=story.story_id,
-                stage=stage,
-                raw_response_path=_display_path(raw_path),
-            )
-        raise
+            if kind in {"truncation", "transient"} and kind not in retried_kinds:
+                retried_kinds.add(kind)
+                attempt += 1
+                if kind == "truncation":
+                    max_tokens *= TRUNCATION_RETRY_MULTIPLIER
+                if log is not None:
+                    log.event(
+                        "stage_retry",
+                        run_id=run_id,
+                        story_id=story.story_id,
+                        stage=stage,
+                        failure_kind=kind,
+                        attempt=attempt,
+                        max_tokens=max_tokens,
+                    )
+                continue
+            error.raw_response_path = raw_path
+            _attach_usage(error, total_input_tokens, total_output_tokens)
+            raise
     tool_result = response.tool_result
     raw_path = _write_raw_response(
         output_root=output_root,
@@ -634,6 +744,7 @@ def _run_model_stage(
         tool_result=tool_result,
         stage=stage,
         run_id=run_id,
+        attempt=attempt,
     )
     if log is not None:
         log.event(
@@ -649,13 +760,165 @@ def _run_model_stage(
         try:
             tool_result = json.loads(response.text)
         except json.JSONDecodeError as error:
-            setattr(error, "raw_response_path", raw_path)
-            setattr(error, "input_tokens", response.input_tokens)
-            setattr(error, "output_tokens", response.output_tokens)
+            error.raw_response_path = raw_path
+            error.input_tokens = response.input_tokens
+            error.output_tokens = response.output_tokens
             raise
     if log is not None:
         log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
     return response, tool_result, raw_path
+
+
+def _model_stage_fingerprint(
+    *,
+    stage: str,
+    options: RunnerOptions,
+    system_prompt: str,
+    payload: dict[str, Any],
+    tool_schema: dict[str, Any],
+) -> dict[str, Any]:
+    """Identify every effective input that can change a model-stage result."""
+
+    data = {
+        "version": "worldcon-spike-stage-fingerprint-v1",
+        "stage": stage,
+        "backend_kind": options.backend_kind,
+        "model": options.model,
+        "base_url": options.base_url,
+        "temperature": options.temperature,
+        "max_tokens": options.max_tokens,
+        "system_prompt_sha256": _hash_text(system_prompt),
+        "tool_schema_sha256": _hash_text(_stable_json(tool_schema)),
+        "payload_sha256": _hash_text(_stable_json(payload)),
+    }
+    return {
+        "version": data["version"],
+        "sha256": _hash_text(_stable_json(data)),
+        "inputs": data,
+    }
+
+
+def _checkpoint_response_data(
+    response: llm_backend.BackendResponse,
+    tool_result: Any,
+    raw_path: pathlib.Path,
+) -> dict[str, Any]:
+    return {
+        "model": response.model,
+        "input_tokens": response.input_tokens,
+        "output_tokens": response.output_tokens,
+        "effective_max_tokens": getattr(response, "effective_max_tokens", None),
+        "cache_creation_input_tokens": response.cache_creation_input_tokens,
+        "cache_read_input_tokens": response.cache_read_input_tokens,
+        "effective_max_tokens": getattr(response, "effective_max_tokens", None),
+        "text": response.text,
+        "tool_result": tool_result,
+        "raw_response_path": _display_path(raw_path),
+    }
+
+
+def _valid_checkpoint_response(data: Any) -> bool:
+    return (
+        isinstance(data, dict)
+        and isinstance(data.get("model"), str)
+        and isinstance(data.get("tool_result"), (dict, type(None)))
+        and isinstance(data.get("raw_response_path"), str)
+        and _stored_path(data["raw_response_path"]).exists()
+    )
+
+
+def _response_from_checkpoint_data(data: dict[str, Any]) -> llm_backend.BackendResponse:
+    response = llm_backend.BackendResponse(
+        text=data.get("text", ""),
+        tool_result=data.get("tool_result"),
+        model=data["model"],
+        input_tokens=int(data.get("input_tokens", 0)),
+        output_tokens=int(data.get("output_tokens", 0)),
+        cache_creation_input_tokens=data.get("cache_creation_input_tokens"),
+        cache_read_input_tokens=data.get("cache_read_input_tokens"),
+    )
+    response.effective_max_tokens = data.get("effective_max_tokens")
+    return response
+
+
+def _stored_path(value: str) -> pathlib.Path:
+    """Resolve a persisted display path independent of the caller's CWD."""
+
+    path = pathlib.Path(value)
+    if path.is_absolute():
+        return path
+    package_root = paths.find_pyproject_root(__file__).resolve()
+    package_path = package_root / path
+    if package_path.exists():
+        return package_path
+    return _repo_root() / path
+
+
+def _classify_stage_failure(error: Exception) -> str:
+    message = str(error).lower()
+    if isinstance(error, llm_backend.TruncatedResponseError):
+        return "truncation"
+    if isinstance(error, (ValueError, json.JSONDecodeError)):
+        return "validation"
+    if any(
+        token in message
+        for token in ("content filter", "content_filter", "safety filter")
+    ):
+        return "content_filter"
+    if isinstance(
+        error, (llm_backend.TransientProviderError, TimeoutError, ConnectionError)
+    ):
+        return "transient"
+    if any(
+        token in message
+        for token in (
+            "timeout",
+            "timed out",
+            "temporarily unavailable",
+            "service unavailable",
+            "connection",
+            "disconnected",
+            "rate limit",
+            "429",
+        )
+    ):
+        return "transient"
+    return "unknown"
+
+
+def _attach_usage(error: Exception, input_tokens: int, output_tokens: int) -> None:
+    error.input_tokens = input_tokens
+    error.output_tokens = output_tokens
+
+
+def _persist_backend_failure(
+    output_root: pathlib.Path,
+    run_id: str,
+    story: SpikeStory,
+    stage: str,
+    error: Exception,
+    attempt: int,
+    log: run_log.RunLog | None,
+) -> pathlib.Path:
+    raw_path = _write_backend_failure(
+        output_root=output_root,
+        run_id=run_id,
+        story=story,
+        stage=stage,
+        error=error,
+        attempt=attempt,
+    )
+    if log is not None:
+        log.event(
+            "backend_failure_persisted",
+            run_id=run_id,
+            story_id=story.story_id,
+            stage=stage,
+            attempt=attempt,
+            failure_kind=_classify_stage_failure(error),
+            raw_response_path=_display_path(raw_path),
+        )
+    return raw_path
 
 
 def _write_raw_response(
@@ -666,14 +929,17 @@ def _write_raw_response(
     tool_result: Any,
     run_id: str,
     stage: str = "combined",
+    attempt: int = 1,
 ) -> pathlib.Path:
-    path = output_root / "_raw" / run_id / _checkpoint_item_id(story) / f"{stage}.json"
+    filename = f"{stage}.json" if attempt == 1 else f"{stage}-attempt-{attempt}.json"
+    path = output_root / "_raw" / run_id / _checkpoint_item_id(story) / filename
     payload = {
         "run_id": run_id,
         "story_id": story.story_id,
         "story_path": story.story_path,
         "title": story.title,
         "stage": stage,
+        "attempt": attempt,
         "model": response.model,
         "input_tokens": response.input_tokens,
         "output_tokens": response.output_tokens,
@@ -693,20 +959,21 @@ def _write_backend_failure(
     story: SpikeStory,
     stage: str,
     error: Exception,
+    attempt: int = 1,
 ) -> pathlib.Path:
-    path = (
-        output_root
-        / "_raw"
-        / run_id
-        / _checkpoint_item_id(story)
-        / f"{stage}-backend-error.json"
+    filename = (
+        f"{stage}-backend-error.json"
+        if attempt == 1
+        else f"{stage}-backend-error-attempt-{attempt}.json"
     )
+    path = output_root / "_raw" / run_id / _checkpoint_item_id(story) / filename
     payload = {
         "run_id": run_id,
         "story_id": story.story_id,
         "story_path": story.story_path,
         "title": story.title,
         "stage": stage,
+        "attempt": attempt,
         "backend_error": type(error).__name__,
         "error_message": str(error),
         "input_tokens": getattr(error, "input_tokens", 0),
@@ -832,7 +1099,7 @@ def _run_knight_stage(
         rubric_version=models.KNIGHT_RUBRIC_VERSION,
     )
     try:
-        response, tool_result, raw_path = _run_model_stage(
+        response, tool_result, raw_path = _run_checkpointed_model_stage(
             stage=KNIGHT_STAGE,
             story=story,
             output_root=output_root,
@@ -843,6 +1110,7 @@ def _run_knight_stage(
             tool_schema=tool_schema,
             run_id=run_id,
             log=log,
+            resume=options.resume,
         )
         if not isinstance(tool_result, dict):
             raise ValueError(
@@ -951,7 +1219,7 @@ def _run_suvin_stage(
         rubric_version=models.SUVIN_RUBRIC_VERSION,
     )
     try:
-        response, tool_result, raw_path = _run_model_stage(
+        response, tool_result, raw_path = _run_checkpointed_model_stage(
             stage=SUVIN_STAGE,
             story=story,
             output_root=output_root,
@@ -962,6 +1230,7 @@ def _run_suvin_stage(
             tool_schema=tool_schema,
             run_id=run_id,
             log=log,
+            resume=options.resume,
         )
         if not isinstance(tool_result, dict):
             raise ValueError(
@@ -1261,7 +1530,8 @@ def _provenance(
         prompt_hash=_hash_text(system_prompt),
         schema_hash=_hash_text(_stable_json(tool_schema)),
         generation_parameters={
-            "max_tokens": options.max_tokens,
+            "max_tokens": getattr(response, "effective_max_tokens", None)
+            or options.max_tokens,
             "temperature": options.temperature,
         },
         token_usage={
@@ -1887,6 +2157,13 @@ def _plan(
         "paid_model_calls_authorized": gate.paid_model_calls_authorized,
         "approve_paid": options.approve_paid,
         "approve_full_sample": options.approve_full_sample,
+        "resume": options.resume,
+        "retry_policy": {
+            "truncation": "once_with_doubled_max_tokens",
+            "transient_provider_or_network": "once",
+            "content_filter": "never",
+            "deterministic_validation": "never",
+        },
         "output_root": _display_path(output_root),
         "manifest_fingerprint": _manifest_fingerprint(manifest),
         "story_ids": [story.story_id for story in stories],
@@ -2196,6 +2473,11 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--max-stories", type=int)
     parser.add_argument("--stop-on-first-failure", action="store_true")
     parser.add_argument("--max-failures", type=int)
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="reuse matching successful model-stage checkpoints",
+    )
     parser.add_argument("--max-tokens", type=int, default=DEFAULT_MAX_TOKENS)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
     return parser.parse_args(argv)
@@ -2216,6 +2498,7 @@ def _options_from_args(args: argparse.Namespace) -> RunnerOptions:
         max_stories=args.max_stories,
         stop_on_first_failure=args.stop_on_first_failure,
         max_failures=args.max_failures,
+        resume=args.resume,
         max_tokens=args.max_tokens,
         temperature=args.temperature,
     )
