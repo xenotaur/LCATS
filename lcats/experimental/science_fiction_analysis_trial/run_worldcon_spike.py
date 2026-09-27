@@ -653,6 +653,7 @@ def _run_model_stage(
     total_input_tokens = 0
     total_output_tokens = 0
     retried_kinds: set[str] = set()
+    raw_response: llm_backend.BackendResponse | None = None
     while True:
         try:
             response = active_backend.complete(
@@ -663,6 +664,8 @@ def _run_model_stage(
                 max_tokens=max_tokens,
                 tool=tool_schema,
             )
+            raw_response = response
+            raw_response.effective_max_tokens = max_tokens
             response = dataclasses.replace(
                 response,
                 input_tokens=response.input_tokens + total_input_tokens,
@@ -676,8 +679,15 @@ def _run_model_stage(
                     text=error.raw_content,
                     tool_result=None,
                     model=options.model,
-                    input_tokens=error.input_tokens + total_input_tokens,
-                    output_tokens=error.output_tokens + total_output_tokens,
+                    input_tokens=error.input_tokens,
+                    output_tokens=error.output_tokens,
+                )
+                response.effective_max_tokens = max_tokens
+                raw_response = response
+                response = dataclasses.replace(
+                    response,
+                    input_tokens=response.input_tokens + total_input_tokens,
+                    output_tokens=response.output_tokens + total_output_tokens,
                 )
                 response.effective_max_tokens = max_tokens
                 if log is not None:
@@ -695,7 +705,7 @@ def _run_model_stage(
             )
             total_input_tokens += getattr(error, "input_tokens", 0)
             total_output_tokens += getattr(error, "output_tokens", 0)
-            _attach_usage(error, total_input_tokens, total_output_tokens)
+            _attach_usage(error, total_input_tokens, total_output_tokens, max_tokens)
             error.raw_response_path = (
                 output_root
                 / "_raw"
@@ -714,6 +724,7 @@ def _run_model_stage(
             error_output = getattr(error, "output_tokens", 0)
             total_input_tokens += error_input
             total_output_tokens += error_output
+            error.effective_max_tokens = max_tokens
             raw_path = _persist_backend_failure(
                 output_root, run_id, story, stage, error, attempt, log
             )
@@ -734,13 +745,13 @@ def _run_model_stage(
                     )
                 continue
             error.raw_response_path = raw_path
-            _attach_usage(error, total_input_tokens, total_output_tokens)
+            _attach_usage(error, total_input_tokens, total_output_tokens, max_tokens)
             raise
     tool_result = response.tool_result
     raw_path = _write_raw_response(
         output_root=output_root,
         story=story,
-        response=response,
+        response=raw_response or response,
         tool_result=tool_result,
         stage=stage,
         run_id=run_id,
@@ -886,9 +897,12 @@ def _classify_stage_failure(error: Exception) -> str:
     return "unknown"
 
 
-def _attach_usage(error: Exception, input_tokens: int, output_tokens: int) -> None:
+def _attach_usage(
+    error: Exception, input_tokens: int, output_tokens: int, effective_max_tokens: int
+) -> None:
     error.input_tokens = input_tokens
     error.output_tokens = output_tokens
+    error.effective_max_tokens = effective_max_tokens
 
 
 def _persist_backend_failure(
@@ -978,6 +992,7 @@ def _write_backend_failure(
         "error_message": str(error),
         "input_tokens": getattr(error, "input_tokens", 0),
         "output_tokens": getattr(error, "output_tokens", 0),
+        "effective_max_tokens": getattr(error, "effective_max_tokens", None),
         "raw_content": getattr(error, "raw_content", None),
     }
     _write_json_atomic(path, payload, output_root=output_root)
@@ -1144,6 +1159,11 @@ def _run_knight_stage(
             input_tokens=getattr(error, "input_tokens", response.input_tokens),
             output_tokens=getattr(error, "output_tokens", response.output_tokens),
         )
+        response.effective_max_tokens = getattr(
+            error,
+            "effective_max_tokens",
+            getattr(response, "effective_max_tokens", None),
+        )
         provenance = _provenance(
             story=story,
             options=options,
@@ -1267,6 +1287,11 @@ def _run_suvin_stage(
             response,
             input_tokens=getattr(error, "input_tokens", response.input_tokens),
             output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        response.effective_max_tokens = getattr(
+            error,
+            "effective_max_tokens",
+            getattr(response, "effective_max_tokens", None),
         )
         provenance = _provenance(
             story=story,

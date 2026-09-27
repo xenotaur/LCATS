@@ -119,6 +119,7 @@ class _FailOnceBackend:
         self.failure = failure
         self.target_tool = target_tool
         self.calls = []
+        self.responses = []
 
     def complete(self, **kwargs):
         tool_name = kwargs["tool"]["name"]
@@ -128,6 +129,29 @@ class _FailOnceBackend:
             and sum(1 for name, _ in self.calls if name == tool_name) == 1
         ):
             raise self.failure
+        response = self.delegate.complete(**kwargs)
+        self.responses.append(response)
+        return response
+
+
+class _AlwaysTruncatedBackend:
+    def __init__(self, target_tool: str):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.target_tool = target_tool
+        self.calls = []
+
+    def complete(self, **kwargs):
+        tool_name = kwargs["tool"]["name"]
+        self.calls.append((tool_name, kwargs["max_tokens"]))
+        if tool_name == self.target_tool:
+            raise llm_backend.TruncatedResponseError(
+                "truncated",
+                stop_reason="max_tokens",
+                max_tokens=kwargs["max_tokens"],
+                input_tokens=5,
+                output_tokens=7,
+                raw_content="partial",
+            )
         return self.delegate.complete(**kwargs)
 
 
@@ -727,6 +751,46 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         raw_root = pathlib.Path(summary["stories"][0]["raw_response_path"])
         self.assertTrue((raw_root / "sf_evidence-backend-error.json").exists())
         self.assertTrue((raw_root / "sf_evidence-attempt-2.json").exists())
+
+        retry_payload = json.loads(
+            (raw_root / "sf_evidence-attempt-2.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            backend.responses[0].input_tokens, retry_payload["input_tokens"]
+        )
+        self.assertEqual(
+            backend.responses[0].output_tokens, retry_payload["output_tokens"]
+        )
+
+    def test_failed_truncation_preserves_effective_retry_limit(self):
+        output_root = self.root / "failed-truncation-retry"
+        backend = _AlwaysTruncatedBackend(run_worldcon_spike.KNIGHT_TOOL_NAME)
+
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    stop_on_first_failure=True,
+                )
+            )
+
+        self.assertEqual("complete", summary["status"])
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+        knight = data["analyses"]["knight"][0]
+        self.assertEqual("failed", knight["status"])
+        self.assertEqual(
+            8192, knight["provenance"]["generation_parameters"]["max_tokens"]
+        )
+        raw_root = pathlib.Path(story["raw_response_path"])
+        failed_payload = json.loads(
+            (raw_root / "sf_knight-backend-error-attempt-2.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(8192, failed_payload["effective_max_tokens"])
 
     def test_transient_failure_retries_once_and_content_filter_does_not(self):
         output_root = self.root / "typed-retries"
