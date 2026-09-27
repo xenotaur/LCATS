@@ -3,9 +3,9 @@ execution_id: 2026_09_27_00_03_55_WORLDCON_SPIKE_INCREMENTAL_SAFETY_PR389_SELFRE
 prompt_id: PROMPT(AD_HOC:WORLDCON_SPIKE_INCREMENTAL_SAFETY_PR389_SELFREVIEW_2)[2026-09-27T00:03:49+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/389
-commit: 972f682f4da34636369c308ade31c7f0d8a01d19
+commit: 972f682f49d26f2ea4f64aa89bce49c383e2d698
 created_at: 2026-09-27T00:03:55+00:00
 ---
 
