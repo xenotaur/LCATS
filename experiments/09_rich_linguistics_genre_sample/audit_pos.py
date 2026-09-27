@@ -25,6 +25,7 @@ SCORING_CONTRACT_VERSION = "rich-linguistics-pos-audit-scoring-v1"
 DISPOSITIONS = {"pending", "reviewed", "uncertain", "blocked"}
 LABELS = {"NOUN", "PROPN", "OTHER"}
 ISSUE_CODES = {"segmentation", "tokenization", "context", "pos_ambiguity", "other"}
+UNREVIEWED_NOTES = "not yet reviewed"
 IMMUTABLE_FIELDS = (
     "story_id",
     "selection_genre",
@@ -394,11 +395,7 @@ def command_record(args: argparse.Namespace) -> None:
         raise ValueError("reviewed requires --label NOUN, PROPN, or OTHER")
     if args.disposition != "reviewed" and args.label:
         raise ValueError("only reviewed rows may carry --label")
-    if args.disposition != "reviewed" and (
-        args.notes is None or not args.notes.strip()
-    ):
-        raise ValueError("unresolved dispositions require --notes")
-    issue_codes = args.issue_code or []
+    issue_codes = args.issue_code
     record_entry(
         rows,
         ledger,
@@ -419,7 +416,7 @@ def record_entry(
     token_key: str,
     disposition: str,
     label: str | None,
-    issue_codes: list[str],
+    issue_codes: list[str] | None,
     notes: str | None,
     reviewer: str | None,
     ledger_path: pathlib.Path,
@@ -432,24 +429,34 @@ def record_entry(
         raise ValueError("reviewed requires NOUN, PROPN, or OTHER")
     if disposition != "reviewed" and label:
         raise ValueError("only reviewed rows may carry a label")
-    if disposition != "reviewed" and (notes is None or not notes.strip()):
-        raise ValueError("unresolved dispositions require notes")
-    issues = [item for item in issue_codes if item not in ISSUE_CODES]
-    if issues:
-        raise ValueError("invalid issue code: " + ", ".join(issues))
     entry = ledger["entries"][token_key]
     if preserve_metadata:
-        notes = notes if notes is not None else entry.get("notes", "")
-        issue_codes = issue_codes or entry.get("issue_codes", [])
+        final_notes = notes if notes is not None else entry.get("notes", "")
+        if (
+            entry.get("disposition") == "pending"
+            and final_notes.strip() == UNREVIEWED_NOTES
+        ):
+            final_notes = ""
+        final_issue_codes = (
+            issue_codes if issue_codes is not None else entry.get("issue_codes", [])
+        )
     else:
-        notes = notes or ""
+        final_notes = notes or ""
+        final_issue_codes = issue_codes or []
+    if disposition != "reviewed" and (
+        not final_notes.strip() or final_notes.strip() == UNREVIEWED_NOTES
+    ):
+        raise ValueError("unresolved dispositions require notes")
+    issues = [item for item in final_issue_codes if item not in ISSUE_CODES]
+    if issues:
+        raise ValueError("invalid issue code: " + ", ".join(issues))
     reviewer = reviewer if reviewer is not None else entry.get("reviewer")
     entry.update(
         {
             "disposition": disposition,
             "gold_upos": label or None,
-            "issue_codes": list(dict.fromkeys(issue_codes)),
-            "notes": notes,
+            "issue_codes": list(dict.fromkeys(final_issue_codes)),
+            "notes": final_notes,
             "reviewer": reviewer,
         }
     )
@@ -470,13 +477,28 @@ def _prompt_reviewer(existing: str | None) -> str:
         print("A reviewer name is required.")
 
 
-def _prompt_issue_codes() -> list[str]:
+def _prompt_notes(existing: str | None) -> str | None:
+    suffix = " [Enter retain; CLEAR clear]" if existing else ""
+    raw = input(f"Notes (optional for reviewed rows){suffix}: ").strip()
+    if raw == "":
+        return None
+    if raw == "CLEAR":
+        return ""
+    return raw
+
+
+def _prompt_issue_codes(existing: list[str] | None = None) -> list[str] | None:
+    suffix = " [Enter retain; CLEAR clear]" if existing else ""
     raw = input(
         "Issue codes (comma-separated; leave blank for none) ["
         + ", ".join(sorted(ISSUE_CODES))
-        + "]: "
+        + "]"
+        + suffix
+        + ": "
     ).strip()
     if not raw:
+        return None
+    if raw == "CLEAR":
         return []
     codes = [code.strip() for code in raw.split(",") if code.strip()]
     invalid = [code for code in codes if code not in ISSUE_CODES]
@@ -516,7 +538,15 @@ def command_audit(args: argparse.Namespace) -> None:
         write_json(args.ledger, ledger)
         print(f"started {len(rows)} audit rows")
 
-    cursor = 0
+    pending_indices = [
+        index
+        for index, row in enumerate(rows)
+        if ledger["entries"][row["token_key"]]["disposition"]
+        in {"pending", "uncertain", "blocked"}
+    ]
+    current_index = pending_indices[0] if pending_indices else 0
+    visit_history = [current_index]
+    completion_reported = False
     while True:
         errors = validate_ledger(rows, ledger, args.sample)
         if errors:
@@ -524,35 +554,73 @@ def command_audit(args: argparse.Namespace) -> None:
         pending = unresolved(ledger["entries"])
         reviewed = len(rows) - len(pending)
         print(f"\nProgress: {reviewed}/{len(rows)} reviewed")
-        if not pending:
+        if not pending and not completion_reported:
             command_validate(argparse.Namespace(sample=args.sample, ledger=args.ledger))
             command_score(
                 argparse.Namespace(
                     sample=args.sample, ledger=args.ledger, output=args.output
                 )
             )
-            return
-        pending_keys = {entry["token_key"] for entry in pending}
-        candidates = [row for row in rows[cursor:] if row["token_key"] in pending_keys]
-        if not candidates:
-            cursor = 0
-            candidates = [row for row in rows if row["token_key"] in pending_keys]
-        row = candidates[0]
-        row_index = rows.index(row)
+            completion_reported = True
+            print("Audit complete; use G to revisit a record or Q to exit.")
+        row = rows[current_index]
+        row_index = current_index
+        entry = ledger["entries"][row["token_key"]]
         print(f"\nToken: {row['text']}    key: {row['token_key']}")
+        print(
+            f"Audit record: {row_index + 1}/{len(rows)}    "
+            f"saved disposition: {entry.get('disposition', 'pending')}    "
+            f"saved label: {entry.get('gold_upos') or 'none'}"
+        )
+        print(f"Saved notes: {entry.get('notes') or 'none'}")
+        print(
+            "Saved issue codes: " + (", ".join(entry.get("issue_codes", [])) or "none")
+        )
         print(f"Story: {row['story_id']}    genre: {row['selection_genre']}")
         print(f"Context: {row['context']}")
         print(f"Machine label: {row['machine_upos']}    lemma: {row['lemma']}")
         for item in audit_guidance(row):
             print(f"Guidance: {item}")
         choice = (
-            input("Label [N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, " "[Q]uit: ")
+            input(
+                "Label [N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, "
+                "[R]ewind, [G]oto, [Q]uit: "
+            )
             .strip()
             .lower()
         )
         if choice in {"", "q", "quit"}:
-            print(f"paused; resume with the next row using {args.ledger}")
+            print(f"paused; resume with the current row using {args.ledger}")
             return
+        if choice in {"r", "rewind"}:
+            if len(visit_history) == 1:
+                print("No previous record in this audit session.")
+            else:
+                visit_history.pop()
+                current_index = visit_history[-1]
+            continue
+        if choice in {"g", "goto"}:
+            target = input("Goto 1-based audit number or exact token key: ").strip()
+            target_index: int | None = None
+            if target.isdigit():
+                ordinal = int(target)
+                if 1 <= ordinal <= len(rows):
+                    target_index = ordinal - 1
+            else:
+                target_index = next(
+                    (
+                        index
+                        for index, candidate in enumerate(rows)
+                        if candidate["token_key"] == target
+                    ),
+                    None,
+                )
+            if target_index is None:
+                print(f"No audit record matches: {target}")
+            else:
+                current_index = target_index
+                visit_history.append(current_index)
+            continue
         dispositions = {
             "n": ("reviewed", "NOUN"),
             "p": ("reviewed", "PROPN"),
@@ -561,15 +629,19 @@ def command_audit(args: argparse.Namespace) -> None:
             "b": ("blocked", None),
         }
         if choice not in dispositions:
-            print("Please choose N, P, O, U, B, or Q.")
+            print("Please choose N, P, O, U, B, R, G, or Q.")
             continue
         disposition, label = dispositions[choice]
-        notes = input("Notes (optional for reviewed rows): ").strip()
-        if disposition != "reviewed" and not notes:
+        notes = _prompt_notes(entry.get("notes"))
+        if disposition != "reviewed" and (
+            notes is None
+            and entry.get("notes", "").strip() == UNREVIEWED_NOTES
+            or notes == ""
+        ):
             print("Notes are required for uncertain or blocked rows.")
             continue
         try:
-            issue_codes = _prompt_issue_codes()
+            issue_codes = _prompt_issue_codes(entry.get("issue_codes", []))
             record_entry(
                 rows,
                 ledger,
@@ -577,16 +649,28 @@ def command_audit(args: argparse.Namespace) -> None:
                 disposition,
                 label,
                 issue_codes,
-                notes or None,
+                notes,
                 reviewer,
                 args.ledger,
-                preserve_metadata=False,
+                preserve_metadata=entry.get("disposition") != "pending",
             )
         except ValueError as error:
             print(f"Not recorded: {error}")
             continue
         print(f"recorded {row['token_key']}: {disposition}")
-        cursor = row_index + 1
+        completion_reported = False
+        next_index = next(
+            (
+                index
+                for index in [*range(row_index + 1, len(rows)), *range(row_index)]
+                if ledger["entries"][rows[index]["token_key"]]["disposition"]
+                in {"pending", "uncertain", "blocked"}
+            ),
+            None,
+        )
+        if next_index is not None:
+            current_index = next_index
+            visit_history.append(current_index)
 
 
 def command_validate(args: argparse.Namespace) -> None:
