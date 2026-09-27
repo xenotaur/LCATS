@@ -869,6 +869,9 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             )
         self.assertEqual("complete", second["status"])
         self.assertEqual(0, second_backend.calls)
+        self.assertTrue(
+            pathlib.Path(second["stories"][0]["raw_response_path"]).exists()
+        )
 
     def test_non_resume_run_persists_model_checkpoints_for_later_resume(self):
         output_root = self.root / "ordinary-checkpoints"
@@ -959,11 +962,28 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             self.assertEqual(
                 "transient", run_worldcon_spike._classify_stage_failure(error)
             )
+        http_status_error = RuntimeError("provider failure")
+        http_status_error.http_status = 503
+        self.assertEqual(
+            "transient",
+            run_worldcon_spike._classify_stage_failure(http_status_error),
+        )
         self.assertEqual(
             "transient",
             run_worldcon_spike._classify_stage_failure(
                 RuntimeError("overloaded_error")
             ),
+        )
+
+    def test_checkpoint_response_requires_structured_tool_result(self):
+        self.assertFalse(
+            run_worldcon_spike._valid_checkpoint_response(
+                {
+                    "model": "fake",
+                    "tool_result": None,
+                    "raw_response_path": str(self.root / "raw.json"),
+                }
+            )
         )
 
     def test_truncation_retry_records_effective_token_limit_in_provenance(self):

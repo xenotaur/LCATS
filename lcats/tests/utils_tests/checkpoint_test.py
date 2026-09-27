@@ -189,6 +189,26 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
         self.assertEqual(result.outcome, "success")
         self.assertEqual(result.data, {"segments": ["a", "b"]})
 
+    def test_write_rejects_symlinked_item_directory(self):
+        external = pathlib.Path(tempfile.mkdtemp())
+        try:
+            os.symlink(
+                external, self.working_root / "story_a", target_is_directory=True
+            )
+            with self.assertRaisesRegex(ValueError, "must not be a symlink"):
+                checkpoint.write_checkpoint(
+                    self.working_root,
+                    "story_a",
+                    "segment",
+                    outcome="success",
+                    fingerprint={"model": "x"},
+                    data={"segments": ["a"]},
+                )
+            self.assertFalse((external / "segment.json").exists())
+        finally:
+            (self.working_root / "story_a").unlink()
+            external.rmdir()
+
     def test_predicate_distinguishes_success_from_failure(self):
         """A recorded failure is NOT 'done' -- the governing design requires
         a failed stage to be recomputed on resume, not silently skipped

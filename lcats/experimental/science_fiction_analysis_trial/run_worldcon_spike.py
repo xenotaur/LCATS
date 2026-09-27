@@ -473,7 +473,13 @@ def _run_story(
                 else None
             ),
             raw_response_path=(
-                _display_path(raw_response_dir) if raw_response_dir else None
+                _display_path(
+                    raw_response_dir
+                    if raw_response_dir is not None and raw_response_dir.exists()
+                    else raw_response_path
+                )
+                if raw_response_dir is not None or raw_response_path is not None
+                else None
             ),
         )
     except Exception as error:
@@ -819,7 +825,7 @@ def _valid_checkpoint_response(data: Any) -> bool:
     return (
         isinstance(data, dict)
         and isinstance(data.get("model"), str)
-        and isinstance(data.get("tool_result"), (dict, type(None)))
+        and isinstance(data.get("tool_result"), dict)
         and isinstance(data.get("raw_response_path"), str)
         and _stored_path(data["raw_response_path"]).exists()
     )
@@ -867,7 +873,11 @@ def _classify_stage_failure(error: Exception) -> str:
         error, (llm_backend.TransientProviderError, TimeoutError, ConnectionError)
     ):
         return "transient"
-    status = getattr(error, "status_code", getattr(error, "status", None))
+    status = getattr(
+        error,
+        "status_code",
+        getattr(error, "http_status", getattr(error, "status", None)),
+    )
     try:
         if int(status) in {429, 500, 502, 503, 504, 529}:
             return "transient"

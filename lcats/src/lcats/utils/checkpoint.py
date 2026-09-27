@@ -345,6 +345,7 @@ def write_checkpoint(
 
     target = checkpoint_path(working_root, item_id, stage)
     item_dir = target.parent
+    _reject_symlinked_checkpoint_ancestors(item_dir, working_root)
     paths.makedirs(item_dir)
 
     record = {"outcome": outcome, "fingerprint": fingerprint, "data": data}
@@ -360,3 +361,22 @@ def write_checkpoint(
         raise
 
     return target
+
+
+def _reject_symlinked_checkpoint_ancestors(
+    item_dir: pathlib.Path, working_root: PathLike
+) -> None:
+    """Refuse checkpoint writes through symlinked output directories."""
+
+    root = pathlib.Path(os.path.abspath(os.fspath(working_root)))
+    current = pathlib.Path(os.path.abspath(os.fspath(item_dir)))
+    if root.is_symlink():
+        raise ValueError(f"checkpoint working root must not be a symlink: {root}")
+    while True:
+        if current.is_symlink():
+            raise ValueError(f"checkpoint directory must not be a symlink: {current}")
+        if current == root:
+            return
+        if root not in current.parents:
+            raise ValueError(f"checkpoint path escapes working root: {item_dir}")
+        current = current.parent
