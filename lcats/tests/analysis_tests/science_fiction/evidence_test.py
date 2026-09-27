@@ -116,6 +116,42 @@ class EvidenceTest(unittest.TestCase):
             record.provenance[0].normalization_notes,
         )
 
+    def test_duplicate_provenance_order_includes_normalization_notes(self):
+        anchor = evidence.EvidenceAnchor(("p00001",), 0, 5)
+        first = evidence.EvidenceRecord(
+            evidence_id="evidence",
+            evidence_type="storyworld_change",
+            quote="engines",
+            anchor=anchor,
+            paraphrase="The engines change the storyworld.",
+            confidence=0.8,
+            provenance=(
+                evidence.EvidenceProvenance(
+                    source="model",
+                    source_chunk_id="chunk",
+                    raw_id="raw",
+                    backend="backend",
+                    normalization_notes=("alias-b",),
+                ),
+            ),
+        )
+        second = dataclasses.replace(
+            first,
+            confidence=0.9,
+            provenance=(
+                dataclasses.replace(
+                    first.provenance[0], normalization_notes=("alias-a",)
+                ),
+            ),
+        )
+
+        merged = evidence._merge_duplicate(first, second)
+
+        self.assertEqual(
+            [("alias-a",), ("alias-b",)],
+            [item.normalization_notes for item in merged.provenance],
+        )
+
     def test_explicit_evidence_type_wins_over_type_alias(self):
         prepared = _prepared_story()
         candidate = {

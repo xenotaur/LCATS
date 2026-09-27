@@ -604,16 +604,21 @@ def _record_from_candidate(
     )
 
 
+def _provenance_sort_key(item: EvidenceProvenance) -> tuple[Any, ...]:
+    return (
+        item.source,
+        item.source_chunk_id or "",
+        item.raw_id or "",
+        item.backend or "",
+        item.normalization_notes,
+    )
+
+
 def _merge_duplicate(first: EvidenceRecord, second: EvidenceRecord) -> EvidenceRecord:
     provenance = tuple(
         sorted(
             {*first.provenance, *second.provenance},
-            key=lambda item: (
-                item.source,
-                item.source_chunk_id or "",
-                item.raw_id or "",
-                item.backend or "",
-            ),
+            key=_provenance_sort_key,
         )
     )
     return dataclasses.replace(
