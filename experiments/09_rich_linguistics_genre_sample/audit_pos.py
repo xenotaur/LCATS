@@ -432,6 +432,11 @@ def record_entry(
     entry = ledger["entries"][token_key]
     if preserve_metadata:
         final_notes = notes if notes is not None else entry.get("notes", "")
+        if (
+            entry.get("disposition") == "pending"
+            and final_notes.strip() == UNREVIEWED_NOTES
+        ):
+            final_notes = ""
         final_issue_codes = (
             issue_codes if issue_codes is not None else entry.get("issue_codes", [])
         )
@@ -647,6 +652,7 @@ def command_audit(args: argparse.Namespace) -> None:
                 notes,
                 reviewer,
                 args.ledger,
+                preserve_metadata=entry.get("disposition") != "pending",
             )
         except ValueError as error:
             print(f"Not recorded: {error}")
