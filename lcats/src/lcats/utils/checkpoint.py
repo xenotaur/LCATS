@@ -343,9 +343,10 @@ def write_checkpoint(
     if outcome not in _VALID_OUTCOMES:
         raise ValueError(f"outcome must be one of {_VALID_OUTCOMES}, got {outcome!r}")
 
-    target = checkpoint_path(working_root, item_id, stage)
+    canonical_root = pathlib.Path(working_root).resolve(strict=False)
+    target = checkpoint_path(canonical_root, item_id, stage)
     item_dir = target.parent
-    _reject_symlinked_checkpoint_ancestors(item_dir, working_root)
+    _reject_symlinked_checkpoint_ancestors(item_dir, canonical_root)
     paths.makedirs(item_dir)
 
     record = {"outcome": outcome, "fingerprint": fingerprint, "data": data}

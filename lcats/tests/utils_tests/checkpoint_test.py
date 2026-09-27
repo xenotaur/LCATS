@@ -209,6 +209,29 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
             (self.working_root / "story_a").unlink()
             external.rmdir()
 
+    def test_write_canonicalizes_symlinked_working_root_ancestor(self):
+        real_parent = pathlib.Path(tempfile.mkdtemp())
+        link_parent = self.working_root / "linked-parent"
+        try:
+            os.symlink(real_parent, link_parent, target_is_directory=True)
+            checkpoint.write_checkpoint(
+                link_parent / "results",
+                "story_a",
+                "segment",
+                outcome="success",
+                fingerprint={"model": "x"},
+                data={"segments": ["a"]},
+            )
+            self.assertTrue(
+                (real_parent / "results" / "story_a" / "segment.json").exists()
+            )
+        finally:
+            link_parent.unlink()
+            (real_parent / "results" / "story_a" / "segment.json").unlink()
+            (real_parent / "results" / "story_a").rmdir()
+            (real_parent / "results").rmdir()
+            real_parent.rmdir()
+
     def test_predicate_distinguishes_success_from_failure(self):
         """A recorded failure is NOT 'done' -- the governing design requires
         a failed stage to be recomputed on resume, not silently skipped

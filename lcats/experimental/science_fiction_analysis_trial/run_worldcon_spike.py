@@ -386,7 +386,7 @@ def _run_story(
             evidence_tool_result,
             backend=options.backend_kind,
         )
-        knight_analysis, knight_response = _run_knight_stage(
+        knight_analysis, knight_response, knight_raw_path = _run_knight_stage(
             story=story,
             prepared=prepared,
             evidence_set=evidence_set,
@@ -399,7 +399,7 @@ def _run_story(
         input_tokens += knight_response.input_tokens
         output_tokens += knight_response.output_tokens
 
-        suvin_analysis, suvin_response = _run_suvin_stage(
+        suvin_analysis, suvin_response, suvin_raw_path = _run_suvin_stage(
             story=story,
             prepared=prepared,
             evidence_set=evidence_set,
@@ -411,6 +411,16 @@ def _run_story(
         )
         input_tokens += suvin_response.input_tokens
         output_tokens += suvin_response.output_tokens
+        _write_raw_artifact_index(
+            output_root=output_root,
+            story=story,
+            run_id=run_id,
+            stage_paths={
+                EVIDENCE_STAGE: evidence_raw_path,
+                KNIGHT_STAGE: knight_raw_path,
+                SUVIN_STAGE: suvin_raw_path,
+            },
+        )
 
         partial_success = _partial_success_record(knight_analysis, suvin_analysis)
         sidecar_inputs = pipeline.SidecarAssemblyInputs(
@@ -472,15 +482,7 @@ def _run_story(
                 if suvin_analysis.status == "complete"
                 else None
             ),
-            raw_response_path=(
-                _display_path(
-                    raw_response_dir
-                    if raw_response_dir is not None and raw_response_dir.exists()
-                    else raw_response_path
-                )
-                if raw_response_dir is not None or raw_response_path is not None
-                else None
-            ),
+            raw_response_path=_display_path(raw_response_dir),
         )
     except Exception as error:
         input_tokens = getattr(error, "input_tokens", input_tokens)
@@ -822,12 +824,16 @@ def _checkpoint_response_data(
 
 
 def _valid_checkpoint_response(data: Any) -> bool:
+    raw_path = data.get("raw_response_path") if isinstance(data, dict) else None
     return (
         isinstance(data, dict)
         and isinstance(data.get("model"), str)
         and isinstance(data.get("tool_result"), dict)
-        and isinstance(data.get("raw_response_path"), str)
-        and _stored_path(data["raw_response_path"]).exists()
+        and isinstance(raw_path, str)
+        # Older relative checkpoints are ambiguous across package/repository
+        # roots; rematerialize them instead of guessing which artifact they mean.
+        and pathlib.Path(raw_path).is_absolute()
+        and pathlib.Path(raw_path).exists()
     )
 
 
@@ -873,10 +879,13 @@ def _classify_stage_failure(error: Exception) -> str:
         error, (llm_backend.TransientProviderError, TimeoutError, ConnectionError)
     ):
         return "transient"
-    status = getattr(
-        error,
-        "status_code",
-        getattr(error, "http_status", getattr(error, "status", None)),
+    status = next(
+        (
+            getattr(error, name)
+            for name in ("status_code", "http_status", "status")
+            if getattr(error, name, None) is not None
+        ),
+        None,
     )
     try:
         if int(status) in {429, 500, 502, 503, 504, 529}:
@@ -967,6 +976,31 @@ def _write_raw_response(
         "tool_result": tool_result,
     }
     _write_json_atomic(path, payload, output_root=output_root)
+    return path
+
+
+def _write_raw_artifact_index(
+    *,
+    output_root: pathlib.Path,
+    story: SpikeStory,
+    run_id: str,
+    stage_paths: dict[str, pathlib.Path],
+) -> pathlib.Path:
+    """Materialize a current-run index for raw artifacts, including reused ones."""
+
+    path = output_root / "_raw" / run_id / _checkpoint_item_id(story) / "index.json"
+    _write_json_atomic(
+        path,
+        {
+            "run_id": run_id,
+            "story_id": story.story_id,
+            "stages": {
+                stage: str(stage_path.resolve())
+                for stage, stage_path in stage_paths.items()
+            },
+        },
+        output_root=output_root,
+    )
     return path
 
 
@@ -1101,7 +1135,7 @@ def _run_knight_stage(
     output_root: pathlib.Path,
     run_id: str,
     log: run_log.RunLog | None,
-) -> tuple[models.KnightAnalysis, llm_backend.BackendResponse]:
+) -> tuple[models.KnightAnalysis, llm_backend.BackendResponse, pathlib.Path]:
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
@@ -1155,6 +1189,7 @@ def _run_knight_stage(
                 provenance=provenance,
             ),
             response,
+            raw_path,
         )
     except Exception as error:
         raw_path = getattr(error, "raw_response_path", raw_path)
@@ -1213,6 +1248,7 @@ def _run_knight_stage(
                 failure=failure,
             ),
             response,
+            raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
         )
 
 
@@ -1226,7 +1262,7 @@ def _run_suvin_stage(
     output_root: pathlib.Path,
     run_id: str,
     log: run_log.RunLog | None,
-) -> tuple[models.SuvinNovumAnalysis, llm_backend.BackendResponse]:
+) -> tuple[models.SuvinNovumAnalysis, llm_backend.BackendResponse, pathlib.Path]:
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
@@ -1284,6 +1320,7 @@ def _run_suvin_stage(
                 ),
             ),
             response,
+            raw_path,
         )
     except Exception as error:
         raw_path = getattr(error, "raw_response_path", raw_path)
@@ -1342,6 +1379,7 @@ def _run_suvin_stage(
                 failure=failure,
             ),
             response,
+            raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
         )
 
 

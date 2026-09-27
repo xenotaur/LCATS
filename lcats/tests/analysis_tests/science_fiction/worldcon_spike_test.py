@@ -872,6 +872,11 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertTrue(
             pathlib.Path(second["stories"][0]["raw_response_path"]).exists()
         )
+        self.assertTrue(
+            pathlib.Path(second["stories"][0]["raw_response_path"])
+            .joinpath("index.json")
+            .exists()
+        )
 
     def test_non_resume_run_persists_model_checkpoints_for_later_resume(self):
         output_root = self.root / "ordinary-checkpoints"
@@ -963,6 +968,7 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                 "transient", run_worldcon_spike._classify_stage_failure(error)
             )
         http_status_error = RuntimeError("provider failure")
+        http_status_error.status_code = None
         http_status_error.http_status = 503
         self.assertEqual(
             "transient",
