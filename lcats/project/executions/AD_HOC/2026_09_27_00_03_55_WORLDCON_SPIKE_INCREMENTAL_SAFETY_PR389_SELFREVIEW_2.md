@@ -12,7 +12,7 @@ created_at: 2026-09-27T00:03:55+00:00
 # Summary
 
 Second PR-mode cold-context self-review of PR #389 at commit
-`972f682f4da34636369c308ade31c7f0d8a01d19`, following the deterministic
+`972f682f49d26f2ea4f64aa89bce49c383e2d698`, following the deterministic
 evidence provenance fix.
 
 # Result
