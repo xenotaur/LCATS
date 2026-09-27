@@ -2,10 +2,10 @@
 execution_id: 2026_09_26_23_32_45_WORLDCON_SPIKE_INCREMENTAL_SAFETY_CONFIRM
 prompt_id: PROMPT(AD_HOC:WORLDCON_SPIKE_INCREMENTAL_SAFETY_CONFIRM)[2026-09-26T23:32:23+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_25_07_17_00_WI_SF_0013_IMPLEMENTATION
 pr: https://github.com/xenotaur/LCATS/pull/389
-commit: 897668f9
+commit: 5598d024c3f3b37910bbd166a7e13aa2bc9ce7be
 created_at: 2026-09-26T23:32:45+00:00
 agent: codex_app
 instruction_source: /lrh-land PR #389 confirm-fixes continuation
