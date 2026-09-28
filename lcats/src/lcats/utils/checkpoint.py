@@ -282,6 +282,8 @@ def read_checkpoint(
     canonical_root = pathlib.Path(working_root).resolve(strict=False)
     path = checkpoint_path(canonical_root, item_id, stage)
     _reject_symlinked_checkpoint_ancestors(path.parent, canonical_root)
+    if path.is_symlink():
+        return CheckpointResult(done=False)
     try:
         record = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError):

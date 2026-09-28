@@ -189,6 +189,32 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
         self.assertEqual(result.outcome, "success")
         self.assertEqual(result.data, {"segments": ["a", "b"]})
 
+    def test_read_rejects_symlinked_checkpoint_file(self):
+        external = pathlib.Path(tempfile.mkdtemp())
+        try:
+            (external / "segment.json").write_text(
+                json.dumps(
+                    {
+                        "outcome": "success",
+                        "fingerprint": {"model": "x"},
+                        "data": {"segments": ["external"]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            item_dir = self.working_root / "story_a"
+            item_dir.mkdir()
+            os.symlink(external / "segment.json", item_dir / "segment.json")
+            result = checkpoint.read_checkpoint(
+                self.working_root, "story_a", "segment", fingerprint={"model": "x"}
+            )
+            self.assertFalse(result.done)
+        finally:
+            (self.working_root / "story_a" / "segment.json").unlink()
+            (self.working_root / "story_a").rmdir()
+            (external / "segment.json").unlink()
+            external.rmdir()
+
     def test_write_rejects_symlinked_item_directory(self):
         external = pathlib.Path(tempfile.mkdtemp())
         try:

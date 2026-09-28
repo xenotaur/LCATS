@@ -761,6 +761,7 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual(
             backend.responses[0].output_tokens, retry_payload["output_tokens"]
         )
+        self.assertEqual(8192, retry_payload["effective_max_tokens"])
 
     def test_failed_truncation_preserves_effective_retry_limit(self):
         output_root = self.root / "failed-truncation-retry"

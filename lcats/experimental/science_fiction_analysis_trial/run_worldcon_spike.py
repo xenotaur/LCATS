@@ -859,7 +859,7 @@ def _valid_checkpoint_response(data: Any, output_root: pathlib.Path) -> bool:
         # roots; rematerialize them instead of guessing which artifact they mean.
         and raw_path_obj.is_absolute()
         and contained
-        and raw_path_obj.exists()
+        and raw_path_obj.is_file()
     )
 
 
@@ -994,6 +994,7 @@ def _write_raw_response(
         "stage": stage,
         "attempt": attempt,
         "model": response.model,
+        "effective_max_tokens": getattr(response, "effective_max_tokens", None),
         "input_tokens": response.input_tokens,
         "output_tokens": response.output_tokens,
         "cache_creation_input_tokens": response.cache_creation_input_tokens,
