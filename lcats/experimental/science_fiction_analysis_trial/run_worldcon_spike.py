@@ -66,6 +66,7 @@ FULL_SAMPLE_LIMIT = 146
 SMOKE_MODE = "smoke"
 SAMPLE_MODE = "sample"
 FULL_MODE = "full"
+CANARY_MODE = "canary"
 FAKE_BACKEND = "fake"
 OPENAI_BACKEND = "openai"
 ANTHROPIC_BACKEND = "anthropic"
@@ -108,6 +109,7 @@ class SpikeManifest:
     source_worldcon_manifest: str
     smoke_stories: tuple[SpikeStory, ...]
     sample_stories: tuple[SpikeStory, ...]
+    canary_stories: tuple[SpikeStory, ...]
     gates: dict[str, RunGate]
     version: str = MANIFEST_VERSION
 
@@ -327,6 +329,9 @@ def load_manifest(path: pathlib.Path) -> SpikeManifest:
         sample_stories=tuple(
             _load_story(item) for item in data.get("sample_stories", ())
         ),
+        canary_stories=tuple(
+            _load_story(item) for item in data.get("canary_stories", ())
+        ),
         gates=gates,
     )
 
@@ -338,6 +343,8 @@ def select_stories(manifest: SpikeManifest, mode: str) -> tuple[SpikeStory, ...]
         return manifest.smoke_stories
     if mode == SAMPLE_MODE:
         return manifest.sample_stories
+    if mode == CANARY_MODE:
+        return manifest.canary_stories
     if mode == FULL_MODE:
         return _load_full_sample(manifest)
     raise ValueError(f"unsupported spike mode: {mode!r}")
@@ -2529,6 +2536,11 @@ def _recommendation(summary: dict[str, Any]) -> str:
             "146-story local or paid run with explicit cost, time, and stop "
             "conditions."
         )
+    if summary["mode"] == CANARY_MODE:
+        return (
+            "Use the canary report to decide whether to revise the contracts "
+            "or proceed to a larger sample; this is not theoretical validation."
+        )
     return (
         "Use the full-sample outputs as a Worldcon spike artifact only; this "
         "does not constitute Phase 2 validation or human agreement."
@@ -2659,6 +2671,9 @@ def _manifest_fingerprint(manifest: SpikeManifest) -> str:
         "sample_stories": [
             dataclasses.asdict(item) for item in manifest.sample_stories
         ],
+        "canary_stories": [
+            dataclasses.asdict(item) for item in manifest.canary_stories
+        ],
         "gates": {
             key: dataclasses.asdict(value)
             for key, value in sorted(manifest.gates.items())
@@ -2736,7 +2751,7 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--mode",
-        choices=(SMOKE_MODE, SAMPLE_MODE, FULL_MODE),
+        choices=(SMOKE_MODE, SAMPLE_MODE, CANARY_MODE, FULL_MODE),
         default=SMOKE_MODE,
     )
     parser.add_argument(

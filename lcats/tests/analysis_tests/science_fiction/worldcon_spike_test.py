@@ -1224,6 +1224,33 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         )
         self.assertEqual(146, summary["plan"]["story_count"])
 
+    def test_contract_canary_manifest_selects_exact_two_stories(self):
+        manifest = run_worldcon_spike.load_manifest(
+            run_worldcon_spike.pathlib.Path(
+                "experimental/science_fiction_analysis_trial/manifests/contract_canary_manifest.json"
+            )
+        )
+        stories = run_worldcon_spike.select_stories(
+            manifest, run_worldcon_spike.CANARY_MODE
+        )
+        self.assertEqual(
+            (
+                "mass_quantities/a_case_of_sunburn__fontenay",
+                "anderson/bell",
+            ),
+            tuple(story.story_id for story in stories),
+        )
+        summary = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=manifest.manifest_path,
+                output_root=self.root / "canary",
+                mode=run_worldcon_spike.CANARY_MODE,
+                dry_run=True,
+            )
+        )
+        self.assertEqual(2, summary["plan"]["story_count"])
+        self.assertEqual(2, summary["plan"]["max_stories"])
+
     def test_output_root_guard_rejects_protected_roots(self):
         protected = pathlib.Path(__file__).resolve().parents[4] / "corpora"
 

@@ -1,0 +1,14 @@
+{
+  "attempt": 1,
+  "backend_error": "TruncatedResponseError",
+  "effective_max_tokens": 4096,
+  "error_message": "OpenAI response for model 'gpt-oss:20b' was truncated at the max_tokens limit (4096) before the tool call for 'record_science_fiction_evidence' finished generating; its arguments may be incomplete or invalid JSON.",
+  "input_tokens": 11697,
+  "output_tokens": 4096,
+  "raw_content": "{\"content\": \"\", \"tool_calls\": []}",
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "title": "A Case of Sunburn"
+}

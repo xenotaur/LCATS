@@ -1,0 +1,66 @@
+{
+  "version": "worldcon-knight-novum-spike-manifest-v1",
+  "work_item": "WI-SF-0015",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "selection_note": "The canary is exactly one positive and one negative/adjacent control. Story hashes are computed by the preparation stage and recorded in each trial manifest and sidecar; this checkout must have the canonical corpora mounted before execution.",
+  "gates": {
+    "smoke": {
+      "max_stories": 3,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "stop_conditions": [
+        "any story fails structural sidecar assembly",
+        "any output writes outside the experiment output root"
+      ]
+    },
+    "sample": {
+      "max_stories": 10,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "stop_conditions": [
+        "smoke summary is absent or incomplete",
+        "paid backend requested without reviewed paid-run approval"
+      ]
+    },
+    "canary": {
+      "max_stories": 2,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "stop_conditions": [
+        "canonical corpora are unavailable",
+        "any story fails structural sidecar assembly",
+        "any output writes outside the experiment output root",
+        "local trial is not persisted before the next trial starts"
+      ]
+    },
+    "full": {
+      "max_stories": 146,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "requires_full_sample_approval": true,
+      "stop_conditions": [
+        "full-sample approval is absent",
+        "paid backend requested without reviewed paid-run approval",
+        "operator stop condition is reached"
+      ]
+    }
+  },
+  "canary_stories": [
+    {
+      "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+      "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+      "title": "A Case of Sunburn",
+      "selection_genre": "science fiction",
+      "sample_roles": ["canary", "expected_positive"]
+    },
+    {
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell",
+      "selection_genre": "fantasy",
+      "sample_roles": ["canary", "expected_negative_or_adjacent_control"]
+    }
+  ]
+}

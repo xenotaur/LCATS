@@ -1,0 +1,92 @@
+{
+  "backend_kind": "openai-compatible",
+  "code_commit": "2f0040f0a55c04481eb43927464ed938f79b6837",
+  "manifest_path": "experimental/science_fiction_analysis_trial/manifests/contract_canary_manifest.json",
+  "mode": "canary",
+  "model": "gpt-oss:20b",
+  "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1",
+  "plan": {
+    "approve_full_sample": false,
+    "approve_paid": false,
+    "backend_kind": "openai-compatible",
+    "base_url": "http://localhost:11434/v1",
+    "code_commit": "2f0040f0a55c04481eb43927464ed938f79b6837",
+    "estimated_cost_usd": 0.0,
+    "manifest_fingerprint": "8f674bd6c1745e97f354acaf10b44d116d271724dfedeeb59588d0c1ec8d5ce8",
+    "max_stories": 2,
+    "max_tokens": 4096,
+    "mode": "canary",
+    "model": "gpt-oss:20b",
+    "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1",
+    "paid_model_calls_authorized": false,
+    "resume": false,
+    "retry_policy": {
+      "backoff": "bounded_exponential_0.25_to_2.0_seconds",
+      "content_filter": "never",
+      "deterministic_validation": "never",
+      "transient_provider_or_network": "once",
+      "truncation": "once_with_doubled_max_tokens"
+    },
+    "story_count": 2,
+    "story_ids": [
+      "mass_quantities/a_case_of_sunburn__fontenay",
+      "anderson/bell"
+    ],
+    "temperature": 0.0
+  },
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "status": "failed",
+  "stories": [
+    {
+      "dominant_novum_id": null,
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 44919,
+      "knight_interval": {
+        "definite_count": 0,
+        "possible_count": 0,
+        "total_count": 7
+      },
+      "latency_seconds": 391.662,
+      "output_tokens": 10520,
+      "qualified_novum_count": 0,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0",
+      "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/mass_quantities/a_case_of_sunburn__fontenay/science-fiction.json",
+      "status": "complete",
+      "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+      "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+      "title": "A Case of Sunburn"
+    },
+    {
+      "dominant_novum_id": null,
+      "failure_kind": "InternalServerError",
+      "failure_message": "Error code: 500 - {'error': {'message': 'error parsing tool call: raw=\\'{\"evidence\":[{\"raw_id\":\"id1\",\"type\":\"scientific_or_technical_explanation\",\"quote\":\"the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.\",\"paragraph_ids\":[\"p00004\"],\"paraphrase\":\"Explanation attributing bell sound to an owl in a hollow tree.\",\"confidence\":0.95},{\"raw_id\":\"id2\",\"type\":\"inquiry_or_scientific_method\",\"quote\":\"he got the place of \\'Universal Bell-ringer\\', and wrote yearly a short treatise \\'On the Owl\\'; but everybody was just as wise as before.\",\"paragraph_ids\":[\"p00004\"],\"paraphrase\":\"Describes authoring a treatise to investigate bell origin.\",\"confidence\":0.9},{\"raw_id\":\"id3\",\"type\":\"character_reaction\",\"quote\":\"Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!\",\"paragraph_ids\":[\"p00007\"],\"paraphrase\":\"Children express disbelief about the bell\\'s existence.\",\"confidence\":0.9},{\"raw_id\":\"id4\",\"type\":\"temporal_or_spatial_displacement\",\"quote\":\"And he seized hold of the creeping-plants, and the roots of trees\u2014climbed up the moist stones where the water-snakes were writhing\u2026\",\"paragraph_ids\":[\"p00019\"],\"paraphrase\":\"King\\'s Son climbs higher ground into forest.\",\"confidence\":0.85},{\"raw_id\":\"id5\",\"type\":\"extrapolative_consequence\",\"quote\":\"I must and will find the bell, even if I am obliged to go to the end of the world.\",\"paragraph_ids\":[\"\\', err=unexpected end of JSON input', 'type': 'api_error', 'param': None, 'code': None}}",
+      "input_tokens": 0,
+      "knight_interval": null,
+      "latency_seconds": 573.37,
+      "output_tokens": 0,
+      "qualified_novum_count": null,
+      "quarantine_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_quarantine/run-57d9f6f59aa54a6bad88076a160edc0c/anderson__bell-bdac5ef3c713/story.json",
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/anderson__bell-bdac5ef3c713/sf_evidence-backend-error-attempt-2.json",
+      "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+      "sidecar_path": null,
+      "status": "failed",
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell"
+    }
+  ],
+  "totals": {
+    "complete": 1,
+    "failed": 1,
+    "input_tokens": 44919,
+    "latency_seconds": 965.032,
+    "output_tokens": 10520,
+    "stories": 2
+  },
+  "version": "worldcon-knight-novum-spike-summary-v1",
+  "work_item": "WI-SF-0015"
+}
