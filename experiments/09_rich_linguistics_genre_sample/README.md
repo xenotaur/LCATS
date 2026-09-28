@@ -50,7 +50,8 @@ without losing progress when you choose `Q` or press Escape. Escape is handled
 as a single-key pause while the label prompt is active. Use `R` to rewind
 to the immediately previous record visited in this session, or `G` to jump by
 1-based audit number or exact token key. Each record has an aligned, wrapped
-display headed by `AUDIT RECORD n/total: token`; saved values are also shown on
+display headed by `AUDIT RECORD n/total DISPOSITION: token`, with `Entry`,
+`Status`, `Guidance`, and `Input` sections; saved values are also shown on
 the input prompts. On a revisited record, press Enter at the label prompt to
 retain its saved disposition and label and continue. On a fresh record, a blank
 label prompt reprompts because there is no value to retain. A completed ledger
