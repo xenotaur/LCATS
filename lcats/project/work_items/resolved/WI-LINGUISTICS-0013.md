@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #456 (commit f320cace04ce1485e5d136c338e1c0fe20ce5ff5)."
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0013
 title: Improve interactive POS audit prompts and record display
 type: deliverable
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
