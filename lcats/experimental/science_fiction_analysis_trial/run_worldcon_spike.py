@@ -17,7 +17,7 @@ import subprocess
 import sys
 import time
 import uuid
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 from lcats.analysis.science_fiction import evidence
 from lcats.analysis.science_fiction import knight
@@ -378,6 +378,9 @@ def _run_story(
                 run_id=run_id,
                 log=log,
                 resume=options.resume,
+                validate_result=lambda _response, result: _build_evidence_set(
+                    prepared, result, backend=options.backend_kind
+                ),
             )
         )
         raw_response_path = evidence_raw_path
@@ -582,6 +585,7 @@ def _run_checkpointed_model_stage(
     run_id: str,
     log: run_log.RunLog | None,
     resume: bool,
+    validate_result: Callable[[llm_backend.BackendResponse, Any], None],
 ) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path, bool]:
     """Run a model stage, reusing a matching persisted response on resume."""
 
@@ -606,6 +610,13 @@ def _run_checkpointed_model_stage(
             run_id=run_id,
             log=log,
         )
+        try:
+            validate_result(response, tool_result)
+        except Exception as error:
+            error.raw_response_path = raw_path
+            error.input_tokens = response.input_tokens
+            error.output_tokens = response.output_tokens
+            raise
         return _checkpoint_response_data(
             response, tool_result, raw_path, stage=stage, run_id=run_id
         )
@@ -626,6 +637,27 @@ def _run_checkpointed_model_stage(
     response.source_run_id = data.get("source_run_id")
     response.source_code_commit = data.get("source_code_commit")
     raw_path = _stored_path(data["raw_response_path"])
+    try:
+        validate_result(response, data["tool_result"])
+    except Exception:
+        if not checkpointed.reused:
+            raise
+        checkpointed = pipeline.run_checkpointed_stage(
+            working_root=output_root,
+            item_id=_checkpoint_item_id(story),
+            stage=stage,
+            fingerprint=fingerprint,
+            materialize=materialize,
+            validate_reuse=lambda value: _valid_checkpoint_response(value, output_root),
+            allow_protected_root=options.allow_protected_root,
+            reuse_existing=False,
+        )
+        data = checkpointed.data
+        response = _response_from_checkpoint_data(data)
+        response.checkpoint_reused = False
+        response.source_run_id = data.get("source_run_id")
+        response.source_code_commit = data.get("source_code_commit")
+        raw_path = _stored_path(data["raw_response_path"])
     if log is not None and checkpointed.reused:
         log.event(
             "stage_reused",
@@ -1251,6 +1283,7 @@ def _run_knight_stage(
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
+    reused = False
     system_prompt = _knight_system_prompt()
     tool_schema = _knight_tool_schema()
     provenance = _provenance(
@@ -1276,6 +1309,22 @@ def _run_knight_stage(
             run_id=run_id,
             log=log,
             resume=options.resume,
+            validate_result=lambda response, result: knight.build_analysis(
+                analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                decisions=_knight_decisions(result, evidence_set),
+                provenance=_provenance(
+                    story=story,
+                    options=options,
+                    response=response,
+                    parent_evidence_set_id=evidence_set.evidence_set_id,
+                    system_prompt=system_prompt,
+                    tool_schema=tool_schema,
+                    run_id=run_id,
+                    rubric_version=models.KNIGHT_RUBRIC_VERSION,
+                ),
+            ),
         )
         if not isinstance(tool_result, dict):
             raise ValueError(
@@ -1362,8 +1411,44 @@ def _run_knight_stage(
             ),
             response,
             raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
-            False,
+            reused,
         )
+
+
+def _validate_suvin_result(
+    *,
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+    options: RunnerOptions,
+    response: llm_backend.BackendResponse,
+    result: Any,
+    run_id: str,
+    system_prompt: str,
+    tool_schema: dict[str, Any],
+) -> None:
+    if not isinstance(result, dict):
+        raise ValueError(f"{SUVIN_STAGE} tool_result must be an object")
+    candidates = _novum_candidates(result, evidence_set)
+    novum.build_analysis(
+        analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
+        story_hash=prepared.story_hash,
+        evidence_set=evidence_set,
+        candidates=candidates,
+        provenance=_provenance(
+            story=story,
+            options=options,
+            response=response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.SUVIN_RUBRIC_VERSION,
+        ),
+        dominant_novum_id=_dominant_novum_id(
+            result.get("dominant_novum_id"), candidates
+        ),
+    )
 
 
 def _run_suvin_stage(
@@ -1380,6 +1465,7 @@ def _run_suvin_stage(
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
+    reused = False
     system_prompt = _suvin_system_prompt()
     tool_schema = _suvin_tool_schema()
     provenance = _provenance(
@@ -1405,6 +1491,17 @@ def _run_suvin_stage(
             run_id=run_id,
             log=log,
             resume=options.resume,
+            validate_result=lambda response, result: _validate_suvin_result(
+                story=story,
+                prepared=prepared,
+                evidence_set=evidence_set,
+                options=options,
+                response=response,
+                result=result,
+                run_id=run_id,
+                system_prompt=system_prompt,
+                tool_schema=tool_schema,
+            ),
         )
         if not isinstance(tool_result, dict):
             raise ValueError(
@@ -1495,7 +1592,7 @@ def _run_suvin_stage(
             ),
             response,
             raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
-            False,
+            reused,
         )
 
 
