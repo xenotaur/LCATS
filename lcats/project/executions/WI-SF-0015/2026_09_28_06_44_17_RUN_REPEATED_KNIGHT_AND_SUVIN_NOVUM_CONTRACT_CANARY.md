@@ -2,10 +2,10 @@
 execution_id: 2026_09_28_06_44_17_RUN_REPEATED_KNIGHT_AND_SUVIN_NOVUM_CONTRACT_CANARY
 prompt_id: PROMPT(WI-SF-0015:RUN_REPEATED_KNIGHT_AND_SUVIN_NOVUM_CONTRACT_CANARY)[2026-09-28T06:16:56+00:00]
 work_item: WI-SF-0015
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/457
-commit: 
+commit: ce8e0d48af931a335eb0703a61e4da2c0d6a82d0
 created_at: 2026-09-28T06:44:17+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-SF-0015.md
