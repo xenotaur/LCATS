@@ -869,6 +869,16 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             )
         self.assertEqual("complete", second["status"])
         self.assertEqual(0, second_backend.calls)
+        self.assertEqual(0, second["totals"]["input_tokens"])
+        self.assertEqual(0, second["totals"]["output_tokens"])
+        second_data = sidecar.load_json(
+            pathlib.Path(second["stories"][0]["sidecar_path"])
+        )
+        self.assertTrue(
+            second_data["analyses"]["knight"][0]["provenance"]["generation_parameters"][
+                "reused_from_checkpoint"
+            ]
+        )
         self.assertTrue(
             pathlib.Path(second["stories"][0]["raw_response_path"]).exists()
         )
@@ -988,9 +998,27 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                     "model": "fake",
                     "tool_result": None,
                     "raw_response_path": str(self.root / "raw.json"),
-                }
+                },
+                self.root,
             )
         )
+
+    def test_checkpoint_response_rejects_artifact_outside_output_root(self):
+        outside = self.root.parent / "outside-raw.json"
+        outside.write_text("{}", encoding="utf-8")
+        try:
+            self.assertFalse(
+                run_worldcon_spike._valid_checkpoint_response(
+                    {
+                        "model": "fake",
+                        "tool_result": {},
+                        "raw_response_path": str(outside),
+                    },
+                    self.root,
+                )
+            )
+        finally:
+            outside.unlink()
 
     def test_truncation_retry_records_effective_token_limit_in_provenance(self):
         output_root = self.root / "truncation-provenance"

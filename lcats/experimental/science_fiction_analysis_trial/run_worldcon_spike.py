@@ -59,6 +59,8 @@ DEFAULT_RESULTS_ROOT = (
 DEFAULT_MODEL = "fake-worldcon-spike"
 DEFAULT_MAX_TOKENS = 4096
 TRUNCATION_RETRY_MULTIPLIER = 2
+RETRY_BACKOFF_SECONDS = 0.25
+RETRY_BACKOFF_MAX_SECONDS = 2.0
 DEFAULT_TEMPERATURE = 0.0
 FULL_SAMPLE_LIMIT = 146
 SMOKE_MODE = "smoke"
@@ -363,7 +365,7 @@ def _run_story(
         prepared = preparation.prepare_story_file(story_file)
         raw_response_dir = output_root / "_raw" / run_id / _checkpoint_item_id(story)
 
-        evidence_response, evidence_tool_result, evidence_raw_path = (
+        evidence_response, evidence_tool_result, evidence_raw_path, evidence_reused = (
             _run_checkpointed_model_stage(
                 stage=EVIDENCE_STAGE,
                 story=story,
@@ -379,27 +381,31 @@ def _run_story(
             )
         )
         raw_response_path = evidence_raw_path
-        input_tokens += evidence_response.input_tokens
-        output_tokens += evidence_response.output_tokens
+        if not evidence_reused:
+            input_tokens += evidence_response.input_tokens
+            output_tokens += evidence_response.output_tokens
         evidence_set = _build_evidence_set(
             prepared,
             evidence_tool_result,
             backend=options.backend_kind,
         )
-        knight_analysis, knight_response, knight_raw_path = _run_knight_stage(
-            story=story,
-            prepared=prepared,
-            evidence_set=evidence_set,
-            options=options,
-            active_backend=active_backend,
-            output_root=output_root,
-            run_id=run_id,
-            log=log,
+        knight_analysis, knight_response, knight_raw_path, knight_reused = (
+            _run_knight_stage(
+                story=story,
+                prepared=prepared,
+                evidence_set=evidence_set,
+                options=options,
+                active_backend=active_backend,
+                output_root=output_root,
+                run_id=run_id,
+                log=log,
+            )
         )
-        input_tokens += knight_response.input_tokens
-        output_tokens += knight_response.output_tokens
+        if not knight_reused:
+            input_tokens += knight_response.input_tokens
+            output_tokens += knight_response.output_tokens
 
-        suvin_analysis, suvin_response, suvin_raw_path = _run_suvin_stage(
+        suvin_analysis, suvin_response, suvin_raw_path, suvin_reused = _run_suvin_stage(
             story=story,
             prepared=prepared,
             evidence_set=evidence_set,
@@ -409,8 +415,9 @@ def _run_story(
             run_id=run_id,
             log=log,
         )
-        input_tokens += suvin_response.input_tokens
-        output_tokens += suvin_response.output_tokens
+        if not suvin_reused:
+            input_tokens += suvin_response.input_tokens
+            output_tokens += suvin_response.output_tokens
         _write_raw_artifact_index(
             output_root=output_root,
             story=story,
@@ -575,7 +582,7 @@ def _run_checkpointed_model_stage(
     run_id: str,
     log: run_log.RunLog | None,
     resume: bool,
-) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path]:
+) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path, bool]:
     """Run a model stage, reusing a matching persisted response on resume."""
 
     fingerprint = _model_stage_fingerprint(
@@ -587,7 +594,7 @@ def _run_checkpointed_model_stage(
     )
 
     def materialize() -> dict[str, Any]:
-        response, tool_result, raw_path = _run_model_stage(
+        response, tool_result, raw_path, _ = _run_model_stage(
             stage=stage,
             story=story,
             output_root=output_root,
@@ -607,12 +614,13 @@ def _run_checkpointed_model_stage(
         stage=stage,
         fingerprint=fingerprint,
         materialize=materialize,
-        validate_reuse=_valid_checkpoint_response,
+        validate_reuse=lambda data: _valid_checkpoint_response(data, output_root),
         allow_protected_root=options.allow_protected_root,
         reuse_existing=resume,
     )
     data = checkpointed.data
     response = _response_from_checkpoint_data(data)
+    response.checkpoint_reused = checkpointed.reused
     raw_path = _stored_path(data["raw_response_path"])
     if log is not None and checkpointed.reused:
         log.event(
@@ -623,7 +631,7 @@ def _run_checkpointed_model_stage(
             checkpoint_fingerprint=fingerprint["sha256"],
             raw_response_path=_display_path(raw_path),
         )
-    return response, data["tool_result"], raw_path
+    return response, data["tool_result"], raw_path, checkpointed.reused
 
 
 def _run_model_stage(
@@ -738,6 +746,12 @@ def _run_model_stage(
                         attempt=attempt,
                         max_tokens=max_tokens,
                     )
+                time.sleep(
+                    min(
+                        RETRY_BACKOFF_SECONDS * (2 ** (attempt - 2)),
+                        RETRY_BACKOFF_MAX_SECONDS,
+                    )
+                )
                 continue
             error.raw_response_path = raw_path
             _attach_usage(error, total_input_tokens, total_output_tokens, max_tokens)
@@ -769,10 +783,14 @@ def _run_model_stage(
             error.raw_response_path = raw_path
             error.input_tokens = response.input_tokens
             error.output_tokens = response.output_tokens
+            error.effective_max_tokens = getattr(
+                response, "effective_max_tokens", max_tokens
+            )
             raise
     if log is not None:
         log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
-    return response, tool_result, raw_path
+    response.checkpoint_reused = False
+    return response, tool_result, raw_path, False
 
 
 def _model_stage_fingerprint(
@@ -823,8 +841,15 @@ def _checkpoint_response_data(
     }
 
 
-def _valid_checkpoint_response(data: Any) -> bool:
+def _valid_checkpoint_response(data: Any, output_root: pathlib.Path) -> bool:
     raw_path = data.get("raw_response_path") if isinstance(data, dict) else None
+    raw_path_obj = pathlib.Path(raw_path) if isinstance(raw_path, str) else None
+    try:
+        contained = raw_path_obj is not None and raw_path_obj.resolve().is_relative_to(
+            output_root.resolve()
+        )
+    except FileNotFoundError:
+        contained = False
     return (
         isinstance(data, dict)
         and isinstance(data.get("model"), str)
@@ -832,8 +857,9 @@ def _valid_checkpoint_response(data: Any) -> bool:
         and isinstance(raw_path, str)
         # Older relative checkpoints are ambiguous across package/repository
         # roots; rematerialize them instead of guessing which artifact they mean.
-        and pathlib.Path(raw_path).is_absolute()
-        and pathlib.Path(raw_path).exists()
+        and raw_path_obj.is_absolute()
+        and contained
+        and raw_path_obj.exists()
     )
 
 
@@ -995,7 +1021,13 @@ def _write_raw_artifact_index(
             "run_id": run_id,
             "story_id": story.story_id,
             "stages": {
-                stage: str(stage_path.resolve())
+                stage: {
+                    "selected": str(stage_path.resolve()),
+                    "attempts": sorted(
+                        str(path.resolve())
+                        for path in stage_path.parent.glob(f"{stage}*.json")
+                    ),
+                }
                 for stage, stage_path in stage_paths.items()
             },
         },
@@ -1135,7 +1167,7 @@ def _run_knight_stage(
     output_root: pathlib.Path,
     run_id: str,
     log: run_log.RunLog | None,
-) -> tuple[models.KnightAnalysis, llm_backend.BackendResponse, pathlib.Path]:
+) -> tuple[models.KnightAnalysis, llm_backend.BackendResponse, pathlib.Path, bool]:
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
@@ -1152,7 +1184,7 @@ def _run_knight_stage(
         rubric_version=models.KNIGHT_RUBRIC_VERSION,
     )
     try:
-        response, tool_result, raw_path = _run_checkpointed_model_stage(
+        response, tool_result, raw_path, reused = _run_checkpointed_model_stage(
             stage=KNIGHT_STAGE,
             story=story,
             output_root=output_root,
@@ -1190,6 +1222,7 @@ def _run_knight_stage(
             ),
             response,
             raw_path,
+            reused,
         )
     except Exception as error:
         raw_path = getattr(error, "raw_response_path", raw_path)
@@ -1249,6 +1282,7 @@ def _run_knight_stage(
             ),
             response,
             raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
+            False,
         )
 
 
@@ -1262,7 +1296,7 @@ def _run_suvin_stage(
     output_root: pathlib.Path,
     run_id: str,
     log: run_log.RunLog | None,
-) -> tuple[models.SuvinNovumAnalysis, llm_backend.BackendResponse, pathlib.Path]:
+) -> tuple[models.SuvinNovumAnalysis, llm_backend.BackendResponse, pathlib.Path, bool]:
     response = _empty_response(options)
     tool_result: Any = None
     raw_path: pathlib.Path | None = None
@@ -1279,7 +1313,7 @@ def _run_suvin_stage(
         rubric_version=models.SUVIN_RUBRIC_VERSION,
     )
     try:
-        response, tool_result, raw_path = _run_checkpointed_model_stage(
+        response, tool_result, raw_path, reused = _run_checkpointed_model_stage(
             stage=SUVIN_STAGE,
             story=story,
             output_root=output_root,
@@ -1321,6 +1355,7 @@ def _run_suvin_stage(
             ),
             response,
             raw_path,
+            reused,
         )
     except Exception as error:
         raw_path = getattr(error, "raw_response_path", raw_path)
@@ -1380,6 +1415,7 @@ def _run_suvin_stage(
             ),
             response,
             raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
+            False,
         )
 
 
@@ -1600,6 +1636,9 @@ def _provenance(
             "max_tokens": getattr(response, "effective_max_tokens", None)
             or options.max_tokens,
             "temperature": options.temperature,
+            "reused_from_checkpoint": bool(
+                getattr(response, "checkpoint_reused", False)
+            ),
         },
         token_usage={
             "input": response.input_tokens,
@@ -2228,6 +2267,7 @@ def _plan(
         "retry_policy": {
             "truncation": "once_with_doubled_max_tokens",
             "transient_provider_or_network": "once",
+            "backoff": "bounded_exponential_0.25_to_2.0_seconds",
             "content_filter": "never",
             "deterministic_validation": "never",
         },

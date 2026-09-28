@@ -279,7 +279,9 @@ def read_checkpoint(
     Only working_root is consulted; source_root is never read here (see
     this module's docstring).
     """
-    path = checkpoint_path(working_root, item_id, stage)
+    canonical_root = pathlib.Path(working_root).resolve(strict=False)
+    path = checkpoint_path(canonical_root, item_id, stage)
+    _reject_symlinked_checkpoint_ancestors(path.parent, canonical_root)
     try:
         record = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError):
