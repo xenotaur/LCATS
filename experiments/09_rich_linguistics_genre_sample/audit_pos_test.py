@@ -208,8 +208,8 @@ class AuditPosTest(unittest.TestCase):
                 "pending", ledger["entries"][rows[1]["token_key"]]["disposition"]
             )
             text = output.getvalue()
-            self.assertIn("Audit record: 1/2", text)
-            self.assertIn("saved disposition: reviewed", text)
+            self.assertIn("AUDIT RECORD 1/2: Machine", text)
+            self.assertIn("Disposition   : reviewed", text)
 
     def test_interactive_goto_accepts_exact_token_key(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -230,7 +230,7 @@ class AuditPosTest(unittest.TestCase):
                         output=root / "scored.json",
                     )
                 )
-            self.assertIn("Audit record: 2/2", output.getvalue())
+            self.assertIn("AUDIT RECORD 2/2: runs", output.getvalue())
 
     def test_interactive_revisit_enter_retains_metadata(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -250,7 +250,7 @@ class AuditPosTest(unittest.TestCase):
                 }
             )
             audit_pos.write_json(ledger_path, ledger)
-            answers = iter(["", "", "n", "", "", "q"])
+            answers = iter(["", "", "g", "1", "", "", "", "q"])
             with mock.patch.object(builtins, "input", lambda _: next(answers)):
                 audit_pos.command_audit(
                     argparse.Namespace(
@@ -264,6 +264,154 @@ class AuditPosTest(unittest.TestCase):
             ]
             self.assertEqual("retain this", updated["notes"])
             self.assertEqual(["context"], updated["issue_codes"])
+
+    def test_interactive_blank_label_reprompts_on_fresh_record(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            output = io.StringIO()
+            answers = iter(["tester", "", "n", "", "", "q"])
+            with (
+                mock.patch.object(builtins, "input", lambda _: next(answers)),
+                contextlib.redirect_stdout(output),
+            ):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample, ledger=ledger_path, output=root / "scored.json"
+                    )
+                )
+            entry = audit_pos.load_ledger(ledger_path)["entries"][rows[0]["token_key"]]
+            self.assertEqual("reviewed", entry["disposition"])
+            self.assertIn("No saved label or disposition", output.getvalue())
+
+    def test_interactive_escape_pauses_without_recording(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            write_packet(sample)
+            answers = iter(["tester", "\x1b"])
+            with mock.patch.object(builtins, "input", lambda _: next(answers)):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample, ledger=ledger_path, output=root / "scored.json"
+                    )
+                )
+            ledger = audit_pos.load_ledger(ledger_path)
+            self.assertEqual(
+                "pending", next(iter(ledger["entries"].values()))["disposition"]
+            )
+
+    def test_record_display_aligns_fields_and_prompts_show_saved_values(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            rows = write_packet(sample)
+            ledger = audit_pos.new_ledger(rows, sample)
+            ledger["reviewer"] = "tester"
+            ledger["entries"][rows[0]["token_key"]].update(
+                {
+                    "disposition": "reviewed",
+                    "gold_upos": "NOUN",
+                    "notes": "saved note",
+                    "issue_codes": ["context"],
+                    "reviewer": "tester",
+                }
+            )
+            audit_pos.write_json(ledger_path, ledger)
+            output = io.StringIO()
+            answers = iter(["", "", "g", "1", "", "", "", "q"])
+            prompts: list[str] = []
+
+            def answer(prompt: str) -> str:
+                prompts.append(prompt)
+                return next(answers)
+
+            with (
+                mock.patch.object(builtins, "input", answer),
+                contextlib.redirect_stdout(output),
+            ):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample, ledger=ledger_path, output=root / "scored.json"
+                    )
+                )
+            text = output.getvalue()
+            self.assertIn("AUDIT RECORD 1/2: Machine", text)
+            self.assertTrue(
+                any(
+                    "Label [saved: reviewed/NOUN; Enter retain if saved]" in prompt
+                    for prompt in prompts
+                )
+            )
+            self.assertTrue(any("saved: saved note" in prompt for prompt in prompts))
+            self.assertTrue(any("saved: context" in prompt for prompt in prompts))
+            field_lines = [
+                line
+                for line in text.splitlines()
+                if line.startswith(("Record", "Token", "Key"))
+            ]
+            self.assertEqual({line.index(":") for line in field_lines}, {14})
+
+    def test_record_display_wraps_long_unbroken_values(self):
+        output = io.StringIO()
+        row = {
+            "text": "token",
+            "token_key": "x" * 100,
+            "story_id": "story",
+            "selection_genre": "genre",
+            "context": "context",
+            "machine_upos": "NOUN",
+            "lemma": "token",
+        }
+        entry = {
+            "disposition": "pending",
+            "gold_upos": None,
+            "notes": "none",
+            "issue_codes": [],
+        }
+        with contextlib.redirect_stdout(output):
+            audit_pos._print_record(row, entry, 0, 1)
+        key_lines = [
+            line
+            for line in output.getvalue().splitlines()
+            if line.startswith("Key") or line.strip().startswith("x")
+        ]
+        self.assertGreater(len(key_lines), 1)
+
+    @unittest.skipUnless(
+        audit_pos.termios is not None, "POSIX terminal APIs unavailable"
+    )
+    def test_prompt_label_escape_in_tty_restores_terminal(self):
+        stdin = mock.Mock()
+        stdin.isatty.return_value = True
+        stdin.fileno.return_value = 7
+        stdin.read.return_value = "\x1b"
+        with (
+            mock.patch.object(audit_pos.sys, "stdin", stdin),
+            mock.patch.object(audit_pos.termios, "tcgetattr", return_value=["saved"]),
+            mock.patch.object(audit_pos.termios, "tcsetattr") as restore,
+            mock.patch.object(audit_pos.tty, "setcbreak") as set_cbreak,
+        ):
+            self.assertEqual("\x1b", audit_pos._prompt_label("Label: "))
+        set_cbreak.assert_called_once_with(7)
+        restore.assert_called_once_with(7, audit_pos.termios.TCSADRAIN, ["saved"])
+
+    def test_prompt_label_escape_on_windows_tty(self):
+        stdin = mock.Mock()
+        stdin.isatty.return_value = True
+        msvcrt = mock.Mock()
+        msvcrt.getwch.return_value = "\x1b"
+        with (
+            mock.patch.object(audit_pos.sys, "stdin", stdin),
+            mock.patch.object(audit_pos.sys, "platform", "win32"),
+            mock.patch.object(audit_pos, "msvcrt", msvcrt),
+        ):
+            self.assertEqual("\x1b", audit_pos._prompt_label("Label: "))
+        msvcrt.getwch.assert_called_once_with()
 
     def test_interactive_first_rewind_and_invalid_goto_are_safe(self):
         with tempfile.TemporaryDirectory() as tmp:
