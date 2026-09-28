@@ -46,13 +46,17 @@ python experiments/09_rich_linguistics_genre_sample/audit_pos.py start
 For a guided, resumable session, use the interactive command instead. It
 stores the reviewer name in the ledger, shows one row and its context at a
 time, accepts `NOUN`, `PROPN`, `OTHER`, `uncertain`, or `blocked`, and pauses
-without losing progress when you choose `Q` or submit a blank command. Use
-`R` to rewind to the immediately previous record visited in this session, or
-`G` to jump by 1-based audit number or exact token key. Revisited records show
-their saved disposition, label, notes, and issue codes, and a completed ledger
-remains open for correction until you choose `Q`. If a ledger already exists,
-press Enter to keep its reviewer and answer `y` only if you intend to confirm
-a full restart; the second prompt requires typing `RESTART`:
+without losing progress when you choose `Q` or press Escape. Escape is handled
+as a single-key pause while the label prompt is active. Use `R` to rewind
+to the immediately previous record visited in this session, or `G` to jump by
+1-based audit number or exact token key. Each record has an aligned, wrapped
+display headed by `AUDIT RECORD n/total: token`; saved values are also shown on
+the input prompts. On a revisited record, press Enter at the label prompt to
+retain its saved disposition and label and continue. On a fresh record, a blank
+label prompt reprompts because there is no value to retain. A completed ledger
+remains open for correction until you choose `Q` or press Escape. If a ledger
+already exists, press Enter to keep its reviewer and answer `y` only if you
+intend to confirm a full restart; the second prompt requires typing `RESTART`:
 
 ```bash
 python experiments/09_rich_linguistics_genre_sample/audit_pos.py audit

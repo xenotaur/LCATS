@@ -11,6 +11,9 @@ import os
 import pathlib
 import sys
 import tempfile
+import termios
+import textwrap
+import tty
 from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -477,8 +480,16 @@ def _prompt_reviewer(existing: str | None) -> str:
         print("A reviewer name is required.")
 
 
+def _saved_text(value: str | None) -> str:
+    return value or "none"
+
+
 def _prompt_notes(existing: str | None) -> str | None:
-    suffix = " [Enter retain; CLEAR clear]" if existing else ""
+    suffix = (
+        f" [saved: {_saved_text(existing)}; Enter retain; CLEAR clear]"
+        if existing
+        else " [saved: none; Enter empty; CLEAR clear]"
+    )
     raw = input(f"Notes (optional for reviewed rows){suffix}: ").strip()
     if raw == "":
         return None
@@ -488,7 +499,8 @@ def _prompt_notes(existing: str | None) -> str | None:
 
 
 def _prompt_issue_codes(existing: list[str] | None = None) -> list[str] | None:
-    suffix = " [Enter retain; CLEAR clear]" if existing else ""
+    saved = ", ".join(existing or []) or "none"
+    suffix = f" [saved: {saved}; Enter retain; CLEAR clear]"
     raw = input(
         "Issue codes (comma-separated; leave blank for none) ["
         + ", ".join(sorted(ISSUE_CODES))
@@ -505,6 +517,80 @@ def _prompt_issue_codes(existing: list[str] | None = None) -> list[str] | None:
     if invalid:
         raise ValueError("invalid issue code: " + ", ".join(invalid))
     return codes
+
+
+def _saved_choice(entry: dict[str, Any]) -> str | None:
+    disposition = entry.get("disposition")
+    if disposition == "reviewed":
+        return {"NOUN": "n", "PROPN": "p", "OTHER": "o"}.get(entry.get("gold_upos"))
+    return {"uncertain": "u", "blocked": "b"}.get(disposition)
+
+
+def _print_field(label: str, value: str, *, width: int = 88) -> None:
+    label_width = 13
+    prefix = f"{label:<{label_width}} : "
+    continuation = " " * len(prefix)
+    available = max(20, width - len(prefix))
+    lines = textwrap.wrap(
+        value or "none",
+        width=available,
+        initial_indent=prefix,
+        subsequent_indent=continuation,
+        break_long_words=True,
+        break_on_hyphens=False,
+    )
+    for line in lines or [prefix]:
+        print(line)
+
+
+def _print_record(
+    row: dict[str, str], entry: dict[str, Any], row_index: int, total: int
+) -> None:
+    print(f"\nAUDIT RECORD {row_index + 1}/{total}: {row['text']}\n")
+    _print_field("Record", f"{row_index + 1}/{total}")
+    _print_field("Token", row["text"])
+    _print_field("Key", row["token_key"])
+    _print_field("Disposition", entry.get("disposition", "pending"))
+    _print_field("Label", entry.get("gold_upos") or "none")
+    _print_field("Notes", entry.get("notes") or "none")
+    _print_field("Issue codes", ", ".join(entry.get("issue_codes", [])) or "none")
+    _print_field("Story", row["story_id"])
+    _print_field("Genre", row["selection_genre"])
+    _print_field("Context", row["context"])
+    _print_field("Machine label", row["machine_upos"])
+    _print_field("Lemma", row["lemma"])
+    print("\nGuidance:")
+    for item in audit_guidance(row):
+        print(f"  - {item}")
+
+
+def _prompt_label(prompt: str) -> str:
+    """Read a label, allowing Escape to pause immediately in a terminal."""
+    if not sys.stdin.isatty():
+        return input(prompt)
+    print(prompt, end="", flush=True)
+    characters: list[str] = []
+    file_descriptor = sys.stdin.fileno()
+    settings = termios.tcgetattr(file_descriptor)
+    try:
+        tty.setcbreak(file_descriptor)
+        while True:
+            character = sys.stdin.read(1)
+            if character == "\x1b":
+                print()
+                return character
+            if character in {"\r", "\n"}:
+                print()
+                return "".join(characters)
+            if character in {"\x08", "\x7f"}:
+                if characters:
+                    characters.pop()
+                    print("\b \b", end="", flush=True)
+                continue
+            characters.append(character)
+            print(character, end="", flush=True)
+    finally:
+        termios.tcsetattr(file_descriptor, termios.TCSADRAIN, settings)
 
 
 def command_audit(args: argparse.Namespace) -> None:
@@ -566,32 +652,30 @@ def command_audit(args: argparse.Namespace) -> None:
         row = rows[current_index]
         row_index = current_index
         entry = ledger["entries"][row["token_key"]]
-        print(f"\nToken: {row['text']}    key: {row['token_key']}")
-        print(
-            f"Audit record: {row_index + 1}/{len(rows)}    "
-            f"saved disposition: {entry.get('disposition', 'pending')}    "
-            f"saved label: {entry.get('gold_upos') or 'none'}"
-        )
-        print(f"Saved notes: {entry.get('notes') or 'none'}")
-        print(
-            "Saved issue codes: " + (", ".join(entry.get("issue_codes", [])) or "none")
-        )
-        print(f"Story: {row['story_id']}    genre: {row['selection_genre']}")
-        print(f"Context: {row['context']}")
-        print(f"Machine label: {row['machine_upos']}    lemma: {row['lemma']}")
-        for item in audit_guidance(row):
-            print(f"Guidance: {item}")
+        _print_record(row, entry, row_index, len(rows))
+        saved_choice = _saved_choice(entry)
+        saved_label = entry.get("gold_upos") or "none"
+        saved_disposition = entry.get("disposition", "pending")
         choice = (
-            input(
-                "Label [N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, "
-                "[R]ewind, [G]oto, [Q]uit: "
+            _prompt_label(
+                f"Label [saved: {saved_disposition}/{saved_label}; Enter retain if saved] "
+                "[N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, "
+                "[R]ewind, [G]oto, [E]scape, [Q]uit: "
             )
             .strip()
             .lower()
         )
-        if choice in {"", "q", "quit"}:
+        if choice == "\x1b":
             print(f"paused; resume with the current row using {args.ledger}")
             return
+        if choice in {"q", "quit"}:
+            print(f"paused; resume with the current row using {args.ledger}")
+            return
+        if choice == "":
+            if saved_choice is None:
+                print("No saved label or disposition; choose N, P, O, U, or B.")
+                continue
+            choice = saved_choice
         if choice in {"r", "rewind"}:
             if len(visit_history) == 1:
                 print("No previous record in this audit session.")
@@ -629,7 +713,7 @@ def command_audit(args: argparse.Namespace) -> None:
             "b": ("blocked", None),
         }
         if choice not in dispositions:
-            print("Please choose N, P, O, U, B, R, G, or Q.")
+            print("Please choose N, P, O, U, B, R, G, E, or Q.")
             continue
         disposition, label = dispositions[choice]
         notes = _prompt_notes(entry.get("notes"))
