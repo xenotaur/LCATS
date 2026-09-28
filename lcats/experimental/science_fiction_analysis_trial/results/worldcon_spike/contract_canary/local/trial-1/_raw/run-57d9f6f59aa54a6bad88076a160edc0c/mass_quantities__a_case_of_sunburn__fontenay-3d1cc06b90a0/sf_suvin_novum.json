@@ -1,0 +1,32 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 10681,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1135,
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "{\"dominant_novum_id\":\"Egg\",\"novum_candidates\":[{\"id\":\"Egg\",\"novelty\":\"present\",\"cognitive_validation\":\"present\",\"narrative_hegemony\":\"present\"},{\"id\":\"Blue_Mist\",\"novelty\":\"present\",\"cognitive_validation\":\"present\",\"narrative_hegemony\":\"present\"}]}",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "dominant_novum_id": "Egg",
+    "novum_candidates": [
+      {
+        "cognitive_validation": "present",
+        "id": "Egg",
+        "narrative_hegemony": "present",
+        "novelty": "present"
+      },
+      {
+        "cognitive_validation": "present",
+        "id": "Blue_Mist",
+        "narrative_hegemony": "present",
+        "novelty": "present"
+      }
+    ]
+  }
+}

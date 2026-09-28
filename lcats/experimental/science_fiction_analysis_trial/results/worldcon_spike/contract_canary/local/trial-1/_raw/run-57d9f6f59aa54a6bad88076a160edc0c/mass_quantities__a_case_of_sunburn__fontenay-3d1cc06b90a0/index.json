@@ -1,0 +1,25 @@
+{
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_evidence-attempt-2.json",
+        "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_evidence-backend-error.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_evidence-attempt-2.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1/_raw/run-57d9f6f59aa54a6bad88076a160edc0c/mass_quantities__a_case_of_sunburn__fontenay-3d1cc06b90a0/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay"
+}

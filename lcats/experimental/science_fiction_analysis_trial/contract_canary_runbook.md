@@ -49,6 +49,22 @@ theoretical validation set.
    five total two-story trials.
 10. Write `contract_canary_report.md` and decide proceed, revise, or stop.
 
+The runner invocation for a local trial is:
+
+```bash
+OPENAI_API_KEY=ollama PYTHONPATH=src python \
+  experimental/science_fiction_analysis_trial/run_worldcon_spike.py \
+  --manifest experimental/science_fiction_analysis_trial/manifests/contract_canary_manifest.json \
+  --mode canary --backend openai-compatible \
+  --base-url http://localhost:11434/v1 --model gpt-oss:20b \
+  --output-root experimental/science_fiction_analysis_trial/results/worldcon_spike/contract_canary/local/trial-1 \
+  --max-failures 3
+```
+
+Change the trial output directory for each repeated attempt. The manifest's
+canary gate caps every invocation at two stories; it does not authorize paid
+calls.
+
 ## Fixture restriction
 
 The existing deterministic spike fixture emits positive Knight and N/C/H

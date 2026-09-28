@@ -1,0 +1,47 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 10844,
+  "model": "gpt-oss:20b",
+  "output_tokens": 462,
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "criterion_id": "criterion_1",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_2",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_3",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_4",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_5",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_6",
+        "status": "not_assessable"
+      },
+      {
+        "criterion_id": "criterion_7",
+        "status": "not_assessable"
+      }
+    ]
+  }
+}

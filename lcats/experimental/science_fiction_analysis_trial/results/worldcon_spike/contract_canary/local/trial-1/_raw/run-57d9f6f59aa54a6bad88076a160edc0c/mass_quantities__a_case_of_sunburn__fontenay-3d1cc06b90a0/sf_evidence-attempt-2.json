@@ -1,0 +1,91 @@
+{
+  "attempt": 2,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 11697,
+  "model": "gpt-oss:20b",
+  "output_tokens": 4827,
+  "run_id": "run-57d9f6f59aa54a6bad88076a160edc0c",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00184"
+        ],
+        "paraphrase": "Rebels take control of Mars City after a counter-attack.",
+        "quote": "\"Why,\" said Sir Stanrich, his mustache quirking mischievously, \"we counter-attacked. We came out of the base, defeated the Marscorp army there, drove across the desert to Mars City and took it.",
+        "raw_id": "e1"
+      },
+      {
+        "confidence": 0.95,
+        "paragraph_ids": [
+          "p00193"
+        ],
+        "paraphrase": "The Egg functions as a magnetic field amplifier similar to a lens concentrating light.",
+        "quote": "\"The Egg amplifies the effect of magnetic fields, the way a lens concentrates light rays,\" answered Sir Stanrich.",
+        "raw_id": "e2"
+      },
+      {
+        "confidence": 0.85,
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "Jonner examines personnel credentials to identify potential spy.",
+        "quote": "He studied the credentials each man had handed him on arrival.",
+        "raw_id": "e3"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00163"
+        ],
+        "paraphrase": "Spacecraft moves into orbit and overtakes the Egg.",
+        "quote": "The spaceship slid up orbit, overtaking the shining ovoid from which antennae sprouted like pins from a pin-cushion.",
+        "raw_id": "e4"
+      },
+      {
+        "confidence": 0.88,
+        "paragraph_ids": [
+          "p00146"
+        ],
+        "paraphrase": "The Egg's trajectory will bring it toward Earth; intercepting ships risk losing return to Mars.",
+        "quote": "The Egg, trailing far behind Mars now, would overtake the planet gradually as the pull of the sun sped it up, but it would pass Mars well to sunward in its plunge toward the orbit of Earth. Any ship that tried to intercept it from Mars now would fight increasing solar gravity and would run the risk of not getting back to Mars.",
+        "raw_id": "e5"
+      },
+      {
+        "confidence": 0.92,
+        "paragraph_ids": [
+          "p00195"
+        ],
+        "paraphrase": "Loss of protective mist causes severe burns and incapacitation of troops.",
+        "quote": "When the blue mist was stripped away completely this time, everyone on the surface was affected. Marscorp's troops were put out of action as an effective fighting force when they received severe burns over most of their bodies and were afflicted with acute conjunctivitis so badly they were half blinded.",
+        "raw_id": "e6"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Jonner reacts to approaching groundcar by taking cover with pistol.",
+        "quote": "Jonner's hand dropped to his pistol and he edged cautiously behind a big rock as another groundcar appeared among the dunes to the south and approached the little group of men.",
+        "raw_id": "e7"
+      },
+      {
+        "confidence": 0.85,
+        "paragraph_ids": [
+          "p00191"
+        ],
+        "paraphrase": "Contrast between protection offered by blue mist and vulnerability without it.",
+        "quote": "\"You see, only the blue mist of Mars protects its surface from the hard rays of the sun. Without it, we'd have no more protection than a naked man in space.\"",
+        "raw_id": "e8"
+      }
+    ]
+  }
+}
