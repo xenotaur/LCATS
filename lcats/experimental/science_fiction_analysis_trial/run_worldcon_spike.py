@@ -793,6 +793,9 @@ def _run_model_stage(
             raise
     if log is not None:
         log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
+    response.raw_input_tokens = (raw_response or response).input_tokens
+    response.raw_output_tokens = (raw_response or response).output_tokens
+    response.story_id = story.story_id
     response.checkpoint_reused = False
     return response, tool_result, raw_path, False
 
@@ -836,11 +839,18 @@ def _checkpoint_response_data(
 ) -> dict[str, Any]:
     return {
         "model": response.model,
+        "story_id": getattr(response, "story_id", None),
         "stage": stage,
         "source_run_id": run_id,
         "source_code_commit": _git_commit(),
         "input_tokens": response.input_tokens,
         "output_tokens": response.output_tokens,
+        "raw_input_tokens": getattr(
+            response, "raw_input_tokens", response.input_tokens
+        ),
+        "raw_output_tokens": getattr(
+            response, "raw_output_tokens", response.output_tokens
+        ),
         "effective_max_tokens": getattr(response, "effective_max_tokens", None),
         "cache_creation_input_tokens": response.cache_creation_input_tokens,
         "cache_read_input_tokens": response.cache_read_input_tokens,
@@ -882,6 +892,14 @@ def _valid_checkpoint_response(data: Any, output_root: pathlib.Path) -> bool:
         and isinstance(data.get("stage"), str)
         and isinstance(data.get("source_run_id"), str)
         and isinstance(data.get("source_code_commit"), str)
+        and isinstance(data.get("story_id"), str)
+        and data.get("story_id")
+        and all(
+            isinstance(data.get(name), int)
+            and not isinstance(data.get(name), bool)
+            and data.get(name) >= 0
+            for name in ("raw_input_tokens", "raw_output_tokens")
+        )
         and token_fields_valid
         and effective_limit_valid
         # Older relative checkpoints are ambiguous across package/repository
@@ -903,9 +921,13 @@ def _valid_raw_checkpoint_artifact(
     return (
         isinstance(raw, dict)
         and raw.get("stage") == checkpoint_data.get("stage")
+        and raw.get("run_id") == checkpoint_data.get("source_run_id")
+        and raw.get("story_id") == checkpoint_data.get("story_id")
+        and raw.get("model") == checkpoint_data.get("model")
         and isinstance(raw.get("tool_result"), dict)
-        and raw.get("input_tokens") == checkpoint_data.get("input_tokens")
-        and raw.get("output_tokens") == checkpoint_data.get("output_tokens")
+        and raw.get("tool_result") == checkpoint_data.get("tool_result")
+        and raw.get("input_tokens") == checkpoint_data.get("raw_input_tokens")
+        and raw.get("output_tokens") == checkpoint_data.get("raw_output_tokens")
         and raw.get("effective_max_tokens")
         == checkpoint_data.get("effective_max_tokens")
     )

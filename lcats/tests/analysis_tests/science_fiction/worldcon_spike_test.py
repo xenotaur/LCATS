@@ -763,6 +763,22 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         )
         self.assertEqual(8192, retry_payload["effective_max_tokens"])
 
+        resumed_backend = _UnexpectedBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=resumed_backend
+        ):
+            resumed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertEqual("complete", resumed["status"])
+        self.assertEqual(0, resumed_backend.calls)
+        self.assertEqual(0, resumed["totals"]["input_tokens"])
+
     def test_failed_truncation_preserves_effective_retry_limit(self):
         output_root = self.root / "failed-truncation-retry"
         backend = _AlwaysTruncatedBackend(run_worldcon_spike.KNIGHT_TOOL_NAME)
