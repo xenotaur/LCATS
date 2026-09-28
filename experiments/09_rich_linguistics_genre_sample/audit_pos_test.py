@@ -354,7 +354,7 @@ class AuditPosTest(unittest.TestCase):
                 for line in text.splitlines()
                 if line.startswith(("Record", "Token", "Key"))
             ]
-            self.assertEqual({line.index(":") for line in field_lines}, {13})
+            self.assertEqual({line.index(":") for line in field_lines}, {14})
 
     def test_record_display_wraps_long_unbroken_values(self):
         output = io.StringIO()
@@ -378,9 +378,27 @@ class AuditPosTest(unittest.TestCase):
         key_lines = [
             line
             for line in output.getvalue().splitlines()
-            if line.strip().startswith("x")
+            if line.startswith("Key") or line.strip().startswith("x")
         ]
         self.assertGreater(len(key_lines), 1)
+
+    @unittest.skipUnless(
+        audit_pos.termios is not None, "POSIX terminal APIs unavailable"
+    )
+    def test_prompt_label_escape_in_tty_restores_terminal(self):
+        stdin = mock.Mock()
+        stdin.isatty.return_value = True
+        stdin.fileno.return_value = 7
+        stdin.read.return_value = "\x1b"
+        with (
+            mock.patch.object(audit_pos.sys, "stdin", stdin),
+            mock.patch.object(audit_pos.termios, "tcgetattr", return_value=["saved"]),
+            mock.patch.object(audit_pos.termios, "tcsetattr") as restore,
+            mock.patch.object(audit_pos.tty, "setcbreak") as set_cbreak,
+        ):
+            self.assertEqual("\x1b", audit_pos._prompt_label("Label: "))
+        set_cbreak.assert_called_once_with(7)
+        restore.assert_called_once_with(7, audit_pos.termios.TCSADRAIN, ["saved"])
 
     def test_interactive_first_rewind_and_invalid_goto_are_safe(self):
         with tempfile.TemporaryDirectory() as tmp:

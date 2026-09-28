@@ -11,10 +11,15 @@ import os
 import pathlib
 import sys
 import tempfile
-import termios
 import textwrap
-import tty
 from typing import Any
+
+try:
+    import termios
+    import tty
+except ImportError:  # pragma: no cover - exercised on Windows
+    termios = None
+    tty = None
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "lcats" / "src"))
@@ -566,7 +571,7 @@ def _print_record(
 
 def _prompt_label(prompt: str) -> str:
     """Read a label, allowing Escape to pause immediately in a terminal."""
-    if not sys.stdin.isatty():
+    if not sys.stdin.isatty() or termios is None or tty is None:
         return input(prompt)
     print(prompt, end="", flush=True)
     characters: list[str] = []
@@ -660,7 +665,7 @@ def command_audit(args: argparse.Namespace) -> None:
             _prompt_label(
                 f"Label [saved: {saved_disposition}/{saved_label}; Enter retain if saved] "
                 "[N]OUN/[P]ROPN/[O]THER, [U]ncertain, [B]locked, "
-                "[R]ewind, [G]oto, [E]scape, [Q]uit: "
+                "[R]ewind, [G]oto, [Escape], [Q]uit: "
             )
             .strip()
             .lower()
@@ -713,7 +718,7 @@ def command_audit(args: argparse.Namespace) -> None:
             "b": ("blocked", None),
         }
         if choice not in dispositions:
-            print("Please choose N, P, O, U, B, R, G, E, or Q.")
+            print("Please choose N, P, O, U, B, R, G, Escape, or Q.")
             continue
         disposition, label = dispositions[choice]
         notes = _prompt_notes(entry.get("notes"))
