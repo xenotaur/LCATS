@@ -21,6 +21,11 @@ except ImportError:  # pragma: no cover - exercised on Windows
     termios = None
     tty = None
 
+try:
+    import msvcrt
+except ImportError:  # pragma: no cover - exercised on POSIX
+    msvcrt = None
+
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "lcats" / "src"))
 SAMPLE_PATH = pathlib.Path(__file__).parent / "results" / "pos_audit_sample.csv"
@@ -571,7 +576,27 @@ def _print_record(
 
 def _prompt_label(prompt: str) -> str:
     """Read a label, allowing Escape to pause immediately in a terminal."""
-    if not sys.stdin.isatty() or termios is None or tty is None:
+    if not sys.stdin.isatty():
+        return input(prompt)
+    if sys.platform == "win32" and msvcrt is not None:
+        print(prompt, end="", flush=True)
+        characters: list[str] = []
+        while True:
+            character = msvcrt.getwch()
+            if character == "\x1b":
+                print()
+                return character
+            if character in {"\r", "\n"}:
+                print()
+                return "".join(characters)
+            if character in {"\x08", "\x7f"}:
+                if characters:
+                    characters.pop()
+                    print("\b \b", end="", flush=True)
+                continue
+            characters.append(character)
+            print(character, end="", flush=True)
+    if termios is None or tty is None:
         return input(prompt)
     print(prompt, end="", flush=True)
     characters: list[str] = []

@@ -400,6 +400,19 @@ class AuditPosTest(unittest.TestCase):
         set_cbreak.assert_called_once_with(7)
         restore.assert_called_once_with(7, audit_pos.termios.TCSADRAIN, ["saved"])
 
+    def test_prompt_label_escape_on_windows_tty(self):
+        stdin = mock.Mock()
+        stdin.isatty.return_value = True
+        msvcrt = mock.Mock()
+        msvcrt.getwch.return_value = "\x1b"
+        with (
+            mock.patch.object(audit_pos.sys, "stdin", stdin),
+            mock.patch.object(audit_pos.sys, "platform", "win32"),
+            mock.patch.object(audit_pos, "msvcrt", msvcrt),
+        ):
+            self.assertEqual("\x1b", audit_pos._prompt_label("Label: "))
+        msvcrt.getwch.assert_called_once_with()
+
     def test_interactive_first_rewind_and_invalid_goto_are_safe(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

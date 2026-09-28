@@ -3,9 +3,9 @@ execution_id: 2026_09_28_06_34_46_WI_LINGUISTICS_0013_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0013_SELFREVIEW)[2026-09-28T06:34:39+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
-pr: 
-commit: 
+rerun_of:
+pr:
+commit:
 created_at: 2026-09-28T06:34:46+00:00
 ---
 
