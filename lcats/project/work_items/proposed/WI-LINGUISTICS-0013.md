@@ -44,6 +44,7 @@ required_evidence:
   - test_output
   - validation_output
   - lrh_validate
+  - manual_review
 artifacts_expected:
   - experiments/09_rich_linguistics_genre_sample/audit_pos.py
   - experiments/09_rich_linguistics_genre_sample/audit_pos_test.py
