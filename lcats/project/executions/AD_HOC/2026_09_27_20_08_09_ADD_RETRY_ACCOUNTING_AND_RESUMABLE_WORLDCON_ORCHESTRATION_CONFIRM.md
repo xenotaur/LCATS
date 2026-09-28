@@ -2,10 +2,10 @@
 execution_id: 2026_09_27_20_08_09_ADD_RETRY_ACCOUNTING_AND_RESUMABLE_WORLDCON_ORCHESTRATION_CONFIRM
 prompt_id: PROMPT(AD_HOC:ADD_RETRY_ACCOUNTING_AND_RESUMABLE_WORLDCON_ORCHESTRATION_CONFIRM)[2026-09-27T20:07:51+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_27_20_02_47_ADD_RETRY_ACCOUNTING_AND_RESUMABLE_WORLDCON_ORCHESTRATION
 pr: https://github.com/xenotaur/LCATS/pull/453
-commit: 98ecdec303a3b7688b4875f1646a14f372253a00
+commit: 3abda6f9f1c21b25390829f5b96722c18ea7be33
 created_at: 2026-09-27T20:08:09+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/453

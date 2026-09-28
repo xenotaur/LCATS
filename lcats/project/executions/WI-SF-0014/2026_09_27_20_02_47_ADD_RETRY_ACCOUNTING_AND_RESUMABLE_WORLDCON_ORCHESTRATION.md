@@ -2,10 +2,10 @@
 execution_id: 2026_09_27_20_02_47_ADD_RETRY_ACCOUNTING_AND_RESUMABLE_WORLDCON_ORCHESTRATION
 prompt_id: PROMPT(WI-SF-0014:ADD_RETRY_ACCOUNTING_AND_RESUMABLE_WORLDCON_ORCHESTRATION)[2026-09-27T19:41:24+00:00]
 work_item: WI-SF-0014
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/453
-commit: 316c97ca
+commit: 3abda6f9f1c21b25390829f5b96722c18ea7be33
 created_at: 2026-09-27T20:02:47+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-SF-0014.md
