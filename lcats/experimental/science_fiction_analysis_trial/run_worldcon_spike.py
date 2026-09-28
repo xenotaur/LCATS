@@ -791,6 +791,15 @@ def _run_model_stage(
                 response, "effective_max_tokens", max_tokens
             )
             raise
+        raw_path = _write_raw_response(
+            output_root=output_root,
+            story=story,
+            response=raw_response or response,
+            tool_result=tool_result,
+            stage=stage,
+            run_id=run_id,
+            attempt=attempt,
+        )
     if log is not None:
         log.event("stage_end", run_id=run_id, story_id=story.story_id, stage=stage)
     response.raw_input_tokens = (raw_response or response).input_tokens

@@ -611,6 +611,24 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             3,
             len(tuple(raw_root.glob("sf_*.json"))),
         )
+        evidence_raw = json.loads(
+            (raw_root / "sf_evidence.json").read_text(encoding="utf-8")
+        )
+        self.assertIsInstance(evidence_raw["tool_result"], dict)
+        resumed_backend = _UnexpectedBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=resumed_backend
+        ):
+            resumed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertEqual("complete", resumed["status"])
+        self.assertEqual(0, resumed_backend.calls)
         events = [
             json.loads(line)["event"]
             for line in (output_root / "worldcon_spike_run_log.jsonl")
