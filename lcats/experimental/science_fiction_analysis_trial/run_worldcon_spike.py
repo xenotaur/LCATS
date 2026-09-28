@@ -606,7 +606,9 @@ def _run_checkpointed_model_stage(
             run_id=run_id,
             log=log,
         )
-        return _checkpoint_response_data(response, tool_result, raw_path)
+        return _checkpoint_response_data(
+            response, tool_result, raw_path, stage=stage, run_id=run_id
+        )
 
     checkpointed = pipeline.run_checkpointed_stage(
         working_root=output_root,
@@ -621,6 +623,8 @@ def _run_checkpointed_model_stage(
     data = checkpointed.data
     response = _response_from_checkpoint_data(data)
     response.checkpoint_reused = checkpointed.reused
+    response.source_run_id = data.get("source_run_id")
+    response.source_code_commit = data.get("source_code_commit")
     raw_path = _stored_path(data["raw_response_path"])
     if log is not None and checkpointed.reused:
         log.event(
@@ -826,9 +830,15 @@ def _checkpoint_response_data(
     response: llm_backend.BackendResponse,
     tool_result: Any,
     raw_path: pathlib.Path,
+    *,
+    stage: str,
+    run_id: str,
 ) -> dict[str, Any]:
     return {
         "model": response.model,
+        "stage": stage,
+        "source_run_id": run_id,
+        "source_code_commit": _git_commit(),
         "input_tokens": response.input_tokens,
         "output_tokens": response.output_tokens,
         "effective_max_tokens": getattr(response, "effective_max_tokens", None),
@@ -844,6 +854,20 @@ def _checkpoint_response_data(
 def _valid_checkpoint_response(data: Any, output_root: pathlib.Path) -> bool:
     raw_path = data.get("raw_response_path") if isinstance(data, dict) else None
     raw_path_obj = pathlib.Path(raw_path) if isinstance(raw_path, str) else None
+    token_fields_valid = isinstance(data, dict) and all(
+        isinstance(data.get(name), int)
+        and not isinstance(data.get(name), bool)
+        and data.get(name) >= 0
+        for name in ("input_tokens", "output_tokens")
+    )
+    effective_limit = (
+        data.get("effective_max_tokens") if isinstance(data, dict) else None
+    )
+    effective_limit_valid = effective_limit is None or (
+        isinstance(effective_limit, int)
+        and not isinstance(effective_limit, bool)
+        and effective_limit > 0
+    )
     try:
         contained = raw_path_obj is not None and raw_path_obj.resolve().is_relative_to(
             output_root.resolve()
@@ -855,11 +879,35 @@ def _valid_checkpoint_response(data: Any, output_root: pathlib.Path) -> bool:
         and isinstance(data.get("model"), str)
         and isinstance(data.get("tool_result"), dict)
         and isinstance(raw_path, str)
+        and isinstance(data.get("stage"), str)
+        and isinstance(data.get("source_run_id"), str)
+        and isinstance(data.get("source_code_commit"), str)
+        and token_fields_valid
+        and effective_limit_valid
         # Older relative checkpoints are ambiguous across package/repository
         # roots; rematerialize them instead of guessing which artifact they mean.
         and raw_path_obj.is_absolute()
         and contained
         and raw_path_obj.is_file()
+        and _valid_raw_checkpoint_artifact(raw_path_obj, data)
+    )
+
+
+def _valid_raw_checkpoint_artifact(
+    raw_path: pathlib.Path, checkpoint_data: dict[str, Any]
+) -> bool:
+    try:
+        raw = json.loads(raw_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        return False
+    return (
+        isinstance(raw, dict)
+        and raw.get("stage") == checkpoint_data.get("stage")
+        and isinstance(raw.get("tool_result"), dict)
+        and raw.get("input_tokens") == checkpoint_data.get("input_tokens")
+        and raw.get("output_tokens") == checkpoint_data.get("output_tokens")
+        and raw.get("effective_max_tokens")
+        == checkpoint_data.get("effective_max_tokens")
     )
 
 
@@ -1640,6 +1688,8 @@ def _provenance(
             "reused_from_checkpoint": bool(
                 getattr(response, "checkpoint_reused", False)
             ),
+            "source_run_id": getattr(response, "source_run_id", None),
+            "source_code_commit": getattr(response, "source_code_commit", None),
         },
         token_usage={
             "input": response.input_tokens,
