@@ -208,7 +208,7 @@ class AuditPosTest(unittest.TestCase):
                 "pending", ledger["entries"][rows[1]["token_key"]]["disposition"]
             )
             text = output.getvalue()
-            self.assertIn("AUDIT RECORD 1/2: Machine", text)
+            self.assertIn("AUDIT RECORD 1/2 REVIEWED: Machine", text)
             self.assertIn("Disposition   : reviewed", text)
 
     def test_interactive_goto_accepts_exact_token_key(self):
@@ -230,7 +230,7 @@ class AuditPosTest(unittest.TestCase):
                         output=root / "scored.json",
                     )
                 )
-            self.assertIn("AUDIT RECORD 2/2: runs", output.getvalue())
+            self.assertIn("AUDIT RECORD 2/2 PENDING: runs", output.getvalue())
 
     def test_interactive_revisit_enter_retains_metadata(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -340,7 +340,7 @@ class AuditPosTest(unittest.TestCase):
                     )
                 )
             text = output.getvalue()
-            self.assertIn("AUDIT RECORD 1/2: Machine", text)
+            self.assertIn("AUDIT RECORD 1/2 REVIEWED: Machine", text)
             self.assertTrue(
                 any(
                     "Label [saved: reviewed/NOUN; Enter retain if saved]" in prompt
@@ -355,6 +355,61 @@ class AuditPosTest(unittest.TestCase):
                 if line.startswith(("Record", "Token", "Key"))
             ]
             self.assertEqual({line.index(":") for line in field_lines}, {14})
+
+    def test_record_display_uses_current_record_values_and_sections(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            sample = pathlib.Path(tmp) / "sample.csv"
+            rows = write_packet(sample)
+            output = io.StringIO()
+            first_entry = {
+                "disposition": "reviewed",
+                "gold_upos": "NOUN",
+                "notes": "first note",
+                "issue_codes": ["context"],
+            }
+            second_entry = {
+                "disposition": "blocked",
+                "gold_upos": None,
+                "notes": "second note",
+                "issue_codes": ["segmentation"],
+            }
+            with contextlib.redirect_stdout(output):
+                audit_pos._print_record(rows[0], first_entry, 0, 2)
+                audit_pos._print_record(rows[1], second_entry, 1, 2)
+
+            text = output.getvalue()
+            self.assertIn("AUDIT RECORD 1/2 REVIEWED: Machine", text)
+            self.assertIn("AUDIT RECORD 2/2 BLOCKED: runs", text)
+            self.assertEqual(2, text.count("Entry:"))
+            self.assertEqual(2, text.count("Status:"))
+            self.assertEqual(2, text.count("Guidance:"))
+            first, second = text.split("AUDIT RECORD 2/2 BLOCKED: runs", maxsplit=1)
+            self.assertIn("Notes         : first note", first)
+            self.assertIn("Issue codes   : context", first)
+            self.assertIn("Notes         : second note", second)
+            self.assertIn("Issue codes   : segmentation", second)
+            self.assertNotIn("first note", second)
+
+    def test_input_section_is_printed_after_guidance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            sample = root / "sample.csv"
+            ledger_path = root / "ledger.json"
+            write_packet(sample)
+            output = io.StringIO()
+            answers = iter(["tester", "q"])
+            with (
+                mock.patch.object(builtins, "input", lambda _: next(answers)),
+                contextlib.redirect_stdout(output),
+            ):
+                audit_pos.command_audit(
+                    argparse.Namespace(
+                        sample=sample, ledger=ledger_path, output=root / "scored.json"
+                    )
+                )
+            text = output.getvalue()
+            self.assertIn("\nInput:\n", text)
+            self.assertLess(text.index("Guidance:"), text.index("Input:"))
 
     def test_record_display_wraps_long_unbroken_values(self):
         output = io.StringIO()

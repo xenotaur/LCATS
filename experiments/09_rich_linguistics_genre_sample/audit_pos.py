@@ -556,19 +556,28 @@ def _print_field(label: str, value: str, *, width: int = 88) -> None:
 def _print_record(
     row: dict[str, str], entry: dict[str, Any], row_index: int, total: int
 ) -> None:
-    print(f"\nAUDIT RECORD {row_index + 1}/{total}: {row['text']}\n")
+    record_number = row_index + 1
+    disposition = entry.get("disposition", "pending")
+    print("\n" + "-" * 80)
+    print(
+        f"AUDIT RECORD {record_number}/{total} {disposition.upper()}: {row['text']}\n"
+    )
+    print("Entry:")
     _print_field("Record", f"{row_index + 1}/{total}")
     _print_field("Token", row["text"])
-    _print_field("Key", row["token_key"])
-    _print_field("Disposition", entry.get("disposition", "pending"))
-    _print_field("Label", entry.get("gold_upos") or "none")
-    _print_field("Notes", entry.get("notes") or "none")
-    _print_field("Issue codes", ", ".join(entry.get("issue_codes", [])) or "none")
+    _print_field("Lemma", row["lemma"])
+    _print_field("Machine label", row["machine_upos"])
     _print_field("Story", row["story_id"])
     _print_field("Genre", row["selection_genre"])
     _print_field("Context", row["context"])
-    _print_field("Machine label", row["machine_upos"])
-    _print_field("Lemma", row["lemma"])
+    _print_field("Key", row["token_key"])
+
+    print("\nStatus:")
+    _print_field("Disposition", disposition)
+    _print_field("Label", entry.get("gold_upos") or "none")
+    _print_field("Notes", entry.get("notes") or "none")
+    _print_field("Issue codes", ", ".join(entry.get("issue_codes", [])) or "none")
+
     print("\nGuidance:")
     for item in audit_guidance(row):
         print(f"  - {item}")
@@ -686,6 +695,7 @@ def command_audit(args: argparse.Namespace) -> None:
         saved_choice = _saved_choice(entry)
         saved_label = entry.get("gold_upos") or "none"
         saved_disposition = entry.get("disposition", "pending")
+        print("\nInput:")
         choice = (
             _prompt_label(
                 f"Label [saved: {saved_disposition}/{saved_label}; Enter retain if saved] "
