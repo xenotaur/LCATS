@@ -33,13 +33,21 @@ theoretical validation set.
 3. Run three local-model semantic trials first. Keep `max_failures=3`. Fixture mode may be used for structural contract tests, but it does not count as a semantic canary unless its outputs are explicitly contrastive and case-specific.
 4. Inspect every trial's raw output, canonical output, normalization findings,
    quarantine records, checkpoints, sidecars, and JSONL logs.
-5. Stop and replan if any output silently invents evidence, silently drops an
+5. For a resumable run, pass `--resume`. The runner reuses a stage only when
+   the story input, prompt, schema, backend/model, generation settings, and
+   effective payload fingerprint match a successful checkpoint; failed or stale
+   checkpoints are recomputed.
+6. Apply the bounded retry policy: retry truncation once with doubled
+   `max_tokens`, retry transient provider/network failures once, never retry
+   content-filter failures, and never blindly retry deterministic validation
+   failures. Every attempt and its reported usage must remain on disk.
+7. Stop and replan if any output silently invents evidence, silently drops an
    invalid reference, or reports a complete analysis without seven Knight
    criteria and valid derived fields.
-6. If local trials are structurally healthy, prepare a paid approval package.
-7. After explicit approval, run no more than two Opus trials and no more than
+8. If local trials are structurally healthy, prepare a paid approval package.
+9. After explicit approval, run no more than two Opus trials and no more than
    five total two-story trials.
-8. Write `contract_canary_report.md` and decide proceed, revise, or stop.
+10. Write `contract_canary_report.md` and decide proceed, revise, or stop.
 
 ## Fixture restriction
 
@@ -70,6 +78,7 @@ validated sidecars, summary, and report. Outputs remain outside `data/`,
 - A malformed result is accepted without a recorded coercion or repair.
 - A present judgment lacks valid supporting evidence.
 - A content-filter or deterministic validation failure is automatically retried.
+- A retry occurs without a persisted attempt artifact and usage record.
 - The approved paid budget, trial count, or story count would be exceeded.
 - Provider-wide or infrastructure failures make the trial uninterpretable.
 

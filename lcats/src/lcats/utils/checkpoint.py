@@ -279,7 +279,11 @@ def read_checkpoint(
     Only working_root is consulted; source_root is never read here (see
     this module's docstring).
     """
-    path = checkpoint_path(working_root, item_id, stage)
+    canonical_root = pathlib.Path(working_root).resolve(strict=False)
+    path = checkpoint_path(canonical_root, item_id, stage)
+    _reject_symlinked_checkpoint_ancestors(path.parent, canonical_root)
+    if path.is_symlink():
+        return CheckpointResult(done=False)
     try:
         record = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError):
@@ -343,8 +347,10 @@ def write_checkpoint(
     if outcome not in _VALID_OUTCOMES:
         raise ValueError(f"outcome must be one of {_VALID_OUTCOMES}, got {outcome!r}")
 
-    target = checkpoint_path(working_root, item_id, stage)
+    canonical_root = pathlib.Path(working_root).resolve(strict=False)
+    target = checkpoint_path(canonical_root, item_id, stage)
     item_dir = target.parent
+    _reject_symlinked_checkpoint_ancestors(item_dir, canonical_root)
     paths.makedirs(item_dir)
 
     record = {"outcome": outcome, "fingerprint": fingerprint, "data": data}
@@ -360,3 +366,22 @@ def write_checkpoint(
         raise
 
     return target
+
+
+def _reject_symlinked_checkpoint_ancestors(
+    item_dir: pathlib.Path, working_root: PathLike
+) -> None:
+    """Refuse checkpoint writes through symlinked output directories."""
+
+    root = pathlib.Path(os.path.abspath(os.fspath(working_root)))
+    current = pathlib.Path(os.path.abspath(os.fspath(item_dir)))
+    if root.is_symlink():
+        raise ValueError(f"checkpoint working root must not be a symlink: {root}")
+    while True:
+        if current.is_symlink():
+            raise ValueError(f"checkpoint directory must not be a symlink: {current}")
+        if current == root:
+            return
+        if root not in current.parents:
+            raise ValueError(f"checkpoint path escapes working root: {item_dir}")
+        current = current.parent

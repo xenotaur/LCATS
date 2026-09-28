@@ -189,6 +189,75 @@ class WriteAndReadCheckpointTest(unittest.TestCase):
         self.assertEqual(result.outcome, "success")
         self.assertEqual(result.data, {"segments": ["a", "b"]})
 
+    def test_read_rejects_symlinked_checkpoint_file(self):
+        external = pathlib.Path(tempfile.mkdtemp())
+        try:
+            (external / "segment.json").write_text(
+                json.dumps(
+                    {
+                        "outcome": "success",
+                        "fingerprint": {"model": "x"},
+                        "data": {"segments": ["external"]},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            item_dir = self.working_root / "story_a"
+            item_dir.mkdir()
+            os.symlink(external / "segment.json", item_dir / "segment.json")
+            result = checkpoint.read_checkpoint(
+                self.working_root, "story_a", "segment", fingerprint={"model": "x"}
+            )
+            self.assertFalse(result.done)
+        finally:
+            (self.working_root / "story_a" / "segment.json").unlink()
+            (self.working_root / "story_a").rmdir()
+            (external / "segment.json").unlink()
+            external.rmdir()
+
+    def test_write_rejects_symlinked_item_directory(self):
+        external = pathlib.Path(tempfile.mkdtemp())
+        try:
+            os.symlink(
+                external, self.working_root / "story_a", target_is_directory=True
+            )
+            with self.assertRaisesRegex(ValueError, "must not be a symlink"):
+                checkpoint.write_checkpoint(
+                    self.working_root,
+                    "story_a",
+                    "segment",
+                    outcome="success",
+                    fingerprint={"model": "x"},
+                    data={"segments": ["a"]},
+                )
+            self.assertFalse((external / "segment.json").exists())
+        finally:
+            (self.working_root / "story_a").unlink()
+            external.rmdir()
+
+    def test_write_canonicalizes_symlinked_working_root_ancestor(self):
+        real_parent = pathlib.Path(tempfile.mkdtemp())
+        link_parent = self.working_root / "linked-parent"
+        try:
+            os.symlink(real_parent, link_parent, target_is_directory=True)
+            checkpoint.write_checkpoint(
+                link_parent / "results",
+                "story_a",
+                "segment",
+                outcome="success",
+                fingerprint={"model": "x"},
+                data={"segments": ["a"]},
+            )
+            self.assertTrue(
+                (real_parent / "results" / "story_a" / "segment.json").exists()
+            )
+        finally:
+            link_parent.unlink()
+            (real_parent / "results" / "story_a" / "segment.json").unlink()
+            (real_parent / "results" / "story_a").rmdir()
+            (real_parent / "results").rmdir()
+            real_parent.rmdir()
+
     def test_predicate_distinguishes_success_from_failure(self):
         """A recorded failure is NOT 'done' -- the governing design requires
         a failed stage to be recomputed on resume, not silently skipped

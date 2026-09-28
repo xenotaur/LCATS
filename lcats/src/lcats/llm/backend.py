@@ -69,6 +69,28 @@ class NoToolCallError(RuntimeError):
         self.raw_content = raw_content
 
 
+class TransientProviderError(RuntimeError):
+    """A provider or network failure that may be retried once.
+
+    Backends or test doubles can use this type when they can distinguish a
+    temporary transport/service failure from a deterministic model failure.
+    The experiment runner also recognizes common built-in transport errors.
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        input_tokens: int = 0,
+        output_tokens: int = 0,
+        raw_content: str = "",
+    ):
+        super().__init__(message)
+        self.input_tokens = input_tokens
+        self.output_tokens = output_tokens
+        self.raw_content = raw_content
+
+
 @dataclasses.dataclass
 class BackendResponse:
     """Normalized result of an LLMBackend.complete() call.

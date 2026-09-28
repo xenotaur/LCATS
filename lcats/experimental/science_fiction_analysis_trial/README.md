@@ -62,3 +62,12 @@ PYTHONPATH=src python experimental/science_fiction_analysis_trial/run_worldcon_s
 Paid backends require both a reviewed manifest/approval change and the explicit
 `--approve-paid` flag. Full 146-story mode additionally requires
 `--approve-full-sample` and a successful smoke summary.
+
+For an interrupted or partially failed run, add `--resume` with the same
+output root. Matching successful evidence, Knight, and Suvin stage
+checkpoints are reused only when their story, prompt, schema, backend/model,
+generation settings, and effective input fingerprint still match. Truncation
+is retried once with doubled `--max-tokens`; transient provider/network errors
+are retried once; content-filter and deterministic validation failures are not
+retried automatically. Each attempt is persisted under `_raw/` and its usage
+is included in the run totals.
