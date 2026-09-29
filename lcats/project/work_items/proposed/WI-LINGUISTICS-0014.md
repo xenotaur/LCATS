@@ -1,11 +1,11 @@
 ---
-resolution: Implemented and merged the WI-LINGUISTICS-0014 planning artifact in PR #461 (commit 7314eaa2); implementation remains a separate execution step.
+resolution: null
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0014
 title: Repair rich-linguistics POS tokenization and blocked-row handling
 type: deliverable
-status: resolved
+status: proposed
 owner: unassigned
 contributors: []
 assigned_agents: []
