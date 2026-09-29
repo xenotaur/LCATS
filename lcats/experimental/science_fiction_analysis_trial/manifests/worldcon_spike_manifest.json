@@ -3,7 +3,7 @@
   "work_item": "WI-SF-0012",
   "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
   "source_worldcon_manifest_git_commit": "1f85d9dc3a43b81300447eb5fd094c623cd9cd2d",
-  "source_worldcon_manifest_sha256": "c1425ce2102d7c5c97f7c639f5cd2f887f9c3983cc9d22b00645f7",
+  "source_worldcon_manifest_sha256": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
   "source_worldcon_manifest_expected_count": 146,
   "selection_note": "Deterministic smoke and sample subsets selected from WI-GENRE-0004's committed 146-story Worldcon sample. The full mode loads that source manifest directly and remains behind a separate explicit approval gate.",
   "gates": {

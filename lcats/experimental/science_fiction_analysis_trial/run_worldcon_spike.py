@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import hashlib
+import math
 import json
 import os
 import pathlib
@@ -136,7 +137,7 @@ class RunnerOptions:
     max_stories: int | None = None
     max_tokens: int = DEFAULT_MAX_TOKENS
     temperature: float = DEFAULT_TEMPERATURE
-    prior_spend_usd: float = 0.0
+    prior_spend_usd: float | None = None
     allow_protected_root: bool = False
     stop_on_first_failure: bool = False
     max_failures: int | None = None
@@ -259,7 +260,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             if _budget_would_be_exceeded(
                 gate, story_index + 1
             ) or _cumulative_budget_would_be_exceeded(
-                gate, options.prior_spend_usd, story_index + 1
+                gate, _effective_prior_spend(options), story_index + 1
             ):
                 stop_reason = "budget"
                 log.event(
@@ -269,7 +270,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                     processed=story_index,
                     budget_usd=gate.estimated_cost_usd,
                     cumulative_budget_usd=gate.cumulative_budget_usd,
-                    prior_spend_usd=options.prior_spend_usd,
+                    prior_spend_usd=_effective_prior_spend(options),
                 )
                 break
             log.event(
@@ -2376,8 +2377,15 @@ def _enforce_run_gate(
         raise ValueError("full mode requires --approve-full-sample")
     if _paid_call_requested(options, gate):
         _enforce_paid_run_gate(gate, options)
-        if gate.cumulative_budget_usd > 0 and options.prior_spend_usd < 0:
-            raise ValueError("prior cumulative spend must not be negative")
+        _verify_paid_source_manifest(manifest)
+        if options.mode != CANARY_MODE and options.prior_spend_usd is None:
+            raise ValueError(
+                "paid sample/full stages require --prior-spend-usd"
+            )
+        if options.prior_spend_usd is not None and (
+            not math.isfinite(options.prior_spend_usd) or options.prior_spend_usd < 0
+        ):
+            raise ValueError("prior cumulative spend must be finite and non-negative")
 
 
 def _paid_call_requested(options: RunnerOptions, gate: RunGate) -> bool:
@@ -2405,11 +2413,11 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
         raise ValueError("paid model calls require backend to match approved_backend")
     if gate.approved_model != options.model:
         raise ValueError("paid model calls require model to match approved_model")
-    if gate.estimated_cost_usd <= 0:
+    if not math.isfinite(gate.estimated_cost_usd) or gate.estimated_cost_usd <= 0:
         raise ValueError("paid model calls require positive estimated_cost_usd")
-    if gate.estimated_story_cost_usd <= 0:
+    if not math.isfinite(gate.estimated_story_cost_usd) or gate.estimated_story_cost_usd <= 0:
         raise ValueError("paid model calls require positive estimated_story_cost_usd")
-    if gate.cumulative_budget_usd <= 0:
+    if not math.isfinite(gate.cumulative_budget_usd) or gate.cumulative_budget_usd <= 0:
         raise ValueError("paid model calls require positive cumulative_budget_usd")
     if (
         gate.estimated_wall_clock_minutes is None
@@ -2420,6 +2428,34 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
         )
     if not gate.stop_conditions:
         raise ValueError("paid model calls require reviewed stop_conditions")
+
+
+def _verify_paid_source_manifest(manifest: SpikeManifest) -> None:
+    source_path = _repo_root() / manifest.source_worldcon_manifest
+    if not manifest.source_worldcon_manifest_git_commit:
+        raise ValueError("paid model calls require source manifest git commit")
+    if not manifest.source_worldcon_manifest_sha256:
+        raise ValueError("paid model calls require source manifest sha256")
+    if len(manifest.source_worldcon_manifest_sha256) != 64:
+        raise ValueError("source manifest sha256 must be 64 hexadecimal characters")
+    if not source_path.is_file():
+        raise ValueError(f"source manifest does not exist: {source_path}")
+    digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    if digest != manifest.source_worldcon_manifest_sha256:
+        raise ValueError("source manifest sha256 does not match its contents")
+    count = sum(1 for line in source_path.read_text(encoding="utf-8").splitlines() if line)
+    if count != manifest.source_worldcon_manifest_expected_count:
+        raise ValueError("source manifest story count does not match its declaration")
+    git_path = f"{manifest.source_worldcon_manifest_git_commit}:{manifest.source_worldcon_manifest}"
+    result = subprocess.run(
+        ["git", "cat-file", "-e", git_path],
+        cwd=_repo_root(),
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise ValueError("source manifest git commit does not contain the manifest")
 
 
 def _load_full_sample(manifest: SpikeManifest) -> tuple[SpikeStory, ...]:
@@ -2483,9 +2519,9 @@ def _summary(
                 * manifest.gates[options.mode].estimated_story_cost_usd,
                 6,
             ),
-            "prior_spend_usd": options.prior_spend_usd,
+            "prior_spend_usd": _effective_prior_spend(options),
             "cumulative_estimated_cost_usd": round(
-                options.prior_spend_usd
+                _effective_prior_spend(options)
                 + len(story_results)
                 * manifest.gates[options.mode].estimated_story_cost_usd,
                 6,
@@ -2529,7 +2565,7 @@ def _plan(
         "story_ids": [story.story_id for story in stories],
         "budget_usd": gate.estimated_cost_usd,
         "cumulative_budget_usd": gate.cumulative_budget_usd,
-        "prior_spend_usd": options.prior_spend_usd,
+        "prior_spend_usd": _effective_prior_spend(options),
         "estimated_story_cost_usd": gate.estimated_story_cost_usd,
     }
 
@@ -2549,6 +2585,10 @@ def _budget_would_be_exceeded(gate: RunGate, story_count: int) -> bool:
         and gate.estimated_story_cost_usd > 0
         and story_count * gate.estimated_story_cost_usd > gate.estimated_cost_usd
     )
+
+
+def _effective_prior_spend(options: RunnerOptions) -> float:
+    return 0.0 if options.prior_spend_usd is None else options.prior_spend_usd
 
 
 def _cumulative_budget_would_be_exceeded(
@@ -2630,6 +2670,11 @@ def _write_approval_snapshot(
         },
         "configuration": {
             "prompt_version": PROMPT_VERSION,
+            "prompt_sha256": {
+                "evidence": _hash_text(_evidence_system_prompt()),
+                "knight": _hash_text(_knight_system_prompt()),
+                "suvin": _hash_text(_suvin_system_prompt()),
+            },
             "rubric_versions": {
                 "knight": models.KNIGHT_RUBRIC_VERSION,
                 "suvin": models.SUVIN_RUBRIC_VERSION,
@@ -2640,11 +2685,35 @@ def _write_approval_snapshot(
                 "suvin": _hash_text(_stable_json(_suvin_tool_schema())),
             },
         },
+        "configuration_fingerprint": _hash_text(
+            _stable_json(
+                {
+                    "prompt_version": PROMPT_VERSION,
+                    "prompt_sha256": {
+                        "evidence": _hash_text(_evidence_system_prompt()),
+                        "knight": _hash_text(_knight_system_prompt()),
+                        "suvin": _hash_text(_suvin_system_prompt()),
+                    },
+                    "rubric_versions": {
+                        "knight": models.KNIGHT_RUBRIC_VERSION,
+                        "suvin": models.SUVIN_RUBRIC_VERSION,
+                    },
+                    "schema_sha256": {
+                        "evidence": _hash_text(_stable_json(_evidence_tool_schema())),
+                        "knight": _hash_text(_stable_json(_knight_tool_schema())),
+                        "suvin": _hash_text(_stable_json(_suvin_tool_schema())),
+                    },
+                }
+            )
+        ),
         "retry_policy": plan["retry_policy"],
+        "stop_conditions": list(manifest.gates[options.mode].stop_conditions),
         "restrictions": [
             "experiment-local outputs only",
             "no corpus sidecars",
             "no promotion commands",
+            "no production integration",
+            "no theoretical-accuracy or human-agreement claim",
         ],
         "user_authorization": "explicit staged paid-run authorization in task conversation",
         "decision": "pending",
@@ -2653,22 +2722,17 @@ def _write_approval_snapshot(
     path = output_root / "approval_snapshot.json"
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
-        immutable_fields = (
-            "manifest_fingerprint",
-            "code_commit",
-            "backend_kind",
-            "model",
-            "temperature",
-            "max_tokens",
-            "mode",
-            "story_ids",
-            "budget_usd",
-            "cumulative_budget_usd",
-            "prior_spend_usd",
-            "retry_policy",
-            "restrictions",
-        )
-        if any(existing.get(field) != snapshot[field] for field in immutable_fields):
+        immutable_existing = {
+            key: value
+            for key, value in existing.items()
+            if key not in {"run_id", "decision"}
+        }
+        immutable_snapshot = {
+            key: value
+            for key, value in snapshot.items()
+            if key not in {"run_id", "decision"}
+        }
+        if immutable_existing != immutable_snapshot:
             raise ValueError("existing approval_snapshot.json does not match this run")
         return path
     path.write_text(_stable_json(snapshot), encoding="utf-8")
@@ -2993,7 +3057,7 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     parser.add_argument("--max-tokens", type=int, default=DEFAULT_MAX_TOKENS)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
-    parser.add_argument("--prior-spend-usd", type=float, default=0.0)
+    parser.add_argument("--prior-spend-usd", type=float)
     return parser.parse_args(argv)
 
 

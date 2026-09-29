@@ -46,7 +46,10 @@ theoretical validation set.
    criteria and valid derived fields.
 8. If local trials are structurally healthy, have the agent resolve the paid
    stage fields from the user's explicit authorization and persist the
-   resulting `approval_snapshot.json` before any paid call.
+   resulting `approval_snapshot.json` before any paid call. For sample/full
+   stages, provide prior cumulative spend explicitly; the runner verifies the
+   pinned source manifest and records prompt/schema fingerprints and all stop
+   restrictions in the snapshot.
 9. After explicit approval, run no more than two Opus trials and no more than
    five total two-story trials.
 10. Write `contract_canary_report.md` and decide proceed, revise, or stop.

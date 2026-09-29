@@ -253,6 +253,39 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                     )
                 )
 
+    def test_paid_gate_rejects_missing_prior_spend_and_bad_source(self):
+        sample_manifest = self._manifest_with_gate(
+            run_worldcon_spike.SAMPLE_MODE,
+            requires_smoke_success=False,
+        )
+        with self.assertRaisesRegex(ValueError, "prior-spend-usd"):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=sample_manifest,
+                    output_root=self.root / "missing-prior",
+                    mode=run_worldcon_spike.SAMPLE_MODE,
+                    backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                    model="claude-opus-4-8",
+                    approve_paid=True,
+                )
+            )
+
+        bad_data = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        bad_data["source_worldcon_manifest_sha256"] = "0" * 64
+        bad_manifest = self.root / "bad-source-manifest.json"
+        bad_manifest.write_text(json.dumps(bad_data), encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "sha256"):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=bad_manifest,
+                    output_root=self.root / "bad-source",
+                    mode=run_worldcon_spike.CANARY_MODE,
+                    backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                    model="claude-opus-4-8",
+                    approve_paid=True,
+                )
+            )
+
     def test_budget_stop_preserves_completed_stories_and_records_decision(self):
         manifest_path = self._manifest_with_gate(
             run_worldcon_spike.SMOKE_MODE,

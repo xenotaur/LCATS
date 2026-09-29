@@ -64,6 +64,9 @@ manifest and the `--approve-paid` flag. The runner writes an
 `approval_snapshot.json` into the stage output root before the first paid
 call. The canary, sample, and full gates carry the approved stage budgets;
 the run summary records an operational decision after the stage completes.
+Paid sample/full invocations must also pass `--prior-spend-usd` with the
+estimated spend already used by earlier stages; the runner verifies the
+pinned source-manifest digest and count before writing the snapshot.
 Full 146-story mode additionally requires `--approve-full-sample` and a
 successful smoke summary.
 
