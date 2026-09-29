@@ -4,8 +4,8 @@ prompt_id: PROMPT(WI-SF-0016:WI_SF_0016)[2026-09-29T02:16:51+00:00]
 work_item: AD_HOC
 status: in_progress
 rerun_of: 
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/460
+commit: 983df3a2c034deba0cd6371a8209da508d096865
 created_at: 2026-09-29T02:29:33+00:00
 ---
 
