@@ -92,6 +92,8 @@ class RunGate:
     max_stories: int
     paid_model_calls_authorized: bool = False
     estimated_cost_usd: float = 0.0
+    estimated_story_cost_usd: float = 0.0
+    cumulative_budget_usd: float = 0.0
     requires_smoke_success: bool = False
     requires_full_sample_approval: bool = False
     approved_backend: str | None = None
@@ -111,6 +113,9 @@ class SpikeManifest:
     sample_stories: tuple[SpikeStory, ...]
     canary_stories: tuple[SpikeStory, ...]
     gates: dict[str, RunGate]
+    source_worldcon_manifest_git_commit: str | None = None
+    source_worldcon_manifest_sha256: str | None = None
+    source_worldcon_manifest_expected_count: int = FULL_SAMPLE_LIMIT
     version: str = MANIFEST_VERSION
 
 
@@ -131,6 +136,7 @@ class RunnerOptions:
     max_stories: int | None = None
     max_tokens: int = DEFAULT_MAX_TOKENS
     temperature: float = DEFAULT_TEMPERATURE
+    prior_spend_usd: float = 0.0
     allow_protected_root: bool = False
     stop_on_first_failure: bool = False
     max_failures: int | None = None
@@ -227,6 +233,15 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
     results: list[StoryResult] = []
     summary: dict[str, Any]
     failures = 0
+    stop_reason: str | None = None
+    if _paid_call_requested(options, manifest.gates[options.mode]):
+        _write_approval_snapshot(
+            output_root,
+            manifest=manifest,
+            options=options,
+            plan=plan,
+            run_id=run_id,
+        )
     with run_log.RunLog(
         output_root,
         filename="worldcon_spike_run_log.jsonl",
@@ -239,7 +254,24 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
         allow_protected_root=options.allow_protected_root,
     ) as log:
         active_backend = _make_backend(options)
-        for story in selected_stories:
+        for story_index, story in enumerate(selected_stories):
+            gate = manifest.gates[options.mode]
+            if _budget_would_be_exceeded(
+                gate, story_index + 1
+            ) or _cumulative_budget_would_be_exceeded(
+                gate, options.prior_spend_usd, story_index + 1
+            ):
+                stop_reason = "budget"
+                log.event(
+                    "run_stopped",
+                    run_id=run_id,
+                    reason="budget",
+                    processed=story_index,
+                    budget_usd=gate.estimated_cost_usd,
+                    cumulative_budget_usd=gate.cumulative_budget_usd,
+                    prior_spend_usd=options.prior_spend_usd,
+                )
+                break
             log.event(
                 "story_start", run_id=run_id, story_id=story.story_id, title=story.title
             )
@@ -271,6 +303,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
                     options.max_failures is not None
                     and failures >= options.max_failures
                 ):
+                    stop_reason = "max_failures"
                     log.event(
                         "run_stopped",
                         run_id=run_id,
@@ -285,6 +318,8 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             if all(item.status == "complete" for item in results_tuple)
             else "failed"
         )
+        if stop_reason == "budget":
+            status = "budget_stopped"
         summary = _summary(
             status=status,
             manifest=manifest,
@@ -293,6 +328,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
             plan=plan,
             results=results_tuple,
             run_id=run_id,
+            stop_reason=stop_reason,
         )
         _write_summary(output_root, summary)
         _write_report(output_root, summary)
@@ -316,13 +352,22 @@ def load_manifest(path: pathlib.Path) -> SpikeManifest:
     gates = {
         key: _load_gate(key, value) for key, value in data.get("gates", {}).items()
     }
-    for required in (SMOKE_MODE, SAMPLE_MODE, FULL_MODE):
+    for required in (SMOKE_MODE, SAMPLE_MODE, CANARY_MODE, FULL_MODE):
         if required not in gates:
             raise ValueError(f"manifest missing {required!r} gate")
     return SpikeManifest(
         manifest_path=manifest_path,
         work_item=_required_string(data, "work_item"),
         source_worldcon_manifest=_required_string(data, "source_worldcon_manifest"),
+        source_worldcon_manifest_git_commit=_optional_string(
+            data.get("source_worldcon_manifest_git_commit")
+        ),
+        source_worldcon_manifest_sha256=_optional_string(
+            data.get("source_worldcon_manifest_sha256")
+        ),
+        source_worldcon_manifest_expected_count=int(
+            data.get("source_worldcon_manifest_expected_count", FULL_SAMPLE_LIMIT)
+        ),
         smoke_stories=tuple(
             _load_story(item) for item in data.get("smoke_stories", ())
         ),
@@ -2331,9 +2376,13 @@ def _enforce_run_gate(
         raise ValueError("full mode requires --approve-full-sample")
     if _paid_call_requested(options, gate):
         _enforce_paid_run_gate(gate, options)
+        if gate.cumulative_budget_usd > 0 and options.prior_spend_usd < 0:
+            raise ValueError("prior cumulative spend must not be negative")
 
 
 def _paid_call_requested(options: RunnerOptions, gate: RunGate) -> bool:
+    if options.backend_kind == FAKE_BACKEND:
+        return False
     if options.backend_kind == ANTHROPIC_BACKEND:
         return True
     if options.backend_kind == OPENAI_BACKEND:
@@ -2358,6 +2407,10 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
         raise ValueError("paid model calls require model to match approved_model")
     if gate.estimated_cost_usd <= 0:
         raise ValueError("paid model calls require positive estimated_cost_usd")
+    if gate.estimated_story_cost_usd <= 0:
+        raise ValueError("paid model calls require positive estimated_story_cost_usd")
+    if gate.cumulative_budget_usd <= 0:
+        raise ValueError("paid model calls require positive cumulative_budget_usd")
     if (
         gate.estimated_wall_clock_minutes is None
         or gate.estimated_wall_clock_minutes <= 0
@@ -2398,12 +2451,14 @@ def _summary(
     plan: dict[str, Any],
     results: Iterable[StoryResult],
     run_id: str,
+    stop_reason: str | None = None,
 ) -> dict[str, Any]:
     story_results = tuple(results)
     return {
         "version": SUMMARY_VERSION,
         "run_id": run_id,
         "status": status,
+        "decision": _stage_decision(status, options.mode, story_results, stop_reason),
         "work_item": manifest.work_item,
         "mode": options.mode,
         "backend_kind": options.backend_kind,
@@ -2422,6 +2477,18 @@ def _summary(
             "latency_seconds": round(
                 sum(item.latency_seconds for item in story_results),
                 3,
+            ),
+            "estimated_cost_usd": round(
+                len(story_results)
+                * manifest.gates[options.mode].estimated_story_cost_usd,
+                6,
+            ),
+            "prior_spend_usd": options.prior_spend_usd,
+            "cumulative_estimated_cost_usd": round(
+                options.prior_spend_usd
+                + len(story_results)
+                * manifest.gates[options.mode].estimated_story_cost_usd,
+                6,
             ),
         },
         "stories": [item.to_dict() for item in story_results],
@@ -2460,6 +2527,10 @@ def _plan(
         "output_root": _display_path(output_root),
         "manifest_fingerprint": _manifest_fingerprint(manifest),
         "story_ids": [story.story_id for story in stories],
+        "budget_usd": gate.estimated_cost_usd,
+        "cumulative_budget_usd": gate.cumulative_budget_usd,
+        "prior_spend_usd": options.prior_spend_usd,
+        "estimated_story_cost_usd": gate.estimated_story_cost_usd,
     }
 
 
@@ -2467,6 +2538,140 @@ def _write_summary(output_root: pathlib.Path, summary: dict[str, Any]) -> pathli
     output_root.mkdir(parents=True, exist_ok=True)
     path = output_root / "worldcon_spike_summary.json"
     path.write_text(_stable_json(summary), encoding="utf-8")
+    return path
+
+
+def _budget_would_be_exceeded(gate: RunGate, story_count: int) -> bool:
+    """Reserve the configured worst-case story estimate before each call."""
+
+    return (
+        gate.estimated_cost_usd > 0
+        and gate.estimated_story_cost_usd > 0
+        and story_count * gate.estimated_story_cost_usd > gate.estimated_cost_usd
+    )
+
+
+def _cumulative_budget_would_be_exceeded(
+    gate: RunGate, prior_spend_usd: float, story_count: int
+) -> bool:
+    return (
+        gate.cumulative_budget_usd > 0
+        and prior_spend_usd + story_count * gate.estimated_story_cost_usd
+        > gate.cumulative_budget_usd
+    )
+
+
+def _stage_decision(
+    status: str,
+    mode: str,
+    results: tuple[StoryResult, ...],
+    stop_reason: str | None,
+) -> str:
+    """Return an operational continuation decision, not a quality claim."""
+
+    if status == "dry_run":
+        return "pending"
+    if not results:
+        return "stop_and_revise"
+    if stop_reason == "budget":
+        return "stop_for_budget"
+    complete = [item for item in results if item.status == "complete"]
+    if mode == CANARY_MODE:
+        positive = any(
+            (item.knight_interval or {}).get("definite_count", 0) > 0
+            or (item.qualified_novum_count or 0) > 0
+            for item in complete
+        )
+        if len(complete) == len(results) and positive:
+            return "proceed"
+        if complete:
+            return "proceed_with_limitations"
+        return "stop_and_revise"
+    if status == "complete":
+        return "proceed"
+    if complete:
+        return "proceed_with_limitations"
+    return "stop_and_revise"
+
+
+def _write_approval_snapshot(
+    output_root: pathlib.Path,
+    *,
+    manifest: SpikeManifest,
+    options: RunnerOptions,
+    plan: dict[str, Any],
+    run_id: str,
+) -> pathlib.Path:
+    """Persist the resolved approval before any paid provider call."""
+
+    snapshot = {
+        "version": "worldcon-paid-run-approval-snapshot-v1",
+        "run_id": run_id,
+        "work_item": manifest.work_item,
+        "manifest_path": _display_path(manifest.manifest_path),
+        "manifest_fingerprint": plan["manifest_fingerprint"],
+        "code_commit": plan["code_commit"],
+        "backend_kind": options.backend_kind,
+        "model": options.model,
+        "temperature": options.temperature,
+        "max_tokens": options.max_tokens,
+        "mode": options.mode,
+        "story_count": plan["story_count"],
+        "story_ids": plan["story_ids"],
+        "output_root": _display_path(output_root),
+        "budget_usd": plan["budget_usd"],
+        "cumulative_budget_usd": plan["cumulative_budget_usd"],
+        "prior_spend_usd": plan["prior_spend_usd"],
+        "source_manifest": {
+            "path": manifest.source_worldcon_manifest,
+            "git_commit": manifest.source_worldcon_manifest_git_commit,
+            "sha256": manifest.source_worldcon_manifest_sha256,
+            "story_count": manifest.source_worldcon_manifest_expected_count,
+        },
+        "configuration": {
+            "prompt_version": PROMPT_VERSION,
+            "rubric_versions": {
+                "knight": models.KNIGHT_RUBRIC_VERSION,
+                "suvin": models.SUVIN_RUBRIC_VERSION,
+            },
+            "schema_sha256": {
+                "evidence": _hash_text(_stable_json(_evidence_tool_schema())),
+                "knight": _hash_text(_stable_json(_knight_tool_schema())),
+                "suvin": _hash_text(_stable_json(_suvin_tool_schema())),
+            },
+        },
+        "retry_policy": plan["retry_policy"],
+        "restrictions": [
+            "experiment-local outputs only",
+            "no corpus sidecars",
+            "no promotion commands",
+        ],
+        "user_authorization": "explicit staged paid-run authorization in task conversation",
+        "decision": "pending",
+    }
+    output_root.mkdir(parents=True, exist_ok=True)
+    path = output_root / "approval_snapshot.json"
+    if path.exists():
+        existing = json.loads(path.read_text(encoding="utf-8"))
+        immutable_fields = (
+            "manifest_fingerprint",
+            "code_commit",
+            "backend_kind",
+            "model",
+            "temperature",
+            "max_tokens",
+            "mode",
+            "story_ids",
+            "budget_usd",
+            "cumulative_budget_usd",
+            "prior_spend_usd",
+            "retry_policy",
+            "restrictions",
+        )
+        if any(existing.get(field) != snapshot[field] for field in immutable_fields):
+            raise ValueError("existing approval_snapshot.json does not match this run")
+        return path
+    path.write_text(_stable_json(snapshot), encoding="utf-8")
     return path
 
 
@@ -2482,10 +2687,13 @@ def _write_report(output_root: pathlib.Path, summary: dict[str, Any]) -> pathlib
         f"- Backend: `{summary['backend_kind']}`",
         f"- Model: `{summary['model']}`",
         f"- Status: `{summary['status']}`",
+        f"- Decision: `{summary['decision']}`",
         f"- Stories complete: `{summary['totals']['complete']}/{summary['totals']['stories']}`",
         f"- Input tokens: `{summary['totals']['input_tokens']}`",
         f"- Output tokens: `{summary['totals']['output_tokens']}`",
         f"- Latency seconds: `{summary['totals']['latency_seconds']}`",
+        f"- Estimated cost USD: `{summary['totals']['estimated_cost_usd']}`",
+        f"- Cumulative estimated cost USD: `{summary['totals']['cumulative_estimated_cost_usd']}`",
         "",
         "## Go/No-Go Note",
         "",
@@ -2574,6 +2782,9 @@ def _load_gate(mode: str, data: dict[str, Any]) -> RunGate:
             data.get("paid_model_calls_authorized", False)
         ),
         estimated_cost_usd=float(data.get("estimated_cost_usd", 0.0)),
+        estimated_story_cost_usd=float(
+            data.get("estimated_story_cost_usd", 0.0)
+        ),
         requires_smoke_success=bool(data.get("requires_smoke_success", False)),
         requires_full_sample_approval=bool(
             data.get("requires_full_sample_approval", False)
@@ -2583,6 +2794,7 @@ def _load_gate(mode: str, data: dict[str, Any]) -> RunGate:
         estimated_wall_clock_minutes=_optional_float(
             data.get("estimated_wall_clock_minutes")
         ),
+        cumulative_budget_usd=float(data.get("cumulative_budget_usd", 0.0)),
         stop_conditions=tuple(data.get("stop_conditions", ())),
     )
 
@@ -2781,6 +2993,7 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     parser.add_argument("--max-tokens", type=int, default=DEFAULT_MAX_TOKENS)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
+    parser.add_argument("--prior-spend-usd", type=float, default=0.0)
     return parser.parse_args(argv)
 
 
@@ -2802,6 +3015,7 @@ def _options_from_args(args: argparse.Namespace) -> RunnerOptions:
         resume=args.resume,
         max_tokens=args.max_tokens,
         temperature=args.temperature,
+        prior_spend_usd=args.prior_spend_usd,
     )
 
 

@@ -206,6 +206,90 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual([], summary["stories"])
         self.assertFalse((output_root / "worldcon_spike_summary.json").exists())
 
+    def test_paid_canary_writes_approval_snapshot_and_decision(self):
+        output_root = self.root / "paid-canary"
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=run_worldcon_spike.DeterministicSpikeBackend(),
+        ):
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    mode=run_worldcon_spike.CANARY_MODE,
+                    backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                    model="claude-opus-4-8",
+                    approve_paid=True,
+                )
+            )
+
+        snapshot = json.loads(
+            (output_root / "approval_snapshot.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual("pending", snapshot["decision"])
+        self.assertEqual(5.0, snapshot["budget_usd"])
+        self.assertEqual(5.0, snapshot["cumulative_budget_usd"])
+        self.assertEqual(146, snapshot["source_manifest"]["story_count"])
+        self.assertIn("schema_sha256", snapshot["configuration"])
+        self.assertEqual("proceed", summary["decision"])
+
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=run_worldcon_spike.DeterministicSpikeBackend(),
+        ):
+            with self.assertRaisesRegex(ValueError, "does not match"):
+                run_worldcon_spike.run_spike(
+                    run_worldcon_spike.RunnerOptions(
+                        manifest_path=self.manifest_path,
+                        output_root=output_root,
+                        mode=run_worldcon_spike.CANARY_MODE,
+                        backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                        model="claude-opus-4-8",
+                        approve_paid=True,
+                        prior_spend_usd=1.0,
+                    )
+                )
+
+    def test_budget_stop_preserves_completed_stories_and_records_decision(self):
+        manifest_path = self._manifest_with_gate(
+            run_worldcon_spike.SMOKE_MODE,
+            estimated_cost_usd=3.0,
+            estimated_story_cost_usd=2.0,
+            cumulative_budget_usd=3.0,
+        )
+        summary = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=manifest_path,
+                output_root=self.root / "budget-stop",
+            )
+        )
+
+        self.assertEqual("budget_stopped", summary["status"])
+        self.assertEqual("stop_for_budget", summary["decision"])
+        self.assertEqual(1, summary["totals"]["complete"])
+
+    def test_cumulative_budget_stop_uses_prior_stage_spend(self):
+        manifest_path = self._manifest_with_gate(
+            run_worldcon_spike.SMOKE_MODE,
+            estimated_cost_usd=10.0,
+            estimated_story_cost_usd=2.0,
+            cumulative_budget_usd=10.0,
+        )
+        summary = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=manifest_path,
+                output_root=self.root / "cumulative-budget-stop",
+                prior_spend_usd=9.0,
+            )
+        )
+
+        self.assertEqual("budget_stopped", summary["status"])
+        self.assertEqual(0, summary["totals"]["complete"])
+        self.assertEqual(9.0, summary["totals"]["prior_spend_usd"])
+
     def test_fake_smoke_publishes_valid_sidecars_and_report(self):
         output_root = self.root / "smoke"
 
