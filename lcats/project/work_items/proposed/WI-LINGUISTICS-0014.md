@@ -16,7 +16,7 @@ related_roadmap:
 related_workstreams:
   - WS-COMPARATIVE-LEXICAL-VISUALIZATION
 related_design:
-  - project/design/proposals/proposed/comparative-lexical-visualization/00_proposal.md
+  - lcats/project/design/proposals/proposed/comparative-lexical-visualization/00_proposal.md
 depends_on:
   - WI-LINGUISTICS-0007
   - WI-LINGUISTICS-0013
@@ -132,14 +132,14 @@ than replaced: `lcats/src/lcats/analysis/event_role_world/nlp_backend.py`,
 
 ## Validation
 
-- `scripts/version tools`
-- `scripts/format --check --diff`
-- `scripts/lint`
-- `scripts/test`
+- (from `lcats/`): `scripts/version tools`
+- (from `lcats/`): `scripts/format --check --diff`
+- (from `lcats/`): `scripts/lint`
+- (from `lcats/`): `scripts/test`
 - Focused audit and linguistics tests
 - Regenerated-packet validation and fingerprint checks
-- `lrh validate`
-- `git diff --exit-code -- corpora experiments/07_linguistics_corpora`
+- (from `lcats/`): `lrh validate`
+- (from repository root): `git diff --exit-code -- corpora experiments/07_linguistics_corpora`
 
 ## Risk Notes
 

@@ -21,12 +21,12 @@ work_items:
   - WI-LINGUISTICS-0005
   - WI-LINGUISTICS-0006
   - WI-LINGUISTICS-0007
+  - WI-LINGUISTICS-0014
   - WI-VISUALIZE-0093
   - WI-LINGUISTICS-0008
   - WI-VISUALIZE-0095
   - WI-VISUALIZE-0094
   - WI-LINGUISTICS-0013
-  - WI-LINGUISTICS-0014
 exit_criteria:
   - A versioned comparison specification and selector engine produce deterministic aligned comparison tables with explicit universe, membership, metric, denominator, vocabulary, order, and provenance semantics
   - Mirrored-pair and commensurate reference-overlay figures are available through reusable Python APIs and a thin CLI without changing existing visualize defaults
@@ -108,11 +108,9 @@ figure production.
   surface/lemma/UPOS counts and denominators from v2 token details.
 - **WI-LINGUISTICS-0007 — 146-story rich linguistic pilot.** Run the balanced
   sample, audit noun-family POS quality, and measure runtime/storage.
-- **WI-VISUALIZE-0093 — POS-aware comparison and noun figures.** On a pilot go
-  result, integrate lexical artifacts and produce reviewed noun charts; on
-  defer/no-go, record the decision and required remediation without figures.
-- **WI-LINGUISTICS-0008 — Conditional full-corpus rich run.** Apply the pilot
-  gates and either run/validate the full corpus or record a no-go/defer result.
+- **WI-LINGUISTICS-0014 — Repair rich-linguistics POS tokenization and blocked-row handling.** Diagnose and repair malformed token boundaries, preserve the original audit evidence, and regenerate a provenance-linked pilot before POS-dependent work can proceed.
+- **WI-VISUALIZE-0093 — POS-aware comparison and noun figures.** After the pilot and tokenization repair authorize downstream work, integrate lexical artifacts and produce reviewed noun charts; on defer/no-go, record the decision and required remediation without figures.
+- **WI-LINGUISTICS-0008 — Conditional full-corpus rich run.** After the pilot and tokenization repair, apply the gates and either run/validate the full corpus or record a no-go/defer result.
 - **WI-VISUALIZE-0095 — Aligned multi-subset comparison figures.** Compose
   ordered panels such as `S1`, `S2`, `S3` or their universe-relative
   complements with shared vocabulary, ordering, scale, and provenance.
@@ -124,13 +122,16 @@ figure production.
 
 `WI-VISUALIZE-0091` and `WI-LINGUISTICS-0005` may start in parallel.
 `WI-VISUALIZE-0092` follows 0091; `WI-LINGUISTICS-0006` follows 0005; the
-sample pilot follows both linguistics items. POS integration follows the
-renderer, lexical artifact, and resolved pilot: it implements authorized
-figures after a go result or records an evidence-backed defer/no-go resolution.
-The conditional full-corpus decision follows the pilot but does not block the
-paper package. The multi-subset figure follows the comparison engine and
-two-series renderer. Final dogfooding follows the renderer, resolution of POS
-integration, and the multi-panel composer.
+sample pilot follows both linguistics foundations. Tokenization repair follows
+the pilot and `WI-LINGUISTICS-0013`, and must resolve before either POS
+integration or the conditional full-corpus decision can proceed. POS
+integration follows the renderer, lexical artifact, resolved pilot, and
+tokenization repair: it implements authorized figures after a go result or
+records an evidence-backed defer/no-go resolution. The conditional full-corpus
+decision follows the pilot and tokenization repair but does not block the paper
+package. The multi-subset figure follows the comparison engine and two-series
+renderer. Final dogfooding follows the renderer, resolution of POS integration,
+and the multi-panel composer.
 
 ## Exit Criteria
 
@@ -151,7 +152,7 @@ integration, and the multi-panel composer.
   from rejected data.
 - The full-corpus item resolves with either successful validated evidence or a
   documented, reviewable no-go/defer outcome.
-- All nine items are resolved without modifying existing command defaults or
+- All ten items are resolved without modifying existing command defaults or
   promoting generated linguistic sidecars into `corpora/` implicitly.
 
 ## Non-Goals
