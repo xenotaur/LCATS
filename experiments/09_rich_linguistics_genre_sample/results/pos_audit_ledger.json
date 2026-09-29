@@ -1,0 +1,1889 @@
+{
+  "schema_version": "rich-linguistics-pos-audit-ledger-v1",
+  "packet_schema_version": "rich-linguistics-pos-audit-v1",
+  "sample_path": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv",
+  "packet_fingerprint": "06972de734ba1965d278b4ae76e382b322c50cb90ac7045c90e62e0df6f6a0c9",
+  "row_count": 192,
+  "reviewer": "Anthony",
+  "entries": {
+    "mass_quantities/long_odds__haggard#g347": {
+      "token_key": "mass_quantities/long_odds__haggard#g347",
+      "row_fingerprint": "3072e42061d0a4497e2dea7fa3b3270f535f24e980f19bb54ffc576c428e0510",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g2196": {
+      "token_key": "mass_quantities/long_odds__haggard#g2196",
+      "row_fingerprint": "4891089e449aadcad0e638e7486a81124c25553d2e8991d28cc2b3833fb4cda2",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "o'clock is an adverb",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g2237": {
+      "token_key": "mass_quantities/long_odds__haggard#g2237",
+      "row_fingerprint": "888578f1e7dc2704d7f9cc8b5306b359f36ceff444408b1e7f24292ec2e0398d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "o'clock is an adverb",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g5545": {
+      "token_key": "mass_quantities/long_odds__haggard#g5545",
+      "row_fingerprint": "0aac4d55f6baf1c104a0ade23d707e0713511b1ef75f61aa50e441534f25d83b",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_red_fetish__long#g847": {
+      "token_key": "mass_quantities/the_red_fetish__long#g847",
+      "row_fingerprint": "9a5fdc6af9a0072fa0a1c5b2991db96e5c7f220604fc43c7eba5cd67550805a0",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g5148": {
+      "token_key": "mass_quantities/to_the_lights__norton#g5148",
+      "row_fingerprint": "91d45b1cfbd28a0e7a35654ff5d2bcf923fca8c5af62fbe0424d9a39eb97474c",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g7022": {
+      "token_key": "mass_quantities/to_the_lights__norton#g7022",
+      "row_fingerprint": "1dd4c9e225d63e3d43007cc668ef19990d955ac26b6789bb43a5bbbfc324e160",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g9452": {
+      "token_key": "mass_quantities/to_the_lights__norton#g9452",
+      "row_fingerprint": "a9ad4cfbcd68ed8ee16413ef87bdf4406818cdb4fca5ca03380caa1ea5d365ab",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g135": {
+      "token_key": "mass_quantities/long_odds__haggard#g135",
+      "row_fingerprint": "284a79427c1796d656d85f4213cc2c256e6d1fdafcfef9d080c3c1783f14f741",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g646": {
+      "token_key": "mass_quantities/long_odds__haggard#g646",
+      "row_fingerprint": "eb45fd0942d899452eb340fc21f70a93e82b32c4e0fed2b22bdf1edbefeeada1",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g3998": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g3998",
+      "row_fingerprint": "6a4da87fc384aec93348014578abeb0c14a8663c22430dc62d395c66070fff81",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_red_fetish__long#g1517": {
+      "token_key": "mass_quantities/the_red_fetish__long#g1517",
+      "row_fingerprint": "6dfb95e129660b167808e27ebf4069fe3639e32b412453451d361bef8fe98ab3",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_red_fetish__long#g3112": {
+      "token_key": "mass_quantities/the_red_fetish__long#g3112",
+      "row_fingerprint": "e0bc622dd9f6d2dae7cd22087451ef23116714e3d5326d41b8aefcbe0b9c38e5",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_red_fetish__long#g3324": {
+      "token_key": "mass_quantities/the_red_fetish__long#g3324",
+      "row_fingerprint": "9c465054e4654d18723bd4a052490eef7fdf307279b1626b8e176bc811d4d7a7",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g1409": {
+      "token_key": "mass_quantities/to_the_lights__norton#g1409",
+      "row_fingerprint": "0550063ce12fd17b02a2ae72435374ce51e1b3462de4b41110317a5585fd438a",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g2065": {
+      "token_key": "mass_quantities/to_the_lights__norton#g2065",
+      "row_fingerprint": "30591f0385de24b5116e0715152a8f7061a42c850d44c0f33378b6ac918b5a32",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g1952": {
+      "token_key": "mass_quantities/long_odds__haggard#g1952",
+      "row_fingerprint": "4cf0d879304d3d0cbe8edd1b811fe8f848a8a34ffa6d1e5dc174c15b20900dd7",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/long_odds__haggard#g7311": {
+      "token_key": "mass_quantities/long_odds__haggard#g7311",
+      "row_fingerprint": "a2974d2c10c38edfa74f8b06a997c03e936352ceca76ce3c1f293dde910f7806",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g215": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g215",
+      "row_fingerprint": "877a3dfa39a7929d292431b765e5fe2f6e92ebf10f8718a84f76985c9d23f51c",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g1107": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g1107",
+      "row_fingerprint": "3f3db00ed02688f583fcc0686633a238eef95d705820922eef76d51f602b594c",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_seven_missionaries__mcneile#g4021": {
+      "token_key": "mass_quantities/the_seven_missionaries__mcneile#g4021",
+      "row_fingerprint": "dcc47ad230cb78bbac7b820137d52f3d502a58556747f8e481f3344460a304e6",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_spring_of_a_lion__haggard#g1990": {
+      "token_key": "mass_quantities/the_spring_of_a_lion__haggard#g1990",
+      "row_fingerprint": "4102d7c48aa3f6e8390ad503c320d41ea4b1f5afba9f46a873770fcfa6425da2",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_spring_of_a_lion__haggard#g7511": {
+      "token_key": "mass_quantities/the_spring_of_a_lion__haggard#g7511",
+      "row_fingerprint": "2d1bffea8912af838542536c864e09a7c6daeb04d8bfb0147588cf56258b5816",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/to_the_lights__norton#g2175": {
+      "token_key": "mass_quantities/to_the_lights__norton#g2175",
+      "row_fingerprint": "464419023d9b57d36ad8d9a907d87ccd33cbc2e48682d7c852c2b6771e37fccc",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "anderson/bell#g1247": {
+      "token_key": "anderson/bell#g1247",
+      "row_fingerprint": "49453e8c7dde953cacb29144a3d67f5cf100abd95c8eb4e0a95dbff81da2666c",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/dream_of_little_tuk#g852": {
+      "token_key": "anderson/dream_of_little_tuk#g852",
+      "row_fingerprint": "ff895712aa0c7339f051778599f774b5c3eb97dbdfaf25828fbd12db105008c7",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/elderbush#g754": {
+      "token_key": "anderson/elderbush#g754",
+      "row_fingerprint": "da1df68246c09dca4843f203686f2a848329d23e0def0ffa6b27509f3373669b",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "anderson/old_house#g3176": {
+      "token_key": "anderson/old_house#g3176",
+      "row_fingerprint": "8de6cf059e48e968f1eb20da7e6f4817bb7b07c73e214e2d416416f7d4a4c7ca",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g5708": {
+      "token_key": "anderson/shoes_of_fortune#g5708",
+      "row_fingerprint": "71c4c741935faeb494507a7cef7e99a21c553ee81f6b35e740671903a4eabef8",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g9790": {
+      "token_key": "anderson/shoes_of_fortune#g9790",
+      "row_fingerprint": "5055c6ab4bea9d51ac29b40bf7d126a9ffb68337156dcb3b676505e9debf47c2",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g9887": {
+      "token_key": "anderson/shoes_of_fortune#g9887",
+      "row_fingerprint": "6f38115a6dd729e6c36f85145007c14c79a7fdfbf1f7efa8e2db772ddcf25ae9",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/snow_queen#g11270": {
+      "token_key": "anderson/snow_queen#g11270",
+      "row_fingerprint": "6c0dc69efde1e22e90b2fecda9f0c5a2b3eb89ff733fcb68e092760d5a4bf2cc",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/bell#g18": {
+      "token_key": "anderson/bell#g18",
+      "row_fingerprint": "eb851c6f6578b62d53ccc03b22cac6a56151c7b2ef33b1444c62555072d811f4",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/emperor_s_new_clothes#g1839": {
+      "token_key": "anderson/emperor_s_new_clothes#g1839",
+      "row_fingerprint": "812d7bce0ee6b0d7b928a132d4e4db7a953c59791c1b2d486041a858efb419ae",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/fir_tree#g4022": {
+      "token_key": "anderson/fir_tree#g4022",
+      "row_fingerprint": "8c8837fd4abe6a0d3bdd3255ca05bfd26e054eda9f20d3a86ae75f065886647d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/little_match_girl#g972": {
+      "token_key": "anderson/little_match_girl#g972",
+      "row_fingerprint": "688624ed7ff38d182175209fb70b51480d78ecfeeef39476f7fae3a2690c3dae",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g13393": {
+      "token_key": "anderson/shoes_of_fortune#g13393",
+      "row_fingerprint": "90bb1a4de39c7b9a421d9ca9a262abce7e30a8ce260f9e1338458faabbe30aa0",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g14295": {
+      "token_key": "anderson/shoes_of_fortune#g14295",
+      "row_fingerprint": "1555bb8c126da45bca56506f03686186d6ef87ae3ad6bc61945ed53a5281a674",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/snow_queen#g1295": {
+      "token_key": "anderson/snow_queen#g1295",
+      "row_fingerprint": "e5ea7fbc345a14e40e5ba274bcdad8eb1e974c1f836a4b4838892f101300347b",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/snow_queen#g1305": {
+      "token_key": "anderson/snow_queen#g1305",
+      "row_fingerprint": "07d0196b3d6049181a4e5c1072add54aaf3d9cdb7c62b9e362c3085cc2b5a89e",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/happy_family#g475": {
+      "token_key": "anderson/happy_family#g475",
+      "row_fingerprint": "d206add57b0f630a9c35858fe876f32020d38e75d5cee6b5ff1c516512dd3eea",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "not a proper name",
+      "reviewer": "Anthony"
+    },
+    "anderson/happy_family#g855": {
+      "token_key": "anderson/happy_family#g855",
+      "row_fingerprint": "9b78efceea545010f02ed28f83db3a2d37e99da46314212dd8ea7a24fe0bc4c8",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g9710": {
+      "token_key": "anderson/shoes_of_fortune#g9710",
+      "row_fingerprint": "7e24a19ec3fdaac515dbf7bce84a040577afd64f85dae768d118d035b692678a",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g15763": {
+      "token_key": "anderson/shoes_of_fortune#g15763",
+      "row_fingerprint": "b24f4f9b335e3d2f293b212570db9c6b6541bbc731b8bc48a0d2a3190f7cf860",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/shoes_of_fortune#g16223": {
+      "token_key": "anderson/shoes_of_fortune#g16223",
+      "row_fingerprint": "0b14ca1abdefdb3ff5a369980ca54d59960a4060d2df8bc5cef09f214bb8c36d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/snow_queen#g9875": {
+      "token_key": "anderson/snow_queen#g9875",
+      "row_fingerprint": "17b9861a43fb10d79edae36a6932614e9784348be8b7311b30e1bbcfa0d3f15b",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/story_of_a_mother#g268": {
+      "token_key": "anderson/story_of_a_mother#g268",
+      "row_fingerprint": "682d02a9501f509b3bb7eecd52071095d58272eb2bd596e8cd158e0d901770c7",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "anderson/story_of_a_mother#g1142": {
+      "token_key": "anderson/story_of_a_mother#g1142",
+      "row_fingerprint": "02bccbb73f4f3d30fff4fb62bc61a037c434085a97fda515f4a9ff1a453cc775",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/cool_air#g232": {
+      "token_key": "lovecraft/cool_air#g232",
+      "row_fingerprint": "77d936860850224a71a315f0f4c335b0cd07280565411be368b49e4c91966101",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_call_of_cthulhu#g1492": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g1492",
+      "row_fingerprint": "e829839589beace6a215fb17e558139316d8c61b038aceb10f780004658e60c6",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_call_of_cthulhu#g9931": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g9931",
+      "row_fingerprint": "6dcef10dc3ffabae6f8fc09ac87013816ba2d0119bc485e3c55a90865e8730fd",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g2753": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g2753",
+      "row_fingerprint": "2a274f9e4872e5eefefe4ae9d2f365d3fe0ba8a2adab13d875d01c84c9256ca1",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g5307": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g5307",
+      "row_fingerprint": "65fdb07c58280ed09b82eaeec0edf32a172ac67b8c4ceed16b5117396c6209dc",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g9010": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g9010",
+      "row_fingerprint": "4c13c8e3f55ab57308ee69b51cf0e10f38d882d99c46c1f3aa1812f40588e897",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/brown_john_s_body__marks#g5465": {
+      "token_key": "mass_quantities/brown_john_s_body__marks#g5465",
+      "row_fingerprint": "385a7d9a8f62586364be9dc37f0713c2f3a0cdda93483ef1280ccd9dec2a105c",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/dig_me_no_grave__howard#g5869": {
+      "token_key": "mass_quantities/dig_me_no_grave__howard#g5869",
+      "row_fingerprint": "7bcd4c7064b9b510e7c8b3c731869239c9568bad738ae38f92f2b1ec1ca45533",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_call_of_cthulhu#g10190": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g10190",
+      "row_fingerprint": "66c50d252f365c353f2b76d03bc44c5fcf2c6e978b88b419661e1667a93964bf",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_haunter_of_the_dark#g1277": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g1277",
+      "row_fingerprint": "d106990d2c76d1beecbdce0646f41b2f00efebe6d86e9210dff5c18cd76fb54d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_horror_at_red_hook#g4441": {
+      "token_key": "lovecraft/the_horror_at_red_hook#g4441",
+      "row_fingerprint": "792e2bb15a828d6399f1a5d11e5e6046c9a22c995cd46b79fbc1be3807ddb5c7",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [
+        "context"
+      ],
+      "notes": "Target token is absent from displayed context.",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g5319": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g5319",
+      "row_fingerprint": "132422dc60e73fb4f7fdde39b3238da4ff6d724b435ea475e6fb472d92435398",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [
+        "context"
+      ],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g5768": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g5768",
+      "row_fingerprint": "6813f60aef22b3268bec899b18788127bdb194547ca78173817de5865da18383",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_thing_on_the_doorstep#g8954": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g8954",
+      "row_fingerprint": "345ea08ae104e6632ce2f706e61b09230f6ce0f505f871b5b8f85eeb2225e328",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/dig_me_no_grave__howard#g5251": {
+      "token_key": "mass_quantities/dig_me_no_grave__howard#g5251",
+      "row_fingerprint": "273dbd3a52ca6a08ebe146beb4f706f675dc7bd276f247b9278ff206a236b66c",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/dig_me_no_grave__howard#g5473": {
+      "token_key": "mass_quantities/dig_me_no_grave__howard#g5473",
+      "row_fingerprint": "c01069dc0fe2bc9311002791d90cceec6b3b84e81ea32ed0c4daa5dd25d1d42d",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_call_of_cthulhu#g5805": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g5805",
+      "row_fingerprint": "6f47a052970c471936acf1beab3baa73980ec974762f4bf6247912a6125847cc",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_festival#g757": {
+      "token_key": "lovecraft/the_festival#g757",
+      "row_fingerprint": "4269049d9d0568df28628f6283e01ed348920e7332f3abfa68b357d0af4dc10d",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [
+        "context"
+      ],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_haunter_of_the_dark#g4113": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g4113",
+      "row_fingerprint": "c29542ee9ee04af25aa366407043816b086f3570dd2aba8f1a052919a55c65ac",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_haunter_of_the_dark#g5391": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g5391",
+      "row_fingerprint": "13b7f7811a02ad3d2c0d21832ff3021f84e839d60d029ea598d4a89f6e6d199e",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/brown_john_s_body__marks#g6026": {
+      "token_key": "mass_quantities/brown_john_s_body__marks#g6026",
+      "row_fingerprint": "ebe26e5db321fa6b46eb4037c6e45f62ff7f9e4d0844e74fb2d745c3fc5a839e",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/dig_me_no_grave__howard#g5773": {
+      "token_key": "mass_quantities/dig_me_no_grave__howard#g5773",
+      "row_fingerprint": "5ae0d3fc17952011d592ee7b3fea29ac1abd75a3a74cf9469f480912bf4182b3",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/don_t_think_about_it__stuart#g3451": {
+      "token_key": "mass_quantities/don_t_think_about_it__stuart#g3451",
+      "row_fingerprint": "1df8fc8cf75b5489318696f3bea60c06dc0a932b92f9127d430dabaa671617df",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/doom_of_the_house_of_duryea__peirce#g4868": {
+      "token_key": "mass_quantities/doom_of_the_house_of_duryea__peirce#g4868",
+      "row_fingerprint": "eed3d4cacfdd5113b71c211da9a9c7aa0fe5f079b3f2bbbd9e649160f80b08c4",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5785": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5785",
+      "row_fingerprint": "93baac8d60639413f333dcf9270316c329fa4e560b8273bc8cb78e865214742e",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [
+        "context"
+      ],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3932": {
+      "token_key": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3932",
+      "row_fingerprint": "7cab93cef0c5d0422af359e213dc934efd0d2d3d794a70626ec82b7686565638",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_westminster_alice__saki#g6164": {
+      "token_key": "mass_quantities/the_westminster_alice__saki#g6164",
+      "row_fingerprint": "b86e2300b7d9af006778ee7441938e67334c86fcfc8e9eaf4356dc2cd85b356e",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/at_geisenheimer_s#g8060": {
+      "token_key": "wodehouse/at_geisenheimer_s#g8060",
+      "row_fingerprint": "3057f91e2ddf3b1cdf52ce3de351d90a381e5d0de4a28b14f84788d4451569d6",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/bill_the_bloodhound#g4783": {
+      "token_key": "wodehouse/bill_the_bloodhound#g4783",
+      "row_fingerprint": "29b96193ab5fefc4eedd702c68c3283bc0526eeda185bd5b01d80ab21a18a0ff",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/bill_the_bloodhound#g5450": {
+      "token_key": "wodehouse/bill_the_bloodhound#g5450",
+      "row_fingerprint": "dd379c932574685a0738e0b62bea2b07f2fa81fee4387e035682a5d5388a9ee6",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/making_of_mac_s#g1913": {
+      "token_key": "wodehouse/making_of_mac_s#g1913",
+      "row_fingerprint": "d7ec160bd85a74b4f91d48ec3639ee7f5cc612d8df14244fc9acbde74b272f95",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/one_touch_of_nature#g2922": {
+      "token_key": "wodehouse/one_touch_of_nature#g2922",
+      "row_fingerprint": "8a9db18ac9fbbbb61210b7430ce96ba9af5517e21f9dc63738d3f8189b63f709",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g3389": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g3389",
+      "row_fingerprint": "3e51641880cdaf67356eace92849605d5561f2569857ea1cd0d7c43453e32f5c",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g6868": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g6868",
+      "row_fingerprint": "5ed3efb7550e4b525e7f65d13da96dae4f9f75dee172f4f48e1dcaff30a8a44a",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/puppet_government__revelle#g4374": {
+      "token_key": "mass_quantities/puppet_government__revelle#g4374",
+      "row_fingerprint": "3a0545096cffcde54a4a21a79de92045a6704b13fa78c17614ddd7c74b021deb",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/puppet_government__revelle#g4896": {
+      "token_key": "mass_quantities/puppet_government__revelle#g4896",
+      "row_fingerprint": "dc84d896024961efeb53017b50dedddc33d02d19a453b5f17286ee0c7a1ea423",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/puppet_government__revelle#g5109": {
+      "token_key": "mass_quantities/puppet_government__revelle#g5109",
+      "row_fingerprint": "0a77562a40b4523f7714181ce83a83ae3e0ca9e4de4dcb85f6e504f4d74ad52d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3111": {
+      "token_key": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3111",
+      "row_fingerprint": "02670143d46d809b3383d9ffddeb998ec682519c40835b7e1a487435e2305585",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/bill_the_bloodhound#g178": {
+      "token_key": "wodehouse/bill_the_bloodhound#g178",
+      "row_fingerprint": "aed77bf5e07c6a3aea039af7483f0250134757738f5bea0f60b8b68052bdcfab",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/romance_of_an_ugly_policeman#g1465": {
+      "token_key": "wodehouse/romance_of_an_ugly_policeman#g1465",
+      "row_fingerprint": "fb64e77d7786853d0f43b1b4585036d862e400f6017ef2d90d122ee038b35a65",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5260": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5260",
+      "row_fingerprint": "3e89cd2d508301758a9a9d1573bb75e1f2e5df39f9053a0aebdbd05c6e7669d1",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g5705": {
+      "token_key": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g5705",
+      "row_fingerprint": "b31884cff822928884bdf57bff22bb7a459e468994ced5bc3a46a78bc9fbe0d8",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_lamplighter__dickens#g254": {
+      "token_key": "mass_quantities/the_lamplighter__dickens#g254",
+      "row_fingerprint": "6a228151088170f2d28f74dbd70e7b45e3a438799378bc93b311eec454db61cb",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_westminster_alice__saki#g1491": {
+      "token_key": "mass_quantities/the_westminster_alice__saki#g1491",
+      "row_fingerprint": "f500cbb1fc3cad7e8f2efa869e7f58c9ce8f24794557b5080d3dc372d96f0cbd",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_westminster_alice__saki#g5706": {
+      "token_key": "mass_quantities/the_westminster_alice__saki#g5706",
+      "row_fingerprint": "110632b1c56b2cc662ae5bfeb9cad2369cfc1f3f3db1ab772a8c5a4cd086ca77",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/at_geisenheimer_s#g6038": {
+      "token_key": "wodehouse/at_geisenheimer_s#g6038",
+      "row_fingerprint": "382eebd7b28248c07acd0f4a54bd97dc9949e25957096386cee3ff52a9ec6b7b",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/black_for_luck#g1088": {
+      "token_key": "wodehouse/black_for_luck#g1088",
+      "row_fingerprint": "89246b99b9cd8a51396a6cf0e8166c64d1b419f8d55bcd2f47ac340093a8dbb7",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "wodehouse/sea_of_troubles#g323": {
+      "token_key": "wodehouse/sea_of_troubles#g323",
+      "row_fingerprint": "2bc34b75b2ddc9a7100980cc7fb415b9c6322ecffbfbe4f261e44989a2435974",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/blue_cross#g2058": {
+      "token_key": "chesterton/blue_cross#g2058",
+      "row_fingerprint": "c0fceaf3897ff2fc5b590946ac4c98ab39900e2ebc2b685a5352284ceeb6a443",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/blue_cross#g5174": {
+      "token_key": "chesterton/blue_cross#g5174",
+      "row_fingerprint": "00dabcd043172432f38747fad130165b9b25ddf132e8a157e00ddb256eada7e5",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g3181": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g3181",
+      "row_fingerprint": "ab7963b7cc62eea003662d3de22ef93255888311dbd89f8a47284c78e2cfed98",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g3337": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g3337",
+      "row_fingerprint": "382e17f8740ffa8802986e6bd9c0c166266355edf74f14d98a2f00f356b8df33",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/splashes_of_red__davis#g6661": {
+      "token_key": "mass_quantities/splashes_of_red__davis#g6661",
+      "row_fingerprint": "e0101436b31899f0eb0d2dd5c93e40b98234cd0607aec896c3137c8d127d16fb",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/splashes_of_red__davis#g7839": {
+      "token_key": "mass_quantities/splashes_of_red__davis#g7839",
+      "row_fingerprint": "fd9674de348fa5c000c6c44b02d4e78590e675505eb8c0b90bcd1248ead6e873",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g1336": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g1336",
+      "row_fingerprint": "1535008861bc6b79446dee5ed54794a3ee91cf428372acd15e47df3ba80cd401",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g2496": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g2496",
+      "row_fingerprint": "39d125c663b13751bbff6b67620b7167a47c2f4cb685206ab24dd13681eb7589",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "chesterton/blue_cross#g5160": {
+      "token_key": "chesterton/blue_cross#g5160",
+      "row_fingerprint": "4f902ae1fc650986ba4b71c75f5a029289b6a773d4c1f7b98b1533dd7e2cbbcc",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/blue_cross#g5987": {
+      "token_key": "chesterton/blue_cross#g5987",
+      "row_fingerprint": "90eeba4cfdbfd908f6079dd4e29697609d4268f1e2b2548d221909124f550c12",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/sins_of_prince_saradine#g415": {
+      "token_key": "chesterton/sins_of_prince_saradine#g415",
+      "row_fingerprint": "1420a3ae10eadfc1d6e68a2eb2520a8ae755df1d5cd34b2d115080eef6e08ebd",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g428": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g428",
+      "row_fingerprint": "f6cff8df1b9bf654297e30e2b5a7c55318f13f9b14de5b98f01259076d4049a4",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g474": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g474",
+      "row_fingerprint": "5792f4723745d374bd5352cc6692cb3db82efc32bc9784825bcefa2ce7217ef2",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_dying_detective__doyle#g6487": {
+      "token_key": "mass_quantities/the_adventure_of_the_dying_detective__doyle#g6487",
+      "row_fingerprint": "df9440cdbb9307b640c70d7838d7189e0c1bf5800db27efee0e9d169f55530c3",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g2512": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g2512",
+      "row_fingerprint": "afa23c1405e257afedb9c9c426b7cf9907d1433be639eb2fd480b8041474a4ec",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g3018": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g3018",
+      "row_fingerprint": "ad77859eeb4bd685ae086ec58f76234a5c94748c14f7ecf83efccc62e4109dda",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "chesterton/flying_stars#g5139": {
+      "token_key": "chesterton/flying_stars#g5139",
+      "row_fingerprint": "20c4f7c1d227a409700bf6efcc8e5a4824e5c5b8076cfbb956eb8442b562a1b1",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/hammer_of_god#g605": {
+      "token_key": "chesterton/hammer_of_god#g605",
+      "row_fingerprint": "cb1b9aaf6209a72c959565b77a13728595d7cd68d1cc64c0ba440845862e5e5b",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/hammer_of_god#g794": {
+      "token_key": "chesterton/hammer_of_god#g794",
+      "row_fingerprint": "ab8b422ac28dcf5cf7f056eb9fbf55bef9bd11983445929051912b1071dc63fe",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "chesterton/sins_of_prince_saradine#g448": {
+      "token_key": "chesterton/sins_of_prince_saradine#g448",
+      "row_fingerprint": "f6d6484e7a787a273ce2da7277991e9fade5c14f50e4d97b18d54b54f35e56ff",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/back_home__davis#g3915": {
+      "token_key": "mass_quantities/back_home__davis#g3915",
+      "row_fingerprint": "ae553bb9560317d3df7b32a63d1ccecf74e8dfebd3152722e6ed55b78837ee28",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_dying_detective__doyle#g6176": {
+      "token_key": "mass_quantities/the_adventure_of_the_dying_detective__doyle#g6176",
+      "row_fingerprint": "f97ce25de9789f46d1f6c2970aea920c878f42b3c9e122451239f3c20c505b9b",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g2528": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g2528",
+      "row_fingerprint": "a4480c2eff5d594584fb837ccfeadb187f58b57d3a9c6854f71ab9f13683d1ad",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_leak__futrelle#g959": {
+      "token_key": "mass_quantities/the_leak__futrelle#g959",
+      "row_fingerprint": "d0c020116009034b5e4fa1532caa239a179ee06053079db6a85789553c209afd",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_philanthropist__bacon#g139": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g139",
+      "row_fingerprint": "16c8483a18ab9b8d0823d7a7c2ab74926b932ceeb7d1f1f6409dd458754508fa",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_philanthropist__bacon#g7137": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g7137",
+      "row_fingerprint": "06e732e1c48eca45dcc822f33c9698b056cec359cd5005cc0ae753f4c91fb0d8",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_reversion_to_type__bacon#g2331": {
+      "token_key": "mass_quantities/a_reversion_to_type__bacon#g2331",
+      "row_fingerprint": "dc12060eb1fba8e7a8353aadad184f40bf9923d49c8a44949f8f7a6340ce3e08",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/julia_the_apostate__bacon#g835": {
+      "token_key": "mass_quantities/julia_the_apostate__bacon#g835",
+      "row_fingerprint": "d22a6b18ce18019f8a216305a74759915ee1a5950e523415a1d8418a56b33b64",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/julia_the_apostate__bacon#g5706": {
+      "token_key": "mass_quantities/julia_the_apostate__bacon#g5706",
+      "row_fingerprint": "134b90ca5e7663b0576cca388c95eac59f18316d392d3a8c8e4f9ff6b26a29f3",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g929": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g929",
+      "row_fingerprint": "0f08ada1e3d21f5e27683dd0b39b5b823d3c3d1fca4143b225673b52d4454836",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/one_day_at_arle__burnett#g1127": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g1127",
+      "row_fingerprint": "a61cfa775cb84b17126975081e28ca0a30de7caad42877a10cefc579249ae129",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_courting_of_lady_jane__bacon#g221": {
+      "token_key": "mass_quantities/the_courting_of_lady_jane__bacon#g221",
+      "row_fingerprint": "5272826e24850de16ea6fbd3eaaa98391d69af0a1a5c4ae209ac8991839106ec",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_philanthropist__bacon#g1678": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g1678",
+      "row_fingerprint": "b14506cbf35887d9b3edd53567d4273a00c7be9ed8cc2fb593065c3e13846a42",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_philanthropist__bacon#g6495": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g6495",
+      "row_fingerprint": "2984db4ac6227af69a988e9569973e7e32ba7ece1c33d7b8d797cf44f4d2d3e2",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_reversion_to_type__bacon#g3050": {
+      "token_key": "mass_quantities/a_reversion_to_type__bacon#g3050",
+      "row_fingerprint": "ae02f2388e61d6460e89bd009b0f73f1de5ec9967a18e12807cf52622bd6303c",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1176": {
+      "token_key": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1176",
+      "row_fingerprint": "c6cc9cb998387b7ce2c44cadc8d320e7907a2a2dba87811b6528c194707faa14",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g3240": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g3240",
+      "row_fingerprint": "c63a1926f8c1b8f26265ae9815c2e3d3afddafb06214c6dae7d1c4fd64bf9c0b",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/mrs_dud_s_sister__bacon#g2284": {
+      "token_key": "mass_quantities/mrs_dud_s_sister__bacon#g2284",
+      "row_fingerprint": "4aa5eef2e66643c5f2fd0723ca56506ce655c24b39ab9514408eae9cfd37c97a",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/one_day_at_arle__burnett#g3114": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g3114",
+      "row_fingerprint": "25a3362c77ae957ff2133d828d1e5f9d11f93dc5b613ee171a91e52347de4864",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/the_courting_of_lady_jane__bacon#g721": {
+      "token_key": "mass_quantities/the_courting_of_lady_jane__bacon#g721",
+      "row_fingerprint": "c23e13f1348da3f2e3618ce6d641a6fb893c18612d56131a8d8896ccc48c65eb",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_philanthropist__bacon#g7740": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g7740",
+      "row_fingerprint": "b216944aecd6399721d90649c1d8d9303d2f8b143895f909c9be989b87d7f22c",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/amy_foster__conrad#g4997": {
+      "token_key": "mass_quantities/amy_foster__conrad#g4997",
+      "row_fingerprint": "039ff02e14068643a82c2dfb2a1a9325d36a72ea18f4cb94a767d42d104de40b",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g545": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g545",
+      "row_fingerprint": "8d7bac95a08b62b7cac8a8705a1f973fefecd32d93e35f5b0798805b16d8475b",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g2172": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g2172",
+      "row_fingerprint": "e8c406f01f10442bcc302caabb9b0be8dd8a6e5e1466db95859e46195ec80d43",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g5811": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g5811",
+      "row_fingerprint": "784e6d8757422d223df5f0c2d9214bbe8a92751225bd52d28b4da9435c46501f",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/one_day_at_arle__burnett#g2312": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g2312",
+      "row_fingerprint": "b7c239fa52f97a05f67087d0ac477dbc2f6df07dde55819c5344c0580c741b3c",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/one_day_at_arle__burnett#g5306": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g5306",
+      "row_fingerprint": "e9b36af689b3412e748787c025f08ed043e2cc485fb0d51d20826f669fef94b5",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/one_day_at_arle__burnett#g6534": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g6534",
+      "row_fingerprint": "ce1e3c32035bf972a13b71b36e402da45d0a7d1f3c919f41225ced65456c3747",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_colour_out_of_space#g380": {
+      "token_key": "lovecraft/the_colour_out_of_space#g380",
+      "row_fingerprint": "dd88619e24421aa6443297da5cdfc7b42311a9d324cfa60d94b6a8210a5c1539",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_colour_out_of_space#g9407": {
+      "token_key": "lovecraft/the_colour_out_of_space#g9407",
+      "row_fingerprint": "b0eb925a97ff621a15764c87adeacca00d47831e27534e2887764285b7f32db0",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_colour_out_of_space#g10233": {
+      "token_key": "lovecraft/the_colour_out_of_space#g10233",
+      "row_fingerprint": "8fa90fd24eba1faed5837f6a89ade21f8d2ec3b7152bb4c7c469977b062a58dc",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/30deg_cattywonkus__bell#g4904": {
+      "token_key": "mass_quantities/30deg_cattywonkus__bell#g4904",
+      "row_fingerprint": "fb424d96a6f8e0f1c32db8c11d9ab384a6bd09bf15352a419f1237b933ca15f6",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_bad_day_for_vermin__laumer#g1031": {
+      "token_key": "mass_quantities/a_bad_day_for_vermin__laumer#g1031",
+      "row_fingerprint": "8359129805c0593ba8db21b5dde947446e590eb04d9267a369ca8be13849320b",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_bottle_of_old_wine__lewis#g2949": {
+      "token_key": "mass_quantities/a_bottle_of_old_wine__lewis#g2949",
+      "row_fingerprint": "a9123a202e8015518e5cea9f83964a2a66146e9200f04c9d27cb384f63ab7581",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g2611": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g2611",
+      "row_fingerprint": "ebc9eb376bb4763239ef0328fa2dbe478c16aa4270418d15033afd410fa0f0f2",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g6139": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g6139",
+      "row_fingerprint": "dc9832d2e87b15d7d4d9e736a24f316ddf1f610322f028c1a1bbdf43eca129ed",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_colour_out_of_space#g7664": {
+      "token_key": "lovecraft/the_colour_out_of_space#g7664",
+      "row_fingerprint": "c3afde1fe72faa6b9f8ea1799ad2cc8846dc7ebc9538173a6b76657524efe231",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "lovecraft/the_colour_out_of_space#g14221": {
+      "token_key": "lovecraft/the_colour_out_of_space#g14221",
+      "row_fingerprint": "47718854d89bba2ac0609d5a15537f0b95ab3420eb3adc80847220adb7d83a63",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/1_000_a_plate__mckenty#g616": {
+      "token_key": "mass_quantities/1_000_a_plate__mckenty#g616",
+      "row_fingerprint": "094828e2ff441f72172028e0be1b3611dd7832aee46653e2eca06f4b16755e0e",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/30deg_cattywonkus__bell#g5724": {
+      "token_key": "mass_quantities/30deg_cattywonkus__bell#g5724",
+      "row_fingerprint": "25cacaf321a85e5a68e01c7c8aa8d88ecc9acd20738a3b8f05fad50d1d90ef74",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_bottle_of_old_wine__lewis#g1909": {
+      "token_key": "mass_quantities/a_bottle_of_old_wine__lewis#g1909",
+      "row_fingerprint": "b3795c015438d954ef0d3b8ca3324f860026d268583955e4d68cb4c047e47525",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_gift_for_terra__holden#g7698": {
+      "token_key": "mass_quantities/a_gift_for_terra__holden#g7698",
+      "row_fingerprint": "ff55da663ea16cf4520dbd703f1f1ab6d24839edbe7d9672629303816f8b3a51",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g1724": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g1724",
+      "row_fingerprint": "32bac695c6e6da7ad89de246bd782a832274ae430c40d5bf4ee52a2802bcc4e4",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g4462": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g4462",
+      "row_fingerprint": "7f06b0250987b1813dba9d81c180fd7eaa0bf0fb46562d992c2baab09e09315d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/8_million_dollars_from_mars__marks#g1836": {
+      "token_key": "mass_quantities/8_million_dollars_from_mars__marks#g1836",
+      "row_fingerprint": "1997898fb5c7aa69326600ffdd398d5169dcba68e277ebb2ca50354890cfa6e4",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/8_million_dollars_from_mars__marks#g3801": {
+      "token_key": "mass_quantities/8_million_dollars_from_mars__marks#g3801",
+      "row_fingerprint": "4d1abdc84441eb4518e08378735c3166aa8c283ad2f5519db9fb14dc702fbf66",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_bad_day_for_vermin__laumer#g388": {
+      "token_key": "mass_quantities/a_bad_day_for_vermin__laumer#g388",
+      "row_fingerprint": "a9203bbc6e94ba14fd0cd56d7a31d39d29906c58e231a7170394065e397173cf",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_cold_night_for_crying__marlowe#g5233": {
+      "token_key": "mass_quantities/a_cold_night_for_crying__marlowe#g5233",
+      "row_fingerprint": "9718c7031baa82116a8c040369bffd96807e49cf7def6b5221352ca83be368ac",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_fall_of_glass__lee#g870": {
+      "token_key": "mass_quantities/a_fall_of_glass__lee#g870",
+      "row_fingerprint": "f9212b2c81342aba4dcfdea91cfbc151a3386c2d6aaa2114be6344edea10a63f",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_gift_for_terra__holden#g2970": {
+      "token_key": "mass_quantities/a_gift_for_terra__holden#g2970",
+      "row_fingerprint": "2770e9f20c7ec93380b9ff5bdfd77d4f9b48ebb79c47de9b8a67cc25908c69b3",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_gift_for_terra__holden#g8311": {
+      "token_key": "mass_quantities/a_gift_for_terra__holden#g8311",
+      "row_fingerprint": "0999b75110e5a17ef6673cb633ef0f8e01e482bd9814058225b2f31e86f4bbd5",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_great_day_for_the_irish__hopf#g4947": {
+      "token_key": "mass_quantities/a_great_day_for_the_irish__hopf#g4947",
+      "row_fingerprint": "b665145c09f4f60b6a145ed72a9f56bd259562014a74079c86a4726c597d59b9",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "london/brown_wolf#g28": {
+      "token_key": "london/brown_wolf#g28",
+      "row_fingerprint": "5331f6a867d28c775c649db90b331bc8128f9e5dd248fc647f452f24fa3b8b37",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "london/brown_wolf#g3350": {
+      "token_key": "london/brown_wolf#g3350",
+      "row_fingerprint": "c153ebd9c5db1f67976aba33cbd1d4822a467470c80c0d1a4477c4eec27dbe0d",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "london/sun_dog_trail#g8434": {
+      "token_key": "london/sun_dog_trail#g8434",
+      "row_fingerprint": "ee6ccf1464c43e7ade860b594c38877c18df23a42999a9984e5f82eb31638001",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g598": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g598",
+      "row_fingerprint": "1c26aaabfe2200ffa77ccdc1a87e14ddbd04c51ae867f3acb00af95d33d88f7d",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g3828": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g3828",
+      "row_fingerprint": "556d3328a44173c2e3ae0443ecad5dd01468e78f2799cf9e0ce05becf22bc57a",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g7903": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g7903",
+      "row_fingerprint": "db6fed0f6b83dad8df12d62433e36c4aad3d72c347b05360d07d4c0360e41abe",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/ajax_for_example__tuttle#g9642": {
+      "token_key": "mass_quantities/ajax_for_example__tuttle#g9642",
+      "row_fingerprint": "ffc1403f3dfb8bf67ab165816408d15fb1a0fca05e5de389f40d775cbc04fcbf",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/easy_money__sinclair#g1290": {
+      "token_key": "mass_quantities/easy_money__sinclair#g1290",
+      "row_fingerprint": "314d36873794c9c45a269645bd5aa06cdee40647e031a2b4a6e3f43899612f74",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "london/brown_wolf#g39": {
+      "token_key": "london/brown_wolf#g39",
+      "row_fingerprint": "5e593251b2fe0b618d6d06d7b913d99baf5319b2d61d0b93dc919783f9c65e72",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "london/day_s_lodging#g1311": {
+      "token_key": "london/day_s_lodging#g1311",
+      "row_fingerprint": "32f20498af15bf61654e25d7aa119d5d436744481c3c0645f40c9a28456dcf1a",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g6529": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g6529",
+      "row_fingerprint": "25ecff96038bc1a36cc4964e667e62f33e6af35afa9f653ba7ff269843c92d41",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9184": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9184",
+      "row_fingerprint": "62a370f8601fecea122fa33c8301aca4eaaf51a9a0b7c7a353d26df0b13a54bb",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_prevaricated_parade__tuttle#g7002": {
+      "token_key": "mass_quantities/a_prevaricated_parade__tuttle#g7002",
+      "row_fingerprint": "794b6cd3f22a470ff0789a08f57eb961028b5a4ea3f2f8c08ed8fa27ecac2e2c",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/ajax_for_example__tuttle#g8756": {
+      "token_key": "mass_quantities/ajax_for_example__tuttle#g8756",
+      "row_fingerprint": "ff5af6585c1fa0bf9622ca8468e1f78e41f668418c1fe1d6ffd34ada13534e0d",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/easy_come_easy_go__sabin#g1431": {
+      "token_key": "mass_quantities/easy_come_easy_go__sabin#g1431",
+      "row_fingerprint": "163bbb187aac709fa0280b1e8a526ebf0a4d8c99882c4c7fc6a34c2bdc0bdfa4",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g3981": {
+      "token_key": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g3981",
+      "row_fingerprint": "be6fc52d30f652a7966a1019253768819d689de35d4749df540ae85c67837e10",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "london/love_of_life#g9389": {
+      "token_key": "london/love_of_life#g9389",
+      "row_fingerprint": "a6287e2af044161910b66c0eeed179d5e08fce38eb0e0a31b25c5c5bd1dcb0a2",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9026": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9026",
+      "row_fingerprint": "79640df6b73387ab6cbcbecd8323c37e6fa2f9577fb143c209b7347424d19ed7",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9259": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9259",
+      "row_fingerprint": "f69863e30ce56d6469a59b099a5cdf0477eff5fde228622fa85dc2ca1d5a9d54",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9296": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9296",
+      "row_fingerprint": "4ecc1568b86af1e1d908f6b2c15a718b9ebb04ad67054ee92d430b735842cd44",
+      "disposition": "reviewed",
+      "gold_upos": "OTHER",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/ajax_for_example__tuttle#g10954": {
+      "token_key": "mass_quantities/ajax_for_example__tuttle#g10954",
+      "row_fingerprint": "c018091eb7e4e5ee6d346906c3b0f9078beff19f112c27ca15c4fa1cdd083b9f",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/bearly_reasonable__tuttle#g4750": {
+      "token_key": "mass_quantities/bearly_reasonable__tuttle#g4750",
+      "row_fingerprint": "12f00fff6931ce028e06ffe80d0c413a480506cbb5b884f636afbbd4be7fcf71",
+      "disposition": "reviewed",
+      "gold_upos": "PROPN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/easy_come_easy_go__sabin#g1478": {
+      "token_key": "mass_quantities/easy_come_easy_go__sabin#g1478",
+      "row_fingerprint": "9e951515a26e0010b9ca0d12db23888f6acd066580f01434348831350006168f",
+      "disposition": "blocked",
+      "gold_upos": null,
+      "issue_codes": [
+        "tokenization",
+        "segmentation"
+      ],
+      "notes": "Token contains words and punctuation: cannot assign POS without editing the immutable packet.",
+      "reviewer": "Anthony"
+    },
+    "mass_quantities/easy_money__sinclair#g3375": {
+      "token_key": "mass_quantities/easy_money__sinclair#g3375",
+      "row_fingerprint": "94fe384af969c1fe4b87bcbec21c1b49530dfa622c647cb3ee4713a10b5cfbcd",
+      "disposition": "reviewed",
+      "gold_upos": "NOUN",
+      "issue_codes": [],
+      "notes": "",
+      "reviewer": "Anthony"
+    }
+  }
+}
