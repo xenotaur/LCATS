@@ -3,7 +3,7 @@ execution_id: 2026_09_29_06_51_00_WI_LINGUISTICS_0014_CONFIRM
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0014_CONFIRM)[2026-09-29T06:50:22+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 2026_09_29_05_07_47_WI_LINGUISTICS_0014
+rerun_of: 2026_09_29_06_49_17_WI_LINGUISTICS_0014_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/461
 commit: fca42eda
 created_at: 2026-09-29T06:51:00+00:00
