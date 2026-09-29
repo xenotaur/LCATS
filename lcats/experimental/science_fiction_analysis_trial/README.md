@@ -59,9 +59,16 @@ PYTHONPATH=src python experimental/science_fiction_analysis_trial/run_worldcon_s
   --output-root /tmp/lcats-worldcon-sample
 ```
 
-Paid backends require both a reviewed manifest/approval change and the explicit
-`--approve-paid` flag. Full 146-story mode additionally requires
-`--approve-full-sample` and a successful smoke summary.
+Paid backends require explicit user authorization captured in the stage
+manifest and the `--approve-paid` flag. The runner writes an
+`approval_snapshot.json` into the stage output root before the first paid
+call. The canary, sample, and full gates carry the approved stage budgets;
+the run summary records an operational decision after the stage completes.
+Paid sample/full invocations must also pass `--prior-spend-usd` with the
+estimated spend already used by earlier stages; the runner verifies the
+pinned source-manifest digest and count before writing the snapshot.
+Full 146-story mode additionally requires `--approve-full-sample` and a
+successful smoke summary.
 
 For an interrupted or partially failed run, add `--resume` with the same
 output root. Matching successful evidence, Knight, and Suvin stage

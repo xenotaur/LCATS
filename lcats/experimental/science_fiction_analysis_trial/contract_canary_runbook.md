@@ -44,7 +44,12 @@ theoretical validation set.
 7. Stop and replan if any output silently invents evidence, silently drops an
    invalid reference, or reports a complete analysis without seven Knight
    criteria and valid derived fields.
-8. If local trials are structurally healthy, prepare a paid approval package.
+8. If local trials are structurally healthy, have the agent resolve the paid
+   stage fields from the user's explicit authorization and persist the
+   resulting `approval_snapshot.json` before any paid call. For sample/full
+   stages, provide prior cumulative spend explicitly; the runner verifies the
+   pinned source manifest and records prompt/schema fingerprints and all stop
+   restrictions in the snapshot.
 9. After explicit approval, run no more than two Opus trials and no more than
    five total two-story trials.
 10. Write `contract_canary_report.md` and decide proceed, revise, or stop.
@@ -97,6 +102,9 @@ validated sidecars, summary, and report. Outputs remain outside `data/`,
 - A retry occurs without a persisted attempt artifact and usage record.
 - The approved paid budget, trial count, or story count would be exceeded.
 - Provider-wide or infrastructure failures make the trial uninterpretable.
+- The runner's persisted stage decision is operational guidance only; it is
+  not evidence of theoretical accuracy, human agreement, or production
+  readiness.
 
 ## Report requirements
 
