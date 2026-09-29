@@ -21,12 +21,12 @@ work_items:
   - WI-LINGUISTICS-0005
   - WI-LINGUISTICS-0006
   - WI-LINGUISTICS-0007
+  - WI-LINGUISTICS-0013
   - WI-LINGUISTICS-0014
   - WI-VISUALIZE-0093
   - WI-LINGUISTICS-0008
   - WI-VISUALIZE-0095
   - WI-VISUALIZE-0094
-  - WI-LINGUISTICS-0013
 exit_criteria:
   - A versioned comparison specification and selector engine produce deterministic aligned comparison tables with explicit universe, membership, metric, denominator, vocabulary, order, and provenance semantics
   - Mirrored-pair and commensurate reference-overlay figures are available through reusable Python APIs and a thin CLI without changing existing visualize defaults
@@ -108,6 +108,9 @@ figure production.
   surface/lemma/UPOS counts and denominators from v2 token details.
 - **WI-LINGUISTICS-0007 — 146-story rich linguistic pilot.** Run the balanced
   sample, audit noun-family POS quality, and measure runtime/storage.
+- **WI-LINGUISTICS-0013 — Durable rich-linguistics artifact retention.** Persist
+  pilot data in a reusable, provenance-preserving format and document the
+  round-trip contract for downstream analysis.
 - **WI-LINGUISTICS-0014 — Repair rich-linguistics POS tokenization and blocked-row handling.** Diagnose and repair malformed token boundaries, preserve the original audit evidence, and regenerate a provenance-linked pilot before POS-dependent work can proceed.
 - **WI-VISUALIZE-0093 — POS-aware comparison and noun figures.** After the pilot and tokenization repair authorize downstream work, integrate lexical artifacts and produce reviewed noun charts; on defer/no-go, record the decision and required remediation without figures.
 - **WI-LINGUISTICS-0008 — Conditional full-corpus rich run.** After the pilot and tokenization repair, apply the gates and either run/validate the full corpus or record a no-go/defer result.
@@ -152,7 +155,7 @@ and the multi-panel composer.
   from rejected data.
 - The full-corpus item resolves with either successful validated evidence or a
   documented, reviewable no-go/defer outcome.
-- All ten items are resolved without modifying existing command defaults or
+- All eleven items are resolved without modifying existing command defaults or
   promoting generated linguistic sidecars into `corpora/` implicitly.
 
 ## Non-Goals

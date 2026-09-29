@@ -56,7 +56,7 @@ artifacts_expected:
   - lcats/src/lcats/analysis/linguistics/sidecar.py
   - experiments/09_rich_linguistics_genre_sample/
   - experiments/09_rich_linguistics_genre_sample/results/
-  - project/design/proposals/proposed/comparative-lexical-visualization/00_proposal.md
+  - lcats/project/design/proposals/proposed/comparative-lexical-visualization/00_proposal.md
 ---
 
 # Work Item: WI-LINGUISTICS-0014
