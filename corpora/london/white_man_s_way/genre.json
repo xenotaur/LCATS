@@ -1,0 +1,99 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:london__white_man_s_way:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Western",
+            "patterns": [
+              "western stories"
+            ]
+          },
+          {
+            "label": "Adventure",
+            "patterns": [
+              "adventure stories",
+              "adventure"
+            ]
+          },
+          {
+            "label": "Short stories only / unspecified genre",
+            "patterns": [
+              "short stories"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Adventure stories, American",
+          "Fiction",
+          "PS",
+          "Short stories",
+          "Western stories"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 710,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/710/pg710-images.html",
+        "story_id": "london/white_man_s_way",
+        "story_path": "london/white_man_s_way/story.json"
+      },
+      "result": {
+        "secondary_signals": [
+          "Short stories only / unspecified genre"
+        ],
+        "suggestive_target_candidates": [],
+        "target_candidates": [
+          "western",
+          "adventure"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:london__white_man_s_way:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T19:02:21.422986Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 18839,
+        "output_tokens": 492,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "london/white_man_s_way",
+        "story_path": "london/white_man_s_way/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": false,
+        "detected_genre": "other",
+        "detected_genre_confidence": 0.55,
+        "metadata_target_candidates": [
+          "western",
+          "adventure"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "london/white_man_s_way",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "london/white_man_s_way/story.json"
+}

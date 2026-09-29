@@ -1,0 +1,89 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "gutenberg_metadata_rules:anderson__leap_frog:2026-08-21T06:19:16.729706Z",
+      "evidence": {
+        "raw_rule_matches": [
+          {
+            "label": "Fantasy",
+            "patterns": [
+              "fairy tales"
+            ]
+          },
+          {
+            "label": "Children / juvenile",
+            "patterns": [
+              "children's stories"
+            ]
+          }
+        ],
+        "raw_subjects": [
+          "Children's stories, Danish -- Translations into English",
+          "Fairy tales",
+          "Fairy tales -- Denmark",
+          "PZ"
+        ]
+      },
+      "generated_at": "2026-08-21T06:19:16.729706Z",
+      "label": "gutenberg_metadata_rules",
+      "method": {
+        "name": "gutenberg_subject_rules",
+        "pipeline": "experiments/05_metadata_genre_prefilter",
+        "pipeline_version": "v2",
+        "version": "v1"
+      },
+      "provenance": {
+        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_status": "ready",
+        "gutenberg_id": 1597,
+        "gutenberg_url": "https://www.gutenberg.org/cache/epub/1597/pg1597-images.html",
+        "story_id": "anderson/leap_frog",
+        "story_path": "anderson/leap_frog/story.json"
+      },
+      "result": {
+        "secondary_signals": [
+          "Children / juvenile"
+        ],
+        "suggestive_target_candidates": [],
+        "target_candidates": [
+          "fantasy"
+        ]
+      },
+      "scope": "gutenberg_volume"
+    },
+    {
+      "assessment_id": "model_detect:anderson__leap_frog:2026-08-21T18:55:51.831553Z",
+      "evidence": {
+        "error": ""
+      },
+      "generated_at": "2026-08-21T18:56:38.761473Z",
+      "label": "model_detect",
+      "method": {
+        "name": "lcats.analysis.corpus.assess.assess_story",
+        "version": "v1"
+      },
+      "provenance": {
+        "backend_model": "claude-opus-4-8",
+        "input_tokens": 3992,
+        "output_tokens": 497,
+        "run_id": "2026-08-21T18:55:51.831553Z",
+        "story_id": "anderson/leap_frog",
+        "story_path": "anderson/leap_frog/story.json"
+      },
+      "result": {
+        "agrees_with_metadata_rules": true,
+        "detected_genre": "fantasy",
+        "detected_genre_confidence": 0.6,
+        "metadata_target_candidates": [
+          "fantasy"
+        ]
+      },
+      "run_id": "2026-08-21T18:55:51.831553Z",
+      "scope": "story"
+    }
+  ],
+  "current_adjudication": null,
+  "lcats_id": "anderson/leap_frog",
+  "schema_version": "genre-sidecar-v1",
+  "story_path": "anderson/leap_frog/story.json"
+}
