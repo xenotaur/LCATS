@@ -29,10 +29,10 @@ no `rerun_of` target and will use the land chain's approved backfill path.
 
 # Validation
 
-- Focused Worldcon suite: 39 tests passed.
+- Focused Worldcon suite: 40 tests passed.
 - Source-manifest SHA-256 and count verified directly.
-- `git diff --check` pending before commit.
-- `lrh validate` pending after the review-response record is committed.
+- `git diff --check`: passed before commit.
+- `lrh validate`: 0 errors before commit; repository-wide warnings remain.
 
 # Follow-up
 

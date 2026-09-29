@@ -323,6 +323,37 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
         self.assertEqual(0, summary["totals"]["complete"])
         self.assertEqual(9.0, summary["totals"]["prior_spend_usd"])
 
+    def test_resume_after_budget_stop_reuses_completed_story(self):
+        manifest_path = self._manifest_with_gate(
+            run_worldcon_spike.SMOKE_MODE,
+            estimated_cost_usd=3.0,
+            estimated_story_cost_usd=2.0,
+            cumulative_budget_usd=3.0,
+        )
+        output_root = self.root / "resume-budget-stop"
+        first = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=manifest_path,
+                output_root=output_root,
+            )
+        )
+        self.assertEqual("budget_stopped", first["status"])
+        resumed_backend = _UnexpectedBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=resumed_backend
+        ):
+            resumed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=manifest_path,
+                    output_root=output_root,
+                    resume=True,
+                )
+            )
+        self.assertEqual("budget_stopped", resumed["status"])
+        self.assertEqual(1, resumed["totals"]["complete"])
+        self.assertEqual(0, resumed_backend.calls)
+        self.assertTrue((output_root / "worldcon_spike_story_results.jsonl").exists())
+
     def test_fake_smoke_publishes_valid_sidecars_and_report(self):
         output_root = self.root / "smoke"
 
