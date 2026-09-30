@@ -1,0 +1,14 @@
+{
+  "attempt": 1,
+  "backend_error": "AuthenticationError",
+  "effective_max_tokens": 4096,
+  "error_message": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'API key is invalid.'}, 'request_id': None}",
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "raw_content": null,
+  "run_id": "run-f6e180a5e69d44ff86de9559abc82710",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "title": "Anderson - The Bell"
+}

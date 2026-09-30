@@ -1,0 +1,972 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_colour_out_of_space-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The meteorite is examined via spectroscopy revealing unknown spectral bands, and the entity is discussed in terms of matter and physical laws. Speculative science pervades the story: an alien substance obeying laws not of our cosmos, framed with genuine scientific vocabulary and reasoning.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-77daebbdb6d2f87a",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-dae1c39c9473cb3c",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-1c636103b03b2fe2",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-960bcfed0089998b",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ]
+          },
+          {
+            "confidence": 0.72,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Laboratory apparatus (spectroscope, crucible, reagents) is used as ordinary contemporary scientific equipment for analysis, not as an engineered invention that materially shapes the plot's outcome. No device or invention drives the setting, problem, or resolution; the driver is a natural/cosmic entity, not technology.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a roughly contemporary/recent past New England without any speculative future, remote past, or temporal displacement. The framing narrative recalls events of the 1880s, an ordinary historical timeframe, not a speculative one.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.88,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The story systematically develops the consequences of an identifiable premise (an alien meteorite contaminating the land): poisoned soil, bizarre vegetation, mutated animals, wasting disease, madness, and ultimate desolation. The escalating chain of effects is the narrative's core extrapolation.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b3aaa9d26d859cb6",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-347bb6d529d9944f",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-28f481b2fe926f76",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-27a6bc3d6f208e6c",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Professors conduct systematic testing with reagents, acids, spectroscopy, and heat, form hypotheses about new elements, and revise their views when the substance defies classification. Ammi and the analysts connect observations across time (matching spectral bands), demonstrating measurement, testing, and evidential inference.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-7a084d049b4a89a0",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-77daebbdb6d2f87a",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-960bcfed0089998b",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-2d516093d1902466",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "central",
+            "rationale": "The central entity is an extraterrestrial visitor from 'unformed realms of infinity beyond all Nature,' arriving on a meteor and obeying laws not of our cosmos, and it departs back into space through the clouds. This is a visitor from a substantially nonordinary cosmic environment.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1c636103b03b2fe2",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-05886d7bebe3f5ee",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-77daebbdb6d2f87a",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ]
+          },
+          {
+            "confidence": 0.86,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "The alien contamination causes a localized but sweeping catastrophe: the wasting death of livestock, the destruction of an entire family, and the permanent conversion of the farmland into a barren grey desert (the blasted heath) that spreads slowly. This large-scale disaster is actual and causally central to the story.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-28f481b2fe926f76",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-27a6bc3d6f208e6c",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-796c1ac35bde3d1e",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-5d6cc3267c12699b",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+            "source_run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-5d6cc3267c12699b",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 31912,
+            "output": 1540
+          }
+        },
+        "status": "complete",
+        "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_colour_out_of_space-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-colour-out-of-space",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The story frames the entity through a coherent, systematic, nonsupernatural imaginary-science logic: spectroscopic analysis reveals bands unlike the known spectrum (sfev-77daebbdb6d2f87a), professors apply systematic reagent testing (sfev-7a084d049b4a89a0), a coloured globule is identified within the meteorite (sfev-dae1c39c9473cb3c), and later dust samples share the meteor's spectrum before fading (sfev-960bcfed0089998b). The stone shows electrical/magnetic properties (sfev-2d516093d1902466). It is explicitly conceptualized as matter obeying laws 'not of our cosmos' rather than a supernatural devil or ghost (sfev-1c636103b03b2fe2), i.e., an immanent imaginary-science account.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-77daebbdb6d2f87a",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-7a084d049b4a89a0",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-dae1c39c9473cb3c",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-960bcfed0089998b",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-2d516093d1902466",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-1c636103b03b2fe2",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "description": "An alien entity that arrives embedded in a meteorite as a nearly indescribable coloured globule. It obeys laws foreign to our cosmos, drains the life and sanity from all organic matter, blights the land into a permanent grey desert, and eventually departs into space, leaving a remnant behind.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-796c1ac35bde3d1e",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-9b236e025dd7048b",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ],
+              "rationale": "Estrangement is produced by the contrast between ordinary New England farm life and an entity so alien it can only be called a 'colour' by analogy (sfev-dae1c39c9473cb3c), whose spectrum lies outside the normal (sfev-77daebbdb6d2f87a) and whose behavior obeys extra-cosmic laws (sfev-1c636103b03b2fe2). Storyworld consequences (permanent barren desert, mutated flora, wasting disease) and character reactions (Nahum's dying testimony, Mrs. Gardner's noun-less madness) mark it as radically other while remaining framed within an immanent cognitive logic.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-77daebbdb6d2f87a",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-dae1c39c9473cb3c",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-1c636103b03b2fe2",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-27a6bc3d6f208e6c",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-347bb6d529d9944f",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-28f481b2fe926f76",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-b14b468214721ba3",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-77daebbdb6d2f87a",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-7a084d049b4a89a0",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-dae1c39c9473cb3c",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-2d516093d1902466",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-347bb6d529d9944f",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-28f481b2fe926f76",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-796c1ac35bde3d1e",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-9b236e025dd7048b",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-960bcfed0089998b",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-27a6bc3d6f208e6c",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-05886d7bebe3f5ee",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-1c636103b03b2fe2",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-b3aaa9d26d859cb6",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The colour governs the whole narrative logic: the entire story is the account of 'the strange days' that 'began with the meteorite' (sfev-b14b468214721ba3), driving every plot event\\u2014the blight, the family's madness and deaths (sfev-796c1ac35bde3d1e), the permanent blasted heath (sfev-27a6bc3d6f208e6c), and the climactic departure (sfev-05886d7bebe3f5ee). It is not incidental but the overriding causal center.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-796c1ac35bde3d1e",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-27a6bc3d6f208e6c",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-05886d7bebe3f5ee",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The colour is a totalizing, world-altering difference from the empirical norm: it permanently transforms fertile farmland into an eternally barren grey desert (sfev-27a6bc3d6f208e6c), induces bizarre unearthly growths (sfev-347bb6d529d9944f), a novel wasting disease (sfev-28f481b2fe926f76), and is explicitly identified as the origin point of the region's transformation (sfev-b14b468214721ba3). It is an alien intrusion foreign to Nature that departs into interstellar space (sfev-05886d7bebe3f5ee).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-27a6bc3d6f208e6c",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-347bb6d529d9944f",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-28f481b2fe926f76",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-05886d7bebe3f5ee",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "cand-meteorite-stone",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The stone is subjected to systematic scientific method\\u2014reagents, spectroscope, tests for magnetism\\u2014giving it a coherent immanent, nonsupernatural framing.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-7a084d049b4a89a0",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-77daebbdb6d2f87a",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-2d516093d1902466",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "description": "The meteorite stone itself, an anomalous rock that will not cool, shrinks, resists all reagents, draws lightning, and is non-volatile\\u2014considered as a device apart from the colour entity within it.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The stone estranges via impossible chemistry (resists all reagents, will not cool, shrinks), but its estranging force is subordinate to and ultimately explained by the colour entity contained within it.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-77daebbdb6d2f87a",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-7a084d049b4a89a0",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-b14b468214721ba3",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-2d516093d1902466",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-7a084d049b4a89a0",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              },
+              {
+                "evidence_id": "sfev-77daebbdb6d2f87a",
+                "evidence_set_id": "sfes-5d6cc3267c12699b"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-796c1ac35bde3d1e",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ],
+              "rationale": "The stone is the delivery vehicle and disappears early; the narrative logic is governed by the colour entity it released, not the rock as such. As an object it is an incidental device relative to the overriding causal center, so it does not independently determine the whole narrative.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The stone has strongly anomalous properties, but as an object distinct from the colour it is a vehicle/container rather than the world-altering difference itself; its dissolution and lightning-drawing are unusual but the totalizing change flows from the entity it carries, not the rock per se.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b14b468214721ba3",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-2d516093d1902466",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                },
+                {
+                  "evidence_id": "sfev-7a084d049b4a89a0",
+                  "evidence_set_id": "sfes-5d6cc3267c12699b"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "cand-colour-out-of-space",
+        "evidence_set_id": "sfes-5d6cc3267c12699b",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+            "source_run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-5d6cc3267c12699b",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 32259,
+            "output": 2831
+          }
+        },
+        "status": "complete",
+        "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-5d6cc3267c12699b",
+    "knight_analysis_id": "lovecraft__the_colour_out_of_space-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__the_colour_out_of_space-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-5d6cc3267c12699b",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "paraphrase": "After exhaustive testing, the scientists conclude the substance is not terrestrial and obeys laws foreign to earth.",
+            "quote": "It was nothing of this earth, but a piece of the great outside; and as\nsuch dowered with outside properties and obedient to outside laws.",
+            "raw_id": "ev004",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "catastrophe",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "paraphrase": "The farm erupts in a cataclysm of unnatural sparks and substance as the entity departs.",
+            "quote": "there\nburst up\nfrom that doomed and accursed farm a gleamingly eruptive cataclysm of\nunnatural sparks and substance",
+            "raw_id": "ev012",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00070"
+            ],
+            "paraphrase": "The narrator contrasts the entity against all of known Nature, calling it a colour from beyond.",
+            "quote": "It was just a colour\nout of space\ns\ta frightful messenger from unformed realms of infinity\nbeyond all Nature as we know it",
+            "raw_id": "ev015",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "paraphrase": "Locals believe the blighted zone continues to spread slowly outward over time.",
+            "quote": "the country notion\nthat the blight is spreading\ns\tlittle by little, perhaps an inch a year.",
+            "raw_id": "ev016",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 61566,
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "start_char": 61371
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-05886d7bebe3f5ee",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The colour entity shoots up into the sky and departs into space through the clouds.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev013",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Then without warning the hideous thing shot vertically up toward the\nsky like a rocket or meteor, leaving behind no trail and disappearing\nthrough a round and curiously regular hole in the clouds"
+        },
+        {
+          "anchor": {
+            "end_char": 67940,
+            "paragraph_ids": [
+              "p00070"
+            ],
+            "start_char": 67811
+          },
+          "confidence": 0.88,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1c636103b03b2fe2",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator tries to categorize the entity as a gas but notes it obeys laws foreign to our cosmos.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev014",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In terms of matter I suppose the thing\nAmmi described would be called a gas, but this gas obeyed laws that\nare not of our cosmos."
+        },
+        {
+          "anchor": {
+            "end_char": 64926,
+            "paragraph_ids": [
+              "p00066"
+            ],
+            "start_char": 64835
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-27a6bc3d6f208e6c",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The farm is permanently reduced to a barren grey desert where nothing grows.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev017",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Five eldritch acres of\ndusty grey desert remained, nor has anything ever grown there since."
+        },
+        {
+          "anchor": {
+            "end_char": 32511,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 32372
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-28f481b2fe926f76",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The livestock suffer a lethal wasting disease, turning grey and brittle and disintegrating.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev009",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The swine began growing grey and brittle\nand falling to pieces before they died, and their eyes and muzzles\ndeveloped singular alterations."
+        },
+        {
+          "anchor": {
+            "end_char": 15939,
+            "paragraph_ids": [
+              "p00021"
+            ],
+            "start_char": 15777
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2d516093d1902466",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The stone is explained as possessing a peculiar electrical property that repeatedly drew lightning during a storm.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev005",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The\nstone, magnetic as it had been, must have had some peculiar electrical\nproperty; for it had \"drawn the lightning,\" as Nahum said, with a\nsingular persistence."
+        },
+        {
+          "anchor": {
+            "end_char": 24326,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 24101
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-347bb6d529d9944f",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The vegetation begins producing bizarre growths and unknown colours across the affected land.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev007",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All the orchard trees blossomed forth in\nstrange colours, and through the stony soil of the yard and adjacent\npasturage there sprang up a bizarre growth which only a botanist could\nconnect with the proper flora of the region."
+        },
+        {
+          "anchor": {
+            "end_char": 12251,
+            "paragraph_ids": [
+              "p00016"
+            ],
+            "start_char": 11970
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-77daebbdb6d2f87a",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Spectroscopic examination of the meteorite reveals spectral bands unlike any known part of the normal spectrum, prompting scientific speculation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev002",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "when upon heating before the spectroscope it\ndisplayed shining bands unlike any known colours of the normal spectrum\nthere was much breathless talk of new elements, bizarre optical\nproperties, and other things which puzzled men of science are wont to\nsay when faced by the unknown."
+        },
+        {
+          "anchor": {
+            "end_char": 43680,
+            "paragraph_ids": [
+              "p00046"
+            ],
+            "start_char": 43538
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-796c1ac35bde3d1e",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Dying Nahum describes the colour that lives in the well and drains life from everything.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev011",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Nothin' ... nothin' ... the colour ... it burns ... cold an' wet, but\nit burns ... it lived in the well.... I seen it ... a kind o' smoke ..."
+        },
+        {
+          "anchor": {
+            "end_char": 12473,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 12253
+          },
+          "confidence": 0.92,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7a084d049b4a89a0",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professors systematically test the meteorite fragment with a series of reagents and acids to identify its properties.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev003",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Hot as it was, they tested it in a crucible with all the proper\nreagents. Water did nothing. Hydrochloric acid was the same. Nitric\nacid and even aqua regia merely hissed and spattered against its torrid\ninvulnerability."
+        },
+        {
+          "anchor": {
+            "end_char": 47606,
+            "paragraph_ids": [
+              "p00049"
+            ],
+            "start_char": 47283
+          },
+          "confidence": 0.88,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-960bcfed0089998b",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Laboratory analysis links the dust samples to the meteor's unknown spectrum, which fades over time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev010",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Under the\nspectroscope both samples gave off an unknown spectrum, in which many\nof the baffling bands were precisely like those which the strange\nmeteor had yielded in the previous year. The property of emitting this\nspectrum vanished in a month, the dust thereafter consisting mainly of\nalkaline phosphates and carbonates."
+        },
+        {
+          "anchor": {
+            "end_char": 27882,
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "start_char": 27724
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9b236e025dd7048b",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Mrs. Gardner descends into madness, raving incoherently about indescribable presences.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev008",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the poor woman screamed about things in the air which she could not\ndescribe. In her raving there was not a single specific noun, but\nonly verbs and pronouns."
+        },
+        {
+          "anchor": {
+            "end_char": 9046,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 8998
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b14b468214721ba3",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrator identifies the arrival of a meteorite as the origin point of the region's transformation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev001",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It all began, old Ammi said, with the meteorite."
+        },
+        {
+          "anchor": {
+            "end_char": 18432,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 18355
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b3aaa9d26d859cb6",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The ruined harvest is attributed to the meteorite having poisoned the soil.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev006",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Quick to\nconnect events, he declared that the meteorite had poisoned the soil"
+        },
+        {
+          "anchor": {
+            "end_char": 14468,
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "start_char": 14191
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dae1c39c9473cb3c",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The scientists discover a coloured globule inside the meteorite whose colour is nearly indescribable.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev018",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They had uncovered what seemed to be the side of a large coloured\nglobule embedded in the substance. The colour, which resembled some\nof the bands in the meteor's strange spectrum, was almost impossible\nto describe; and it was only by analogy that they called it colour at\nall."
+        }
+      ],
+      "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_colour_out_of_space",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "522dd51a05724ce861b7081a439375ab0cf9a7505c8d2cd54c5d9d925127552b",
+  "story_path": "lovecraft/the_colour_out_of_space/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

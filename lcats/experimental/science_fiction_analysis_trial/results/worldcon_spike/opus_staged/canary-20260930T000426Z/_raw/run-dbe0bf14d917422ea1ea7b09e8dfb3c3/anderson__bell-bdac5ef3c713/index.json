@@ -1,0 +1,24 @@
+{
+  "run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_evidence.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T000426Z/_raw/run-dbe0bf14d917422ea1ea7b09e8dfb3c3/anderson__bell-bdac5ef3c713/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "anderson/bell"
+}
