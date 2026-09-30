@@ -436,22 +436,26 @@ def _locate_quote_with_notes(
             search_from = found_at + 1
 
         fallback_quote, fallback_notes = _fallback_quote(quote)
-        span = text_segmenter.locate_anchor_span(
-            prepared_story.normalized_text,
-            fallback_quote,
-            start_bound,
-            end_bound,
-        )
-        if span is None:
-            continue
-        start, end = span
-        anchor = EvidenceAnchor(
-            paragraph_ids=_paragraph_ids_for_span(prepared_story, start, end),
-            start_char=start,
-            end_char=end,
-        )
-        if _anchor_satisfies_candidate(prepared_story, candidate, anchor):
-            return anchor, fallback_notes
+        fallback_search_from = start_bound
+        while fallback_search_from < end_bound:
+            span = text_segmenter.locate_anchor_span(
+                prepared_story.normalized_text,
+                fallback_quote,
+                fallback_search_from,
+                end_bound,
+                strip_paragraph_markers=False,
+            )
+            if span is None:
+                break
+            start, end = span
+            anchor = EvidenceAnchor(
+                paragraph_ids=_paragraph_ids_for_span(prepared_story, start, end),
+                start_char=start,
+                end_char=end,
+            )
+            if _anchor_satisfies_candidate(prepared_story, candidate, anchor):
+                return anchor, fallback_notes
+            fallback_search_from = start + 1
     return None, ()
 
 
@@ -464,9 +468,13 @@ def _fallback_quote(quote: str) -> tuple[str, tuple[str, ...]]:
     notes: list[str] = []
 
     def replace_escape(match: re.Match[str]) -> str:
-        notes.append("decoded literal Unicode escape in quote")
         codepoint = match.group(1) or match.group(2)
-        return chr(int(codepoint, 16))
+        try:
+            decoded = chr(int(codepoint, 16))
+        except ValueError:
+            return match.group(0)
+        notes.append("decoded literal Unicode escape in quote")
+        return decoded
 
     decoded = _LITERAL_UNICODE_ESCAPE_RE.sub(replace_escape, quote)
     if decoded != quote:

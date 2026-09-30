@@ -152,6 +152,51 @@ class EvidenceTest(unittest.TestCase):
             record.provenance[0].normalization_notes,
         )
 
+    def test_fallback_quarantines_paragraph_marker_leakage(self):
+        prepared = _prepared_story()
+        candidate = evidence.EvidenceCandidate(
+            evidence_type="scientific_or_technical_explanation",
+            quote="[P00002] blue exhaust",
+            paraphrase="The marker is not part of the story quote.",
+            confidence=0.8,
+            paragraph_ids=("p00002",),
+        )
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+
+    def test_fallback_continues_after_wrong_normalized_occurrence(self):
+        prepared = _prepared_story()
+        candidate = evidence.EvidenceCandidate(
+            evidence_type="storyworld_change",
+            quote="THE CITY LIFTED ON ENGINES AT DAWN.",
+            paraphrase="The later matching paragraph is the declared source.",
+            confidence=0.8,
+            paragraph_ids=("p00005",),
+        )
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertEqual(("p00005",), evidence_set.records[0].anchor.paragraph_ids)
+
+    def test_fallback_quarantines_invalid_unicode_escape(self):
+        prepared = _prepared_story()
+        candidate = evidence.EvidenceCandidate(
+            evidence_type="storyworld_change",
+            quote=r"blue\\U00110000exhaust",
+            paraphrase="An invalid escape must not abort evidence building.",
+            confidence=0.8,
+            paragraph_ids=("p00002",),
+        )
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertFalse(evidence_set.records)
+        self.assertEqual(1, len(evidence_set.quarantined))
+
     def test_canonicalizes_type_alias_and_records_normalization(self):
         prepared = _prepared_story()
         candidate = {
