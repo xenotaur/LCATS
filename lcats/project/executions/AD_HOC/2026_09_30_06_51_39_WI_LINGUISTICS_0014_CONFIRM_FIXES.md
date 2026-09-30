@@ -23,12 +23,19 @@ policy. No fixes or thread resolutions were needed.
 
 # Validation
 
-- `gh pr view 463`: head `844f18a12c46767ffecc3143f5191342e52ba260`, open and mergeable.
+- Pre-record `gh pr view 463`: validation head `844f18a12c46767ffecc3143f5191342e52ba260`, open and mergeable.
 - `lrh request review_response`: no comments to resolve.
 - `lrh github threads --mode raw --state all`: authoritative unresolved list empty.
 - `gh api repos/xenotaur/LCATS/rules/branches/main`: zero required-status-check rules.
 - `gh pr checks 463 --json name,state,bucket`: coverage, lint, and both test checks passed.
 
+After this record was pushed, the PR head became
+`44a239e81bb4baf6a9a04cbdf5ddcc42ea483514`. The post-record re-check found
+the PR still open and mergeable, with coverage, lint, and both test checks
+successful and no new unresolved review threads. The blank `commit` field and
+`in_progress` status are intentional until merge closeout supplies the merge
+commit SHA.
+
 # Follow-up
 
-Proceed to the post-record review/CI re-check, then the SHA-locked merge gate.
+Proceed to the SHA-locked merge gate after the post-record review/CI re-check.
