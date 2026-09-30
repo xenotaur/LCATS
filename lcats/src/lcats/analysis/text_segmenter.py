@@ -119,7 +119,12 @@ def _normalize_typography(s: str) -> str:
 
 
 def _locate_anchor_span(
-    text: str, anchor: str, lo: int, hi: int
+    text: str,
+    anchor: str,
+    lo: int,
+    hi: int,
+    *,
+    strip_paragraph_markers: bool = True,
 ) -> tuple[int, int] | None:
     """Exact search first; if not found, try a whitespace-tolerant,
     typography-normalized, case-insensitive match within [lo, hi).
@@ -180,7 +185,9 @@ def _locate_anchor_span(
     # marker and the curly/ASCII distinction are both intentional
     # differences from the real text, not whitespace noise), so both are
     # applied only here, on the fallback path (WI-SEGMENT-0070).
-    anchor_for_fallback = _PARAGRAPH_MARKER_RE.sub("", anchor)
+    anchor_for_fallback = (
+        _PARAGRAPH_MARKER_RE.sub("", anchor) if strip_paragraph_markers else anchor
+    )
     if not anchor_for_fallback.strip():
         return None
     anchor_for_fallback = _normalize_typography(anchor_for_fallback)
@@ -200,6 +207,25 @@ def _locate_anchor_span(
     if match is None:
         return None
     return lo + match.start(), lo + match.end()
+
+
+def locate_anchor_span(
+    text: str,
+    anchor: str,
+    lo: int,
+    hi: int,
+    *,
+    strip_paragraph_markers: bool = True,
+) -> tuple[int, int] | None:
+    """Locate an anchor using the bounded exact/normalized matcher."""
+
+    return _locate_anchor_span(
+        text,
+        anchor,
+        lo,
+        hi,
+        strip_paragraph_markers=strip_paragraph_markers,
+    )
 
 
 def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None:
