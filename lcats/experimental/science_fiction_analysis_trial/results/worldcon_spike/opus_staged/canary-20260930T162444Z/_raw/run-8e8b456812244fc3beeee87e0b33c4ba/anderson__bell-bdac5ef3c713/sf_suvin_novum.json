@@ -1,0 +1,129 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 9638,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1973,
+  "run_id": "run-8e8b456812244fc3beeee87e0b33c4ba",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-invisible-bell",
+        "character_reaction_evidence_ids": [
+          "sfev-a256858df2b64242",
+          "sfev-ecf1ea208bc88843",
+          "sfev-b2959b7c975895d1"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-1c256a67d56813d2",
+            "sfev-3ce231df4102f1f7",
+            "sfev-50200229d124fad4"
+          ],
+          "rationale": "The story offers no coherent, systematic, immanent nonsupernatural account of the bell. The offered 'learned owl' explanation is explicitly derided as leaving everyone no wiser, and the resolution is overtly religious/supernatural ('invisible holy bell,' 'blessed spirits,' 'hallelujah'), grounding the phenomenon in the sacred rather than an immanent logic. This is fairy-tale/allegorical marvel, not cognitively validated estrangement.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A mysterious, invisible bell whose wondrous church-bell tone is heard throughout the town and forest, whose source cannot be located, and which is ultimately revealed to be the sound of all nature itself as a vast holy church of nature and poetry.",
+        "estrangement_rationale": "The bell functions as a reader-facing contrast between mundane social ranks and a transcendent equality/nature (p00006), and its pursuit transforms characters' perception of the forest and nature. But the estrangement is spiritual-allegorical rather than cognitive.",
+        "evidence_ids": [
+          "sfev-ecaed67a183acb30",
+          "sfev-fa2f57c9e354d7b1",
+          "sfev-1c256a67d56813d2",
+          "sfev-3ce231df4102f1f7",
+          "sfev-a256858df2b64242",
+          "sfev-ecf1ea208bc88843",
+          "sfev-50200229d124fad4",
+          "sfev-def2470c7b50ece2",
+          "sfev-92383c465dc3a6e7",
+          "sfev-b2959b7c975895d1"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The search for the source of the bell is the organizing engine of the entire narrative: the quest structures the plot, the king's reward drives investigation, and the final revelation of the bell as nature's church is the story's climax and moral center.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-ecaed67a183acb30",
+            "sfev-fa2f57c9e354d7b1",
+            "sfev-a256858df2b64242",
+            "sfev-50200229d124fad4"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-ecf1ea208bc88843",
+            "sfev-1c256a67d56813d2"
+          ],
+          "rationale": "The bell is a totalizing wondrous phenomenon that pervades the storyworld and reorients characters' sense of nature. However, its status is presented as symbolic/allegorical and spiritual rather than as a systematic difference in the empirical order of the world; it may be a religious-poetic conceit rather than a genuine world-altering novum. Its reality is disputed within the text.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-ecaed67a183acb30",
+            "sfev-a256858df2b64242",
+            "sfev-50200229d124fad4"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-92383c465dc3a6e7",
+          "sfev-a256858df2b64242"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-def2470c7b50ece2",
+          "sfev-50200229d124fad4"
+        ]
+      },
+      {
+        "candidate_id": "cand-enchanted-forest",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-def2470c7b50ece2"
+          ],
+          "rationale": "The wondrous flora and talking apes are pure fairy-tale marvel with no systematic, immanent, nonsupernatural account. There is no imaginary science or coherent logic underpinning them.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A fantastical forest interior containing supernatural flora such as white lilies with blood-red stamina, skyblue glowing tulips, and apples resembling soapbubbles, along with talking apes.",
+        "estrangement_rationale": "The strange flora provides marvelous reader-facing contrast with ordinary nature but has no storyworld-altering consequence beyond ambiance.",
+        "evidence_ids": [
+          "sfev-def2470c7b50ece2"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.65,
+          "counterevidence_ids": [
+            "sfev-def2470c7b50ece2"
+          ],
+          "rationale": "The enchanted flora is incidental scenery encountered along the quest; it does not determine the narrative logic, which is governed by the bell's pursuit.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.45,
+          "counterevidence_ids": [],
+          "rationale": "The forest depths contain plants unlike ordinary nature, marking a departure from the empirical norm. However this is a localized marvelous setting rather than a totalizing world change.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-def2470c7b50ece2"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-def2470c7b50ece2"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-def2470c7b50ece2"
+        ]
+      }
+    ]
+  }
+}
