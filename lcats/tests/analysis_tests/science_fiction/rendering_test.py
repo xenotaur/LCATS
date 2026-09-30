@@ -124,6 +124,44 @@ class ScienceFictionRenderingTest(unittest.TestCase):
         self.assertIn("Author", neither)
         self.assertNotIn("Knight summary", neither)
 
+    def test_comparison_table_accepts_explicit_columns_and_sets(self):
+        items = [{"data": self.data, "title": "The Colour out of Space"}]
+        explicit = rendering.render_comparison_table(
+            items,
+            columns=(
+                "identity",
+                "knight_label",
+                "knight_score",
+                "knight_interval",
+                "suvin_novum",
+                "suvin_evidence",
+            ),
+        )
+        sets = rendering.render_comparison_table(
+            items,
+            column_sets=("identity", "knight_evaluation", "suvin_evaluation"),
+        )
+
+        for result in (explicit, sets):
+            self.assertIn("Knight Label", result)
+            self.assertIn("Knight Score", result)
+            self.assertIn("Knight Interval", result)
+            self.assertIn("Suvin Novum", result)
+            self.assertIn("Suvin Evidence", result)
+        self.assertNotIn("Criterion 1", explicit)
+        self.assertNotIn("Knight summary", explicit)
+
+    def test_comparison_table_rejects_unknown_or_duplicate_columns(self):
+        items = [{"data": self.data}]
+        with self.assertRaises(ValueError):
+            rendering.render_comparison_table(items, columns=("unknown",))
+        with self.assertRaises(ValueError):
+            rendering.render_comparison_table(
+                items, columns=("identity",), column_sets=("summaries",)
+            )
+        with self.assertRaises(ValueError):
+            rendering.render_comparison_table(items, columns=("story", "story"))
+
 
 if __name__ == "__main__":
     unittest.main()

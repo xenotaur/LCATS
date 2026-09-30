@@ -21,6 +21,37 @@ Detail = Literal["summary", "detailed"]
 OUTPUT_FORMATS = frozenset({"markdown", "html", "latex"})
 DETAIL_LEVELS = frozenset({"summary", "detailed"})
 
+COMPARISON_COLUMN_SETS = {
+    "identity": ("story", "author"),
+    "knight_evaluation": ("knight_label", "knight_score", "knight_interval"),
+    "knight_detail": tuple(f"knight_criterion_{index}" for index in range(1, 8)),
+    "suvin_evaluation": ("suvin_novum", "suvin_evidence"),
+    "suvin_detail": (
+        "suvin_novelty",
+        "suvin_cognitive_validation",
+        "suvin_narrative_hegemony",
+    ),
+    "summaries": ("knight_summary", "suvin_summary"),
+}
+
+COMPARISON_COLUMN_LABELS = {
+    "story": "Story",
+    "author": "Author",
+    "knight_label": "Knight Label",
+    "knight_score": "Knight Score",
+    "knight_interval": "Knight Interval",
+    "suvin_novum": "Suvin Novum",
+    "suvin_evidence": "Suvin Evidence",
+    "knight_summary": "Knight summary",
+    "suvin_summary": "Suvin summary",
+    "suvin_novelty": "Novelty",
+    "suvin_cognitive_validation": "Cognitive validation",
+    "suvin_narrative_hegemony": "Narrative hegemony",
+}
+COMPARISON_COLUMN_LABELS.update(
+    {f"knight_criterion_{index}": f"Criterion {index}" for index in range(1, 8)}
+)
+
 
 def render_json(
     path: str | pathlib.Path,
@@ -77,6 +108,8 @@ def render_comparison_table(
     named_feature_headers: bool = True,
     include_detail_columns: bool = True,
     include_summary_columns: bool = True,
+    columns: Sequence[str] | None = None,
+    column_sets: Sequence[str] | None = None,
 ) -> str:
     """Render multiple sidecars as a feature-and-summary comparison table.
 
@@ -84,7 +117,9 @@ def render_comparison_table(
     ``title`` and ``author`` metadata.  ``named_feature_headers`` switches
     detail headers between human names such as ``Criterion 1`` and compact
     names such as ``K1``.  Detail and summary columns can be independently
-    omitted for compact views.
+    omitted for compact views.  For more explicit layouts, pass ``columns``
+    with individual column IDs or ``column_sets`` with names from
+    :data:`COMPARISON_COLUMN_SETS`; these override the legacy toggles.
     """
 
     _require_choice(output_format, OUTPUT_FORMATS, "output_format")
@@ -96,16 +131,18 @@ def render_comparison_table(
         )
         for item in items
     ]
-    columns = _comparison_columns(
+    resolved_columns = _comparison_columns(
         named_feature_headers=named_feature_headers,
         include_detail_columns=include_detail_columns,
         include_summary_columns=include_summary_columns,
+        columns=columns,
+        column_sets=column_sets,
     )
     if output_format == "markdown":
-        return _render_comparison_markdown(rows, columns)
+        return _render_comparison_markdown(rows, resolved_columns)
     if output_format == "html":
-        return _render_comparison_html(rows, columns)
-    return _render_comparison_latex(rows, columns)
+        return _render_comparison_html(rows, resolved_columns)
+    return _render_comparison_latex(rows, resolved_columns)
 
 
 def render_comparison_table_from_json(
@@ -116,6 +153,8 @@ def render_comparison_table_from_json(
     named_feature_headers: bool = True,
     include_detail_columns: bool = True,
     include_summary_columns: bool = True,
+    columns: Sequence[str] | None = None,
+    column_sets: Sequence[str] | None = None,
 ) -> str:
     """Load sidecars from paths and render a comparison table."""
 
@@ -136,6 +175,8 @@ def render_comparison_table_from_json(
         named_feature_headers=named_feature_headers,
         include_detail_columns=include_detail_columns,
         include_summary_columns=include_summary_columns,
+        columns=columns,
+        column_sets=column_sets,
     )
 
 
@@ -218,7 +259,25 @@ def _comparison_columns(
     named_feature_headers: bool,
     include_detail_columns: bool,
     include_summary_columns: bool,
+    columns: Sequence[str] | None,
+    column_sets: Sequence[str] | None,
 ) -> list[tuple[str, str]]:
+    if columns is not None and column_sets is not None:
+        raise ValueError("pass either columns or column_sets, not both")
+    if columns is not None or column_sets is not None:
+        requested = columns if columns is not None else column_sets or ()
+        resolved: list[str] = []
+        for value in requested:
+            if value in COMPARISON_COLUMN_SETS:
+                resolved.extend(COMPARISON_COLUMN_SETS[value])
+            elif value in COMPARISON_COLUMN_LABELS:
+                resolved.append(value)
+            else:
+                raise ValueError(f"unknown comparison column or set: {value!r}")
+        if len(set(resolved)) != len(resolved):
+            raise ValueError("comparison columns must be unique after set expansion")
+        return [(key, COMPARISON_COLUMN_LABELS[key]) for key in resolved]
+
     columns = [("story", "Story"), ("author", "Author")]
     if include_detail_columns:
         knight_names = (
@@ -262,18 +321,31 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
     row = {
         "story": view["title"],
         "author": view.get("author") or "—",
+        "knight_label": knight["classification"],
+        "knight_score": f"{knight['definite']}/{knight['total']}",
+        "knight_interval": f"{knight['definite']}–{knight['possible']}",
+        "suvin_novum": "Present" if suvin["qualified"] else "Absent",
+        "suvin_evidence": (
+            "Qualified, Dominant"
+            if suvin["qualified"] and suvin.get("dominant")
+            else "Qualified" if suvin["qualified"] else "Not qualified"
+        ),
         "knight_summary": knight_summary,
         "suvin_summary": suvin_summary,
     }
     criteria = knight["criteria"]
     for index, criterion in enumerate(criteria, start=1):
-        row[f"k{index}"] = _status_marker(criterion.get("status"))
+        marker = _status_marker(criterion.get("status"))
+        row[f"k{index}"] = marker
+        row[f"knight_criterion_{index}"] = marker
     for key, source in (
         ("novelty", "novelty"),
         ("cognitive", "cognitive_validation"),
         ("hegemony", "narrative_hegemony"),
     ):
-        row[key] = _status_marker(candidate.get(source, {}).get("status"))
+        marker = _status_marker(candidate.get(source, {}).get("status"))
+        row[key] = marker
+        row[f"suvin_{source}"] = marker
     return row
 
 
