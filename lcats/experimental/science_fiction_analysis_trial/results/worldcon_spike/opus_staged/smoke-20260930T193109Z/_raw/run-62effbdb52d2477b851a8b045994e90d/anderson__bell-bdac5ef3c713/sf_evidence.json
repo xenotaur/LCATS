@@ -1,0 +1,61 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 3124,
+  "model": "fake-worldcon-spike",
+  "output_tokens": 525,
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paraphrase": "Spike evidence for storyworld_change.",
+        "quote": "People said \u201cThe Evening Bell is sounding, the sun is setting.\u201d For a\n      strange wondrous tone was heard in the narrow streets of a large town. It\n      was like the sound of a",
+        "raw_id": "ev-storyworld"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paraphrase": "Spike evidence for scientific_or_technical_explanation.",
+        "quote": "Those persons who were walking outside the town, where the houses were\n      farther apart, with gardens or little fields between them, could see the\n      evening sky still",
+        "raw_id": "ev-explanation"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paraphrase": "Spike evidence for inquiry_or_scientific_method.",
+        "quote": "A long time passed, and people said to each other\u2014\u201cI wonder if there\n      is a church out in the wood? The bell has a tone that is wondrous sweet;\n      let us stroll thither,",
+        "raw_id": "ev-method"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paraphrase": "Spike evidence for extrapolative_consequence.",
+        "quote": "Many persons now went to the wood, for the sake of getting the place, but\n      one only returned with a sort of explanation; for nobody went far enough,\n      that one not",
+        "raw_id": "ev-consequence"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paraphrase": "Spike evidence for reader_facing_contrast.",
+        "quote": "It was the day of confirmation. The clergyman had spoken so touchingly,\n      the children who were confirmed had been greatly moved; it was an eventful\n      day for them; from",
+        "raw_id": "ev-contrast"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paraphrase": "Spike evidence for character_reaction.",
+        "quote": "There were three, therefore, that did not go; the others hastened on. The\n      sun shone, the birds sang, and the children sang too, and each held the\n      other by the hand;",
+        "raw_id": "ev-reaction"
+      }
+    ]
+  }
+}

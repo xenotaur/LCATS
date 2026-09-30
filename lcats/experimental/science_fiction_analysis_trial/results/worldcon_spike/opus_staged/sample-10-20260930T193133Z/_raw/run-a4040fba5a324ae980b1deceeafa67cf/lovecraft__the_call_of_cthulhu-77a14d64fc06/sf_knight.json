@@ -1,0 +1,110 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 34543,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1592,
+  "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+  "stage": "sf_knight",
+  "story_id": "lovecraft/the_call_of_cthulhu",
+  "story_path": "lovecraft/the_call_of_cthulhu/story.json",
+  "text": "",
+  "title": "The Call of Cthulhu by H. P. Lovecraft",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.82,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The story materially foregrounds the sciences (geology, mineralogy, anthropology, linguistics), and frames its horror explicitly around the correlation of dissociated scientific knowledge; the idol's stone is analyzed as matching no known rock, and the Old Ones' non-material composition and telepathy function as speculative-science content.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-7c1db809a17cd228",
+          "sfev-a484b39931478c2d",
+          "sfev-66f59c8ded0ff1bb",
+          "sfev-d75dee01ea47f296"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No engineered device, technique, or invention materially affects the setting, problem, or outcome. The idols and ships are ordinary or ancient artifacts, not inventions driving the action; the carven idols are cult objects rather than functional technology.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "central",
+        "rationale": "The narrative centrally invokes a hugely remote past (the Great Old Ones who ruled eons before humanity, R'lyeh built in measureless eons, Cthulhu loose after vigintillions of years) and situates present events against these vast temporal displacements.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-ad5ea640a30d4ea0",
+          "sfev-6fa86eb062d01c03",
+          "sfev-92b6a0fa1a032dfc",
+          "sfev-adf837684cc52102"
+        ]
+      },
+      {
+        "confidence": 0.78,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "From the premise of the entombed Old Ones awaiting the stars' alignment, the story extrapolates consequences: Castro's prophecy of humanity degenerating into lawless revelry when the stars are right, and the narrator's extrapolation that fully correlating knowledge will unleash catastrophic revelation.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-6fa86eb062d01c03",
+          "sfev-7c1db809a17cd228",
+          "sfev-ad5ea640a30d4ea0"
+        ]
+      },
+      {
+        "confidence": 0.84,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "central",
+        "rationale": "Systematic inquiry materially drives understanding: Angell instituted a far-flung body of dream inquiries with dated reports, questioned Wilcox with scientific minuteness, and Legrasse and Webb conducted an exhaustive comparison of ritual chants; geologists measured and evaluated the stone. The whole plot advances by piecing together evidence.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-834d231c5e0b31a8",
+          "sfev-bf119ae0050be4a4",
+          "sfev-003171613a09ddaa",
+          "sfev-66f59c8ded0ff1bb"
+        ]
+      },
+      {
+        "confidence": 0.83,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "Cosmic visitors from the stars (the Great Old Ones who came from the sky) and a substantially nonordinary environment (R'lyeh with its non-Euclidean, impossibly distorted geometry, on an uncharted island) are central to the story.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-ad5ea640a30d4ea0",
+          "sfev-1ade064423da6a7b",
+          "sfev-b9068f874eb7b7e8",
+          "sfev-7aae53d1670a1b2c"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "The awakening and emergence of Cthulhu represents an impending cosmic catastrophe of global scale; the prophesied return would see the earth flame with a holocaust of ecstasy and the world screaming with fright. It is averted only by chance sinking, remaining causally central and impending.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-7aae53d1670a1b2c",
+          "sfev-92b6a0fa1a032dfc",
+          "sfev-6fa86eb062d01c03"
+        ]
+      }
+    ]
+  }
+}
