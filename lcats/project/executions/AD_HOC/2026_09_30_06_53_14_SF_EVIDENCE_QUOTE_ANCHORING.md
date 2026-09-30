@@ -2,14 +2,14 @@
 execution_id: 2026_09_30_06_53_14_SF_EVIDENCE_QUOTE_ANCHORING
 prompt_id: PROMPT(AD_HOC:SF_EVIDENCE_QUOTE_ANCHORING)[2026-09-30T06:45:08+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
-pr: 
-commit: 
+pr: https://github.com/xenotaur/LCATS/pull/466
+commit: 8bd9224b
 created_at: 2026-09-30T06:53:14+00:00
 agent: codex_app
 instruction_source: ad_hoc conversation — bounded science-fiction evidence quote-anchoring fallback
-session_transcript: pending
+session_transcript: none
 ---
 
 # Summary
