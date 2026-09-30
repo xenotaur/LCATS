@@ -1,0 +1,11 @@
+{
+  "failure_kind": "AuthenticationError",
+  "failure_message": "Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'API key is invalid.'}, 'request_id': None}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260929T235840Z/_raw/run-f6e180a5e69d44ff86de9559abc82710/lovecraft__the_colour_out_of_space-c84ecbf37caa/sf_evidence-backend-error.json",
+  "run_id": "run-f6e180a5e69d44ff86de9559abc82710",
+  "stage": "story",
+  "story_id": "lovecraft/the_colour_out_of_space",
+  "story_path": "lovecraft/the_colour_out_of_space/story.json",
+  "title": "The Colour out of Space by H. P. Lovecraft",
+  "tool_result": null
+}

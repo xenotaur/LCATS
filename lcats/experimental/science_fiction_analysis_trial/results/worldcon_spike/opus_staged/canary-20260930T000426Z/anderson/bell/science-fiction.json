@@ -1,0 +1,398 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__bell-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied; the story is an allegorical fairy tale with no material scientific content, but with an empty evidence set the criterion cannot be substantiated.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No supplied evidence records exist to assess any device or invention; the empty evidence set is unusable.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No evidence records supplied; cannot assess future, remote past, or temporal displacement.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The evidence set is empty, so extrapolation from an identifiable premise cannot be adjudicated.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records provided; cannot assess observation, hypothesis, or systematic inference.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The supplied evidence set is empty; cannot assess other planets, dimensions, or visitors.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records were supplied; cannot assess any large-scale catastrophe.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+            "source_run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 6080,
+            "output": 807
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__bell-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "225a271d43eab87ff82f8cf787d139082f256c92",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-dbe0bf14d917422ea1ea7b09e8dfb3c3",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 6427,
+            "output": 934
+          }
+        },
+        "status": "failed",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+    "knight_analysis_id": "anderson__bell-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-a3ff5fd5e2f2b341",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "People propose to investigate the source of the mysterious bell sound by going to examine it.",
+            "quote": "I wonder if there is a church out in the wood? The bell has a tone that is wondrous sweet; let us stroll thither, and examine the matter nearer.",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "One investigator offers a naturalistic explanation attributing the sound to an owl striking a hollow tree, though uncertain.",
+            "quote": "he said that the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches. But whether the sound came from his head or from the hollow tree, that no one could say with certainty.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "The appointed bell-ringer produces annual scholarly treatises, yet knowledge does not advance.",
+            "quote": "wrote yearly a short treatise \"On the Owl\"; but everybody was just as wise as before.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Some children conclude the bell is imaginary and reject its reality.",
+            "quote": "the bell does not exist; it is only a fancy that people have taken into their heads!",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "paraphrase": "A child tests the hypothesis by listening carefully and insists the matter needs closer examination.",
+            "quote": "That surely cannot be the bell,\" said one of the children, lying down and listening. \"This must be looked to.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "paraphrase": "The king's son reasons that the small bell cannot account for the sound heard at such a distance.",
+            "quote": "the bell was too small and too fine to be heard at so great a distance, and besides it was very different tones to those that could move a human heart in such a manner",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "paraphrase": "The narrative contrasts the ordinary noise of the tea party with the deeper, more powerful bell sound.",
+            "quote": "he could also hear the people singing who were sitting at tea where the confectioner had his tent; but the deep sound of the bell rose louder",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "paraphrase": "The deep forest contains unusual, fantastical plants unlike ordinary nature.",
+            "quote": "There stood white lilies with blood-red stamina, skyblue tulips, which shone as they waved in the winds, and apple-trees, the apples of which looked exactly like large soapbubbles",
+            "raw_id": "ev08",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "paraphrase": "The king's son resolves determinedly to find the source of the bell.",
+            "quote": "I must and will find the bell,\" said he, \"even if I am obliged to go to the end of the world.",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.4,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "temporal_or_spatial_displacement",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "paraphrase": "From the summit the boy unexpectedly sees a vast sea, revealing a distant landscape beyond the forest.",
+            "quote": "the great, the glorious sea, that dashed its long waves against the coast\\u2014was stretched out before him",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [],
+      "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+  "story_path": "anderson/bell/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
