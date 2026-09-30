@@ -1,0 +1,420 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__brown_wolf-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The only quasi-scientific reference is the casual mention of 'the homing instinct' to explain the dog's northward flights, which is a decorative folk-naturalist label rather than a materially represented scientific fact, theory, or natural process driving the story. No genuine science is developed.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The story involves only ordinary contemporary items (a metal name plate, a train, Wells Fargo Express, a mail contract). None is an invention or engineered system that speculatively affects the setting or outcome; these are incidental, mundane conveniences.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The narrative is set in a contemporary, ordinary present (rural California and the Klondike). There is no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The story dramatizes a moral dilemma over a dog's choice of master but does not develop consequences extrapolated from any identifiable scientific, technological, social, or historical premise. It is a naturalistic character study, not an extrapolative work.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Skiff Miller offers commands and Irvine demands proof of ownership, but this is ordinary dispute and testing of a claim, not systematic scientific inquiry—observation, hypothesis, measurement, or evidential revision—materially driving understanding. It is generic reasoning, not scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The Klondike and California are ordinary earthly locations; a simile likening the dog to 'a traveller from another planet' is decorative figurative language, not an actual other planet, dimension, nonordinary cosmic environment, or visitor from one.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "References to Klondike hardship, starvation, and frost describe generalized harsh conditions and personal privation, not a large-scale natural, technological, cosmic, biological, or human-caused disaster that is actual, impending, remembered, or causally central.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-e129da866b62cff0",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e129da866b62cff0",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 18994,
+            "output": 1140
+          }
+        },
+        "status": "complete",
+        "story_hash": "b133e4dd40b604b3bf0cb13d36140d3e7a096813da495f4720346854ffdd88a8"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__brown_wolf-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-wolf-dog-choice",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The dog's behavior is explained through coherent, nonsupernatural terms (homing instinct, conditioning to trail commands, bond with the man who raised him). The account is systematic and immanent, but this coherence describes ordinary animal psychology rather than an imaginary scientific or social innovation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-6e7eb61c603c9b45",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ]
+            },
+            "description": "A semi-wild dog ('Wolf'/'Brown') who is given the agency to choose between two masters/lives and does so, functioning as a locus of will that drives the narrative's central conflict.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-48fe5c250e6b78e8",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-d69c5117184709f2",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-4a405048a4cd6abb",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ],
+              "rationale": "The dog's barking for the first time and his visible agonized deliberation create a moment of wonder for the characters, but this is emotional contrast within a naturalistic frame, not cognitive estrangement from an altered empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-48fe5c250e6b78e8",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-4a405048a4cd6abb",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-48fe5c250e6b78e8",
+                "evidence_set_id": "sfes-e129da866b62cff0"
+              },
+              {
+                "evidence_id": "sfev-4a405048a4cd6abb",
+                "evidence_set_id": "sfes-e129da866b62cff0"
+              },
+              {
+                "evidence_id": "sfev-6e7eb61c603c9b45",
+                "evidence_set_id": "sfes-e129da866b62cff0"
+              },
+              {
+                "evidence_id": "sfev-d69c5117184709f2",
+                "evidence_set_id": "sfes-e129da866b62cff0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The dog and the question of his ownership and choice govern the entire narrative logic: the story builds to and resolves on his decision. It is central rather than incidental.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-4a405048a4cd6abb",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-48fe5c250e6b78e8",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-d69c5117184709f2",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-4a405048a4cd6abb",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-48fe5c250e6b78e8",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                },
+                {
+                  "evidence_id": "sfev-6e7eb61c603c9b45",
+                  "evidence_set_id": "sfes-e129da866b62cff0"
+                }
+              ],
+              "rationale": "A loyal, intelligent dog who must choose between owners is entirely consistent with the ordinary empirical world. The dog's deliberation, homing instinct, and eventual decision are naturalistic animal behaviors, not a totalizing or world-altering difference from the empirical norm. Nothing about the story universe is altered; no estranging novum reshapes reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-e129da866b62cff0",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e129da866b62cff0",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 19341,
+            "output": 1014
+          }
+        },
+        "status": "complete",
+        "story_hash": "b133e4dd40b604b3bf0cb13d36140d3e7a096813da495f4720346854ffdd88a8"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-e129da866b62cff0",
+    "knight_analysis_id": "london__brown_wolf-knight-v1",
+    "suvin_novum_analysis_id": "london__brown_wolf-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-e129da866b62cff0",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Miller contrasts the harsh Klondike, where dogs may be eaten, with the mild conditions of California.",
+            "quote": "Things is different down here,\nMiller\nexplained.\n\nYou don\ndon\nt have to eat dogs.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Miller physically examines the dog's paw pads to assess how long it has been off the trail.",
+            "quote": "He\nlifted one of Wolf\ns fore legs and examined the foot-pads,\npressing them and denting them with his thumb.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 16657,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 16576
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-48fe5c250e6b78e8",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Walt and Madge are astonished when the previously silent dog barks upon meeting Miller.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Walt and Madge stared at each other.\nThe miracle had\nhappened.\nWolf had barked."
+        },
+        {
+          "anchor": {
+            "end_char": 29852,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 29772
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a405048a4cd6abb",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The dog becomes distressed by the unresponsiveness of the humans as he tries to make a choice.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was depressed by the\ncoldness of these humans who had never been cold before."
+        },
+        {
+          "anchor": {
+            "end_char": 6961,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 6868
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6e7eb61c603c9b45",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Irvine explains the dog's repeated flights northward as a homing instinct.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was possessed of an obsession that drove him\nnorth.\nThe homing instinct, Irvine called it"
+        },
+        {
+          "anchor": {
+            "end_char": 4204,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 4096
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d69c5117184709f2",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Walt and Madge cherished the dog, partly because winning his affection had been difficult.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The man and woman loved the dog very much; perhaps this was\nbecause it had been such a task to win his love."
+        }
+      ],
+      "story_hash": "b133e4dd40b604b3bf0cb13d36140d3e7a096813da495f4720346854ffdd88a8",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/brown_wolf",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "b133e4dd40b604b3bf0cb13d36140d3e7a096813da495f4720346854ffdd88a8",
+  "story_path": "london/brown_wolf/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

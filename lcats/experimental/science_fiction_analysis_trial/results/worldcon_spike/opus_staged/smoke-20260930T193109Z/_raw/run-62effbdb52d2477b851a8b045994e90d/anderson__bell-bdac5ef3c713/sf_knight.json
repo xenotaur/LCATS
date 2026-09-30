@@ -1,0 +1,81 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 3999,
+  "model": "fake-worldcon-spike",
+  "output_tokens": 332,
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "ev-storyworld"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "ev-storyworld"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_3",
+        "materiality": "central",
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "ev-storyworld"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_4",
+        "materiality": null,
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_5",
+        "materiality": null,
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_6",
+        "materiality": null,
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "criterion_id": "criterion_7",
+        "materiality": null,
+        "rationale": "No-cost deterministic smoke decision.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}
