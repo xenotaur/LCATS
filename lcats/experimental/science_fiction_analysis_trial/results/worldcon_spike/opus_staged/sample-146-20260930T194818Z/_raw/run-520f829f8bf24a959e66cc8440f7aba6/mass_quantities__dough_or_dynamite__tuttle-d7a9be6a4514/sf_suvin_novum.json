@@ -1,0 +1,113 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 26584,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1200,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/dough_or_dynamite__tuttle",
+  "story_path": "mass_quantities/dough_or_dynamite__tuttle/story.json",
+  "text": "",
+  "title": "Dough or Dynamite",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-staged-holdup-for-film",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The scheme is coherent, nonsupernatural, and follows ordinary cause and effect (blanks in the gun, filming, advertising a 'real' hold-up).",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00050",
+            "p00055",
+            "p00062"
+          ]
+        },
+        "description": "A cowboy staging a fake stage-coach robbery to be filmed by a moving-picture man for 'local color,' which spirals into a real robbery mix-up.",
+        "estrangement_rationale": "No estrangement: the filming scheme is a mundane comic device set in an ordinary Western world.",
+        "evidence_ids": [
+          "p00044",
+          "p00050",
+          "p00062",
+          "p00079"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The staged hold-up premise drives the plot's comic confusion of identities and boxes, but this centrality does not rescue the missing novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00050",
+            "p00079",
+            "p00112"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "p00044",
+            "p00050",
+            "p00062"
+          ],
+          "rationale": "A staged hold-up filmed for a movie is an ordinary early-20th-century Western premise; it introduces no totalizing or world-altering difference from the empirical norm. Moving pictures existed in the story's implied period.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      },
+      {
+        "candidate_id": "cand-dynamite-gold-box-mixup",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The confusion is explained coherently by decoy boxes and swapped dynamite grades, a mundane causal account.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00215",
+            "p00287"
+          ]
+        },
+        "description": "A comedy-of-errors chase after a wooden box believed to contain stolen gold but variously labeled dynamite, passed among several characters.",
+        "estrangement_rationale": "No cognitive estrangement; the box mix-up is farce grounded in an ordinary realistic world.",
+        "evidence_ids": [
+          "p00131",
+          "p00148",
+          "p00215",
+          "p00287"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The box chase organizes much of the plot, but again centrality cannot substitute for absent novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00142",
+            "p00248",
+            "p00288"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "p00131",
+            "p00148",
+            "p00288"
+          ],
+          "rationale": "Mislabeled boxes, dynamite, and gold shipments are ordinary props; nothing alters the story universe or violates the empirical norm.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

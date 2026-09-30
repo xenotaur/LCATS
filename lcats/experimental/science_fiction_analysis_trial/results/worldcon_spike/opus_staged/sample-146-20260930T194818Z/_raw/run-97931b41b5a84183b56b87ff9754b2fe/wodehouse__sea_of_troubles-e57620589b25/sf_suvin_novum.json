@@ -1,0 +1,77 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14318,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1026,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "wodehouse/sea_of_troubles",
+  "story_path": "wodehouse/sea_of_troubles/story.json",
+  "text": "",
+  "title": "Wodehouse - a Sea Of Troubles",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-exercise-cure",
+        "character_reaction_evidence_ids": [
+          "sfev-83734d738b9b92f9",
+          "sfev-c8ab6a669929f5c3"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The story offers a coherent, nonsupernatural, immanent account (sedentary indulgence produces dyspepsia; exercise relieves it), invoking statistics and physiology. This is internally consistent commonsense causation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-558f99b8d9cd31cb",
+            "sfev-68a13b189092aaf3",
+            "sfev-22175550579e205e"
+          ]
+        },
+        "description": "The notion that a single bout of unaccustomed physical exertion (the chase after Miss Pillenger) instantly cures Mr Meggs's twenty-year chronic dyspepsia and reverses his suicidal despair.",
+        "estrangement_rationale": "The comic gap between the characters' interpretations (Meggs's tender farewell vs. Pillenger's alarm) generates humor but no cognitive estrangement from an empirical norm; the world remains the ordinary contemporary world.",
+        "evidence_ids": [
+          "sfev-22175550579e205e",
+          "sfev-d7ec9d42f9f18b8b",
+          "sfev-83734d738b9b92f9",
+          "sfev-c8ab6a669929f5c3",
+          "sfev-558f99b8d9cd31cb",
+          "sfev-68a13b189092aaf3",
+          "sfev-165c23ab4664d950"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The exercise-cure resolves the central plot: it reverses the suicide plan and provides the comic denouement. It is central to the narrative logic, though it is not a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-83734d738b9b92f9",
+            "sfev-22175550579e205e",
+            "sfev-d7ec9d42f9f18b8b"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-22175550579e205e",
+            "sfev-d7ec9d42f9f18b8b"
+          ],
+          "rationale": "The purported cure through exercise is entirely consistent with the ordinary empirical world; exercise improving digestion and mood is a mundane commonplace, not a totalizing or world-altering difference from the author's empirical norm. No new law of nature or society is introduced.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-165c23ab4664d950"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-22175550579e205e",
+          "sfev-d7ec9d42f9f18b8b"
+        ]
+      }
+    ]
+  }
+}

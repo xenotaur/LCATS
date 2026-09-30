@@ -1,0 +1,99 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 4920,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1423,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/leap_frog",
+  "story_path": "anderson/leap_frog/story.json",
+  "text": "",
+  "title": "Anderson - The Leap-frog",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-talking-animal-society",
+        "character_reaction_evidence_ids": [
+          "sfev-28d2abb343abf27f"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.65,
+          "counterevidence_ids": [],
+          "rationale": "The talking-animal premise is asserted whimsically without any immanent, systematic account; the narrator even undercuts its truth-value, signaling a fabular rather than cognitive-scientific framing.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A world in which fleas, grasshoppers, and leap-frogs speak, possess noble blood and ancient family lineages, and compete in a royal court for a Princess's hand as if they were human courtiers.",
+        "estrangement_rationale": "The narrator's direct address flagging the tale as possibly untrue foregrounds the fabular contract with the reader, and the Flea's bitter moralizing supplies satirical estrangement, but this operates as fable/allegory rather than cognitive estrangement.",
+        "evidence_ids": [
+          "sfev-28d2abb343abf27f",
+          "sfev-2027ef325038786c"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The animals-as-courtiers premise does drive the whole plot (the jumping contest and the moral about appearances), but centrality alone does not make it a qualifying novum absent novelty and cognitive validation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-28d2abb343abf27f"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "Anthropomorphic talking animals in a beast fable are a conventional folkloric mode, not a totalizing world-altering difference from the empirical or implied norm. The device is a genre convention (fable/fairy tale) used for satirical allegory rather than an estranging novum that reconstructs the story universe on a systematic new principle.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-2027ef325038786c"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-28d2abb343abf27f"
+        ]
+      },
+      {
+        "candidate_id": "cand-prophetic-leapfrog-back",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "No systematic or immanent account is offered; it is superstition/folk augury presented for comic effect rather than an imaginary science.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-8e902b73961e1595"
+          ]
+        },
+        "description": "The claim that the Leap-frog is a prophet whose back reveals whether the coming winter will be severe or mild, exceeding the predictive power of the almanac writer.",
+        "estrangement_rationale": "The comparison to the almanac writer offers a mild satirical contrast against real-world weather prediction, but has no storyworld consequence.",
+        "evidence_ids": [
+          "sfev-8e902b73961e1595"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The prophetic-back claim is an incidental aside about the Leap-frog's pedigree and plays no role in determining the plot's outcome, which turns on the jump into the Princess's lap.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "This is a passing satirical folk-belief asserted by a councillor, not a world-altering difference. It does not reconstruct the story universe and reads as folkloric weather-lore humor.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-8e902b73961e1595"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-8e902b73961e1595"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

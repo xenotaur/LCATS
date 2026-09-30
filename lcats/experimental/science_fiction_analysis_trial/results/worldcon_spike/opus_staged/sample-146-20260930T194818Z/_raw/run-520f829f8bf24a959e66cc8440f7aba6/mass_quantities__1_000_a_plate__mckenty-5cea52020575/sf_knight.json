@@ -1,0 +1,103 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12543,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1173,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/1_000_a_plate__mckenty",
+  "story_path": "mass_quantities/1_000_a_plate__mckenty/story.json",
+  "text": "",
+  "title": "$1,000 a Plate",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "Astronomical observing conditions, telescope reflectors, photographic plates, and the law of averages/probability are materially represented as real science shaping the observatory's situation.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-344a0d03f5f73145",
+          "sfev-900c31badbe4fdfa"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "substantial",
+        "rationale": "Engineered systems\u2014the photocell auto-shutter gadget and computer-calculated rocket trajectories with clinometer aiming\u2014materially affect the observatory's problem and the climactic action.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-2ea36032dfefcc74",
+          "sfev-ded4675755b89cf7"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "central",
+        "rationale": "The story is set in a speculative future of settled Mars with space stations and imminent interstellar travel, a remote-from-present temporal setting central to the world.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-93698e1b7a1dd858",
+          "sfev-0012e984caba1c09"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "Consequences are developed from the premise of costly interplanetary freight and a Mars-based observatory: enormous plate costs, inability to relocate, and reliance on the site for the first interstellar mission drive the plot.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-a13158f1e8dd99c5",
+          "sfev-ef46d53758658eb1",
+          "sfev-fff84ff48bce94c5"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Systematic inference materially drives action: statistical tabulation proving the casinos unbeatable, and computed trajectories/measurement with compass and clinometer to aim the rockets.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-900c31badbe4fdfa",
+          "sfev-ded4675755b89cf7"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "The entire setting is another planet, Mars, with its moons and space station\u2014a substantially nonordinary cosmic environment central to the story.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-93698e1b7a1dd858",
+          "sfev-344a0d03f5f73145"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-74b4b17ebc28729d"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The only disaster is a single stray rocket burning down one man's home\u2014a personal misfortune, not a large-scale natural, cosmic, biological, or technological catastrophe.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

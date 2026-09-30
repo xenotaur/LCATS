@@ -1,0 +1,84 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18173,
+  "model": "claude-opus-4-8",
+  "output_tokens": 998,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "london/day_s_lodging",
+  "story_path": "london/day_s_lodging/story.json",
+  "text": "",
+  "title": "London - A Day's Lodging",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "incidental",
+        "rationale": "The story gives a measured temperature (seventy-four below by spirit thermometer) and the doctor explains the physiological effects of breathing extreme frost on lung tissue. This is real natural science, but it is incidental atmospheric detail rather than a materially represented scientific subject driving the work.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-6d53b00fe024c356"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Sleds, a stove, a spirit thermometer, and a physician's case are ordinary period tools; no device, technique, or invention speculatively affects the setting, problem, or outcome.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in a contemporaneous Klondike; there is no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The narrative is a dramatic interpersonal confrontation; no consequences are systematically developed from an identifiable scientific, technological, social, or historical premise.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Messner recognizing his wife and carefully weighing gold is ordinary attentiveness and transaction, not observation, hypothesis, testing, or evidential revision materially driving understanding.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The setting is an earthly wilderness; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The extreme cold poses personal danger but is an environmental condition, not a large-scale disaster that is actual, impending, remembered, or causally central; the referenced typhoon is a remote rumor and personal, not catastrophic in scope.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

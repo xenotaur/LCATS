@@ -1,0 +1,108 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 33648,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1520,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "lovecraft/the_shunned_house",
+  "story_path": "lovecraft/the_shunned_house/story.json",
+  "text": "",
+  "title": "The Shunned House by H. P. Lovecraft",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The narrators frame the entity through speculative science invoking multidimensional cosmos, relativity, intra-atomic action, and unknown laws of atomic/electronic motion, materially grounding the phenomenon in scientific theorizing rather than pure superstition.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-9986cb243a8ce78c",
+          "sfev-aa828550df5d78e7",
+          "sfev-bc1bd1a95634f1aa",
+          "sfev-c2cd22a0189b1716",
+          "sfev-27377eafbdd72a21"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "A specially fitted Crookes tube with storage batteries, screens, and reflectors (plus flame-throwers) is engineered specifically to combat the entity; the apparatus is deployed as the central means of the climactic attack, materially shaping the action and outcome.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-6f23c310622e7270"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set across historical and contemporary Providence with no speculative future, remote past setting, or temporal displacement; the uncle's dream of dissolved time is a subjective vision, not narrative time travel.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "The narrators develop consequences from an identifiable premise\ndrawn from newer science (relativity, intra-atomic action, extra dimensions), extrapolating the plausible existence and behavior of an alien nucleus of substance/energy sustained by draining life-force.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-aa828550df5d78e7",
+          "sfev-c2cd22a0189b1716",
+          "sfev-27377eafbdd72a21"
+        ]
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Beyond mere questioning, the narrator systematically researches records and deeds, correlates recurring evidence across sources, forms hypotheses about the phenomenon, designs a controlled provoke-observe-destroy vigil, and revises his approach based on observation\nfeatures materially driving understanding and action.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-5f2bd9d2b4954696",
+          "sfev-fbf4864169d3312b",
+          "sfev-94c944b347b401b0",
+          "sfev-faadddc07d2281bf"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "substantial",
+        "rationale": "The entity is characterized as an alien nucleus connected to other spatial dimensions and outer circles of entity, suggesting a nonordinary cosmic/dimensional origin; however, it is buried in a terrestrial cellar and framed as vampiric folklore, leaving the other-dimensional reading plausible but interpretively uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-9986cb243a8ce78c",
+          "sfev-aa828550df5d78e7",
+          "sfev-27377eafbdd72a21",
+          "sfev-4f0f544096bcf42f"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "The entity causes a century-and-a-half chain of deaths and the horrific dissolution of the uncle, a sustained lethal menace; but the scale is localized to one house and its occupants, so whether it rises to a large-scale disaster rather than accumulated personal tragedy is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-69f4e9d7fc6c9493",
+          "sfev-1294a02d08a0b62a",
+          "sfev-fc49e5f450098914"
+        ]
+      }
+    ]
+  }
+}

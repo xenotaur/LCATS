@@ -1,0 +1,491 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "chesterton__sins_of_prince_saradine-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.72,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The mirror-room reflection effect is an optical curiosity used for atmosphere, not a materially represented scientific fact, theory, or process. No science is developed or drives the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.68,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The mirrored panels create disorientation but are ordinary furnishings, not an engineered invention that materially affects the problem or outcome; the plot turns on human deception, not any device or technique.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The tale is a contemporary detective story set in the Norfolk Broads; no speculative future, remote past, or temporal displacement occurs.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The scheme of pitting two enemies against each other is a clever plot, but it is not consequences extrapolated from an identifiable scientific, technological, social, or historical premise in the SF sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Father Brown observes matching physical features and infers a family connection, a form of systematic inference driving understanding. However, this is ordinary detective deduction rather than sustained scientific method (hypothesis, testing, measurement), so materiality and interpretation are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-ee137775e9af0004",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The 'fairyland' and moonlit atmosphere are figurative; the setting is an ordinary earthly river island. No other planet, dimension, nonordinary cosmic environment, or visitor from them appears.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The deaths are individual murders and a duel\\u2014personal misfortune and crime, not a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-b28364a9452611a4",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b28364a9452611a4",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 20782,
+            "output": 1083
+          }
+        },
+        "status": "complete",
+        "story_hash": "10fb8af6b1702b7f6a2ce7b9bbfe1dfc4c8a640a354e081c07d826a9e12f5787"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "chesterton__sins_of_prince_saradine-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-saradine-double-enemy-scheme",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The scheme is explained coherently and systematically by Father Brown as a rational, immanent, nonsupernatural plan copied from Flambeau's old trick; it is internally consistent and mechanistic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-43d2a9df4a1e8f09",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ]
+            },
+            "description": "Prince Paul Saradine's stratagem of surrendering to both of his enemies (his blackmailing brother Stephen and the vendetta-driven Antonelli) so that they collide and destroy each other, leaving him free and in possession of his house. This is the scheme that structures and explains the entire plot.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-e5b85802c635b5de",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "rationale": "The reader experiences a moral and dramatic shock at the reversal of identities and the ruthless manipulation, but this is a detective-story twist rather than a cognitively estranging novum that alters the empirical order of the world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-43d2a9df4a1e8f09",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-ee137775e9af0004",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-43d2a9df4a1e8f09",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              },
+              {
+                "evidence_id": "sfev-ee137775e9af0004",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              },
+              {
+                "evidence_id": "sfev-e5b85802c635b5de",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The scheme determines the overriding narrative logic; the entire story resolves into the revelation of this stratagem, and the plot is engineered around it.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-43d2a9df4a1e8f09",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                },
+                {
+                  "evidence_id": "sfev-ee137775e9af0004",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-43d2a9df4a1e8f09",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "rationale": "The double-enemy scheme is a clever criminal plot fully consistent with the ordinary empirical world; it introduces no totalizing or world-altering difference from the author's mundane norm. It is a mystery-story intrigue, not a science-fictional estrangement of the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-mirror-room",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The multiplication of images is explained by simple, coherent optics of reflection, entirely nonsupernatural.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-6b497b782847a674",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ]
+            },
+            "description": "The glass-panelled room at Reed House whose walls of mirrors multiply anyone who enters into four or five reflected images, producing a recurrent 'looking-glass land' atmosphere of doubling and confused identity.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-7ff6994ae26e63e1",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "rationale": "The mirrored reflections create a dreamlike, disorienting 'fairyland' contrast for the reader, but this is aesthetic estrangement, not a world-altering cognitive novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-6b497b782847a674",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-6b497b782847a674",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              },
+              {
+                "evidence_id": "sfev-7ff6994ae26e63e1",
+                "evidence_set_id": "sfes-b28364a9452611a4"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-6b497b782847a674",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "rationale": "The mirror room is an incidental, symbolic backdrop reinforcing the theme of doubling; it does not govern the narrative logic, which is driven by the double-enemy scheme and the identity switch.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-6b497b782847a674",
+                  "evidence_set_id": "sfes-b28364a9452611a4"
+                }
+              ],
+              "rationale": "A room lined with mirrors is an ordinary architectural feature with no departure from empirical reality; it alters nothing about the story universe and is merely an atmospheric and thematic device.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-b28364a9452611a4",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b28364a9452611a4",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 21129,
+            "output": 1562
+          }
+        },
+        "status": "complete",
+        "story_hash": "10fb8af6b1702b7f6a2ce7b9bbfe1dfc4c8a640a354e081c07d826a9e12f5787"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-b28364a9452611a4",
+    "knight_analysis_id": "chesterton__sins_of_prince_saradine-knight-v1",
+    "suvin_novum_analysis_id": "chesterton__sins_of_prince_saradine-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-b28364a9452611a4",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.4,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "paraphrase": "The priest contrasts the naive view of fairyland with the older, darker folklore understanding.",
+            "quote": "The people who wrote the mediaeval ballads,\" answered the priest, \"knew\n      more about fairies than you do. It isn\ttu2019t only nice things that happen in\n      fairyland.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00050"
+            ],
+            "paraphrase": "Father Brown is disoriented by the many mirrored reflections, likening it to a dream.",
+            "quote": "Confound this crystal\n      palace!\" he muttered. \"One sees everything too many times. It\ttu2019s like a\n      dream.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 39182,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 39076
+          },
+          "confidence": 0.45,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-43d2a9df4a1e8f09",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Father Brown begins explaining the scheme by which one man used his two enemies against each other.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A man had two enemies. He was a wise man. And so he discovered that\n      two enemies are better than one."
+        },
+        {
+          "anchor": {
+            "end_char": 13312,
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "start_char": 13178
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6b497b782847a674",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The mirror-lined room multiplies the reflection of anyone entering, creating a disorienting effect.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was a peculiarity of this glittering, glass-panelled place that\n      anyone entering was reflected in four or five mirrors at once"
+        },
+        {
+          "anchor": {
+            "end_char": 4430,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 4262
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7ff6994ae26e63e1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Father Brown reacts with sudden alarm to the eerie moonlit landscape.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Father Brown sat bolt upright in the boat and crossed himself. His\n      movement was so abrupt that his friend asked him, with a mild stare, what\n      was the matter."
+        },
+        {
+          "anchor": {
+            "end_char": 38694,
+            "paragraph_ids": [
+              "p00095"
+            ],
+            "start_char": 38563
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e5b85802c635b5de",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Father Brown reacts with horror and wishes to flee the house after the revelation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Come away,\" said Father Brown, who was quite white. \"Come away from this\n      house of hell. Let us get into an honest boat again."
+        },
+        {
+          "anchor": {
+            "end_char": 28526,
+            "paragraph_ids": [
+              "p00060"
+            ],
+            "start_char": 28406
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ee137775e9af0004",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Father Brown deduces a family connection by observing matching physical features.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The heavy brown eyes of Antonelli were the heavy brown\n      eyes of Mrs. Anthony; and in a flash he saw half the story."
+        }
+      ],
+      "story_hash": "10fb8af6b1702b7f6a2ce7b9bbfe1dfc4c8a640a354e081c07d826a9e12f5787",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "chesterton/sins_of_prince_saradine",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "10fb8af6b1702b7f6a2ce7b9bbfe1dfc4c8a640a354e081c07d826a9e12f5787",
+  "story_path": "chesterton/sins_of_prince_saradine/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

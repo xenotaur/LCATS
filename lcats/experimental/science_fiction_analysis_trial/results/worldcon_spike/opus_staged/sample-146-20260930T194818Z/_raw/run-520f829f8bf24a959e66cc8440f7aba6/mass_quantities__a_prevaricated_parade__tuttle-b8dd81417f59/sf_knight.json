@@ -1,0 +1,100 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 32380,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1391,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_prevaricated_parade__tuttle",
+  "story_path": "mass_quantities/a_prevaricated_parade__tuttle/story.json",
+  "text": "",
+  "title": "A Prevaricated Parade",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-519b7bbc3d36c8f0",
+          "sfev-879dad085b42ceef"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a Western comedy about a Fourth of July parade. No scientific fact, theory, discovery, natural process, or speculative science is materially represented. Descriptions of cranking a car or the composition of dynamite salutes are ordinary mechanical/practical detail, not science.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-193abb8d0a0c9766",
+          "sfev-29d7bc123a8ccaec",
+          "sfev-519b7bbc3d36c8f0",
+          "sfev-51e4b6a1569055e0",
+          "sfev-c9010d92f2d7cb18"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Although the automobile drives much of the plot's comedy and its arrival scatters horses, it is an ordinary contemporary-to-period technology (an early automobile) used in a realistic Western setting, not a speculative or novel invention. Knight's technology/invention criterion targets engineered systems as science-fictional novelties; a period automobile in a rural town is an ordinary tool of its era, not a speculative device. Treated as absent rather than present.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The narrative is set in a contemporary (early 20th century) Western present with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-29d7bc123a8ccaec"
+        ],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The horses being stampeded by the automobile is a comic causal consequence, not a systematic extrapolation of consequences from a scientific, technological, social, or historical premise in the science-fictional sense. It is ordinary slapstick cause-and-effect within a realistic setting.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Characters investigate the Fourth of July via a dictionary and ask questions, but there is no observation, hypothesis, testing, measurement, evidential revision, or systematic inference materially driving understanding or action. This is generic inquiry and comedy, not scientific method.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-51e4b6a1569055e0"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The setting is an ordinary Montana-region town. No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear. Comparisons to Columbus seeing new shores are figurative, not literal other places.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-879dad085b42ceef"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "incidental",
+        "rationale": "A dynamite explosion destroys the jail and rains debris across the town, an actual and causally central plot event. However, this is a localized, human-caused mishap in a comic register rather than a large-scale disaster; its scale and framing make the catastrophe reading uncertain, so it is marked ambiguous with incidental materiality.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-9077f4c674b88b44",
+          "sfev-c64e45947ba6681d"
+        ]
+      }
+    ]
+  }
+}

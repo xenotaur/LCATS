@@ -1,0 +1,94 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 9592,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1040,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "anderson/dream_of_little_tuk",
+  "story_path": "anderson/dream_of_little_tuk/story.json",
+  "text": "",
+  "title": "Anderson - The Dream Of Little Tuk",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No scientific fact, theory, discovery, or natural process is materially represented. The story is a dream-fable grounded in geography and folklore, not science.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-c0dd662247108fce"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Steam-boats and stagecoaches are mentioned in passing to characterize Corsor's growth, but no device, technique, or invention materially affects the setting, problem, action, or outcome; the mention is decorative.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The dream transports the boy into a remote past era of King Waldemar and medieval Bordingborg, with vivid temporal displacement across Denmark's historical periods, materially structuring the narrative.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-308cc6e1c8933a7a",
+          "sfev-bf649b9f0238fb73",
+          "sfev-e7e5f1990bbdde08"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-ec24803dc0f16d13"
+        ],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The prophetic voice foretells a prosperous future, but this is a fairy-tale blessing, not consequences reasoned out from an identifiable scientific, technological, social, or historical premise.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No observation, hypothesis, testing, measurement, or systematic inference drives understanding or action. The boy learns his lesson through a magical dream, not method.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-aae338df779de739"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The dream contains fantastical transformations (a flying sister, a frog-woman) but no other planets, dimensions, nonordinary cosmic environments, or visitors from them; these are folkloric dream images within ordinary Danish geography.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-e7e5f1990bbdde08"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The crumbling of the medieval town at sunrise is a dream-vision of historical decline rather than an actual, impending, or causally central large-scale disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15489,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2917,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/8_million_dollars_from_mars__marks",
+  "story_path": "mass_quantities/8_million_dollars_from_mars__marks/story.json",
+  "text": "",
+  "title": "8 Million Dollars From Mars!",
+  "tool_result": {
+    "dominant_novum_id": "novum-drug-mediated-passenger-immobilization",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-drug-mediated-passenger-immobilization",
+        "character_reaction_evidence_ids": [
+          "sfev-dbd06329ceddd648",
+          "sfev-1b3b13a31b258ffb",
+          "sfev-c9fdaa490670a654"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The story supplies a coherent, systematic, immanent, nonsupernatural pseudo-biological rationale: muscle relaxant lowers metabolism to make IV feeding adequate; constant 98.6F reduces fuel consumption; the retardation drug creates a lag between heat sensation and perspiration to keep thermal control 'functioning' and prevent respiratory illness; and a double dose logically extends the lag into uncontrolled fever, extra caloric burn from coughing, and inadequate feeding. The causal chain is internally consistent.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-624cd76e079e63c5",
+            "sfev-2a601dd7f9aa80e0",
+            "sfev-e497a7123a62c250",
+            "sfev-86509d8eecf7ba69",
+            "sfev-04540a126e9e65e9"
+          ]
+        },
+        "description": "The interplanetary passenger-transport system that renders passengers into a drug-induced state of near-suspended animation for the nine-month voyage: intravenous feeding, a muscle-relaxant that lowers metabolism to near-paralysis, a body-temperature cabin held at 98.6F to minimize fuel consumption, and especially a thermal-adjustment retardation drug that deliberately induces oscillating warmth/chill sensations. This integrated bio-medical travel regimen is the totalizing difference that structures the entire storyworld and drives the fatal consequence when Pauker receives a double dose in booth seven.",
+        "estrangement_rationale": "The chronometer reading only ten days against Pauker's subjective eternity of suffering, and the Surgeon-General's clinical astonishment at the drug's 'survival power,' estrange the reader by contrasting the corporation's comforting sales-pitch framing of the drug regimen with its actual torturous consequence.",
+        "evidence_ids": [
+          "sfev-34134e4ecd90fc13",
+          "sfev-06b77966cbb1f497",
+          "sfev-624cd76e079e63c5",
+          "sfev-2a601dd7f9aa80e0",
+          "sfev-e497a7123a62c250",
+          "sfev-86509d8eecf7ba69",
+          "sfev-04540a126e9e65e9",
+          "sfev-1b3b13a31b258ffb",
+          "sfev-c9fdaa490670a654",
+          "sfev-8c8869b9aa611ad3",
+          "sfev-dbd06329ceddd648"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The immobilization-and-retardation-drug regimen governs the overriding narrative logic: the crime plot's escape depends on the voyage, the accidental double dose in booth seven determines the protagonist's fate, and the entire second half is the cascading consequence of the drug system malfunctioning. The story's ironic ending turns entirely on this novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-34134e4ecd90fc13",
+            "sfev-e497a7123a62c250",
+            "sfev-04540a126e9e65e9",
+            "sfev-86509d8eecf7ba69",
+            "sfev-c9fdaa490670a654"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The described mode of interplanetary travel, in which every passenger is chemically immobilized, intravenously fed, held at body temperature, and given a retardation drug to manage thermal sensation across a nine-month voyage, is a world-altering difference from the empirical norm and forms the constitutive condition of the story's universe.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-34134e4ecd90fc13",
+            "sfev-06b77966cbb1f497",
+            "sfev-624cd76e079e63c5",
+            "sfev-2a601dd7f9aa80e0",
+            "sfev-e497a7123a62c250"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-8c8869b9aa611ad3"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-34134e4ecd90fc13",
+          "sfev-e8646d1b9d974760",
+          "sfev-04540a126e9e65e9",
+          "sfev-86509d8eecf7ba69"
+        ]
+      },
+      {
+        "candidate_id": "novum-robot-luggage-carrier",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The homing-'bone' mechanism implies a coherent tracking principle but is barely developed, so the cognitive account is thin though nonsupernatural.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-2ce7c3367b2cc11a"
+          ]
+        },
+        "description": "A squat, three-wheeled robot luggage-carrier that autonomously follows a handheld 'bone' homing device.",
+        "estrangement_rationale": "The robot porter following a 'bone' provides local futuristic texture but no story-level estrangement.",
+        "evidence_ids": [
+          "sfev-2ce7c3367b2cc11a"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-2ce7c3367b2cc11a"
+          ],
+          "rationale": "The robot carrier is an incidental atmospheric device; it does not determine the narrative logic or drive the plot.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "An autonomous homing robot porter is a modest technological difference from the empirical norm, but it is presented as ordinary background infrastructure rather than a world-altering transformation.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-2ce7c3367b2cc11a"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-2ce7c3367b2cc11a"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      },
+      {
+        "candidate_id": "novum-automated-inoculation-maze",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The booth's operation is described coherently and mechanistically: I.D. plate with metabolic data drives a measured compressed-air injection, a systematic nonsupernatural account.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-3bb5889a10669965"
+          ]
+        },
+        "description": "An automated maze of inoculation booths that reads a steel I.D. plate of metabolic data and delivers measured serum/drug doses via compressed-air needle without human contact.",
+        "estrangement_rationale": "The touchless, painless automated inoculation contrasts with the 'brutal hypo-punching' of the past, offering local estrangement subordinate to the drug-regimen novum.",
+        "evidence_ids": [
+          "sfev-3bb5889a10669965",
+          "sfev-04540a126e9e65e9"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The booth is the vehicle by which Pauker receives his fatal double dose, so it is plot-relevant, but the governing novum is the drug regimen it administers; the booth itself is instrumental rather than the overriding narrative logic.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-04540a126e9e65e9"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "Automated data-driven inoculation is a plausible near-future extrapolation but not itself a totalizing world difference; it is a delivery mechanism for the drug regimen.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-3bb5889a10669965"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-3bb5889a10669965"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-04540a126e9e65e9"
+        ]
+      }
+    ]
+  }
+}

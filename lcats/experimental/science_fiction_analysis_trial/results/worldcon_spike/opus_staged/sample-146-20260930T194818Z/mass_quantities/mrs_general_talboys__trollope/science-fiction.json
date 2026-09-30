@@ -1,0 +1,187 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__mrs_general_talboys__trollope-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied; independent of that, this is a social comedy of manners set in 1859 Rome with no scientific content. Evidence set is empty and unusable for adjudication.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The supplied evidence set is empty; no usable records to assess any engineered device or invention driving the story.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The 1859 contemporary setting offers no temporal displacement or speculative future/remote past to assess with evidence.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "Empty evidence set; cannot assess extrapolation from a scientific or technological premise with supplied records.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records provided; unable to assess any systematic inference or testing.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Empty evidence set; no supplied records to evaluate other planets, dimensions, or nonordinary cosmic environments.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records supplied; cannot adjudicate any large-scale catastrophe using the required evidence.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-48da5e2e55beed9c",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-48da5e2e55beed9c",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 22595,
+            "output": 844
+          }
+        },
+        "status": "complete",
+        "story_hash": "2a5b85edba0b099b5b455cdbfff88fd30664b8eda7dd607b865ea837f7026c86"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__mrs_general_talboys__trollope-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-48da5e2e55beed9c",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-48da5e2e55beed9c",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 22942,
+            "output": 601
+          }
+        },
+        "status": "failed",
+        "story_hash": "2a5b85edba0b099b5b455cdbfff88fd30664b8eda7dd607b865ea837f7026c86"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-48da5e2e55beed9c",
+    "knight_analysis_id": "mass_quantities__mrs_general_talboys__trollope-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-48da5e2e55beed9c",
+      "quarantined": [],
+      "records": [],
+      "story_hash": "2a5b85edba0b099b5b455cdbfff88fd30664b8eda7dd607b865ea837f7026c86",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/mrs_general_talboys__trollope",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "2a5b85edba0b099b5b455cdbfff88fd30664b8eda7dd607b865ea837f7026c86",
+  "story_path": "mass_quantities/mrs_general_talboys__trollope/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

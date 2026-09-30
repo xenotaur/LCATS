@@ -1,0 +1,95 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 9551,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1062,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "grimm/ashputtel",
+  "story_path": "grimm/ashputtel/story.json",
+  "text": "",
+  "title": "Grimm - Ashputtel",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [
+          "sfev-75740200e339eeba",
+          "sfev-3939380c14b062d8"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a fairy tale relying on magic (a wish-granting bird, magical dresses). No scientific fact, theory, natural process, or speculative science is materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.88,
+        "counterevidence_ids": [
+          "sfev-3939380c14b062d8"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Outcomes are driven by magic (the tree, the bird, the gold and silver dresses), not by any device, engineered system, technique, or invention. Ordinary items like an axe or slipper are mundane, not novel technology.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The setting is a timeless folkloric 'once upon a time' kingdom with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.82,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "There is no identifiable scientific, technological, social, or historical premise whose consequences are systematically developed; the narrative is a magical folk tale, not extrapolation.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-cce52bd1eefeb960"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Truth is revealed by a magical singing dove and by blood, not by observation, hypothesis, testing, measurement, or systematic inference. No scientific method drives understanding or action.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-18fdbcc0233a6141",
+          "sfev-cce52bd1eefeb960"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The birds are magical woodland creatures within an ordinary earthly kingdom; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. The dead mother watching from heaven is religious sentiment, not a cosmic visitor.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.88,
+        "counterevidence_ids": [
+          "sfev-6280819d4e184e9d",
+          "sfev-229275c2210722e3"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The misfortunes are personal (bereavement, mistreatment, self-mutilation to fit a shoe), not a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

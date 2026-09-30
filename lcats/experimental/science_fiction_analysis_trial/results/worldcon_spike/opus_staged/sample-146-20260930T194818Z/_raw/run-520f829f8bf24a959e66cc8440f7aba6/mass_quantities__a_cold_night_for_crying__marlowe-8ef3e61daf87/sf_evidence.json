@@ -1,0 +1,169 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14050,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2146,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_cold_night_for_crying__marlowe",
+  "story_path": "mass_quantities/a_cold_night_for_crying__marlowe/story.json",
+  "text": "",
+  "title": "A Cold Night for Crying",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "An alien authority called the Karadi controls rationing of basic goods like clothing.",
+        "quote": "his wet feet numb and stinging with cold inside his torn\novershoes which could not be replaced until next winter, and then only\nif the Karadi did not decrease the clothing ration still further.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The city is left in ruins, a changed world.",
+        "quote": "the scars and stumps of buildings that remained of what had been the city.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "The Karadi have suspended public utilities, forcing a regression in daily life.",
+        "quote": "the gas range which had been\nconverted to wood when the Karadi suspended all public utilities",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00014"
+        ],
+        "paraphrase": "Medicine has been outlawed, leading to preventable deaths such as their son George's.",
+        "quote": "The Karadi had outlawed all\nwonder drugs, all hospitals, all medical schools. Helpless, they had\nwatched George die",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "Listening to short-wave radio carries a death penalty under the regime.",
+        "quote": "The punishment was death.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00096"
+        ],
+        "paraphrase": "The Karadi are alien invaders who arrived from space during World War III, twenty years earlier.",
+        "quote": "since the day the Karadi came\nswooping down from space and\ncaught the world in a tired breathing spell in World War III.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00022"
+        ],
+        "paraphrase": "Conscripted humans pilot advanced Karadi aircraft against remaining free humans.",
+        "quote": "Freddie was flying a Karadi plane against the last strongholds of free\nman in the Rocky Mountains.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00039"
+        ],
+        "paraphrase": "A character theorizes the aliens sustain themselves on human emotional suffering rather than material resources.",
+        "quote": "They don't need us, our resources. They feed on what we feel.\nThey are a--a sadistic fungi.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00113"
+        ],
+        "paraphrase": "The aliens used superior weapons to disarm all human militaries and dismantle civilization.",
+        "quote": "although with their invincible weapons they had\ndisarmed all the world's armies and, instead of rebuilding, had made a\nshambles of our civilization.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00101"
+        ],
+        "paraphrase": "Mr. Davidson constructed a short-wave radio from spare parts to gather information.",
+        "quote": "It took me two years to build that short-wave out of spare\nparts, but it was worth every minute.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "Mrs. Friedlander struggles to accept her son's reported death because she has no proof.",
+        "quote": "Freddie is dead. Because they tell us, that's no reason to believe.\nHow can we believe? We saw Freddie alive, but now they tell us Freddie\nis dead.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00096"
+        ],
+        "paraphrase": "Mr. Friedlander feels renewed hope upon learning his son may be alive.",
+        "quote": "Mr. Friedlander felt a spring in his step he hadn't felt for twenty\nyears",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00032"
+        ],
+        "paraphrase": "He compares the Karadi's cultivation of doubt to a conditioning experiment that torments a subject amid abundance.",
+        "quote": "Only it was like the cat he once had read about.\nYou took the cat and gave it food, catnip, but every time it ate you\nalso fed it electricity, a shock.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00130"
+        ],
+        "paraphrase": "Overwhelmed by doubt and self-interest, Mr. Friedlander informs on his neighbors to the authorities.",
+        "quote": "He walked up the six snow-covered\nsteps to the police station, went inside, sat down and started telling\nthe uniformed figure at the desk about the subversives in his building\nwho owned short-wave radios",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The present impoverished diet is contrasted with remembered pre-invasion abundance.",
+        "quote": "The new generation hardly remembered the\ndelightful old foods, but if Mr. Friedlander shut his eyes and thought,\nhe could clearly smell steak and roast chicken and broiled lobster\nswimming in butter",
+        "raw_id": "ev15"
+      }
+    ]
+  }
+}

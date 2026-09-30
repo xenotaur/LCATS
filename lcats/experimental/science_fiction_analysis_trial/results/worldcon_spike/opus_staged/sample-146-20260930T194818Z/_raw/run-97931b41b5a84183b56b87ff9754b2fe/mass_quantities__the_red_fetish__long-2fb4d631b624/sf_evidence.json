@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12747,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1044,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/the_red_fetish__long",
+  "story_path": "mass_quantities/the_red_fetish__long/story.json",
+  "text": "",
+  "title": "The red fetish",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "Bill argues they cannot survive without water and proposes swimming to the island.",
+        "quote": "you know as well as I do that it is physically\nimpossible for us to hang on without water. What do you say to a swim?",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00014"
+        ],
+        "paraphrase": "Bill admits he has been planning to kill his companion out of thirst-driven desperation.",
+        "quote": "For three days I've\nbeen planning to kill you. I lay awake last night and watched you.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "The narration explains the intoxicating and harmful effect of drinking sea water.",
+        "quote": "Sea water affects some men like hashish. That morning Bill had crawled\nto the lagoon on his hands and knees and swallowed more salt than was\ngood for him.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00066"
+        ],
+        "paraphrase": "Van Wyck is killed and devoured by sharks during the swim.",
+        "quote": "The sharks made frantic dashes at Van Wyck and came away with something in\ntheir mouths. They would rush forward, their great jaws would snap--and\nthere would be less and less of Van Wyck.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00090"
+        ],
+        "paraphrase": "Bill reacts with horror on realizing what the cannibals present to him.",
+        "quote": "Bill opened his eyes wide with horror. He sought to express his agony\nin words, but no sound came from between his black, swollen lips.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00091"
+        ],
+        "paraphrase": "Bill is eventually rescued but has been driven mad by the ordeal.",
+        "quote": "Three months later Bill was taken off by a trading-sloop. He blabbered\nidiotically about the right of a head to decent burial and made\nuncomplimentary allusions to the wearing of teeth.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "The narration contrasts Bill's view of cannibals as orderly with Van Wyck's fearful assumptions.",
+        "quote": "Bill knew that cannibals\nwere decent and clean and orderly; but there was no explaining that to\nVan Wyck.",
+        "raw_id": "ev07"
+      }
+    ]
+  }
+}

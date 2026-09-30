@@ -1,0 +1,88 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 9304,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1513,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-invisible-bell",
+        "character_reaction_evidence_ids": [
+          "sfev-7b0733620d650c6b",
+          "sfev-b9117c3662701874",
+          "sfev-1f97d59c5f5370b4"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-5f94da3acd11af09",
+            "sfev-6e80d8b520417a89",
+            "sfev-7b0733620d650c6b",
+            "sfev-a92b3e9b8273965c"
+          ],
+          "rationale": "The tale offers no coherent, systematic, immanent nonsupernatural account of the bell. Proposed explanations (owl, small bell, fancy) are explicitly inconclusive, and the final resolution is expressly supernatural/religious\\u2014an 'invisible holy bell' attended by 'blessed spirits' and a 'rejoicing hallelujah.' This is a fairy-tale/allegorical marvel, not an imaginary-science or social-organization logic, so cognitive validation fails.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A mysterious, invisible bell-tone that sounds throughout the town and the forest, drawing people toward it. It has no discoverable physical source; each mundane explanation (a small ornamental bell, a learned owl, mere fancy) fails to account for its distant, heart-moving power. It ultimately resolves as the 'invisible holy bell' of nature and poetry.",
+        "estrangement_rationale": "Readers register contrast through the failure of ordinary explanations (small tarred clapperless bell, learned owl) against a tone that moves the human heart across impossible distances, and through the fantastical forest flora (blood-red-stamened lilies, soapbubble apples) marking the estranged space. Character reactions\\u2014skepticism, the claim it is mere fancy, and the wondering investigations\\u2014foreground the gap between the mundane and the marvelous.",
+        "evidence_ids": [
+          "sfev-1f97d59c5f5370b4",
+          "sfev-38296e1c8136b0ab",
+          "sfev-5f94da3acd11af09",
+          "sfev-6e80d8b520417a89",
+          "sfev-7b0733620d650c6b",
+          "sfev-8f7dbff5b902a4d8",
+          "sfev-9a49c657af6262e8",
+          "sfev-a92b3e9b8273965c",
+          "sfev-b9117c3662701874",
+          "sfev-8f7dbff5b902a4d8"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The bell governs the entire narrative logic: the king's reward, the confirmation-day pilgrimage, the divergent paths of the King's Son and the poor boy, and the concluding convergence all depend on the search for the bell. It is not incidental but the organizing center of the plot.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-8f7dbff5b902a4d8",
+            "sfev-9a49c657af6262e8",
+            "sfev-b9117c3662701874",
+            "sfev-a92b3e9b8273965c"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.45,
+          "counterevidence_ids": [
+            "sfev-5f94da3acd11af09",
+            "sfev-7b0733620d650c6b"
+          ],
+          "rationale": "The bell-tone is presented as pervasive and world-suffusing, transforming the ordinary landscape into a 'vast church of nature and of poetry,' which suggests a totalizing difference from empirical norm. However, the story equivocates: it may be a real bell, an owl, or purely imaginary, so whether it constitutes a genuine world-altering ontological difference rather than a shared subjective/spiritual experience remains unresolved.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-1f97d59c5f5370b4",
+            "sfev-a92b3e9b8273965c",
+            "sfev-38296e1c8136b0ab"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-1f97d59c5f5370b4",
+          "sfev-38296e1c8136b0ab"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-8f7dbff5b902a4d8",
+          "sfev-a92b3e9b8273965c"
+        ]
+      }
+    ]
+  }
+}

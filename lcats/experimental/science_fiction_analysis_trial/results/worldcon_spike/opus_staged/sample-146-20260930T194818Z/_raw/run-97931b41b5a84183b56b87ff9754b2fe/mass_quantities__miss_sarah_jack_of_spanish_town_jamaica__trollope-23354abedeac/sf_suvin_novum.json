@@ -1,0 +1,116 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 27069,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1966,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope",
+  "story_path": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/story.json",
+  "text": "",
+  "title": "Miss Sarah Jack of Spanish Town, Jamaica",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-emancipation",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The account is coherent, systematic, immanent and nonsupernatural: slaves revolt, are emancipated, and the plantation economy suffers labor shortages and decline. This is internally consistent social-economic causation, but coherence alone does not make it a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-2031e012e8c8166c",
+            "sfev-e7ddece62bd8c2cb"
+          ]
+        },
+        "description": "The emancipation of slaves in Jamaica and the resulting collapse of the plantation labor economy, forming the social-historical backdrop against which the story unfolds.",
+        "estrangement_rationale": "The narrator explicitly contrasts modern readers' view of emancipation with the contemporary proprietors' perception of it as a calamity (sfev-ea4dfaf0d50687f8), and the storyworld consequences are the destruction of the estate and the freeing of the slaves (sfev-2031e012e8c8166c, sfev-e7ddece62bd8c2cb). This is historical-moral estrangement, not science-fictional estrangement from an empirical norm.",
+        "evidence_ids": [
+          "sfev-e7ddece62bd8c2cb",
+          "sfev-2031e012e8c8166c",
+          "sfev-ea4dfaf0d50687f8"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [
+            "sfev-cc198348498e09d1",
+            "sfev-181e5b6bc2daa66f"
+          ],
+          "rationale": "The economic decline sets Maurice Cumming's circumstances and motivates Miss Jack's marriage scheme, so it conditions the setting. However the overriding narrative logic is a domestic courtship/flirtation plot resolved by character choices, not by the emancipation itself; the change is background rather than the governing engine of the narrative.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-2031e012e8c8166c",
+            "sfev-e7ddece62bd8c2cb"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.72,
+          "counterevidence_ids": [
+            "sfev-e7ddece62bd8c2cb",
+            "sfev-2031e012e8c8166c",
+            "sfev-ea4dfaf0d50687f8"
+          ],
+          "rationale": "Although emancipation is a major social and legal change within the storyworld, it is a historical event that belongs to the author's own empirical reality (nineteenth-century Jamaica), not a totalizing difference from the authorial empirical norm. Suvin's novum requires estrangement from the implied empirical world; a real historical reform depicted realistically is not such a difference. The reader-facing contrast (sfev-ea4dfaf0d50687f8) marks a shift in moral perspective over time, not an ontological or world-altering novelty.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-ea4dfaf0d50687f8"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-e7ddece62bd8c2cb",
+          "sfev-2031e012e8c8166c"
+        ]
+      },
+      {
+        "candidate_id": "cand-west-indian-flirting",
+        "character_reaction_evidence_ids": [
+          "sfev-cc198348498e09d1"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The narrator gives a coherent, immanent, nonsupernatural social account of flirting as an institution with rules and a life-cycle, but this coherence does not elevate an ordinary custom to a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-181e5b6bc2daa66f"
+          ]
+        },
+        "description": "The West Indian social 'institution' of flirting, presented by the narrator as a distinct cultural system practiced by all young ladies and set aside upon marriage.",
+        "estrangement_rationale": "The narrator directly addresses readers' unfamiliarity with West Indian flirting customs (sfev-181e5b6bc2daa66f), producing a cultural-contrast effect; Marian's eventual emotional collapse (sfev-cc198348498e09d1) shows the personal stakes. This is cultural estrangement, not the cognitive estrangement of a science-fictional novum.",
+        "evidence_ids": [
+          "sfev-181e5b6bc2daa66f",
+          "sfev-cc198348498e09d1"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "Marian's flirting drives the central romantic conflict, so the custom is thematically central. Yet it functions as a characterization device within a conventional courtship plot rather than as an estranging world-altering premise.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-181e5b6bc2daa66f",
+            "sfev-cc198348498e09d1"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-181e5b6bc2daa66f"
+          ],
+          "rationale": "This is a depicted regional social custom, not a totalizing or world-altering difference from the empirical norm. It represents ethnographic local color, not an estranging novum that reconstitutes the story universe.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-181e5b6bc2daa66f"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

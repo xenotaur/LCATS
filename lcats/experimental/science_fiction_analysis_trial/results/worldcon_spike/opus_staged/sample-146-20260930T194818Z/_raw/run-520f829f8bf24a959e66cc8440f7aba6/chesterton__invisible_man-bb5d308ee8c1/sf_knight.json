@@ -1,0 +1,82 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 17746,
+  "model": "claude-opus-4-8",
+  "output_tokens": 959,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "chesterton/invisible_man",
+  "story_path": "chesterton/invisible_man/story.json",
+  "text": "",
+  "title": "Chesterton - The Invisible Man",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied; the supplied evidence set is empty, so scientific content cannot be materially corroborated. The story is a detective mystery with no represented scientific fact, theory, or natural process.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.4,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "The story features Smythe's clockwork domestic robots ('Silent Service'), which could plausibly support technology/invention, but the supplied evidence set is empty and contains no records to materially corroborate the criterion, so it cannot be assessed.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "No supplied evidence records exist; the narrative is contemporary with no future, remote past, or temporal displacement to assess against evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The empty evidence set provides nothing to corroborate any extrapolation from a scientific or technological premise, so the criterion cannot be assessed.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied to corroborate systematic inference or observation-driven reasoning, so this criterion cannot be assessed against evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The empty evidence set contains no records; the story is set in ordinary London with no other planets, dimensions, or cosmic visitors to assess.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied; the story concerns a single murder, a personal crime without large-scale disaster, and nothing in the empty evidence set can corroborate a catastrophe.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

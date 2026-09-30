@@ -1,0 +1,115 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20121,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1441,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "wodehouse/extricating_young_gussie",
+  "story_path": "wodehouse/extricating_young_gussie/story.json",
+  "text": "",
+  "title": "Wodehouse - Extricating Young Gussie",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-transatlantic-travel",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The travel is coherently and nonsupernaturally described, but this is merely mundane realism rather than an imaginary system.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-6910d3dc3cdb186d",
+            "sfev-c99b64ad75a241de"
+          ]
+        },
+        "description": "Ocean-liner travel between England and New York, situating the narrator far from Aunt Agatha.",
+        "estrangement_rationale": "The narrator emphasizes the three thousand miles of ocean as liberation from his aunt, a geographic contrast that is realistic rather than estranging.",
+        "evidence_ids": [
+          "sfev-6910d3dc3cdb186d",
+          "sfev-c99b64ad75a241de"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The distance from Aunt Agatha motivates the plot's setting, but travel itself is a device, not the governing logic; the story is a comic social farce.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-c99b64ad75a241de"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-6910d3dc3cdb186d",
+            "sfev-c99b64ad75a241de"
+          ],
+          "rationale": "Transatlantic liner travel is entirely consonant with the early-20th-century empirical norm and introduces no totalizing difference from the author's world.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-6910d3dc3cdb186d",
+          "sfev-c99b64ad75a241de"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-c99b64ad75a241de"
+        ]
+      },
+      {
+        "candidate_id": "cand-vaudeville-heredity",
+        "character_reaction_evidence_ids": [
+          "sfev-37acf1e91a8c11c1",
+          "sfev-515433f208577cbe"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The 'heredity' motif is offered jokingly as pseudo-science but functions as comic conceit, not a systematic immanent account.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-37acf1e91a8c11c1"
+          ]
+        },
+        "description": "The comic 'reversion to type' whereby vaudeville blood in the family reasserts itself, driving Gussie and later Aunt Julia back to the stage.",
+        "estrangement_rationale": "The narrator's physical weakness and 'brain fever' reactions register comic dismay at social reversal, not cognitive estrangement from an altered cosmos.",
+        "evidence_ids": [
+          "sfev-37acf1e91a8c11c1",
+          "sfev-515433f208577cbe"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The pull toward vaudeville organizes the plot's outcomes, but as a social-comedy premise rather than a science-fictional novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-37acf1e91a8c11c1",
+            "sfev-515433f208577cbe"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-37acf1e91a8c11c1",
+            "sfev-515433f208577cbe"
+          ],
+          "rationale": "Heredity and family theatrical inclination are treated as ordinary social/comic phenomena within the empirical norm, not a world-altering difference.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-37acf1e91a8c11c1",
+          "sfev-515433f208577cbe"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-515433f208577cbe"
+        ]
+      }
+    ]
+  }
+}

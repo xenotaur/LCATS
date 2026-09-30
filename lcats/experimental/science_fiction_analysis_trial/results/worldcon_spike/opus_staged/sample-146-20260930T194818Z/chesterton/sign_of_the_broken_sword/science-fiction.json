@@ -1,0 +1,711 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "chesterton__sign_of_the_broken_sword-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story is a detective mystery about a historical military betrayal. No scientific facts, theories, natural processes, or speculative sciences are materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Swords, rifles, and artillery are ordinary period military tools mentioned incidentally, not engineered inventions that speculatively affect the setting or drive a science-fictional problem. No novel device or invention is present.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The tale is set in a recognizable contemporary/near-past England and colonial theater with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The 'hide a leaf in the forest / hide a corpse in a field of corpses' reasoning is a moral/logical analogy driving the murderer's cover-up, not consequences developed from an identifiable scientific, technological, social, or historical premise in the science-fictional sense.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b3e66c6c39742f8d",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-cedd9ca3c51b3126",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Father Brown systematically gathers evidence, orders it logically, reframes questions, and reasons from the timing of the colonel's wound that the sword was broken before the battle. This systematic evidential inference materially drives the resolution, though it is deductive detection rather than natural science.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-346488c3221c1020",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-594ef512bdeea037",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-7c8afabb84111d78",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-bee75ce5918f74e4",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-e4680ff716f78ea7",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "All settings are terrestrial (English forest, Brazil, colonial theaters). No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear; Brazil is an ordinary foreign country.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "substantial",
+            "rationale": "The deliberate sacrifice of eight hundred English soldiers marched to their deaths to conceal a single murder is a large-scale, human-caused disaster that is causally central to the plot's hidden truth. It is not a speculative cosmic/biological catastrophe but is large-scale and central.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-a30ccdbb696441ed",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-cedd9ca3c51b3126",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-9e0501622c314d25",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 2,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-9e0501622c314d25",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 22095,
+            "output": 1210
+          }
+        },
+        "status": "complete",
+        "story_hash": "8d2318b2be3e731abf45f002189adb428e3d56008c50265c1485007b9d8c7343"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "chesterton__sign_of_the_broken_sword-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-broken-sword-concealment",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The scheme is presented as internally coherent, systematic, immanent, and nonsupernatural, reconstructed through logical deduction. But cognitive coherence alone does not make a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cedd9ca3c51b3126",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-b3e66c6c39742f8d",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-594ef512bdeea037",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-7c8afabb84111d78",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ]
+            },
+            "description": "The central mystery mechanism: a general who murders one man and then engineers a mass battlefield slaughter of his own soldiers to hide the single corpse and the broken-sword evidence among many. This is the 'hide a leaf in the forest / hide a corpse in a field of corpses' logic that structures the tale.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-ad66a19f7a0560d7",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-c825b596de3a40e9",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-f90842f5f5c2d4a9",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ],
+              "rationale": "The reader-facing contrast between the publicly revered saint-hero and the privately known traitor, and the disgust reactions of Flambeau, create moral estrangement. But this is ethical and historiographic irony, not the cognitive estrangement of an sf novum: nothing in the storyworld violates the empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-503a271892feb3fc",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-bfdc21b7f07c9e53",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-a30ccdbb696441ed",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-cedd9ca3c51b3126",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e4680ff716f78ea7",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-594ef512bdeea037",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-7c8afabb84111d78",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-cedd9ca3c51b3126",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-b3e66c6c39742f8d",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-a30ccdbb696441ed",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-503a271892feb3fc",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-bfdc21b7f07c9e53",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-346488c3221c1020",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              },
+              {
+                "evidence_id": "sfev-bee75ce5918f74e4",
+                "evidence_set_id": "sfes-9e0501622c314d25"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "This concealment mechanism does govern the whole narrative logic; the entire story is its reconstruction. But it does so as a detective-fiction puzzle, not as an estranging novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e4680ff716f78ea7",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-594ef512bdeea037",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-7c8afabb84111d78",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-cedd9ca3c51b3126",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-b3e66c6c39742f8d",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-a30ccdbb696441ed",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-cedd9ca3c51b3126",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-b3e66c6c39742f8d",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                },
+                {
+                  "evidence_id": "sfev-a30ccdbb696441ed",
+                  "evidence_set_id": "sfes-9e0501622c314d25"
+                }
+              ],
+              "rationale": "However monstrous and clever, this concealment scheme is a human crime occurring within the ordinary empirical world of late-Victorian imperial Britain and Brazil. It introduces no totalizing or world-altering difference from the author's empirical norm; no new law of nature, technology, or social order transforms the story universe. It is a moral horror, not an ontological novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-9e0501622c314d25",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-9e0501622c314d25",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 22442,
+            "output": 1289
+          }
+        },
+        "status": "complete",
+        "story_hash": "8d2318b2be3e731abf45f002189adb428e3d56008c50265c1485007b9d8c7343"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-9e0501622c314d25",
+    "knight_analysis_id": "chesterton__sign_of_the_broken_sword-knight-v1",
+    "suvin_novum_analysis_id": "chesterton__sign_of_the_broken_sword-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-9e0501622c314d25",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 6305,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 6176
+          },
+          "confidence": 0.62,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-346488c3221c1020",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The priest sets out a structured method separating public knowledge from his private findings.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I must divide it into two parts,\" remarked the priest. \"First there is\n      what everybody knows; and then there is what I know."
+        },
+        {
+          "anchor": {
+            "end_char": 9800,
+            "paragraph_ids": [
+              "p00025"
+            ],
+            "start_char": 9652
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-503a271892feb3fc",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrative contrasts the expected behavior of two famous men with their apparently inexplicable actions.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One of the wisest men in the world acted like an idiot\n      for no reason. One of the best men in the world acted like a fiend for no\n      reason."
+        },
+        {
+          "anchor": {
+            "end_char": 27482,
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "start_char": 27380
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-594ef512bdeea037",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Brown reframes the key question by asking who witnessed the sword intact, a deductive turning point.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "No,\" cried Father Brown, with a sharp voice like a pistol shot; \"but who\n      saw his unbroken sword?"
+        },
+        {
+          "anchor": {
+            "end_char": 28412,
+            "paragraph_ids": [
+              "p00068"
+            ],
+            "start_char": 28221
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7c8afabb84111d78",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Brown reasons from the timing of the colonel's wound that the sword must have been broken before the fighting.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was struck long before the troops came to\n      close quarters. But he saw St. Clare\\u2019s sword broken. Why was it broken?\n      How was it broken? My friend, it was broken before the battle."
+        },
+        {
+          "anchor": {
+            "end_char": 35505,
+            "paragraph_ids": [
+              "p00090"
+            ],
+            "start_char": 35416
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a30ccdbb696441ed",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The general sends hundreds of soldiers to die in order to cover up his crime.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In twenty minutes eight hundred English soldiers were marching down\n      to their death."
+        },
+        {
+          "anchor": {
+            "end_char": 15098,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 15073
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ad66a19f7a0560d7",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Flambeau reacts with revulsion after offering his own theory.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A horrid story,\" he said."
+        },
+        {
+          "anchor": {
+            "end_char": 29840,
+            "paragraph_ids": [
+              "p00081"
+            ],
+            "start_char": 29745
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b3e66c6c39742f8d",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Brown extends the hide-a-leaf logic to concealing a corpse among many corpses.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And if a man had to hide a dead body, he would make a field of dead\n      bodies to hide it in."
+        },
+        {
+          "anchor": {
+            "end_char": 16915,
+            "paragraph_ids": [
+              "p00049"
+            ],
+            "start_char": 16741
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bee75ce5918f74e4",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Brown describes collecting multiple pieces of evidence and presenting them in logical order.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There are three more bits of evidence,\" said the other, \"that I have dug\n      up in holes and corners; and I will give them in logical rather than\n      chronological order."
+        },
+        {
+          "anchor": {
+            "end_char": 40596,
+            "paragraph_ids": [
+              "p00108"
+            ],
+            "start_char": 40465
+          },
+          "confidence": 0.58,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bfdc21b7f07c9e53",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Brown contrasts the public reverence for St. Clare with the contempt of those who knew the truth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Millions who never knew him shall love\n      him like a father\\u2014this man whom the last few that knew him dealt\n      with like dung."
+        },
+        {
+          "anchor": {
+            "end_char": 40186,
+            "paragraph_ids": [
+              "p00107"
+            ],
+            "start_char": 40104
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c825b596de3a40e9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Flambeau expresses disgust upon seeing the inn named for St. Clare.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I thought we had done with the leper,\" cried Flambeau, and spat on the\n      road."
+        },
+        {
+          "anchor": {
+            "end_char": 35415,
+            "paragraph_ids": [
+              "p00090"
+            ],
+            "start_char": 35192
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cedd9ca3c51b3126",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The murderer reasons that creating many deaths will conceal his single murder.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He had killed, but not silenced. But his imperious\n      intellect rose against the facer; there was one way yet. He could make the\n      corpse less unaccountable. He could create a hill of corpses to cover this\n      one."
+        },
+        {
+          "anchor": {
+            "end_char": 3087,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 3051
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e4680ff716f78ea7",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Father Brown poses a riddle-based method of reasoning to work through the mystery.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Where does a wise man hide a pebble?"
+        },
+        {
+          "anchor": {
+            "end_char": 32182,
+            "paragraph_ids": [
+              "p00087"
+            ],
+            "start_char": 32138
+          },
+          "confidence": 0.58,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f90842f5f5c2d4a9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Flambeau shudders as he recalls Dante's lowest circle for traitors.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The traitors,\" said Flambeau, and shuddered."
+        }
+      ],
+      "story_hash": "8d2318b2be3e731abf45f002189adb428e3d56008c50265c1485007b9d8c7343",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "chesterton/sign_of_the_broken_sword",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "8d2318b2be3e731abf45f002189adb428e3d56008c50265c1485007b9d8c7343",
+  "story_path": "chesterton/sign_of_the_broken_sword/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

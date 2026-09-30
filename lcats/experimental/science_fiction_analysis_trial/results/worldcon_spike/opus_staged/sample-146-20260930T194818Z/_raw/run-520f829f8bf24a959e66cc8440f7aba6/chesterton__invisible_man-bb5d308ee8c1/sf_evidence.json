@@ -1,0 +1,29 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18009,
+  "model": "claude-opus-4-8",
+  "output_tokens": 178,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/invisible_man",
+  "story_path": "chesterton/invisible_man/story.json",
+  "text": "",
+  "title": "Chesterton - The Invisible Man",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00033"
+        ],
+        "paraphrase": "Laura describes Smythe's invention as clockwork machines that perform all household work.",
+        "quote": "it\ndd\ns some clockwork invention for doing all the\n      housework by machinery. You know the sort of thing: \n\n",
+        "raw_id": "ev01"
+      }
+    ]
+  }
+}

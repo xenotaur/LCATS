@@ -1,0 +1,11 @@
+{
+  "failure_kind": "BadRequestError",
+  "failure_message": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfaLGQ9ud65ZjRC2UvFYc'}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__the_adventure_of_elizabeth_morey_of_new_york_1901__becke-d4d453a5ee9d/sf_evidence-backend-error.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "story",
+  "story_id": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke",
+  "story_path": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/story.json",
+  "title": "The Adventure of Elizabeth Morey, of New York\r\n1901",
+  "tool_result": null
+}

@@ -1,0 +1,699 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__don_t_think_about_it__stuart-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story offers no scientific facts, theories, or speculative science. The Ugly Thing is a supernatural/horror entity with quasi-rules (repelled by light, feeds on blood), but these are presented as fairy-tale menace rather than any scientific representation. No supplied evidence materially supports a science criterion.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The only devices are ordinary contemporary items (television, cigarette lighter, mouse trap, electric typewriter). The lighter is used to start a fire but is a mundane tool, not an engineered invention or novum. No evidence supports a materially significant technology or invention.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The setting is a contemporary domestic present with no future, remote past, or temporal displacement. No evidence indicates any temporal speculation.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "Tommy reasons out consequences of the Thing's established rules (it eats creatures with blood; the mouse and bait vanished to dust; light repels it), and this consistent inference drives the climactic action. This is extrapolation from a fantastical rather than scientific/social/historical premise, so materiality and its qualifying nature are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-bc6abf85834ae840",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-af4a87db7d82c45d",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Daddy asking to be shown the hole and setting a mouse trap is ordinary investigation of a presumed mouse, not systematic observation, hypothesis, testing, or evidential revision. Tommy's intuitive knowledge is not demonstrated through scientific method. No evidence materially supports this criterion.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The Ugly Thing exists 'on the other side of' the hole and communicates telepathically, suggesting a visitor from another dimension or realm central to the story. However, the story frames it as an ambiguous supernatural horror rather than an explicitly established other-dimensional cosmic environment, leaving the interpretation uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-dc96b3fd8d54ed13",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-a23ffe35b603bc53",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "substantial",
+            "rationale": "The house burns down and Aunt Martha is consumed/killed, which is causally central to the plot. However, this is a single household fire and one death—arguably a personal/domestic misfortune rather than a large-scale disaster—so its qualification as catastrophe is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4199758842f8285e",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-0bd686472601cc56",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-941ce983659d8fe1",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-941ce983659d8fe1",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 15144,
+            "output": 1348
+          }
+        },
+        "status": "complete",
+        "story_hash": "01efe72fc54f15968f334e19c0e7a3bd901e3d19bba3a85a50374adb3994d5b9"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__don_t_think_about_it__stuart-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "nc-ugly-thing-hole",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The story develops a consistent immanent rule-set (the hole must be enlarged before the Thing emerges; light/sunlight and flame force it back; darkness and the electrical blackout enable it; it feeds only on things with blood). These rules are systematic and nonsupernatural in their operation. However, the entity is framed with horror/supernatural imagery ('Ugly Thing,' red hungry thoughts) and no scientific or cosmological account of its origin is given, so whether it is imaginary-science estrangement or a supernatural bogeyman is genuinely conflicting.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-40f845411fc3ab29",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-af4a87db7d82c45d",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-2168effd90e8ba45",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-bc6abf85834ae840",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-a4e7ca2fedf2af46",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ]
+            },
+            "description": "The Ugly Thing and the hole in the closet: an otherworldly, hungry entity that reaches into the storyworld through a hole that enlarges in darkness, communicates telepathically ('red thoughts'), consumes living things with blood leaving only dust/bone, and is repelled or driven back by light. It operates by a coherent, immanent rule-set (darkness/electricity failure lets it emerge; light forces it back) and governs the entire plot, culminating in it consuming Aunt Martha.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-ade4d92f26850f1d",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-38b1225a750c9828",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-508598818a108786",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ],
+              "rationale": "The child perceives and understands the entity clearly while adults' 'closed minds' cannot, creating a reader-facing cognitive contrast between the empirical adult worldview and the operative reality of the Thing. Storyworld consequences (Aunt Martha's consumption, relocation to hole-free lit closets) confirm the difference is real and world-altering.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-a23ffe35b603bc53",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-0bd686472601cc56",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-2565335628aefbe6",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-4199758842f8285e",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-dc96b3fd8d54ed13",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-40f845411fc3ab29",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-af4a87db7d82c45d",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-2168effd90e8ba45",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-4199758842f8285e",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-0bd686472601cc56",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-2565335628aefbe6",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-bc6abf85834ae840",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-a4e7ca2fedf2af46",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-a23ffe35b603bc53",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-ade4d92f26850f1d",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-38b1225a750c9828",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              },
+              {
+                "evidence_id": "sfev-508598818a108786",
+                "evidence_set_id": "sfes-941ce983659d8fe1"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The entire narrative is organized around the Thing: the plot's tension, Tommy's actions (setting the fire), Aunt Martha's death, and the resolution (moving to a house with lit, hole-free closets) all follow from it. It is the overriding narrative logic, not an incidental device.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-dc96b3fd8d54ed13",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-4199758842f8285e",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-0bd686472601cc56",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-2168effd90e8ba45",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-2565335628aefbe6",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "A predatory entity accessing our world through a hole in a closet, consuming a human utterly (leaving only teeth and bone) and altering the family's world (they move and eliminate all closet holes) is a totalizing difference from the empirical norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-dc96b3fd8d54ed13",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-4199758842f8285e",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-0bd686472601cc56",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                },
+                {
+                  "evidence_id": "sfev-2565335628aefbe6",
+                  "evidence_set_id": "sfes-941ce983659d8fe1"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-941ce983659d8fe1",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-941ce983659d8fe1",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 15491,
+            "output": 1519
+          }
+        },
+        "status": "complete",
+        "story_hash": "01efe72fc54f15968f334e19c0e7a3bd901e3d19bba3a85a50374adb3994d5b9"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-941ce983659d8fe1",
+    "knight_analysis_id": "mass_quantities__don_t_think_about_it__stuart-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__don_t_think_about_it__stuart-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-941ce983659d8fe1",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 19742,
+            "paragraph_ids": [
+              "p00112"
+            ],
+            "start_char": 19586
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0bd686472601cc56",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A fireman describes Aunt Martha's body as impossibly consumed, implying the Thing devoured her.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the old bat\nmust have been as dry as dust inside. Twenty years in the department\nand I never did see a body so completely consumed--teeth, a little\nbone...."
+        },
+        {
+          "anchor": {
+            "end_char": 18836,
+            "paragraph_ids": [
+              "p00109"
+            ],
+            "start_char": 18634
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2168effd90e8ba45",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Fire and its light force the Thing back into the hole, reinforcing the light-repels-it rule.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the sense of feeding hunger was gone and the feel of\nthe Ugly Thing was gone, back into the hole in the closet, forced back\nby the flickering yellow light of the flames started by the cigarette\nlighter."
+        },
+        {
+          "anchor": {
+            "end_char": 20292,
+            "paragraph_ids": [
+              "p00114"
+            ],
+            "start_char": 20103
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2565335628aefbe6",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The family relocates to a house with lit closets and no holes.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "there were lights in all of the closets in the new house they\nmoved to and lots of room for everyone, even baby sister. And there\nwere no holes, not even mouse holes, in any of the closets."
+        },
+        {
+          "anchor": {
+            "end_char": 19976,
+            "paragraph_ids": [
+              "p00113"
+            ],
+            "start_char": 19864
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-38b1225a750c9828",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Tommy deliberately avoids thinking about Aunt Martha's fate.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Tommy might\nhave known pretty well where she had gone, if he had thought about it,\nbut he didn't think about it."
+        },
+        {
+          "anchor": {
+            "end_char": 3788,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 3656
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-40f845411fc3ab29",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrative explains the constraint on the Thing: it cannot emerge until it enlarges the hole.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The Ugly Thing couldn't\ncome out of the hole because the hole wasn't big enough yet, but it\ntried and it was making the hole bigger."
+        },
+        {
+          "anchor": {
+            "end_char": 17242,
+            "paragraph_ids": [
+              "p00101"
+            ],
+            "start_char": 17036
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4199758842f8285e",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The Thing breaks free of the hole during the storm, releasing a wave of hungry menace.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "in Tommy's closet there was a sudden, mighty surge of effort, a break,\nand something, not a sound, but something, a harsh and bloody sense or\nfeel of rending greed flowing outward from the closet in a wave."
+        },
+        {
+          "anchor": {
+            "end_char": 9440,
+            "paragraph_ids": [
+              "p00035"
+            ],
+            "start_char": 9389
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-508598818a108786",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Daddy asks to be shown the hole, attempting to investigate the claim.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"All right then, Tommy. Suppose you show it to me.\""
+        },
+        {
+          "anchor": {
+            "end_char": 7802,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 7676
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a23ffe35b603bc53",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The child perceives the entity clearly while adults cannot comprehend it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There was more to it than that, of course, but how could a thing like\nthat be explained through a wall of grown, closed minds?"
+        },
+        {
+          "anchor": {
+            "end_char": 12918,
+            "paragraph_ids": [
+              "p00070"
+            ],
+            "start_char": 12840
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a4e7ca2fedf2af46",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The bait meat is gone, leaving only dust, hinting the Thing consumed it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Only a\nlittle plaster dust or something left in the trap where I put the meat."
+        },
+        {
+          "anchor": {
+            "end_char": 3655,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 3540
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ade4d92f26850f1d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The characters react with fear to the Thing reaching out.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It didn't grab Mr. Bear, but he was terrified just the same. And none\nof them liked it. They didn't like it at all."
+        },
+        {
+          "anchor": {
+            "end_char": 4246,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 4073
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-af4a87db7d82c45d",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Sunlight causes the Thing's presence and the hole to recede from perception, establishing a rule tied to light.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the ugly red thoughts from the Thing pulled back, far back, so you could\nbarely notice them, and you couldn't see the hole any more, even though\nyou knew it was still there."
+        },
+        {
+          "anchor": {
+            "end_char": 10932,
+            "paragraph_ids": [
+              "p00050"
+            ],
+            "start_char": 10887
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bc6abf85834ae840",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Tommy infers the mouse was consumed by the Thing because it had blood.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That poor little old\nMr. Mouse had had blood."
+        },
+        {
+          "anchor": {
+            "end_char": 3470,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 3309
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dc96b3fd8d54ed13",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A hole appears in the closet through which an unnatural entity communicates telepathically.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And then there was the hole in the closet, back in the corner\nnext to the broken drum. They all saw it and they heard the Ugly Thing\ntalking or thinking at them."
+        }
+      ],
+      "story_hash": "01efe72fc54f15968f334e19c0e7a3bd901e3d19bba3a85a50374adb3994d5b9",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/don_t_think_about_it__stuart",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "01efe72fc54f15968f334e19c0e7a3bd901e3d19bba3a85a50374adb3994d5b9",
+  "story_path": "mass_quantities/don_t_think_about_it__stuart/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

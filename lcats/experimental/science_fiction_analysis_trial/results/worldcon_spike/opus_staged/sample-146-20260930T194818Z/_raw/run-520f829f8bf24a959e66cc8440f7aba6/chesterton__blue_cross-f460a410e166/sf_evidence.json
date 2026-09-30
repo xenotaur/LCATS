@@ -1,0 +1,119 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20020,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1561,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/blue_cross",
+  "story_path": "chesterton/blue_cross/story.json",
+  "text": "",
+  "title": "Chesterton - The Blue Cross",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "Valentin explains his method of pursuing the unreasonable when no clue exists, reasoning that odd sights catching his eye may match those that caught his quarry's eye.",
+        "quote": "He said that if one had a clue this was the worst way; but if one had no clue at all it was the best, because there was just the chance that any oddity that caught the eye of the pursuer might be the same that had caught the eye of the pursued.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "The detective describes deliberately following unreasonable leads as a systematic investigative strategy.",
+        "quote": "In such cases, when he could not follow the train of the reasonable, he coldly and carefully followed the train of the unreasonable.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00040"
+        ],
+        "paraphrase": "Valentin lays out a method for reconstructing a suspect's actions by mirroring his movements.",
+        "quote": "If you know what a man\\u2019s doing, get in front of him; but if you want to guess what he\\u2019s doing, keep behind him. Stray when he strays; stop when he stops; travel as slowly as he.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00113"
+        ],
+        "paraphrase": "Father Brown describes his tests of Flambeau's reactions as a controlled method to reveal his guilt.",
+        "quote": "A man generally makes a small scene if he finds salt in his coffee; if he doesn\\u2019t, he has some reason for keeping quiet. I changed the salt and sugar, and you kept quiet. A man generally objects if his bill is three times too big. If he pays it, he has some motive for passing unnoticed. I altered your bill, and you paid it.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "Valentin reacts with surprise to tasting salt in his coffee.",
+        "quote": "He lifted his coffee cup to his lips slowly, and put it down very quickly. He had put salt in it.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "Valentin reacts with anger when his assistant demands proof.",
+        "quote": "Valentin almost broke his bamboo stick with rage.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The narrator contrasts the ordinary appearance of the man with his concealed identity as a famous detective.",
+        "quote": "There was nothing about him to indicate the fact that the grey jacket covered a loaded revolver, that the white waistcoat covered a police card, or that the straw hat covered one of the most powerful intellects in Europe.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "Valentin contrasts the creative role of the criminal with the merely critical role of the detective.",
+        "quote": "\\u201cThe criminal is the creative artist; the detective only the critic,\\u201d he said with a sour smile",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00112"
+        ],
+        "paraphrase": "Flambeau halts his advance when Father Brown reveals the police are present.",
+        "quote": "Flambeau stopped in his stride forward.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00120"
+        ],
+        "paraphrase": "Flambeau reacts with astonishment at the priest's knowledge of criminal methods.",
+        "quote": "\\u201cHow in blazes do you know all these horrors?\\u201d cried Flambeau.",
+        "raw_id": "ev10"
+      }
+    ]
+  }
+}
