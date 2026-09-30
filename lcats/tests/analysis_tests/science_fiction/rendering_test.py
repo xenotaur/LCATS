@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import pathlib
 import unittest
+from copy import deepcopy
 
 from lcats.analysis.science_fiction import rendering
 
@@ -92,7 +93,7 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             ]
         )
 
-        self.assertIn("Science", result)
+        self.assertIn("Knight criterion 1", result)
         self.assertIn("Cognitive validation", result)
         self.assertIn("Knight summary", result)
         self.assertIn("Suvin summary", result)
@@ -113,13 +114,13 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             items, include_detail_columns=False, include_summary_columns=False
         )
 
-        self.assertIn("Science", detail_only)
+        self.assertIn("Knight criterion 1", detail_only)
         self.assertNotIn("Knight summary", detail_only)
         self.assertIn("Knight summary", summary_only)
-        self.assertNotIn("| Science |", summary_only)
+        self.assertNotIn("| Knight criterion 1 |", summary_only)
         self.assertIn("K1", names_off)
         self.assertIn("N", names_off)
-        self.assertNotIn("| Science |", names_off)
+        self.assertNotIn("| Knight criterion 1 |", names_off)
         self.assertIn("Title", neither)
         self.assertIn("Author", neither)
         self.assertNotIn("Knight summary", neither)
@@ -161,6 +162,66 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             )
         with self.assertRaises(ValueError):
             rendering.render_comparison_table(items, columns=("story", "story"))
+
+    def test_qualified_without_dominant_is_not_promoted(self):
+        data = deepcopy(self.data)
+        data["analyses"]["suvin_novum"][0]["dominant_novum_id"] = None
+
+        result = rendering.render_sidecar(data, detail="detailed")
+
+        self.assertIn("Novum Present — qualified", result)
+        self.assertNotIn("qualified and dominant", result)
+        self.assertNotIn("Dominant Novum", result)
+        self.assertIn("no dominant Novum was designated", result)
+
+    def test_comparison_columns_follow_criterion_ids(self):
+        data = deepcopy(self.data)
+        criteria = data["analyses"]["knight"][0]["criteria"]
+        data["analyses"]["knight"][0]["criteria"] = list(reversed(criteria))
+
+        result = rendering.render_comparison_table(
+            [{"data": data}], column_sets=("knight_detail",)
+        )
+        row = result.splitlines()[2]
+        cells = [cell.strip() for cell in row.strip("|").split("|")]
+
+        self.assertEqual(cells[0], "P")
+        self.assertEqual(cells[6], "P")
+
+    def test_detailed_outputs_include_rationales_and_estrangement_evidence(self):
+        for output_format in ("markdown", "html", "latex"):
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(
+                    self.data, output_format=output_format, detail="detailed"
+                )
+                self.assertIn("spectroscopy", result)
+                self.assertIn("sfev-9b236e025dd7048b", result)
+
+    def test_unavailable_current_analyses_are_not_rendered_as_negative_or_complete(
+        self,
+    ):
+        data = deepcopy(self.data)
+        data["current"] = {
+            "evidence_set_id": None,
+            "knight_analysis_id": None,
+            "suvin_novum_analysis_id": None,
+        }
+
+        result = rendering.render_sidecar(data)
+
+        self.assertIn("Analysis status:** Unavailable", result)
+        self.assertIn("Knight Score:** Unavailable (0 / 0 criteria)", result)
+        self.assertIn("Suvin Score:** Unavailable", result)
+        self.assertNotIn("Analysis status:** Complete", result)
+        self.assertNotIn("Novum Absent", result)
+
+    def test_latex_escapes_backslashes_in_one_pass(self):
+        result = rendering.render_sidecar(
+            self.data, output_format="latex", title=r"Title \\ with slash"
+        )
+
+        self.assertIn(r"\textbackslash{}", result)
+        self.assertNotIn(r"\textbackslash\{\}", result)
 
 
 if __name__ == "__main__":

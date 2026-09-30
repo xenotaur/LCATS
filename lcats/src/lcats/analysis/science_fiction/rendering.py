@@ -15,6 +15,8 @@ import re
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
+from lcats.analysis.science_fiction.rubric import definitions
+
 OutputFormat = Literal["markdown", "html", "latex"]
 Detail = Literal["summary", "detailed"]
 
@@ -51,13 +53,8 @@ COMPARISON_COLUMN_LABELS = {
 }
 COMPARISON_COLUMN_LABELS.update(
     {
-        "knight_criterion_1": "Science",
-        "knight_criterion_2": "Technology and invention",
-        "knight_criterion_3": "Future, remote past, or time travel",
-        "knight_criterion_4": "Extrapolation",
-        "knight_criterion_5": "Scientific method",
-        "knight_criterion_6": "Other places and visitors",
-        "knight_criterion_7": "Catastrophe",
+        f"knight_{slot.slot_id}": slot.label
+        for slot in definitions.KNIGHT_SEVEN.text_slots
     }
 )
 
@@ -218,7 +215,7 @@ def _build_view(
     interval = knight.get("interval") or _knight_interval(criteria)
     definite = int(interval.get("definite_count", 0))
     possible = int(interval.get("possible_count", definite))
-    total = int(interval.get("total_count", len(criteria) or 7))
+    total = int(interval.get("total_count", len(criteria)))
     qualified = [
         candidate
         for candidate in _as_list(suvin.get("candidates"))
@@ -233,22 +230,19 @@ def _build_view(
         ),
         None,
     )
-    if dominant is None and qualified:
-        dominant = qualified[0]
-
     return {
         "title": title or _fallback_title(data),
         "author": author,
         "status": _analysis_status(data, knight, suvin),
         "knight": {
-            "classification": _knight_classification(definite, possible),
+            "classification": _knight_classification(definite, possible, total),
             "definite": definite,
             "possible": possible,
             "total": total,
             "criteria": criteria,
         },
         "suvin": {
-            "classification": "Novum Present" if qualified else "Novum Absent",
+            "classification": _suvin_classification(suvin, qualified),
             "qualified": qualified,
             "dominant": dominant,
             "dominant_id": dominant_id,
@@ -338,6 +332,8 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
         suvin_summary = "Novum Present — qualified and dominant"
     elif suvin["qualified"]:
         suvin_summary = "Novum Present — qualified"
+    elif suvin["classification"] == "Unavailable":
+        suvin_summary = "Novum unavailable"
     else:
         suvin_summary = "Novum Absent"
     row = {
@@ -347,7 +343,11 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
         "knight_label": knight["classification"],
         "knight_score": f"{knight['definite']}/{knight['total']}",
         "knight_interval": f"{knight['definite']}–{knight['possible']}",
-        "suvin_novum": "Present" if suvin["qualified"] else "Absent",
+        "suvin_novum": (
+            "Present"
+            if suvin["qualified"]
+            else "Unavailable" if suvin["classification"] == "Unavailable" else "Absent"
+        ),
         "suvin_evidence": (
             "Qualified, Dominant"
             if suvin["qualified"] and suvin.get("dominant")
@@ -357,7 +357,11 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
         "suvin_summary": suvin_summary,
     }
     criteria = knight["criteria"]
-    for index, criterion in enumerate(criteria, start=1):
+    for criterion in criteria:
+        criterion_id = str(criterion.get("criterion_id", ""))
+        if not criterion_id.startswith("criterion_"):
+            continue
+        index = criterion_id.removeprefix("criterion_")
         marker = _status_marker(criterion.get("status"))
         row[f"knight_criterion_{index}"] = marker
     for key, source in (
@@ -478,6 +482,7 @@ def _markdown_detail(view: Mapping[str, Any]) -> list[str]:
                 evidence=len(_as_list(criterion.get("supporting_evidence"))),
             )
         )
+        lines.append(f"  Rationale: {_md(criterion.get('rationale') or '—')}")
     lines.extend(["", "### Suvin candidates", ""])
     for candidate in suvin["candidates"]:
         lines.append(
@@ -485,13 +490,13 @@ def _markdown_detail(view: Mapping[str, Any]) -> list[str]:
             f"({'qualified' if candidate.get('qualified_novum') else 'not qualified'})"
         )
         lines.extend(["", _md(candidate.get("description", "")), ""])
-        lines.append("| Dimension | Status | Confidence |")
-        lines.append("|---|---|---:|")
+        lines.append("| Dimension | Status | Confidence | Rationale |")
+        lines.append("|---|---|---:|---|")
         for name in ("novelty", "cognitive_validation", "narrative_hegemony"):
             dimension = candidate.get(name, {})
             lines.append(
                 f"| {_md(_dimension_label(name))} | {_md(dimension.get('status', ''))} | "
-                f"{_confidence(dimension.get('confidence'))} |"
+                f"{_confidence(dimension.get('confidence'))} | {_md(dimension.get('rationale') or '—')} |"
             )
         if candidate.get("estrangement", {}).get("rationale"):
             lines.extend(
@@ -564,19 +569,23 @@ def _html_detail(view: Mapping[str, Any]) -> list[str]:
                 len(_as_list(criterion.get("supporting_evidence"))),
             )
         )
+        lines.append(
+            f'<tr><td colspan="5"><strong>Rationale:</strong> '
+            f"{_html(criterion.get('rationale') or '—')}</td></tr>"
+        )
     lines.append("</tbody></table><h3>Suvin candidates</h3>")
     for candidate in suvin["candidates"]:
         lines.extend(
             [
                 f"<h4>{_html(candidate.get('candidate_id', 'Unnamed candidate'))} ({'qualified' if candidate.get('qualified_novum') else 'not qualified'})</h4>",
                 f"<p>{_html(candidate.get('description', ''))}</p>",
-                "<table><thead><tr><th>Dimension</th><th>Status</th><th>Confidence</th></tr></thead><tbody>",
+                "<table><thead><tr><th>Dimension</th><th>Status</th><th>Confidence</th><th>Rationale</th></tr></thead><tbody>",
             ]
         )
         for name in ("novelty", "cognitive_validation", "narrative_hegemony"):
             dimension = candidate.get(name, {})
             lines.append(
-                f"<tr><td>{_html(_dimension_label(name))}</td><td>{_html(dimension.get('status', ''))}</td><td>{_html(_confidence(dimension.get('confidence')))}</td></tr>"
+                f"<tr><td>{_html(_dimension_label(name))}</td><td>{_html(dimension.get('status', ''))}</td><td>{_html(_confidence(dimension.get('confidence')))}</td><td>{_html(dimension.get('rationale') or '—')}</td></tr>"
             )
         lines.append("</tbody></table>")
     lines.append("<h3>Supporting evidence</h3>")
@@ -643,6 +652,10 @@ def _latex_detail(view: Mapping[str, Any]) -> list[str]:
                 len(_as_list(criterion.get("supporting_evidence"))),
             )
         )
+        lines.append(
+            f"\\multicolumn{{5}}{{l}}{{\\textbf{{Rationale:}} "
+            f"{_latex(criterion.get('rationale') or '-')}}} \\\\",
+        )
     lines.append("\\end{longtable}")
     lines.append("\\subsection*{Suvin candidates}")
     for candidate in suvin["candidates"]:
@@ -658,6 +671,9 @@ def _latex_detail(view: Mapping[str, Any]) -> list[str]:
             dimension = candidate.get(name, {})
             lines.append(
                 f"\\item[{_latex(_dimension_label(name))}] {_latex(dimension.get('status', ''))} ({_latex(_confidence(dimension.get('confidence')))})"
+            )
+            lines.append(
+                f"\\item[Rationale] {_latex(dimension.get('rationale') or '-')}"
             )
         lines.append("\\end{description}")
     lines.append("\\subsection*{Supporting evidence}")
@@ -693,6 +709,17 @@ def _summary_text(view: Mapping[str, Any]) -> str:
             f"The Knight profile has an interval of {knight['definite']}–{knight['possible']} "
             f"affirmative criteria out of {knight['total']}."
         )
+    if suvin["qualified"]:
+        return (
+            f"The analysis identifies a qualified Novum but no dominant Novum was designated. "
+            f"The Knight profile has an interval of {knight['definite']}–{knight['possible']} "
+            f"affirmative criteria out of {knight['total']}."
+        )
+    if suvin["classification"] == "Unavailable":
+        return (
+            f"The Knight profile has an interval of {knight['definite']}–{knight['possible']} "
+            f"affirmative criteria out of {knight['total']}; Suvin analysis is unavailable."
+        )
     return (
         f"The Knight profile has an interval of {knight['definite']}–{knight['possible']} "
         f"affirmative criteria out of {knight['total']}; no qualified Suvin Novum was identified."
@@ -723,8 +750,13 @@ def _referenced_evidence_ids(
                 dimension.get("counterevidence")
             ):
                 _append_id(ids, reference)
-        for group in _as_list(candidate.get("estrangement", {}).values()):
-            for reference in _as_list(group):
+        estrangement = candidate.get("estrangement", {})
+        for field in (
+            "character_reaction_evidence",
+            "reader_facing_evidence",
+            "storyworld_consequence_evidence",
+        ):
+            for reference in _as_list(estrangement.get(field)):
                 _append_id(ids, reference)
     return ids
 
@@ -740,11 +772,12 @@ def _append_id(ids: list[str], reference: Any) -> None:
 def _select_current(
     items: list[Mapping[str, Any]], current_id: Any, key: str
 ) -> Mapping[str, Any]:
-    if current_id:
-        for item in items:
-            if item.get(key) == current_id:
-                return item
-    return items[-1] if items else {}
+    if not current_id:
+        return {}
+    for item in items:
+        if item.get(key) == current_id:
+            return item
+    return {}
 
 
 def _analysis_status(
@@ -758,15 +791,29 @@ def _analysis_status(
         or suvin.get("status") == "partial"
     ):
         return "Partial"
+    if not knight and not suvin:
+        return "Unavailable"
+    if not knight or not suvin:
+        return "Partial"
     return "Complete"
 
 
-def _knight_classification(definite: int, possible: int) -> str:
+def _knight_classification(definite: int, possible: int, total: int) -> str:
+    if total == 0:
+        return "Unavailable"
     if definite > 0:
         return "Science Fiction"
     if possible > 0:
         return "Indeterminate"
     return "Not Science Fiction"
+
+
+def _suvin_classification(
+    suvin: Mapping[str, Any], qualified: list[Mapping[str, Any]]
+) -> str:
+    if not suvin:
+        return "Unavailable"
+    return "Novum Present" if qualified else "Novum Absent"
 
 
 def _knight_interval(criteria: list[Mapping[str, Any]]) -> dict[str, int]:
@@ -856,17 +903,17 @@ def _html(value: Any) -> str:
 
 def _latex(value: Any) -> str:
     text = str(value)
-    for old, new in (
-        ("\\", r"\textbackslash{}"),
-        ("&", r"\&"),
-        ("%", r"\%"),
-        ("$", r"\$"),
-        ("#", r"\#"),
-        ("_", r"\_"),
-        ("{", r"\{"),
-        ("}", r"\}"),
-        ("~", r"\textasciitilde{}"),
-        ("^", r"\textasciicircum{}"),
-    ):
-        text = text.replace(old, new)
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+        "~": r"\textasciitilde{}",
+        "^": r"\textasciicircum{}",
+    }
+    text = re.sub(r"[\\&%$#_{}~^]", lambda match: replacements[match.group()], text)
     return text.replace("\n", " ")
