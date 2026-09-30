@@ -12,7 +12,7 @@ import html
 import json
 import pathlib
 import re
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
 OutputFormat = Literal["markdown", "html", "latex"]
@@ -68,6 +68,75 @@ def render_sidecar(
     if output_format == "html":
         return _render_html(view, detail)
     return _render_latex(view, detail)
+
+
+def render_comparison_table(
+    items: Sequence[Mapping[str, Any]],
+    *,
+    output_format: OutputFormat = "markdown",
+    named_feature_headers: bool = True,
+    include_detail_columns: bool = True,
+    include_summary_columns: bool = True,
+) -> str:
+    """Render multiple sidecars as a feature-and-summary comparison table.
+
+    Each item must contain a loaded sidecar under ``data`` and may provide
+    ``title`` and ``author`` metadata.  ``named_feature_headers`` switches
+    detail headers between human names such as ``Criterion 1`` and compact
+    names such as ``K1``.  Detail and summary columns can be independently
+    omitted for compact views.
+    """
+
+    _require_choice(output_format, OUTPUT_FORMATS, "output_format")
+    rows = [
+        _build_view(
+            item["data"],
+            title=item.get("title"),
+            author=item.get("author"),
+        )
+        for item in items
+    ]
+    columns = _comparison_columns(
+        named_feature_headers=named_feature_headers,
+        include_detail_columns=include_detail_columns,
+        include_summary_columns=include_summary_columns,
+    )
+    if output_format == "markdown":
+        return _render_comparison_markdown(rows, columns)
+    if output_format == "html":
+        return _render_comparison_html(rows, columns)
+    return _render_comparison_latex(rows, columns)
+
+
+def render_comparison_table_from_json(
+    paths: Sequence[str | pathlib.Path],
+    *,
+    output_format: OutputFormat = "markdown",
+    metadata: Sequence[Mapping[str, Any]] | None = None,
+    named_feature_headers: bool = True,
+    include_detail_columns: bool = True,
+    include_summary_columns: bool = True,
+) -> str:
+    """Load sidecars from paths and render a comparison table."""
+
+    metadata = metadata or ({},) * len(paths)
+    if len(metadata) != len(paths):
+        raise ValueError("metadata must contain one item per path")
+    items = []
+    for path, item_metadata in zip(paths, metadata):
+        items.append(
+            {
+                "data": json.loads(pathlib.Path(path).read_text(encoding="utf-8")),
+                **item_metadata,
+            }
+        )
+    return render_comparison_table(
+        items,
+        output_format=output_format,
+        named_feature_headers=named_feature_headers,
+        include_detail_columns=include_detail_columns,
+        include_summary_columns=include_summary_columns,
+    )
 
 
 def _build_view(
@@ -142,6 +211,128 @@ def _build_view(
         "provenance": _provenance(knight, suvin),
         "warnings": _warnings(data, knight, suvin),
     }
+
+
+def _comparison_columns(
+    *,
+    named_feature_headers: bool,
+    include_detail_columns: bool,
+    include_summary_columns: bool,
+) -> list[tuple[str, str]]:
+    columns = [("story", "Story"), ("author", "Author")]
+    if include_detail_columns:
+        knight_names = (
+            tuple(f"Criterion {index}" for index in range(1, 8))
+            if named_feature_headers
+            else tuple(f"K{index}" for index in range(1, 8))
+        )
+        columns.extend(
+            (f"k{index}", name) for index, name in enumerate(knight_names, start=1)
+        )
+        suvin_names = (
+            ("Novelty", "Cognitive validation", "Narrative hegemony")
+            if named_feature_headers
+            else ("N", "C", "H")
+        )
+        columns.extend(zip(("novelty", "cognitive", "hegemony"), suvin_names))
+    if include_summary_columns:
+        columns.extend(
+            (("knight_summary", "Knight summary"), ("suvin_summary", "Suvin summary"))
+        )
+    return columns
+
+
+def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
+    knight = view["knight"]
+    suvin = view["suvin"]
+    candidate = suvin.get("dominant") or (
+        suvin["candidates"][0] if suvin["candidates"] else {}
+    )
+    interval = f"{knight['definite']}–{knight['possible']}"
+    knight_summary = (
+        f"{knight['classification']} ({knight['definite']}/{knight['total']}; "
+        f"interval {interval})"
+    )
+    if suvin["qualified"] and suvin.get("dominant"):
+        suvin_summary = "Novum Present — qualified and dominant"
+    elif suvin["qualified"]:
+        suvin_summary = "Novum Present — qualified"
+    else:
+        suvin_summary = "Novum Absent"
+    row = {
+        "story": view["title"],
+        "author": view.get("author") or "—",
+        "knight_summary": knight_summary,
+        "suvin_summary": suvin_summary,
+    }
+    criteria = knight["criteria"]
+    for index, criterion in enumerate(criteria, start=1):
+        row[f"k{index}"] = _status_marker(criterion.get("status"))
+    for key, source in (
+        ("novelty", "novelty"),
+        ("cognitive", "cognitive_validation"),
+        ("hegemony", "narrative_hegemony"),
+    ):
+        row[key] = _status_marker(candidate.get(source, {}).get("status"))
+    return row
+
+
+def _render_comparison_markdown(
+    views: Sequence[Mapping[str, Any]], columns: Sequence[tuple[str, str]]
+) -> str:
+    headers = [name for _, name in columns]
+    lines = [
+        "| " + " | ".join(_md(header) for header in headers) + " |",
+        "| " + " | ".join("---" for _ in headers) + " |",
+    ]
+    for view in views:
+        row = _comparison_row(view)
+        lines.append("| " + " | ".join(_md(row[key]) for key, _ in columns) + " |")
+    lines.extend(["", "Legend: `P` = present, `A` = absent, `?` = ambiguous."])
+    return "\n".join(lines) + "\n"
+
+
+def _render_comparison_html(
+    views: Sequence[Mapping[str, Any]], columns: Sequence[tuple[str, str]]
+) -> str:
+    lines = [
+        '<table class="science-fiction-comparison"><thead><tr>',
+        *[f"<th>{_html(name)}</th>" for _, name in columns],
+        "</tr></thead><tbody>",
+    ]
+    for view in views:
+        row = _comparison_row(view)
+        lines.append(
+            "<tr>"
+            + "".join(f"<td>{_html(row[key])}</td>" for key, _ in columns)
+            + "</tr>"
+        )
+    lines.extend(
+        [
+            "</tbody></table>",
+            "<p>Legend: <code>P</code> = present, <code>A</code> = absent, <code>?</code> = ambiguous.</p>",
+        ]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def _render_comparison_latex(
+    views: Sequence[Mapping[str, Any]], columns: Sequence[tuple[str, str]]
+) -> str:
+    alignment = "l" * len(columns)
+    lines = [f"\\begin{{longtable}}{{{alignment}}}"]
+    lines.append(" & ".join(_latex(name) for _, name in columns) + r" \\")
+    lines.append(r"\hline")
+    for view in views:
+        row = _comparison_row(view)
+        lines.append(" & ".join(_latex(row[key]) for key, _ in columns) + r" \\")
+    lines.extend(
+        [
+            r"\end{longtable}",
+            r"\emph{Legend:} P = present, A = absent, ? = ambiguous.",
+        ]
+    )
+    return "\n".join(lines) + "\n"
 
 
 def _render_markdown(view: Mapping[str, Any], detail: Detail) -> str:
@@ -551,6 +742,10 @@ def _as_list(value: Any) -> list[Mapping[str, Any]]:
 
 def _confidence(value: Any) -> str:
     return "—" if value is None else f"{float(value):.2f}"
+
+
+def _status_marker(value: Any) -> str:
+    return {"present": "P", "absent": "A", "ambiguous": "?"}.get(str(value), "—")
 
 
 def _require_choice(value: str, choices: set[str] | frozenset[str], name: str) -> None:
