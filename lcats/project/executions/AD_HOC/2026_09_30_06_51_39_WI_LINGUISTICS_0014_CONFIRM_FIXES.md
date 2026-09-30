@@ -3,9 +3,9 @@ execution_id: 2026_09_30_06_51_39_WI_LINGUISTICS_0014_CONFIRM_FIXES
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0014_CONFIRM_FIXES)[2026-09-30T06:51:32+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/463
-commit: 
+commit:
 created_at: 2026-09-30T06:51:39+00:00
 ---
 
