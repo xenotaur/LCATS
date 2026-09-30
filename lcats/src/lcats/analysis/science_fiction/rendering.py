@@ -22,7 +22,7 @@ OUTPUT_FORMATS = frozenset({"markdown", "html", "latex"})
 DETAIL_LEVELS = frozenset({"summary", "detailed"})
 
 COMPARISON_COLUMN_SETS = {
-    "identity": ("story", "author"),
+    "identity": ("title", "author"),
     "knight_evaluation": ("knight_label", "knight_score", "knight_interval"),
     "knight_detail": tuple(f"knight_criterion_{index}" for index in range(1, 8)),
     "suvin_evaluation": ("suvin_novum", "suvin_evidence"),
@@ -35,7 +35,8 @@ COMPARISON_COLUMN_SETS = {
 }
 
 COMPARISON_COLUMN_LABELS = {
-    "story": "Story",
+    "title": "Title",
+    "story": "Title",
     "author": "Author",
     "knight_label": "Knight Label",
     "knight_score": "Knight Score",
@@ -49,7 +50,15 @@ COMPARISON_COLUMN_LABELS = {
     "suvin_narrative_hegemony": "Narrative hegemony",
 }
 COMPARISON_COLUMN_LABELS.update(
-    {f"knight_criterion_{index}": f"Criterion {index}" for index in range(1, 8)}
+    {
+        "knight_criterion_1": "Science",
+        "knight_criterion_2": "Technology and invention",
+        "knight_criterion_3": "Future, remote past, or time travel",
+        "knight_criterion_4": "Extrapolation",
+        "knight_criterion_5": "Scientific method",
+        "knight_criterion_6": "Other places and visitors",
+        "knight_criterion_7": "Catastrophe",
+    }
 )
 
 
@@ -115,7 +124,7 @@ def render_comparison_table(
 
     Each item must contain a loaded sidecar under ``data`` and may provide
     ``title`` and ``author`` metadata.  ``named_feature_headers`` switches
-    detail headers between human names such as ``Criterion 1`` and compact
+    detail headers between canonical feature names such as ``Science`` and compact
     names such as ``K1``.  Detail and summary columns can be independently
     omitted for compact views.  For more explicit layouts, pass ``columns``
     with individual column IDs or ``column_sets`` with names from
@@ -278,22 +287,35 @@ def _comparison_columns(
             raise ValueError("comparison columns must be unique after set expansion")
         return [(key, COMPARISON_COLUMN_LABELS[key]) for key in resolved]
 
-    columns = [("story", "Story"), ("author", "Author")]
+    columns = [("title", "Title"), ("author", "Author")]
     if include_detail_columns:
         knight_names = (
-            tuple(f"Criterion {index}" for index in range(1, 8))
+            tuple(
+                COMPARISON_COLUMN_LABELS[f"knight_criterion_{index}"]
+                for index in range(1, 8)
+            )
             if named_feature_headers
             else tuple(f"K{index}" for index in range(1, 8))
         )
         columns.extend(
-            (f"k{index}", name) for index, name in enumerate(knight_names, start=1)
+            (f"knight_criterion_{index}", name)
+            for index, name in enumerate(knight_names, start=1)
         )
         suvin_names = (
             ("Novelty", "Cognitive validation", "Narrative hegemony")
             if named_feature_headers
             else ("N", "C", "H")
         )
-        columns.extend(zip(("novelty", "cognitive", "hegemony"), suvin_names))
+        columns.extend(
+            zip(
+                (
+                    "suvin_novelty",
+                    "suvin_cognitive_validation",
+                    "suvin_narrative_hegemony",
+                ),
+                suvin_names,
+            )
+        )
     if include_summary_columns:
         columns.extend(
             (("knight_summary", "Knight summary"), ("suvin_summary", "Suvin summary"))
@@ -319,6 +341,7 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
     else:
         suvin_summary = "Novum Absent"
     row = {
+        "title": view["title"],
         "story": view["title"],
         "author": view.get("author") or "—",
         "knight_label": knight["classification"],
@@ -336,7 +359,6 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
     criteria = knight["criteria"]
     for index, criterion in enumerate(criteria, start=1):
         marker = _status_marker(criterion.get("status"))
-        row[f"k{index}"] = marker
         row[f"knight_criterion_{index}"] = marker
     for key, source in (
         ("novelty", "novelty"),
@@ -344,7 +366,6 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
         ("hegemony", "narrative_hegemony"),
     ):
         marker = _status_marker(candidate.get(source, {}).get("status"))
-        row[key] = marker
         row[f"suvin_{source}"] = marker
     return row
 

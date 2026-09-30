@@ -92,7 +92,7 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             ]
         )
 
-        self.assertIn("Criterion 1", result)
+        self.assertIn("Science", result)
         self.assertIn("Cognitive validation", result)
         self.assertIn("Knight summary", result)
         self.assertIn("Suvin summary", result)
@@ -113,14 +113,14 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             items, include_detail_columns=False, include_summary_columns=False
         )
 
-        self.assertIn("Criterion 1", detail_only)
+        self.assertIn("Science", detail_only)
         self.assertNotIn("Knight summary", detail_only)
         self.assertIn("Knight summary", summary_only)
-        self.assertNotIn("Criterion 1", summary_only)
+        self.assertNotIn("| Science |", summary_only)
         self.assertIn("K1", names_off)
         self.assertIn("N", names_off)
-        self.assertNotIn("Criterion 1", names_off)
-        self.assertIn("Story", neither)
+        self.assertNotIn("| Science |", names_off)
+        self.assertIn("Title", neither)
         self.assertIn("Author", neither)
         self.assertNotIn("Knight summary", neither)
 
@@ -148,7 +148,7 @@ class ScienceFictionRenderingTest(unittest.TestCase):
             self.assertIn("Knight Interval", result)
             self.assertIn("Suvin Novum", result)
             self.assertIn("Suvin Evidence", result)
-        self.assertNotIn("Criterion 1", explicit)
+        self.assertNotIn("| Science |", explicit)
         self.assertNotIn("Knight summary", explicit)
 
     def test_comparison_table_rejects_unknown_or_duplicate_columns(self):
