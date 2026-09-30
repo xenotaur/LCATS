@@ -202,6 +202,14 @@ def _locate_anchor_span(
     return lo + match.start(), lo + match.end()
 
 
+def locate_anchor_span(
+    text: str, anchor: str, lo: int, hi: int
+) -> tuple[int, int] | None:
+    """Locate an anchor using the bounded exact/normalized matcher."""
+
+    return _locate_anchor_span(text, anchor, lo, hi)
+
+
 def find_anchor_in_range(text: str, anchor: str, lo: int, hi: int) -> int | None:
     """Exact search first; if not found, try a whitespace-tolerant match
     within [lo, hi).

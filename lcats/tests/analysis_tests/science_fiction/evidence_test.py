@@ -96,6 +96,62 @@ class EvidenceTest(unittest.TestCase):
         )
         self.assertEqual("raw-1", record.provenance[0].raw_id)
 
+    def test_fallback_locates_case_and_whitespace_variant_with_provenance(self):
+        prepared = _prepared_story()
+        candidate = evidence.EvidenceCandidate(
+            evidence_type="scientific_or_technical_explanation",
+            quote="BLUE\nEXHAUST",
+            paraphrase="A measurable engine exhaust is used in technical reasoning.",
+            confidence=0.82,
+            paragraph_ids=("p00002",),
+        )
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        self.assertFalse(evidence_set.quarantined)
+        self.assertEqual(
+            ("used bounded whitespace/typography/case fallback",),
+            evidence_set.records[0].provenance[0].normalization_notes,
+        )
+        self.assertEqual(
+            "blue exhaust",
+            prepared.normalized_text[
+                evidence_set.records[0]
+                .anchor.start_char : evidence_set.records[0]
+                .anchor.end_char
+            ],
+        )
+
+    def test_fallback_decodes_literal_unicode_escape_without_widening_bounds(self):
+        prepared = preparation.prepare_story_data(
+            {
+                "name": "Escaped Dash",
+                "body": "The coast—was visible from the summit.\n\nA decoy coast—was visible here.",
+            },
+            story_path="/tmp/collection/escaped-dash/story.json",
+        )
+        candidate = evidence.EvidenceCandidate(
+            evidence_type="temporal_or_spatial_displacement",
+            quote=r"the coast\u2014was visible from the summit",
+            paraphrase="The summit reveals a distant coast.",
+            confidence=0.8,
+            paragraph_ids=("p00001",),
+        )
+
+        evidence_set = evidence.build_evidence_set(prepared, [candidate])
+
+        self.assertEqual(1, len(evidence_set.records))
+        record = evidence_set.records[0]
+        self.assertEqual(("p00001",), record.anchor.paragraph_ids)
+        self.assertEqual(
+            (
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback",
+            ),
+            record.provenance[0].normalization_notes,
+        )
+
     def test_canonicalizes_type_alias_and_records_normalization(self):
         prepared = _prepared_story()
         candidate = {

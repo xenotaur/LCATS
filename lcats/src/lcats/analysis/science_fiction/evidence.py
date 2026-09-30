@@ -5,8 +5,10 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import json
+import re
 from typing import Any, Iterable, Protocol
 
+from lcats.analysis import text_segmenter
 from lcats.analysis.science_fiction import preparation
 
 EVIDENCE_SET_VERSION = "science-fiction-evidence-set-v1"
@@ -307,7 +309,7 @@ def build_evidence_set(
             quarantined.append(QuarantinedEvidence(reason=reason, candidate=candidate))
             continue
 
-        anchor = locate_quote(prepared_story, candidate)
+        anchor, match_notes = _locate_quote_with_notes(prepared_story, candidate)
         if anchor is None:
             quarantined.append(
                 QuarantinedEvidence(
@@ -317,6 +319,13 @@ def build_evidence_set(
             )
             continue
 
+        if match_notes:
+            candidate = dataclasses.replace(
+                candidate,
+                normalization_notes=tuple(
+                    dict.fromkeys((*candidate.normalization_notes, *match_notes))
+                ),
+            )
         record = _record_from_candidate(
             candidate,
             anchor,
@@ -373,31 +382,41 @@ def locate_quote(
 ) -> EvidenceAnchor | None:
     """Locate a candidate's exact quote against prepared story anchors."""
 
+    anchor, _match_notes = _locate_quote_with_notes(prepared_story, candidate)
+    return anchor
+
+
+def _locate_quote_with_notes(
+    prepared_story: preparation.StoryPreparation,
+    candidate: EvidenceCandidate,
+) -> tuple[EvidenceAnchor | None, tuple[str, ...]]:
+    """Locate a quote while recording only bounded normalization fallbacks."""
+
     quote = candidate.quote
     if not quote:
-        return None
+        return None, ()
 
     if candidate.start_char is not None or candidate.end_char is not None:
         if candidate.start_char is None or candidate.end_char is None:
-            return None
+            return None, ()
         start = candidate.start_char
         end = candidate.end_char
         if not _valid_span_bounds(prepared_story, start, end):
-            return None
+            return None, ()
         if prepared_story.normalized_text[start:end] != quote:
-            return None
+            return None, ()
         anchor = EvidenceAnchor(
             paragraph_ids=_paragraph_ids_for_span(prepared_story, start, end),
             start_char=start,
             end_char=end,
         )
         if not _anchor_satisfies_candidate(prepared_story, candidate, anchor):
-            return None
-        return anchor
+            return None, ()
+        return anchor, ()
 
     ranges = _candidate_search_ranges(prepared_story, candidate)
     if ranges is None:
-        return None
+        return None, ()
     for start_bound, end_bound in ranges:
         search_from = start_bound
         while search_from < end_bound:
@@ -413,9 +432,47 @@ def locate_quote(
                 end_char=end,
             )
             if _anchor_satisfies_candidate(prepared_story, candidate, anchor):
-                return anchor
+                return anchor, ()
             search_from = found_at + 1
-    return None
+
+        fallback_quote, fallback_notes = _fallback_quote(quote)
+        span = text_segmenter.locate_anchor_span(
+            prepared_story.normalized_text,
+            fallback_quote,
+            start_bound,
+            end_bound,
+        )
+        if span is None:
+            continue
+        start, end = span
+        anchor = EvidenceAnchor(
+            paragraph_ids=_paragraph_ids_for_span(prepared_story, start, end),
+            start_char=start,
+            end_char=end,
+        )
+        if _anchor_satisfies_candidate(prepared_story, candidate, anchor):
+            return anchor, fallback_notes
+    return None, ()
+
+
+_LITERAL_UNICODE_ESCAPE_RE = re.compile(r"\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})")
+
+
+def _fallback_quote(quote: str) -> tuple[str, tuple[str, ...]]:
+    """Prepare a quote for the bounded typography/whitespace fallback."""
+
+    notes: list[str] = []
+
+    def replace_escape(match: re.Match[str]) -> str:
+        notes.append("decoded literal Unicode escape in quote")
+        codepoint = match.group(1) or match.group(2)
+        return chr(int(codepoint, 16))
+
+    decoded = _LITERAL_UNICODE_ESCAPE_RE.sub(replace_escape, quote)
+    if decoded != quote:
+        quote = decoded
+    notes.append("used bounded whitespace/typography/case fallback")
+    return quote, tuple(dict.fromkeys(notes))
 
 
 def adapt_erw_annotation(
