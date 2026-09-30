@@ -1,0 +1,114 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15219,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1736,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/the_red_fetish__long",
+  "story_path": "mass_quantities/the_red_fetish__long/story.json",
+  "text": "",
+  "title": "The red fetish",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-cannibal-fetish-worship",
+        "character_reaction_evidence_ids": [
+          "sfev-8ce2b1df304430a9"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The custom is rendered with an internally coherent, immanent, nonsupernatural social logic: the tribe collects one tooth per head, venerates red-haired heads, and honors the gift-giver, all consistent with an imaginary-but-plausible ethnography. This dimension is satisfiable even though the candidate is not novel.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-e874b98fa1db330c"
+          ]
+        },
+        "description": "The island cannibals form a coherent social order that venerates severed human heads (especially red-haired/bearded ones) as protective fetishes, worshiping Van Wyck's shark-severed head that washed ashore and treating Bill as a divine benefactor.",
+        "estrangement_rationale": "The narration contrasts Bill's belief that cannibals are 'decent and clean and orderly' with Van Wyck's terror, producing ironic reader-facing contrast, but this is satire of expectation rather than the cognitive estrangement of an SF novum.",
+        "evidence_ids": [
+          "sfev-e874b98fa1db330c",
+          "sfev-8ce2b1df304430a9",
+          "sfev-07266c744eacccb6",
+          "sfev-6d4ce70057277471"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The cannibal fetish-worship governs the story's ironic climax and denouement: Bill's dread of cannibals, the swim, Van Wyck's death, and Bill's madness all converge on the worshiped head. It is central rather than incidental.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-8ce2b1df304430a9",
+            "sfev-07266c744eacccb6"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-e874b98fa1db330c",
+            "sfev-8ce2b1df304430a9",
+            "sfev-07266c744eacccb6"
+          ],
+          "rationale": "The cannibal head-worship, however macabre and thematically central, is presented as an existing ethnographic custom of a real-world tribe (Bantu-speaking Pacific islanders), not a totalizing world-altering difference from the empirical norm. The story universe remains the ordinary historical Pacific with traders, sloops, and known savage customs; nothing about the shared physical or social laws of the world is transformed. It is a grim ironic reversal of expectations, not an estranging novum in Suvin's sense.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-e874b98fa1db330c"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-07266c744eacccb6",
+          "sfev-6d4ce70057277471"
+        ]
+      },
+      {
+        "candidate_id": "cand-seawater-madness",
+        "character_reaction_evidence_ids": [
+          "sfev-84b11438979c65f9"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The narration offers a coherent naturalistic explanation of salt-water intoxication, which is internally consistent and nonsupernatural.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-d1cd5b126c6c8bb3"
+          ]
+        },
+        "description": "Drinking sea water intoxicates and deranges men in a manner likened to hashish, contributing to Bill's hallucinations and eventual madness.",
+        "estrangement_rationale": "Provides a mildly estranging naturalistic gloss on Bill's hallucinatory speech, but not an SF-level cognitive estrangement.",
+        "evidence_ids": [
+          "sfev-d1cd5b126c6c8bb3",
+          "sfev-84b11438979c65f9"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-84b11438979c65f9"
+          ],
+          "rationale": "The seawater effect is an incidental atmospheric device coloring Bill's delirium; it does not determine the overriding narrative logic, which is driven by the swim and the cannibals.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-d1cd5b126c6c8bb3"
+          ],
+          "rationale": "This is presented as an ordinary physiological fact of the empirical world, not a world-altering difference. It is at most a naturalistic detail explaining Bill's mental state.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-d1cd5b126c6c8bb3"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 8989,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2406,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_filbert_is_a_nut__raphael",
+  "story_path": "mass_quantities/a_filbert_is_a_nut__raphael/story.json",
+  "text": "",
+  "title": "A Filbert Is a Nut",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00012"
+        ],
+        "paraphrase": "A mental patient states he is making an atom bomb out of modeling clay.",
+        "quote": "Atom bomb.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00030"
+        ],
+        "paraphrase": "A violent explosion hits the hospital, shattering windows and terrifying patients.",
+        "quote": "An instant later, the shattering roar and blast of the explosion struck the hospital buildings in a wave of force and the bursting crash of a thousand windows was lost in the fury of the explosion and the wild screams of the frightened and demented patients.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00032"
+        ],
+        "paraphrase": "A mushroom cloud rises over the destroyed crafts building, indicating an atomic-style blast.",
+        "quote": "Beyond the again-silent hills, a great pillar of smoke, topped by a small mushroom-shaped cloud, rose above the gaping hole that had been the arts and crafts building.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00036"
+        ],
+        "paraphrase": "Disaster crews measure heavy radiation at the crater and retreat to safety.",
+        "quote": "Within fifteen minutes, the disaster-trained crews had detected heavy radiation emanating from the crater and there was a scurry of men and equipment back to a safe distance, a few hundred yards away.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00037"
+        ],
+        "paraphrase": "A team of atomic experts and investigators arrives to study the incident.",
+        "quote": "a platoon of Atomic Energy Commission experts, military intelligence men, four FBI agents and an Army full colonel disembarked.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00040"
+        ],
+        "paraphrase": "The colonel repeatedly expresses disbelief that an atomic bomb detonated at a mental hospital.",
+        "quote": "\"It's impossible and unbelievable,\" Colonel Thomas Thurgood said for the fifteenth time, later that morning, as he looked around the group of experts gathered in the tent overlooking the crater. \"How can an atom bomb go off in a nut house?\"",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00041"
+        ],
+        "paraphrase": "An AEC expert estimates the blast's yield at under three kilotons.",
+        "quote": "\"It apparently was a very small bomb, colonel,\" one of the haggard AEC men offered timidly. \"Not over three kilotons.\"",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00046"
+        ],
+        "paraphrase": "The administrator sarcastically contrasts ordinary art materials with the impossibility of making a bomb from them.",
+        "quote": "If you can make an atomic bomb from vermillion pigments, then Madame Curie was a misguided scrubwoman.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "Miss Abercrombie realizes the patient actually produced an atomic bomb and faints.",
+        "quote": "\"He did make an atom bomb,\" she cried.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00066"
+        ],
+        "paraphrase": "Officials decide to have Funston repeat the bomb-making under controlled observation.",
+        "quote": "\"That seems to settle it, colonel. We've got to give this Funston another chance to repeat his bomb. But this time under our supervision.\"",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00068"
+        ],
+        "paraphrase": "The colonel stresses the absurd contrast between a low-IQ patient and making an atomic bomb from clay.",
+        "quote": "anyone of us here entertained the notion that a paranoidal idiot with the IQ of an ape could make an atomic bomb out of kid's modeling clay?",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00085"
+        ],
+        "paraphrase": "Scientists examine and photograph the clay object in detail before testing.",
+        "quote": "For two hours they studied and gently probed the mass of child's clay and photographed it from every angle.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00089"
+        ],
+        "paraphrase": "The clay produces a second atomic-scale explosion during the supervised desert test.",
+        "quote": "A brilliance a hundred times brighter than the glaring Nevada sun lit the dim interior of the bunker and the pneumatically-operated door slammed shut just before the wave of the blast hit the structure.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00095"
+        ],
+        "paraphrase": "A general mockingly compares the clay-bomb claim to making spaceships from sponge rubber.",
+        "quote": "\"Why don't you just tell me, colonel, that he can also make spaceships out of sponge rubber?\" the general added bitingly.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00097"
+        ],
+        "paraphrase": "Funston's mental power launches the Washington Monument into space like a rocket, echoing the general's mocking remark.",
+        "quote": "In the distance, a white cloud began billowing up from the base of the Washington Monument, and with an ear-shattering, glass-splintering roar, the great shaft rose majestically from its base and vanished into space on a tail of flame.",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00028"
+        ],
+        "paraphrase": "Funston reacts physically just before the first explosion occurs.",
+        "quote": "He gave a quick cry, shut his eyes and clapped his hands over his face.",
+        "raw_id": "ev16"
+      }
+    ]
+  }
+}

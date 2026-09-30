@@ -1,0 +1,110 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16790,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1400,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "chesterton/flying_stars",
+  "story_path": "chesterton/flying_stars/story.json",
+  "text": "",
+  "title": "Chesterton - The Flying Stars",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-flying-stars-diamonds",
+        "character_reaction_evidence_ids": [
+          "sfev-e4828ec7b0504f22"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "No imaginary scientific or social system underlies the diamonds; they are mundane precious stones.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The three great African diamonds called 'The Flying Stars,' a famous jewel that is the target of the theft.",
+        "estrangement_rationale": "Fischer's alarm at the missing diamonds registers their plot importance but no cognitive estrangement; the diamonds are empirically ordinary.",
+        "evidence_ids": [
+          "sfev-e4828ec7b0504f22"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The diamonds drive the plot as the object of theft, but this is a conventional mystery MacGuffin, not a world-governing novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-e4828ec7b0504f22"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-e4828ec7b0504f22"
+          ],
+          "rationale": "Valuable diamonds are ordinary objects within the empirical norm; they introduce no totalizing or world-altering difference from the author's empirical world.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-e4828ec7b0504f22"
+        ]
+      },
+      {
+        "candidate_id": "cand-pantomime-theft-scheme",
+        "character_reaction_evidence_ids": [
+          "sfev-48479e78751fce42",
+          "sfev-187d4f3f0cdf8641"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The scheme relies on ordinary theatrical convention and misdirection, not on any imaginary science or novel social organization; the detective's reasoning is conventional inference.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-cdaab2a3410805d7"
+          ]
+        },
+        "description": "The criminal scheme of using a Christmas pantomime to disguise a real policeman as a comic actor, allowing him to be publicly beaten and drugged while concealing a jewel theft.",
+        "estrangement_rationale": "The narrator's inside/outside framing creates readerly puzzlement typical of detective fiction, not the cognitive estrangement of an SF novum; the storyworld remains empirically mundane.",
+        "evidence_ids": [
+          "sfev-d38d4725d2f981d9",
+          "sfev-48479e78751fce42",
+          "sfev-cdaab2a3410805d7",
+          "sfev-187d4f3f0cdf8641"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The scheme is the central engine of the story's plot and its detection organizes the whole narrative, but centrality alone does not make it a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-d38d4725d2f981d9",
+            "sfev-48479e78751fce42",
+            "sfev-cdaab2a3410805d7"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-d38d4725d2f981d9"
+          ],
+          "rationale": "The ingenious deception is a clever crime within an entirely realistic, empirical social world; it alters no aspect of the story universe's ontology.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-d38d4725d2f981d9"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-48479e78751fce42"
+        ]
+      }
+    ]
+  }
+}

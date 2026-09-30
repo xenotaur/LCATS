@@ -1,0 +1,29 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19588,
+  "model": "claude-opus-4-8",
+  "output_tokens": 168,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/wrong_shape",
+  "story_path": "chesterton/wrong_shape/story.json",
+  "text": "",
+  "title": "Chesterton - The Wrong Shape",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.4,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00090"
+        ],
+        "paraphrase": "Father Brown notes an anomaly in the paper's shape and questions its meaning.",
+        "quote": "It isn\ttt.. It has a sort of edge snipped off at the corner. What does it mean?",
+        "raw_id": "ev01"
+      }
+    ]
+  }
+}

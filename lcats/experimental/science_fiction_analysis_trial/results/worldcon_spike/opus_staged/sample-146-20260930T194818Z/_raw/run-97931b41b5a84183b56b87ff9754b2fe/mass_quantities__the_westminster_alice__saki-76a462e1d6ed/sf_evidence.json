@@ -1,0 +1,180 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 24744,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2523,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/the_westminster_alice__saki",
+  "story_path": "mass_quantities/the_westminster_alice__saki/story.json",
+  "text": "",
+  "title": "The Westminster Alice",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The introductory verse frames the narrative as an inverted, topsy-turvy world seen through a looking-glass.",
+        "quote": "Turvey-wise in Wonderland\n        Backwards through a Looking-Glass.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00012"
+        ],
+        "paraphrase": "Alice observes with puzzlement a strange creature sitting on nothing in particular.",
+        "quote": "Alice had no time to wonder how it managed to do it, she was\nbusy taking in the appearance of the creature, which was something like\na badly-written note of interrogation and something like a guillemot",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The story's figures are described as playing-card beings made of pasteboard and Brummagem ware within an allegorical world.",
+        "quote": "the King just\ncouldn\\u2019t do without it. The King is only made of pasteboard, you know,\nwith sharp edges; and the Queen\\u201d--here the Cat sank its voice to a\nwhisper--\\u201cthe Queen comes from another pack, made of Brummagem ware,\nwithout polish, but absolutely indestructible",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.35,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00017"
+        ],
+        "paraphrase": "The Cat describes the Ineptitude as investigating the basis of people's beliefs, though ineffectually.",
+        "quote": "when it isn\\u2019t playing with a gutta-percha ball it unravels the\ngroundwork of what people believe--or don\\u2019t believe, I forget which.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00059"
+        ],
+        "paraphrase": "The White Knight explains the reasoning behind his invented short-range gun design.",
+        "quote": "Why do you suppose I sent out guns of that\nparticular kind? Because if they happened to fall into the hands of the\nenemy they\\u2019d be very little use to him. That was my own invention.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "The White Knight describes his emotional disturbance at reading that modern warfare was impossible.",
+        "quote": "You may imagine how disturbing that was to a man of my\nprofession. Many men would have thrown up the whole thing and gone home.\nBut I grappled with the situation.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00057"
+        ],
+        "paraphrase": "The Knight contrasts going to war but deliberately not under modern conditions.",
+        "quote": "\\u201cYes; _but not under modern conditions_.\\u201d",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00113"
+        ],
+        "paraphrase": "The Unkhaki Messenger is described as constantly displaced in time, half a century ahead or behind.",
+        "quote": "He\\u2019s always half a century in front of his times or half a\ncentury behind them, and that puts one out so.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00119"
+        ],
+        "paraphrase": "The White King reacts with agitation, fearing advice.",
+        "quote": "\\u201cDON\\u2019T!\\u201d he\nsuddenly screamed, jumping up and down in his agitation. \\u201cDon\\u2019t do it, I\nsay.\\u201d",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00140"
+        ],
+        "paraphrase": "The White Queen proposes that convincing her reasoning faculty a war doesn't exist would end it.",
+        "quote": "Now I\nshould simply convince my reasoning faculty that the war didn\\u2019t\nexist--and there\\u2019d be an end of it.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00141"
+        ],
+        "paraphrase": "Alice questions the logic that merely believing the war does not exist would stop it.",
+        "quote": "But,\\u201d objected Alice, \\u201csupposing the war was to assume that your\nreasoning faculty was wanting, and went on all the same?",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00310"
+        ],
+        "paraphrase": "The White King explains that the creatures fear they may be only part of the Red King's dream and vanish when he wakes.",
+        "quote": "some of them think we\\u2019re only a\npart of his dream, and that we shall all go \\u2018piff\\u2019 when he wakes up.\nThat is what makes them so jumpy just now.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00241",
+          "p00242"
+        ],
+        "paraphrase": "A verse describes an almanac with two dawns for every noon and evening, an altered temporal ordering.",
+        "quote": "Twice a hundred dawns, a hundred noons, a hundred eves._\n\n[p00242] \\u201cYou see there were two dawns to every noon and evening--it must have\nbeen dreadfully confusing.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00320"
+        ],
+        "paraphrase": "Alice witnesses the Red King awaking and rushing off with a scroll amid noise.",
+        "quote": "The next moment there was a deafening outburst of drums, and Alice saw\nthe Red King rushing through the wood with a big roll of paper.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00269"
+        ],
+        "paraphrase": "The March Hare notes the tea-table's menu list is outdated by nearly seven years, contrasting past promises with present inaction.",
+        "quote": "That list was made nearly seven years ago, you know,",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.35,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00282"
+        ],
+        "paraphrase": "The March Hare offers a mock-technical explanation of why the timepiece is stuck.",
+        "quote": "The wheels seem to get stuck,\\u201d said the March Hare. \\u201cThere is too much\nIrish butter in the works.",
+        "raw_id": "ev16"
+      }
+    ]
+  }
+}

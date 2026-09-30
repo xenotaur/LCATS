@@ -1,0 +1,1013 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__6_frightened_men__silverberg-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The story invokes scientific concepts (matter behavior called impossible, orbital mechanics of a hundred moons, methane-ammonia atmosphere chemistry) but these are decorative backdrop rather than materially represented science; the core novum is a psychic thought-projector, closer to speculative pseudo-science.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-09dceda29376b155",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-8b55db50bd67e324",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          },
+          {
+            "confidence": 0.95,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The alien thought-projector/thought-converter device is central: it generates the illusory monster, is the murder weapon, and its discovery drives the entire plot and resolution.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-c9aa61f658aff7c7",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-d0898e1e4d19162d",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-40d7b2bcb1c9b89b",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The setting is a space-faring era but there is no marked far future, remote past, or temporal displacement materially represented; space travel alone with no time element does not satisfy this criterion.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "The premise of a device that projects imagined monsters is extrapolated into consequences: a man weaponizes it to kill crewmates by fright without physical contact, and the crew reasons through the pattern to expose him.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-40d7b2bcb1c9b89b",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-95f590cddd831317",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Systematic inference materially drives the resolution: Donaldson checks footprint tracks as physical evidence, the narrator reasons from the pattern that the monster only appears when Donaldson is present, and tests the device himself, revising understanding.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-44cc81bdf6891983",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-eb8cf3e92ddaba05",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-09dceda29376b155",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "central",
+            "rationale": "The entire story takes place on the alien planet Pollux V, an untouched world with a hundred moons and a lethal methane-ammonia atmosphere, and involves relics of an alien race; a nonordinary cosmic environment central to the setting.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-20e0196ea6f90293",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-641aa94984f0c8b1",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-8b55db50bd67e324",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-c4a7fa7c638f2d66",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "There is a suggestion that the monster may have wiped out the planet's entire dead civilization, hinting at a past large-scale catastrophe, but this is speculative backstory; the on-page deaths are individual murders rather than a large-scale disaster.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-95f590cddd831317",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-641aa94984f0c8b1",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-a7d76310f1463058",
+        "failures": [],
+        "interval": {
+          "definite_count": 4,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a7d76310f1463058",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 17517,
+            "output": 1340
+          }
+        },
+        "status": "complete",
+        "story_hash": "e48cc05c29a89d1cd4b566b7891ca41dfe9a539ab86587995c13af413f7728f8"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__6_frightened_men__silverberg-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "nvm-thought-converter",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The story supplies a coherent, immanent, nonsupernatural account: an alien artifact left by a dead civilization that converts thought into projected illusion. The mystery is resolved through systematic inquiry (footprint analysis, pattern reasoning that the monster only appears with Donaldson, touching to confirm immateriality), and the device operates on consistent rules demonstrated when the narrator commands it.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-c9aa61f658aff7c7",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-44cc81bdf6891983",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-eb8cf3e92ddaba05",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "description": "An alien 'thought-converter' / thought projector device that materializes a person's imagined monster as a perceptible, apparently real entity capable of frightening victims to death, though it has no physical substance.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-5935c15032e7336b",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-4546d4127ad3ba01",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "rationale": "The reader-facing contrast is sharp: a seemingly solid sixty-foot monster that kills by fright turns out to be an immaterial, touchable-as-cloud projection, and a character insists such instantaneous matter is impossible. Storyworld consequences include multiple deaths without physical contact and its weaponization for covert murder.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-06a846e36307c545",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-09dceda29376b155",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-95f590cddd831317",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-40d7b2bcb1c9b89b",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-3d4e2487d7412c06",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-d0898e1e4d19162d",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-c9aa61f658aff7c7",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-06a846e36307c545",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-09dceda29376b155",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-44cc81bdf6891983",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-eb8cf3e92ddaba05",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-95f590cddd831317",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-40d7b2bcb1c9b89b",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-3d4e2487d7412c06",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The device governs the entire narrative logic: the deaths, the central mystery, the investigation, Donaldson's murder scheme, and the resolution all revolve around it. Removing it collapses the plot entirely, so it is not an incidental gadget but the determining novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-95f590cddd831317",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-40d7b2bcb1c9b89b",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-3d4e2487d7412c06",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The device represents a totalizing difference from the empirical norm: matter appearing and vanishing instantaneously and a projected mental image that is lethal yet immaterial. A character explicitly notes this violates how matter works, and the monster proves to be a cloud-like projection, marking a clear break from the authorial empirical norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-c9aa61f658aff7c7",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-06a846e36307c545",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-09dceda29376b155",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "nvm-alien-monster",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "Any coherence it has derives entirely from the thought-projector explanation; on its own it is unexplained, but the story provides an immanent account that it is a projected illusion.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-c9aa61f658aff7c7",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "description": "The apparent sixty-foot shape-shifting alien monster that appears and vanishes from nowhere on Pollux V.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-5935c15032e7336b",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-4546d4127ad3ba01",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "rationale": "The monster generates strong reader-facing horror and character terror, but as a candidate it collapses into the thought-converter novum once explained.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-70b292829cb3919d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-06a846e36307c545",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-95f590cddd831317",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-3d4e2487d7412c06",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-70b292829cb3919d",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-d0898e1e4d19162d",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-06a846e36307c545",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-95f590cddd831317",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-3d4e2487d7412c06",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "rationale": "The monster drives surface tension and deaths, but its narrative force is entirely derivative of the device; it is the phenomenon, not the governing cause.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-70b292829cb3919d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-95f590cddd831317",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-06a846e36307c545",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "rationale": "The monster is revealed to be an illusion produced by the thought-converter; it is not an independent world-altering difference but the perceptual output of the actual novum. Treated as a distinct entity it dissolves into the device.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-70b292829cb3919d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "nvm-interstellar-exploration",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The setting is presented with consistent naturalistic detail (suits for a lethal atmosphere, orbital mechanics of many moons), a coherent nonsupernatural frame.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-c4a7fa7c638f2d66",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-8b55db50bd67e324",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "description": "The general setting of human interstellar exploration of alien worlds (Pollux V with a hundred moons, methane-ammonia atmosphere, prior fauna of other planets).",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The hundred moons and lethal atmosphere provide estranging color, but this is background world-building rather than the load-bearing difference.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-641aa94984f0c8b1",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-20e0196ea6f90293",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-c4a7fa7c638f2d66",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-8b55db50bd67e324",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-641aa94984f0c8b1",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-20e0196ea6f90293",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-8b55db50bd67e324",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              },
+              {
+                "evidence_id": "sfev-c4a7fa7c638f2d66",
+                "evidence_set_id": "sfes-a7d76310f1463058"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-d0898e1e4d19162d",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ],
+              "rationale": "The exploration premise is an enabling stage-setting backdrop; it does not determine the overriding narrative logic, which is governed by the thought-converter and Donaldson's scheme. It is an incidental frame rather than the central novum.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-641aa94984f0c8b1",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "Routine interstellar travel to previously untouched worlds is a difference from the present empirical norm, but it functions as a familiar genre backdrop rather than a singular transformative break.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-641aa94984f0c8b1",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-20e0196ea6f90293",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-8b55db50bd67e324",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                },
+                {
+                  "evidence_id": "sfev-c4a7fa7c638f2d66",
+                  "evidence_set_id": "sfes-a7d76310f1463058"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "nvm-thought-converter",
+        "evidence_set_id": "sfes-a7d76310f1463058",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a7d76310f1463058",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 17864,
+            "output": 2963
+          }
+        },
+        "status": "complete",
+        "story_hash": "e48cc05c29a89d1cd4b566b7891ca41dfe9a539ab86587995c13af413f7728f8"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-a7d76310f1463058",
+    "knight_analysis_id": "mass_quantities__6_frightened_men__silverberg-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__6_frightened_men__silverberg-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-a7d76310f1463058",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 20792,
+            "paragraph_ids": [
+              "p00134"
+            ],
+            "start_char": 20693
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-06a846e36307c545",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The seemingly solid monster proves immaterial when touched.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Cautiously I touched the monster's writhing surface. It was like\ntouching a cloud. I sank right in."
+        },
+        {
+          "anchor": {
+            "end_char": 8483,
+            "paragraph_ids": [
+              "p00053"
+            ],
+            "start_char": 8392
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-09dceda29376b155",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "A character questions whether the instantaneous appearance is physically possible.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "How could that be?\" Donaldson asked. \"Matter doesn't work that way;\nit's flatly impossible."
+        },
+        {
+          "anchor": {
+            "end_char": 663,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 523
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-20e0196ea6f90293",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The narrator is located on a distant alien planet, Pollux V.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Which was how I happened to be crouching behind a\nfantastically-sculptured spiralling rock out on the yellow wind-blasted\ndesert of Pollux V"
+        },
+        {
+          "anchor": {
+            "end_char": 5972,
+            "paragraph_ids": [
+              "p00037"
+            ],
+            "start_char": 5943
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3d4e2487d7412c06",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "A crew member is thought to have died purely from fear of the creature.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Max must have\ndied of fright."
+        },
+        {
+          "anchor": {
+            "end_char": 24045,
+            "paragraph_ids": [
+              "p00160"
+            ],
+            "start_char": 23932
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-40d7b2bcb1c9b89b",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Donaldson weaponizes the alien device to murder crewmates covertly.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "So he utilized the thought-converter in a campaign to pick us off\none by one without aiming suspicion at himself."
+        },
+        {
+          "anchor": {
+            "end_char": 10145,
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "start_char": 9943
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-44cc81bdf6891983",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Donaldson uses footprint evidence to argue the monster left no physical trace.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For one thing, I've been checking\nfootprints in the sand. I've counted six tracks--one each for you,\nFeld, Hamner, Laurence, Forster, and Mickens. Unfortunately, that\ndoesn't leave any for your monster."
+        },
+        {
+          "anchor": {
+            "end_char": 20213,
+            "paragraph_ids": [
+              "p00127"
+            ],
+            "start_char": 20120
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4546d4127ad3ba01",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator reacts with horror but then notices the monster is not attacking.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I sank to the floor, numb with horror--and then realized that the\nmonster wasn't approaching."
+        },
+        {
+          "anchor": {
+            "end_char": 4844,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 4691
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5935c15032e7336b",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator is shaken with fear despite past combat experience.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "My hands were trembling--me, who had stood up to Venusian mudworms\nwithout a whimper, who had fought the giant fleas of Rigel IX. I was\nshaking all over."
+        },
+        {
+          "anchor": {
+            "end_char": 322,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 171
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-641aa94984f0c8b1",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The setting establishes human exploration of previously untouched alien worlds.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "You'll be out there on alien worlds where no human being has ever\nset foot--worlds which may or may not have been inhabited by hostile\nalien creatures."
+        },
+        {
+          "anchor": {
+            "end_char": 893,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 777
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-70b292829cb3919d",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A giant alien monster confronts the crew.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The thing was at least sixty feet tall and all eyes and mouth.\nThe mouth yawned, showing yellow daggers a foot long."
+        },
+        {
+          "anchor": {
+            "end_char": 7962,
+            "paragraph_ids": [
+              "p00049"
+            ],
+            "start_char": 7794
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8b55db50bd67e324",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The planet has a hundred moons of varying sizes.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There were _one hundred_ of them, ranging in size from a hunk of rock\nthe size of Mars' Deimos to one massive high-albedo satellite almost\na thousand miles in diameter."
+        },
+        {
+          "anchor": {
+            "end_char": 14068,
+            "paragraph_ids": [
+              "p00086"
+            ],
+            "start_char": 13990
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-95f590cddd831317",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Two crew members die from encounters with the creature without physical contact.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The monster had taken\na toll of two already, without actually touching either."
+        },
+        {
+          "anchor": {
+            "end_char": 15689,
+            "paragraph_ids": [
+              "p00095"
+            ],
+            "start_char": 15603
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c4a7fa7c638f2d66",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The planet has a lethal methane-ammonia atmosphere requiring suits.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And without a suit, a man was instantly dead on this\nmethane-ammonia atmosphere world."
+        },
+        {
+          "anchor": {
+            "end_char": 23807,
+            "paragraph_ids": [
+              "p00159"
+            ],
+            "start_char": 23691
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c9aa61f658aff7c7",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Donaldson found an alien thought-converter device that produced the illusions.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That first day, he had stumbled over an alien treasure in the cave\nbeyond the hill--that, and the thought-converter."
+        },
+        {
+          "anchor": {
+            "end_char": 23390,
+            "paragraph_ids": [
+              "p00155"
+            ],
+            "start_char": 23304
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d0898e1e4d19162d",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The device is revealed to be a thought projector that makes imagined monsters seem real.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It's a thought projector.\nThat monster never existed outside your own mind, Donaldson."
+        },
+        {
+          "anchor": {
+            "end_char": 16893,
+            "paragraph_ids": [
+              "p00106"
+            ],
+            "start_char": 16782
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-eb8cf3e92ddaba05",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator reasons from the pattern that the monster only appears when Donaldson is present.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I reasoned it out very carefully. Every time Donaldson had gone out\npreviously, the monster had failed to show."
+        }
+      ],
+      "story_hash": "e48cc05c29a89d1cd4b566b7891ca41dfe9a539ab86587995c13af413f7728f8",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/6_frightened_men__silverberg",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "e48cc05c29a89d1cd4b566b7891ca41dfe9a539ab86587995c13af413f7728f8",
+  "story_path": "mass_quantities/6_frightened_men__silverberg/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

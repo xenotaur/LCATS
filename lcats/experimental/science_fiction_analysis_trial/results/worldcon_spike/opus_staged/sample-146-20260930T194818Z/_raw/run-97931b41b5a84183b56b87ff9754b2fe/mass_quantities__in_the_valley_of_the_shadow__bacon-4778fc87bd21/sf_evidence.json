@@ -1,0 +1,18 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15459,
+  "model": "claude-opus-4-8",
+  "output_tokens": 35,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/in_the_valley_of_the_shadow__bacon",
+  "story_path": "mass_quantities/in_the_valley_of_the_shadow__bacon/story.json",
+  "text": "",
+  "title": "In The Valley Of The Shadow",
+  "tool_result": {
+    "evidence": []
+  }
+}

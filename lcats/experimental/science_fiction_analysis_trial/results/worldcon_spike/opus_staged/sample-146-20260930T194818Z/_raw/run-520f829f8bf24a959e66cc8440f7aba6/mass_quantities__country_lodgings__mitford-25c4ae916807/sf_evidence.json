@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 11838,
+  "model": "claude-opus-4-8",
+  "output_tokens": 816,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/country_lodgings__mitford",
+  "story_path": "mass_quantities/country_lodgings__mitford/story.json",
+  "text": "",
+  "title": "Country Lodgings",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00012"
+        ],
+        "paraphrase": "The narrator contrasts her imagined portrait of the widow with the very different reality she found.",
+        "quote": "Il Penseroso is not more different from L'Allegro than was my\nanticipation from the charming reality.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00017"
+        ],
+        "paraphrase": "Helen reacts with anxiety over a new young male lodger arriving while she is alone.",
+        "quote": "Martha, who had seen him, said he was a\nyoung man, and a handsome man--and she herself a young woman unprotected\nand alone!--It was awkward, very awkward!",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The Count explains the mechanical and scientific reasons for the stove's construction.",
+        "quote": "the clearness with which, in perfectly\ncorrect and idiomatic English, slightly tinged with a foreign accent, he\nexplained the mechanical and scientific reasons for the construction\nhe had suggested",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00042"
+        ],
+        "paraphrase": "Helen reacts with joy, believing the Count loves her despite her expected loss of income.",
+        "quote": "\"He knows of that clause, and he still wishes to marry me! He loves\nme for myself! Loves me, knowing me to be a beggar! It is true, pure,\ndisinterested affection!\"",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00050"
+        ],
+        "paraphrase": "The Count reveals the mistaken assumption of poverty, contrasting the narrator's belief with the hidden truth of his wealth.",
+        "quote": "I should like to know, my good friend, what has put it\ninto her head, and into yours, that if Helen marries me she must needs\nearn her own living?",
+        "raw_id": "ev05"
+      }
+    ]
+  }
+}

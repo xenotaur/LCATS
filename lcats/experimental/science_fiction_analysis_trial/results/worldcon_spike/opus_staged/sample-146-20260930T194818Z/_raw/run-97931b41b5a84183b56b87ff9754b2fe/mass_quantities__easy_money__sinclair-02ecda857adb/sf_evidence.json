@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 24246,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1990,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/easy_money__sinclair",
+  "story_path": "mass_quantities/easy_money__sinclair/story.json",
+  "text": "",
+  "title": "Easy money",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00039"
+        ],
+        "paraphrase": "The narrator explains a natural underground coal-seam fire that flares gas and flame from the earth.",
+        "quote": "It came from an exposed surface seam of lignite coal, mysteriously set on fire long ago and burning still in the bowels of the earth. In the dark, flame and ignited gas would regularly flare about the pit, a ghostly incandescence, flashing intermittently above the smoldering embers of the burning seam.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00036"
+        ],
+        "paraphrase": "The narrator describes the technique of navigating the plains at night by feeling terrain, compared to a sailor's dead reckoning.",
+        "quote": "Each has his own resources of location and direction; the mariner by dead reckoning, based on observation of wind and heaving swells at sundown, the plainsman by his knowledge of the roll of the ground and the directional trend of gently undulating slopes.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00090"
+        ],
+        "paraphrase": "Charlie systematically examines physical marks on the ground to infer what happened.",
+        "quote": "In that swale strange marks showed. The grass was pressed flat in swaths less than three feet wide, as if heavy objects had been dragged or rolled across the surface. He got down, bent to examine these peculiarities, and then walked on, leading his two horses, while he conned the ground.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00096"
+        ],
+        "paraphrase": "Charlie forms a hypothesis about where the tracks originate and sets out to test it.",
+        "quote": "Charlie made a bet with himself that these marks would begin somewhere near the spot from which those shots had been fired at him.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00129"
+        ],
+        "paraphrase": "Charlie reasons from market prices to deduce that the camp's cheap beef must be stolen.",
+        "quote": "No rancher would sell beef for half what it would bring in the open market. If that railroad camp got beef at anywhere near that price, it was stolen beef.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "Elmer reacts angrily upon realizing cattle have been stolen and butchered.",
+        "quote": "and, as the foreman of the Seventy-seven gathered the import of these remains, he grew red in the face, and his language became eloquent but unprintable.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00042"
+        ],
+        "paraphrase": "Charlie reacts to a mysterious night sound with an unsettling comparison to a giant snake.",
+        "quote": "The curious fancy came to Charlie that it was like a giant snake crawling on its belly over the stiff dry grass.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00103"
+        ],
+        "paraphrase": "The narrator notes settlers beginning to fill formerly empty range country.",
+        "quote": "In the few years since Charlie first crossed the Marias River, with all the territory north of it an unpeopled waste, the first waves of the ultimate flood of settlers had begun to seep into the country.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00071"
+        ],
+        "paraphrase": "Charlie proposes that railroad construction camps create an opportunity and market for cattle theft.",
+        "quote": "Has it struck you that all this railroad-construction work offers a chance for somebody to butcher beef on the range and sell it to them camps?",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00036"
+        ],
+        "paraphrase": "The narrator draws an extended comparison between the plains at night and the open sea for the reader.",
+        "quote": "Darkness on the plains is like darkness on the sea. If the stars are hidden there is no guiding mark--nothing but an immensity of shrouded silence in which a rider is like a ship without a compass.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00149"
+        ],
+        "paraphrase": "The method of binding a man in wet rawhide is described as an effective restraint.",
+        "quote": "they had folded him in a raw beef hide, wet and strong with animal smell, and they had laced it tight, from his ankles to his neck, with thongs of the same material. A mummy swathed in its ancient bandages was no more thoroughly bound than he.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00169"
+        ],
+        "paraphrase": "Charlie explains the physical property that wet rawhide stretches, allowing his escape.",
+        "quote": "And try to remember that green hide stretches quite a lot if a man has any strength in his arms, and he has an hour or so to work it loose.",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 10943,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1087,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "london/story_of_keesh",
+  "story_path": "london/story_of_keesh/story.json",
+  "text": "",
+  "title": "London - The Story Of Keesh",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "incidental",
+        "rationale": "Keesh's explanation relies on natural processes\n(blubber melting from body heat, whalebone spring tension) to disable the bear, but this is practical ingenuity rather than a materially represented scientific theory or discovery.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-635789fdc55c712e"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "Keesh's invented device\n\\u2014the coiled whalebone in frozen blubber ball\\u2014is an engineered technique that materially drives the plot, his hunting success, and his rise to power.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-635789fdc55c712e",
+          "sfev-4157a3f19a668008"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is a legendary past folk tale but not a speculative future, remote past, or temporal displacement; \"long ago\" is a framing device, not a science-fictional epoch.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "incidental",
+        "rationale": "Consequences (social elevation, tribal prosperity) follow from the technical premise of the invention, but the extrapolation is a personal/social outcome rather than a developed systemic projection.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-4157a3f19a668008",
+          "sfev-635789fdc55c712e"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-ccbb297b69f05db1"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "The council systematically investigates by observing (spies), gathering evidence, and revising belief from witchcraft to a rational explanation of Keesh's method, materially driving understanding.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-4a2389058a7e95c4",
+          "sfev-635789fdc55c712e"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The setting is the ordinary polar Arctic; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "Famine is mentioned as background to the father's death, but no large-scale disaster is actual, impending, or causally central to the narrative.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

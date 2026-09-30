@@ -1,0 +1,90 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14131,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1095,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "london/negore_the_coward",
+  "story_path": "london/negore_the_coward/story.json",
+  "text": "",
+  "title": "London - Negore, the Coward",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story contains no scientific facts, theories, discoveries, natural processes, or speculative sciences. Woodcraft and tracking are practical skills, not scientific content.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary period tools appear (muzzle-loading rifle, spears, whips). No device, engineered system, or invention materially shapes the setting or outcome beyond ordinary contemporary weaponry.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in mid-nineteenth-century Alaska under Russian occupation. This is a historical past, not a speculative remote past, future, or temporal displacement; the incidental date does not qualify.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-c6ce9f5b6818ac1d"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The narrative does not develop systematic consequences from an identifiable scientific, technological, social, or historical premise; it is a personal tale of proving courage.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "Negore uses observation and inference (absence of birds, glint of a rifle-barrel) to deduce a hidden ambush, a form of systematic inference driving action. However, this is naturalist woodcraft rather than formal scientific method, so materiality and interpretation are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-09a02b6c2a1feb9c",
+          "sfev-675f5b80d3f708a6",
+          "sfev-ba8d25dc5159c24d"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "All locations are ordinary terrestrial places (Alaska, the sea, forts). There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them; Russians are ordinary foreign colonizers.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "The Russians pursue with intent to exterminate the entire tribe, an impending large-scale human-caused catastrophe that is causally central to the plot. Whether tribal-scale destruction meets the 'large-scale' threshold is uncertain, so ambiguous.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-b65a22fe85ab229a"
+        ]
+      }
+    ]
+  }
+}

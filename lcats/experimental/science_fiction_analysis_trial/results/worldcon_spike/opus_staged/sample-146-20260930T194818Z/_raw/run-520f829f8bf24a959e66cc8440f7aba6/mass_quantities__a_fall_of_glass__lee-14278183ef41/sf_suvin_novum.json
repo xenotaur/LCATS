@@ -1,0 +1,151 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 21370,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2585,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/a_fall_of_glass__lee",
+  "story_path": "mass_quantities/a_fall_of_glass__lee/story.json",
+  "text": "",
+  "title": "A Fall of Glass",
+  "tool_result": {
+    "dominant_novum_id": "nc-domed-city-self-containment",
+    "novum_candidates": [
+      {
+        "candidate_id": "nc-domed-city-self-containment",
+        "character_reaction_evidence_ids": [
+          "sfev-4f420b16696789b7",
+          "sfev-472117db44b8b1fc"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.82,
+          "counterevidence_ids": [],
+          "rationale": "The order is given a coherent, immanent, nonsupernatural rationale: domes arose by governmental consent as 'self-containment' in the absence of viable foreign policy (implicitly post-nuclear, since Open Country is where geigers no longer scintillate), maintained by mechanical dome weevils and climate systems. This is a systematic social-technological explanation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-e88e2011742a817b",
+            "sfev-88d8a02dde92a741",
+            "sfev-369f64da4de6d777",
+            "sfev-e819466e8905af65"
+          ]
+        },
+        "description": "A totalizing social-technological order in which humanity lives sealed inside climate-controlled domes ('self-containment') adopted by common consent of governments unable to devise a sound foreign policy. Weather, air, temperature and humidity are all artificially held at 'Optimum Dome Conditions,' natural phenomena are unknown, conformity is a physical necessity, and eccentricity is criminalized and policed. Robotic dome weevils continuously repair the falling-glass ceiling, and the outside 'Open Country' is a radioactive-cleared elsewhere.",
+        "estrangement_rationale": "The reader confronts a familiar civilization estranged into a sealed casserole of artificial 'Optimum' weather where a character has never smelled a real rose or seen a real moon, and where police panic at a temperature that is 'not 59 degrees.' This defamiliarizes both nature and social conformity.",
+        "evidence_ids": [
+          "sfev-88d8a02dde92a741",
+          "sfev-b4aafe1ff34b61ed",
+          "sfev-369f64da4de6d777",
+          "sfev-e88e2011742a817b",
+          "sfev-4f420b16696789b7",
+          "sfev-fc9247b1cd0e67f9",
+          "sfev-e819466e8905af65",
+          "sfev-d643c7df435bca15"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The dome governs the whole narrative logic: the surveillance of eccentric Fownes, the criminalization of his weather machine, his and the widow's desire to escape to the Open Country, and the climactic catastrophe of the dome's air supply and destruction all derive from the domed self-containment premise.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-369f64da4de6d777",
+            "sfev-b4aafe1ff34b61ed",
+            "sfev-4f420b16696789b7",
+            "sfev-88d8a02dde92a741"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "The domed, self-contained city constitutes a world-altering difference from the empirical norm: enclosed artificial climate, engineered conformity as physical necessity, and abandonment of the open natural world. This reorders the entire social and physical universe of the story.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-88d8a02dde92a741",
+            "sfev-b4aafe1ff34b61ed",
+            "sfev-369f64da4de6d777",
+            "sfev-e88e2011742a817b"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-fc9247b1cd0e67f9",
+          "sfev-b4aafe1ff34b61ed"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-88d8a02dde92a741",
+          "sfev-e88e2011742a817b",
+          "sfev-d643c7df435bca15"
+        ]
+      },
+      {
+        "candidate_id": "nc-weather-simulation-machine",
+        "character_reaction_evidence_ids": [
+          "sfev-4f420b16696789b7"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.78,
+          "counterevidence_ids": [],
+          "rationale": "The device is explained mechanistically: clockwork wheels, a see-saw Master Mechanism, a bootleg pipe into the dome blower, and a Studebaker valve whose progressive opening causes buffeting and eventually the runaway winds. This is a coherent immanent account.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-79201a3daa3049f5",
+            "sfev-4ca7b2c14c6866ed",
+            "sfev-0f51b6fedec5a468",
+            "sfev-50a43e54dca7e694"
+          ]
+        },
+        "description": "Fownes's clandestine clockwork-and-plumbing apparatus that simulates natural weather and celestial phenomena: a Master Mechanism of salvaged clock wheels driving artificial sunsets, a singing moon, neon roses, scent, rain, and winds tapped illegally from the dome blower via a Studebaker valve.",
+        "estrangement_rationale": "The homemade simulation of sunset, moon, and rain estranges the reader by presenting artificial nature as a criminal marvel within an artificial world, culminating in a real (Kansas) twister erupting from the bedroom.",
+        "evidence_ids": [
+          "sfev-79201a3daa3049f5",
+          "sfev-4ca7b2c14c6866ed",
+          "sfev-aed75177165b6bea",
+          "sfev-0f51b6fedec5a468",
+          "sfev-50a43e54dca7e694",
+          "sfev-293ef797f654de8d",
+          "sfev-ce3b5bb02f390c20",
+          "sfev-d643c7df435bca15",
+          "sfev-a70b2b2f67b10054"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.72,
+          "counterevidence_ids": [],
+          "rationale": "The weather machine drives the plot's mechanics and its climax: the dancing house that draws police attention, the illegal air tap, and finally the runaway valve that funnels the whole dome air supply into a twister that destroys the dome. It is the proximate engine of the story's action.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-50a43e54dca7e694",
+            "sfev-293ef797f654de8d",
+            "sfev-ce3b5bb02f390c20",
+            "sfev-d643c7df435bca15"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-0f51b6fedec5a468",
+            "sfev-50a43e54dca7e694"
+          ],
+          "rationale": "The machine produces a striking local transformation ('the domed city vanished') but it is an eccentric jury-rigged gadget built from salvaged clock parts and a bootleg pipe, not a totalizing alteration of the empirical norm. Its novelty is derivative of, and parasitic on, the dome novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-79201a3daa3049f5",
+            "sfev-4ca7b2c14c6866ed",
+            "sfev-aed75177165b6bea"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-4ca7b2c14c6866ed",
+          "sfev-fc9247b1cd0e67f9",
+          "sfev-aed75177165b6bea"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-293ef797f654de8d",
+          "sfev-ce3b5bb02f390c20",
+          "sfev-d643c7df435bca15"
+        ]
+      }
+    ]
+  }
+}

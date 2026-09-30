@@ -1,0 +1,59 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15609,
+  "model": "claude-opus-4-8",
+  "output_tokens": 550,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "wodehouse/black_for_luck",
+  "story_path": "wodehouse/black_for_luck/story.json",
+  "text": "",
+  "title": "Wodehouse - Black For Luck",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "The janitor states a superstitious belief that black cats bring good fortune.",
+        "quote": "Black cats bring luck",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "James explains his superstitious motive for keeping the cat, believing it tied to his play's success.",
+        "quote": "I'm as superstitious as a coon, and I felt that to give him up\n      would be equivalent to killing the play before ever it was produced.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00106"
+        ],
+        "paraphrase": "On learning the play failed, Elizabeth's anger dissolves and she realizes she loves James.",
+        "quote": "In a flash all her resentment had gone, wiped away and\n      annihilated like a mist before the sun. She loved him, and she knew now\n      that she had always loved him.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "James contrasts superstition with being sane and practical, an ironic contrast given later events.",
+        "quote": "You have no idiotic\n      superstitions. You are sane and practical.",
+        "raw_id": "ev04"
+      }
+    ]
+  }
+}

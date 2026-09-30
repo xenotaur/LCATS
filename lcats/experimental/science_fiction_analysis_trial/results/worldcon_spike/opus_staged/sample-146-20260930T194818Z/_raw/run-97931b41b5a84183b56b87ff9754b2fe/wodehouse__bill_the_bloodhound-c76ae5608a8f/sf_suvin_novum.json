@@ -1,0 +1,103 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16949,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1584,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "wodehouse/bill_the_bloodhound",
+  "story_path": "wodehouse/bill_the_bloodhound/story.json",
+  "text": "",
+  "title": "Wodehouse - Bill the Bloodhound",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-mascot-luck",
+        "character_reaction_evidence_ids": [
+          "sfev-2b1dd61677648085"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "There is no coherent, systematic, immanent nonsupernatural account of mascot luck. It rests on folklore ('seventh son', horseshoes, black cats) invoked jocularly, which is closer to superstition/comic hyperbole than an imaginary-science or social-organizational logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The notion that Henry, a hopeless detective, is a 'king of mascots'\ninmate whose mere presence guarantees theatrical success \\u2014 packed houses, the fortuitous ouster of a disliked actress, and a lucrative stage career. Jelliffe frames this as a quasi-magical, inherited property ('seventh son of a seventh son', 'human horseshoe').",
+        "estrangement_rationale": "Reader-facing contrast is comic rather than estranging: the narrator distinguishes Henry from a 'real' detective, and the storyworld consequence is a career change. This is realist romantic comedy, not cognitive estrangement from an empirical norm.",
+        "evidence_ids": [
+          "sfev-55a2b0e2f5bc0be6",
+          "sfev-2b1dd61677648085",
+          "sfev-5dc404b7f77b6d49"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The mascot idea drives the story's resolution: Jelliffe's proposal that Henry abandon detection for the stage, and Henry's immediate acceptance, determine the ending and Henry's transformation into 'Pifield Rice, actor.'",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-55a2b0e2f5bc0be6",
+            "sfev-2b1dd61677648085"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-55a2b0e2f5bc0be6"
+          ],
+          "rationale": "The 'mascot luck' is presented as ordinary comic superstition and coincidence within an otherwise realistic contemporary storyworld. It does not totalize or alter the empirical norm of the story universe; it is a running joke about luck, not a world-altering difference. No systematic transformation of reality is established.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-5dc404b7f77b6d49"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-55a2b0e2f5bc0be6"
+        ]
+      },
+      {
+        "candidate_id": "cand-transparent-disguises",
+        "character_reaction_evidence_ids": [
+          "sfev-86ef592c58ad7979"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "No systematic account is offered because none is needed; the device is realist comedy rather than an imaginary system requiring validation.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "Henry's belief in the impenetrability of his disguises, contrasted with the reality that everyone \\u2014 the whole company and even the boarding-house servant \\u2014 sees through them instantly.",
+        "estrangement_rationale": "Character reaction (Henry's shock at being unmasked) is humor of self-delusion, not estrangement from an altered empirical norm.",
+        "evidence_ids": [
+          "sfev-86ef592c58ad7979"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.65,
+          "counterevidence_ids": [
+            "sfev-86ef592c58ad7979"
+          ],
+          "rationale": "The disguise motif is an incidental comic thread; it exposes Henry but does not by itself govern the overriding narrative logic, which turns on the romance and the mascot career.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-86ef592c58ad7979"
+          ],
+          "rationale": "This is a mundane comic device of incompetence, not a world-altering difference from empirical reality. Disguises that fail are ordinary human failure, not a novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

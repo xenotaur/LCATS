@@ -1,0 +1,73 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16058,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1000,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/julia_the_apostate__bacon",
+  "story_path": "mass_quantities/julia_the_apostate__bacon/story.json",
+  "text": "",
+  "title": "Julia The Apostate",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-domestic-modernity",
+        "character_reaction_evidence_ids": [
+          "sfev-5029894f15ac2036",
+          "sfev-4535ec8586bf4cda",
+          "sfev-ef2db1418395ba8a"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "Since no world-altering difference is present, there is no imaginary science or social organization requiring a systematic immanent account. The domestic details are ordinary realism.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The urban apartment lifestyle (Continental breakfasts, no cellar/attic, dumb-waiters, art-class aesthetics) that the nieces impose on Aunt Julia, contrasted with her rural New England domestic traditions.",
+        "estrangement_rationale": "The narration foregrounds reader-facing contrast between the nieces' aestheticized Continental habits and the aunt's hearty traditional routines, framing the two outlooks as irreconcilable parallel lines. This is social-realist estrangement of manners, not the totalizing cognitive estrangement of a science-fictional novum.",
+        "evidence_ids": [
+          "sfev-3673501168db1045",
+          "sfev-5cc650f4b4a12080",
+          "sfev-5029894f15ac2036",
+          "sfev-4535ec8586bf4cda",
+          "sfev-ef2db1418395ba8a",
+          "sfev-402bcf3b63c71255"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The clash of lifestyles does govern the narrative logic, driving Julia's depression, her eventual return to the farm, and her marriage. However, centrality alone does not make it a novum absent novelty and cognition.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-5cc650f4b4a12080",
+            "sfev-5029894f15ac2036",
+            "sfev-4535ec8586bf4cda"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-3673501168db1045",
+            "sfev-5029894f15ac2036"
+          ],
+          "rationale": "The contrast between modern urban apartment living and traditional rural domesticity is a mundane social difference drawn entirely from the author's empirical world. There is no totalizing or world-altering difference from the empirical norm; this is realist social comedy, not an estranging novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-3673501168db1045",
+          "sfev-5cc650f4b4a12080"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-402bcf3b63c71255"
+        ]
+      }
+    ]
+  }
+}

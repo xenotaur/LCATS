@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13581,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1092,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/passion_fruit__stacpoole",
+  "story_path": "mass_quantities/passion_fruit__stacpoole/story.json",
+  "text": "",
+  "title": "Passion fruit",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-14ee9bcdede0fb93"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The only quasi-scientific remark is a folk generalization about how Westerners perceive resemblance between eastern women, plus decorative nervous-system imagery. No scientific fact, theory, discovery, or natural process is materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary period objects appear (ships, a cane knife, cigarettes, tobacco). No device, engineered system, or invention materially affects the setting, problem, or outcome in a speculative sense.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The tale is a contemporary/recent-past melodrama set in New Caledonia with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-1d628ae8b9a1479e",
+          "sfev-47a62153c4e2a287"
+        ],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The story's turn relies on twin likeness and moral irony, not on consequences developed from an identifiable scientific, technological, social, or historical premise. This is narrative coincidence and moral reflection, not extrapolation.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Marianne makes inquiries to learn Carstairs lied, but this is ordinary investigation, not observation, hypothesis, testing, or systematic evidential inference materially driving understanding.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "New Caledonia is an ordinary earthly locale; Jupiter is mentioned only as a figure of speech for remoteness. No other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [
+          "sfev-68d5367253591dd9"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The events are individual tragedies\\u2014a stabbing, a drowning, a shipwreck of one vessel\\u2014constituting personal misfortune rather than a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

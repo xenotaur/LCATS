@@ -1,0 +1,88 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18620,
+  "model": "claude-opus-4-8",
+  "output_tokens": 942,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "wodehouse/at_geisenheimer_s",
+  "story_path": "wodehouse/at_geisenheimer_s/story.json",
+  "text": "",
+  "title": "Wodehouse - At Geisenheimer's",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No scientific fact, theory, discovery, natural process, or speculative science is materially represented. The story is a romantic comedy set in a New York dance hall.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "The rigged dance-contest arrangement and Love-r-ly Silver Cup are ordinary social contrivances, not an engineered device, technique, or invention in any science-fictional sense. No technology materially affects the setting or outcome.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-e81b22effb8bb4a8"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in the contemporary present with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No consequences are developed from an identifiable scientific, technological, social, or historical premise; the plot is a personal romantic intervention, not systematic extrapolation.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No observation, hypothesis, testing, measurement, or systematic inference materially drives the action. The narrator's scheme is social manipulation, not scientific method.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "Settings are ordinary earthly locations (New York, rural Maine). References to the country are pastoral imagery, not other planets, dimensions, or nonordinary cosmic environments or visitors.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-d193dc74dc2eba74"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The conflict is a personal marital crisis; no natural, technological, cosmic, biological, or human-caused large-scale disaster is actual, impending, remembered, or causally central.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-c58eb1b5ba15979a"
+        ]
+      }
+    ]
+  }
+}

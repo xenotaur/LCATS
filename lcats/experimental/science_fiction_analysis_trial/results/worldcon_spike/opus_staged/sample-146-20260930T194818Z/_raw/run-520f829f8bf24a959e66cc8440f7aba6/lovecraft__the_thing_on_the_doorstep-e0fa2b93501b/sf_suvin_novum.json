@@ -1,0 +1,119 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 27828,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2101,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "lovecraft/the_thing_on_the_doorstep",
+  "story_path": "lovecraft/the_thing_on_the_doorstep/story.json",
+  "text": "",
+  "title": "The Thing on the Door-Step by H. P. Lovecraft",
+  "tool_result": {
+    "dominant_novum_id": "novum-psychic-body-transfer",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-psychic-body-transfer",
+        "character_reaction_evidence_ids": [
+          "sfev-95786a7242a86209"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The story develops a coherent, systematic immanent logic: consciousness independent of the physical frame, a male brain's special powers, a rule-governed formula with a weak-willed target, temporal permanence tied to a Hallowmass sacrifice, and the soul persisting while the body holds together. The narrator explicitly invites correlation with 'known facts,' framing the mechanism as an internally consistent (imaginary) science rather than mere supernatural caprice. This qualifies without present-day engineering detail.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-f21c74918caea5bb",
+            "sfev-5668fde64e904142",
+            "sfev-67d360a09ba5f0ea",
+            "sfev-e14fe9a935ed82a6"
+          ]
+        },
+        "description": "A systematic occult technology of personality/soul exchange: a sufficiently strong will (originally Ephraim Waite, then the entity wearing Asenath's body) can, through a formula found in the Necronomicon and associated ritual, force its consciousness into another body and eject the victim's soul into the vacated frame. The 'life-glow' or soul is only half-attached to the body and survives bodily death, enabling serial body-to-body possession that can, with a Hallowmass sacrifice, be made permanent. This governs the entire plot: Ephraim living on as 'Asenath,' the takeover of Edward, Edward's murder of Asenath, the exchange with the buried corpse, and the final warning to cremate the body.",
+        "estrangement_rationale": "Reader-facing contrast is established through the observable behavioral discontinuity (the formerly incapable Edward driving with masterful, 'alien' skill) and the accusation that the narrator should have noticed the swap, dramatizing the uncanny displacement of identity between bodies.",
+        "evidence_ids": [
+          "sfev-f21c74918caea5bb",
+          "sfev-e14fe9a935ed82a6",
+          "sfev-5668fde64e904142",
+          "sfev-cdec58eda4ba95c3",
+          "sfev-95786a7242a86209",
+          "sfev-67d360a09ba5f0ea"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The body-transfer mechanism determines the entire narrative logic: Edward's changes, the murder, the doorstep horror, and the closing imperative to cremate the body to stop endless body-to-body survival. Every major event follows from this novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-e14fe9a935ed82a6",
+            "sfev-f21c74918caea5bb",
+            "sfev-cdec58eda4ba95c3",
+            "sfev-95786a7242a86209"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The exchange of personalities across bodies, survival of the soul past bodily death, and travel through angles to other space-time continua constitute a totalizing difference from the empirical norm, altering the story universe's fundamental rules of identity and mortality.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-f21c74918caea5bb",
+            "sfev-e14fe9a935ed82a6",
+            "sfev-5668fde64e904142"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-cdec58eda4ba95c3",
+          "sfev-95786a7242a86209"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-e14fe9a935ed82a6",
+          "sfev-f21c74918caea5bb"
+        ]
+      },
+      {
+        "candidate_id": "novum-hypnotic-exchange-sensation",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The account gestures at consciousness's independence from the physical frame but, as an isolated hypnotic 'feeling,' the immanent mechanism is only sketched and blends into ordinary hypnotism attribution.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-5668fde64e904142"
+          ]
+        },
+        "description": "Asenath's demonstrated hypnotic ability to give another person a momentary 'feeling of exchanged personality,' making a subject feel placed in her body while staring back at their own. Considered as a distinct candidate, this is presented as a schoolgirl marvel and a hypnotist's parlor effect.",
+        "estrangement_rationale": "The described feeling of staring back at one's own body from across the room provides a reader-facing uncanny contrast, but its consequences are absorbed into the dominant possession novum.",
+        "evidence_ids": [
+          "sfev-5668fde64e904142"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-5668fde64e904142"
+          ],
+          "rationale": "As a discrete device, the hypnotic 'sensation of exchange' is incidental foreshadowing; it does not itself govern the narrative logic. The narrative is driven by the actual body-transfer novum, not the mere sensation. Hence it does not qualify independently.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "As described in isolation it reads as an extreme but contained hypnotic feat rather than a world-altering difference; its estranging force derives from the larger possession mechanism rather than standing alone. Treated independently, its novelty status is uncertain.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-5668fde64e904142"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-5668fde64e904142"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

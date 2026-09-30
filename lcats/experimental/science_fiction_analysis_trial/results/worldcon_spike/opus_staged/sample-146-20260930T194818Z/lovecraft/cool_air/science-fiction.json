@@ -1,0 +1,777 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__cool_air-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The story rests on a speculative pseudo-scientific theory that will and consciousness can sustain nervous animation after organic function ceases, presented and later refuted as a scientific hypothesis.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1f5401eddf9d5ddf",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-3751f96e448c2b53",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-cb9f266bff5fa9d5",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The ammonia absorption refrigeration system driven by a gasoline engine is an engineered device central to sustaining the doctor; its progressive modification and eventual breakdown drive the plot and outcome.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-7b9902bea18c6cc5",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-f2654f10b28db2a6",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-2d618fba5f6b57fc",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The revelation that the doctor died eighteen years earlier is artificial preservation, not temporal displacement, time travel, a speculative future, or a remote past; the setting is contemporary 1923 New York.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "The narrative extrapolates from the preservation premise: conscious existence without functioning organs, the need for ever-colder temperatures, and the inevitable deterioration when cooling fails follow logically from the stated hypothesis.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4a8dea5e34e959e9",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-98eecdcdf61f6479",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-3751f96e448c2b53",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "The doctor frames his work as theory and experiment, and the final note reflects evidential revision (the theory 'couldn't keep up' and a deterioration 'I had not foreseen'), but systematic observation and testing are only lightly depicted rather than materially driving the action.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1f5401eddf9d5ddf",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-3751f96e448c2b53",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The story is set entirely in an ordinary metropolitan rooming house; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The refrigeration breakdown and the doctor's dissolution constitute a personal catastrophe confined to one individual, not a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-83e447060372f4a8",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-83e447060372f4a8",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 13942,
+            "output": 1271
+          }
+        },
+        "status": "complete",
+        "story_hash": "f807d4179ecf2427727954abfe48fbf592e965f1f33554178d65df2a2b0ae9e8"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__cool_air-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-artificial-preservation",
+            "cognitive_validation": {
+              "confidence": 0.78,
+              "counterevidence": [],
+              "rationale": "The story provides a coherent, immanent, nonsupernatural account: a stated theory that will/consciousness can outlast organs, sustained by a concrete ammonia-absorption refrigeration system, chemical baths, and psychological stimuli, with a rationalized failure mode (gradual tissue deterioration once cooling stops). It is imaginary science presented systematically rather than as magic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-1f5401eddf9d5ddf",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-7b9902bea18c6cc5",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-cb9f266bff5fa9d5",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-3751f96e448c2b53",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "description": "Dr. Munoz's method of artificial preservation whereby will and consciousness, scientifically enhanced and combined with constant refrigeration and medieval psychological stimuli, sustain nervous animation in a body whose organs have ceased functioning\\u2014indeed, in a man who died eighteen years earlier.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-726402fdebbd1924",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-a032bb9b99173c48",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-c74a652dfa1df473",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ],
+              "rationale": "The reader confronts the preserved dead man in the ordinary daylit setting of a New York rooming-house, a jarring contrast reinforced by character reactions (the narrator's repugnance, the repairman's epileptic fit, the narrator's lasting aversion to ammonia and cool air) and by the concrete storyworld consequences of the ever-colder machinery and its fatal breakdown.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-6955f0411744954d",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-f2654f10b28db2a6",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-2d618fba5f6b57fc",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-98eecdcdf61f6479",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-1f5401eddf9d5ddf",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-4a8dea5e34e959e9",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-7b9902bea18c6cc5",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-cb9f266bff5fa9d5",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-98eecdcdf61f6479",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-3751f96e448c2b53",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-f2654f10b28db2a6",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-2d618fba5f6b57fc",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The entire narrative logic\\u2014the doctor's isolation, escalating cold demands, the pump failure catastrophe, and the horrifying revelation of the final note\\u2014is governed by and resolves into the artificial-preservation premise. It determines the whole plot rather than being an incidental device.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-2d618fba5f6b57fc",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-98eecdcdf61f6479",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-f2654f10b28db2a6",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-3751f96e448c2b53",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "Conscious existence continuing without functioning organs\\u2014a man animated eighteen years after his death\\u2014is a totalizing departure from the empirical norm that death ends life, altering the story's fundamental premise about the boundary between living and dead.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-1f5401eddf9d5ddf",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-4a8dea5e34e959e9",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-98eecdcdf61f6479",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-ammonia-refrigeration",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The cooling system is described coherently and mechanically, but this cognitive plausibility serves the preservation premise rather than establishing an independent novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-7b9902bea18c6cc5",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-f2654f10b28db2a6",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "description": "The ammonia absorption cooling system driven by a gasoline engine that maintains the doctor's room at abnormally low temperatures.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-c74a652dfa1df473",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ],
+              "rationale": "The cold air in high summer produces reader-facing unease and the narrator's enduring aversion to cool drafts, but this estrangement flows from what the cold conceals (the preserved corpse) rather than the refrigeration technology itself.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-2d618fba5f6b57fc",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                },
+                {
+                  "evidence_id": "sfev-f2654f10b28db2a6",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-7b9902bea18c6cc5",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-f2654f10b28db2a6",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              },
+              {
+                "evidence_id": "sfev-2d618fba5f6b57fc",
+                "evidence_set_id": "sfes-83e447060372f4a8"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The refrigeration is plot-critical (its failure triggers the climax), but it functions as an instrument of the preservation novum rather than governing the narrative logic on its own; its significance is derivative.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-2d618fba5f6b57fc",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-7b9902bea18c6cc5",
+                  "evidence_set_id": "sfes-83e447060372f4a8"
+                }
+              ],
+              "rationale": "Ammonia absorption refrigeration is a mundane, empirically real technology in the story's implied 1923 world; it does not itself constitute a world-altering difference from the authorial norm. It is a supporting apparatus, not the novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "novum-artificial-preservation",
+        "evidence_set_id": "sfes-83e447060372f4a8",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-83e447060372f4a8",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 14289,
+            "output": 2095
+          }
+        },
+        "status": "complete",
+        "story_hash": "f807d4179ecf2427727954abfe48fbf592e965f1f33554178d65df2a2b0ae9e8"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-83e447060372f4a8",
+    "knight_analysis_id": "lovecraft__cool_air-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__cool_air-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-83e447060372f4a8",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00016"
+            ],
+            "paraphrase": "The doctor is described as having spent his life on bizarre experiments aimed at defeating death.",
+            "quote": "he had sunk his fortune and lost all his friends\nin a lifetime of bizarre experiment devoted to its bafflement and\nextirpation",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 8799,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 8468
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1f5401eddf9d5ddf",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The doctor theorizes that a carefully preserved body can retain nervous animation through enhanced will and consciousness even when organs fail.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "will and consciousness are\nstronger than organic life itself, so that if a bodily frame be\nbut originally healthy and carefully preserved, it may through a\nscientific enhancement of these qualities retain a kind of nervous\nanimation despite the most serious impairments, defects, or even\nabsences in the battery of specific organs."
+        },
+        {
+          "anchor": {
+            "end_char": 14916,
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "start_char": 14767
+          },
+          "confidence": 0.88,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2d618fba5f6b57fc",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The refrigeration pump breaks down, ending the ammonia cooling that sustains the doctor.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One night about eleven the pump of the\nrefrigerating machine broke down, so that within three hours the\nprocess of ammonia cooling became impossible."
+        },
+        {
+          "anchor": {
+            "end_char": 19839,
+            "paragraph_ids": [
+              "p00033"
+            ],
+            "start_char": 19567
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3751f96e448c2b53",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The note explains that the preservation theory failed because warming tissues deteriorate and the method could not be sustained.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Warmer every minute, and the tissues can't last.\nI fancy you know\\u2014what I said about the will and the nerves and the\npreserved body after the organs ceased to work. It was good theory, but\ncouldn't keep up indefinitely. There was a gradual deterioration I had\nnot foreseen."
+        },
+        {
+          "anchor": {
+            "end_char": 8941,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 8800
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a8dea5e34e959e9",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The doctor suggests his theory could allow conscious existence without a functioning heart.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He might, he half-jestingly\nsaid, some day teach me to live\\u2014or at least to possess some kind\nof conscious existence\\u2014without any heart at all!"
+        },
+        {
+          "anchor": {
+            "end_char": 1023,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 850
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6955f0411744954d",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator contrasts expected associations of horror with the ordinary daylit urban setting where he encountered it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is a mistake to fancy that horror is associated inextricably\nwith darkness, silence, and solitude. I found it in the glare of\nmidafternoon, in the clangor of a metropolis"
+        },
+        {
+          "anchor": {
+            "end_char": 7060,
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "start_char": 6858
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-726402fdebbd1924",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator feels a repugnance he cannot justify beyond the doctor's livid complexion and cold touch.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Only his\nlividly inclined complexion and coldness of touch could have afforded\na physical basis for this feeling, and even these things should have\nbeen excusable considering the man's known invalidism."
+        },
+        {
+          "anchor": {
+            "end_char": 9348,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 9142
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7b9902bea18c6cc5",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The doctor's cold room is explained as being maintained by an ammonia absorption cooling system driven by a gasoline engine.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the frigidity of his\nhabitation\\u2014some fifty-five or fifty-six degrees Fahrenheit\\u2014was\nmaintained by an absorption system of ammonia cooling, the gasoline\nengine whose pumps I had often heard in my room below."
+        },
+        {
+          "anchor": {
+            "end_char": 20149,
+            "paragraph_ids": [
+              "p00033"
+            ],
+            "start_char": 20050
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-98eecdcdf61f6479",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The final note reveals the doctor actually died eighteen years earlier and had been artificially preserved.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It had to be done my way\\u2014artificial preservation\\u2014 for you\nsee I died that time eighteen years ago ."
+        },
+        {
+          "anchor": {
+            "end_char": 14560,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 14350
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a032bb9b99173c48",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A repairman is thrown into an epileptic fit by an unexpected glimpse of the doctor.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One September day an\nunexpected glimpse of him induced an epileptic fit in a man who had\ncome to repair his electric desk lamp; a fit for which he prescribed\neffectively while keeping himself well out of sight."
+        },
+        {
+          "anchor": {
+            "end_char": 19478,
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "start_char": 19374
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c74a652dfa1df473",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator's lasting reaction is a hatred of ammonia smell and faintness at cool air.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "all\nthat I can say is that I hate the smell of ammonia, and grow faint at a\ndraft of unusually cool air."
+        },
+        {
+          "anchor": {
+            "end_char": 10068,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "start_char": 9814
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cb9f266bff5fa9d5",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The doctor treats medieval incantations as psychological stimuli that could affect a nervous system no longer driven by organic function.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he did not scorn\nthe incantations of the medi\\u00e6valists, since he believed these cryptic\nformul\\u00e6 to contain rare psychological stimuli which might conceivably\nhave singular effects on the substance of a nervous system from which\norganic pulsations had fled"
+        },
+        {
+          "anchor": {
+            "end_char": 11695,
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "start_char": 11465
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f2654f10b28db2a6",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The doctor progressively modifies his refrigeration machinery to achieve ever colder temperatures.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "with my aid he amplified the\nammonia piping of his room and modified the pumps and feed of his\nrefrigerating machine until he could keep the temperature as low as\nthirty-four or forty degrees, and finally even twenty-eight degrees"
+        }
+      ],
+      "story_hash": "f807d4179ecf2427727954abfe48fbf592e965f1f33554178d65df2a2b0ae9e8",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/cool_air",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "f807d4179ecf2427727954abfe48fbf592e965f1f33554178d65df2a2b0ae9e8",
+  "story_path": "lovecraft/cool_air/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

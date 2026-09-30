@@ -1,0 +1,59 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19558,
+  "model": "claude-opus-4-8",
+  "output_tokens": 589,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "wodehouse/extricating_young_gussie",
+  "story_path": "wodehouse/extricating_young_gussie/story.json",
+  "text": "",
+  "title": "Wodehouse - Extricating Young Gussie",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "The narrator travels across the ocean to New York, relocating from England to America.",
+        "quote": "New York is a large city conveniently situated on the edge of America, so\n      that you step off the liner right on to it without an effort.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00064"
+        ],
+        "paraphrase": "The narrator emphasizes the geographic distance between America and his English relative.",
+        "quote": "there were three thousand miles\n      of deep water between me and my Aunt Agatha.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00094"
+        ],
+        "paraphrase": "The narrator reacts with physical weakness on learning Gussie will perform in vaudeville.",
+        "quote": "I steadied myself against the wall. The effects of the restoratives\n      supplied by my pal at the hotel bar were beginning to work off, and I felt\n      a little weak.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00219"
+        ],
+        "paraphrase": "The narrator is overwhelmed by the sequence of events and asks to be left alone.",
+        "quote": "'Gussie, old top,' I said, 'leave me for a while. I would be alone. I\n      think I've got brain fever or something.'",
+        "raw_id": "ev04"
+      }
+    ]
+  }
+}

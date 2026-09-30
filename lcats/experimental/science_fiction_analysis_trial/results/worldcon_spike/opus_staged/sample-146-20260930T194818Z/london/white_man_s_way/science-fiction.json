@@ -1,0 +1,701 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__white_man_s_way-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story is a naturalistic tale of a Yukon Indian recounting his sons' fates and the incomprehensible ways of the white man. No scientific facts, theories, natural processes, or speculative sciences are materially represented. The naturalist collecting bones and eggs is depicted only as odd behavior, not as science driving the narrative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Only ordinary period objects appear (steamboat, iron soldier-ship, guns, axe, rope). These are contemporary-to-setting tools mentioned in passing and do not constitute a novel invention or engineered system that speculatively affects the setting or outcome.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a historical present (early U.S. Alaska), not a speculative future or remote past, and involves no temporal displacement. The cited displacement evidence describes ordinary geographic travel to the sea/California, not a speculative time or place.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b0a9b4713ef70d18",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The tale explores cultural misunderstanding of the white man's inconsistent justice, but it does not systematically extrapolate consequences from an identifiable scientific, technological, or historical premise in the manner characteristic of science fiction.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Ebbits observes patterns (nature is always the same, the white man is never the same) and seeks to verify Yamikan's account, but this is folk reasoning and truth-seeking, not scientific method with hypothesis, controlled testing, measurement, or evidential revision materially driving action.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e611de4838ee7486",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The 'lake large as the sky' (the ocean) and the snowless land (California) are ordinary Earthly places, not other planets, dimensions, or nonordinary cosmic environments, and the white men are ordinary human visitors, not extraterrestrials.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b0a9b4713ef70d18",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The deaths of Moklan (drowning) and Bidarshik (hanging), and the old couple's hunger, are personal and familial misfortunes without large-scale disaster dimension. Ebbits explicitly denies any great sickness in the village, so there is no natural, technological, cosmic, biological, or human-caused large-scale catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-994e0c3914c3a764",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              },
+              {
+                "evidence_id": "sfev-33aa5e546c4812dc",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-5918a98662165a70",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-5918a98662165a70",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 15876,
+            "output": 1339
+          }
+        },
+        "status": "complete",
+        "story_hash": "b2810f825eb64aaeffcc4288b1a6b155c9ccebd0a5e6973db33d5dd0ade0ff5a"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__white_man_s_way-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-white-mans-way",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The account is coherent, immanent, and nonsupernatural: differing legal treatments (self-defense manslaughter tried in Federal court vs. premeditated murder hanged) follow a systematic real-world logic, even if opaque to the narrator Ebbits.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e611de4838ee7486",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                },
+                {
+                  "evidence_id": "sfev-b0a9b4713ef70d18",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                },
+                {
+                  "evidence_id": "sfev-994e0c3914c3a764",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "description": "The colonial encounter in which the white man's justice/behavior appears radically unpredictable ('never twice the same') to the Indian, contrasted with the perceived total regularity of nature and Indian law. This is a social/cultural difference, not a science-fictional world-altering novum.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-33aa5e546c4812dc",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ],
+              "rationale": "Ebbits's bewilderment at the white man's inconsistent justice estranges the reader from colonial law by presenting it through an outsider's frame, but this is realist cultural estrangement rather than a science-fictional novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e611de4838ee7486",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-994e0c3914c3a764",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e611de4838ee7486",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              },
+              {
+                "evidence_id": "sfev-994e0c3914c3a764",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              },
+              {
+                "evidence_id": "sfev-33aa5e546c4812dc",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The theme of the white man's incomprehensible, inconsistent 'way' governs the whole story's logic and its tragic outcome (Bidarshik's hanging, the old couple's destitution).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e611de4838ee7486",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                },
+                {
+                  "evidence_id": "sfev-994e0c3914c3a764",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e611de4838ee7486",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                },
+                {
+                  "evidence_id": "sfev-33aa5e546c4812dc",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ],
+              "rationale": "The perceived inconsistency of white-man behavior is a cultural/epistemic mismatch within the ordinary empirical world (early Alaska, U.S. Federal law), not a totalizing world-altering difference from the empirical norm. No new law of nature or society is introduced; it is a realist depiction of colonial contact.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-land-under-the-sun",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The descriptions are coherent and nonsupernatural, corresponding to real geography and technology of the period.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b0a9b4713ef70d18",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "description": "The marvelous distant white man's country (California) with a salt lake as large as the sky, iron boats that don't sink, and no snow -- wonders reported at second hand that drive Bidarshik's fatal desire.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The wonders defamiliarize commonplace modern technology and geography by rendering them through Ebbits's disbelief, but they remain empirically real and thus do not constitute a novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-b0a9b4713ef70d18",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-994e0c3914c3a764",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-b0a9b4713ef70d18",
+                "evidence_set_id": "sfes-5918a98662165a70"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The lure of this distant land motivates Bidarshik's actions, but the driving narrative logic is the white man's inconsistent justice, not the land itself as an autonomous novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b0a9b4713ef70d18",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b0a9b4713ef70d18",
+                  "evidence_set_id": "sfes-5918a98662165a70"
+                }
+              ],
+              "rationale": "These 'marvels' (the sea, ocean-going iron steamships, a snowless warm climate) are ordinary features of the author's empirical world, only strange from the villagers' limited experience. They are not a genuine difference from the empirical norm; the narrator explicitly confirms California is real.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-5918a98662165a70",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-5918a98662165a70",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 16223,
+            "output": 1659
+          }
+        },
+        "status": "complete",
+        "story_hash": "b2810f825eb64aaeffcc4288b1a6b155c9ccebd0a5e6973db33d5dd0ade0ff5a"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-5918a98662165a70",
+    "knight_analysis_id": "london__white_man_s_way-knight-v1",
+    "suvin_novum_analysis_id": "london__white_man_s_way-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-5918a98662165a70",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits contrasts the inconsistent behavior of the white man with a consistency the Indian expects.",
+            "quote": "But the white man speaks true in different\nways.\ta To-day he speaks true one way, to-morrow he speaks\ntrue another way, and there is no understanding him nor his\nway.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits contrasts the predictability of nature and Indian custom with the unpredictability of the white man.",
+            "quote": "Always does the Indian do the one thing in the one way.\ta Always\ndoes the moose come down from the high mountains when the winter\nis here.\ta Always does the salmon come in the spring when the\nice has gone out of the river.\ta Always does everything do\nall things in the same way, and the Indian knows and\nunderstands.\ta But the white man does not do all things in\nthe same way, and the Indian does not know nor understand.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "The narrator's culture chews and swallows tobacco juice, while the white man spits it out, from Ebbits's perspective a foolish waste.",
+            "quote": "But the white man!\ta When his mouth is full with the juice,\nwhat does he do?\ta That juice, that juice of great value, he\nspits it out in the snow and it is lost.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits describes the Indian law that a thief must be killed, contrasting it with white man's treatment.",
+            "quote": "When man takes your meat, or your\ncanoe, or your wife, you kill that man.\ta That is the law,\nand it is a good law.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits describes imprisonment as the white man feeding and sheltering a thief rather than punishing him, which he finds baffling.",
+            "quote": "He has a\nhouse.\ta He puts Mobits in that house.\ta The roof is\ngood.\ta The walls are thick.\ta He makes a fire that\nMobits may be warm.\ta He gives Mobits plenty grub to\neat.",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Zilla wails in grief over the death of her first-born son Moklan.",
+            "quote": "Ai! ai!\ta wailed Zilla.\ta \tCrafty and\nwise was he, and my first-born!",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits explains the customary law that compensation must be paid for deaths caused by bad hunting or dangerous water.",
+            "quote": "if you have in thy country bad hunting, or bad water, you must\nmake payment.\ta It is just.\ta It is the law.",
+            "raw_id": "ev08",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits marvels that the white man's iron boat does not sink, something beyond his understanding.",
+            "quote": "Also, it is made of iron, this boat, and yet does it not\nsink.\ta This I do not understand",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits struggles to believe there is a land (California) where no snow ever falls, contrasting with his own world.",
+            "quote": "a land where there is no snow.\ta I cannot believe\nthis.\ta It is not in the nature of things that when winter\ncomes there shall be no snow.",
+            "raw_id": "ev11",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits seeks to verify the name of the snowless country by cross-checking it to determine whether he was told the truth.",
+            "quote": "I have heard the name\nbefore, but I would hear it again, if it be the same\ta thus\nwill I know if I have heard lies or true talk.",
+            "raw_id": "ev12",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "A visiting white man collects insects, eggshells, bird skins, and old bones, which Ebbits describes as incomprehensible scientific collecting.",
+            "quote": "All the time does he seek after bugs and\nflies.\ta He does not eat the bugs and flies, then why does he\nseek after them?",
+            "raw_id": "ev13",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Ebbits, reasoning from Yamikan's earlier outcome, advises his son to kill a white man expecting the same reward, but the outcome differs.",
+            "quote": "Go forth,\ta I say,\n\tand find a white man, and, even as Yamikan, do you kill\nthat white man.\ta Then will the soldier white men come and\nget you, and even as they took Yamikan will they take you across\nthe salt lake to the white man's land.",
+            "raw_id": "ev15",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 1513,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 1386
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-33aa5e546c4812dc",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Old Ebbits is described as weary of life and fearful of death.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was oppressed by the weight and the\ntorment of this thing called life, and still more was he\noppressed by the fear of death."
+        },
+        {
+          "anchor": {
+            "end_char": 26425,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 26295
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-994e0c3914c3a764",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Unlike Yamikan, Bidarshik is hanged for killing a white man, leaving Ebbits without sons.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He takes\nBidarshik to Cambell Fort, and he ties a rope around his neck,\nso, and, when his feet are no more on the ground, he\ndies."
+        },
+        {
+          "anchor": {
+            "end_char": 16700,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 16563
+          },
+          "confidence": 0.45,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b0a9b4713ef70d18",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Yamikan is taken far down the river to a lake (the sea) larger than all the land, a place beyond the village's experience.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All the\nway do they take him down the river to the end, where it runs\ninto a lake which is larger than all the land and large as the\nsky."
+        },
+        {
+          "anchor": {
+            "end_char": 25796,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 25729
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e611de4838ee7486",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Ebbits laments that the white man's behavior changes from day to day, making it impossible to predict.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "How was I to know the way of the white man is never\ntwice the same?"
+        }
+      ],
+      "story_hash": "b2810f825eb64aaeffcc4288b1a6b155c9ccebd0a5e6973db33d5dd0ade0ff5a",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/white_man_s_way",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "b2810f825eb64aaeffcc4288b1a6b155c9ccebd0a5e6973db33d5dd0ade0ff5a",
+  "story_path": "london/white_man_s_way/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
