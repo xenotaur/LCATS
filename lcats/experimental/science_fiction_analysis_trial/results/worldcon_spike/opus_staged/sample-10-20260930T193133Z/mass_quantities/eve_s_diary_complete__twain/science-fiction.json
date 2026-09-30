@@ -1,0 +1,1090 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Natural phenomena (fire, stars, distances, buoyancy) are named and reasoned about, but the treatment is naive and satirical rather than a material scientific representation; the narrator's conclusions (stars melting, rocks swimming, water running uphill) are deliberately wrong, so the scientific content is more comedic device than genuine science.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-732bd3096620f5a4",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-846cba0387949f0c",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-a92ef6e63cbb89d6",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The discovery/naming of fire is a natural process and personal wonder, not an engineered device, technique, or invention that materially shapes the setting, problem, or outcome. No technology or invention drives the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story is set in a mythic/remote past: the freshly created world of Eden with a brontosaurus roaming the camp, placing the narrative in a prehistoric/primordial setting rather than the ordinary present.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-bdafbf439949a789",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-a40046fb9d2dcd58",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-17253c3bd35ae02e",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "The premise of a newly created being discovering the world yields consequences (the creation of fire as a new thing, the loss of the Garden after the Fall), but these are more mythic/narrative developments than systematic extrapolation from an identifiable premise.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-851c796bf2b4ae07",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-78a128a6decbfe45",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Eve repeatedly and explicitly champions proof by experiment over conjecture, forms axioms, tests hypotheses (water uphill, buoyancy, distances), and revises understanding through observation; the scientific method is a central, sustained motif of her diary.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-886455bbfa39352f",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-7765e3dda5cbb499",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-ea54a233221dbe05",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-bb389fa0711e0804",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-ef91ae4ed849c747",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is a terrestrial Garden of Eden. Stars and moon are observed from Earth but there is no other planet, dimension, nonordinary cosmic environment, or visitor from such a place.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.4,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "The Fall and expulsion from Eden is a large-scale, world-altering loss remembered by the narrator, and Eve fears the stars will all melt away; these carry a catastrophic register but are mythic/cosmic-comic rather than a concretely realized disaster central to the plot's action.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-78a128a6decbfe45",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-df4b61aa99d72833",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-0bd22585a63d58e0",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0bd22585a63d58e0",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 21202,
+            "output": 1442
+          }
+        },
+        "status": "complete",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__eve_s_diary_complete__twain-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-newly-created-world",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-78a128a6decbfe45",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "The created-world premise draws on a religious/mythic creation frame (the Garden, the Fall) rather than an immanent nonsupernatural account. The 'scheme,' the makers who return the moon, and the Giver point to a supernatural rather than systematic imaginary-science logic, leaving cognitive validation uncertain.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-a40046fb9d2dcd58",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-df4b61aa99d72833",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "description": "The story is set in a freshly created, still-being-finished world (Eden/Garden) in which cosmological and natural features are literal artifacts of a recent act of creation: mountains left ragged, plains cluttered, the moon coming loose and falling out of the sky, and stars that can be reached at the rim of the circle. This totalizing 'newly-minted cosmos' frames the narrator's entire existence and epistemology.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "The narrator's literal beliefs (moon falling out, stars melting, water running uphill in the dark) contrast sharply with reader knowledge of empirical physics, producing estrangement through a defamiliarized cosmos.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-846cba0387949f0c",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-1f8d1f2428cef909",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-4dae3f16ecd83a01",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-a40046fb9d2dcd58",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-df4b61aa99d72833",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-78a128a6decbfe45",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-a40046fb9d2dcd58",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-df4b61aa99d72833",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-17253c3bd35ae02e",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-78a128a6decbfe45",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The freshly-created world governs the whole narrative: the diary form, the naming of creatures, the naive cosmology, and ultimately the loss of the Garden after the Fall all flow from this premise.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-a40046fb9d2dcd58",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-df4b61aa99d72833",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-78a128a6decbfe45",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The world is presented as a recently constructed artifact, materially different from the empirical norm: mountains are 'left in a ragged condition' after a rush of finishing, and the moon literally 'got loose' and 'fell out of the scheme.' This is a totalizing difference altering the story universe's cosmology.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-a40046fb9d2dcd58",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-df4b61aa99d72833",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-17253c3bd35ae02e",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-newborn-cognizing-narrator",
+            "cognitive_validation": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ef91ae4ed849c747",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-17a389f20516df68",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "The narrator develops a coherent, systematic (if error-prone) empirical methodology: forming axioms, insisting on demonstration, and reasoning from cumulative evidence. This is an immanent, nonsupernatural cognitive process even where conclusions are faulty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-886455bbfa39352f",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-ea54a233221dbe05",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-7765e3dda5cbb499",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-bb389fa0711e0804",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "description": "The narrator is a being who came into existence 'a day ago' and constructs knowledge of the entire world from scratch through observation, experiment, naming, and axiom-formation. She invents empirical method (proving by experiment), names all creatures instantly, and identifies fire as a wholly new thing she has created.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-1f8d1f2428cef909",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-aabc326f46e5efa1",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "The reader recognizes fire, men, stars, and hydrology that the newborn narrator misidentifies (a man as a reptile, stars that melt, water running uphill in the dark), estranging familiar things through the eyes of a first cognizer.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4dae3f16ecd83a01",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-17a389f20516df68",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-846cba0387949f0c",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-851c796bf2b4ae07",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-732bd3096620f5a4",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-17253c3bd35ae02e",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-851c796bf2b4ae07",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-886455bbfa39352f",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-ea54a233221dbe05",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The entire text is the first-person record of this newborn cognizing narrator; her process of discovery, naming, and experiment structures every episode and constitutes the narrative's overriding logic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-886455bbfa39352f",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-732bd3096620f5a4",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "A one-day-old adult consciousness building all knowledge from zero, naming every creature as 'the first,' and literally 'adding a new thing to the world' (fire) departs totally from the empirical norm of gradual human development.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-17253c3bd35ae02e",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-851c796bf2b4ae07",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "cand-invention-of-fire",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Fire arises through an immanent, nonsupernatural mechanical process (boring a dry stick), a coherent causal account.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-bb389fa0711e0804",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-732bd3096620f5a4",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "description": "The narrator accidentally produces fire by boring a stick, recognizes it as a wholly new thing, and reflects that she has 'added a new thing to the world's uncountable properties.'",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-aabc326f46e5efa1",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "The reader knows fire as commonplace, but the narrator's wonder at its first-ever appearance and her discovery of fear through it defamiliarizes it.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-851c796bf2b4ae07",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-732bd3096620f5a4",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-851c796bf2b4ae07",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              },
+              {
+                "evidence_id": "sfev-bb389fa0711e0804",
+                "evidence_set_id": "sfes-0bd22585a63d58e0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b1f93c95ec2c3ea2",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-886455bbfa39352f",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ],
+              "rationale": "Fire is a single memorable episode and a device revealing character contrast; it does not determine the overriding narrative logic, which is driven by the narrator's cognition and the relationship with Adam. It is incidental relative to the whole diary.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Fire is presented as literally the first fire, smoke, and flames ever to exist in the world, a new property added to the universe.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-732bd3096620f5a4",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                },
+                {
+                  "evidence_id": "sfev-851c796bf2b4ae07",
+                  "evidence_set_id": "sfes-0bd22585a63d58e0"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "cand-newborn-cognizing-narrator",
+        "evidence_set_id": "sfes-0bd22585a63d58e0",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0bd22585a63d58e0",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 21549,
+            "output": 2992
+          }
+        },
+        "status": "complete",
+        "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-0bd22585a63d58e0",
+    "knight_analysis_id": "mass_quantities__eve_s_diary_complete__twain-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__eve_s_diary_complete__twain-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-0bd22585a63d58e0",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 98,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 43
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-17253c3bd35ae02e",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The narrator describes having just come into existence a day ago.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I am almost a whole day old, now.  I arrived yesterday."
+        },
+        {
+          "anchor": {
+            "end_char": 27224,
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "start_char": 27064
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-17a389f20516df68",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator's mistaken reasoning about water running uphill contrasts with reader knowledge.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I have experimented and experimented until now I know it never does run uphill, except in the dark.  I know it does in the dark, because the pool never goes dry"
+        },
+        {
+          "anchor": {
+            "end_char": 7569,
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "start_char": 7483
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1f8d1f2428cef909",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator is thrilled to hear another being speak for the first time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It gave me a thrill, for it was the first time I had ever heard speech, except my own."
+        },
+        {
+          "anchor": {
+            "end_char": 5648,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 5493
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4dae3f16ecd83a01",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator's naive classification of a man as possibly a reptile contrasts with the reader's knowledge.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It has no hips; it tapers like a carrot; when it stands, it spreads itself apart like a derrick; so I think it is a reptile, though it may be architecture."
+        },
+        {
+          "anchor": {
+            "end_char": 16793,
+            "paragraph_ids": [
+              "p00037"
+            ],
+            "start_char": 16654
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-732bd3096620f5a4",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator identifies and names the newly produced substance as fire.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I was curious to know what the pink dust was.  Suddenly the name of it occurred to me, though I had never heard of it before.  It was FIRE!"
+        },
+        {
+          "anchor": {
+            "end_char": 5152,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 5036
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7765e3dda5cbb499",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator observes another creature to determine its purpose.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I followed the other Experiment around, yesterday afternoon, at a distance, to see what it might be for, if I could."
+        },
+        {
+          "anchor": {
+            "end_char": 30162,
+            "paragraph_ids": [
+              "p00069"
+            ],
+            "start_char": 29996
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-78a128a6decbfe45",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrator describes the loss of the Garden after the Fall.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When I look back, the Garden is a dream to me.  It was beautiful, surpassingly beautiful, enchantingly beautiful; and now it is lost, and I shall not see it any more."
+        },
+        {
+          "anchor": {
+            "end_char": 29573,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 29475
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-846cba0387949f0c",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator's belief that stars melt contrasts with the reader's understanding of stars.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I have seen some of the best ones melt and run down the sky. Since one can melt, they can all melt"
+        },
+        {
+          "anchor": {
+            "end_char": 17021,
+            "paragraph_ids": [
+              "p00038"
+            ],
+            "start_char": 16910
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-851c796bf2b4ae07",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The narrator recognizes she has introduced fire, a new thing, into the world.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I had created something that didn't exist before; I had added a new thing to the world's uncountable properties"
+        },
+        {
+          "anchor": {
+            "end_char": 27450,
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "start_char": 27297
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-886455bbfa39352f",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator articulates a method of proving things by experiment rather than conjecture.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is best to prove things by actual experiment; then you KNOW; whereas if you depend on guessing and supposing and conjecturing, you never get educated."
+        },
+        {
+          "anchor": {
+            "end_char": 1509,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 1316
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a40046fb9d2dcd58",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrator describes a newly created world still being finished and tidied.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the rush of finishing up yesterday, the mountains were left in a ragged condition, and some of the plains were so cluttered with rubbish and remnants that the aspects were quite distressing."
+        },
+        {
+          "anchor": {
+            "end_char": 3352,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 3169
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a92ef6e63cbb89d6",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator attempts to reach the stars physically and learns they are unreachable.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When they first showed, last night, I tried to knock some down with a pole, but it didn't reach, which astonished me; then I tried clods till I was all tired out, but I never got one."
+        },
+        {
+          "anchor": {
+            "end_char": 20767,
+            "paragraph_ids": [
+              "p00051"
+            ],
+            "start_char": 20612
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-aabc326f46e5efa1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator describes discovering and being distressed by the new emotion of fear.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "FEAR.  And it is horrible!--I wish I had never discovered it; it gives me dark moments, it spoils my happiness, it makes me shiver and tremble and shudder."
+        },
+        {
+          "anchor": {
+            "end_char": 851,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 593
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b1f93c95ec2c3ea2",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator reflects on her own nature and concludes she is an experiment.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For I feel like an experiment, I feel exactly like an experiment; it would be impossible for a person to feel more like an experiment than I do, and so I am coming to feel convinced that that is what I AM--an experiment; just an experiment, and nothing more."
+        },
+        {
+          "anchor": {
+            "end_char": 15726,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 15603
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bb389fa0711e0804",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator experiments by boring a hole to produce an effect.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I laid a dry stick on the ground and tried to bore a hole in it with another one, in order to carry out a scheme that I had"
+        },
+        {
+          "anchor": {
+            "end_char": 22664,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 22549
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bdafbf439949a789",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "A brontosaurus appears in the story's world, placing it in a prehistoric or mythical setting.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When the mighty brontosaurus came striding into camp, she regarded it as an acquisition, I considered it a calamity"
+        },
+        {
+          "anchor": {
+            "end_char": 1945,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 1855
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-df4b61aa99d72833",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The moon is described as coming loose and falling out of its place in the sky.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The moon got loose last night, and slid down and fell out of the scheme--a very great loss"
+        },
+        {
+          "anchor": {
+            "end_char": 4986,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 4860
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ea54a233221dbe05",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator forms a generalized rule from her experience with thorns.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I learned a lesson; also I made an axiom, all out of my own head--my very first one; THE SCRATCHED EXPERIMENT SHUNS THE THORN."
+        },
+        {
+          "anchor": {
+            "end_char": 28205,
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "start_char": 28037
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ef91ae4ed849c747",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator reasons by cumulative evidence from experiments, drawing a faulty conclusion.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By experiment I know that wood swims, and dry leaves, and feathers, and plenty of other things; therefore by all that cumulative evidence you know that a rock will swim"
+        }
+      ],
+      "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/eve_s_diary_complete__twain",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+  "story_path": "mass_quantities/eve_s_diary_complete__twain/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

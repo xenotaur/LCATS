@@ -1,0 +1,24 @@
+{
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_evidence.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut"
+}
