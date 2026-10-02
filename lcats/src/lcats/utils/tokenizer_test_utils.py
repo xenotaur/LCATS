@@ -48,7 +48,7 @@ def fake_encoding_for_model(_model):
 def patch_chunking_encoding_for_model():
     """Patch chunking's tiktoken model lookup at the LCATS boundary."""
     return unittest.mock.patch(
-        "lcats.chunking.tiktoken.encoding_for_model",
+        "lcats.chunking._get_encoding_for_model",
         side_effect=fake_encoding_for_model,
     )
 
@@ -56,7 +56,7 @@ def patch_chunking_encoding_for_model():
 def patch_chunking_encoding_for_model_with(encoder):
     """Patch chunking's tiktoken model lookup to return a specific encoder."""
     return unittest.mock.patch(
-        "lcats.chunking.tiktoken.encoding_for_model",
+        "lcats.chunking._get_encoding_for_model",
         return_value=encoder,
     )
 

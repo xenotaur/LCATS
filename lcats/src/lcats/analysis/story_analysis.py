@@ -2,6 +2,7 @@
 
 import ast
 import collections
+import functools
 import re
 
 from typing import Any, Dict, List, Optional, Sequence, Tuple
@@ -170,6 +171,7 @@ def token_count(text: str, enc: Optional["tiktoken.Encoding"] = None) -> int:
     return len(enc.encode(text, disallowed_special=()))
 
 
+@functools.lru_cache(maxsize=1)
 def get_encoder() -> "tiktoken.Encoding":
     """Prefer GPT-4o-ish tokens; fallback to cl100k_base."""
     for name in ("o200k_base", "cl100k_base"):
