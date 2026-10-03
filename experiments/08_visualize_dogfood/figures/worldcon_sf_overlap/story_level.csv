@@ -1,0 +1,147 @@
+story_id,selection_genre,metadata_candidates,model_genre,model_confidence,genre_agreement,knight_band,knight_definite,knight_possible,knight_status,suvin_outcome,suvin_qualified_count,suvin_status
+anderson/bell,fantasy,fantasy,fantasy,0.72,agreement,0,0,1,complete,not qualified,0,complete
+anderson/dream_of_little_tuk,fantasy,fantasy,fantasy,0.78,agreement,1-2,1,1,complete,not qualified,0,complete
+anderson/elderbush,fantasy,fantasy,fantasy,0.9,agreement,0,0,0,complete,not qualified,0,complete
+anderson/emperor_s_new_clothes,fantasy,fantasy,fantasy,0.6,agreement,0,0,0,complete,not qualified,0,complete
+anderson/false_collar,fantasy,fantasy,fantasy,0.7,agreement,0,0,0,complete,not qualified,0,complete
+anderson/fir_tree,fantasy,fantasy,fantasy,0.85,agreement,0,0,0,complete,not qualified,0,complete
+anderson/happy_family,fantasy,fantasy,fantasy,0.72,agreement,0,0,2,complete,not qualified,0,complete
+anderson/leap_frog,fantasy,fantasy,fantasy,0.6,agreement,0,0,0,complete,not qualified,0,complete
+anderson/little_match_girl,fantasy,fantasy,fantasy,0.6,agreement,0,0,0,complete,not qualified,0,complete
+anderson/naughty_boy,fantasy,fantasy,fantasy,0.72,agreement,0,0,0,complete,not qualified,0,complete
+anderson/old_house,fantasy,fantasy,fantasy,0.85,agreement,0,0,0,complete,not qualified,0,complete
+anderson/real_princess,fantasy,fantasy,fantasy,0.75,agreement,0,0,1,complete,not qualified,0,complete
+anderson/red_shoes,fantasy,fantasy,fantasy,0.7,agreement,0,0,0,complete,not qualified,0,complete
+anderson/shadow,fantasy,fantasy,fantasy,0.85,agreement,0,0,1,complete,not qualified,0,complete
+anderson/shoes_of_fortune,fantasy,fantasy,fantasy,0.85,agreement,3-4,3,6,complete,not qualified,0,complete
+anderson/snow_queen,fantasy,fantasy,fantasy,0.95,agreement,0,0,3,complete,not qualified,0,complete
+anderson/story_of_a_mother,fantasy,fantasy,fantasy,0.82,agreement,0,0,1,complete,not qualified,0,complete
+anderson/swineherd,fantasy,fantasy,fantasy,0.7,agreement,0,0,0,complete,not qualified,0,complete
+chesterton/blue_cross,mystery,mystery,mystery,0.97,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/eye_of_apollo,mystery,mystery,mystery,0.97,agreement,1-2,1,3,complete,not qualified,0,complete
+chesterton/flying_stars,mystery,mystery,mystery,0.92,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/hammer_of_god,mystery,mystery,mystery,0.97,agreement,1-2,2,2,complete,not qualified,0,complete
+chesterton/honour_of_israel_gow,mystery,mystery,mystery,0.95,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/invisible_man,mystery,mystery,mystery,0.97,agreement,0,0,0,complete,failed,,failed
+chesterton/queer_feet,mystery,mystery,mystery,0.95,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/secret_garden,mystery,mystery,mystery,0.98,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/sign_of_the_broken_sword,mystery,mystery,mystery,0.95,agreement,1-2,2,2,complete,not qualified,0,complete
+chesterton/sins_of_prince_saradine,mystery,mystery,mystery,0.95,agreement,0,0,1,complete,not qualified,0,complete
+chesterton/three_tools_of_death,mystery,mystery,mystery,0.98,agreement,1-2,1,1,complete,not qualified,0,complete
+chesterton/wrong_shape,mystery,mystery,mystery,0.97,agreement,0,0,0,complete,not qualified,0,complete
+grimm/adventures_of_chanticleer_and_partlet,fantasy,fantasy,fantasy,0.75,agreement,0,0,0,complete,not qualified,0,complete
+grimm/ashputtel,fantasy,fantasy,fantasy,0.85,agreement,0,0,0,complete,not qualified,0,complete
+london/brown_wolf,western,western;adventure,adventure,0.55,agreement,0,0,1,complete,not qualified,0,complete
+london/day_s_lodging,western,western;adventure,western,0.55,agreement,0,0,1,complete,not qualified,0,complete
+london/love_of_life,western,western;adventure,adventure,0.85,agreement,0,0,0,complete,failed,,failed
+london/negore_the_coward,western,western;adventure,adventure,0.6,agreement,0,0,2,complete,not qualified,0,complete
+london/story_of_keesh,western,western;adventure,adventure,0.7,agreement,1-2,2,4,complete,not qualified,0,complete
+london/sun_dog_trail,western,western;adventure,adventure,0.72,agreement,0,0,1,complete,not qualified,0,complete
+london/unexpected,western,western;adventure,adventure,0.6,agreement,0,0,3,complete,not qualified,0,complete
+london/white_man_s_way,western,western;adventure,other,0.55,disagreement,0,0,0,complete,not qualified,0,complete
+lovecraft/cool_air,horror,horror,horror,0.98,agreement,3-4,3,4,complete,qualified,1,complete
+lovecraft/he,horror,horror,horror,0.97,agreement,1-2,1,4,complete,not qualified,0,complete
+lovecraft/the_call_of_cthulhu,horror,horror,horror,0.98,agreement,5-7,5,6,complete,qualified,1,complete
+lovecraft/the_colour_out_of_space,science fiction,science fiction;horror,horror,0.9,agreement,5-7,5,5,complete,qualified,1,complete
+lovecraft/the_festival,horror,horror,horror,0.98,agreement,0,0,2,complete,not qualified,0,complete
+lovecraft/the_haunter_of_the_dark,horror,horror,horror,0.99,agreement,3-4,4,6,complete,qualified,1,complete
+lovecraft/the_horror_at_red_hook,horror,horror,horror,0.98,agreement,1-2,1,5,complete,not qualified,0,complete
+lovecraft/the_lurking_fear,horror,horror,horror,0.99,agreement,3-4,4,5,complete,qualified,1,complete
+lovecraft/the_shunned_house,horror,horror,horror,0.98,agreement,3-4,4,6,complete,qualified,1,complete
+lovecraft/the_thing_on_the_doorstep,horror,horror,horror,0.98,agreement,1-2,1,6,complete,qualified,1,complete
+mass_quantities/1_000_a_plate__mckenty,science fiction,science fiction,science fiction,0.85,agreement,5-7,6,6,complete,qualified,1,complete
+mass_quantities/2_b_r_0_2_b__vonnegut,science fiction,science fiction,science fiction,0.97,agreement,3-4,4,5,complete,qualified,1,complete
+mass_quantities/30deg_cattywonkus__bell,science fiction,science fiction,science fiction,0.85,agreement,3-4,4,6,complete,qualified,1,complete
+mass_quantities/6_frightened_men__silverberg,science fiction,science fiction;adventure,science fiction,0.95,agreement,3-4,4,6,complete,qualified,1,complete
+mass_quantities/8_million_dollars_from_mars__marks,science fiction,science fiction,science fiction,0.97,agreement,5-7,5,5,complete,qualified,1,complete
+mass_quantities/a_bad_day_for_sales__leiber,science fiction,science fiction,science fiction,0.97,agreement,3-4,4,5,complete,qualified,1,complete
+mass_quantities/a_bad_day_for_vermin__laumer,science fiction,science fiction,science fiction,0.85,agreement,1-2,2,4,complete,qualified,2,complete
+mass_quantities/a_bottle_of_old_wine__lewis,science fiction,science fiction,science fiction,0.85,agreement,1-2,2,4,complete,qualified,1,complete
+mass_quantities/a_case_of_sunburn__fontenay,science fiction,science fiction,science fiction,0.98,agreement,5-7,6,7,complete,qualified,1,complete
+mass_quantities/a_city_near_centaurus__doede,science fiction,science fiction,science fiction,0.97,agreement,5-7,6,6,complete,qualified,1,complete
+mass_quantities/a_cold_night_for_crying__marlowe,science fiction,science fiction,science fiction,0.92,agreement,5-7,5,5,complete,qualified,1,complete
+mass_quantities/a_drift_from_redwood_camp__harte,western,western,western,0.72,agreement,1-2,1,2,complete,not qualified,0,complete
+mass_quantities/a_fall_of_glass__lee,science fiction,science fiction,science fiction,0.92,agreement,5-7,5,6,complete,qualified,1,complete
+mass_quantities/a_filbert_is_a_nut__raphael,science fiction,science fiction,humor,0.72,disagreement,5-7,5,5,complete,not qualified,0,complete
+mass_quantities/a_gift_for_terra__holden,science fiction,science fiction,science fiction,0.98,agreement,5-7,6,7,complete,qualified,3,complete
+mass_quantities/a_gift_from_earth__banister,science fiction,science fiction,science fiction,0.97,agreement,3-4,3,5,complete,qualified,1,complete
+mass_quantities/a_great_day_for_the_irish__hopf,science fiction,science fiction,science fiction,0.85,agreement,5-7,7,7,complete,not qualified,0,complete
+mass_quantities/a_hitch_in_space__leiber,science fiction,science fiction,science fiction,0.9,agreement,5-7,6,7,complete,not qualified,0,complete
+mass_quantities/a_husband_for_my_wife__stuart,science fiction,science fiction,science fiction,0.85,agreement,3-4,3,5,complete,qualified,1,complete
+mass_quantities/a_jar_of_jelly_beans__gregory,science fiction,science fiction,science fiction,0.97,agreement,5-7,5,6,complete,qualified,1,complete
+mass_quantities/a_philanthropist__bacon,romance,romance,romance,0.6,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/a_prevaricated_parade__tuttle,western,western,humor,0.92,disagreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/a_reversion_to_type__bacon,romance,romance,romance,0.82,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/ajax_for_example__tuttle,western,western;humor,western,0.85,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/all_wool__tuttle,western,western;adventure,western,0.95,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/amy_foster__conrad,romance,romance,other,0.6,disagreement,1-2,1,1,complete,not qualified,0,complete
+mass_quantities/back_home__davis,mystery,mystery,western,0.82,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/bearly_reasonable__tuttle,western,western,humor,0.85,disagreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/brown_john_s_body__marks,horror,horror,horror,0.85,agreement,0,0,2,complete,qualified,1,complete
+mass_quantities/cinders__tuttle,western,western;adventure;romance,western,0.85,agreement,0,0,0,complete,failed,,failed
+mass_quantities/cold_ghost__geier,horror,horror,horror,0.85,agreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/cool_air__lovecraft,horror,horror,horror,0.98,agreement,3-4,3,4,complete,qualified,1,complete
+mass_quantities/country_lodgings__mitford,romance,romance,romance,0.85,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/creepin_tintypes__tuttle,western,western;adventure,humor,0.85,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/death_and_taxes__hartzell,romance,romance,humor,0.82,disagreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/dig_me_no_grave__howard,horror,horror,horror,0.98,agreement,1-2,1,4,complete,not qualified,0,complete
+mass_quantities/dirty_work_for_doughgod__tuttle,western,western,humor,0.95,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/don_t_think_about_it__stuart,horror,horror,horror,0.88,agreement,0,0,3,complete,not qualified,0,complete
+mass_quantities/doom_of_the_house_of_duryea__peirce,horror,horror,horror,0.98,agreement,0,0,2,complete,not qualified,0,complete
+mass_quantities/dough_or_dynamite__tuttle,western,western,western,0.85,agreement,0,0,0,complete,failed,,failed
+mass_quantities/each_man_kills__glad,horror,horror,horror,0.97,agreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/easy_come_easy_go__sabin,western,western,western,0.97,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/easy_money__sinclair,western,western,western,0.97,agreement,0,0,2,complete,not qualified,0,complete
+mass_quantities/especially_dance_hall_women__ellerbe_ellerbe,western,western;romance,romance,0.72,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/eve_s_diary_complete__twain,humor,humor,humor,0.72,agreement,1-2,2,6,complete,not qualified,0,complete
+mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain,humor,humor,humor,0.92,agreement,0,0,4,complete,not qualified,0,complete
+mass_quantities/he__lovecraft,horror,horror,horror,0.98,agreement,1-2,2,5,complete,not qualified,0,complete
+mass_quantities/in_the_dark__clark,horror,horror,horror,0.95,agreement,0,0,3,complete,not qualified,0,complete
+mass_quantities/in_the_valley_of_the_shadow__bacon,romance,romance,romance,0.75,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/into_the_blue__austin,romance,romance,adventure,0.6,disagreement,0,0,4,complete,not qualified,0,complete
+mass_quantities/isle_of_the_undead__eshbach,horror,horror,horror,0.97,agreement,1-2,1,4,complete,not qualified,0,complete
+mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope,romance,romance,romance,0.72,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/julia_the_apostate__bacon,romance,romance,humor,0.72,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/le_monsieur_de_la_petite_dame__burnett,romance,romance,romance,0.92,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/listen_children_listen__west,horror,horror,horror,0.72,agreement,0,0,2,complete,not qualified,0,complete
+mass_quantities/long_odds__haggard,adventure,adventure,adventure,0.85,agreement,0,0,2,complete,not qualified,0,complete
+mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope,romance,romance,romance,0.85,agreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/mrs_dud_s_sister__bacon,romance,romance,romance,0.85,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/mrs_general_talboys__trollope,romance,romance,romance,0.72,agreement,0,0,0,complete,failed,,failed
+mass_quantities/mrs_korner_sins_her_mercies__jerome,romance,romance,humor,0.9,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/my_friend_the_murderer__doyle,mystery,mystery,adventure,0.6,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/one_day_at_arle__burnett,romance,romance,romance,0.78,agreement,0,0,0,complete,failed,,failed
+mass_quantities/passion_fruit__stacpoole,romance,romance,romance,0.55,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/puppet_government__revelle,humor,humor,science fiction,0.85,disagreement,1-2,1,4,complete,qualified,1,complete
+mass_quantities/splashes_of_red__davis,mystery,mystery;romance,mystery,0.85,agreement,0,0,0,complete,failed,,failed
+mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke,adventure,adventure,adventure,0.75,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_adventure_of_the_dying_detective__doyle,mystery,mystery,mystery,0.98,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_adventure_of_the_red_circle__doyle,mystery,mystery,mystery,0.98,agreement,1-2,1,1,complete,not qualified,0,complete
+mass_quantities/the_courting_of_lady_jane__bacon,romance,romance,romance,0.95,agreement,0,0,0,complete,failed,,failed
+mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain,humor,humor,humor,0.9,agreement,0,0,2,complete,qualified,1,complete
+mass_quantities/the_girl_in_the_crowd__terhune,romance,romance,romance,0.55,agreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/the_gray_brotherhood__leverage,mystery,mystery,mystery,0.88,agreement,1-2,1,4,complete,not qualified,0,complete
+mass_quantities/the_house_of_heine_brothers_in_munich__trollope,romance,romance,romance,0.9,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_hunter_s_lodge_case__christie,mystery,mystery,mystery,0.99,agreement,1-2,1,1,complete,not qualified,0,complete
+mass_quantities/the_lamplighter__dickens,humor,humor,humor,0.85,agreement,0,0,3,complete,not qualified,0,complete
+mass_quantities/the_leak__futrelle,mystery,mystery,mystery,0.97,agreement,1-2,2,4,complete,not qualified,0,complete
+mass_quantities/the_marriage_of_william_durrant__cummings,romance,romance,other,0.75,disagreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_pirate_s_pocket_book__calthrop,humor,humor,humor,0.95,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_red_fetish__long,adventure,adventure,horror,0.6,disagreement,0,0,1,complete,not qualified,0,complete
+mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope,humor,humor,humor,0.85,agreement,0,0,0,complete,failed,,failed
+mass_quantities/the_seven_missionaries__mcneile,adventure,adventure,adventure,0.7,agreement,1-2,2,4,complete,not qualified,0,complete
+mass_quantities/the_spring_of_a_lion__haggard,adventure,adventure,adventure,0.85,agreement,0,0,0,complete,not qualified,0,complete
+mass_quantities/the_westminster_alice__saki,humor,humor,humor,0.7,agreement,0,0,4,complete,not qualified,0,complete
+mass_quantities/to_the_lights__norton,adventure,adventure,adventure,0.7,agreement,0,0,0,complete,failed,,failed
+wodehouse/at_geisenheimer_s,humor,humor,humor,0.82,agreement,0,0,0,complete,not qualified,0,complete
+wodehouse/bill_the_bloodhound,humor,humor,humor,0.9,agreement,0,0,0,complete,not qualified,0,complete
+wodehouse/black_for_luck,humor,humor,romance,0.75,disagreement,0,0,0,complete,not qualified,0,complete
+wodehouse/crowned_heads,humor,humor,humor,0.8,agreement,0,0,1,complete,not qualified,0,complete
+wodehouse/extricating_young_gussie,humor,humor,humor,0.95,agreement,0,0,0,complete,not qualified,0,complete
+wodehouse/making_of_mac_s,humor,humor,romance,0.7,disagreement,0,0,0,complete,failed,,failed
+wodehouse/man_with_two_left_feet,humor,humor,humor,0.85,agreement,0,0,0,complete,failed,,failed
+wodehouse/mixer,humor,humor,humor,0.85,agreement,0,0,1,complete,not qualified,0,complete
+wodehouse/one_touch_of_nature,humor,humor,humor,0.75,agreement,0,0,0,complete,not qualified,0,complete
+wodehouse/romance_of_an_ugly_policeman,humor,humor,romance,0.85,disagreement,0,0,0,complete,not qualified,0,complete
+wodehouse/sea_of_troubles,humor,humor,humor,0.95,agreement,0,0,3,complete,not qualified,0,complete
+wodehouse/wilton_s_holiday,humor,humor,humor,0.85,agreement,0,0,0,complete,failed,,failed

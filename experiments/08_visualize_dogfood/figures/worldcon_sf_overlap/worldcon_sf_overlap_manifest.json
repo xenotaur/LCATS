@@ -1,0 +1,21 @@
+{
+  "prototype": "worldcon-sf-overlap-option-1-plus-option-4-v1",
+  "universe": {
+    "story_count": 146,
+    "source_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "science_fiction_root": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z"
+  },
+  "definitions": {
+    "metadata_genre": "selection_genre; inclusive candidate memberships remain in metadata_candidates",
+    "model_genre": "model_detect.result.detected_genre",
+    "agreement": "model_detect.result.agrees_with_metadata_rules",
+    "knight_band": "definite Knight interval: 0, 1-2, 3-4, or 5-7",
+    "suvin_outcome": "qualified, not qualified, or failed analysis",
+    "panel_c": "nested stack: Knight band order with Suvin outcome subdivisions"
+  },
+  "notes": [
+    "Primary/selection genre counts are mutually exclusive.",
+    "metadata_candidates preserves multi-genre overlap for a future inclusive view.",
+    "This prototype does not interpret genre labels as theoretical truth or human agreement."
+  ]
+}
