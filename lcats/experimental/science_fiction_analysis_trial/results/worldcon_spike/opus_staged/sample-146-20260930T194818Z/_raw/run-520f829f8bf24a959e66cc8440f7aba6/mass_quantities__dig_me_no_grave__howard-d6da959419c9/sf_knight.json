@@ -1,0 +1,103 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18718,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1380,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/dig_me_no_grave__howard",
+  "story_path": "mass_quantities/dig_me_no_grave__howard/story.json",
+  "text": "",
+  "title": "Dig me no grave",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-8a46f252b0e8f9d5",
+          "sfev-9befca01c27cc38a"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The only science-flavored content is Conrad's speculative disease/hereditary-taint rationalization, which is offered and then discarded as inadequate. There is no scientific fact, theory, discovery, or natural process materially represented; the story is supernatural/occult in framing.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, engineered system, or invention materially affects the setting or outcome. Candles, parchment, and an incantation are ritual/occult objects, not technology or invention in the SF sense.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "Grimlan's 300-year lifespan (1630-1930) and unaging appearance constitute temporal displacement of a sort, but it is framed as a supernatural/Faustian bargain rather than speculative future, remote past, or mechanical time travel, so the reading is plausible but interpretively uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-13b4da14d1ceecfc",
+          "sfev-1a4b28f39d24e134",
+          "sfev-45c2bba928000350",
+          "sfev-4f2d5cfb6f37d468"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "The story develops consequences from an identifiable premise (a bargain for a 250-year extended life), tracing it to the fated night of payment. However, the premise is a supernatural pact rather than a scientific/technological one, so extrapolation is present in structure but uncertain in kind.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-2c44d601402a4f3b",
+          "sfev-4f2d5cfb6f37d468",
+          "sfev-45c2bba928000350"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-6d8c8b8c936a8e0c",
+          "sfev-5fd4fafe44bb53ce"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Conrad's discreet inquiries and the narrator's rationalizations are generic investigation and denial, not systematic hypothesis-testing, measurement, or evidential revision that drives understanding. The men ultimately accept a supernatural explanation, not a methodically derived one.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "substantial",
+        "rationale": "References to the dead city of Koth, the Elder Ones, and an otherworldly visitor (the oriental figure/bat-shadow entity that appears and vanishes from a locked room) evoke nonordinary cosmic environments and a visitor from beyond, but these are supernatural/demonic rather than clearly cosmic-SF, leaving materiality and interpretation uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-5f98090682757587",
+          "sfev-c246f0c39a357f8d"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "The climax features the house consumed by a crimson inferno that collapses in an earth-shaking roar, an actual large-scale destructive conflagration causally central to the story's resolution and Grimlan's claiming.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-000811b1f07dc176",
+          "sfev-975b74e334332d6e"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 5785,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1706,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "anderson/dream_of_little_tuk",
+  "story_path": "anderson/dream_of_little_tuk/story.json",
+  "text": "",
+  "title": "Anderson - The Dream Of Little Tuk",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The boy enters an ambiguous state between sleeping and waking as his dream begins.",
+        "quote": "all at once it was just as if someone kissed his eyes and\n      mouth: he slept, and yet he did not sleep",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The geography book under his pillow starts to make noises, marking the dream's onset.",
+        "quote": "And all of a sudden the book under Tuk's pillow began scraping and\n      scratching.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "A hen appears and speaks, representing the town of Kjoge.",
+        "quote": "that was an old hen who came\n      creeping along, and she was from Kjoge. \"I am a Kjoger hen,\" said she",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "The boy is suddenly transported from his bed to riding a horse through the countryside.",
+        "quote": "But little Tuk was no longer lying down: all at once he was on horseback.\n      On he went at full gallop, still galloping on and on.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "The medieval town and palace collapse at sunrise, leaving only one tower.",
+        "quote": "as soon as the sun appeared, the whole town and the king's palace crumbled\n      together, and one tower after the other; and at last only a single one\n      remained standing where the castle had been before",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "The dream moves back to a past era when Bordingborg was a great town with King Waldemar.",
+        "quote": "thus they rode through the wood to the old town of Bordingborg,\n      and that was a large and very lively town. High towers rose from the\n      castle of the king",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00013"
+        ],
+        "paraphrase": "Corsor is described as growing thanks to steam-boats and stagecoaches.",
+        "quote": "That is a town that is just rising into\n      importance; a lively town that has steam-boats and stagecoaches: formerly\n      people called it ugly, but that is no longer true.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00017"
+        ],
+        "paraphrase": "The peasant-woman transforms back and forth between a frog and a woman.",
+        "quote": "She was now suddenly a frog, \"Croak\"; and now she was an old woman.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00020"
+        ],
+        "paraphrase": "His baby sister appears grown up and flying without wings over the land.",
+        "quote": "his little sister Augusta, she with the blue eyes and the fair curling hair,\n      was suddenly a tall, beautiful girl, and without having wings was yet able\n      to fly; and she now flew over Zealand",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "A voice foretells the boy's prosperous and renowned future.",
+        "quote": "You will have a farm-yard, so large, oh! so very large! You\n      will suffer neither hunger nor thirst! You will get on in the world! You\n      will be a rich and happy man!",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "Upon waking, the boy cannot remember his dream.",
+        "quote": "It was bright day, and he was\n      now quite unable to call to mind his dream",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00025"
+        ],
+        "paraphrase": "After the dream, the boy suddenly knows his entire geography lesson.",
+        "quote": "And out of bed he jumped, and read in his book, and now all at once he\n      knew his whole lesson.",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

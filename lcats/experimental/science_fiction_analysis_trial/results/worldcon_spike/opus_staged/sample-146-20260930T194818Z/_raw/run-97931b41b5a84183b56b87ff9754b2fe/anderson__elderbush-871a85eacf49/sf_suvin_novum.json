@@ -1,0 +1,91 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13065,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1328,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/elderbush",
+  "story_path": "anderson/elderbush/story.json",
+  "text": "",
+  "title": "Anderson - The Elderbush",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-remembrance-elder-personification",
+        "character_reaction_evidence_ids": [
+          "sfev-3c9dd82c68180dd5",
+          "sfev-5ea5b92714c5fc2e",
+          "sfev-6e47d065db2b4dea"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The story offers no systematic, immanent, nonsupernatural account. The figure is expressly a Dryad/allegorical 'Remembrance' and the only 'explanation' ('the most wonderful fairy tales grow out of reality') is poetic and supernatural/allegorical rather than a coherent immanent logic. This is fairy-tale magic, not cognitive estrangement.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-fa463018096cde8b",
+            "sfev-32ac0233f2f1b312"
+          ]
+        },
+        "description": "A living personification named 'Remembrance' (also called Old Nanny/Dryad) who emerges from the Elder Tree that magically grows out of a tea-pot, transforms age, carries the boy in an aerial dwelling, and compresses seasons and a lifetime into a flight through Denmark.",
+        "estrangement_rationale": "Reader-facing contrast between the marvelous tree bursting from the tea-pot and the mundane tea-pot standing empty afterward; character reactions register the ambiguity between dream, story, and reality.",
+        "evidence_ids": [
+          "sfev-12189620d12ea471",
+          "sfev-784460395d383ad0",
+          "sfev-eda75db5ea78933b",
+          "sfev-3682d503cac38f65",
+          "sfev-d82150fa1c7555ba",
+          "sfev-32ac0233f2f1b312",
+          "sfev-fa463018096cde8b",
+          "sfev-9261b561431efa27",
+          "sfev-3c9dd82c68180dd5",
+          "sfev-5ea5b92714c5fc2e",
+          "sfev-6e47d065db2b4dea",
+          "sfev-1efa4374476734a4"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The personified Elder/Remembrance governs the entire narrative logic: the framing tale, the embedded lifetime, the flight, and the closing crowns all flow from her, making her the overriding organizing device.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-784460395d383ad0",
+            "sfev-d82150fa1c7555ba",
+            "sfev-32ac0233f2f1b312",
+            "sfev-3682d503cac38f65"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-9261b561431efa27"
+          ],
+          "rationale": "A tree that grows from a tea-pot, an old woman who becomes a young maiden, an aerial dwelling that flies, and seasons/lifetimes traversed in a single ride constitute a totalizing departure from the empirical norm; yet the vision dissolves back into an ordinary tea-pot, keeping the difference vision-bound.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-12189620d12ea471",
+            "sfev-784460395d383ad0",
+            "sfev-eda75db5ea78933b",
+            "sfev-d82150fa1c7555ba",
+            "sfev-3682d503cac38f65"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-9261b561431efa27"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-12189620d12ea471",
+          "sfev-784460395d383ad0",
+          "sfev-eda75db5ea78933b",
+          "sfev-3682d503cac38f65",
+          "sfev-d82150fa1c7555ba"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_evidence.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/anderson__happy_family-95043e4fd81e/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "anderson/happy_family"
+}

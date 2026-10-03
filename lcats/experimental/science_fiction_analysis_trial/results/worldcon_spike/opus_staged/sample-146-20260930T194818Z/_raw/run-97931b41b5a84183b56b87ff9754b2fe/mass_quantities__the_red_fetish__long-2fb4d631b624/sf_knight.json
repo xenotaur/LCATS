@@ -1,0 +1,87 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14872,
+  "model": "claude-opus-4-8",
+  "output_tokens": 977,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/the_red_fetish__long",
+  "story_path": "mass_quantities/the_red_fetish__long/story.json",
+  "text": "",
+  "title": "The red fetish",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "incidental",
+        "rationale": "The narration offers a real physiological observation that drinking sea water intoxicates and harms, a natural-process fact. But it is a passing aside, not a materially developed scientific representation.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-d1cd5b126c6c8bb3"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, engineered system, or invention materially affects the setting or outcome. Knives, clam shells, and a discarded hat are ordinary objects.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in an ordinary contemporary tropical present with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No identifiable scientific, technological, social, or historical premise is systematically developed into extrapolated consequences; the tale is an ironic survival vignette.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No observation, hypothesis, testing, measurement, or evidential revision materially drives understanding or action; characters act on desperation and superstition.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The setting is an ordinary Pacific island with cannibal inhabitants; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The deaths and shipwreck are personal misfortunes and localized violence, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. The evidence describes individual fates, not catastrophe of broad scale.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-6d4ce70057277471",
+          "sfev-07266c744eacccb6"
+        ]
+      }
+    ]
+  }
+}

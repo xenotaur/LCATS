@@ -1,0 +1,94 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 22095,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1210,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "chesterton/sign_of_the_broken_sword",
+  "story_path": "chesterton/sign_of_the_broken_sword/story.json",
+  "text": "",
+  "title": "Chesterton - The Sign Of the Broken Sword",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a detective mystery about a historical military betrayal. No scientific facts, theories, natural processes, or speculative sciences are materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Swords, rifles, and artillery are ordinary period military tools mentioned incidentally, not engineered inventions that speculatively affect the setting or drive a science-fictional problem. No novel device or invention is present.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The tale is set in a recognizable contemporary/near-past England and colonial theater with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The 'hide a leaf in the forest / hide a corpse in a field of corpses' reasoning is a moral/logical analogy driving the murderer's cover-up, not consequences developed from an identifiable scientific, technological, social, or historical premise in the science-fictional sense.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-b3e66c6c39742f8d",
+          "sfev-cedd9ca3c51b3126"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "central",
+        "rationale": "Father Brown systematically gathers evidence, orders it logically, reframes questions, and reasons from the timing of the colonel's wound that the sword was broken before the battle. This systematic evidential inference materially drives the resolution, though it is deductive detection rather than natural science.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-346488c3221c1020",
+          "sfev-594ef512bdeea037",
+          "sfev-7c8afabb84111d78",
+          "sfev-bee75ce5918f74e4",
+          "sfev-e4680ff716f78ea7"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "All settings are terrestrial (English forest, Brazil, colonial theaters). No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear; Brazil is an ordinary foreign country.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "substantial",
+        "rationale": "The deliberate sacrifice of eight hundred English soldiers marched to their deaths to conceal a single murder is a large-scale, human-caused disaster that is causally central to the plot's hidden truth. It is not a speculative cosmic/biological catastrophe but is large-scale and central.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-a30ccdbb696441ed",
+          "sfev-cedd9ca3c51b3126"
+        ]
+      }
+    ]
+  }
+}

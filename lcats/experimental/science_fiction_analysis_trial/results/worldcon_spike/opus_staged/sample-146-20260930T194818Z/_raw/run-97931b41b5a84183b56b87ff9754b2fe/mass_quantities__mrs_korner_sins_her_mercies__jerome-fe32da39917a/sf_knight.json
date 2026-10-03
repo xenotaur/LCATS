@@ -1,0 +1,82 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14154,
+  "model": "claude-opus-4-8",
+  "output_tokens": 896,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/mrs_korner_sins_her_mercies__jerome",
+  "story_path": "mass_quantities/mrs_korner_sins_her_mercies__jerome/story.json",
+  "text": "",
+  "title": "Mrs. Korner Sins Her Mercies",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied; the story is a domestic comedy of manners with no scientific content, but per instructions absence of usable evidence yields not_assessable rather than absent.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No supplied evidence records exist to assess; the narrative involves only ordinary domestic and social objects, no engineered system or invention drives the action.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "No evidence records supplied; the story is set in an ordinary contemporary present with no future, remote past, or temporal displacement.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No supplied evidence to assess; the story develops a domestic misunderstanding, not consequences from a scientific, technological, or historical premise.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No evidence records supplied; nothing in the story materially uses observation, hypothesis, testing, or systematic inference in a scientific sense.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No supplied evidence to assess; references to Peru and South America are ordinary foreign places, not other planets, dimensions, or nonordinary cosmic environments.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No evidence records supplied; the story contains only a personal domestic incident, no large-scale disaster of any kind.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

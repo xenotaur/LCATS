@@ -1,0 +1,120 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13787,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1575,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/brown_john_s_body__marks",
+  "story_path": "mass_quantities/brown_john_s_body__marks/story.json",
+  "text": "",
+  "title": "Brown John's Body",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00082"
+        ],
+        "paraphrase": "Neff claims to have taught captured rats to talk.",
+        "quote": "Neff had proved this by\nteaching every rat he captured alive to talk.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.72,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00087"
+        ],
+        "paraphrase": "The rats are described as learning to form patterned sounds resembling speech over weeks and months.",
+        "quote": "They learned to squeak\nand squawk and form the sounds into a pattern with their motile\ntongues. In weeks and months, they learned what the human brat learned\nin years.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00083"
+        ],
+        "paraphrase": "The narrative contrasts the accepted view that animals cannot think with Neff's claim to have taught rats to talk.",
+        "quote": "Impossible they had told him. Even parrots and parakeets only imitate\nsounds in their squawking--yes, and pet crows. Animals don't have\nthinking brains, they said. They react, trial and error, stimulus and\nresponse, but they don't _think_.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.66,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00085"
+        ],
+        "paraphrase": "Neff explains his method of teaching rats through pain rather than reward.",
+        "quote": "Keep them hungry and lonely for a mate. Hurt them. Torture them. To\nhell with this reward business. Rats are like men. Mentally lazy.\nThey'll go for bait, sure, but they'll go faster to escape pain--a\nthousand times faster.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.72,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00120"
+        ],
+        "paraphrase": "A character explains that bromine is a fuming liquid chemical element used in gas weapons.",
+        "quote": "It's a chemical element like chlorine, only it's a liquid. It fumes\nif you don't keep it covered with water, and the fumes really get you.\nThey used it in gas bombs in the war.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00110"
+        ],
+        "paraphrase": "Neff is attacked by a reddish choking vapor in his vault.",
+        "quote": "even as his\nhand found it, and his eyes discovered the closed ventilator doors, a\nreddish vapor sank over his body. A single gasp and Neff was clawing\nhis throat.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.68,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00147"
+        ],
+        "paraphrase": "Trapped, Neff turns to his trained rat for rescue.",
+        "quote": "\"John!\" Thank God John wasn't an ordinary rat.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00171"
+        ],
+        "paraphrase": "The rat, despite Neff's frantic commands, gnaws at his bloodied flesh instead of the ropes.",
+        "quote": "Neff's threats beat hard into the rat's brain, and now as the slanting\nincisors tore at the cloth and chewed the luscious, blood-smothered,\nhot meat, Neff's screams sent tremors through the skinny, voracious\nbody, and the tail tucked down.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.66,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00172",
+          "p00173"
+        ],
+        "paraphrase": "The ending contrasts the rat's learned speech with its ultimately animal nature.",
+        "quote": "but words are words\nand food is food, and after all--",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00144"
+        ],
+        "paraphrase": "Neff realizes that with the ventilation off he will suffocate in the sealed vault.",
+        "quote": "But a week! They'd cut off the blower when they threw both switches.\nNo ventilation. No air.",
+        "raw_id": "ev10"
+      }
+    ]
+  }
+}

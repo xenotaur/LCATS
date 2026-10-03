@@ -1,0 +1,128 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18562,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1765,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/long_odds__haggard",
+  "story_path": "mass_quantities/long_odds__haggard/story.json",
+  "text": "",
+  "title": "Long Odds",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-lion-hunt",
+        "character_reaction_evidence_ids": [
+          "sfev-f91ceef77ef3b7f3",
+          "sfev-5c394c104c6ffdb8"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The hunting methods (smoothbore ballistics, tracking by kill remains, firing dry reeds with the wind) are coherent and nonsupernatural, but this concerns method, not a world-altering difference.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-c96c6d71b0306fde",
+            "sfev-c6b2d5afe3b21915",
+            "sfev-12263b63e1aa5e2f",
+            "sfev-5c5c67d321ebb23a"
+          ]
+        },
+        "description": "A dangerous single-handed lion hunt in which Quatermain attacks a family of lions, using fire to flush them from a reed pan, and is ultimately maimed by the black-maned lion.",
+        "estrangement_rationale": "The visceral terror of lying paralyzed among feeding lions and the lasting maiming provide reader-facing intensity, but this is mundane physical danger rather than estrangement from an empirical norm.",
+        "evidence_ids": [
+          "sfev-1a347e33119a34cb",
+          "sfev-88ef046b908ef195",
+          "sfev-c96c6d71b0306fde",
+          "sfev-12263b63e1aa5e2f",
+          "sfev-5c5c67d321ebb23a",
+          "sfev-f91ceef77ef3b7f3"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The hunt drives the entire embedded narrative and its consequence (permanent lameness), but centrality within an ordinary adventure tale does not make it a novum absent the novelty dimension.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-1a347e33119a34cb",
+            "sfev-88ef046b908ef195",
+            "sfev-f91ceef77ef3b7f3"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-12263b63e1aa5e2f",
+            "sfev-1a347e33119a34cb",
+            "sfev-c96c6d71b0306fde",
+            "sfev-88ef046b908ef195"
+          ],
+          "rationale": "A lion hunt in 19th-century Africa is entirely within the authorial empirical norm. There is no totalizing or world-altering difference from the empirical environment; it is an adventure-genre event, not a novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-f91ceef77ef3b7f3",
+          "sfev-1a347e33119a34cb"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-88ef046b908ef195",
+          "sfev-1a347e33119a34cb"
+        ]
+      },
+      {
+        "candidate_id": "cand-hidden-white-people",
+        "character_reaction_evidence_ids": [
+          "sfev-36344b64115cc281"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-36344b64115cc281",
+            "sfev-e0e3f26c072feaaf"
+          ],
+          "rationale": "No systematic or immanent account of such a people is given; the text offers only rumour and hope, so its coherence cannot be assessed.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The rumoured lost white people said to exist in the unexplored African interior, which Quatermain seeks in his final quest.",
+        "estrangement_rationale": "The remote Tana mission location and the vanishing into the interior gesture toward an unexplored beyond, but the lost people remain rumour and produce no developed storyworld consequence.",
+        "evidence_ids": [
+          "sfev-36344b64115cc281",
+          "sfev-e0e3f26c072feaaf"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-36344b64115cc281",
+            "sfev-e0e3f26c072feaaf"
+          ],
+          "rationale": "The rumoured white people appear only in the framing preface and do not govern the central embedded lion-hunt narrative; they are a peripheral device.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "A hidden lost civilization is a potential world-altering difference typical of Haggard's romances, but in this text it exists only as unverified rumour in the frame; it is never realized or developed as an actual storyworld fact.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-36344b64115cc281",
+            "sfev-e0e3f26c072feaaf"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-e0e3f26c072feaaf"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-36344b64115cc281"
+        ]
+      }
+    ]
+  }
+}

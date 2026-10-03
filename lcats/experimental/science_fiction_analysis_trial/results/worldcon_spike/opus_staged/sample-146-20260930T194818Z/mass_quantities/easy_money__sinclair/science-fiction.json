@@ -1,0 +1,777 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__easy_money__sinclair-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "A natural underground lignite coal-seam fire is described as an actual geological/natural process, and the physical property of wet rawhide stretching is used plausibly. These are real natural facts materially represented, though they function as western-setting color rather than as speculative science.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3547ce4de26335c9",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-63b041d2cd233039",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Railroad construction, wagons, and firearms are ordinary period technology mentioned in passing; no device or invention is engineered or speculatively deployed to drive the plot. The rawhide restraint is a traditional technique, not an invention.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a historical Montana range period with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The railroad-camp-creates-market-for-stolen-beef observation and the settler influx are ordinary social/economic reasoning within a mundane western tale, not speculative extrapolation of a scientific or technological premise into developed consequences.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Charlie forms explicit hypotheses (marks will begin where shots were fired; cheap beef must be stolen) and tests them through systematic examination of physical tracks and market-price inference. This is detective reasoning rather than laboratory science, so materiality as scientific method is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4bc4c44d036210a1",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-bbee87396001f265",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-f3a979ef2cfa0f2c",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The plains-as-sea comparison is a figurative reader-facing contrast; there are no other planets, dimensions, cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Cattle theft and the loss of about a hundred head is a localized economic misfortune, not a natural, technological, cosmic, biological, or large-scale human-caused catastrophe.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-c5038c1dedc93251",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 2,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-c5038c1dedc93251",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 27716,
+            "output": 1202
+          }
+        },
+        "status": "complete",
+        "story_hash": "54736030eb5eca69e4c3ab819c01084f64ccec1c71caa96c7b14d2877197b929"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__easy_money__sinclair-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-burning-coal-seam",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The narrator gives a coherent, naturalistic account of an exposed lignite seam set on fire and burning underground with flaring gas. This is systematic and nonsupernatural.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3547ce4de26335c9",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "description": "A natural underground lignite coal-seam fire that flares gas and flame from a crevice in the plains, used by the thieves as an incinerator to destroy hides and offal (and nearly Charlie himself).",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "No world-altering estrangement; the coal fire is a naturalistic regional feature presented as ordinary within the story world.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-3547ce4de26335c9",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The seam recurs as a beacon and as the intended murder/disposal site, giving it repeated plot function, but it is a setting device rather than the governing logic of the narrative, which is driven by the cattle-theft mystery.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3547ce4de26335c9",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-3547ce4de26335c9",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "The burning coal seam is a real, mundane natural phenomenon consistent with the empirical world of late-19th-century Montana. It is atmospheric and locally useful as a landmark and disposal pit, but it introduces no totalizing difference from the authorial empirical norm.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-railroad-frontier-transformation",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The socioeconomic logic is coherent and systematic: construction camps create demand for beef, enabling a market for stolen cattle. This is a rational social-economic account.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-0dbb637c1c9da582",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-073aa59e87bc568e",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "description": "The arrival of transcontinental railroad construction and the incoming flood of settlers transforming the formerly empty range, creating both an economy and an opportunity for organized cattle theft feeding the construction camps.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The transformation of the range by railroad and settlers is a historical, non-estranging backdrop; it grounds the story in the empirical world rather than departing from it.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-073aa59e87bc568e",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-0dbb637c1c9da582",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-073aa59e87bc568e",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-bbee87396001f265",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The railroad-camp beef market is the motive and engine of the theft plot that structures the whole story.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-0dbb637c1c9da582",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-bbee87396001f265",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-073aa59e87bc568e",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-0dbb637c1c9da582",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "The settling of the frontier and building of the Great Northern railroad are historical realities, not a totalizing difference from the empirical norm. The story extrapolates a plausible crime opportunity but posits no new law of the world.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-rawhide-restraint",
+            "cognitive_validation": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The restraint and escape are explained through a coherent naturalistic material property of wet hide.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-ebbb88c5a22cc2ca",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-63b041d2cd233039",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "description": "The method of binding a victim in wet green rawhide as a restraint, and the physical property that wet rawhide stretches, which enables Charlie's escape.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "No estrangement; the rawhide is an everyday frontier material used plausibly.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-ebbb88c5a22cc2ca",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-63b041d2cd233039",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ebbb88c5a22cc2ca",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "The rawhide binding is an incidental plot device affecting a single escape scene, not the governing logic of the whole narrative.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ebbb88c5a22cc2ca",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-63b041d2cd233039",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "Wet rawhide and its stretching property are ordinary material facts. A clever plot device, but no world-altering difference from empirical reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-plains-navigation",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The narrator gives a coherent explanation of terrain-sensing navigation compared to nautical dead reckoning.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-473d75742ad9eb76",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ]
+            },
+            "description": "The plainsman's technique of navigating the dark prairie by feeling the roll and slope of the ground, analogized to a mariner's dead reckoning.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The sea/plains analogy offers a vivid reader-facing comparison but reflects ordinary frontier skill, not estrangement from the empirical world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4a2e3edb649aef1a",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-473d75742ad9eb76",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              },
+              {
+                "evidence_id": "sfev-4a2e3edb649aef1a",
+                "evidence_set_id": "sfes-c5038c1dedc93251"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-4a2e3edb649aef1a",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "An atmospheric descriptive passage, incidental to the plot's logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-473d75742ad9eb76",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                },
+                {
+                  "evidence_id": "sfev-4a2e3edb649aef1a",
+                  "evidence_set_id": "sfes-c5038c1dedc93251"
+                }
+              ],
+              "rationale": "A skilled but mundane real-world navigation practice; no departure from empirical norms.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-c5038c1dedc93251",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-c5038c1dedc93251",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 28063,
+            "output": 2617
+          }
+        },
+        "status": "complete",
+        "story_hash": "54736030eb5eca69e4c3ab819c01084f64ccec1c71caa96c7b14d2877197b929"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-c5038c1dedc93251",
+    "knight_analysis_id": "mass_quantities__easy_money__sinclair-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__easy_money__sinclair-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-c5038c1dedc93251",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 28953,
+            "paragraph_ids": [
+              "p00103"
+            ],
+            "start_char": 28750
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-073aa59e87bc568e",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrator notes settlers beginning to fill formerly empty range country.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the few years since Charlie first crossed the Marias River, with all the territory north of it an unpeopled waste, the first waves of the ultimate flood of settlers had begun to seep into the country."
+        },
+        {
+          "anchor": {
+            "end_char": 18796,
+            "paragraph_ids": [
+              "p00071"
+            ],
+            "start_char": 18653
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0dbb637c1c9da582",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Charlie proposes that railroad construction camps create an opportunity and market for cattle theft.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Has it struck you that all this railroad-construction work offers a chance for somebody to butcher beef on the range and sell it to them camps?"
+        },
+        {
+          "anchor": {
+            "end_char": 9542,
+            "paragraph_ids": [
+              "p00039"
+            ],
+            "start_char": 9239
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3547ce4de26335c9",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains a natural underground coal-seam fire that flares gas and flame from the earth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It came from an exposed surface seam of lignite coal, mysteriously set on fire long ago and burning still in the bowels of the earth. In the dark, flame and ignited gas would regularly flare about the pit, a ghostly incandescence, flashing intermittently above the smoldering embers of the burning seam."
+        },
+        {
+          "anchor": {
+            "end_char": 8083,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 7827
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-473d75742ad9eb76",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator describes the technique of navigating the plains at night by feeling terrain, compared to a sailor's dead reckoning.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Each has his own resources of location and direction; the mariner by dead reckoning, based on observation of wind and heaving swells at sundown, the plainsman by his knowledge of the roll of the ground and the directional trend of gently undulating slopes."
+        },
+        {
+          "anchor": {
+            "end_char": 7661,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 7464
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a2e3edb649aef1a",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator draws an extended comparison between the plains at night and the open sea for the reader.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Darkness on the plains is like darkness on the sea. If the stars are hidden there is no guiding mark--nothing but an immensity of shrouded silence in which a rider is like a ship without a compass."
+        },
+        {
+          "anchor": {
+            "end_char": 27222,
+            "paragraph_ids": [
+              "p00096"
+            ],
+            "start_char": 27092
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4bc4c44d036210a1",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Charlie forms a hypothesis about where the tracks originate and sets out to test it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Charlie made a bet with himself that these marks would begin somewhere near the spot from which those shots had been fired at him."
+        },
+        {
+          "anchor": {
+            "end_char": 44984,
+            "paragraph_ids": [
+              "p00169"
+            ],
+            "start_char": 44845
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-63b041d2cd233039",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Charlie explains the physical property that wet rawhide stretches, allowing his escape.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And try to remember that green hide stretches quite a lot if a man has any strength in his arms, and he has an hour or so to work it loose."
+        },
+        {
+          "anchor": {
+            "end_char": 2381,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 2228
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7dd32f8d6f4dd992",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Elmer reacts angrily upon realizing cattle have been stolen and butchered.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "and, as the foreman of the Seventy-seven gathered the import of these remains, he grew red in the face, and his language became eloquent but unprintable."
+        },
+        {
+          "anchor": {
+            "end_char": 34363,
+            "paragraph_ids": [
+              "p00129"
+            ],
+            "start_char": 34208
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bbee87396001f265",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Charlie reasons from market prices to deduce that the camp's cheap beef must be stolen.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "No rancher would sell beef for half what it would bring in the open market. If that railroad camp got beef at anywhere near that price, it was stolen beef."
+        },
+        {
+          "anchor": {
+            "end_char": 10504,
+            "paragraph_ids": [
+              "p00042"
+            ],
+            "start_char": 10392
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ddf2e313a930a39a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Charlie reacts to a mysterious night sound with an unsettling comparison to a giant snake.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The curious fancy came to Charlie that it was like a giant snake crawling on its belly over the stiff dry grass."
+        },
+        {
+          "anchor": {
+            "end_char": 41090,
+            "paragraph_ids": [
+              "p00149"
+            ],
+            "start_char": 40847
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ebbb88c5a22cc2ca",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The method of binding a man in wet rawhide is described as an effective restraint.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "they had folded him in a raw beef hide, wet and strong with animal smell, and they had laced it tight, from his ankles to his neck, with thongs of the same material. A mummy swathed in its ancient bandages was no more thoroughly bound than he."
+        },
+        {
+          "anchor": {
+            "end_char": 25373,
+            "paragraph_ids": [
+              "p00090"
+            ],
+            "start_char": 25085
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f3a979ef2cfa0f2c",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Charlie systematically examines physical marks on the ground to infer what happened.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In that swale strange marks showed. The grass was pressed flat in swaths less than three feet wide, as if heavy objects had been dragged or rolled across the surface. He got down, bent to examine these peculiarities, and then walked on, leading his two horses, while he conned the ground."
+        }
+      ],
+      "story_hash": "54736030eb5eca69e4c3ab819c01084f64ccec1c71caa96c7b14d2877197b929",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/easy_money__sinclair",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "54736030eb5eca69e4c3ab819c01084f64ccec1c71caa96c7b14d2877197b929",
+  "story_path": "mass_quantities/easy_money__sinclair/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

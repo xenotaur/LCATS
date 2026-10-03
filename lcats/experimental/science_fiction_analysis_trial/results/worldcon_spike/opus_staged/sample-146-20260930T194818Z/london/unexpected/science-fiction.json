@@ -1,0 +1,693 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__unexpected-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The story opens with a quasi-scientific framing invoking survival-of-the-fittest and adaptation to the 'unexpected' (the unfit perish; civilization imposes machine-like regularity). This gestures at evolutionary/social-Darwinist ideas but functions as thematic essayistic framing rather than materially represented science driving events, so its status is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-796819cb7e90c80a",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-decfa5eef1480734",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-c261278414e6175a",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Only ordinary period tools appear (shot-gun, canoes, sled, pick, fire-thawing of ground). None are speculative inventions or engineered systems that materially transform the setting; they are ordinary frontier implements.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The 1897-98 Klondike setting is a specific historical past, not a speculative remote past, and there is no temporal displacement. The relocation cited is a mundane geographic move, not time travel.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "Edith extrapolates the origin and nature of law from a social premise, reasoning down from large groups to a group of two, and applies that conclusion to their situation. This is a developed consequence from an identifiable social/historical premise, though it reads as moral-philosophical reasoning rather than SF extrapolation, making materiality uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-477366cbea59e154",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-decfa5eef1480734",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Edith conducts explicit 'original sociological researches,' working out a systematic inference about the evolution of law and testing it against evidence Hans supplies (miners' meetings). This is systematic reasoning driving action, though it is social reasoning rather than empirical scientific method, so interpretation is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-477366cbea59e154",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is remote Alaska on Earth; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The central event is a double murder by one man, a personal/criminal tragedy, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. The 'transformed world' evidence is metaphorical psychological change, not catastrophe of broad scale.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-0e1d1bea611a2086",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0e1d1bea611a2086",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 24858,
+            "output": 1299
+          }
+        },
+        "status": "complete",
+        "story_hash": "c5b93cbfdc275102c8d342ab812e9eebf7cd2d8e7deed3799b0ad59629a63e97"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__unexpected-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-unexpected-selection",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The principle is presented as a coherent, systematic, immanent, nonsupernatural account rooted in social-Darwinist and sociological reasoning. It is internally consistent and explanatory in the mode of imaginary/social science, and Edith's inquiry into the evolution of law extends this rationalized logic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-decfa5eef1480734",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-c261278414e6175a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-796819cb7e90c80a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "description": "A quasi-Darwinian natural law framing the narrative: civilization renders life machine-like and static, and when 'the unexpected' erupts, the unfit perish while the fit survive by adjusting to strange grooves. This principle is offered by the narrator as the governing law of the storyworld and is embodied in Edith Nelson's mastery of the unexpected.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-5a499a0586fcd7f5",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "rationale": "The narrator contrasts civilized, machine-like order and a 'prearranged pageant' of death against the raw accidental violence of the frontier, inviting the reader to see ordinary life defamiliarized. However this is thematic estrangement of the actual world rather than an estranging novum: the storyworld remains empirically our own, so it does not constitute a Suvinian world-altering difference.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e51624b5a26a9aea",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-c261278414e6175a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-11a477a025c13628",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-637c3b00338546a1",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-decfa5eef1480734",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-c261278414e6175a",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-796819cb7e90c80a",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-e51624b5a26a9aea",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-11a477a025c13628",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-637c3b00338546a1",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-5a499a0586fcd7f5",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The framing principle governs the whole narrative logic: the story is structured as a demonstration of the thesis stated in the opening, with the catastrophe and its aftermath functioning as the test of the fit individual. The transformed 'new world' after the killings and Edith's reasoned reconstruction of law all follow from this organizing idea.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-796819cb7e90c80a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-11a477a025c13628",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-637c3b00338546a1",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-decfa5eef1480734",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-c261278414e6175a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                },
+                {
+                  "evidence_id": "sfev-796819cb7e90c80a",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "rationale": "The 'unexpected/survival of the fittest' framing is a naturalistic interpretive gloss on ordinary human experience, not a totalizing difference from the empirical world. Civilization becoming machine-like and the unfit perishing are rhetorical/philosophical assertions about the actual world (Klondike-era Alaska), not a world-altering estranging difference. Nothing in the storyworld deviates from the author's empirical norm; the setting, events (a murder, a frontier hanging) are mundane realism.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-two-person-law",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "Edith's step-by-step deduction of the evolution of law is a coherent, immanent, nonsupernatural piece of social reasoning presented as genuine sociological inquiry, satisfying the cognitive dimension in the mode of social organization.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-477366cbea59e154",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "description": "Edith's derived social principle that law is nothing more than the collective judgment and will of any group of people, however small - scaled down until a group of two (Edith and Hans) constitutes a legitimate tribunal that tries, convicts, and executes Dennin.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The improvised two-person tribunal defamiliarizes the concept of law by pushing it to a minimal limit, but this is an intellectual/thematic estrangement within a realistic frontier setting, not a novum that transforms the story universe.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e51624b5a26a9aea",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-11a477a025c13628",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-477366cbea59e154",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-e51624b5a26a9aea",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              },
+              {
+                "evidence_id": "sfev-11a477a025c13628",
+                "evidence_set_id": "sfes-0e1d1bea611a2086"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-decfa5eef1480734",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "rationale": "The law-as-group-will reasoning drives the resolution (the trial and hanging), giving it substantial narrative weight, but it functions as a resolution mechanism subordinate to the overarching 'unexpected/fitness' frame rather than governing the whole narrative logic.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-477366cbea59e154",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.65,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-477366cbea59e154",
+                  "evidence_set_id": "sfes-0e1d1bea611a2086"
+                }
+              ],
+              "rationale": "This is a sociological insight and an improvised application of frontier miners'-meeting custom, not a totalizing difference from the empirical world. Extralegal frontier justice and majority-will law are historically real; no aspect of the story universe is altered from our own by this reasoning.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-0e1d1bea611a2086",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0e1d1bea611a2086",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 25205,
+            "output": 2098
+          }
+        },
+        "status": "complete",
+        "story_hash": "c5b93cbfdc275102c8d342ab812e9eebf7cd2d8e7deed3799b0ad59629a63e97"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-0e1d1bea611a2086",
+    "knight_analysis_id": "london__unexpected-knight-v1",
+    "suvin_novum_analysis_id": "london__unexpected-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-0e1d1bea611a2086",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Edith applies successive reasoning to conclude that even two people can constitute a law-making group.",
+            "quote": "Why, then, could not one\nthousand people constitute such a group? she asked herself.\nAnd if one thousand, why not one hundred?\nWhy not\nfifty?\nWhy not five?\nWhy not\n\ntwo?",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Applying her reasoning about law, the couple conducts a full trial and execution by themselves.",
+            "quote": "Between them they constituted the\nmajority of this particular group.\nIt was the group-will\nthat Dennin should be hanged.\nIn the execution of this will\nEdith strove earnestly to observe the customary forms, but the\ngroup was so small that Hans and she had to serve as witnesses,\nas jury, and as judges\nalso as executioners.",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "The Indians observe the execution as a demonstration of white man's law.",
+            "quote": "But the Indians remained solemnly to watch the working of the\nwhite man\ns law that compelled a man to dance upon the\nair.",
+            "raw_id": "ev12",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 18669,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 18413
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-11a477a025c13628",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "After the murders, the characters' world is described as wholly transformed and unfamiliar.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The old cabin was gone forever.\nThe horizon of life was\ntotally new and unfamiliar.\nThe unexpected had swept its\nwizardry over the face of things, changing the perspective,\njuggling values, and shuffling the real and the unreal into\nperplexing confusion."
+        },
+        {
+          "anchor": {
+            "end_char": 5332,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 5205
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-14c1a4629ca1bfc1",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The characters relocate to the Alaskan frontier during the Klondike gold rush.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The fall of\n1897 found them at Dyea, but without the money to carry an outfit\nacross Chilcoot Pass and float it down to Dawson."
+        },
+        {
+          "anchor": {
+            "end_char": 33924,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 33729
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-477366cbea59e154",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Edith reasons out the nature and origin of law through her own step-by-step inquiry.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "she made original sociological researches and worked out for\nherself the evolution of the law.\nIt came to her that the\nlaw was nothing more than the judgment and the will of any group\nof people."
+        },
+        {
+          "anchor": {
+            "end_char": 12181,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 12030
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5a499a0586fcd7f5",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Hans and Edith are stunned and paralyzed by the sudden killings.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was the unexpected.\nHans and Edith were\nstunned.\nThey sat at the table with bodies tense, their\neyes fixed in a fascinated gaze upon the murderer."
+        },
+        {
+          "anchor": {
+            "end_char": 11603,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 11508
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-637c3b00338546a1",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Dennin suddenly shoots and kills two of the party at breakfast.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He was carrying a shot-gun.\nEven as they looked, he lifted\nit to his shoulder and fired twice."
+        },
+        {
+          "anchor": {
+            "end_char": 369,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 265
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-796819cb7e90c80a",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains a survival principle in which the unfit die when confronted by the unexpected.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When the unexpected does\nhappen, however, and when it is of sufficiently grave import, the\nunfit perish."
+        },
+        {
+          "anchor": {
+            "end_char": 1295,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 1180
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c261278414e6175a",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains that civilization makes the environment machine-like and regular.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The effect of civilization is to impose human law upon\nenvironment until it becomes machine-like in its\nregularity."
+        },
+        {
+          "anchor": {
+            "end_char": 263,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 63
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-decfa5eef1480734",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator presents a general principle about the static tendency of individuals under civilization.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The tendency of the individual life is to be\nstatic rather than dynamic, and this tendency is made into a\npropulsion by civilization, where the obvious only is seen, and\nthe unexpected rarely happens."
+        },
+        {
+          "anchor": {
+            "end_char": 1566,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 1425
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e51624b5a26a9aea",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Death in civilization is contrasted as an orderly pageant versus its grim accidental nature.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "death, instead of stalking about grewsome and\naccidental, becomes a prearranged pageant, moving along a\nwell-oiled groove to the family vault"
+        }
+      ],
+      "story_hash": "c5b93cbfdc275102c8d342ab812e9eebf7cd2d8e7deed3799b0ad59629a63e97",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/unexpected",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "c5b93cbfdc275102c8d342ab812e9eebf7cd2d8e7deed3799b0ad59629a63e97",
+  "story_path": "london/unexpected/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

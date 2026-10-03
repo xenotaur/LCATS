@@ -1,0 +1,122 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 25862,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1764,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "london/sun_dog_trail",
+  "story_path": "london/sun_dog_trail/story.json",
+  "text": "",
+  "title": "London - The Sun-dog Trail",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-sundog-pursuit",
+        "character_reaction_evidence_ids": [
+          "sfev-d90ee52e48cd9484"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The trail conditions, freeze-up dynamics, dog logistics, and hunger economics are rendered with coherent, systematic, nonsupernatural realism. But this is ordinary realism rather than an immanent imaginary science, and it exists in the absence of any novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-8dd113aa56509d96",
+            "sfev-36fca9f96ebd9485"
+          ]
+        },
+        "description": "The relentless, money-fueled pursuit across 1500 miles of Alaskan trail by the man and woman ('baby wolves') to hunt down and kill the one-eyed stranger-man.",
+        "estrangement_rationale": "The estrangement here is the wilderness ordeal and the inscrutable motive, framed through the 'picture without beginning or end' motif, but it does not constitute a science-fictional novum.",
+        "evidence_ids": [
+          "sfev-8dd113aa56509d96",
+          "sfev-36fca9f96ebd9485",
+          "sfev-d90ee52e48cd9484",
+          "sfev-ab458660be945754"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The pursuit is the governing narrative logic of Sitka Charley's embedded tale, driving every event. However, centrality alone does not make it a novum, since it lacks the required novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-8dd113aa56509d96",
+            "sfev-36fca9f96ebd9485",
+            "sfev-d90ee52e48cd9484"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-8dd113aa56509d96",
+            "sfev-36fca9f96ebd9485"
+          ],
+          "rationale": "The pursuit-and-kill across a harsh Klondike landscape involves no totalizing or world-altering difference from the author's empirical norm. It is a naturalistic tale of human obsession, hardship, and revenge set in the historical 1897 gold-rush Yukon. Nothing changes the story universe or a crucial aspect of it; the estrangement is geographic and psychological, not ontological.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-ab458660be945754"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-36fca9f96ebd9485",
+          "sfev-8dd113aa56509d96"
+        ]
+      },
+      {
+        "candidate_id": "cand-picture-epistemology",
+        "character_reaction_evidence_ids": [
+          "sfev-f5656819af903f30"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "Charley's inferences from the faro painting and the crying woman are coherent, systematic, and nonsupernatural reasoning. But this is ordinary deduction, not an imaginary science, and there is no novum for it to validate.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-3aa4fa0d7c8622f9",
+            "sfev-f9408281752268f8"
+          ]
+        },
+        "description": "The framing conceit that life can be read as 'pictures without beginning or end' \u2014 a mode of interpreting reality that Sitka Charley develops by reasoning from visible evidence.",
+        "estrangement_rationale": "The conceit estranges ordinary perception by framing lived moments as unresolved pictures, but it is an aesthetic frame, not a science-fictional novum with storyworld consequences.",
+        "evidence_ids": [
+          "sfev-ab458660be945754",
+          "sfev-3aa4fa0d7c8622f9",
+          "sfev-f9408281752268f8",
+          "sfev-f5656819af903f30"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-36fca9f96ebd9485"
+          ],
+          "rationale": "The picture conceit frames the narrative but functions as a thematic/structural device rather than a world-governing logic with material consequences; its centrality is interpretive, not causal.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-ab458660be945754"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-ab458660be945754",
+            "sfev-3aa4fa0d7c8622f9",
+            "sfev-f9408281752268f8"
+          ],
+          "rationale": "This is a literary/aesthetic framing device and a mode of inference, not a totalizing world-altering difference from the empirical norm. It changes how the story is told, not the story universe.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-ab458660be945754"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14880,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1138,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/flying_stars",
+  "story_path": "chesterton/flying_stars/story.json",
+  "text": "",
+  "title": "Chesterton - The Flying Stars",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00064"
+        ],
+        "paraphrase": "Father Brown reasons deductively about who would not steal, based on behavior patterns.",
+        "quote": "the first thing I find in that disused pocket is this: that men who mean to steal diamonds don\ttalk Socialism. They are more likely,\ta he added demurely, \tto denounce it.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00069"
+        ],
+        "paraphrase": "The priest pursues a line of pointed questioning to establish facts about the visitor's arrival.",
+        "quote": "Please forgive me, colonel, but when did your wife die?",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00073"
+        ],
+        "paraphrase": "Brown identifies that the 'actor' was drugged, inferring the method of the crime.",
+        "quote": "\tChloroform,\t he said as he rose; \tI only guessed it just now.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00068"
+        ],
+        "paraphrase": "Brown reacts with shock followed by dawning realization as he pieces the crime together.",
+        "quote": "Father Brown dropped his book and stood staring with a look of blank mental ruin. Very slowly a light began to creep in his grey eyes",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "Fischer reacts with alarm upon discovering the diamonds are missing.",
+        "quote": "the City magnate in front of him rose to his full height and thrust his hands savagely into all his pockets. Then he sat down nervously, still fumbling, and then stood up again.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00085"
+        ],
+        "paraphrase": "Brown extrapolates the moral trajectory of a criminal life, projecting future decline.",
+        "quote": "Men may keep a sort of level of good, but no man has ever been able to keep on one level of evil. That road goes down and down.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "The narrator contrasts the insider and outsider views of the events for the reader.",
+        "quote": "Seen from the outside it was perfectly incomprehensible, and it is from the outside that the stranger must study it.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00071"
+        ],
+        "paraphrase": "Brown reacts with sudden urgency after connecting the clues.",
+        "quote": "The little priest bounded like a rabbit shot. \tCome on!\t he cried in quite unusual excitement.",
+        "raw_id": "ev08"
+      }
+    ]
+  }
+}

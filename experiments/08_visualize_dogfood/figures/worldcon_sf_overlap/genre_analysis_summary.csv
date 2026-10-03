@@ -1,0 +1,9 @@
+selection_genre,stories,agreement,disagreement,knight_0,knight_1_2,knight_3_4,knight_5_7,suvin_qualified,suvin_not_qualified,suvin_failed
+adventure,6,5,1,5,1,0,0,0,5,1
+fantasy,20,20,0,18,1,1,0,0,20,0
+horror,20,20,0,8,6,5,1,8,12,0
+humor,20,16,4,18,2,0,0,2,14,4
+mystery,20,18,2,12,8,0,0,0,18,2
+romance,20,14,6,19,1,0,0,0,17,3
+science fiction,20,19,1,0,2,6,12,17,3,0
+western,20,15,5,18,2,0,0,0,17,3

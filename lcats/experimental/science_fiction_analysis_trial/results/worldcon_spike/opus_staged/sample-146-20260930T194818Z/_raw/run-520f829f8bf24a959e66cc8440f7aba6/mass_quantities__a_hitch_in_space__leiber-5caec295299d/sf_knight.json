@@ -1,0 +1,109 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16230,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1472,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_hitch_in_space__leiber",
+  "story_path": "mass_quantities/a_hitch_in_space__leiber/story.json",
+  "text": "",
+  "title": "A Hitch in Space",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.83,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The story materially represents the physics of an ion jet: its limited acceleration (half-G max), gradual buildup to a terminal velocity of fifteen miles a second, and beam concentration comparable to a laser. Orbital mechanics and relative velocities also drive the narrator's calculations.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-822e1358775c263b",
+          "sfev-136ad3757101681c",
+          "sfev-77b01a9f5377ac73"
+        ]
+      },
+      {
+        "confidence": 0.88,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The ion-jet spacecraft and its beam are central to the plot: the engaged beam strands the narrator and the beam's lethal, line-destroying nature governs every survival decision. An engineered propulsion system materially affects the problem and outcome.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-92b26339e59b6b75",
+          "sfev-822e1358775c263b",
+          "sfev-136ad3757101681c",
+          "sfev-77b01a9f5377ac73"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The setting is a speculative interstellar future: the Shaulan system around Lambda Scorpii, a 'United States of Shaula,' a Space Guard, and human colonization of multiple star systems, establishing a future distinct from the present.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-e197135252fd3d2a",
+          "sfev-ddc83c5f7fe6d617",
+          "sfev-a76cbbb8459fecfa"
+        ]
+      },
+      {
+        "confidence": 0.78,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "Consequences are developed from the ion-drive premise: because acceleration is gradual, the stranded man can rope onto the ship; because the beam is intensely concentrated, it melts his antenna and would disintegrate the line, driving his strategy of staying to the side.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-ad91d8463e67a143",
+          "sfev-77b01a9f5377ac73",
+          "sfev-136ad3757101681c"
+        ]
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "The narrator performs a genuine test: uncertain how close he is to the beam, he extends his antenna to probe it, observes the melted/pitted tip, and updates his understanding and behavior accordingly ('So much for curiosity'). He also computes velocities systematically.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-f9fb28bf6c0a9c93",
+          "sfev-ad91d8463e67a143"
+        ]
+      },
+      {
+        "confidence": 0.79,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "substantial",
+        "rationale": "The action occurs in deep space around other planets of the Shaulan system (orbiting the star Shaula-by, with Lambda Scorpii blazing), a nonordinary cosmic environment far from Earth, with the characters isolated millions of miles from anyone.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-a76cbbb8459fecfa",
+          "sfev-e197135252fd3d2a",
+          "sfev-8c7cb66b81e2781d"
+        ]
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "incidental",
+        "rationale": "The narrator being stranded outside as the ship departs is a life-threatening technological mishap, but it is a personal peril to one man rather than a large-scale disaster. Its scale is borderline for the catastrophe criterion, hence ambiguous.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-bb303f9d9b861e43",
+          "sfev-5f3082aaee50079e"
+        ]
+      }
+    ]
+  }
+}

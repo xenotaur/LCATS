@@ -1,0 +1,154 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12967,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2227,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "lovecraft/the_festival",
+  "story_path": "lovecraft/the_festival/story.json",
+  "text": "",
+  "title": "The Festival by H. P. Lovecraft",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-ancestral-cult-rite",
+        "character_reaction_evidence_ids": [
+          "sfev-572078178085489a",
+          "sfev-dfebb1a4f29ba25e"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-0e597395ff1d11d9",
+            "sfev-dfebb1a4f29ba25e",
+            "sfev-1dc247efc2daba81"
+          ],
+          "rationale": "The story offers no immanent, systematic, nonsupernatural account. The only 'explanation' is the Necronomicon's occult pseudo-lore about souls and corruption, and the frame closes with a psychosis/dream ambiguity rather than a coherent cognitive logic. This is supernatural horror, not a rationalized novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A hereditary, prehuman Yule-rite kept by the narrator's ancestral cult in subterranean Kingsport, in which undead/mask-wearing forebears perpetuate primal secrets across centuries. This is the organizing frame of the narrative but functions as a supernatural/occult horror mystery rather than a cognitively rationalized world-difference.",
+        "estrangement_rationale": "The waking modern Kingsport of trolleys and motors sharply contrasts with the ancient town the narrator experienced, and the recognition of an ancestor's buried watch estranges the reader from ordinary mortality.",
+        "evidence_ids": [
+          "sfev-dcd6efc9a886e3ea",
+          "sfev-cfc7b1ea613e3824",
+          "sfev-572078178085489a",
+          "sfev-1dc247efc2daba81",
+          "sfev-dfebb1a4f29ba25e"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The entire narrative logic \u2014 the journey, the descent, the festival, and the climax \u2014 is governed by the ancestral summons and the rite.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-dcd6efc9a886e3ea",
+            "sfev-cfc7b1ea613e3824",
+            "sfev-dfd49f81b89c2784"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The rite is framed as older than mankind and enforced across centuries, with a forebear buried in 1698 apparently present, implying a totalizing difference from the empirical norm of mortal, historical human society.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-dcd6efc9a886e3ea",
+            "sfev-cfc7b1ea613e3824",
+            "sfev-572078178085489a"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-1dc247efc2daba81"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-cfc7b1ea613e3824",
+          "sfev-13abccfee7fdd34c"
+        ]
+      },
+      {
+        "candidate_id": "cand-cold-shadowless-flame",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-0e85ef4c02c23565"
+          ],
+          "rationale": "The flame's impossibility is presented purely as uncanny horror with no systematic or immanent explanation; it functions as supernatural atmosphere.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A belching green column of flame in the subterranean grotto that casts no shadows and gives no warmth, only the clamminess of death.",
+        "estrangement_rationale": "The flame violating the reader's expectation that healthy flame casts shadows and gives warmth produces cognitive estrangement.",
+        "evidence_ids": [
+          "sfev-0e85ef4c02c23565"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The flame is an incidental atmospheric device within the ritual scene; it does not govern the overall narrative logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "A shadowless, heatless flame differs from the empirical properties of fire, marking an anomalous phenomenon.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-0e85ef4c02c23565"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-0e85ef4c02c23565"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      },
+      {
+        "candidate_id": "cand-hybrid-winged-mounts",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.65,
+          "counterevidence_ids": [
+            "sfev-13abccfee7fdd34c"
+          ],
+          "rationale": "The creatures are explicitly described as ungraspable and unrememberable, deliberately resisting any coherent immanent or systematic account; they are supernatural horror rather than an explained biology.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A horde of tame, trained hybrid winged creatures \u2014 indescribable amalgams of crows, moles, bats, and worse \u2014 summoned by flute-music and ridden by the celebrants along an underground river.",
+        "estrangement_rationale": "The impossibility of grasping or remembering the creatures estranges the reader from ordinary zoological categories.",
+        "evidence_ids": [
+          "sfev-13abccfee7fdd34c"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The creatures appear in a single climactic scene as part of the ritual spectacle and do not determine the overriding narrative logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "These impossible hybrid beasts differ radically from any empirical fauna and are integrated as domesticated mounts into the cult world.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-13abccfee7fdd34c"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-13abccfee7fdd34c"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-13abccfee7fdd34c"
+        ]
+      }
+    ]
+  }
+}

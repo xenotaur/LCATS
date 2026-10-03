@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 35266,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1661,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/bearly_reasonable__tuttle",
+  "story_path": "mass_quantities/bearly_reasonable__tuttle/story.json",
+  "text": "",
+  "title": "Bearly Reasonable",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.75,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00022"
+        ],
+        "paraphrase": "The professor states the two natural-history questions he has come to investigate.",
+        "quote": "Do rattlesnakes and prairie-dogs live together in harmony, and will a\nfemale grizzly recognize its own offspring after it has been away\nfrom, it for twenty-four hours.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00026"
+        ],
+        "paraphrase": "The professor frames his trip as testing and disproving a rival scholar's theory.",
+        "quote": "Professor Manning\\u2019s theory is wrong, and I am\ngoing to prove it.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00045"
+        ],
+        "paraphrase": "The professor describes hiring the men to enable his experiment on the grizzly's maternal instinct.",
+        "quote": "I shall expect you to furnish me with the opportunity to carry out\nthis experiment to a satisfactory conclusion",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "Magpie reacts with derision to the professor's stated reason for the trip.",
+        "quote": "That\\u2019s uh \\u2014\\u2014 of uh reason fer comin\\u2019 way up here!",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00028"
+        ],
+        "paraphrase": "The professor insists on the validity of his own observations.",
+        "quote": "Can\\u2019t I believe my own eyes?\\u201d wails th\\u2019 ol\\u2019 pelican. \\u201cCan\\u2019t I see\nthese things?",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00029"
+        ],
+        "paraphrase": "The professor's wife characterizes him as a scientist who observes carefully.",
+        "quote": "My husband, being a scientist, is very observing",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00030"
+        ],
+        "paraphrase": "The doctor voices his hope for good shooting on the trip.",
+        "quote": "All I hope is that I get some good shooting.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00044"
+        ],
+        "paraphrase": "The professor identifies testing grizzly maternal instinct as his main goal.",
+        "quote": "the most important is the test of the maternal instinct in the grizzly\nbear.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00200"
+        ],
+        "paraphrase": "The doctor plans to photograph the bear as evidence for the experiment.",
+        "quote": "I hope I can get some good action in a bear picture,\\u201d states th\\u2019 doc.\n\\u201cIt will help in provin\\u2019 th\\u2019 perfessor\\u2019s experiments.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00277"
+        ],
+        "paraphrase": "The professor declares his prediction about parental instinct confirmed.",
+        "quote": "I was right!\\u201d he squeaks. \\u201cI told Professor Manning that the parent\nbear would seek and find its young.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00287"
+        ],
+        "paraphrase": "The professor concludes his contention has been proven and decides to depart.",
+        "quote": "My contention is\nproved, and we can leave at once.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00297"
+        ],
+        "paraphrase": "Mighty reacts bitterly, declaring the word 'reason' offensive after his ordeal.",
+        "quote": "Reason, eh? By cripes, Magpie, that\\u2019s uh fightin\\u2019 word with th\\u2019 Jones\nfambly from now on and ever more.",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

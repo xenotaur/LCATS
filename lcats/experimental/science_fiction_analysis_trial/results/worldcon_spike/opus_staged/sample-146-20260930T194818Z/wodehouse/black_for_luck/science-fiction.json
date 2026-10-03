@@ -1,0 +1,365 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "wodehouse__black_for_luck-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "This is a romantic comedy about a stray black cat and superstition; no scientific facts, theories, discoveries, or speculative sciences are materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No device, engineered system, or invention drives the setting or plot. Ordinary items (ice-box, telephone-era flat) are incidental contemporary tools, not technology/invention in the SF sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in contemporary New York with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are systematically developed from an identifiable scientific, technological, social, or historical premise; the superstition motif is treated humorously, not extrapolated.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Although a character is called 'sane and practical' and a 'test-case' metaphor appears, no observation, hypothesis, testing, or evidential revision materially drives understanding or action; these are decorative or metaphorical.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear; the setting is entirely mundane earthly New York.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The play's failure is a personal misfortune, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-6b30567f1d19521e",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6b30567f1d19521e",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 16290,
+            "output": 929
+          }
+        },
+        "status": "complete",
+        "story_hash": "3d93c39e89e13d207327d8217bcbbb8c24ddd10ec6580a920e2a6df3693e7880"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "wodehouse__black_for_luck-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-black-cat-luck",
+            "cognitive_validation": {
+              "confidence": 0.78,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-6abf23a9b2c43e16",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ],
+              "rationale": "There is no systematic, immanent, nonsupernatural account of the cat causing luck. Insofar as luck-causation is asserted, it is presented as folk superstition and irony, not as an imaginary science or coherent social/physical mechanism. The narrative undercuts rather than validates any lawful account.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "The superstition that a black cat (Joseph) brings luck, invoked repeatedly by characters as a supposed causal force shaping the fortunes of James, Elizabeth, and Briggs.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-22c35190682327a1",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                },
+                {
+                  "evidence_id": "sfev-475eacd3e05df3f9",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ],
+              "rationale": "The only reader-facing contrast is ironic: James contrasts superstition with being 'sane and practical' (sfev-6abf23a9b2c43e16), and the plot's outcomes ironically invert the luck belief (the play fails yet romance succeeds, per sfev-93ffa21c31ffb27a). This is comic irony, not cognitive estrangement producing a novel storyworld.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-6abf23a9b2c43e16",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-93ffa21c31ffb27a",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-22c35190682327a1",
+                "evidence_set_id": "sfes-6b30567f1d19521e"
+              },
+              {
+                "evidence_id": "sfev-475eacd3e05df3f9",
+                "evidence_set_id": "sfes-6b30567f1d19521e"
+              },
+              {
+                "evidence_id": "sfev-6abf23a9b2c43e16",
+                "evidence_set_id": "sfes-6b30567f1d19521e"
+              },
+              {
+                "evidence_id": "sfev-93ffa21c31ffb27a",
+                "evidence_set_id": "sfes-6b30567f1d19521e"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The cat and its supposed luck function as a recurring plot device that brings characters together and structures the comic reversals, so it is more than wholly incidental. However, the overriding narrative logic is a conventional romantic comedy of manners driven by human emotion and irony, not by the cat operating as a genuine novum. Its centrality is thematic/comic rather than world-governing.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-475eacd3e05df3f9",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                },
+                {
+                  "evidence_id": "sfev-93ffa21c31ffb27a",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-22c35190682327a1",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                },
+                {
+                  "evidence_id": "sfev-475eacd3e05df3f9",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                },
+                {
+                  "evidence_id": "sfev-6abf23a9b2c43e16",
+                  "evidence_set_id": "sfes-6b30567f1d19521e"
+                }
+              ],
+              "rationale": "The black-cat-luck motif is a mundane real-world superstition, not a totalizing world-altering difference from the empirical norm. The story explicitly frames it as an 'idiotic superstition' and never establishes it as an operative law of the storyworld; the outcomes (play failure, romance) unfold through ordinary human causation. There is no estranged world different from the author's empirical reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-6b30567f1d19521e",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6b30567f1d19521e",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 16637,
+            "output": 1113
+          }
+        },
+        "status": "complete",
+        "story_hash": "3d93c39e89e13d207327d8217bcbbb8c24ddd10ec6580a920e2a6df3693e7880"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-6b30567f1d19521e",
+    "knight_analysis_id": "wodehouse__black_for_luck-knight-v1",
+    "suvin_novum_analysis_id": "wodehouse__black_for_luck-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-6b30567f1d19521e",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 1547,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 1526
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-22c35190682327a1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The janitor states a superstitious belief that black cats bring good fortune.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Black cats bring luck"
+        },
+        {
+          "anchor": {
+            "end_char": 9498,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 9361
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-475eacd3e05df3f9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "James explains his superstitious motive for keeping the cat, believing it tied to his play's success.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I'm as superstitious as a coon, and I felt that to give him up\n      would be equivalent to killing the play before ever it was produced."
+        },
+        {
+          "anchor": {
+            "end_char": 9609,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 9541
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6abf23a9b2c43e16",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "James contrasts superstition with being sane and practical, an ironic contrast given later events.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "You have no idiotic\n      superstitions. You are sane and practical."
+        },
+        {
+          "anchor": {
+            "end_char": 26180,
+            "paragraph_ids": [
+              "p00106"
+            ],
+            "start_char": 26011
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-93ffa21c31ffb27a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "On learning the play failed, Elizabeth's anger dissolves and she realizes she loves James.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In a flash all her resentment had gone, wiped away and\n      annihilated like a mist before the sun. She loved him, and she knew now\n      that she had always loved him."
+        }
+      ],
+      "story_hash": "3d93c39e89e13d207327d8217bcbbb8c24ddd10ec6580a920e2a6df3693e7880",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "wodehouse/black_for_luck",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "3d93c39e89e13d207327d8217bcbbb8c24ddd10ec6580a920e2a6df3693e7880",
+  "story_path": "wodehouse/black_for_luck/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20350,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1106,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "london/brown_wolf",
+  "story_path": "london/brown_wolf/story.json",
+  "text": "",
+  "title": "London - Brown Wolf",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-brown-wolf-dog",
+        "character_reaction_evidence_ids": [
+          "sfev-001aaeed1c90f6dd",
+          "sfev-10659c0e47b97035",
+          "sfev-ba54741ab2e5afab"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The narrative frames the dog's behavior in coherent, nonsupernatural terms: the homing instinct as a naturalistic explanation, Irvine's labeled-collar method for tracing escapes, and a detailed physiological account of the muscular/nervous process of howling. These provide an immanent, systematic account.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-84c86301fd3838e2",
+            "sfev-ca6452f52b7e309c",
+            "sfev-ec385df0612fa253"
+          ]
+        },
+        "description": "Brown/Wolf, a Klondike sled dog with a mysterious homing instinct that repeatedly drives him hundreds of miles north, who ultimately chooses between two masters.",
+        "estrangement_rationale": "Reader-facing contrast between the gentle California setting and the harsh Klondike world underscores the dog's dual nature, and characters react with wonder to his barking and choice; but these are estrangement effects within a naturalistic animal story, not signs of a world-altering novum.",
+        "evidence_ids": [
+          "sfev-84c86301fd3838e2",
+          "sfev-ca6452f52b7e309c",
+          "sfev-ec385df0612fa253",
+          "sfev-ba54741ab2e5afab",
+          "sfev-ed856402790cb498",
+          "sfev-001aaeed1c90f6dd",
+          "sfev-10659c0e47b97035",
+          "sfev-27797"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The dog is the central figure whose disputed ownership and final autonomous choice determine the entire narrative arc and its climactic resolution.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-ba54741ab2e5afab",
+            "sfev-ed856402790cb498"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-84c86301fd3838e2",
+            "sfev-10659c0e47b97035"
+          ],
+          "rationale": "The dog, however remarkable his endurance and homing instinct, does not constitute a totalizing or world-altering difference from the empirical norm. His long treks and eventual choice of master are extraordinary within a naturalistic frame but do not alter the story universe or introduce a systematic difference from consensus reality. The 'traveller from another planet' phrasing is explicitly figurative, and the homing instinct is offered as an ordinary (if strong) animal trait, not a new cognitive law of the world.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-ed856402790cb498"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-ba54741ab2e5afab"
+        ]
+      }
+    ]
+  }
+}

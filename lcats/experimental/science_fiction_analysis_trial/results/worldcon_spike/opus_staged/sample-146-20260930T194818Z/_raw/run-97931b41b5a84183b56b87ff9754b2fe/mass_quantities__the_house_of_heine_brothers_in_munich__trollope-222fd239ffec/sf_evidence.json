@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 25637,
+  "model": "claude-opus-4-8",
+  "output_tokens": 949,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope",
+  "story_path": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope/story.json",
+  "text": "",
+  "title": "The House of Heine Brothers, in Munich",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The narrator contrasts the small Munich bank with the vast scale of English banking operations.",
+        "quote": "The operations of English bankers are bewildering in their magnitude. Legions of clerks are employed.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "The narrator directly addresses the reader to compare English and German manners.",
+        "quote": "We English folk are apt to imagine that we are nearer akin to Germans than to our other continental neighbours.  This may be so in blood, but, nevertheless, the difference in manners is so striking, that it could hardly be enhanced.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "The narrator compares the character of German and English young women for the reader.",
+        "quote": "The German girl of one-and-twenty,\ba our Isa\ns age,\ba is more sedate, more womanly, more meditative than her English sister.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00044"
+        ],
+        "paraphrase": "Herbert reacts with frustration to being told to wait four years.",
+        "quote": "Herbert fretted, fumed, and declared that he was ill-treated.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00190"
+        ],
+        "paraphrase": "Isa reveals the depth of her feeling by saying she would break her heart if Herbert left.",
+        "quote": "Mamma, if he did, I should\ba break my heart.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00211"
+        ],
+        "paraphrase": "Herbert reacts with boisterous joy at the news of the partnership.",
+        "quote": "He could not contain himself, and embraced them all, and then scolded Isa because she was so calm.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00209"
+        ],
+        "paraphrase": "Herbert is granted a partnership in the bank, changing his standing and enabling the marriage.",
+        "quote": "Uncle Hatto has sent to us a document which admits you as a partner into the bank.",
+        "raw_id": "ev07"
+      }
+    ]
+  }
+}

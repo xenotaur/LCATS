@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 8522,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1779,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "anderson/elderbush",
+  "story_path": "anderson/elderbush/story.json",
+  "text": "",
+  "title": "Anderson - The Elderbush",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00014"
+        ],
+        "paraphrase": "An elder tree grows out of the tea-pot and fills the room.",
+        "quote": "The cover rose more and more; and the Elder-flowers came forth so fresh and white, and shot up long branches. Out of the spout even did they spread themselves on all sides, and grew larger and larger; it was a splendid Elderbush, a whole tree; and it reached into the very bed, and pushed the curtains aside.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00033"
+        ],
+        "paraphrase": "The boy is enclosed by the tree's branches in a dwelling that flies through the air.",
+        "quote": "she took the little boy out of bed, laid him on her bosom, and the branches of the Elder Tree, full of flowers, closed around her. They sat in an aerial dwelling, and it flew with them through the air.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00033"
+        ],
+        "paraphrase": "The old woman transforms into a young maiden.",
+        "quote": "Old Nanny had grown all of a sudden a young and pretty maiden; but her robe was still the same green stuff with white flowers, which she had worn before.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00034"
+        ],
+        "paraphrase": "A walking stick becomes a living horse when the children ride it.",
+        "quote": "as soon as they got astride it, the round polished knob was turned into a magnificent neighing head, a long black mane fluttered in the breeze, and four slender yet strong legs shot out.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00037"
+        ],
+        "paraphrase": "They fly across Denmark while the seasons pass around them.",
+        "quote": "the little damsel wound her arms round the boy, and then they flew far away through all Denmark. And spring came, and summer; and then it was autumn, and then winter",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00031"
+        ],
+        "paraphrase": "The boy objects that the story is not really a fairy tale.",
+        "quote": "\"But that is no fairy tale,\" said the little boy, who was listening to the story.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00033"
+        ],
+        "paraphrase": "Old Nanny explains that fairy tales arise from reality, as the tree grew from the tea-pot.",
+        "quote": "The most wonderful fairy tales grow out of that which is reality; were that not the case, you know, my magnificent Elderbush could not have grown out of the tea-pot.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "After the vision, the ordinary tea-pot sits with no tree, contrasting with the earlier marvel.",
+        "quote": "The tea-pot was standing on the table, but no Elder Tree was growing out of it!",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "The boy reacts with delight, claiming to have travelled to warm countries.",
+        "quote": "\"How splendid that was!\" said the little boy. \"Mother, I have been to warm countries.\"",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "The boy is uncertain whether the events were a dream or a told story.",
+        "quote": "The little boy lay in his bed; he did not know if he had dreamed or not, or if he had been listening while someone told him the story.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00044"
+        ],
+        "paraphrase": "Flowers placed on the old couple's heads turn into golden crowns.",
+        "quote": "when they laid them on the heads of the old people, each flower became a golden crown. So there they both sat, like a king and a queen, under the fragrant tree",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00045"
+        ],
+        "paraphrase": "The tree figure identifies herself as an embodiment of Remembrance.",
+        "quote": "some call me 'Old Nanny,' others a 'Dryad,' but, in reality, my name is 'Remembrance'; 'tis I who sit in the tree that grows and grows!",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

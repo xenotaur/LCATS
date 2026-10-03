@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 3736,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1051,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "anderson/false_collar",
+  "story_path": "anderson/false_collar/story.json",
+  "text": "",
+  "title": "Anderson - The False Collar",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "A false collar is depicted as a sentient being capable of thinking about marriage and interacting with other objects.",
+        "quote": "It was so old, that it began to think of marriage; and it happened that it came to be washed in company with a garter.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "The garter rebuffs the collar's advances with indignation.",
+        "quote": "\"I will thank you not to speak to me,\" said the garter. \"I think I have not given the least occasion for it.\"",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00015"
+        ],
+        "paraphrase": "A box-iron is personified, speaking and imagining itself to be a steam-engine.",
+        "quote": "\"Rag!\" said the box-iron; and went proudly over the collar: for she fancied she was a steam-engine, that would go on the railroad and draw the waggons.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00019"
+        ],
+        "paraphrase": "The scissors reacts angrily and cuts the collar.",
+        "quote": "\"Do you seek my hand?\" said the scissors; for she was angry; and without more ado, she CUT HIM, and then he was condemned.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The collar ends up in a rag chest at a paper mill among other talking rags.",
+        "quote": "A long time passed away, then the collar came into the rag chest at the paper mill; there was a large company of rags, the fine by themselves, and the coarse by themselves, just as it should be.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00025"
+        ],
+        "paraphrase": "The rags are transformed into white paper, and the collar becomes the very paper on which the story is printed.",
+        "quote": "And it became so, all the rags were turned into white paper; but the collar came to be just this very piece of white paper we here see, and on which the story is printed",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00025"
+        ],
+        "paraphrase": "The narrator directly addresses the reader with a cautionary comparison between the collar's fate and the reader's own.",
+        "quote": "It would be well for us to beware, that we may not act in a similar manner, for we can never know if we may not, in the course of time, also come into the rag chest, and be made into white paper, and then have our whole life's history printed on it",
+        "raw_id": "ev07"
+      }
+    ]
+  }
+}

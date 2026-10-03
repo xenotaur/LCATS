@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14360,
+  "model": "claude-opus-4-8",
+  "output_tokens": 732,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/the_spring_of_a_lion__haggard",
+  "story_path": "mass_quantities/the_spring_of_a_lion__haggard/story.json",
+  "text": "",
+  "title": "The Spring of a Lion",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00019"
+        ],
+        "paraphrase": "The narrator describes his terror and paralysis while the lion sniffs his leg.",
+        "quote": "My word!  I did feel queer; I don't think that I ever felt so queer\nbefore.  I dared not move for the life of me",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.68,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "The narrator recounts his fear while the lions feed near him.",
+        "quote": "and there I lay, shaking with terror, and the cold perspiration\npouring out of me",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.62,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The narrator explains his reasoning about firearm ballistics and lion anatomy.",
+        "quote": "my experience has been that a round ball from a\nsmoothbore is quite as effective against a lion as an express bullet.\nThe lion is soft, and not a difficult animal to finish if you hit him\nanywhere in the body.  A buck takes far more killing.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "The narrator describes methodically tracking where the lions rest.",
+        "quote": "the first thing I set to work to do was to try\nto make out whereabouts the brutes lay up for the day",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "The narrator invokes the concept of survival of the fittest to explain the locals' behavior.",
+        "quote": "Those people carry the doctrine of the survival of\nthe fittest to its extreme, you see.",
+        "raw_id": "ev05"
+      }
+    ]
+  }
+}
