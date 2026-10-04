@@ -268,7 +268,7 @@ def make_left_figure(rows: list[dict]) -> None:
             fontweight="bold",
         )
     axes[0].set_ylim(0, max(totals))
-    axes[0].set_title("A. Metadata/Model Agreement")
+    axes[0].set_title("Metadata / Model Agreement")
     axes[0].set_ylabel("Stories")
     axes[0].yaxis.set_major_locator(MaxNLocator(integer=True))
     axes[0].set_xticks(x, [genre.title() for genre in GENRES], rotation=55, ha="right")
@@ -298,7 +298,7 @@ def make_left_figure(rows: list[dict]) -> None:
         cmap=darker_blues,
         aspect="auto",
     )
-    axes[1].set_title("B. Metadata → Model Genre")
+    axes[1].set_title("Metadata --> Model Confusion")
     axes[1].set_xlabel("Model detected genre")
     axes[1].set_ylabel("Metadata-selected genre")
     axes[1].set_xticks(x, [genre.title() for genre in GENRES], rotation=55, ha="right")
@@ -327,7 +327,7 @@ def make_left_figure(rows: list[dict]) -> None:
     )
     colorbar.ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-    fig.suptitle("Worldcon Genre Agreement and Model Confusion", fontsize=36)
+    fig.suptitle("Metadata / Model Genre Labeling", fontsize=36)
 
     # Align the heatbar's bottom edge with the Agreement/Disagreement legend.
     fig.canvas.draw()
