@@ -298,7 +298,7 @@ def make_left_figure(rows: list[dict]) -> None:
         cmap=darker_blues,
         aspect="auto",
     )
-    axes[1].set_title("Metadata → Model Confusion")
+    axes[1].set_title(r"Metadata $\rightarrow$ Model Confusion")
     axes[1].set_xlabel("Model detected genre")
     axes[1].set_ylabel("Metadata-selected genre")
     axes[1].set_xticks(x, [genre.title() for genre in GENRES], rotation=55, ha="right")
