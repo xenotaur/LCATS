@@ -424,7 +424,7 @@ def make_joint_figure(rows: list[dict]) -> None:
             for outcome, hatch in suvin_outcomes
         ],
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.25),
+        bbox_to_anchor=(0.5, -0.28),
         ncol=3,
         title="Suvin Subdivision",
         title_fontsize=17,
@@ -434,7 +434,7 @@ def make_joint_figure(rows: list[dict]) -> None:
         borderpad=0.5,
     )
 
-    fig.suptitle("Worldcon Joint Knight/Suvin Distribution", fontsize=36)
+    fig.suptitle("Knight Score / Suvin Novum Joint Distribution", fontsize=36)
     for extension in ("png", "svg", "pdf"):
         fig.savefig(OUTPUT / f"joint_knight_suvin.{extension}", dpi=180)
     plt.close(fig)
