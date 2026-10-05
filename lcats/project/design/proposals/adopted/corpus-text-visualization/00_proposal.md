@@ -13,7 +13,7 @@ related_design:
   - lcats/project/README.md
   - lcats/project/design/README.md
   - lcats/project/work_items/README.md
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
 ---
 
 ## Summary

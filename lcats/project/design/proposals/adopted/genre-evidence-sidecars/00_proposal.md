@@ -2,11 +2,11 @@
 id: PROP-GENRE-EVIDENCE-SIDECARS
 type: design_proposal
 title: Append-Only Genre Evidence Sidecars for LCATS Corpus Sampling
-status: proposed
+status: adopted
 created_on: 2026-08-12
 updated_on: 2026-08-12
-implementation_status: not_started
-implemented_by: []
+implementation_status: implemented
+implemented_by: [WI-GENRE-0001, WI-GENRE-0002, WI-GENRE-0003, WI-GENRE-0004, WI-LLM-0074, WI-GENRE-0075, WI-GENRE-0076, WI-GENRE-0077]
 supersedes: []
 superseded_by: null
 related_design:

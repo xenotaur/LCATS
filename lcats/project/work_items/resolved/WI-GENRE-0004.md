@@ -16,7 +16,7 @@ related_roadmap:
 related_workstreams:
   - WS-GENRE-EVIDENCE-SIDECARS
 related_design:
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - project/design/event-role-world-genre-target-reconciliation.md
   - project/work_items/proposed/WI-ASSESS-0051.md
   - project/work_items/resolved/WI-GENRE-0002.md

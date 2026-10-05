@@ -10,7 +10,7 @@ related_focus: []
 related_roadmap: []
 related_design:
   - project/design/proposals/adopted/lcats-promote-mode-redesign/00_proposal.md
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
 work_items:
   - WI-PROMOTE-0097
   - WI-PROMOTE-0100

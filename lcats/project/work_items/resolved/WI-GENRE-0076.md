@@ -14,7 +14,7 @@ related_roadmap:
 related_workstreams:
   - WS-GENRE-EVIDENCE-SIDECARS
 related_design:
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - project/work_items/resolved/WI-GENRE-0003.md
   - project/work_items/resolved/WI-GENRE-0004.md
   - lcats/src/lcats/analysis/corpus/genre_sidecar.py
@@ -231,4 +231,4 @@ No `depends_on`. No dependency relationship with `WI-GENRE-0075` or
 ## Related Workstream and Designs
 
 - Workstream: `project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md`
-- Design: `project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`
+- Design: `project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md`

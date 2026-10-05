@@ -16,7 +16,7 @@ related_roadmap:
 related_workstreams:
   - WS-GENRE-EVIDENCE-SIDECARS
 related_design:
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md
   - lcats/project/work_items/resolved/WI-GENRE-0001.md
   - lcats/project/work_items/resolved/WI-GENRE-0002.md
@@ -59,7 +59,7 @@ required_evidence:
 artifacts_expected:
   - lcats/src/lcats/analysis/corpus/genre_sidecar.py
   - lcats/tests/analysis_tests/genre_sidecar_test.py
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - experiments/05_metadata_genre_prefilter/README.md
 ---
 

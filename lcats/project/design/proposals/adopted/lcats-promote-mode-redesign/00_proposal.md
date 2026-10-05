@@ -11,7 +11,7 @@ implemented_by:
 supersedes: []
 superseded_by: null
 related_design:
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/src/lcats/analysis/corpus/promote.py
   - lcats/src/lcats/analysis/corpus/promote_cli.py
   - lcats/src/lcats/analysis/corpus/discovery.py

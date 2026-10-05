@@ -16,7 +16,7 @@ related_design:
   - lcats/project/design/proposals/adopted/lcats-pipeline-checkpointing/00_proposal.md
   - lcats/project/design/proposals/adopted/lcats-story-bucket-layout/00_proposal.md
   - lcats/project/design/proposals/adopted/worldcon-fast-path-annotation/00_proposal.md
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md
   - lcats/project/work_items/proposed/WI-GENRE-0004.md
 ---
@@ -625,7 +625,7 @@ passes and receives separate approval:
 - Fast-path sidecar annotation:
   `lcats/project/design/proposals/adopted/worldcon-fast-path-annotation/00_proposal.md`
 - Append-only genre evidence:
-  `lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`
+  `lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md`
 - Worldcon sample work:
   `lcats/project/work_items/proposed/WI-GENRE-0004.md`
 

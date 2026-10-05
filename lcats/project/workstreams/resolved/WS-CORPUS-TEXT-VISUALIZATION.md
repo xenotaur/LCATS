@@ -11,7 +11,7 @@ related_focus:
 related_roadmap: []
 related_design:
   - lcats/project/design/proposals/adopted/corpus-text-visualization/00_proposal.md
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
 work_items:
   - WI-VISUALIZE-0073
   - WI-VISUALIZE-0085

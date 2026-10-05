@@ -10,7 +10,7 @@ related_focus:
   - FOCUS-WORLDCON-2026
 related_roadmap: []
 related_design:
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/project/design/design.md
   - lcats/project/design/event-role-world-genre-target-reconciliation.md
   - lcats/project/design/proposals/adopted/worldcon-fast-path-annotation/00_proposal.md

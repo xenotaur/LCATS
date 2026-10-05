@@ -16,7 +16,7 @@ related_workstreams:
   - WS-CORPUS-TEXT-VISUALIZATION
 related_design:
   - project/design/proposals/adopted/corpus-text-visualization/00_proposal.md
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/src/lcats/stories.py
   - lcats/src/lcats/analysis/graph_plotters.py
 depends_on: []

@@ -16,7 +16,7 @@ related_roadmap:
 related_workstreams:
   - WS-GENRE-EVIDENCE-SIDECARS
 related_design:
-  - lcats/project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - lcats/project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - lcats/project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md
   - lcats/project/work_items/resolved/WI-GENRE-0001.md
   - experiments/05_metadata_genre_prefilter/README.md
