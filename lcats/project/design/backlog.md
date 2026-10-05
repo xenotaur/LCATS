@@ -1164,12 +1164,12 @@ bar).
 
 ---
 
-## From WS-PROMOTE-MODE-REDESIGN and PR #362 (closed 2026-10-05)
+## From WS-PROMOTE-MODE-REDESIGN (closed 2026-09-26) and PR #362 (merged 2026-09-29)
 
 ### The 146 `genre.json` files promoted by PR #362 still carry absolute `cache_db_path` values — P2, root cause fixed, data not rewritten
 
 PR #362 (`WI-GENRE-0077`, merged 2026-09-29 as `4f3e762f`) promoted 146
-`genre-sidecar-v1` records whose `provenance.cache_db_path` holds a
+`genre-sidecar-v1` records whose `assessments[*].provenance.cache_db_path` holds a
 machine-specific absolute path (a Copilot finding on that PR). The producer
 was fixed in PR #448 (`cache_readiness()` in
 `experiments/05_metadata_genre_prefilter/run_prefilter.py` now stores the
@@ -1177,7 +1177,7 @@ basename only), so future runs are clean; the already-promoted files were
 deliberately not rewritten. Both Copilot threads on #362 were left open.
 
 **First concrete step:** decide whether a one-shot rewrite is worth it.
-If so, strip `cache_db_path` to its basename across `corpora/*/*/genre.json`
+If so, strip each assessment's `provenance.cache_db_path` to its basename (the field lives under `assessments[*]`; the sidecar root has no `provenance` key) across `corpora/*/*/genre.json`
 and promote with `lcats promote upsert` (not `replace`, which would drop
 other sidecars). Nothing reads the field beyond display, so risk is low;
 the cost is a 146-file data diff for a cosmetic fix.
