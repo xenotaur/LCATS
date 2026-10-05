@@ -2,13 +2,17 @@
 
 This is an experiment-local, read-only join of the 146-story genre validation
 records and the persisted Knight/Suvin sidecars.  It writes only under the
-experiment's visualization figure directory.
+experiment's visualization figure directory. Set ``LCATS_SF_ROOT`` to the
+persisted analysis root when the sidecars are stored outside the checkout.
 """
 
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
+import os
+import subprocess
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -20,13 +24,15 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[3]
+GIT_COMMAND = os.environ.get("LCATS_GIT", "git")
 OUTPUT = ROOT / "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap"
 GENRE_ROOT = ROOT / "experiments/05_metadata_genre_prefilter/results/full_scan"
-SF_ROOT = (
+DEFAULT_SF_ROOT = (
     ROOT
     / "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/"
     / "opus_staged/sample-146-20260930T194818Z"
 )
+SF_ROOT = Path(os.environ.get("LCATS_SF_ROOT", DEFAULT_SF_ROOT))
 GENRES = (
     "adventure",
     "fantasy",
@@ -37,10 +43,46 @@ GENRES = (
     "science fiction",
     "western",
 )
+MODEL_GENRES = GENRES + ("other",)
 
 
 def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def git_revision(path: Path) -> str | None:
+    try:
+        return subprocess.check_output(
+            [GIT_COMMAND, "log", "-1", "--format=%H", "--", str(path.relative_to(ROOT))],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+    except (subprocess.CalledProcessError, ValueError):
+        return None
+
+
+def input_inventory() -> list[dict[str, str | None]]:
+    paths = [
+        GENRE_ROOT / "genre_balanced_manifest.jsonl",
+        GENRE_ROOT / "validation_results.jsonl",
+    ]
+    paths.extend(sorted(SF_ROOT.rglob("science-fiction.json")))
+    return [
+        {
+            "path": str(path.relative_to(ROOT)),
+            "sha256": sha256_file(path),
+            "git_revision": git_revision(path),
+        }
+        for path in paths
+    ]
 
 
 def assessments(row: dict) -> dict[str, dict]:
@@ -282,8 +324,9 @@ def make_left_figure(rows: list[dict]) -> None:
         borderpad=0.5,
     )
 
-    matrix = np.zeros((len(GENRES), len(GENRES)), dtype=int)
-    positions = {genre: index for index, genre in enumerate(GENRES)}
+    matrix = np.zeros((len(GENRES), len(MODEL_GENRES)), dtype=int)
+    x_model = np.arange(len(MODEL_GENRES))
+    positions = {genre: index for index, genre in enumerate(MODEL_GENRES)}
     for row in rows:
         model_genre = row["model_genre"]
         if model_genre in positions:
@@ -301,10 +344,10 @@ def make_left_figure(rows: list[dict]) -> None:
     axes[1].set_title(r"Metadata $\rightarrow$ Model Confusion")
     axes[1].set_xlabel("Model detected genre")
     axes[1].set_ylabel("Metadata-selected genre")
-    axes[1].set_xticks(x, [genre.title() for genre in GENRES], rotation=55, ha="right")
-    axes[1].set_yticks(x, [genre.title() for genre in GENRES])
+    axes[1].set_xticks(x_model, [genre.title() for genre in MODEL_GENRES], rotation=55, ha="right")
+    axes[1].set_yticks(np.arange(len(GENRES)), [genre.title() for genre in GENRES])
     for row_index in range(len(GENRES)):
-        for column_index in range(len(GENRES)):
+        for column_index in range(len(MODEL_GENRES)):
             value = matrix[row_index, column_index]
             if value:
                 axes[1].text(
@@ -492,8 +535,9 @@ def make_figure(rows: list[dict]) -> None:
     )
 
     # Panel B: confusion matrix, selected metadata genre by model genre.
-    matrix = np.zeros((len(GENRES), len(GENRES)), dtype=int)
-    positions = {genre: index for index, genre in enumerate(GENRES)}
+    matrix = np.zeros((len(GENRES), len(MODEL_GENRES)), dtype=int)
+    x_model = np.arange(len(MODEL_GENRES))
+    positions = {genre: index for index, genre in enumerate(MODEL_GENRES)}
     for row in rows:
         model_genre = row["model_genre"]
         if model_genre in positions:
@@ -511,10 +555,10 @@ def make_figure(rows: list[dict]) -> None:
     axes[1].set_title("B. Metadata → model genre")
     axes[1].set_xlabel("Model detected genre")
     axes[1].set_ylabel("Metadata-selected genre")
-    axes[1].set_xticks(x, [genre.title() for genre in GENRES], rotation=55, ha="right")
-    axes[1].set_yticks(x, [genre.title() for genre in GENRES])
+    axes[1].set_xticks(x_model, [genre.title() for genre in MODEL_GENRES], rotation=55, ha="right")
+    axes[1].set_yticks(np.arange(len(GENRES)), [genre.title() for genre in GENRES])
     for row_index in range(len(GENRES)):
-        for column_index in range(len(GENRES)):
+        for column_index in range(len(MODEL_GENRES)):
             value = matrix[row_index, column_index]
             if value:
                 axes[1].text(
@@ -656,9 +700,16 @@ def main() -> None:
             "source_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
             "science_fiction_root": str(SF_ROOT.relative_to(ROOT)),
         },
+        "inputs": input_inventory(),
+        "generator": {
+            "path": str(Path(__file__).relative_to(ROOT)),
+            "git_revision": git_revision(Path(__file__)),
+            "sha256": sha256_file(Path(__file__)),
+        },
         "definitions": {
             "metadata_genre": "selection_genre; inclusive candidate memberships remain in metadata_candidates",
-            "model_genre": "model_detect.result.detected_genre",
+            "model_genre": "model_detect.result.detected_genre; values outside the eight metadata genres are shown as Other",
+            "model_genres": list(MODEL_GENRES),
             "agreement": "model_detect.result.agrees_with_metadata_rules",
             "knight_band": "definite Knight interval: 0, 1-2, 3-4, or 5-7",
             "suvin_outcome": "qualified, not qualified, or failed analysis",
@@ -669,6 +720,11 @@ def main() -> None:
             "metadata_candidates preserves multi-genre overlap for a future inclusive view.",
             "This prototype does not interpret genre labels as theoretical truth or human agreement.",
         ],
+    }
+    manifest["outputs"] = {
+        str(path.relative_to(ROOT)): sha256_file(path)
+        for path in sorted(OUTPUT.iterdir())
+        if path.name != "worldcon_sf_overlap_manifest.json"
     }
     (OUTPUT / "worldcon_sf_overlap_manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
