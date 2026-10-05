@@ -2,8 +2,8 @@
 id: WS-GENRE-EVIDENCE-SIDECARS
 kind: planning_node
 title: Genre Evidence Sidecars for LCATS Corpus Sampling
-status: proposed
-stage: designed
+status: resolved
+stage: closed
 origin: design_review
 summary: Deliver PROP-GENRE-EVIDENCE-SIDECARS through an experiment-first genre metadata prefilter, append-only genre.json sidecar schema, tranche promotion, append-mode annotation, model and human assessment layers, and sample promotion for the Worldcon paper.
 related_focus:

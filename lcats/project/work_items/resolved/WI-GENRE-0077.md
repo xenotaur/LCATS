@@ -2,7 +2,7 @@
 id: WI-GENRE-0077
 title: Promote the validated genre-sidecar sample into corpora/
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -23,7 +23,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #362 (commit 4f3e762f): 146 validated genre-sidecar-v1 records promoted into corpora/ via insert mode. Known caveat: the promoted files carry absolute cache_db_path provenance values; the generating script was fixed in PR #448 but the 146 files were not rewritten.'
 expected_actions:
   - edit_file
   - run_tests
