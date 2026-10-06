@@ -33,7 +33,7 @@
         "version": "v1"
       },
       "provenance": {
-        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_db_path": "gutenbergindex.db",
         "cache_status": "ready",
         "gutenberg_id": 3724,
         "gutenberg_url": "https://www.gutenberg.org/cache/epub/3724/pg3724.txt",
