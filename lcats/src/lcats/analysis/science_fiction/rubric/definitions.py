@@ -1,7 +1,9 @@
 """Versioned rubric metadata with primary-source gates.
 
 The source-dependent Knight and Suvin governing text is intentionally absent
-until approved primary-source excerpts and citations are supplied.
+until approved primary-source excerpts and citations are supplied. The Heinlein
+rubric is resolved against a cited reprint of the primary source; see
+``HEINLEIN_FIVE`` and its ``source_note``.
 """
 
 from __future__ import annotations
@@ -106,5 +108,77 @@ SUVIN_NOVUM = RubricDefinition(
     source_note=(
         "Exact Suvin theoretical definitions, edition, and page citations must be "
         "supplied from an approved primary source before rubric text is frozen."
+    ),
+)
+
+HEINLEIN_CITATION = (
+    'Robert A. Heinlein, "On the Writing of Speculative Fiction," in Of Worlds '
+    "Beyond: The Science of Science-Fiction Writing (Chicago: Advent "
+    "Publishers, 1964), pp. 13-19 (first collected 1947); consulted via the "
+    "English reprint in (n.t.) Revista Nota do Tradutor, no. 24 (2022), "
+    "English text on printed pp. 126-130, conditions at pp. 129-130."
+)
+SOURCE_STATUS_VERIFIED_REPRINT = "verified_primary_reprint"
+
+HEINLEIN_FIVE = RubricDefinition(
+    rubric_id=models.HEINLEIN_RUBRIC_VERSION,
+    source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+    text_slots=(
+        RubricTextSlot(
+            "different",
+            "Conditions different from the here and now",
+            source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+            governing_text=(
+                "The conditions must be different from here-and-now in some "
+                "respect; the difference may lie only in an invention made in "
+                "the course of the story."
+            ),
+            citation=HEINLEIN_CITATION,
+        ),
+        RubricTextSlot(
+            "essential",
+            "New conditions essential to the story",
+            source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+            governing_text=(
+                "The new conditions must be an essential part of the story."
+            ),
+            citation=HEINLEIN_CITATION,
+        ),
+        RubricTextSlot(
+            "human",
+            "Problem is a human problem",
+            source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+            governing_text=("The problem itself, the plot, must be a human problem."),
+            citation=HEINLEIN_CITATION,
+        ),
+        RubricTextSlot(
+            "causal",
+            "Human problem created or indispensably affected by the new conditions",
+            source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+            governing_text=(
+                "The human problem must be one created by, or indispensably "
+                "affected by, the new conditions."
+            ),
+            citation=HEINLEIN_CITATION,
+        ),
+        RubricTextSlot(
+            "plausible",
+            "No established fact violated",
+            source_status=SOURCE_STATUS_VERIFIED_REPRINT,
+            governing_text=(
+                "No established fact shall be violated; a contrary new theory "
+                "must be made reasonably plausible and must explain established "
+                "facts as satisfactorily as the theory it replaces."
+            ),
+            citation=HEINLEIN_CITATION,
+        ),
+    ),
+    source_note=(
+        "Wording checked against Heinlein's English text as reprinted in Nota "
+        "do Tradutor 24, which cites the 1964 Advent edition of Of Worlds "
+        "Beyond. Heinlein calls the result the 'Simon-pure science fiction "
+        "story'. The reprint's list numerals for conditions 2-4 are lost in the "
+        "scan but the order is unambiguous. The journal dates the collection to 1947; compare "
+        "the 1947 printing before treating the wording as edition-final."
     ),
 )
