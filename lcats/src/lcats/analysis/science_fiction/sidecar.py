@@ -19,6 +19,7 @@ PARTIAL_SUCCESS_STAGE_NAMES = frozenset(
         "evidence",
         "knight",
         "suvin_novum",
+        "heinlein",
         "sidecar",
         "publication",
     }
@@ -78,6 +79,7 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
     current_evidence_set_id: str | None = None
     current_knight_analysis_id: str | None = None
     current_suvin_analysis_id: str | None = None
+    current_heinlein_analysis_id: str | None = None
     if isinstance(current, dict):
         current_evidence_set_id = _optional_string_or_none(
             current,
@@ -97,6 +99,12 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
             "$.current.suvin_novum_analysis_id",
             findings,
         )
+        current_heinlein_analysis_id = _optional_string_or_none(
+            current,
+            "heinlein_analysis_id",
+            "$.current.heinlein_analysis_id",
+            findings,
+        )
         if (
             current_evidence_set_id is not None
             and current_evidence_set_id not in evidence_ids_by_set
@@ -111,6 +119,7 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
 
     knight_index: dict[str, dict[str, Any]] = {}
     suvin_index: dict[str, dict[str, Any]] = {}
+    heinlein_index: dict[str, dict[str, Any]] = {}
     if isinstance(analyses, dict):
         knight_items = _require_list(analyses, "knight", "$.analyses.knight", findings)
         suvin_items = _require_list(
@@ -132,6 +141,19 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
             evidence_ids_by_set=evidence_ids_by_set,
             findings=findings,
         )
+        # Optional detector: absent in sidecars written before Heinlein existed.
+        if "heinlein" in analyses:
+            heinlein_items = _require_list(
+                analyses, "heinlein", "$.analyses.heinlein", findings
+            )
+            heinlein_index = _validate_analyses(
+                heinlein_items,
+                path="$.analyses.heinlein",
+                label="Heinlein",
+                story_hash=story_hash,
+                evidence_ids_by_set=evidence_ids_by_set,
+                findings=findings,
+            )
 
     _validate_current_analysis(
         current_knight_analysis_id,
@@ -146,6 +168,14 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
         index=suvin_index,
         path="$.current.suvin_novum_analysis_id",
         label="Suvin novum",
+        current_evidence_set_id=current_evidence_set_id,
+        findings=findings,
+    )
+    _validate_current_analysis(
+        current_heinlein_analysis_id,
+        index=heinlein_index,
+        path="$.current.heinlein_analysis_id",
+        label="Heinlein",
         current_evidence_set_id=current_evidence_set_id,
         findings=findings,
     )
@@ -574,6 +604,8 @@ def _validate_analyses(
             _validate_knight_analysis(analysis, base, findings)
         elif label == "Suvin novum":
             _validate_suvin_analysis(analysis, base, findings)
+        elif label == "Heinlein":
+            _validate_heinlein_analysis(analysis, base, findings)
         if _is_non_empty_string(evidence_set_id):
             _validate_analysis_references(
                 analysis,
@@ -777,6 +809,161 @@ def _validate_knight_interval_matches_criteria(
                 base,
                 "knight_interval_mismatch",
                 "Knight interval counts must match criterion statuses",
+            )
+        )
+
+
+def _validate_heinlein_analysis(
+    analysis: dict[str, Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    criteria = _require_list(analysis, "criteria", f"{base}.criteria", findings)
+    interval = _require_mapping(analysis, "interval", f"{base}.interval", findings)
+    verdict = analysis.get("verdict")
+    _require_string(analysis, "verdict", f"{base}.verdict", findings)
+    _validate_provenance(
+        analysis,
+        f"{base}.provenance",
+        expected_rubric_version=models.HEINLEIN_RUBRIC_VERSION,
+        findings=findings,
+    )
+    if _is_non_empty_string(verdict) and verdict not in models.HEINLEIN_VERDICTS:
+        findings.append(
+            _finding(
+                f"{base}.verdict",
+                "invalid_verdict",
+                f"expected one of {sorted(models.HEINLEIN_VERDICTS)!r}",
+            )
+        )
+    if not isinstance(criteria, list):
+        return
+    statuses: dict[str, str] = {}
+    criterion_ids: list[str] = []
+    for index, criterion in enumerate(criteria):
+        criterion_base = f"{base}.criteria[{index}]"
+        if not isinstance(criterion, dict):
+            findings.append(
+                _finding(
+                    criterion_base,
+                    "wrong_type",
+                    f"expected object, got {type(criterion).__name__}",
+                )
+            )
+            continue
+        criterion_id = criterion.get("criterion_id")
+        status = criterion.get("status")
+        _require_string(
+            criterion, "criterion_id", f"{criterion_base}.criterion_id", findings
+        )
+        _require_string(criterion, "status", f"{criterion_base}.status", findings)
+        supporting = _require_list(
+            criterion,
+            "supporting_evidence",
+            f"{criterion_base}.supporting_evidence",
+            findings,
+        )
+        _require_list(
+            criterion, "counterevidence", f"{criterion_base}.counterevidence", findings
+        )
+        _require_string_value(
+            criterion, "rationale", f"{criterion_base}.rationale", findings
+        )
+        _validate_optional_confidence(
+            criterion, f"{criterion_base}.confidence", findings
+        )
+        if _is_non_empty_string(criterion_id):
+            criterion_ids.append(criterion_id)
+            if criterion_id not in models.HEINLEIN_CRITERION_IDS:
+                findings.append(
+                    _finding(
+                        f"{criterion_base}.criterion_id",
+                        "invalid_criterion_id",
+                        "criterion_id must identify one Heinlein criterion",
+                    )
+                )
+            elif _is_non_empty_string(status):
+                statuses[criterion_id] = status
+        if _is_non_empty_string(status) and status not in models.DECISION_STATES:
+            findings.append(
+                _finding(
+                    f"{criterion_base}.status",
+                    "invalid_status",
+                    f"expected one of {sorted(models.DECISION_STATES)!r}",
+                )
+            )
+        if status == "present" and isinstance(supporting, list) and not supporting:
+            findings.append(
+                _finding(
+                    f"{criterion_base}.supporting_evidence",
+                    "missing_required_field",
+                    "present Heinlein criteria require supporting evidence",
+                )
+            )
+    if sorted(criterion_ids) != sorted(models.HEINLEIN_CRITERION_IDS):
+        findings.append(
+            _finding(
+                f"{base}.criteria",
+                "invalid_criteria",
+                "Heinlein analysis must contain five unique criteria",
+            )
+        )
+        return
+    if len(statuses) != len(models.HEINLEIN_CRITERION_IDS) or any(
+        status not in models.DECISION_STATES for status in statuses.values()
+    ):
+        return
+    for dependent, prerequisite in models.heinlein_dependency_violations(statuses):
+        findings.append(
+            _finding(
+                f"{base}.criteria",
+                "heinlein_dependency_violation",
+                f"Heinlein criterion {dependent!r} cannot be present when "
+                f"{prerequisite!r} is absent",
+            )
+        )
+    if (
+        _is_non_empty_string(verdict)
+        and verdict in models.HEINLEIN_VERDICTS
+        and verdict != models.heinlein_verdict(statuses)
+    ):
+        findings.append(
+            _finding(
+                f"{base}.verdict",
+                "heinlein_verdict_mismatch",
+                "Heinlein verdict must match criterion statuses",
+            )
+        )
+    if isinstance(interval, dict):
+        _validate_heinlein_interval(interval, statuses, f"{base}.interval", findings)
+
+
+def _validate_heinlein_interval(
+    interval: dict[str, Any],
+    statuses: dict[str, str],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    for key in ("definite_count", "possible_count", "total_count"):
+        _require_int(interval, key, f"{base}.{key}", findings)
+    counts = tuple(
+        interval.get(key) for key in ("definite_count", "possible_count", "total_count")
+    )
+    if not all(
+        isinstance(value, int) and not isinstance(value, bool) for value in counts
+    ):
+        return
+    expected = (
+        sum(1 for status in statuses.values() if status == "present"),
+        sum(1 for status in statuses.values() if status in {"present", "ambiguous"}),
+        len(models.HEINLEIN_CRITERION_IDS),
+    )
+    if counts != expected:
+        findings.append(
+            _finding(
+                base,
+                "heinlein_interval_mismatch",
+                "Heinlein interval counts must match criterion statuses",
             )
         )
 

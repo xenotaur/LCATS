@@ -18,8 +18,25 @@ from lcats.analysis.science_fiction import evidence
 SCIENCE_FICTION_SIDECAR_VERSION = "science-fiction-sidecar-v1"
 KNIGHT_RUBRIC_VERSION = "knight-seven-v1"
 SUVIN_RUBRIC_VERSION = "suvin-novum-v1"
+HEINLEIN_RUBRIC_VERSION = "heinlein-five-v1"
 
 KNIGHT_CRITERION_IDS = tuple(f"criterion_{index}" for index in range(1, 8))
+HEINLEIN_CRITERION_IDS = (
+    "different",
+    "essential",
+    "human",
+    "causal",
+    "plausible",
+)
+# A dependent criterion cannot be "present" when a prerequisite is "absent":
+# new conditions cannot be essential to, or cause, a problem if there are no
+# new conditions, and a problem cannot be caused by them if there is no human
+# problem.
+HEINLEIN_PREREQUISITES = {
+    "essential": ("different",),
+    "causal": ("different", "human"),
+}
+HEINLEIN_VERDICTS = frozenset({"qualifies", "indeterminate", "does_not_qualify"})
 
 DECISION_STATES = frozenset(
     {
@@ -291,6 +308,151 @@ class KnightAnalysis:
 
 
 @dataclasses.dataclass(frozen=True)
+class HeinleinCriterion:
+    """One independently evidenced Heinlein criterion decision."""
+
+    criterion_id: str
+    status: str
+    supporting_evidence: tuple[EvidenceReference, ...] = ()
+    counterevidence: tuple[EvidenceReference, ...] = ()
+    rationale: str = ""
+    confidence: float | None = None
+
+    def __post_init__(self) -> None:
+        _require_choice(
+            self.criterion_id, frozenset(HEINLEIN_CRITERION_IDS), "criterion_id"
+        )
+        _require_choice(self.status, DECISION_STATES, "status")
+        if self.confidence is not None and not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("confidence must be between 0 and 1")
+        if self.status == "present" and not self.supporting_evidence:
+            raise ValueError("present Heinlein criteria require supporting evidence")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "criterion_id": self.criterion_id,
+            "status": self.status,
+            "supporting_evidence": [
+                reference.to_dict() for reference in self.supporting_evidence
+            ],
+            "counterevidence": [
+                reference.to_dict() for reference in self.counterevidence
+            ],
+            "rationale": self.rationale,
+            "confidence": self.confidence,
+        }
+
+
+@dataclasses.dataclass(frozen=True)
+class HeinleinInterval:
+    """Deterministic Heinlein definite/possible interval."""
+
+    definite_count: int
+    possible_count: int
+    total_count: int = 5
+
+    def __post_init__(self) -> None:
+        if not 0 <= self.definite_count <= self.possible_count <= self.total_count:
+            raise ValueError("invalid Heinlein interval")
+
+    def to_dict(self) -> dict[str, int]:
+        return dataclasses.asdict(self)
+
+
+def heinlein_verdict(statuses: Mapping[str, str]) -> str:
+    """Return the Heinlein conjunction verdict for five criterion statuses.
+
+    Heinlein states his conditions as jointly required, so the verdict is a
+    conjunction rather than a count: ``qualifies`` only when every criterion is
+    present, ``does_not_qualify`` as soon as any criterion is absent, and
+    ``indeterminate`` otherwise (some ambiguous or not assessable).
+    """
+
+    values = [statuses[criterion_id] for criterion_id in HEINLEIN_CRITERION_IDS]
+    if "absent" in values:
+        return "does_not_qualify"
+    if all(value == "present" for value in values):
+        return "qualifies"
+    return "indeterminate"
+
+
+def heinlein_dependency_violations(
+    statuses: Mapping[str, str],
+) -> tuple[tuple[str, str], ...]:
+    """Return (dependent, prerequisite) pairs where present depends on absent."""
+
+    return tuple(
+        (dependent, prerequisite)
+        for dependent, prerequisites in HEINLEIN_PREREQUISITES.items()
+        if statuses.get(dependent) == "present"
+        for prerequisite in prerequisites
+        if statuses.get(prerequisite) == "absent"
+    )
+
+
+@dataclasses.dataclass(frozen=True)
+class HeinleinAnalysis:
+    """A five-criterion Heinlein profile with a conjunctive verdict."""
+
+    analysis_id: str
+    story_hash: str
+    evidence_set_id: str
+    criteria: tuple[HeinleinCriterion, ...]
+    provenance: ProvenanceRecord
+    status: str = "complete"
+    failures: tuple[FailureRecord, ...] = ()
+
+    def __post_init__(self) -> None:
+        _require_non_empty_string(self.analysis_id, "analysis_id")
+        _require_non_empty_string(self.story_hash, "story_hash")
+        _require_non_empty_string(self.evidence_set_id, "evidence_set_id")
+        _require_choice(self.status, ANALYSIS_STATES, "status")
+        if self.provenance.rubric_version != HEINLEIN_RUBRIC_VERSION:
+            raise ValueError("Heinlein analysis must use heinlein-five-v1 provenance")
+        criterion_ids = tuple(criterion.criterion_id for criterion in self.criteria)
+        if sorted(criterion_ids) != sorted(HEINLEIN_CRITERION_IDS):
+            raise ValueError("Heinlein analysis must contain five unique criteria")
+        violations = heinlein_dependency_violations(
+            {criterion.criterion_id: criterion.status for criterion in self.criteria}
+        )
+        if violations:
+            dependent, prerequisite = violations[0]
+            raise ValueError(
+                f"Heinlein criterion {dependent!r} cannot be present when "
+                f"{prerequisite!r} is absent"
+            )
+
+    @property
+    def interval(self) -> HeinleinInterval:
+        return HeinleinInterval(
+            definite_count=sum(1 for c in self.criteria if c.status == "present"),
+            possible_count=sum(
+                1 for c in self.criteria if c.status in {"present", "ambiguous"}
+            ),
+            total_count=len(self.criteria),
+        )
+
+    @property
+    def verdict(self) -> str:
+        return heinlein_verdict(
+            {criterion.criterion_id: criterion.status for criterion in self.criteria}
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "analysis_id": self.analysis_id,
+            "story_hash": self.story_hash,
+            "evidence_set_id": self.evidence_set_id,
+            "criteria": [criterion.to_dict() for criterion in self.criteria],
+            "interval": self.interval.to_dict(),
+            "verdict": self.verdict,
+            "provenance": self.provenance.to_dict(),
+            "status": self.status,
+            "failures": [failure.to_dict() for failure in self.failures],
+        }
+
+
+@dataclasses.dataclass(frozen=True)
 class NovumDimensionDecision:
     """One novelty, cognition, or hegemony decision for a novum candidate."""
 
@@ -468,9 +630,15 @@ class CurrentPointers:
     evidence_set_id: str | None = None
     knight_analysis_id: str | None = None
     suvin_novum_analysis_id: str | None = None
+    heinlein_analysis_id: str | None = None
 
     def to_dict(self) -> dict[str, str | None]:
-        return dataclasses.asdict(self)
+        data = dataclasses.asdict(self)
+        # Omit the optional Heinlein pointer when unset so sidecars and
+        # checkpoint fingerprints produced before Heinlein existed stay stable.
+        if data["heinlein_analysis_id"] is None:
+            del data["heinlein_analysis_id"]
+        return data
 
 
 @dataclasses.dataclass(frozen=True)
@@ -500,6 +668,7 @@ class ScienceFictionSidecarEnvelope:
     evidence_sets: tuple[evidence.EvidenceSet, ...] = ()
     knight_analyses: tuple[KnightAnalysis, ...] = ()
     suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...] = ()
+    heinlein_analyses: tuple[HeinleinAnalysis, ...] = ()
     current: CurrentPointers = dataclasses.field(default_factory=CurrentPointers)
     validation: ValidationResult = dataclasses.field(
         default_factory=lambda: ValidationResult(valid=True)
@@ -547,7 +716,7 @@ class ScienceFictionSidecarEnvelope:
         findings: list[ValidationFinding] = []
         evidence_set_ids = set(self.evidence_set_ids)
         for path, label, analysis in _iter_analyses(
-            self.knight_analyses, self.suvin_novum_analyses
+            self.knight_analyses, self.suvin_novum_analyses, self.heinlein_analyses
         ):
             if analysis.story_hash != self.story_hash:
                 findings.append(
@@ -578,7 +747,7 @@ class ScienceFictionSidecarEnvelope:
             for evidence_set in self.evidence_sets
         }
         for path, analysis_evidence_set_id, reference in _iter_evidence_references(
-            self.knight_analyses, self.suvin_novum_analyses
+            self.knight_analyses, self.suvin_novum_analyses, self.heinlein_analyses
         ):
             if reference.evidence_set_id != analysis_evidence_set_id:
                 findings.append(
@@ -645,9 +814,31 @@ class ScienceFictionSidecarEnvelope:
             current_evidence_set_id=self.current.evidence_set_id,
             findings=findings,
         )
+        _validate_current_analysis(
+            self.current.heinlein_analysis_id,
+            analyses=self.heinlein_analyses,
+            path="$.current.heinlein_analysis_id",
+            label="Heinlein",
+            story_hash=self.story_hash,
+            evidence_set_ids=evidence_set_ids,
+            current_evidence_set_id=self.current.evidence_set_id,
+            findings=findings,
+        )
         return ValidationResult.from_findings(tuple(findings))
 
     def to_dict(self) -> dict[str, Any]:
+        analyses: dict[str, Any] = {
+            "knight": [analysis.to_dict() for analysis in self.knight_analyses],
+            "suvin_novum": [
+                analysis.to_dict() for analysis in self.suvin_novum_analyses
+            ],
+        }
+        # Optional detector: omitted when empty so pre-Heinlein sidecars and
+        # their checkpoint fingerprints are unchanged.
+        if self.heinlein_analyses:
+            analyses["heinlein"] = [
+                analysis.to_dict() for analysis in self.heinlein_analyses
+            ]
         return {
             "schema_version": self.schema_version,
             "lcats_id": self.lcats_id,
@@ -656,12 +847,7 @@ class ScienceFictionSidecarEnvelope:
             "evidence_sets": [
                 evidence_set.to_dict() for evidence_set in self.evidence_sets
             ],
-            "analyses": {
-                "knight": [analysis.to_dict() for analysis in self.knight_analyses],
-                "suvin_novum": [
-                    analysis.to_dict() for analysis in self.suvin_novum_analyses
-                ],
-            },
+            "analyses": analyses,
             "current": self.current.to_dict(),
             "validation": self.validate().to_dict(),
             "partial_success": (
@@ -760,8 +946,13 @@ def _validate_current_analysis(
 def _iter_analyses(
     knight_analyses: tuple[KnightAnalysis, ...],
     suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...],
-) -> tuple[tuple[str, str, KnightAnalysis | SuvinNovumAnalysis], ...]:
-    analyses: list[tuple[str, str, KnightAnalysis | SuvinNovumAnalysis]] = []
+    heinlein_analyses: tuple[HeinleinAnalysis, ...] = (),
+) -> tuple[
+    tuple[str, str, KnightAnalysis | SuvinNovumAnalysis | HeinleinAnalysis], ...
+]:
+    analyses: list[
+        tuple[str, str, KnightAnalysis | SuvinNovumAnalysis | HeinleinAnalysis]
+    ] = []
     analyses.extend(
         (f"$.analyses.knight[{index}]", "Knight", analysis)
         for index, analysis in enumerate(knight_analyses)
@@ -770,17 +961,23 @@ def _iter_analyses(
         (f"$.analyses.suvin_novum[{index}]", "Suvin novum", analysis)
         for index, analysis in enumerate(suvin_novum_analyses)
     )
+    analyses.extend(
+        (f"$.analyses.heinlein[{index}]", "Heinlein", analysis)
+        for index, analysis in enumerate(heinlein_analyses)
+    )
     return tuple(analyses)
 
 
-def _iter_evidence_references(
-    knight_analyses: tuple[KnightAnalysis, ...],
-    suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...],
+def _iter_criterion_references(
+    group_name: str, analyses: tuple[Any, ...]
 ) -> tuple[tuple[str, str, EvidenceReference], ...]:
     references: list[tuple[str, str, EvidenceReference]] = []
-    for analysis_index, analysis in enumerate(knight_analyses):
+    for analysis_index, analysis in enumerate(analyses):
         for criterion_index, criterion in enumerate(analysis.criteria):
-            base = f"$.analyses.knight[{analysis_index}].criteria[{criterion_index}]"
+            base = (
+                f"$.analyses.{group_name}[{analysis_index}]"
+                f".criteria[{criterion_index}]"
+            )
             references.extend(
                 (
                     f"{base}.supporting_evidence[{index}]",
@@ -797,6 +994,21 @@ def _iter_evidence_references(
                 )
                 for index, reference in enumerate(criterion.counterevidence)
             )
+    return tuple(references)
+
+
+def _iter_evidence_references(
+    knight_analyses: tuple[KnightAnalysis, ...],
+    suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...],
+    heinlein_analyses: tuple[HeinleinAnalysis, ...] = (),
+) -> tuple[tuple[str, str, EvidenceReference], ...]:
+    references: list[tuple[str, str, EvidenceReference]] = []
+    criterion_groups: tuple[tuple[str, tuple[Any, ...]], ...] = (
+        ("knight", knight_analyses),
+        ("heinlein", heinlein_analyses),
+    )
+    for group_name, group_analyses in criterion_groups:
+        references.extend(_iter_criterion_references(group_name, group_analyses))
     for analysis_index, analysis in enumerate(suvin_novum_analyses):
         for candidate_index, candidate in enumerate(analysis.candidates):
             base = (

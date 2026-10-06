@@ -160,6 +160,53 @@ The experiment may record estrangement evidence separately. It must not treat
 character surprise as a necessary condition unless an approved design change
 adds that requirement.
 
+### Primary source consulted: Heinlein
+
+Robert A. Heinlein, "On the Writing of Speculative Fiction," in *Of Worlds
+Beyond: The Science of Science-Fiction Writing* (Chicago: Advent Publishers,
+1964), pp. 13-19. The journal's note dates the collection to 1947. Consulted
+copy: the bilingual reprint in *(n.t.) Revista Nota do Tradutor*, no. 24
+(2022), `(n.t.) Revista Nota do Tradutor 24.epub`, which prints Heinlein's
+English text before the Portuguese translation. The English text is on printed
+pp. 126-130; the list of conditions is on pp. 129-130. The epub is an external
+dependency, like the other sources above, and is not included in the
+repository. The reprint's scan loses the numerals for conditions 2-4, but the
+order is unambiguous.
+
+Heinlein introduces the list as the definition of the "Simon-pure science
+fiction story" and, just before it, frames the speculative story as one where
+"accepted science and established facts are extrapolated to produce a new
+situation." The five conditions, as verified against the text:
+
+1. **Different:** the conditions must be, in some respect, different from the
+   here and now, although the difference may lie only in an invention made in
+   the course of the story.
+2. **Essential:** the new conditions must be an essential part of the story.
+3. **Human:** the problem itself, the plot, must be a human problem.
+4. **Causal:** the human problem must be one created by, or indispensably
+   affected by, the new conditions.
+5. **Plausible:** no established fact shall be violated; when the story needs a
+   theory contrary to present accepted theory, the new theory must be made
+   reasonably plausible and must explain established facts as satisfactorily as
+   the one the author chose to discard.
+
+Differences from the summary used in the project paper: condition 1 allows the
+difference to be only an in-story invention; condition 4 is "created by, or
+indispensably affected by", which is weaker than "created by"; condition 5
+includes the new-theory clause; and Heinlein's own label is "Simon-pure", not
+"pure", science fiction. The code follows the source wording. The
+`heinlein-five-v1` rubric slots in `rubric/definitions.py` are resolved against
+this reprint, with a note to compare the 1947 printing before treating the
+wording as edition-final.
+
+Unlike Knight's inventory, the conditions are jointly required, so the code
+derives a conjunctive verdict (`qualifies` only when all five are present)
+rather than a threshold. That conjunction is the code's reading of "define the
+Simon-pure science fiction story", not a quoted rule. The dependency checks
+(`essential` and `causal` cannot be present when `different` is absent, and
+`causal` cannot be present when `human` is absent) are the code's own logical
+consistency rules, not Heinlein's.
+
 ## Implications for Prompt Revision
 
 - Knight examples must be labeled provisional until the primary essay is
