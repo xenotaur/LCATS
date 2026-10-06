@@ -75,8 +75,9 @@ is a 146-file data diff.
 
 ### Duplication search
 - In-repo: no existing script or work item rewrites promoted sidecar
-  provenance. The backlog entry in `project/design/backlog.md` (PR #471)
-  describes this work and should be removed or marked when this item exists.
+  provenance. The backlog entry that described this work (added in PR #471)
+  was removed from `project/design/backlog.md` by the planning PR that
+  created this item.
 - Sibling repos: none identified.
 - External libraries: none.
 - Recommendation: Proceed.
@@ -116,7 +117,6 @@ is a 146-file data diff.
   (`docs/reference/corpus-promotion.md`).
 - Re-validate all 146 files with `genre_sidecar.validate_sidecar()` in their
   final `corpora/` location.
-- Mark or remove the corresponding entry in `project/design/backlog.md`.
 
 ## Non-Goals
 

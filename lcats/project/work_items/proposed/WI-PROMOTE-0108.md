@@ -84,7 +84,8 @@ empty rather than reopening either.
 ### Duplication search
 - In-repo: no existing work item or design addresses sidecars in the release
   source. The release doc and `corpus-promotion.md` describe only the guard.
-  The backlog entry for this item was captured in PR #471.
+  No backlog entry exists for this item; it was raised directly by the
+  maintainer during the PR #362 triage.
 - Sibling repos: none identified.
 - External libraries: none; project-specific tooling.
 - Recommendation: Proceed.
@@ -93,8 +94,9 @@ empty rather than reopening either.
 - Work items: none open on this question.
 - Proposals: `PROP-LCATS-PROMOTE-MODE-REDESIGN` covers the guard, not the
   release source.
-- Backlog: surfaced by the end-of-session review of `WS-PROMOTE-MODE-REDESIGN`
-  and the PR #362 triage, then directed by the maintainer.
+- Backlog: no entry; surfaced by the end-of-session review of
+  `WS-PROMOTE-MODE-REDESIGN` and the PR #362 triage, then directed by the
+  maintainer.
 - Recommendation: Proceed.
 
 ## Scope
