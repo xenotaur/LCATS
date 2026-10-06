@@ -109,4 +109,3 @@ Use these sample outputs to decide whether to approve a full 146-story local or 
 - Qualified novum count: `0`
 - Dominant novum: `None`
 - Sidecar: `experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-10-20260930T193133Z/mass_quantities/long_odds__haggard/science-fiction.json`
-

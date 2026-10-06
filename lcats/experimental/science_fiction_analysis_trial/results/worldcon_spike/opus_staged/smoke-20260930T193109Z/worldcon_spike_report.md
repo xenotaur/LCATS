@@ -46,4 +46,3 @@ Go to the 5-10 story local or paid sample only after reviewing these smoke outpu
 - Qualified novum count: `1`
 - Dominant novum: `novum-1`
 - Sidecar: `experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/anderson/bell/science-fiction.json`
-
