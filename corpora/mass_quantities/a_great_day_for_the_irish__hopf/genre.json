@@ -37,7 +37,7 @@
         "version": "v1"
       },
       "provenance": {
-        "cache_db_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gutenbergindex.db",
+        "cache_db_path": "gutenbergindex.db",
         "cache_status": "ready",
         "gutenberg_id": 60846,
         "gutenberg_url": "https://www.gutenberg.org/cache/epub/60846/pg60846.txt",
