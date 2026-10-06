@@ -33,11 +33,14 @@ forbidden_actions:
   - use_promote_replace
   - modify_assessment_content_other_than_cache_db_path
   - promote_before_dry_run_review
+  - promote_before_user_go_ahead
+  - modify_corpora_before_the_reviewed_real_upsert
 acceptance:
   - "No genre.json under corpora/ contains an absolute assessments[*].provenance.cache_db_path; every value is a basename only"
   - "All 146 rewritten files re-validate cleanly via genre_sidecar.validate_sidecar() in their final corpora/ location"
   - "The diff changes only the cache_db_path values in those 146 files; no other field or file under corpora/ changes"
-  - "The rewrite was promoted with lcats promote upsert (not replace) after a reviewed --dry-run, and a unit test covers the rewrite logic"
+  - "The rewrite was promoted with lcats promote upsert (not replace) from a staging source (a 146-record tranche manifest, or a staging tree that also contains each story.json), after a reviewed --dry-run that reported exactly 146 records; corpora/ was not modified before the real upsert; and a unit test covers the rewrite logic"
+  - "The real upsert ran only after explicit, separate, in-session human approval, given after the executor showed the exact file count and a sample diff"
 required_evidence:
   - test_output
   - manual_review
@@ -86,19 +89,33 @@ is a 146-file data diff.
 
 ## Scope
 
-- Write a small, tested one-off script that rewrites each assessment's
-  `provenance.cache_db_path` to its basename across `corpora/*/*/genre.json`.
-- Promote the rewritten sidecars with `lcats promote upsert --sidecar genre`
-  after reviewing a `--dry-run`.
+- Write a small, tested one-off script that reads `corpora/*/*/genre.json`
+  and writes rewritten copies (each assessment's `provenance.cache_db_path`
+  reduced to its basename) into a staging location. It never edits
+  `corpora/` in place.
+- Promote the staged sidecars with `lcats promote upsert --sidecar genre`
+  after reviewing a `--dry-run`, and only after explicit human approval.
 - Re-validate every promoted file.
 
 ## Required Changes
 
 - Add the rewrite script under `tools/` with a unit test covering absolute
   paths, already-basename values, missing `provenance`, and non-genre files.
-- Produce a tranche manifest or `--source` tree of the rewritten sidecars,
-  review the `--dry-run` output, then promote with `upsert`.
-- Re-validate all 146 files with `genre_sidecar.validate_sidecar()`.
+- Stage the rewritten sidecars as either a 146-record JSONL tranche manifest
+  (envelopes of `{"lcats_id": ..., "payload": ...}`) or a staging tree that
+  contains each bucket's `story.json` as well as its rewritten `genre.json`.
+  A `--source` tree of bare sidecars does not work: the live scan only
+  recognizes buckets that contain `story.json`, and an empty scan exits
+  successfully while promoting nothing.
+- Run `lcats promote upsert --sidecar genre --dry-run` against the staging
+  source and confirm it reports exactly 146 records. Treat 0, or any count
+  other than 146, as a failure.
+- Show the human the exact file count and a sample diff, and wait for
+  explicit, separate, in-session approval before running the real `upsert`.
+  Real promotion is a release-time human action
+  (`docs/reference/corpus-promotion.md`).
+- Re-validate all 146 files with `genre_sidecar.validate_sidecar()` in their
+  final `corpora/` location.
 - Mark or remove the corresponding entry in `project/design/backlog.md`.
 
 ## Non-Goals
@@ -115,8 +132,11 @@ is a 146-file data diff.
 - No `genre.json` under `corpora/` contains an absolute `cache_db_path`.
 - All 146 files re-validate in their final location.
 - The diff changes only the `cache_db_path` values.
-- Promotion used `upsert` after a reviewed `--dry-run`, and a unit test covers
-  the rewrite logic.
+- Promotion used `upsert` from a valid staging source after a reviewed
+  `--dry-run` that reported exactly 146 records, `corpora/` was untouched until
+  the real upsert, and a unit test covers the rewrite logic.
+- The real `upsert` ran only after explicit, separate, in-session human
+  approval, given after the file count and a sample diff were shown.
 
 ## Validation
 
@@ -126,6 +146,10 @@ is a 146-file data diff.
 
 ## Risk Notes
 
+- A dry-run or real `upsert` that scans zero records still exits `0`
+  (`all_promoted` is `not self.rejected`). Always check the reported record
+  count equals 146; do not rely on the exit code.
+- Rewriting in place would change `corpora/` before review. Write to staging.
 - `upsert` overwrites whole files, so the source tree must be exactly the
   current files with only that field changed. Compare before and after.
 - Run the rewrite against a clean, up-to-date checkout so the 146 files match
