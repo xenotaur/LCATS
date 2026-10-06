@@ -10,18 +10,14 @@ from copy import deepcopy
 from lcats.analysis.science_fiction import rendering
 
 
+FIXTURES_DIR = pathlib.Path(__file__).parents[1] / "fixtures" / "science_fiction"
+
+
 class ScienceFictionRenderingTest(unittest.TestCase):
     def setUp(self):
-        path = pathlib.Path(
-            "experimental/science_fiction_analysis_trial/results/worldcon_spike/"
-            "opus_staged/canary-20260930T000426Z/lovecraft/"
-            "the_colour_out_of_space/science-fiction.json"
-        )
+        path = FIXTURES_DIR / "colour_out_of_space.json"
         self.data = json.loads(path.read_text(encoding="utf-8"))
-        control_path = pathlib.Path(
-            "experimental/science_fiction_analysis_trial/results/worldcon_spike/"
-            "opus_staged/canary-20260930T000426Z/anderson/bell/science-fiction.json"
-        )
+        control_path = FIXTURES_DIR / "unavailable.json"
         self.control_data = json.loads(control_path.read_text(encoding="utf-8"))
 
     def test_summary_uses_human_facing_scores(self):
@@ -54,11 +50,7 @@ class ScienceFictionRenderingTest(unittest.TestCase):
                     self.assertIn(marker, result)
 
     def test_render_json_loads_a_sidecar(self):
-        path = pathlib.Path(
-            "experimental/science_fiction_analysis_trial/results/worldcon_spike/"
-            "opus_staged/canary-20260930T000426Z/lovecraft/"
-            "the_colour_out_of_space/science-fiction.json"
-        )
+        path = FIXTURES_DIR / "colour_out_of_space.json"
 
         self.assertIn("Analysis status", rendering.render_json(path))
 
@@ -195,7 +187,7 @@ class ScienceFictionRenderingTest(unittest.TestCase):
                     self.data, output_format=output_format, detail="detailed"
                 )
                 self.assertIn("spectroscopy", result)
-                self.assertIn("sfev-9b236e025dd7048b", result)
+                self.assertIn("sfev-fixture-estrangement", result)
 
     def test_unavailable_current_analyses_are_not_rendered_as_negative_or_complete(
         self,

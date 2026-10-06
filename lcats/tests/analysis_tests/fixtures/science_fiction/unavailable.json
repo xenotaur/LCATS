@@ -1,0 +1,147 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "control-knight",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The criterion is not supported by this control.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "control-evidence",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "rubric_version": "knight-seven-v1",
+          "run_id": "fixture-run"
+        },
+        "status": "complete",
+        "story_hash": "fixture-story-hash-control"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "control-suvin",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "control-evidence",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "fixture control has no Suvin result",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "fixture-run"
+        },
+        "status": "partial",
+        "story_hash": "fixture-story-hash-control"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "control-evidence",
+    "knight_analysis_id": "control-knight",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "control-evidence",
+      "quarantined": [],
+      "records": [],
+      "story_hash": "fixture-story-hash-control",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "fixture control has no Suvin result",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "fixture-story-hash-control",
+  "story_path": "tests/fixtures/bell.txt",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
