@@ -318,9 +318,9 @@ class HeinleinRenderingTest(unittest.TestCase):
 
     def test_summary_shows_verdict_in_every_format(self):
         expectations = {
-            "markdown": "**Heinlein Verdict:** Indeterminate (4 / 5 conditions)",
-            "html": "<strong>Heinlein Verdict:</strong> Indeterminate (4 / 5 conditions)",
-            "latex": "\\textbf{Heinlein Verdict:} Indeterminate (4 / 5 conditions)",
+            "markdown": "**Heinlein Verdict:** Indeterminate (4–5 / 5 conditions)",
+            "html": "<strong>Heinlein Verdict:</strong> Indeterminate (4–5 / 5 conditions)",
+            "latex": "\\textbf{Heinlein Verdict:} Indeterminate (4–5 / 5 conditions)",
         }
         for output_format, expected in expectations.items():
             with self.subTest(output_format=output_format):
@@ -372,7 +372,9 @@ class HeinleinRenderingTest(unittest.TestCase):
 
         self.assertIn("Does not meet all five conditions (2 / 5 conditions)", result)
 
-    def test_failed_heinlein_renders_indeterminate_with_a_warning(self):
+    def _failed_unpointed(self):
+        """The shape the runner publishes after a Heinlein stage failure."""
+
         data, _ = _with_heinlein(self.data)
         analysis = data["analyses"]["heinlein"][0]
         analysis["status"] = "failed"
@@ -393,11 +395,50 @@ class HeinleinRenderingTest(unittest.TestCase):
             "possible_count": 0,
             "total_count": 5,
         }
+        del data["current"]["heinlein_analysis_id"]
+        return data
 
-        result = rendering.render_sidecar(data, detail="detailed")
+    def test_failed_unpointed_heinlein_is_unavailable_with_a_warning(self):
+        data = self._failed_unpointed()
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
 
-        self.assertIn("**Heinlein Verdict:** Indeterminate (0 / 5 conditions)", result)
-        self.assertIn("Warning:", result)
+        for output_format in ("markdown", "html", "latex"):
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(
+                    data, output_format=output_format, detail="detailed"
+                )
+                self.assertIn("Heinlein Verdict:", result)
+                self.assertIn("Unavailable", result)
+                self.assertNotIn("conditions)", result)
+                self.assertNotIn("Heinlein conditions", result)
+                self.assertNotIn("Meets all five", result)
+        markdown = rendering.render_sidecar(data, detail="detailed")
+        self.assertIn("Heinlein: Unavailable.", markdown)
+        self.assertIn("heinlein-1 contains failure records.", markdown)
+        self.assertIn(
+            "Heinlein analysis is not current and is not shown as a verdict.",
+            markdown,
+        )
+
+    def test_failed_unpointed_heinlein_shows_unavailable_in_comparisons(self):
+        data = self._failed_unpointed()
+
+        table = rendering.render_comparison_table([{"data": data, "title": "Failed"}])
+        header, _, row = table.splitlines()[:3]
+
+        self.assertIn("Heinlein summary", header)
+        self.assertTrue(row.rstrip(" |").endswith("Heinlein unavailable"))
+        self.assertNotIn("Indeterminate", row)
+
+    def test_ambiguity_keeps_the_possible_bound_in_every_summary(self):
+        data, _ = _with_heinlein(self.data, human="ambiguous")
+
+        for output_format in ("markdown", "html", "latex"):
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(data, output_format=output_format)
+                self.assertIn("4–5 / 5 conditions", result)
+        clean, _ = _with_heinlein(self.data)
+        self.assertIn("(5 / 5 conditions)", rendering.render_sidecar(clean))
 
     def test_partial_heinlein_without_verdict_has_no_misleading_counts(self):
         data, _ = _with_heinlein(self.data)

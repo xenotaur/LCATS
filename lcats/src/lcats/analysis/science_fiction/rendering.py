@@ -251,12 +251,21 @@ def _build_view(
         "analysis_id",
     )
 
+    heinlein_items = _as_list(analyses.get("heinlein"))
     heinlein = _select_current(
-        _as_list(analyses.get("heinlein")),
+        heinlein_items,
         data.get("current", {}).get("heinlein_analysis_id"),
         "analysis_id",
     )
-    heinlein_view = _heinlein_view(heinlein) if heinlein else None
+    # A failed or otherwise non-current Heinlein analysis has no pointer, so it
+    # is never shown as a verdict; it is surfaced as unavailable with a warning.
+    heinlein_latest = heinlein or (heinlein_items[-1] if heinlein_items else {})
+    if heinlein:
+        heinlein_view = _heinlein_view(heinlein)
+    elif heinlein_items:
+        heinlein_view = _heinlein_unavailable_view()
+    else:
+        heinlein_view = None
 
     criteria = _as_list(knight.get("criteria"))
     interval = knight.get("interval") or _knight_interval(criteria)
@@ -301,8 +310,13 @@ def _build_view(
             criteria + (heinlein_view["criteria"] if heinlein_view else []),
             _as_list(suvin.get("candidates")),
         ),
-        "provenance": _provenance(knight, suvin, heinlein),
-        "warnings": _warnings(data, knight, suvin, heinlein),
+        "provenance": _provenance(knight, suvin, heinlein_latest),
+        "warnings": _warnings(data, knight, suvin, heinlein_latest)
+        + (
+            ["Heinlein analysis is not current and is not shown as a verdict."]
+            if heinlein_items and not heinlein
+            else []
+        ),
     }
 
 
@@ -342,13 +356,31 @@ def _heinlein_view(heinlein: Mapping[str, Any]) -> dict[str, Any]:
         # Counts are only meaningful alongside a verdict; without one the
         # header would show "Unavailable (2 / 5 conditions)".
         "count_text": (
-            f" ({definite} / {total} conditions)" if verdict is not None else ""
+            ""
+            if verdict is None
+            else (
+                f" ({definite}–{possible} / {total} conditions)"
+                if possible != definite
+                else f" ({definite} / {total} conditions)"
+            )
         ),
     }
 
 
+def _heinlein_unavailable_view() -> dict[str, Any]:
+    return {
+        "verdict": None,
+        "label": "Unavailable",
+        "definite": 0,
+        "possible": 0,
+        "total": len(models.HEINLEIN_CRITERION_IDS),
+        "criteria": [],
+        "count_text": "",
+    }
+
+
 def _heinlein_row(heinlein: Mapping[str, Any] | None) -> dict[str, str]:
-    if not heinlein:
+    if not heinlein or heinlein.get("verdict") is None:
         row = {
             "heinlein_verdict": "Unavailable",
             "heinlein_interval": "—",
@@ -644,7 +676,7 @@ def _markdown_detail(view: Mapping[str, Any]) -> list[str]:
                 ["", f"**Estrangement:** {_md(candidate['estrangement']['rationale'])}"]
             )
 
-    if view.get("heinlein"):
+    if (view.get("heinlein") or {}).get("criteria"):
         lines.extend(
             [
                 "",
@@ -756,7 +788,7 @@ def _html_detail(view: Mapping[str, Any]) -> list[str]:
                 f"<tr><td>{_html(_dimension_label(name))}</td><td>{_html(dimension.get('status', ''))}</td><td>{_html(_confidence(dimension.get('confidence')))}</td><td>{_html(dimension.get('rationale') or '—')}</td></tr>"
             )
         lines.append("</tbody></table>")
-    if view.get("heinlein"):
+    if (view.get("heinlein") or {}).get("criteria"):
         lines.extend(
             [
                 "<h3>Heinlein conditions</h3>",
@@ -871,7 +903,7 @@ def _latex_detail(view: Mapping[str, Any]) -> list[str]:
                 f"\\item[Rationale] {_latex(dimension.get('rationale') or '-')}"
             )
         lines.append("\\end{description}")
-    if view.get("heinlein"):
+    if (view.get("heinlein") or {}).get("criteria"):
         lines.extend(
             [
                 "\\subsection*{Heinlein conditions}",
@@ -919,7 +951,9 @@ def _selected_records(view: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 def _summary_text(view: Mapping[str, Any]) -> str:
     text = _core_summary_text(view)
     heinlein = view.get("heinlein")
-    if heinlein:
+    if heinlein and heinlein.get("verdict") is None:
+        text += " Heinlein: Unavailable."
+    elif heinlein:
         text += (
             f" Heinlein: {heinlein['label']}; {heinlein['definite']}–"
             f"{heinlein['possible']} of {heinlein['total']} conditions."
