@@ -15,6 +15,7 @@ import re
 from collections.abc import Mapping, Sequence
 from typing import Any, Literal
 
+from lcats.analysis.science_fiction import models
 from lcats.analysis.science_fiction.rubric import definitions
 
 OutputFormat = Literal["markdown", "html", "latex"]
@@ -34,6 +35,31 @@ COMPARISON_COLUMN_SETS = {
         "suvin_narrative_hegemony",
     ),
     "summaries": ("knight_summary", "suvin_summary"),
+    "heinlein_evaluation": ("heinlein_verdict", "heinlein_interval"),
+    "heinlein_detail": tuple(
+        f"heinlein_{criterion_id}" for criterion_id in models.HEINLEIN_CRITERION_IDS
+    ),
+    "heinlein_summaries": ("heinlein_summary",),
+}
+
+HEINLEIN_SHORT_LABELS = {
+    "different": "Different",
+    "essential": "Essential",
+    "human": "Human",
+    "causal": "Causal",
+    "plausible": "Plausible",
+}
+HEINLEIN_COMPACT_LABELS = {
+    "different": "Dif",
+    "essential": "Ess",
+    "human": "Hum",
+    "causal": "Cau",
+    "plausible": "Pla",
+}
+HEINLEIN_VERDICT_LABELS = {
+    "qualifies": "Meets all five conditions",
+    "indeterminate": "Indeterminate",
+    "does_not_qualify": "Does not meet all five conditions",
 }
 
 COMPARISON_COLUMN_LABELS = {
@@ -55,6 +81,19 @@ COMPARISON_COLUMN_LABELS.update(
     {
         f"knight_{slot.slot_id}": slot.label
         for slot in definitions.KNIGHT_SEVEN.text_slots
+    }
+)
+COMPARISON_COLUMN_LABELS.update(
+    {
+        "heinlein_verdict": "Heinlein Verdict",
+        "heinlein_interval": "Heinlein Interval",
+        "heinlein_summary": "Heinlein summary",
+    }
+)
+COMPARISON_COLUMN_LABELS.update(
+    {
+        f"heinlein_{criterion_id}": HEINLEIN_SHORT_LABELS[criterion_id]
+        for criterion_id in models.HEINLEIN_CRITERION_IDS
     }
 )
 
@@ -143,6 +182,7 @@ def render_comparison_table(
         include_summary_columns=include_summary_columns,
         columns=columns,
         column_sets=column_sets,
+        include_heinlein=any(view.get("heinlein") for view in rows),
     )
     if output_format == "markdown":
         return _render_comparison_markdown(rows, resolved_columns)
@@ -211,6 +251,22 @@ def _build_view(
         "analysis_id",
     )
 
+    heinlein_items = _as_list(analyses.get("heinlein"))
+    heinlein = _select_current(
+        heinlein_items,
+        data.get("current", {}).get("heinlein_analysis_id"),
+        "analysis_id",
+    )
+    # A failed or otherwise non-current Heinlein analysis has no pointer, so it
+    # is never shown as a verdict; it is surfaced as unavailable with a warning.
+    heinlein_latest = heinlein or (heinlein_items[-1] if heinlein_items else {})
+    if heinlein:
+        heinlein_view = _heinlein_view(heinlein)
+    elif heinlein_items:
+        heinlein_view = _heinlein_unavailable_view()
+    else:
+        heinlein_view = None
+
     criteria = _as_list(knight.get("criteria"))
     interval = knight.get("interval") or _knight_interval(criteria)
     definite = int(interval.get("definite_count", 0))
@@ -248,13 +304,111 @@ def _build_view(
             "dominant_id": dominant_id,
             "candidates": _as_list(suvin.get("candidates")),
         },
+        "heinlein": heinlein_view,
         "records": records,
         "evidence_ids": _referenced_evidence_ids(
-            criteria, _as_list(suvin.get("candidates"))
+            criteria + (heinlein_view["criteria"] if heinlein_view else []),
+            _as_list(suvin.get("candidates")),
         ),
-        "provenance": _provenance(knight, suvin),
-        "warnings": _warnings(data, knight, suvin),
+        "provenance": _provenance(knight, suvin, heinlein_latest),
+        "warnings": _warnings(data, knight, suvin, heinlein_latest)
+        + (
+            ["Heinlein analysis is not current and is not shown as a verdict."]
+            if heinlein_items and not heinlein
+            else []
+        ),
     }
+
+
+def _heinlein_view(heinlein: Mapping[str, Any]) -> dict[str, Any]:
+    criteria = _as_list(heinlein.get("criteria"))
+    statuses = {
+        str(item.get("criterion_id")): str(item.get("status")) for item in criteria
+    }
+    interval = heinlein.get("interval") or {}
+    definite = int(
+        interval.get(
+            "definite_count",
+            sum(status == "present" for status in statuses.values()),
+        )
+    )
+    possible = int(
+        interval.get(
+            "possible_count",
+            sum(status in {"present", "ambiguous"} for status in statuses.values()),
+        )
+    )
+    total = int(interval.get("total_count", len(models.HEINLEIN_CRITERION_IDS)))
+    verdict = heinlein.get("verdict")
+    if verdict not in models.HEINLEIN_VERDICTS:
+        verdict = (
+            models.heinlein_verdict(statuses)
+            if set(models.HEINLEIN_CRITERION_IDS) <= set(statuses)
+            else None
+        )
+    return {
+        "verdict": verdict,
+        "label": HEINLEIN_VERDICT_LABELS.get(str(verdict), "Unavailable"),
+        "definite": definite,
+        "possible": possible,
+        "total": total,
+        "criteria": criteria,
+        # Counts are only meaningful alongside a verdict; without one the
+        # header would show "Unavailable (2 / 5 conditions)".
+        "count_text": (
+            ""
+            if verdict is None
+            else (
+                f" ({definite}–{possible} / {total} conditions)"
+                if possible != definite
+                else f" ({definite} / {total} conditions)"
+            )
+        ),
+    }
+
+
+def _heinlein_unavailable_view() -> dict[str, Any]:
+    return {
+        "verdict": None,
+        "label": "Unavailable",
+        "definite": 0,
+        "possible": 0,
+        "total": len(models.HEINLEIN_CRITERION_IDS),
+        "criteria": [],
+        "count_text": "",
+    }
+
+
+def _heinlein_row(heinlein: Mapping[str, Any] | None) -> dict[str, str]:
+    if not heinlein or heinlein.get("verdict") is None:
+        row = {
+            "heinlein_verdict": "Unavailable",
+            "heinlein_interval": "—",
+            "heinlein_summary": "Heinlein unavailable",
+        }
+        row.update(
+            {f"heinlein_{criterion_id}": "—" for criterion_id in HEINLEIN_SHORT_LABELS}
+        )
+        return row
+    row = {
+        "heinlein_verdict": heinlein["label"],
+        "heinlein_interval": f"{heinlein['definite']}–{heinlein['possible']}",
+        "heinlein_summary": (
+            f"{heinlein['label']} ({heinlein['definite']}/{heinlein['total']}; "
+            f"interval {heinlein['definite']}–{heinlein['possible']})"
+        ),
+    }
+    markers = {
+        str(item.get("criterion_id")): _status_marker(item.get("status"))
+        for item in heinlein["criteria"]
+    }
+    row.update(
+        {
+            f"heinlein_{criterion_id}": markers.get(criterion_id, "—")
+            for criterion_id in HEINLEIN_SHORT_LABELS
+        }
+    )
+    return row
 
 
 def _comparison_columns(
@@ -264,6 +418,7 @@ def _comparison_columns(
     include_summary_columns: bool,
     columns: Sequence[str] | None,
     column_sets: Sequence[str] | None,
+    include_heinlein: bool = False,
 ) -> list[tuple[str, str]]:
     if columns is not None and column_sets is not None:
         raise ValueError("pass either columns or column_sets, not both")
@@ -310,10 +465,22 @@ def _comparison_columns(
                 suvin_names,
             )
         )
+        if include_heinlein:
+            labels = (
+                HEINLEIN_SHORT_LABELS
+                if named_feature_headers
+                else HEINLEIN_COMPACT_LABELS
+            )
+            columns.extend(
+                (f"heinlein_{criterion_id}", labels[criterion_id])
+                for criterion_id in models.HEINLEIN_CRITERION_IDS
+            )
     if include_summary_columns:
         columns.extend(
             (("knight_summary", "Knight summary"), ("suvin_summary", "Suvin summary"))
         )
+        if include_heinlein:
+            columns.append(("heinlein_summary", "Heinlein summary"))
     return columns
 
 
@@ -355,6 +522,7 @@ def _comparison_row(view: Mapping[str, Any]) -> dict[str, str]:
         ),
         "knight_summary": knight_summary,
         "suvin_summary": suvin_summary,
+        **_heinlein_row(view.get("heinlein")),
     }
     criteria = knight["criteria"]
     for criterion in criteria:
@@ -451,6 +619,11 @@ def _render_markdown(view: Mapping[str, Any], detail: Detail) -> str:
         f"**Knight Score:** {knight['classification']} ({knight['definite']} / {knight['total']} criteria)",
         f"**Suvin Score:** {suvin['classification']}{qualified_suffix}",
     ]
+    if view.get("heinlein"):
+        heinlein = view["heinlein"]
+        lines.append(
+            f"**Heinlein Verdict:** {heinlein['label']}{heinlein['count_text']}"
+        )
     if dominant:
         lines.append(
             f"**Dominant Novum:** {_md(dominant.get('description', dominant.get('candidate_id', '')))}"
@@ -503,6 +676,27 @@ def _markdown_detail(view: Mapping[str, Any]) -> list[str]:
                 ["", f"**Estrangement:** {_md(candidate['estrangement']['rationale'])}"]
             )
 
+    if (view.get("heinlein") or {}).get("criteria"):
+        lines.extend(
+            [
+                "",
+                "### Heinlein conditions",
+                "",
+                "| Condition | Status | Confidence | Evidence |",
+                "|---|---|---:|---:|",
+            ]
+        )
+        for criterion in view["heinlein"]["criteria"]:
+            lines.append(
+                "| {criterion} | {status} | {confidence} | {evidence} |".format(
+                    criterion=_md(_heinlein_label(criterion.get("criterion_id", ""))),
+                    status=_md(criterion.get("status", "")),
+                    confidence=_confidence(criterion.get("confidence")),
+                    evidence=len(_as_list(criterion.get("supporting_evidence"))),
+                )
+            )
+            lines.append(f"  Rationale: {_md(criterion.get('rationale') or '—')}")
+
     lines.extend(["", "### Supporting evidence", ""])
     for record in _selected_records(view):
         anchor = (
@@ -541,6 +735,12 @@ def _render_html(view: Mapping[str, Any], detail: Detail) -> str:
         f"<strong>Knight Score:</strong> {_html(knight['classification'])} ({knight['definite']} / {knight['total']} criteria)<br>",
         f"<strong>Suvin Score:</strong> {_html(suvin['classification'] + suffix)}</p>",
     ]
+    if view.get("heinlein"):
+        heinlein = view["heinlein"]
+        lines.append(
+            f"<p><strong>Heinlein Verdict:</strong> {_html(heinlein['label'])}"
+            f"{heinlein['count_text']}</p>"
+        )
     if dominant:
         lines.append(
             f"<p><strong>Dominant Novum:</strong> {_html(dominant.get('description', dominant.get('candidate_id', '')))}</p>"
@@ -588,6 +788,27 @@ def _html_detail(view: Mapping[str, Any]) -> list[str]:
                 f"<tr><td>{_html(_dimension_label(name))}</td><td>{_html(dimension.get('status', ''))}</td><td>{_html(_confidence(dimension.get('confidence')))}</td><td>{_html(dimension.get('rationale') or '—')}</td></tr>"
             )
         lines.append("</tbody></table>")
+    if (view.get("heinlein") or {}).get("criteria"):
+        lines.extend(
+            [
+                "<h3>Heinlein conditions</h3>",
+                "<table><thead><tr><th>Condition</th><th>Status</th><th>Confidence</th><th>Evidence</th></tr></thead><tbody>",
+            ]
+        )
+        for criterion in view["heinlein"]["criteria"]:
+            lines.append(
+                "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(
+                    _html(_heinlein_label(criterion.get("criterion_id", ""))),
+                    _html(criterion.get("status", "")),
+                    _html(_confidence(criterion.get("confidence"))),
+                    len(_as_list(criterion.get("supporting_evidence"))),
+                )
+            )
+            lines.append(
+                f'<tr><td colspan="4"><strong>Rationale:</strong> '
+                f"{_html(criterion.get('rationale') or '—')}</td></tr>"
+            )
+        lines.append("</tbody></table>")
     lines.append("<h3>Supporting evidence</h3>")
     for record in _selected_records(view):
         anchor = (
@@ -623,6 +844,12 @@ def _render_latex(view: Mapping[str, Any], detail: Detail) -> str:
         f"\\textbf{{Knight Score:}} {_latex(knight['classification'])} ({knight['definite']} / {knight['total']} criteria)\\\\",
         f"\\textbf{{Suvin Score:}} {_latex(suvin['classification'] + suffix)}",
     ]
+    if view.get("heinlein"):
+        heinlein = view["heinlein"]
+        lines.append(
+            f"\\\\\\textbf{{Heinlein Verdict:}} {_latex(heinlein['label'])}"
+            f"{_latex(heinlein['count_text'])}"
+        )
     if dominant:
         lines.append(
             f"\\\\\\textbf{{Dominant Novum:}} {_latex(dominant.get('description', dominant.get('candidate_id', '')))}"
@@ -676,6 +903,29 @@ def _latex_detail(view: Mapping[str, Any]) -> list[str]:
                 f"\\item[Rationale] {_latex(dimension.get('rationale') or '-')}"
             )
         lines.append("\\end{description}")
+    if (view.get("heinlein") or {}).get("criteria"):
+        lines.extend(
+            [
+                "\\subsection*{Heinlein conditions}",
+                "\\begin{longtable}{llll}",
+                "Condition & Status & Confidence & Evidence \\\\",
+                "\\hline",
+            ]
+        )
+        for criterion in view["heinlein"]["criteria"]:
+            lines.append(
+                "{} & {} & {} & {} \\\\".format(
+                    _latex(_heinlein_label(criterion.get("criterion_id", ""))),
+                    _latex(criterion.get("status", "")),
+                    _latex(_confidence(criterion.get("confidence"))),
+                    len(_as_list(criterion.get("supporting_evidence"))),
+                )
+            )
+            lines.append(
+                f"\\multicolumn{{4}}{{l}}{{\\textbf{{Rationale:}} "
+                f"{_latex(criterion.get('rationale') or '-')}}} \\\\",
+            )
+        lines.append("\\end{longtable}")
     lines.append("\\subsection*{Supporting evidence}")
     for record in _selected_records(view):
         anchor = (
@@ -699,6 +949,19 @@ def _selected_records(view: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 
 
 def _summary_text(view: Mapping[str, Any]) -> str:
+    text = _core_summary_text(view)
+    heinlein = view.get("heinlein")
+    if heinlein and heinlein.get("verdict") is None:
+        text += " Heinlein: Unavailable."
+    elif heinlein:
+        text += (
+            f" Heinlein: {heinlein['label']}; {heinlein['definite']}–"
+            f"{heinlein['possible']} of {heinlein['total']} conditions."
+        )
+    return text
+
+
+def _core_summary_text(view: Mapping[str, Any]) -> str:
     knight = view["knight"]
     suvin = view["suvin"]
     dominant = suvin.get("dominant")
@@ -724,6 +987,10 @@ def _summary_text(view: Mapping[str, Any]) -> str:
         f"The Knight profile has an interval of {knight['definite']}–{knight['possible']} "
         f"affirmative criteria out of {knight['total']}; no qualified Suvin Novum was identified."
     )
+
+
+def _heinlein_label(value: Any) -> str:
+    return HEINLEIN_SHORT_LABELS.get(str(value), str(value or ""))
 
 
 def _criterion_label(value: Any) -> str:
@@ -826,21 +1093,31 @@ def _knight_interval(criteria: list[Mapping[str, Any]]) -> dict[str, int]:
     }
 
 
-def _provenance(knight: Mapping[str, Any], suvin: Mapping[str, Any]) -> dict[str, Any]:
-    return {
+def _provenance(
+    knight: Mapping[str, Any],
+    suvin: Mapping[str, Any],
+    heinlein: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    provenance = {
         "knight": knight.get("provenance", {}),
         "suvin": suvin.get("provenance", {}),
     }
+    if heinlein:
+        provenance["heinlein"] = heinlein.get("provenance", {})
+    return provenance
 
 
 def _warnings(
-    data: Mapping[str, Any], knight: Mapping[str, Any], suvin: Mapping[str, Any]
+    data: Mapping[str, Any],
+    knight: Mapping[str, Any],
+    suvin: Mapping[str, Any],
+    heinlein: Mapping[str, Any] | None = None,
 ) -> list[str]:
     warnings = []
     validation = data.get("validation", {})
     if validation.get("valid") is False:
         warnings.append("Sidecar validation reported errors.")
-    for analysis in (knight, suvin):
+    for analysis in (knight, suvin, *([heinlein] if heinlein else [])):
         if analysis.get("failures"):
             warnings.append(
                 f"{analysis.get('stage', analysis.get('analysis_id', 'Analysis'))} contains failure records."
