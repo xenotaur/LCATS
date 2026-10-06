@@ -215,6 +215,12 @@ class HeinleinAdjudicationTest(unittest.TestCase):
         self.assertIn("Advent", plausible.citation)
         self.assertIn("photo-reproduced", plausible.citation)
 
+    def test_source_note_states_that_finality_rests_on_the_owner_report(self):
+        note = definitions.HEINLEIN_FIVE.source_note
+
+        self.assertIn("on the owner's report", note)
+        self.assertIn("not been independently checked", note)
+
 
 def _inputs(*, with_heinlein: bool, **statuses: str) -> pipeline.SidecarAssemblyInputs:
     return pipeline.SidecarAssemblyInputs(

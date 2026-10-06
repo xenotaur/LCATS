@@ -222,11 +222,18 @@ transcription slip.
 The owner reports that the Advent edition's cover blurb says its text is
 photo-reproduced from the Fantasy Press original. If so, the Advent page text
 is the 1947 text and no separate comparison against the 1947 printing is
-needed. This rests on the owner's report of the blurb; no agent has seen the
-blurb or either printing itself.
+needed.
 
-The five conditions are therefore treated as verified against the cited
-printing, and the wording may be treated as edition-final. Rubric version
+Provenance limits: this rests entirely on the owner's report. The Advent text
+was supplied by transcription from the owner's physical copy, and the blurb
+claim was reported, not shown. No agent has seen the blurb or either printing,
+and no legitimate digital copy of either printing exists for an agent to
+review, so the claim cannot be independently checked without the owner
+scanning and OCR-ing the pages, which would add nothing beyond the text
+already supplied. The five conditions are therefore treated as verified
+against the cited printing and the wording as edition-final **on the owner's
+report**. Reopen this finding if the blurb claim or the transcription is shown
+to be wrong. Rubric version
 decision: the conditions are kept as `heinlein-five-v1`, because no difference
 that changes the meaning of a condition was found. If a later comparison finds
 one, mint a new rubric id (for example `heinlein-five-v2`) with matching

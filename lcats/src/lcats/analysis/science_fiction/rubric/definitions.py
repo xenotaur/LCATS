@@ -184,7 +184,10 @@ HEINLEIN_FIVE = RubricDefinition(
         "condition 5 differs by one word in its illustrative example only. The "
         "owner reports the Advent cover blurb says its text is photo-reproduced "
         "from the Fantasy Press original, so the wording is treated as "
-        "edition-final. Heinlein calls the result the 'Simon-pure science "
+        "edition-final on the owner's report. That report and the transcription "
+        "from the owner's physical copy have not been independently checked "
+        "and no digital copy exists for an agent to review; reopen if either is "
+        "shown to be wrong. Heinlein calls the result the 'Simon-pure science "
         "fiction story'. See definitions.md in the science_fiction_analysis_trial "
         "experiment for the comparison and the rule for minting a v2 id."
     ),
