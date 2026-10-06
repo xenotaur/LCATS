@@ -1,7 +1,9 @@
 """Versioned rubric metadata with primary-source gates.
 
-The source-dependent Knight, Suvin, and Heinlein governing text is intentionally absent
-until approved primary-source excerpts and citations are supplied.
+The source-dependent Knight and Suvin governing text is intentionally absent
+until approved primary-source excerpts and citations are supplied. The Heinlein
+rubric is resolved against a cited reprint of the primary source; see
+``HEINLEIN_FIVE`` and its ``source_note``.
 """
 
 from __future__ import annotations

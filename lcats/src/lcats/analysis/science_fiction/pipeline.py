@@ -27,10 +27,11 @@ class SidecarAssemblyInputs:
     evidence_sets: tuple[evidence.EvidenceSet, ...] = ()
     knight_analyses: tuple[models.KnightAnalysis, ...] = ()
     suvin_novum_analyses: tuple[models.SuvinNovumAnalysis, ...] = ()
-    heinlein_analyses: tuple[models.HeinleinAnalysis, ...] = ()
     current: models.CurrentPointers | None = None
     partial_success: models.PartialSuccessRecord | None = None
     configuration: dict[str, Any] = dataclasses.field(default_factory=dict)
+    # Appended last so positional construction of earlier fields is unchanged.
+    heinlein_analyses: tuple[models.HeinleinAnalysis, ...] = ()
 
 
 @dataclasses.dataclass(frozen=True)

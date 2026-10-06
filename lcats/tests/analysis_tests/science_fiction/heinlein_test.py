@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import dataclasses
 import unittest
 
 from lcats.analysis.science_fiction import evidence
@@ -216,6 +217,17 @@ def _inputs(*, with_heinlein: bool, **statuses: str) -> pipeline.SidecarAssembly
 
 
 class HeinleinSidecarTest(unittest.TestCase):
+    def test_new_field_is_appended_last_to_preserve_positional_order(self):
+        for cls, previous_last in (
+            (models.ScienceFictionSidecarEnvelope, "schema_version"),
+            (pipeline.SidecarAssemblyInputs, "configuration"),
+        ):
+            with self.subTest(cls=cls.__name__):
+                names = [field.name for field in dataclasses.fields(cls)]
+                self.assertEqual(
+                    ["heinlein_analyses"], names[names.index(previous_last) + 1 :]
+                )
+
     def test_sidecar_round_trips_with_current_pointer(self):
         data = pipeline.assemble_sidecar_data(_inputs(with_heinlein=True))
 

@@ -668,13 +668,14 @@ class ScienceFictionSidecarEnvelope:
     evidence_sets: tuple[evidence.EvidenceSet, ...] = ()
     knight_analyses: tuple[KnightAnalysis, ...] = ()
     suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...] = ()
-    heinlein_analyses: tuple[HeinleinAnalysis, ...] = ()
     current: CurrentPointers = dataclasses.field(default_factory=CurrentPointers)
     validation: ValidationResult = dataclasses.field(
         default_factory=lambda: ValidationResult(valid=True)
     )
     partial_success: PartialSuccessRecord | None = None
     schema_version: str = SCIENCE_FICTION_SIDECAR_VERSION
+    # Appended last so positional construction of earlier fields is unchanged.
+    heinlein_analyses: tuple[HeinleinAnalysis, ...] = ()
 
     def __post_init__(self) -> None:
         if self.schema_version != SCIENCE_FICTION_SIDECAR_VERSION:
