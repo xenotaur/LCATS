@@ -2,10 +2,10 @@
 execution_id: 2026_10_06_02_27_52_HEINLEIN_SF_DETECTOR_449E72_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:HEINLEIN_SF_DETECTOR_449E72_SELFREVIEW)[2026-10-06T02:27:52+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/473
-commit: 4185b5141bf19883a7524f62d414f3fbc9f3c0c2
+commit: 3be3f33c5f6b2c99af1e8529360328649834cd16
 created_at: 2026-10-06T02:27:52+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/473
