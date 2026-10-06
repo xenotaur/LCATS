@@ -45,6 +45,9 @@ RUN_SUMMARY_FILENAME = "linguistics_run_summary.json"
 REPORT_FILENAME = "experiment_report.json"
 AUDIT_FILENAME = "pos_audit.json"
 AUDIT_SAMPLE_FILENAME = "pos_audit_sample.csv"
+HISTORICAL_LEDGER_PATH = (
+    RESULTS_DIR / "pos_audit_ledger.json"
+)
 EXPECTED_SAMPLE_COUNT = 146
 AUDIT_ROWS_PER_GENRE = 24
 AUDIT_MIN_GENRE_ROWS = 10
@@ -116,6 +119,7 @@ def run_pilot(
     existing: str = runner.EXISTING_SKIP,
     dry_run: bool = False,
     audit_labels_path: Optional[pathlib.Path] = None,
+    tokenization_mode: str = sidecar.TOKENIZATION_MODE_DEFAULT,
 ) -> dict[str, Any]:
     """Mirror the sample, run rich linguistics, and write pilot artifacts."""
     if overwrite and resume:
@@ -169,8 +173,13 @@ def run_pilot(
         model_name=resolved_model_name,
         include_token_detail=True,
         token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        tokenization_mode=tokenization_mode,
     )
-    backend = runner.make_backend(backend_name, resolved_model_name)
+    backend = runner.make_backend(
+        backend_name,
+        resolved_model_name,
+        tokenization_mode=tokenization_mode,
+    )
     run_summary = runner.run(
         analysis_story_paths,
         backend=backend,
@@ -190,6 +199,10 @@ def run_pilot(
         labels_path=audit_labels_path,
     )
     sidecar.write_json_atomic(output_dir / AUDIT_FILENAME, audit)
+    tokenization_repair = build_tokenization_repair_summary(
+        output_dir=output_dir,
+        audit_rows=select_audit_rows(snapshot_manifest, copied_story_paths),
+    )
 
     elapsed_seconds = time.perf_counter() - started
     report = build_report(
@@ -201,9 +214,11 @@ def run_pilot(
         run_summary=run_summary,
         validation_summary=validation_summary,
         audit=audit,
+        tokenization_repair=tokenization_repair,
         corpus_root=corpus_root,
         backend_name=backend_name,
         model_name=resolved_model_name,
+        tokenization_mode=tokenization_mode,
         smoke_count=smoke_count,
         resume=resume,
         overwrite=overwrite,
@@ -528,6 +543,14 @@ def select_audit_rows(
                     "gold_upos": "",
                     "notes": "",
                 }
+                diagnostic_status = _tokenization_status(
+                    detail.get("boundary_diagnostics", []),
+                    token.get("global_token_index"),
+                )
+                if diagnostic_status == "unrepaired":
+                    row["audit_features"] += ",tokenization_unrepaired"
+                elif diagnostic_status == "repaired":
+                    row["audit_features"] += ",tokenization_repaired"
                 by_genre.setdefault(str(genre), {}).setdefault(bucket, []).append(row)
     selected: list[dict[str, Any]] = []
     for genre in sorted(by_genre):
@@ -640,6 +663,56 @@ def write_audit_sample(rows: list[dict[str, Any]], path: pathlib.Path) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow({field: row.get(field, "") for field in AUDIT_FIELDS})
+
+
+def _tokenization_status(diagnostics: Any, global_index: Any) -> str:
+    if not isinstance(diagnostics, list) or not isinstance(global_index, int):
+        return "none"
+    statuses = {
+        item.get("status")
+        for item in diagnostics
+        if isinstance(item, dict)
+        and global_index in item.get("global_token_indices", [])
+    }
+    if "unrepaired" in statuses:
+        return "unrepaired"
+    if "repaired" in statuses:
+        return "repaired"
+    return "none"
+
+
+def build_tokenization_repair_summary(
+    *, output_dir: pathlib.Path, audit_rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Summarize historical and regenerated blocked-token evidence."""
+    historical_blocked = None
+    if HISTORICAL_LEDGER_PATH.exists():
+        historical = sidecar.load_json(HISTORICAL_LEDGER_PATH)
+        entries = historical.get("entries", {}) if isinstance(historical, dict) else {}
+        if isinstance(entries, dict):
+            historical_blocked = sum(
+                1
+                for entry in entries.values()
+                if isinstance(entry, dict) and entry.get("disposition") == "blocked"
+            )
+    residual_rows = sum(
+        1
+        for row in audit_rows
+        if "tokenization_unrepaired" in str(row.get("audit_features", "")).split(",")
+    )
+    return {
+        "schema_version": "rich-linguistics-tokenization-repair-v1",
+        "historical_audit_packet": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv",
+        "historical_ledger": _repo_relative(HISTORICAL_LEDGER_PATH),
+        "pre_repair_blocked_rows": historical_blocked,
+        "regenerated_packet_path": _repo_relative(output_dir / AUDIT_SAMPLE_FILENAME),
+        "post_repair_rows_requiring_block": residual_rows,
+        "residual_policy": {
+            "decision": "no_go_if_unrepaired_rows_remain",
+            "scoring": "blocked_until_human_review_resolves_or_explicitly_defers_each_row",
+            "figures": "blocked",
+        },
+    }
 
 
 def _apply_audit_labels(
@@ -828,9 +901,11 @@ def build_report(
     run_summary: runner.RunSummary,
     validation_summary: dict[str, Any],
     audit: dict[str, Any],
+    tokenization_repair: dict[str, Any],
     corpus_root: pathlib.Path,
     backend_name: str,
     model_name: str,
+    tokenization_mode: str,
     smoke_count: Optional[int],
     resume: bool,
     overwrite: bool,
@@ -866,6 +941,7 @@ def build_report(
         "smoke_count": smoke_count,
         "backend_name": backend_name,
         "model_name": model_name,
+        "tokenization_mode": tokenization_mode,
         "resume": resume,
         "overwrite": overwrite,
         "dry_run": dry_run,
@@ -898,6 +974,7 @@ def build_report(
         "pos_audit_status": audit["status"],
         "parquet_export": parquet_export_summary(output_dir / "parquet"),
         "decisions": audit["decisions"],
+        "tokenization_repair": tokenization_repair,
         "corpora_modified": bool(_corpus_linguistics_sidecars(corpus_root)),
         "retention_options": [
             "checked_in_experiment_results",
@@ -987,6 +1064,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--backend", choices=["spacy", "stanza", "fake"], default="spacy"
     )
     parser.add_argument("--model", default="")
+    parser.add_argument(
+        "--tokenization-mode",
+        choices=[
+            sidecar.TOKENIZATION_MODE_DEFAULT,
+            sidecar.TOKENIZATION_MODE_REPAIRED,
+        ],
+        default=sidecar.TOKENIZATION_MODE_DEFAULT,
+    )
     parser.add_argument("--smoke-count", type=int)
     parser.add_argument("--expected-count", type=int, default=EXPECTED_SAMPLE_COUNT)
     parser.add_argument("--overwrite", action="store_true")
@@ -1015,6 +1100,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             output_dir=args.output_dir,
             backend_name=args.backend,
             model_name=args.model,
+            tokenization_mode=args.tokenization_mode,
             smoke_count=args.smoke_count,
             expected_count=args.expected_count,
             overwrite=args.overwrite,

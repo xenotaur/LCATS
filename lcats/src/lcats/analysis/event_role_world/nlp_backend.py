@@ -15,6 +15,10 @@ import dataclasses
 from typing import Any, Dict, List, Optional, Protocol, runtime_checkable
 
 
+TOKENIZATION_MODE_DEFAULT = "default"
+TOKENIZATION_MODE_REPAIRED = "repaired-v1"
+
+
 @dataclasses.dataclass
 class TokenRecord:
     """One normalized token, aligned with the CoNLL-U column set.
@@ -139,7 +143,11 @@ class StanzaBackend:
 class SpacyBackend:
     """NLPBackend implementation backed by spaCy."""
 
-    def __init__(self, model_name: str = "en_core_web_sm"):
+    def __init__(
+        self,
+        model_name: str = "en_core_web_sm",
+        tokenization_mode: str = TOKENIZATION_MODE_DEFAULT,
+    ):
         """Construct a spaCy-backed NLPBackend.
 
         Args:
@@ -151,8 +159,28 @@ class SpacyBackend:
                 (`python -m spacy download <model_name>`).
         """
         import spacy
+        from spacy.util import compile_infix_regex
 
         self._nlp = spacy.load(model_name)
+        if tokenization_mode == TOKENIZATION_MODE_REPAIRED:
+            patterns = list(self._nlp.Defaults.infixes) + [
+                r"(?<=[A-Za-z])(?=(?:'ll|'re|'ve|'d|'m|'s|'t)\b)",
+                r"(?<=[A-Za-z])(?=['’](?=[-–—]))",
+                r"(?<=['’])(?=[-–—])",
+                r"(?<=\w)(?=[-–—])",
+                r"(?<=[-–—])(?=[\w“\"'‘])",
+                r"(?<=[\"“‘])(?=\w)",
+                r"(?<=\w)(?=_)",
+                r"(?<=_)(?=\w)",
+            ]
+            self._nlp.tokenizer.infix_finditer = compile_infix_regex(
+                patterns
+            ).finditer
+        elif tokenization_mode != TOKENIZATION_MODE_DEFAULT:
+            raise ValueError(
+                "tokenization_mode must be "
+                f"{TOKENIZATION_MODE_DEFAULT!r} or {TOKENIZATION_MODE_REPAIRED!r}"
+            )
 
     def analyze(self, text: str) -> List[SentenceRecord]:
         """See NLPBackend.analyze."""

@@ -65,6 +65,11 @@ def export_token_details(
                 "options_json": _json_cell(detail.get("options", {})),
                 "source_json": _json_cell(detail.get("source", {})),
                 "provenance_json": _json_cell(detail.get("provenance", {})),
+                "boundary_diagnostics_json": (
+                    _json_cell(detail["boundary_diagnostics"])
+                    if "boundary_diagnostics" in detail
+                    else ""
+                ),
             }
         )
         for sentence in detail.get("sentences", []):
@@ -155,6 +160,11 @@ def restore_token_details(
             "provenance": _load_json_cell(story["provenance_json"]),
             "sentences": [],
         }
+        boundary_diagnostics = _optional_json_cell(
+            story.get("boundary_diagnostics_json")
+        )
+        if boundary_diagnostics:
+            detail["boundary_diagnostics"] = json.loads(boundary_diagnostics)
         story_sentences = sentences[sentences["story_key"] == story_key]
         story_tokens = tokens[tokens["story_key"] == story_key]
         for sentence in story_sentences.sort_values("sentence_index").to_dict("records"):

@@ -8,10 +8,12 @@ import importlib.metadata
 import json
 import os
 import pathlib
+import re
 import tempfile
 from typing import Any, Optional
 
 from lcats.analysis.event_role_world import surface_feature_extractor
+from lcats.analysis.event_role_world import nlp_backend
 from lcats import stories
 
 SCHEMA_VERSION = "linguistics-sidecar-v1"
@@ -23,6 +25,13 @@ SIDECAR_FILENAME = "linguistics.json"
 TOKEN_DETAIL_FILENAME = "linguistics.tokens.json"
 TOKEN_DETAIL_VERSION_V1 = "v1"
 TOKEN_DETAIL_VERSION_V2 = "v2"
+TOKENIZATION_MODE_DEFAULT = nlp_backend.TOKENIZATION_MODE_DEFAULT
+TOKENIZATION_MODE_REPAIRED = nlp_backend.TOKENIZATION_MODE_REPAIRED
+
+_BOUNDARY_DIAGNOSTIC_PATTERNS = (
+    ("fused_punctuation", re.compile(r"[A-Za-z]+(?:[-–—]{2,}|_)[A-Za-z_'-]*")),
+    ("clitic_or_possessive", re.compile(r"[A-Za-z]+['’][A-Za-z]+\b")),
+)
 
 VALID_UPOS_TAGS = frozenset(
     {
@@ -56,6 +65,7 @@ class LinguisticsOptions:
     model_name: str = ""
     include_token_detail: bool = False
     token_detail_version: str = TOKEN_DETAIL_VERSION_V1
+    tokenization_mode: str = TOKENIZATION_MODE_DEFAULT
 
     def __post_init__(self) -> None:
         if self.token_detail_version not in {
@@ -65,6 +75,14 @@ class LinguisticsOptions:
             raise ValueError(
                 "token_detail_version must be "
                 f"{TOKEN_DETAIL_VERSION_V1!r} or {TOKEN_DETAIL_VERSION_V2!r}"
+            )
+        if self.tokenization_mode not in {
+            TOKENIZATION_MODE_DEFAULT,
+            TOKENIZATION_MODE_REPAIRED,
+        }:
+            raise ValueError(
+                "tokenization_mode must be "
+                f"{TOKENIZATION_MODE_DEFAULT!r} or {TOKENIZATION_MODE_REPAIRED!r}"
             )
 
     def to_dict(self) -> dict[str, Any]:
@@ -78,6 +96,8 @@ class LinguisticsOptions:
             and self.token_detail_version != TOKEN_DETAIL_VERSION_V1
         ):
             data["token_detail_version"] = self.token_detail_version
+        if self.tokenization_mode != TOKENIZATION_MODE_DEFAULT:
+            data["tokenization_mode"] = self.tokenization_mode
         return data
 
 
@@ -338,6 +358,15 @@ def validate_token_detail_v2(
         _require_mapping(data, key, f"$.{key}", findings)
     _validate_source_identity(data, source_body, compact_sidecar, findings)
     _validate_capabilities(data.get("provenance"), findings)
+    diagnostics = data.get("boundary_diagnostics")
+    if diagnostics is not None and not isinstance(diagnostics, list):
+        findings.append(
+            _finding(
+                "$.boundary_diagnostics",
+                "wrong_type",
+                f"expected list, got {type(diagnostics).__name__}",
+            )
+        )
 
     sentences = data.get("sentences")
     if "sentences" not in data:
@@ -596,8 +625,47 @@ def _build_v2_detail(
             },
             "capabilities": capabilities,
         },
+        "boundary_diagnostics": _boundary_diagnostics(body, sentence_rows),
         "sentences": sentence_rows,
     }
+
+
+def _boundary_diagnostics(
+    body: str, sentences: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Report suspicious source forms and whether tokenization split them."""
+    diagnostics: list[dict[str, Any]] = []
+    for sentence in sentences:
+        sentence_start = sentence.get("start_char")
+        sentence_end = sentence.get("end_char")
+        if not isinstance(sentence_start, int) or not isinstance(sentence_end, int):
+            continue
+        source = body[sentence_start:sentence_end]
+        tokens = sentence.get("tokens", [])
+        for kind, pattern in _BOUNDARY_DIAGNOSTIC_PATTERNS:
+            for match in pattern.finditer(source):
+                start = sentence_start + match.start()
+                end = sentence_start + match.end()
+                indices = [
+                    token["global_token_index"]
+                    for token in tokens
+                    if isinstance(token, dict)
+                    and isinstance(token.get("start_char"), int)
+                    and isinstance(token.get("end_char"), int)
+                    and token["start_char"] < end
+                    and token["end_char"] > start
+                ]
+                diagnostics.append(
+                    {
+                        "kind": kind,
+                        "surface_text": match.group(0),
+                        "start_char": start,
+                        "end_char": end,
+                        "global_token_indices": indices,
+                        "status": "repaired" if len(indices) > 1 else "unrepaired",
+                    }
+                )
+    return diagnostics
 
 
 def _find_token_span(
@@ -612,7 +680,10 @@ def _find_token_span(
 
 
 def _backend_config(options: LinguisticsOptions) -> dict[str, Any]:
-    config = {"requested_model": options.model_name}
+    config = {
+        "requested_model": options.model_name,
+        "tokenization_mode": options.tokenization_mode,
+    }
     if options.backend_name == "stanza":
         config["processors"] = "tokenize,pos,lemma,depparse"
     return config

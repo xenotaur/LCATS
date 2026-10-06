@@ -101,7 +101,11 @@ class RunSummary:
         return data
 
 
-def make_backend(name: str, model_name: str = "") -> Any:
+def make_backend(
+    name: str,
+    model_name: str = "",
+    tokenization_mode: str = sidecar.TOKENIZATION_MODE_DEFAULT,
+) -> Any:
     """Construct an NLP backend by name with clear missing dependency errors."""
     if name == "fake":
         from lcats.analysis.event_role_world import nlp_backend
@@ -112,8 +116,10 @@ def make_backend(name: str, model_name: str = "") -> Any:
 
         try:
             if model_name:
-                return nlp_backend.SpacyBackend(model_name=model_name)
-            return nlp_backend.SpacyBackend()
+                return nlp_backend.SpacyBackend(
+                    model_name=model_name, tokenization_mode=tokenization_mode
+                )
+            return nlp_backend.SpacyBackend(tokenization_mode=tokenization_mode)
         except ImportError as error:
             raise RuntimeError(
                 "spaCy is not installed; install lcats[nlp] or install spacy"

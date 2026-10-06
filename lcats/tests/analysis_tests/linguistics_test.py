@@ -178,6 +178,44 @@ class LinguisticsAnalysisTest(unittest.TestCase):
             ],
         )
 
+    def test_v2_detail_reports_boundary_diagnostics_without_rewriting_source(self):
+        body = "and-- body'd I'll d'ye"
+        tokens = [
+            _offset_token(body, "and--", "X", 0, 0),
+            _offset_token(body, "body'd", "X", 1, 5),
+            _offset_token(body, "I'll", "X", 1, 12),
+            _offset_token(body, "d'ye", "X", 1, 17),
+        ]
+        backend = nlp_backend.FakeNLPBackend(
+            sentences=[
+                nlp_backend.SentenceRecord(
+                    tokens=tokens, start_char=0, end_char=len(body)
+                )
+            ]
+        )
+        options = sidecar.LinguisticsOptions(
+            backend_name="fake",
+            include_token_detail=True,
+            token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        )
+
+        compact, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=backend,
+            options=options,
+        )
+
+        result = sidecar.validate_token_detail(
+            detail, source_body=body, compact_sidecar=compact
+        )
+        self.assertTrue(result.valid)
+        self.assertEqual(body, body[0 : len(body)])
+        diagnostics = detail["boundary_diagnostics"]
+        self.assertIn("fused_punctuation", {item["kind"] for item in diagnostics})
+        self.assertIn("clitic_or_possessive", {item["kind"] for item in diagnostics})
+        self.assertTrue(all(item["status"] == "unrepaired" for item in diagnostics))
+
     def test_v2_token_detail_reports_unaligned_offsets_as_unavailable(self):
         body = "du"
         backend = nlp_backend.FakeNLPBackend(
@@ -1510,3 +1548,32 @@ class LinguisticsOptionalNLPTest(unittest.TestCase):
         )
 
         self.assertTrue(sidecar.validate_sidecar(data).valid)
+
+    @unittest.skipUnless(
+        _spacy_model_available(),
+        "spaCy en_core_web_sm unavailable; optional repair test skipped",
+    )
+    def test_repaired_spacy_profile_splits_problematic_surface_forms(self):
+        backend = runner.make_backend(
+            "spacy", tokenization_mode=sidecar.TOKENIZATION_MODE_REPAIRED
+        )
+
+        sentences = backend.analyze("and-- thirst'--_he body'd I'll d'ye")
+
+        self.assertEqual(
+            [
+                "and",
+                "--",
+                "thirst",
+                "'",
+                "--",
+                "_",
+                "he",
+                "body",
+                "'d",
+                "I",
+                "'ll",
+                "d'ye",
+            ],
+            [token.text for token in sentences[0].tokens],
+        )
