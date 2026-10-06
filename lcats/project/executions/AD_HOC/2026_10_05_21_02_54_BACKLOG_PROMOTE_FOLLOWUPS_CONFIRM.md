@@ -2,10 +2,10 @@
 execution_id: 2026_10_05_21_02_54_BACKLOG_PROMOTE_FOLLOWUPS_CONFIRM
 prompt_id: PROMPT(AD_HOC:BACKLOG_PROMOTE_FOLLOWUPS_CONFIRM)[2026-10-05T20:10:27+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_05_19_38_10_BACKLOG_PROMOTE_FOLLOWUPS
 pr: https://github.com/xenotaur/LCATS/pull/471
-commit: 
+commit: c42484f92382607a4cc617ff9bed040e85db1321
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/471
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0

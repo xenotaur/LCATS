@@ -2,10 +2,10 @@
 execution_id: 2026_10_05_19_38_10_BACKLOG_PROMOTE_FOLLOWUPS
 prompt_id: PROMPT(AD_HOC:BACKLOG_PROMOTE_FOLLOWUPS)[2026-10-05T19:37:58+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/471
-commit: 
+commit: c42484f92382607a4cc617ff9bed040e85db1321
 agent: claude_app
 instruction_source: user request in session ("Create a PR to capture the open items")
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
