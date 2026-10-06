@@ -207,6 +207,25 @@ Simon-pure science fiction story", not a quoted rule. The dependency checks
 `causal` cannot be present when `human` is absent) are the code's own logical
 consistency rules, not Heinlein's.
 
+### 1947 printing comparison (`WI-SF-0110`)
+
+Outcome: **not independently verified; rubric id unchanged.** No agent in this
+project has had access to a copy of the 1947 printing, so no verbatim
+comparison was performed. The work item owner reports, from a later printing of
+the 1947 edition they used to produce the project paper's summary, that the
+text of the reprint above appears similar to that printing, apart from the
+reprint's scan having corrupted formatting (the numerals for conditions 2-4 are
+lost). This is a user-reported observation, not a checked quotation.
+
+Rubric version decision: the five conditions are kept as `heinlein-five-v1`,
+because no wording difference that would change the meaning of a condition has
+been identified. If a verbatim comparison later finds a difference that changes
+the meaning of a condition, mint a new rubric id (for example
+`heinlein-five-v2`) with matching changes to `models.HEINLEIN_RUBRIC_VERSION`,
+the sidecar validator, and the prompt, so that old and new adjudications never
+claim the same version with different governing text. The wording remains
+marked as not edition-final until that comparison is recorded here.
+
 ## Implications for Prompt Revision
 
 - Knight examples must be labeled provisional until the primary essay is

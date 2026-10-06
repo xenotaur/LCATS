@@ -7,7 +7,9 @@ import pathlib
 import unittest
 from copy import deepcopy
 
+from lcats.analysis.science_fiction import models
 from lcats.analysis.science_fiction import rendering
+from lcats.analysis.science_fiction import sidecar
 
 
 class ScienceFictionRenderingTest(unittest.TestCase):
@@ -222,6 +224,250 @@ class ScienceFictionRenderingTest(unittest.TestCase):
 
         self.assertIn(r"\textbackslash{}", result)
         self.assertNotIn(r"\textbackslash\{\}", result)
+
+
+def _with_heinlein(data, **statuses):
+    """Return a copy of ``data`` with a current Heinlein analysis injected."""
+
+    data = deepcopy(data)
+    evidence_set_id = data["current"]["evidence_set_id"]
+    evidence_set = next(
+        item
+        for item in data["evidence_sets"]
+        if item["evidence_set_id"] == evidence_set_id
+    )
+    evidence_id = evidence_set["records"][0]["evidence_id"]
+    criteria = []
+    for criterion_id in models.HEINLEIN_CRITERION_IDS:
+        status = statuses.get(criterion_id, "present")
+        criteria.append(
+            {
+                "criterion_id": criterion_id,
+                "status": status,
+                "supporting_evidence": (
+                    [{"evidence_set_id": evidence_set_id, "evidence_id": evidence_id}]
+                    if status == "present"
+                    else []
+                ),
+                "counterevidence": [],
+                "rationale": f"Rationale for {criterion_id}.",
+                "confidence": 0.8,
+            }
+        )
+    by_status = {item["criterion_id"]: item["status"] for item in criteria}
+    data["analyses"]["heinlein"] = [
+        {
+            "analysis_id": "heinlein-1",
+            "story_hash": data["story_hash"],
+            "evidence_set_id": evidence_set_id,
+            "criteria": criteria,
+            "interval": {
+                "definite_count": sum(v == "present" for v in by_status.values()),
+                "possible_count": sum(
+                    v in {"present", "ambiguous"} for v in by_status.values()
+                ),
+                "total_count": 5,
+            },
+            "verdict": models.heinlein_verdict(by_status),
+            "provenance": {
+                "run_id": "run-1",
+                "rubric_version": models.HEINLEIN_RUBRIC_VERSION,
+                "model": "fixture-model",
+            },
+            "status": "complete",
+            "failures": [],
+        }
+    ]
+    data["current"]["heinlein_analysis_id"] = "heinlein-1"
+    return data, evidence_id
+
+
+class HeinleinRenderingTest(unittest.TestCase):
+    def setUp(self):
+        root = pathlib.Path(
+            "experimental/science_fiction_analysis_trial/results/worldcon_spike/"
+            "opus_staged/canary-20260930T000426Z"
+        )
+        self.data = json.loads(
+            (root / "lovecraft/the_colour_out_of_space/science-fiction.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.control_data = json.loads(
+            (root / "anderson/bell/science-fiction.json").read_text(encoding="utf-8")
+        )
+        self.heinlein_data, self.evidence_id = _with_heinlein(
+            self.data, plausible="ambiguous"
+        )
+
+    def test_fixture_is_a_valid_sidecar(self):
+        self.assertTrue(sidecar.validate_sidecar(self.heinlein_data).valid)
+
+    def test_sidecars_without_heinlein_render_without_any_heinlein_text(self):
+        for output_format in ("markdown", "html", "latex"):
+            for detail in ("summary", "detailed"):
+                with self.subTest(output_format=output_format, detail=detail):
+                    result = rendering.render_sidecar(
+                        self.data, output_format=output_format, detail=detail
+                    )
+                    self.assertNotIn("Heinlein", result)
+        table = rendering.render_comparison_table(
+            [{"data": self.data}, {"data": self.control_data}]
+        )
+        self.assertNotIn("Heinlein", table)
+
+    def test_summary_shows_verdict_in_every_format(self):
+        expectations = {
+            "markdown": "**Heinlein Verdict:** Indeterminate (4 / 5 conditions)",
+            "html": "<strong>Heinlein Verdict:</strong> Indeterminate (4 / 5 conditions)",
+            "latex": "\\textbf{Heinlein Verdict:} Indeterminate (4 / 5 conditions)",
+        }
+        for output_format, expected in expectations.items():
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(
+                    self.heinlein_data, output_format=output_format
+                )
+                self.assertIn(expected, result)
+
+    def test_existing_header_lines_are_unchanged_when_heinlein_is_added(self):
+        before = rendering.render_sidecar(self.data).splitlines()
+        after = rendering.render_sidecar(self.heinlein_data).splitlines()
+
+        self.assertEqual(before, [line for line in after if "Heinlein" not in line])
+
+    def test_detailed_output_lists_conditions_rationale_and_evidence(self):
+        for output_format in ("markdown", "html", "latex"):
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(
+                    self.heinlein_data, output_format=output_format, detail="detailed"
+                )
+                self.assertIn("Heinlein conditions", result)
+                self.assertIn("Rationale for causal.", result.replace("\\_", "_"))
+                self.assertIn("Heinlein: Indeterminate; 4–5 of 5 conditions.", result)
+                self.assertIn(
+                    (
+                        self.evidence_id.replace("_", "\\_")
+                        if output_format == "latex"
+                        else self.evidence_id
+                    ),
+                    result,
+                )
+        markdown = rendering.render_sidecar(self.heinlein_data, detail="detailed")
+        self.assertIn("| Plausible | ambiguous | 0.80 | 0 |", markdown)
+        self.assertIn("- Heinlein: fixture-model; rubric `heinlein-five-v1`", markdown)
+
+    def test_all_present_is_labelled_as_meeting_every_condition(self):
+        data, _ = _with_heinlein(self.data)
+
+        result = rendering.render_sidecar(data)
+
+        self.assertIn("Meets all five conditions (5 / 5 conditions)", result)
+
+    def test_absent_condition_reads_as_not_meeting_all_five(self):
+        data, _ = _with_heinlein(
+            self.data, different="absent", essential="absent", causal="absent"
+        )
+
+        result = rendering.render_sidecar(data)
+
+        self.assertIn("Does not meet all five conditions (2 / 5 conditions)", result)
+
+    def test_failed_heinlein_renders_indeterminate_with_a_warning(self):
+        data, _ = _with_heinlein(self.data)
+        analysis = data["analyses"]["heinlein"][0]
+        analysis["status"] = "failed"
+        analysis["failures"] = [
+            {
+                "stage": "heinlein",
+                "kind": "Timeout",
+                "message": "t",
+                "recoverable": True,
+            }
+        ]
+        for criterion in analysis["criteria"]:
+            criterion["status"] = "not_assessable"
+            criterion["supporting_evidence"] = []
+        analysis["verdict"] = "indeterminate"
+        analysis["interval"] = {
+            "definite_count": 0,
+            "possible_count": 0,
+            "total_count": 5,
+        }
+
+        result = rendering.render_sidecar(data, detail="detailed")
+
+        self.assertIn("**Heinlein Verdict:** Indeterminate (0 / 5 conditions)", result)
+        self.assertIn("Warning:", result)
+
+    def test_partial_heinlein_without_verdict_has_no_misleading_counts(self):
+        data, _ = _with_heinlein(self.data)
+        analysis = data["analyses"]["heinlein"][0]
+        del analysis["verdict"]
+        analysis["criteria"] = analysis["criteria"][:2]
+
+        for output_format in ("markdown", "html", "latex"):
+            with self.subTest(output_format=output_format):
+                result = rendering.render_sidecar(data, output_format=output_format)
+                self.assertIn("Unavailable", result)
+                self.assertNotIn("conditions)", result)
+
+    def test_default_comparison_adds_heinlein_columns_only_when_present(self):
+        table = rendering.render_comparison_table(
+            [
+                {"data": self.heinlein_data, "title": "With"},
+                {"data": self.control_data, "title": "Without"},
+            ]
+        )
+        header = table.splitlines()[0]
+
+        for name in ("Different", "Essential", "Human", "Causal", "Plausible"):
+            self.assertIn(name, header)
+        self.assertIn("Heinlein summary", header)
+        with_row, without_row = table.splitlines()[2:4]
+        self.assertIn("Indeterminate (4/5; interval 4–5)", with_row)
+        self.assertTrue(without_row.rstrip(" |").endswith("Heinlein unavailable"))
+        compact = rendering.render_comparison_table(
+            [{"data": self.heinlein_data}], named_feature_headers=False
+        ).splitlines()[0]
+        self.assertIn("Dif", compact)
+        self.assertNotIn("Different", compact)
+
+    def test_comparison_without_heinlein_is_identical_to_before(self):
+        items = [{"data": self.data}, {"data": self.control_data}]
+
+        default = rendering.render_comparison_table(items)
+
+        self.assertNotIn("Heinlein", default)
+        self.assertEqual(
+            default,
+            rendering.render_comparison_table(
+                [{"data": deepcopy(self.data)}, {"data": deepcopy(self.control_data)}]
+            ),
+        )
+
+    def test_explicit_heinlein_column_sets_work_with_and_without_data(self):
+        table = rendering.render_comparison_table(
+            [
+                {"data": self.heinlein_data, "title": "With"},
+                {"data": self.data, "title": "Without"},
+            ],
+            column_sets=("identity", "heinlein_evaluation", "heinlein_detail"),
+        )
+        lines = table.splitlines()
+
+        self.assertIn("Heinlein Verdict", lines[0])
+        self.assertIn("Indeterminate", lines[2])
+        self.assertIn("Unavailable", lines[3])
+        self.assertIn("P | P | P | P | ?", lines[2])
+
+    def test_comparison_renders_heinlein_in_html_and_latex(self):
+        for output_format in ("html", "latex"):
+            with self.subTest(output_format=output_format):
+                table = rendering.render_comparison_table(
+                    [{"data": self.heinlein_data}], output_format=output_format
+                )
+                self.assertIn("Heinlein summary", table)
+                self.assertIn("Indeterminate", table)
 
 
 if __name__ == "__main__":

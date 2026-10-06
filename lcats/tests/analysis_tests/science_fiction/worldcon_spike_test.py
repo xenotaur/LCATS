@@ -1412,5 +1412,260 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
             )
 
 
+class _HeinleinOverrideBackend:
+    """Delegate to the deterministic backend, overriding the Heinlein stage."""
+
+    def __init__(self, override=None):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.override = override
+        self.tools = []
+
+    def complete(self, **kwargs):
+        name = kwargs["tool"]["name"]
+        self.tools.append(name)
+        response = self.delegate.complete(**kwargs)
+        if name == run_worldcon_spike.HEINLEIN_TOOL_NAME and self.override:
+            response.tool_result = self.override(response.tool_result)
+        return response
+
+
+def _heinlein_options(root, **updates):
+    return run_worldcon_spike.RunnerOptions(
+        manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+        output_root=root,
+        max_stories=1,
+        include_heinlein=True,
+        **updates,
+    )
+
+
+class WorldconSpikeHeinleinStageTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _run(self, name, backend=None, **updates):
+        backend = backend or _HeinleinOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                _heinlein_options(self.root / name, **updates)
+            )
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+        return summary, story, data, backend
+
+    def test_stage_is_off_by_default_and_leaves_outputs_unchanged(self):
+        summary = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                output_root=self.root / "off",
+                max_stories=1,
+            )
+        )
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+
+        self.assertNotIn("heinlein_verdict", story)
+        self.assertNotIn("heinlein_interval", story)
+        self.assertNotIn("heinlein_verdicts", summary["totals"])
+        self.assertNotIn("include_heinlein", summary["plan"])
+        self.assertNotIn("heinlein", data["analyses"])
+        self.assertNotIn("heinlein_analysis_id", data["current"])
+        self.assertNotIn("heinlein_prompt_version", str(data["current"]))
+        report = (self.root / "off" / "worldcon_spike_report.md").read_text("utf-8")
+        self.assertNotIn("Heinlein", report)
+
+    def test_enabled_stage_publishes_valid_sidecar_summary_and_report(self):
+        summary, story, data, backend = self._run("on")
+
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual("qualifies", story["heinlein_verdict"])
+        self.assertEqual(
+            {"definite_count": 5, "possible_count": 5, "total_count": 5},
+            story["heinlein_interval"],
+        )
+        self.assertEqual(
+            {
+                "does_not_qualify": 0,
+                "indeterminate": 0,
+                "qualifies": 1,
+                "unavailable": 0,
+            },
+            summary["totals"]["heinlein_verdicts"],
+        )
+        self.assertTrue(summary["plan"]["include_heinlein"])
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("complete", analysis["status"])
+        self.assertEqual("qualifies", analysis["verdict"])
+        self.assertEqual(
+            analysis["analysis_id"], data["current"]["heinlein_analysis_id"]
+        )
+        self.assertIsNone(data["partial_success"])
+        report = (self.root / "on" / "worldcon_spike_report.md").read_text("utf-8")
+        self.assertIn("Heinlein verdict: `qualifies`", report)
+        self.assertEqual(1, backend.tools.count(run_worldcon_spike.HEINLEIN_TOOL_NAME))
+        raw_dir = pathlib.Path(story["raw_response_path"])
+        self.assertTrue(
+            (raw_dir / f"{run_worldcon_spike.HEINLEIN_STAGE}.json").exists()
+        )
+        index = json.loads((raw_dir / "index.json").read_text("utf-8"))
+        self.assertIn(run_worldcon_spike.HEINLEIN_STAGE, index["stages"])
+
+    def test_dependency_violation_is_quarantined_without_repair(self):
+        def violate(result):
+            for item in result["heinlein_criteria"]:
+                if item["criterion_id"] == "different":
+                    item["status"] = "absent"
+                    item["supporting_evidence_ids"] = []
+            return result
+
+        summary, story, data, _ = self._run(
+            "dependency", _HeinleinOverrideBackend(violate)
+        )
+
+        self.assertEqual("complete", story["status"])
+        self.assertNotIn("heinlein_verdict", story)
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("failed", analysis["status"])
+        self.assertIn("cannot be present", analysis["failures"][0]["message"])
+        self.assertNotIn("heinlein_analysis_id", data["current"])
+        self.assertEqual(
+            {"unavailable": 1},
+            {k: v for k, v in summary["totals"]["heinlein_verdicts"].items() if v},
+        )
+        quarantine = (
+            self.root
+            / "dependency"
+            / "_quarantine"
+            / story["run_id"]
+            / pathlib.Path(story["raw_response_path"]).name
+            / f"{run_worldcon_spike.HEINLEIN_STAGE}.json"
+        )
+        self.assertTrue(quarantine.exists())
+
+    def test_present_without_valid_evidence_is_rejected_not_filled_in(self):
+        def strip_support(result):
+            for item in result["heinlein_criteria"]:
+                item["supporting_evidence_ids"] = ["not-a-real-evidence-id"]
+            return result
+
+        _, story, data, _ = self._run(
+            "no-evidence", _HeinleinOverrideBackend(strip_support)
+        )
+
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("failed", analysis["status"])
+        self.assertIn("supporting evidence", analysis["failures"][0]["message"])
+        self.assertEqual("complete", story["status"])
+
+    def test_missing_criteria_become_not_assessable_and_indeterminate(self):
+        def drop_plausible(result):
+            result["heinlein_criteria"] = [
+                item
+                for item in result["heinlein_criteria"]
+                if item["criterion_id"] != "plausible"
+            ]
+            return result
+
+        _, story, data, _ = self._run(
+            "missing", _HeinleinOverrideBackend(drop_plausible)
+        )
+
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("complete", analysis["status"])
+        self.assertEqual("indeterminate", analysis["verdict"])
+        statuses = {c["criterion_id"]: c["status"] for c in analysis["criteria"]}
+        self.assertEqual("not_assessable", statuses["plausible"])
+        self.assertEqual("indeterminate", story["heinlein_verdict"])
+
+    def test_heinlein_failure_does_not_affect_knight_or_suvin(self):
+        _, story, data, _ = self._run(
+            "isolation", _HeinleinOverrideBackend(lambda result: "not an object")
+        )
+
+        self.assertEqual("complete", story["status"])
+        self.assertEqual("complete", data["analyses"]["knight"][0]["status"])
+        self.assertEqual("complete", data["analyses"]["suvin_novum"][0]["status"])
+        self.assertEqual("failed", data["analyses"]["heinlein"][0]["status"])
+        self.assertEqual(
+            [run_worldcon_spike.HEINLEIN_RECORD_STAGE],
+            [f["stage"] for f in data["partial_success"]["failed_stages"]],
+        )
+        self.assertEqual(
+            [
+                run_worldcon_spike.EVIDENCE_RECORD_STAGE,
+                run_worldcon_spike.KNIGHT_RECORD_STAGE,
+                run_worldcon_spike.SUVIN_RECORD_STAGE,
+            ],
+            data["partial_success"]["completed_stages"],
+        )
+        self.assertIsNotNone(data["current"]["knight_analysis_id"])
+        self.assertIsNotNone(data["current"]["suvin_novum_analysis_id"])
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+
+    def test_enabling_heinlein_reuses_existing_knight_and_suvin_checkpoints(self):
+        root = self.root / "reuse"
+        first = _HeinleinOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=first):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=root,
+                    max_stories=1,
+                    resume=True,
+                )
+            )
+        self.assertNotIn(run_worldcon_spike.HEINLEIN_TOOL_NAME, first.tools)
+
+        second = _HeinleinOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=second):
+            summary = run_worldcon_spike.run_spike(_heinlein_options(root, resume=True))
+
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual([run_worldcon_spike.HEINLEIN_TOOL_NAME], second.tools)
+
+    def test_heinlein_stage_is_rejected_for_paid_backends(self):
+        with self.assertRaisesRegex(ValueError, "Heinlein stage"):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=self.root / "paid",
+                    backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                    include_heinlein=True,
+                    dry_run=True,
+                )
+            )
+
+    def test_prompt_and_schema_track_the_resolved_rubric(self):
+        prompt = run_worldcon_spike._heinlein_system_prompt()
+        schema = run_worldcon_spike._heinlein_tool_schema()
+
+        for slot in run_worldcon_spike.rubric_definitions.HEINLEIN_FIVE.text_slots:
+            self.assertIn(slot.governing_text, prompt)
+        self.assertIn("indispensably affected", prompt)
+        self.assertIn("Python derives the result", prompt)
+        self.assertEqual(run_worldcon_spike.HEINLEIN_TOOL_NAME, schema["name"])
+        criteria = schema["input_schema"]["properties"]["heinlein_criteria"]["items"]
+        self.assertEqual(
+            list(run_worldcon_spike.models.HEINLEIN_CRITERION_IDS),
+            criteria["properties"]["criterion_id"]["enum"],
+        )
+        self.assertNotIn("verdict", json.dumps(schema))
+
+    def test_stage_payload_does_not_change_knight_or_suvin_prompt_version(self):
+        self.assertEqual(
+            "worldcon-knight-novum-spike-prompt-v3",
+            run_worldcon_spike.PROMPT_VERSION,
+        )
+        self.assertNotEqual(
+            run_worldcon_spike.PROMPT_VERSION,
+            run_worldcon_spike.HEINLEIN_PROMPT_VERSION,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

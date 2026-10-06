@@ -78,3 +78,13 @@ is retried once with doubled `--max-tokens`; transient provider/network errors
 are retried once; content-filter and deterministic validation failures are not
 retried automatically. Each attempt is persisted under `_raw/` and its usage
 is included in the run totals.
+
+Add `--include-heinlein` to also run the optional `sf_heinlein` stage after
+Suvin, which adjudicates Heinlein's five conditions (different, essential,
+human, causal, plausible) and publishes `analyses.heinlein` in each sidecar.
+The stage is off by default, so existing runs and checkpoints are unchanged;
+it has its own prompt version and never alters Knight or Suvin results, and a
+Heinlein failure is recorded as a partial success rather than failing the
+story. It adds one model call per story, so it is rejected for paid backends
+until a reviewed paid-run estimate covers it. The model supplies only the five
+decisions and evidence IDs; Python derives the verdict and interval.

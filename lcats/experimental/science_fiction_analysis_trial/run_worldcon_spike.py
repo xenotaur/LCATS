@@ -21,11 +21,13 @@ import uuid
 from typing import Any, Callable, Iterable
 
 from lcats.analysis.science_fiction import evidence
+from lcats.analysis.science_fiction import heinlein
 from lcats.analysis.science_fiction import knight
 from lcats.analysis.science_fiction import models
 from lcats.analysis.science_fiction import novum
 from lcats.analysis.science_fiction import pipeline
 from lcats.analysis.science_fiction import preparation
+from lcats.analysis.science_fiction.rubric import definitions as rubric_definitions
 from lcats.llm import anthropic_backend
 from lcats.llm import backend as llm_backend
 from lcats.llm import openai_backend
@@ -43,12 +45,18 @@ PROMPT_VERSION = "worldcon-knight-novum-spike-prompt-v3"
 EVIDENCE_STAGE = "sf_evidence"
 KNIGHT_STAGE = "sf_knight"
 SUVIN_STAGE = "sf_suvin_novum"
+HEINLEIN_STAGE = "sf_heinlein"
 EVIDENCE_RECORD_STAGE = "evidence"
 KNIGHT_RECORD_STAGE = "knight"
 SUVIN_RECORD_STAGE = "suvin_novum"
+HEINLEIN_RECORD_STAGE = "heinlein"
 EVIDENCE_TOOL_NAME = "record_science_fiction_evidence"
 KNIGHT_TOOL_NAME = "record_knight_adjudication"
 SUVIN_TOOL_NAME = "record_suvin_novum_adjudication"
+HEINLEIN_TOOL_NAME = "record_heinlein_adjudication"
+# The optional Heinlein stage has its own prompt version so enabling it never
+# changes PROMPT_VERSION, which feeds the Knight and Suvin checkpoint payloads.
+HEINLEIN_PROMPT_VERSION = "worldcon-heinlein-spike-prompt-v1"
 DEFAULT_MANIFEST = (
     pathlib.Path(__file__).resolve().parent
     / "manifests"
@@ -142,6 +150,7 @@ class RunnerOptions:
     stop_on_first_failure: bool = False
     max_failures: int | None = None
     resume: bool = False
+    include_heinlein: bool = False
 
 
 @dataclasses.dataclass(frozen=True)
@@ -164,9 +173,17 @@ class StoryResult:
     failure_message: str | None = None
     raw_response_path: str | None = None
     quarantine_path: str | None = None
+    heinlein_verdict: str | None = None
+    heinlein_interval: dict[str, int] | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return dataclasses.asdict(self)
+        data = dataclasses.asdict(self)
+        # Heinlein is opt-in: omit its keys when unset so existing runs emit
+        # byte-identical story rows.
+        if data["heinlein_verdict"] is None:
+            del data["heinlein_verdict"]
+            del data["heinlein_interval"]
+        return data
 
 
 class DeterministicSpikeBackend:
@@ -474,18 +491,42 @@ def _run_story(
         if not suvin_reused:
             input_tokens += suvin_response.input_tokens
             output_tokens += suvin_response.output_tokens
+        stage_paths = {
+            EVIDENCE_STAGE: evidence_raw_path,
+            KNIGHT_STAGE: knight_raw_path,
+            SUVIN_STAGE: suvin_raw_path,
+        }
+        heinlein_analysis: models.HeinleinAnalysis | None = None
+        if options.include_heinlein:
+            (
+                heinlein_analysis,
+                heinlein_response,
+                heinlein_raw_path,
+                heinlein_reused,
+            ) = _run_heinlein_stage(
+                story=story,
+                prepared=prepared,
+                evidence_set=evidence_set,
+                options=options,
+                active_backend=active_backend,
+                output_root=output_root,
+                run_id=run_id,
+                log=log,
+            )
+            if not heinlein_reused:
+                input_tokens += heinlein_response.input_tokens
+                output_tokens += heinlein_response.output_tokens
+            stage_paths[HEINLEIN_STAGE] = heinlein_raw_path
         _write_raw_artifact_index(
             output_root=output_root,
             story=story,
             run_id=run_id,
-            stage_paths={
-                EVIDENCE_STAGE: evidence_raw_path,
-                KNIGHT_STAGE: knight_raw_path,
-                SUVIN_STAGE: suvin_raw_path,
-            },
+            stage_paths=stage_paths,
         )
 
-        partial_success = _partial_success_record(knight_analysis, suvin_analysis)
+        partial_success = _partial_success_record(
+            knight_analysis, suvin_analysis, heinlein_analysis
+        )
         sidecar_inputs = pipeline.SidecarAssemblyInputs(
             lcats_id=story.story_id,
             story_path=story.story_path,
@@ -493,14 +534,11 @@ def _run_story(
             evidence_sets=(evidence_set,),
             knight_analyses=(knight_analysis,),
             suvin_novum_analyses=(suvin_analysis,),
+            heinlein_analyses=(
+                (heinlein_analysis,) if heinlein_analysis is not None else ()
+            ),
             partial_success=partial_success,
-            configuration={
-                "backend_kind": options.backend_kind,
-                "mode": options.mode,
-                "model": options.model,
-                "prompt_version": PROMPT_VERSION,
-                "report_version": REPORT_VERSION,
-            },
+            configuration=_sidecar_configuration(options),
         )
         assembled = pipeline.run_checkpointed_assembly(
             working_root=output_root,
@@ -516,6 +554,9 @@ def _run_story(
         )
         knight_analysis = sidecar_inputs.knight_analyses[0]
         suvin_analysis = sidecar_inputs.suvin_novum_analyses[0]
+        heinlein_complete = (
+            heinlein_analysis is not None and heinlein_analysis.status == "complete"
+        )
         return StoryResult(
             run_id=run_id,
             story_id=story.story_id,
@@ -546,6 +587,10 @@ def _run_story(
                 else None
             ),
             raw_response_path=_display_path(raw_response_dir),
+            heinlein_verdict=(heinlein_analysis.verdict if heinlein_complete else None),
+            heinlein_interval=(
+                heinlein_analysis.interval.to_dict() if heinlein_complete else None
+            ),
         )
     except Exception as error:
         input_tokens = getattr(error, "input_tokens", input_tokens)
@@ -1659,6 +1704,144 @@ def _empty_response(options: RunnerOptions) -> llm_backend.BackendResponse:
     )
 
 
+def _sidecar_configuration(options: RunnerOptions) -> dict[str, Any]:
+    configuration: dict[str, Any] = {
+        "backend_kind": options.backend_kind,
+        "mode": options.mode,
+        "model": options.model,
+        "prompt_version": PROMPT_VERSION,
+        "report_version": REPORT_VERSION,
+    }
+    if options.include_heinlein:
+        configuration["heinlein_prompt_version"] = HEINLEIN_PROMPT_VERSION
+    return configuration
+
+
+def _run_heinlein_stage(
+    *,
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+    options: RunnerOptions,
+    active_backend: llm_backend.LLMBackend,
+    output_root: pathlib.Path,
+    run_id: str,
+    log: run_log.RunLog | None,
+) -> tuple[models.HeinleinAnalysis, llm_backend.BackendResponse, pathlib.Path, bool]:
+    """Run the optional Heinlein stage; a failure never affects other stages."""
+
+    response = _empty_response(options)
+    tool_result: Any = None
+    raw_path: pathlib.Path | None = None
+    reused = False
+    system_prompt = _heinlein_system_prompt()
+    tool_schema = _heinlein_tool_schema()
+    analysis_id = f"{_stable_slug(story.story_id)}-heinlein-v1"
+
+    def provenance_for(
+        stage_response: llm_backend.BackendResponse,
+    ) -> models.ProvenanceRecord:
+        return _provenance(
+            story=story,
+            options=options,
+            response=stage_response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=models.HEINLEIN_RUBRIC_VERSION,
+        )
+
+    try:
+        response, tool_result, raw_path, reused = _run_checkpointed_model_stage(
+            stage=HEINLEIN_STAGE,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=_heinlein_payload(story, prepared, evidence_set),
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+            resume=options.resume,
+            validate_result=lambda stage_response, result: heinlein.build_analysis(
+                analysis_id=analysis_id,
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                decisions=_heinlein_decisions(result, evidence_set),
+                provenance=provenance_for(stage_response),
+            ),
+        )
+        if not isinstance(tool_result, dict):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} tool_result must be an object, "
+                f"got {type(tool_result).__name__}"
+            )
+        return (
+            heinlein.build_analysis(
+                analysis_id=analysis_id,
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                decisions=_heinlein_decisions(tool_result, evidence_set),
+                provenance=provenance_for(response),
+            ),
+            response,
+            raw_path,
+            reused,
+        )
+    except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        response.effective_max_tokens = getattr(
+            error,
+            "effective_max_tokens",
+            getattr(response, "effective_max_tokens", None),
+        )
+        if raw_path is None:
+            candidate = (
+                output_root
+                / "_raw"
+                / run_id
+                / _checkpoint_item_id(story)
+                / f"{HEINLEIN_STAGE}-backend-error.json"
+            )
+            if candidate.exists():
+                raw_path = candidate
+        _record_stage_failure(
+            output_root=output_root,
+            story=story,
+            stage=HEINLEIN_STAGE,
+            error=error,
+            tool_result=tool_result,
+            raw_path=raw_path,
+            run_id=run_id,
+            log=log,
+        )
+        failure = models.FailureRecord(
+            stage=HEINLEIN_RECORD_STAGE,
+            kind=type(error).__name__,
+            message=str(error),
+            recoverable=True,
+        )
+        return (
+            heinlein.failed_analysis(
+                analysis_id=analysis_id,
+                story_hash=prepared.story_hash,
+                evidence_set_id=evidence_set.evidence_set_id,
+                provenance=provenance_for(response),
+                failure=failure,
+            ),
+            response,
+            raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
+            reused,
+        )
+
+
 def _record_stage_failure(
     *,
     output_root: pathlib.Path,
@@ -1693,6 +1876,7 @@ def _record_stage_failure(
 def _partial_success_record(
     knight_analysis: models.KnightAnalysis,
     suvin_analysis: models.SuvinNovumAnalysis,
+    heinlein_analysis: models.HeinleinAnalysis | None = None,
 ) -> models.PartialSuccessRecord | None:
     completed = [EVIDENCE_RECORD_STAGE]
     failures: list[models.FailureRecord] = []
@@ -1702,6 +1886,10 @@ def _partial_success_record(
     if suvin_analysis.status == "complete":
         completed.append(SUVIN_RECORD_STAGE)
     failures.extend(suvin_analysis.failures)
+    if heinlein_analysis is not None:
+        if heinlein_analysis.status == "complete":
+            completed.append(HEINLEIN_RECORD_STAGE)
+        failures.extend(heinlein_analysis.failures)
     if not failures:
         return None
     return models.PartialSuccessRecord(
@@ -1739,6 +1927,44 @@ def _knight_decisions(
                 supporting_evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     support,
+                ),
+                rationale=str(item.get("rationale", "")),
+                confidence=_optional_float(item.get("confidence")),
+            )
+        )
+    return tuple(decisions)
+
+
+def _heinlein_decisions(
+    tool_result: dict[str, Any],
+    evidence_set: evidence.EvidenceSet,
+) -> tuple[heinlein.CriterionAdjudication, ...]:
+    """Convert model output to decisions without inventing any evidence.
+
+    Unlike the Knight path, a ``present`` decision with no valid supporting
+    evidence is not given a fallback evidence ID; it fails contract validation
+    and the stage is quarantined.
+    """
+
+    by_id = {
+        item.get("criterion_id"): item
+        for item in _list_field(tool_result, "heinlein_criteria")
+        if isinstance(item, dict)
+    }
+    decisions = []
+    for criterion_id in models.HEINLEIN_CRITERION_IDS:
+        item = by_id.get(criterion_id, {})
+        decisions.append(
+            heinlein.CriterionAdjudication(
+                criterion_id=criterion_id,
+                status=_decision_state(item.get("status", "not_assessable")),
+                supporting_evidence_ids=_existing_evidence_ids(
+                    evidence_set,
+                    _string_tuple(item.get("supporting_evidence_ids", ())),
+                ),
+                counterevidence_ids=_existing_evidence_ids(
+                    evidence_set,
+                    _string_tuple(item.get("counterevidence_ids", ())),
                 ),
                 rationale=str(item.get("rationale", "")),
                 confidence=_optional_float(item.get("confidence")),
@@ -1927,6 +2153,22 @@ def _suvin_payload(
     }
 
 
+def _heinlein_payload(
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+) -> dict[str, Any]:
+    return {
+        "stage": HEINLEIN_STAGE,
+        "prompt_version": HEINLEIN_PROMPT_VERSION,
+        "story_id": story.story_id,
+        "story_hash": prepared.story_hash,
+        "evidence_set_id": evidence_set.evidence_set_id,
+        "text": _indexed_story_text(prepared),
+        "evidence": [item.to_dict() for item in evidence_set.records],
+    }
+
+
 def _indexed_story_text(prepared: preparation.StoryPreparation) -> str:
     return "\n\n".join(
         f"[{paragraph.paragraph_id}] {paragraph.text}"
@@ -2019,6 +2261,51 @@ present or ambiguous criterion has supporting evidence, every cited ID exists,
 and no criterion is marked present solely because another criterion is present.
 Return exactly the schema keys; do not substitute criterion or assessment for
 criterion_id or status.
+""".strip()
+
+
+def _heinlein_system_prompt() -> str:
+    conditions = "\n".join(
+        f"{slot.slot_id}: {slot.governing_text}"
+        for slot in rubric_definitions.HEINLEIN_FIVE.text_slots
+    )
+    return f"""
+You are the independent Heinlein adjudicator in an LCATS science-fiction
+analysis. The story and shared neutral evidence are supplied by earlier
+stages. Return only the record_heinlein_adjudication tool input.
+
+Use rubric_id {models.HEINLEIN_RUBRIC_VERSION} and return exactly the five
+criteria different, essential, human, causal, and plausible, each once. Use
+present, ambiguous, absent, or not_assessable. Do not return a verdict, score,
+probability, genre label, or arithmetic; Python derives the result.
+
+The five conditions, from Robert A. Heinlein's description of the
+"Simon-pure" science fiction story:
+{conditions}
+
+Decision states are distinct. Use present only when the story and at least one
+supplied evidence record materially support the condition. Use ambiguous when
+the evidence supports a plausible reading but the reading is uncertain. Use
+absent when you considered the condition and the story does not meet it. Use
+not_assessable only when the supplied evidence is insufficient, conflicting, or
+unusable; do not use absent as a fallback for missing evidence. A present
+decision must cite valid supporting evidence IDs and give a short rationale.
+Never invent an evidence ID. Cite counterevidence IDs when they matter.
+
+The conditions depend on one another. If different is absent, essential and
+causal cannot be present. If human is absent, causal cannot be present.
+Decisions that violate this are rejected.
+
+Judge plausibility against established facts available to a general reader and
+the story's own premises; do not penalize an explicitly rendered new theory
+that explains established facts. Do not count decorative technology, a
+different setting that changes nothing about the problem, or a problem that
+would arise unchanged in the present day.
+
+Before submitting, check that all five criteria appear exactly once, every
+present criterion has supporting evidence, every cited ID exists, and no
+criterion is marked present solely because another is present. Return exactly
+the schema keys.
 """.strip()
 
 
@@ -2166,6 +2453,56 @@ def _knight_tool_schema() -> dict[str, Any]:
     )
 
 
+def _heinlein_tool_schema() -> dict[str, Any]:
+    criterion = {
+        "type": "object",
+        "properties": {
+            "criterion_id": {
+                "type": "string",
+                "enum": list(models.HEINLEIN_CRITERION_IDS),
+            },
+            "status": {
+                "type": "string",
+                "enum": ["present", "ambiguous", "absent", "not_assessable"],
+            },
+            "supporting_evidence_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "counterevidence_ids": {
+                "type": "array",
+                "items": {"type": "string"},
+            },
+            "rationale": {"type": "string"},
+            "confidence": {"type": "number"},
+        },
+        "required": [
+            "criterion_id",
+            "status",
+            "supporting_evidence_ids",
+            "counterevidence_ids",
+            "rationale",
+            "confidence",
+        ],
+    }
+    return tool_schema_module.strict_tool_schema(
+        {
+            "name": HEINLEIN_TOOL_NAME,
+            "description": "Record five independent Heinlein criterion decisions.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "heinlein_criteria": {
+                        "type": "array",
+                        "items": criterion,
+                    }
+                },
+                "required": ["heinlein_criteria"],
+            },
+        }
+    )
+
+
 def _suvin_tool_schema() -> dict[str, Any]:
     evidence_ids = {"type": "array", "items": {"type": "string"}}
     dimension = {
@@ -2293,11 +2630,34 @@ def _fake_tool_result(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _fake_heinlein_criteria() -> list[dict[str, Any]]:
+    support = {
+        "different": "ev-storyworld",
+        "essential": "ev-consequence",
+        "human": "ev-reaction",
+        "causal": "ev-consequence",
+        "plausible": "ev-explanation",
+    }
+    return [
+        {
+            "criterion_id": criterion_id,
+            "status": "present",
+            "supporting_evidence_ids": [support[criterion_id]],
+            "counterevidence_ids": [],
+            "rationale": "No-cost deterministic smoke decision.",
+            "confidence": 0.5,
+        }
+        for criterion_id in models.HEINLEIN_CRITERION_IDS
+    ]
+
+
 def _fake_stage_result(
     payload: dict[str, Any], tool: dict[str, Any] | None
 ) -> dict[str, Any]:
     result = _fake_tool_result(payload)
     tool_name = tool.get("name") if isinstance(tool, dict) else None
+    if tool_name == HEINLEIN_TOOL_NAME:
+        return {"heinlein_criteria": _fake_heinlein_criteria()}
     if tool_name == EVIDENCE_TOOL_NAME:
         return {"evidence": result["evidence"]}
     if tool_name == KNIGHT_TOOL_NAME:
@@ -2361,6 +2721,11 @@ def _enforce_run_gate(
     stories: tuple[SpikeStory, ...],
 ) -> None:
     gate = manifest.gates[options.mode]
+    if options.include_heinlein and _paid_call_requested(options, gate):
+        raise ValueError(
+            "the Heinlein stage adds a model call per story and is not covered "
+            "by an approved paid-run estimate; use a no-cost backend"
+        )
     if len(stories) > gate.max_stories:
         raise ValueError(
             f"{options.mode} mode may not run more than {gate.max_stories} stories"
@@ -2508,6 +2873,11 @@ def _summary(
             "stories": len(story_results),
             "complete": sum(1 for item in story_results if item.status == "complete"),
             "failed": sum(1 for item in story_results if item.status == "failed"),
+            **(
+                {"heinlein_verdicts": _heinlein_verdict_counts(story_results)}
+                if options.include_heinlein
+                else {}
+            ),
             "input_tokens": sum(item.input_tokens for item in story_results),
             "output_tokens": sum(item.output_tokens for item in story_results),
             "latency_seconds": round(
@@ -2529,6 +2899,14 @@ def _summary(
         },
         "stories": [item.to_dict() for item in story_results],
     }
+
+
+def _heinlein_verdict_counts(results: Iterable[StoryResult]) -> dict[str, int]:
+    counts = {verdict: 0 for verdict in sorted(models.HEINLEIN_VERDICTS)}
+    counts["unavailable"] = 0
+    for item in results:
+        counts[item.heinlein_verdict or "unavailable"] += 1
+    return counts
 
 
 def _plan(
@@ -2553,6 +2931,7 @@ def _plan(
         "approve_paid": options.approve_paid,
         "approve_full_sample": options.approve_full_sample,
         "resume": options.resume,
+        **({"include_heinlein": True} if options.include_heinlein else {}),
         "retry_policy": {
             "truncation": "once_with_doubled_max_tokens",
             "transient_provider_or_network": "once",
@@ -2778,6 +3157,11 @@ def _write_report(output_root: pathlib.Path, summary: dict[str, Any]) -> pathlib
                 f"`{interval.get('definite_count')}/{interval.get('possible_count')}`",
                 f"- Qualified novum count: `{item['qualified_novum_count']}`",
                 f"- Dominant novum: `{item['dominant_novum_id']}`",
+                *(
+                    [f"- Heinlein verdict: `{item['heinlein_verdict']}`"]
+                    if item.get("heinlein_verdict")
+                    else []
+                ),
                 f"- Sidecar: `{item['sidecar_path']}`",
                 "",
             ]
@@ -3058,6 +3442,12 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--max-tokens", type=int, default=DEFAULT_MAX_TOKENS)
     parser.add_argument("--temperature", type=float, default=DEFAULT_TEMPERATURE)
     parser.add_argument("--prior-spend-usd", type=float)
+    parser.add_argument(
+        "--include-heinlein",
+        action="store_true",
+        help="also run the optional Heinlein five-condition stage (no-cost "
+        "backends only)",
+    )
     return parser.parse_args(argv)
 
 
@@ -3080,6 +3470,7 @@ def _options_from_args(args: argparse.Namespace) -> RunnerOptions:
         max_tokens=args.max_tokens,
         temperature=args.temperature,
         prior_spend_usd=args.prior_spend_usd,
+        include_heinlein=args.include_heinlein,
     )
 
 
