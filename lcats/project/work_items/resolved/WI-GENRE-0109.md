@@ -2,7 +2,7 @@
 id: WI-GENRE-0109
 title: Rewrite the 146 promoted genre.json files to basename-only cache_db_path
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -21,7 +21,7 @@ depends_on: []
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #477: tools/rewrite_genre_cache_db_path.py plus an 11-test unit test, and the 146 genre.json files promoted by PR #362 rewritten so each assessments[*].provenance.cache_db_path is a basename. Promoted via lcats promote upsert (not replace) from a staged 146-record manifest after a reviewed dry-run of exactly 146, and only after explicit human approval. All 146 re-validate and the diff changes only cache_db_path lines.'
 expected_actions:
   - create_file
   - edit_file
