@@ -104,6 +104,35 @@ class RewriteCacheDbPathTest(unittest.TestCase):
             "x.db",
         )
 
+    def test_non_genre_files_are_ignored_and_unchanged(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            genre_bucket = root / "coll" / "one"
+            genre_bucket.mkdir(parents=True)
+            (genre_bucket / "genre.json").write_text(
+                json.dumps(_sidecar({"cache_db_path": "/abs/x.db"})),
+                encoding="utf-8",
+            )
+            other_bucket = root / "coll" / "two"
+            other_bucket.mkdir(parents=True)
+            broken = other_bucket / "scenes.json"
+            broken.write_text("{ not valid json", encoding="utf-8")
+            lookalike = other_bucket / "linguistics.json"
+            lookalike_text = json.dumps(_sidecar({"cache_db_path": "/abs/y.db"}))
+            lookalike.write_text(lookalike_text, encoding="utf-8")
+            near_miss = genre_bucket / "genre.json.bak"
+            near_miss_text = json.dumps(_sidecar({"cache_db_path": "/abs/z.db"}))
+            near_miss.write_text(near_miss_text, encoding="utf-8")
+
+            records, scanned, values = rewrite.build_manifest_records(root)
+
+            self.assertEqual(scanned, 1)
+            self.assertEqual(values, 1)
+            self.assertEqual([r["lcats_id"] for r in records], ["coll/one"])
+            self.assertEqual(broken.read_text(encoding="utf-8"), "{ not valid json")
+            self.assertEqual(lookalike.read_text(encoding="utf-8"), lookalike_text)
+            self.assertEqual(near_miss.read_text(encoding="utf-8"), near_miss_text)
+
     def test_main_writes_manifest_and_leaves_corpora_untouched(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp) / "corpora"
