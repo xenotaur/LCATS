@@ -2,14 +2,14 @@
 execution_id: 2026_10_06_05_30_21_WI_SF_0110_HEINLEIN_STAGE_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0110_HEINLEIN_STAGE_SELFREVIEW)[2026-10-06T05:30:14+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_06_04_36_27_WI_SF_0110_HEINLEIN_STAGE
 pr: https://github.com/xenotaur/LCATS/pull/476
-commit: 2f481a6b8fd82f15c5afe2020b365d002bb13f3f
+commit: 4ec84b20cd1be0a69cf5fdc590ca085d2773bc4d
 created_at: 2026-10-06T05:30:21+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/476
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
