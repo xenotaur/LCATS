@@ -10,7 +10,7 @@
             "criterion_id": "criterion_1",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -19,7 +19,7 @@
             "criterion_id": "criterion_2",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -28,7 +28,7 @@
             "criterion_id": "criterion_3",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -37,7 +37,7 @@
             "criterion_id": "criterion_4",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -46,7 +46,7 @@
             "criterion_id": "criterion_5",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -55,7 +55,7 @@
             "criterion_id": "criterion_6",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           },
           {
@@ -64,7 +64,7 @@
             "criterion_id": "criterion_7",
             "materiality": null,
             "rationale": "The criterion is not supported by this control.",
-            "status": "absent",
+            "status": "not_assessable",
             "supporting_evidence": []
           }
         ],
