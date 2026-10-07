@@ -20,7 +20,8 @@ review-response check, verifying the current PR head independently.
 # Result
 
 The authoritative review-thread list was empty: no unresolved threads were
-present. The current PR head was `c28436fa41d780ded5312c69eefcd5edcc07b095`.
+present. At the time of this earlier confirmation pass, the PR head was
+`c28436fa41d780ded5312c69eefcd5edcc07b095`.
 The unfiltered CI checks were green (`lint`, `coverage`, and `test`); the
 required-check query was empty because `main` has no required-status-check
 rule. No review threads required resolution and no runtime files were changed.

@@ -25,7 +25,8 @@ threads to classify or resolve. The narrower review-response query also
 reported no unresolved comments. The configured batch policy classified the
 empty batch as routine. The PR head before this record commit was
 `804cdf2e85948295e298977088793d05bd243811`; CI was green for coverage, lint,
-and both test jobs. PR #467 contains only the two governed execution records;
+and both test jobs. PR #467 contains three governed execution records: one
+primary record and two confirm records;
 the staged Opus result artifacts are preserved separately in PR #481.
 
 # Validation
