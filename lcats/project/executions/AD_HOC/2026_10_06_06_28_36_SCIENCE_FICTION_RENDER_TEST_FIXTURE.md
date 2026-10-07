@@ -3,7 +3,7 @@ execution_id: 2026_10_06_06_28_36_SCIENCE_FICTION_RENDER_TEST_FIXTURE
 prompt_id: PROMPT(AD_HOC:SCIENCE_FICTION_RENDER_TEST_FIXTURE)[2026-10-06T05:31:20+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of: 
+rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/478
 commit: 127b2721
 agent: codex_app

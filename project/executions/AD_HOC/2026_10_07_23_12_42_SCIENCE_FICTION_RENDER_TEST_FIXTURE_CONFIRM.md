@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_07_23_09_06_SCIENCE_FICTION_RENDER_TEST_FIXTURE_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/478
-commit: 35aa36c78a8c3df1156562a989378ea14415ed1c
+commit: b98b749eb621f5738212c0958bdfdf599f36a4dc
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/478 (confirm-fixes)
 session_transcript: pending
@@ -32,9 +32,9 @@ GitHub review thread was resolved after verification.
 - GitHub lint check: passed.
 - GitHub Python test checks: passed.
 - GitHub coverage check: passed.
-- `git diff --check`: passed.
+- `git diff --check origin/main...b98b749eb621f5738212c0958bdfdf599f36a4dc`: passed.
 - `lrh validate`: 0 errors; existing warnings only.
-- Exact PR head verified before confirmation: `35aa36c78a8c3df1156562a989378ea14415ed1c`.
+- Exact PR head verified before this record was pushed: `b98b749eb621f5738212c0958bdfdf599f36a4dc`.
 
 # Follow-up
 
