@@ -114,9 +114,11 @@ SUVIN_NOVUM = RubricDefinition(
 HEINLEIN_CITATION = (
     'Robert A. Heinlein, "On the Writing of Speculative Fiction," in Of Worlds '
     "Beyond: The Science of Science-Fiction Writing (Chicago: Advent "
-    "Publishers, 1964), pp. 13-19 (first collected 1947); consulted via the "
-    "English reprint in (n.t.) Revista Nota do Tradutor, no. 24 (2022), "
-    "English text on printed pp. 126-130, conditions at pp. 129-130."
+    "Publishers, 1964), pp. 13-19 (first collected 1947); conditions checked "
+    "against the text of the 1964 Advent printing supplied by the work item "
+    "owner, whose cover blurb states that its text is photo-reproduced from "
+    "the Fantasy Press original, and against the English reprint in (n.t.) "
+    "Revista Nota do Tradutor, no. 24 (2022), printed pp. 129-130."
 )
 SOURCE_STATUS_VERIFIED_REPRINT = "verified_primary_reprint"
 
@@ -168,17 +170,25 @@ HEINLEIN_FIVE = RubricDefinition(
             governing_text=(
                 "No established fact shall be violated; a contrary new theory "
                 "must be made reasonably plausible and must explain established "
-                "facts as satisfactorily as the theory it replaces."
+                "facts as satisfactorily as the theory it replaces. The theory "
+                "may be far-fetched or fantastic, but it must not be at "
+                "variance with observed facts."
             ),
             citation=HEINLEIN_CITATION,
         ),
     ),
     source_note=(
-        "Wording checked against Heinlein's English text as reprinted in Nota "
-        "do Tradutor 24, which cites the 1964 Advent edition of Of Worlds "
-        "Beyond. Heinlein calls the result the 'Simon-pure science fiction "
-        "story'. The reprint's list numerals for conditions 2-4 are lost in the "
-        "scan but the order is unambiguous. The journal dates the collection to 1947; compare "
-        "the 1947 printing before treating the wording as edition-final."
+        "Wording verified against the text of the 1964 Advent printing of Of "
+        "Worlds Beyond supplied by the work item owner, and against the English "
+        "reprint in Nota do Tradutor 24. Conditions 1-4 match word for word; "
+        "condition 5 differs by one word in its illustrative example only. The "
+        "owner reports the Advent cover blurb says its text is photo-reproduced "
+        "from the Fantasy Press original, so the wording is treated as "
+        "edition-final on the owner's report. That report and the transcription "
+        "from the owner's physical copy have not been independently checked "
+        "and no digital copy exists for an agent to review; reopen if either is "
+        "shown to be wrong. Heinlein calls the result the 'Simon-pure science "
+        "fiction story'. See definitions.md in the science_fiction_analysis_trial "
+        "experiment for the comparison and the rule for minting a v2 id."
     ),
 )

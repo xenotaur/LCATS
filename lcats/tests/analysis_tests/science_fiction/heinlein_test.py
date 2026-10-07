@@ -205,6 +205,22 @@ class HeinleinAdjudicationTest(unittest.TestCase):
         causal = next(s for s in rubric.text_slots if s.slot_id == "causal")
         self.assertIn("indispensably affected", causal.governing_text)
 
+    def test_plausible_slot_allows_fantastic_theories_but_not_false_facts(self):
+        plausible = next(
+            s for s in definitions.HEINLEIN_FIVE.text_slots if s.slot_id == "plausible"
+        )
+
+        self.assertIn("far-fetched or fantastic", plausible.governing_text)
+        self.assertIn("at variance with observed facts", plausible.governing_text)
+        self.assertIn("Advent", plausible.citation)
+        self.assertIn("photo-reproduced", plausible.citation)
+
+    def test_source_note_states_that_finality_rests_on_the_owner_report(self):
+        note = definitions.HEINLEIN_FIVE.source_note
+
+        self.assertIn("on the owner's report", note)
+        self.assertIn("not been independently checked", note)
+
 
 def _inputs(*, with_heinlein: bool, **statuses: str) -> pipeline.SidecarAssemblyInputs:
     return pipeline.SidecarAssemblyInputs(

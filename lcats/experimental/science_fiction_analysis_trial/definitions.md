@@ -196,8 +196,7 @@ indispensably affected by", which is weaker than "created by"; condition 5
 includes the new-theory clause; and Heinlein's own label is "Simon-pure", not
 "pure", science fiction. The code follows the source wording. The
 `heinlein-five-v1` rubric slots in `rubric/definitions.py` are resolved against
-this reprint, with a note to compare the 1947 printing before treating the
-wording as edition-final.
+the cited 1964 Advent printing, as checked below.
 
 Unlike Knight's inventory, the conditions are jointly required, so the code
 derives a conjunctive verdict (`qualifies` only when all five are present)
@@ -207,24 +206,45 @@ Simon-pure science fiction story", not a quoted rule. The dependency checks
 `causal` cannot be present when `human` is absent) are the code's own logical
 consistency rules, not Heinlein's.
 
-### 1947 printing comparison (`WI-SF-0110`)
+### Printing comparison (`WI-SF-0110`)
 
-Outcome: **not independently verified; rubric id unchanged.** No agent in this
-project has had access to a copy of the 1947 printing, so no verbatim
-comparison was performed. The work item owner reports, from a later printing of
-the 1947 edition they used to produce the project paper's summary, that the
-text of the reprint above appears similar to that printing, apart from the
-reprint's scan having corrupted formatting (the numerals for conditions 2-4 are
-lost). This is a user-reported observation, not a checked quotation.
+Outcome: **verified; rubric id unchanged.** The work item owner supplied the
+text of the five conditions from their copy of the 1964 Advent Publishers
+printing of *Of Worlds Beyond*. It was compared mechanically with the reprint
+transcription above after normalizing quotation marks, dashes, and the scan's
+OCR errors. Conditions 1 to 4 are identical word for word. Condition 5 is
+identical apart from one word in its illustrative example: the reprint reads
+"assume that the human race" and the Advent text reads "assume the human
+race". That difference lies outside the condition's governing text and changes
+nothing about what it requires; it is either a printing difference or a
+transcription slip.
 
-Rubric version decision: the five conditions are kept as `heinlein-five-v1`,
-because no wording difference that would change the meaning of a condition has
-been identified. If a verbatim comparison later finds a difference that changes
-the meaning of a condition, mint a new rubric id (for example
-`heinlein-five-v2`) with matching changes to `models.HEINLEIN_RUBRIC_VERSION`,
-the sidecar validator, and the prompt, so that old and new adjudications never
-claim the same version with different governing text. The wording remains
-marked as not edition-final until that comparison is recorded here.
+The owner reports that the Advent edition's cover blurb says its text is
+photo-reproduced from the Fantasy Press original. If so, the Advent page text
+is the 1947 text and no separate comparison against the 1947 printing is
+needed.
+
+Provenance limits: this rests entirely on the owner's report. The Advent text
+was supplied by transcription from the owner's physical copy, and the blurb
+claim was reported, not shown. No agent has seen the blurb or either printing,
+and no legitimate digital copy of either printing exists for an agent to
+review, so the claim cannot be independently checked without the owner
+scanning and OCR-ing the pages, which would add nothing beyond the text
+already supplied. The five conditions are therefore treated as verified
+against the cited printing and the wording as edition-final **on the owner's
+report**. Reopen this finding if the blurb claim or the transcription is shown
+to be wrong. Rubric version
+decision: the conditions are kept as `heinlein-five-v1`, because no difference
+that changes the meaning of a condition was found. If a later comparison finds
+one, mint a new rubric id (for example `heinlein-five-v2`) with matching
+changes to `models.HEINLEIN_RUBRIC_VERSION`, the sidecar validator, and the
+prompt, so that old and new adjudications never claim the same version with
+different governing text.
+
+The `plausible` slot previously omitted the sentence saying the new theory may
+be far-fetched or fantastic but must not be at variance with observed facts; it
+now includes it. This is a wording-only clarification, so the id stays v1, and
+no Heinlein results existed that it could invalidate.
 
 ## Implications for Prompt Revision
 
