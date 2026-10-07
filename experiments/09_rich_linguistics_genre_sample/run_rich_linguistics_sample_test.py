@@ -63,6 +63,19 @@ def _write_manifest(path: pathlib.Path, story_paths: list[pathlib.Path]) -> None
 
 
 class RichPilotHarnessTest(unittest.TestCase):
+    def test_repaired_mode_refuses_historical_results_directory(self):
+        with self.assertRaisesRegex(
+            ValueError, "requires a separate output directory"
+        ):
+            run_rich_linguistics_sample.run_pilot(
+                output_dir=run_rich_linguistics_sample.RESULTS_DIR,
+                backend_name="fake",
+                tokenization_mode=(
+                    run_rich_linguistics_sample.sidecar.TOKENIZATION_MODE_REPAIRED
+                ),
+                overwrite=True,
+            )
+
     def test_fake_backend_run_writes_v2_lexicon_and_pending_audit(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)

@@ -107,6 +107,11 @@ def make_backend(
     tokenization_mode: str = sidecar.TOKENIZATION_MODE_DEFAULT,
 ) -> Any:
     """Construct an NLP backend by name with clear missing dependency errors."""
+    if tokenization_mode != sidecar.TOKENIZATION_MODE_DEFAULT and name != "spacy":
+        raise ValueError(
+            f"tokenization_mode {tokenization_mode!r} is supported only for the "
+            "spacy backend"
+        )
     if name == "fake":
         from lcats.analysis.event_role_world import nlp_backend
 

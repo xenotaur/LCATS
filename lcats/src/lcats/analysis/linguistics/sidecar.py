@@ -30,6 +30,10 @@ TOKENIZATION_MODE_REPAIRED = nlp_backend.TOKENIZATION_MODE_REPAIRED
 
 _BOUNDARY_DIAGNOSTIC_PATTERNS = (
     ("fused_punctuation", re.compile(r"[A-Za-z]+(?:[-–—]{2,}|_)[A-Za-z_'-]*")),
+    (
+        "apostrophe_fused_punctuation",
+        re.compile(r"[A-Za-z]+['’](?:[-–—]{2,}|_)[A-Za-z_'-]*"),
+    ),
     ("clitic_or_possessive", re.compile(r"[A-Za-z]+['’][A-Za-z]+\b")),
 )
 
@@ -359,14 +363,19 @@ def validate_token_detail_v2(
     _validate_source_identity(data, source_body, compact_sidecar, findings)
     _validate_capabilities(data.get("provenance"), findings)
     diagnostics = data.get("boundary_diagnostics")
-    if diagnostics is not None and not isinstance(diagnostics, list):
-        findings.append(
-            _finding(
-                "$.boundary_diagnostics",
-                "wrong_type",
-                f"expected list, got {type(diagnostics).__name__}",
+    if diagnostics is not None:
+        if not isinstance(diagnostics, list):
+            findings.append(
+                _finding(
+                    "$.boundary_diagnostics",
+                    "wrong_type",
+                    f"expected list, got {type(diagnostics).__name__}",
+                )
             )
-        )
+        else:
+            _validate_boundary_diagnostics(
+                diagnostics, findings, source_body=source_body
+            )
 
     sentences = data.get("sentences")
     if "sentences" not in data:
@@ -794,6 +803,100 @@ def _validate_capabilities(provenance: Any, findings: list[ValidationFinding]) -
                     f"$.provenance.capabilities.{key}",
                     "invalid_capability_status",
                     "expected required, optional, or unavailable",
+                )
+            )
+
+
+def _validate_boundary_diagnostics(
+    diagnostics: list[Any],
+    findings: list[ValidationFinding],
+    *,
+    source_body: Optional[str],
+) -> None:
+    """Validate the structured fields consumed by tokenization audits."""
+    required_fields = (
+        "kind",
+        "surface_text",
+        "start_char",
+        "end_char",
+        "global_token_indices",
+        "status",
+    )
+    valid_statuses = {"repaired", "unrepaired"}
+    for index, diagnostic in enumerate(diagnostics):
+        path = f"$.boundary_diagnostics[{index}]"
+        if not isinstance(diagnostic, dict):
+            findings.append(
+                _finding(
+                    path,
+                    "wrong_type",
+                    f"expected object, got {type(diagnostic).__name__}",
+                )
+            )
+            continue
+        for field in required_fields:
+            if field not in diagnostic:
+                findings.append(_missing(f"{path}.{field}"))
+        for field in ("kind", "surface_text"):
+            if field in diagnostic and not _is_non_empty_string(diagnostic[field]):
+                findings.append(
+                    _finding(
+                        f"{path}.{field}",
+                        "wrong_type",
+                        "expected non-empty string",
+                    )
+                )
+        for field in ("start_char", "end_char"):
+            if field in diagnostic and not isinstance(diagnostic[field], int):
+                findings.append(
+                    _finding(
+                        f"{path}.{field}",
+                        "wrong_type",
+                        f"expected int, got {type(diagnostic[field]).__name__}",
+                    )
+                )
+        if (
+            isinstance(diagnostic.get("start_char"), int)
+            and isinstance(diagnostic.get("end_char"), int)
+            and (
+                diagnostic["start_char"] < 0
+                or diagnostic["end_char"] <= diagnostic["start_char"]
+                or (
+                    source_body is not None
+                    and diagnostic["end_char"] > len(source_body)
+                )
+            )
+        ):
+            findings.append(
+                _finding(
+                    path,
+                    "invalid_span",
+                    "expected 0 <= start_char < end_char",
+                )
+            )
+        if diagnostic.get("status") not in valid_statuses:
+            findings.append(
+                _finding(
+                    f"{path}.status",
+                    "invalid_status",
+                    "expected repaired or unrepaired",
+                )
+            )
+        indices = diagnostic.get("global_token_indices")
+        if not isinstance(indices, list):
+            findings.append(
+                _finding(
+                    f"{path}.global_token_indices",
+                    "wrong_type",
+                    f"expected list, got {type(indices).__name__}",
+                )
+            )
+        elif any(not isinstance(value, int) or value < 1 for value in indices):
+            findings.append(
+                _finding(
+                    f"{path}.global_token_indices",
+                    "invalid_token_indices",
+                    "expected a list of positive integers",
                 )
             )
 

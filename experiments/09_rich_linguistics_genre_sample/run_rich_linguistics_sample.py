@@ -124,6 +124,14 @@ def run_pilot(
     """Mirror the sample, run rich linguistics, and write pilot artifacts."""
     if overwrite and resume:
         raise ValueError("choose either --overwrite or --resume, not both")
+    if (
+        tokenization_mode != sidecar.TOKENIZATION_MODE_DEFAULT
+        and output_dir.resolve() == RESULTS_DIR.resolve()
+    ):
+        raise ValueError(
+            "repaired tokenization requires a separate output directory; "
+            f"refusing to modify historical results at {RESULTS_DIR}"
+        )
     started = time.perf_counter()
     start_rss = _max_rss_bytes()
     rows = load_manifest(manifest_path, expected_count=expected_count)
@@ -672,6 +680,7 @@ def _tokenization_status(diagnostics: Any, global_index: Any) -> str:
         item.get("status")
         for item in diagnostics
         if isinstance(item, dict)
+        and isinstance(item.get("global_token_indices"), list)
         and global_index in item.get("global_token_indices", [])
     }
     if "unrepaired" in statuses:

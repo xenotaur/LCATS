@@ -179,12 +179,13 @@ class LinguisticsAnalysisTest(unittest.TestCase):
         )
 
     def test_v2_detail_reports_boundary_diagnostics_without_rewriting_source(self):
-        body = "and-- body'd I'll d'ye"
+        body = "and-- body'd I'll d'ye thirst'--_he"
         tokens = [
             _offset_token(body, "and--", "X", 0, 0),
             _offset_token(body, "body'd", "X", 1, 5),
             _offset_token(body, "I'll", "X", 1, 12),
             _offset_token(body, "d'ye", "X", 1, 17),
+            _offset_token(body, "thirst'--_he", "X", 1, 22),
         ]
         backend = nlp_backend.FakeNLPBackend(
             sentences=[
@@ -213,8 +214,46 @@ class LinguisticsAnalysisTest(unittest.TestCase):
         self.assertEqual(body, body[0 : len(body)])
         diagnostics = detail["boundary_diagnostics"]
         self.assertIn("fused_punctuation", {item["kind"] for item in diagnostics})
+        self.assertIn(
+            "apostrophe_fused_punctuation",
+            {item["kind"] for item in diagnostics},
+        )
         self.assertIn("clitic_or_possessive", {item["kind"] for item in diagnostics})
         self.assertTrue(all(item["status"] == "unrepaired" for item in diagnostics))
+
+    def test_v2_detail_rejects_malformed_boundary_diagnostics(self):
+        body = "The old machine hummed."
+        compact, detail = sidecar.build_sidecar(
+            story_data=_story_data(body),
+            story_path=pathlib.Path("collection/story/story.json"),
+            backend=_v2_backend(body),
+            options=sidecar.LinguisticsOptions(
+                backend_name="fake",
+                include_token_detail=True,
+                token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+            ),
+        )
+        detail["boundary_diagnostics"] = [
+            {
+                "kind": "fused_punctuation",
+                "surface_text": "machine--",
+                "start_char": 4,
+                "end_char": 3,
+                "global_token_indices": 2,
+                "status": "unknown",
+            }
+        ]
+
+        result = sidecar.validate_token_detail(
+            detail, source_body=body, compact_sidecar=compact
+        )
+
+        self.assertFalse(result.valid)
+        finding_paths = {finding.path for finding in result.findings}
+        self.assertIn(
+            "$.boundary_diagnostics[0].global_token_indices", finding_paths
+        )
+        self.assertIn("$.boundary_diagnostics[0].status", finding_paths)
 
     def test_v2_token_detail_reports_unaligned_offsets_as_unavailable(self):
         body = "du"
@@ -1385,6 +1424,11 @@ class LinguisticsRunnerTest(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "Unknown NLP backend"):
             runner.make_backend("not_real")
+
+        with self.assertRaisesRegex(ValueError, "supported only for the spacy backend"):
+            runner.make_backend(
+                "fake", tokenization_mode=sidecar.TOKENIZATION_MODE_REPAIRED
+            )
 
 
 class LinguisticsCliTest(unittest.TestCase):
