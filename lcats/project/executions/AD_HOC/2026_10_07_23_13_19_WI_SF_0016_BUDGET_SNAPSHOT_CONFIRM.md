@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_09_30_16_27_49_WI_SF_0016
 pr: https://github.com/xenotaur/LCATS/pull/467
-commit: 43b49039495e9ed66d3e396fa64a606139d366b1
+commit: ac2710b8b25dfb4eaee6196802d5d5ea40ec054b
 created_at: 2026-10-07T23:13:19+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/467
@@ -24,8 +24,12 @@ The authoritative review-thread list was empty. The two prior documentation
 findings were corrected: the earlier `c28436fa` reference is explicitly marked
 as historical, and the primary execution record identifies `1f9a195f` as
 historical execution-time provenance rather than the final PR head. The final
-substitute self-review of the exact head was clean. PR #467 remains limited to
-governed execution records; staged Opus results remain in PR #481.
+substitute self-review checked exact head `ac2710b8` and found no remaining
+code, scope, or governance issue; its only observation was that this record's
+frontmatter must identify the exact pre-record head being reviewed. The
+`commit` field therefore records `ac2710b8`, the reviewed head before this
+record was appended. PR #467 remains limited to governed execution records;
+staged Opus results remain in PR #481.
 
 # Validation
 
@@ -33,9 +37,9 @@ governed execution records; staged Opus results remain in PR #481.
   no unresolved review threads under the review-response predicate.
 - `lrh github threads https://github.com/xenotaur/LCATS/pull/467 --mode raw
   --state all`: authoritative unresolved-thread list empty.
-- Substitute PR-mode self-review at `43b49039495e9ed66d3e396fa64a606139d366b1`:
-  clean; no remaining correctness, frontmatter, stale-SHA, scope, or
-  governance findings.
+- Substitute PR-mode self-review at `ac2710b8b25dfb4eaee6196802d5d5ea40ec054b`:
+  no remaining code, scope, or governance findings; it identified only the
+  execution-record provenance wording corrected here.
 - `gh pr checks 467`: coverage, lint, and both test jobs passed.
 - `lrh validate`: 0 errors; repository-wide pre-existing warnings remain.
 - `git diff --check`: passed.
