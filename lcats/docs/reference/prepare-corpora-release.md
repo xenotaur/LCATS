@@ -212,6 +212,15 @@ lcats promote replace
 If this exits `0`, every collection promoted and `corpora/` now reflects the
 regenerated `data/`. Commit the result as its own PR.
 
+If it exits `1` with `orphaned sidecar` blocks, a registered sidecar (for
+example `genre.json`) exists in `corpora/` for a story but not in the
+regenerated `data/`, and `replace` refused rather than delete it. Do **not** pass
+`--allow-orphaned-sidecar-deletion` to get past this: it disables the guard for
+every collection and every sidecar kind at once, and a release run today would
+delete the 146 tranche-promoted `genre.json` sidecars. Stop and see
+[`genre-sidecars-in-release-workflow.md`](../../project/design/genre-sidecars-in-release-workflow.md)
+for why this happens and the recommended fix.
+
 ## If verification finds problems
 
 A finding after a genuine fresh regeneration (step 2 → 3 → 4, in order) means
