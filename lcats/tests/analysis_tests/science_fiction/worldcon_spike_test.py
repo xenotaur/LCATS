@@ -1667,5 +1667,243 @@ class WorldconSpikeHeinleinStageTest(unittest.TestCase):
         )
 
 
+HEINLEIN_CANARY_MANIFEST = (
+    run_worldcon_spike.DEFAULT_MANIFEST.parent / "heinlein_canary_manifest.json"
+)
+# Fingerprints recorded before expectations existed; they must never change, or
+# approval snapshots that compare them would be invalidated.
+RECORDED_MANIFEST_FINGERPRINTS = {
+    "contract_canary_manifest.json": (
+        "00d68d725355f7b077456eab29278758da18a5dfcfafb0b4287e25745086039e"
+    ),
+    "worldcon_spike_manifest.json": (
+        "582e99655cf896469277ce9fd90b2df29419e1f965e50e90408552ee61b52454"
+    ),
+}
+
+
+class WorldconHeinleinCanaryTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _manifest_copy(self, name: str, mutate=None) -> pathlib.Path:
+        data = json.loads(HEINLEIN_CANARY_MANIFEST.read_text(encoding="utf-8"))
+        if mutate is not None:
+            mutate(data)
+        path = self.root / name
+        path.write_text(json.dumps(data), encoding="utf-8")
+        return path
+
+    def _options(self, name, mode, manifest=HEINLEIN_CANARY_MANIFEST, **updates):
+        return run_worldcon_spike.RunnerOptions(
+            manifest_path=manifest,
+            output_root=self.root / name,
+            mode=mode,
+            include_heinlein=True,
+            **updates,
+        )
+
+    def test_manifest_has_required_gates_caps_and_no_paid_calls(self):
+        manifest = run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+
+        self.assertEqual({"smoke", "sample", "canary", "full"}, set(manifest.gates))
+        canary = manifest.gates["canary"]
+        self.assertEqual(2, canary.max_stories)
+        self.assertFalse(canary.paid_model_calls_authorized)
+        self.assertEqual(0.0, canary.estimated_cost_usd)
+        self.assertEqual(2, len(manifest.canary_stories))
+        self.assertGreater(len(manifest.smoke_stories), 0)
+        for story in manifest.canary_stories:
+            self.assertEqual(
+                "operational_check_not_gold_label", story.expectations["kind"]
+            )
+            self.assertTrue(story.expectations["rationale"])
+            self.assertTrue(story.expectations["heinlein_verdict_in"])
+
+    def test_existing_manifest_fingerprints_are_unchanged(self):
+        for name, expected in RECORDED_MANIFEST_FINGERPRINTS.items():
+            with self.subTest(manifest=name):
+                manifest = run_worldcon_spike.load_manifest(
+                    run_worldcon_spike.DEFAULT_MANIFEST.parent / name
+                )
+                self.assertEqual(
+                    expected, run_worldcon_spike._manifest_fingerprint(manifest)
+                )
+
+    def test_changing_an_expectation_changes_the_fingerprint(self):
+        original = run_worldcon_spike._manifest_fingerprint(
+            run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+        )
+
+        def edit(data):
+            data["canary_stories"][0]["expectations"]["heinlein_verdict_in"] = [
+                "qualifies"
+            ]
+
+        changed = run_worldcon_spike._manifest_fingerprint(
+            run_worldcon_spike.load_manifest(self._manifest_copy("edited.json", edit))
+        )
+
+        self.assertNotEqual(original, changed)
+
+        def drop(data):
+            for story in data["canary_stories"]:
+                story.pop("expectations")
+
+        dropped = run_worldcon_spike._manifest_fingerprint(
+            run_worldcon_spike.load_manifest(self._manifest_copy("dropped.json", drop))
+        )
+        self.assertNotEqual(original, dropped)
+
+    def test_non_object_expectations_are_rejected(self):
+        def bad(data):
+            data["canary_stories"][0]["expectations"] = ["not", "an", "object"]
+
+        with self.assertRaisesRegex(ValueError, "expectations must be an object"):
+            run_worldcon_spike.load_manifest(self._manifest_copy("bad.json", bad))
+
+    def test_dry_run_plan_shows_the_heinlein_flag_in_smoke_and_canary(self):
+        for mode in ("smoke", "canary"):
+            with self.subTest(mode=mode):
+                summary = run_worldcon_spike.run_spike(
+                    self._options(f"dry-{mode}", mode, dry_run=True)
+                )
+                self.assertTrue(summary["plan"]["include_heinlein"])
+                self.assertGreater(summary["plan"]["story_count"], 0)
+
+    def test_fake_smoke_processes_the_manifest_stories_with_heinlein_verdicts(self):
+        summary = run_worldcon_spike.run_spike(self._options("smoke", "smoke"))
+
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual(2, len(summary["stories"]))
+        self.assertEqual(2, summary["totals"]["complete"])
+        for story in summary["stories"]:
+            self.assertEqual("qualifies", story["heinlein_verdict"])
+            data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+            self.assertTrue(sidecar.validate_sidecar(data).valid)
+            self.assertEqual("complete", data["analyses"]["heinlein"][0]["status"])
+
+    def test_fake_canary_completes_and_persists_the_manifest_snapshot(self):
+        summary = run_worldcon_spike.run_spike(self._options("canary", "canary"))
+
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual(2, len(summary["stories"]))
+        snapshot = self.root / "canary" / run_worldcon_spike.MANIFEST_SNAPSHOT_FILENAME
+        self.assertEqual(
+            HEINLEIN_CANARY_MANIFEST.read_text(encoding="utf-8"),
+            snapshot.read_text(encoding="utf-8"),
+        )
+        recorded = json.loads(snapshot.read_text(encoding="utf-8"))
+        self.assertTrue(
+            all(item["expectations"] for item in recorded["canary_stories"])
+        )
+
+    def test_dry_run_writes_no_snapshot_or_output(self):
+        run_worldcon_spike.run_spike(self._options("dry-quiet", "canary", dry_run=True))
+
+        self.assertFalse((self.root / "dry-quiet").exists())
+
+    def test_snapshot_is_the_text_the_manifest_was_loaded_from(self):
+        manifest = run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+
+        self.assertEqual(
+            HEINLEIN_CANARY_MANIFEST.read_text(encoding="utf-8"), manifest.source_text
+        )
+
+    def test_manifest_without_expectations_writes_no_snapshot(self):
+        run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                output_root=self.root / "legacy",
+                max_stories=1,
+            )
+        )
+
+        self.assertFalse(
+            (
+                self.root / "legacy" / run_worldcon_spike.MANIFEST_SNAPSHOT_FILENAME
+            ).exists()
+        )
+
+    def test_resume_refuses_a_manifest_edited_after_the_first_run(self):
+        first = self._manifest_copy("first.json")
+        run_worldcon_spike.run_spike(
+            self._options("resume", "canary", manifest=first, resume=True)
+        )
+
+        def edit(data):
+            data["canary_stories"][1]["expectations"]["heinlein_verdict_in"] = [
+                "qualifies"
+            ]
+
+        edited = self._manifest_copy("edited.json", edit)
+        with self.assertRaisesRegex(ValueError, "manifest_snapshot.json"):
+            run_worldcon_spike.run_spike(
+                self._options("resume", "canary", manifest=edited, resume=True)
+            )
+
+    def test_only_loopback_endpoints_count_as_no_cost(self):
+        manifest = run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+        gate = manifest.gates["canary"]
+        cases = {
+            "http://localhost:11434/v1": False,
+            "http://LOCALHOST:11434/v1": False,
+            "http://127.0.0.1:11434/v1": False,
+            "http://127.0.0.2:11434/v1": False,
+            "http://[::1]:11434/v1": False,
+            "http://[::ffff:127.0.0.1]:11434/v1": True,
+            "http://localhost.:11434/v1": True,
+            "http://localhost@evil.example/v1": True,
+            "http://127.0.0.1.evil.example/v1": True,
+            "https://api.example.com/v1": True,
+            "http://192.168.1.20:11434/v1": True,
+            "http://localhost.evil.example/v1": True,
+            "http://user@evil.example/v1": True,
+            "not a url": True,
+            "": True,
+            None: True,
+        }
+        for base_url, paid in cases.items():
+            with self.subTest(base_url=base_url):
+                options = run_worldcon_spike.RunnerOptions(
+                    backend_kind=run_worldcon_spike.OPENAI_COMPATIBLE_BACKEND,
+                    base_url=base_url,
+                )
+                self.assertEqual(
+                    paid, run_worldcon_spike._paid_call_requested(options, gate)
+                )
+
+    def test_heinlein_flag_is_rejected_for_a_remote_compatible_endpoint(self):
+        with self.assertRaisesRegex(ValueError, "Heinlein stage"):
+            run_worldcon_spike.run_spike(
+                self._options(
+                    "remote",
+                    "canary",
+                    backend_kind=run_worldcon_spike.OPENAI_COMPATIBLE_BACKEND,
+                    base_url="https://api.example.com/v1",
+                    dry_run=True,
+                )
+            )
+
+    def test_heinlein_flag_is_accepted_for_a_loopback_endpoint(self):
+        summary = run_worldcon_spike.run_spike(
+            self._options(
+                "loopback",
+                "canary",
+                backend_kind=run_worldcon_spike.OPENAI_COMPATIBLE_BACKEND,
+                base_url="http://localhost:11434/v1",
+                model="gpt-oss:20b",
+                dry_run=True,
+            )
+        )
+
+        self.assertTrue(summary["plan"]["include_heinlein"])
+        self.assertEqual("http://localhost:11434/v1", summary["plan"]["base_url"])
+
+
 if __name__ == "__main__":
     unittest.main()
