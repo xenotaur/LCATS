@@ -167,7 +167,9 @@ def restore_token_details(
             detail["boundary_diagnostics"] = json.loads(boundary_diagnostics)
         story_sentences = sentences[sentences["story_key"] == story_key]
         story_tokens = tokens[tokens["story_key"] == story_key]
-        for sentence in story_sentences.sort_values("sentence_index").to_dict("records"):
+        for sentence in story_sentences.sort_values("sentence_index").to_dict(
+            "records"
+        ):
             sentence_index = _int_or_none(sentence["sentence_index"])
             token_rows = story_tokens[
                 story_tokens["sentence_index"] == sentence["sentence_index"]
@@ -215,7 +217,9 @@ def build_parser() -> argparse.ArgumentParser:
     export = subparsers.add_parser("export", help="export token details to Parquet")
     export.add_argument("source_root", type=pathlib.Path)
     export.add_argument("output_dir", type=pathlib.Path)
-    restore = subparsers.add_parser("restore", help="restore token details from Parquet")
+    restore = subparsers.add_parser(
+        "restore", help="restore token details from Parquet"
+    )
     restore.add_argument("parquet_dir", type=pathlib.Path)
     restore.add_argument("output_root", type=pathlib.Path)
     restore.add_argument("--no-compact", action="store_true")

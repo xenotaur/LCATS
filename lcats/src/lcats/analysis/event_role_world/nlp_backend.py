@@ -173,9 +173,7 @@ class SpacyBackend:
                 r"(?<=\w)(?=_)",
                 r"(?<=_)(?=\w)",
             ]
-            self._nlp.tokenizer.infix_finditer = compile_infix_regex(
-                patterns
-            ).finditer
+            self._nlp.tokenizer.infix_finditer = compile_infix_regex(patterns).finditer
         elif tokenization_mode != TOKENIZATION_MODE_DEFAULT:
             raise ValueError(
                 "tokenization_mode must be "
