@@ -1,0 +1,51 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4465,
+  "model": "gpt-oss:20b",
+  "output_tokens": 858,
+  "run_id": "run-75020809e5c246e4970a192068d71647",
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "criterion_id": "criterion_1",
+        "rationale": "The story explains that the bell sound originates from a large owl knocking its head against branches, a natural process.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-824cd0a6aec00670"
+        ]
+      },
+      {
+        "criterion_id": "criterion_2",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_3",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_4",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_5",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_6",
+        "status": "absent"
+      },
+      {
+        "criterion_id": "criterion_7",
+        "status": "absent"
+      }
+    ]
+  }
+}

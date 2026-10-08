@@ -1,0 +1,60 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4589,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1310,
+  "run_id": "run-95854c092c934000b81f77e336657860",
+  "stage": "sf_heinlein",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "heinlein_criteria": [
+      {
+        "criterion": "different",
+        "decision_state": "present",
+        "evidence_ids": [
+          "sfev-dd5d87a7f5649466"
+        ],
+        "rationale": "Story explicitly states the bell does not exist, indicating a new condition (phantom bell) different from reality."
+      },
+      {
+        "criterion": "essential",
+        "decision_state": "present",
+        "evidence_ids": [
+          "sfev-dd5d87a7f5649466"
+        ],
+        "rationale": "The phantom bell drives the plot; characters seek it, making it essential to story."
+      },
+      {
+        "criterion": "human",
+        "decision_state": "present",
+        "evidence_ids": [
+          "sfev-601e43b80a452ca9"
+        ],
+        "rationale": "Plot centers on human children and adults reacting to bell; problem is human."
+      },
+      {
+        "criterion": "causal",
+        "decision_state": "present",
+        "evidence_ids": [
+          "sfev-dd5d87a7f5649466"
+        ],
+        "rationale": "Human desire to find bell arises from phantom bell phenomenon."
+      },
+      {
+        "criterion": "plausible",
+        "decision_state": "present",
+        "evidence_ids": [
+          "sfev-824cd0a6aec00670",
+          "sfev-dd5d87a7f5649466"
+        ],
+        "rationale": "Phantom bell can be explained by auditory hallucination or environmental acoustic effect; no established facts violated."
+      }
+    ]
+  }
+}

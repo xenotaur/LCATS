@@ -1,0 +1,120 @@
+{
+  "version": "worldcon-knight-novum-spike-manifest-v1",
+  "work_item": "WI-SF-0111",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "selection_note": "A bounded, no-cost, local-model live canary of the optional sf_heinlein stage. Exactly two stories: one expected to meet Heinlein's conditions and one negative control, each with an operational expectation recorded before any trial. The expectations are operational checks, not gold labels, and are not evidence of theoretical accuracy. Run with the Heinlein flag through a loopback OpenAI-compatible endpoint only; see heinlein_canary_runbook.md.",
+  "gates": {
+    "smoke": {
+      "max_stories": 2,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "stop_conditions": [
+        "any story fails structural sidecar assembly",
+        "any output writes outside the experiment output root"
+      ]
+    },
+    "sample": {
+      "max_stories": 10,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "stop_conditions": [
+        "smoke summary is absent or incomplete",
+        "paid backend requested without reviewed paid-run approval"
+      ]
+    },
+    "canary": {
+      "max_stories": 2,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "stop_conditions": [
+        "canonical corpora are unavailable",
+        "the Ollama server is not reachable through a loopback URL",
+        "any story fails structural sidecar assembly",
+        "any output writes outside the experiment output root",
+        "a present Heinlein criterion lacks valid supporting evidence",
+        "a Heinlein dependency violation is accepted without quarantine",
+        "a retry occurs without a persisted attempt artifact and usage record",
+        "any paid model call would be made",
+        "local trial is not persisted before the next trial starts"
+      ]
+    },
+    "full": {
+      "max_stories": 146,
+      "paid_model_calls_authorized": false,
+      "estimated_cost_usd": 0.0,
+      "requires_smoke_success": true,
+      "requires_full_sample_approval": true,
+      "stop_conditions": [
+        "full-sample approval is absent",
+        "paid backend requested without reviewed paid-run approval",
+        "operator stop condition is reached"
+      ]
+    }
+  },
+  "smoke_stories": [
+    {
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "smoke"
+      ]
+    },
+    {
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell",
+      "selection_genre": "fantasy",
+      "sample_roles": [
+        "smoke"
+      ]
+    }
+  ],
+  "sample_stories": [],
+  "canary_stories": [
+    {
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B",
+      "selection_genre": "science fiction",
+      "sample_roles": [
+        "canary",
+        "expected_heinlein_positive"
+      ],
+      "expectations": {
+        "kind": "operational_check_not_gold_label",
+        "heinlein_verdict_in": [
+          "qualifies",
+          "indeterminate"
+        ],
+        "heinlein_criteria_not_absent": [
+          "different",
+          "essential",
+          "human",
+          "causal"
+        ],
+        "rationale": "The story posits an aging cure, a stabilized population, and voluntary termination as the standing conditions of its world. A father's triplets exceed the population quota, which is a human problem created by those conditions, so different, essential, human, and causal should all be present. Plausible is the only condition a model might reasonably mark ambiguous. Qualifies is allowed but not demanded, because a single local-model run varies."
+      }
+    },
+    {
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell",
+      "selection_genre": "fantasy",
+      "sample_roles": [
+        "canary",
+        "expected_heinlein_control"
+      ],
+      "expectations": {
+        "kind": "operational_check_not_gold_label",
+        "heinlein_verdict_in": [
+          "does_not_qualify",
+          "indeterminate"
+        ],
+        "rationale": "A fairy tale in which an unexplained bell in a wood draws townspeople and children, resolved as an allegory of nature and poetry. It extrapolates no scientific or technological condition and its problem is not created by one, so the verdict should not be qualifies. It was also the negative control in the Knight and Suvin canary, which keeps the two canaries comparable."
+      }
+    }
+  ]
+}
