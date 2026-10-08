@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0108
 title: Design genre sidecars as part of the standard corpus release workflow
 type: investigation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -22,7 +22,7 @@ depends_on: []
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #482: project/design/genre-sidecars-in-release-workflow.md compares six options and recommends seeding the regenerated data/ from a sanitized tracked manifest with create-only insert before replace; plus a runbook caution on the orphaned-sidecar block. A bare release replace currently exits 1 and blocks 7 collections (146 orphaned genre sidecars), and the tracked evidence file still holds 146 absolute cache_db_path values that must be sanitized at seed time. Names four follow-up work items; none implemented here.'
 expected_actions:
   - create_file
   - edit_file
