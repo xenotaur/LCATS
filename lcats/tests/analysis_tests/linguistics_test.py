@@ -250,9 +250,7 @@ class LinguisticsAnalysisTest(unittest.TestCase):
 
         self.assertFalse(result.valid)
         finding_paths = {finding.path for finding in result.findings}
-        self.assertIn(
-            "$.boundary_diagnostics[0].global_token_indices", finding_paths
-        )
+        self.assertIn("$.boundary_diagnostics[0].global_token_indices", finding_paths)
         self.assertIn("$.boundary_diagnostics[0].status", finding_paths)
 
     def test_v2_token_detail_reports_unaligned_offsets_as_unavailable(self):

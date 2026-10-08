@@ -37,7 +37,9 @@ MANIFEST_PATH = (
     / "genre_balanced_manifest.jsonl"
 )
 CORPUS_ROOT = _REPO_ROOT / "corpora"
-RESULTS_DIR = _REPO_ROOT / "experiments" / "09_rich_linguistics_genre_sample" / "results"
+RESULTS_DIR = (
+    _REPO_ROOT / "experiments" / "09_rich_linguistics_genre_sample" / "results"
+)
 COPIED_BUCKETS_DIRNAME = "copied_buckets"
 SNAPSHOT_MANIFEST_FILENAME = "sample_snapshot_manifest.json"
 STORY_LIST_FILENAME = "story-list.txt"
@@ -45,9 +47,7 @@ RUN_SUMMARY_FILENAME = "linguistics_run_summary.json"
 REPORT_FILENAME = "experiment_report.json"
 AUDIT_FILENAME = "pos_audit.json"
 AUDIT_SAMPLE_FILENAME = "pos_audit_sample.csv"
-HISTORICAL_LEDGER_PATH = (
-    RESULTS_DIR / "pos_audit_ledger.json"
-)
+HISTORICAL_LEDGER_PATH = RESULTS_DIR / "pos_audit_ledger.json"
 EXPECTED_SAMPLE_COUNT = 146
 AUDIT_ROWS_PER_GENRE = 24
 AUDIT_MIN_GENRE_ROWS = 10
@@ -369,7 +369,9 @@ def load_and_validate_snapshot(
     for index, item in enumerate(stories):
         if not isinstance(item, dict):
             raise ValueError(f"{snapshot_path}: stories[{index}] must be an object")
-        copied_story_path = _repo_path(_required_string_simple(item, "copied_story_path"))
+        copied_story_path = _repo_path(
+            _required_string_simple(item, "copied_story_path")
+        )
         copied_hash = _required_string_simple(item, "copied_story_sha256")
         source_hash = _required_string_simple(item, "source_story_sha256")
         if not copied_story_path.is_file():
@@ -408,7 +410,11 @@ def validate_generated_artifacts(story_paths: Iterable[pathlib.Path]) -> dict[st
             "token_detail_path": _repo_relative(detail_path),
             "lexicon_path": _repo_relative(lexicon_path),
         }
-        if not compact_path.exists() or not detail_path.exists() or not lexicon_path.exists():
+        if (
+            not compact_path.exists()
+            or not detail_path.exists()
+            or not lexicon_path.exists()
+        ):
             counts["missing_outputs"] += 1
             row["valid"] = False
             row["findings"] = [
@@ -537,9 +543,7 @@ def select_audit_rows(
                     "selection_genre": genre,
                     "audit_bucket": bucket,
                     "audit_features": ",".join(_audit_features(text, upos)),
-                    "token_key": (
-                        f"{story_id}#g{token.get('global_token_index', 0)}"
-                    ),
+                    "token_key": (f"{story_id}#g{token.get('global_token_index', 0)}"),
                     "sentence_index": token.get("sentence_index")
                     or sentence.get("sentence_index"),
                     "token_index": token.get("token_index"),
@@ -619,7 +623,9 @@ def select_genre_audit_rows(
     )
 
 
-def _select_bucket_rows(rows: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
+def _select_bucket_rows(
+    rows: list[dict[str, Any]], *, limit: int
+) -> list[dict[str, Any]]:
     """Select rows from one POS bucket while preserving feature variety."""
     feature_order = (
         "contraction_or_possessive",
@@ -759,7 +765,9 @@ def score_audit(rows: list[dict[str, Any]], labels: dict[str, str]) -> dict[str,
     scored_rows: list[dict[str, Any]] = []
     for row in rows:
         gold = labels[row["token_key"]]
-        machine = row["machine_upos"] if row["machine_upos"] in {"NOUN", "PROPN"} else "OTHER"
+        machine = (
+            row["machine_upos"] if row["machine_upos"] in {"NOUN", "PROPN"} else "OTHER"
+        )
         confusion.setdefault(gold, {})
         confusion[gold][machine] = confusion[gold].get(machine, 0) + 1
         scored = {**row, "gold_upos": gold}
@@ -873,8 +881,7 @@ def scored_decisions(scoring: dict[str, Any]) -> dict[str, Any]:
             inconclusive_genres.append(genre)
             continue
         if (
-            family["precision"] is not None
-            and family["precision"] < SEVERE_GENRE_GATE
+            family["precision"] is not None and family["precision"] < SEVERE_GENRE_GATE
         ) or (family["recall"] is not None and family["recall"] < SEVERE_GENRE_GATE):
             severe_failures.append(genre)
     passes_overall = (
@@ -944,7 +951,9 @@ def build_report(
         "source_commit": snapshot_manifest["source_commit"],
         "manifest_path": _repo_relative(manifest_path),
         "manifest_sha256": snapshot_manifest["manifest_sha256"],
-        "snapshot_manifest_path": _repo_relative(output_dir / SNAPSHOT_MANIFEST_FILENAME),
+        "snapshot_manifest_path": _repo_relative(
+            output_dir / SNAPSHOT_MANIFEST_FILENAME
+        ),
         "manifest_row_count": snapshot_manifest["manifest_row_count"],
         "selected_story_count": snapshot_manifest["selected_story_count"],
         "smoke_count": smoke_count,
@@ -1002,7 +1011,9 @@ def project_full_corpus_cost(
 ) -> dict[str, Any]:
     """Project full-corpus cost from the pilot sample."""
     corpus_root = pathlib.Path(corpus_root)
-    full_count = len(list(corpus_root.rglob("story.json"))) if corpus_root.exists() else None
+    full_count = (
+        len(list(corpus_root.rglob("story.json"))) if corpus_root.exists() else None
+    )
     if not full_count or not sample_story_count:
         return {"story_count": full_count, "basis": "insufficient_sample"}
     scale = full_count / sample_story_count
@@ -1263,7 +1274,11 @@ def _corpus_linguistics_sidecars(corpus_root: pathlib.Path) -> list[pathlib.Path
         path
         for path in corpus_root.rglob("linguistics*.json")
         if path.name
-        in (sidecar.SIDECAR_FILENAME, sidecar.TOKEN_DETAIL_FILENAME, lexicon.LEXICON_FILENAME)
+        in (
+            sidecar.SIDECAR_FILENAME,
+            sidecar.TOKEN_DETAIL_FILENAME,
+            lexicon.LEXICON_FILENAME,
+        )
     ]
     return sorted(paths, key=lambda path: path.relative_to(corpus_root).as_posix())
 
