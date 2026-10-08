@@ -2,10 +2,10 @@
 execution_id: 2026_10_07_23_13_19_WI_SF_0016_BUDGET_SNAPSHOT_CONFIRM
 prompt_id: PROMPT(AD_HOC:WI_SF_0016_BUDGET_SNAPSHOT_CONFIRM)[2026-10-07T23:13:15+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_30_16_27_49_WI_SF_0016
 pr: https://github.com/xenotaur/LCATS/pull/467
-commit: ac2710b8b25dfb4eaee6196802d5d5ea40ec054b
+commit: 7774d02a5c8f3b455b10cbf239f18361e55d2139
 created_at: 2026-10-07T23:13:19+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/467
