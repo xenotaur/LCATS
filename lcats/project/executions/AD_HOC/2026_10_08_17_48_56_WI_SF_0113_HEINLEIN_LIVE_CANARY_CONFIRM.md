@@ -2,13 +2,13 @@
 execution_id: 2026_10_08_17_48_56_WI_SF_0113_HEINLEIN_LIVE_CANARY_CONFIRM
 prompt_id: PROMPT(AD_HOC:WI_SF_0113_HEINLEIN_LIVE_CANARY_CONFIRM)[2026-10-08T17:48:49+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_08_16_11_31_WI_SF_0113_HEINLEIN_LIVE_CANARY
 pr: https://github.com/xenotaur/LCATS/pull/487
 created_at: 2026-10-08T17:48:56+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/487
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary

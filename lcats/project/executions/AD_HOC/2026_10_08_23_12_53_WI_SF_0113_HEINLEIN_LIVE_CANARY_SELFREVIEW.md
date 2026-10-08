@@ -2,14 +2,14 @@
 execution_id: 2026_10_08_23_12_53_WI_SF_0113_HEINLEIN_LIVE_CANARY_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0113_HEINLEIN_LIVE_CANARY_SELFREVIEW)[2026-10-08T23:12:41+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_08_16_11_31_WI_SF_0113_HEINLEIN_LIVE_CANARY
 pr: https://github.com/xenotaur/LCATS/pull/487
-commit: 45cecfb5b8586457da79931000837fd07bbb24e1
+commit: 776c9fe2b4a09c5b3e03b43dcfcbd93720be68ed
 created_at: 2026-10-08T23:12:53+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/487
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary

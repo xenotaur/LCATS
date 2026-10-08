@@ -2,13 +2,13 @@
 execution_id: 2026_10_08_16_11_31_WI_SF_0113_HEINLEIN_LIVE_CANARY
 prompt_id: PROMPT(WI-SF-0113:WI_SF_0113_HEINLEIN_LIVE_CANARY)[2026-10-08T15:21:57+00:00]
 work_item: WI-SF-0113
-status: in_progress
+status: landed
 pr: https://github.com/xenotaur/LCATS/pull/487
-commit: 9e9ca1a9ca9c96ec63aaaa401bf95318721fada4
+commit: 776c9fe2b4a09c5b3e03b43dcfcbd93720be68ed
 created_at: 2026-10-08T16:11:31+00:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-SF-0113.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
