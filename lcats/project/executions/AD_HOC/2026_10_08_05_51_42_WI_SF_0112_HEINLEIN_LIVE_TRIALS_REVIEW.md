@@ -14,13 +14,13 @@ session_transcript: pending
 
 # Summary
 
-Review-response round for PR 485 (WI-SF-0112). Four open threads from Codex and Copilot were triaged against the current branch and the owner approved fixing two of them.
+Review-response round for PR 485 (WI-SF-0113). Four open threads from Codex and Copilot were triaged against the current branch and the owner approved fixing two of them.
 
 # Result
 
 - Fixed (Codex P2 and a Copilot thread): the first acceptance criterion required all four output roots even though Required Change 7 stops execution at the first stop condition. It now accepts the runs attempted up to a stop, persisted with diagnostics, with the report naming the stop condition.
 - Fixed (Copilot): the Validation list now includes scripts/format --check --diff and scripts/lint.
-- No change needed (Copilot): the workstream list thread was already satisfied by the earlier commit a1eeef0f that added WI-SF-0112 to WS-KNIGHT-NOVUM-ANALYSIS; confirm-fixes resolves it.
+- No change needed (Copilot): the workstream list thread was already satisfied by the earlier commit a1eeef0f that added WI-SF-0113 to WS-KNIGHT-NOVUM-ANALYSIS; confirm-fixes resolves it.
 - Fix commit: 2a81d4333ff5ffef2ca5c9f4049187205e39c9bf.
 
 # Validation

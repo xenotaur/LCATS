@@ -14,7 +14,7 @@ session_transcript: pending
 
 # Summary
 
-Substitute self-review of PR 485 (WI-SF-0112) by a cold-context subagent, run against head 708a1f1725821830fa926937d0673a205dd49163 in place of a hosted review round. Report-only; the fixes were applied afterward by the main session with the owner's approval.
+Substitute self-review of PR 485 (WI-SF-0113) by a cold-context subagent, run against head 708a1f1725821830fa926937d0673a205dd49163 in place of a hosted review round. Report-only; the fixes were applied afterward by the main session with the owner's approval.
 
 # Result
 
