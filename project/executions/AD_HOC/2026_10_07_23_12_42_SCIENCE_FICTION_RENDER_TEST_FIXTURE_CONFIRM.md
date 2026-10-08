@@ -2,10 +2,10 @@
 execution_id: 2026_10_07_23_12_42_SCIENCE_FICTION_RENDER_TEST_FIXTURE_CONFIRM
 prompt_id: PROMPT(AD_HOC:SCIENCE_FICTION_RENDER_TEST_FIXTURE_CONFIRM)[2026-10-07T23:11:21+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_07_23_09_06_SCIENCE_FICTION_RENDER_TEST_FIXTURE_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/478
-commit: b98b749eb621f5738212c0958bdfdf599f36a4dc
+commit: 462c00b238a859467898d161f8e3ffa2ec79b994
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/478 (confirm-fixes)
 session_transcript: pending

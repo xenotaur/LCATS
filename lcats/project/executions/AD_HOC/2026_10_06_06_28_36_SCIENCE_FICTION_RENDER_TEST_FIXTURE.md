@@ -2,10 +2,10 @@
 execution_id: 2026_10_06_06_28_36_SCIENCE_FICTION_RENDER_TEST_FIXTURE
 prompt_id: PROMPT(AD_HOC:SCIENCE_FICTION_RENDER_TEST_FIXTURE)[2026-10-06T05:31:20+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/478
-commit: 127b2721
+commit: 462c00b238a859467898d161f8e3ffa2ec79b994
 agent: codex_app
 instruction_source: ad hoc request to create a separate PR for the science-fiction rendering test-fixture migration
 session_transcript: pending
