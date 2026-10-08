@@ -49,8 +49,10 @@ registered sidecar kind (`scenes.json`, `linguistics.json`,
 
 - The 146 sidecars are derived from the tracked file
   `experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`
-  (146 bare `genre-sidecar-v1` records). It is committed, it is the adjudicated
-  Opus validation evidence from `WI-GENRE-0004`, and `WI-GENRE-0077` forbade
+  (146 bare `genre-sidecar-v1` records). It is committed, it is the Opus
+  validation evidence from `WI-GENRE-0004` (model-validated, not human-adjudicated:
+  `current_adjudication` is `null` in all 146 records and the only assessments
+  are `gutenberg_metadata_rules` and `model_detect`), and `WI-GENRE-0077` forbade
   modifying it.
 - After the `WI-GENRE-0109` rewrite (PR #477), the current `corpora/` genre
   sidecars equal that evidence in every field except `cache_db_path`
@@ -80,21 +82,25 @@ registered sidecar kind (`scenes.json`, `linguistics.json`,
 
 - Pro: no tracked manifest; the natural path for pipeline-produced sidecars
   (they already flow through `replace`).
-- Con: re-runs paid model calls and produces different, non-adjudicated labels.
-  It cannot recreate the validated Opus evidence or any human adjudication. Not
-  viable for tranche-promoted, adjudicated sidecars.
+- Con: re-runs paid model calls and produces different, non-validated labels.
+  It cannot recreate the Opus-validated evidence or any human adjudication. Not
+  viable for tranche-promoted sidecars.
 
 ### C. Seed `data/` from a tracked manifest *before* `replace` (recommended)
 
-`upsert --sidecar genre --tranche-manifest <sanitized manifest> --dest data/`,
-then the unchanged `replace`.
+create-only `insert --sidecar genre --tranche-manifest <sanitized manifest> --dest data/`,
+then the unchanged `replace`. Use `insert`, not `upsert`: `upsert` overwrites a whole
+file, so it would silently discard a pipeline-produced `genre.json` that
+`lcats annotate` had already appended to in the regenerated `data/`; `insert`
+refuses and stops the release instead.
 
 - Pro: `data/` becomes the complete release source; `replace` semantics and the
   guard stay exactly as they are, and the guard remains an active safety net;
   no override flag; the seed step is validated by the same registry validator;
-  an ID that no longer matches a regenerated bucket is rejected loudly (exit 1).
+  an ID that no longer matches a regenerated bucket, or a sidecar that already
+  exists in `data/`, is rejected loudly (exit 1).
 - Con: one more release step; needs a tracked, sanitized manifest; each future
-  adjudicated sidecar kind needs its own manifest; stale evidence is still
+  tranche-promoted sidecar kind needs its own manifest; stale evidence is still
   possible (no text hash).
 - Verified end to end on scratch copies (see Reproduction): seeding a copy of
   `data/` with the sanitized manifest, then running a bare `replace` into a copy
@@ -110,7 +116,7 @@ then the unchanged `replace`.
 ### E. A tracked sidecar tree mirrored into `data/`
 
 Equivalent to C with a directory of 146 files in place of one JSONL, but it
-duplicates `corpora/` and severs the link to the adjudicated evidence file.
+duplicates `corpora/` and severs the link to the tracked evidence file.
 Viable, heavier, no advantage over C.
 
 ### F. Change `replace` to preserve registered sidecars
@@ -125,7 +131,7 @@ Make `data/` the complete release source. Two kinds of sidecar, one rule:
 
 - **Pipeline-produced sidecars** (`lcats annotate` writes into `data/`) already
   flow through `replace`. No change.
-- **Adjudicated or tranche-promoted sidecars** (the 146 genre sidecars; a future
+- **Tranche-promoted sidecars (validated evidence not produced in `data/`)** (the 146 genre sidecars; a future
   linguistics tranche) are seeded into the freshly regenerated `data/` from a
   tracked, sanitized manifest before `replace`.
 
@@ -137,8 +143,9 @@ absolute paths are removed on the way in.
 
 | Failure | Behaviour with Option C |
 |---|---|
-| Seed record names a bucket that regeneration no longer produces | `upsert` rejects it, exit 1; release stops before `replace` |
-| Operator skips the seed step | `replace` is blocked by the guard (exit 1), as today; nothing is deleted |
+| Seed record names a bucket that regeneration no longer produces | `insert` rejects it, exit 1; release stops before `replace` |
+| `data/` already holds a pipeline-produced `genre.json` for a seeded story | `insert` refuses (exit 1, verified: a second `insert` run rejected all 146); release stops, and an operator decides the precedence. Merge/precedence semantics are a follow-up, not part of this design |
+| Operator skips the seed step | the 7 affected collections are blocked and left untouched, but `replace` gates collections independently, so the other 5 are still wholesale-replaced (exit 1 does **not** mean nothing changed); the guard also protects only registered sidecars on stories present in both trees, so destination-only content in a promoted collection can still be removed |
 | Operator passes the override flag anyway | sidecars deleted; documented as the one thing not to do (see doc note below) |
 | Story text changed since the evidence was produced | **not detected** (no text hash); needs the schema follow-up |
 | Raw evidence replayed unsanitized | re-introduces 146 absolute paths; the seed step must sanitize |
@@ -147,12 +154,12 @@ absolute paths are removed on the way in.
 
 Between today's step 6 (preview) and step 7 (promote), add:
 
-> **6b. Seed adjudicated sidecars into `data/`** — directory `lcats/`.
+> **6b. Seed tranche-promoted sidecars into `data/`** — directory `lcats/`.
 > `lcats` regenerated `data/` contains stories but not tranche-promoted
 > sidecars. Seed them from the tracked seed manifest, preview first:
 > ```bash
-> lcats promote upsert --sidecar genre --tranche-manifest <seed-manifest> --dest data/ --dry-run
-> lcats promote upsert --sidecar genre --tranche-manifest <seed-manifest> --dest data/
+> lcats promote insert --sidecar genre --tranche-manifest <seed-manifest> --dest data/ --dry-run
+> lcats promote insert --sidecar genre --tranche-manifest <seed-manifest> --dest data/
 > ```
 > The dry-run must report one `would promote sidecar:` line per manifest record
 > and exit 0; stop if any record is rejected.
@@ -174,7 +181,7 @@ applied now (see the doc change in this PR).
 2. **Add step 6b and the guard explanation to the release runbook**
    (`prepare-corpora-release.md`, `corpus-promotion.md`) once item 1 exists.
 3. **Release preflight and rule for other sidecar kinds** (investigation).
-   State the pipeline-vs-adjudicated rule for `linguistics.json` and
+   State the pipeline-vs-tranche-promoted rule for `linguistics.json` and
    `scenes.json`, and whether the preflight should assert that every
    `corpora/` sidecar has a counterpart in `data/` after seeding (the guard
    dry-run already reports this).
@@ -200,8 +207,16 @@ lcats promote upsert --sidecar genre --tranche-manifest raw.jsonl   --dest scrat
 lcats promote upsert --sidecar genre --tranche-manifest clean.jsonl --dest scratch/data              # 146 promoted
 lcats promote replace --source scratch/data --dest scratch/corpora                                   # exit 0, 12 promoted, 0 blocked
 # 146 genre.json compared with corpora/: 0 byte-differing
+
+# The recommended create-only seed, on a second scratch copy of data/ with genre.json removed
+lcats promote insert --sidecar genre --tranche-manifest clean.jsonl --dest scratch2/data             # exit 0, 146 promoted
+# 146 genre.json compared with corpora/: 0 byte-differing
+lcats promote insert --sidecar genre --tranche-manifest clean.jsonl --dest scratch2/data             # exit 1, 146 rejected (already exist)
 ```
 
 `raw.jsonl` is `validation_results.jsonl` as tracked; `clean.jsonl` is the same
 records with `cache_db_path` reduced to a basename. Seeding `raw.jsonl` into a
-scratch `data/` produced 146 sidecars with absolute paths.
+scratch `data/` produced 146 sidecars with absolute paths. The bare `replace`
+result above was measured on a copy seeded with `upsert`; the same sidecars
+seeded with `insert` are byte-identical, so the `replace` outcome applies to the
+recommended `insert` form (not separately re-run through `replace`).

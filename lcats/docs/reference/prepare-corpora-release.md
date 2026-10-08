@@ -214,7 +214,7 @@ regenerated `data/`. Commit the result as its own PR.
 
 If it exits `1` with `orphaned sidecar` blocks, a registered sidecar (for
 example `genre.json`) exists in `corpora/` for a story but not in the
-regenerated `data/`, and `replace` refused rather than delete it. Do **not** pass
+regenerated `data/`, and `replace` refused to delete it for that collection. Exit `1` does not mean nothing changed: collections that were not blocked are still promoted (each collection is gated independently). Do **not** pass
 `--allow-orphaned-sidecar-deletion` to get past this: it disables the guard for
 every collection and every sidecar kind at once, and a release run today would
 delete the 146 tranche-promoted `genre.json` sidecars. Stop and see
