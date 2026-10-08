@@ -27,11 +27,16 @@ Use ``insert``, not ``upsert``: ``upsert`` overwrites a whole file and would
 silently discard a pipeline-produced ``genre.json``; ``insert`` refuses and stops
 the release.
 
-Exit codes: ``0`` success; ``1`` malformed evidence or an ``--expect-count``
-mismatch (no manifest is written); ``2`` usage or environment error (missing
-evidence file, ``--manifest-out`` would overwrite the evidence file, or the
-manifest cannot be written, e.g. its directory does not exist). The manifest is
-written atomically, so an error never leaves a partial file behind.
+Every sanitized payload is validated with ``genre_sidecar.validate_sidecar()``
+before anything is written, so the manifest only ever contains seed records
+that ``lcats promote insert`` will accept.
+
+Exit codes: ``0`` success; ``1`` malformed evidence, an invalid sidecar payload,
+or an ``--expect-count`` mismatch (no manifest is written); ``2`` usage or
+environment error (missing or unreadable evidence file, ``--manifest-out`` would
+overwrite the evidence file, or the manifest cannot be written, e.g. its
+directory does not exist). The manifest is written atomically, so an error never
+leaves a partial file behind.
 """
 
 import argparse
@@ -42,6 +47,8 @@ import pathlib
 import sys
 import tempfile
 from typing import Any
+
+from lcats.analysis.corpus import genre_sidecar
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_EVIDENCE = (
@@ -118,6 +125,20 @@ def build_seed_records(
     return records, values_changed
 
 
+def find_invalid_payloads(records: list[dict[str, Any]]) -> list[str]:
+    """Return one message per seed record whose payload fails validation.
+
+    Each message names the record's ``lcats_id`` and its first finding.
+    """
+    problems: list[str] = []
+    for record in records:
+        result = genre_sidecar.validate_sidecar(record["payload"])
+        if not result.valid:
+            first = result.findings[0]
+            problems.append(f"{record['lcats_id']}: {first.path}: {first.message}")
+    return problems
+
+
 def _write_manifest_atomically(
     path: pathlib.Path, records: list[dict[str, Any]]
 ) -> None:
@@ -160,6 +181,9 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         evidence = load_evidence_records(args.evidence)
+    except OSError as exc:
+        print(f"error: cannot read {args.evidence}: {exc}", file=sys.stderr)
+        return 2
     except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
@@ -171,6 +195,19 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     records, values_changed = build_seed_records(evidence)
+    problems = find_invalid_payloads(records)
+    if problems:
+        shown = problems[:10]
+        print(
+            f"error: {len(problems)} of {len(records)} payloads are not valid "
+            "genre-sidecar-v1; nothing written:",
+            file=sys.stderr,
+        )
+        for line in shown:
+            print(f"  {line}", file=sys.stderr)
+        if len(problems) > len(shown):
+            print(f"  ... and {len(problems) - len(shown)} more", file=sys.stderr)
+        return 1
     try:
         _write_manifest_atomically(args.manifest_out, records)
     except OSError as exc:

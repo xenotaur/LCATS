@@ -1,11 +1,15 @@
 """Tests for tools/build_genre_seed_manifest.py (WI-PROMOTE-0112)."""
 
+import contextlib
+import copy
 import hashlib
 import importlib.util
+import io
 import json
 import pathlib
 import tempfile
 import unittest
+from unittest import mock
 
 from lcats.analysis.corpus import genre_sidecar
 
@@ -37,6 +41,21 @@ def _record(lcats_id, *cache_paths):
             for i, p in enumerate(cache_paths)
         ],
     }
+
+
+def _valid_record(lcats_id, cache_path="/Users/x/cache/gutenbergindex.db"):
+    """A genre-sidecar-v1 record that passes the real validator.
+
+    Derived from a real evidence record so it can never drift from the schema.
+    """
+    record = copy.deepcopy(seed.load_evidence_records(EVIDENCE)[0])
+    record["lcats_id"] = lcats_id
+    record["story_path"] = f"{lcats_id}/story.json"
+    for assessment in record["assessments"]:
+        provenance = assessment.get("provenance")
+        if isinstance(provenance, dict) and "cache_db_path" in provenance:
+            provenance["cache_db_path"] = cache_path
+    return record
 
 
 def _write_jsonl(path, rows):
@@ -184,7 +203,7 @@ class SyntheticEvidenceTest(unittest.TestCase):
         self.assertFalse(wrote)
 
     def test_expect_count_match_succeeds(self):
-        row = json.dumps(_record("c/one", "x")) + "\n"
+        row = json.dumps(_valid_record("c/one")) + "\n"
         code, wrote = self._run(row, "--expect-count", "1")
         self.assertEqual(code, 0)
         self.assertTrue(wrote)
@@ -205,7 +224,7 @@ class SyntheticEvidenceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             evidence = pathlib.Path(tmp) / "e.jsonl"
             evidence.write_text(
-                json.dumps(_record("c/one", "x")) + "\n", encoding="utf-8"
+                json.dumps(_valid_record("c/one")) + "\n", encoding="utf-8"
             )
             out = pathlib.Path(tmp) / "no_such_dir" / "seed.jsonl"
             code = seed.main(["--evidence", str(evidence), "--manifest-out", str(out)])
@@ -216,7 +235,7 @@ class SyntheticEvidenceTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             evidence = pathlib.Path(tmp) / "e.jsonl"
             evidence.write_text(
-                json.dumps(_record("c/one", "x")) + "\n", encoding="utf-8"
+                json.dumps(_valid_record("c/one")) + "\n", encoding="utf-8"
             )
             out = pathlib.Path(tmp) / "seed.jsonl"
             self.assertEqual(
@@ -226,6 +245,74 @@ class SyntheticEvidenceTest(unittest.TestCase):
                 sorted(p.name for p in pathlib.Path(tmp).iterdir()),
                 ["e.jsonl", "seed.jsonl"],
             )
+
+    def _run_capture(self, text):
+        err = io.StringIO()
+        with tempfile.TemporaryDirectory() as tmp:
+            evidence = pathlib.Path(tmp) / "e.jsonl"
+            evidence.write_text(text, encoding="utf-8")
+            out = pathlib.Path(tmp) / "seed.jsonl"
+            with contextlib.redirect_stderr(err):
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(out)]
+                )
+            return code, out.exists(), err.getvalue()
+
+    def test_invalid_payload_fails_and_writes_nothing(self):
+        code, wrote, err = self._run_capture('{"lcats_id": "c/story"}\n')
+        self.assertEqual(code, 1)
+        self.assertFalse(wrote)
+        self.assertIn("c/story", err)
+        self.assertIn("nothing written", err)
+
+    def test_one_invalid_payload_among_valid_ones_blocks_the_whole_manifest(self):
+        rows = [
+            json.dumps(_valid_record("c/one")),
+            json.dumps({"lcats_id": "c/bad"}),
+            json.dumps(_valid_record("c/two")),
+        ]
+        code, wrote, err = self._run_capture("\n".join(rows) + "\n")
+        self.assertEqual(code, 1)
+        self.assertFalse(wrote)
+        self.assertIn("1 of 3", err)
+        self.assertIn("c/bad", err)
+        self.assertNotIn("c/one:", err)
+
+    def test_many_invalid_payloads_are_summarized(self):
+        rows = [json.dumps({"lcats_id": f"c/bad{i}"}) for i in range(13)]
+        code, wrote, err = self._run_capture("\n".join(rows) + "\n")
+        self.assertEqual(code, 1)
+        self.assertFalse(wrote)
+        self.assertIn("13 of 13", err)
+        self.assertIn("and 3 more", err)
+
+    def test_find_invalid_payloads_accepts_valid_and_flags_invalid(self):
+        good = {"lcats_id": "c/one", "payload": _valid_record("c/one")}
+        bad = {"lcats_id": "c/bad", "payload": {"lcats_id": "c/bad"}}
+        self.assertEqual(seed.find_invalid_payloads([good]), [])
+        problems = seed.find_invalid_payloads([good, bad])
+        self.assertEqual(len(problems), 1)
+        self.assertTrue(problems[0].startswith("c/bad: "))
+
+    def test_unreadable_evidence_exits_2_without_traceback(self):
+        err = io.StringIO()
+        with tempfile.TemporaryDirectory() as tmp:
+            evidence = pathlib.Path(tmp) / "e.jsonl"
+            evidence.write_text("{}\n", encoding="utf-8")
+            out = pathlib.Path(tmp) / "seed.jsonl"
+            with (
+                mock.patch.object(
+                    seed, "load_evidence_records", side_effect=PermissionError("denied")
+                ),
+                contextlib.redirect_stderr(err),
+            ):
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(out)]
+                )
+            wrote = out.exists()
+        self.assertEqual(code, 2)
+        self.assertFalse(wrote)
+        self.assertIn("cannot read", err.getvalue())
 
     def test_refuses_to_overwrite_the_evidence_file(self):
         with tempfile.TemporaryDirectory() as tmp:
