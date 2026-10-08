@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_09_29_06_49_17_WI_LINGUISTICS_0014_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/472
-commit: c039fafb
+commit: a688f48d
 created_at: 2026-10-07T23:09:27+00:00
 ---
 
@@ -37,6 +37,7 @@ No merge or closeout action has been performed.
 - `lrh validate`: 0 errors, 341 pre-existing warnings.
 - `git diff --check`: passed.
 - Black diagnostic check on all changed files: passed.
+- Exact CI Black 25.11.0 check across all changed Python files: passed.
 - `scripts/version tools`: environment warning only; installed tooling is
   from another checkout.
 - `scripts/format --check --diff` and `scripts/lint`: blocked by the local
@@ -45,5 +46,5 @@ No merge or closeout action has been performed.
 
 # Follow-up
 
-Push the formatting correction, then run confirm-fixes against the new PR
-head. The historical audit packet remains untouched.
+Push the final formatting correction, then run confirm-fixes against the new
+PR head. The historical audit packet remains untouched.
