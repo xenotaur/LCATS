@@ -1327,6 +1327,12 @@ def _write_quarantine(
 def _write_json_atomic(
     path: pathlib.Path, data: Any, *, output_root: pathlib.Path
 ) -> None:
+    _write_text_atomic(path, _stable_json(data), output_root=output_root)
+
+
+def _write_text_atomic(
+    path: pathlib.Path, text: str, *, output_root: pathlib.Path
+) -> None:
     resolved_root = output_root.resolve()
     if resolved_root.is_symlink():
         raise ValueError(f"output root must not be a symlink: {output_root}")
@@ -1351,7 +1357,7 @@ def _write_json_atomic(
             0o644,
         )
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            handle.write(_stable_json(data))
+            handle.write(text)
             handle.flush()
         os.replace(tmp_path, path)
     except BaseException:
@@ -2793,9 +2799,15 @@ def _is_loopback_base_url(base_url: str | None) -> bool:
     if host == "localhost":
         return True
     try:
-        return ipaddress.ip_address(host).is_loopback
+        address = ipaddress.ip_address(host)
     except ValueError:
         return False
+    # Judge an IPv4-mapped IPv6 address by its IPv4 part: is_loopback answers
+    # differently across Python patch releases for mapped addresses.
+    mapped = getattr(address, "ipv4_mapped", None)
+    if mapped is not None:
+        address = mapped
+    return address.is_loopback
 
 
 def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
@@ -3063,25 +3075,32 @@ def _write_manifest_snapshot(
 
     Written only when the manifest carries expectations, so runs over manifests
     without them keep their existing file set. A resumed run must use an
-    identical manifest.
+    identical manifest, including one that has dropped every expectation, and
+    the snapshot is never written through a symlink.
     """
 
+    path = output_root / MANIFEST_SNAPSHOT_FILENAME
+    if path.is_symlink():
+        raise ValueError(f"{MANIFEST_SNAPSHOT_FILENAME} must not be a symlink: {path}")
     if not _manifest_has_expectations(manifest):
+        if path.exists():
+            raise ValueError(
+                f"this manifest carries no expectations but the output root "
+                f"already holds {MANIFEST_SNAPSHOT_FILENAME}; use a new output root"
+            )
         return None
     text = (
         manifest.source_text
         if manifest.source_text is not None
         else manifest.manifest_path.read_text(encoding="utf-8")
     )
-    output_root.mkdir(parents=True, exist_ok=True)
-    path = output_root / MANIFEST_SNAPSHOT_FILENAME
     if path.exists():
         if path.read_text(encoding="utf-8") != text:
             raise ValueError(
                 f"existing {MANIFEST_SNAPSHOT_FILENAME} does not match this run's manifest"
             )
         return path
-    path.write_text(text, encoding="utf-8")
+    _write_text_atomic(path, text, output_root=output_root)
     return path
 
 

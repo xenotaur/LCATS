@@ -1829,6 +1829,57 @@ class WorldconHeinleinCanaryTest(unittest.TestCase):
             ).exists()
         )
 
+    def test_resume_refuses_a_manifest_that_dropped_every_expectation(self):
+        first = self._manifest_copy("first-keep.json")
+        run_worldcon_spike.run_spike(
+            self._options("dropped", "canary", manifest=first, resume=True)
+        )
+
+        def drop(data):
+            for story in data["canary_stories"]:
+                story.pop("expectations")
+
+        stripped = self._manifest_copy("stripped.json", drop)
+        with self.assertRaisesRegex(ValueError, "manifest_snapshot.json"):
+            run_worldcon_spike.run_spike(
+                self._options("dropped", "canary", manifest=stripped, resume=True)
+            )
+
+    def test_snapshot_is_never_written_through_a_symlink(self):
+        manifest = run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+        outside = self.root / "outside.txt"
+        dangling_root = self.root / "dangling"
+        dangling_root.mkdir()
+        (dangling_root / run_worldcon_spike.MANIFEST_SNAPSHOT_FILENAME).symlink_to(
+            outside
+        )
+        existing_root = self.root / "existing"
+        existing_root.mkdir()
+        victim = self.root / "victim.txt"
+        victim.write_text("keep me", encoding="utf-8")
+        (existing_root / run_worldcon_spike.MANIFEST_SNAPSHOT_FILENAME).symlink_to(
+            victim
+        )
+
+        for root in (dangling_root, existing_root):
+            with self.subTest(root=root.name):
+                with self.assertRaisesRegex(ValueError, "must not be a symlink"):
+                    run_worldcon_spike._write_manifest_snapshot(root, manifest)
+
+        self.assertFalse(outside.exists())
+        self.assertEqual("keep me", victim.read_text(encoding="utf-8"))
+
+    def test_snapshot_write_leaves_no_temporary_files(self):
+        manifest = run_worldcon_spike.load_manifest(HEINLEIN_CANARY_MANIFEST)
+        root = self.root / "clean"
+
+        run_worldcon_spike._write_manifest_snapshot(root, manifest)
+
+        self.assertEqual(
+            [run_worldcon_spike.MANIFEST_SNAPSHOT_FILENAME],
+            sorted(item.name for item in root.iterdir()),
+        )
+
     def test_resume_refuses_a_manifest_edited_after_the_first_run(self):
         first = self._manifest_copy("first.json")
         run_worldcon_spike.run_spike(
@@ -1855,7 +1906,10 @@ class WorldconHeinleinCanaryTest(unittest.TestCase):
             "http://127.0.0.1:11434/v1": False,
             "http://127.0.0.2:11434/v1": False,
             "http://[::1]:11434/v1": False,
-            "http://[::ffff:127.0.0.1]:11434/v1": True,
+            "http://[::ffff:127.0.0.1]:11434/v1": False,
+            "http://[::ffff:7f00:1]:11434/v1": False,
+            "http://[::ffff:8.8.8.8]:11434/v1": True,
+            "http://[::ffff:192.168.1.5]:11434/v1": True,
             "http://localhost.:11434/v1": True,
             "http://localhost@evil.example/v1": True,
             "http://127.0.0.1.evil.example/v1": True,
