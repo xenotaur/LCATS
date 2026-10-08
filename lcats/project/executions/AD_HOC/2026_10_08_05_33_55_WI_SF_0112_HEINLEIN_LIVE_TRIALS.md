@@ -2,12 +2,12 @@
 execution_id: 2026_10_08_05_33_55_WI_SF_0112_HEINLEIN_LIVE_TRIALS
 prompt_id: PROMPT(AD_HOC:WI_SF_0112_HEINLEIN_LIVE_TRIALS)[2026-10-08T05:33:13+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 pr: https://github.com/xenotaur/LCATS/pull/485
 created_at: 2026-10-08T05:33:55+00:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-SF-0113.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
