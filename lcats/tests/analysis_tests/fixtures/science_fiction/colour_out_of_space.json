@@ -1,0 +1,263 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "fixture-knight",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "Scientific observation structures the premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fixture-spectroscopy",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No invented technology drives the plot.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The setting is not temporally displaced.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The premise is extrapolated through cumulative consequences.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fixture-estrangement",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Characters test and revise hypotheses.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fixture-spectroscopy",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "central",
+            "rationale": "The visitor comes from an alien cosmic environment.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fixture-estrangement",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "The contamination causes a local catastrophe.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fixture-estrangement",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "fixture-evidence",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "rubric_version": "knight-seven-v1",
+          "run_id": "fixture-run"
+        },
+        "status": "complete",
+        "story_hash": "fixture-story-hash-colour"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "fixture-suvin",
+        "candidates": [
+          {
+            "candidate_id": "fixture-novum",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The story supplies an immanent explanatory frame.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-spectroscopy",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ]
+            },
+            "description": "An alien entity arrives in a meteorite and transforms the surrounding farm.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-estrangement",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ],
+              "rationale": "Ordinary farm life is contrasted with an alien process.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-estrangement",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-estrangement",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-fixture-estrangement",
+                "evidence_set_id": "fixture-evidence"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The novum drives the central narrative consequences.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-estrangement",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The entity is materially unfamiliar.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-fixture-estrangement",
+                  "evidence_set_id": "fixture-evidence"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "fixture-novum",
+        "evidence_set_id": "fixture-evidence",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "fixture-run"
+        },
+        "status": "complete",
+        "story_hash": "fixture-story-hash-colour"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "fixture-evidence",
+    "knight_analysis_id": "fixture-knight",
+    "suvin_novum_analysis_id": "fixture-suvin"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "fixture-evidence",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 10,
+            "paragraph_ids": [
+              "p-01"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fixture-spectroscopy",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The investigators use spectroscopy to identify the alien substance.",
+          "provenance": [
+            {
+              "source": "fixture"
+            }
+          ],
+          "quote": "The spectroscope showed bands unlike any known spectrum."
+        },
+        {
+          "anchor": {
+            "end_char": 10,
+            "paragraph_ids": [
+              "p-02"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fixture-estrangement",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The entity is presented as radically alien but materially consequential.",
+          "provenance": [
+            {
+              "source": "fixture"
+            }
+          ],
+          "quote": "It obeyed laws that were not of our cosmos."
+        }
+      ],
+      "story_hash": "fixture-story-hash-colour",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_colour_out_of_space",
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "fixture-story-hash-colour",
+  "story_path": "tests/fixtures/colour_out_of_space.txt",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
