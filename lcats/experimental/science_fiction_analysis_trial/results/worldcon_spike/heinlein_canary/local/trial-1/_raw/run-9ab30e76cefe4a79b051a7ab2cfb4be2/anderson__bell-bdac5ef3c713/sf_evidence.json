@@ -1,0 +1,79 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 3588,
+  "model": "gpt-oss:20b",
+  "output_tokens": 3033,
+  "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.95,
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+        "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+        "raw_id": "id001",
+        "type": "scientific_or_technical_explanation"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "King's promise as consequence of discovering source.",
+        "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.",
+        "raw_id": "id002",
+        "type": "extrapolative_consequence"
+      },
+      {
+        "confidence": 0.85,
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "Children\u2019s desire to seek the bell.",
+        "quote": "They all immediately felt a wish to go thither; all except three.",
+        "raw_id": "id003",
+        "type": "character_reaction"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "Contrasting belief vs reality about bell.",
+        "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+        "raw_id": "id004",
+        "type": "reader_facing_contrast"
+      },
+      {
+        "confidence": 0.8,
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Introduction of bell sound into world.",
+        "quote": "People said 'The Evening Bell is sounding, the sun is setting.'",
+        "raw_id": "id005",
+        "type": "storyworld_change"
+      },
+      {
+        "confidence": 0.7,
+        "paragraph_ids": [
+          "p00018"
+        ],
+        "paraphrase": "Sunset marking passage of time.",
+        "quote": "The sun now set: the atmosphere glowed like fire.",
+        "raw_id": "id006",
+        "type": "temporal_or_spatial_displacement"
+      }
+    ]
+  }
+}

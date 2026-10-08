@@ -1,0 +1,123 @@
+{
+  "backend_kind": "openai-compatible",
+  "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+  "decision": "proceed",
+  "manifest_path": "experimental/science_fiction_analysis_trial/manifests/heinlein_canary_manifest.json",
+  "mode": "canary",
+  "model": "gpt-oss:20b",
+  "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3",
+  "plan": {
+    "approve_full_sample": false,
+    "approve_paid": false,
+    "backend_kind": "openai-compatible",
+    "base_url": "http://localhost:11434/v1",
+    "budget_usd": 0.0,
+    "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+    "cumulative_budget_usd": 0.0,
+    "estimated_cost_usd": 0.0,
+    "estimated_story_cost_usd": 0.0,
+    "include_heinlein": true,
+    "manifest_fingerprint": "91b751682f0718e2aa717a0d44d4b4e0c2ad1603446995260e67e78d5e993d41",
+    "max_stories": 2,
+    "max_tokens": 8192,
+    "mode": "canary",
+    "model": "gpt-oss:20b",
+    "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3",
+    "paid_model_calls_authorized": false,
+    "prior_spend_usd": 0.0,
+    "resume": false,
+    "retry_policy": {
+      "backoff": "bounded_exponential_0.25_to_2.0_seconds",
+      "content_filter": "never",
+      "deterministic_validation": "never",
+      "transient_provider_or_network": "once",
+      "truncation": "once_with_doubled_max_tokens"
+    },
+    "story_count": 2,
+    "story_ids": [
+      "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "anderson/bell"
+    ],
+    "temperature": 0.0
+  },
+  "run_id": "run-95854c092c934000b81f77e336657860",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "status": "complete",
+  "stories": [
+    {
+      "dominant_novum_id": null,
+      "failure_kind": null,
+      "failure_message": null,
+      "heinlein_interval": {
+        "definite_count": 0,
+        "possible_count": 0,
+        "total_count": 5
+      },
+      "heinlein_verdict": "indeterminate",
+      "input_tokens": 21374,
+      "knight_interval": {
+        "definite_count": 0,
+        "possible_count": 0,
+        "total_count": 7
+      },
+      "latency_seconds": 229.651,
+      "output_tokens": 5829,
+      "qualified_novum_count": 0,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f",
+      "run_id": "run-95854c092c934000b81f77e336657860",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/mass_quantities/2_b_r_0_2_b__vonnegut/science-fiction.json",
+      "status": "complete",
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B"
+    },
+    {
+      "dominant_novum_id": null,
+      "failure_kind": null,
+      "failure_message": null,
+      "heinlein_interval": {
+        "definite_count": 0,
+        "possible_count": 0,
+        "total_count": 5
+      },
+      "heinlein_verdict": "indeterminate",
+      "input_tokens": 17340,
+      "knight_interval": {
+        "definite_count": 1,
+        "possible_count": 1,
+        "total_count": 7
+      },
+      "latency_seconds": 273.693,
+      "output_tokens": 7344,
+      "qualified_novum_count": 0,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713",
+      "run_id": "run-95854c092c934000b81f77e336657860",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/anderson/bell/science-fiction.json",
+      "status": "complete",
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell"
+    }
+  ],
+  "totals": {
+    "complete": 2,
+    "cumulative_estimated_cost_usd": 0.0,
+    "estimated_cost_usd": 0.0,
+    "failed": 0,
+    "heinlein_verdicts": {
+      "does_not_qualify": 0,
+      "indeterminate": 2,
+      "qualifies": 0,
+      "unavailable": 0
+    },
+    "input_tokens": 38714,
+    "latency_seconds": 503.344,
+    "output_tokens": 13173,
+    "prior_spend_usd": 0.0,
+    "stories": 2
+  },
+  "version": "worldcon-knight-novum-spike-summary-v1",
+  "work_item": "WI-SF-0111"
+}

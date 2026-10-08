@@ -1,0 +1,11 @@
+{
+  "failure_kind": "JSONDecodeError",
+  "failure_message": "Expecting value: line 1 column 1 (char 0)",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/anderson__bell-bdac5ef3c713/sf_heinlein.json",
+  "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+  "stage": "sf_heinlein",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "title": "Anderson - The Bell",
+  "tool_result": null
+}

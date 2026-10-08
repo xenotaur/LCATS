@@ -1,0 +1,30 @@
+{
+  "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_evidence.json"
+    },
+    "sf_heinlein": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_heinlein.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_heinlein.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-1/_raw/run-9ab30e76cefe4a79b051a7ab2cfb4be2/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut"
+}

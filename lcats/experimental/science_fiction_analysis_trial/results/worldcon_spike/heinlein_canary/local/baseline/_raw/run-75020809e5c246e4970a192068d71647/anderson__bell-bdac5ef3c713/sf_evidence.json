@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 3588,
+  "model": "gpt-oss:20b",
+  "output_tokens": 4493,
+  "run_id": "run-75020809e5c246e4970a192068d71647",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.95,
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+        "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+        "raw_id": "id1",
+        "type": "scientific_or_technical_explanation"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "People express curiosity and plan investigation.",
+        "quote": "A long time passed, and people said to each other\u2014 'I wonder if there is a church out in the wood? The bell has a tone that is wondrous sweet; let us stroll thither, and examine the matter nearer.'",
+        "raw_id": "id2",
+        "type": "inquiry_or_scientific_method"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "King's promise creates future reward for discovering source.",
+        "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer,' even if it were not really a bell.",
+        "raw_id": "id3",
+        "type": "extrapolative_consequence"
+      },
+      {
+        "confidence": 0.85,
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "Children express desire to pursue bell.",
+        "quote": "They all immediately felt a wish to go thither; all except three.",
+        "raw_id": "id4",
+        "type": "character_reaction"
+      },
+      {
+        "confidence": 0.9,
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "Characters confront discrepancy between expectation and reality.",
+        "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+        "raw_id": "id5",
+        "type": "reader_facing_contrast"
+      }
+    ]
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__bell-knight-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story explains that the bell sound originates from a large owl knocking its head against branches, a natural process.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-824cd0a6aec00670",
+                "evidence_set_id": "sfes-a32a060be70d24df"
+              }
+            ]
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-a32a060be70d24df",
+        "failures": [],
+        "interval": {
+          "definite_count": 1,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 8192,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+            "source_run_id": "run-75020809e5c246e4970a192068d71647",
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-a32a060be70d24df",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-75020809e5c246e4970a192068d71647",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 4465,
+            "output": 858
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__bell-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-1",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-824cd0a6aec00670",
+                "evidence_set_id": "sfes-a32a060be70d24df"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "novum-2",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-2",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-f4b48a194cfb724e",
+                "evidence_set_id": "sfes-a32a060be70d24df"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-a32a060be70d24df",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 8192,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+            "source_run_id": "run-75020809e5c246e4970a192068d71647",
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-a32a060be70d24df",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-75020809e5c246e4970a192068d71647",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 4302,
+            "output": 1485
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-a32a060be70d24df",
+    "knight_analysis_id": "anderson__bell-knight-v1",
+    "suvin_novum_analysis_id": "anderson__bell-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-a32a060be70d24df",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [
+              "coerced field type to evidence_type"
+            ],
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "People express curiosity and plan investigation.",
+            "quote": "A long time passed, and people said to each other— 'I wonder if there is a church out in the wood? The bell has a tone that is wondrous sweet; let us stroll thither, and examine the matter nearer.'",
+            "raw_id": "id2",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [
+              "coerced field type to evidence_type"
+            ],
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise creates future reward for discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer,' even if it were not really a bell.",
+            "raw_id": "id3",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 2666,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 2515
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-824cd0a6aec00670",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id1",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches."
+        },
+        {
+          "anchor": {
+            "end_char": 3559,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 3488
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8a0ab08a3cb51bd4",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Children express desire to pursue bell.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id4",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They all immediately felt a wish to go thither; all except three."
+        },
+        {
+          "anchor": {
+            "end_char": 4886,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 4767
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f4b48a194cfb724e",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Characters confront discrepancy between expectation and reality.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id5",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!"
+        }
+      ],
+      "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+  "story_path": "anderson/bell/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

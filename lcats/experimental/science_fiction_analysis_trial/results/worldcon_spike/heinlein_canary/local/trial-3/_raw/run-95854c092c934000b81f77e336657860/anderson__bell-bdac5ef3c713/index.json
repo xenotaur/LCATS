@@ -1,0 +1,30 @@
+{
+  "run_id": "run-95854c092c934000b81f77e336657860",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_evidence.json"
+    },
+    "sf_heinlein": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_heinlein.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_heinlein.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/.claude/worktrees/distracted-engelbart-270773/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/trial-3/_raw/run-95854c092c934000b81f77e336657860/anderson__bell-bdac5ef3c713/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "anderson/bell"
+}

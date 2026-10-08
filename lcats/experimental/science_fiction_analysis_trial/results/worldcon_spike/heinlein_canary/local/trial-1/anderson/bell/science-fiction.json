@@ -1,0 +1,505 @@
+{
+  "analyses": {
+    "heinlein": [
+      {
+        "analysis_id": "anderson__bell-heinlein-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "different",
+            "rationale": "Heinlein adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "essential",
+            "rationale": "Heinlein adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "human",
+            "rationale": "Heinlein adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "causal",
+            "rationale": "Heinlein adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "plausible",
+            "rationale": "Heinlein adjudication did not complete.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-16717a944bfe95e8",
+        "failures": [
+          {
+            "kind": "JSONDecodeError",
+            "message": "Expecting value: line 1 column 1 (char 0)",
+            "recoverable": true,
+            "stage": "heinlein"
+          }
+        ],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 5
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 8192,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-16717a944bfe95e8",
+          "prompt_hash": "e9b815d53797cd28cf994752ab4952b3384e4d3b73086e6334148fdac0e566e4",
+          "rubric_version": "heinlein-five-v1",
+          "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+          "schema_hash": "22ffe160a4403889d11e81e82dbf6e116cc2c32a2aeb8808e87ffe482caa2e7c",
+          "token_usage": {
+            "input": 4589,
+            "output": 1814
+          }
+        },
+        "status": "failed",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+        "verdict": "indeterminate"
+      }
+    ],
+    "knight": [
+      {
+        "analysis_id": "anderson__bell-knight-v1",
+        "criteria": [
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The narrator provides a scientific explanation attributing the bell sound to an owl's behavior, demonstrating use of observation and hypothesis.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-601e43b80a452ca9",
+                "evidence_set_id": "sfes-16717a944bfe95e8"
+              }
+            ]
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "The explanation of the owl as a hypothesis and observation reflects elements of scientific method.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-601e43b80a452ca9",
+                "evidence_set_id": "sfes-16717a944bfe95e8"
+              }
+            ]
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": null,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-16717a944bfe95e8",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 2,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 8192,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+            "source_run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-16717a944bfe95e8",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 4663,
+            "output": 1943
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__bell-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-1",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-1",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "novum-2",
+            "cognitive_validation": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "novum-2",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": null,
+              "counterevidence": [],
+              "rationale": "malformed str",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-16717a944bfe95e8",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "openai-compatible",
+          "chunk_config_hash": null,
+          "code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 8192,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "8540a93845aa3f0dd68218e763842bbd0ee031f4",
+            "source_run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+            "temperature": 0.0
+          },
+          "model": "gpt-oss:20b",
+          "parent_evidence_set_id": "sfes-16717a944bfe95e8",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-9ab30e76cefe4a79b051a7ab2cfb4be2",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 4500,
+            "output": 2130
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-16717a944bfe95e8",
+    "knight_analysis_id": "anderson__bell-knight-v1",
+    "suvin_novum_analysis_id": "anderson__bell-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-16717a944bfe95e8",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [
+              "coerced field type to evidence_type"
+            ],
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise as consequence of discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.",
+            "raw_id": "id002",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [
+              "coerced field type to evidence_type"
+            ],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Introduction of bell sound into world.",
+            "quote": "People said 'The Evening Bell is sounding, the sun is setting.'",
+            "raw_id": "id005",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 3559,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 3488
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-601e43b80a452ca9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Children’s desire to seek the bell.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id003",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They all immediately felt a wish to go thither; all except three."
+        },
+        {
+          "anchor": {
+            "end_char": 2666,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 2515
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-824cd0a6aec00670",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id001",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches."
+        },
+        {
+          "anchor": {
+            "end_char": 9763,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "start_char": 9714
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bf8457b017263539",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Sunset marking passage of time.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type"
+              ],
+              "raw_id": "id006",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The sun now set: the atmosphere glowed like fire."
+        },
+        {
+          "anchor": {
+            "end_char": 4886,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 4767
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dd5d87a7f5649466",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Contrasting belief vs reality about bell.",
+          "provenance": [
+            {
+              "backend": "openai-compatible",
+              "normalization_notes": [
+                "coerced field type to evidence_type",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "id004",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!"
+        }
+      ],
+      "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight",
+      "suvin_novum"
+    ],
+    "failed_stages": [
+      {
+        "kind": "JSONDecodeError",
+        "message": "Expecting value: line 1 column 1 (char 0)",
+        "recoverable": true,
+        "stage": "heinlein"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+  "story_path": "anderson/bell/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

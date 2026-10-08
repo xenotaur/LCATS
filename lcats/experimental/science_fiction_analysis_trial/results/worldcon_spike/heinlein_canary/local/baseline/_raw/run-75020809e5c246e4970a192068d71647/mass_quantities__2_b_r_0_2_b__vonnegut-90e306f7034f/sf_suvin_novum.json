@@ -1,0 +1,72 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 6654,
+  "model": "gpt-oss:20b",
+  "output_tokens": 2439,
+  "run_id": "run-75020809e5c246e4970a192068d71647",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "dominant_novum_id": "novum-population-control",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-disease-aging",
+        "cognitive_validation": {
+          "evidence_ids": [
+            "sfev-e930ebdc5fe2e84d"
+          ],
+          "status": "present"
+        },
+        "narrative_hegemony": {
+          "status": "absent"
+        },
+        "novelty": {
+          "evidence_ids": [
+            "sfev-4cbc917cb5c28df8"
+          ],
+          "status": "present"
+        }
+      },
+      {
+        "candidate_id": "novum-population-control",
+        "cognitive_validation": {
+          "evidence_ids": [
+            "sfev-4cbc917cb5c28df8",
+            "sfev-e930ebdc5fe2e84d"
+          ],
+          "status": "present"
+        },
+        "narrative_hegemony": {
+          "evidence_ids": [
+            "sfev-632d0ef33b2af64f"
+          ],
+          "status": "present"
+        },
+        "novelty": {
+          "evidence_ids": [
+            "sfev-5c107dbb9cd42ea3"
+          ],
+          "status": "present"
+        }
+      },
+      {
+        "candidate_id": "novum-bureau",
+        "cognitive_validation": {
+          "status": "absent"
+        },
+        "narrative_hegemony": {
+          "status": "absent"
+        },
+        "novelty": {
+          "status": "absent"
+        }
+      }
+    ]
+  }
+}
