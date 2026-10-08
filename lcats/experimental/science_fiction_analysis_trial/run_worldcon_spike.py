@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import dataclasses
 import hashlib
+import ipaddress
 import math
 import json
 import os
@@ -17,6 +18,7 @@ import pathlib
 import subprocess
 import sys
 import time
+import urllib.parse
 import uuid
 from typing import Any, Callable, Iterable
 
@@ -46,6 +48,7 @@ EVIDENCE_STAGE = "sf_evidence"
 KNIGHT_STAGE = "sf_knight"
 SUVIN_STAGE = "sf_suvin_novum"
 HEINLEIN_STAGE = "sf_heinlein"
+MANIFEST_SNAPSHOT_FILENAME = "manifest_snapshot.json"
 EVIDENCE_RECORD_STAGE = "evidence"
 KNIGHT_RECORD_STAGE = "knight"
 SUVIN_RECORD_STAGE = "suvin_novum"
@@ -91,6 +94,8 @@ class SpikeStory:
     title: str
     selection_genre: str
     sample_roles: tuple[str, ...] = ()
+    # Optional operational expectations recorded before a trial (not gold labels).
+    expectations: dict[str, Any] = dataclasses.field(default_factory=dict)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -126,6 +131,9 @@ class SpikeManifest:
     source_worldcon_manifest_sha256: str | None = None
     source_worldcon_manifest_expected_count: int = FULL_SAMPLE_LIMIT
     version: str = MANIFEST_VERSION
+    # Exact text the manifest was loaded from, so a persisted snapshot cannot
+    # differ from what was parsed.
+    source_text: str | None = None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -252,6 +260,7 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
     summary: dict[str, Any]
     failures = 0
     stop_reason: str | None = None
+    _write_manifest_snapshot(output_root, manifest)
     if _paid_call_requested(options, manifest.gates[options.mode]):
         _write_approval_snapshot(
             output_root,
@@ -364,7 +373,8 @@ def load_manifest(path: pathlib.Path) -> SpikeManifest:
     """Load and validate the Worldcon spike manifest."""
 
     manifest_path = pathlib.Path(path)
-    data = json.loads(manifest_path.read_text(encoding="utf-8"))
+    source_text = manifest_path.read_text(encoding="utf-8")
+    data = json.loads(source_text)
     if data.get("version") != MANIFEST_VERSION:
         raise ValueError(f"manifest version must be {MANIFEST_VERSION}")
     gates = {
@@ -396,6 +406,7 @@ def load_manifest(path: pathlib.Path) -> SpikeManifest:
             _load_story(item) for item in data.get("canary_stories", ())
         ),
         gates=gates,
+        source_text=source_text,
     )
 
 
@@ -1316,6 +1327,12 @@ def _write_quarantine(
 def _write_json_atomic(
     path: pathlib.Path, data: Any, *, output_root: pathlib.Path
 ) -> None:
+    _write_text_atomic(path, _stable_json(data), output_root=output_root)
+
+
+def _write_text_atomic(
+    path: pathlib.Path, text: str, *, output_root: pathlib.Path
+) -> None:
     resolved_root = output_root.resolve()
     if resolved_root.is_symlink():
         raise ValueError(f"output root must not be a symlink: {output_root}")
@@ -1340,7 +1357,7 @@ def _write_json_atomic(
             0o644,
         )
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            handle.write(_stable_json(data))
+            handle.write(text)
             handle.flush()
         os.replace(tmp_path, path)
     except BaseException:
@@ -2762,9 +2779,35 @@ def _paid_call_requested(options: RunnerOptions, gate: RunGate) -> bool:
         return True
     if gate.estimated_cost_usd > 0:
         return True
-    if options.backend_kind == OPENAI_COMPATIBLE_BACKEND and options.base_url is None:
+    if options.backend_kind == OPENAI_COMPATIBLE_BACKEND and not _is_loopback_base_url(
+        options.base_url
+    ):
+        # A remote endpoint may be a paid provider; only loopback is no-cost.
         return True
     return False
+
+
+def _is_loopback_base_url(base_url: str | None) -> bool:
+    """Return True only when ``base_url`` points at this machine."""
+
+    if not base_url:
+        return False
+    try:
+        host = (urllib.parse.urlparse(base_url).hostname or "").lower()
+    except ValueError:
+        return False
+    if host == "localhost":
+        return True
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return False
+    # Judge an IPv4-mapped IPv6 address by its IPv4 part: is_loopback answers
+    # differently across Python patch releases for mapped addresses.
+    mapped = getattr(address, "ipv4_mapped", None)
+    if mapped is not None:
+        address = mapped
+    return address.is_loopback
 
 
 def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
@@ -3013,6 +3056,54 @@ def _stage_decision(
     return "stop_and_revise"
 
 
+def _manifest_has_expectations(manifest: SpikeManifest) -> bool:
+    return any(
+        story.expectations
+        for stories in (
+            manifest.smoke_stories,
+            manifest.sample_stories,
+            manifest.canary_stories,
+        )
+        for story in stories
+    )
+
+
+def _write_manifest_snapshot(
+    output_root: pathlib.Path, manifest: SpikeManifest
+) -> pathlib.Path | None:
+    """Persist the manifest so trial artifacts show which expectations applied.
+
+    Written only when the manifest carries expectations, so runs over manifests
+    without them keep their existing file set. A resumed run must use an
+    identical manifest, including one that has dropped every expectation, and
+    the snapshot is never written through a symlink.
+    """
+
+    path = output_root / MANIFEST_SNAPSHOT_FILENAME
+    if path.is_symlink():
+        raise ValueError(f"{MANIFEST_SNAPSHOT_FILENAME} must not be a symlink: {path}")
+    if not _manifest_has_expectations(manifest):
+        if path.exists():
+            raise ValueError(
+                f"this manifest carries no expectations but the output root "
+                f"already holds {MANIFEST_SNAPSHOT_FILENAME}; use a new output root"
+            )
+        return None
+    text = (
+        manifest.source_text
+        if manifest.source_text is not None
+        else manifest.manifest_path.read_text(encoding="utf-8")
+    )
+    if path.exists():
+        if path.read_text(encoding="utf-8") != text:
+            raise ValueError(
+                f"existing {MANIFEST_SNAPSHOT_FILENAME} does not match this run's manifest"
+            )
+        return path
+    _write_text_atomic(path, text, output_root=output_root)
+    return path
+
+
 def _write_approval_snapshot(
     output_root: pathlib.Path,
     *,
@@ -3254,7 +3345,18 @@ def _load_story(data: dict[str, Any]) -> SpikeStory:
         title=_required_string(data, "title"),
         selection_genre=_required_string(data, "selection_genre"),
         sample_roles=tuple(data.get("sample_roles", ())),
+        expectations=_load_expectations(data.get("expectations")),
     )
+
+
+def _load_expectations(value: Any) -> dict[str, Any]:
+    """Return a story's operational expectations as a JSON-safe dict."""
+
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise ValueError("story expectations must be an object")
+    return json.loads(json.dumps(value))
 
 
 def _existing_evidence_ids(
@@ -3323,16 +3425,32 @@ def _optional_float(value: Any) -> float | None:
         return None
 
 
+def _story_fingerprint_data(story: SpikeStory) -> dict[str, Any]:
+    """Return a story's fingerprint input.
+
+    ``expectations`` is omitted when empty so manifests written before the
+    field existed keep their fingerprints, and any approval snapshot that
+    compares them stays valid.
+    """
+
+    data = dataclasses.asdict(story)
+    if not data["expectations"]:
+        del data["expectations"]
+    return data
+
+
 def _manifest_fingerprint(manifest: SpikeManifest) -> str:
     payload = {
         "version": manifest.version,
         "source_worldcon_manifest": manifest.source_worldcon_manifest,
-        "smoke_stories": [dataclasses.asdict(item) for item in manifest.smoke_stories],
+        "smoke_stories": [
+            _story_fingerprint_data(item) for item in manifest.smoke_stories
+        ],
         "sample_stories": [
-            dataclasses.asdict(item) for item in manifest.sample_stories
+            _story_fingerprint_data(item) for item in manifest.sample_stories
         ],
         "canary_stories": [
-            dataclasses.asdict(item) for item in manifest.canary_stories
+            _story_fingerprint_data(item) for item in manifest.canary_stories
         ],
         "gates": {
             key: dataclasses.asdict(value)
