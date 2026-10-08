@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_09_29_06_49_17_WI_LINGUISTICS_0014_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/472
-commit: 0b6096e4
+commit: c039fafb
 created_at: 2026-10-07T23:09:27+00:00
 ---
 
@@ -26,8 +26,8 @@ Implemented and committed the review fixes as `0b6096e4`:
 - Validated diagnostic object fields, statuses, spans, and token indices.
 - Added regression coverage for all four findings.
 
-The implementation commit is ready to push to PR 472. No merge or closeout
-action has been performed.
+The implementation and CI-formatting commits are ready to push to PR 472.
+No merge or closeout action has been performed.
 
 # Validation
 
@@ -36,6 +36,7 @@ action has been performed.
 - Full test suite: 2,377 passed.
 - `lrh validate`: 0 errors, 341 pre-existing warnings.
 - `git diff --check`: passed.
+- Black diagnostic check on all changed files: passed.
 - `scripts/version tools`: environment warning only; installed tooling is
   from another checkout.
 - `scripts/format --check --diff` and `scripts/lint`: blocked by the local
@@ -44,5 +45,5 @@ action has been performed.
 
 # Follow-up
 
-Push this implementation and record commit, then run confirm-fixes against
-the new PR head. The historical audit packet remains untouched.
+Push the formatting correction, then run confirm-fixes against the new PR
+head. The historical audit packet remains untouched.
