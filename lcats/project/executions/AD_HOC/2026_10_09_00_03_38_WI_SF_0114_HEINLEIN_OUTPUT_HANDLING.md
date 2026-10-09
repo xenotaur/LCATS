@@ -2,12 +2,12 @@
 execution_id: 2026_10_09_00_03_38_WI_SF_0114_HEINLEIN_OUTPUT_HANDLING
 prompt_id: PROMPT(AD_HOC:WI_SF_0114_HEINLEIN_OUTPUT_HANDLING)[2026-10-09T00:02:45+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 pr: https://github.com/xenotaur/LCATS/pull/488
 created_at: 2026-10-09T00:03:38+00:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-SF-0114.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
