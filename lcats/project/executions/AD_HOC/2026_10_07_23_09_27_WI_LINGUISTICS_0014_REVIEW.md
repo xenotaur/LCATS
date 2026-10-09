@@ -2,10 +2,11 @@
 execution_id: 2026_10_07_23_09_27_WI_LINGUISTICS_0014_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_LINGUISTICS_0014_REVIEW)[2026-10-07T23:09:23+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_09_29_06_49_17_WI_LINGUISTICS_0014_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/472
-commit: a688f48d
+commit: 7ea7aefcfdc833a13904b9606f10f29d156e0626
+session_transcript: codex-app:01a032cd-cef2-73c0-9714-b61b36ae4513
 created_at: 2026-10-07T23:09:27+00:00
 ---
 
