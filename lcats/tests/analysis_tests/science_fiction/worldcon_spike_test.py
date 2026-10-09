@@ -1684,6 +1684,18 @@ RECORDED_MANIFEST_FINGERPRINTS = {
 }
 
 
+class _CountingBackend:
+    """Delegate to the deterministic backend and record which tools were called."""
+
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.tool_names = []
+
+    def complete(self, **kwargs):
+        self.tool_names.append(kwargs["tool"]["name"])
+        return self.delegate.complete(**kwargs)
+
+
 class _StageOverrideBackend:
     """Delegate to the deterministic backend, overriding one stage's tool result."""
 
@@ -1873,6 +1885,49 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
 
                 self._assert_heinlein_failed_but_story_complete(story, data, fragment)
 
+    def test_wrongly_typed_fields_are_quarantined(self):
+        cases = {
+            "rationale": (None, "rationale must be a string"),
+            "supporting_evidence_ids": (
+                "ev-1",
+                "supporting_evidence_ids must be a list",
+            ),
+        }
+        for field, (value, fragment) in cases.items():
+            with self.subTest(field=field):
+
+                def retype(result, field=field, value=value):
+                    result["heinlein_criteria"][0][field] = value
+                    return result
+
+                _, _, story, data = self._run(
+                    f"retype-{field}",
+                    _StageOverrideBackend(
+                        run_worldcon_spike.HEINLEIN_TOOL_NAME, retype
+                    ),
+                )
+
+                self._assert_heinlein_failed_but_story_complete(story, data, fragment)
+
+    def test_out_of_range_confidence_is_quarantined(self):
+        for name, value in (("high", 17), ("negative", -3), ("nan", float("nan"))):
+            with self.subTest(name=name):
+
+                def set_confidence(result, value=value):
+                    result["heinlein_criteria"][0]["confidence"] = value
+                    return result
+
+                _, _, story, data = self._run(
+                    f"confidence-{name}",
+                    _StageOverrideBackend(
+                        run_worldcon_spike.HEINLEIN_TOOL_NAME, set_confidence
+                    ),
+                )
+
+                self._assert_heinlein_failed_but_story_complete(
+                    story, data, "confidence"
+                )
+
     def test_a_genuine_all_not_assessable_response_is_still_accepted(self):
         _, _, story, data = self._run(
             "genuine",
@@ -1979,7 +2034,7 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
         self.assertIn("evidence_type is required", quarantine["failure_message"])
 
     def test_an_explicit_empty_evidence_list_is_accepted_with_a_warning(self):
-        output_root, _, story, _ = self._run(
+        output_root, _, story, data = self._run(
             "empty-list",
             _StageOverrideBackend(
                 run_worldcon_spike.EVIDENCE_TOOL_NAME,
@@ -1987,9 +2042,62 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
             ),
         )
 
-        self.assertNotEqual("failed", story["status"], story)
-        events = [e["event"] for e in self._events(output_root)]
-        self.assertIn("evidence_empty_list", events)
+        # The evidence stage itself does not fail the story, and the warning is
+        # logged. The deterministic backend then cites evidence IDs that do not
+        # exist, so the later stages record their own failures; a real model
+        # given no evidence would be expected to answer not_assessable.
+        self.assertEqual("complete", story["status"])
+        self.assertEqual([], data["evidence_sets"][0]["records"])
+        events = [
+            e for e in self._events(output_root) if e["event"] == "evidence_empty_list"
+        ]
+        self.assertEqual(1, len(events))
+        self.assertEqual("sf_evidence", events[0]["stage"])
+
+    def test_an_old_zero_record_checkpoint_is_not_reused_on_resume(self):
+        output_root = self.root / "resume-old-checkpoint"
+        counting = _CountingBackend()
+        options = lambda: _heinlein_options(output_root, resume=True)  # noqa: E731
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=counting):
+            first = run_worldcon_spike.run_spike(options())
+        self.assertEqual("complete", first["stories"][0]["status"])
+
+        checkpoint_file = next(output_root.glob("*/sf_evidence.json"))
+        record = json.loads(checkpoint_file.read_text(encoding="utf-8"))
+        # The shape the canary's Vonnegut trials produced: every candidate is
+        # quarantined, so an old run would have stored zero usable records.
+        record["data"]["tool_result"] = {
+            "evidence": [
+                {
+                    "raw_id": "e1",
+                    "quotation": "There were no prisons.",
+                    "paragraph_ids": ["p00002"],
+                    "paraphrase": "No prisons exist.",
+                    "confidence": 0.9,
+                }
+            ]
+        }
+        checkpoint_file.write_text(json.dumps(record), encoding="utf-8")
+        # Reuse also cross-checks the raw artifact, so rewrite it consistently.
+        raw_file = pathlib.Path(record["data"]["raw_response_path"])
+        raw = json.loads(raw_file.read_text(encoding="utf-8"))
+        raw["tool_result"] = record["data"]["tool_result"]
+        raw_file.write_text(json.dumps(raw), encoding="utf-8")
+
+        resumed_backend = _CountingBackend()
+        with patch.object(
+            run_worldcon_spike, "_make_backend", return_value=resumed_backend
+        ):
+            second = run_worldcon_spike.run_spike(options())
+
+        self.assertEqual("complete", second["stories"][0]["status"])
+        self.assertIn(run_worldcon_spike.EVIDENCE_TOOL_NAME, resumed_backend.tool_names)
+        reused = [
+            e["stage"]
+            for e in self._events(output_root)
+            if e["event"] == "stage_reused"
+        ]
+        self.assertNotIn("sf_evidence", reused)
 
 
 CANARY_FIXTURES = (

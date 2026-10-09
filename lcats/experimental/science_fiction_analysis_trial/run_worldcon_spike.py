@@ -2058,6 +2058,17 @@ def _heinlein_decisions(
             raise ValueError(
                 f"{HEINLEIN_STAGE} {criterion_id}: confidence must be a number"
             )
+        if "supporting_evidence_ids" in item and not isinstance(
+            item["supporting_evidence_ids"], list
+        ):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} {criterion_id}: "
+                "supporting_evidence_ids must be a list"
+            )
+        if "rationale" in item and not isinstance(item["rationale"], str):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} {criterion_id}: rationale must be a string"
+            )
         decisions.append(
             heinlein.CriterionAdjudication(
                 criterion_id=criterion_id,

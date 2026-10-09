@@ -128,14 +128,30 @@ def extract_fenced_code_blocks(text):
     return matches
 
 
-# A response that is exactly one ```json fenced block: nothing but whitespace
-# outside the fence and nothing but spaces after "json" on the opening line. The
-# closing fence is anchored to the end of the text, so backticks inside a JSON
-# string value cannot end the block early.
-_STRICT_FENCE_PATTERN = re.compile(
-    r"\A\s*```json[ \t]*\r?\n(?P<body>.*?)\r?\n?[ \t]*```\s*\Z",
-    flags=re.DOTALL,
-)
+_STRICT_FENCE_OPEN = "```json"
+_STRICT_FENCE_CLOSE = "```"
+
+
+def _unwrap_strict_fence(text: str) -> str | None:
+    """Return the body of a response that is exactly one ```json fenced block.
+
+    Nothing but whitespace may surround the fence and nothing but spaces or
+    tabs may follow ``json`` on the opening line. The closing fence is the end
+    of the text, so backticks inside a JSON string value cannot end the block
+    early, and a second block makes the body invalid JSON. The check is
+    linear in the length of the text. Returns ``None`` when the text is not
+    shaped like that.
+    """
+
+    stripped = text.strip()
+    if not stripped.startswith(_STRICT_FENCE_OPEN):
+        return None
+    if not stripped.endswith(_STRICT_FENCE_CLOSE):
+        return None
+    opening_line, newline, rest = stripped[len(_STRICT_FENCE_OPEN) :].partition("\n")
+    if not newline or opening_line.strip(" \t\r"):
+        return None
+    return rest[: -len(_STRICT_FENCE_CLOSE)]
 
 
 def extract_json(
@@ -162,12 +178,12 @@ def extract_json(
         return json.loads(json_string)
     except json.JSONDecodeError as exc:
         if strict_fence:
-            match = _STRICT_FENCE_PATTERN.match(json_string)
-            if match is None:
+            body = _unwrap_strict_fence(json_string)
+            if body is None:
                 raise ValueError(
                     "Expected plain JSON or exactly one fenced json block."
                 ) from exc
-            return json.loads(match.group("body"))
+            return json.loads(body)
         code_blocks = extract_fenced_code_blocks(json_string)
         if not code_blocks:
             raise ValueError("No JSON found in the string.") from exc

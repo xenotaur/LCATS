@@ -476,6 +476,18 @@ class TestExtractJsonStrictFence(unittest.TestCase):
         with self.assertRaises(ValueError):
             utils.extract_json('```json\n{"a": \n```', strict_fence=True)
 
+    def test_long_whitespace_runs_are_handled_in_linear_time(self):
+        """A degenerate reply padded with whitespace must not stall the parse."""
+        padding = " " * 500_000
+        accepted = '```json\n{"a": 1,' + padding + '"b": 2}\n```'
+        rejected = "```json\n" + padding + "x"
+
+        self.assertEqual(
+            utils.extract_json(accepted, strict_fence=True), {"a": 1, "b": 2}
+        )
+        with self.assertRaises(ValueError):
+            utils.extract_json(rejected, strict_fence=True)
+
     def test_prose_only_raises_value_error(self):
         """Plain prose is rejected in strict mode."""
         with self.assertRaises(ValueError):
