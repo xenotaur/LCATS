@@ -2,13 +2,13 @@
 execution_id: 2026_10_09_16_00_33_WI_SF_0114_FAIL_LOUD_STRUCTURED_OUTPUT
 prompt_id: PROMPT(WI-SF-0114:WI_SF_0114_FAIL_LOUD_STRUCTURED_OUTPUT)[2026-10-09T05:49:14+00:00]
 work_item: WI-SF-0114
-status: in_progress
+status: landed
 pr: https://github.com/xenotaur/LCATS/pull/490
-commit: a30b4b36750fd6580ec1c2a17fed4528fdcd69a5
+commit: fa33d1bbf589b5858ae1c14cf0777001ba42d61a
 created_at: 2026-10-09T16:00:33+00:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-SF-0114.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary

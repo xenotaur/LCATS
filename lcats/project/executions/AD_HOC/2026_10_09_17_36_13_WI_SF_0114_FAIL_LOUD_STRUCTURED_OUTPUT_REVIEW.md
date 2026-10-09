@@ -2,14 +2,14 @@
 execution_id: 2026_10_09_17_36_13_WI_SF_0114_FAIL_LOUD_STRUCTURED_OUTPUT_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0114_FAIL_LOUD_STRUCTURED_OUTPUT_REVIEW)[2026-10-09T17:34:15+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_09_16_00_33_WI_SF_0114_FAIL_LOUD_STRUCTURED_OUTPUT
 pr: https://github.com/xenotaur/LCATS/pull/490
-commit: 77f91697d926a0a1beb3ab800f384e5d33819a54
+commit: fa33d1bbf589b5858ae1c14cf0777001ba42d61a
 created_at: 2026-10-09T17:36:13+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/490
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
