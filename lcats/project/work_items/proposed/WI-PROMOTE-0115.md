@@ -44,8 +44,8 @@ forbidden_actions:
   - use_promote_upsert_for_seeding
   - edit_immutable_evidence_or_execution_records
 acceptance:
-  - "docs/reference/prepare-corpora-release.md has a seed step placed before the promotion preview, with the exact commands (build the manifest with tools/build_genre_seed_manifest.py --expect-count 146, then lcats promote insert --sidecar genre --tranche-manifest <manifest> --dest data/ first with --dry-run and then for real), the expected output and exit codes, and what to do on a rejection or a collision; the existing step 7b orphaned-sidecar caution points at the new step and still warns against --allow-orphaned-sidecar-deletion; the 'If verification finds problems' section is updated so a re-run includes the seed step"
-  - "A scratch run on copies of a populated data/ and of corpora/ (never the real trees) is recorded in the execution record with the exact commands and results: a seeded data/ previews clean (lcats promote replace --dry-run reports 12 would promote and 0 blocked), a bare replace exits 0, and the 146 genre.json files are byte-identical to corpora/; every command added to the docs was run"
+  - "docs/reference/prepare-corpora-release.md has a seed step placed before the promotion preview, with the exact commands (build the manifest with tools/build_genre_seed_manifest.py --expect-count 146, then lcats promote insert --sidecar genre --tranche-manifest <manifest> --dest data/ first with --dry-run and then for real), the expected output and exit codes, and what to do on a rejection or a collision, for both a full release and a single-collection release (a manifest filtered to that collection), plus the recovery path after a rejected real insert (stop before replace, restore a clean data/, fix the cause, rerun the dry-run and insert from scratch); the existing step 7b orphaned-sidecar caution points at the new step and still warns against --allow-orphaned-sidecar-deletion; the 'If verification finds problems' section is updated so a re-run includes the seed step"
+  - "A scratch run on copies of a populated data/ and of corpora/ (never the real trees) is recorded in the execution record with the exact commands and results: a seeded data/ previews clean (lcats promote replace --dry-run reports 12 would promote and 0 blocked), a bare replace exits 0, and the 146 genre.json files are byte-identical to corpora/; the single-collection path (filtered manifest, scoped replace --dry-run) and the rejected-insert recovery path are each run and recorded too; every command added to the docs was run"
   - "docs/reference/corpus-promotion.md documents seeding data/ with insert --dest data/ and why insert and not upsert; tools/README.md lists tools/build_genre_seed_manifest.py and tools/rewrite_genre_cache_db_path.py if that is a trivial accurate addition"
   - "No incoming reference breaks: a repo-wide grep for references to the runbook's step numbers (excluding immutable evidence and execution records) is recorded with its result, the chosen step numbering is recorded, and lrh validate reports 0 errors"
 required_evidence:
@@ -97,6 +97,33 @@ in immutable evidence and execution records (for example `EV-0003`'s "step 6" =
 preview) stay correct. The executor may renumber instead only if it records why
 and updates every non-immutable reference.
 
+**Two release modes, and `insert` is not transactional (review findings,
+PR #491, verified on scratch copies).**
+
+- *Full release* (`lcats clean`, then every step unscoped): `data/` starts empty,
+  so seeding the whole 146-record manifest has no collisions.
+- *Single-collection release* (the runbook's `lcats clean <collection>` plus
+  scoped survey and replace): `data/` keeps the sidecars from a previous seed in
+  every untouched collection, and `promote insert` has no collection selector, so
+  the full manifest rejects them (a scoped clean of `wodehouse` then a
+  full-manifest dry-run gave 12 would-promote and 134 rejected, exit 1). The seed
+  step must use a manifest filtered to the collection, for example
+  `grep -F '"lcats_id": "<collection>/' seed.jsonl > seed_<collection>.jsonl`
+  (the trailing `/` stops a name that is a prefix of another from matching).
+  Checked: a 12-record filtered manifest gave dry-run exit 0, real insert exit 0,
+  and `replace <collection> --dry-run` would promote; unseeded, the scoped
+  replace stays blocked. Only 7 of the 12 collections have seeded sidecars
+  (anderson, chesterton, grimm, london, lovecraft, mass_quantities, wodehouse), so
+  a filtered manifest with 0 lines means there is nothing to seed.
+- `insert` writes record by record. A manifest with one rejected record still
+  wrote all 146 good sidecars and exited 1, and a retry then rejected all 146 as
+  collisions. So after any rejection in the real insert the operator must stop
+  before `replace`, restore a clean `data/` (re-run the clean and regenerate steps,
+  scoped to the collection for a single-collection release), fix the cause, and
+  rerun the dry-run and the insert from scratch. A `--collection` option on the
+  build tool would remove the grep, but that is a code change and out of scope
+  here (a possible later follow-up).
+
 ### Duplication search
 - In-repo: no existing work item or doc adds the seed step. The runbook's step
   7b has only a caution that explains the block; the design note drafts the step
@@ -121,7 +148,10 @@ Both parent workstreams (`WS-GENRE-EVIDENCE-SIDECARS`,
   promotion preview, with exact commands, expected output and exit codes, and
   what to do on a rejection (a seed record whose story bucket regeneration no
   longer produces) or a collision (a pipeline-produced `genre.json` already in
-  `data/`). Update the existing 7b orphaned-sidecar caution so it points at the
+  `data/`). Cover both a full release and a single-collection release (filtered
+  manifest; skip the step when the collection has no seeded sidecars), and state
+  that a rejection after the real `insert` means stopping before `replace` and
+  restoring a clean `data/` before retrying. Update the existing 7b orphaned-sidecar caution so it points at the
   new step and keeps the warning against `--allow-orphaned-sidecar-deletion`.
   Update the "If verification finds problems" section so a re-run includes the
   seed step, since `lcats clean` empties `data/` every time.
@@ -143,6 +173,13 @@ Both parent workstreams (`WS-GENRE-EVIDENCE-SIDECARS`,
   copy (12 would promote, 0 blocked), and a bare `replace` (exit 0, 146
   byte-identical `genre.json`). Also record that the unseeded preview is blocked
   (exit 1, 7 collections) as the control.
+- Also run and record the single-collection path: simulate a scoped clean of one
+  seeded collection (for example `wodehouse`), show the full-manifest dry-run
+  rejects the other collections' existing sidecars, then run the documented
+  filtered-manifest commands (dry-run, real insert, `replace <collection>
+  --dry-run`). And run and record the recovery path: a manifest with one rejected
+  record writes the others and exits 1, a retry collides, and restoring a clean
+  `data/` then rerunning from scratch succeeds.
 - Run a repo-wide grep for references to the runbook's step numbers, excluding
   immutable evidence and execution records, and record the result and the chosen
   numbering. Do not edit immutable evidence or execution records.
@@ -162,12 +199,14 @@ Both parent workstreams (`WS-GENRE-EVIDENCE-SIDECARS`,
 ## Acceptance Criteria
 
 - The runbook has a seed step before the promotion preview, with exact commands,
-  expected output and exit codes, and rejection/collision guidance; the 7b caution
-  points at it and still warns against the override flag; the "If verification
-  finds problems" section covers a re-run.
+  expected output and exit codes, and rejection/collision guidance for both a full
+  and a single-collection release, plus the recovery path after a rejected real
+  insert; the 7b caution points at it and still warns against the override flag;
+  the "If verification finds problems" section covers a re-run.
 - A recorded scratch run shows a seeded `data/` previews clean (12 would promote,
   0 blocked), a bare `replace` exits 0, and 146 `genre.json` files are
-  byte-identical to `corpora/`; every added command was run.
+  byte-identical to `corpora/`; the single-collection and recovery paths are also
+  run and recorded; every added command was run.
 - `corpus-promotion.md` documents the seeding and why `insert`; `tools/README.md`
   lists both tools if that was trivial.
 - No incoming reference breaks, the chosen numbering is recorded, and
@@ -183,6 +222,9 @@ Both parent workstreams (`WS-GENRE-EVIDENCE-SIDECARS`,
 
 - Seeding must happen after every regeneration: `lcats clean` empties `data/`, so
   an operator who re-runs step 2 or 3 must seed again. State this in the runbook.
+- `insert` is not transactional and has no collection selector: the runbook must
+  not imply that a failed insert leaves `data/` untouched, and the single-
+  collection instructions must use a filtered manifest, not the full one.
 - The seeded sidecars carry no story-text fingerprint, so stale evidence for a
   story whose text changed is not detected (design-note follow-up 4); say so
   briefly rather than implying the seed is verified against the text.
