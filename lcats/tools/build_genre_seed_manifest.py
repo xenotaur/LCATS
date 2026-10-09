@@ -34,9 +34,14 @@ that ``lcats promote insert`` will accept.
 Exit codes: ``0`` success; ``1`` malformed evidence, an invalid sidecar payload,
 or an ``--expect-count`` mismatch (no manifest is written); ``2`` usage or
 environment error (missing or unreadable evidence file, ``--manifest-out`` would
-overwrite the evidence file, or the manifest cannot be written, e.g. its
-directory does not exist). The manifest is written atomically, so an error never
-leaves a partial file behind.
+overwrite the evidence file, ``--manifest-out`` is inside a protected tree, or
+the manifest cannot be written, e.g. its directory does not exist). The manifest
+is written atomically, so an error never leaves a partial file behind.
+
+``--manifest-out`` may not be the evidence file or anywhere inside the repository's
+``corpora/`` or ``lcats/data``, or inside the roots configured by
+``LCATS_CORPORA_DIR`` / ``LCATS_DATA_DIR`` (symlinks are resolved first), so the
+tool can never overwrite corpus or data content.
 """
 
 import argparse
@@ -49,6 +54,7 @@ import tempfile
 from typing import Any
 
 from lcats.analysis.corpus import genre_sidecar
+from lcats.utils import env
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_EVIDENCE = (
@@ -139,6 +145,30 @@ def find_invalid_payloads(records: list[dict[str, Any]]) -> list[str]:
     return problems
 
 
+def protected_roots() -> list[pathlib.Path]:
+    """Return the resolved trees that ``--manifest-out`` must never be inside."""
+    roots = [
+        _REPO_ROOT / "corpora",
+        _REPO_ROOT / "lcats" / "data",
+        env.corpora_root(),
+        env.data_root(),
+    ]
+    return [root.resolve() for root in roots]
+
+
+def find_protected_tree(path: pathlib.Path) -> pathlib.Path | None:
+    """Return the protected tree ``path`` is, or is inside, or ``None``.
+
+    ``path`` is resolved first (the file need not exist), so a symlinked parent
+    that points into a protected tree is caught.
+    """
+    resolved = path.resolve()
+    for root in protected_roots():
+        if resolved == root or root in resolved.parents:
+            return root
+    return None
+
+
 def _write_manifest_atomically(
     path: pathlib.Path, records: list[dict[str, Any]]
 ) -> None:
@@ -175,6 +205,14 @@ def main(argv: list[str] | None = None) -> int:
     if args.manifest_out.resolve() == args.evidence.resolve():
         print(
             "error: --manifest-out would overwrite the evidence file",
+            file=sys.stderr,
+        )
+        return 2
+    protected = find_protected_tree(args.manifest_out)
+    if protected is not None:
+        print(
+            f"error: --manifest-out {args.manifest_out} is inside the protected "
+            f"tree {protected}; refusing to write there",
             file=sys.stderr,
         )
         return 2

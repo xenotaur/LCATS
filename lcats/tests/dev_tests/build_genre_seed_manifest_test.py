@@ -6,6 +6,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
 import pathlib
 import tempfile
 import unittest
@@ -313,6 +314,83 @@ class SyntheticEvidenceTest(unittest.TestCase):
         self.assertEqual(code, 2)
         self.assertFalse(wrote)
         self.assertIn("cannot read", err.getvalue())
+
+    def _main_with(self, out, env_overrides=None):
+        """Run main() against a one-record evidence file; return (code, stderr)."""
+        err = io.StringIO()
+        with tempfile.TemporaryDirectory() as tmp:
+            evidence = pathlib.Path(tmp) / "e.jsonl"
+            evidence.write_text(
+                json.dumps(_valid_record("c/one")) + "\n", encoding="utf-8"
+            )
+            with (
+                mock.patch.dict(os.environ, env_overrides or {}),
+                contextlib.redirect_stderr(err),
+            ):
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(out)]
+                )
+        return code, err.getvalue()
+
+    def test_output_inside_repo_corpora_is_refused(self):
+        out = seed._REPO_ROOT / "corpora" / "zz_no_such_collection" / "seed.jsonl"
+        code, err = self._main_with(out)
+        self.assertEqual(code, 2)
+        self.assertIn("protected", err)
+        self.assertFalse(out.parent.exists())
+
+    def test_output_inside_repo_lcats_data_is_refused(self):
+        out = seed._REPO_ROOT / "lcats" / "data" / "zz_no_such" / "seed.jsonl"
+        code, err = self._main_with(out)
+        self.assertEqual(code, 2)
+        self.assertIn("protected", err)
+        self.assertFalse(out.parent.exists())
+
+    def test_output_inside_configured_roots_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            corpora, data = tmp / "cc", tmp / "dd"
+            corpora.mkdir()
+            data.mkdir()
+            overrides = {
+                "LCATS_CORPORA_DIR": str(corpora),
+                "LCATS_DATA_DIR": str(data),
+            }
+            for root in (corpora, data):
+                code, err = self._main_with(root / "seed.jsonl", overrides)
+                self.assertEqual(code, 2, root)
+                self.assertIn("protected", err)
+                self.assertFalse((root / "seed.jsonl").exists())
+
+    def test_symlinked_parent_into_protected_tree_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            corpora = tmp / "cc"
+            corpora.mkdir()
+            link = tmp / "link"
+            link.symlink_to(corpora, target_is_directory=True)
+            code, err = self._main_with(
+                link / "seed.jsonl", {"LCATS_CORPORA_DIR": str(corpora)}
+            )
+            self.assertEqual(code, 2)
+            self.assertIn("protected", err)
+            self.assertFalse((corpora / "seed.jsonl").exists())
+
+    def test_existing_file_in_protected_tree_is_left_untouched(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            sidecar = tmp / "cc" / "s" / "genre.json"
+            sidecar.parent.mkdir(parents=True)
+            sidecar.write_text('{"keep": "me"}', encoding="utf-8")
+            code, _ = self._main_with(sidecar, {"LCATS_CORPORA_DIR": str(tmp / "cc")})
+            self.assertEqual(code, 2)
+            self.assertEqual(sidecar.read_text(encoding="utf-8"), '{"keep": "me"}')
+
+    def test_normal_output_path_is_not_protected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertIsNone(
+                seed.find_protected_tree(pathlib.Path(tmp) / "seed.jsonl")
+            )
 
     def test_refuses_to_overwrite_the_evidence_file(self):
         with tempfile.TemporaryDirectory() as tmp:
