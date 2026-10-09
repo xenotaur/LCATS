@@ -1,0 +1,60 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 4852,
+  "model": "fake-worldcon-spike",
+  "output_tokens": 236,
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "dominant_novum_id": "novum-1",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-1",
+        "character_reaction_evidence_ids": [
+          "ev-reaction"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats explanatory evidence as cognitive validation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-explanation"
+          ]
+        },
+        "description": "No-cost smoke candidate derived from story text.",
+        "estrangement_rationale": "Estrangement evidence is recorded separately.",
+        "evidence_ids": [
+          "ev-storyworld",
+          "ev-explanation",
+          "ev-consequence"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats consequence evidence as hegemony.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-consequence"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats the storyworld contrast as novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-storyworld"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "ev-contrast"
+        ]
+      }
+    ]
+  }
+}
