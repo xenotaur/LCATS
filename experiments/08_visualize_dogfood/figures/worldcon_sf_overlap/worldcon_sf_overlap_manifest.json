@@ -1,0 +1,795 @@
+{
+  "prototype": "worldcon-sf-overlap-option-1-plus-option-4-v1",
+  "universe": {
+    "story_count": 146,
+    "source_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "science_fiction_root": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z"
+  },
+  "inputs": [
+    {
+      "path": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+      "sha256": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
+      "git_revision": "bd7991f730d1f4f023e653e1a702ab589c4782d8"
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl",
+      "sha256": "3abdfce9c46800e3b7412e5f5e557aa0a192fd5037419965835658377e48645e",
+      "git_revision": "8f468116576d71e79e535bb4910bb8434a590d9a"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/bell/science-fiction.json",
+      "sha256": "58114078360cad51af9d34c2b9b3415283abe8bb4499924631e8ae699ba59d1b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/dream_of_little_tuk/science-fiction.json",
+      "sha256": "21280150143b96c7300c32cabb3718ef6320a150621570d2ad0fa2d49c0db116",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/elderbush/science-fiction.json",
+      "sha256": "75876ab039d31b5934fc35d47695e250bf0ef0d63b82b90eb6235fdadc4570ef",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/emperor_s_new_clothes/science-fiction.json",
+      "sha256": "4a15e0ae8bee552823782011cc51fce875eb0e4bf1d64e670397513327eefb8b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/false_collar/science-fiction.json",
+      "sha256": "4e95cef1c97e4ea6b11386eabca7de97b14c9d0d3deb5b161a2de0ae4abc6901",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/fir_tree/science-fiction.json",
+      "sha256": "a1cf72a9087cdb0b38c83f7a8ce91f3cd400047f7f360b48f353b56db1185969",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/happy_family/science-fiction.json",
+      "sha256": "18ab5b2739f415eae068dcf334db6398f5be4db677dfc1c9679186d5f7ec1670",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/leap_frog/science-fiction.json",
+      "sha256": "f305161d6436d26c75ab122d30623b3798c9540fb528f7c89da0ef2869447042",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/little_match_girl/science-fiction.json",
+      "sha256": "bd2ec2168d0d9b80b5969241e0563e75562851b19ad99d0538c567c4a768422d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/naughty_boy/science-fiction.json",
+      "sha256": "5ec6791c8ccb8ed1a2b9b0370913ee25787d86797aba0339ab1fd1f2a4b0091e",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/old_house/science-fiction.json",
+      "sha256": "69cb822b167c38a8b7f3133040adaff18d31aedd160de6a977f061e554802a7f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/real_princess/science-fiction.json",
+      "sha256": "643a83bb1b392c6b263fe7229f9ab292657ccd6d4bc55d50d48d6a77946b9efb",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/red_shoes/science-fiction.json",
+      "sha256": "cc377baa3df2afc9fbea27e3286c74e27049b294e96a543dacb34bc71ae7b1a7",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/shadow/science-fiction.json",
+      "sha256": "279faf7ed9a4f1030e8a4b64f5860f260d2c7ff90024b109dcb5723b9299aacd",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/shoes_of_fortune/science-fiction.json",
+      "sha256": "3b822e815580b59e32e9338e4a7b65ba331037fd0bedfb505803ae76f613431d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/snow_queen/science-fiction.json",
+      "sha256": "4097a606882941405506cf027466fe45037c4a142ac47237eec98f9b2a6bedf3",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/story_of_a_mother/science-fiction.json",
+      "sha256": "8d38298ce754f02c905f4d82c6a6beafb230ddbe532d6d51045b15d326c51846",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/anderson/swineherd/science-fiction.json",
+      "sha256": "fe88c720359b33f2487553668d06426eb962e18081776d17fb0d5d674090600b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/blue_cross/science-fiction.json",
+      "sha256": "634d9412474e0f0d37bf1ca3d4dddecc30186f8bb786f2c95a40e2cf75500d60",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/eye_of_apollo/science-fiction.json",
+      "sha256": "c0dc55ab37e436a0a63507345aedd4eaae6842845a0fdf6579bb99d36e1c8687",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/flying_stars/science-fiction.json",
+      "sha256": "a756d44ab5048cdbe93adda4964b29e1b3b5209e88527160ebf4529fa927d4d1",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/hammer_of_god/science-fiction.json",
+      "sha256": "1d1a1c90410058d984ba29ec5dbed3fb010ca5d0d2ed1eda672032177f885133",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/honour_of_israel_gow/science-fiction.json",
+      "sha256": "70befada904b0f54f824f8de7fe7ee56721ae2d8ea865506293f93edf690ced8",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/invisible_man/science-fiction.json",
+      "sha256": "159869de4a988ed9b37d97e83d91d5b1a1dd23620c8a2decf7e7b250aa02c545",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/queer_feet/science-fiction.json",
+      "sha256": "db23384425b5a50ad99ca7535109023f8a1c45b56bb36e2e1d201d9f5568a8f5",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/secret_garden/science-fiction.json",
+      "sha256": "03f1fdf5950f1e999d6f01252db90fc4b0d4d96ba3a9552825952e6b732ec014",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/sign_of_the_broken_sword/science-fiction.json",
+      "sha256": "99b20939b994e5687abfdc2ea5c758170eb268f11a46501c2b16da956f4598cc",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/sins_of_prince_saradine/science-fiction.json",
+      "sha256": "727626b63a4befa003e3517c53c1738c15ed870914aa890cb2b15ec295a8426d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/three_tools_of_death/science-fiction.json",
+      "sha256": "55892364d75e409198160ae3f91b3a3c16a674a3227e394d93d2471d9e6bfd9d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/chesterton/wrong_shape/science-fiction.json",
+      "sha256": "5ed500e036bb004278197a9c1c8eedf1759dbb564bb84a0c4ae45f6a544f492b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/grimm/adventures_of_chanticleer_and_partlet/science-fiction.json",
+      "sha256": "c2084fafec66833988c484985d262ba8ce00b13dbc6d3f6fb3a10a25b6f59dea",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/grimm/ashputtel/science-fiction.json",
+      "sha256": "72c4f29ca68e87d9a2a8dac097f0da8faa46048f7ffb68d1a897895ffc37d975",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/brown_wolf/science-fiction.json",
+      "sha256": "b80efd8b3f73415d2a1fafdc38cc62bb643705475bbd98cef8cd0b9d361d2938",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/day_s_lodging/science-fiction.json",
+      "sha256": "757a0205cd97f5776d0f38ae752f5e990f3fde286ed2f5b4dc33febe39ce7961",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/love_of_life/science-fiction.json",
+      "sha256": "ed8ed5438a4c26fc90c8fb7175f6421393c101da26b11fc6528d8be306d3cc61",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/negore_the_coward/science-fiction.json",
+      "sha256": "85a5961538ed741cc5bef88cd8298e43f79e8c6ca05f8e66ac5b3229d4d16e29",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/story_of_keesh/science-fiction.json",
+      "sha256": "fe0a194ba387607b491f03ce5f9abee2aad99f7d4fc78a8dda8b311365824f2b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/sun_dog_trail/science-fiction.json",
+      "sha256": "4d4c9e7a9e6bb4864c876f2d8811f7598836545e7d44b654b7db394acba8ec1b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/unexpected/science-fiction.json",
+      "sha256": "11b82831894a9f542c0eb27afcbcc446cac705d36faedcacdb000696fd71f512",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/london/white_man_s_way/science-fiction.json",
+      "sha256": "1b1921c39d12c7be5ec48b347c1dbbc23a06126971c5da456f990b54623d065b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/cool_air/science-fiction.json",
+      "sha256": "dc918daa5bf4112f3c050802888bb893a917cc6805918b22c3f52a463c5fae25",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/he/science-fiction.json",
+      "sha256": "6b231919cc1b869b37a52f55fa5f634c1e68774b6df8db6ae225e1bdb23be939",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_call_of_cthulhu/science-fiction.json",
+      "sha256": "7307c3073045f7d26f6fd0d31c8f60f52b46a1f091cd4a294f426d7647fd5a4d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_colour_out_of_space/science-fiction.json",
+      "sha256": "08219c8b90eee7465a2a07e84f3d0c38664adf146b2c06ab832558ed8e4ca12a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_festival/science-fiction.json",
+      "sha256": "1d66c5a3718536bd78c1d3bcbe92d7c01a06908b07068f2b71cc20ca38b18728",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_haunter_of_the_dark/science-fiction.json",
+      "sha256": "0879bdd91ede6256cb990f0b6e5545e0af7edbcb88d96d98e7ae482a7f5f612a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_horror_at_red_hook/science-fiction.json",
+      "sha256": "63d1f7bc7f95e11295e535fca90be01ac7c530f41d7fd5c6f1d3d8a20d97962b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_lurking_fear/science-fiction.json",
+      "sha256": "7cd494b159da32a8718126529c7a123780518033c8d7ab250439c64bf1fc5f49",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_shunned_house/science-fiction.json",
+      "sha256": "05a2a224b7d7477ac0ba6e386903139d1f9246f66516cb3a7ac0bb969ef06c27",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/lovecraft/the_thing_on_the_doorstep/science-fiction.json",
+      "sha256": "885c93842f8158baa1c78707c184e1fdd7c45f1395e8e58a23c4f9cb09dbe638",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/1_000_a_plate__mckenty/science-fiction.json",
+      "sha256": "ee46393508099a5b02ff1f6d85972506493e0e22d5f8f15fcd80fc452e9aa091",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/2_b_r_0_2_b__vonnegut/science-fiction.json",
+      "sha256": "840a9e55af8d6343b90acf69c8c3a7b76f319c08815f0b80bd8e1006153e9fc6",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/30deg_cattywonkus__bell/science-fiction.json",
+      "sha256": "ba8d24e4514c8f7b9483a30a690eaab5d08c02f020fdd5e8de6e2baeacb28358",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/6_frightened_men__silverberg/science-fiction.json",
+      "sha256": "b2afaaa518055d04973c9c3002cce3a7e214471de6bbbf7d49c35fb6ce49bff5",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/8_million_dollars_from_mars__marks/science-fiction.json",
+      "sha256": "bc997e16f2fec58681c43f2499d461d75a5d1559515fa9497d5de711a72531db",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_bad_day_for_sales__leiber/science-fiction.json",
+      "sha256": "1a239a7ab9dad24a65b521d5371e9d3db04e4f4fc2c037f35fe07bb1c394a39b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_bad_day_for_vermin__laumer/science-fiction.json",
+      "sha256": "123ee4be45f481e702bcbbd72fbcbc8a8e1df37a5aebac4e96c488bcdd94ab2b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_bottle_of_old_wine__lewis/science-fiction.json",
+      "sha256": "19bcfc6bdfac88ebabdac7d0448d126b714ef13677d0d3e340fa20c1f5d0058d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_case_of_sunburn__fontenay/science-fiction.json",
+      "sha256": "89e5c54ed799defa87a142995b701834ec1c9149ca51f73db05b24588a2afcf5",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_city_near_centaurus__doede/science-fiction.json",
+      "sha256": "281f7025204a98d63a72c9e706baef7825116cfa332e98c93eeaca90443bb444",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_cold_night_for_crying__marlowe/science-fiction.json",
+      "sha256": "b1722ea50d20d7e19fc24290a2cd9c1873e1d210f54f8c93847434386dc0cde8",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_drift_from_redwood_camp__harte/science-fiction.json",
+      "sha256": "e754cf3a2bdc57c3c9a424203878b02ff353d4fc399d22e10c5d6e016279e722",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_fall_of_glass__lee/science-fiction.json",
+      "sha256": "d0f2eda8532d897f972cd73aa75732cc0fca97ecf8a6ebabad06893b5f1ff2bf",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_filbert_is_a_nut__raphael/science-fiction.json",
+      "sha256": "03f66fd5df5635fa3a1f448cf6f988b6b01e65c2bf047d972f35a5fffdeafb83",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_gift_for_terra__holden/science-fiction.json",
+      "sha256": "a42ee15f60823407d289a549eaa44e2ec2bb7b3e908e2da1f65024d16cfbe3e2",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_gift_from_earth__banister/science-fiction.json",
+      "sha256": "7e089130ef3701cca565868ca5aec42b5013b43bab72b68b73917f24bccda9fd",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_great_day_for_the_irish__hopf/science-fiction.json",
+      "sha256": "d5773fa040916a48717cdc876cd8b813a2bf50aa181f8d953aa46ae9dc2d3874",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_hitch_in_space__leiber/science-fiction.json",
+      "sha256": "e295705fe8e5ee161152d06397e5203ef41063c9915b1f38aef81863646009a9",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_husband_for_my_wife__stuart/science-fiction.json",
+      "sha256": "5ede13486df0217476683f62899b0cfa3752fd9fbdcc9cb29cf2c9853955b642",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_jar_of_jelly_beans__gregory/science-fiction.json",
+      "sha256": "c6161ccfa65703bc0105f4b777a7bd3b6d54ffdbbe47f4ceedfc0d6628d92e6e",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_philanthropist__bacon/science-fiction.json",
+      "sha256": "0fabd30ac2c4f05f5e74a13cfba8d0690990535f3453a43f637203e2f1d44a76",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_prevaricated_parade__tuttle/science-fiction.json",
+      "sha256": "3cb90ce34c27b8f190323e731edb9ac2bbb037cac5fecde050f08c55c6081d11",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/a_reversion_to_type__bacon/science-fiction.json",
+      "sha256": "cef5632aa2939b177667c767cff8fea61fec80e5da3bc53fdf7d44345998e030",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/ajax_for_example__tuttle/science-fiction.json",
+      "sha256": "d3b3b834086f39e150d9f8f0ca177acd99e9ca69446d712616cd80f7b7a6a9b6",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/all_wool__tuttle/science-fiction.json",
+      "sha256": "3724e55af018fa5ca5c8d9e8dc655461734c71249777c425becd7c9f082113b4",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/amy_foster__conrad/science-fiction.json",
+      "sha256": "b219214d053188e4b0198f788520d3c2b9d40ff93da2d2bdcd90e9176b480e8c",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/back_home__davis/science-fiction.json",
+      "sha256": "232bfd7b49e230dae07be214eff0fc337fffdfc9a0854a95c5621d7b611b1c8b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/bearly_reasonable__tuttle/science-fiction.json",
+      "sha256": "58eaa7d0289f01e2c0aad14a02541ab038d97a625c7743f80d8f60e4ce4c5ce5",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/brown_john_s_body__marks/science-fiction.json",
+      "sha256": "b1cd409f79a332967e969b96c9f8d179412bf9e2c7a31e146a085eb7b31e43b1",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/cinders__tuttle/science-fiction.json",
+      "sha256": "c74d500f97a07d1cab1e0fe38bb25a2589cc9421a6c1932c88a11d6a0b0daaea",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/cold_ghost__geier/science-fiction.json",
+      "sha256": "b7a8c9b19d634c2d8996d79b7a35a97bffe7a838748fd2bd38aa312b8aa5be98",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/cool_air__lovecraft/science-fiction.json",
+      "sha256": "bb31fa137f38cd7e0bc22cfddba3bb1239e8eb251ef09cd58312a8f737ffb385",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/country_lodgings__mitford/science-fiction.json",
+      "sha256": "67bdc1106aec37135ff78d38648c25397acc762279753f5d49110175fa95614b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/creepin_tintypes__tuttle/science-fiction.json",
+      "sha256": "53e4339f1f40ad5f19bce66170ab557e2ab80729e940ee000d30352d28afe27f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/death_and_taxes__hartzell/science-fiction.json",
+      "sha256": "c050e600e415e27558b791d4156c2a990b49a7a00535d545c05473b1057305fe",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/dig_me_no_grave__howard/science-fiction.json",
+      "sha256": "8981d19357b13e26da69e276d3d04dfdbc8d4e80ae54dbc71bfa497293e9b436",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/dirty_work_for_doughgod__tuttle/science-fiction.json",
+      "sha256": "d7085f6ee84174787edb4060a0d5bb539dc4f5132fb9452b5135859fac98e36b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/don_t_think_about_it__stuart/science-fiction.json",
+      "sha256": "51756a8a6058a26bcb2fe00b5c61e897258e3f1402dadad4a17bd2a577d8babb",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/doom_of_the_house_of_duryea__peirce/science-fiction.json",
+      "sha256": "97368076832089c74daaf4dc322b0f1a5f26bb96fc37f665dd6ec6c653f4775a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/dough_or_dynamite__tuttle/science-fiction.json",
+      "sha256": "c5ad495a81e78608472d0066effeb2ab5274035b11ad82317bb69a7a2151a8b4",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/each_man_kills__glad/science-fiction.json",
+      "sha256": "2049583eec4725ed30653c49fd0ff4854c5623fa0cefa95eadf9aec2029e6887",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/easy_come_easy_go__sabin/science-fiction.json",
+      "sha256": "247fe4e151782885ecd565bb381f2cd7ad694b160f2652fecbc8fdd4b2474a51",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/easy_money__sinclair/science-fiction.json",
+      "sha256": "206a3db33240f0503b1e1748f380cd591faa2ad3e31b1f8ccc961b7db4a276a4",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/science-fiction.json",
+      "sha256": "b4579b389486c3f7772a43e6fa2ed60dcb554e6341b595c234dac52fca586758",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/eve_s_diary_complete__twain/science-fiction.json",
+      "sha256": "75988427bdaeca1138d7e85261483a5b682d7325c5802ba37d1539a248b6e34b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/science-fiction.json",
+      "sha256": "980ac25e442207442d4c72544cdb65c81feca252ff81786a228d560ded480ab9",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/he__lovecraft/science-fiction.json",
+      "sha256": "2b0fae5490477f98d15fd232d9aa229feb0eb1932d8dbad9e3be31e64f939e7e",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/in_the_dark__clark/science-fiction.json",
+      "sha256": "69cff7839c9f986fa272ec640dd2a215803068c6cf0ff6f9002d7e835ad567c2",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/in_the_valley_of_the_shadow__bacon/science-fiction.json",
+      "sha256": "f08e102ec95407a5971b02bee526afab194156962b0fbbb13283fba73cc5c068",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/into_the_blue__austin/science-fiction.json",
+      "sha256": "db740f827a36f0408f8ee1720417691f401e89c285ed52a4c182a427b7d4047a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/isle_of_the_undead__eshbach/science-fiction.json",
+      "sha256": "157ddb4c3f4beea4a295cba33f0e1c8860012c34c12207f146a3c0654fa93605",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope/science-fiction.json",
+      "sha256": "6813b67533f0e3fcb22cb89708d235dd2801075b0ae5bf21f7518695a1cacd0e",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/julia_the_apostate__bacon/science-fiction.json",
+      "sha256": "fa9a97e77ee6da4e15cf20ab061fa0a21c0261ffaf0f8ce6a81499f0fe771aad",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/le_monsieur_de_la_petite_dame__burnett/science-fiction.json",
+      "sha256": "4f64634dad2bb9e0adc25e9dc739c7cf596b0a056bc7cb071b68c5c64e4a243a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/listen_children_listen__west/science-fiction.json",
+      "sha256": "9faf4fceb02f48e186cdb4cbf5e10c403da40a3e5af65290183e8c96dbb96e27",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/long_odds__haggard/science-fiction.json",
+      "sha256": "75b2eb1818f44f4fad94ef0e443e9ea616ce29f3034631049ea00cb8c69a6d63",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/science-fiction.json",
+      "sha256": "0e5621c2821b760629036c015c240b300f0fa76e263252489a28e6251baa5cf9",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/mrs_dud_s_sister__bacon/science-fiction.json",
+      "sha256": "b6f8b3d92e4b73035b9752da631e778077f67b17375e8da2868402b12d92ed09",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/mrs_general_talboys__trollope/science-fiction.json",
+      "sha256": "43c26b58082fd41b0f97419ec7dfd2bb0017861223b75714a3d5fe555f4fa1b8",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/mrs_korner_sins_her_mercies__jerome/science-fiction.json",
+      "sha256": "3897586cf887e3fc8c3a03802bde4569a159427603b7d4ae0f8483714b829221",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/my_friend_the_murderer__doyle/science-fiction.json",
+      "sha256": "9f234720959bd4b0a7f6f90838927effcd9f6fee885244fefeed465e5cac2f95",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/one_day_at_arle__burnett/science-fiction.json",
+      "sha256": "6be7f9ae3029dd5b9c196a60dd9e1278df82eb60328d4ebb75f34d880e81a60f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/passion_fruit__stacpoole/science-fiction.json",
+      "sha256": "2d1c02d22d4120f8e02e6e4b5b414dc60d1cc59549f26a9956ea91aa43d99e69",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/puppet_government__revelle/science-fiction.json",
+      "sha256": "6376d5b185cbc92bea01239a4a2e3ea25ed8ac5b24fb72eb95881756dfce867d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/splashes_of_red__davis/science-fiction.json",
+      "sha256": "c4cf3ca1f2f525b3c381099a97c0d8da163a1b8390ddd3b344e3a22faa190f01",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/science-fiction.json",
+      "sha256": "40e7b07b4a98717c6b9d638683da5ae8ad939ff107d6b90172453561acea6ada",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_adventure_of_the_dying_detective__doyle/science-fiction.json",
+      "sha256": "ff34ef7445068ce97d72010153a62b7bfe276d2392ab1c73a7f6ceaafe2d8f3d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_adventure_of_the_red_circle__doyle/science-fiction.json",
+      "sha256": "b582b0e7abc97ce6107bcbe093cd6d8038433e648069a5441e1df574b372abb3",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_courting_of_lady_jane__bacon/science-fiction.json",
+      "sha256": "77a452a9fbd85758abab94b7765340622c5ee54deccfc86e7dfb96847531fd24",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/science-fiction.json",
+      "sha256": "3d762ae06ad9bfa6438b421d058361be1f2fe6d9251d1cc1575561b8b3516e91",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_girl_in_the_crowd__terhune/science-fiction.json",
+      "sha256": "c141b0b8d6dfc06c40108532007398ca8bf40b179fd660d5e234d0ed08f35d8f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_gray_brotherhood__leverage/science-fiction.json",
+      "sha256": "6b561276ba0a5ca201165b5c01e1d76e32db960138d4f246e6d3bea9924742cd",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_house_of_heine_brothers_in_munich__trollope/science-fiction.json",
+      "sha256": "3640f9f9ed1ce22176cde8d2679700563c94351ffa061a0017a7fe4ee526adeb",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_hunter_s_lodge_case__christie/science-fiction.json",
+      "sha256": "67433dfbe23768f042a6b4436489eab59d1bc791d5b5ad3f545347b053227f13",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_lamplighter__dickens/science-fiction.json",
+      "sha256": "8ebbfd0218454541e6108975d618a340895fe718ff89c7f8d03b9311b42211ec",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_leak__futrelle/science-fiction.json",
+      "sha256": "407703294c8ad163adb6913ab110c76a0e4507533639fa970f5b9cd0564c361f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_marriage_of_william_durrant__cummings/science-fiction.json",
+      "sha256": "3857348c55e9b563ad938781020bed39ce99e6f897ff1cd740e5dac339bdca3a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_pirate_s_pocket_book__calthrop/science-fiction.json",
+      "sha256": "9e346ae85197eec19d5a03a1747b6f46a9c3f515c992fda98eb8b7d28dac4f61",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_red_fetish__long/science-fiction.json",
+      "sha256": "caeaa222feac583218682b0ef84743902976638c5898941d805ad913bb4856f4",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/science-fiction.json",
+      "sha256": "88a0c9690d6e89778d5b572821e4d5a1db69d479e24180b4195ddb3eb6d57f23",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_seven_missionaries__mcneile/science-fiction.json",
+      "sha256": "56496503f8b25d5614dbe09d05d1f8551d1b0e8044fe62d36db6cb757bbfeb41",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_spring_of_a_lion__haggard/science-fiction.json",
+      "sha256": "a742fea3cb65ce0f28e7c524f51aec9b1e97165fd05aab2270795b2764cfd1ae",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/the_westminster_alice__saki/science-fiction.json",
+      "sha256": "5929f383b586bc5df81945fe4a6f2955d9caf91157efc402f9491117d7b30e3a",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/mass_quantities/to_the_lights__norton/science-fiction.json",
+      "sha256": "50598aee75e4d43490ba29cedb00bd6e8263dc16cd29285cc397a3aed16e965b",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/at_geisenheimer_s/science-fiction.json",
+      "sha256": "860c39314093251fb33cd7e21df94161193735ed1d0d8dab87ff948dcde5b7b8",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/bill_the_bloodhound/science-fiction.json",
+      "sha256": "19379f2c69bd0179b21daa619ecd571ffdf4402ae1b585be8a5a18ab7cc75b9d",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/black_for_luck/science-fiction.json",
+      "sha256": "c06396aa1aae1f4537ce8e3cf22f277e8e74a6442c9bd70d299315c61c52b065",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/crowned_heads/science-fiction.json",
+      "sha256": "55b253663fe249b52c3ea141856c266843c0ca360cfa25f2afba0727a8c6a901",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/extricating_young_gussie/science-fiction.json",
+      "sha256": "2c7e08db04662a22e5c2811f549f6cafbb97289d7e5f411dbdab8a850772dec8",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/making_of_mac_s/science-fiction.json",
+      "sha256": "de5a5411f1ffe7511d067327cc91f621dd0c8dc034562f669f47f7df8bd68d60",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/man_with_two_left_feet/science-fiction.json",
+      "sha256": "2a3190c99615a4df0639bb87b8857ea4c5e0e64ae64b4042e66a86c6fdb4729f",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/mixer/science-fiction.json",
+      "sha256": "164d21d7dd06f2a0a4db0977bb37230827f07949c055b890a8a1ae50d31c92fa",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/one_touch_of_nature/science-fiction.json",
+      "sha256": "3835f31d3357e541cf0c0473018f8f3904d377dc57c175b9de087cb12bf193c4",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/romance_of_an_ugly_policeman/science-fiction.json",
+      "sha256": "c893e59e837d405291ae2e54713e075ff87084f44ec3a23752e2e4e9ff1b5fbe",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/sea_of_troubles/science-fiction.json",
+      "sha256": "0c54b51726e6f31707028de5791a4ee1d9402ae2b9b94a2113c23d157ed7f19c",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    },
+    {
+      "path": "lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/wodehouse/wilton_s_holiday/science-fiction.json",
+      "sha256": "83a3216ec9b720bad4f17ae635d3f0a96c29e0d3947a0e44f37797a695b79170",
+      "git_revision": "3c5ef276007991a411729867bd76db64d03f6d89"
+    }
+  ],
+  "generator": {
+    "path": "experiments/08_visualize_dogfood/generators/make_worldcon_sf_overlap.py",
+    "git_revision": "d5c5991e6c12589c81115ead04a0c227abede89c",
+    "sha256": "7b9943937cc8f0bd6a3c44fd5c642a509ad146ea6e9ce71906d7e0a4e4e48d22"
+  },
+  "definitions": {
+    "metadata_genre": "selection_genre; inclusive candidate memberships remain in metadata_candidates",
+    "model_genre": "model_detect.result.detected_genre; values outside the eight metadata genres are shown as Other",
+    "model_genres": [
+      "adventure",
+      "fantasy",
+      "horror",
+      "humor",
+      "mystery",
+      "romance",
+      "science fiction",
+      "western",
+      "other"
+    ],
+    "agreement": "model_detect.result.agrees_with_metadata_rules",
+    "knight_band": "definite Knight interval: 0, 1-2, 3-4, or 5-7",
+    "suvin_outcome": "qualified, not qualified, or failed analysis",
+    "panel_c": "nested stack: Knight band order with Suvin outcome subdivisions"
+  },
+  "notes": [
+    "Primary/selection genre counts are mutually exclusive.",
+    "metadata_candidates preserves multi-genre overlap for a future inclusive view.",
+    "This prototype does not interpret genre labels as theoretical truth or human agreement."
+  ],
+  "outputs": {
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.pdf": "5f905b1a032004957cdcf2b3ba310efee4ec14671565db23edf22d4aac2f377c",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.png": "14aae57a0cbe172ff684fdeef5c979737c89907f4ac37e7685cd226263e4b87f",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.svg": "568b9cf1eefa41e30f455c0e18d49e707b46f48b5a4e9a9ff15f23b3a1210881",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_contingency.csv": "7f244950b62011a298545d14375c2fd90f8cec9f917fc18f8b26e340ab194ede",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_contingency.md": "9433f8f10b60805a37ee0942b381f88ab415e1b6923487fdeb15193afe05be93",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_summary.csv": "2806234345390913ae78b4c1a5be18b13858330aa08524aae3cb2f309de748d3",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.pdf": "a83e82c3e63494d702eabe55d4b4359935570b3dce22cb4bc9bcef996352ce75",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.png": "375a76c62839ddcb4ddafc19a4107872a8ccd1c29b71eb80115616ee10488264",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.svg": "f4e459ca351dab2d9217218e5ee327b5ef5ffec9aa9920e76ffde167d1c69691",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/metadata_model_confusion.csv": "f18d51c5031af9e07387a3be1170ce588eda1f3d82738dd62fc051ef83a5fa5f",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/story_level.csv": "a295bad7717203410a77f52c473bee30428ea6cb219fa1453bb2a3098cf63c3e",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.pdf": "ff58044663c8dbfa951bdf2276bb2970cbbece77bbe91aff02f4fe4e56e881fd",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.png": "252053beccfe84f278fdcab5ca0d7e5ff75d2a1918247db2f48b1f427087a389",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.svg": "b6392e1f9cadd2c45a08b0bd42d4bc45d6e487415d65a4b49f6b1810467734b6"
+  }
+}

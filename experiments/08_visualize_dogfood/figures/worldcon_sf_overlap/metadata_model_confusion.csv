@@ -1,0 +1,23 @@
+selection_genre,model_genre,count
+adventure,adventure,5
+adventure,horror,1
+fantasy,fantasy,20
+horror,horror,20
+humor,humor,16
+humor,romance,3
+humor,science fiction,1
+mystery,adventure,1
+mystery,mystery,18
+mystery,western,1
+romance,adventure,1
+romance,humor,3
+romance,other,2
+romance,romance,14
+science fiction,horror,1
+science fiction,humor,1
+science fiction,science fiction,18
+western,adventure,6
+western,humor,4
+western,other,1
+western,romance,1
+western,western,8
