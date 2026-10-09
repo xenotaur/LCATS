@@ -395,6 +395,93 @@ class TestExtractJson(unittest.TestCase):
             utils.extract_json(text)
 
 
+class TestExtractJsonStrictFence(unittest.TestCase):
+    """Unit tests for utils.extract_json(strict_fence=True)."""
+
+    def test_default_behavior_is_unchanged(self):
+        """Without the option, prose around a fence is still tolerated."""
+        text = 'Preamble\n```json\n{"a": 1}\n```\nTrailing'
+        self.assertEqual(utils.extract_json(text), {"a": 1})
+
+    def test_plain_json_passes_in_strict_mode(self):
+        """Plain JSON needs no fence in strict mode."""
+        self.assertEqual(utils.extract_json('{"a": 1}', strict_fence=True), {"a": 1})
+
+    def test_lone_fence_is_accepted(self):
+        """Exactly one json fence is unwrapped."""
+        text = '```json\n{"a": 1}\n```'
+        self.assertEqual(utils.extract_json(text, strict_fence=True), {"a": 1})
+
+    def test_surrounding_whitespace_and_crlf_are_accepted(self):
+        """Only whitespace may surround the fence, and CRLF endings work."""
+        text = '\n  ```json  \r\n{"a": 1}\r\n```  \r\n'
+        self.assertEqual(utils.extract_json(text, strict_fence=True), {"a": 1})
+
+    def test_multiline_body_is_accepted(self):
+        """A pretty-printed body is parsed."""
+        text = '```json\n{\n  "a": [1, 2],\n  "b": "x"\n}\n```'
+        self.assertEqual(
+            utils.extract_json(text, strict_fence=True), {"a": [1, 2], "b": "x"}
+        )
+
+    def test_backticks_inside_a_json_string_are_tolerated(self):
+        """The closing fence is anchored to the end of the text."""
+        text = '```json\n{"rationale": "uses ``` in prose"}\n```'
+        self.assertEqual(
+            utils.extract_json(text, strict_fence=True),
+            {"rationale": "uses ``` in prose"},
+        )
+
+    def test_prose_before_the_fence_is_rejected(self):
+        """Text before the fence is rejected in strict mode only."""
+        text = 'Here you go:\n```json\n{"a": 1}\n```'
+        with self.assertRaises(ValueError):
+            utils.extract_json(text, strict_fence=True)
+        self.assertEqual(utils.extract_json(text), {"a": 1})
+
+    def test_prose_after_the_fence_is_rejected(self):
+        """Text after the fence is rejected."""
+        text = '```json\n{"a": 1}\n```\nHope that helps.'
+        with self.assertRaises(ValueError):
+            utils.extract_json(text, strict_fence=True)
+
+    def test_second_block_is_rejected_even_with_allow_multiple(self):
+        """A second fenced block is rejected, and allow_multiple has no effect."""
+        text = '```json\n{"a": 1}\n```\n```json\n{"b": 2}\n```'
+        with self.assertRaises(ValueError):
+            utils.extract_json(text, allow_multiple=True, strict_fence=True)
+
+    def test_unlabeled_fence_is_rejected(self):
+        """A fence with no language label is rejected."""
+        with self.assertRaises(ValueError):
+            utils.extract_json('```\n{"a": 1}\n```', strict_fence=True)
+
+    def test_other_language_fence_is_rejected(self):
+        """A fence labeled with another language is rejected."""
+        with self.assertRaises(ValueError):
+            utils.extract_json('```python\n{"a": 1}\n```', strict_fence=True)
+
+    def test_extra_text_on_the_opening_fence_line_is_rejected(self):
+        """Anything after the language label on the fence line is rejected."""
+        with self.assertRaises(ValueError):
+            utils.extract_json('```json title=x\n{"a": 1}\n```', strict_fence=True)
+
+    def test_unclosed_fence_is_rejected(self):
+        """A truncated reply with no closing fence is rejected."""
+        with self.assertRaises(ValueError):
+            utils.extract_json('```json\n{"a": 1}', strict_fence=True)
+
+    def test_invalid_json_in_the_fence_raises_value_error(self):
+        """A well-formed fence around invalid JSON raises a ValueError subclass."""
+        with self.assertRaises(ValueError):
+            utils.extract_json('```json\n{"a": \n```', strict_fence=True)
+
+    def test_prose_only_raises_value_error(self):
+        """Plain prose is rejected in strict mode."""
+        with self.assertRaises(ValueError):
+            utils.extract_json("I could not do that.", strict_fence=True)
+
+
 class TestMakeSerializableExtraction(unittest.TestCase):
     """Unit tests for utils.make_serializable_extraction."""
 

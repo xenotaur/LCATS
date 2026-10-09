@@ -9,8 +9,11 @@ import unittest
 from unittest.mock import patch
 
 from experimental.science_fiction_analysis_trial import run_worldcon_spike
+from lcats.analysis.science_fiction import preparation
+from lcats.analysis.science_fiction import rendering
 from lcats.analysis.science_fiction import sidecar
 from lcats.llm import backend as llm_backend
+from lcats.utils import compat
 from lcats.utils import checkpoint
 
 
@@ -1562,7 +1565,7 @@ class WorldconSpikeHeinleinStageTest(unittest.TestCase):
         self.assertIn("supporting evidence", analysis["failures"][0]["message"])
         self.assertEqual("complete", story["status"])
 
-    def test_missing_criteria_become_not_assessable_and_indeterminate(self):
+    def test_missing_criteria_fail_the_heinlein_stage_loudly(self):
         def drop_plausible(result):
             result["heinlein_criteria"] = [
                 item
@@ -1576,11 +1579,10 @@ class WorldconSpikeHeinleinStageTest(unittest.TestCase):
         )
 
         analysis = data["analyses"]["heinlein"][0]
-        self.assertEqual("complete", analysis["status"])
-        self.assertEqual("indeterminate", analysis["verdict"])
-        statuses = {c["criterion_id"]: c["status"] for c in analysis["criteria"]}
-        self.assertEqual("not_assessable", statuses["plausible"])
-        self.assertEqual("indeterminate", story["heinlein_verdict"])
+        self.assertEqual("failed", analysis["status"])
+        self.assertIn("missing criteria: plausible", analysis["failures"][0]["message"])
+        self.assertEqual("complete", story["status"])
+        self.assertEqual("complete", data["analyses"]["knight"][0]["status"])
 
     def test_heinlein_failure_does_not_affect_knight_or_suvin(self):
         _, story, data, _ = self._run(
@@ -1680,6 +1682,456 @@ RECORDED_MANIFEST_FINGERPRINTS = {
         "582e99655cf896469277ce9fd90b2df29419e1f965e50e90408552ee61b52454"
     ),
 }
+
+
+class _StageOverrideBackend:
+    """Delegate to the deterministic backend, overriding one stage's tool result."""
+
+    def __init__(self, tool_name, override):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.tool_name = tool_name
+        self.override = override
+
+    def complete(self, **kwargs):
+        response = self.delegate.complete(**kwargs)
+        if kwargs["tool"]["name"] == self.tool_name:
+            response.tool_result = self.override(response.tool_result)
+        return response
+
+
+class _StageTextBackend:
+    """Return text instead of a tool call for one stage, as a local runtime can."""
+
+    def __init__(self, tool_name, text_for):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.tool_name = tool_name
+        self.text_for = text_for
+
+    def complete(self, **kwargs):
+        if kwargs["tool"]["name"] != self.tool_name:
+            return self.delegate.complete(**kwargs)
+        payload = json.loads(kwargs["messages"][-1]["content"])
+        result = run_worldcon_spike._fake_stage_result(payload, kwargs["tool"])
+        raise llm_backend.NoToolCallError(
+            "local runtime returned text without a tool call",
+            input_tokens=7,
+            output_tokens=11,
+            raw_content=self.text_for(result),
+        )
+
+
+def _rendered_heinlein_verdict(data):
+    """Return the Heinlein verdict word the detailed rendering shows."""
+
+    text = rendering.render_sidecar(data, detail="detailed")
+    line = next(item for item in text.splitlines() if "Heinlein Verdict" in item)
+    return line.split("**Heinlein Verdict:**", 1)[1].split("(", 1)[0].strip()
+
+
+def _wrong_heinlein_keys(result):
+    """Rename the schema keys the way the WI-SF-0113 canary saw the model do."""
+
+    return {
+        "heinlein_criteria": [
+            {
+                "criterion": item["criterion_id"],
+                "decision_state": item["status"],
+                "evidence_ids": item["supporting_evidence_ids"],
+                "rationale": item["rationale"],
+            }
+            for item in result["heinlein_criteria"]
+        ]
+    }
+
+
+def _all_not_assessable(result):
+    return {
+        "heinlein_criteria": [
+            {
+                "criterion_id": item["criterion_id"],
+                "status": "not_assessable",
+                "supporting_evidence_ids": [],
+                "counterevidence_ids": [],
+                "rationale": "",
+                "confidence": 0.0,
+            }
+            for item in result["heinlein_criteria"]
+        ]
+    }
+
+
+class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
+    """WI-SF-0114: mismatched or empty model output fails loudly, not silently."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _run(self, name, backend):
+        output_root = self.root / name
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(_heinlein_options(output_root))
+        story = summary["stories"][0]
+        data = (
+            sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+            if story.get("sidecar_path")
+            else None
+        )
+        return output_root, summary, story, data
+
+    def _events(self, output_root):
+        log_path = output_root / "worldcon_spike_run_log.jsonl"
+        return [
+            json.loads(line)
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+            if line
+        ]
+
+    def _assert_heinlein_failed_but_story_complete(self, story, data, fragment):
+        self.assertEqual("complete", story["status"])
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("failed", analysis["status"])
+        self.assertIn(fragment, analysis["failures"][0]["message"])
+        self.assertEqual("complete", data["analyses"]["knight"][0]["status"])
+        self.assertEqual("complete", data["analyses"]["suvin_novum"][0]["status"])
+        return analysis
+
+    def test_wrong_heinlein_keys_are_quarantined_not_defaulted(self):
+        _, _, story, data = self._run(
+            "wrong-keys",
+            _StageOverrideBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME, _wrong_heinlein_keys
+            ),
+        )
+
+        analysis = self._assert_heinlein_failed_but_story_complete(
+            story, data, "criterion_id"
+        )
+        self.assertEqual("Unavailable", _rendered_heinlein_verdict(data))
+        self.assertTrue(
+            all(c["status"] == "not_assessable" for c in analysis["criteria"])
+        )
+
+    def test_missing_heinlein_criteria_key_is_quarantined(self):
+        _, _, story, data = self._run(
+            "no-key",
+            _StageOverrideBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME,
+                lambda result: {"items": result["heinlein_criteria"]},
+            ),
+        )
+
+        self._assert_heinlein_failed_but_story_complete(
+            story, data, "'heinlein_criteria' list"
+        )
+
+    def test_missing_required_fields_are_quarantined(self):
+        cases = {
+            "counterevidence_ids": "counterevidence_ids must be a list",
+            "confidence": "confidence must be a number",
+            "status": "missing or invalid status",
+        }
+        for field, fragment in cases.items():
+            with self.subTest(field=field):
+
+                def drop_field(result, field=field):
+                    del result["heinlein_criteria"][0][field]
+                    return result
+
+                _, _, story, data = self._run(
+                    f"drop-{field}",
+                    _StageOverrideBackend(
+                        run_worldcon_spike.HEINLEIN_TOOL_NAME, drop_field
+                    ),
+                )
+
+                self._assert_heinlein_failed_but_story_complete(story, data, fragment)
+
+    def test_unknown_and_duplicate_criteria_are_quarantined(self):
+        def unknown(result):
+            result["heinlein_criteria"][0]["criterion_id"] = "decision"
+            return result
+
+        def duplicate(result):
+            result["heinlein_criteria"][1]["criterion_id"] = "different"
+            return result
+
+        for name, override, fragment in (
+            ("unknown", unknown, "unknown criterion_id"),
+            ("duplicate", duplicate, "duplicate criterion"),
+        ):
+            with self.subTest(name=name):
+                _, _, story, data = self._run(
+                    name,
+                    _StageOverrideBackend(
+                        run_worldcon_spike.HEINLEIN_TOOL_NAME, override
+                    ),
+                )
+
+                self._assert_heinlein_failed_but_story_complete(story, data, fragment)
+
+    def test_a_genuine_all_not_assessable_response_is_still_accepted(self):
+        _, _, story, data = self._run(
+            "genuine",
+            _StageOverrideBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME, _all_not_assessable
+            ),
+        )
+
+        self.assertEqual("complete", story["status"])
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("complete", analysis["status"])
+        self.assertEqual("indeterminate", analysis["verdict"])
+        self.assertEqual([], analysis["failures"])
+
+    def test_one_fenced_json_block_is_unwrapped_and_logged(self):
+        output_root, _, story, data = self._run(
+            "fenced",
+            _StageTextBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME,
+                lambda result: "```json\n" + json.dumps(result) + "\n```",
+            ),
+        )
+
+        self.assertEqual("complete", story["status"])
+        self.assertEqual("complete", data["analyses"]["heinlein"][0]["status"])
+        events = [(e["event"], e.get("stage")) for e in self._events(output_root)]
+        self.assertIn(("no_tool_call_json_fallback", "sf_heinlein"), events)
+        self.assertIn(("fenced_json_unwrapped", "sf_heinlein"), events)
+
+    def test_a_fenced_block_with_wrong_keys_is_still_quarantined(self):
+        output_root, _, story, data = self._run(
+            "fenced-wrong-keys",
+            _StageTextBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME,
+                lambda result: "```json\n"
+                + json.dumps(_wrong_heinlein_keys(result))
+                + "\n```",
+            ),
+        )
+
+        self._assert_heinlein_failed_but_story_complete(story, data, "criterion_id")
+        events = [e["event"] for e in self._events(output_root)]
+        self.assertIn("fenced_json_unwrapped", events)
+
+    def test_prose_around_the_fence_is_a_failure_that_keeps_its_metadata(self):
+        output_root, _, story, data = self._run(
+            "prose",
+            _StageTextBackend(
+                run_worldcon_spike.HEINLEIN_TOOL_NAME,
+                lambda result: "Here you go:\n```json\n" + json.dumps(result) + "\n```",
+            ),
+        )
+
+        self.assertEqual("complete", story["status"])
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("failed", analysis["status"])
+        self.assertEqual("ValueError", analysis["failures"][0]["kind"])
+        quarantine = next((output_root / "_quarantine").rglob("sf_heinlein.json"))
+        record = json.loads(quarantine.read_text(encoding="utf-8"))
+        self.assertTrue(
+            pathlib.Path(record["raw_response_path"]).exists(),
+            record["raw_response_path"],
+        )
+        events = [e["event"] for e in self._events(output_root)]
+        self.assertNotIn("fenced_json_unwrapped", events)
+
+    def _evidence_story_failure(self, name, override):
+        output_root, summary, story, _ = self._run(
+            name,
+            _StageOverrideBackend(run_worldcon_spike.EVIDENCE_TOOL_NAME, override),
+        )
+        self.assertEqual("failed", story["status"])
+        self.assertIsNone(story.get("sidecar_path"))
+        quarantine = json.loads(
+            pathlib.Path(story["quarantine_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual("story", quarantine["stage"])
+        return output_root, quarantine
+
+    def test_a_missing_evidence_list_fails_the_story(self):
+        _, quarantine = self._evidence_story_failure(
+            "no-evidence-key", lambda result: {"items": result["evidence"]}
+        )
+
+        self.assertIn("'evidence' list", quarantine["failure_message"])
+
+    def test_all_quarantined_evidence_fails_the_story_with_the_reasons(self):
+        def schema_mismatch(result):
+            return {
+                "evidence": [
+                    {
+                        "raw_id": item["raw_id"],
+                        "quotation": item["quote"],
+                        "paraphrase": item["paraphrase"],
+                        "confidence": item["confidence"],
+                    }
+                    for item in result["evidence"]
+                ]
+            }
+
+        _, quarantine = self._evidence_story_failure("all-quarantined", schema_mismatch)
+
+        self.assertIn("produced no usable evidence", quarantine["failure_message"])
+        self.assertIn("evidence_type is required", quarantine["failure_message"])
+
+    def test_an_explicit_empty_evidence_list_is_accepted_with_a_warning(self):
+        output_root, _, story, _ = self._run(
+            "empty-list",
+            _StageOverrideBackend(
+                run_worldcon_spike.EVIDENCE_TOOL_NAME,
+                lambda _result: {"evidence": []},
+            ),
+        )
+
+        self.assertNotEqual("failed", story["status"], story)
+        events = [e["event"] for e in self._events(output_root)]
+        self.assertIn("evidence_empty_list", events)
+
+
+CANARY_FIXTURES = (
+    pathlib.Path(__file__).parent / "fixtures" / "canary_raw_responses.json"
+)
+
+
+class WorldconCanaryFixtureTest(unittest.TestCase):
+    """Replay the WI-SF-0113 canary's raw responses through the real validators."""
+
+    @classmethod
+    def setUpClass(cls):
+        data = json.loads(CANARY_FIXTURES.read_text(encoding="utf-8"))
+        cls.responses = data["responses"]
+        cls.prepared = {}
+        for story_path in {item["story_path"] for item in cls.responses}:
+            story_file = run_worldcon_spike._repo_root() / "corpora" / story_path
+            if not story_file.is_file():
+                raise unittest.SkipTest(f"corpus story is not available: {story_path}")
+            cls.prepared[story_path] = preparation.prepare_story_file(story_file)
+
+    def _find(self, run, story, stage):
+        return next(
+            item
+            for item in self.responses
+            if (item["run"], item["story"], item["stage"]) == (run, story, stage)
+        )
+
+    def _evidence_set(self, run, story):
+        item = self._find(run, story, "sf_evidence")
+        return run_worldcon_spike._build_evidence_set(
+            self.prepared[item["story_path"]],
+            item["tool_result"],
+            backend="openai-compatible",
+        )
+
+    def test_fixtures_hold_no_absolute_paths(self):
+        text = CANARY_FIXTURES.read_text(encoding="utf-8")
+
+        self.assertNotIn("/Users/", text)
+
+    def test_vonnegut_evidence_from_the_trials_now_fails_the_stage(self):
+        for run in ("trial-1", "trial-2", "trial-3"):
+            with self.subTest(run=run):
+                with self.assertRaises(ValueError) as caught:
+                    self._evidence_set(run, "vonnegut")
+
+                message = str(caught.exception)
+                self.assertIn("produced no usable evidence", message)
+                self.assertIn("evidence_type is required", message)
+
+    def test_vonnegut_baseline_evidence_still_builds(self):
+        evidence_set = self._evidence_set("baseline", "vonnegut")
+
+        self.assertEqual(7, len(evidence_set.records))
+
+    def test_bell_trial_evidence_still_builds(self):
+        for run in ("trial-1", "trial-2", "trial-3"):
+            with self.subTest(run=run):
+                self.assertEqual(4, len(self._evidence_set(run, "bell").records))
+
+    def test_every_canary_heinlein_response_is_rejected_for_its_keys(self):
+        bell_evidence = self._evidence_set("trial-2", "bell")
+        heinlein = [item for item in self.responses if item["stage"] == "sf_heinlein"]
+        self.assertEqual(6, len(heinlein))
+        for item in heinlein:
+            with self.subTest(run=item["run"], story=item["story"]):
+                result = item["tool_result"]
+                if result is None:
+                    result = compat.extract_json(item["text"], strict_fence=True)
+                with self.assertRaises(ValueError) as caught:
+                    run_worldcon_spike._heinlein_decisions(result, bell_evidence)
+
+                self.assertIn("criterion_id", str(caught.exception))
+
+    def test_canary_fenced_text_is_unwrapped_by_the_strict_helper(self):
+        item = self._find("trial-1", "bell", "sf_heinlein")
+
+        self.assertTrue(item["text"].lstrip().startswith("```json"))
+        result = compat.extract_json(item["text"], strict_fence=True)
+
+        self.assertEqual(5, len(result["heinlein_criteria"]))
+
+
+class WorldconStructuredOutputPromptTest(unittest.TestCase):
+    """The evidence and Heinlein prompts use the tool schema's own key names."""
+
+    @staticmethod
+    def _item_keys(tool_schema, array_key):
+        item = tool_schema["input_schema"]["properties"][array_key]["items"]
+        return list(item["properties"])
+
+    def test_evidence_prompt_names_every_schema_key(self):
+        prompt = run_worldcon_spike._evidence_system_prompt()
+        keys = self._item_keys(run_worldcon_spike._evidence_tool_schema(), "evidence")
+
+        for key in keys:
+            self.assertIn(key, prompt)
+        self.assertIn("not quotation", prompt)
+        self.assertIn("no Markdown fences", prompt)
+        self.assertIn('{"evidence": []}', prompt)
+
+    def test_heinlein_prompt_names_every_schema_key_and_drops_rubric_id(self):
+        prompt = run_worldcon_spike._heinlein_system_prompt()
+        keys = self._item_keys(
+            run_worldcon_spike._heinlein_tool_schema(), "heinlein_criteria"
+        )
+
+        for key in keys:
+            self.assertIn(key, prompt)
+        self.assertIn("not criterion or decision", prompt)
+        self.assertNotIn("rubric_id", prompt)
+        self.assertNotIn("Decision states", prompt)
+        self.assertIn("no Markdown fences", prompt)
+        self.assertIn("the status absent", prompt)
+
+    def test_prompt_text_changes_the_stage_fingerprints(self):
+        options = _heinlein_options(pathlib.Path("unused"))
+        payload = {"stage": "x"}
+
+        def fingerprint(prompt):
+            return run_worldcon_spike._model_stage_fingerprint(
+                stage="sf_heinlein",
+                options=options,
+                system_prompt=prompt,
+                payload=payload,
+                tool_schema=run_worldcon_spike._heinlein_tool_schema(),
+            )["sha256"]
+
+        current = run_worldcon_spike._heinlein_system_prompt()
+        self.assertNotEqual(
+            fingerprint(current), fingerprint(current.replace("status", "decision"))
+        )
+
+    def test_only_the_heinlein_prompt_version_changed(self):
+        self.assertEqual(
+            "worldcon-knight-novum-spike-prompt-v3", run_worldcon_spike.PROMPT_VERSION
+        )
+        self.assertEqual(
+            "worldcon-heinlein-spike-prompt-v2",
+            run_worldcon_spike.HEINLEIN_PROMPT_VERSION,
+        )
 
 
 class WorldconHeinleinCanaryTest(unittest.TestCase):

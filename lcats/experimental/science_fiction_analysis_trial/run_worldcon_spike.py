@@ -35,6 +35,7 @@ from lcats.llm import backend as llm_backend
 from lcats.llm import openai_backend
 from lcats.llm import tool_schema as tool_schema_module
 from lcats.utils import checkpoint
+from lcats.utils import compat
 from lcats.utils import paths
 from lcats.utils import run_log
 
@@ -59,7 +60,7 @@ SUVIN_TOOL_NAME = "record_suvin_novum_adjudication"
 HEINLEIN_TOOL_NAME = "record_heinlein_adjudication"
 # The optional Heinlein stage has its own prompt version so enabling it never
 # changes PROMPT_VERSION, which feeds the Knight and Suvin checkpoint payloads.
-HEINLEIN_PROMPT_VERSION = "worldcon-heinlein-spike-prompt-v1"
+HEINLEIN_PROMPT_VERSION = "worldcon-heinlein-spike-prompt-v2"
 DEFAULT_MANIFEST = (
     pathlib.Path(__file__).resolve().parent
     / "manifests"
@@ -473,6 +474,13 @@ def _run_story(
             evidence_tool_result,
             backend=options.backend_kind,
         )
+        if not evidence_set.records and log is not None:
+            log.event(
+                "evidence_empty_list",
+                run_id=run_id,
+                story_id=story.story_id,
+                stage=EVIDENCE_STAGE,
+            )
         knight_analysis, knight_response, knight_raw_path, knight_reused = (
             _run_knight_stage(
                 story=story,
@@ -924,14 +932,32 @@ def _run_model_stage(
     if tool_result is None:
         try:
             tool_result = json.loads(response.text)
-        except json.JSONDecodeError as error:
-            error.raw_response_path = raw_path
-            error.input_tokens = response.input_tokens
-            error.output_tokens = response.output_tokens
-            error.effective_max_tokens = getattr(
-                response, "effective_max_tokens", max_tokens
-            )
-            raise
+        except json.JSONDecodeError:
+            # Text fallback: the forced tool call was not honored. Accept the
+            # text only as plain JSON or exactly one fenced json block; any
+            # other text (prose, a second block, an unclosed fence) fails
+            # with the same metadata a plain parse failure carries. The
+            # original text stays in the persisted raw response.
+            try:
+                tool_result = compat.extract_json(response.text, strict_fence=True)
+            except ValueError as error:
+                # json.JSONDecodeError is a ValueError, so this covers both.
+                error.raw_response_path = raw_path
+                error.input_tokens = response.input_tokens
+                error.output_tokens = response.output_tokens
+                error.effective_max_tokens = getattr(
+                    response, "effective_max_tokens", max_tokens
+                )
+                raise
+            if log is not None:
+                log.event(
+                    "fenced_json_unwrapped",
+                    run_id=run_id,
+                    story_id=story.story_id,
+                    stage=stage,
+                    input_tokens=response.input_tokens,
+                    output_tokens=response.output_tokens,
+                )
         raw_path = _write_raw_response(
             output_root=output_root,
             story=story,
@@ -1372,16 +1398,37 @@ def _build_evidence_set(
     *,
     backend: str,
 ) -> evidence.EvidenceSet:
+    """Build the shared evidence set, failing loudly on unusable output.
+
+    A tool result without an ``evidence`` list, or one whose candidates were
+    all quarantined, is a stage failure: Knight, Suvin, and Heinlein must not
+    run on an empty evidence set and report success. An explicit empty list
+    is a legitimate "no evidence found" answer and is accepted.
+    """
+
     if not isinstance(tool_result, dict):
         raise ValueError(
             f"{EVIDENCE_STAGE} tool_result must be an object, "
             f"got {type(tool_result).__name__}"
         )
-    return evidence.build_evidence_set(
+    candidates = tool_result.get("evidence")
+    if not isinstance(candidates, list):
+        raise ValueError(
+            f"{EVIDENCE_STAGE} tool_result must contain an 'evidence' list; "
+            f"got keys {sorted(str(key) for key in tool_result)}"
+        )
+    evidence_set = evidence.build_evidence_set(
         prepared,
-        _list_field(tool_result, "evidence"),
+        candidates,
         backend=backend,
     )
+    if candidates and not evidence_set.records:
+        reasons = sorted({item.reason for item in evidence_set.quarantined})
+        raise ValueError(
+            f"{EVIDENCE_STAGE} produced no usable evidence: all "
+            f"{len(candidates)} candidates were quarantined ({'; '.join(reasons)})"
+        )
+    return evidence_set
 
 
 def _run_knight_stage(
@@ -1956,35 +2003,75 @@ def _heinlein_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
 ) -> tuple[heinlein.CriterionAdjudication, ...]:
-    """Convert model output to decisions without inventing any evidence.
+    """Convert model output to decisions without inventing or defaulting anything.
 
     Unlike the Knight path, a ``present`` decision with no valid supporting
     evidence is not given a fallback evidence ID; it fails contract validation
-    and the stage is quarantined.
+    and the stage is quarantined. A response that does not match the tool
+    schema is quarantined too: a missing or non-list ``heinlein_criteria``, a
+    missing, unknown, or duplicate ``criterion_id``, a missing criterion, an
+    invalid ``status``, a missing ``counterevidence_ids`` list, or a missing or
+    non-numeric ``confidence``. Keys are never renamed or guessed, and a
+    criterion is never turned into ``not_assessable`` on the model's behalf.
     """
 
-    by_id = {
-        item.get("criterion_id"): item
-        for item in _list_field(tool_result, "heinlein_criteria")
-        if isinstance(item, dict)
-    }
+    items = tool_result.get("heinlein_criteria")
+    if not isinstance(items, list):
+        raise ValueError(
+            f"{HEINLEIN_STAGE} tool_result must contain a 'heinlein_criteria' "
+            f"list; got keys {sorted(str(key) for key in tool_result)}"
+        )
+    by_id: dict[str, dict[str, Any]] = {}
+    for position, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} heinlein_criteria[{position}] must be an object"
+            )
+        criterion_id = item.get("criterion_id")
+        if criterion_id not in models.HEINLEIN_CRITERION_IDS:
+            raise ValueError(
+                f"{HEINLEIN_STAGE} heinlein_criteria[{position}] has a missing or "
+                f"unknown criterion_id {criterion_id!r}; "
+                f"got keys {sorted(str(key) for key in item)}"
+            )
+        if criterion_id in by_id:
+            raise ValueError(f"{HEINLEIN_STAGE} duplicate criterion {criterion_id!r}")
+        by_id[criterion_id] = item
+    missing = [name for name in models.HEINLEIN_CRITERION_IDS if name not in by_id]
+    if missing:
+        raise ValueError(f"{HEINLEIN_STAGE} missing criteria: {', '.join(missing)}")
     decisions = []
     for criterion_id in models.HEINLEIN_CRITERION_IDS:
-        item = by_id.get(criterion_id, {})
+        item = by_id[criterion_id]
+        status = item.get("status")
+        if status not in models.DECISION_STATES:
+            raise ValueError(
+                f"{HEINLEIN_STAGE} {criterion_id}: missing or invalid status {status!r}"
+            )
+        counterevidence = item.get("counterevidence_ids")
+        if not isinstance(counterevidence, list):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} {criterion_id}: counterevidence_ids must be a list"
+            )
+        confidence = item.get("confidence")
+        if isinstance(confidence, bool) or not isinstance(confidence, int | float):
+            raise ValueError(
+                f"{HEINLEIN_STAGE} {criterion_id}: confidence must be a number"
+            )
         decisions.append(
             heinlein.CriterionAdjudication(
                 criterion_id=criterion_id,
-                status=_decision_state(item.get("status", "not_assessable")),
+                status=str(status),
                 supporting_evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     _string_tuple(item.get("supporting_evidence_ids", ())),
                 ),
                 counterevidence_ids=_existing_evidence_ids(
                     evidence_set,
-                    _string_tuple(item.get("counterevidence_ids", ())),
+                    _string_tuple(counterevidence),
                 ),
                 rationale=str(item.get("rationale", "")),
-                confidence=_optional_float(item.get("confidence")),
+                confidence=float(confidence),
             )
         )
     return tuple(decisions)
@@ -2205,21 +2292,29 @@ inquiry_or_scientific_method, temporal_or_spatial_displacement,
 extrapolative_consequence, catastrophe, character_reaction, and
 reader_facing_contrast.
 
-Every item must contain an exact quotation copied from the story, the
-paragraph IDs containing it, a short neutral paraphrase, a confidence from 0
-to 1, and a unique raw_id. Do not put paragraph markers inside quotations.
+Return an object whose only key is evidence, a list of items. Every item is an
+object with exactly these keys: raw_id (a unique string such as "e1"),
+evidence_type (one of the types above), quote (an exact quotation copied from
+the story, without paragraph markers), paragraph_ids (a list of the paragraph
+IDs containing the quote), paraphrase (a short neutral paraphrase), and
+confidence (a number from 0 to 1). Use these key names exactly; the key is
+quote, not quotation, and evidence_type, not type. Example of one item, with
+invented text:
+{"raw_id": "e1", "evidence_type": "storyworld_change", "quote": "The tide
+had not come in for a year.", "paragraph_ids": ["p00007"], "paraphrase": "The
+sea has stopped moving.", "confidence": 0.8}
 Do not make Knight or Suvin judgments, identify a genre, calculate a score, or
 call anything a novum. Prefer fewer strong items to unsupported guesses. An
 item is useful only when the quotation itself supports the assigned evidence
 type; do not infer a criterion decision from a vague paraphrase. If a passage
 could support more than one type, record the strongest neutral description and
 do not duplicate it merely to increase coverage. If there is no clear passage,
-return no item rather than inventing a quote or paragraph ID.
+return {"evidence": []} rather than inventing a quote or paragraph ID.
 
 Before submitting, check every item: the quote is copied exactly, every
 paragraph ID exists in the supplied story, the paraphrase is neutral, and the
-evidence type is materially supported by the quote.
-Return the exact keys required by the tool schema.
+evidence type is materially supported by the quote. Return only the tool input,
+with no Markdown fences and no prose outside the tool call.
 """.strip()
 
 
@@ -2291,27 +2386,40 @@ You are the independent Heinlein adjudicator in an LCATS science-fiction
 analysis. The story and shared neutral evidence are supplied by earlier
 stages. Return only the record_heinlein_adjudication tool input.
 
-Use rubric_id {models.HEINLEIN_RUBRIC_VERSION} and return exactly the five
-criteria different, essential, human, causal, and plausible, each once. Use
-present, ambiguous, absent, or not_assessable. Do not return a verdict, score,
-probability, genre label, or arithmetic; Python derives the result.
+Return an object whose only key is heinlein_criteria, a list with exactly the
+five criteria different, essential, human, causal, and plausible, each once.
+Do not return a verdict, score, probability, genre label, or arithmetic;
+Python derives the result.
+
+Every item in heinlein_criteria is an object with exactly these keys:
+criterion_id (one of the five names), status (present, ambiguous, absent, or
+not_assessable), supporting_evidence_ids (a list of evidence IDs),
+counterevidence_ids (a list; use [] when there is none), rationale (a short
+string), and confidence (a number from 0 to 1). Use these key names exactly;
+the keys are criterion_id and status, not criterion or decision. Example of one
+item, with a placeholder ID:
+{{"criterion_id": "human", "status": "present", "supporting_evidence_ids":
+["<an ID from the supplied evidence>"], "counterevidence_ids": [],
+"rationale": "A short reason tied to the cited evidence.", "confidence": 0.7}}
 
 The five conditions, from Robert A. Heinlein's description of the
 "Simon-pure" science fiction story:
 {conditions}
 
-Decision states are distinct. Use present only when the story and at least one
+The status values are distinct. Use present only when the story and at least one
 supplied evidence record materially support the condition. Use ambiguous when
 the evidence supports a plausible reading but the reading is uncertain. Use
 absent when you considered the condition and the story does not meet it. Use
 not_assessable only when the supplied evidence is insufficient, conflicting, or
-unusable; do not use absent as a fallback for missing evidence. A present
-decision must cite valid supporting evidence IDs and give a short rationale.
-Never invent an evidence ID. Cite counterevidence IDs when they matter.
+unusable; do not use absent as a fallback for missing evidence. A criterion
+with status present must cite valid supporting evidence IDs and give a short
+rationale. Never invent an evidence ID. Cite counterevidence IDs when they
+matter.
 
 The conditions depend on one another. If different is absent, essential and
-causal cannot be present. If human is absent, causal cannot be present.
-Decisions that violate this are rejected.
+causal cannot be present. If human is absent, causal cannot be present. In
+those cases give the dependent criterion the status absent. A response that
+violates this is rejected.
 
 Judge plausibility against established facts available to a general reader and
 the story's own premises; do not penalize an explicitly rendered new theory
@@ -2321,8 +2429,8 @@ would arise unchanged in the present day.
 
 Before submitting, check that all five criteria appear exactly once, every
 present criterion has supporting evidence, every cited ID exists, and no
-criterion is marked present solely because another is present. Return exactly
-the schema keys.
+criterion is marked present solely because another is present. Return only the
+tool input, with no Markdown fences and no prose outside the tool call.
 """.strip()
 
 

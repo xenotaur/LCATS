@@ -128,14 +128,46 @@ def extract_fenced_code_blocks(text):
     return matches
 
 
-def extract_json(json_string: str, allow_multiple: bool = False) -> dict:
+# A response that is exactly one ```json fenced block: nothing but whitespace
+# outside the fence and nothing but spaces after "json" on the opening line. The
+# closing fence is anchored to the end of the text, so backticks inside a JSON
+# string value cannot end the block early.
+_STRICT_FENCE_PATTERN = re.compile(
+    r"\A\s*```json[ \t]*\r?\n(?P<body>.*?)\r?\n?[ \t]*```\s*\Z",
+    flags=re.DOTALL,
+)
+
+
+def extract_json(
+    json_string: str,
+    allow_multiple: bool = False,
+    *,
+    strict_fence: bool = False,
+) -> dict:
     """
     Extract JSON from a string that may contain additional text.
+
+    By default the first fenced ``json`` block anywhere in the text is used,
+    and surrounding prose is ignored.
+
+    With ``strict_fence=True`` the text must be plain JSON, or consist of
+    exactly one fenced block labeled ``json`` with only whitespace outside
+    it and nothing extra on the opening fence line. Prose before or after the
+    fence, a second block, an unlabeled or differently labeled fence, and an
+    unclosed fence all raise ``ValueError``. ``allow_multiple`` has no effect
+    in strict mode.
     """
     try:
         # Attempt to parse the JSON
         return json.loads(json_string)
     except json.JSONDecodeError as exc:
+        if strict_fence:
+            match = _STRICT_FENCE_PATTERN.match(json_string)
+            if match is None:
+                raise ValueError(
+                    "Expected plain JSON or exactly one fenced json block."
+                ) from exc
+            return json.loads(match.group("body"))
         code_blocks = extract_fenced_code_blocks(json_string)
         if not code_blocks:
             raise ValueError("No JSON found in the string.") from exc
