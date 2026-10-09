@@ -1,0 +1,118 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19661,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1797,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "chesterton/eye_of_apollo",
+  "story_path": "chesterton/eye_of_apollo/story.json",
+  "text": "",
+  "title": "Chesterton - The Eye Of Apollo",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-cult-of-apollo",
+        "character_reaction_evidence_ids": [
+          "sfev-31d8cd415d39276d",
+          "sfev-0dbb95a36a339101"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-a2ef9254f8f059fc"
+          ],
+          "rationale": "The cult's doctrines (levitation, conquest of matter) are offered by Kalon as occult wisdom but are explicitly framed as fraudulent within the narrative; the only genuine causal mechanism (sun-staring causing blindness) is mundane medical fact. The claimed supernatural 'science' is neither coherent nor immanent, but a con man's cover story.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-1ef23908d1916f5c"
+          ]
+        },
+        "description": "The 'New Religion of Apollo' led by Kalon, a sun-worship cult teaching that a truly healthy person can stare at the sun and master matter, including levitation.",
+        "estrangement_rationale": "The contrast between the blinking Father Brown and the unblinking sun-staring prophet dramatizes the strangeness of the cult, and Pauline's blindness/death are its storyworld consequences. These support estrangement but not a qualifying novum.",
+        "evidence_ids": [
+          "sfev-6b9c87c993372794",
+          "sfev-1ef23908d1916f5c",
+          "sfev-a2ef9254f8f059fc",
+          "sfev-5681a83fcda135dd"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-79bcc343e76759c3",
+            "sfev-dd9bc3aa16c0bcd2"
+          ],
+          "rationale": "The cult's sun-gazing practice is causally central to the victim's blindness and thereby to the murder mechanism, so it is more than incidental. However, the overriding narrative logic is a detective-story unmasking of ordinary greed and fraud, not a cult-governed speculative world; the religion functions as motive-and-method rather than as a world-determining novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-6b9c87c993372794",
+            "sfev-1ef23908d1916f5c"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-33763-placeholder"
+          ],
+          "rationale": "The Apollo cult is presented as a modern quackish religion of the ordinary Edwardian London world, not a totalizing world-altering difference from the empirical norm. It is one of the 'new religions' contemporary readers would recognize; the story universe remains fully naturalistic. No feature of the cult changes the story universe.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-6b9c87c993372794"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-5681a83fcda135dd",
+          "sfev-1ef23908d1916f5c"
+        ]
+      },
+      {
+        "candidate_id": "cand-levitation",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-a2ef9254f8f059fc"
+          ],
+          "rationale": "The levitation account is framed as occult wisdom and a deliberate alibi-fiction, not a coherent immanent systematic mechanism. It is presented as supernatural pretense that the detective demolishes.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "Kalon's claim that adepts can attain the power of levitation as part of an occult 'conquest of matter,' offered as an explanation for Pauline's fall.",
+        "estrangement_rationale": "The levitation claim briefly estranges by proposing conquest of matter, but it is immediately naturalized as a lie, so it contributes only surface estrangement.",
+        "evidence_ids": [
+          "sfev-a2ef9254f8f059fc",
+          "sfev-5681a83fcda135dd"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-5681a83fcda135dd"
+          ],
+          "rationale": "Levitation is an incidental rhetorical device Kalon deploys to deflect suspicion; it does not govern the narrative logic, which is a naturalistic murder solved by deduction.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-a2ef9254f8f059fc"
+          ],
+          "rationale": "Levitation would be a world-altering difference, but the story explicitly discredits it: Pauline died by a mundane fall down a lift shaft, and Kalon himself abandons the levitation story. No such power operates in the story universe, which remains empirically ordinary.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-a2ef9254f8f059fc"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-5681a83fcda135dd"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "failure_kind": "BadRequestError",
+  "failure_message": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfaLGm6z1rMuX43ZFSVHK'}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/wodehouse__black_for_luck-5095c09d8f74/sf_evidence-backend-error.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "story",
+  "story_id": "wodehouse/black_for_luck",
+  "story_path": "wodehouse/black_for_luck/story.json",
+  "title": "Wodehouse - Black For Luck",
+  "tool_result": null
+}

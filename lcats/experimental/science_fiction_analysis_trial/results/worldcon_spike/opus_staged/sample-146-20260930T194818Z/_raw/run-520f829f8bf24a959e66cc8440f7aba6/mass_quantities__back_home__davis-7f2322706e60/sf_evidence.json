@@ -1,0 +1,49 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16742,
+  "model": "claude-opus-4-8",
+  "output_tokens": 519,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/back_home__davis",
+  "story_path": "mass_quantities/back_home__davis/story.json",
+  "text": "",
+  "title": "Back home",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00019"
+        ],
+        "paraphrase": "Miller reacts intensely, like a hunter sighting prey, upon seeing someone in the lobby.",
+        "quote": "But his features\nstiffened ever so slightly and into his eyes came an expression such as\ncomes into the eyes of the hunter when, after stealthily stalking, he\ncomes into view of his quarry.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00043"
+        ],
+        "paraphrase": "Carmichael organizes systematic surveillance to gather information about Miller.",
+        "quote": "I want him followed tonight and to-morrow. Get McCampbell to help\nyou and split up the work so he won\ffffd\ffffdt see too much of either one of\nyou. I want to know what he does, who he sees, what he talks about.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00126"
+        ],
+        "paraphrase": "Alsbury's composure breaks as he emotionally pleads for his daughter's sake.",
+        "quote": "Suddenly the grim stoicism with which he had been speaking departed.\nHis face distorted and his voice broke, as he implored",
+        "raw_id": "ev03"
+      }
+    ]
+  }
+}

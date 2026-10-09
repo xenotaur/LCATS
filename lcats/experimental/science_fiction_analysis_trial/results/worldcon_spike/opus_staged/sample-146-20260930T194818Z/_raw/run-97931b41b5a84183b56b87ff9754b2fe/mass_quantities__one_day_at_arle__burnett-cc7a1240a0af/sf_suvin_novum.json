@@ -1,0 +1,75 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13029,
+  "model": "claude-opus-4-8",
+  "output_tokens": 681,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/one_day_at_arle__burnett",
+  "story_path": "mass_quantities/one_day_at_arle__burnett/story.json",
+  "text": "",
+  "title": "One Day At Arle",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-tidal-drowning",
+        "character_reaction_evidence_ids": [
+          "p00070",
+          "p00078"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The mechanism (tides, a boat buried in sand, limited time to work between tides) is coherent and naturalistic, but this is mundane realism, not an imaginary cognitive innovation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00053",
+            "p00060",
+            "p00068",
+            "p00072"
+          ]
+        },
+        "description": "A man is pinned beneath a beached boat on the sands and drowned by the incoming tide as his fellow villagers fail to free him.",
+        "estrangement_rationale": "No cognitive estrangement from the empirical norm; this is a domestic tragedy set in a realistic fishing hamlet.",
+        "evidence_ids": [
+          "p00056",
+          "p00067",
+          "p00084"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The drowning is the tragic climax that governs the story's ending, but it is a realist plot event, not a novum governing an estranged world.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00056",
+            "p00070",
+            "p00082",
+            "p00084",
+            "p00085"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.95,
+          "counterevidence_ids": [
+            "p00056",
+            "p00067",
+            "p00084"
+          ],
+          "rationale": "A tidal drowning is an ordinary natural hazard of coastal life, fully consistent with the empirical world; it introduces no world-altering difference from the author's empirical norm.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": [
+          "p00085",
+          "p00086"
+        ]
+      }
+    ]
+  }
+}

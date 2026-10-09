@@ -1,0 +1,99 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12048,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1173,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "wodehouse/sea_of_troubles",
+  "story_path": "wodehouse/sea_of_troubles/story.json",
+  "text": "",
+  "title": "Wodehouse - a Sea Of Troubles",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The protagonist resolves to kill himself.",
+        "quote": "Mr Meggs's mind was made up. He was going to commit suicide.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The narrator cites statistical findings about suicide rates by age and occupation.",
+        "quote": "Those who have studied the matter say that the tendency to commit suicide\n      is greatest among those who have passed their fifty-fifth year, and that\n      the rate is twice as great for unoccupied males as for occupied males.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "The narrator explains how his indulgent lifestyle physiologically led to chronic dyspepsia.",
+        "quote": "The result was that Nature, as is her wont, laid for him, and\n      got him.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00020"
+        ],
+        "paraphrase": "The character systematically weighs the merits of various methods before choosing one.",
+        "quote": "It had not been without considerable thought that Mr Meggs had decided\n      upon the method of his suicide. The knife, the pistol, the rope\nthey\n      had all presented their charms to him. He had further examined the merits\n      of drowning and of leaping to destruction from a height.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00059"
+        ],
+        "paraphrase": "The protagonist abruptly reverses his decision to kill himself.",
+        "quote": "'I'll be hanged if I commit suicide,' he yelled.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00103"
+        ],
+        "paraphrase": "He is astonished to notice he feels healthy after the exertion.",
+        "quote": "'Why, I feel well!'",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00105"
+        ],
+        "paraphrase": "He concludes that exercise cured him and resolves to continue it regularly.",
+        "quote": "'It must be the exercise I took yesterday. By George, I'll do it\n      regularly.'",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00035"
+        ],
+        "paraphrase": "The narrator contrasts the character's intended meaning with how another character interprets it.",
+        "quote": "Mr Meggs thought he\n      was smiling the sad, tender smile of a man who, knowing himself to be on\n      the brink of the tomb, bids farewell to a faithful employee. Miss\n      Pillenger's view was that he was smiling like an abandoned old rip who\n      ought to have been ashamed of himself.",
+        "raw_id": "ev08"
+      }
+    ]
+  }
+}

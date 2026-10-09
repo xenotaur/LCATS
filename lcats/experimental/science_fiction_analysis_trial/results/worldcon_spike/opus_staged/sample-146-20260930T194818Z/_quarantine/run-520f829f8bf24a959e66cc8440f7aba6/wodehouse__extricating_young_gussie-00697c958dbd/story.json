@@ -1,0 +1,11 @@
+{
+  "failure_kind": "BadRequestError",
+  "failure_message": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfaLGoAFyR89gDZnMXMYr'}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/wodehouse__extricating_young_gussie-00697c958dbd/sf_evidence-backend-error.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "story",
+  "story_id": "wodehouse/extricating_young_gussie",
+  "story_path": "wodehouse/extricating_young_gussie/story.json",
+  "title": "Wodehouse - Extricating Young Gussie",
+  "tool_result": null
+}

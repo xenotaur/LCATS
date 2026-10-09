@@ -1,0 +1,119 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14478,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1558,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "london/negore_the_coward",
+  "story_path": "london/negore_the_coward/story.json",
+  "text": "",
+  "title": "London - Negore, the Coward",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-woodcraft-tracking",
+        "character_reaction_evidence_ids": [
+          "sfev-7e4612193ad16a10"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The story offers a coherent, systematic, nonsupernatural account of inference from natural signs, explained via the contrast between land-craft and water-craft.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-675f5b80d3f708a6",
+            "sfev-09a02b6c2a1feb9c",
+            "sfev-ba8d25dc5159c24d"
+          ]
+        },
+        "description": "Negore's skill in reading natural signs (absence of birds, glint of sunlight on a rifle-barrel) to detect a hidden ambush, contrasted with Karduk's lack of land-craft.",
+        "estrangement_rationale": "The contrast between Negore's land-craft and Karduk's sea-bred ignorance provides reader-facing difference, but it is a realistic ethnographic distinction, not a novum.",
+        "evidence_ids": [
+          "sfev-675f5b80d3f708a6",
+          "sfev-09a02b6c2a1feb9c",
+          "sfev-ba8d25dc5159c24d"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The reading of natural signs governs the ambush's success and Negore's redemption, central to the plot's logic.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-675f5b80d3f708a6",
+            "sfev-09a02b6c2a1feb9c",
+            "sfev-ba8d25dc5159c24d"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-675f5b80d3f708a6",
+            "sfev-09a02b6c2a1feb9c",
+            "sfev-ba8d25dc5159c24d"
+          ],
+          "rationale": "Woodcraft and observational tracking are mundane skills consistent with the implied empirical world; they introduce no totalizing or world-altering difference from the authorial norm.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-ba8d25dc5159c24d"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-675f5b80d3f708a6",
+          "sfev-09a02b6c2a1feb9c"
+        ]
+      },
+      {
+        "candidate_id": "cand-russian-colonization",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The colonial setting is coherent and consistent with real historical social organization.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-c6ce9f5b6818ac1d",
+            "sfev-b65a22fe85ab229a"
+          ]
+        },
+        "description": "The Russian colonial occupation of nineteenth-century Alaska as a historical setting driving the tribe's flight and the threat of extermination.",
+        "estrangement_rationale": "The historical setting grounds the narrative but offers no science-fictional estrangement; it is a work of historical fiction, not estranged worldbuilding.",
+        "evidence_ids": [
+          "sfev-c6ce9f5b6818ac1d",
+          "sfev-b65a22fe85ab229a"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The colonial threat drives the entire plot: the flight, the ambush, and Negore's redemption.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-b65a22fe85ab229a",
+            "sfev-c6ce9f5b6818ac1d"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-c6ce9f5b6818ac1d",
+            "sfev-b65a22fe85ab229a"
+          ],
+          "rationale": "The Russian occupancy of Alaska is a documented historical reality, not a totalizing difference from the empirical norm; it is a realist historical frame rather than an estranging novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-c6ce9f5b6818ac1d"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-b65a22fe85ab229a"
+        ]
+      }
+    ]
+  }
+}

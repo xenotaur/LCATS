@@ -1,0 +1,169 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 10356,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2330,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/8_million_dollars_from_mars__marks",
+  "story_path": "mass_quantities/8_million_dollars_from_mars__marks/story.json",
+  "text": "",
+  "title": "8 Million Dollars From Mars!",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "A robot luggage-carrier follows a handheld homing device.",
+        "quote": "At his heels, the squat, robot\nluggage-carrier dutifully followed the \"bone\" which he carried in his\nright hand.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "Interplanetary travel with baggage weight limits is routine in this world.",
+        "quote": "most interplanetary trippers used the lightest, flimsiest\ncontainers to remain under the 100-pound limit",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "An automated inoculation booth injects serum using compressed air based on stored metabolic data.",
+        "quote": "You stepped in, placing your feet on the painted foot-prints,\nslipped the steel I.D. plate containing your metabolic data into the\nslot, and _click_, a measured dose of anti-this-or-that serum shot from\na compressed air needle and penetrated the proper area of the body\nwithout breaking the skin.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "Passengers are fed intravenously for the nine-month voyage.",
+        "quote": "It was the nutrient tube which\nwould feed him for some nine months in space.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00030"
+        ],
+        "paraphrase": "Passengers remain immobilized for the entire nine-month journey by contract.",
+        "quote": "This was no ocean liner where you could wander about, swim and play\nshuffle-board. You bought your ticket, lay down and played dead for\nnine months. It was part of the contract.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00034"
+        ],
+        "paraphrase": "A muscle-relaxing injection lowers metabolism to make intravenous feeding sufficient.",
+        "quote": "One injection relaxes all your muscles, which, in turn, lowers your\nmetabolism and makes intravenous feeding adequate. You will know no\nhunger or nausea, even when we go into free-flight.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00042"
+        ],
+        "paraphrase": "Cabin air is held at body temperature to minimize passenger metabolism.",
+        "quote": "Actually, the temperature of the air is held carefully at 98.6\ndegrees, Fahrenheit, the exact temperature of the normal human body.\nThis is to help minimize your bodies' metabolism, or fuel consumption.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00045"
+        ],
+        "paraphrase": "A retardation drug deliberately induces a lag in the body's perspiration response.",
+        "quote": "each\npassenger now receives a minute injection of a retardation drug that\nhas the desired effect. This drug creates a slight lag between the time\nof heat sensation and the beginning of perspiration.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00063"
+        ],
+        "paraphrase": "The double dose of the thermal retardation drug is the cause of his uncontrolled thermal suffering.",
+        "quote": "Booth number seven\nwas where he had fled for concealment and received a double dose of\ndrug injection! It was no wonder he was suffering the excessive lag in\nthermal adjustment!",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00069"
+        ],
+        "paraphrase": "The intravenous feeding cannot compensate for the extra energy his abnormal reactions consume.",
+        "quote": "the feeding was based on your\nmetabolism tests and the assumption that your temperature was swinging\nbetween narrow limits. And it didn't account for the energy you are\nusing coughing!",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00075"
+        ],
+        "paraphrase": "Pauker, overwhelmed by suffering, alternately prays for life and death.",
+        "quote": "Pauker was not religious, but he prayed to God for life, then he prayed\nto the devil for death",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00077"
+        ],
+        "paraphrase": "The chronometer shows only ten days have passed, contrasting with the perceived length of his ordeal.",
+        "quote": "It was, of course, out\nof order. For it registered only an absurd ten days, six hours and\nfourteen minutes since blast-off",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00078"
+        ],
+        "paraphrase": "The Surgeon-General marvels that the drug combination kept Pauker alive despite his condition.",
+        "quote": "\"Astonishing!\" the Marsfield Surgeon-General exclaimed. \"Simply\nastonishing the survival power you people have given your passengers\nwith this new drug combination.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00078"
+        ],
+        "paraphrase": "The Surgeon-General notes Pauker remained conscious and near death through the entire trip.",
+        "quote": "See here,\" he prodded Pauker's\nemaciated ribs. \"He still reacts to stimulus. Good as dead, yet I doubt\nthat he fully lost consciousness the whole trip!\"",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "The journey to Mars spans nine months across space.",
+        "quote": "It was the nutrient tube which\nwould feed him for some nine months in space.",
+        "raw_id": "ev15"
+      }
+    ]
+  }
+}

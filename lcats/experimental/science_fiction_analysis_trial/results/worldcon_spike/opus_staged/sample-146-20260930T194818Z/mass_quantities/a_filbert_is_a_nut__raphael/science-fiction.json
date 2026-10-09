@@ -1,0 +1,840 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_filbert_is_a_nut__raphael-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "Atomic physics is materially invoked: kiloton yield estimates, detected radiation, and references to atomic bomb science (Madame Curie). The story turns on a speculative-science premise of a mind producing atomic reactions.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3cf8c8b9ba9b6ce7",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-dfafa99ad4cecf15",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-6ad31eb4958444ed",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The clay 'atom bomb' is an engineered device (however impossible) that materially drives the plot: it explodes, is tested under supervision, and produces atomic-scale destruction that structures the entire narrative.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-604f769e8ca96858",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-7c484475f6dcb32f",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-93de41e707d5da74",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary present with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "The story extrapolates from the premise that Funston's mind can effect physically impossible feats: the ending literalizes the general's mocking remark by launching the Washington Monument, developing the consequence of the psychic-power premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-14de39b75e5a1a16",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-0ae65dbe8add2137",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Scientists systematically respond: measuring radiation, examining and photographing the clay, and designing a controlled supervised repetition of the bomb-making to test the hypothesis under observation. This investigative testing materially drives the plot.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-0e03b6c8a4422794",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-e9761eb3baa19fbc",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-192e6810870dec3c",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-dfafa99ad4cecf15",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The story takes place entirely on contemporary Earth. The monument vanishing 'into space' is a comedic final beat, not an other-planet, other-dimension, or visitor element.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "Actual atomic explosions occur: the crafts building is destroyed with a mushroom cloud and heavy radiation, and a second atomic-scale blast occurs during the desert test. These large-scale destructive events are causally central.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1f6403ab86f7f0f4",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-7c484475f6dcb32f",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-93de41e707d5da74",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-bce36e23dbbb8ec8",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bce36e23dbbb8ec8",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 13786,
+            "output": 1306
+          }
+        },
+        "status": "complete",
+        "story_hash": "551780f610486560fd13c3f218af03d3db279803899c4003e4a66943c8947b39"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_filbert_is_a_nut__raphael-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-funston-psychic-reality-shaping",
+            "cognitive_validation": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-6ad31eb4958444ed",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-f6d03cecd8b59ad4",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-0ae65dbe8add2137",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ],
+              "rationale": "The story frames the events through a systematic investigative apparatus (AEC, radiation measurement, kiloton yield, controlled repetition) suggesting a rationalized, nonsupernatural phenomenon. Yet no immanent mechanism is ever articulated; the clay lacks fissile material and the effect is essentially reality-warping mental willpower with no coherent imaginary-science account. The narrative leans on absurdist comedy rather than building a consistent cognitive logic, so the dimension is genuinely ambiguous.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3cf8c8b9ba9b6ce7",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-dfafa99ad4cecf15",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-e9761eb3baa19fbc",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-0e03b6c8a4422794",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ]
+            },
+            "description": "Thaddeus Funston, a low-IQ paranoid mental patient, can make functioning atomic bombs out of ordinary modeling clay and detonate them by mental act, and ultimately launch the Washington Monument into space by merely staring hard. His belief/intent that a thing is so makes it physically so, overriding the laws of physics.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-49b912f789c94770",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-e02f83ce43dacd47",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ],
+              "rationale": "The story repeatedly contrasts the mundane (art therapy, modeling clay, sponge rubber, a low-IQ patient) with world-altering atomic and orbital effects, producing estrangement through the collision of the trivial and the catastrophic. Character reactions (Miss Abercrombie fainting, Funston's physical flinch) underscore the rupture without requiring surprise to validate the novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-6ad31eb4958444ed",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-f6d03cecd8b59ad4",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-0ae65dbe8add2137",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-1f6403ab86f7f0f4",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-7c484475f6dcb32f",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-93de41e707d5da74",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-14de39b75e5a1a16",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-604f769e8ca96858",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-7c484475f6dcb32f",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-93de41e707d5da74",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-14de39b75e5a1a16",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-3cf8c8b9ba9b6ce7",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-dfafa99ad4cecf15",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-0e03b6c8a4422794",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-e9761eb3baa19fbc",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-e02f83ce43dacd47",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              },
+              {
+                "evidence_id": "sfev-49b912f789c94770",
+                "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The entire plot is driven by and organized around this impossibility: the explosion, the investigation, the supervised re-test, and the final monument launch. Every scene exists to confront or verify Funston's power; it governs the whole narrative logic and its final punchline.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-604f769e8ca96858",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-1f6403ab86f7f0f4",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-93de41e707d5da74",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-0e03b6c8a4422794",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-14de39b75e5a1a16",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "Ordinary art-therapy clay producing a genuine three-kiloton atomic explosion with real radiation, and a mind launching a stone monument into orbit, is a totalizing departure from the empirical norm shared by the story's contemporary setting. It transforms the storyworld's physical laws, not merely adds a gadget.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-604f769e8ca96858",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-7c484475f6dcb32f",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-93de41e707d5da74",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-14de39b75e5a1a16",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                },
+                {
+                  "evidence_id": "sfev-e02f83ce43dacd47",
+                  "evidence_set_id": "sfes-bce36e23dbbb8ec8"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-bce36e23dbbb8ec8",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bce36e23dbbb8ec8",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 14133,
+            "output": 1571
+          }
+        },
+        "status": "complete",
+        "story_hash": "551780f610486560fd13c3f218af03d3db279803899c4003e4a66943c8947b39"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-bce36e23dbbb8ec8",
+    "knight_analysis_id": "mass_quantities__a_filbert_is_a_nut__raphael-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_filbert_is_a_nut__raphael-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-bce36e23dbbb8ec8",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00040"
+            ],
+            "paraphrase": "The colonel repeatedly expresses disbelief that an atomic bomb detonated at a mental hospital.",
+            "quote": "\"It's impossible and unbelievable,\" Colonel Thomas Thurgood said for the fifteenth time, later that morning, as he looked around the group of experts gathered in the tent overlooking the crater. \"How can an atom bomb go off in a nut house?\"",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 15984,
+            "paragraph_ids": [
+              "p00095"
+            ],
+            "start_char": 15863
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0ae65dbe8add2137",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "A general mockingly compares the clay-bomb claim to making spaceships from sponge rubber.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Why don't you just tell me, colonel, that he can also make spaceships out of sponge rubber?\" the general added bitingly."
+        },
+        {
+          "anchor": {
+            "end_char": 10570,
+            "paragraph_ids": [
+              "p00066"
+            ],
+            "start_char": 10432
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0e03b6c8a4422794",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Officials decide to have Funston repeat the bomb-making under controlled observation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"That seems to settle it, colonel. We've got to give this Funston another chance to repeat his bomb. But this time under our supervision.\""
+        },
+        {
+          "anchor": {
+            "end_char": 16340,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 16105
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-14de39b75e5a1a16",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Funston's mental power launches the Washington Monument into space like a rocket, echoing the general's mocking remark.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the distance, a white cloud began billowing up from the base of the Washington Monument, and with an ear-shattering, glass-splintering roar, the great shaft rose majestically from its base and vanished into space on a tail of flame."
+        },
+        {
+          "anchor": {
+            "end_char": 6530,
+            "paragraph_ids": [
+              "p00037"
+            ],
+            "start_char": 6403
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-192e6810870dec3c",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "A team of atomic experts and investigators arrives to study the incident.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "a platoon of Atomic Energy Commission experts, military intelligence men, four FBI agents and an Army full colonel disembarked."
+        },
+        {
+          "anchor": {
+            "end_char": 5227,
+            "paragraph_ids": [
+              "p00030"
+            ],
+            "start_char": 4969
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1f6403ab86f7f0f4",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A violent explosion hits the hospital, shattering windows and terrifying patients.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "An instant later, the shattering roar and blast of the explosion struck the hospital buildings in a wave of force and the bursting crash of a thousand windows was lost in the fury of the explosion and the wild screams of the frightened and demented patients."
+        },
+        {
+          "anchor": {
+            "end_char": 7054,
+            "paragraph_ids": [
+              "p00041"
+            ],
+            "start_char": 6936
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3cf8c8b9ba9b6ce7",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "An AEC expert estimates the blast's yield at under three kilotons.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"It apparently was a very small bomb, colonel,\" one of the haggard AEC men offered timidly. \"Not over three kilotons.\""
+        },
+        {
+          "anchor": {
+            "end_char": 4842,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 4771
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-49b912f789c94770",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Funston reacts physically just before the first explosion occurs.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He gave a quick cry, shut his eyes and clapped his hands over his face."
+        },
+        {
+          "anchor": {
+            "end_char": 1904,
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "start_char": 1894
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-604f769e8ca96858",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A mental patient states he is making an atom bomb out of modeling clay.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Atom bomb."
+        },
+        {
+          "anchor": {
+            "end_char": 8010,
+            "paragraph_ids": [
+              "p00046"
+            ],
+            "start_char": 7908
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6ad31eb4958444ed",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The administrator sarcastically contrasts ordinary art materials with the impossibility of making a bomb from them.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "If you can make an atomic bomb from vermillion pigments, then Madame Curie was a misguided scrubwoman."
+        },
+        {
+          "anchor": {
+            "end_char": 5526,
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "start_char": 5359
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7c484475f6dcb32f",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A mushroom cloud rises over the destroyed crafts building, indicating an atomic-style blast.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Beyond the again-silent hills, a great pillar of smoke, topped by a small mushroom-shaped cloud, rose above the gaping hole that had been the arts and crafts building."
+        },
+        {
+          "anchor": {
+            "end_char": 14804,
+            "paragraph_ids": [
+              "p00089"
+            ],
+            "start_char": 14602
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-93de41e707d5da74",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The clay produces a second atomic-scale explosion during the supervised desert test.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A brilliance a hundred times brighter than the glaring Nevada sun lit the dim interior of the bunker and the pneumatically-operated door slammed shut just before the wave of the blast hit the structure."
+        },
+        {
+          "anchor": {
+            "end_char": 6347,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 6147
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dfafa99ad4cecf15",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Disaster crews measure heavy radiation at the crater and retreat to safety.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Within fifteen minutes, the disaster-trained crews had detected heavy radiation emanating from the crater and there was a scurry of men and equipment back to a safe distance, a few hundred yards away."
+        },
+        {
+          "anchor": {
+            "end_char": 8939,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 8901
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e02f83ce43dacd47",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Miss Abercrombie realizes the patient actually produced an atomic bomb and faints.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"He did make an atom bomb,\" she cried."
+        },
+        {
+          "anchor": {
+            "end_char": 14119,
+            "paragraph_ids": [
+              "p00085"
+            ],
+            "start_char": 14012
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e9761eb3baa19fbc",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Scientists examine and photograph the clay object in detail before testing.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For two hours they studied and gently probed the mass of child's clay and photographed it from every angle."
+        },
+        {
+          "anchor": {
+            "end_char": 10972,
+            "paragraph_ids": [
+              "p00068"
+            ],
+            "start_char": 10832
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f6d03cecd8b59ad4",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The colonel stresses the absurd contrast between a low-IQ patient and making an atomic bomb from clay.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "anyone of us here entertained the notion that a paranoidal idiot with the IQ of an ape could make an atomic bomb out of kid's modeling clay?"
+        }
+      ],
+      "story_hash": "551780f610486560fd13c3f218af03d3db279803899c4003e4a66943c8947b39",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_filbert_is_a_nut__raphael",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "551780f610486560fd13c3f218af03d3db279803899c4003e4a66943c8947b39",
+  "story_path": "mass_quantities/a_filbert_is_a_nut__raphael/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

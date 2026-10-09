@@ -1,0 +1,483 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "wodehouse__crowned_heads-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "This is a Wodehouse comedy of manners about an old man's delusion and a romance. No scientific fact, theory, discovery, natural process, or speculative science is materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Only ordinary contemporary items appear (bookshop, bath-chair, ferry, merry-go-round). No device, technique, engineered system, or invention materially affects the setting, problem, or outcome.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary New York with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The plot turns on exploiting an old man's delusion through a clever ruse, not on consequences developed from an identifiable scientific, technological, social, or historical premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Ted's testing of the old man's memory with place names (Brooklyn, Yonkers) before proceeding resembles a hypothesis-test-then-act sequence, but it is a con artist's probing rather than systematic scientific inquiry driving genuine understanding; materiality and interpretation are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-cc7b0ed6bea965c0",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors appear. 'King of Coney Island' is a mundane festival title, not an other-worldly locale.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Only personal misfortune and an elderly man's delusion occur; there is no large-scale natural, technological, cosmic, biological, or human-caused disaster, whether actual, impending, remembered, or causally central.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-0b3c90d6fd3b487e",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0b3c90d6fd3b487e",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 16241,
+            "output": 1029
+          }
+        },
+        "status": "complete",
+        "story_hash": "2f46c1f28dd7165148699cb67eccba196546e3e1d0b76c830aab33cfaf5497f6"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "wodehouse__crowned_heads-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-grandfather-king-delusion",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-487125dc3f15b41a",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "rationale": "The delusion is presented as ordinary age-related dementia, not as any systematic imaginary science or alternative social organization. It has no immanent coherent logic that reorganizes the world; it is simply a recurring, shifting mental confusion (President Roosevelt, Prophet Elijah, King of England).",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "Old Matthew Bennett's delusion that he is the King of England (and generally that he holds royal authority), which governs the household's social logic and blocks Katie's marriage.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-9a9353adc02489e2",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                },
+                {
+                  "evidence_id": "sfev-c807453a4c10fc3d",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "rationale": "The reader-facing contrast is between the shared knowledge that the belief is false and the old man's sincere conviction; this is dramatic irony arising from a mundane delusion rather than a cognitively estranging novum. The storyworld remains the empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-487125dc3f15b41a",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b90b489ab2402aa4",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-b90b489ab2402aa4",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              },
+              {
+                "evidence_id": "sfev-487125dc3f15b41a",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              },
+              {
+                "evidence_id": "sfev-9a9353adc02489e2",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              },
+              {
+                "evidence_id": "sfev-c807453a4c10fc3d",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The delusion drives the central conflict: because the grandfather believes he is king, he forbids his 'granddaughter of the King of England' from marrying a commoner, and the entire plot revolves around resolving this obstacle. However, this narrative centrality does not make it a novum, since it lacks novelty and cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b90b489ab2402aa4",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                },
+                {
+                  "evidence_id": "sfev-487125dc3f15b41a",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                },
+                {
+                  "evidence_id": "sfev-c807453a4c10fc3d",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b90b489ab2402aa4",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                },
+                {
+                  "evidence_id": "sfev-487125dc3f15b41a",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "rationale": "The grandfather's belief that he is King of England is a psychological delusion of a senile old man, not a totalizing or world-altering difference from the empirical norm. The story world remains ordinary contemporary New York; nothing in the storyworld is actually changed. Characters explicitly recognize it as 'all nonsense.' There is no alteration to the universe, only one man's private false belief.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-king-of-coney-island",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The election mechanism is mundane and real; there is no imaginary scientific or social system to validate as a novum, so the dimension is not meaningfully applicable.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The 'King of Coney Island' title won by popular vote in an annual Mardi Gras election, which Ted uses to present himself as royalty and secure permission to marry.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-cc7b0ed6bea965c0",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "rationale": "Any estrangement here is comedic, based on the old man's ignorance of a real place, not on cognitive novelty. This is a mundane social custom, not a novum.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-cc7b0ed6bea965c0",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-cc7b0ed6bea965c0",
+                "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The Coney Island kingship provides the plot resolution: Ted exploits the grandfather's unfamiliarity with Coney Island to claim a 'royal alliance.' Yet this is an ordinary device, not a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cc7b0ed6bea965c0",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-cc7b0ed6bea965c0",
+                  "evidence_set_id": "sfes-0b3c90d6fd3b487e"
+                }
+              ],
+              "rationale": "The Coney Island Mardi Gras king is an actual festival custom of the empirical world, a ceremonial popularity title, not a world-altering difference. It introduces no change to the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-0b3c90d6fd3b487e",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-0b3c90d6fd3b487e",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 16588,
+            "output": 1704
+          }
+        },
+        "status": "complete",
+        "story_hash": "2f46c1f28dd7165148699cb67eccba196546e3e1d0b76c830aab33cfaf5497f6"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-0b3c90d6fd3b487e",
+    "knight_analysis_id": "wodehouse__crowned_heads-knight-v1",
+    "suvin_novum_analysis_id": "wodehouse__crowned_heads-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-0b3c90d6fd3b487e",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00160"
+            ],
+            "paraphrase": "Ted reasons out that the grandfather likely lacks knowledge of Coney Island, so a claim of kingship there would be believed.",
+            "quote": "It's an outside chance he'd remember all about what the Mardi Gras at Coney was, and just what being a king at it amounted to. Then I remembered you telling me you'd never been to Coney, so I figured your grandfather wouldn't be what you'd call well fixed in his information about it, so I took the chance.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 22318,
+            "paragraph_ids": [
+              "p00108"
+            ],
+            "start_char": 22227
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-487125dc3f15b41a",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Katie distinguishes between the shared understanding that the grandfather's belief is false and his sincere conviction that he is king.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "we know that it's all nonsense, this idea of his; but he really thinks he is the king"
+        },
+        {
+          "anchor": {
+            "end_char": 12895,
+            "paragraph_ids": [
+              "p00073"
+            ],
+            "start_char": 12712
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9a9353adc02489e2",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Katie calmly handles her grandfather's delusion by carrying on with routine tasks.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She merely gave the old man his breakfast, not forgetting to set aside a suitable portion for the smoky cat, and then went round to notify Mr Murdoch of what had happened."
+        },
+        {
+          "anchor": {
+            "end_char": 11807,
+            "paragraph_ids": [
+              "p00071"
+            ],
+            "start_char": 11775
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b90b489ab2402aa4",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The grandfather has come to believe he is the King of England.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he was the King of England"
+        },
+        {
+          "anchor": {
+            "end_char": 19570,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 19518
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c807453a4c10fc3d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Katie is emotionally overwhelmed when her grandfather forbids the marriage.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Consternation, surprise, and misery kept Katie dumb."
+        },
+        {
+          "anchor": {
+            "end_char": 31835,
+            "paragraph_ids": [
+              "p00161"
+            ],
+            "start_char": 31501
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cc7b0ed6bea965c0",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Ted tests the old man's memory with place names before deciding it is safe to claim to be King of Coney Island.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I tried him out first. I tried him with Brooklyn. Why, say, from the way he took it, he'd either never heard of the place, or else he'd forgotten what it was. I guess he don't remember much, poor old fellow. Then I mentioned Yonkers. He asked me what Yonkers were. Then I reckoned it was safe to bring on Coney"
+        }
+      ],
+      "story_hash": "2f46c1f28dd7165148699cb67eccba196546e3e1d0b76c830aab33cfaf5497f6",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "wodehouse/crowned_heads",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "2f46c1f28dd7165148699cb67eccba196546e3e1d0b76c830aab33cfaf5497f6",
+  "story_path": "wodehouse/crowned_heads/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

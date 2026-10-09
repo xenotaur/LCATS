@@ -1,0 +1,179 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13190,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2273,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/cold_ghost__geier",
+  "story_path": "mass_quantities/cold_ghost__geier/story.json",
+  "text": "",
+  "title": "Cold Ghost",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00013"
+        ],
+        "paraphrase": "Hager begins contemplating killing his partner.",
+        "quote": "And then he found himself toying with the thought of murdering Cahill.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00017"
+        ],
+        "paraphrase": "Hager reasons that delaying the journey will let exposure to cold kill the sick Cahill without visible marks.",
+        "quote": "If Hager were simply to delay in reaching the settlement, Cahill would\ndie as surely as though from the thrust of a knife or the impact of a\nbullet. Exposure to the biting cold would finish him.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00046"
+        ],
+        "paraphrase": "Hager devises a deliberate zigzag route to waste time while appearing to travel.",
+        "quote": "It was his plan to keep zigzagging, approaching the\nstream and then retreating, always at a tangent. A great deal of time\nwould be consumed in this way, with very little actual forward\nprogress toward Moose Gulch.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00054"
+        ],
+        "paraphrase": "Cahill realizes and accuses Hager of deliberately stalling to kill him.",
+        "quote": "\"You're trying to kill me, Matt. I see it\nnow. You aren't going straight toward Moose Gulch. You're tracking\nback and forth to waste time. You ... want me to die!\"",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00062"
+        ],
+        "paraphrase": "The dying Cahill vows revenge against Hager.",
+        "quote": "\"You aren't going to get away with this, Matt. I ... I'm going to get\nyou. I'm going to make you pay.\"",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00088"
+        ],
+        "paraphrase": "After the murder, an inexplicable cold begins following Hager and worsening.",
+        "quote": "The cold remained with him in the days that followed. It not only\nremained. It grew more unbearable.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00089"
+        ],
+        "paraphrase": "Hager alone feels a cold that others cannot perceive, even in warm places.",
+        "quote": "Even near hot stoves, or in heated rooms, he felt\nchilled. No one else seemed to notice it. The cold seemed intended for\nhim alone.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00090"
+        ],
+        "paraphrase": "The materialist Hager acknowledges being haunted by an unnatural cold.",
+        "quote": "He was materialistic. He didn't believe in ghosts. But he knew that\nhe was being haunted by an unnatural cold that nobody else seemed\nable to feel.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "Hager seeks a medical examination to explain the cold.",
+        "quote": "In Los Angeles he yielded to a wild impulse and visited a doctor. He\nexplained his symptoms, omitting their true cause, and pleaded for\nhelp.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00103"
+        ],
+        "paraphrase": "A doctor finds no physical cause for Hager's symptoms.",
+        "quote": "\"I can't understand it,\" he told Hager. \"There's nothing\nseriously wrong with you. All you need is plenty of food and rest.\nYou're probably just imagining things.\"",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00096"
+        ],
+        "paraphrase": "Despite traveling to warmer climates, the cold afflicting Hager intensifies.",
+        "quote": "The climate grew increasingly mild and balmy as he progressed\nsouthward. But the chill that always surrounded him grew worse.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00110"
+        ],
+        "paraphrase": "A priest attempts to exorcize the supernatural cold.",
+        "quote": "The priest nodded gravely and began his task.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00111"
+        ],
+        "paraphrase": "The exorcism temporarily succeeds in relieving Hager.",
+        "quote": "It worked.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00118"
+        ],
+        "paraphrase": "The priest refuses further aid, saying a vision reveals Hager must pay for his crime.",
+        "quote": "\"The _padre_ say he no can help you, _senor_. He say he\nhave how you call vision. It tell him you must pay.\"",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00123"
+        ],
+        "paraphrase": "Despite warmth and fire, Hager freezes to death.",
+        "quote": "It had been a warm night. The fire had been, hot, the blankets\nnumerous and thick. Yet Hager had _frozen_ to death.",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00105"
+        ],
+        "paraphrase": "Even in warm Mexico, Hager cannot feel any warmth.",
+        "quote": "Several days later found him in Mexico. It was warm--but he didn't\nfeel it. He knew with a terrible certainty that he would never feel\nwarmth again.",
+        "raw_id": "ev16"
+      }
+    ]
+  }
+}

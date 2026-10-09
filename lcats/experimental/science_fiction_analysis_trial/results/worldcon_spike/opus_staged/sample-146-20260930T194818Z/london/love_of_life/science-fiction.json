@@ -1,0 +1,209 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__love_of_life-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied; the evidence set is empty, so no criterion can be materially grounded in supplied evidence per the adjudication rules.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No evidence records supplied; ordinary items (rifle, watch) appear but cannot be assessed against the standard without supporting evidence IDs.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No evidence records supplied; the story is set in a contemporary Arctic and provides no temporal displacement to ground, and no evidence exists to cite.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No evidence records supplied; cannot materially ground any extrapolated premise against required evidence IDs.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records supplied; although a scientific expedition appears, no evidence IDs exist to materially support any assessment.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No evidence records supplied; the Arctic Barrens is an ordinary terrestrial location and no evidence exists to cite for nonordinary cosmic environments.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records supplied; the story depicts personal survival hardship rather than large-scale disaster, and no evidence IDs exist to ground any assessment.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-e00a4315feb23528",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e00a4315feb23528",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 21045,
+            "output": 892
+          }
+        },
+        "status": "complete",
+        "story_hash": "2cb1e0f99c062c13e40c663650a873c9bb550a41f836b3446e9b788001fbc9e5"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__love_of_life-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-e00a4315feb23528",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e00a4315feb23528",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 21392,
+            "output": 646
+          }
+        },
+        "status": "failed",
+        "story_hash": "2cb1e0f99c062c13e40c663650a873c9bb550a41f836b3446e9b788001fbc9e5"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-e00a4315feb23528",
+    "knight_analysis_id": "london__love_of_life-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-e00a4315feb23528",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "The abandoned man cries out to his departing companion in desperation.",
+            "quote": "It was the pleading cry of a strong man in distress, but\nBill\ffffff\ffffff",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [],
+      "story_hash": "2cb1e0f99c062c13e40c663650a873c9bb550a41f836b3446e9b788001fbc9e5",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/love_of_life",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "2cb1e0f99c062c13e40c663650a873c9bb550a41f836b3446e9b788001fbc9e5",
+  "story_path": "london/love_of_life/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

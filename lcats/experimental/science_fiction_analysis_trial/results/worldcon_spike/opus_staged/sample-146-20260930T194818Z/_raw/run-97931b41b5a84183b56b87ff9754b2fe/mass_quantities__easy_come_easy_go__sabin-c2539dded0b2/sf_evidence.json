@@ -1,0 +1,59 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 17176,
+  "model": "claude-opus-4-8",
+  "output_tokens": 600,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/easy_come_easy_go__sabin",
+  "story_path": "mass_quantities/easy_come_easy_go__sabin/story.json",
+  "text": "",
+  "title": "Easy come, easy go",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The narration contrasts the tourist party's world with the working cowboys' world.",
+        "quote": "It was one world imposed upon another.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00026"
+        ],
+        "paraphrase": "Laramie reacts with anger at being made a spectacle for tourists.",
+        "quote": "But this present play caught\nLaramie in a frame of mind more savage than usual. Was he to be\nbutchered for a tourist holiday?",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00038"
+        ],
+        "paraphrase": "Laramie is humiliated and speechless after being called out in front of the women.",
+        "quote": "But Laramie could muster no words of utterance before ladies.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00060"
+        ],
+        "paraphrase": "Tex explains the practical reasoning behind how this type of horse needs to be handled.",
+        "quote": "Old Thunder aint been mistreated. He\\u2019s just nacherly a trifle gay when\nhe\\u2019s fust forked. He does it a-purpose; he _expects_ to be tapered\noff like Laramie tapered him--wants somebody to come right back at\nhim, and then he\\u2019s peaceful.",
+        "raw_id": "ev04"
+      }
+    ]
+  }
+}

@@ -1,0 +1,442 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__country_lodgings__mitford-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The only near-scientific reference is the Count explaining 'mechanical and scientific reasons' for a stove's construction. This is a passing, ordinary domestic-heating rationale with no scientific fact, theory, discovery, or natural process materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.72,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "A stove is installed to cure a smoky chimney, an ordinary contemporary domestic device that does not materially affect the setting, problem, or outcome; the plot turns on romance, wills, and concealed rank, not on any invention or engineered system.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in the author's contemporary period (around the 1830s Poland/Russia references); there is no speculative future, remote past, or temporal displacement. The Radcliffe/Udolpho gothic allusions are decorative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The narrative develops social consequences of a marriage-forfeiture clause and mistaken assumptions about poverty, but these are ordinary romantic/social plotting, not consequences extrapolated from an identifiable scientific, technological, or systematically developed premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.62,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "The narrator makes casual inferences about the Count's rank and contrasts anticipation with reality, but there is no observation, hypothesis, testing, measurement, or evidential revision that materially drives understanding in a methodical sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.82,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The Count is a Polish exile, an ordinary foreign national from an ordinary country; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "References to the Polish national cause and 'impending calamity' are metaphorical (the romantic peril) or distant political backdrop, not an actual, impending, or causally central large-scale disaster driving the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-345e4ee9971d9bce",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-345e4ee9971d9bce",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 13674,
+            "output": 1161
+          }
+        },
+        "status": "complete",
+        "story_hash": "5e5d26bff50e5756ec49373a2022997afff8520d3f3149c12e3a365ea405dc88"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__country_lodgings__mitford-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-northern-stove",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The Count offers a coherent, systematic, nonsupernatural account of the mechanical and scientific reasons for the construction, which reads as immanent and rational.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-0b8f9ca5e48f8c87",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ]
+            },
+            "description": "A stove built 'after the fashion of the northern nations' notions,' recommended and installed by the Count to remedy a smoky chimney, accompanied by an explanation of its mechanical and scientific reasons.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "No estrangement effect: the stove is presented as a familiar comfort improvement, not a cognitively estranging world-difference.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-0b8f9ca5e48f8c87",
+                "evidence_set_id": "sfes-345e4ee9971d9bce"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0b8f9ca5e48f8c87",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ],
+              "rationale": "The stove is an incidental device serving characterization; it does not determine the overriding narrative logic, which is a domestic romance plot about concealed identity and a marriage clause.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0b8f9ca5e48f8c87",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ],
+              "rationale": "A domestic stove is an ordinary period-appropriate object within the author's empirical norm. It introduces no totalizing or world-altering difference from the implied real world; it merely improves comfort in one room.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-concealed-identity",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "There is no imaginary science or novel social organization to validate; the plot device operates within mundane social realism.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The mistaken assumption of the Count's poverty and exile status versus the concealed truth of his wealth and imperial favor, driving the marriage-clause romance plot.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-956999ad89b3af2a",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                },
+                {
+                  "evidence_id": "sfev-e9c98080e3a3afe0",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ],
+              "rationale": "The reader-facing contrast between anticipated and actual, and between assumed poverty and hidden wealth, produces narrative surprise but not cognitive estrangement of the world; it is a realist reversal.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-b34a915130ea4ea9",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                },
+                {
+                  "evidence_id": "sfev-e95f6a4935b8032a",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-e95f6a4935b8032a",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e95f6a4935b8032a",
+                "evidence_set_id": "sfes-345e4ee9971d9bce"
+              },
+              {
+                "evidence_id": "sfev-e9c98080e3a3afe0",
+                "evidence_set_id": "sfes-345e4ee9971d9bce"
+              },
+              {
+                "evidence_id": "sfev-b34a915130ea4ea9",
+                "evidence_set_id": "sfes-345e4ee9971d9bce"
+              },
+              {
+                "evidence_id": "sfev-956999ad89b3af2a",
+                "evidence_set_id": "sfes-345e4ee9971d9bce"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The concealment of the Count's true rank and wealth, set against the marriage clause, governs the central narrative logic and its resolution.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e95f6a4935b8032a",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                },
+                {
+                  "evidence_id": "sfev-e9c98080e3a3afe0",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                },
+                {
+                  "evidence_id": "sfev-b34a915130ea4ea9",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e95f6a4935b8032a",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                },
+                {
+                  "evidence_id": "sfev-e9c98080e3a3afe0",
+                  "evidence_set_id": "sfes-345e4ee9971d9bce"
+                }
+              ],
+              "rationale": "A concealed identity and mistaken assumption of poverty is a conventional realist romance device, not a totalizing or world-altering difference from the empirical norm. The story universe remains ordinary early-Victorian rural England.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-345e4ee9971d9bce",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-345e4ee9971d9bce",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 14021,
+            "output": 1480
+          }
+        },
+        "status": "complete",
+        "story_hash": "5e5d26bff50e5756ec49373a2022997afff8520d3f3149c12e3a365ea405dc88"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-345e4ee9971d9bce",
+    "knight_analysis_id": "mass_quantities__country_lodgings__mitford-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__country_lodgings__mitford-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-345e4ee9971d9bce",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 15841,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 15644
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0b8f9ca5e48f8c87",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The Count explains the mechanical and scientific reasons for the stove's construction.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the clearness with which, in perfectly\ncorrect and idiomatic English, slightly tinged with a foreign accent, he\nexplained the mechanical and scientific reasons for the construction\nhe had suggested"
+        },
+        {
+          "anchor": {
+            "end_char": 11842,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 11688
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-956999ad89b3af2a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Helen reacts with anxiety over a new young male lodger arriving while she is alone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Martha, who had seen him, said he was a\nyoung man, and a handsome man--and she herself a young woman unprotected\nand alone!--It was awkward, very awkward!"
+        },
+        {
+          "anchor": {
+            "end_char": 7157,
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "start_char": 7056
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b34a915130ea4ea9",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator contrasts her imagined portrait of the widow with the very different reality she found.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Il Penseroso is not more different from L'Allegro than was my\nanticipation from the charming reality."
+        },
+        {
+          "anchor": {
+            "end_char": 24390,
+            "paragraph_ids": [
+              "p00050"
+            ],
+            "start_char": 24244
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e95f6a4935b8032a",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The Count reveals the mistaken assumption of poverty, contrasting the narrator's belief with the hidden truth of his wealth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I should like to know, my good friend, what has put it\ninto her head, and into yours, that if Helen marries me she must needs\nearn her own living?"
+        },
+        {
+          "anchor": {
+            "end_char": 23170,
+            "paragraph_ids": [
+              "p00042"
+            ],
+            "start_char": 23007
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e9c98080e3a3afe0",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Helen reacts with joy, believing the Count loves her despite her expected loss of income.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"He knows of that clause, and he still wishes to marry me! He loves\nme for myself! Loves me, knowing me to be a beggar! It is true, pure,\ndisinterested affection!\""
+        }
+      ],
+      "story_hash": "5e5d26bff50e5756ec49373a2022997afff8520d3f3149c12e3a365ea405dc88",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/country_lodgings__mitford",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "5e5d26bff50e5756ec49373a2022997afff8520d3f3149c12e3a365ea405dc88",
+  "story_path": "mass_quantities/country_lodgings__mitford/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

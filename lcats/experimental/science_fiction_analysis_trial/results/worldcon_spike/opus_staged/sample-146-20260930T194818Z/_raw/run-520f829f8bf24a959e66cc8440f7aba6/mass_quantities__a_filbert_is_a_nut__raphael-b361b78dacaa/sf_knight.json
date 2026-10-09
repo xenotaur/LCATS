@@ -1,0 +1,107 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13786,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1306,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_filbert_is_a_nut__raphael",
+  "story_path": "mass_quantities/a_filbert_is_a_nut__raphael/story.json",
+  "text": "",
+  "title": "A Filbert Is a Nut",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "Atomic physics is materially invoked: kiloton yield estimates, detected radiation, and references to atomic bomb science (Madame Curie). The story turns on a speculative-science premise of a mind producing atomic reactions.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-3cf8c8b9ba9b6ce7",
+          "sfev-dfafa99ad4cecf15",
+          "sfev-6ad31eb4958444ed"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-6ad31eb4958444ed",
+          "sfev-f6d03cecd8b59ad4"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The clay 'atom bomb' is an engineered device (however impossible) that materially drives the plot: it explodes, is tested under supervision, and produces atomic-scale destruction that structures the entire narrative.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-604f769e8ca96858",
+          "sfev-7c484475f6dcb32f",
+          "sfev-93de41e707d5da74"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in a contemporary present with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "The story extrapolates from the premise that Funston's mind can effect physically impossible feats: the ending literalizes the general's mocking remark by launching the Washington Monument, developing the consequence of the psychic-power premise.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-14de39b75e5a1a16",
+          "sfev-0ae65dbe8add2137"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "central",
+        "rationale": "Scientists systematically respond: measuring radiation, examining and photographing the clay, and designing a controlled supervised repetition of the bomb-making to test the hypothesis under observation. This investigative testing materially drives the plot.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-0e03b6c8a4422794",
+          "sfev-e9761eb3baa19fbc",
+          "sfev-192e6810870dec3c",
+          "sfev-dfafa99ad4cecf15"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-14de39b75e5a1a16"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The story takes place entirely on contemporary Earth. The monument vanishing 'into space' is a comedic final beat, not an other-planet, other-dimension, or visitor element.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "central",
+        "rationale": "Actual atomic explosions occur: the crafts building is destroyed with a mushroom cloud and heavy radiation, and a second atomic-scale blast occurs during the desert test. These large-scale destructive events are causally central.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-1f6403ab86f7f0f4",
+          "sfev-7c484475f6dcb32f",
+          "sfev-93de41e707d5da74"
+        ]
+      }
+    ]
+  }
+}

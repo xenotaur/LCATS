@@ -1,0 +1,560 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_reversion_to_type__bacon-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story is a realist psychological drama about a woman teacher's romantic regret at a women's college. No scientific facts, theories, discoveries, or natural processes are materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Only ordinary contemporary objects appear (letters, tea, furniture). No device, technique, or engineered invention materially affects the setting, problem, or outcome.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The setting is the contemporary present. Memories of a past German winter and a seven-year-old promise are ordinary recollection, not a speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The narrative develops emotional and social consequences of a personal choice, but there is no identifiable scientific, technological, or systematically historical premise extrapolated into consequences.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "The protagonist reasons with herself about her depression, but this is introspective rumination, not observation, hypothesis, testing, measurement, or systematic evidential inference that materially drives understanding.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-72a99656b2452c6e",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Germany and the German setting are an ordinary foreign country recalled from memory, not another planet, dimension, or nonordinary cosmic environment, and no visitors from such places appear.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The story's crisis is personal romantic disappointment and life dissatisfaction, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-72a99656b2452c6e",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-d63e39de30ea4067",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-536fb9a1912f1864",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-536fb9a1912f1864",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 17171,
+            "output": 1000
+          }
+        },
+        "status": "complete",
+        "story_hash": "982fa5d193df41b50dbde7e8415996f233f110cf8b51443d855e9cd3a9f3a171"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_reversion_to_type__bacon-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-german-assistant-life",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "There is no imaginary science or novel social organization to validate as a coherent immanent system, because no novum is present; the question of cognitive logic does not meaningfully arise.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The story concerns a woman's German teaching post at a women's college and her emotional reconsideration of a past love. This candidate treats the depicted institutional/social milieu as a potential world-altering difference.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-fce06daf6df3e23a",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-742ae0d3221d02dd",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-72a99656b2452c6e",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-14ec4affd50566b4",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-d63e39de30ea4067",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                }
+              ],
+              "rationale": "The contrasts in the text (impersonal room, imagined past, renewed sense of attractiveness) are realist psychological contrasts, not cognitive estrangement produced by a novum. This is a mainstream realist story of a woman's regret and reawakening, with no science-fictional novum operating.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ad573fedb16a971a",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-b7e6ca3008e185e2",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-a8c4dccca221d727",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-5244da1f222abb81",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-fce06daf6df3e23a",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-742ae0d3221d02dd",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-14ec4affd50566b4",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-72a99656b2452c6e",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-b7e6ca3008e185e2",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-ad573fedb16a971a",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-a8c4dccca221d727",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-5244da1f222abb81",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              },
+              {
+                "evidence_id": "sfev-d63e39de30ea4067",
+                "evidence_set_id": "sfes-536fb9a1912f1864"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The narrative is driven by ordinary psychological and romantic conflict rather than by any novum-governed logic. The controlling force is a realist emotional dilemma, not a world-altering difference.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-ad573fedb16a971a",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-a8c4dccca221d727",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b7e6ca3008e185e2",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                },
+                {
+                  "evidence_id": "sfev-742ae0d3221d02dd",
+                  "evidence_set_id": "sfes-536fb9a1912f1864"
+                }
+              ],
+              "rationale": "The setting is an ordinary early-twentieth-century women's college depicted in realist terms. Nothing constitutes a totalizing or world-altering difference from the empirical norm; the environment is the familiar authorial reality, not an estranged one.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-536fb9a1912f1864",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-536fb9a1912f1864",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 17518,
+            "output": 1057
+          }
+        },
+        "status": "complete",
+        "story_hash": "982fa5d193df41b50dbde7e8415996f233f110cf8b51443d855e9cd3a9f3a171"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-536fb9a1912f1864",
+    "knight_analysis_id": "mass_quantities__a_reversion_to_type__bacon-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_reversion_to_type__bacon-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-536fb9a1912f1864",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 5008,
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "start_char": 4928
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-14ec4affd50566b4",
+          "evidence_type": "character_reaction",
+          "paraphrase": "She realizes her absorption in memories caused her to lapse in the classroom.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "though she had been thinking steadily in German, she had been\ntalking in English"
+        },
+        {
+          "anchor": {
+            "end_char": 21798,
+            "paragraph_ids": [
+              "p00080"
+            ],
+            "start_char": 21745
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5244da1f222abb81",
+          "evidence_type": "character_reaction",
+          "paraphrase": "She experiences a heightened joyful state after acting on her hope.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For the first week she moved in a kind of exaltation."
+        },
+        {
+          "anchor": {
+            "end_char": 10332,
+            "paragraph_ids": [
+              "p00043"
+            ],
+            "start_char": 10254
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-72a99656b2452c6e",
+          "evidence_type": "character_reaction",
+          "paraphrase": "She attempts to talk herself out of her deep depression about her life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In her own room she tried\nto reason herself out of this intolerable depression"
+        },
+        {
+          "anchor": {
+            "end_char": 3636,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 3526
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-742ae0d3221d02dd",
+          "evidence_type": "character_reaction",
+          "paraphrase": "She judges the collegiate life as an empty pretense of living.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "What an idiot she was to give up four years of her life to this round of\nwork and play and pretence of living!"
+        },
+        {
+          "anchor": {
+            "end_char": 19577,
+            "paragraph_ids": [
+              "p00071"
+            ],
+            "start_char": 19492
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a8c4dccca221d727",
+          "evidence_type": "character_reaction",
+          "paraphrase": "She takes action by mailing a letter, presumably to the man from her past.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "just before the ten-o'clock bell she slipped out to mail a fat\nbrown-stamped envelope"
+        },
+        {
+          "anchor": {
+            "end_char": 4212,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 4050
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ad573fedb16a971a",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "She contrasts her present life with an imagined return to her past domestic possibility.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Was it too late? Suppose she should go, after all? Suppose she should\ngo, and all should be as it had been, only a little older, a little more\nquiet and peaceful?"
+        },
+        {
+          "anchor": {
+            "end_char": 11518,
+            "paragraph_ids": [
+              "p00043"
+            ],
+            "start_char": 11407
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b7e6ca3008e185e2",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Her room is described as artificial and interchangeable with those of other single educated women.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It looked utterly impersonal to-day; its very atmosphere was\nartificial, typical, a pretended self-sufficiency."
+        },
+        {
+          "anchor": {
+            "end_char": 31333,
+            "paragraph_ids": [
+              "p00116"
+            ],
+            "start_char": 31232
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d63e39de30ea4067",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The awaited man arrives, but reaches toward the wrong woman.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "As she passed by\nthe little reception-room a tall, eager man made toward her with\noutstretched hands."
+        },
+        {
+          "anchor": {
+            "end_char": 24787,
+            "paragraph_ids": [
+              "p00091"
+            ],
+            "start_char": 24634
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ed854e1992a852d4",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A stranger's admiring glance renews her sense of her own attractiveness and worth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But through all her agony of doubt in the days that followed, one shame\nwas miraculously removed, one hope sang faintly beneath: she, too, had\nher power!"
+        },
+        {
+          "anchor": {
+            "end_char": 56,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fce06daf6df3e23a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The teacher feels exhausted and weary of her daily routine.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She had never felt so tired of it all, it seemed to her."
+        }
+      ],
+      "story_hash": "982fa5d193df41b50dbde7e8415996f233f110cf8b51443d855e9cd3a9f3a171",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_reversion_to_type__bacon",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "982fa5d193df41b50dbde7e8415996f233f110cf8b51443d855e9cd3a9f3a171",
+  "story_path": "mass_quantities/a_reversion_to_type__bacon/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

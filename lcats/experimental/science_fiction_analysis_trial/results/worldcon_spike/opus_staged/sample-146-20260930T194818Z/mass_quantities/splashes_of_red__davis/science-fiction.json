@@ -1,0 +1,209 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__splashes_of_red__davis-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied. The story is a crime/mystery set at a rodeo with no scientific facts, theories, or natural processes materially represented; however, per instructions, absence of supplied evidence means not_assessable rather than absent.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The supplied evidence set is empty. Firearms and ballistic reasoning appear but these are ordinary contemporary tools, not speculative or engineered inventions driving a novum. With no usable evidence records, the criterion cannot be materially assessed.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No supplied evidence records exist to assess. The narrative is set in an ordinary contemporary present with no speculative future, remote past, or temporal displacement.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The evidence set is empty. No identifiable scientific, technological, social, or historical premise is extrapolated into consequences; the story develops an ordinary murder investigation.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records were provided. While Campbell reasons from the bullet wound and caliber, this is generic detective inference rather than materially represented scientific method, and with no usable evidence the criterion cannot be adjudicated as present.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The supplied evidence is empty. The setting is the ordinary Atlantic seaboard United States with no other planets, dimensions, cosmic environments, or visitors from them.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.3,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records were supplied. A single murder is a personal crime, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe; but with no usable evidence the criterion is not assessable.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-f4916c33702c5cf1",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-f4916c33702c5cf1",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 18178,
+            "output": 1036
+          }
+        },
+        "status": "complete",
+        "story_hash": "2c90f6e66427c346d96675f849da787574ae55e3ec72fa79838b1a72e2518a2d"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__splashes_of_red__davis-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-f4916c33702c5cf1",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-f4916c33702c5cf1",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 18525,
+            "output": 627
+          }
+        },
+        "status": "failed",
+        "story_hash": "2c90f6e66427c346d96675f849da787574ae55e3ec72fa79838b1a72e2518a2d"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-f4916c33702c5cf1",
+    "knight_analysis_id": "mass_quantities__splashes_of_red__davis-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-f4916c33702c5cf1",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00125"
+            ],
+            "paraphrase": "Campbell reasons from the shape of the wound that the bullet could not be from a .45 Colt and predicts a smaller caliber based on physical evidence.",
+            "quote": "there ain\ffffdt any way of proving it without that piece of lead, because\nbullets don\ffffdt always act just the same in all cases--but I\ffffdd gamble the\nbest hawse I\ffffdve got that this hole wasn\ffffdt made by any Colt. Looks to me\nas if it was too small going in and too big coming out. When you find\nthat bullet, if it isn\ffffdt busted so its weight don\ffffdt prove anything, I\ffffdm\nsayin\ffffd it\ffffdll be a .38 at the biggest, and perhaps a .32.",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [],
+      "story_hash": "2c90f6e66427c346d96675f849da787574ae55e3ec72fa79838b1a72e2518a2d",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/splashes_of_red__davis",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "2c90f6e66427c346d96675f849da787574ae55e3ec72fa79838b1a72e2518a2d",
+  "story_path": "mass_quantities/splashes_of_red__davis/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

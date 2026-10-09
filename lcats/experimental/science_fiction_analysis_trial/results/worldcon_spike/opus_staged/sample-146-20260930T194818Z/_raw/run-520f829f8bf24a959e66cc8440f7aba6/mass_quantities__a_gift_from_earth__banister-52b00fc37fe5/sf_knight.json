@@ -1,0 +1,105 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19845,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1277,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_gift_from_earth__banister",
+  "story_path": "mass_quantities/a_gift_from_earth__banister/story.json",
+  "text": "",
+  "title": "A Gift from Earth",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "incidental",
+        "rationale": "Interstellar distance ('sixty-odd light-years') and geological prospecting for metals, oil, and gas are referenced, but scientific facts are only lightly invoked as backdrop rather than materially explored.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-0301a85a339cb30c",
+          "sfev-6f4ae1165b393c41"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "Successive Earth technologies--interstellar spaceships, telegraph, printing presses, gas appliances, radio, television, concrete--materially drive the plot by displacing Zurian industries and enabling the takeover.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-9175b02750644f40",
+          "sfev-7ed9df12bafd0508",
+          "sfev-60138e45a435eb56",
+          "sfev-dc06dd460c215c7a"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story concerns contemporaneous interstellar contact on an alien world; there is no future, remote past, or temporal displacement materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.92,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The whole narrative extrapolates the consequences of an identifiable premise--Earth's overpopulation and its economic method of conquest via trade, credit, and technology--culminating in the total takeover of Zur.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-251a11b3a111c9e8",
+          "sfev-1bafdfcae5336bf2",
+          "sfev-31f1d25d06ac5cfe",
+          "sfev-b512bd90ca955265",
+          "sfev-a65e11cf5e5c6de2"
+        ]
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No character materially applies observation, hypothesis, testing, or evidential revision to drive understanding; economic maneuvering is not scientific method.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "The story is set on the alien planet Zur and centrally features visitors from Earth arriving via interstellar spaceship; the other-world setting and off-world visitors are foundational.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-6ba31a42a08b19b0",
+          "sfev-dba7d5b747e4ff5a",
+          "sfev-0301a85a339cb30c"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-31f1d25d06ac5cfe"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "incidental",
+        "rationale": "The complete economic and cultural takeover of an entire planet constitutes large-scale human-caused dislocation, but it is deliberately non-violent and framed as gentle, so its status as a catastrophe is interpretively uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-1bafdfcae5336bf2",
+          "sfev-251a11b3a111c9e8"
+        ]
+      }
+    ]
+  }
+}

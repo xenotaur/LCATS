@@ -1,0 +1,169 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15798,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2555,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/doom_of_the_house_of_duryea__peirce",
+  "story_path": "mass_quantities/doom_of_the_house_of_duryea__peirce/story.json",
+  "text": "",
+  "title": "Doom of the House of Duryea",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00097"
+        ],
+        "paraphrase": "A quasi-scholarly text describes a specific kind of vampire that only preys on its own family and appears as a normal living male unaware of his condition.",
+        "quote": "As in the case of Autiel Duryea we observe that this specimen\n     of _vrykolakas_ preys only upon the blood in its own family. It\n     possesses none of the characteristics of the undead vampire,\n     being usually a living male person of otherwise normal\n     appearances, unsuspecting its inherent demonism.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00098"
+        ],
+        "paraphrase": "The text explains the mechanism requiring a family 'medium' whose presence triggers the transformation and who senses it through head and throat pains.",
+        "quote": "But this _vrykolakas_ cannot act according to its demoniacal\n     possession unless it is in the presence of a second member of\n     the same family, who acts as a medium between the man and its\n     demon. This medium has none of the traits of the vampire, but\n     it senses the being of this creature (when the metamorphosis is\n     about to occur) by reason of intense pains in the head and\n     throat.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.88,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00099"
+        ],
+        "paraphrase": "The text describes proximity between the two family members completing the process and driving the vampire to seek blood.",
+        "quote": "When these two outcasts are within a certain distance of each\n     other, the coalescence of inherent demonism is completed, and\n     the vampire is subject to its attacks, demanding blood for its\n     sustenance.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.88,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00100"
+        ],
+        "paraphrase": "The text states this vampire is hereditary, only destroyed by death, and acts unconsciously, with both parties unaware of their roles.",
+        "quote": "This vampire is born into certain aged families, and naught but\n     death can destroy it. It is not conscious of its blood-madness,\n     and acts only in a psychic state. The medium, also, is unaware\n     of its terrible role",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.82,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00054"
+        ],
+        "paraphrase": "Coroners' examination found the infant corpses drained of blood with none found spilled nearby.",
+        "quote": "The coroners who examined those tiny cadavers found them both dry of\nall their blood, but could find no blood on the floor of the nursery nor\nin the cradles.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00053"
+        ],
+        "paraphrase": "Scholars at the trial could neither explain nor dismiss the deaths, and authorities suppressed the case for fear of undermining science.",
+        "quote": "All of France was doubtful, and even the savants who defended my name\nat the trial found that they could not explain it nor disbelieve it. The\ncase was quieted by the Republic, for it might have shaken science to\nits very foundation",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00028"
+        ],
+        "paraphrase": "Arthur insists that belief in vampirism is absurd in a modern civilized age.",
+        "quote": "That family rot is dispelled, Father. This is a civilized century.\nBelief in vampirism is sheer lunacy. Wh-why, it's too absurd even to\nthink about!",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00027"
+        ],
+        "paraphrase": "Arthur declares his father is neither a vampire nor a murderer.",
+        "quote": "I know, as any sane man would know, that you are neither a\nvampire nor a murderer.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00037"
+        ],
+        "paraphrase": "Arthur contrasts his childhood superstitious fears with his adult rational, logical outlook.",
+        "quote": "But in Heaven's name, Father, I've outgrown those things as I have\noutgrown my clothes. I'm a man now; do you understand that? A man, with\na man's sense of logic.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.88,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00157"
+        ],
+        "paraphrase": "Henry Duryea is found dead, drained of blood despite being tied up, presenting an inexplicable death to police.",
+        "quote": "But the death of Doctor Henry Duryea confronted the police with an\ninexplicable mystery; for his trussed-up body, unscathed except for two\njagged holes over the jugular vein, _had been drained of all its blood_.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.82,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00151"
+        ],
+        "paraphrase": "Arthur finds his father dead, still tied to the bed.",
+        "quote": "His father had died during the night. He lay like a waxen figure tied to\nhis bed, his face done up in knots.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00154"
+        ],
+        "paraphrase": "Arthur kills himself with a shotgun after discovering his father's death.",
+        "quote": "Almost immediately he emptied both barrels of the shotgun into his head.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00140"
+        ],
+        "paraphrase": "Henry realizes his son is the 'medium' described in the book and demands to be tied down.",
+        "quote": "Don't be a fool! You read that book! You know what relation you are to\nme! I'd always hoped it was Cecilia, but now I know it's you.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.78,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00136"
+        ],
+        "paraphrase": "Henry orders his son to bind him to the bed to prevent harm.",
+        "quote": "Tie me to the bedposts, Arthur,\" came the command. \"Tie both my hands\nand both my feet.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00149"
+        ],
+        "paraphrase": "Arthur recognizes the physical symptoms that match the book's description of the medium's reactions.",
+        "quote": "Arthur suddenly drew back at that odor--drew back with a gasp of awful\nfear. For he recognized it--that stench, the heaviness of his blood, the\nrawness of his tongue and gums.... Age-long it seemed, yet rising like a\nspirit in his memory. All of these things he had known and felt before.",
+        "raw_id": "ev15"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "failure_kind": "BadRequestError",
+  "failure_message": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfaLGtB9J4BndcbGrSV8e'}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/wodehouse__romance_of_an_ugly_policeman-8efcdd7ff18d/sf_evidence-backend-error.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "story",
+  "story_id": "wodehouse/romance_of_an_ugly_policeman",
+  "story_path": "wodehouse/romance_of_an_ugly_policeman/story.json",
+  "title": "Wodehouse - the Romance Of An Ugly Policeman",
+  "tool_result": null
+}

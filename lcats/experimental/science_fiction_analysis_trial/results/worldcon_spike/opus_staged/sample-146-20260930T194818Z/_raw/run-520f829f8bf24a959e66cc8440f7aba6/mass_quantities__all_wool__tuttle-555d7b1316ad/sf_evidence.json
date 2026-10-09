@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15668,
+  "model": "claude-opus-4-8",
+  "output_tokens": 792,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/all_wool__tuttle",
+  "story_path": "mass_quantities/all_wool__tuttle/story.json",
+  "text": "",
+  "title": "All Wool",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00018"
+        ],
+        "paraphrase": "Zeb explains that high-power rifles can shoot three miles and produce little audible report at such distance.",
+        "quote": "Ricky, them high-power rifles kin shoot three miles, and they don\ft make much noise a-tall. At this distance yuh wouldn\ft hear it a tall, sabe?",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00062"
+        ],
+        "paraphrase": "The men discover their stove had been loaded with dynamite, destroying their camp.",
+        "quote": "Giant powder!\" exclaimed Zeb, sniffing the air. \"Somebody done put dinnamite in our stove, Ricky!",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00064"
+        ],
+        "paraphrase": "The explosion leaves them without tent, food, or rifle, changing their situation.",
+        "quote": "Tent\ns gone,\" he announced foolishly. \"Good-by tent! Jerusalem! Zeb, our grub is all gone, too! Blewed up. Rifle gone, too",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00067"
+        ],
+        "paraphrase": "Zeb reacts to the destruction by declaring the job unfit for them.",
+        "quote": "Now mebby you\ffll agree with me that this ain\ffft no white man\ffs job, Ricky.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00117"
+        ],
+        "paraphrase": "Zeb reasons out the attackers' movements by deduction about distance and their likely method of arrival.",
+        "quote": "I got it all figgered out, Ricky. Them jaspers never walked over to th\ff party. It\ffs all of seven miles to th\ff nearest cow-camp.",
+        "raw_id": "ev05"
+      }
+    ]
+  }
+}

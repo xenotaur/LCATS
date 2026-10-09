@@ -1,0 +1,749 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_festival-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The pseudo-explanations from the Necronomicon and the anomalous shadowless, warmthless flame are supernatural/occult phenomena, not scientific facts, theories, natural processes, or speculative science. No genuine scientific content is materially represented; the 'Marvels of Science' title is a mere mention of a fictional grimoire.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No engineered device, technique, or invention materially affects the setting or outcome. The trolleys and motors are incidental contemporary contrast to the ancient town, not a technology driving the story. The horror rests on ritual and the supernatural, not invention.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story invokes a rite older than mankind, an endless descent into subterranean eons, and an ancestor's watch buried in 1698, evoking temporal dislocation and remote antiquity. However this reads as gothic/supernatural atmosphere and possible delirium rather than genuine time travel or a concretely realized remote-past setting, so materiality of any true temporal displacement is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-dcd6efc9a886e3ea",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-dfd49f81b89c2784",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-572078178085489a",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No identifiable scientific, technological, social, or historical premise is systematically extrapolated into developed consequences. The hereditary centennial rite is a folkloric conceit, not a reasoned extrapolation from a premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, measurement, or evidential revision materially drives understanding. The narrator experiences and flees rather than investigates; even his reading of the Necronomicon and the hospital 'psychosis' diagnosis are not a scientific-method process. He insists on his experience despite contrary evidence, the opposite of evidential revision.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The subterranean fungous shore with cold flame, oily river, titan toadstools, and hybrid winged creatures constitutes a substantially nonordinary environment, and the narrator's dread of 'the mad spaces between the stars' gestures at cosmic origins. Whether this qualifies as another place/dimension or is a hallucinatory supernatural underworld is interpretively uncertain, so ambiguous rather than present.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-0e85ef4c02c23565",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-13abccfee7fdd34c",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central. The threat is personal and localized to the narrator's ordeal; the historical witch hangings are incidental backstory, not a catastrophe of the required scale.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-8e18b7bcecfc256a",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 2,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-8e18b7bcecfc256a",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 12620,
+            "output": 1465
+          }
+        },
+        "status": "complete",
+        "story_hash": "3e2e8453f2831989458687bb12c07c204dbf0f5e1b9fa3885080ed26a76e2a0e"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_festival-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-ancestral-cult-rite",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0e597395ff1d11d9",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-dfebb1a4f29ba25e",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-1dc247efc2daba81",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "rationale": "The story offers no immanent, systematic, nonsupernatural account. The only 'explanation' is the Necronomicon's occult pseudo-lore about souls and corruption, and the frame closes with a psychosis/dream ambiguity rather than a coherent cognitive logic. This is supernatural horror, not a rationalized novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "A hereditary, prehuman Yule-rite kept by the narrator's ancestral cult in subterranean Kingsport, in which undead/mask-wearing forebears perpetuate primal secrets across centuries. This is the organizing frame of the narrative but functions as a supernatural/occult horror mystery rather than a cognitively rationalized world-difference.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-572078178085489a",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-dfebb1a4f29ba25e",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "rationale": "The waking modern Kingsport of trolleys and motors sharply contrasts with the ancient town the narrator experienced, and the recognition of an ancestor's buried watch estranges the reader from ordinary mortality.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-1dc247efc2daba81",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-cfc7b1ea613e3824",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-13abccfee7fdd34c",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-dcd6efc9a886e3ea",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-cfc7b1ea613e3824",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-572078178085489a",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-1dc247efc2daba81",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              },
+              {
+                "evidence_id": "sfev-dfebb1a4f29ba25e",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The entire narrative logic — the journey, the descent, the festival, and the climax — is governed by the ancestral summons and the rite.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-dcd6efc9a886e3ea",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-cfc7b1ea613e3824",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-dfd49f81b89c2784",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The rite is framed as older than mankind and enforced across centuries, with a forebear buried in 1698 apparently present, implying a totalizing difference from the empirical norm of mortal, historical human society.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-dcd6efc9a886e3ea",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-cfc7b1ea613e3824",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                },
+                {
+                  "evidence_id": "sfev-572078178085489a",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-cold-shadowless-flame",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0e85ef4c02c23565",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "rationale": "The flame's impossibility is presented purely as uncanny horror with no systematic or immanent explanation; it functions as supernatural atmosphere.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "A belching green column of flame in the subterranean grotto that casts no shadows and gives no warmth, only the clamminess of death.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The flame violating the reader's expectation that healthy flame casts shadows and gives warmth produces cognitive estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-0e85ef4c02c23565",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-0e85ef4c02c23565",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The flame is an incidental atmospheric device within the ritual scene; it does not govern the overall narrative logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "A shadowless, heatless flame differs from the empirical properties of fire, marking an anomalous phenomenon.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-0e85ef4c02c23565",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-hybrid-winged-mounts",
+            "cognitive_validation": {
+              "confidence": 0.65,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-13abccfee7fdd34c",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "rationale": "The creatures are explicitly described as ungraspable and unrememberable, deliberately resisting any coherent immanent or systematic account; they are supernatural horror rather than an explained biology.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "A horde of tame, trained hybrid winged creatures — indescribable amalgams of crows, moles, bats, and worse — summoned by flute-music and ridden by the celebrants along an underground river.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The impossibility of grasping or remembering the creatures estranges the reader from ordinary zoological categories.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-13abccfee7fdd34c",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-13abccfee7fdd34c",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-13abccfee7fdd34c",
+                "evidence_set_id": "sfes-8e18b7bcecfc256a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The creatures appear in a single climactic scene as part of the ritual spectacle and do not determine the overriding narrative logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "These impossible hybrid beasts differ radically from any empirical fauna and are integrated as domesticated mounts into the cult world.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-13abccfee7fdd34c",
+                  "evidence_set_id": "sfes-8e18b7bcecfc256a"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-8e18b7bcecfc256a",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-8e18b7bcecfc256a",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 12967,
+            "output": 2227
+          }
+        },
+        "status": "complete",
+        "story_hash": "3e2e8453f2831989458687bb12c07c204dbf0f5e1b9fa3885080ed26a76e2a0e"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-8e18b7bcecfc256a",
+    "knight_analysis_id": "lovecraft__the_festival-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__the_festival-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-8e18b7bcecfc256a",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "paraphrase": "The narrator becomes convinced the old man's face is a waxen mask.",
+            "quote": "Finally I was sure it was not a face at all, but a\nfiendishly cunning mask. The eyes never moved, and the skin was too\nlike wax.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "paraphrase": "A forbidden book of monstrous lore is introduced among the old volumes.",
+            "quote": "the unmentionable \"Necronomicon\" of the mad Arab Abdul Alhazred, in\nOlaus Wormius\ncent Latin translation: a book which I had never\nseen, but of which I had heard monstrous things whispered",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "The narrator discovers a vast subterranean inner world with a glowing flame and river.",
+            "quote": "suddenly there spread out before me\nthe boundless vista of an inner world\ncent a vast fungous shore litten\nby a belching column of sick greenish flame and washed by a wide\noily river that flowed from abysses frightful and unsuspected",
+            "raw_id": "ev06",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.65,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "catastrophe",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "paraphrase": "The mask is dislodged to reveal something monstrous, and the narrator flings himself into the underground river to escape.",
+            "quote": "the\nsuddenness of his motion dislodged the waxen mask from what should\nhave been his head. And then, because that nightmare\ncent s position\nbarred me from the stone staircase down which we had come, I flung\nmyself into the oily underground river",
+            "raw_id": "ev10",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "paraphrase": "Authorities reconstruct the narrator's accident by deducing his path from footprints in the snow.",
+            "quote": "They told me I had taken the wrong fork of\nthe hill road the night before, and fallen over the cliffs at Orange\nPoint\ncent a thing they deducted from prints found in the snow.",
+            "raw_id": "ev12",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 20008,
+            "paragraph_ids": [
+              "p00027"
+            ],
+            "start_char": 19853
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0e597395ff1d11d9",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A quoted passage from the Necronomicon offers a pseudo-explanation of how horrid life arises from corruption of the dead.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the soul of the devil-bought hastes not from his\ncharnel clay, but fats and instructs the very worm that gnaws ;\ntill out of corruption horrid life springs"
+        },
+        {
+          "anchor": {
+            "end_char": 14295,
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "start_char": 14138
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0e85ef4c02c23565",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The flame is described as anomalous because, unlike normal fire, it casts no shadows and has no warmth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But what frightened me most was that flaming column; spouting\nvolcanically from depths profound and inconceivable, casting no\nshadows as healthy flame should"
+        },
+        {
+          "anchor": {
+            "end_char": 15598,
+            "paragraph_ids": [
+              "p00021"
+            ],
+            "start_char": 15446
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-13abccfee7fdd34c",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A horde of unnatural hybrid winged creatures emerges and is ridden by the celebrants.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "there flopped\nrhythmically a horde of tame, trained, hybrid winged things that no\nsound eye could ever wholly grasp, or sound brain ever wholly\nremember"
+        },
+        {
+          "anchor": {
+            "end_char": 18435,
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "start_char": 18265
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1dc247efc2daba81",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Waking in the hospital, the narrator finds a modern Kingsport of trolleys and motors, contrasting with the ancient town he experienced.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Everything was\nwrong, with the broad window showing a sea of roofs in which only\nabout one in five was ancient, and the sound of trolleys and motors\nin the streets below."
+        },
+        {
+          "anchor": {
+            "end_char": 17014,
+            "paragraph_ids": [
+              "p00022"
+            ],
+            "start_char": 16871
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-572078178085489a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator recognizes the offered watch as one buried with a long-dead ancestor, deepening his horror.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But it was a hideous proof, because\nI knew from old papers that that watch had been buried with my\ngreat-great-great-great-grandfather in 1698."
+        },
+        {
+          "anchor": {
+            "end_char": 969,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 835
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cfc7b1ea613e3824",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A hereditary rite must be kept once per century to preserve ancient secrets.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "where also they had\ncommanded their sons to keep festival once every century, that the\nmemory of primal secrets might not be forgotten"
+        },
+        {
+          "anchor": {
+            "end_char": 675,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 524
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dcd6efc9a886e3ea",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The narrator frames the festival as predating all recorded human history.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was the Yuletide, which men call Christmas, though they know in\ntheir hearts it is older than Bethlehem and Babylon, older than\nMemphis and mankind."
+        },
+        {
+          "anchor": {
+            "end_char": 12383,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 12244
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dfd49f81b89c2784",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "A seemingly endless descent leads deep beneath the town into unknown passages.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "After more eons of descent I saw some side\npassages or burrows leading from unknown recesses of blackness to\nthis shaft of nighted mystery."
+        },
+        {
+          "anchor": {
+            "end_char": 19156,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 19003
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dfebb1a4f29ba25e",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator insists the experience was real despite evidence, having encountered the book's text before.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "So I read again that hideous chapter, and shuddered doubly because\nit was indeed not new to me. I had seen it before, let footprints\ntell what they might"
+        }
+      ],
+      "story_hash": "3e2e8453f2831989458687bb12c07c204dbf0f5e1b9fa3885080ed26a76e2a0e",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_festival",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "3e2e8453f2831989458687bb12c07c204dbf0f5e1b9fa3885080ed26a76e2a0e",
+  "story_path": "lovecraft/the_festival/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

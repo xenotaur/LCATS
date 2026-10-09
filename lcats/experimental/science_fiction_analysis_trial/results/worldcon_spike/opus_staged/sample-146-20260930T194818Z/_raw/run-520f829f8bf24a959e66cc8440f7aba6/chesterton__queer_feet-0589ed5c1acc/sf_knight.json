@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20930,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1217,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "chesterton/queer_feet",
+  "story_path": "chesterton/queer_feet/story.json",
+  "text": "",
+  "title": "Chesterton - The Queer Feet",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "This is a detective story about a jewel theft at an exclusive club. No scientific fact, theory, discovery, natural process, or speculative science is materially represented. A passing joke reference to 'some entirely new kind of scientific exercise' is decorative, not substantive.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, engineered system, or invention materially affects the setting, problem, or outcome. The crime turns on the social ambiguity of evening dress, not on any technology. Ordinary contemporary items (silver forks, coats, umbrellas) do not qualify.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in a contemporary Edwardian London hotel with no speculative future, remote past, or temporal displacement of any kind.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "While the story develops social observations about class and the interchangeability of gentleman/waiter dress, this is satirical social commentary rather than systematic extrapolation of consequences from an identifiable scientific, technological, social, or historical premise in the science-fiction sense. No speculative development beyond the immediate mystery.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-065e86659bd15e55",
+          "sfev-f9e13af0d5f7b089"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Father Brown engages in careful observation of the footsteps, forms hypotheses, systematically eliminates candidate explanations, and revises his understanding until he infers the crime. This is detective ratiocination that resembles systematic inference and drives the resolution; however, it is ordinary sleuthing rather than scientific method in a research sense, so materiality is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-3605d975685cf0b5",
+          "sfev-71b21b32503698ef",
+          "sfev-71d2a79cae41bb7d"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The story takes place entirely in an ordinary London hotel. There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. The 'foreigner' Flambeau is an ordinary human criminal.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central. The events concern a jewel theft and a single waiter's stroke, which are personal or local in scale.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

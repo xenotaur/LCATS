@@ -1,0 +1,92 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16024,
+  "model": "claude-opus-4-8",
+  "output_tokens": 997,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/the_hunter_s_lodge_case__christie",
+  "story_path": "mass_quantities/the_hunter_s_lodge_case__christie/story.json",
+  "text": "",
+  "title": "The Hunter's Lodge Case",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "This is a classic detective mystery with no scientific facts, theories, discoveries, or speculative sciences materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary contemporary items appear (revolvers, camera, railway, telegrams). None is a speculative invention or engineered system driving the setting or outcome; these are ordinary tools of the period.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-a83de481fe3843b5"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in an ordinary contemporary present with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No consequences are developed from an identifiable scientific, technological, social, or historical premise; the narrative is a self-contained crime plot.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-5be58a6165f8d924"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Understanding is materially driven by systematic inference: forensic bullet analysis establishes the weapon, physical crime-scene examination is conducted, and Poirot explicitly proposes methodical ordered analysis of facts and deduces the flaw in the plan through evidence-based reasoning. This exceeds mere generic question-asking.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8412202be9579602",
+          "sfev-b3e14c10064d3346",
+          "sfev-a83de481fe3843b5",
+          "sfev-d0d94d351630c1f7",
+          "sfev-379414fc0a5e659c"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No other planets, dimensions, or nonordinary cosmic environments or visitors appear; settings are ordinary English locations.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "A single murder and an air crash killing two people are personal misfortunes, not a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

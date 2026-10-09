@@ -1,0 +1,94 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14738,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1194,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/puppet_government__revelle",
+  "story_path": "mass_quantities/puppet_government__revelle/story.json",
+  "text": "",
+  "title": "Puppet Government",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a social-political satire; no scientific fact, theory, discovery, or natural process is materially represented. Mention of calculators/computers is incidental and not a scientific idea.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "incidental",
+        "rationale": "Computers automatically adjusting government salaries to keep the budget balanced is an engineered system in the setting, but it functions as background world-building rather than a decisive invention driving the plot; interpretation of its materiality is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-5e4e87fde6b91d7e"
+        ]
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "incidental",
+        "rationale": "The story is set in a speculative future society where a total government employs everyone except one man, but no explicit temporal markers or displacement anchor it firmly; the futurity is implied rather than stated.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-0a3d4c8c03b7fb43",
+          "sfev-f7d2995e26e7ba35"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The story systematically extrapolates from the premise of an ever-expanding government: everyone becomes a government employee, only one taxpayer remains, an entire bureau runs at a loss to process his forms, and the government's very justification collapses. This consequence-development is the core of the story.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-d890f725d729058a",
+          "sfev-c64692d4ca78f23c",
+          "sfev-f7d2995e26e7ba35",
+          "sfev-267fbeff410dcf4d"
+        ]
+      },
+      {
+        "confidence": 0.45,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "The government engineers a deliberate psychological strategy (loaded forms, feint offers) to break Brandon, and Evans is described as a psychologist testing tactics; this resembles hypothesis-and-manipulation but is closer to scheming than systematic scientific inference driving understanding.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-79acc71a395e2ec6"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear; the setting is an ordinary terrestrial estate near a city.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central. The crisis is administrative and satirical, not catastrophic in scale.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

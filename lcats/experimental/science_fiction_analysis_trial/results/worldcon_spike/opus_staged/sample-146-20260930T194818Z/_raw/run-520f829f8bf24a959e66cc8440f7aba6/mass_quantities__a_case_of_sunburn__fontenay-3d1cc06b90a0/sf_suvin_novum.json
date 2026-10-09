@@ -1,0 +1,176 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 23861,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2844,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "dominant_novum_id": "novum-egg-mist-warfare",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-egg-mist-warfare",
+        "character_reaction_evidence_ids": [
+          "sfev-c1f5f34d63e93af7"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The story supplies a coherent, immanent, nonsupernatural pseudo-scientific account: the mist shields from solar radiation, Earth's magnetic field disrupts it at conjunction, and the Egg amplifies that field (lens-for-light analogy) to strip the mist completely. The internal causal chain is systematic and self-consistent even if not present-day accurate.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-4b5be7d34a652828",
+            "sfev-2538b3fad7ebd9f5",
+            "sfev-e83cff4db969036e",
+            "sfev-73b42c55487ecd89",
+            "sfev-5aa3e47a31294792"
+          ]
+        },
+        "description": "The Egg is an experimental orbital laboratory that amplifies magnetic fields the way a lens concentrates light. When towed into an Earthward orbit between Mars and Earth during an Earth-sun conjunction, it amplifies Earth's magnetic field, which strips away Mars' protective blue mist entirely. The blue mist normally shields the Martian surface from the sun's hard rays; its complete removal inflicts severe burns and blinding conjunctivitis on all exposed surface personnel, which is the decisive weapon that wins the war (Plan Blue).",
+        "estrangement_rationale": "The reader confronts a Mars whose habitability depends on a fragile atmospheric mist and where a war is won not by guns but by orbital manipulation of magnetic fields, sharply contrasting with the empirical norm and with conventional military logic.",
+        "evidence_ids": [
+          "sfev-a063df48bd45dd81",
+          "sfev-4b5be7d34a652828",
+          "sfev-2538b3fad7ebd9f5",
+          "sfev-e83cff4db969036e",
+          "sfev-dcca86a0489e86ae",
+          "sfev-d92dd1156e7572fe",
+          "sfev-e372658fe4a8e23f"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The entire plot\u2014the mysterious mission to tow The Egg, Plan Blue, the Rebels withdrawing underground, and the final victory over a numerically superior Marscorp\u2014is governed by this novum. 'Science wins wars now' explicitly frames the outcome around it; it determines the overriding narrative logic.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-d92dd1156e7572fe",
+            "sfev-dcca86a0489e86ae",
+            "sfev-3f5a90cdb5f8b818",
+            "sfev-2538b3fad7ebd9f5"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "A planet-shielding 'blue mist' whose presence or absence governs surface survivability, and a device that can strip it away planet-wide via amplified magnetic fields, is a totalizing difference from the empirical norm that reshapes the entire storyworld and decides its central conflict.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-a063df48bd45dd81",
+            "sfev-4b5be7d34a652828",
+            "sfev-2538b3fad7ebd9f5",
+            "sfev-e83cff4db969036e",
+            "sfev-dcca86a0489e86ae"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-3f5a90cdb5f8b818",
+          "sfev-2538b3fad7ebd9f5",
+          "sfev-73b42c55487ecd89"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-dcca86a0489e86ae",
+          "sfev-d92dd1156e7572fe",
+          "sfev-e372658fe4a8e23f"
+        ]
+      },
+      {
+        "candidate_id": "novum-marscorp-corporate-government",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.65,
+          "counterevidence_ids": [],
+          "rationale": "The corporate-government arrangement is presented as a coherent, immanent social extrapolation of monopoly control over supply lines, with no supernatural element.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-191447c09c315a80",
+            "sfev-25fdde06eb7bb84f"
+          ]
+        },
+        "description": "Marscorp is a corporation that holds a monopoly on Earth-Mars space travel and simultaneously functions as the Official Government of Mars, making and enforcing all laws over the colonized planet.",
+        "estrangement_rationale": "The colonists' bitter renaming of the corporate government ('Old Greedy Marscorp') foregrounds a world where corporate monopoly has fully replaced civil government, estranging the reader's political norms.",
+        "evidence_ids": [
+          "sfev-191447c09c315a80",
+          "sfev-25fdde06eb7bb84f"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [
+            "sfev-4b5be7d34a652828",
+            "sfev-2538b3fad7ebd9f5"
+          ],
+          "rationale": "The corporate tyranny provides the war's backdrop and motivation, but the narrative's overriding logic and its resolution are driven by the blue-mist/Egg mechanism rather than by the corporate-government structure itself. Its centrality is setting-level rather than plot-determining.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-191447c09c315a80",
+            "sfev-25fdde06eb7bb84f"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "A corporation serving as the sovereign government of an entire colonized planet is a social-organizational difference from the empirical norm that alters the storyworld's political order.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-191447c09c315a80",
+            "sfev-25fdde06eb7bb84f"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-191447c09c315a80",
+          "sfev-25fdde06eb7bb84f"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-191447c09c315a80"
+        ]
+      },
+      {
+        "candidate_id": "novum-heat-guns",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The weapon is named and one property (invisible beam, builds frictional heat) is given, but no systematic account of its operation is developed.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-0b9cc6709bfdb4fc"
+          ]
+        },
+        "description": "Personal energy weapons ('heat-guns') whose beams are invisible, used as the standard sidearm in the conflict.",
+        "estrangement_rationale": "The invisibility of the weapon beams offers a minor estranging detail but no world-level reorientation.",
+        "evidence_ids": [
+          "sfev-0b9cc6709bfdb4fc"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-3f5a90cdb5f8b818",
+            "sfev-dcca86a0489e86ae"
+          ],
+          "rationale": "Heat-guns are incidental combat props; the story explicitly asserts that guns do not decide the war ('Science wins wars now, not numbers and guns'). They do not govern the narrative logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "Invisible-beam heat weapons differ from the empirical norm, but as a localized technological device they do not constitute a totalizing world-altering difference.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-0b9cc6709bfdb4fc"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-0b9cc6709bfdb4fc"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

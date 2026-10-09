@@ -1,0 +1,95 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 27481,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1431,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "lovecraft/the_thing_on_the_doorstep",
+  "story_path": "lovecraft/the_thing_on_the_doorstep/story.json",
+  "text": "",
+  "title": "The Thing on the Door-Step by H. P. Lovecraft",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The story advances a pseudo-scientific speculation about consciousness being independent of the physical frame and about the male brain possessing cosmic powers. This is framed as a claim about the nature of consciousness, a speculative science, but it is thoroughly occult/magical in presentation rather than rigorously scientific, so interpretation is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-5668fde64e904142"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "The mechanism of body/soul exchange is achieved through magic, ritual, and occult formulae from the Necronomicon, not through any engineered device, technique, or invention. No technological artifact materially drives the plot; the strange 'objects from outside' are decorative rather than functional inventions.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "incidental",
+        "rationale": "Edward speaks of angles leading through invisible walls to other regions of space and time and to different space-time continua, suggesting temporal displacement. However, this is reported lore rather than a depicted future or remote past, and no actual time travel materially structures the narrative; the core displacement is spatial/personal rather than temporal.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-f21c74918caea5bb"
+        ]
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The story develops consequences from an identifiable premise: a soul that can transfer between bodies survives death and can continue indefinitely. Edward warns it will live on 'body to body for ever,' extrapolating the premise to a threat against the whole world, which drives the climactic imperative to cremate the body.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-e14fe9a935ed82a6"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "The narrator frames his account as evidence for the reader to weigh and correlate with known facts, and he accumulates observations (the changed driving skill, altered handwriting, personality shifts) building toward an inference. This is a systematic marshaling of evidence, but it is a horror narrator's rationalization rather than a rigorous hypothesis-testing process, so materiality and interpretation are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-67d360a09ba5f0ea",
+          "sfev-cdec58eda4ba95c3"
+        ]
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "substantial",
+        "rationale": "The narrative references explorations 'on other worlds' and 'in different space-time continua,' and describes entities as intrusions from outer space and malign cosmic forces. These other places and cosmic visitors are invoked as lore and atmosphere rather than depicted settings the action enters, so materiality is plausible but interpretively uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-f21c74918caea5bb"
+        ]
+      },
+      {
+        "confidence": 0.45,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "incidental",
+        "rationale": "Edward's warning that the entity, if not destroyed, will threaten 'the peace and comfort of the world' gestures at a large-scale impending menace. However, the threat remains vague and the actual events are intimate and personal in scale, so a world-scale catastrophe is only impending and speculative rather than materially realized.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-e14fe9a935ed82a6"
+        ]
+      }
+    ]
+  }
+}

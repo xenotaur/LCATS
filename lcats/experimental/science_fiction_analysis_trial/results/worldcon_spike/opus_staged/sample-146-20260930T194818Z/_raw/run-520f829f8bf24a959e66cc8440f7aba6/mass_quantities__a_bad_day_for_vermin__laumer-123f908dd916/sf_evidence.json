@@ -1,0 +1,171 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 7400,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1989,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/a_bad_day_for_vermin__laumer",
+  "story_path": "mass_quantities/a_bad_day_for_vermin__laumer/story.json",
+  "text": "",
+  "title": "A Bad Day for Vermin",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.95,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "An alien spacecraft lands on a small-town courthouse lawn.",
+        "quote": "Through his second-floor office window, he saw a forty-foot flower-petal shape of pale turquoise settling gently between the well-tended petunia beds on the courthouse lawn.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.93,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "A caterpillar-like alien being emerges from the landed vessel.",
+        "quote": "On the upper, or stem end of the vessel, a translucent pink panel popped up and a slender, graceful form not unlike a large violet caterpillar undulated into view.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "The alien is assembling a translation device to communicate.",
+        "quote": "It's putting together what my boy assures me is some kind of talking machine, and any minute now it's going to start communicating.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The judge immediately reacts by calling officials.",
+        "quote": "Judge Gates whirled to the telephone.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "A man shoots and kills the visiting alien.",
+        "quote": "yanked a heavy nickel-plated .44 revolver from the holster, took aim and fired five shots into the body of the Fianna at a range of ten feet.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00014"
+        ],
+        "paraphrase": "The crowd reacts with shock and rushes toward the slain alien.",
+        "quote": "There was a moment of stunned silence; then a rush of spectators for the alien.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00032"
+        ],
+        "paraphrase": "Characters question whether existing law defines what counts as a human/person.",
+        "quote": "You mean the laws on murder don't define what constitutes--I mean, what--",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "The killer argues the alien is mere vermin, not a human, contrasting definitions of personhood.",
+        "quote": "That ain't no stranger. That's a varmint. Murder's got to do with killin' humerns, way I understand it. You goin' to tell me that thing's humern?",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00052"
+        ],
+        "paraphrase": "The town moves to formally define what constitutes a person.",
+        "quote": "We're going to redefine what constitutes a person within the incorporated limits of Willow Grove!",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00055"
+        ],
+        "paraphrase": "Officials reason through and reject various criteria for defining a person.",
+        "quote": "Shape's got nothing to do with it,\" the chairman cut in. \"Bears walk on two legs! Dave Zawocky lost his in the war. Monkeys have hands.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00057"
+        ],
+        "paraphrase": "A character extrapolates the broad social consequences of contact with alien life.",
+        "quote": "It's going to make some big changes in things. Hunters aren't going to like it--and the meat industry will be affected. But if, as it appears, we're entering into an era of contact with ... ah ... creatures from other worlds, we've got to get our house in order.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00063"
+        ],
+        "paraphrase": "The town enacts a new definition of 'person' as any harmless creature.",
+        "quote": "A person is ... _any harmless creature_....",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00065",
+          "p00066"
+        ],
+        "paraphrase": "The new definition implies a violent man is classified as vermin.",
+        "quote": "What about a man who commits a violent act, then?\" Judge Gates demanded. \"What's he, eh?",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00079",
+          "p00080"
+        ],
+        "paraphrase": "A new exterminator arrives to apply the new law against Stump.",
+        "quote": "The man reached the foot of the steps, raised the revolver and cocked it with a thumb.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00080"
+        ],
+        "paraphrase": "The killer is now to be treated as vermin under the redefined law.",
+        "quote": "I'm the new exterminator,\" he said.",
+        "raw_id": "ev15"
+      }
+    ]
+  }
+}

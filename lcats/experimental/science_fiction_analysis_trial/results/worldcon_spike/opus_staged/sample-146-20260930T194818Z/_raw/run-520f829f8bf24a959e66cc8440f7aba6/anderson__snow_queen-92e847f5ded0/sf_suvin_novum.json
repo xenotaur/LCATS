@@ -1,0 +1,179 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 34095,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2677,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/snow_queen",
+  "story_path": "anderson/snow_queen/story.json",
+  "text": "",
+  "title": "Anderson - The Snow Queen",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-magic-mirror",
+        "character_reaction_evidence_ids": [
+          "sfev-27206117cf42abf2",
+          "sfev-52094f61fb252cbe"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-0967f09f495cb207",
+            "sfev-df4b016261a697f1",
+            "sfev-2c3eaf158ac57d2a"
+          ],
+          "rationale": "The mirror is the product of a 'wicked sprite' operating on frankly supernatural, magical fairy-tale logic. There is no immanent, systematic, nonsupernatural account (imaginary science or social organization); its power and its reversal (melting via warm tears) are explicitly magical/moral rather than cognitively rationalized.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The wicked sprite's magic mirror that distorts all good and beautiful things into ugliness, then shatters into millions of splinters that lodge in people's eyes and hearts, corrupting perception and freezing feelings.",
+        "estrangement_rationale": "The mirror provides a striking reader-facing contrast between ordinary reflection and a device that inverts moral/aesthetic value, with concrete storyworld consequences (Kay's cruelty and abduction) and character reactions (Kay's sudden contempt, later recognition).",
+        "evidence_ids": [
+          "sfev-0967f09f495cb207",
+          "sfev-e41e5e74a4c5527b",
+          "sfev-df4b016261a697f1",
+          "sfev-aa51b527f435917a",
+          "sfev-27206117cf42abf2",
+          "sfev-2c3eaf158ac57d2a",
+          "sfev-52094f61fb252cbe"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The mirror splinters in Kay's eye and heart drive the entire plot: they cause his transformation and abduction, motivate Gerda's quest, and their removal resolves the story. The narrative logic overrides everything else.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-aa51b527f435917a",
+            "sfev-df4b016261a697f1",
+            "sfev-27206117cf42abf2",
+            "sfev-5f8f02cd19bcb8cf",
+            "sfev-2c3eaf158ac57d2a"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The mirror introduces a world-altering difference from the empirical norm: an object whose fragments scatter globally and systematically pervert human perception and emotion wherever they lodge, changing a crucial aspect of the story universe.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-0967f09f495cb207",
+            "sfev-e41e5e74a4c5527b",
+            "sfev-df4b016261a697f1",
+            "sfev-aa51b527f435917a"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-0967f09f495cb207",
+          "sfev-df4b016261a697f1"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-e41e5e74a4c5527b",
+          "sfev-aa51b527f435917a",
+          "sfev-2c3eaf158ac57d2a"
+        ]
+      },
+      {
+        "candidate_id": "cand-snow-queen",
+        "character_reaction_evidence_ids": [
+          "sfev-85213245d0632665"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-9726e33137213c7d",
+            "sfev-85213245d0632665",
+            "sfev-422d8e52d6cdb135"
+          ],
+          "rationale": "The Snow Queen is a supernatural fairy-tale personification of winter. Her powers (life from ice, memory-erasing kisses, command over living snow) rest on enchantment, not any immanent, systematic, nonsupernatural logic. This fails Suvin's cognitive requirement.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The Snow Queen: a living being formed of ice, born from an enlarging snowflake, who flies across lands, abducts Kay, commands living snowflake outposts, and rules an icy palace at the far north.",
+        "estrangement_rationale": "The transformation of an ordinary snowflake into a living icy queen offers a vivid reader-facing contrast, with storyworld consequences (Kay's abduction and captivity) and character reaction (Kay forgetting his home).",
+        "evidence_ids": [
+          "sfev-9726e33137213c7d",
+          "sfev-104378c0c62e882c",
+          "sfev-422d8e52d6cdb135",
+          "sfev-5f8f02cd19bcb8cf",
+          "sfev-85213245d0632665"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.65,
+          "counterevidence_ids": [],
+          "rationale": "The Snow Queen's abduction of Kay and her hold over him structure the whole quest narrative and its resolution.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-104378c0c62e882c",
+            "sfev-85213245d0632665",
+            "sfev-5f8f02cd19bcb8cf"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.65,
+          "counterevidence_ids": [],
+          "rationale": "A sentient being made of living ice, capable of flight, memory-erasing kisses, and commanding an army of living snowflakes, is a totalizing departure from empirical norms and reshapes the storyworld.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-9726e33137213c7d",
+            "sfev-104378c0c62e882c",
+            "sfev-422d8e52d6cdb135",
+            "sfev-5f8f02cd19bcb8cf"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-9726e33137213c7d"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-104378c0c62e882c",
+          "sfev-5f8f02cd19bcb8cf"
+        ]
+      },
+      {
+        "candidate_id": "cand-finland-woman-wind-magic",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-e3fde64bd39ad89d"
+          ],
+          "rationale": "This is explicitly witchcraft/magic folk belief, not a systematic nonsupernatural account.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The Finland woman's reputed power to bind all the winds of the world together in a knot, releasing graduated wind strengths as knots are loosened.",
+        "estrangement_rationale": "Offers a reader-facing image of graduated wind control, but with no realized storyworld consequences.",
+        "evidence_ids": [
+          "sfev-e3fde64bd39ad89d"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-e3fde64bd39ad89d"
+          ],
+          "rationale": "The wind-knot power is an incidental descriptor of the Finland woman; it does not govern the narrative and is never actually used to change events.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "Control of world winds via knots is unusual, but it is presented as a folk/witchcraft attribution reported by the Reindeer, and its world-altering scope within the story is limited.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-e3fde64bd39ad89d"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-e3fde64bd39ad89d"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

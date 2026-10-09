@@ -1,0 +1,672 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__bearly_reasonable__tuttle-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story references natural-history questions (maternal instinct in grizzlies, rattlesnakes and prairie-dogs cohabiting), but these are folksy conversational premises played entirely for comic effect. No actual scientific fact, theory, discovery, natural process, or speculative science is materially represented; the 'science' is a pretext for a farce and never developed as real science.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Only ordinary contemporary tools appear: a shotgun, a photographic camera, canned milk. None is a speculative or engineered invention that materially affects the setting or outcome in a science-fictional sense; they are mundane props in a comic Western.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary rural mining/mountain setting with no speculative future, remote past, or temporal displacement. No supplied evidence suggests any temporal element.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The professor's 'experiment' about maternal instinct is not developed into consequences extrapolated from an identifiable scientific, technological, social, or historical premise. The plot consequences flow from a con-job and slapstick mishaps, not from rigorous extrapolation of a premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "The professor frames the trip as a hypothesis test to disprove a rival's theory, seeks observational opportunity, plans photographic evidence, and declares a conclusion. This mimics the trappings of scientific method (hypothesis, observation, testing, evidence, conclusion). However, the method is a satirical hollow shell: the subjects are fakes, no genuine measurement or evidential revision occurs, and the 'confirmation' is entirely spurious. The interpretation and materiality are uncertain, so ambiguous.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-c8c8091c8dee42d3",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-5561c92e77f50f1c",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-b9d3f26c6f564c84",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-39c2f104b0a45ac8",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-8c91dcab7ce70d5a",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-f5cc91ae50d1320c",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. The setting is an ordinary earthly mountain locale.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central. Personal comic misfortunes (a bird-shot rump, an exploding milk can) are individual mishaps without broader scale.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-dc63a4f9a8183586",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-dc63a4f9a8183586",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 37586,
+            "output": 1459
+          }
+        },
+        "status": "complete",
+        "story_hash": "0f9935d8735091498315367eec331afa2f6a6b1546a0ea1787d44286c9e04687"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__bearly_reasonable__tuttle-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-grizzly-maternal-experiment",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The activity is framed in coherent, systematic, nonsupernatural terms: hypothesis, rival theory, controlled observation, photographic documentation, and a claimed confirmation. This is a rational, empirical framework, but it is ordinary real-world science rather than any imaginary science introducing a new cognitive premise.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-5561c92e77f50f1c",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-b9d3f26c6f564c84",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-39c2f104b0a45ac8",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-8c91dcab7ce70d5a",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-178d262a03ece299",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-f5cc91ae50d1320c",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ]
+            },
+            "description": "The professor's scientific expedition to test the 'maternal instinct' of the grizzly bear, framed as settling a theoretical dispute with a rival scholar (Professor Manning). This is presented as an ordinary natural-history field experiment using conventional period technology (camera, notebooks, firearms).",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-0e7a17c394603fe1",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-e2a2933290dc5cf1",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-2906b848d85899a0",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-e7239a69dfd5666e",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ],
+              "rationale": "The reader-facing contrast is comic incongruity (an Eastern pseudo-scientist absurdly out of place in the rough West), not cognitive estrangement from a new empirical norm. The 'experiment' is a satire of credulous science, and its false 'confirmation' (a badger and a doped brown bear) underscores that no genuine novum operates.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-c8c8091c8dee42d3",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-5561c92e77f50f1c",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-39c2f104b0a45ac8",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-8c91dcab7ce70d5a",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-e1dcd09474f6c5aa",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-c8c8091c8dee42d3",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-b9d3f26c6f564c84",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-5561c92e77f50f1c",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-39c2f104b0a45ac8",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-8c91dcab7ce70d5a",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              },
+              {
+                "evidence_id": "sfev-e1dcd09474f6c5aa",
+                "evidence_set_id": "sfes-dc63a4f9a8183586"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The professor's experiment is the central engine of the plot: the entire comic sequence of renting a tame brown bear, passing a badger off as a cub, and the ensuing chaos exists to satisfy this experiment, which the professor declares 'proved' at the climax.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-c8c8091c8dee42d3",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-b9d3f26c6f564c84",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-39c2f104b0a45ac8",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-8c91dcab7ce70d5a",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-e1dcd09474f6c5aa",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b9d3f26c6f564c84",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-c8c8091c8dee42d3",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-5561c92e77f50f1c",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                },
+                {
+                  "evidence_id": "sfev-39c2f104b0a45ac8",
+                  "evidence_set_id": "sfes-dc63a4f9a8183586"
+                }
+              ],
+              "rationale": "There is no totalizing or world-altering difference from the empirical norm. The story world is an ordinary early-20th-century American West with real bears, badgers, shotguns, and cameras. A natural-history dispute about animal instinct is mundane and consistent with the authorial empirical norm; nothing in the storyworld is altered by a new scientific or social fact.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-dc63a4f9a8183586",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-dc63a4f9a8183586",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 37933,
+            "output": 1393
+          }
+        },
+        "status": "complete",
+        "story_hash": "0f9935d8735091498315367eec331afa2f6a6b1546a0ea1787d44286c9e04687"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-dc63a4f9a8183586",
+    "knight_analysis_id": "mass_quantities__bearly_reasonable__tuttle-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__bearly_reasonable__tuttle-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-dc63a4f9a8183586",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 4158,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 4109
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0e7a17c394603fe1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Magpie reacts with derision to the professor's stated reason for the trip.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That\\u2019s uh \\u2014\\u2014 of uh reason fer comin\\u2019 way up here!"
+        },
+        {
+          "anchor": {
+            "end_char": 4773,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 4725
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-178d262a03ece299",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor's wife characterizes him as a scientist who observes carefully.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "My husband, being a scientist, is very observing"
+        },
+        {
+          "anchor": {
+            "end_char": 4986,
+            "paragraph_ids": [
+              "p00030"
+            ],
+            "start_char": 4942
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2906b848d85899a0",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The doctor voices his hope for good shooting on the trip.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "All I hope is that I get some good shooting."
+        },
+        {
+          "anchor": {
+            "end_char": 7349,
+            "paragraph_ids": [
+              "p00045"
+            ],
+            "start_char": 7238
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-39c2f104b0a45ac8",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor describes hiring the men to enable his experiment on the grizzly's maternal instinct.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I shall expect you to furnish me with the opportunity to carry out\nthis experiment to a satisfactory conclusion"
+        },
+        {
+          "anchor": {
+            "end_char": 4465,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 4401
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5561c92e77f50f1c",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor frames his trip as testing and disproving a rival scholar's theory.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Professor Manning\\u2019s theory is wrong, and I am\ngoing to prove it."
+        },
+        {
+          "anchor": {
+            "end_char": 50233,
+            "paragraph_ids": [
+              "p00277"
+            ],
+            "start_char": 50130
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8c91dcab7ce70d5a",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor declares his prediction about parental instinct confirmed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I was right!\\u201d he squeaks. \\u201cI told Professor Manning that the parent\nbear would seek and find its young."
+        },
+        {
+          "anchor": {
+            "end_char": 7235,
+            "paragraph_ids": [
+              "p00044"
+            ],
+            "start_char": 7159
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b9d3f26c6f564c84",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor identifies testing grizzly maternal instinct as his main goal.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the most important is the test of the maternal instinct in the grizzly\nbear."
+        },
+        {
+          "anchor": {
+            "end_char": 4105,
+            "paragraph_ids": [
+              "p00022"
+            ],
+            "start_char": 3938
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c8c8091c8dee42d3",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The professor states the two natural-history questions he has come to investigate.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Do rattlesnakes and prairie-dogs live together in harmony, and will a\nfemale grizzly recognize its own offspring after it has been away\nfrom, it for twenty-four hours."
+        },
+        {
+          "anchor": {
+            "end_char": 51275,
+            "paragraph_ids": [
+              "p00287"
+            ],
+            "start_char": 51225
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e1dcd09474f6c5aa",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The professor concludes his contention has been proven and decides to depart.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "My contention is\nproved, and we can leave at once."
+        },
+        {
+          "anchor": {
+            "end_char": 4721,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 4642
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e2a2933290dc5cf1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The professor insists on the validity of his own observations.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Can\\u2019t I believe my own eyes?\\u201d wails th\\u2019 ol\\u2019 pelican. \\u201cCan\\u2019t I see\nthese things?"
+        },
+        {
+          "anchor": {
+            "end_char": 52527,
+            "paragraph_ids": [
+              "p00297"
+            ],
+            "start_char": 52424
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e7239a69dfd5666e",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Mighty reacts bitterly, declaring the word 'reason' offensive after his ordeal.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Reason, eh? By cripes, Magpie, that\\u2019s uh fightin\\u2019 word with th\\u2019 Jones\nfambly from now on and ever more."
+        },
+        {
+          "anchor": {
+            "end_char": 36296,
+            "paragraph_ids": [
+              "p00200"
+            ],
+            "start_char": 36173
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f5cc91ae50d1320c",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The doctor plans to photograph the bear as evidence for the experiment.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I hope I can get some good action in a bear picture,\\u201d states th\\u2019 doc.\n\\u201cIt will help in provin\\u2019 th\\u2019 perfessor\\u2019s experiments."
+        }
+      ],
+      "story_hash": "0f9935d8735091498315367eec331afa2f6a6b1546a0ea1787d44286c9e04687",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/bearly_reasonable__tuttle",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "0f9935d8735091498315367eec331afa2f6a6b1546a0ea1787d44286c9e04687",
+  "story_path": "mass_quantities/bearly_reasonable__tuttle/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

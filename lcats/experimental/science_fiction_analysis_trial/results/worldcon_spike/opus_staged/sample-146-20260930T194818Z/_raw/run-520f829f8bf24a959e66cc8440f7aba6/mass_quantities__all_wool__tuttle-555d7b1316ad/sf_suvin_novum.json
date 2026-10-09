@@ -1,0 +1,64 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15795,
+  "model": "claude-opus-4-8",
+  "output_tokens": 745,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/all_wool__tuttle",
+  "story_path": "mass_quantities/all_wool__tuttle/story.json",
+  "text": "",
+  "title": "All Wool",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-dynamite-stove",
+        "character_reaction_evidence_ids": [
+          "sfev-365a426f90683de9"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The device operates by ordinary, coherent, nonsupernatural physical mechanics (explosive planted in a stove), but this is real-world chemistry, not an imaginary or systematically novel science.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-365a426f90683de9"
+          ]
+        },
+        "description": "Someone loads the herders' sheet-iron stove with dynamite ('giant powder'), which detonates and destroys their entire camp.",
+        "estrangement_rationale": "The stove explosion surprises the characters but produces no cognitive estrangement from the empirical world; it is a familiar frontier sabotage device in a realist Western setting.",
+        "evidence_ids": [
+          "sfev-365a426f90683de9"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The explosion drives the plot's escalation of the sheep-versus-cattle conflict, but it is one incident within a conventional Western tale rather than a difference that governs the whole narrative logic. It is a plot device, not a novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-365a426f90683de9"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-365a426f90683de9"
+          ],
+          "rationale": "Dynamite in a stove is a mundane act of sabotage consistent with the empirical norm of a Western range-war setting. It introduces no totalizing or world-altering difference from the author's empirical reality.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-365a426f90683de9"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-365a426f90683de9"
+        ]
+      }
+    ]
+  }
+}
