@@ -431,6 +431,50 @@ class SyntheticEvidenceTest(unittest.TestCase):
                 seed.find_protected_tree(pathlib.Path(tmp) / "seed.jsonl")
             )
 
+    def test_miscased_path_to_evidence_file_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            evidence = tmp / "Evidence.jsonl"
+            text = json.dumps(_valid_record("c/one")) + "\n"
+            evidence.write_text(text, encoding="utf-8")
+            miscased = tmp / "evidence.jsonl"
+            if not miscased.exists():
+                self.skipTest("filesystem is case-sensitive; nothing to bypass")
+            err = io.StringIO()
+            with contextlib.redirect_stderr(err):
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(miscased)]
+                )
+            self.assertEqual(code, 2)
+            self.assertIn("overwrite the evidence", err.getvalue())
+            self.assertEqual(evidence.read_text(encoding="utf-8"), text)
+
+    def test_hard_link_to_evidence_file_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            evidence = tmp / "e.jsonl"
+            text = json.dumps(_valid_record("c/one")) + "\n"
+            evidence.write_text(text, encoding="utf-8")
+            link = tmp / "link.jsonl"
+            os.link(evidence, link)
+            code = seed.main(["--evidence", str(evidence), "--manifest-out", str(link)])
+            self.assertEqual(code, 2)
+            self.assertEqual(evidence.read_text(encoding="utf-8"), text)
+
+    def test_same_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            a, b = tmp / "a.txt", tmp / "b.txt"
+            a.write_text("x", encoding="utf-8")
+            b.write_text("x", encoding="utf-8")
+            self.assertTrue(seed.same_file(a, a))
+            self.assertFalse(seed.same_file(a, b))
+            self.assertFalse(seed.same_file(a, tmp / "missing.txt"))
+            self.assertTrue(seed.same_file(tmp / "missing.txt", tmp / "missing.txt"))
+            alias = tmp / "alias.txt"
+            os.link(a, alias)
+            self.assertTrue(seed.same_file(a, alias))
+
     def test_refuses_to_overwrite_the_evidence_file(self):
         with tempfile.TemporaryDirectory() as tmp:
             evidence = pathlib.Path(tmp) / "e.jsonl"

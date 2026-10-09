@@ -38,7 +38,8 @@ overwrite the evidence file, ``--manifest-out`` is inside a protected tree, or
 the manifest cannot be written, e.g. its directory does not exist). The manifest
 is written atomically, so an error never leaves a partial file behind.
 
-``--manifest-out`` may not be the evidence file or anywhere inside the repository's
+``--manifest-out`` may not be the evidence file (compared by file identity, so a
+miscased path or a hard link to it is refused too) or anywhere inside the repository's
 ``corpora/`` or ``lcats/data``, or inside the roots configured by
 ``LCATS_CORPORA_DIR`` / ``LCATS_DATA_DIR`` (symlinks are resolved first, and the
 comparison is by file identity, so a miscased path on a case-insensitive volume
@@ -161,6 +162,21 @@ def protected_roots() -> list[pathlib.Path]:
     return [root.resolve() for root in roots]
 
 
+def same_file(first: pathlib.Path, second: pathlib.Path) -> bool:
+    """True if ``first`` and ``second`` are the same file.
+
+    Compares by file identity (``os.path.samefile``) when both exist, so a
+    miscased path on a case-insensitive volume, or a hard link, is recognized.
+    When one does not exist yet, falls back to comparing resolved paths.
+    """
+    try:
+        if first.exists() and second.exists():
+            return os.path.samefile(first, second)
+    except OSError:
+        pass
+    return first.resolve() == second.resolve()
+
+
 def _same_or_inside_by_identity(path: pathlib.Path, root: pathlib.Path) -> bool:
     """True if ``path`` or any of its ancestors is the same file as ``root``.
 
@@ -234,7 +250,7 @@ def main(argv: list[str] | None = None) -> int:
     if not args.evidence.is_file():
         print(f"error: evidence file not found: {args.evidence}", file=sys.stderr)
         return 2
-    if args.manifest_out.resolve() == args.evidence.resolve():
+    if same_file(args.manifest_out, args.evidence):
         print(
             "error: --manifest-out would overwrite the evidence file",
             file=sys.stderr,
