@@ -386,6 +386,45 @@ class SyntheticEvidenceTest(unittest.TestCase):
             self.assertEqual(code, 2)
             self.assertEqual(sidecar.read_text(encoding="utf-8"), '{"keep": "me"}')
 
+    def test_miscased_path_into_protected_tree_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            corpora = tmp / "cc"
+            corpora.mkdir()
+            if not (tmp / "CC").exists():
+                self.skipTest("filesystem is case-sensitive; nothing to bypass")
+            code, err = self._main_with(
+                tmp / "CC" / "seed.jsonl", {"LCATS_CORPORA_DIR": str(corpora)}
+            )
+            self.assertEqual(code, 2)
+            self.assertIn("protected", err)
+            self.assertEqual(list(corpora.iterdir()), [])
+
+    def test_nonexistent_configured_root_still_protects_by_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            root = tmp / "not_created_yet"
+            code, err = self._main_with(
+                root / "seed.jsonl", {"LCATS_DATA_DIR": str(root)}
+            )
+            self.assertEqual(code, 2)
+            self.assertIn("protected", err)
+            self.assertFalse(root.exists())
+
+    def test_same_or_inside_by_identity(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = pathlib.Path(tmp)
+            root = tmp / "cc"
+            (root / "s").mkdir(parents=True)
+            self.assertTrue(seed._same_or_inside_by_identity(root, root))
+            self.assertTrue(
+                seed._same_or_inside_by_identity(root / "s" / "x" / "y.jsonl", root)
+            )
+            self.assertFalse(seed._same_or_inside_by_identity(tmp / "other", root))
+            self.assertFalse(
+                seed._same_or_inside_by_identity(root / "s", tmp / "missing_root")
+            )
+
     def test_normal_output_path_is_not_protected(self):
         with tempfile.TemporaryDirectory() as tmp:
             self.assertIsNone(

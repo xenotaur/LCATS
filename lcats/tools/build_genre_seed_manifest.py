@@ -40,8 +40,13 @@ is written atomically, so an error never leaves a partial file behind.
 
 ``--manifest-out`` may not be the evidence file or anywhere inside the repository's
 ``corpora/`` or ``lcats/data``, or inside the roots configured by
-``LCATS_CORPORA_DIR`` / ``LCATS_DATA_DIR`` (symlinks are resolved first), so the
-tool can never overwrite corpus or data content.
+``LCATS_CORPORA_DIR`` / ``LCATS_DATA_DIR`` (symlinks are resolved first, and the
+comparison is by file identity, so a miscased path on a case-insensitive volume
+is caught too), so the tool can never overwrite corpus or data content. Note
+that the configured roots' defaults (``../corpora`` and ``data``) are relative to
+the current directory; the repository's own ``corpora/`` and ``lcats/data`` are
+always protected regardless, but a populated ``data/`` kept outside the
+repository is protected only when ``LCATS_DATA_DIR`` points at it.
 """
 
 import argparse
@@ -156,15 +161,42 @@ def protected_roots() -> list[pathlib.Path]:
     return [root.resolve() for root in roots]
 
 
+def _same_or_inside_by_identity(path: pathlib.Path, root: pathlib.Path) -> bool:
+    """True if ``path`` or any of its ancestors is the same file as ``root``.
+
+    Uses file identity (``os.path.samefile``), so it is correct on
+    case-insensitive volumes, where ``CORPORA`` and ``corpora`` are one
+    directory but compare unequal as strings. Only existing paths can be
+    compared this way; the nonexistent tail of ``path`` is skipped.
+    """
+    if not root.exists():
+        return False
+    candidate = path
+    while True:
+        try:
+            if candidate.exists() and os.path.samefile(candidate, root):
+                return True
+        except OSError:
+            pass
+        if candidate.parent == candidate:
+            return False
+        candidate = candidate.parent
+
+
 def find_protected_tree(path: pathlib.Path) -> pathlib.Path | None:
     """Return the protected tree ``path`` is, or is inside, or ``None``.
 
     ``path`` is resolved first (the file need not exist), so a symlinked parent
-    that points into a protected tree is caught.
+    that points into a protected tree is caught. A path is then compared to each
+    root both by resolved path (which also covers roots that do not exist yet)
+    and by file identity (which catches case-variant paths on case-insensitive
+    volumes).
     """
     resolved = path.resolve()
     for root in protected_roots():
         if resolved == root or root in resolved.parents:
+            return root
+        if _same_or_inside_by_identity(resolved, root):
             return root
     return None
 
