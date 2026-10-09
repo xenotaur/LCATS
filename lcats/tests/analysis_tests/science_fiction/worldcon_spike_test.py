@@ -1842,7 +1842,11 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
 
     def test_missing_required_fields_are_quarantined(self):
         cases = {
-            "counterevidence_ids": "counterevidence_ids must be a list",
+            "counterevidence_ids": "counterevidence_ids must be a list of strings",
+            "supporting_evidence_ids": (
+                "supporting_evidence_ids must be a list of strings"
+            ),
+            "rationale": "rationale must be a string",
             "confidence": "confidence must be a number",
             "status": "missing or invalid status",
         }
@@ -1887,21 +1891,32 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
 
     def test_wrongly_typed_fields_are_quarantined(self):
         cases = {
-            "rationale": (None, "rationale must be a string"),
-            "supporting_evidence_ids": (
+            "rationale-null": ("rationale", None, "rationale must be a string"),
+            "supporting-string": (
+                "supporting_evidence_ids",
                 "ev-1",
-                "supporting_evidence_ids must be a list",
+                "supporting_evidence_ids must be a list of strings",
+            ),
+            "supporting-member": (
+                "supporting_evidence_ids",
+                [123],
+                "supporting_evidence_ids must be a list of strings",
+            ),
+            "counter-member": (
+                "counterevidence_ids",
+                ["ev-1", None],
+                "counterevidence_ids must be a list of strings",
             ),
         }
-        for field, (value, fragment) in cases.items():
-            with self.subTest(field=field):
+        for name, (field, value, fragment) in cases.items():
+            with self.subTest(case=name):
 
                 def retype(result, field=field, value=value):
                     result["heinlein_criteria"][0][field] = value
                     return result
 
                 _, _, story, data = self._run(
-                    f"retype-{field}",
+                    f"retype-{name}",
                     _StageOverrideBackend(
                         run_worldcon_spike.HEINLEIN_TOOL_NAME, retype
                     ),
@@ -1927,6 +1942,32 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
                 self._assert_heinlein_failed_but_story_complete(
                     story, data, "confidence"
                 )
+
+    def test_a_valid_mixed_response_is_accepted(self):
+        def mixed(result):
+            by_id = {item["criterion_id"]: item for item in result["heinlein_criteria"]}
+            by_id["causal"]["status"] = "ambiguous"
+            by_id["plausible"].update(
+                status="not_assessable",
+                supporting_evidence_ids=[],
+                rationale="",
+                confidence=0.0,
+            )
+            return result
+
+        _, _, story, data = self._run(
+            "mixed",
+            _StageOverrideBackend(run_worldcon_spike.HEINLEIN_TOOL_NAME, mixed),
+        )
+
+        self.assertEqual("complete", story["status"])
+        analysis = data["analyses"]["heinlein"][0]
+        self.assertEqual("complete", analysis["status"])
+        statuses = {c["criterion_id"]: c["status"] for c in analysis["criteria"]}
+        self.assertEqual("present", statuses["different"])
+        self.assertEqual("ambiguous", statuses["causal"])
+        self.assertEqual("not_assessable", statuses["plausible"])
+        self.assertEqual([], analysis["failures"])
 
     def test_a_genuine_all_not_assessable_response_is_still_accepted(self):
         _, _, story, data = self._run(
@@ -2154,10 +2195,11 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
 
         self.assertEqual(7, len(evidence_set.records))
 
-    def test_bell_trial_evidence_still_builds(self):
-        for run in ("trial-1", "trial-2", "trial-3"):
+    def test_bell_evidence_still_builds_in_every_run(self):
+        expected = {"baseline": 3, "trial-1": 4, "trial-2": 4, "trial-3": 4}
+        for run, count in expected.items():
             with self.subTest(run=run):
-                self.assertEqual(4, len(self._evidence_set(run, "bell").records))
+                self.assertEqual(count, len(self._evidence_set(run, "bell").records))
 
     def test_every_canary_heinlein_response_is_rejected_for_its_keys(self):
         bell_evidence = self._evidence_set("trial-2", "bell")
@@ -2213,6 +2255,31 @@ class WorldconStructuredOutputPromptTest(unittest.TestCase):
         self.assertNotIn("Decision states", prompt)
         self.assertIn("no Markdown fences", prompt)
         self.assertIn("the status absent", prompt)
+
+    def test_prompt_examples_are_valid_json_with_the_schema_keys(self):
+        cases = (
+            (
+                run_worldcon_spike._evidence_system_prompt(),
+                '{"raw_id"',
+                run_worldcon_spike._evidence_tool_schema(),
+                "evidence",
+            ),
+            (
+                run_worldcon_spike._heinlein_system_prompt(),
+                '{"criterion_id"',
+                run_worldcon_spike._heinlein_tool_schema(),
+                "heinlein_criteria",
+            ),
+        )
+        for prompt, start, tool_schema, array_key in cases:
+            with self.subTest(array_key=array_key):
+                example, _ = json.JSONDecoder().raw_decode(
+                    prompt[prompt.index(start) :]
+                )
+
+                self.assertEqual(
+                    sorted(self._item_keys(tool_schema, array_key)), sorted(example)
+                )
 
     def test_prompt_text_changes_the_stage_fingerprints(self):
         options = _heinlein_options(pathlib.Path("unused"))

@@ -1999,6 +1999,21 @@ def _knight_decisions(
     return tuple(decisions)
 
 
+def _require_string_list(
+    item: dict[str, Any], key: str, criterion_id: str
+) -> list[str]:
+    """Return ``item[key]`` if it is a list of strings, else fail loudly."""
+
+    value = item.get(key)
+    if not isinstance(value, list) or not all(
+        isinstance(entry, str) for entry in value
+    ):
+        raise ValueError(
+            f"{HEINLEIN_STAGE} {criterion_id}: {key} must be a list of strings"
+        )
+    return value
+
+
 def _heinlein_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
@@ -2010,9 +2025,11 @@ def _heinlein_decisions(
     and the stage is quarantined. A response that does not match the tool
     schema is quarantined too: a missing or non-list ``heinlein_criteria``, a
     missing, unknown, or duplicate ``criterion_id``, a missing criterion, an
-    invalid ``status``, a missing ``counterevidence_ids`` list, or a missing or
-    non-numeric ``confidence``. Keys are never renamed or guessed, and a
-    criterion is never turned into ``not_assessable`` on the model's behalf.
+    invalid ``status``, a missing ``supporting_evidence_ids`` or
+    ``counterevidence_ids`` list of strings, a missing ``rationale`` string, or
+    a missing or non-numeric ``confidence``. Keys are never renamed or guessed,
+    and a criterion is never turned into ``not_assessable`` on the model's
+    behalf.
     """
 
     items = tool_result.get("heinlein_criteria")
@@ -2048,40 +2065,31 @@ def _heinlein_decisions(
             raise ValueError(
                 f"{HEINLEIN_STAGE} {criterion_id}: missing or invalid status {status!r}"
             )
-        counterevidence = item.get("counterevidence_ids")
-        if not isinstance(counterevidence, list):
+        supporting = _require_string_list(item, "supporting_evidence_ids", criterion_id)
+        counterevidence = _require_string_list(
+            item, "counterevidence_ids", criterion_id
+        )
+        rationale = item.get("rationale")
+        if not isinstance(rationale, str):
             raise ValueError(
-                f"{HEINLEIN_STAGE} {criterion_id}: counterevidence_ids must be a list"
+                f"{HEINLEIN_STAGE} {criterion_id}: rationale must be a string"
             )
         confidence = item.get("confidence")
         if isinstance(confidence, bool) or not isinstance(confidence, int | float):
             raise ValueError(
                 f"{HEINLEIN_STAGE} {criterion_id}: confidence must be a number"
             )
-        if "supporting_evidence_ids" in item and not isinstance(
-            item["supporting_evidence_ids"], list
-        ):
-            raise ValueError(
-                f"{HEINLEIN_STAGE} {criterion_id}: "
-                "supporting_evidence_ids must be a list"
-            )
-        if "rationale" in item and not isinstance(item["rationale"], str):
-            raise ValueError(
-                f"{HEINLEIN_STAGE} {criterion_id}: rationale must be a string"
-            )
         decisions.append(
             heinlein.CriterionAdjudication(
                 criterion_id=criterion_id,
                 status=str(status),
                 supporting_evidence_ids=_existing_evidence_ids(
-                    evidence_set,
-                    _string_tuple(item.get("supporting_evidence_ids", ())),
+                    evidence_set, tuple(supporting)
                 ),
                 counterevidence_ids=_existing_evidence_ids(
-                    evidence_set,
-                    _string_tuple(counterevidence),
+                    evidence_set, tuple(counterevidence)
                 ),
-                rationale=str(item.get("rationale", "")),
+                rationale=rationale,
                 confidence=float(confidence),
             )
         )
@@ -2311,9 +2319,10 @@ IDs containing the quote), paraphrase (a short neutral paraphrase), and
 confidence (a number from 0 to 1). Use these key names exactly; the key is
 quote, not quotation, and evidence_type, not type. Example of one item, with
 invented text:
-{"raw_id": "e1", "evidence_type": "storyworld_change", "quote": "The tide
-had not come in for a year.", "paragraph_ids": ["p00007"], "paraphrase": "The
-sea has stopped moving.", "confidence": 0.8}
+{"raw_id": "e1", "evidence_type": "storyworld_change",
+"quote": "The tide had not come in for a year.",
+"paragraph_ids": ["p00007"],
+"paraphrase": "The sea has stopped moving.", "confidence": 0.8}
 Do not make Knight or Suvin judgments, identify a genre, calculate a score, or
 call anything a novum. Prefer fewer strong items to unsupported guesses. An
 item is useful only when the quotation itself supports the assigned evidence
