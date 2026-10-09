@@ -2,14 +2,14 @@
 execution_id: 2026_10_09_02_16_53_WI_SF_0113_REPORT_EVIDENCE_CORRECTION_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0113_REPORT_EVIDENCE_CORRECTION_REVIEW)[2026-10-09T02:16:45+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_09_01_01_09_WI_SF_0113_REPORT_EVIDENCE_CORRECTION
 pr: https://github.com/xenotaur/LCATS/pull/489
-commit: 838d831f7a5d61e80ba34a4175074ec0b247f6f1
+commit: b9ee2dc59e4c19edd3c2fc78291b0022c49e8475
 created_at: 2026-10-09T02:16:53+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/489
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
