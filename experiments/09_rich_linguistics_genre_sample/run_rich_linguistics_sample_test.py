@@ -10,8 +10,12 @@ import sys
 import tempfile
 import unittest
 
-_RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_rich_linguistics_sample.py"
-_SPEC = importlib.util.spec_from_file_location("run_rich_linguistics_sample", _RUNNER_PATH)
+_RUNNER_PATH = (
+    pathlib.Path(__file__).resolve().parent / "run_rich_linguistics_sample.py"
+)
+_SPEC = importlib.util.spec_from_file_location(
+    "run_rich_linguistics_sample", _RUNNER_PATH
+)
 assert _SPEC is not None and _SPEC.loader is not None
 run_rich_linguistics_sample = importlib.util.module_from_spec(_SPEC)
 sys.modules[_SPEC.name] = run_rich_linguistics_sample
@@ -63,6 +67,17 @@ def _write_manifest(path: pathlib.Path, story_paths: list[pathlib.Path]) -> None
 
 
 class RichPilotHarnessTest(unittest.TestCase):
+    def test_repaired_mode_refuses_historical_results_directory(self):
+        with self.assertRaisesRegex(ValueError, "requires a separate output directory"):
+            run_rich_linguistics_sample.run_pilot(
+                output_dir=run_rich_linguistics_sample.RESULTS_DIR,
+                backend_name="fake",
+                tokenization_mode=(
+                    run_rich_linguistics_sample.sidecar.TOKENIZATION_MODE_REPAIRED
+                ),
+                overwrite=True,
+            )
+
     def test_fake_backend_run_writes_v2_lexicon_and_pending_audit(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = pathlib.Path(tmp)
@@ -91,7 +106,9 @@ class RichPilotHarnessTest(unittest.TestCase):
             self.assertEqual(report["token_detail_count"], 2)
             self.assertEqual(report["lexicon_count"], 2)
             self.assertEqual(report["pos_audit_status"], "manual_audit_pending")
-            self.assertEqual(report["decisions"]["sample_pos_figures"]["decision"], "defer")
+            self.assertEqual(
+                report["decisions"]["sample_pos_figures"]["decision"], "defer"
+            )
             self.assertFalse(report["corpora_modified"])
             self.assertTrue(
                 (
@@ -142,9 +159,7 @@ class RichPilotHarnessTest(unittest.TestCase):
             output_dir = pathlib.Path(tmp) / "results"
             stale_parquet = output_dir / "parquet"
             stale_parquet.mkdir(parents=True)
-            (stale_parquet / "parquet_manifest.json").write_text(
-                "{}", encoding="utf-8"
-            )
+            (stale_parquet / "parquet_manifest.json").write_text("{}", encoding="utf-8")
 
             run_rich_linguistics_sample.prune_results(output_dir)
 
@@ -333,7 +348,9 @@ class RichPilotHarnessTest(unittest.TestCase):
                 expected_count=1,
                 overwrite=True,
             )
-            copied_story = output_dir / "copied_buckets" / "alpha" / "one" / "story.json"
+            copied_story = (
+                output_dir / "copied_buckets" / "alpha" / "one" / "story.json"
+            )
             copied_story.write_text('{"body": "changed"}', encoding="utf-8")
 
             with self.assertRaisesRegex(ValueError, "hash mismatch"):

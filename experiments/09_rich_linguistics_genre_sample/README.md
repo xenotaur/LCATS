@@ -104,6 +104,27 @@ records. It preserves issue metadata and delegates aggregate metrics and gate
 decisions to the pilot's existing deterministic scorer. The result is written
 to `results/pos_audit_scored.json` for the full-corpus gate.
 
+## Tokenization repair pilot
+
+The historical packet and ledger are preserved as evidence. To regenerate a
+separately identified packet with the opt-in repaired spaCy tokenizer, use a
+separate output directory:
+
+```bash
+python experiments/09_rich_linguistics_genre_sample/run_rich_linguistics_sample.py \
+  --tokenization-mode repaired-v1 \
+  --output-dir experiments/09_rich_linguistics_genre_sample/results/tokenization_repair \
+  --overwrite
+```
+
+The repaired profile splits punctuation-fused boundaries and common clitic
+suffixes while retaining the exact source spans and backend POS output. Each
+v2 token-detail artifact includes `boundary_diagnostics` with the source
+surface form, offsets, affected token indices, and `repaired` or `unrepaired`
+status. The regenerated report records the historical blocked-row count, the
+remaining regenerated rows requiring a block, and the policy that POS scoring
+and figures remain gated while unrepaired rows remain.
+
 Export the generated v2 token detail to Parquet:
 
 ```bash

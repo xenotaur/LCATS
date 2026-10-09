@@ -1,0 +1,28 @@
+{
+  "schema_version": "rich-linguistics-tokenization-repair-report-v1",
+  "source_commit": "dfac1180d0032d71e03303a880153a67f535cf92",
+  "tokenization_mode": "repaired-v1",
+  "pilot": {
+    "story_count": 146,
+    "token_count": 1089199,
+    "generated_bytes": 414044335,
+    "elapsed_seconds": 347.969,
+    "peak_memory_bytes": 986120192
+  },
+  "audit": {
+    "historical_packet": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv",
+    "historical_ledger": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_ledger.json",
+    "pre_repair_blocked_rows": 56,
+    "post_repair_rows_requiring_block": 29,
+    "reduction": 27
+  },
+  "residual_policy": {
+    "decision": "no_go_if_unrepaired_rows_remain",
+    "scoring": "blocked_until_human_review_resolves_or_explicitly_defers_each_row",
+    "figures": "blocked"
+  },
+  "generated_artifacts": {
+    "retention": "not_checked_in_due_to_size; regenerate with the documented command",
+    "output_directory_used": "temporary external output (not retained)"
+  }
+}

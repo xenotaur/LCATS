@@ -37,7 +37,9 @@ MANIFEST_PATH = (
     / "genre_balanced_manifest.jsonl"
 )
 CORPUS_ROOT = _REPO_ROOT / "corpora"
-RESULTS_DIR = _REPO_ROOT / "experiments" / "09_rich_linguistics_genre_sample" / "results"
+RESULTS_DIR = (
+    _REPO_ROOT / "experiments" / "09_rich_linguistics_genre_sample" / "results"
+)
 COPIED_BUCKETS_DIRNAME = "copied_buckets"
 SNAPSHOT_MANIFEST_FILENAME = "sample_snapshot_manifest.json"
 STORY_LIST_FILENAME = "story-list.txt"
@@ -45,6 +47,7 @@ RUN_SUMMARY_FILENAME = "linguistics_run_summary.json"
 REPORT_FILENAME = "experiment_report.json"
 AUDIT_FILENAME = "pos_audit.json"
 AUDIT_SAMPLE_FILENAME = "pos_audit_sample.csv"
+HISTORICAL_LEDGER_PATH = RESULTS_DIR / "pos_audit_ledger.json"
 EXPECTED_SAMPLE_COUNT = 146
 AUDIT_ROWS_PER_GENRE = 24
 AUDIT_MIN_GENRE_ROWS = 10
@@ -116,10 +119,19 @@ def run_pilot(
     existing: str = runner.EXISTING_SKIP,
     dry_run: bool = False,
     audit_labels_path: Optional[pathlib.Path] = None,
+    tokenization_mode: str = sidecar.TOKENIZATION_MODE_DEFAULT,
 ) -> dict[str, Any]:
     """Mirror the sample, run rich linguistics, and write pilot artifacts."""
     if overwrite and resume:
         raise ValueError("choose either --overwrite or --resume, not both")
+    if (
+        tokenization_mode != sidecar.TOKENIZATION_MODE_DEFAULT
+        and output_dir.resolve() == RESULTS_DIR.resolve()
+    ):
+        raise ValueError(
+            "repaired tokenization requires a separate output directory; "
+            f"refusing to modify historical results at {RESULTS_DIR}"
+        )
     started = time.perf_counter()
     start_rss = _max_rss_bytes()
     rows = load_manifest(manifest_path, expected_count=expected_count)
@@ -169,8 +181,13 @@ def run_pilot(
         model_name=resolved_model_name,
         include_token_detail=True,
         token_detail_version=sidecar.TOKEN_DETAIL_VERSION_V2,
+        tokenization_mode=tokenization_mode,
     )
-    backend = runner.make_backend(backend_name, resolved_model_name)
+    backend = runner.make_backend(
+        backend_name,
+        resolved_model_name,
+        tokenization_mode=tokenization_mode,
+    )
     run_summary = runner.run(
         analysis_story_paths,
         backend=backend,
@@ -190,6 +207,10 @@ def run_pilot(
         labels_path=audit_labels_path,
     )
     sidecar.write_json_atomic(output_dir / AUDIT_FILENAME, audit)
+    tokenization_repair = build_tokenization_repair_summary(
+        output_dir=output_dir,
+        audit_rows=select_audit_rows(snapshot_manifest, copied_story_paths),
+    )
 
     elapsed_seconds = time.perf_counter() - started
     report = build_report(
@@ -201,9 +222,11 @@ def run_pilot(
         run_summary=run_summary,
         validation_summary=validation_summary,
         audit=audit,
+        tokenization_repair=tokenization_repair,
         corpus_root=corpus_root,
         backend_name=backend_name,
         model_name=resolved_model_name,
+        tokenization_mode=tokenization_mode,
         smoke_count=smoke_count,
         resume=resume,
         overwrite=overwrite,
@@ -346,7 +369,9 @@ def load_and_validate_snapshot(
     for index, item in enumerate(stories):
         if not isinstance(item, dict):
             raise ValueError(f"{snapshot_path}: stories[{index}] must be an object")
-        copied_story_path = _repo_path(_required_string_simple(item, "copied_story_path"))
+        copied_story_path = _repo_path(
+            _required_string_simple(item, "copied_story_path")
+        )
         copied_hash = _required_string_simple(item, "copied_story_sha256")
         source_hash = _required_string_simple(item, "source_story_sha256")
         if not copied_story_path.is_file():
@@ -385,7 +410,11 @@ def validate_generated_artifacts(story_paths: Iterable[pathlib.Path]) -> dict[st
             "token_detail_path": _repo_relative(detail_path),
             "lexicon_path": _repo_relative(lexicon_path),
         }
-        if not compact_path.exists() or not detail_path.exists() or not lexicon_path.exists():
+        if (
+            not compact_path.exists()
+            or not detail_path.exists()
+            or not lexicon_path.exists()
+        ):
             counts["missing_outputs"] += 1
             row["valid"] = False
             row["findings"] = [
@@ -514,9 +543,7 @@ def select_audit_rows(
                     "selection_genre": genre,
                     "audit_bucket": bucket,
                     "audit_features": ",".join(_audit_features(text, upos)),
-                    "token_key": (
-                        f"{story_id}#g{token.get('global_token_index', 0)}"
-                    ),
+                    "token_key": (f"{story_id}#g{token.get('global_token_index', 0)}"),
                     "sentence_index": token.get("sentence_index")
                     or sentence.get("sentence_index"),
                     "token_index": token.get("token_index"),
@@ -528,6 +555,14 @@ def select_audit_rows(
                     "gold_upos": "",
                     "notes": "",
                 }
+                diagnostic_status = _tokenization_status(
+                    detail.get("boundary_diagnostics", []),
+                    token.get("global_token_index"),
+                )
+                if diagnostic_status == "unrepaired":
+                    row["audit_features"] += ",tokenization_unrepaired"
+                elif diagnostic_status == "repaired":
+                    row["audit_features"] += ",tokenization_repaired"
                 by_genre.setdefault(str(genre), {}).setdefault(bucket, []).append(row)
     selected: list[dict[str, Any]] = []
     for genre in sorted(by_genre):
@@ -588,7 +623,9 @@ def select_genre_audit_rows(
     )
 
 
-def _select_bucket_rows(rows: list[dict[str, Any]], *, limit: int) -> list[dict[str, Any]]:
+def _select_bucket_rows(
+    rows: list[dict[str, Any]], *, limit: int
+) -> list[dict[str, Any]]:
     """Select rows from one POS bucket while preserving feature variety."""
     feature_order = (
         "contraction_or_possessive",
@@ -642,6 +679,57 @@ def write_audit_sample(rows: list[dict[str, Any]], path: pathlib.Path) -> None:
             writer.writerow({field: row.get(field, "") for field in AUDIT_FIELDS})
 
 
+def _tokenization_status(diagnostics: Any, global_index: Any) -> str:
+    if not isinstance(diagnostics, list) or not isinstance(global_index, int):
+        return "none"
+    statuses = {
+        item.get("status")
+        for item in diagnostics
+        if isinstance(item, dict)
+        and isinstance(item.get("global_token_indices"), list)
+        and global_index in item.get("global_token_indices", [])
+    }
+    if "unrepaired" in statuses:
+        return "unrepaired"
+    if "repaired" in statuses:
+        return "repaired"
+    return "none"
+
+
+def build_tokenization_repair_summary(
+    *, output_dir: pathlib.Path, audit_rows: list[dict[str, Any]]
+) -> dict[str, Any]:
+    """Summarize historical and regenerated blocked-token evidence."""
+    historical_blocked = None
+    if HISTORICAL_LEDGER_PATH.exists():
+        historical = sidecar.load_json(HISTORICAL_LEDGER_PATH)
+        entries = historical.get("entries", {}) if isinstance(historical, dict) else {}
+        if isinstance(entries, dict):
+            historical_blocked = sum(
+                1
+                for entry in entries.values()
+                if isinstance(entry, dict) and entry.get("disposition") == "blocked"
+            )
+    residual_rows = sum(
+        1
+        for row in audit_rows
+        if "tokenization_unrepaired" in str(row.get("audit_features", "")).split(",")
+    )
+    return {
+        "schema_version": "rich-linguistics-tokenization-repair-v1",
+        "historical_audit_packet": "experiments/09_rich_linguistics_genre_sample/results/pos_audit_sample.csv",
+        "historical_ledger": _repo_relative(HISTORICAL_LEDGER_PATH),
+        "pre_repair_blocked_rows": historical_blocked,
+        "regenerated_packet_path": _repo_relative(output_dir / AUDIT_SAMPLE_FILENAME),
+        "post_repair_rows_requiring_block": residual_rows,
+        "residual_policy": {
+            "decision": "no_go_if_unrepaired_rows_remain",
+            "scoring": "blocked_until_human_review_resolves_or_explicitly_defers_each_row",
+            "figures": "blocked",
+        },
+    }
+
+
 def _apply_audit_labels(
     rows: list[dict[str, Any]], labels: dict[str, str]
 ) -> list[dict[str, Any]]:
@@ -677,7 +765,9 @@ def score_audit(rows: list[dict[str, Any]], labels: dict[str, str]) -> dict[str,
     scored_rows: list[dict[str, Any]] = []
     for row in rows:
         gold = labels[row["token_key"]]
-        machine = row["machine_upos"] if row["machine_upos"] in {"NOUN", "PROPN"} else "OTHER"
+        machine = (
+            row["machine_upos"] if row["machine_upos"] in {"NOUN", "PROPN"} else "OTHER"
+        )
         confusion.setdefault(gold, {})
         confusion[gold][machine] = confusion[gold].get(machine, 0) + 1
         scored = {**row, "gold_upos": gold}
@@ -791,8 +881,7 @@ def scored_decisions(scoring: dict[str, Any]) -> dict[str, Any]:
             inconclusive_genres.append(genre)
             continue
         if (
-            family["precision"] is not None
-            and family["precision"] < SEVERE_GENRE_GATE
+            family["precision"] is not None and family["precision"] < SEVERE_GENRE_GATE
         ) or (family["recall"] is not None and family["recall"] < SEVERE_GENRE_GATE):
             severe_failures.append(genre)
     passes_overall = (
@@ -828,9 +917,11 @@ def build_report(
     run_summary: runner.RunSummary,
     validation_summary: dict[str, Any],
     audit: dict[str, Any],
+    tokenization_repair: dict[str, Any],
     corpus_root: pathlib.Path,
     backend_name: str,
     model_name: str,
+    tokenization_mode: str,
     smoke_count: Optional[int],
     resume: bool,
     overwrite: bool,
@@ -860,12 +951,15 @@ def build_report(
         "source_commit": snapshot_manifest["source_commit"],
         "manifest_path": _repo_relative(manifest_path),
         "manifest_sha256": snapshot_manifest["manifest_sha256"],
-        "snapshot_manifest_path": _repo_relative(output_dir / SNAPSHOT_MANIFEST_FILENAME),
+        "snapshot_manifest_path": _repo_relative(
+            output_dir / SNAPSHOT_MANIFEST_FILENAME
+        ),
         "manifest_row_count": snapshot_manifest["manifest_row_count"],
         "selected_story_count": snapshot_manifest["selected_story_count"],
         "smoke_count": smoke_count,
         "backend_name": backend_name,
         "model_name": model_name,
+        "tokenization_mode": tokenization_mode,
         "resume": resume,
         "overwrite": overwrite,
         "dry_run": dry_run,
@@ -898,6 +992,7 @@ def build_report(
         "pos_audit_status": audit["status"],
         "parquet_export": parquet_export_summary(output_dir / "parquet"),
         "decisions": audit["decisions"],
+        "tokenization_repair": tokenization_repair,
         "corpora_modified": bool(_corpus_linguistics_sidecars(corpus_root)),
         "retention_options": [
             "checked_in_experiment_results",
@@ -916,7 +1011,9 @@ def project_full_corpus_cost(
 ) -> dict[str, Any]:
     """Project full-corpus cost from the pilot sample."""
     corpus_root = pathlib.Path(corpus_root)
-    full_count = len(list(corpus_root.rglob("story.json"))) if corpus_root.exists() else None
+    full_count = (
+        len(list(corpus_root.rglob("story.json"))) if corpus_root.exists() else None
+    )
     if not full_count or not sample_story_count:
         return {"story_count": full_count, "basis": "insufficient_sample"}
     scale = full_count / sample_story_count
@@ -987,6 +1084,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--backend", choices=["spacy", "stanza", "fake"], default="spacy"
     )
     parser.add_argument("--model", default="")
+    parser.add_argument(
+        "--tokenization-mode",
+        choices=[
+            sidecar.TOKENIZATION_MODE_DEFAULT,
+            sidecar.TOKENIZATION_MODE_REPAIRED,
+        ],
+        default=sidecar.TOKENIZATION_MODE_DEFAULT,
+    )
     parser.add_argument("--smoke-count", type=int)
     parser.add_argument("--expected-count", type=int, default=EXPECTED_SAMPLE_COUNT)
     parser.add_argument("--overwrite", action="store_true")
@@ -1015,6 +1120,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             output_dir=args.output_dir,
             backend_name=args.backend,
             model_name=args.model,
+            tokenization_mode=args.tokenization_mode,
             smoke_count=args.smoke_count,
             expected_count=args.expected_count,
             overwrite=args.overwrite,
@@ -1168,7 +1274,11 @@ def _corpus_linguistics_sidecars(corpus_root: pathlib.Path) -> list[pathlib.Path
         path
         for path in corpus_root.rglob("linguistics*.json")
         if path.name
-        in (sidecar.SIDECAR_FILENAME, sidecar.TOKEN_DETAIL_FILENAME, lexicon.LEXICON_FILENAME)
+        in (
+            sidecar.SIDECAR_FILENAME,
+            sidecar.TOKEN_DETAIL_FILENAME,
+            lexicon.LEXICON_FILENAME,
+        )
     ]
     return sorted(paths, key=lambda path: path.relative_to(corpus_root).as_posix())
 
