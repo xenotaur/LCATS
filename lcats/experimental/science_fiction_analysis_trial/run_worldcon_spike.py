@@ -2061,7 +2061,7 @@ def _heinlein_decisions(
     for criterion_id in models.HEINLEIN_CRITERION_IDS:
         item = by_id[criterion_id]
         status = item.get("status")
-        if status not in models.DECISION_STATES:
+        if not isinstance(status, str) or status not in models.DECISION_STATES:
             raise ValueError(
                 f"{HEINLEIN_STAGE} {criterion_id}: missing or invalid status {status!r}"
             )
@@ -2438,8 +2438,9 @@ matter.
 
 The conditions depend on one another. If different is absent, essential and
 causal cannot be present. If human is absent, causal cannot be present. In
-those cases give the dependent criterion the status absent. A response that
-violates this is rejected.
+those cases give the dependent criterion a status other than present: absent
+if the story fails the condition itself, or not_assessable if the evidence is
+insufficient. A response that violates this is rejected.
 
 Judge plausibility against established facts available to a general reader and
 the story's own premises; do not penalize an explicitly rendered new theory

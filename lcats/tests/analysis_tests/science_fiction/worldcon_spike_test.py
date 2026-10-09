@@ -1866,6 +1866,26 @@ class WorldconStructuredOutputFailLoudTest(unittest.TestCase):
 
                 self._assert_heinlein_failed_but_story_complete(story, data, fragment)
 
+    def test_an_unhashable_status_gets_the_clear_message(self):
+        for name, value in (("list", ["present"]), ("object", {"a": 1})):
+            with self.subTest(status=name):
+
+                def set_status(result, value=value):
+                    result["heinlein_criteria"][0]["status"] = value
+                    return result
+
+                _, _, story, data = self._run(
+                    f"status-{name}",
+                    _StageOverrideBackend(
+                        run_worldcon_spike.HEINLEIN_TOOL_NAME, set_status
+                    ),
+                )
+
+                analysis = self._assert_heinlein_failed_but_story_complete(
+                    story, data, "missing or invalid status"
+                )
+                self.assertEqual("ValueError", analysis["failures"][0]["kind"])
+
     def test_unknown_and_duplicate_criteria_are_quarantined(self):
         def unknown(result):
             result["heinlein_criteria"][0]["criterion_id"] = "decision"
@@ -2254,7 +2274,7 @@ class WorldconStructuredOutputPromptTest(unittest.TestCase):
         self.assertNotIn("rubric_id", prompt)
         self.assertNotIn("Decision states", prompt)
         self.assertIn("no Markdown fences", prompt)
-        self.assertIn("the status absent", prompt)
+        self.assertIn("a status other than present", prompt)
 
     def test_prompt_examples_are_valid_json_with_the_schema_keys(self):
         cases = (
