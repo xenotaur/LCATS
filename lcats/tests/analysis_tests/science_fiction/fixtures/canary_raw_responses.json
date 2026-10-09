@@ -1,0 +1,774 @@
+{
+  "description": "Raw sf_evidence and sf_heinlein responses captured by the WI-SF-0113 canary (gpt-oss:20b through Ollama). Only the response fields are kept; run ids, absolute paths and usage fields are dropped.",
+  "responses": [
+    {
+      "run": "baseline",
+      "stage": "sf_evidence",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+            "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+            "raw_id": "id1",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "People express curiosity and plan investigation.",
+            "quote": "A long time passed, and people said to each other\u2014 'I wonder if there is a church out in the wood? The bell has a tone that is wondrous sweet; let us stroll thither, and examine the matter nearer.'",
+            "raw_id": "id2",
+            "type": "inquiry_or_scientific_method"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise creates future reward for discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer,' even if it were not really a bell.",
+            "raw_id": "id3",
+            "type": "extrapolative_consequence"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "paraphrase": "Children express desire to pursue bell.",
+            "quote": "They all immediately felt a wish to go thither; all except three.",
+            "raw_id": "id4",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Characters confront discrepancy between expectation and reality.",
+            "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+            "raw_id": "id5",
+            "type": "reader_facing_contrast"
+          }
+        ]
+      }
+    },
+    {
+      "run": "baseline",
+      "stage": "sf_evidence",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "Description of the absence of various social problems in the world.",
+            "quote": "There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.",
+            "raw_id": "e1",
+            "type": "storyworld_change"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "Explanation that disease and aging have been eliminated.",
+            "quote": "All diseases were conquered. So was old age.",
+            "raw_id": "e2",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "paraphrase": "Indication of a cure for aging allowing people to live 200 years.",
+            "quote": "A sardonic old man, about two hundred years old, sat on a stepladder, painting a mural he did not like.",
+            "raw_id": "e3",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00085"
+            ],
+            "paraphrase": "Extrapolation of the consequences of no population control.",
+            "quote": "Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!",
+            "raw_id": "e4",
+            "type": "extrapolative_consequence"
+          },
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "paraphrase": "Violent act resulting in death, constituting a catastrophe.",
+            "quote": "Wehling shot Dr. Hitz dead. 'There's room for one--a great big one,' he said.",
+            "raw_id": "e5",
+            "type": "catastrophe"
+          },
+          {
+            "confidence": 0.8,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "paraphrase": "Reaction of Wehling to the situation in the waiting room.",
+            "quote": "Wehling, the waiting father, mumbled something without raising his head. And then he fell silent again.",
+            "raw_id": "e6",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00104"
+            ],
+            "paraphrase": "Painter's reaction after witnessing the killings.",
+            "quote": "The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.",
+            "raw_id": "e7",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Idealistic opening statement contrasting later violence.",
+            "quote": "Everything was perfectly swell.",
+            "raw_id": "e8",
+            "type": "reader_facing_contrast"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-1",
+      "stage": "sf_evidence",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+            "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+            "raw_id": "id001",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise as consequence of discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.",
+            "raw_id": "id002",
+            "type": "extrapolative_consequence"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "paraphrase": "Children\u2019s desire to seek the bell.",
+            "quote": "They all immediately felt a wish to go thither; all except three.",
+            "raw_id": "id003",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Contrasting belief vs reality about bell.",
+            "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+            "raw_id": "id004",
+            "type": "reader_facing_contrast"
+          },
+          {
+            "confidence": 0.8,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Introduction of bell sound into world.",
+            "quote": "People said 'The Evening Bell is sounding, the sun is setting.'",
+            "raw_id": "id005",
+            "type": "storyworld_change"
+          },
+          {
+            "confidence": 0.7,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "Sunset marking passage of time.",
+            "quote": "The sun now set: the atmosphere glowed like fire.",
+            "raw_id": "id006",
+            "type": "temporal_or_spatial_displacement"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-1",
+      "stage": "sf_evidence",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "{\"evidence\":[{\"quotation\":\"There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.\",\"paragraph_ids\":[\"p00002\"],\"paraphrase\":\"description of societal changes eliminating various social problems\",\"confidence\":0.95,\"raw_id\":\"id1\"},{\"quotation\":\"All diseases were conquered. So was old age.\",\"paragraph_ids\":[\"p00003\"],\"paraphrase\":\"explanation that disease and aging have been eliminated by technology\",\"confidence\":0.9,\"raw_id\":\"id2\"},{\"quotation\":\"\\\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\\\" said Dr. Hitz. \\\"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\\\"\",\"paragraph_ids\":[\"p00085\",\"p00086\"],\"paraphrase\":\"explanation of potential overcrowding if no population control\",\"confidence\":0.9,\"raw_id\":\"id3\"},{\"quotation\":\"Wehling shot Dr. Hitz dead. \\\"There's room for one--a great big one,\\\" he said.\",\"paragraph_ids\":[\"p00100\"],\"paraphrase\":\"violent act resulting in death of Dr Hitz\",\"confidence\":0.95,\"raw_id\":\"id4\"},{\"quotation\":\"The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.\",\"paragraph_ids\":[\"p00104\"],\"paraphrase\":\"painter's reflective observation following tragedy\",\"confidence\":0.9,\"raw_id\":\"id5\"},{\"quotation\":\"\\\"Looks so real,\\\" he said, \\\"I can practically imagine I'm standing in the middle of it.\\\"\",\"paragraph_ids\":[\"p00017\"],\"paraphrase\":\"observer's perception contrasting art with reality\",\"confidence\":0.85,\"raw_id\":\"id6\"}]}",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "description of societal changes eliminating various social problems",
+            "quotation": "There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.",
+            "raw_id": "id1"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "explanation that disease and aging have been eliminated by technology",
+            "quotation": "All diseases were conquered. So was old age.",
+            "raw_id": "id2"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00085",
+              "p00086"
+            ],
+            "paraphrase": "explanation of potential overcrowding if no population control",
+            "quotation": "\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\" said Dr. Hitz. \"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\"",
+            "raw_id": "id3"
+          },
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "paraphrase": "violent act resulting in death of Dr Hitz",
+            "quotation": "Wehling shot Dr. Hitz dead. \"There's room for one--a great big one,\" he said.",
+            "raw_id": "id4"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00104"
+            ],
+            "paraphrase": "painter's reflective observation following tragedy",
+            "quotation": "The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.",
+            "raw_id": "id5"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "paraphrase": "observer's perception contrasting art with reality",
+            "quotation": "\"Looks so real,\" he said, \"I can practically imagine I'm standing in the middle of it.\"",
+            "raw_id": "id6"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-1",
+      "stage": "sf_heinlein",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "```json\n{\n  \"heinlein_criteria\": [\n    {\n      \"criterion\": \"different\",\n      \"decision\": \"present\",\n      \"evidence_ids\": [\"sfev-dd5d87a7f5649466\"],\n      \"rationale\": \"The story presents a bell that does not physically exist, only perceived as fancy.\"\n    },\n    {\n      \"criterion\": \"essential\",\n      \"decision\": \"present\",\n      \"evidence_ids\": [\"sfev-dd5d87a7f5649466\"],\n      \"rationale\": \"The phantom bell drives the plot; characters seek it and debate its existence.\"\n    },\n    {\n      \"criterion\": \"human\",\n      \"decision\": \"present\",\n      \"evidence_ids\": [\"sfev-601e43b80a452ca9\", \"sfev-dd5d87a7f5649466\"],\n      \"rationale\": \"The central problem is human desire and confusion over the bell.\"\n    },\n    {\n      \"criterion\": \"causal\",\n      \"decision\": \"present\",\n      \"evidence_ids\": [\"sfev-dd5d87a7f5649466\", \"sfev-601e43b80a452ca9\"],\n      \"rationale\": \"The phantom bell causes the human problem of searching and debate.\"\n    },\n    {\n      \"criterion\": \"plausible\",\n      \"decision\": \"present\",\n      \"evidence_ids\": [\"sfev-dd5d87a7f5649466\"],\n      \"rationale\": \"No established fact is violated; mass suggestion or hallucination can explain the phantom bell.\"\n    }\n  ]\n}\n```",
+      "tool_result": null
+    },
+    {
+      "run": "trial-1",
+      "stage": "sf_heinlein",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "",
+      "tool_result": {
+        "heinlein_criteria": [
+          {
+            "criterion": "different",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "essential",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "human",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "causal",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "plausible",
+            "decision": "not_assessable"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-2",
+      "stage": "sf_evidence",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+            "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+            "raw_id": "id001",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise as consequence of discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.",
+            "raw_id": "id002",
+            "type": "extrapolative_consequence"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "paraphrase": "Children\u2019s desire to seek the bell.",
+            "quote": "They all immediately felt a wish to go thither; all except three.",
+            "raw_id": "id003",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Contrasting belief vs reality about bell.",
+            "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+            "raw_id": "id004",
+            "type": "reader_facing_contrast"
+          },
+          {
+            "confidence": 0.8,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Introduction of bell sound into world.",
+            "quote": "People said 'The Evening Bell is sounding, the sun is setting.'",
+            "raw_id": "id005",
+            "type": "storyworld_change"
+          },
+          {
+            "confidence": 0.7,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "Sunset marking passage of time.",
+            "quote": "The sun now set: the atmosphere glowed like fire.",
+            "raw_id": "id006",
+            "type": "temporal_or_spatial_displacement"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-2",
+      "stage": "sf_evidence",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "{\"evidence\":[{\"quotation\":\"There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.\",\"paragraph_ids\":[\"p00002\"],\"paraphrase\":\"description of societal changes eliminating various social problems\",\"confidence\":0.95,\"raw_id\":\"id1\"},{\"quotation\":\"All diseases were conquered. So was old age.\",\"paragraph_ids\":[\"p00003\"],\"paraphrase\":\"explanation that disease and aging have been eliminated by technology\",\"confidence\":0.9,\"raw_id\":\"id2\"},{\"quotation\":\"\\\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\\\" said Dr. Hitz. \\\"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\\\"\",\"paragraph_ids\":[\"p00085\",\"p00086\"],\"paraphrase\":\"explanation of potential overcrowding if no population control\",\"confidence\":0.9,\"raw_id\":\"id3\"},{\"quotation\":\"Wehling shot Dr. Hitz dead. \\\"There's room for one--a great big one,\\\" he said.\",\"paragraph_ids\":[\"p00100\"],\"paraphrase\":\"violent act resulting in death of Dr Hitz\",\"confidence\":0.95,\"raw_id\":\"id4\"},{\"quotation\":\"The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.\",\"paragraph_ids\":[\"p00104\"],\"paraphrase\":\"painter's reflective observation following tragedy\",\"confidence\":0.9,\"raw_id\":\"id5\"},{\"quotation\":\"\\\"Looks so real,\\\" he said, \\\"I can practically imagine I'm standing in the middle of it.\\\"\",\"paragraph_ids\":[\"p00017\"],\"paraphrase\":\"observer's perception contrasting art with reality\",\"confidence\":0.85,\"raw_id\":\"id6\"}]}",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "description of societal changes eliminating various social problems",
+            "quotation": "There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.",
+            "raw_id": "id1"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "explanation that disease and aging have been eliminated by technology",
+            "quotation": "All diseases were conquered. So was old age.",
+            "raw_id": "id2"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00085",
+              "p00086"
+            ],
+            "paraphrase": "explanation of potential overcrowding if no population control",
+            "quotation": "\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\" said Dr. Hitz. \"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\"",
+            "raw_id": "id3"
+          },
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "paraphrase": "violent act resulting in death of Dr Hitz",
+            "quotation": "Wehling shot Dr. Hitz dead. \"There's room for one--a great big one,\" he said.",
+            "raw_id": "id4"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00104"
+            ],
+            "paraphrase": "painter's reflective observation following tragedy",
+            "quotation": "The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.",
+            "raw_id": "id5"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "paraphrase": "observer's perception contrasting art with reality",
+            "quotation": "\"Looks so real,\" he said, \"I can practically imagine I'm standing in the middle of it.\"",
+            "raw_id": "id6"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-2",
+      "stage": "sf_heinlein",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "heinlein_criteria": [
+          {
+            "criterion": "different",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Story explicitly states the bell does not exist, indicating a new condition (phantom bell) different from reality."
+          },
+          {
+            "criterion": "essential",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "The phantom bell drives the plot; characters seek it, making it essential to story."
+          },
+          {
+            "criterion": "human",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-601e43b80a452ca9"
+            ],
+            "rationale": "Plot centers on human children and adults reacting to bell; problem is human."
+          },
+          {
+            "criterion": "causal",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Human desire to find bell arises from phantom bell phenomenon."
+          },
+          {
+            "criterion": "plausible",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-824cd0a6aec00670",
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Phantom bell can be explained by auditory hallucination or environmental acoustic effect; no established facts violated."
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-2",
+      "stage": "sf_heinlein",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "{\"heinlein_criteria\":[{\"criterion\":\"different\",\"decision\":\"not_assessable\"},{\"criterion\":\"essential\",\"decision\":\"not_assessable\"},{\"criterion\":\"human\",\"decision\":\"not_assessable\"},{\"criterion\":\"causal\",\"decision\":\"not_assessable\"},{\"criterion\":\"plausible\",\"decision\":\"not_assessable\"}]}",
+      "tool_result": {
+        "heinlein_criteria": [
+          {
+            "criterion": "different",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "essential",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "human",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "causal",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "plausible",
+            "decision": "not_assessable"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-3",
+      "stage": "sf_evidence",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "paraphrase": "Explanation attributing bell sound to an owl's behavior.",
+            "quote": "the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+            "raw_id": "id001",
+            "type": "scientific_or_technical_explanation"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "King's promise as consequence of discovering source.",
+            "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of 'Universal Bell-ringer', even if it were not really a bell.",
+            "raw_id": "id002",
+            "type": "extrapolative_consequence"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "paraphrase": "Children\u2019s desire to seek the bell.",
+            "quote": "They all immediately felt a wish to go thither; all except three.",
+            "raw_id": "id003",
+            "type": "character_reaction"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "Contrasting belief vs reality about bell.",
+            "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+            "raw_id": "id004",
+            "type": "reader_facing_contrast"
+          },
+          {
+            "confidence": 0.8,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Introduction of bell sound into world.",
+            "quote": "People said 'The Evening Bell is sounding, the sun is setting.'",
+            "raw_id": "id005",
+            "type": "storyworld_change"
+          },
+          {
+            "confidence": 0.7,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "Sunset marking passage of time.",
+            "quote": "The sun now set: the atmosphere glowed like fire.",
+            "raw_id": "id006",
+            "type": "temporal_or_spatial_displacement"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-3",
+      "stage": "sf_evidence",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "{\"evidence\":[{\"quotation\":\"There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.\",\"paragraph_ids\":[\"p00002\"],\"paraphrase\":\"description of societal changes eliminating various social problems\",\"confidence\":0.95,\"raw_id\":\"id1\"},{\"quotation\":\"All diseases were conquered. So was old age.\",\"paragraph_ids\":[\"p00003\"],\"paraphrase\":\"explanation that disease and aging have been eliminated by technology\",\"confidence\":0.9,\"raw_id\":\"id2\"},{\"quotation\":\"\\\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\\\" said Dr. Hitz. \\\"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\\\"\",\"paragraph_ids\":[\"p00085\",\"p00086\"],\"paraphrase\":\"explanation of potential overcrowding if no population control\",\"confidence\":0.9,\"raw_id\":\"id3\"},{\"quotation\":\"Wehling shot Dr. Hitz dead. \\\"There's room for one--a great big one,\\\" he said.\",\"paragraph_ids\":[\"p00100\"],\"paraphrase\":\"violent act resulting in death of Dr Hitz\",\"confidence\":0.95,\"raw_id\":\"id4\"},{\"quotation\":\"The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.\",\"paragraph_ids\":[\"p00104\"],\"paraphrase\":\"painter's reflective observation following tragedy\",\"confidence\":0.9,\"raw_id\":\"id5\"},{\"quotation\":\"\\\"Looks so real,\\\" he said, \\\"I can practically imagine I'm standing in the middle of it.\\\"\",\"paragraph_ids\":[\"p00017\"],\"paraphrase\":\"observer's perception contrasting art with reality\",\"confidence\":0.85,\"raw_id\":\"id6\"}]}",
+      "tool_result": {
+        "evidence": [
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "paraphrase": "description of societal changes eliminating various social problems",
+            "quotation": "There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.",
+            "raw_id": "id1"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "paraphrase": "explanation that disease and aging have been eliminated by technology",
+            "quotation": "All diseases were conquered. So was old age.",
+            "raw_id": "id2"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00085",
+              "p00086"
+            ],
+            "paraphrase": "explanation of potential overcrowding if no population control",
+            "quotation": "\"A drupelet, Mr. Wehling, is one of the little knobs, one of the little pulpy grains of a blackberry,\" said Dr. Hitz. \"Without population control, human beings would now be packed on this surface of this old planet like drupelets on a blackberry! Think of it!\"",
+            "raw_id": "id3"
+          },
+          {
+            "confidence": 0.95,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "paraphrase": "violent act resulting in death of Dr Hitz",
+            "quotation": "Wehling shot Dr. Hitz dead. \"There's room for one--a great big one,\" he said.",
+            "raw_id": "id4"
+          },
+          {
+            "confidence": 0.9,
+            "paragraph_ids": [
+              "p00104"
+            ],
+            "paraphrase": "painter's reflective observation following tragedy",
+            "quotation": "The painter sat on the top of his stepladder, looking down reflectively on the sorry scene.",
+            "raw_id": "id5"
+          },
+          {
+            "confidence": 0.85,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "paraphrase": "observer's perception contrasting art with reality",
+            "quotation": "\"Looks so real,\" he said, \"I can practically imagine I'm standing in the middle of it.\"",
+            "raw_id": "id6"
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-3",
+      "stage": "sf_heinlein",
+      "story": "bell",
+      "story_path": "anderson/bell/story.json",
+      "text": "",
+      "tool_result": {
+        "heinlein_criteria": [
+          {
+            "criterion": "different",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Story explicitly states the bell does not exist, indicating a new condition (phantom bell) different from reality."
+          },
+          {
+            "criterion": "essential",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "The phantom bell drives the plot; characters seek it, making it essential to story."
+          },
+          {
+            "criterion": "human",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-601e43b80a452ca9"
+            ],
+            "rationale": "Plot centers on human children and adults reacting to bell; problem is human."
+          },
+          {
+            "criterion": "causal",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Human desire to find bell arises from phantom bell phenomenon."
+          },
+          {
+            "criterion": "plausible",
+            "decision_state": "present",
+            "evidence_ids": [
+              "sfev-824cd0a6aec00670",
+              "sfev-dd5d87a7f5649466"
+            ],
+            "rationale": "Phantom bell can be explained by auditory hallucination or environmental acoustic effect; no established facts violated."
+          }
+        ]
+      }
+    },
+    {
+      "run": "trial-3",
+      "stage": "sf_heinlein",
+      "story": "vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "text": "{\"heinlein_criteria\":[{\"criterion\":\"different\",\"decision\":\"not_assessable\"},{\"criterion\":\"essential\",\"decision\":\"not_assessable\"},{\"criterion\":\"human\",\"decision\":\"not_assessable\"},{\"criterion\":\"causal\",\"decision\":\"not_assessable\"},{\"criterion\":\"plausible\",\"decision\":\"not_assessable\"}]}",
+      "tool_result": {
+        "heinlein_criteria": [
+          {
+            "criterion": "different",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "essential",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "human",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "causal",
+            "decision": "not_assessable"
+          },
+          {
+            "criterion": "plausible",
+            "decision": "not_assessable"
+          }
+        ]
+      }
+    }
+  ],
+  "source": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary/local/"
+}
