@@ -17,7 +17,7 @@ Corrected the merged Heinlein canary report (WI-SF-0113, PR 487) after checking 
 
 # Result
 
-The report had said the shared evidence stage succeeded in all four runs and that the Vonnegut result was unexplained. The sidecar evidence_sets show 7 usable records for Vonnegut in the baseline and 0 in trials 1 to 3 (six candidates each quarantined as evidence_type is required; the trial 2 raw items carry quotation and no type), while the stage reported success. The report now has a dated correction note, a new finding 8, and corrected findings 2, 4, 5, the Vonnegut expectations row, and the next-steps bullet. Commit: 30e20aed70d0a3ea16155c332a0726142c71c894. The recommendation (revise) is unchanged. The persisted results and code were not edited.
+The report had said the shared evidence stage succeeded in all four runs and that the Vonnegut result was unexplained. The sidecar evidence_sets show 7 usable records for Vonnegut in the baseline and 0 in trials 1 to 3 (six candidates each quarantined as evidence_type is required; the trial 2 raw items carry quotation where the schema key is quote, and have neither evidence_type nor type, although the evidence builder would coerce a type into evidence_type), while the stage reported success. The report now has a dated correction note, a new finding 8, and corrected findings 2, 4, 5, the Vonnegut expectations row, and the next-steps bullet. Commit: 30e20aed70d0a3ea16155c332a0726142c71c894. The recommendation (revise) is unchanged. The persisted results and code were not edited.
 
 # Validation
 
