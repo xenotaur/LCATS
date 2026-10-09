@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0112
 title: Build the sanitized genre-sidecar seed manifest and seed command
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -29,7 +29,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #486: tools/build_genre_seed_manifest.py builds a sanitized genre-sidecar seed manifest from the tracked evidence file validation_results.jsonl at release time (146 records, no absolute cache_db_path values, every payload validated, written atomically), with 39 tests including a drift check against corpora/. Refuses to write over the evidence file or inside corpora/ or data (by file identity, so miscased paths and hard links are caught). On scratch copies, create-only insert then a bare replace exits 0 with 0 blocked and 146 byte-identical genre.json files; an unseeded data stays blocked. Runbook step 6b and the other design-note follow-ups are not implemented here.'
 expected_actions:
   - create_file
   - edit_file
