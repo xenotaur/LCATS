@@ -41,6 +41,7 @@ work_items:
   - WI-SF-0111
   - WI-SF-0113
   - WI-SF-0114
+  - WI-SF-0116
 exit_criteria:
   - All approved Phase 1 work items are resolved with no-cost tests and lrh validate passing
   - The approximately 30-story feasibility pilot completes and satisfies or explicitly fails its preregistered gates
