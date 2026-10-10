@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0115
 title: Add the genre-sidecar seed step to the corpus release runbook
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -29,7 +29,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #494: new runbook step 3b in docs/reference/prepare-corpora-release.md seeds the regenerated data/ with the 146 tranche-promoted genre sidecars (build_genre_seed_manifest.py then create-only lcats promote insert, dry-run first) before replace, with a single-collection variant, per-collection line counts, rejection and non-transactional recovery guidance, and a collision rule (never upsert). corpus-promotion.md, tools/README.md and docs/index.md updated; step 7 and the step 6 and 7b cautions corrected. All commands verified on scratch copies; corpora/ untouched. Other design-note follow-ups (rule for other sidecar kinds, optional story-text fingerprint) are not implemented here.'
 expected_actions:
   - edit_file
   - run_tests
