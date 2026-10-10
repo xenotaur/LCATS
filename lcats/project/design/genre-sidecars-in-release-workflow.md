@@ -152,6 +152,11 @@ absolute paths are removed on the way in.
 
 ## Drafted revised release procedure (text only; not applied)
 
+> **Superseded by `WI-PROMOTE-0115`.** The step was added to the runbook as
+> **step 3b**, *before* the preview, not as 6b after it: an unseeded preview is
+> blocked while a seeded `data/` previews clean. The draft below keeps its
+> original wording for history; follow the runbook, not this draft.
+
 Between today's step 6 (preview) and step 7 (promote), add:
 
 > **6b. Seed tranche-promoted sidecars into `data/`** — directory `lcats/`.

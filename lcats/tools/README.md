@@ -65,6 +65,32 @@ python tools/create_request.py improve_coverage lcats/analysis/llm_extractor.py 
 - `{{MODULE_NAME}}` - Base module name
 - `{{SUGGESTED_TEST_PATH}}` - Computed test file path following project conventions
 
+### 3. Genre Seed Manifest Builder (`build_genre_seed_manifest.py`)
+
+Builds the sanitized tranche manifest used to seed the regenerated `data/` with the tranche-promoted `genre.json` sidecars before a corpus release.
+
+**Purpose**: Derive, from the tracked evidence file `experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`, a JSONL manifest of `{"lcats_id": ..., "payload": ...}` records for `lcats promote insert`. Each payload has its `cache_db_path` reduced to a basename and is validated with `genre_sidecar.validate_sidecar()`. It never modifies the evidence file, `corpora/`, or `data/`, and it writes the manifest atomically.
+
+**Usage:**
+```bash
+# From lcats/; write the manifest outside the repository
+SEED="$(mktemp -d)/genre_seed.jsonl"
+python tools/build_genre_seed_manifest.py --manifest-out "$SEED" --expect-count 146
+```
+
+**Exit codes**: `0` success; `1` malformed evidence, an invalid payload, or an `--expect-count` mismatch (nothing written); `2` a missing or unreadable evidence file, or an output path that is the evidence file or inside `corpora/`, `lcats/data`, or the roots set by `LCATS_CORPORA_DIR` / `LCATS_DATA_DIR`.
+
+See [Preparing a corpora release](../docs/reference/prepare-corpora-release.md#3b-seed-the-tranche-promoted-sidecars) for how it is used.
+
+### 4. Genre `cache_db_path` Rewriter (`rewrite_genre_cache_db_path.py`)
+
+A one-off cleanup tool (`WI-GENRE-0109`) that reads `corpora/*/*/genre.json` and writes a JSONL tranche manifest of the sidecars that still need it, with each `assessments[*].provenance.cache_db_path` reduced from an absolute path to its basename. It never edits `corpora/`; promotion of the result is a separate, human-approved `lcats promote upsert`. Its `rewrite_cache_db_path()` function is reused by the seed manifest builder.
+
+**Usage:**
+```bash
+python tools/rewrite_genre_cache_db_path.py --corpora-dir ../corpora --manifest-out /path/to/manifest.jsonl
+```
+
 ## Templates
 
 ### Coverage Improvement Template (`templates/improve_coverage.md`)
@@ -108,7 +134,7 @@ To create new templates:
 
 The tools understand LCATS project structure:
 
-- **Input**: `analysis/foo.py` or `lcats/analysis/foo.py` 
+- **Input**: `analysis/foo.py` or `lcats/analysis/foo.py`
 - **Normalized**: `lcats/src/lcats/analysis/foo.py`
 - **Test Path**: `lcats/tests/analysis_tests/foo_test.py`
 

@@ -112,6 +112,37 @@ if the destination sidecar already exists); `upsert` is create-or-overwrite
 - Neither mode creates a destination story bucket — `lcats_id` must name a
   bucket that already has a `story.json`.
 
+#### Seeding `data/` before a release
+
+`replace` copies `data/` over `corpora/`, so a sidecar that exists only in
+`corpora/` (the tranche-promoted `genre.json` files) must be present in `data/`
+too, or the orphaned-sidecar guard blocks the collection. The release runbook
+([step 3b](prepare-corpora-release.md#3b-seed-the-tranche-promoted-sidecars))
+therefore seeds the freshly regenerated `data/` with `insert --dest data/`,
+using a manifest built from the tracked evidence file by
+`tools/build_genre_seed_manifest.py` (which sanitizes `cache_db_path` and
+validates every payload):
+
+```bash
+lcats promote insert --sidecar genre --tranche-manifest "$SEED" --dest data/ --dry-run
+lcats promote insert --sidecar genre --tranche-manifest "$SEED" --dest data/
+```
+
+Use `insert` for this, never `upsert`: `upsert` overwrites a whole file, so it
+would silently discard a pipeline-produced `genre.json` (for example one written
+by `lcats annotate`) that is already in `data/`; `insert` refuses and exits `1`,
+which stops the release for a deliberate decision. Two properties to plan around:
+
+- `insert` writes record by record and is **not transactional**. A rejection in
+  the real run leaves the other records written, and a retry on the same `data/`
+  rejects every sidecar already written. The `--dry-run` reports a rejection
+  before anything is written, so run it first and apply only after a clean one;
+  after a rejection in the real run, restore a clean `data/` and start over.
+- There is **no collection selector**. For a single-collection release, filter
+  the manifest to the collection (the runbook shows how) instead of passing the
+  full one, which would be rejected for the sidecars already in the other
+  collections.
+
 ## Collection-name mapping
 
 The mapping is **identity**: a `data/` collection promotes to `corpora/` under
