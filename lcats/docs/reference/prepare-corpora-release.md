@@ -273,8 +273,9 @@ from `lcats/`.
 
 ## 7. Promote (the actual release step)
 
-This step changes tracked files in `corpora/`. Everything above this line is
-read-only.
+This step changes tracked files in `corpora/`. Nothing above this line writes
+under `corpora/`: the earlier steps change only regenerable local state,
+including `data/` (step 3b seeds it with the tranche-promoted sidecars).
 
 The `cd` commands below use `git rev-parse --show-toplevel` rather than a
 relative `cd ..`/`cd lcats`, so they work regardless of whether you run 7a,

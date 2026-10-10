@@ -78,7 +78,7 @@ SEED="$(mktemp -d)/genre_seed.jsonl"
 python tools/build_genre_seed_manifest.py --manifest-out "$SEED" --expect-count 146
 ```
 
-**Exit codes**: `0` success; `1` malformed evidence, an invalid payload, or an `--expect-count` mismatch (nothing written); `2` a missing or unreadable evidence file, or an output path that is the evidence file or inside `corpora/`, `lcats/data`, or the roots set by `LCATS_CORPORA_DIR` / `LCATS_DATA_DIR`.
+**Exit codes**: `0` success; `1` malformed evidence, an invalid payload, or an `--expect-count` mismatch (nothing written); `2` a missing or unreadable evidence file, or an output path that is the evidence file or inside `corpora/`, `lcats/data`, or the roots set by `LCATS_CORPORA_DIR` / `LCATS_DATA_DIR`, or a manifest that cannot be written (for example, its directory does not exist).
 
 See [Preparing a corpora release](../docs/reference/prepare-corpora-release.md#3b-seed-the-tranche-promoted-sidecars) for how it is used.
 
