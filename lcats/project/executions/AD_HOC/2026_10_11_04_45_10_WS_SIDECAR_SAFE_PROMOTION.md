@@ -2,13 +2,13 @@
 execution_id: 2026_10_11_04_45_10_WS_SIDECAR_SAFE_PROMOTION
 prompt_id: PROMPT(AD_HOC:WS_SIDECAR_SAFE_PROMOTION)[2026-10-10T23:22:41+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 agent: claude_app
 instruction_source: project/workstreams/proposed/WS-SIDECAR-SAFE-PROMOTION.md
-session_transcript: pending
+session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/496
-commit: 
+commit: fadabf4304de9a59882e2c3dae6956b691b6bd6e
 created_at: 2026-10-11T04:45:10+00:00
 ---
 
