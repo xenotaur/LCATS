@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 3743,
+  "model": "gpt-oss:20b",
+  "output_tokens": 2620,
+  "run_id": "run-4c7fdbacdc73409ea115f663189e608f",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The narrator reports an explanation attributing the bell sound to a large owl.",
+        "quote": "he said that the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+        "raw_id": "e1"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "People attempted to investigate the source of the bell sound.",
+        "quote": "Many persons now went to the wood, for the sake of getting the place, but one only returned with a sort of explanation; for nobody went far enough...",
+        "raw_id": "e2"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00015"
+        ],
+        "paraphrase": "The character intends to travel far beyond usual limits to locate the bell.",
+        "quote": "I must and will find the bell, even if I am obliged to go to the end of the world.",
+        "raw_id": "e3"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "The king promises a reward for discovering the source of the bell sound.",
+        "quote": "The king of the country was also observant of it, and vowed that he who could discover whence the sounds proceeded, should have the title of \u2018Universal Bell-ringer,\u2019 even if it were not really a bell.",
+        "raw_id": "e4"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "The characters realize the bell is imaginary.",
+        "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+        "raw_id": "e5"
+      }
+    ]
+  }
+}

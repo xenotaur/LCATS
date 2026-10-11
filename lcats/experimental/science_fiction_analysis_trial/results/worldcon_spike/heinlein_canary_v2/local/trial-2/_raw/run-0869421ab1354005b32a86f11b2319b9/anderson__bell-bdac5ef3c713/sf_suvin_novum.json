@@ -1,0 +1,51 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4329,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1937,
+  "run_id": "run-0869421ab1354005b32a86f11b2319b9",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "{\"dominant_novum_id\":\"novum-imaginary-bell\",\"novum_candidates\":[{\"id\":\"novum-imaginary-bell\",\"novelty\":\"present\",\"cognitive_validation\":\"present\",\"narrative_hegemony\":\"present\",\"evidence_ids\":[\"sfev-08952a35f7315749\",\"sfev-1fe503c41a84d727\"],\"estrangement_evidence\":[\"sfev-08952a35f7315749\"]},{\"id\":\"novum-owl-explanation\",\"novelty\":\"absent\",\"cognitive_validation\":\"present\",\"narrative_hegemony\":\"absent\",\"evidence_ids\":[\"sfev-47d640717e3cd279\"],\"estrangement_evidence\":[]},{\"id\":\"novum-universal-bell-ringer-title\",\"novelty\":\"absent\",\"cognitive_validation\":\"present\",\"narrative_hegemony\":\"absent\",\"evidence_ids\":[],\"estrangement_evidence\":[]}]}",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "novum-imaginary-bell",
+    "novum_candidates": [
+      {
+        "cognitive_validation": "present",
+        "estrangement_evidence": [
+          "sfev-08952a35f7315749"
+        ],
+        "evidence_ids": [
+          "sfev-08952a35f7315749",
+          "sfev-1fe503c41a84d727"
+        ],
+        "id": "novum-imaginary-bell",
+        "narrative_hegemony": "present",
+        "novelty": "present"
+      },
+      {
+        "cognitive_validation": "present",
+        "estrangement_evidence": [],
+        "evidence_ids": [
+          "sfev-47d640717e3cd279"
+        ],
+        "id": "novum-owl-explanation",
+        "narrative_hegemony": "absent",
+        "novelty": "absent"
+      },
+      {
+        "cognitive_validation": "present",
+        "estrangement_evidence": [],
+        "evidence_ids": [],
+        "id": "novum-universal-bell-ringer-title",
+        "narrative_hegemony": "absent",
+        "novelty": "absent"
+      }
+    ]
+  }
+}
