@@ -74,7 +74,7 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
 - **WI-PROMOTE-0117**: define the release rule for sidecar kinds other than
   `genre.json`. Proposed.
 - **WI-PROMOTE-0118**: decide whether genre sidecars need a story-text
-  fingerprint, and where it would be checked. To be drafted.
+  fingerprint, and where it would be checked. Proposed.
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,

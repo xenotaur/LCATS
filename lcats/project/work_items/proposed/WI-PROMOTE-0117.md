@@ -37,7 +37,7 @@ forbidden_actions:
   - change_promote_replace_semantics
   - implement_generic_seed_mechanism
 acceptance:
-  - "A written rule states, for every sidecar kind the orphan guard registers today, whether it is pipeline-produced or tranche-promoted and what a release does to seed or regenerate it"
+  - "A written rule states, for every sidecar kind the orphan guard registers today, every way it can be produced (pipeline-produced into `data/`, tranche-promoted into `corpora/`, or both) and what a release does to seed or regenerate it"
   - "The rule gives a go/no-go on a generic seed mechanism, with the evidence for it"
   - "The release preflight question is answered: should it assert that every corpora/ sidecar has a counterpart in data/ after seeding, given the guard dry-run already reports this"
   - "The release runbook states the rule or links it; no code or corpora/ change is made"
@@ -88,8 +88,10 @@ search found only the design note's follow-up 3.
 ## Scope
 
 An investigation that produces a written rule. For every sidecar kind the guard
-registers, decide whether it is pipeline-produced (regenerated into `data/`) or
-tranche-promoted (present only in `corpora/`), and what a release does for each.
+registers, list every production path that applies (pipeline-produced into `data/`,
+tranche-promoted into `corpora/`, or both; for example `genre.json` is
+tranche-promoted today and `lcats annotate` can also write it into `data/`), and
+what a release does for each path.
 Decide whether the existing create-only `insert --sidecar <kind>` seeding
 generalizes, or whether a generic seed mechanism is needed. Answer whether a
 release preflight should assert that every `corpora/` sidecar has a counterpart in
