@@ -20,7 +20,7 @@ work_items:
 exit_criteria:
   - "Every sidecar kind registered in sidecar_validators._REGISTRY (genre.json, scenes.json, linguistics.json, linguistics.tokens.json) has a documented release rule and a verified seed or regeneration path"
   - "The release runbook states or links that rule, so an operator following it cannot lose a registered sidecar"
-  - "The optional story-text fingerprint for genre sidecars has a recorded go/no-go decision, with its check location stated if go"
+  - "How a seeded genre sidecar is bound to its story has a recorded decision, covering whether a schema change or story-text fingerprint is needed and where any check would run"
   - "All work items are resolved and lrh validate reports 0 errors"
 ---
 
@@ -47,8 +47,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   sidecar kind registered in `sidecar_validators._REGISTRY`: `genre.json`,
   `scenes.json`, `linguistics.json` and `linguistics.tokens.json`
   (`WI-PROMOTE-0117`).
-- A recorded decision on a story-text fingerprint for genre sidecars, and where it
-  would be checked (`WI-PROMOTE-0118`).
+- A recorded decision on how a seeded genre sidecar is bound to its story (whether a
+  schema change or story-text fingerprint is needed), and where any check would run (`WI-PROMOTE-0118`).
 - Runbook edits (`docs/reference/prepare-corpora-release.md`) only where an
   operator step changes.
 
@@ -73,8 +73,9 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
 
 - **WI-PROMOTE-0117**: define the release rule for sidecar kinds other than
   `genre.json`. Proposed.
-- **WI-PROMOTE-0118**: decide whether genre sidecars need a story-text
-  fingerprint, and where it would be checked. Proposed.
+- **WI-PROMOTE-0118**: decide how a seeded genre sidecar is bound to its story
+  (whether a schema change or story-text fingerprint is needed), and where any
+  check would run. Proposed.
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
@@ -85,7 +86,7 @@ workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
 - Every sidecar kind registered in `sidecar_validators._REGISTRY` has a documented
   release rule and a verified seed or regeneration path.
 - The release runbook states or links that rule.
-- The optional story-text fingerprint has a recorded go/no-go decision.
+- How a seeded genre sidecar is bound to its story has a recorded decision.
 - All work items are resolved and `lrh validate` reports 0 errors.
 
 ## Non-Goals
