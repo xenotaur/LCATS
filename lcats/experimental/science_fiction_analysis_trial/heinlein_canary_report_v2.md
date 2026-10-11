@@ -90,7 +90,16 @@ Per story, v2 (latency in seconds, input / output tokens), with v1 in brackets:
 
 ### Tool call versus text fallback
 
-Counts of `no_tool_call_json_fallback` events across all four runs of each family: v1 had 6 (evidence 3 on Vonnegut, Heinlein 3); v2 had 6 (Heinlein 3, Suvin 2, Knight 1). `fenced_json_unwrapped` events: 0 in v2 (the text fallbacks were plain JSON), so the strict fence path was not exercised live. `evidence_empty_list` events: 0.
+Counts of `no_tool_call_json_fallback` events across all four runs of each family: v1 had 6 (evidence 3 on Vonnegut, Heinlein 3); v2 had 6 (Heinlein 3, Suvin 2, Knight 1). By run, story and stage, read from each run log (V = Vonnegut, B = Bell; every other stage call in those runs was a real tool call):
+
+| Run | v1 text fallbacks | v2 text fallbacks | v2 Knight retries and outcomes |
+| --- | --- | --- | --- |
+| baseline | none | V: Knight, Suvin | none |
+| trial-1 | V: evidence; B: Heinlein | none | B: Knight retried (transient), failed |
+| trial-2 | V: evidence, Heinlein | V: Heinlein; B: Suvin | B: Knight retried (transient), failed |
+| trial-3 | V: evidence, Heinlein | V: Heinlein; B: Heinlein | B: Knight retried (transient), succeeded |
+
+For v1 the retry and failure events were: baseline, V Knight retried (transient) and failed, V Suvin failed (`ValueError`); trial 1, B Heinlein failed (`JSONDecodeError`); no other retries or failures. `fenced_json_unwrapped` events: 0 in every run of both families (the v1 runs predate the option; in v2 the text fallbacks were plain JSON), so the strict fence path was not exercised live. `evidence_empty_list` events: 0 in v2.
 
 ### Heinlein results (v2)
 
