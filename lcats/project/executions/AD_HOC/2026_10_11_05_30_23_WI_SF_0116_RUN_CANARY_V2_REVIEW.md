@@ -2,14 +2,14 @@
 execution_id: 2026_10_11_05_30_23_WI_SF_0116_RUN_CANARY_V2_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0116_RUN_CANARY_V2_REVIEW)[2026-10-11T05:30:09+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_11_04_39_38_WI_SF_0116_RUN_CANARY_V2
 pr: https://github.com/xenotaur/LCATS/pull/495
-commit: 1b6b4d65c316060d0363f928f58e6d597eee2554
+commit: 01f1ff3970e6a4602e248a3c353c95a6f5b3057a
 created_at: 2026-10-11T05:30:23+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/495
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
