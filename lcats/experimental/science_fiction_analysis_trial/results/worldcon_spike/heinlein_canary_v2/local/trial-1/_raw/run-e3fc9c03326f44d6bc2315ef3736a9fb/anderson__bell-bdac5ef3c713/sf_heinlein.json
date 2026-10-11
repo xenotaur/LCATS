@@ -1,0 +1,65 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4636,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1792,
+  "run_id": "run-e3fc9c03326f44d6bc2315ef3736a9fb",
+  "stage": "sf_heinlein",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "heinlein_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "different",
+        "rationale": "Story does not introduce any new invention or condition differing from present day.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "essential",
+        "rationale": "Cannot be essential because conditions are not different.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "human",
+        "rationale": "Plot centers on human children and king's son seeking the bell.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "causal",
+        "rationale": "No new condition causes or affects the human problem.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-08952a35f7315749"
+        ],
+        "criterion_id": "plausible",
+        "rationale": "Owl explanation provides a naturalistic, plausible cause for the bell sound.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-47d640717e3cd279"
+        ]
+      }
+    ]
+  }
+}

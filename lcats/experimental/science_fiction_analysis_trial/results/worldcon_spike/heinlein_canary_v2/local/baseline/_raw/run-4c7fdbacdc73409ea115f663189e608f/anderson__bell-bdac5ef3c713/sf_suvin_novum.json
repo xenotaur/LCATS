@@ -1,0 +1,52 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4079,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1352,
+  "run_id": "run-4c7fdbacdc73409ea115f663189e608f",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "c1",
+        "cognitive_validation": "present",
+        "estrangement_evidence": [],
+        "evidence_ids_present_or_ambiguous": {
+          "cognitive_validation": [
+            "sfev-47d640717e3cd279"
+          ],
+          "narrative_hegemony": [
+            "sfev-47d640717e3cd279"
+          ]
+        },
+        "narrative_hegemony": "present",
+        "novelty": "absent"
+      },
+      {
+        "candidate_id": "c2",
+        "cognitive_validation": "present",
+        "estrangement_evidence": [
+          "sfev-88adf9b5e365bba8"
+        ],
+        "evidence_ids_present_or_ambiguous": {
+          "cognitive_validation": [
+            "sfev-88adf9b5e365bba8"
+          ],
+          "narrative_hegemony": [
+            "sfev-88adf9b5e365bba8"
+          ]
+        },
+        "narrative_hegemony": "present",
+        "novelty": "absent"
+      }
+    ]
+  }
+}

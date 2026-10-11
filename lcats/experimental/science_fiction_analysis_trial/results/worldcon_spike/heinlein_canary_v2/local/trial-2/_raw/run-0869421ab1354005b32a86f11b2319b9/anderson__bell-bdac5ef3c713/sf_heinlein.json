@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4636,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1339,
+  "run_id": "run-0869421ab1354005b32a86f11b2319b9",
+  "stage": "sf_heinlein",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "heinlein_criteria": [
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "different",
+        "rationale": "Bell is imaginary, a new condition distinct from reality.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.94,
+        "counterevidence_ids": [],
+        "criterion_id": "essential",
+        "rationale": "Imaginary bell drives plot and character actions.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.93,
+        "counterevidence_ids": [],
+        "criterion_id": "human",
+        "rationale": "Children\u2019s realization reflects a human problem of belief vs reality.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.92,
+        "counterevidence_ids": [],
+        "criterion_id": "causal",
+        "rationale": "The bell\u2019s nonexistence causes confusion and conflict among characters.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "plausible",
+        "rationale": "Owl explanation offers a plausible natural source for bell sound.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-47d640717e3cd279"
+        ]
+      }
+    ]
+  }
+}

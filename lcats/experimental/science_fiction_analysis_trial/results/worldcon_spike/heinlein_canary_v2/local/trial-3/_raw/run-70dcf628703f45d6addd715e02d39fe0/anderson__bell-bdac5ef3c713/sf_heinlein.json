@@ -1,0 +1,70 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4636,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1343,
+  "run_id": "run-70dcf628703f45d6addd715e02d39fe0",
+  "stage": "sf_heinlein",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "{\"heinlein_criteria\":[{\"criterion_id\":\"different\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-08952a35f7315749\"],\"counterevidence_ids\":[],\"rationale\":\"Bell is imaginary, a novel condition distinct from reality.\",\"confidence\":0.8},{\"criterion_id\":\"essential\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-08952a35f7315749\",\"sfev-1fe503c41a84d727\"],\"counterevidence_ids\":[],\"rationale\":\"The imaginary bell drives the plot and is central to narrative events.\",\"confidence\":0.85},{\"criterion_id\":\"human\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-08952a35f7315749\"],\"counterevidence_ids\":[],\"rationale\":\"Characters are humans confronting belief vs reality of the bell.\",\"confidence\":0.75},{\"criterion_id\":\"causal\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-08952a35f7315749\"],\"counterevidence_ids\":[],\"rationale\":\"The realization that the bell is imaginary causes plot shift and conflict.\",\"confidence\":0.7},{\"criterion_id\":\"plausible\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-47d640717e3cd279\"],\"counterevidence_ids\":[],\"rationale\":\"Owl explanation fits within story logic without violating known facts.\",\"confidence\":0.6}]}",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "heinlein_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "different",
+        "rationale": "Bell is imaginary, a novel condition distinct from reality.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "essential",
+        "rationale": "The imaginary bell drives the plot and is central to narrative events.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749",
+          "sfev-1fe503c41a84d727"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "human",
+        "rationale": "Characters are humans confronting belief vs reality of the bell.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "causal",
+        "rationale": "The realization that the bell is imaginary causes plot shift and conflict.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-08952a35f7315749"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "plausible",
+        "rationale": "Owl explanation fits within story logic without violating known facts.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-47d640717e3cd279"
+        ]
+      }
+    ]
+  }
+}

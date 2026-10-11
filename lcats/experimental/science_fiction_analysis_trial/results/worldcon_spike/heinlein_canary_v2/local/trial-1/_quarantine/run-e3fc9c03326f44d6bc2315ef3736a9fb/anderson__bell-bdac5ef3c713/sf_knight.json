@@ -1,0 +1,11 @@
+{
+  "failure_kind": "InternalServerError",
+  "failure_message": "Error code: 500 - {'error': {'message': 'error parsing tool call: raw=\\'{\"knight_criteria\":[{\"criterion_id\":\"criterion_1\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-47d640717e3cd279\"],\"rationale\":\"Narrator attributes bell sound to a large owl, indicating natural process speculation.\"},{\"criterion_id\":\"criterion_2\",\"status\":\"absent\"},{\"criterion_id\":\"criterion_3\",\"status\":\"absent\"},{\"criterion_id\":\"criterion_4\",\"status\":\"absent\"},{\"criterion_id\":\"criterion_5\",\"status\":\"absent\"},{\"criterion_id\":\"criterion_6\",\"status\":\"absent\"},{\"criterion_id\":\"criterion_7\",\"status\":\"absent\"}]}}\\', err=invalid character \\'}\\' after top-level value', 'type': 'api_error', 'param': None, 'code': None}}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/heinlein_canary_v2/local/trial-1/_raw/run-e3fc9c03326f44d6bc2315ef3736a9fb/anderson__bell-bdac5ef3c713/sf_knight-backend-error-attempt-2.json",
+  "run_id": "run-e3fc9c03326f44d6bc2315ef3736a9fb",
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "title": "Anderson - The Bell",
+  "tool_result": null
+}

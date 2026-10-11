@@ -1,0 +1,72 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 6042,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1615,
+  "run_id": "run-0869421ab1354005b32a86f11b2319b9",
+  "stage": "sf_heinlein",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "{\"heinlein_criteria\":[{\"criterion_id\":\"different\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-22dc949176500a2c\",\"sfev-81adbc0681028b0d\"],\"counterevidence_ids\":[],\"rationale\":\"The story introduces population control and disease eradication, differing from current reality.\",\"confidence\":0.9},{\"criterion_id\":\"essential\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-22dc949176500a2c\",\"sfev-81adbc0681028b0d\"],\"counterevidence_ids\":[],\"rationale\":\"These new conditions drive the plot and are central to the narrative.\",\"confidence\":0.85},{\"criterion_id\":\"human\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-22dc949176500a2c\"],\"counterevidence_ids\":[],\"rationale\":\"The conflict centers on human choices under population control law.\",\"confidence\":0.8},{\"criterion_id\":\"causal\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-22dc949176500a2c\"],\"counterevidence_ids\":[],\"rationale\":\"The human problem arises directly from the population control condition.\",\"confidence\":0.85},{\"criterion_id\":\"plausible\",\"status\":\"present\",\"supporting_evidence_ids\":[\"sfev-81adbc0681028b0d\",\"sfev-22dc949176500a2c\"],\"counterevidence_ids\":[],\"rationale\":\"The story's assumptions do not violate established facts and are reasonably plausible.\",\"confidence\":0.9}]}",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "heinlein_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "different",
+        "rationale": "The story introduces population control and disease eradication, differing from current reality.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-22dc949176500a2c",
+          "sfev-81adbc0681028b0d"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "essential",
+        "rationale": "These new conditions drive the plot and are central to the narrative.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-22dc949176500a2c",
+          "sfev-81adbc0681028b0d"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "human",
+        "rationale": "The conflict centers on human choices under population control law.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-22dc949176500a2c"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "causal",
+        "rationale": "The human problem arises directly from the population control condition.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-22dc949176500a2c"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "plausible",
+        "rationale": "The story's assumptions do not violate established facts and are reasonably plausible.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-81adbc0681028b0d",
+          "sfev-22dc949176500a2c"
+        ]
+      }
+    ]
+  }
+}
