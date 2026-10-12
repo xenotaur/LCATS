@@ -72,7 +72,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
 ## Work Items
 
 - **WI-PROMOTE-0117**: define the release rule for sidecar kinds other than
-  `genre.json`. Proposed.
+  `genre.json`. Resolved (PR #499; the rule is in
+  `project/design/sidecar-kinds-release-rule.md`).
 - **WI-PROMOTE-0118**: decide how a seeded genre sidecar is bound to its story
   (whether a schema change or story-text fingerprint is needed), and where any
   check would run. Proposed.

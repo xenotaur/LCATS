@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0117
 title: Define the release rule for sidecar kinds other than genre.json
 type: investigation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -25,7 +25,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Investigated and merged in PR #499: project/design/sidecar-kinds-release-rule.md states the release rule for sidecar kinds other than genre.json (classify by production path; seed corpora-only sidecars into data/ before replace with create-only insert from a tracked source; never upsert or the override flag; do not write sidecars into corpora/), a no-go on a generic seed mechanism (insert --source already generalizes; verified on scratch copies), and two read-only preflight checks, because the guard does not cover a story missing from the regenerated data/ or an unregistered sidecar name. Found two unregistered per-story sidecars (linguistics.lexicon.json, science-fiction.json), recorded in the backlog; registering them is a code change not done here. The linguistics how-to now targets data/. Seeding of linguistics.json and linguistics.tokens.json was not reproduced (needs a spaCy run).'
 expected_actions:
   - read_files
   - edit_file
