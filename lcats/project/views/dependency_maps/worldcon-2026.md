@@ -80,5 +80,5 @@ creation. Phases will be split once the map shows which grouping helps. A work i
 one of these workstreams later appears in the "Unplaced" row until it is given a phase here.
 
 Declared for the LRH Console L1 dogfood (`WI-LRH-CONSOLE-L1-DOGFOOD` in
-logical_robotics_harness), at the owner's direction: lanes are the focus subset, and there are
-no phases yet.
+logical_robotics_harness), at the owner's direction: lanes are the focus subset, and no phase
+grouping has been chosen yet, so everything sits in the single "All items" phase.
