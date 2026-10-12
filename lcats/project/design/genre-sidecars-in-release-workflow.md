@@ -185,7 +185,9 @@ applied now (see the doc change in this PR).
    `corpora/` sidecars. Reuse the logic in `tools/rewrite_genre_cache_db_path.py`.
 2. **Add step 6b and the guard explanation to the release runbook**
    (`prepare-corpora-release.md`, `corpus-promotion.md`) once item 1 exists.
-3. **Release preflight and rule for other sidecar kinds** (investigation).
+3. **Release preflight and rule for other sidecar kinds** (investigation). Done in
+   `project/design/sidecar-kinds-release-rule.md` (`WI-PROMOTE-0117`); the rest of
+   this item's text is the original ask.
    State the pipeline-vs-tranche-promoted rule for `linguistics.json` and
    `scenes.json`, and whether the preflight should assert that every
    `corpora/` sidecar has a counterpart in `data/` after seeding (the guard
