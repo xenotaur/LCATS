@@ -212,6 +212,23 @@ the orphaned-sidecar guard for every collection and every sidecar kind at once.
 The seeded sidecars carry no story-text fingerprint, so they are not checked
 against the regenerated story text.
 
+**Other sidecar kinds.** Today only `genre.json` exists in `corpora/`, so this step
+covers everything that needs seeding. If a later release also holds `scenes.json`,
+`linguistics.json` or `linguistics.tokens.json` in `corpora/`, step 6's preview
+will block on them the same way; seed each kind with create-only
+`lcats promote insert --sidecar <kind>` from a tracked source before `replace`,
+and never use `upsert` or `--allow-orphaned-sidecar-deletion`. The rule, the
+evidence and the two unregistered kinds (`linguistics.lexicon.json` and
+`science-fiction.json`, which the guard cannot see) are in
+[`project/design/sidecar-kinds-release-rule.md`](../../project/design/sidecar-kinds-release-rule.md).
+Before a release, from `lcats/`, this read-only check should print nothing:
+
+```bash
+find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' \
+  ! -name story.json ! -name genre.json ! -name scenes.json \
+  ! -name linguistics.json ! -name linguistics.tokens.json
+```
+
 ## 4. Verify
 
 **Directory:** `lcats/`.

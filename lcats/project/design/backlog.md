@@ -1190,3 +1190,27 @@ Decide whether to extend the scripts' scope (likely surfacing existing
 violations) or document the gap.
 
 **Related:** PR #448.
+
+### Two per-story sidecars the code writes are not registered sidecar kinds (`linguistics.lexicon.json`, `science-fiction.json`) — P1, silent loss
+
+The validator registry (`src/lcats/analysis/corpus/sidecar_validators.py:121-127`)
+registers only `genre.json`, `scenes.json`, `linguistics.json` and
+`linguistics.tokens.json`, so the orphaned-sidecar guard cannot see two other
+per-story files the code writes: `linguistics.lexicon.json`
+(`lcats linguistics --include-lexicon`; `lexicon.py:16`, `runner.py:534`) and
+`science-fiction.json` (`science_fiction/pipeline.py:208-234`, experiment-local and
+blocked from the protected `data/` and `corpora/` roots by default via
+`utils/checkpoint.py`). In a scratch copy, `replace` of a collection holding a
+lexicon sidecar exits `0` with no warning and deletes it, and
+`insert --sidecar linguistics.lexicon.json` is refused without
+`--allow-unvalidated`. Both are prospective, since neither exists in `corpora/`
+today; the lexicon is the likelier to reach a release, so it is the P1 half.
+
+**First concrete step:** register a validator for each shape (a code change with
+tests, alongside the registry's basename-collision check) and correct the
+registry's "all 4 currently-produced sidecar kinds" comment. Until then, run the
+read-only `find` check in `project/design/sidecar-kinds-release-rule.md` before a
+release; it prints nothing today.
+
+**Related:** `project/design/sidecar-kinds-release-rule.md`; `WI-PROMOTE-0117`;
+`WS-SIDECAR-SAFE-PROMOTION`.
