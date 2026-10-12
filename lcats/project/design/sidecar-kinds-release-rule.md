@@ -49,7 +49,7 @@ writing them was found.
 |---|---|---|---|---|
 | `genre.json` | `lcats annotate` into `data/`; and tranche promotion (`promote insert/upsert --sidecar genre`) into `corpora/` | both | 146 | yes |
 | `scenes.json` | `lcats annotate` into `data/`; tranche promotion is possible | `data/`, or both if promoted | 0 | yes |
-| `linguistics.json`, `linguistics.tokens.json` | `lcats linguistics <path>`, which writes beside the stories in whatever tree the path names | in place; the documented examples name `corpora/` paths (`docs/how-to/run-linguistics.md:42,48,69`) | 0 | yes |
+| `linguistics.json`, `linguistics.tokens.json` | `lcats linguistics <path>`, which writes beside the stories in whatever tree the path names (`runner.py:515-517`; `--output-root` redirects) | in place; the how-to's examples named `corpora/` paths until this change moved them to `data/` | 0 | yes |
 | `linguistics.lexicon.json` | `lcats linguistics --include-lexicon` (needs token-detail v2) | in place | 0 | **no** |
 | `science-fiction.json` | `science_fiction.pipeline.publish_sidecar`, experiment-local; blocked from `data/` and `corpora/` by default | an experiment output root | 0 | **no** |
 
@@ -62,8 +62,12 @@ them". That is the gap this rule fills.
 1. **Classify by production path, not by kind.** A kind can have more than one
    path (`genre.json` has two). For each path, ask where the file lands before
    `replace` runs.
-2. **A file produced into `data/` needs nothing.** `replace` carries it into
-   `corpora/` with the rest of the collection.
+2. **A file produced into `data/` after `lcats gather` and before `replace` needs
+   nothing.** `replace` carries it into `corpora/` with the rest of the collection.
+   But `lcats clean` (runbook step 2) deletes every `data/` collection, `lcats gather`
+   regenerates stories only, and the runbook has no pipeline step after it. A sidecar
+   from an earlier run therefore reaches `replace` only if its pipeline step is
+   re-run after `gather`; otherwise it exists only in `corpora/` and rule 3 applies.
 3. **A file that exists only in `corpora/` must be seeded into the regenerated
    `data/` before `replace`, with create-only `insert`, from a tracked source.**
    The mechanism is the existing `lcats promote insert --sidecar <kind>`, with
@@ -109,13 +113,22 @@ Limits worth stating:
   round-trips semantically equal but not byte-identical. Canonically formatted
   files, such as the real `genre.json` files, round-trip byte-identical.
 
-## Preflight question: no new preflight
+## Preflight question: two read-only checks, no new command
 
-`replace --dry-run` (runbook step 6) already reports every registered-kind orphan
-and exits `1`; an assertion that every `corpora/` sidecar has a counterpart in
-`data/` would duplicate it. The real gap is a file the guard cannot see. Until
-`linguistics.lexicon.json` is registered, this read-only check should print nothing
-before a release:
+`replace --dry-run` (runbook step 6) reports every registered-kind orphan for a
+story present in both trees, and exits `1`. It does not cover two cases:
+
+- **A story missing from the regenerated `data/`.** The guard skips it by design
+  (`promote.py:403-407`: a wholesale `replace` legitimately retires a story), so
+  `replace` deletes the story and its sidecars, exits `0`, and prints nothing
+  (reproduced, row 8 below). For a registered kind the seed step catches it:
+  `insert` rejects `no story.json at data/...`, exits `1`, and the runbook's stop
+  rule applies (row 9).
+- **A file whose name is not registered.** The guard cannot see it at all.
+
+Two read-only checks cover both, from `lcats/`, and print nothing when clean. The
+first looks for sidecar names the guard does not know; it prints nothing today
+against the real `corpora/` (0 files):
 
 ```bash
 find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' \
@@ -123,8 +136,22 @@ find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' \
   ! -name linguistics.json ! -name linguistics.tokens.json
 ```
 
-Run from `lcats/` against the current real `corpora/`, it prints nothing today
-(0 files).
+The second lists every `corpora/` sidecar whose story is absent from the
+regenerated `data/`. It is only meaningful right after `lcats gather`; against a
+stale or empty `data/` it lists everything:
+
+```bash
+find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' ! -name story.json |
+  while read -r f; do
+    b=$(dirname "${f#../corpora/}")
+    [ -f "data/$b/story.json" ] || echo "no story.json in data/ for: $b ($(basename "$f"))"
+  done
+```
+
+Both checks were run verbatim in a scratch layout that mirrors the repository
+(a `corpora/` beside an `lcats/` holding `data/`): the first flagged a synthetic
+`linguistics.lexicon.json`, and the second listed exactly the dropped story's two
+sidecars.
 
 ## Follow-up: register the unregistered per-story sidecars
 
@@ -166,6 +193,8 @@ the scratch `data/`; plus a second collection with a story and a synthetic
 | 5 | `replace` of the lexicon collection | exit 0, no warning; the lexicon file is gone |
 | 6 | `insert --sidecar linguistics.lexicon.json --source corpora --dest data` | exit 2, `no registered validator ...`; with `--allow-unvalidated`, exit 0 and the file survives a following `replace` |
 | 7 | pipeline-written legacy flat `genre.json` already in `data/`, then `insert --sidecar genre` | that story rejected (`already holds a legacy flat genre.json`), the other 2 promoted (non-transactional), pipeline file kept |
+| 8 | one story absent from the regenerated `data/`, the other two seeded, then `replace wodehouse --dry-run` and real | exit 0 both times (`would promote`); the dropped story and its sidecars are gone afterwards, with no warning |
+| 9 | the same absent story, seeding with `insert --sidecar genre\|scenes --source corpora --dest data` | exit 1 each, 1 rejected (`no story.json at data/wodehouse/<story>`), the other 2 promoted |
 
 A first attempt at step 2 failed because the scratch collection was named `c1`
 while the payloads carried `wodehouse/<story>` ids; `insert` correctly refused the

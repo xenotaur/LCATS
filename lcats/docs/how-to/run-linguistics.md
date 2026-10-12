@@ -36,17 +36,27 @@ python -c "import stanza; stanza.download('en')"
 
 ## Examples
 
+> **Where the sidecars are written.** By default `lcats linguistics` writes
+> `linguistics.json` (and any token-detail or lexicon files) beside each input
+> `story.json`, so the examples below target the regenerable `data/` tree. Do not
+> run it against `corpora/`: a sidecar written there has no tracked source, the next
+> `lcats promote replace` is blocked by the orphaned-sidecar guard for the registered
+> kinds, and an unregistered one such as `linguistics.lexicon.json` is deleted
+> silently. To keep `corpora/` untouched, write elsewhere with `--output-root`.
+> The release rule is in
+> [`project/design/sidecar-kinds-release-rule.md`](../../project/design/sidecar-kinds-release-rule.md).
+
 Analyze one story bucket:
 
 ```bash
-lcats linguistics corpora/sherlock/five_orange_pips --backend spacy
+lcats linguistics data/sherlock/five_orange_pips --backend spacy
 ```
 
 Analyze a collection or corpus root:
 
 ```bash
-lcats linguistics corpora/sherlock --backend spacy
-lcats linguistics corpora --backend stanza --model en
+lcats linguistics data/sherlock --backend spacy
+lcats linguistics data --backend stanza --model en
 ```
 
 Use a plain story-list file:
@@ -66,13 +76,13 @@ lcats linguistics --story-list sample.txt \
 Preview which stories would run:
 
 ```bash
-lcats linguistics corpora/sherlock --dry-run
+lcats linguistics data/sherlock --dry-run
 ```
 
 Include detailed token/dependency records in a separate artifact:
 
 ```bash
-lcats linguistics corpora/sherlock/five_orange_pips \
+lcats linguistics data/sherlock/five_orange_pips \
   --backend spacy \
   --include-token-detail
 ```
@@ -81,7 +91,7 @@ Write the richer sentence-nested token-detail v2 artifact instead of the
 backward-compatible v1 shape:
 
 ```bash
-lcats linguistics corpora/sherlock/five_orange_pips \
+lcats linguistics data/sherlock/five_orange_pips \
   --backend spacy \
   --include-token-detail \
   --token-detail-version v2

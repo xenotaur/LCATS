@@ -1209,8 +1209,8 @@ today; the lexicon is the likelier to reach a release, so it is the P1 half.
 **First concrete step:** register a validator for each shape (a code change with
 tests, alongside the registry's basename-collision check) and correct the
 registry's "all 4 currently-produced sidecar kinds" comment. Until then, run the
-read-only `find` check in `project/design/sidecar-kinds-release-rule.md` before a
-release; it prints nothing today.
+read-only unregistered-name check in `project/design/sidecar-kinds-release-rule.md`
+before a release; it prints nothing today.
 
 **Related:** `project/design/sidecar-kinds-release-rule.md`; `WI-PROMOTE-0117`;
 `WS-SIDECAR-SAFE-PROMOTION`.

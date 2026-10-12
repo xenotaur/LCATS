@@ -221,12 +221,23 @@ and never use `upsert` or `--allow-orphaned-sidecar-deletion`. The rule, the
 evidence and the two unregistered kinds (`linguistics.lexicon.json` and
 `science-fiction.json`, which the guard cannot see) are in
 [`project/design/sidecar-kinds-release-rule.md`](../../project/design/sidecar-kinds-release-rule.md).
-Before a release, from `lcats/`, this read-only check should print nothing:
+The guard does not cover a story missing from the regenerated `data/` (`replace`
+deletes the story and its sidecars with exit `0`), nor a sidecar name it does not
+know. After `gather` and the seed step, from `lcats/`, these two read-only checks
+should print nothing; the note explains each:
 
 ```bash
+# sidecar names the guard cannot see
 find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' \
   ! -name story.json ! -name genre.json ! -name scenes.json \
   ! -name linguistics.json ! -name linguistics.tokens.json
+
+# corpora/ sidecars whose story is missing from the regenerated data/
+find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' ! -name story.json |
+  while read -r f; do
+    b=$(dirname "${f#../corpora/}")
+    [ -f "data/$b/story.json" ] || echo "no story.json in data/ for: $b ($(basename "$f"))"
+  done
 ```
 
 ## 4. Verify
