@@ -30,7 +30,7 @@ on a first pass) finds two more per-story sidecars the code writes, neither
 registered:
 
 - `linguistics.lexicon.json` (`src/lcats/analysis/linguistics/lexicon.py:16`,
-  written at `runner.py:534`).
+  path set at `runner.py:534`, written at `runner.py:368`).
 - `science-fiction.json` (`src/lcats/analysis/science_fiction/sidecar.py:15`,
   written by `publish_sidecar` at `science_fiction/pipeline.py:208-234`). Its
   docstring calls it experiment-local, and the checkpoint layer refuses writes
@@ -41,7 +41,9 @@ registered:
 
 The registry comment calls the four "all currently-produced sidecar kinds"; that is
 two short. The other `.json` literals are not per-story sidecars (the visualization
-`*_manifest.json` outputs, the `corpus_specials.json` allowlist). `audit.json` and
+`*_manifest.json` outputs, the `corpus_specials.json` allowlist, and the per-item
+`<stage>.json` checkpoint files written by `utils/checkpoint.py:224`, which the
+same protected-root guard keeps out of `data/` and `corpora/`). `audit.json` and
 `events.json` appear only in prose and a comment (`discovery.py:144`); no code
 writing them was found.
 
@@ -49,7 +51,7 @@ writing them was found.
 |---|---|---|---|---|
 | `genre.json` | `lcats annotate` into `data/`; and tranche promotion (`promote insert/upsert --sidecar genre`) into `corpora/` | both | 146 | yes |
 | `scenes.json` | `lcats annotate` into `data/`; tranche promotion is possible | `data/`, or both if promoted | 0 | yes |
-| `linguistics.json`, `linguistics.tokens.json` | `lcats linguistics <path>`, which writes beside the stories in whatever tree the path names (`runner.py:515-517`; `--output-root` redirects) | in place; the how-to's examples named `corpora/` paths until this change moved them to `data/` | 0 | yes |
+| `linguistics.json`, `linguistics.tokens.json` | `lcats linguistics <path>`, which writes beside the stories in whatever tree the path names (`runner.py:517-518`; `--output-root` redirects) | in place; the how-to's examples named `corpora/` paths until this change moved them to `data/` | 0 | yes |
 | `linguistics.lexicon.json` | `lcats linguistics --include-lexicon` (needs token-detail v2) | in place | 0 | **no** |
 | `science-fiction.json` | `science_fiction.pipeline.publish_sidecar`, experiment-local; blocked from `data/` and `corpora/` by default | an experiment output root | 0 | **no** |
 
@@ -103,8 +105,7 @@ Limits worth stating:
 - `insert` is create-only and not transactional, and has no collection selector
   (`--source` scans the whole tree). A single-collection release needs a source
   tree containing only that collection; a stray story with no `story.json` in
-  `data/` is rejected, which fails the run. This last point is inferred from the
-  same code path the manifest runbook documents, not separately reproduced.
+  `data/` is rejected, which fails the run (reproduced, row 9).
 - For `genre.json`, a pipeline-written file already in `data/` is refused by
   `insert` (`promote.py:910-930`). A legacy flat `genre.json` is refused in every
   mode, including `upsert`, because that check runs before the `overwrite`
@@ -119,8 +120,8 @@ Limits worth stating:
 story present in both trees, and exits `1`. It does not cover two cases:
 
 - **A story missing from the regenerated `data/`.** The guard skips it by design
-  (`promote.py:403-407`: a wholesale `replace` legitimately retires a story), so
-  `replace` deletes the story and its sidecars, exits `0`, and prints nothing
+  (`promote.py:406-409`: a wholesale `replace` legitimately retires a story), so
+  `replace` deletes the story and its sidecars, exits `0`, and prints no warning
   (reproduced, row 8 below). For a registered kind the seed step catches it:
   `insert` rejects `no story.json at data/...`, exits `1`, and the runbook's stop
   rule applies (row 9).
