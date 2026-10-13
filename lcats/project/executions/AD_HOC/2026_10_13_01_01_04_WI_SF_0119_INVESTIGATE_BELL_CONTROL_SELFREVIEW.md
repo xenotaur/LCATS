@@ -2,14 +2,14 @@
 execution_id: 2026_10_13_01_01_04_WI_SF_0119_INVESTIGATE_BELL_CONTROL_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0119_INVESTIGATE_BELL_CONTROL_SELFREVIEW)[2026-10-13T01:01:03+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_13_01_01_03_WI_SF_0119_INVESTIGATE_BELL_CONTROL
 pr: https://github.com/xenotaur/LCATS/pull/500
-commit: 74293ef249a647607f3074c7de2125c2d76d0eab
+commit: c5c814d815842374f8711cae1f372bb8b687e60c
 created_at: 2026-10-13T01:01:04+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/500
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
