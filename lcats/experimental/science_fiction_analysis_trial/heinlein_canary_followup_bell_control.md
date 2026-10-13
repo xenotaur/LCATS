@@ -17,9 +17,11 @@ prompts and persisted results were not edited.
   is mainly the record in which the children realize the bell does not exist, and in my reading it
   does not describe a changed condition, an essential one, or a conflict.
 - Across all six persisted Bell Heinlein responses, the three from the first canary and the three from
-  this rerun, five set every criterion to `present` and one (v2 trial 1) did not. The two canaries ran
-  under different prompt versions and different evidence sets, so they are context, not repeats. The
-  Bell control's `does_not_qualify` outcome is the rarer one so far.
+  this rerun, five set every criterion to `present` in the raw model text and one (v2 trial 1) did not.
+  The first canary's responses never became verdicts (the key mismatch discarded them, leaving `None`,
+  `indeterminate` and `indeterminate`), so this is a count of raw text only. The two canaries ran under
+  different prompt versions and different evidence sets, so they are context, not repeats. In raw
+  text, the Bell control's absent answers are the rarer outcome so far.
 - The manifest's rationale for the control rests on "extrapolates no scientific or technological
   condition", but none of the five encoded Heinlein condition texts requires the difference to be
   scientific or technological. That mismatch is a reading of the texts, not a finding about the model.
@@ -101,15 +103,16 @@ These are my readings of the quoted text and the owner may disagree.
 | Rubric wording admits a literal reading under which "the bell is imaginary" is a "different" condition | **Supported as a reading of the text, hypothesis for the effect on the model** | The `different` slot says the conditions "must be different from here-and-now in some respect; the difference may lie only in an invention made in the course of the story". None of the five slot texts requires the difference to be scientific or technological. Whether the model's answers follow from that wording needs a live run. |
 | The prompt does not exclude fantasy or imaginary conditions | **Hypothesis that needs a live run** | The prompt excludes decorative technology, a different setting that changes nothing, and a problem that would arise unchanged today. It says nothing about fantasy, belief or imagined objects. Changing the prompt is out of scope here. |
 | The evidence set (three records, none describing a changed condition) invites the "imaginary bell" reading | **Hypothesis that needs a live run** | Same evidence in every trial, so it cannot explain the difference between trials, but it may explain why the typical answer is `present`. |
-| The shared server's other client or machine sleep disturbed a trial | **Not observable from these artifacts** | The Bell story in trial 3 took 914 s because of a machine sleep (see `heinlein_canary_report_v2.md`), but the Heinlein answers of trials 2 and 3 are near-identical (same statuses and support, token counts 1339 and 1343), so there is no sign the sleep changed the answer. |
+| The shared server's other client or machine sleep disturbed a trial | **Not observable from these artifacts** | The Bell story in trial 3 took 914 s because of a machine sleep (see `heinlein_canary_report_v2.md`), but the Heinlein answers of trials 2 and 3 are near-identical (same statuses, nearly the same support, token counts 1339 and 1343), so there is no sign the sleep changed the answer. |
 
 ## 5. Context from the first canary, and the manifest expectation
 
 - The three first-canary Bell Heinlein responses (prompt version v1, different evidence IDs, wrong key
   names) also set `different`, `essential`, `human`, `causal` and `plausible` to `present`. Trials 2 and
   3 of that canary are identical to each other. Together with this rerun, five of six Bell responses
-  say all five conditions are present. Because the prompt, the evidence and the key names differ, this
-  is context and not six repeats.
+  say all five conditions are present in the raw model text. None of the first-canary responses
+  produced a verdict (the recorded verdicts were `None`, `indeterminate` and `indeterminate`), and the
+  prompt, the evidence and the key names differ, so this is context and not six repeats.
 - The manifest records the Bell expectation as `does_not_qualify` or `indeterminate`, with the
   rationale that the story "extrapolates no scientific or technological condition and its problem is
   not created by one". The five encoded condition texts say nothing about scientific or technological
@@ -124,14 +127,17 @@ All expectations are operational checks, not gold labels. The expected verdicts 
 manifest's project-assigned `sample_roles` plus the excerpts of each story I read for this item (the
 opening, a middle passage and the ending), not from a full read, so the owner should confirm each one
 before it is locked into a manifest. The stories come from `worldcon_spike_manifest.json`, so no new
-corpus selection is needed. The corpora were read from the main checkout's `corpora/` directory.
+corpus selection is needed. None of the four new stories has an owner-supplied or cited
+verdict source; the sources are manifest role labels and my excerpt reading. That is a deliberate
+exception to the work item's "owner-supplied or a cited text" wording, and owner confirmation is
+required before any of these expectations is used. The corpora were read from the main checkout's `corpora/` directory.
 
 | # | Story | Role | Expected verdict | Source of the expectation | Why informative |
 |---|---|---|---|---|---|
 | 1 | `chesterton/blue_cross` (mystery) | negative | `does_not_qualify` or `indeterminate` | Manifest role `negative_control`; the excerpts show ordinary Edwardian England, a detective story ending in an arrest | A realist story with no imagined condition. If the model still marks `different` present here, the problem is not specific to fairy tales. |
 | 2 | `london/brown_wolf` (western) | negative | `does_not_qualify` or `indeterminate` | Manifest role `negative_control`; the excerpts show a California orchard and a Klondike dog | A second realist story from a different genre, to check that a pass on one is not an accident. |
-| 3 | `mass_quantities/a_case_of_sunburn__fontenay` (science fiction) | positive | `qualifies` or `indeterminate` | Manifest role `clear_sf_positive`; also an expected positive in `contract_canary_manifest.json`; the excerpts show a settled Mars, a corporate war, and an ending that turns on an eye affliction caused by the Martian conjunction | A positive whose human problem depends on the new conditions in a way the model must trace. |
-| 4 | `mass_quantities/a_bad_day_for_sales__leiber` (science fiction) | positive | `qualifies` or `indeterminate` | Manifest role `clear_sf_positive`; the excerpts show a robot salesman on a near-future Times Square | A second positive with a different kind of difference (a machine), to guard against passing on one story style. |
+| 3 | `mass_quantities/a_case_of_sunburn__fontenay` (science fiction) | positive | `qualifies` or `indeterminate` | Manifest role `clear_sf_positive`; also an expected positive in `contract_canary_manifest.json`; the excerpts show a settled Mars and a corporate war, and the ending turns on an artifact (the Egg) that amplifies Earth's magnetic field at conjunction, strips Mars's blue mist, and burns and half-blinds the enemy troops | A positive whose human problem depends on the new conditions in a way the model must trace. |
+| 4 | `mass_quantities/a_bad_day_for_sales__leiber` (science fiction) | positive | `qualifies` or `indeterminate` | Manifest role `clear_sf_positive`; the excerpts show a robot salesman on a near-future Times Square, and the story ends in a nuclear-style blast over Manhattan | A second positive with a different kind of difference (a machine), to guard against passing on one story style. This expectation is weaker than for row 3: the war ("the Hot Truce") and the blast, not the robot, are what the story turns on, and the robot is largely a satirical backdrop, so the `clear_sf_positive` label rests on the manifest role and not on my reading. |
 
 `anderson/bell` stays as the existing fairy-tale control and `mass_quantities/2_b_r_0_2_b__vonnegut`
 as the existing positive. `lovecraft/the_call_of_cthulhu` (manifest role `supernatural_contrast`) is a
