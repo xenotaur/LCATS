@@ -18,7 +18,7 @@ Confirm-fixes pass for PR 500 at fix commit ad80c381, verified by a cold-context
 
 # Result
 
-Both review threads were classified Clear and resolved. The reviewer found no content defects and two cosmetic nits: the curly apostrophe in the Sunburn quote, and trailing whitespace on the tool-generated rerun_of line of the primary record.
+Both review threads were classified Clear and resolved. The reviewer found no content defects and two cosmetic nits: the curly apostrophe in the Sunburn quote (fixed before the merge at the owner's request), and trailing whitespace on the tool-generated rerun_of line of the primary record (left, as older records have the same).
 
 # Validation
 

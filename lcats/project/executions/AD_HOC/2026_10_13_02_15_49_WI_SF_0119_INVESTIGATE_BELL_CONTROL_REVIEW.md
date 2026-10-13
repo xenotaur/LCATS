@@ -29,5 +29,5 @@ Review-response round for PR 500 (WI-SF-0119): two threads, one from Copilot and
 
 # Follow-up
 
-- Straight-versus-curly apostrophe in the Sunburn quote (a literal search of the corpus does not match); optional.
+- The straight-versus-curly apostrophe in the Sunburn quote was fixed before the merge at the owner's request; all eleven quoted citations now literally match the corpus (whitespace-normalized).
 - Owner discussion of plausible-in-context.
