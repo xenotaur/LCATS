@@ -367,6 +367,49 @@ class ProfileBoundaryTests(unittest.TestCase):
         with self.assertRaises(errors.ExportLimitError):
             result.to_dict()
 
+    def test_export_preserves_filesystem_surrogate_labels(self):
+        for label in (
+            "cache/pg42-\udcff.rdf",
+            "paired-\ud83d\ude00.rdf",
+            "scalar-😀.rdf",
+        ):
+            with self.subTest(label=repr(label)):
+                result = rdf.parse_record(record(), source_name=label)
+                exported = json.loads(json.dumps(result.to_dict()))
+                # JSON may combine a valid escaped pair into its scalar;
+                # surrogateescape/unpaired labels remain exactly preserved.
+                self.assertEqual(
+                    exported["source"]["source_name"], json.loads(json.dumps(label))
+                )
+                self.assertEqual(result.to_dict()["source"]["source_name"], label)
+
+    def test_export_exact_limits_include_generated_wrapper_fields(self):
+        result = self.parse(record())
+        exported = result.to_dict()
+
+        def measure(value):
+            if isinstance(value, dict):
+                parts = [measure(item) for pair in value.items() for item in pair]
+            elif isinstance(value, list):
+                parts = [measure(item) for item in value]
+            else:
+                parts = []
+            size = (
+                len(value.encode("utf-8", errors="backslashreplace"))
+                if isinstance(value, str)
+                else 0
+            )
+            return 1 + sum(n for n, _ in parts), size + sum(t for _, t in parts)
+
+        nodes, text_bytes = measure(exported)
+        self.assertEqual(
+            result.to_dict(max_nodes=nodes, max_text_bytes=text_bytes), exported
+        )
+        with self.assertRaises(errors.ExportLimitError):
+            result.to_dict(max_nodes=nodes - 1, max_text_bytes=text_bytes)
+        with self.assertRaises(errors.ExportLimitError):
+            result.to_dict(max_nodes=nodes, max_text_bytes=text_bytes - 1)
+
     def test_input_size_limit_boundary_and_override(self):
         data = record()
         self.assertEqual(

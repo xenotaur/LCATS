@@ -155,6 +155,8 @@ class ParsedRecord:
             if type(limit) is not int or limit <= 0:
                 raise ValueError("export limits must be positive integers")
         budget = _ExportBudget(max_nodes, max_text_bytes)
+        budget.consume("schema_version")
+        budget.consume(1)
         return {"schema_version": 1, **_json_value(self, budget)}
 
 
@@ -172,7 +174,7 @@ class _ExportBudget:
             # encoded copy of a manually constructed model field.
             if len(value) > self.text_bytes:
                 raise errors.ExportLimitError("export text limit exceeded")
-            size = len(value.encode("utf-8"))
+            size = len(value.encode("utf-8", errors="backslashreplace"))
         elif isinstance(value, bytes):
             size = 4 * ((len(value) + 2) // 3)
         else:
@@ -191,6 +193,12 @@ def _json_value(value, budget):
             result[field.name] = _json_value(getattr(value, field.name), budget)
         return result
     if isinstance(value, bytes):
+        budget.consume("encoding")
+        budget.consume("base64")
+        budget.consume("value")
+        # The payload's text was charged before encoding the original bytes;
+        # charge its output value node without charging that text twice.
+        budget.consume(None)
         return {"encoding": "base64", "value": base64.b64encode(value).decode("ascii")}
     if isinstance(value, tuple):
         return [_json_value(item, budget) for item in value]

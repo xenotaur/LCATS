@@ -81,7 +81,10 @@ the record. There is currently no public JSON-to-record constructor.
 Shared agents are expanded by JSON export. To bound that expansion, `to_dict`
 accepts `max_nodes=100_000` (traversed values and field names) and
 `max_text_bytes=16 * 1024**2` (cumulative UTF-8 text plus base64 payload).
-Repeated text is counted each time. These are traversal/content budgets, not
+Generated schema/base64 wrapper fields are included. Repeated text is counted
+each time. Surrogate code points in caller-supplied source labels are counted
+as six-byte backslash escapes and preserved in the exported string; default
+`json.dumps` can encode such filesystem labels. These are traversal/content budgets, not
 an exact serialized JSON length or process-RSS limit; JSON escaping, punctuation
 and pretty printing add bytes. `errors.ExportLimitError` is raised before a
 budget is exceeded; no partial export is returned and the original record is
