@@ -1,0 +1,10 @@
+Source base: 5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b; bootstrap changes are planning/evidence only.
+Python imports bound using PYTHONPATH=$PWD/src; LCATS_CACHE_DIR isolated in /tmp.
+Python 3.11.9; Black 25.11.0; Ruff 0.15.0.
+scripts/version tools: exit 0; installed editable version is older than source and is not the source identity.
+scripts/format --check --diff: exit 0, 240 files unchanged.
+scripts/lint: exit 0.
+scripts/test: exit 0, Ran 2550 tests in 63.800s, OK.
+lrh validate after baseline/planning changes: exit 0, zero errors / 351 warnings.
+Warning count decreased from 353 because two rewritten release WIs now quote prose scalars; no suppression added.
+git diff --check: exit 0.

@@ -15,6 +15,15 @@ related_design:
   - "project/development/gettenberg-pilot-charter.md"
 work_items:
   - "WI-GETTENBERG-0001"
+  - "WI-GETTENBERG-0002"
+  - "WI-GETTENBERG-0003"
+  - "WI-GETTENBERG-0004"
+  - "WI-GETTENBERG-0005"
+  - "WI-GETTENBERG-0006"
+  - "WI-GETTENBERG-0007"
+  - "WI-GETTENBERG-0008"
+  - "WI-GETTENBERG-0009"
+  - "WI-GETTENBERG-0010"
 execution_records: []
 evidence: []
 exit_criteria:
@@ -73,11 +82,11 @@ downstream WIs follow the bootstrap audit. Filing it does not begin execution.
 ## Work Items
 
 **WI-GETTENBERG-0001 — Establish baseline and reconcile execution planning.**
-The sole item allocated in this PR: feature/evidence matrix, caller audit,
+The initial bootstrap item: feature/evidence matrix, caller audit,
 fixture/provenance plan, baseline, release-plan reconciliation, and scoped next
 WIs. It does not implement the library.
 
-These are planned tranches, not yet-created WI IDs or dispatchable assignments.
+These are planned tranches; allocated WI IDs are listed in the amendment below.
 Split large tranches into small items with scope, dependencies, acceptance,
 validation, and evidence before dispatch.
 
@@ -123,3 +132,19 @@ The process log contains observed outcomes and concrete LRH recommendations.
 - PyPI publication, canonical corpus promotion, or unrelated pipeline redesign.
 - Persistent consent changes or a reusable LRH runtime.
 - Premature closure of WI-RELEASE-0039; it runs near actual publication.
+
+## 2026-10-14 execution planning amendment
+
+Run 1 was explicitly started under the charter; native lifecycle remains nonterminal until main delivery.
+
+- **WI-GETTENBERG-0002** — Typed metadata and bounded RDF record parser.
+- **WI-GETTENBERG-0003** — Streaming local archive ingestion and SQLite catalog queries.
+- **WI-GETTENBERG-0004** — Recoverable catalog generations and offline lifecycle.
+- **WI-GETTENBERG-0005** — Bounded resource acquisition and original-byte cache.
+- **WI-GETTENBERG-0006** — Conservative boilerplate cleanup with diagnostics.
+- **WI-GETTENBERG-0007** — Source-aware gather preparation and catalog commands.
+- **WI-GETTENBERG-0008** — Migrate callers and remove gutenbergpy packaging dependency.
+- **WI-GETTENBERG-0009** — Replace Gutenberg CI cache maintenance with supported operations.
+- **WI-GETTENBERG-0010** — Qualify replacement, exercise Diataxis docs and reconcile delivery.
+
+These items are scoped plans, not claims of implementation or accepted prerequisites.

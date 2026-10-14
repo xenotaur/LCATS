@@ -46,3 +46,15 @@ existing experiments.
 | 05 | `05_metadata_genre_prefilter` | No-network dry-run scaffold for LCATS story identity, Gutenberg ID provenance, cache readiness, and metadata-prefilter manifest output (WI-GENRE-0001) |
 | 06 | `06_linguistics_genre_sample` | Standalone linguistic feature extraction over the WI-GENRE-0004 genre-balanced sample using copied story buckets |
 | 07 | `07_linguistics_corpora` | Full-corpus standalone linguistic feature extraction using an experiment-local copied-bucket snapshot (WI-LINGUISTICS-0004) |
+
+## Engineering and placement policy
+
+Follow [lcats/STYLE.md](../lcats/STYLE.md#2-repository-structure). This directory
+holds executable experiment orchestration alongside its archival results;
+`lcats/project/` holds decisions and links, not runners. Prototype work starts
+in `lcats/experimental/`; reusable/product logic graduates to `lcats/src/lcats/`.
+Explicitly format, lint and test experiment changes because package defaults do
+not cover this directory. Preserve historical output/source attribution.
+
+- [10 — Gettenberg qualification](10_gettenberg_qualification/README.md): legacy
+  baseline and offline replacement qualification, with preserved measurements.

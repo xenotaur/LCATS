@@ -1,0 +1,200 @@
+{
+  "run": "gettenberg-20261014",
+  "captured_at": "2026-10-14T09:19:01Z",
+  "charter_revision": "1dff24a94f37a5f341d11c30301a9cc50cdffe6a",
+  "main_base": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+  "integration_branch": "codex/gettenberg-pilot-20261014",
+  "qualified_integration_head": "3793d152321af76d9d385af0ed7c7b3fc3f2d598",
+  "internal_prs": [
+    {
+      "baseRefName": "codex/gettenberg-pilot-20261014",
+      "baseRefOid": "de93431b65963b616719f65e285d514e4c7ee8b4",
+      "headRefOid": "c8beac9c078353369e4299db2eb9469ec6b01351",
+      "mergeCommit": {
+        "oid": "1299f9800871fcbb44a012554749675ea25b71c9"
+      },
+      "mergedAt": "2026-10-14T08:29:54Z",
+      "state": "MERGED",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T08:26:41Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38534930156/job/115755393949",
+          "name": "coverage",
+          "startedAt": "2026-10-14T08:24:56Z",
+          "status": "COMPLETED",
+          "workflowName": "Coverage"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T08:25:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38534930181/job/115755393335",
+          "name": "lint",
+          "startedAt": "2026-10-14T08:24:56Z",
+          "status": "COMPLETED",
+          "workflowName": "Lint and formatting checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T08:26:36Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38534930338/job/115755394643",
+          "name": "test",
+          "startedAt": "2026-10-14T08:24:58Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T08:25:58Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38534921706/job/115755366736",
+          "name": "test",
+          "startedAt": "2026-10-14T08:24:53Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        }
+      ],
+      "url": "https://github.com/xenotaur/LCATS/pull/504"
+    },
+    {
+      "baseRefName": "codex/gettenberg-pilot-20261014",
+      "baseRefOid": "1299f9800871fcbb44a012554749675ea25b71c9",
+      "headRefOid": "c755d295e68891281b862f0a2a5e2fabd82f70c2",
+      "mergeCommit": {
+        "oid": "3793d152321af76d9d385af0ed7c7b3fc3f2d598"
+      },
+      "mergedAt": "2026-10-14T09:18:04Z",
+      "state": "MERGED",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T09:16:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878565/job/115775030131",
+          "name": "coverage",
+          "startedAt": "2026-10-14T09:14:26Z",
+          "status": "COMPLETED",
+          "workflowName": "Coverage"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T09:14:43Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878624/job/115775029537",
+          "name": "lint",
+          "startedAt": "2026-10-14T09:14:25Z",
+          "status": "COMPLETED",
+          "workflowName": "Lint and formatting checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T09:15:19Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878701/job/115775030064",
+          "name": "test",
+          "startedAt": "2026-10-14T09:14:25Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-14T09:15:53Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540874829/job/115775017070",
+          "name": "test",
+          "startedAt": "2026-10-14T09:14:24Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        }
+      ],
+      "url": "https://github.com/xenotaur/LCATS/pull/505"
+    }
+  ],
+  "parser_premerge_verification": {
+    "baseRefName": "codex/gettenberg-pilot-20261014",
+    "baseRefOid": "1299f9800871fcbb44a012554749675ea25b71c9",
+    "headRefOid": "c755d295e68891281b862f0a2a5e2fabd82f70c2",
+    "mergeStateStatus": "CLEAN",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T09:16:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878565/job/115775030131",
+        "name": "coverage",
+        "startedAt": "2026-10-14T09:14:26Z",
+        "status": "COMPLETED",
+        "workflowName": "Coverage"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T09:14:43Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878624/job/115775029537",
+        "name": "lint",
+        "startedAt": "2026-10-14T09:14:25Z",
+        "status": "COMPLETED",
+        "workflowName": "Lint and formatting checks"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T09:15:19Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540878701/job/115775030064",
+        "name": "test",
+        "startedAt": "2026-10-14T09:14:25Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T09:15:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38540874829/job/115775017070",
+        "name": "test",
+        "startedAt": "2026-10-14T09:14:24Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      }
+    ]
+  },
+  "parser_review_threads": {
+    "data": {
+      "repository": {
+        "pullRequest": {
+          "reviewThreads": {
+            "pageInfo": {
+              "hasNextPage": false
+            },
+            "nodes": [
+              {
+                "id": "PRRT_kwDOKlhIbM6sPR4K",
+                "isResolved": true
+              },
+              {
+                "id": "PRRT_kwDOKlhIbM6sPR4Q",
+                "isResolved": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "source_equality_checks": [
+    "2687a94b..c755d295: no difference in lcats/src, lcats/tests, lcats/docs, lcats/pyproject.toml",
+    "c755d295..3793d152: no difference in those implementation paths",
+    "5cfd2d71..3793d152: no difference in .github/workflows",
+    "1299f980 is an ancestor of 3793d152"
+  ],
+  "authority": "Coordinator accepted internal staging under approved charter; no main promotion or native closeout.",
+  "delegated_assignments": 4,
+  "conservative_worker_minutes": 29,
+  "active_workers": 0,
+  "per_run_token_cost_telemetry": "unavailable",
+  "remaining_work": "WI-GETTENBERG-0003 through WI-GETTENBERG-0010 unattempted; renewed bounded human grant required."
+}

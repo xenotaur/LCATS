@@ -1,0 +1,73 @@
+{
+  "candidate_head": "cde945dda705bf093ea751cdac6ab28dacc69016",
+  "source_sha256": {
+    "src/lcats/gettenberg/catalog.py": "2e9c698767fa7a00d46bde9133cf7845b4bbd38426cbf096c0a9de78b4943a85",
+    "src/lcats/gettenberg/ingestion.py": "29761c9916bcfa1f440add013e643867380713872f08a4f720789c9c8720e20f",
+    "src/lcats/gettenberg/metadata.py": "27c4967429400cbd96d4dcf559d41c0f27de72129e7a36fc7c7ed5560362306e",
+    "src/lcats/gettenberg/models.py": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10",
+    "src/lcats/gettenberg/_store.py": "7d86fc9a94928333db51b9a0f9e9cb52f3c805d594dbf672f53965b9372ea192",
+    "src/lcats/gettenberg/cache.py": "27e177127b1df0b86ec5fe2f9152c7970ada9e3d3099ac34bc39fcc113f54694",
+    "src/lcats/gettenberg/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gettenberg/api.py": "023d477ec9fadd0a53bfb9c63786cf14737362021998d2ebe69bf92be8d23905",
+    "src/lcats/gettenberg/rdf.py": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0",
+    "src/lcats/gettenberg/errors.py": "0378d31e4879ec5f12f4687efcd1602e9c0d164261d762a039dbaa810f45307b",
+    "src/lcats/gettenberg/headers.py": "524288b5485939516b6767bf844dccd20038a80cf4cc939cdf341992c2d35c4c"
+  },
+  "archive_path": "/Users/centaur/Tempspace/Projects/LCATS/LCATS/lcats/cache/rdf-files.tar.bz2",
+  "limits": {
+    "max_compressed_bytes": 268435456,
+    "max_member_bytes": 2097152,
+    "max_expanded_bytes": 4294967296,
+    "max_members": 200000,
+    "max_database_bytes": 4294967296,
+    "max_seconds": 600.0
+  },
+  "network_bytes": 0,
+  "scope": "Local candidate build/query qualification only; no activation, remote lifecycle or corpus migration.",
+  "build": {
+    "output_path": "/tmp/gettenberg-pilot-run2-20261014/qualified.sqlite",
+    "status": "complete",
+    "archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+    "archive_bytes": 125955051,
+    "expanded_bytes": 2140119040,
+    "members": 78937,
+    "imported": 78937,
+    "rejected": 0,
+    "uncommitted": 0,
+    "diagnostics": 223,
+    "elapsed_seconds": 435.8640294999932,
+    "database_bytes": 2177388544
+  },
+  "normalized_counts": {
+    "ebooks": 78937,
+    "sources": 78937,
+    "titles": 84281,
+    "agents": 109138,
+    "contributions": 109170,
+    "resources": 2018879,
+    "formats": 2196609,
+    "languages": 79162,
+    "subjects": 265507,
+    "shelves": 206275,
+    "diagnostics": 223
+  },
+  "query": {
+    "enumerated_ids": 78937,
+    "fixture_round_trips": [
+      10000,
+      10001,
+      10040,
+      11008,
+      15813,
+      16264,
+      84
+    ],
+    "batch_missing_duplicates": "passed",
+    "seconds": 0.09306541699334048
+  },
+  "qualified": true,
+  "total_seconds": 435.97953124999185,
+  "peak_rss_bytes": 71630848,
+  "rss_units": "macOS ru_maxrss bytes",
+  "peak_rss_target_pass": true
+}

@@ -1,0 +1,34 @@
+{
+  "scope": "rounded shared-account weekly usage, not attributable run cost",
+  "observations": [
+    {
+      "utc": "2026-10-14T19:27:21Z",
+      "used_percent": 40
+    },
+    {
+      "utc": "2026-10-14T19:37:39Z",
+      "used_percent": 42
+    },
+    {
+      "utc": "2026-10-14T20:08:33Z",
+      "used_percent": 44,
+      "note": "minute30 observation delayed by observed host-execution gap; no cause established"
+    },
+    {
+      "utc": "2026-10-14T20:16:15Z",
+      "used_percent": 46,
+      "note": "before additional repair-review delegation; approximate observation time"
+    },
+    {
+      "utc": "2026-10-14T20:20:20Z",
+      "used_percent": 47,
+      "note": "after assignment4 dispatch; shared account only"
+    },
+    {
+      "utc": "2026-10-14T20:26:50Z",
+      "used_percent": 48,
+      "note": "final checkpoint observation; 8 percentage-point rise from launch, not attributable run cost"
+    }
+  ],
+  "numerical_stop_threshold": null
+}

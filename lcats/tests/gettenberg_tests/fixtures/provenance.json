@@ -1,0 +1,57 @@
+{
+  "source": "Pre-existing local Project Gutenberg bulk RDF archive; original retrieval URL/time unverified.",
+  "archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+  "sampled_on": "2026-10-14",
+  "license": "Public-domain Project Gutenberg metadata; embedded cc:Work CC0 declaration retained.",
+  "policy_reference": "https://www.gutenberg.org/ebooks/offline_catalogs.html",
+  "transformation": "None: original UTF-8 bytes, verified by SHA-256. No upstream library code copied.",
+  "files": [
+    {
+      "file": "pg10000.rdf",
+      "archive_member": "cache/epub/10000/pg10000.rdf",
+      "sha256": "708eab35674c25d6543be161d4fdc5f35ce83d839ad534c6ee481c3abf90ae2e",
+      "size_bytes": 17039
+    },
+    {
+      "file": "pg10040.rdf",
+      "archive_member": "cache/epub/10040/pg10040.rdf",
+      "sha256": "eb1f341a0b11cee6e80c8a52d21a78c8cc543f8d4860a36f6574b74dfaa66d26",
+      "size_bytes": 17512
+    },
+    {
+      "file": "pg84.rdf",
+      "archive_member": "cache/epub/84/pg84.rdf",
+      "sha256": "0749023a4406a934d92126c9e3fdd6d9975e8dc1ccb941e8c545188844b33628",
+      "size_bytes": 19164
+    },
+    {
+      "file": "pg10001.rdf",
+      "archive_member": "cache/epub/10001/pg10001.rdf",
+      "sha256": "b00978501e7574526d6e8d07296ca5f5547acddcd988598cba3a031ec90fc8cf",
+      "size_bytes": 16613
+    },
+    {
+      "file": "pg11008.rdf",
+      "archive_member": "cache/epub/11008/pg11008.rdf",
+      "sha256": "6dc0f1b72b45ee7d6da0962557ccb1320bbd1b1d8e833fd2df3d7582162f6469",
+      "size_bytes": 25625,
+      "expected_diagnostic_codes": [
+        "normalized_uri"
+      ]
+    },
+    {
+      "file": "pg15813.rdf",
+      "archive_member": "cache/epub/15813/pg15813.rdf",
+      "sha256": "2d8181521f5dc8ecc726845b3b215d118a87c86701a3e868e6f4324b54c37906",
+      "size_bytes": 23762,
+      "expected_diagnostic_codes": []
+    },
+    {
+      "file": "pg16264.rdf",
+      "archive_member": "cache/epub/16264/pg16264.rdf",
+      "sha256": "24ed4072ac89b25a9fde42f06fc5d637e07ece3ad5ee3d5ccf23582b0c237817",
+      "size_bytes": 23154,
+      "expected_diagnostic_codes": []
+    }
+  ]
+}

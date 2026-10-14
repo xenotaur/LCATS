@@ -1,0 +1,33 @@
+{
+  "source_head": "fc2b97bb55ebb4422ed45ab648b5635bcb8ca9fe",
+  "commands": {
+    "scripts/format --check --diff": "exit 0",
+    "scripts/lint": "exit 0",
+    "scripts/test": {
+      "exit_code": 0,
+      "tests": 2619,
+      "elapsed_seconds": 65.824
+    },
+    "lrh validate": {
+      "exit_code": 0,
+      "errors": 0,
+      "existing_warnings": 351
+    },
+    "git diff --check": "exit 0"
+  },
+  "independent_review_head": "fc2b97bb55ebb4422ed45ab648b5635bcb8ca9fe",
+  "focused_catalog_tests": 30,
+  "environment": {
+    "python": "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+    "PYTHONPATH": "absolute worktree/lcats/src",
+    "LCATS_CACHE_DIR": "private /tmp run2 test-cache",
+    "MPLCONFIGDIR": "private /tmp run2 matplotlib"
+  },
+  "log_sha256": {
+    "final-format.txt": "459214925029b715cb0f411341520f59320f7c2f736befd8863d778870c73256",
+    "final-lint.txt": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "final-tests.txt": "86ffe6e6fc50d6e47d7d51e4a20e99f20452f219c4e8960af5fdfc44dfc4a2ed",
+    "final-lrh.txt": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+  },
+  "scope": "Local canonical validation. Full-source and exact PR-head CI are separate evidence."
+}

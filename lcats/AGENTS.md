@@ -50,3 +50,9 @@ Example:
 ## Test-only PRs
 - When adding tests, do not modify production code unless strictly required.
 - If a change to production code is required for determinism or testability, keep it minimal and explain why in the PR description.
+
+## Repository placement
+
+Follow Repository Structure in [STYLE.md](STYLE.md) and the inherited root guidance.
+Keep project/ free of executable code; record decisions there and link to the
+prototype, archival experiment, or tested library that implements them.

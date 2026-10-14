@@ -1,6 +1,11 @@
 # Gettenberg bounded execution charter
 
-Status: proposed for review; no implementation run has started.
+Status amendment (2026-10-14): approved in PR #503; the human explicitly
+started run `gettenberg-20261014` at 07:55:39 UTC. Its bounded grant and
+09:55:39 UTC deadline are recorded in the [development log](gettenberg-development-log.md).
+The original planning status was "proposed for review; no implementation run
+has started." The authorization terms below are unchanged; this amendment
+records activation and does not renew or enlarge the grant.
 
 ## Purpose and activation
 
@@ -200,3 +205,47 @@ LRH run-tree/execution-framework/assistant work, without building a competing
 runtime here. Each recommendation needs an observed example and a proposed
 acceptance test, including branch-aware dependencies, delegated decisions,
 budget enforcement, or checkpoint recovery.
+
+## Run 2 amendment — approved and activated 2026-10-14
+
+The human approved the revised plan in this session and explicitly instructed
+the next run to proceed. This amendment supersedes conflicting first-run budget
+and fresh-main launch provisions for run `gettenberg-20261014-2` only. Resume
+the existing integration branch at718058627cbfbb7942f117f8dfe3cda39796769d;
+WI-0002's qualified staged merge3793d152 is an ancestor. Scope is WI-0003 only.
+
+- Start17:13:39 UTC; target/feature freeze18:13:39; hard stop18:43:39.
+- Normally coordinator plus one worker, four agents total maximum.
+- Six assignments maximum. Up to two repair/recheck follow-ups on the same
+  review scope remain in that assignment; expanded scope counts separately.
+- Worker occupancy target20–30 minutes, hard45 cumulative minutes including
+  waits; reserve15 for review. Individual assignments remain bounded by the
+  original30-minute ceiling and remaining allowance.
+- Reassess progress at minute45. No new features after minute60; final30
+  minutes are for bounded repairs, qualification and checkpointing.
+- Record available shared-account usage at launch, around minute30 and before
+  optional additional delegation. No numerical usage stop threshold is agreed.
+- Use compact assignment packets and linked authoritative evidence. Focused
+  tests during development; qualify stable source after review. Repeat relevant
+  qualification when repairs invalidate its source identity.
+
+All other authority, data stewardship, independent review, repair/escalation,
+exact-head CI and human main-promotion requirements remain unchanged. This
+renewal does not resolve native WIs or grant future runs.
+
+## Run 3 amendment — approved and activated 2026-10-14
+
+The human accepted the recommendation to proceed with WI-0004 using the same
+bounded single-item plan and instructed "Please proceed". Run
+`gettenberg-20261014-3` starts19:27:21 UTC, target/feature freeze20:27:21,
+hard stop20:57:21. Resume integration at1bc04c29384a1f727cde6a3a5c55d9c4107f20c9,
+with qualified WI-0003 mergeb2aa080a as an ancestor. WI-0004 only; reassess
+promotion at completion, without granting main promotion.
+
+Inherit run2 budgets: normally coordinator plus one worker, four agents total
+maximum; six assignments; up to two same-scope review repair/recheck follow-ups
+per assignment;45 cumulative worker minutes,15 reserved for review; individual
+assignments at most30 minutes and bounded by remaining allowance. Usage at
+launch, minute30 and before optional delegation; minute45 reassessment. No
+numeric usage threshold. All other charter safeguards and nonterminal native
+status rules remain. No persistent consent/gate changes or future-run grant.
