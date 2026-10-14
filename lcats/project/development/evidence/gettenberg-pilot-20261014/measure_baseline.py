@@ -16,7 +16,8 @@ output = pathlib.Path(sys.argv[3])
 start = time.monotonic()
 limits = dict(archive_bytes=256 * 1024**2, expanded_bytes=4 * 1024**3,
               member_bytes=8 * 1024**2, members=200000, seconds=180)
-assert archive.stat().st_size <= limits['archive_bytes']
+if archive.stat().st_size > limits['archive_bytes']:
+    raise ValueError('compressed archive exceeds byte limit')
 def digest(path):
     h = hashlib.sha256()
     with path.open('rb') as source:
@@ -33,11 +34,14 @@ parser=etree.XMLParser(resolve_entities=False, no_network=True, load_dtd=False, 
 with tarfile.open(archive,'r|bz2') as stream:
     for member in stream:
         count+=1
-        assert count <= limits['members'] and time.monotonic()-start < limits['seconds']
+        if count > limits['members'] or time.monotonic()-start >= limits['seconds']:
+            raise ValueError('archive member count or elapsed-time limit exceeded')
         max_member=max(max_member,member.size)
-        assert member.size <= limits['member_bytes']
+        if member.size < 0 or member.size > limits['member_bytes']:
+            raise ValueError('archive member exceeds byte limit')
         total_bytes+=member.size
-        assert total_bytes <= limits['expanded_bytes']
+        if total_bytes > limits['expanded_bytes']:
+            raise ValueError('expanded archive exceeds byte limit')
         if not member.isfile():
             categories['directory' if member.isdir() else 'other_nonregular']+=1
             stream.members.clear();continue
@@ -72,7 +76,8 @@ for name,sql in [('language_en',"SELECT gutenbergbookid FROM books JOIN language
  t=time.perf_counter(); rows=connection.execute(sql).fetchall(); queries[name]={'sql':sql,'elapsed_seconds':time.perf_counter()-t,'row_count':len(rows),'first_row':rows[0] if rows else None}
 connection.close()
 for p in [archive,database]:
- assert identity[p.name]['mtime_ns']==p.stat().st_mtime_ns
+ if identity[p.name]['mtime_ns'] != p.stat().st_mtime_ns:
+  raise ValueError('audit input changed during measurement: '+p.name)
 result={'schema_version':1,'bounds':limits,'identity':identity,'provenance':'Pre-existing local cache; original retrieval URL/time and DB-to-archive correspondence unverified. Hashes identify observed bytes, not retrieval provenance.', 'members':count,'categories':dict(categories),'expanded_bytes':total_bytes,'max_member_bytes':max_member,'xml_elements':dict(sorted(tags.items())),'xml_attributes':dict(sorted(attributes.items())),'feature_examples':features,'database_table_counts':counts,'queries':queries,'archive_audit_seconds':archive_seconds,'elapsed_seconds':time.monotonic()-start,'peak_rss_bytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'peak_rss_method':'resource.getrusage(RUSAGE_SELF).ru_maxrss on macOS (bytes), includes Python/parser/hash/database audit','network_bytes':0,'temporary_extracted_files':0,'samples_saved_separately_for_inspection':list(samples)}
 output.write_text(json.dumps(result,indent=2)+'\n')
 output.with_name('rdf_samples.json').write_text(json.dumps(samples,indent=2)+'\n')

@@ -51,3 +51,15 @@ production sources/tests are unchanged from the passing 2550-test baseline.
 Exact final PR head must pass applicable CI before internal integration.
 Native execution remains in_progress pending main delivery. Two assignments
 remain; cumulative worker occupancy is 16 of 60 minutes, leaving 44 minutes.
+
+## Automated PR review and repair
+
+Codex/Copilot reviewed PR 504 and found P2 assert-based audit limits disabled
+by Python optimization, plus a low-priority stale charter status. Coordinator
+verified each and replaced every audit assert with explicit ValueError guards;
+the charter now records activation while retaining the original planning
+status and unchanged grant terms. A python -O oversized sparse-file probe
+verifies rejection before any archive/DB reading; AST inspection confirms
+no Assert nodes remain. The recorded baseline measurement used unoptimized
+Python, so its historical results remain valid and are not relabeled as a
+rerun. Final exact-head CI must pass again after these changes.
