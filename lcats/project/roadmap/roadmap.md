@@ -93,3 +93,10 @@ run explicitly started on 2026-10-14, beginning with baseline/reconciliation. Th
 two-hour allowance is separate from full workstream completion. Release-plan
 reconciliation precedes implementation; near-publication verification remains
 a later gate.
+
+### Offline milestone delivered
+
+PR [#508](https://github.com/xenotaur/LCATS/pull/508) delivered WI-GETTENBERG-0001 through WI-GETTENBERG-0004
+to main (35f80fb5). Those four WIs are resolved; WI-0005 through WI-0010,
+the workstream and dependency-removal/release gates remain open. See the
+[runlog](../development/gettenberg-development-log.md) for evidence and repairs.

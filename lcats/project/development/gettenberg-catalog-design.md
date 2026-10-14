@@ -1,7 +1,7 @@
 # WI-0003 local catalog contract
 
 Decision recorded before implementation, run2 at base71805862. Scope and
-acceptance: [WI-0003](../work_items/proposed/WI-GETTENBERG-0003.md).
+acceptance: [WI-0003](../work_items/resolved/WI-GETTENBERG-0003.md).
 
 Use SQLite schema1 with application ID0x4C434754, foreign keys,256-record
 batches and explicit complete/building/failed manifest state. Never activate

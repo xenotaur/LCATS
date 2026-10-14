@@ -1,11 +1,11 @@
 ---
-"resolution": null
+"resolution": "Delivered offline milestone on main in PR #508 (35f80fb53c1820ff70708df0ab049266f25dc3c7); original internal review https://github.com/xenotaur/LCATS/pull/505."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0002"
 "title": "Typed metadata and bounded RDF record parser"
 "type": "deliverable"
-"status": "proposed"
+"status": "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"

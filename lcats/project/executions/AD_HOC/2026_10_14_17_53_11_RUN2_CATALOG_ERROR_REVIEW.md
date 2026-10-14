@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_17_53_11_RUN2_CATALOG_ERROR_REVIEW
 prompt_id: PROMPT(AD_HOC:RUN2_CATALOG_ERROR_REVIEW)[2026-10-14T17:52:55+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_14_17_16_14_WI_GETTENBERG_0003
 pr: https://github.com/xenotaur/LCATS/pull/506
-commit:
+commit: 35f80fb53c1820ff70708df0ab049266f25dc3c7
 created_at: 2026-10-14T17:53:11+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0003.md

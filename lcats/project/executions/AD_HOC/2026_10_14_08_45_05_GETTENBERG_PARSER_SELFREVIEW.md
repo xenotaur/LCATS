@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_08_45_05_GETTENBERG_PARSER_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_PARSER_SELFREVIEW)[2026-10-14T08:44:49+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_14_08_30_19_WI_GETTENBERG_0002
 pr: https://github.com/xenotaur/LCATS/pull/505
-commit:
+commit: 35f80fb53c1820ff70708df0ab049266f25dc3c7
 created_at: 2026-10-14T08:45:05+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0002.md

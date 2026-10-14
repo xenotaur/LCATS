@@ -14,7 +14,6 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - (none)
 
 ## Proposed Items
-- `proposed/WI-GETTENBERG-0001.md` — Establish gettenberg baseline and reconcile execution planning
 - `proposed/WI-PERSIST-0004.md` — Design persistence layer for corpus state and operation history
 - `proposed/WI-EVENT-0030.md` — Run stratified cross-segment relation density pilot across genres
 - `proposed/WI-EVENT-0078.md` — Reconcile and preregister WI-EVENT-0030 for staged density execution
@@ -34,6 +33,10 @@ YAML frontmatter is authoritative for metadata, and directory buckets are kept a
 - `abandoned/WI-ANNOTATE-0053.md` — superseded by `WI-STATS-0049`, which landed the identical `lcats stats` selector fix independently
 
 ## Resolved Items
+- `resolved/WI-GETTENBERG-0001.md` — Establish gettenberg baseline and reconcile execution planning
+- `resolved/WI-GETTENBERG-0002.md` — Typed metadata and bounded RDF record parser
+- `resolved/WI-GETTENBERG-0003.md` — Streaming local archive ingestion and SQLite catalog queries
+- `resolved/WI-GETTENBERG-0004.md` — Recoverable catalog generations and offline lifecycle
 - `resolved/WI-LLM-0066.md` — Wire run_census.py to a local OpenAI-compatible backend and evaluate gpt-oss:20b at genre-census scale
 - `resolved/WI-VISUALIZE-0073.md` — Reusable lcats visualize CLI substrate and genres command
 - `resolved/WI-LLM-0065.md` — Make gpt-oss:20b entity extraction production-grounded behind a candidate-scoped adapter; consider-only pending precision/recall evaluation, with no default routing change

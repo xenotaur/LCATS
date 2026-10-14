@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_23_53_05_GETTENBERG_OFFLINE_MILESTONE_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_OFFLINE_MILESTONE_SELFREVIEW)[2026-10-14T23:50:32+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_14_20_45_26_GETTENBERG_OFFLINE_MILESTONE
 pr: https://github.com/xenotaur/LCATS/pull/508
-commit:
+commit: 35f80fb53c1820ff70708df0ab049266f25dc3c7
 created_at: 2026-10-14T23:53:05+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-offline-milestone.md

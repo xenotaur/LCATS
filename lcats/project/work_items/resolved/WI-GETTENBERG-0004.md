@@ -1,11 +1,11 @@
 ---
-"resolution": null
+"resolution": "Delivered offline milestone on main in PR #508 (35f80fb53c1820ff70708df0ab049266f25dc3c7); original internal review https://github.com/xenotaur/LCATS/pull/507."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0004"
 "title": "Recoverable catalog generations and offline lifecycle"
 "type": "deliverable"
-"status": "proposed"
+"status": "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"

@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_08_18_36_GETTENBERG_BASELINE_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_BASELINE_SELFREVIEW)[2026-10-14T08:18:20+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_14_07_57_57_WI_GETTENBERG_0001
 pr: https://github.com/xenotaur/LCATS/pull/504
-commit:
+commit: 35f80fb53c1820ff70708df0ab049266f25dc3c7
 created_at: 2026-10-14T08:18:36+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0001.md

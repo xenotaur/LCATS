@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_20_17_25_RUN3_DURABILITY_REVIEW
 prompt_id: PROMPT(AD_HOC:RUN3_DURABILITY_REVIEW)[2026-10-14T20:16:28+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_14_19_29_29_WI_GETTENBERG_0004
 pr: https://github.com/xenotaur/LCATS/pull/507
-commit:
+commit: 35f80fb53c1820ff70708df0ab049266f25dc3c7
 created_at: 2026-10-14T20:17:25+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0004.md

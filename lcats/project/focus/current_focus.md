@@ -59,3 +59,10 @@ The human started the first bounded run on 2026-10-14; WI-GETTENBERG-0001
 establishes baseline evidence and scoped downstream work. See the
 [development log](../development/gettenberg-development-log.md) for checkpoints.
 This addition preserves the priorities above; staged work is not main delivery.
+
+### Offline milestone delivered
+
+PR [#508](https://github.com/xenotaur/LCATS/pull/508) delivered WI-GETTENBERG-0001 through WI-GETTENBERG-0004
+to main (35f80fb5). Those four WIs are resolved; WI-0005 through WI-0010,
+the workstream and dependency-removal/release gates remain open. See the
+[runlog](../development/gettenberg-development-log.md) for evidence and repairs.

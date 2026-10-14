@@ -1,11 +1,11 @@
 ---
-resolution: null
+"resolution": "Delivered offline milestone on main in PR #508 (35f80fb53c1820ff70708df0ab049266f25dc3c7); original internal review https://github.com/xenotaur/LCATS/pull/504."
 blocked_reason: null
 blocked: false
 id: "WI-GETTENBERG-0001"
 title: "Establish gettenberg baseline and reconcile execution planning"
 type: "investigation"
-status: "proposed"
+"status": "resolved"
 owner: "xenotaur"
 contributors:
   - "xenotaur"

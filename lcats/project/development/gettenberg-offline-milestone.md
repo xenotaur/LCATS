@@ -2,10 +2,10 @@
 
 Review PR: [#508](https://github.com/xenotaur/LCATS/pull/508), targeting main.
 
-Status amendment: the human approved the repository-layout repair plan and
-instructed it to proceed, including stabilization and landing. Main merge and
-partial closeout follow passing current-head gates. Publication and further
-implementation runs are outside that approval.
+Status: **landed** in PR #508, main commit `35f80fb53c1820ff70708df0ab049266f25dc3c7`.
+WI-0001 through WI-0004 and their execution records are closed out.
+The original milestone decision and qualification evidence below are retained;
+workstream completion, dependency removal and further implementation remain open.
 
 ## Decision requested
 

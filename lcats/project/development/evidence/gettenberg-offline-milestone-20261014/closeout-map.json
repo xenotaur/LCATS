@@ -1,5 +1,5 @@
 {
-  "status": "proposed human milestone; no main approval or closeout",
+  "status": "Main promotion merged; WI-0001 through WI-0004 and 21 records closed out",
   "main_base": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
   "qualified_integration_checkpoint": "6970d504cead927fa566eecd5187bb2f51eab174",
   "promotion_branch": "codex/gettenberg-offline-milestone",
@@ -25,7 +25,9 @@
           "execution_id": "2026_10_14_07_57_57_WI_GETTENBERG_0001",
           "role": "primary"
         }
-      ]
+      ],
+      "main_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+      "status": "resolved"
     },
     {
       "work_item": "WI-GETTENBERG-0002",
@@ -47,7 +49,9 @@
           "execution_id": "2026_10_14_08_30_19_WI_GETTENBERG_0002",
           "role": "primary"
         }
-      ]
+      ],
+      "main_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+      "status": "resolved"
     },
     {
       "work_item": "WI-GETTENBERG-0003",
@@ -74,7 +78,9 @@
           "execution_id": "2026_10_14_17_16_14_WI_GETTENBERG_0003",
           "role": "primary"
         }
-      ]
+      ],
+      "main_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+      "status": "resolved"
     },
     {
       "work_item": "WI-GETTENBERG-0004",
@@ -106,8 +112,38 @@
           "execution_id": "2026_10_14_19_29_29_WI_GETTENBERG_0004",
           "role": "primary"
         }
-      ]
+      ],
+      "main_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+      "status": "resolved"
     }
   ],
-  "native_closeout": "After explicit main approval and verified merge only. Preserve internal PR attribution; append promotion PR/main commit evidence to every listed record. Resolve only WI-0001 through WI-0004 whose delivered acceptance is verified; keep workstream/proposals/release gates open."
+  "native_closeout": "Completed only the four delivered WIs. Original internal PR attribution and all existing record bodies preserved. Main merge commit recorded through native update-execution; workstream, redesign and release gates remain open.",
+  "main_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+  "reviewed_head": "12fa03be342e2d0f98ba584efd925c1e52e9cad5",
+  "promotion_records": [
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_23_58_17_GETTENBERG_OFFLINE_MILESTONE_FINAL_SELFREVIEW.md",
+      "execution_id": "2026_10_14_23_58_17_GETTENBERG_OFFLINE_MILESTONE_FINAL_SELFREVIEW"
+    },
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_23_53_05_GETTENBERG_OFFLINE_MILESTONE_SELFREVIEW.md",
+      "execution_id": "2026_10_14_23_53_05_GETTENBERG_OFFLINE_MILESTONE_SELFREVIEW"
+    },
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_23_58_17_GETTENBERG_OFFLINE_MILESTONE_CLOSEOUT_NOTE.md",
+      "execution_id": "2026_10_14_23_58_17_GETTENBERG_OFFLINE_MILESTONE_CLOSEOUT_NOTE"
+    },
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_20_45_26_GETTENBERG_OFFLINE_MILESTONE.md",
+      "execution_id": "2026_10_14_20_45_26_GETTENBERG_OFFLINE_MILESTONE"
+    },
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_23_40_57_GETTENBERG_OFFLINE_MILESTONE_REVIEW.md",
+      "execution_id": "2026_10_14_23_40_57_GETTENBERG_OFFLINE_MILESTONE_REVIEW"
+    },
+    {
+      "path": "project/executions/AD_HOC/2026_10_14_23_48_35_GETTENBERG_OFFLINE_MILESTONE_CONFIRM.md",
+      "execution_id": "2026_10_14_23_48_35_GETTENBERG_OFFLINE_MILESTONE_CONFIRM"
+    }
+  ]
 }

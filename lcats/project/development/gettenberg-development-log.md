@@ -818,3 +818,32 @@ review follow before the authorized landing.
 Follow-up canonical validation: 2,676 tests pass in 71 seconds; 198 gettenberg
 tests pass. Canonical/experiment formatting and lint pass; LRH reports 0 errors
 and 351 existing warnings. Evidence log hashes are in repair-validation.json.
+
+## 2026-10-14 23:58 UTC — Main promotion and partial closeout
+
+PR #508 merged as 35f80fb53c1820ff70708df0ab049266f25dc3c7, from exact reviewed head
+12fa03be342e2d0f98ba584efd925c1e52e9cad5. Four current-head CI checks passed,
+all seven GitHub threads were resolved, and the second independent review
+reported no findings. Parent verification confirmed per-member header release
+and the real-archive regression. Two independent review assignments were used;
+the first surfaced one repaired P2, the second verified the final source.
+
+Native closeout marks 21 execution records landed (15 original and six promotion/
+review/closeout records) and moves WI-0001 through WI-0004 to resolved. Original
+record bodies and internal PR attribution were verified unchanged. Current
+navigation and the closeout map were updated. WS-GETTENBERG, the redesign and
+release/dependency-removal gates remain open; no new implementation grant began.
+
+Process lesson: encode placement rules in human and agent guidance before large
+runs. Default package checks omit experiment scripts, so explicitly validate
+archival runners. Preserve measured bytes and source identity during relocation;
+review helper control flow as carefully as product code. These lessons are
+already captured in repository guidance and this log; no separate memory needed.
+
+Closeout validation: LRH reports 0 errors and 351 existing warnings; diff hygiene
+passes. Native closeout-sync completed, mirroring 20 local Claude archive files,
+harvesting no exports and reconciling no child aliases. This does not export this
+Codex session; its durable pointer is retained. No raw transcripts were committed.
+No separate memory was written because the durable lessons are already in the
+committed guidance and runlog. Only control-plane files change after the reviewed
+main merge; product code, tests, docs and archival measurements remain identical.
