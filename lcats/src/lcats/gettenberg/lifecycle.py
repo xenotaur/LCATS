@@ -137,6 +137,12 @@ class CatalogManager:
         self._directory(self.root, create=create)
         for name in ("candidates", "generations", "archives"):
             self._directory(self.root / name, create=create)
+        if create:
+            # Persist the whole containing hierarchy, including a newly created
+            # cache root. Repeat on retries/concurrent setup: an existing entry
+            # may have been left by a creator that died before its parent sync.
+            for parent in (self.root, *self.root.parents):
+                _lifecycle_io.sync_directory(parent)
 
     @contextlib.contextmanager
     def _writer(self):

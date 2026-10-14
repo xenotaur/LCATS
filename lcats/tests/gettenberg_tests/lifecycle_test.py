@@ -50,6 +50,57 @@ class LifecycleTests(unittest.TestCase):
                 self.manager.open()
         self.assertFalse(self.cache.exists())
 
+    @unittest.skipIf(os.name == "nt", "POSIX directory durability contract")
+    def test_nested_cache_parents_are_durable_before_activation(self):
+        manager = lifecycle.CatalogManager(self.directory / "new" / "nested" / "cache")
+        fsync, replace = os.fsync, os.replace
+        synced = set()
+
+        def record_sync(descriptor):
+            info = os.fstat(descriptor)
+            synced.add((info.st_dev, info.st_ino))
+            return fsync(descriptor)
+
+        def checked_replace(source, destination):
+            if pathlib.Path(destination).name == "active.json":
+                for parent in (manager.root, *manager.root.parents):
+                    info = parent.stat()
+                    self.assertIn((info.st_dev, info.st_ino), synced)
+            return replace(source, destination)
+
+        with mock.patch.object(os, "fsync", side_effect=record_sync):
+            with mock.patch.object(os, "replace", side_effect=checked_replace):
+                manager.setup(self.archive)
+        self.assertEqual(manager.status()["state"], "ready")
+
+    @unittest.skipIf(os.name == "nt", "POSIX directory durability contract")
+    def test_parent_sync_failure_is_retried_before_publication(self):
+        fsync = os.fsync
+        parent_info = self.directory.stat()
+        parent_identity = (parent_info.st_dev, parent_info.st_ino)
+        retried = []
+
+        def fail_parent(descriptor):
+            info = os.fstat(descriptor)
+            if (info.st_dev, info.st_ino) == parent_identity:
+                raise OSError("injected parent durability failure")
+            return fsync(descriptor)
+
+        def retry_parent(descriptor):
+            info = os.fstat(descriptor)
+            if (info.st_dev, info.st_ino) == parent_identity:
+                retried.append(True)
+            return fsync(descriptor)
+
+        with mock.patch.object(os, "fsync", side_effect=fail_parent):
+            with self.assertRaises(errors.CatalogLifecycleError):
+                self.manager.setup(self.archive)
+        self.assertFalse((self.manager.root / "active.json").exists())
+        with mock.patch.object(os, "fsync", side_effect=retry_parent):
+            self.manager.setup(self.archive)
+        self.assertTrue(retried)
+        self.assertEqual(self.manager.status()["state"], "ready")
+
     def test_environment_is_resolved_at_construction(self):
         with mock.patch.dict(os.environ, {"LCATS_CACHE_DIR": str(self.cache)}):
             manager = lifecycle.CatalogManager()
@@ -311,7 +362,11 @@ class LifecycleTests(unittest.TestCase):
         sync = _lifecycle_io.sync_directory
 
         def fail_root(path):
-            if path == self.manager.root:
+            if (
+                path == self.manager.root
+                and self.manager.status()["active"]["generation_id"]
+                != first.generation_id
+            ):
                 raise OSError("injected durability failure")
             return sync(path)
 

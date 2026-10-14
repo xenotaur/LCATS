@@ -124,7 +124,9 @@ SQLite releases the lock if a writer process exits or is killed.
 Use a local filesystem supporting SQLite locks, atomic same-directory replacement
 and hard links. Archives use no-clobber hard-link publication. Unsupported
 filesystem operations fail explicitly; do not place this cache on a filesystem
-with unreliable locking. POSIX directory fsync supports the durability protocol;
+with unreliable locking. On POSIX, the cache and its containing directories must
+allow directory opens and fsync, so newly created paths and retries can be made
+durable before publication. POSIX directory fsync supports the durability protocol;
 on Windows the implementation promises process-interruption recovery, not a
 power-loss durability guarantee. Cooperative callers must treat generation
 files as immutable; same-user malicious filesystem changes are outside the
