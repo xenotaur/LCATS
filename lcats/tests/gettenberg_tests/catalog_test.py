@@ -437,6 +437,8 @@ class AuthoredArchiveTests(unittest.TestCase):
         with self.assertRaises(errors.CatalogBuildError) as caught:
             self.build([])
         self.assertEqual(caught.exception.report.imported, 0)
+        self.assertEqual(caught.exception.report.status, "failed")
+        self.assertEqual(str(caught.exception).count("incomplete_records:"), 1)
         with self.assertRaises(errors.CatalogIncompleteError):
             catalog.Catalog(self.output)
 
@@ -510,7 +512,7 @@ class AuthoredArchiveTests(unittest.TestCase):
         for index, bound in enumerate(limits):
             with self.subTest(bound=bound):
                 self.output = self.root / f"limited{index}.sqlite"
-                with self.assertRaises(errors.CatalogBuildError):
+                with self.assertRaises(errors.CatalogBuildError) as caught:
                     self.build(
                         [
                             ("one.rdf", record(1), tarfile.REGTYPE),
@@ -519,6 +521,54 @@ class AuthoredArchiveTests(unittest.TestCase):
                         limits=bound,
                         batch_size=1,
                     )
+                self.assertEqual(caught.exception.code, "resource_limit")
+
+    def test_database_limit_inside_record_preserves_sqlite_full(self):
+        subjects = "".join(
+            f"<dc:alternative>{i}:{'x' * 256}</dc:alternative>" for i in range(1000)
+        )
+        with self.assertRaises(errors.CatalogBuildError) as caught:
+            self.build(
+                [("one.rdf", record(1, extra=subjects), tarfile.REGTYPE)],
+                limits=ingestion.BuildLimits(max_database_bytes=512 * 1024),
+            )
+        self.assertEqual(caught.exception.code, "resource_limit")
+        self.assertEqual(
+            caught.exception.__cause__.sqlite_errorcode, sqlite3.SQLITE_FULL
+        )
+        self.assertEqual(caught.exception.report.imported, 0)
+        self.assertEqual(caught.exception.report.status, "failed")
+
+    def test_sqlite_progress_interrupt_is_a_resource_limit(self):
+        expired = False
+
+        def clock():
+            nonlocal expired
+            frame = sys._getframe(1)
+            while frame is not None:
+                if (
+                    frame.f_code.co_name == "<lambda>"
+                    and frame.f_code.co_filename == ingestion.__file__
+                ):
+                    expired = True
+                    break
+                frame = frame.f_back
+            return 2.0 if expired else 0.0
+
+        subjects = "".join(f"<dc:alternative>{i}</dc:alternative>" for i in range(1000))
+        with (
+            mock.patch.object(ingestion.time, "monotonic", side_effect=clock),
+            self.assertRaises(errors.CatalogBuildError) as caught,
+        ):
+            self.build(
+                [("one.rdf", record(1, extra=subjects), tarfile.REGTYPE)],
+                limits=ingestion.BuildLimits(max_seconds=1),
+            )
+        self.assertEqual(caught.exception.code, "resource_limit")
+        self.assertEqual(
+            caught.exception.__cause__.sqlite_errorcode, sqlite3.SQLITE_INTERRUPT
+        )
+        self.assertEqual(caught.exception.report.status, "failed")
 
     def test_invalid_limits_are_not_assert_based(self):
         for kwargs in (

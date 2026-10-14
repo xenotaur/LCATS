@@ -339,6 +339,8 @@ def build_catalog(
                     if not connection.in_transaction:
                         connection.execute("BEGIN")
                     connection.execute("SAVEPOINT record")
+                    # Fatal errors go directly to outer cleanup: FULL/INTERRUPT
+                    # may already have rolled back this savepoint/transaction.
                     try:
                         parsed = rdf.parse_record(
                             data,
@@ -350,10 +352,6 @@ def build_catalog(
                         code, message = exc.code, str(exc)
                     except sqlite3.IntegrityError as exc:
                         code, message = "record_conflict", str(exc)
-                    except BaseException:
-                        connection.execute("ROLLBACK TO record")
-                        connection.execute("RELEASE record")
-                        raise
                     if code:
                         connection.execute("ROLLBACK TO record")
                     connection.execute("RELEASE record")
@@ -440,9 +438,15 @@ def build_catalog(
                 # manifest. Its prior building state still prevents opening it.
                 pass
         summary = report("failed") if created else None
-        code = "resource_limit" if isinstance(exc, _LimitExceeded) else "build_failed"
         if isinstance(exc, errors.CatalogBuildError):
-            code = exc.code
+            exc.report = summary
+            raise
+        sqlite_code = getattr(exc, "sqlite_errorcode", 0) & 0xFF
+        resource_limited = isinstance(exc, _LimitExceeded) or sqlite_code in (
+            sqlite3.SQLITE_FULL,
+            sqlite3.SQLITE_INTERRUPT,
+        )
+        code = "resource_limit" if resource_limited else "build_failed"
         raise errors.CatalogBuildError(code, str(exc), summary) from exc
     finally:
         if connection is not None:
