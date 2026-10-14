@@ -83,3 +83,32 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
   baseline, reconciliation, downstream planning, then only qualified work that
   fits the budget. Next action: inspect current upstream capabilities/cache
   inputs and establish offline baseline evidence.
+
+## 2026-10-14 08:10 UTC — Bootstrap evidence prepared
+
+- Main/base remains `5cfd2d71`; integration checkpoint `de93431b`; scoped branch
+  `codex/gettenberg-baseline-0001`. No production/CI/notebook/dependency changes.
+- Assignment 1 completed before 08:05:14 UTC. Conservatively account 9 worker
+  minutes (including dispatch uncertainty); 51 remain, 20 reserved for review.
+  Assignments used: 1/4; no active worker. Elapsed about 15 minutes; about 105
+  remain to the 09:55:39 deadline. Next assignment is independent bootstrap
+  review with a 12-minute ceiling, not another implementation worker.
+- [Baseline](gettenberg-baseline.md) records a complete 78,937-record cached
+  archive audit, input hashes, all observed XML elements, caller dispositions,
+  fixture plan and remaining measurement/provenance gaps. No bulk downloads.
+- Observation: canonical suite passes 2,550 tests while actual wrapper English
+  query returns zero IDs versus 62,689 upstream. Interpretation: fake-row tests
+  masked contract mismatch. Recommendation: real parser/storage/public-API
+  acceptance tests; acceptance test for LRH: a green suite cannot substitute
+  for a capability's missing behavioral evidence.
+- Observation: audit found old notebooks, raw SQLite experiment access and eager
+  indirect imports. Recommendation: combine import closure, notebook source
+  inspection and raw-schema searches; test an audit fixture with each hidden
+  dependency form and verify each receives an owner/disposition.
+- Coordinator scoped WI-GETTENBERG-0002 through 0010 and reconciled release
+  planning. Every new item is native prompt-ready, but none has an accepted
+  staged dependency yet. WI-RELEASE-0039 remains near-publication only.
+- Canonical baseline: format/lint/test pass. LRH zero errors, 351 warnings
+  (two pre-existing unquoted prose warnings removed by release-WI rewrites).
+- Next: independent review against bootstrap acceptance, verify/fix findings,
+  create its internal PR and integrate only with exact-head validation.

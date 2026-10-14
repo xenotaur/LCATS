@@ -50,10 +50,12 @@ A third priority, **documentation cleanup** (`WS-DOCS`), was active from 2026-07
 - Span operations support precise, explainable text changes.
 - Review decisions can approve, reject, or override proposed repairs with rationale.
 
-## Proposed Gettenberg Execution Pilot
+## Bounded Gettenberg Execution Pilot
 
-The approved internal redesign has an initial proposed
+The approved internal redesign is tracked by
 [WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md) and
-[execution charter](../development/gettenberg-pilot-charter.md) for review.
-Begin with WI-GETTENBERG-0001 after planning approval and explicit run initiation.
-This addition does not activate execution or replace the priorities above.
+[execution charter](../development/gettenberg-pilot-charter.md).
+The human started the first bounded run on 2026-10-14; WI-GETTENBERG-0001
+establishes baseline evidence and scoped downstream work. See the
+[development log](../development/gettenberg-development-log.md) for checkpoints.
+This addition preserves the priorities above; staged work is not main delivery.

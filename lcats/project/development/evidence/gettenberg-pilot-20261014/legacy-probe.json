@@ -1,0 +1,9 @@
+{
+  "upstream_en_count": 62689,
+  "upstream_row_type": "int",
+  "upstream_row_example": 1,
+  "factory_substitution": "Only cache acquisition factory replaced with real read-only SQLiteCache; actual query and wrapper implementations executed; no network.",
+  "public_wrapper_en_count": 0,
+  "mapping_probe_error": "cache.query returned a non-mapping row at index 0: int",
+  "mapping_probe_scope": "Diagnostic list-valued downloadtype bypasses separate string-iteration bug; not a supported public API call."
+}
