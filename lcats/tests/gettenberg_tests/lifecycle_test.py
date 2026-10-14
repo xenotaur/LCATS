@@ -101,6 +101,14 @@ class LifecycleTests(unittest.TestCase):
         self.assertTrue(retried)
         self.assertEqual(self.manager.status()["state"], "ready")
 
+    def test_non_utf8_archive_path_is_rejected_before_source_io(self):
+        source = self.directory / "archive-\udcff.tar.bz2"
+        with self.assertRaisesRegex(errors.CatalogInputError, "valid UTF-8"):
+            self.manager.setup(source)
+        self.assertEqual(self.manager.status()["state"], "missing")
+        self.assertEqual(list((self.manager.root / "archives").iterdir()), [])
+        self.assertEqual(self.manager.status()["candidates"], [])
+
     def test_environment_is_resolved_at_construction(self):
         with mock.patch.dict(os.environ, {"LCATS_CACHE_DIR": str(self.cache)}):
             manager = lifecycle.CatalogManager()

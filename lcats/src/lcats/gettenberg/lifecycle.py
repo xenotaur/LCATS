@@ -360,6 +360,13 @@ class CatalogManager:
         return counts, digest, size
 
     def _prepare_candidate(self, source, limits, expected_archive=None):
+        # Manifests use strict UTF-8 JSON. Reject undecodable POSIX filenames
+        # before copying/building instead of failing after expensive ingestion.
+        input_path = str(pathlib.Path(source).absolute())
+        try:
+            input_path.encode("utf-8")
+        except UnicodeEncodeError as exc:
+            raise errors.CatalogInputError("archive path must be valid UTF-8") from exc
         limits = ingestion.BuildLimits() if limits is None else limits
         if not isinstance(limits, ingestion.BuildLimits):
             raise errors.CatalogInputError("limits must be BuildLimits")
@@ -394,7 +401,7 @@ class CatalogManager:
             "counts": counts,
             "source": {
                 "kind": "local_archive",
-                "input_path": str(pathlib.Path(source).absolute()),
+                "input_path": input_path,
                 "retrieved_at": None,
                 "http_etag": None,
             },

@@ -13,6 +13,7 @@ LCATS cache root, not the generation directory. Omitting it honors
 `LCATS_CACHE_DIR`, defaulting to `cache` in the current working directory.
 The examples assume `cache_dir` and `archive_path` are `pathlib.Path` values.
 
+```pycon
 >>> from lcats.gettenberg import lifecycle
 >>> manager = lifecycle.CatalogManager(cache_dir)
 >>> generation = manager.setup(archive_path)
@@ -27,6 +28,8 @@ True
 >>> manager.status()['state']
 'ready'
 
+```
+
 Setup copies the local source into managed content-addressed storage, builds
 and verifies a candidate, and activates it only after all checks pass. It
 preserves the original archive. When a valid generation is already active,
@@ -35,11 +38,14 @@ its contents. There are no age-based refresh checks or network fallbacks.
 
 ## Rebuild from the retained source
 
+```pycon
 >>> rebuilt = manager.rebuild()
 >>> rebuilt.generation_id != generation.generation_id
 True
 >>> rebuilt.manifest['snapshot_id'] == generation.manifest['snapshot_id']
 True
+
+```
 
 Omitting the archive uses the active generation's retained source. To use a
 newly acquired local archive, pass its path explicitly. Network acquisition
@@ -93,9 +99,12 @@ these APIs do not guess which catalog should replace corrupted metadata.
 
 ## Clean abandoned work conservatively
 
+```pycon
 >>> removed = manager.cleanup()
 >>> isinstance(removed, tuple)
 True
+
+```
 
 Cleanup returns exact removed paths. It removes candidate directories and known
 publication temporary files while holding the writer lock. This includes prepared

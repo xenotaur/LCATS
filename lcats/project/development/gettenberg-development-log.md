@@ -766,3 +766,38 @@ all retained helpers' purpose, invocation, inputs/outputs, bounds, side effects,
 platform assumptions and failure semantics, and explicitly format/lint/test them.
 No convention was adopted and no implementation or main merge occurred in this
 investigation. The next action is the human layout/repair decision.
+
+## 2026-10-14 23:46 UTC — Approved convention and repair implementation
+
+Human approved the proposed four-way convention and repair plan and said proceed.
+This covers repair/stabilization/landing of508, not a new bounded implementation
+run. Reused LRH review-response/landing procedures under explicit task authority;
+no persistent consent changes. Gate definitions fresh; skip consent remains invalid.
+
+Root agent guidance and canonical STYLE now agree: documentation/data-only
+project, experimental prototypes, archival experiment code/results, tested reusable
+library. Corrected stale package path and contradictory no-code-in-experiments
+rule. Five runners and nine measurement files moved to experiment10; original
+measurement bytes/hashes preserved, relocation map added, current links updated,
+historical execution/runlog/measurement identities retained. Runners have named
+CLI arguments, import-safe main entry points, usage and algorithm comments.
+
+All seven review comments are in scope: fenced pycon fixes rendered quote parsing;
+experiment README explains repeated predicate URI diagnostics; explicit lifecycle
+checks survive -O; candidate paths resolve before URI conversion. Non-UTF-8 path
+preflight prevents expensive late failure. Initial all-ASCII JSON change violated
+two existing tests and was discarded in favor of early input rejection; strict
+JSON behavior retained. Mac byte-filename creation itself fails, so regression
+checks the portable early boundary without depending on filesystem support.
+Next: focused/canonical checks, independent review, CI and authorized main closeout.
+
+## 2026-10-14 23:48 UTC — Repair validation passed
+
+All 2,675 canonical tests passed in 72 seconds; all 197 gettenberg tests passed.
+Canonical formatting/lint and explicit experiment formatting/lint passed, as did
+LRH validation (0 errors, 351 existing warnings), diff hygiene, nine original
+measurement SHA256 checks and 24 current local links. Log hashes are retained in
+milestone repair-validation.json; full logs are local temporary artifacts.
+No full-source measurement was repeated or relabelled. All seven original
+review threads have concrete repairs or documented answers; final classification,
+current-head CI and independent PR review precede the authorized main merge.

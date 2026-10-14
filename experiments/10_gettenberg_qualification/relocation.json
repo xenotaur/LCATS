@@ -1,0 +1,90 @@
+{
+  "original_revision": "1ea2ece87a904921674f333d04f0635cd2f3d5cd",
+  "rule": "Measurement files preserved byte-for-byte; runners revised after relocation. Historical embedded paths and source hashes are unchanged. Resolve old paths through this map.",
+  "files": [
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/baseline-measurements.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/baseline-measurements.json",
+      "original_sha256": "e1d220aab1d0f6c264e586477cdbd606484e3ab4c3a516f9ef013d0f334582ea",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/legacy-probe.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/legacy-probe.json",
+      "original_sha256": "4ed898ef622f4b4ff08c82561d877edc49e8ff0dbeb355fb26873a80ad1d4759",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/measure_baseline.py",
+      "new_path": "experiments/10_gettenberg_qualification/scripts/measure_baseline.py",
+      "original_sha256": "7f5bb58d7e0f8d965a3a7fa2e371f62ee20090ecb4a33ca79c62f54ee6555cd1",
+      "kind": "runner"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/parser-exploratory.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/parser-exploratory.json",
+      "original_sha256": "7894449330a01aafd11bed5bac7161094551425a7109e800b3e24dac948782fc",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/parser-full-source.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/parser-full-source.json",
+      "original_sha256": "22e2e4b3524ce72e582087cfcf8643989ea9cf66468e6121f2d81bd1e8435b21",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/parser-prereview-full-source.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/parser-prereview-full-source.json",
+      "original_sha256": "7753f325a365c097bdc06fac83624efa9f262bbebb75d9aa41a54732aa302b15",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/probe_legacy.py",
+      "new_path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "original_sha256": "8d815efc4b386c7ad3278aa5f7e3eab4558b48266e01babf2de4f8f0245d40c4",
+      "kind": "runner"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-20261014/probe_parser.py",
+      "new_path": "experiments/10_gettenberg_qualification/scripts/probe_parser.py",
+      "original_sha256": "572446bd6632e825ef2cfdee5dea05ae3ab3f55716fe6da22aff3766c3913bba",
+      "kind": "runner"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run2-20261014/full-source-final.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-run2-20261014/full-source-final.json",
+      "original_sha256": "67cd1e20b6fd15f78e7e40e2f4e8e9b400090c220144b47c93c4fc1b92e9971f",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run2-20261014/full-source.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-run2-20261014/full-source.json",
+      "original_sha256": "4d69179057f6c2c80d05a34c575a659ed0ef8d56b2ca21ce3e87de4b128f8da9",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run2-20261014/qualify_catalog.py",
+      "new_path": "experiments/10_gettenberg_qualification/scripts/qualify_catalog.py",
+      "original_sha256": "2dcda7999e4236c2f39a4527cdb2b54a57a68b3288705a232ac9f44253b0361b",
+      "kind": "runner"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run3-20261014/full-source-final-verification.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-run3-20261014/full-source-final-verification.json",
+      "original_sha256": "ec3dcac51a3b481f7bd0228bdc58e6efc8520d86597d3786c5f5ed87ec6c38f3",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run3-20261014/full-source.json",
+      "new_path": "experiments/10_gettenberg_qualification/results/gettenberg-pilot-run3-20261014/full-source.json",
+      "original_sha256": "b76b71612abde2df4b9ae81cb4f3657b9b434210ab0a36ff17d2b1a059ca7ddf",
+      "kind": "measurement"
+    },
+    {
+      "old_path": "lcats/project/development/evidence/gettenberg-pilot-run3-20261014/qualify_lifecycle.py",
+      "new_path": "experiments/10_gettenberg_qualification/scripts/qualify_lifecycle.py",
+      "original_sha256": "d3eccc94f6275335afaa573158cbcfb6de55ab7cd7eb9f30a26f7a5edd27460a",
+      "kind": "runner"
+    }
+  ]
+}

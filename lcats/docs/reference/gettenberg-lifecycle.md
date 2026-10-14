@@ -79,3 +79,7 @@ operations. Individual build/copy/verification bounds do not impose a whole-cach
 quota. Cleanup never deletes the coordination file, legacy artifacts or published
 generations. See [the how-to](../how-to/gettenberg-catalog.md) for recovery and
 filesystem/platform prerequisites.
+
+Local archive paths must be representable as UTF-8 for manifest provenance.
+A surrogate-escaped POSIX path raises `CatalogInputError` before any archive
+copy or candidate build; setup reuse still ignores an unused archive argument.

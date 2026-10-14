@@ -18,7 +18,7 @@ counts are corroboration, not a fabricated provenance link.
 | rdf-files.tar.bz2 | 125955051 | 358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28 |
 | gutenbergindex.db | 342450176 | 188b422247c48807459f3aedac6dad462244e91a2885543e3051555c0e0a39f5 |
 
-[Measured evidence](evidence/gettenberg-pilot-20261014/baseline-measurements.json):
+[Measured evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/baseline-measurements.json):
 78,937 RDF members/ebook records, 2,079,559,859 uncompressed bytes; maximum record
 1,223,616 bytes. The database has 78,937 books, 84,278 titles, 29,822 aliases,
 127,880 book-alias links and 2,018,879 resources. The bounded archive/XML audit
@@ -38,8 +38,8 @@ Reproduce from `lcats/`, in the LCATS environment, using separately supplied
 local input paths (never the canonical live cache as a write destination):
 
 ```bash
-python project/development/evidence/gettenberg-pilot-20261014/measure_baseline.py "$ARCHIVE" "$DATABASE" /tmp/gettenberg-baseline.json
-LCATS_CACHE_DIR=/tmp/gettenberg-probe PYTHONPATH="$PWD/src" python project/development/evidence/gettenberg-pilot-20261014/probe_legacy.py "$DATABASE"
+python ../experiments/10_gettenberg_qualification/scripts/measure_baseline.py "$ARCHIVE" "$DATABASE" /tmp/gettenberg-baseline.json
+LCATS_CACHE_DIR=/tmp/gettenberg-probe PYTHONPATH="$PWD/src" python ../experiments/10_gettenberg_qualification/scripts/probe_legacy.py "$DATABASE"
 LCATS_CACHE_DIR=/tmp/gettenberg-tests PYTHONPATH="$PWD/src" scripts/test
 ```
 
@@ -60,7 +60,7 @@ observed namespace; no absence of roles is inferred from the sample selector.
 
 ## Observed legacy failures and acceptance consequences
 
-[Reproduced query probe](evidence/gettenberg-pilot-20261014/legacy-probe.json)
+[Reproduced query probe](../../../experiments/10_gettenberg_qualification/results/gettenberg-pilot-20261014/legacy-probe.json)
 uses actual upstream SQLite queries and wrapper code, substituting only the
 cache acquisition factory to prevent implicit setup and provide read-only access.
 
