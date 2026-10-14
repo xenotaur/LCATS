@@ -89,7 +89,7 @@ Measure on immutable recorded inputs, distinguish audit time from full old/new b
 
 ## Acceptance Criteria
 
-All frontmatter acceptance criteria require exact-head evidence and independent review before integration. Native execution records remain in_progress and work items nonterminal until human-approved main delivery.
+The first three frontmatter criteria are pre-integration qualification gates: they require exact-head evidence and independent review before internal integration. The fourth is a post-main delivery gate, verified only after the human approves promotion and that promotion lands. Internal integration must include a reviewable closeout plan, but must not claim main delivery or completed closeout. Native execution records remain in_progress and work items nonterminal until the post-main gate is satisfied. The completion mapping distinguishes implemented technical criteria from the still-pending promotion and closeout criteria; it never labels pending delivery as accepted.
 
 ## Validation
 

@@ -112,7 +112,7 @@ are deliberately outside compatibility scope.
 
 ## Caller audit and dispositions
 
-Audit universe: 9,056 tracked paths; 339 Python plus 16 notebooks (355 surfaces).
+Audit universe: 9,054 tracked paths; 339 Python plus 16 notebooks (355 surfaces).
 The named research subtrees contain 112: notebooks 17, experimental 46,
 experiments 45, KMo 4. [Exact code universe](evidence/gettenberg-pilot-20261014/code-universe.txt)
 SHA-256: `88df5e15802dae460024a5ba7b8193772737d626ce009dc4139c055c10fd1e48`.
