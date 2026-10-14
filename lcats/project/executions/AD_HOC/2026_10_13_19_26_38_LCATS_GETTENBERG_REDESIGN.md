@@ -2,14 +2,14 @@
 execution_id: "2026_10_13_19_26_38_LCATS_GETTENBERG_REDESIGN"
 prompt_id: "PROMPT(AD_HOC:LCATS_GETTENBERG_REDESIGN)[2026-10-13T19:12:33+00:00]"
 work_item: "AD_HOC"
-status: "in_progress"
+status: landed
 rerun_of: null
-pr: "https://github.com/xenotaur/LCATS/pull/501"
-commit: "aa502570dddf678147030fffe6c7d42f9db6dda5"
+pr: https://github.com/xenotaur/LCATS/pull/501
+commit: 4aabbe095720ef259885dfbf0e4d49253cb89d1f
 created_at: "2026-10-13T19:26:38+00:00"
 agent: "codex_app"
 instruction_source: "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
-session_transcript: "codex-app:01a13653-87a6-7743-b734-7440a42ee1be"
+session_transcript: codex-app:01a13653-87a6-7743-b734-7440a42ee1be
 ---
 
 # Summary
