@@ -524,3 +524,121 @@ filesystem/lock helpers, errors, real lifecycle tests, Diataxis how-to/reference
 and evidence. Canonical format/lint/scripts/test/LRH/readiness/diff checks.
 Main promotion remains a final recommendation only. Next: implement the recorded
 contracts, independent review, qualify, internal PR and evidence checkpoint.
+
+## 2026-10-14 19:37 UTC — Run 3 candidate entering independent review
+
+Decision contract implemented; initial local tests found error-wrapper masking
+of CatalogMissingError (also an OSError subclass), corrected without changing
+contract. Initial test assertions were corrected to typed Title.value.text and
+resolved macOS temp paths.18 lifecycle tests and25 I/O tests pass. Worker1 used
+about4 minutes, conservatively5/45; no workers currently active. Assignment2
+will review complete current diff, including new files, against3de743cd. Review
+reserve remains15 minutes; assignments2/6 including upcoming review. No source
+edits during review except verified requested repairs. Target20:27:21 and hard
+stop20:57:21 unchanged. Full canonical/source qualification follows stable
+reviewed source under approved pilot adapter, not repeated exploratory reruns.
+
+## 2026-10-14 19:42 UTC — Run 3 minute15 checkpoint and review repairs
+
+Initial review380f7c41 found two P2s: atomic pointer replacement conflicted with
+strict pathname identity checks; implicit retained-source rebuild failed to bind
+copied bytes to the prior manifest hash. Coordinator directly reproduced both:
+998 successful opens plus2 failures during400 real public-API activations, and
+same-size replacement source silently activating a different title/SHA.
+Repairff072c13 gives JSON readers opened-file snapshot semantics while retaining
+strict archive/hash identity checks, and binds implicit rebuild to expected
+archive SHA/size.187 gettenberg tests pass, including deterministic filesystem
+boundary regressions. Source is frozen pending assignment2 repair/recheck1.
+
+Assignments2/6, worker1 conservatively5 minutes; reviewer dispatched19:37:39,
+active with hard assignment deadline19:53. Run target/freeze20:27:21 and hard
+stop20:57:21 unchanged. Shared usage42% observed19:37:39 (launch40%). No design
+replan or new scope. Qualification helper prepared; full-source/canonical
+qualification waits for stable independently cleared source. No network calls,
+main promotion, native closeout or WI-0005 work.
+
+## 2026-10-14 19:43 UTC — Run 3 stable source qualified for final checks
+
+Independent recheck cleared ff072c13 at19:42:29.187 gettenberg tests pass;
+real400-activation concurrency probe produced998 successful opens and zero
+errors. Retained-source substitution now fails before build/activation and
+in-place JSON changes still fail. Review record retains original findings and
+coordinator reproduction evidence. Assignments2/6, worker occupancy11/45
+conservatively (5 I/O +6 review), no active agents. About16 elapsed minutes;
+original target/freeze20:27:21 and stop20:57:21 unchanged. No new scope planned.
+Next: canonical suite and actual cached full-archive setup/activation/reuse
+qualification in a new private cache, then exact-head internal PR checks.
+
+## 2026-10-14 20:09 UTC — Run 3 execution-gap observation
+
+UTC advanced from the19:43 qualification-preparation checkpoint to20:08:33 at
+the next observed clock. Host process/file evidence shows actual validation
+jobs started about20:08:10 (full-source log birth20:08:09.680; canonical tests
+log birth20:08:13.761). At20:08:54 the full build had11008 committed records;
+process inspection shortly afterward showed about58 seconds elapsed and55 CPU
+seconds for qualification, consistent with active progress rather than a stuck
+24-minute build. Cause of the preceding gap is unknown; do not attribute it to
+code, sleep or tooling without evidence. Both clocks agree at20:09. No deadline
+or budget reset. The delayed usage observation is44% shared weekly, launch40%.
+
+Canonical/full-source processes are running on8bccd4c4, whose implementation
+matches independently reviewed ff072c13. Assignments2/6,11 worker minutes, no
+active agents. Target20:27:21/hard stop20:57:21 unchanged. Remaining work is
+qualification, PR/automatic review/CI, bounded repairs if needed, integration
+and checkpoint. No new item. Minute45 reassessment remains20:12:21.
+
+## 2026-10-14 20:14 UTC — Run 3 minute45 reassessment
+
+Checkpoint observed about2 minutes after the planned20:12:21 reassessment.
+PR507 targets integration3de743cd; initial heada96f7559. Canonical2665 tests,
+format/lint, readiness and LRH validation pass. All four initial-head CI checks
+pass; automatic Codex review remains running. Full cached-source qualification
+started20:08:10 and is still running within its900-second process ceiling.
+No implementation change since independently reviewed ff072c13. Records linked
+to PR507 in this checkpoint; its resulting head must receive fresh CI.
+
+Assignments2/6, conservative worker occupancy11/45, no active agents. Scope
+unchanged. Continue qualification and review toward target20:27:21; hard stop
+20:57:21 unchanged. No new item or main promotion. If qualification or review
+fails, apply only verified bounded repairs or preserve a resumable checkpoint.
+
+## 2026-10-14 20:20 UTC — Run 3 hosted repair checkpoint
+
+Full-source lifecycle qualification at8bccd4c4 passed:78937 ebooks/sources/members,
+2018879 resources,109170 contributions,223 diagnostics; setup453.153 seconds,
+reuse0.004 seconds, peak79757312 bytes, zero network. Preserve original evidence
+and source hashes; do not relabel its timing as later repaired-head evidence.
+
+Hosted review found missing parent-directory fsync. Coordinator verified and
+fixed744076ba, with fresh nested-cache/retry tests. Assignment3 independently
+cleared that repair:23 tests plus concurrent first setup and read-only probes.
+Canonical2667 tests also passed; existing full-catalog reuse/activation and full
+hash/integrity/accounting verification passed23.078 seconds at744076ba.
+
+Copilot then identified retained-source rejection leaving an orphan archive and
+candidate-manifest sync failure falsely reporting possible activation. Coordinator
+reproduced both (one orphan; published=True with unchanged active pointer), then
+fixed6b163fc4: identity check before archive publication and candidate-specific
+error translation.190 focused tests pass. Assignment4 independently reviews
+these new fixes; expanded scope consumes another assignment rather than silently
+extending assignment3. Assignments4/6; completed workers14/45 conservative
+minutes, assignment4 active with deadline20:26. Shared usage47% (launch40%).
+Target/freeze20:27:21, hard stop20:57:21 unchanged; only repairs and qualification
+remain. Automatic first reviews completed; no paid retrigger requested.
+
+## 2026-10-14 20:23 UTC — Run 3 final source qualified
+
+Assignment4 found adjacent recovery P2: activate did not repeat a failed
+candidate-directory sync. Coordinator confirmed with real filesystem probe and
+fixed2e868578; repair/recheck1 cleared that exact source, including failure
+preserving old active/candidate and successful retry. No remaining scoped P0-P2.
+All workers done:4/6 assignments,17/45 conservative worker minutes. No new scope.
+
+Final2668 canonical tests pass in64.618 seconds,190 gettenberg tests; format,
+lint, readiness and LRH pass (0 errors,351 existing warnings). Full-catalog
+verification/reactivation on final source passes in22.053 seconds without network.
+qualification-map.json separates original bulk-import evidence from repaired-head
+boundary/full-catalog evidence; unchanged bulk components verified by source hash.
+Next push evidence/repairs, verify all four exact-head CI checks and resolve only
+verified fixed review threads; integrate only into pilot branch. Target20:27:21
+and hard stop20:57:21 unchanged. Promotion recommendation follows checkpoint.

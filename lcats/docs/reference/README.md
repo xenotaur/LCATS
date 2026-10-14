@@ -11,3 +11,4 @@ Reference pages describe exact interfaces and current behavior.
 - [LLMBackend reference](llm-backend.md)
 
 See also: [API key setup](../secrets-setup.md) (how-to, not reference).
+- [Local catalog lifecycle](gettenberg-lifecycle.md)
