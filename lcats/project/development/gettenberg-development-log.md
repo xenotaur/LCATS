@@ -272,3 +272,77 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
   occupancy 29/60 minutes, no active workers. No new work items or features.
   Next: record actual validation, push the repaired candidate, recheck exact-head
   CI/review threads, and integrate only if every required gate passes.
+
+## 2026-10-14 09:19 UTC — Qualified boundary and final handoff
+
+- Development stopped at this boundary, about 83 minutes 22 seconds after the
+  07:55:39 start; final checkpoint publication/verification remains within the
+  original 09:55:39 deadline. No further implementation or assignments in this
+  run. All four assignments completed, conservative occupancy 29/60 minutes,
+  maximum observed concurrency two including coordinator; no live workers.
+  No human intervention was requested after the explicit start instruction.
+  Per-run tokens/credits/cost and a complete tool-wait breakdown are unavailable;
+  elapsed time includes CI and tool waits, not just implementation.
+- Qualified staged delivery: WI-0001 baseline/caller audit/release reconciliation
+  and downstream plan (PR #504, head c8beac9c, merge1299f980), plus WI-0002 typed
+  records/pure bounded RDF parsing/export/tests/reference docs (PR #505, head
+  c755d295, merge3793d152). Each exact PR head passed both test checks, coverage
+  and lint; all review threads resolved after verification. Base was checked
+  immediately before each integration-only merge. No unresolved P0-P2 findings.
+- Acceptance mappings and review provenance remain in each WI execution and
+  linked AD_HOC review records. [Integration evidence](evidence/gettenberg-pilot-20261014/integration-evidence.json)
+  records exact full SHAs/check URLs and the final parser thread state. Verified
+  1299f980 is an ancestor of3793d152. No unreviewed implementation is being
+  described as accepted, and earlier reviewer heads are not relabeled as newer
+  reviews. Narrow later automated findings received coordinator regression
+  checks plus full canonical/source validation, explicitly recorded.
+- Final source qualification at2687a94b (unchanged implementation in PR head and
+  integration merge): 2589 canonical tests in60.784s,39 focused tests, formatting
+  and lint clean; LRH zero errors/351 existing warnings. Full cached-source
+  probe:78937/78937 records,2018879 resources,109170 contributions,zero rejects,
+  223 explicit URI normalizations,272.997s,98091008-byte peak RSS. Exact source
+  hashes and original failed probes are retained; no claim of catalog-build or
+  corpus equivalence. Zero bulk-download bytes; canonical corpus untouched.
+- WI-0003 through WI-0010 are unattempted. gutenbergpy remains required by the
+  existing callers. No main promotion, publication, native closeout, persistent
+  gate changes or LRH tooling changes. WIs stay proposed and executions
+  in_progress pending actual main delivery. Integration branch is
+  codex/gettenberg-pilot-20261014; reviewed implementation head3793d152, followed
+  only by this control-plane checkpoint. No separate main promotion PR.
+- Resumption requires a renewed bounded human grant. Start from the fetched
+  integration branch, verify clean state, current instructions and gate status,
+  and the accepted merge ancestry/evidence. Next item is WI-GETTENBERG-0003:
+  first record normalized SQLite schema/index/query decisions, then implement
+  bounded local-archive ingestion and read-only queries. No network/activation
+  or caller migration in that item. Do not reuse expired time/assignment budget.
+
+### Process findings for LRH
+
+- Observation: full-source probing exposed40 real-record gaps after passing
+  unit tests; independent review exposed text-loss/identity/expansion defects
+  after a zero-rejection full-source pass. Interpretation: these evidence types
+  complement each other. Recommendation/test: a run cannot substitute a passing
+  corpus probe for independent edge-case review, or vice versa. Preserve failed
+  probe identity and source hashes when repairs change the candidate.
+- Observation: four assignment slots were consumed by one audit and three
+  independent reviews, with31 worker minutes still available. Interpretation:
+  assignment count, rather than occupancy or wall time, bounded new work.
+  Recommendation/test: forecast review assignments explicitly and stop new
+  dispatch at the assignment cap even if time remains; produce a qualified
+  resumable subset rather than silently waive review or renew the grant.
+- Observation: native LRH statuses cannot express integration-only acceptance,
+  and generic WI boilerplate initially required future closeout before staging.
+  Recommendation/test: model branch-scoped dependency evidence separately from
+  main delivery, checking ancestor SHA and acceptance mapping while keeping
+  native WIs nonterminal; reject circular staging/promotion prerequisites.
+- Observation: checkpoints survived compaction with the original deadlines,
+  limits, exact candidate hashes and pending checks intact. Recommendation/test:
+  recover an active run from its persisted checkpoint without resetting budget
+  or treating old-head checks as current-head passes. Also record review head
+  and repair-verification actor separately instead of flattening them to a
+  single misleading reviewed flag.
+- Observation: no user decision interruptions were needed, but this one pilot
+  has no matched manual-process baseline or attributable credit meter. It does
+  not establish a causal speedup or cost saving. Future experiments should
+  instrument phase waits and usage where available without converting occupancy
+  into invented token/cost estimates.
