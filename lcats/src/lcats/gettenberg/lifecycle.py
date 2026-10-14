@@ -442,6 +442,9 @@ class CatalogManager:
             and not allow_count_change
         ):
             raise errors.CatalogCountChangeError(identifier, previous_count, count)
+        # A recovered candidate may have survived a failed manifest-directory
+        # sync. Establish that barrier again before publishing its active pointer.
+        _lifecycle_io.sync_directory(generation.catalog_path.parent)
         if candidate:
             target = self.root / "generations" / identifier
             if target.exists() or target.is_symlink():

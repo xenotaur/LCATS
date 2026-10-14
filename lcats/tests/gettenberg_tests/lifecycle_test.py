@@ -378,7 +378,24 @@ class LifecycleTests(unittest.TestCase):
             self.manager.status()["active"]["generation_id"], first.generation_id
         )
         (candidate,) = self.manager.status()["candidates"]
-        self.manager.activate(candidate)
+        candidate_info = (self.manager.root / "candidates" / candidate).stat()
+        candidate_identity = (candidate_info.st_dev, candidate_info.st_ino)
+        fsync, replace = os.fsync, os.replace
+        synced = set()
+
+        def record_sync(descriptor):
+            info = os.fstat(descriptor)
+            synced.add((info.st_dev, info.st_ino))
+            return fsync(descriptor)
+
+        def checked_replace(source, destination):
+            if pathlib.Path(destination).name == "active.json" and os.name != "nt":
+                self.assertIn(candidate_identity, synced)
+            return replace(source, destination)
+
+        with mock.patch.object(os, "fsync", side_effect=record_sync):
+            with mock.patch.object(os, "replace", side_effect=checked_replace):
+                self.manager.activate(candidate)
         self.assertEqual(self.manager.status()["active"]["generation_id"], candidate)
 
     def test_post_pointer_sync_failure_reports_possible_publication(self):
