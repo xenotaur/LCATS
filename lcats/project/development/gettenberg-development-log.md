@@ -380,3 +380,28 @@ frozen during review. Worker accounting5/45 minutes used before dispatch;
 (+1 percentage point from launch; not attributable run-only consumption).
 Coordinator prepares only the reproducible qualification helper while review
 runs. No full-source or canonical reruns until the candidate is stable.
+
+## 2026-10-14 17:35 UTC — Run 2 independently reviewed source qualifying
+
+Assignment2 cleared cde945dd after two bounded repair/recheck follow-ups.
+See its execution record for findings and independent probes. Worker occupancy
+13/45 minutes conservatively (5 implementation +8 review), assignments2/6,
+no active workers. Elapsed about21 minutes; freeze/deadline unchanged.
+Canonical checks and full cached-source build/query qualification now run on
+that exact source. Candidate is private /tmp only, using original cached input.
+No further implementation planned unless qualification exposes a defect.
+Process observation: bounded review follow-ups preserved one review context
+and assignment slot while still independently checking the changed source.
+
+## 2026-10-14 17:44 UTC — Run 2 local qualification passed
+
+Full cached-source build/query qualification passed on cde945dd:78937 records,
+zero rejected/uncommitted, all expected relationships and seven fixture round
+trips. Build435.864s, peak RSS71630848 bytes, database2177388544 bytes; all
+configured targets pass. Canonical2617 tests, formatting, lint and LRH pass.
+Central evidence is in `evidence/gettenberg-pilot-run2-20261014/`; no duplicate
+full result tables here. Zero network-download bytes and no active catalog.
+Thirty-minute usage observation38%, launch33% (+5 shared-account percentage
+points; not attributable run-only consumption). Assignments2/6, occupancy13/45,
+no active agents. Only evidence/docs changed after reviewed source cde945dd.
+Next: internal PR and exact-head checks; no additional item or review dispatch.

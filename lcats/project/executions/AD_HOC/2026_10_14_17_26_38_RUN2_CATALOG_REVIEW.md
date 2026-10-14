@@ -17,3 +17,22 @@ session_transcript: codex-app:01a13653-87a6-7743-b734-7440a42ee1be
 Assignment2, planned independent read-only review of the full WI-0003 implementation against base861458dd. Review covers ingestion, normalized storage, queries, tests, docs and governing design. Coordinator records actual dispatch, findings, repairs and rechecks here. No recursive delegation, edits, network or integration authority.
 
 Native record remains in_progress pending main delivery.
+
+## Final review result
+
+Dispatched about17:27UTC, completed before17:35; conservatively account8
+worker minutes including repair/recheck waits. Reviewed final source
+cde945dda705bf093ea751cdac6ab28dacc69016; no unresolved findings.
+
+Initial review found P2 outermost-savepoint commits separating a record from
+its archive ledger; coordinator reproduced and fixed explicit batch BEGIN.
+Reader overflow/surrogate handling and ignored compressed trailers were also
+repaired. First recheck exposed SQLite's32-bit substr length conversion for
+large overrides; second repair uses validated actual compressed length.
+Both rechecks remained within this one assignment, with no scope expansion.
+
+Reviewer independently ran28 focused tests; compared all seven real fixtures'
+normalized associations and full records; tested rollback at batch sizes1/2/256,
+16 decoder cases,203919-byte compressed input at exact ceilings, trailer
+rejection and reader limit boundaries. Canonical suite/full-source build/CI
+remain coordinator responsibilities. No edits, network or delegation.
