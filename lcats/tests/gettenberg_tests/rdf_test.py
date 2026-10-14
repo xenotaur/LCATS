@@ -410,6 +410,36 @@ class ProfileBoundaryTests(unittest.TestCase):
         with self.assertRaises(errors.ExportLimitError):
             result.to_dict(max_nodes=nodes, max_text_bytes=text_bytes - 1)
 
+    def test_term_description_identities_are_preserved_without_graph_resolution(self):
+        result = self.parse(
+            record(
+                '<dc:subject><rdf:Description rdf:about="terms/example"><rdf:value>X</rdf:value></rdf:Description></dc:subject><dc:language><rdf:Description rdf:nodeID="local1"><rdf:value>en</rdf:value></rdf:Description></dc:language>'
+            )
+        )
+        self.assertEqual(
+            result.ebook.subjects[0].uri, "https://www.gutenberg.org/terms/example"
+        )
+        self.assertIsNone(result.ebook.subjects[0].node_id)
+        self.assertEqual(result.ebook.languages[0].node_id, "local1")
+        self.assertIsNone(result.ebook.languages[0].uri)
+        exported = result.to_dict()["ebook"]
+        self.assertEqual(
+            exported["subjects"][0]["uri"], "https://www.gutenberg.org/terms/example"
+        )
+        self.assertEqual(exported["languages"][0]["node_id"], "local1")
+
+    def test_stray_text_and_tails_inside_structured_nodes_are_rejected(self):
+        for prop in (
+            "<dc:subject><rdf:Description>lost<rdf:value>X</rdf:value></rdf:Description></dc:subject>",
+            "<dc:subject><rdf:Description><rdf:value>X</rdf:value>lost</rdf:Description></dc:subject>",
+            "<dc:subject><rdf:Description><!--comment-->lost<rdf:value>X</rdf:value></rdf:Description></dc:subject>",
+            '<dc:creator><pg:agent rdf:about="2009/agents/7">lost<pg:name>A</pg:name></pg:agent></dc:creator>',
+            '<dc:hasFormat><pg:file rdf:about="files/x">lost</pg:file></dc:hasFormat>',
+            "lost<dc:title>X</dc:title>",
+        ):
+            with self.subTest(prop=prop):
+                self.assert_error(record(prop), "unsupported_shape")
+
     def test_input_size_limit_boundary_and_override(self):
         data = record()
         self.assertEqual(

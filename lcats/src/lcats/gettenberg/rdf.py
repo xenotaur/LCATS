@@ -189,11 +189,15 @@ class _Reader:
                 "unsupported_shape",
                 f"mixed inline and RDF object attributes: {prop.tag}",
             )
-        if (prop.text or "").strip() or any(
-            (child.tail or "").strip() for child in prop
+        self.require_structured_text(prop)
+
+    def require_structured_text(self, node):
+        if (node.text or "").strip() or any(
+            (child.tail or "").strip() for child in node
         ):
             self.fail(
-                "unsupported_shape", f"text outside inline RDF object: {prop.tag}"
+                "unsupported_shape",
+                f"text outside structured RDF properties: {node.tag}",
             )
 
     def terms(self, parent, namespace, name):
@@ -206,6 +210,7 @@ class _Reader:
                     "unsupported_shape", f"expected inline rdf:Description: {prop.tag}"
                 )
             description = descriptions[0]
+            self.require_structured_text(description)
             if any(
                 description.get(_tag(RDF, attr)) is not None
                 for attr in ("resource", "datatype")
@@ -217,7 +222,13 @@ class _Reader:
             values = self.literals(description, RDF, "value")
             if not values:
                 self.fail("unsupported_shape", f"missing rdf:value: {prop.tag}")
-            result.extend(models.Term(value, schemes) for value in values)
+            uri = (
+                self.uri(description, "about")
+                if description.get(_tag(RDF, "about")) is not None
+                else None
+            )
+            node_id = description.get(_tag(RDF, "nodeID"))
+            result.extend(models.Term(value, schemes, uri, node_id) for value in values)
         return tuple(result)
 
     def integers(self, parent, namespace, name):
@@ -242,6 +253,7 @@ class _Reader:
         return definitions[0]
 
     def read_agent(self, node):
+        self.require_structured_text(node)
         self.consumed.add(node)
         return models.Agent(
             uri=self.uri(node, "about"),
@@ -297,6 +309,7 @@ class _Reader:
             if not files or len(files) != len(self.elements(prop)):
                 self.fail("unsupported_shape", "expected inline pgterms:file")
             for node in files:
+                self.require_structured_text(node)
                 result.append(
                     models.Resource(
                         uri=self.uri(node, "about"),
@@ -311,6 +324,7 @@ class _Reader:
     def ebook(self):
         if self.root.tag != _tag(RDF, "RDF"):
             self.fail("unsupported_record", "expected rdf:RDF root")
+        self.require_structured_text(self.root)
         self.consumed.add(self.root)
         for node in self.root.iter():
             if not isinstance(node.tag, str):
@@ -334,6 +348,7 @@ class _Reader:
         if len(books) != 1 or len(list(self.root.iter(_tag(PG, "ebook")))) != 1:
             self.fail("unsupported_record", "expected exactly one direct pgterms:ebook")
         book = books[0]
+        self.require_structured_text(book)
         uri = self.uri(book, "about")
         match = re.fullmatch(
             r"https?://www\.gutenberg\.org/ebooks/([1-9][0-9]{0,17})", uri

@@ -34,6 +34,8 @@ class Term:
 
     value: Literal
     schemes: tuple[str, ...] = ()
+    uri: str | None = None
+    node_id: str | None = None
 
 
 @dataclasses.dataclass(frozen=True, slots=True)

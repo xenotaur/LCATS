@@ -57,7 +57,7 @@ authors, dates, or titles are invented.
 |---|---|
 | `Literal` | `text`, optional `language` and `datatype` URI. Language inherits `xml:lang`; an empty tag clears inheritance. |
 | `Title` | `value: Literal`, `kind` (`primary` or `alternative`). All titles survive; callers choose a display title. |
-| `Term` | `value: Literal`, `schemes: tuple[str, ...]`. Used for languages, subjects, shelves, ebook types and resource formats. |
+| `Term` | `value: Literal`, `schemes: tuple[str, ...]`, optional resolved `uri` and source `node_id`. Used for languages, subjects, shelves, ebook types and resource formats. Blank-node labels are scoped to the original record, never global contributor/catalog IDs. |
 | `Agent` | `uri`, `names`, `aliases`, `birth_dates`, `death_dates`, `webpages`. Aliases remain attached to this identity. Dates are lexical source claims, including uncertain or negative dates. |
 | `Contribution` | `role_uri`, `agent`. Creator uses the complete DCTERMS creator URI; other roles use their complete Library of Congress relator URI. |
 | `Resource` | `uri`, `formats`, `sizes`, `modified`, `is_format_of`. Repeated size/modification claims are preserved. Separate URLs remain separate even with equal MIME types. MIME parameters, including declared charset, remain in format text. |
@@ -111,7 +111,9 @@ Supported properties follow the observed bulk-feed profile:
   `http://id.loc.gov/vocabulary/relators/`. Names, aliases, life dates and
   webpage links remain associated with each contribution.
 - Inline `rdf:Description` containing `rdf:value` and optional
-  `dcam:memberOf` for language, subject, bookshelf, type and format.
+  `dcam:memberOf` for language, subject, bookshelf, type and format. Description
+  identities are preserved explicitly; no graph inference or external lookup is
+  performed. Stray non-whitespace text outside structured properties fails.
 - Inline `pgterms:file` under `dcterms:hasFormat`, with format terms, extent,
   modification literals and source ebook relationships.
 - Catalog-level `cc:Work` licensing/comments and linked-page descriptions
