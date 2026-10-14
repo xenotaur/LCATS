@@ -29,6 +29,8 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Local Gutenberg catalogs](reference/gettenberg-catalog.md) — explicit local builds and read-only queries.
+
 - [Gutenberg metadata records and RDF parser](reference/gettenberg-records.md) — typed source metadata, bounds, diagnostics and JSON export
 
 - [CLI status matrix](reference/cli-status.md)

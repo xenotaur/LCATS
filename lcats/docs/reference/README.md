@@ -3,6 +3,7 @@
 Reference pages describe exact interfaces and current behavior.
 
 - [Gutenberg metadata records and RDF parser](gettenberg-records.md)
+- [Local Gutenberg catalog ingestion and queries](gettenberg-catalog.md)
 - [CLI status matrix](cli-status.md)
 - [CLI command reference](cli-commands.md)
 - [Comparative visualization contract](comparative-visualization.md)

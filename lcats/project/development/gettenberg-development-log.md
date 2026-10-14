@@ -360,3 +360,68 @@ Assignments0/6; worker occupancy0/45 minutes,15 reserved review. Shared weekly
 usage33% at launch; attributable per-run tokens/cost unavailable. No credit
 reset or purchase authorized. Next: record schema/API decision, implement and
 independently review before exact-head integration.
+
+## 2026-10-14 17:27 UTC — Run 2 candidate ready for independent review
+
+Schema/API decision is [gettenberg-catalog-design.md](gettenberg-catalog-design.md).
+Assignment1 delivered normalized storage; conservative occupancy5/45 minutes,
+no worker active. Coordinator implemented bounded ingestion/query API and real
+archive/SQLite tests. Focused tests24 pass, including executable reference docs.
+Decisions: lossless per-record zlib reduces source footprint; batch source-byte
+budget bounds aggregate decoding; final complete status follows all allocating
+evidence writes and integrity checks. No source acquisition or activation.
+Next: assignment2 combined independent review, then final canonical/full-source
+qualification. No new item. Deadline18:43:39/freeze18:13:39 unchanged.
+
+Run2 review dispatch: assignment2 `catalog_review`,17:27UTC at7e4084c0,
+read-only combined implementation/spec review; deadline17:47UTC. Source is
+frozen during review. Worker accounting5/45 minutes used before dispatch;
+40 remain including15 review reserve. Shared weekly usage34% at dispatch
+(+1 percentage point from launch; not attributable run-only consumption).
+Coordinator prepares only the reproducible qualification helper while review
+runs. No full-source or canonical reruns until the candidate is stable.
+
+## 2026-10-14 17:35 UTC — Run 2 independently reviewed source qualifying
+
+Assignment2 cleared cde945dd after two bounded repair/recheck follow-ups.
+See its execution record for findings and independent probes. Worker occupancy
+13/45 minutes conservatively (5 implementation +8 review), assignments2/6,
+no active workers. Elapsed about21 minutes; freeze/deadline unchanged.
+Canonical checks and full cached-source build/query qualification now run on
+that exact source. Candidate is private /tmp only, using original cached input.
+No further implementation planned unless qualification exposes a defect.
+Process observation: bounded review follow-ups preserved one review context
+and assignment slot while still independently checking the changed source.
+
+## 2026-10-14 17:44 UTC — Run 2 local qualification passed
+
+Full cached-source build/query qualification passed on cde945dd:78937 records,
+zero rejected/uncommitted, all expected relationships and seven fixture round
+trips. Build435.864s, peak RSS71630848 bytes, database2177388544 bytes; all
+configured targets pass. Canonical2617 tests, formatting, lint and LRH pass.
+Central evidence is in `evidence/gettenberg-pilot-run2-20261014/`; no duplicate
+full result tables here. Zero network-download bytes and no active catalog.
+Thirty-minute usage observation38%, launch33% (+5 shared-account percentage
+points; not attributable run-only consumption). Assignments2/6, occupancy13/45,
+no active agents. Only evidence/docs changed after reviewed source cde945dd.
+Next: internal PR and exact-head checks; no additional item or review dispatch.
+
+## 2026-10-14 17:53 UTC — Run 2 automatic review repair
+
+PR506 exact-head d1548a8e passed all four CI checks. Automatic Copilot and
+Codex reviews identified SQLite FULL/INTERRUPT misclassified as build_failed;
+Copilot also identified duplicated error-code text and a spacing typo. All
+verified and repaired at fc2b97bb. Real SQLite regression probes additionally
+exposed fatal-error savepoint cleanup masking the original SQLite code; outer
+cleanup now preserves it. Two initial authored probes used unsupported RDF term
+shapes and failed before SQLite; corrected to valid alternative-title fixtures.
+Thirty focused tests pass. This is a bounded repair, not a design replan.
+
+Assignment3 `catalog_error_review`, dispatched17:52UTC, new focused independent
+review of d1548a8e..fc2b97bb, maximum5 minutes and deadline17:58UTC. Assignments3/6;
+13/45 worker minutes used before dispatch. No recursive delegation. Account
+usage38% before dispatch. Coordinator repeats canonical and full-source checks
+on fc2b97bb; prior measurements remain retained with their actual source hash.
+No next item, network download, activation or main promotion. Hard stop18:43:39,
+feature freeze18:13:39 unchanged. Next: review clearance, final evidence/CI,
+resolve verified findings, then internal integration.

@@ -7,7 +7,9 @@ Use SQLite schema1 with application ID0x4C434754, foreign keys,256-record
 batches and explicit complete/building/failed manifest state. Never activate
 a generation or replace an existing output. Build an explicitly named new
 candidate; failed/incomplete candidates remain inspectable but cannot open
-through the public Catalog reader. Retain the supplied archive unchanged.
+through the public Catalog reader. Retain the supplied archive unchanged. Compress source RDF losslessly per record
+with zlib level1; sources store encoding/raw_size and the original SHA-256.
+Bounded reader decompression checks original length/hash before parsing.
 
 Normalized tables: ebooks(id,uri,downloads); titles; record-local agents,
 agent_literals/agent_links and contributions; languages,subjects,shelves,types;
@@ -26,6 +28,9 @@ Private `_store` owns schema creation, normalized insertion and schema checks.
 Public Catalog opens mode=ro with query_only and requires complete compatible
 manifest. `get(id)` returns ParsedRecord orNone; `get_many(ids)` preserves input
 order/duplicates with explicit None for missing IDs, at most1000 inputs.
+A batch preflights aggregate source sizes (default16MiB, explicit override)
+before decoding, counting duplicate requests repeatedly; missing source rows
+for existing ebooks are corruption, not ordinary missing-ID results.
 Bounded `find_ids(filters,after_id=0,limit=100)` does exact matching; separate
 `search_ids` performs literal Unicode-casefolded substring matching. Filter
 dimensions: ids,titles,authors,languages,subjects,shelves,types,roles,formats;

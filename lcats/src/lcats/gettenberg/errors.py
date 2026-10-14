@@ -21,3 +21,41 @@ class RecordParseError(GettenbergError, ValueError):
 
 class ExportLimitError(GettenbergError, ValueError):
     """A complete JSON-compatible export would exceed its explicit budgets."""
+
+
+class CatalogError(GettenbergError):
+    """A local catalog operation failed."""
+
+
+class CatalogMissingError(CatalogError, FileNotFoundError):
+    """The explicitly requested catalog does not exist."""
+
+
+class CatalogSchemaError(CatalogError):
+    """The catalog schema, parser version or stored evidence is incompatible."""
+
+
+class CatalogIncompleteError(CatalogError):
+    """The candidate did not complete ingestion and integrity qualification."""
+
+
+class CatalogClosedError(CatalogError):
+    """A query was attempted after closing its catalog session."""
+
+
+class CatalogInputError(CatalogError, ValueError):
+    """An ID, query, pagination argument or catalog limit is invalid."""
+
+
+class CatalogBuildError(CatalogError):
+    """A candidate build failed; report describes the incomplete output.
+
+    Attributes:
+        code: Machine-readable failure category.
+        report: Final BuildReport, or None if no candidate was created.
+    """
+
+    def __init__(self, code, message, report=None):
+        self.code = code
+        self.report = report
+        super().__init__(f"{code}: {message}")
