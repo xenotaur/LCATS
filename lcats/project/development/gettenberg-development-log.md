@@ -195,3 +195,59 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
 - Budget: about 47 elapsed / 73 remaining minutes; no active worker; assignments
   2/4, worker minutes 16/60. No descendants dispatched. Next: repair and obtain
   independent review of the candidate with complete source-accounting evidence.
+
+## 2026-10-14 08:52 UTC — Core parser review repaired; export review running
+
+- Assignment 3 independently found four P2 issues: comment/PI literal tails,
+  unsupported mixed RDF shapes, inconsistent agent-identity validation, and
+  quadratic repeated-reference allocation. Coordinator reproduced all four;
+  reviewer independently verified repairs at `3460bf4` within the original
+  assignment. Account 7 worker minutes conservatively: 23/60 cumulative.
+- A real-data-only pass would have missed these valid/hostile edge cases.
+  Observation: full-source evidence and adversarial independent review found
+  different defects. Recommendation: require both; proposed LRH acceptance
+  test supplies a fixture-complete implementation with an expansion/tail bug
+  and verifies the review gate remains independent of the passing corpus probe.
+- Pre-review candidate `682e0de` parsed all 78937 records, 2018879 resources and
+  109170 contributions in 221.172s / 97189888-byte peak RSS; 223 explicit URI
+  normalizations (222 file claims, one webpage). No rejected records or unknown
+  predicates. This is pre-repair evidence, not final-head qualification.
+- Reviewer flagged export expansion as a limitation. Coordinator bounded
+  to_dict traversal and cumulative text, raising ExportLimitError without a
+  partial export; explicit overrides preserve caller control. Successful
+  exports preserve the same schema and original evidence. Decision stays
+  within resource-safety/API scope and has focused rejection/real-fixture tests.
+- Assignment 4 (last allowed), `pilot_export_review`, dispatched about 08:51
+  UTC at `fb90bfe8`, read-only, no network/recursion, deadline 09:03 UTC and
+  12-minute ceiling. Before dispatch 37 worker minutes remained; no new
+  assignments can follow. Core source is frozen while final full-source probe,
+  canonical tests and independent export review run.
+- Elapsed about 57 / 63 minutes remain. Hard deadline and feature freeze remain
+  09:55:39 and 09:25:39 UTC. No descendant implementation has started. Next:
+  qualify this candidate and its exact-head internal PR; preserve a resumable
+  boundary rather than dispatch work that cannot receive independent review.
+
+## 2026-10-14 08:57 UTC — Review budget exhausted; qualified boundary selected
+
+- Assignment 4 completed before 08:56 after independently rechecking repairs at
+  `d77c30df`: source-label surrogate accounting (P2) and generated wrapper budget
+  accounting (P3). No unresolved findings. Conservatively account 6 worker
+  minutes, total 29/60; 4/4 assignments used, no active workers. About 62 elapsed
+  / 58 minutes remain, but assignment allowance cannot be renewed implicitly.
+- Coordinator selects the baseline + parser as this run's bounded deliverable.
+  WI-0003 onward remain unattempted; starting another substantive item without
+  an available independent-review assignment would undermine the charter.
+  No permission to extend the run or promote main is inferred.
+- Source evidence: final parser probe at `fb90bfe8` accounts for all 78937 records,
+  2018879 resources and 109170 contributions, zero rejects, 223 explicit URL
+  normalizations, 266.204s / 96927744 bytes peak RSS. Current rdf.py/errors.py are
+  hash-identical; later model changes are export-only and independently tested.
+  Full-source evidence and prototype failure are retained under evidence/.
+- Process finding: review reserve was useful, but assignment count became the
+  binding dispatch limit before elapsed time/worker minutes. Recommendation:
+  future LRH run planning should forecast review/repair assignments separately
+  from worker minutes; proposed test refuses a fifth dispatch despite spare
+  elapsed/occupancy budget and produces a resumable accepted boundary.
+- Next: final canonical checks, internal parser PR, exact-head CI and thread
+  verification, integration-only merge, then final checkpoint/handoff. Do not
+  close native records or create a main promotion PR for this partial scope.
