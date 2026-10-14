@@ -1,12 +1,12 @@
 {
-  "candidate_head": "fb90bfe8e8652b2f729d7473336b9950f64004fc",
+  "candidate_head": "2687a94b84b0a23a81d82036208ef1d96c29d39f",
   "parser_source_sha256": {
     "src/lcats/gettenberg/metadata.py": "27c4967429400cbd96d4dcf559d41c0f27de72129e7a36fc7c7ed5560362306e",
-    "src/lcats/gettenberg/models.py": "3da335d8931a414980ba7a13944c6ae9c068f61f8477cf8a652904592d1f56af",
+    "src/lcats/gettenberg/models.py": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10",
     "src/lcats/gettenberg/cache.py": "27e177127b1df0b86ec5fe2f9152c7970ada9e3d3099ac34bc39fcc113f54694",
     "src/lcats/gettenberg/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "src/lcats/gettenberg/api.py": "023d477ec9fadd0a53bfb9c63786cf14737362021998d2ebe69bf92be8d23905",
-    "src/lcats/gettenberg/rdf.py": "0110d28a0926004a30ed942965cd737c3b1dd5ec0ff9248ecda40492bcabc8e7",
+    "src/lcats/gettenberg/rdf.py": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0",
     "src/lcats/gettenberg/errors.py": "19c0752faf860097949f7677deafbd63d8e94be952fb917eecf638b5af904883",
     "src/lcats/gettenberg/headers.py": "524288b5485939516b6767bf844dccd20038a80cf4cc939cdf341992c2d35c4c"
   },
@@ -292,8 +292,8 @@
       ]
     }
   ],
-  "elapsed_seconds": 266.2039366250101,
-  "peak_rss_bytes": 96927744,
+  "elapsed_seconds": 272.9974652910023,
+  "peak_rss_bytes": 98091008,
   "platform": "macOS ru_maxrss bytes",
   "network_bytes": 0,
   "scope": "Full cached archive pure parsing probe, not ingestion/catalog or corpus qualification."

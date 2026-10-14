@@ -251,3 +251,24 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
 - Next: final canonical checks, internal parser PR, exact-head CI and thread
   verification, integration-only merge, then final checkpoint/handoff. Do not
   close native records or create a main promotion PR for this partial scope.
+
+## 2026-10-14 09:10 UTC — Automated review repairs in final qualification
+
+- PR #505 targets the integration branch at base `1299f980`; its previous head
+  `5d9f0b9f` passed all four expected CI checks. Copilot reported no findings;
+  the configured Codex review reported two P2 findings: term-description
+  identity loss and silently ignored structured text. Both were reproduced.
+- Scoped decision: preserve rdf:about and rdf:nodeID explicitly on typed terms,
+  including JSON export, rather than reject identities used throughout the real
+  catalog. Preserve record-local blank-node labels without graph resolution.
+  Reject nonwhitespace text/tails outside structured properties. Coordinator
+  implemented these narrow review fixes at `2687a94b`; 39 focused tests pass.
+- Core and export independent reviews remain recorded at their reviewed heads;
+  this is coordinator re-verification of later automated findings, not a fifth
+  delegated review. Full canonical checks and a fresh bounded full-source probe
+  are running because parser/model source changed. Previous passing probes are
+  historical evidence, not qualification of this new source.
+- About 75 minutes elapsed /45 remain; assignments 4/4 and conservative worker
+  occupancy 29/60 minutes, no active workers. No new work items or features.
+  Next: record actual validation, push the repaired candidate, recheck exact-head
+  CI/review threads, and integrate only if every required gate passes.

@@ -1,3 +1,23 @@
+Final parser source qualification (supersedes earlier candidate results below):
+Source head: 2687a94b84b0a23a81d82036208ef1d96c29d39f.
+scripts/format --check --diff: exit0.
+scripts/lint: exit0.
+scripts/test: exit0, 2589 tests in60.784s, OK (39 focused tests).
+lrh validate: exit0, zero errors /351 pre-existing warnings.
+git diff --check: exit0.
+Full-source probe at the same source head: all78937 records,2018879 resources,
+109170 contributions,zero rejected,223 normalized_uri diagnostics.
+272.9974652910023 seconds;98091008-byte peak RSS (macOS);zero network acquisition.
+parser-full-source.json records exact candidate/source hashes and input identity.
+Earlier full-source evidence is preserved as parser-prereview-full-source.json.
+The two later automated P2 findings were reproduced and repaired by coordinator:
+term-description identities preserved; stray structured text/tails rejected.
+39 focused tests and the canonical suite re-verify their cases at this source.
+No fifth delegated assignment; earlier independent reviews retain their exact heads.
+Final PR exact-head CI and integration identity are recorded in the final checkpoint.
+
+Historical pre-PR qualification (not the final source):
+
 Parser qualification before internal PR:
 Base: 1299f9800871fcbb44a012554749675ea25b71c9.
 Source candidate: d77c30df39a06c62acc276206ff17fbcb7d3fdfe.
@@ -9,7 +29,7 @@ lrh validate: exit0, zero errors /351 pre-existing warnings.
 git diff --check: exit0.
 Independent core review:3460bf4; independent export review:d77c30df; no unresolved findings after verified repairs.
 
-Full-source parsing: parser-full-source.json records actual candidate fb90bfe8 and source hashes.
+Full-source parsing: parser-prereview-full-source.json records actual candidate fb90bfe8 and source hashes.
 All78937 records,2018879 resources,109170 contributions; zero rejections;223 normalized_uri notices.
 266.203936625s;96927744-byte peak RSS (macOS ru_maxrss); zero network acquisition.
 rdf.py/errors.py hash-identical at d77c30df. The models.py delta only changes export accounting; parser model fields/constructors are unchanged.
