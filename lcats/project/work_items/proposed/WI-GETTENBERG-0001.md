@@ -41,6 +41,7 @@ acceptance:
   - "Next implementation WIs have scope, dependencies, acceptance, validation, and bounded decisions before dispatch."
   - "Charter authority, independent review, run budget, and resumable checkpoint are recorded; lrh validate has zero errors."
 required_evidence:
+  - "manual_review"
   - "lrh_validate"
   - "test_output"
   - "validation_output"
@@ -133,6 +134,12 @@ without rewriting production code.
 - Next WIs are scoped/checked before dispatch; missing evidence is never a pass.
 - Canonical validation, independent review, and resumable checkpoint are recorded;
   LRH validation has zero errors.
+
+The execution evidence includes the independent agent review before internal
+integration and the human review of final promotion to main. `manual_review`
+records that human review at promotion; it does not add a per-item human gate
+inside the pilot. Independent agent review is retained with the validation
+evidence. Neither review is satisfied merely by passing automated checks.
 
 ## Validation
 
