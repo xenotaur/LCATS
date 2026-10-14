@@ -87,7 +87,7 @@ def main(argv=None):
                 if len(examples) < 20:
                     examples.append({"member": member.name, "error": str(exc)})
             # TarFile otherwise accumulates TarInfo objects even in stream mode.
-        tf.members.clear()
+            tf.members.clear()
     result = {
         "candidate_head": head,
         "parser_source_sha256": source_hashes,

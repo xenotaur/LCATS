@@ -801,3 +801,20 @@ milestone repair-validation.json; full logs are local temporary artifacts.
 No full-source measurement was repeated or relabelled. All seven original
 review threads have concrete repairs or documented answers; final classification,
 current-head CI and independent PR review precede the authorized main merge.
+
+## 2026-10-14 23:53 UTC — Independent review caught a helper regression
+
+One cold-context PR review found a P2 in the relocated parser probe: header
+cleanup was accidentally outside the member loop. Parent inspection verified
+the regression against the original helper. Restored per-member clearing and
+added a real long-name archive retained-memory test (20 versus 600 members).
+The test fails on a temporary copy of the old loop and passes on the repair.
+Peak RSS was unsuitable for this regression because transient bz2 expansion
+masked retention; the final check samples live Python allocations at the last
+parsed record. Seven original GitHub threads are resolved. No other independent
+review finding was verified. New canonical checks and a fresh current-head
+review follow before the authorized landing.
+
+Follow-up canonical validation: 2,676 tests pass in 71 seconds; 198 gettenberg
+tests pass. Canonical/experiment formatting and lint pass; LRH reports 0 errors
+and 351 existing warnings. Evidence log hashes are in repair-validation.json.

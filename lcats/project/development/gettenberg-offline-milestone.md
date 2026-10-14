@@ -123,7 +123,7 @@ fixture measurements. The lifecycle rejects non-UTF-8 input paths before bulk
 copy/build; existing strict JSON encoding is unchanged. The how-to uses fenced
 Python-console blocks, verified through GitHub rendering and doctest execution.
 
-Current review repairs pass **2,675 canonical tests**, including **197 gettenberg
+Current review repairs pass **2,676 canonical tests**, including **198 gettenberg
 tests**, canonical and explicit experiment formatting/lint, and LRH validation
 (0 errors, 351 existing warnings). Nine historical result hashes and 24 current
 local links were verified. Current-head CI and independent review remain landing

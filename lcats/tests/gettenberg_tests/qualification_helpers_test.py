@@ -2,6 +2,7 @@
 
 import hashlib
 import importlib.util
+import io
 import json
 import pathlib
 import sqlite3
@@ -115,6 +116,55 @@ class QualificationHelpersTests(unittest.TestCase):
         self.assertEqual(evidence["counts"]["parsed"], 1)
         self.assertEqual(evidence["archive_sha256"], digest)
         self.assertEqual(hashlib.sha256(self.archive.read_bytes()).hexdigest(), digest)
+
+    def test_parser_probe_does_not_retain_archive_member_headers(self):
+        # Long member names amplify retained TarInfo memory, independently of
+        # ebook count or native XML allocations. Both archives are real files.
+        retained = []
+        for count in (20, 600):
+            archive = self.directory / f"members-{count}.tar.bz2"
+            data = catalog_test.record(84, "Fixture")
+            with tarfile.open(archive, "w:bz2", format=tarfile.GNU_FORMAT) as output:
+                for index in range(count):
+                    member = tarfile.TarInfo(f"{'x' * 8192}/{index}.rdf")
+                    member.size = len(data)
+                    output.addfile(member, io.BytesIO(data))
+            measure = """
+import contextlib, io, runpy, sys, tracemalloc
+probe = runpy.run_path(sys.argv[1])
+tracemalloc.start()
+live = [None]
+def sample(frame, event, _argument):
+    if event == 'return' and frame.f_code.co_name == 'parse_record':
+        live[0] = tracemalloc.get_traced_memory()[0]
+sys.setprofile(sample)
+try:
+    with contextlib.redirect_stdout(io.StringIO()):
+        probe['main'](sys.argv[2:])
+finally:
+    sys.setprofile(None)
+print(live[0])
+"""
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-c",
+                    measure,
+                    str(SCRIPTS / "probe_parser.py"),
+                    str(archive),
+                    str(self.directory / f"members-{count}.json"),
+                ],
+                cwd=ROOT / "lcats",
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            retained.append(int(result.stdout.strip()))
+        # Sample live allocations at the last record, avoiding transient bz2
+        # expansion peaks. Retaining 580 extra 8-KiB names alone exceeds 4 MiB;
+        # permit 2 MiB of buffer noise while requiring bounded header retention.
+        self.assertLess(retained[1] - retained[0], 2 * 1024**2, retained)
 
     def test_baseline_reads_legacy_database_without_mutation(self):
         database = self.directory / "legacy.sqlite"
