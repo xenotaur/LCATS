@@ -502,3 +502,25 @@ No unresolved correctness findings or unreviewed source changes remain.
   Recommendation/test: keep one-deliverable grants and record source coding,
   review, qualification, external-check waits and account-usage observations
   separately; do not infer efficiency from elapsed time or rounded usage alone.
+
+## 2026-10-14 19:27:21 UTC — Run 3 started
+
+Human renewed the bounded plan for WI-0004 only. Integration1bc04c29 matches
+fetched origin; qualified WI-0003 b2aa080a ancestry verified. Acceptance mapping
+and evidence are in its execution record and run2 evidence directory. Readiness
+passes; exact prompt and slug checks find no previous WI-0004 execution. LRH
+0.2.5.dev3596+gd86755f50; watched fingerprints fresh, existing skip consent
+invalid; explicit charter adapter is authority, no policy changes. Python3.11.9,
+SQLite3.46.0,lxml5.2.2 project environment verified. AGENTS/STYLE/tests guidance
+read. Compatible lrh-implement traceability/validation steps reused; approved
+charter supersedes repeated plan gates, main-base and closeout rules. No claim
+that unchanged native execute/land was invoked. Prior-art check present in WI.
+
+Start19:27:21, target/freeze20:27:21, hard stop20:57:21 UTC. Assignments0/6,
+worker occupancy0/45 with15 review reserve. Shared weekly usage40%; attributable
+per-run cost unavailable. Decision record: gettenberg-lifecycle-design.md.
+Plan branch codex/gettenberg-lifecycle-0004; expected lifecycle module, bounded
+filesystem/lock helpers, errors, real lifecycle tests, Diataxis how-to/reference
+and evidence. Canonical format/lint/scripts/test/LRH/readiness/diff checks.
+Main promotion remains a final recommendation only. Next: implement the recorded
+contracts, independent review, qualify, internal PR and evidence checkpoint.

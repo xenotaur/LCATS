@@ -232,3 +232,20 @@ WI-0002's qualified staged merge3793d152 is an ancestor. Scope is WI-0003 only.
 All other authority, data stewardship, independent review, repair/escalation,
 exact-head CI and human main-promotion requirements remain unchanged. This
 renewal does not resolve native WIs or grant future runs.
+
+## Run 3 amendment — approved and activated 2026-10-14
+
+The human accepted the recommendation to proceed with WI-0004 using the same
+bounded single-item plan and instructed "Please proceed". Run
+`gettenberg-20261014-3` starts19:27:21 UTC, target/feature freeze20:27:21,
+hard stop20:57:21. Resume integration at1bc04c29384a1f727cde6a3a5c55d9c4107f20c9,
+with qualified WI-0003 mergeb2aa080a as an ancestor. WI-0004 only; reassess
+promotion at completion, without granting main promotion.
+
+Inherit run2 budgets: normally coordinator plus one worker, four agents total
+maximum; six assignments; up to two same-scope review repair/recheck follow-ups
+per assignment;45 cumulative worker minutes,15 reserved for review; individual
+assignments at most30 minutes and bounded by remaining allowance. Usage at
+launch, minute30 and before optional delegation; minute45 reassessment. No
+numeric usage threshold. All other charter safeguards and nonterminal native
+status rules remain. No persistent consent/gate changes or future-run grant.
