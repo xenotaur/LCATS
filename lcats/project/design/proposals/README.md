@@ -6,6 +6,8 @@ short index plus the proposal document.
 
 ## Current proposal sets
 
+- [`PROP-LCATS-GETTENBERG-REDESIGN`](proposed/lcats-gettenberg-redesign/README.md)
+  — proposed; implementation not started.
 - [`PROP-LCATS-EVENT-ROLE-WORLD-EXTRACTOR`](adopted/lcats-event-role-world-extractor/README.md)
   — adopted; implemented (`WI-EVENT-0024`/`0025`/`0026`/`0027`).
 - [`PROP-LCATS-PYPI-RELEASE-READINESS`](proposed/lcats-pypi-release-readiness/README.md)
