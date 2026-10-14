@@ -725,3 +725,44 @@ change from qualified6970d504. Existing2668-test evidence remains source-valid;
 main-target CI runs afresh. Human decision is partial promotion of WI-0001–0004
 with documented limits, followed by accurate closeout after actual merge. It
 does not approve WI-0005 execution or claim the dependency replacement complete.
+
+## 2026-10-14 23:25 UTC — Human review: code placement and rendered examples
+
+Human reviewed PR508 and requested discussion/decision on repository placement,
+better helper commentary and verified rich Markdown rendering before repair and
+landing. Investigation only; layout choice remains pending human decision.
+
+Confirmed competing guidance: experiments/README.md:31–33 places experiment
+scripts/results together and reusable code in lcats/src/lcats, while canonical
+lcats/STYLE.md:91 says no code in experiments. Its package-path diagram also
+predates src/lcats. project/README.md calls project the planning/memory layer
+but lacks an explicit executable-code prohibition. Current inventory finds
+exactly five Python files under project/, all introduced by this gettenberg
+pilot. Default scripts/format and scripts/lint cover src/tests/tools only;
+passing those checks did not qualify formatting of the evidence helpers.
+
+Rendered the actual lifecycle how-to through GitHub's Markdown API, and rendered
+a temporary fenced variant without changing tracked documentation. Original:
+9 nested blockquotes and1 code block; fenced variant:0 blockquotes and4 code
+blocks. The >>> prompts are parsed as quote markers outside fences. The API
+emits some explicit line breaks, so this does not claim reproduction of the
+reviewer's exact overlapping-rich-diff appearance. All13 doctest examples in
+the temporary pycon-fenced variant passed with real temporary fixture caches.
+
+Recommendation for discussion: retain documentation/data-only project control
+plane, temporary work under lcats/experimental, durable qualification scripts
+and measured results under a numbered experiments entry, reusable/domain logic
+under tested src/lcats. Keep planning/CI/review/usage evidence in project;
+move archival technical measurements with reproducing scripts, preserve bytes
+and original source attribution, and update current links with a relocation map.
+Do not promote legacy snapshot-specific probes into the distributed package.
+
+PR508 current head00327640 has four passing CI checks, but review is not clear:
+there are outstanding bot reports on surrogate-escaped manifest paths,
+optimization disabling qualification asserts, and relative candidate URI paths,
+in addition to human documentation/layout comments. Verify and resolve these
+in the eventual repair scope; moves/comments alone are insufficient. Document
+all retained helpers' purpose, invocation, inputs/outputs, bounds, side effects,
+platform assumptions and failure semantics, and explicitly format/lint/test them.
+No convention was adopted and no implementation or main merge occurred in this
+investigation. The next action is the human layout/repair decision.
