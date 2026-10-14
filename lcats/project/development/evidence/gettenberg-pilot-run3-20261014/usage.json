@@ -23,6 +23,11 @@
       "utc": "2026-10-14T20:20:20Z",
       "used_percent": 47,
       "note": "after assignment4 dispatch; shared account only"
+    },
+    {
+      "utc": "2026-10-14T20:26:50Z",
+      "used_percent": 48,
+      "note": "final checkpoint observation; 8 percentage-point rise from launch, not attributable run cost"
     }
   ],
   "numerical_stop_threshold": null

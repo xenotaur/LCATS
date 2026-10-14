@@ -642,3 +642,53 @@ boundary/full-catalog evidence; unchanged bulk components verified by source has
 Next push evidence/repairs, verify all four exact-head CI checks and resolve only
 verified fixed review threads; integrate only into pilot branch. Target20:27:21
 and hard stop20:57:21 unchanged. Promotion recommendation follows checkpoint.
+
+## 2026-10-14 20:27 UTC — Run 3 integrated checkpoint and reassessment
+
+PR507 merged only into codex/gettenberg-pilot-20261014 as1ea08da3, confirmed by
+20:26:41 (59m20s after launch). Exact candidatef061633b passed test(push),
+test(PR), coverage and lint; all three hosted review threads resolved after
+independently verified repairs. Integration/source equivalence verified.
+Evidence: gettenberg-pilot-run3-20261014/integration.json and qualification-map.json.
+Working source is frozen; checkpoint bookkeeping/automatic branch checks only.
+Original60-minute target and90-minute hard stop never changed. No new scope.
+
+Four of six assignments,17 of45 conservative worker minutes, no active workers.
+Shared weekly usage40% launch to48% checkpoint; account-wide rounded observation,
+not attributable run cost. No numeric usage stop threshold was agreed. Canonical
+2668 tests and final-source190 focused tests pass; format/lint/LRH/readiness pass.
+No bulk network; canonical corpus untouched. Unexplained19:43–20:08 execution gap
+remains explicitly unattributed, so do not infer speed/cost efficiency from this
+single run. Five relevant correctness issues were independently raised across
+local/hosted reviews (two pre-push, three hosted), plus one adjacent recovery
+finding during repair review; all resolved before integration.
+
+Recommend earlier human-reviewed main promotion for the offline foundation
+(WI-0001 through WI-0004), before acquisition WI-0005. This is the charter's
+review-size exception: relative to fetched main5cfd2d71,26 code/test/doc files
+add8024 lines including fixtures, and a coherent local catalog lifecycle boundary
+is now qualified. Main remains unchanged; no promotion PR or native closeout was
+performed. WI-0005 onward and the actual gutenbergpy dependency removal remain
+unattempted. No later run is granted by this checkpoint.
+
+Process observations and candidate LRH improvements:
+
+- Expanded assignment capacity allowed two distinct hosted-repair reviews without
+  a new human gate; reuse of a reviewer was still counted as a new assignment for
+  expanded scope. Keep identity/scope/deadline/followup accounting separate.
+  Acceptance test: scope expansion consumes a slot; same-scope repair does not
+  reset its deadline; occupancy includes waits and totals remain observable.
+- Directory durability needed failure/retry coverage beyond process-death tests.
+  Add a publication-boundary matrix to filesystem review packets: file contents,
+  directory entries, containing hierarchy, recovery retries and error commit
+  semantics. Acceptance test: injected sync failures never produce misleading
+  activation claims, and recovery retries the necessary barrier before success.
+- Repeating full ingestion after capture/durability-only repairs would add avoidable
+  delay. Keep exact source hashes and a reviewer-approved affected-check map.
+  Acceptance test: unchanged parser/store/import hashes retain original evidence;
+  changed boundary tests and final full-catalog verification run, with old timing
+  never relabeled as final-head timing.
+- The unexplained execution gap and delayed minute45 observation motivate a host
+  watchdog/elapsed-deadline reminder rather than reliance on agent recollection.
+  Acceptance test: injected suspension preserves absolute deadlines and reports
+  last completed action plus pending qualification, without silently renewing.
