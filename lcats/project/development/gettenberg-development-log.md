@@ -568,3 +568,21 @@ conservatively (5 I/O +6 review), no active agents. About16 elapsed minutes;
 original target/freeze20:27:21 and stop20:57:21 unchanged. No new scope planned.
 Next: canonical suite and actual cached full-archive setup/activation/reuse
 qualification in a new private cache, then exact-head internal PR checks.
+
+## 2026-10-14 20:09 UTC — Run 3 execution-gap observation
+
+UTC advanced from the19:43 qualification-preparation checkpoint to20:08:33 at
+the next observed clock. Host process/file evidence shows actual validation
+jobs started about20:08:10 (full-source log birth20:08:09.680; canonical tests
+log birth20:08:13.761). At20:08:54 the full build had11008 committed records;
+process inspection shortly afterward showed about58 seconds elapsed and55 CPU
+seconds for qualification, consistent with active progress rather than a stuck
+24-minute build. Cause of the preceding gap is unknown; do not attribute it to
+code, sleep or tooling without evidence. Both clocks agree at20:09. No deadline
+or budget reset. The delayed usage observation is44% shared weekly, launch40%.
+
+Canonical/full-source processes are running on8bccd4c4, whose implementation
+matches independently reviewed ff072c13. Assignments2/6,11 worker minutes, no
+active agents. Target20:27:21/hard stop20:57:21 unchanged. Remaining work is
+qualification, PR/automatic review/CI, bounded repairs if needed, integration
+and checkpoint. No new item. Minute45 reassessment remains20:12:21.
