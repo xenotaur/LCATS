@@ -99,6 +99,7 @@ class _Reader:
         self.consumed = set()
         self.notices = []
         self.agent_nodes = {}
+        self.agents = {}
         self.resolved_uris = {}
 
     def fail(self, code, message):
@@ -113,7 +114,10 @@ class _Reader:
         return [child for child in parent if isinstance(child.tag, str)]
 
     def literal(self, node):
-        if self.elements(node) or node.get(_tag(RDF, "resource")) is not None:
+        if self.elements(node) or any(
+            node.get(_tag(RDF, attr)) is not None
+            for attr in ("resource", "nodeID", "about")
+        ):
             self.fail("unsupported_shape", f"expected a literal: {node.tag}")
         language = None
         for ancestor in (node, *node.iterancestors()):
@@ -123,7 +127,7 @@ class _Reader:
         datatype = node.get(_tag(RDF, "datatype"))
         if datatype is not None:
             datatype = self.resolve(node, datatype)
-        return models.Literal(node.text or "", language, datatype)
+        return models.Literal("".join(node.itertext()), language, datatype)
 
     def literals(self, parent, namespace, name):
         return tuple(self.literal(n) for n in self.children(parent, namespace, name))
@@ -155,6 +159,14 @@ class _Reader:
         return uri
 
     def uri(self, node, attribute):
+        if any(
+            node.get(_tag(RDF, other)) is not None
+            for other in ("about", "resource", "nodeID", "datatype")
+            if other != attribute
+        ):
+            self.fail(
+                "unsupported_shape", f"mixed RDF URI and object attributes: {node.tag}"
+            )
         value = node.get(_tag(RDF, attribute))
         if value is None:
             self.fail("unsupported_shape", f"missing rdf:{attribute}: {node.tag}")
@@ -163,20 +175,44 @@ class _Reader:
     def links(self, parent, namespace, name):
         result = []
         for node in self.children(parent, namespace, name):
-            if self.elements(node) or (node.text or "").strip():
+            if self.elements(node) or "".join(node.itertext()).strip():
                 self.fail("unsupported_shape", f"expected URI property: {node.tag}")
             result.append(self.uri(node, "resource"))
         return tuple(result)
 
+    def require_inline(self, prop):
+        if any(
+            prop.get(_tag(RDF, attr)) is not None
+            for attr in ("resource", "nodeID", "about", "datatype")
+        ):
+            self.fail(
+                "unsupported_shape",
+                f"mixed inline and RDF object attributes: {prop.tag}",
+            )
+        if (prop.text or "").strip() or any(
+            (child.tail or "").strip() for child in prop
+        ):
+            self.fail(
+                "unsupported_shape", f"text outside inline RDF object: {prop.tag}"
+            )
+
     def terms(self, parent, namespace, name):
         result = []
         for prop in self.children(parent, namespace, name):
+            self.require_inline(prop)
             descriptions = self.children(prop, RDF, "Description")
             if len(descriptions) != 1 or len(self.elements(prop)) != 1:
                 self.fail(
                     "unsupported_shape", f"expected inline rdf:Description: {prop.tag}"
                 )
             description = descriptions[0]
+            if any(
+                description.get(_tag(RDF, attr)) is not None
+                for attr in ("resource", "datatype")
+            ):
+                self.fail(
+                    "unsupported_shape", "invalid rdf:Description object attributes"
+                )
             schemes = self.links(description, DCAM, "memberOf")
             values = self.literals(description, RDF, "value")
             if not values:
@@ -196,6 +232,16 @@ class _Reader:
         return tuple(result)
 
     def agent(self, node):
+        uri = self.uri(node, "about")
+        if uri in self.agents:
+            return self.agents[uri]
+        definitions = tuple(self.read_agent(item) for item in self.agent_nodes[uri])
+        if any(agent != definitions[0] for agent in definitions[1:]):
+            self.fail("invalid_identity", f"conflicting agent definitions: {uri}")
+        self.agents[uri] = definitions[0]
+        return definitions[0]
+
+    def read_agent(self, node):
         self.consumed.add(node)
         return models.Agent(
             uri=self.uri(node, "about"),
@@ -215,7 +261,7 @@ class _Reader:
                 continue
             self.consumed.add(prop)
             if prop.get(_tag(RDF, "resource")) is not None:
-                if self.elements(prop) or (prop.text or "").strip():
+                if self.elements(prop) or "".join(prop.itertext()).strip():
                     self.fail(
                         "unsupported_shape", "mixed contributor link and inline value"
                     )
@@ -226,13 +272,13 @@ class _Reader:
                         "unsupported_shape",
                         f"agent reference has no in-record definition: {uri}",
                     )
-                agents = tuple(self.agent(node) for node in definitions)
-                if any(agent != agents[0] for agent in agents[1:]):
-                    self.fail(
-                        "invalid_identity", f"conflicting agent definitions: {uri}"
+                result.append(
+                    models.Contribution(
+                        _predicate(prop.tag), self.agent(definitions[0])
                     )
-                result.append(models.Contribution(_predicate(prop.tag), agents[0]))
+                )
                 continue
+            self.require_inline(prop)
             agents = self.children(prop, PG, "agent")
             if not agents or len(agents) != len(self.elements(prop)):
                 self.fail(
@@ -246,6 +292,7 @@ class _Reader:
     def resources(self, ebook):
         result = []
         for prop in self.children(ebook, DC, "hasFormat"):
+            self.require_inline(prop)
             files = self.children(prop, PG, "file")
             if not files or len(files) != len(self.elements(prop)):
                 self.fail("unsupported_shape", "expected inline pgterms:file")

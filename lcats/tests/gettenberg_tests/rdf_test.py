@@ -175,6 +175,54 @@ class ProfileBoundaryTests(unittest.TestCase):
         self.assertEqual(caught.exception.code, code)
         self.assertEqual(caught.exception.source_name, "authored.rdf")
 
+    def test_literal_comment_and_processing_instruction_tails_survive(self):
+        book = self.parse(
+            record(
+                "<dc:title>First<!--not text-->Second<?note ignored?>Third</dc:title><pg:downloads>1<!--not text-->2</pg:downloads>"
+            )
+        ).ebook
+        self.assertEqual(book.titles[0].value.text, "FirstSecondThird")
+        self.assertEqual(book.downloads, 12)
+
+    def test_rdf_object_attributes_are_not_silently_read_as_literals_or_inline_nodes(
+        self,
+    ):
+        for prop in (
+            '<dc:title rdf:nodeID="n"/>',
+            '<dc:license rdf:resource="license" rdf:nodeID="n"/>',
+            '<dc:license rdf:resource="license"><!--c-->stray</dc:license>',
+            '<dc:subject><rdf:Description rdf:resource="https://example.test/x"><rdf:value>X</rdf:value></rdf:Description></dc:subject>',
+            '<dc:title rdf:about="ebooks/42"/>',
+            '<dc:subject rdf:resource="https://example.test/x"><rdf:Description><rdf:value>X</rdf:value></rdf:Description></dc:subject>',
+            '<dc:hasFormat rdf:nodeID="n"><pg:file rdf:about="files/a"/></dc:hasFormat>',
+            '<dc:creator rdf:nodeID="n"><pg:agent rdf:about="2009/agents/7"/></dc:creator>',
+            "<dc:subject>stray<rdf:Description><rdf:value>X</rdf:value></rdf:Description></dc:subject>",
+        ):
+            with self.subTest(prop=prop):
+                self.assert_error(record(prop), "unsupported_shape")
+
+    def test_conflicting_inline_agent_definitions_are_rejected(self):
+        self.assert_error(
+            record(
+                '<dc:creator><pg:agent rdf:about="2009/agents/7"><pg:name>A</pg:name></pg:agent></dc:creator><role:trl><pg:agent rdf:about="2009/agents/7"><pg:name>B</pg:name></pg:agent></role:trl>'
+            ),
+            "invalid_identity",
+        )
+
+    def test_repeated_references_share_one_immutable_agent_without_amplification(self):
+        aliases = "".join(f"<pg:alias>Name {n}</pg:alias>" for n in range(100))
+        references = '<role:trl rdf:resource="2009/agents/7"/>' * 100
+        book = self.parse(
+            record(
+                f'<dc:creator><pg:agent rdf:about="2009/agents/7">{aliases}</pg:agent></dc:creator>{references}'
+            )
+        ).ebook
+        self.assertEqual(len(book.contributors), 101)
+        self.assertEqual(len(book.contributors[0].agent.aliases), 100)
+        self.assertTrue(
+            all(c.agent is book.contributors[0].agent for c in book.contributors)
+        )
+
     def test_missing_optional_values_do_not_fabricate_metadata(self):
         book = self.parse(record()).ebook
         self.assertIsNone(book.downloads)

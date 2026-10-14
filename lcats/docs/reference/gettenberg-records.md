@@ -49,7 +49,8 @@ True
 All types live in `lcats.gettenberg.models`. They are frozen dataclasses with
 slots. The parser returns tuples for collections, preserving source order and
 multiplicity. An absent collection is `()`; an absent download count is `None`.
-An explicitly empty source literal remains an empty string. No placeholder
+An explicitly empty source literal remains an empty string. XML comments and
+processing instructions do not discard adjacent literal text. No placeholder
 authors, dates, or titles are invented.
 
 | Type | Fields and meaning |
@@ -111,7 +112,8 @@ predicate appears in an unsupported context. Unknown attributes produce
 to treat an incomplete future catalog as qualified.
 
 Contributor URI references resolve only to matching agent definitions inside
-the same record, including forward references. Conflicting definitions or
+the same record, including forward references. Repeated references share one
+immutable agent object, avoiding repeated expansion while parsing. Conflicting definitions or
 unresolved references fail; no external fetch is attempted. The parser does
 not resolve external/blank-node graph references, infer RDF triples, or support `rdf:parseType`/`rdf:ID` forms. A recognized property with
 an unsupported shape fails rather than silently losing its typed value.
