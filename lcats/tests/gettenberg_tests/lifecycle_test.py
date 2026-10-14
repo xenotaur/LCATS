@@ -221,8 +221,10 @@ class LifecycleTests(unittest.TestCase):
         self.assertEqual(first_source.stat().st_size, replacement.stat().st_size)
         first = self.manager.setup(first_source)
         first.archive_path.write_bytes(replacement.read_bytes())
+        retained = set((self.manager.root / "archives").iterdir())
         with self.assertRaises(errors.CatalogLifecycleError):
             self.manager.rebuild()
+        self.assertEqual(set((self.manager.root / "archives").iterdir()), retained)
         self.assertEqual(
             self.manager.status()["active"]["generation_id"], first.generation_id
         )
@@ -356,6 +358,28 @@ class LifecycleTests(unittest.TestCase):
         self.manager.activate(orphan)
         with self.manager.open() as reader:
             self.assertEqual(reader.get(1).ebook.titles[0].value.text, "Changed")
+
+    def test_candidate_manifest_sync_failure_does_not_report_activation(self):
+        first = self.manager.setup(self.archive)
+        sync = _lifecycle_io.sync_directory
+
+        def fail_manifest(path):
+            if path.parent.name == "candidates" and (path / "manifest.json").exists():
+                raise OSError("injected candidate durability failure")
+            return sync(path)
+
+        with mock.patch.object(
+            _lifecycle_io, "sync_directory", side_effect=fail_manifest
+        ):
+            with self.assertRaises(errors.CatalogLifecycleError) as caught:
+                self.manager.rebuild()
+        self.assertNotIsInstance(caught.exception, errors.CatalogPublicationError)
+        self.assertEqual(
+            self.manager.status()["active"]["generation_id"], first.generation_id
+        )
+        (candidate,) = self.manager.status()["candidates"]
+        self.manager.activate(candidate)
+        self.assertEqual(self.manager.status()["active"]["generation_id"], candidate)
 
     def test_post_pointer_sync_failure_reports_possible_publication(self):
         first = self.manager.setup(self.archive)

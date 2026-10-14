@@ -272,12 +272,18 @@ def hash_file(path: pathlib.Path, max_bytes, check=None) -> tuple[str, int]:
 
 
 def retain_archive(
-    source: pathlib.Path, archives: pathlib.Path, max_bytes, check=None
+    source: pathlib.Path,
+    archives: pathlib.Path,
+    max_bytes,
+    check=None,
+    *,
+    expected=None,
 ) -> tuple[pathlib.Path, str, int]:
     """Retain an immutable content-addressed copy without replacing existing data.
 
     A same-directory hard link atomically publishes the fsynced temporary inode
     without clobbering another retained archive. Existing copies are verified.
+    An expected (SHA256, size) identity is checked before publication.
     The archive filesystem must support hard links; otherwise publication fails
     with a lifecycle error and existing files remain untouched.
     """
@@ -290,6 +296,10 @@ def retain_archive(
             digest, size = _transfer(source, max_bytes, check, stream)
             stream.flush()
             os.fsync(stream.fileno())
+        if expected is not None and (digest, size) != expected:
+            raise errors.CatalogLifecycleError(
+                "retained source differs from the active manifest; implicit rebuild refused"
+            )
         target = archives / f"{digest}.tar.bz2"
         try:
             os.link(temporary, target)

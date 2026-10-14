@@ -368,11 +368,8 @@ class CatalogManager:
             self.root / "archives",
             limits.max_compressed_bytes,
             _Deadline(self.validation_seconds).check,
+            expected=expected_archive,
         )
-        if expected_archive is not None and (digest, size) != expected_archive:
-            raise errors.CatalogLifecycleError(
-                "retained source differs from the active manifest; implicit rebuild refused"
-            )
         identifier = uuid.uuid4().hex
         path = self.root / "candidates" / identifier
         path.mkdir()
@@ -403,7 +400,13 @@ class CatalogManager:
             },
             "prepared_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         }
-        _lifecycle_io.atomic_json(path / "manifest.json", manifest)
+        try:
+            _lifecycle_io.atomic_json(path / "manifest.json", manifest)
+        except errors.CatalogPublicationError as exc:
+            # Only the candidate manifest changed; the active pointer is intact.
+            raise errors.CatalogLifecycleError(
+                "candidate manifest durability failed; active catalog unchanged"
+            ) from exc
         _lifecycle_io.sync_directory(path)
         _lifecycle_io.sync_directory(path.parent)
         return identifier
