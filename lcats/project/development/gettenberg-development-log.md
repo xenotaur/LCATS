@@ -132,3 +132,66 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
   exact-head CI/base and integrate under the charter. No staged dependency is
   accepted until that evidence is recorded. Final qualification and main
   promotion remain pending.
+
+## 2026-10-14 08:30 UTC — Bootstrap integrated; parser scoped
+
+- PR #504 merged only into `codex/gettenberg-pilot-20261014`, merge
+  `1299f9800871fcbb44a012554749675ea25b71c9`, verified head
+  `c8beac9c078353369e4299db2eb9469ec6b01351`. Base rechecked immediately
+  before merge; test (push and PR), coverage and lint all passed at that head.
+  All three automated review threads resolved after verified repairs. Independent
+  review and acceptance mapping are linked in WI-0001's execution record.
+- Staged WI-0001 accepted by coordinator under charter: complete baseline,
+  caller/fixture/measurement matrix, release reconciliation and scoped next WIs.
+  Native WI/execution remain nonterminal. `git merge-base --is-ancestor`
+  verifies the accepted integration commit is an ancestor of WI-0002's base.
+- Final local rerun initially failed five tests due to sandbox denial of their
+  temporary worktree files. Same suite with authorized worktree writes passed
+  all 2550 tests in 61.422s. This was an environment repair, not a code/test
+  change. Optimized-mode sparse-file probe also verified explicit audit bounds.
+- Automated review found assert-based audit limits and stale charter activation
+  text; both fixed. Observation: evidence helpers need optimized-mode safety
+  checks; proposed LRH test: run resource-limit probes with `python -O`.
+- Elapsed about 35 minutes; 85 remain. No active workers; 2/4 assignments and
+  16/60 worker minutes used, 44 available. Freeze/deadline unchanged.
+- Coordinator accepts WI-0002 plan at base `1299f980`: additive immutable typed
+  records, pure bounded parser, offline fixture/security tests, reference docs
+  and direct lxml declaration. No catalog/CLI/caller migration in this item.
+- Decisions before implementation: tuple-valued source metadata preserves
+  multiplicity and order (including multiple extents/modification claims);
+  literals retain language/datatype, contributor roles use full URIs, dates
+  retain source lexical values, and RDF bytes serialize as base64 with SHA-256.
+  Every unsupported predicate has a diagnostic path and retained source bytes.
+  Reject unsupported known shapes and ambiguous identities rather than silently
+  reporting partial modeled metadata. Use lxml with DTD/entity/network loading
+  disabled, reject DOCTYPE, and enforce 2 MiB before parsing. No general RDF
+  graph resolution is claimed. Source labels never become network locations.
+- Validation plan: real cached records 10000/10040/84/10001 plus authored edge
+  cases, fresh-process import/no-network checks, canonical suite and independent
+  review. A bounded full-archive parse probe may establish feasibility but is
+  not catalog-build or corpus qualification. Next: implement this scope.
+
+## 2026-10-14 08:42 UTC — Full-source probe corrects the parser profile
+
+- First parser prototype passed 2575 canonical tests in 60.240s, including 25
+  new focused tests and executable docs. Full cached-source probe parsed 78897
+  of 78937 records, rejected 40, in 287.003s / 104480768-byte peak RSS. These
+  exploratory results precede the final candidate and are not acceptance.
+- Inspection of actual rejected records 15813/16264 confirms in-record URI
+  references to agents already defined under another role. Record 11008 has
+  spaces in file URLs. No external graph fetch is needed. Hypothesis: the
+  observed profile includes local agent links and malformed-but-preservable
+  source URL spelling; the initial fixture set missed both.
+- Scoped decision before repair: resolve contributor URI references only to
+  agents defined inside the same record, rejecting missing or conflicting
+  definitions. Percent-encode whitespace in non-ebook URI claims with explicit
+  normalization diagnostics and retain exact original RDF. Strict ebook-ID
+  validation remains unchanged. This expands source fidelity within the
+  approved design; it does not introduce graph/network access or weaken the
+  archive completeness gate. Add real fixtures and authored ambiguity cases.
+- Avoid computing diagnostic paths for every successfully modeled element;
+  create paths only for actual notices. Re-run the full probe with source hashes
+  and identical bounds after repair. No catalog-build performance claim.
+- Budget: about 47 elapsed / 73 remaining minutes; no active worker; assignments
+  2/4, worker minutes 16/60. No descendants dispatched. Next: repair and obtain
+  independent review of the candidate with complete source-accounting evidence.
