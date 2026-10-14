@@ -210,7 +210,7 @@ class Catalog:
             raise errors.CatalogInputError("stored RDF exceeds max_record_bytes")
         packed = self._rows(
             "SELECT substr(data,1,?) FROM sources WHERE ebook_id=?",
-            (self._max_record_bytes + 65537, ebook_id),
+            (compressed_size, ebook_id),
         )[0][0]
         if encoding != "zlib" or not isinstance(packed, bytes):
             raise errors.CatalogSchemaError("unsupported source encoding")

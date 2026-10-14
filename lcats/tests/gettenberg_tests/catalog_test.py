@@ -254,6 +254,14 @@ class CatalogTests(unittest.TestCase):
         with self.assertRaises(errors.CatalogInputError):
             catalog.Filters(titles=("\ud800",))
 
+    def test_large_reader_overrides_use_actual_compressed_length(self):
+        for bound in (2**31 - 65537, 2**31, sys.maxsize - 65537):
+            with (
+                self.subTest(bound=bound),
+                catalog.Catalog(self.path, max_record_bytes=bound) as library,
+            ):
+                self.assertEqual(library.get(84).ebook.gutenberg_id, 84)
+
     def test_missing_does_not_create_file(self):
         with tempfile.TemporaryDirectory() as root:
             path = pathlib.Path(root) / "missing.sqlite"
