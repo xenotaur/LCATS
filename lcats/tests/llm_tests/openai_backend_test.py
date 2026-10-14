@@ -345,5 +345,134 @@ class TestOpenAIBackend(unittest.TestCase):
         self.assertEqual(result.output_tokens, 22)
 
 
+_TOOL_SCHEMA = {
+    "name": "record_thing",
+    "description": "Record a thing.",
+    "input_schema": {"type": "object", "properties": {}},
+    "strict": True,
+}
+
+
+class TestOpenAIBackendRequestRecorder(unittest.TestCase):
+    """Verify the optional request recorder reports the request as built."""
+
+    def _backend(self, response, recorder=None):
+        stub_client = _StubOpenAIClient(response)
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+        backend_under_test.request_recorder = recorder
+        return backend_under_test, stub_client
+
+    def _complete(self, backend_under_test, **updates):
+        arguments = dict(
+            system="secret system prompt",
+            messages=[{"role": "user", "content": "secret story text"}],
+            model="gpt-4o-2024-08-06",
+            max_tokens=4096,
+            tool=_TOOL_SCHEMA,
+        )
+        arguments.update(updates)
+        return backend_under_test.complete(**arguments)
+
+    def test_the_recorder_is_off_by_default_and_satisfies_the_optional_protocol(self):
+        """A new backend has no recorder, yet advertises the capability."""
+        from lcats.llm import backend
+
+        stub_client = _StubOpenAIClient(_make_response(content="{}"))
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+        self.assertIsNone(backend_under_test.request_recorder)
+        self.assertIsInstance(backend_under_test, backend.RequestRecordingBackend)
+        self.assertIsInstance(backend_under_test, backend.LLMBackend)
+
+    def test_no_recorder_leaves_the_request_unchanged(self):
+        """With no recorder the request sent to the client is the same."""
+        response = _make_response(tool_call_arguments=json.dumps({"verdict": "x"}))
+        plain, plain_client = self._backend(response)
+        self._complete(plain)
+        recorded, recorded_client = self._backend(response, recorder=lambda _r: None)
+        self._complete(recorded)
+        self.assertEqual(plain_client.last_kwargs, recorded_client.last_kwargs)
+
+    def test_the_recorded_request_matches_what_the_client_received(self):
+        """The record equals the sent request except the messages, which are omitted."""
+        captured = []
+        backend_under_test, stub_client = self._backend(
+            _make_response(tool_call_arguments=json.dumps({"verdict": "x"})),
+            recorder=captured.append,
+        )
+        self._complete(backend_under_test)
+        self.assertEqual(1, len(captured))
+        sent = dict(stub_client.last_kwargs)
+        sent.pop("messages")
+        self.assertEqual(sent, captured[0])
+        function = captured[0]["tools"][0]["function"]
+        self.assertTrue(function["strict"])
+        self.assertEqual(_TOOL_SCHEMA["input_schema"], function["parameters"])
+        self.assertEqual(
+            {"type": "function", "function": {"name": "record_thing"}},
+            captured[0]["tool_choice"],
+        )
+        self.assertNotIn("messages", captured[0])
+        self.assertNotIn("secret", json.dumps(captured[0]))
+
+    def test_the_record_is_a_copy_and_is_captured_before_the_call(self):
+        """The recorder runs before the client call, on a deep copy."""
+        order = []
+
+        def recorder(request):
+            order.append("recorded")
+            request["tools"][0]["function"]["name"] = "mutated"
+
+        stub_client = _StubOpenAIClient(
+            _make_response(tool_call_arguments=json.dumps({"verdict": "x"}))
+        )
+        original_create = stub_client._create
+
+        def create(**kwargs):
+            order.append("sent")
+            return original_create(**kwargs)
+
+        stub_client.chat.completions.create = create
+        with patch("openai.OpenAI", return_value=stub_client):
+            backend_under_test = openai_backend.OpenAIBackend()
+        backend_under_test.request_recorder = recorder
+        self._complete(backend_under_test)
+        self.assertEqual(["recorded", "sent"], order)
+        self.assertEqual(
+            "record_thing", stub_client.last_kwargs["tools"][0]["function"]["name"]
+        )
+
+    def test_a_request_is_recorded_even_when_the_call_raises(self):
+        """Truncation and no-tool-call failures still leave a request record."""
+        from lcats.llm import backend
+
+        for response, error in (
+            (
+                _make_response(tool_call_arguments='{"v": "in', finish_reason="length"),
+                backend.TruncatedResponseError,
+            ),
+            (_make_response(content="no tool"), backend.NoToolCallError),
+        ):
+            captured = []
+            backend_under_test, _client = self._backend(
+                response, recorder=captured.append
+            )
+            with self.assertRaises(error):
+                self._complete(backend_under_test)
+            self.assertEqual(1, len(captured))
+            self.assertEqual(4096, captured[0]["max_tokens"])
+
+    def test_a_request_without_a_tool_records_the_json_mode(self):
+        """Without a tool the record shows the json_object response format."""
+        captured = []
+        backend_under_test, _client = self._backend(
+            _make_response(content="{}"), recorder=captured.append
+        )
+        self._complete(backend_under_test, tool=None)
+        self.assertEqual({"type": "json_object"}, captured[0]["response_format"])
+        self.assertNotIn("tools", captured[0])
+
+
 if __name__ == "__main__":
     unittest.main()

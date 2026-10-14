@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import dataclasses
 
-from typing import Any, Optional, Protocol, runtime_checkable
+from typing import Any, Callable, Optional, Protocol, runtime_checkable
 
 
 class TruncatedResponseError(RuntimeError):
@@ -162,3 +162,23 @@ class LLMBackend(Protocol):
             A BackendResponse with normalized fields.
         """
         ...
+
+
+@runtime_checkable
+class RequestRecordingBackend(Protocol):
+    """Optional capability: report the provider request a call actually builds.
+
+    A backend that supports this exposes a `request_recorder` attribute. It is
+    None by default; when a caller sets it to a callable, the backend invokes
+    that callable once per `complete()` call with a JSON-serializable
+    description of the provider request, before the request is sent, so a
+    request is reported even when the call then raises. The description never
+    includes the system prompt or the messages.
+
+    This is deliberately a separate, optional Protocol and not part of
+    `LLMBackend`: adding a required member to the runtime-checkable
+    `LLMBackend` would stop every existing backend and test double from
+    conforming.
+    """
+
+    request_recorder: Optional[Callable[[dict[str, Any]], None]]

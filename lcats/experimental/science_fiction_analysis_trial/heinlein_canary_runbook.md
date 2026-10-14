@@ -110,6 +110,17 @@ For every trial, read and record:
 
 - the raw `sf_heinlein` response and every persisted attempt, and any
   quarantine record, under `_raw/` and `_quarantine/`;
+- the request record of every model-call attempt, `request-<stage>.json` and
+  `request-<stage>-attempt-N.json`, next to the raw responses under `_raw/`.
+  Each holds the model, temperature, token cap, and the tool-forcing fields
+  (tool schema with its `strict` value, and the `tool_choice` block). With the
+  OpenAI-compatible backend `request_source` is `provider`, the request as
+  built before it was sent, so these files show whether `strict` and a forced
+  `tool_choice` were in the request. Other backends record `request_source:
+  runner`, the runner-level call arguments only. The records leave out the
+  system prompt, the messages and the story text, and a stage reused from a
+  checkpoint has none because it made no call. Commit them with the other
+  persisted artifacts;
 - `analyses.heinlein` in each sidecar: all five criteria present, the verdict
   and interval, and each rationale against its cited evidence;
 - that no `present` decision lacks valid supporting evidence, and that none was

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import pathlib
 import tempfile
+import types
 import unittest
 from unittest.mock import patch
 
@@ -13,6 +14,7 @@ from lcats.analysis.science_fiction import preparation
 from lcats.analysis.science_fiction import rendering
 from lcats.analysis.science_fiction import sidecar
 from lcats.llm import backend as llm_backend
+from lcats.llm import openai_backend
 from lcats.utils import compat
 from lcats.utils import checkpoint
 
@@ -2604,6 +2606,219 @@ class WorldconHeinleinCanaryTest(unittest.TestCase):
 
         self.assertTrue(summary["plan"]["include_heinlein"])
         self.assertEqual("http://localhost:11434/v1", summary["plan"]["base_url"])
+
+
+class _SpyBackend:
+    """Delegate to the deterministic backend and keep what it was sent."""
+
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.systems = []
+        self.users = []
+
+    def complete(self, **kwargs):
+        self.systems.append(kwargs["system"])
+        self.users.append(kwargs["messages"][-1]["content"])
+        return self.delegate.complete(**kwargs)
+
+
+class _OpenAIShapedClient:
+    """Stand-in for openai.OpenAI that answers with deterministic tool calls."""
+
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.requests = []
+        self.chat = types.SimpleNamespace(
+            completions=types.SimpleNamespace(create=self._create)
+        )
+
+    def _create(self, **kwargs):
+        self.requests.append(kwargs)
+        name = kwargs["tools"][0]["function"]["name"]
+        payload = json.loads(kwargs["messages"][-1]["content"])
+        result = run_worldcon_spike._fake_stage_result(payload, {"name": name})
+        function = types.SimpleNamespace(arguments=json.dumps(result))
+        message = types.SimpleNamespace(
+            content=None, tool_calls=[types.SimpleNamespace(function=function)]
+        )
+        choice = types.SimpleNamespace(message=message, finish_reason="tool_calls")
+        usage = types.SimpleNamespace(prompt_tokens=11, completion_tokens=13)
+        return types.SimpleNamespace(choices=[choice], usage=usage, model="stub-model")
+
+
+class WorldconRequestRecordTest(unittest.TestCase):
+    """Request records make the tool-forcing request observable per attempt."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _run(self, name, backend, **updates):
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                _heinlein_options(self.root / name, **updates)
+            )
+        raw_root = pathlib.Path(summary["stories"][0]["raw_response_path"])
+        return summary, raw_root.parent if raw_root.is_file() else raw_root
+
+    @staticmethod
+    def _record(raw_root, filename):
+        return json.loads((raw_root / filename).read_text(encoding="utf-8"))
+
+    def test_every_model_stage_writes_a_request_record(self):
+        spy = _SpyBackend()
+        _summary, raw_root = self._run("records", spy)
+        stages = {
+            "sf_evidence": run_worldcon_spike.EVIDENCE_TOOL_NAME,
+            "sf_knight": run_worldcon_spike.KNIGHT_TOOL_NAME,
+            "sf_suvin_novum": run_worldcon_spike.SUVIN_TOOL_NAME,
+            "sf_heinlein": run_worldcon_spike.HEINLEIN_TOOL_NAME,
+        }
+        for stage, tool_name in stages.items():
+            record = self._record(raw_root, f"request-{stage}.json")
+            self.assertEqual(
+                run_worldcon_spike.REQUEST_RECORD_VERSION, record["version"]
+            )
+            self.assertEqual(stage, record["stage"])
+            self.assertEqual(1, record["attempt"])
+            self.assertEqual("tool_call", record["outcome"])
+            self.assertEqual("runner", record["request_source"])
+            self.assertEqual(tool_name, record["request"]["tool"]["name"])
+            self.assertIsInstance(record["request"]["tool"]["input_schema"], dict)
+            self.assertEqual(
+                record["effective_max_tokens"], record["request"]["max_tokens"]
+            )
+        self.assertEqual(4, len(list(raw_root.glob("request-*.json"))))
+
+    def test_request_records_hold_no_prompt_story_text_path_or_credential(self):
+        spy = _SpyBackend()
+        _summary, raw_root = self._run("secrets", spy)
+        texts = [
+            path.read_text(encoding="utf-8") for path in raw_root.glob("request-*.json")
+        ]
+        self.assertTrue(texts)
+        for system, user in zip(spy.systems, spy.users):
+            payload = json.loads(user)
+            strings = [
+                value
+                for value in _all_strings(payload)
+                if len(value) > 120 and not value.startswith("sf")
+            ]
+            self.assertTrue(strings)
+            for text in texts:
+                self.assertNotIn(system[:80], text)
+                self.assertNotIn(max(strings, key=len)[:80], text)
+        for text in texts:
+            self.assertNotIn(str(self.root), text)
+            self.assertNotIn(str(self.root.resolve()), text)
+            self.assertNotIn("/Users/", text)
+            self.assertNotIn("api_key", text.lower())
+
+    def test_request_files_are_not_listed_as_raw_attempts_in_the_index(self):
+        _summary, raw_root = self._run("index", _SpyBackend())
+        index = json.loads((raw_root / "index.json").read_text(encoding="utf-8"))
+        listed = [
+            attempt
+            for stage in index["stages"].values()
+            for attempt in stage["attempts"]
+        ]
+        self.assertTrue(listed)
+        self.assertFalse([path for path in listed if "request-" in path])
+
+    def test_a_truncation_retry_records_both_attempts(self):
+        backend = _FailOnceBackend(
+            llm_backend.TruncatedResponseError(
+                "truncated",
+                stop_reason="max_tokens",
+                max_tokens=4096,
+                input_tokens=5,
+                output_tokens=7,
+                raw_content="partial",
+            ),
+            run_worldcon_spike.EVIDENCE_TOOL_NAME,
+        )
+        _summary, raw_root = self._run("retry", backend)
+        first = self._record(raw_root, "request-sf_evidence.json")
+        second = self._record(raw_root, "request-sf_evidence-attempt-2.json")
+        self.assertEqual((1, "truncation", 4096), self._fields(first))
+        self.assertEqual((2, "tool_call", 8192), self._fields(second))
+        self.assertEqual(4096, first["request"]["max_tokens"])
+        self.assertEqual(8192, second["request"]["max_tokens"])
+
+    def test_a_terminal_failure_records_every_attempt(self):
+        backend = _AlwaysTruncatedBackend(run_worldcon_spike.KNIGHT_TOOL_NAME)
+        _summary, raw_root = self._run("terminal", backend)
+        self.assertEqual(
+            (1, "truncation", 4096),
+            self._fields(self._record(raw_root, "request-sf_knight.json")),
+        )
+        self.assertEqual(
+            (2, "truncation", 8192),
+            self._fields(self._record(raw_root, "request-sf_knight-attempt-2.json")),
+        )
+        self.assertTrue((raw_root / "sf_knight-backend-error-attempt-2.json").exists())
+        self.assertFalse((raw_root / "request-sf_knight-attempt-3.json").exists())
+
+    def test_the_text_fallback_and_a_missing_tool_call_are_labelled(self):
+        _summary, raw_root = self._run("fallback", _NoToolCallJsonBackend())
+        record = self._record(raw_root, "request-sf_evidence.json")
+        self.assertEqual("text_fallback", record["outcome"])
+        _summary, raw_root = self._run("empty", _EmptyNoToolCallBackend())
+        record = self._record(raw_root, "request-sf_evidence.json")
+        self.assertEqual("no_tool_call", record["outcome"])
+
+    def test_the_openai_backend_reports_the_provider_request_it_built(self):
+        client = _OpenAIShapedClient()
+        with patch("openai.OpenAI", return_value=client):
+            backend = openai_backend.OpenAIBackend()
+        _summary, raw_root = self._run("provider", backend)
+        record = self._record(raw_root, "request-sf_evidence.json")
+        self.assertEqual("provider", record["request_source"])
+        sent = next(
+            request
+            for request in client.requests
+            if request["tools"][0]["function"]["name"]
+            == run_worldcon_spike.EVIDENCE_TOOL_NAME
+        )
+        expected = {key: value for key, value in sent.items() if key != "messages"}
+        self.assertEqual(expected, record["request"])
+        function = record["request"]["tools"][0]["function"]
+        self.assertIn("strict", function)
+        self.assertEqual(
+            {
+                "type": "function",
+                "function": {"name": run_worldcon_spike.EVIDENCE_TOOL_NAME},
+            },
+            record["request"]["tool_choice"],
+        )
+        self.assertNotIn("messages", record["request"])
+
+    def test_request_records_do_not_affect_checkpoint_reuse(self):
+        first = self._run("reuse", _SpyBackend())[0]
+        self.assertEqual("complete", first["status"])
+        unexpected = _UnexpectedBackend()
+        second, raw_root = self._run("reuse", unexpected, resume=True)
+        self.assertEqual("complete", second["status"])
+        self.assertEqual(0, unexpected.calls)
+        self.assertFalse(list(raw_root.glob("request-*.json")))
+
+    @staticmethod
+    def _fields(record):
+        return (record["attempt"], record["outcome"], record["effective_max_tokens"])
+
+
+def _all_strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from _all_strings(item)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _all_strings(item)
 
 
 if __name__ == "__main__":
