@@ -164,6 +164,83 @@ class LifecycleTests(unittest.TestCase):
             self.manager.activate(first.generation_id)
         self.assertEqual(self.manager.status()["state"], "invalid")
 
+    def test_implicit_rebuild_rejects_changed_retained_source_identity(self):
+        first_source = self.make_archive("first", [(1, "Title000")])
+        replacement = self.make_archive("replacement", [(1, "Title001")])
+        self.assertEqual(first_source.stat().st_size, replacement.stat().st_size)
+        first = self.manager.setup(first_source)
+        first.archive_path.write_bytes(replacement.read_bytes())
+        with self.assertRaises(errors.CatalogLifecycleError):
+            self.manager.rebuild()
+        self.assertEqual(
+            self.manager.status()["active"]["generation_id"], first.generation_id
+        )
+        with self.manager.open() as reader:
+            self.assertEqual(reader.get(1).ebook.titles[0].value.text, "Title000")
+
+    def test_atomic_pointer_replacement_before_open_is_a_valid_snapshot(self):
+        first = self.manager.setup(self.archive)
+        changed = self.make_archive("changed", [(1, "Changed")])
+        second = self.manager.rebuild(changed)
+        pointer = self.manager.root / "active.json"
+        newer = pointer.read_bytes()
+        self.manager.activate(first.generation_id)
+        temp = self.manager.root / "replacement.json"
+        temp.write_bytes(newer)
+        original_open = os.open
+        armed = True
+
+        def replace_before_open(path, *args, **kwargs):
+            nonlocal armed
+            if pathlib.Path(path) == pointer and armed:
+                armed = False
+                os.replace(temp, pointer)
+            return original_open(path, *args, **kwargs)
+
+        with mock.patch.object(os, "open", side_effect=replace_before_open):
+            with self.manager.open() as reader:
+                self.assertEqual(reader.get(1).ebook.titles[0].value.text, "Changed")
+        self.assertEqual(
+            self.manager.status()["active"]["generation_id"], second.generation_id
+        )
+
+    def test_atomic_pointer_replacement_after_open_preserves_old_snapshot(self):
+        first = self.manager.setup(self.archive)
+        second = self.manager.rebuild(self.make_archive("changed", [(1, "Changed")]))
+        pointer = self.manager.root / "active.json"
+        newer = pointer.read_bytes()
+        self.manager.activate(first.generation_id)
+        temp = self.manager.root / "replacement.json"
+        temp.write_bytes(newer)
+        original_open, original_fstat = os.open, os.fstat
+        descriptor = None
+        armed = True
+
+        def capture_open(path, *args, **kwargs):
+            nonlocal descriptor
+            result = original_open(path, *args, **kwargs)
+            if pathlib.Path(path) == pointer:
+                descriptor = result
+            return result
+
+        def replace_after_stat(fd):
+            nonlocal armed
+            result = original_fstat(fd)
+            if fd == descriptor and armed:
+                armed = False
+                os.replace(temp, pointer)
+            return result
+
+        with (
+            mock.patch.object(os, "open", side_effect=capture_open),
+            mock.patch.object(os, "fstat", side_effect=replace_after_stat),
+        ):
+            with self.manager.open() as reader:
+                self.assertEqual(reader.get(1).ebook.titles[0].value.text, "Original")
+        self.assertEqual(
+            self.manager.status()["active"]["generation_id"], second.generation_id
+        )
+
     def test_activation_rejects_same_size_archive_corruption(self):
         first = self.manager.setup(self.archive)
         original_pointer = (self.manager.root / "active.json").read_bytes()

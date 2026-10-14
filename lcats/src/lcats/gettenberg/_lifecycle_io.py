@@ -43,14 +43,16 @@ def _regular(path, missing_ok=False):
 
 
 @contextlib.contextmanager
-def _source(path):
+def _source(path, *, replaceable=False):
     """Open a regular file without following its final symlink component."""
     before = _regular(path)
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0)
     descriptor = os.open(path, flags)
     try:
         opened = os.fstat(descriptor)
-        if not stat.S_ISREG(opened.st_mode) or _identity(before) != _identity(opened):
+        if not stat.S_ISREG(opened.st_mode) or (
+            not replaceable and _identity(before) != _identity(opened)
+        ):
             raise errors.CatalogLifecycleError(f"Source changed while opening: {path}")
         with os.fdopen(descriptor, "rb") as stream:
             descriptor = None
@@ -60,7 +62,21 @@ def _source(path):
             os.close(descriptor)
 
 
-def _stable(path, stream, before):
+def _stable(path, stream, before, *, replaceable=False):
+    if replaceable:
+        # Atomic replacement can unlink this opened inode, changing ctime but
+        # not its bytes. Readers own this descriptor snapshot, not the pathname.
+        after = os.fstat(stream.fileno())
+        if (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns) != (
+            after.st_dev,
+            after.st_ino,
+            after.st_size,
+            after.st_mtime_ns,
+        ):
+            raise errors.CatalogLifecycleError(
+                f"Opened JSON changed while reading: {path}"
+            )
+        return
     if _identity(before) != _identity(os.fstat(stream.fileno())) or _identity(
         before
     ) != _identity(_regular(path)):
@@ -142,11 +158,11 @@ def read_json(path: pathlib.Path, max_bytes=65536) -> dict:
     _limit(max_bytes)
     path = pathlib.Path(path)
     try:
-        with _source(path) as (stream, before):
+        with _source(path, replaceable=True) as (stream, before):
             if before.st_size > max_bytes:
                 raise errors.CatalogLifecycleError(f"JSON exceeds size limit: {path}")
             payload = stream.read(max_bytes + 1)
-            _stable(path, stream, before)
+            _stable(path, stream, before, replaceable=True)
         if len(payload) > max_bytes:
             raise errors.CatalogLifecycleError(f"JSON exceeds size limit: {path}")
         value = json.loads(payload.decode("utf-8"), parse_constant=_invalid_constant)

@@ -353,7 +353,7 @@ class CatalogManager:
         digest, size = _lifecycle_io.hash_file(database, database_limit, deadline.check)
         return counts, digest, size
 
-    def _prepare_candidate(self, source, limits):
+    def _prepare_candidate(self, source, limits, expected_archive=None):
         limits = ingestion.BuildLimits() if limits is None else limits
         if not isinstance(limits, ingestion.BuildLimits):
             raise errors.CatalogInputError("limits must be BuildLimits")
@@ -363,6 +363,10 @@ class CatalogManager:
             limits.max_compressed_bytes,
             _Deadline(self.validation_seconds).check,
         )
+        if expected_archive is not None and (digest, size) != expected_archive:
+            raise errors.CatalogLifecycleError(
+                "retained source differs from the active manifest; implicit rebuild refused"
+            )
         identifier = uuid.uuid4().hex
         path = self.root / "candidates" / identifier
         path.mkdir()
@@ -501,6 +505,7 @@ class CatalogManager:
         if type(allow_count_change) is not bool:
             raise errors.CatalogInputError("allow_count_change must be bool")
         with self._writer():
+            expected_archive = None
             if archive is None:
                 active = self._active()
                 if active is None:
@@ -508,8 +513,13 @@ class CatalogManager:
                         "no active source archive to rebuild"
                     )
                 archive = active.archive_path
+                expected_archive = (
+                    active.manifest["archive_sha256"],
+                    active.manifest["archive_bytes"],
+                )
             return self._activate(
-                self._prepare_candidate(archive, limits), allow_count_change
+                self._prepare_candidate(archive, limits, expected_archive),
+                allow_count_change,
             )
 
     def activate(
