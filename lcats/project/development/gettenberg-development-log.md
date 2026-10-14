@@ -425,3 +425,80 @@ on fc2b97bb; prior measurements remain retained with their actual source hash.
 No next item, network download, activation or main promotion. Hard stop18:43:39,
 feature freeze18:13:39 unchanged. Next: review clearance, final evidence/CI,
 resolve verified findings, then internal integration.
+
+## 2026-10-14 17:58 UTC — Run 2 minute45 reassessment
+
+Scope remains WI-0003 only. Independent focused repair review cleared fc2b97bb;
+canonical2619 tests/format/lint/LRH pass. PR506 head a42df73a differs only in
+records/evidence from reviewed source. Four automated review threads resolved
+after real SQLite regression checks and independent verification. Final source
+full-build rerun has51968 committed records at17:58:06, within budgets; original
+qualification is retained separately. Final-head CI is running. Assignments3/6,
+worker occupancy15/45 minutes conservatively, no active workers. No new features
+or assignments planned. Target18:13:39 and hard stop18:43:39 remain unchanged.
+Next: complete qualification, inspect final-head checks/threads, integrate only
+if all acceptance gates pass, then checkpoint. No new human decision needed.
+
+## 2026-10-14 18:01 UTC — Run 2 qualified integration and stopping checkpoint
+
+WI-0003 qualified and staged via PR506, final PR head
+`a42df73af45853b3e59b754c251ff6e8349687e0`, merged only into
+`codex/gettenberg-pilot-20261014` as
+`b2aa080a098b0fc938ac5e3ec71a5eb2e42c7a80` from base861458dd.
+The original accepted WI-0002 merge3793d152 remains an ancestor. Final source
+fc2b97bb independently reviewed and unchanged through integration; subsequent
+changes are evidence/records only. Exact source hashes, final canonical/full
+qualification and exact-head CI/review gates are centrally retained under
+`evidence/gettenberg-pilot-run2-20261014/`. Full source:78937 records, zero
+rejected/uncommitted,451.130s,69566464-byte peak RSS,2177388544-byte database;
+all targets pass. All2619 canonical tests pass;30 focused catalog tests.
+
+No active assignments. Three of six assignments used; conservative worker
+occupancy15/45 minutes (5 storage +8 combined review +2 focused repair review).
+Implementation/integration completed about47.5 minutes after17:13:39 start;
+final checkpoint validation/push follows. Target18:13:39, hard18:43:39 were not
+extended. Shared weekly usage33% at launch and40% at18:01:05 (+7 percentage
+points), rounded account-wide observations, not attributable tokens/cost.
+No human decision interruptions, no requested paid reviews, no credit resets.
+Automatic repository reviews were allowed to finish and all findings addressed.
+
+Zero Gutenberg network-download bytes; original cached archive is unchanged.
+Private final candidate remains at
+`/tmp/gettenberg-pilot-run2-20261014/qualified-final.sqlite`; earlier redundant
+candidate removed after retaining its qualification evidence. No activation,
+main promotion, publication, caller migration or canonical corpus changes.
+Native WI stays proposed and execution records in_progress pending actual
+human-approved main delivery. gutenbergpy remains required by existing callers.
+
+WI-0004 through WI-0010 remain unattempted. Resumption requires a renewed
+bounded grant, fetch/clean-state and instruction/gate checks, and ancestor
+verification of b2aa080a plus its acceptance evidence. Next intended item is
+WI-0004, recoverable generations and offline lifecycle: writer locking, atomic
+activation, pinned readers and interruption tests. Its remote-acquisition
+coordination belongs to WI-0005; do not silently expand scope or start it now.
+No unresolved correctness findings or unreviewed source changes remain.
+
+### Run 2 process findings for LRH
+
+- Observation: one combined review plus two same-scope follow-ups covered the
+  first implementation; automatic review later found a distinct error-contract
+  gap and a third narrow assignment verified its repair in about one minute.
+  Interpretation: follow-ups saved repeated context, but a cap must still count
+  new scope honestly. Recommendation/test: persist assignment identity, reviewed
+  SHA, remaining follow-ups and explicit new-assignment reasons in a run tree.
+- Observation: full-catalog and canonical qualification succeeded twice; the
+  second was repeated after source changed, with separate source hashes and
+  results. Interpretation: successful bulk ingestion alone did not expose
+  failure-category bugs. Recommendation/test: acceptance should include actual
+  SQLite FULL/INTERRUPT and transaction accounting, not only happy-path counts.
+- Observation: record links were populated in a separate push after PR creation,
+  restarting CI; final measurement evidence was instead checkpointed after
+  verified integration. Recommendation/test: native planning should distinguish
+  source qualification from evidence-only finalization, while still requiring
+  exact final PR-head CI and never relabeling old source evidence as new.
+- Observation: about47.5 minutes reached integration using3 assignments/15
+  conservative worker minutes versus the previous broader86-minute pilot.
+  This is a differently scoped item, not a controlled speed/cost comparison.
+  Recommendation/test: keep one-deliverable grants and record source coding,
+  review, qualification, external-check waits and account-usage observations
+  separately; do not infer efficiency from elapsed time or rounded usage alone.

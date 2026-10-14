@@ -1,0 +1,143 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/506",
+  "premerge": {
+    "baseRefName": "codex/gettenberg-pilot-20261014",
+    "baseRefOid": "861458dd01a1e07e1ec975bfc0fdc3b48aed7e6b",
+    "headRefOid": "a42df73af45853b3e59b754c251ff6e8349687e0",
+    "mergeStateStatus": "CLEAN",
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T17:58:11Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38610862099/job/116013528926",
+        "name": "coverage",
+        "startedAt": "2026-10-14T17:56:07Z",
+        "status": "COMPLETED",
+        "workflowName": "Coverage"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T17:56:38Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38610862025/job/116013523352",
+        "name": "lint",
+        "startedAt": "2026-10-14T17:56:07Z",
+        "status": "COMPLETED",
+        "workflowName": "Lint and formatting checks"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T17:57:33Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38610862196/job/116013523250",
+        "name": "test",
+        "startedAt": "2026-10-14T17:56:06Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T17:57:46Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38610856042/job/116013503510",
+        "name": "test",
+        "startedAt": "2026-10-14T17:56:04Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      }
+    ]
+  },
+  "workflow_runs": [
+    {
+      "conclusion": "success",
+      "databaseId": 38610862025,
+      "event": "pull_request",
+      "headSha": "a42df73af45853b3e59b754c251ff6e8349687e0",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38610862025",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38610862196,
+      "event": "pull_request",
+      "headSha": "a42df73af45853b3e59b754c251ff6e8349687e0",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38610862196",
+      "workflowName": "Python tests"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38610862099,
+      "event": "pull_request",
+      "headSha": "a42df73af45853b3e59b754c251ff6e8349687e0",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38610862099",
+      "workflowName": "Coverage"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38610856042,
+      "event": "push",
+      "headSha": "a42df73af45853b3e59b754c251ff6e8349687e0",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38610856042",
+      "workflowName": "Python tests"
+    }
+  ],
+  "reviews": {
+    "reviewThreads": {
+      "nodes": [
+        {
+          "id": "PRRT_kwDOKlhIbM6scjPy",
+          "isResolved": true
+        },
+        {
+          "id": "PRRT_kwDOKlhIbM6scjQw",
+          "isResolved": true
+        },
+        {
+          "id": "PRRT_kwDOKlhIbM6scjRZ",
+          "isResolved": true
+        },
+        {
+          "id": "PRRT_kwDOKlhIbM6sckOH",
+          "isResolved": true
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false
+      }
+    },
+    "reviews": {
+      "nodes": [
+        {
+          "author": {
+            "login": "copilot-pull-request-reviewer"
+          },
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "d1548a8ed4d2c6630a8c96e7a0d8ca0ad9dfb305"
+          }
+        },
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "state": "COMMENTED",
+          "commit": {
+            "oid": "655a5e6429d304403221d6974c183ea02b13e951"
+          }
+        }
+      ]
+    }
+  },
+  "review_repair_source": "fc2b97bb55ebb4422ed45ab648b5635bcb8ca9fe",
+  "independent_review": "AD_HOC/2026_10_14_17_53_11_RUN2_CATALOG_ERROR_REVIEW",
+  "scope": "Exact internal-PR head checks; main promotion remains unauthorized.",
+  "merge_commit": "b2aa080a098b0fc938ac5e3ec71a5eb2e42c7a80",
+  "merged_at_utc": "2026-10-14T18:01:00Z",
+  "merge_time_precision": "approximate observation; authoritative timestamp is GitHub PR"
+}
