@@ -537,3 +537,34 @@ reserve remains15 minutes; assignments2/6 including upcoming review. No source
 edits during review except verified requested repairs. Target20:27:21 and hard
 stop20:57:21 unchanged. Full canonical/source qualification follows stable
 reviewed source under approved pilot adapter, not repeated exploratory reruns.
+
+## 2026-10-14 19:42 UTC — Run 3 minute15 checkpoint and review repairs
+
+Initial review380f7c41 found two P2s: atomic pointer replacement conflicted with
+strict pathname identity checks; implicit retained-source rebuild failed to bind
+copied bytes to the prior manifest hash. Coordinator directly reproduced both:
+998 successful opens plus2 failures during400 real public-API activations, and
+same-size replacement source silently activating a different title/SHA.
+Repairff072c13 gives JSON readers opened-file snapshot semantics while retaining
+strict archive/hash identity checks, and binds implicit rebuild to expected
+archive SHA/size.187 gettenberg tests pass, including deterministic filesystem
+boundary regressions. Source is frozen pending assignment2 repair/recheck1.
+
+Assignments2/6, worker1 conservatively5 minutes; reviewer dispatched19:37:39,
+active with hard assignment deadline19:53. Run target/freeze20:27:21 and hard
+stop20:57:21 unchanged. Shared usage42% observed19:37:39 (launch40%). No design
+replan or new scope. Qualification helper prepared; full-source/canonical
+qualification waits for stable independently cleared source. No network calls,
+main promotion, native closeout or WI-0005 work.
+
+## 2026-10-14 19:43 UTC — Run 3 stable source qualified for final checks
+
+Independent recheck cleared ff072c13 at19:42:29.187 gettenberg tests pass;
+real400-activation concurrency probe produced998 successful opens and zero
+errors. Retained-source substitution now fails before build/activation and
+in-place JSON changes still fail. Review record retains original findings and
+coordinator reproduction evidence. Assignments2/6, worker occupancy11/45
+conservatively (5 I/O +6 review), no active agents. About16 elapsed minutes;
+original target/freeze20:27:21 and stop20:57:21 unchanged. No new scope planned.
+Next: canonical suite and actual cached full-archive setup/activation/reuse
+qualification in a new private cache, then exact-head internal PR checks.

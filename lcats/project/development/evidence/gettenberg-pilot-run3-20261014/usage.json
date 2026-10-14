@@ -1,0 +1,14 @@
+{
+  "scope": "rounded shared-account weekly usage, not attributable run cost",
+  "observations": [
+    {
+      "utc": "2026-10-14T19:27:21Z",
+      "used_percent": 40
+    },
+    {
+      "utc": "2026-10-14T19:37:39Z",
+      "used_percent": 42
+    }
+  ],
+  "numerical_stop_threshold": null
+}
