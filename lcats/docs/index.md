@@ -29,6 +29,8 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Gutenberg metadata records and RDF parser](reference/gettenberg-records.md) — typed source metadata, bounds, diagnostics and JSON export
+
 - [CLI status matrix](reference/cli-status.md)
 - [CLI command reference](reference/cli-commands.md) — flags and arguments for every `lcats` subcommand
 - [Linguistic sidecar schema](reference/linguistics-sidecar.md) — `linguistics.json`, token-detail, and run-summary fields

@@ -1,0 +1,104 @@
+{
+  "archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+  "archive_bytes": 125955051,
+  "expanded_bytes": 2079559859,
+  "members": 78937,
+  "counts": {
+    "parsed": 78897,
+    "resources": 2016769,
+    "contributions": 109002,
+    "rejected": 40
+  },
+  "error_codes": {
+    "invalid_identity": 8,
+    "unsupported_shape": 32
+  },
+  "diagnostic_predicates": {},
+  "examples": [
+    {
+      "member": "cache/epub/11008/pg11008.rdf",
+      "error": "cache/epub/11008/pg11008.rdf: invalid_identity: unresolved or invalid URI: 'https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 000.jpg'"
+    },
+    {
+      "member": "cache/epub/15813/pg15813.rdf",
+      "error": "cache/epub/15813/pg15813.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}trl"
+    },
+    {
+      "member": "cache/epub/16264/pg16264.rdf",
+      "error": "cache/epub/16264/pg16264.rdf: unsupported_shape: expected inline pgterms:agent: {http://purl.org/dc/terms/}creator"
+    },
+    {
+      "member": "cache/epub/19467/pg19467.rdf",
+      "error": "cache/epub/19467/pg19467.rdf: invalid_identity: unresolved or invalid URI: 'https://www.gutenberg.org/files/19467/19467-ogg/01 01 - The Cowardly Lion and the Hu.ogg'"
+    },
+    {
+      "member": "cache/epub/21823/pg21823.rdf",
+      "error": "cache/epub/21823/pg21823.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/23309/pg23309.rdf",
+      "error": "cache/epub/23309/pg23309.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/23384/pg23384.rdf",
+      "error": "cache/epub/23384/pg23384.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/23702/pg23702.rdf",
+      "error": "cache/epub/23702/pg23702.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/24017/pg24017.rdf",
+      "error": "cache/epub/24017/pg24017.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}edt"
+    },
+    {
+      "member": "cache/epub/24263/pg24263.rdf",
+      "error": "cache/epub/24263/pg24263.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/25232/pg25232.rdf",
+      "error": "cache/epub/25232/pg25232.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}edt"
+    },
+    {
+      "member": "cache/epub/25464/pg25464.rdf",
+      "error": "cache/epub/25464/pg25464.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/25555/pg25555.rdf",
+      "error": "cache/epub/25555/pg25555.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}trl"
+    },
+    {
+      "member": "cache/epub/26715/pg26715.rdf",
+      "error": "cache/epub/26715/pg26715.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/26798/pg26798.rdf",
+      "error": "cache/epub/26798/pg26798.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/27529/pg27529.rdf",
+      "error": "cache/epub/27529/pg27529.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}trl"
+    },
+    {
+      "member": "cache/epub/27851/pg27851.rdf",
+      "error": "cache/epub/27851/pg27851.rdf: invalid_identity: unresolved or invalid URI: 'https://en.wikipedia.org/wiki/Edmund_Gurney ***!'"
+    },
+    {
+      "member": "cache/epub/30760/pg30760.rdf",
+      "error": "cache/epub/30760/pg30760.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}trl"
+    },
+    {
+      "member": "cache/epub/30981/pg30981.rdf",
+      "error": "cache/epub/30981/pg30981.rdf: unsupported_shape: expected inline pgterms:agent: {http://id.loc.gov/vocabulary/relators/}ill"
+    },
+    {
+      "member": "cache/epub/36567/pg36567.rdf",
+      "error": "cache/epub/36567/pg36567.rdf: invalid_identity: unresolved or invalid URI: 'https://www.gutenberg.org/files/36567/36567-ogg/All Those Promises - Janis Ian - FITNB.ogg'"
+    }
+  ],
+  "elapsed_seconds": 287.00288104100036,
+  "peak_rss_bytes": 104480768,
+  "platform": "macOS ru_maxrss bytes",
+  "network_bytes": 0,
+  "scope": "Full cached archive pure parsing probe, not ingestion/catalog or corpus qualification."
+}
