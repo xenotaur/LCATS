@@ -68,14 +68,13 @@ express.
 ## Work Items
 
 - **WI-RELEASE-0037** — Resolve the `gutenbergpy` VCS-pin PyPI-publish
-  blocker (vendor vs. re-fork-and-publish vs. wait-on-upstream). Proposed,
+  blocker through the internal WS-GETTENBERG replacement. Proposed,
   open.
 - **WI-RELEASE-0038** — `lcats.version` module, `--version` CLI flag,
   `scripts/version` helper. Resolved, merged (PR #183).
 - **WI-RELEASE-0039** — Pre-launch verification gate: re-checks the
-  `gutenbergpy` dependency-blocker's resolution status (upstream release
-  state, or the continued validity of whatever fix `WI-RELEASE-0037`
-  lands on) immediately before any real LCATS PyPI publish is attempted.
+  `gutenbergpy` dependency-blocker's resolution status (relevant source
+  format changes and continued validity of the internal replacement) immediately before any real LCATS PyPI publish is attempted.
   `depends_on: WI-RELEASE-0037`. Proposed.
 
 ## Exit Criteria
@@ -100,14 +99,21 @@ express.
 - Does not scope `scripts/release-smoke`, a release runbook, or PyPI
   Trusted Publishing setup — deferred to future work items once a real
   publish is imminent.
-- Does not decide vendor vs. fork-and-publish vs. wait for
-  `WI-RELEASE-0037` — that decision is that work item's own scope.
+- Does not reopen vendor/fork/wait: the owner selected the internal redesign
+  in PROP-LCATS-GETTENBERG-REDESIGN. WS-GETTENBERG owns its implementation.
 
 ## Relationship to Design
 
 - Design proposal:
   `project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md`
-  (PR #184, not yet merged; proposal `status` remains `proposed` on disk
-  until this workstream closes and adopts it, per LRH convention).
+  (historically filed in PR #184; proposal remains `proposed` until its
+  implementation criteria and workstream closeout are satisfied).
 - Prior workstream: `project/workstreams/resolved/WS-PACKAGING.md` (the
   model this workstream follows).
+
+## 2026-10-14 reconciliation
+
+The approved internal gettenberg redesign replaces vendor/fork/wait as the
+active dependency direction. WI-RELEASE-0037 verifies delivered replacement
+evidence; WI-RELEASE-0039 still runs immediately before actual publication.
+This amendment resolves no release item and changes no CI permissions.

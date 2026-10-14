@@ -1,6 +1,11 @@
 # Gettenberg bounded execution charter
 
-Status: proposed for review; no implementation run has started.
+Status amendment (2026-10-14): approved in PR #503; the human explicitly
+started run `gettenberg-20261014` at 07:55:39 UTC. Its bounded grant and
+09:55:39 UTC deadline are recorded in the [development log](gettenberg-development-log.md).
+The original planning status was "proposed for review; no implementation run
+has started." The authorization terms below are unchanged; this amendment
+records activation and does not renew or enlarge the grant.
 
 ## Purpose and activation
 

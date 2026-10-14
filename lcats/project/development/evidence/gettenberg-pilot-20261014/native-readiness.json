@@ -1,0 +1,95 @@
+{
+  "scope": "Native prompt readiness only; does not verify pilot staged dependencies",
+  "items": [
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0001",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0001.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0002",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0002.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0003",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0003.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0004",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0004.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0005",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0005.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0006",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0006.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0007",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0007.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0008",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0008.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0009",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0009.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    },
+    {
+      "blocking_reasons": [],
+      "id": "WI-GETTENBERG-0010",
+      "path": "project/work_items/proposed/WI-GETTENBERG-0010.md",
+      "prompt_ready": true,
+      "recommended_next": null,
+      "status": "proposed",
+      "warnings": []
+    }
+  ]
+}

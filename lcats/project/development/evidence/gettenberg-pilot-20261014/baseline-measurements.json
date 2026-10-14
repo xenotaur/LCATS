@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "bounds": {
+    "archive_bytes": 268435456,
+    "expanded_bytes": 4294967296,
+    "member_bytes": 8388608,
+    "members": 200000,
+    "seconds": 180
+  },
+  "identity": {
+    "rdf-files.tar.bz2": {
+      "size_bytes": 125955051,
+      "sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+      "mtime_ns": 1784322049769682987
+    },
+    "gutenbergindex.db": {
+      "size_bytes": 342450176,
+      "sha256": "188b422247c48807459f3aedac6dad462244e91a2885543e3051555c0e0a39f5",
+      "mtime_ns": 1784322230521426703
+    }
+  },
+  "provenance": "Pre-existing local cache; original retrieval URL/time and DB-to-archive correspondence unverified. Hashes identify observed bytes, not retrieval provenance.",
+  "members": 78937,
+  "categories": {
+    "ebook": 78937
+  },
+  "expanded_bytes": 2079559859,
+  "max_member_bytes": 1223616,
+  "xml_elements": {
+    "{http://id.loc.gov/vocabulary/relators/}adp": 60,
+    "{http://id.loc.gov/vocabulary/relators/}aft": 2,
+    "{http://id.loc.gov/vocabulary/relators/}ann": 133,
+    "{http://id.loc.gov/vocabulary/relators/}arr": 12,
+    "{http://id.loc.gov/vocabulary/relators/}art": 42,
+    "{http://id.loc.gov/vocabulary/relators/}aui": 1190,
+    "{http://id.loc.gov/vocabulary/relators/}clb": 2,
+    "{http://id.loc.gov/vocabulary/relators/}cmm": 435,
+    "{http://id.loc.gov/vocabulary/relators/}cmp": 72,
+    "{http://id.loc.gov/vocabulary/relators/}cnd": 2,
+    "{http://id.loc.gov/vocabulary/relators/}com": 482,
+    "{http://id.loc.gov/vocabulary/relators/}ctb": 2313,
+    "{http://id.loc.gov/vocabulary/relators/}dub": 121,
+    "{http://id.loc.gov/vocabulary/relators/}edt": 7127,
+    "{http://id.loc.gov/vocabulary/relators/}egr": 86,
+    "{http://id.loc.gov/vocabulary/relators/}frg": 1,
+    "{http://id.loc.gov/vocabulary/relators/}ill": 9853,
+    "{http://id.loc.gov/vocabulary/relators/}lbt": 16,
+    "{http://id.loc.gov/vocabulary/relators/}oth": 109,
+    "{http://id.loc.gov/vocabulary/relators/}pbl": 67,
+    "{http://id.loc.gov/vocabulary/relators/}pht": 82,
+    "{http://id.loc.gov/vocabulary/relators/}prf": 80,
+    "{http://id.loc.gov/vocabulary/relators/}prt": 4,
+    "{http://id.loc.gov/vocabulary/relators/}res": 1,
+    "{http://id.loc.gov/vocabulary/relators/}trc": 3,
+    "{http://id.loc.gov/vocabulary/relators/}trl": 7241,
+    "{http://id.loc.gov/vocabulary/relators/}unk": 10,
+    "{http://purl.org/dc/dcam/}memberOf": 2747328,
+    "{http://purl.org/dc/terms/}alternative": 5340,
+    "{http://purl.org/dc/terms/}creator": 79624,
+    "{http://purl.org/dc/terms/}description": 104543,
+    "{http://purl.org/dc/terms/}extent": 2022362,
+    "{http://purl.org/dc/terms/}format": 2196609,
+    "{http://purl.org/dc/terms/}hasFormat": 2018879,
+    "{http://purl.org/dc/terms/}isFormatOf": 2018879,
+    "{http://purl.org/dc/terms/}issued": 78937,
+    "{http://purl.org/dc/terms/}language": 79162,
+    "{http://purl.org/dc/terms/}license": 78937,
+    "{http://purl.org/dc/terms/}modified": 2022372,
+    "{http://purl.org/dc/terms/}publisher": 78937,
+    "{http://purl.org/dc/terms/}rights": 78937,
+    "{http://purl.org/dc/terms/}subject": 265507,
+    "{http://purl.org/dc/terms/}tableOfContents": 8334,
+    "{http://purl.org/dc/terms/}title": 78941,
+    "{http://purl.org/dc/terms/}type": 78937,
+    "{http://web.resource.org/cc/}Work": 78937,
+    "{http://web.resource.org/cc/}license": 78937,
+    "{http://www.gutenberg.org/2009/pgterms/}agent": 109138,
+    "{http://www.gutenberg.org/2009/pgterms/}alias": 164426,
+    "{http://www.gutenberg.org/2009/pgterms/}birthdate": 89286,
+    "{http://www.gutenberg.org/2009/pgterms/}bookshelf": 206275,
+    "{http://www.gutenberg.org/2009/pgterms/}deathdate": 87927,
+    "{http://www.gutenberg.org/2009/pgterms/}downloads": 78937,
+    "{http://www.gutenberg.org/2009/pgterms/}ebook": 78937,
+    "{http://www.gutenberg.org/2009/pgterms/}file": 2018879,
+    "{http://www.gutenberg.org/2009/pgterms/}marc010": 13153,
+    "{http://www.gutenberg.org/2009/pgterms/}marc020": 1,
+    "{http://www.gutenberg.org/2009/pgterms/}marc250": 331,
+    "{http://www.gutenberg.org/2009/pgterms/}marc260": 12565,
+    "{http://www.gutenberg.org/2009/pgterms/}marc300": 7,
+    "{http://www.gutenberg.org/2009/pgterms/}marc440": 5638,
+    "{http://www.gutenberg.org/2009/pgterms/}marc508": 75952,
+    "{http://www.gutenberg.org/2009/pgterms/}marc520": 76918,
+    "{http://www.gutenberg.org/2009/pgterms/}marc546": 148,
+    "{http://www.gutenberg.org/2009/pgterms/}marc901": 9236,
+    "{http://www.gutenberg.org/2009/pgterms/}marc902": 9,
+    "{http://www.gutenberg.org/2009/pgterms/}marc903": 2,
+    "{http://www.gutenberg.org/2009/pgterms/}marc904": 7957,
+    "{http://www.gutenberg.org/2009/pgterms/}marc905": 12252,
+    "{http://www.gutenberg.org/2009/pgterms/}marc906": 12201,
+    "{http://www.gutenberg.org/2009/pgterms/}marc907": 12203,
+    "{http://www.gutenberg.org/2009/pgterms/}marc908": 74369,
+    "{http://www.gutenberg.org/2009/pgterms/}name": 109138,
+    "{http://www.gutenberg.org/2009/pgterms/}webpage": 89631,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}Description": 2916096,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF": 78937,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}value": 2826490,
+    "{http://www.w3.org/2000/01/rdf-schema#}comment": 78937
+  },
+  "xml_attributes": {
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about": 2375497,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}datatype": 6484534,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}nodeID": 2826490,
+    "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource": 5013744,
+    "{http://www.w3.org/XML/1998/namespace}base": 78937
+  },
+  "feature_examples": {
+    "alias": {
+      "member": "cache/epub/10000/pg10000.rdf",
+      "sha256": "708eab35674c25d6543be161d4fdc5f35ce83d839ad534c6ee481c3abf90ae2e",
+      "bytes": 17039
+    },
+    "alternative_title": {
+      "member": "cache/epub/10040/pg10040.rdf",
+      "sha256": "eb1f341a0b11cee6e80c8a52d21a78c8cc543f8d4860a36f6574b74dfaa66d26",
+      "bytes": 17512
+    },
+    "multiple_languages": {
+      "member": "cache/epub/10040/pg10040.rdf",
+      "sha256": "eb1f341a0b11cee6e80c8a52d21a78c8cc543f8d4860a36f6574b74dfaa66d26",
+      "bytes": 17512
+    }
+  },
+  "database_table_counts": {
+    "aliases": 29822,
+    "authors": 26841,
+    "book_aliases": 127880,
+    "book_authors": 79621,
+    "book_subjects": 265507,
+    "books": 78937,
+    "bookshelves": 416,
+    "downloadlinks": 2018879,
+    "downloadlinkstype": 38,
+    "languages": 70,
+    "publishers": 1,
+    "rights": 2,
+    "sqlite_sequence": 12,
+    "subjects": 42428,
+    "titles": 84278,
+    "types": 7
+  },
+  "queries": {
+    "language_en": {
+      "sql": "SELECT gutenbergbookid FROM books JOIN languages ON languages.id=books.languageid WHERE languages.name='en' ORDER BY gutenbergbookid LIMIT 100",
+      "elapsed_seconds": 0.00039891700726002455,
+      "row_count": 100,
+      "first_row": [
+        1
+      ]
+    },
+    "id_84": {
+      "sql": "SELECT * FROM books WHERE gutenbergbookid=84",
+      "elapsed_seconds": 0.00029158301185816526,
+      "row_count": 1,
+      "first_row": [
+        71215,
+        1,
+        "1993-10-01",
+        1,
+        75458,
+        1,
+        110,
+        84,
+        1
+      ]
+    }
+  },
+  "archive_audit_seconds": 77.47240854200209,
+  "elapsed_seconds": 78.58412279200274,
+  "peak_rss_bytes": 79298560,
+  "peak_rss_method": "resource.getrusage(RUSAGE_SELF).ru_maxrss on macOS (bytes), includes Python/parser/hash/database audit",
+  "network_bytes": 0,
+  "temporary_extracted_files": 0,
+  "samples_saved_separately_for_inspection": [
+    "alias",
+    "alternative_title",
+    "multiple_languages",
+    "pg1.rdf",
+    "pg84.rdf"
+  ]
+}

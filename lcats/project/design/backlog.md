@@ -865,7 +865,14 @@ proposed here since at least one (`WI-ANNOTATE-0051`) is already
 
 ---
 
-## Check back on `gutenbergpy` upstream release status for `WI-RELEASE-0037` — P3, decision blocked on external response
+## Check back on `gutenbergpy` upstream release status for `WI-RELEASE-0037` — historical, superseded 2026-10-14
+
+**Superseded:** PR #501 selected the LCATS-owned gettenberg redesign. The watch
+and kickoff prompt below are retained as historical context, not active
+instructions or an external-response blocker. WS-GETTENBERG now implements the
+replacement; WI-RELEASE-0037 verifies delivery and WI-RELEASE-0039 retains its
+immediately-before-publication check. Neither release item is resolved here.
+
 
 Noted 2026-07-29, while formalizing `WS-RELEASE`/`PROP-LCATS-PYPI-RELEASE-READINESS`.
 `WI-RELEASE-0037` (resolve the `gutenbergpy` `git+https` direct-VCS-dependency
