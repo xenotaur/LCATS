@@ -3,5 +3,5 @@ stop_work_condition: "Any failing CI check, a reviewer finding that isn't Clear-
 self_review_preference: substitute_self_review
 chain_init_confirmation: skip_if_opted_in
 confirm_fixes_batch: auto_unless_unusual
-confirmed_commit: 15fd7d242f0194ee3576c2d6c0bc53820c2e3bb8
-confirmed_at: 2026-08-11T22:31:55Z
+confirmed_commit: 6bf3ec76eef9a050055250cfa9c9f3ccc04d7c24
+confirmed_at: 2026-10-14T07:43:49Z
