@@ -1,5 +1,7 @@
 # Human milestone: gettenberg offline foundation
 
+Review PR: [#508](https://github.com/xenotaur/LCATS/pull/508), targeting main.
+
 Status: proposed for human review. Preparing this packet does not authorize a
 main merge, native closeout, publication, or another implementation run.
 

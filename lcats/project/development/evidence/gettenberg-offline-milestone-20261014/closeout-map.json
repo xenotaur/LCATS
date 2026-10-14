@@ -3,7 +3,7 @@
   "main_base": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
   "qualified_integration_checkpoint": "6970d504cead927fa566eecd5187bb2f51eab174",
   "promotion_branch": "codex/gettenberg-offline-milestone",
-  "promotion_pr": null,
+  "promotion_pr": "https://github.com/xenotaur/LCATS/pull/508",
   "items": [
     {
       "work_item": "WI-GETTENBERG-0001",

@@ -710,3 +710,18 @@ commit is an ancestor. Preserved native statuses and original PR attribution.
 Promotion execution record2026_10_14_20_45_26_GETTENBERG_OFFLINE_MILESTONE tracks
 this separate operation. Next: presentation checks, main-target review PR,
 record its URL and report the concrete human decision with current gate status.
+
+## 2026-10-14 20:48 UTC — Human milestone PR opened
+
+Opened https://github.com/xenotaur/LCATS/pull/508 against main from fixed branch
+codex/gettenberg-offline-milestone, initial head11499215. Attached it to this
+chat and linked the promotion record, review packet and closeout map. Main is
+unchanged. Required current-head CI and automatic first reviews are pending;
+no manual hosted retrigger or new worker assignment was requested.
+
+Presentation format/lint/diff checks pass; all13 local packet links resolve;
+LRH reports0 errors/351 existing warnings. Verified no src/tests/docs/package
+change from qualified6970d504. Existing2668-test evidence remains source-valid;
+main-target CI runs afresh. Human decision is partial promotion of WI-0001–0004
+with documented limits, followed by accurate closeout after actual merge. It
+does not approve WI-0005 execution or claim the dependency replacement complete.

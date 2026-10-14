@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_OFFLINE_MILESTONE)[2026-10-14T20:45:05+00:00
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/508
 commit:
 created_at: 2026-10-14T20:45:26+00:00
 agent: codex_app
