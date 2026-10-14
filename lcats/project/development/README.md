@@ -10,3 +10,6 @@ work items, and execution records remain authoritative for delivery.
 
 - [Gettenberg baseline](gettenberg-baseline.md): snapshot measurements, caller
   dispositions, feature/predicate matrix, fixture plan and explicit gaps.
+
+- [Offline foundation milestone](gettenberg-offline-milestone.md): human promotion
+  decision, delivered scope, evidence, limitations and closeout map.

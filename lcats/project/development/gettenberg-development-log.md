@@ -692,3 +692,21 @@ Process observations and candidate LRH improvements:
   watchdog/elapsed-deadline reminder rather than reliance on agent recollection.
   Acceptance test: injected suspension preserves absolute deadlines and reports
   last completed action plus pending qualification, without silently renewing.
+
+## 2026-10-14 20:46 UTC — Human milestone preparation
+
+Human requested presentation of the offline-foundation milestone and a runlog
+record. Run3 remains finished; this is separately requested presentation work,
+not a grant renewal or main-merge approval. Verified clean pushed checkpoint
+6970d504, main5cfd2d71 ancestor, and no duplicate open promotion PR. Created fixed
+branch codex/gettenberg-offline-milestone so future pilot work cannot silently
+enlarge this review. No implementation, dependency, CI or corpus changes made.
+
+Prepared gettenberg-offline-milestone.md: scope/evidence for WI-0001 through0004,
+review-size justification, operating limits, remaining replacement work, human
+main gate and closeout procedure. Generated closeout-map.json by primary/side
+record relationships:4 WIs,15 records,4 internal PRs; verified each integrated
+commit is an ancestor. Preserved native statuses and original PR attribution.
+Promotion execution record2026_10_14_20_45_26_GETTENBERG_OFFLINE_MILESTONE tracks
+this separate operation. Next: presentation checks, main-target review PR,
+record its URL and report the concrete human decision with current gate status.

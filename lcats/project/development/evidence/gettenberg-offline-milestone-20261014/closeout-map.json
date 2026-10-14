@@ -1,0 +1,113 @@
+{
+  "status": "proposed human milestone; no main approval or closeout",
+  "main_base": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+  "qualified_integration_checkpoint": "6970d504cead927fa566eecd5187bb2f51eab174",
+  "promotion_branch": "codex/gettenberg-offline-milestone",
+  "promotion_pr": null,
+  "items": [
+    {
+      "work_item": "WI-GETTENBERG-0001",
+      "internal_pr": "https://github.com/xenotaur/LCATS/pull/504",
+      "integrated_commit": "1299f9800871fcbb44a012554749675ea25b71c9",
+      "records": [
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_08_14_00_GETTENBERG_PILOT_CALLER_AUDIT.md",
+          "execution_id": "2026_10_14_08_14_00_GETTENBERG_PILOT_CALLER_AUDIT",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_08_18_36_GETTENBERG_BASELINE_SELFREVIEW.md",
+          "execution_id": "2026_10_14_08_18_36_GETTENBERG_BASELINE_SELFREVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/WI-GETTENBERG-0001/2026_10_14_07_57_57_WI_GETTENBERG_0001.md",
+          "execution_id": "2026_10_14_07_57_57_WI_GETTENBERG_0001",
+          "role": "primary"
+        }
+      ]
+    },
+    {
+      "work_item": "WI-GETTENBERG-0002",
+      "internal_pr": "https://github.com/xenotaur/LCATS/pull/505",
+      "integrated_commit": "3793d152321af76d9d385af0ed7c7b3fc3f2d598",
+      "records": [
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_08_45_05_GETTENBERG_PARSER_SELFREVIEW.md",
+          "execution_id": "2026_10_14_08_45_05_GETTENBERG_PARSER_SELFREVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_08_52_24_GETTENBERG_EXPORT_SELFREVIEW.md",
+          "execution_id": "2026_10_14_08_52_24_GETTENBERG_EXPORT_SELFREVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/WI-GETTENBERG-0002/2026_10_14_08_30_19_WI_GETTENBERG_0002.md",
+          "execution_id": "2026_10_14_08_30_19_WI_GETTENBERG_0002",
+          "role": "primary"
+        }
+      ]
+    },
+    {
+      "work_item": "WI-GETTENBERG-0003",
+      "internal_pr": "https://github.com/xenotaur/LCATS/pull/506",
+      "integrated_commit": "b2aa080a098b0fc938ac5e3ec71a5eb2e42c7a80",
+      "records": [
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_17_26_37_RUN2_CATALOG_STORE.md",
+          "execution_id": "2026_10_14_17_26_37_RUN2_CATALOG_STORE",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_17_26_38_RUN2_CATALOG_REVIEW.md",
+          "execution_id": "2026_10_14_17_26_38_RUN2_CATALOG_REVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_17_53_11_RUN2_CATALOG_ERROR_REVIEW.md",
+          "execution_id": "2026_10_14_17_53_11_RUN2_CATALOG_ERROR_REVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/WI-GETTENBERG-0003/2026_10_14_17_16_14_WI_GETTENBERG_0003.md",
+          "execution_id": "2026_10_14_17_16_14_WI_GETTENBERG_0003",
+          "role": "primary"
+        }
+      ]
+    },
+    {
+      "work_item": "WI-GETTENBERG-0004",
+      "internal_pr": "https://github.com/xenotaur/LCATS/pull/507",
+      "integrated_commit": "1ea08da3bee85dab50f9bcdad2a26fc3263690f7",
+      "records": [
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_19_36_58_RUN3_LIFECYCLE_IO.md",
+          "execution_id": "2026_10_14_19_36_58_RUN3_LIFECYCLE_IO",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_19_36_58_WI_GETTENBERG_0004_SELFREVIEW.md",
+          "execution_id": "2026_10_14_19_36_58_WI_GETTENBERG_0004_SELFREVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_20_17_25_RUN3_DURABILITY_REVIEW.md",
+          "execution_id": "2026_10_14_20_17_25_RUN3_DURABILITY_REVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/AD_HOC/2026_10_14_20_20_49_RUN3_RECOVERY_REVIEW.md",
+          "execution_id": "2026_10_14_20_20_49_RUN3_RECOVERY_REVIEW",
+          "role": "side"
+        },
+        {
+          "path": "project/executions/WI-GETTENBERG-0004/2026_10_14_19_29_29_WI_GETTENBERG_0004.md",
+          "execution_id": "2026_10_14_19_29_29_WI_GETTENBERG_0004",
+          "role": "primary"
+        }
+      ]
+    }
+  ],
+  "native_closeout": "After explicit main approval and verified merge only. Preserve internal PR attribution; append promotion PR/main commit evidence to every listed record. Resolve only WI-0001 through WI-0004 whose delivered acceptance is verified; keep workstream/proposals/release gates open."
+}
