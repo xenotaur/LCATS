@@ -10,3 +10,5 @@ Reference pages describe exact interfaces and current behavior.
 - [LLMBackend reference](llm-backend.md)
 
 See also: [API key setup](../secrets-setup.md) (how-to, not reference).
+
+- [Local Gutenberg catalog ingestion and queries](gettenberg-catalog.md)

@@ -360,3 +360,15 @@ Assignments0/6; worker occupancy0/45 minutes,15 reserved review. Shared weekly
 usage33% at launch; attributable per-run tokens/cost unavailable. No credit
 reset or purchase authorized. Next: record schema/API decision, implement and
 independently review before exact-head integration.
+
+## 2026-10-14 17:27 UTC — Run 2 candidate ready for independent review
+
+Schema/API decision is [gettenberg-catalog-design.md](gettenberg-catalog-design.md).
+Assignment1 delivered normalized storage; conservative occupancy5/45 minutes,
+no worker active. Coordinator implemented bounded ingestion/query API and real
+archive/SQLite tests. Focused tests24 pass, including executable reference docs.
+Decisions: lossless per-record zlib reduces source footprint; batch source-byte
+budget bounds aggregate decoding; final complete status follows all allocating
+evidence writes and integrity checks. No source acquisition or activation.
+Next: assignment2 combined independent review, then final canonical/full-source
+qualification. No new item. Deadline18:43:39/freeze18:13:39 unchanged.
