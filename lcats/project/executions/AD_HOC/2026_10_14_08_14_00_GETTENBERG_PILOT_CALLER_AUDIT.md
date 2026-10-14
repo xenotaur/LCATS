@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_PILOT_CALLER_AUDIT)[2026-10-14T08:12:49+00:0
 work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_14_07_57_57_WI_GETTENBERG_0001
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/504
 commit:
 created_at: 2026-10-14T08:14:00+00:00
 agent: codex_app
