@@ -82,3 +82,14 @@ first full corpus quality and genre assessment pipeline.
 - Active work spans Phase 4 (repair/review), story-analysis-pipeline foundations feeding the
   Medium-Term Goal, and the WS-DOCS documentation cleanup — see
   `project/focus/current_focus.md` for the current multi-priority focus.
+
+## Gettenberg Replacement — Proposed Execution Plan
+
+PROP-LCATS-GETTENBERG-REDESIGN establishes the approved technical direction.
+[WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md) sequences baseline,
+models/ingestion, catalog lifecycle, acquisition/cleanup, gather integration,
+migration/packaging, and qualification. The execution charter and bootstrap
+item are proposed for review; implementation has not started. The first
+two-hour allowance is separate from full workstream completion. Release-plan
+reconciliation precedes implementation; near-publication verification remains
+a later gate.

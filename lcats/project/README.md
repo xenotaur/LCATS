@@ -8,6 +8,7 @@ This `project/` directory is the LRH planning and memory layer for LCATS.
 - Completed foundations: ingestion, survey/classification, and immediate correctness fixes.
 
 ## Directory Guide
+- `development/`: bounded process-experiment charters and evidence-linked logs.
 - `goal/`: long- and near-term intent.
 - `roadmap/`: phase-structured progress with completion state.
 - `focus/`: narrow active priority.
