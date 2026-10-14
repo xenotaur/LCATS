@@ -2,13 +2,13 @@
 execution_id: 2026_10_14_03_02_42_AGENT_SKILLS_CLAUDE_CODEX_TARGETS_CONFIRM
 prompt_id: PROMPT(AD_HOC:AGENT_SKILLS_CLAUDE_CODEX_TARGETS_CONFIRM)[2026-10-14T03:02:42+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/502
-session_transcript: pending
+session_transcript: claude-app:be3e3683-be69-4c9d-b790-4aeee0e23183
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/502
-commit:
+commit: ff7c01ddc0347a38228f26e365c8687a37890fb8
 created_at: 2026-10-14T03:02:42+00:00
 ---
 
@@ -18,7 +18,7 @@ Pre-merge confirm-fixes pass (inlined from `/lrh-land`) for PR #502, which adds 
 
 # Result
 
-- Head verified: `e57e4e2b4dd49b30311b370fb6e5e76b461aa54f`; the diff is the single new 4-line config file, no other file touched.
+- Head verified: `e57e4e2b4dd49b30311b370fb6e5e76b461aa54f`; the diff is the single new 5-line config file, no other file touched.
 - Authoritative thread list (`lrh github threads --mode raw --state all`): 0 threads. Nothing to resolve.
 - Reviews on the head commit, read for content: Copilot "Approval recommended, 0 open findings"; Codex review completed with no findings.
 - CI on the head: lint, coverage and both test jobs passed. The repo's branch rules require no status checks, so the unfiltered read applies.
