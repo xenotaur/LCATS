@@ -14,16 +14,28 @@ session_transcript: codex-app:01a13653-87a6-7743-b734-7440a42ee1be
 
 # Summary
 
-TODO: Briefly summarize the intended prompt-driven work.
+Run3 assignment3: independent report-only review of hosted durability repair
+0a4f8296..744076ba. Explicit seven-minute bound ending20:25; no delegation,
+network, source edits or bulk rebuild. Shared usage46% before dispatch.
 
 # Result
 
-TODO: Fill in what happened.
+Clear at744076ba. Root and all containing directories are synced before writer
+acquisition/publication, including retries after partial creation. Read-only
+operations do not sync. Coordinator independently verified original missing
+parent barrier and added filesystem-boundary regression coverage.
 
 # Validation
 
-TODO: List tests or checks run.
+Reviewer ran canonical focused scripts/test:23 lifecycle tests passed (1.660s).
+Supplemental barrier-controlled concurrent fresh nested cache produced one build
+and one reuse of the same generation; status/open succeeded with syncing
+forbidden. Completed about20:19, conservatively3 worker minutes. No findings.
 
 # Follow-up
 
-TODO: List deferred work.
+No fresh full import required for directory-only repair: fresh-path tests cover
+changed behavior and existing full catalog reuse/activation provides real-scale
+compatibility evidence. Original full import timing remains attributed to
+8bccd4c4; no physical power-loss test is claimed. Later Copilot recovery findings
+are separately reviewed in assignment4. Native record remains in_progress.

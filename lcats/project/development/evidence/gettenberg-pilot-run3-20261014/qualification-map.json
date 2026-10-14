@@ -1,0 +1,23 @@
+{
+  "bulk_import_source": "8bccd4c4eb56372d295552ea1272563d81ea8386",
+  "final_source": "2e86857875ecba9959aba2f9e6e59d21c9a658f9",
+  "changed_modules": [
+    "src/lcats/gettenberg/_lifecycle_io.py",
+    "src/lcats/gettenberg/lifecycle.py"
+  ],
+  "unchanged_bulk_components": [
+    "rdf.py",
+    "models.py",
+    "ingestion.py",
+    "_store.py",
+    "catalog.py"
+  ],
+  "rationale": "Only filesystem capture, directory durability and candidate error boundaries changed after bulk import. Independent assignments3/4 approved targeted regression and final full-catalog verification rather than repeat identical ingestion. No final-head fresh bulk-import timing or physical power-loss claim.",
+  "acceptance": {
+    "reuse_retained_rebuild_separate_cleanup": "LifecycleTests setup/rebuild/cleanup fixture tests and full-source.json + full-source-final-verification.json; remote refresh belongs to WI-0005",
+    "locking_atomic_activation_pinned_recovery": "real subprocess contention/crash tests, two pinned readers, four publication interruptions, directory failure/retry and recovered candidate sync-before-pointer tests",
+    "manifest_identity_integrity_accounting_count_gate": "full-source manifests/verification and corrupt-source/schema/manifest/database/count approval regressions",
+    "cache_root_legacy_offline": "environment-resolution/read-only/legacy retention tests and socket-forbidden full-source checks"
+  },
+  "independent_review_final_source": "2e86857875ecba9959aba2f9e6e59d21c9a658f9"
+}

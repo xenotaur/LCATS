@@ -601,3 +601,44 @@ Assignments2/6, conservative worker occupancy11/45, no active agents. Scope
 unchanged. Continue qualification and review toward target20:27:21; hard stop
 20:57:21 unchanged. No new item or main promotion. If qualification or review
 fails, apply only verified bounded repairs or preserve a resumable checkpoint.
+
+## 2026-10-14 20:20 UTC — Run 3 hosted repair checkpoint
+
+Full-source lifecycle qualification at8bccd4c4 passed:78937 ebooks/sources/members,
+2018879 resources,109170 contributions,223 diagnostics; setup453.153 seconds,
+reuse0.004 seconds, peak79757312 bytes, zero network. Preserve original evidence
+and source hashes; do not relabel its timing as later repaired-head evidence.
+
+Hosted review found missing parent-directory fsync. Coordinator verified and
+fixed744076ba, with fresh nested-cache/retry tests. Assignment3 independently
+cleared that repair:23 tests plus concurrent first setup and read-only probes.
+Canonical2667 tests also passed; existing full-catalog reuse/activation and full
+hash/integrity/accounting verification passed23.078 seconds at744076ba.
+
+Copilot then identified retained-source rejection leaving an orphan archive and
+candidate-manifest sync failure falsely reporting possible activation. Coordinator
+reproduced both (one orphan; published=True with unchanged active pointer), then
+fixed6b163fc4: identity check before archive publication and candidate-specific
+error translation.190 focused tests pass. Assignment4 independently reviews
+these new fixes; expanded scope consumes another assignment rather than silently
+extending assignment3. Assignments4/6; completed workers14/45 conservative
+minutes, assignment4 active with deadline20:26. Shared usage47% (launch40%).
+Target/freeze20:27:21, hard stop20:57:21 unchanged; only repairs and qualification
+remain. Automatic first reviews completed; no paid retrigger requested.
+
+## 2026-10-14 20:23 UTC — Run 3 final source qualified
+
+Assignment4 found adjacent recovery P2: activate did not repeat a failed
+candidate-directory sync. Coordinator confirmed with real filesystem probe and
+fixed2e868578; repair/recheck1 cleared that exact source, including failure
+preserving old active/candidate and successful retry. No remaining scoped P0-P2.
+All workers done:4/6 assignments,17/45 conservative worker minutes. No new scope.
+
+Final2668 canonical tests pass in64.618 seconds,190 gettenberg tests; format,
+lint, readiness and LRH pass (0 errors,351 existing warnings). Full-catalog
+verification/reactivation on final source passes in22.053 seconds without network.
+qualification-map.json separates original bulk-import evidence from repaired-head
+boundary/full-catalog evidence; unchanged bulk components verified by source hash.
+Next push evidence/repairs, verify all four exact-head CI checks and resolve only
+verified fixed review threads; integrate only into pilot branch. Target20:27:21
+and hard stop20:57:21 unchanged. Promotion recommendation follows checkpoint.
