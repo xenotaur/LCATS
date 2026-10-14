@@ -346,3 +346,17 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
   not establish a causal speedup or cost saving. Future experiments should
   instrument phase waits and usage where available without converting occupancy
   into invented token/cost estimates.
+
+## 2026-10-14 17:13:39 UTC — Run 2 started
+
+Human explicitly authorized the revised bounded plan. Scope WI-0003 only;
+base718058627cbfbb7942f117f8dfe3cda39796769d matches fetched integration.
+Verified accepted WI-0002 merge3793d152 ancestry and existing acceptance links.
+Gate fingerprints fresh, persistent skip consent invalid as before; explicit
+charter grant is authority, no persistent policy changes. Native readiness
+passes; no previous WI-0003 slug execution. Project Python3.11 environment,
+SQLite3.46.0/lxml5.2.2 verified. Target/freeze18:13:39, stop18:43:39 UTC.
+Assignments0/6; worker occupancy0/45 minutes,15 reserved review. Shared weekly
+usage33% at launch; attributable per-run tokens/cost unavailable. No credit
+reset or purchase authorized. Next: record schema/API decision, implement and
+independently review before exact-head integration.

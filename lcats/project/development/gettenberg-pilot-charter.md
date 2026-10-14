@@ -205,3 +205,30 @@ LRH run-tree/execution-framework/assistant work, without building a competing
 runtime here. Each recommendation needs an observed example and a proposed
 acceptance test, including branch-aware dependencies, delegated decisions,
 budget enforcement, or checkpoint recovery.
+
+## Run 2 amendment — approved and activated 2026-10-14
+
+The human approved the revised plan in this session and explicitly instructed
+the next run to proceed. This amendment supersedes conflicting first-run budget
+and fresh-main launch provisions for run `gettenberg-20261014-2` only. Resume
+the existing integration branch at718058627cbfbb7942f117f8dfe3cda39796769d;
+WI-0002's qualified staged merge3793d152 is an ancestor. Scope is WI-0003 only.
+
+- Start17:13:39 UTC; target/feature freeze18:13:39; hard stop18:43:39.
+- Normally coordinator plus one worker, four agents total maximum.
+- Six assignments maximum. Up to two repair/recheck follow-ups on the same
+  review scope remain in that assignment; expanded scope counts separately.
+- Worker occupancy target20–30 minutes, hard45 cumulative minutes including
+  waits; reserve15 for review. Individual assignments remain bounded by the
+  original30-minute ceiling and remaining allowance.
+- Reassess progress at minute45. No new features after minute60; final30
+  minutes are for bounded repairs, qualification and checkpointing.
+- Record available shared-account usage at launch, around minute30 and before
+  optional additional delegation. No numerical usage stop threshold is agreed.
+- Use compact assignment packets and linked authoritative evidence. Focused
+  tests during development; qualify stable source after review. Repeat relevant
+  qualification when repairs invalidate its source identity.
+
+All other authority, data stewardship, independent review, repair/escalation,
+exact-head CI and human main-promotion requirements remain unchanged. This
+renewal does not resolve native WIs or grant future runs.
