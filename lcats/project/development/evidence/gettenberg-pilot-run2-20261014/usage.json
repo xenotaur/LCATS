@@ -13,6 +13,10 @@
     {
       "utc": "2026-10-14T17:43:50Z",
       "used_percent": 38
+    },
+    {
+      "utc": "2026-10-14T17:52:03Z",
+      "used_percent": 38
     }
   ],
   "source": "Codex get_usage_limits, rateLimitsByLimitId.codex.primary; rounded percentages"

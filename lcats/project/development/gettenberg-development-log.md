@@ -405,3 +405,23 @@ Thirty-minute usage observation38%, launch33% (+5 shared-account percentage
 points; not attributable run-only consumption). Assignments2/6, occupancy13/45,
 no active agents. Only evidence/docs changed after reviewed source cde945dd.
 Next: internal PR and exact-head checks; no additional item or review dispatch.
+
+## 2026-10-14 17:53 UTC — Run 2 automatic review repair
+
+PR506 exact-head d1548a8e passed all four CI checks. Automatic Copilot and
+Codex reviews identified SQLite FULL/INTERRUPT misclassified as build_failed;
+Copilot also identified duplicated error-code text and a spacing typo. All
+verified and repaired at fc2b97bb. Real SQLite regression probes additionally
+exposed fatal-error savepoint cleanup masking the original SQLite code; outer
+cleanup now preserves it. Two initial authored probes used unsupported RDF term
+shapes and failed before SQLite; corrected to valid alternative-title fixtures.
+Thirty focused tests pass. This is a bounded repair, not a design replan.
+
+Assignment3 `catalog_error_review`, dispatched17:52UTC, new focused independent
+review of d1548a8e..fc2b97bb, maximum5 minutes and deadline17:58UTC. Assignments3/6;
+13/45 worker minutes used before dispatch. No recursive delegation. Account
+usage38% before dispatch. Coordinator repeats canonical and full-source checks
+on fc2b97bb; prior measurements remain retained with their actual source hash.
+No next item, network download, activation or main promotion. Hard stop18:43:39,
+feature freeze18:13:39 unchanged. Next: review clearance, final evidence/CI,
+resolve verified findings, then internal integration.
