@@ -78,6 +78,16 @@ they are not LCATS analysis or independently verified facts.
 bytes survive serialization; mutating an exported dictionary does not mutate
 the record. There is currently no public JSON-to-record constructor.
 
+Shared agents are expanded by JSON export. To bound that expansion, `to_dict`
+accepts `max_nodes=100_000` (traversed values and field names) and
+`max_text_bytes=16 * 1024**2` (cumulative UTF-8 text plus base64 payload).
+Repeated text is counted each time. These are traversal/content budgets, not
+an exact serialized JSON length or process-RSS limit; JSON escaping, punctuation
+and pretty printing add bytes. `errors.ExportLimitError` is raised before a
+budget is exceeded; no partial export is returned and the original record is
+unchanged. Explicit positive-integer overrides allow a caller to allocate more
+space deliberately. The default is tested on every retained real fixture.
+
 ## Supported RDF/XML profile
 
 The parser requires an `rdf:RDF` root with exactly one direct `pgterms:ebook`

@@ -331,6 +331,38 @@ class ProfileBoundaryTests(unittest.TestCase):
             "invalid_identity",
         )
 
+    def test_export_limits_reject_expansion_without_changing_the_record(self):
+        aliases = "".join(f"<pg:alias>Name {n}</pg:alias>" for n in range(100))
+        references = '<role:trl rdf:resource="2009/agents/7"/>' * 100
+        result = self.parse(
+            record(
+                f'<dc:creator><pg:agent rdf:about="2009/agents/7">{aliases}</pg:agent></dc:creator>{references}'
+            )
+        )
+        with self.assertRaises(errors.ExportLimitError):
+            result.to_dict(max_nodes=100)
+        with self.assertRaises(errors.ExportLimitError):
+            result.to_dict(max_text_bytes=1000)
+        exported = result.to_dict(max_nodes=1_000_000, max_text_bytes=4 * 1024**2)
+        self.assertEqual(len(exported["ebook"]["contributors"]), 101)
+        self.assertEqual(len(result.ebook.contributors[0].agent.aliases), 100)
+        for limit in (0, -1, True, 1.5):
+            with self.subTest(limit=limit), self.assertRaises(ValueError):
+                result.to_dict(max_nodes=limit)
+
+    def test_default_export_bound_rejects_small_repeated_source_expansion(self):
+        aliases = "<pg:alias>" + ("x" * 1000) + "</pg:alias>"
+        raw = record(
+            '<dc:creator><pg:agent rdf:about="2009/agents/7">'
+            + aliases * 100
+            + "</pg:agent></dc:creator>"
+            + '<role:trl rdf:resource="2009/agents/7"/>' * 200
+        )
+        self.assertLess(len(raw), rdf.DEFAULT_MAX_BYTES)
+        result = self.parse(raw)
+        with self.assertRaises(errors.ExportLimitError):
+            result.to_dict()
+
     def test_input_size_limit_boundary_and_override(self):
         data = record()
         self.assertEqual(

@@ -8,6 +8,8 @@ refer to ebooks/volumes, not to the individual stories LCATS extracts.
 import base64
 import dataclasses
 
+from lcats.gettenberg import errors
+
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class Literal:
@@ -128,24 +130,68 @@ class ParsedRecord:
     source: SourceEvidence
     diagnostics: tuple[Diagnostic, ...] = ()
 
-    def to_dict(self) -> dict:
+    def to_dict(
+        self, *, max_nodes: int = 100_000, max_text_bytes: int = 16 * 1024**2
+    ) -> dict:
         """Return a detached JSON-compatible representation of all fields.
 
         Tuples become JSON arrays. Source bytes use an explicitly labeled
         base64 object, which recovers the exact original bytes, not re-encoded
         XML. This is an export schema (version 1), not an object constructor.
+
+        Args:
+            max_nodes: Positive limit on traversed values and field names.
+            max_text_bytes: Positive cumulative UTF-8/base64 text budget,
+                counting repeated values each time they appear in the export.
+
+        Returns:
+            The complete export; never a truncated or partial representation.
+
+        Raises:
+            ValueError: A limit is not a positive integer.
+            errors.ExportLimitError: Expansion would exceed either budget.
         """
-        return {"schema_version": 1, **_json_value(self)}
+        for limit in (max_nodes, max_text_bytes):
+            if type(limit) is not int or limit <= 0:
+                raise ValueError("export limits must be positive integers")
+        budget = _ExportBudget(max_nodes, max_text_bytes)
+        return {"schema_version": 1, **_json_value(self, budget)}
 
 
-def _json_value(value):
+@dataclasses.dataclass
+class _ExportBudget:
+    nodes: int
+    text_bytes: int
+
+    def consume(self, value):
+        self.nodes -= 1
+        if self.nodes < 0:
+            raise errors.ExportLimitError("export traversal limit exceeded")
+        if isinstance(value, str):
+            # Check characters first to avoid allocating an arbitrarily large
+            # encoded copy of a manually constructed model field.
+            if len(value) > self.text_bytes:
+                raise errors.ExportLimitError("export text limit exceeded")
+            size = len(value.encode("utf-8"))
+        elif isinstance(value, bytes):
+            size = 4 * ((len(value) + 2) // 3)
+        else:
+            return
+        self.text_bytes -= size
+        if self.text_bytes < 0:
+            raise errors.ExportLimitError("export text limit exceeded")
+
+
+def _json_value(value, budget):
+    budget.consume(value)
     if dataclasses.is_dataclass(value):
-        return {
-            field.name: _json_value(getattr(value, field.name))
-            for field in dataclasses.fields(value)
-        }
+        result = {}
+        for field in dataclasses.fields(value):
+            budget.consume(field.name)
+            result[field.name] = _json_value(getattr(value, field.name), budget)
+        return result
     if isinstance(value, bytes):
         return {"encoding": "base64", "value": base64.b64encode(value).decode("ascii")}
     if isinstance(value, tuple):
-        return [_json_value(item) for item in value]
+        return [_json_value(item, budget) for item in value]
     return value

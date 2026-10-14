@@ -17,3 +17,7 @@ class RecordParseError(GettenbergError, ValueError):
         self.code = code
         self.source_name = source_name
         super().__init__(f"{source_name}: {code}: {message}")
+
+
+class ExportLimitError(GettenbergError, ValueError):
+    """A complete JSON-compatible export would exceed its explicit budgets."""
