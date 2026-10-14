@@ -40,7 +40,10 @@ Generation/archive retention is intentional and documented as disk growth.
 
 Acquire writer lock for setup/rebuild/activation/cleanup. Copy explicit local
 archive with size bounds, hash, source-change checks and fsync into managed
-content-addressed storage; preserve source file. Build unique candidate using
+content-addressed storage; preserve source file. Archives publish through an
+atomic no-clobber hard link from a same-directory temp, then unlink the temp;
+filesystem hard-link support is required and unsupported filesystems fail
+clearly without overwriting existing archives. Active pointers use os.replace. Build unique candidate using
 WI-0003 limits. Verify complete status, versions, archive hash, actual ebook/
 source/member accounting, foreign keys and SQLite integrity. Seal manifest with
 source identity, database hash/size, counts, diagnostics and snapshot identity.

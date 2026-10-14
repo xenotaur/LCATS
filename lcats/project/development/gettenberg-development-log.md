@@ -524,3 +524,16 @@ filesystem/lock helpers, errors, real lifecycle tests, Diataxis how-to/reference
 and evidence. Canonical format/lint/scripts/test/LRH/readiness/diff checks.
 Main promotion remains a final recommendation only. Next: implement the recorded
 contracts, independent review, qualify, internal PR and evidence checkpoint.
+
+## 2026-10-14 19:37 UTC — Run 3 candidate entering independent review
+
+Decision contract implemented; initial local tests found error-wrapper masking
+of CatalogMissingError (also an OSError subclass), corrected without changing
+contract. Initial test assertions were corrected to typed Title.value.text and
+resolved macOS temp paths.18 lifecycle tests and25 I/O tests pass. Worker1 used
+about4 minutes, conservatively5/45; no workers currently active. Assignment2
+will review complete current diff, including new files, against3de743cd. Review
+reserve remains15 minutes; assignments2/6 including upcoming review. No source
+edits during review except verified requested repairs. Target20:27:21 and hard
+stop20:57:21 unchanged. Full canonical/source qualification follows stable
+reviewed source under approved pilot adapter, not repeated exploratory reruns.

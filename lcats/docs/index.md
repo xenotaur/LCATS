@@ -18,6 +18,8 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
+
 - [Set up API keys](secrets-setup.md)
 - [Secrets hygiene: responding to and preventing leaked API keys](how-to/secrets-hygiene.md)
 - [Run `lcats assess`](how-to/run-assess.md) — modes, manual prompt validation, and dry-run guidance
@@ -28,6 +30,8 @@ cd LCATS/lcats
 - [Run the cross-segment relation density pilot](../../experiments/03_cross_segment_relation_pilot/running_the_pilot.md) — manual runbook: environment setup, zero-cost smoke testing (including spaCy/Stanza), the real run (safely resumable after a crash or interrupt via per-stage checkpointing), and closing out the work item
 
 ### Reference
+
+- [Local catalog lifecycle](reference/gettenberg-lifecycle.md)
 
 - [Local Gutenberg catalogs](reference/gettenberg-catalog.md) — explicit local builds and read-only queries.
 

@@ -59,3 +59,32 @@ class CatalogBuildError(CatalogError):
         self.code = code
         self.report = report
         super().__init__(f"{code}: {message}")
+
+
+class CatalogLifecycleError(CatalogError):
+    """Managed catalog state or local filesystem operation is invalid."""
+
+
+class CatalogLockError(CatalogLifecycleError):
+    """Another catalog writer did not release the lock within the timeout."""
+
+
+class CatalogCountChangeError(CatalogLifecycleError):
+    """A prepared generation needs explicit approval of its changed book count."""
+
+    def __init__(self, generation_id: str, previous: int, candidate: int):
+        self.generation_id = generation_id
+        self.previous = previous
+        self.candidate = candidate
+        super().__init__(
+            f"generation {generation_id} changes ebook count from {previous} to {candidate}; "
+            "inspect it and activate with allow_count_change=True to accept"
+        )
+
+
+class CatalogPublicationError(CatalogLifecycleError):
+    """Publication reached its commit point but durability confirmation failed."""
+
+    def __init__(self, message: str, *, published: bool = True):
+        self.published = published
+        super().__init__(message)
