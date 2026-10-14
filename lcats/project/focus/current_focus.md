@@ -49,3 +49,11 @@ A third priority, **documentation cleanup** (`WS-DOCS`), was active from 2026-07
 - Repair plans can be generated and previewed without mutation.
 - Span operations support precise, explainable text changes.
 - Review decisions can approve, reject, or override proposed repairs with rationale.
+
+## Proposed Gettenberg Execution Pilot
+
+The approved internal redesign has an initial proposed
+[WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md) and
+[execution charter](../development/gettenberg-pilot-charter.md) for review.
+Begin with WI-GETTENBERG-0001 after planning approval and explicit run initiation.
+This addition does not activate execution or replace the priorities above.
