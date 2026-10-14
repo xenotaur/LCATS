@@ -2,7 +2,8 @@
 
 For [WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md) under the
 [pilot charter](gettenberg-pilot-charter.md). WIs/execution records remain
-authoritative for scope/delivery. No implementation run has started.
+authoritative for scope/delivery. Historical entries retain their original state;
+current run checkpoints appear below.
 
 ## Entry and checkpoint format
 
@@ -46,3 +47,39 @@ records, never an assistant role directory. Avoid duplicating WI statuses.
   record planning validation; they do not represent implementation.
 - Next: review/land the planning PR, then obtain explicit start authority and
   create the first run checkpoint. No execution grant or deadline is implied.
+
+## 2026-10-14 07:55:39 UTC — Run 1 authorized and started
+
+- Run: `gettenberg-20261014`; human explicitly instructed "Please start the
+  two-hour pilot as previously discussed." Charter revision `1dff24a94f37a5f341d11c30301a9cc50cdffe6a`;
+  main/base `5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b` includes planning closeout
+  and the separately confirmed gate restamp. Integration branch:
+  `codex/gettenberg-pilot-20261014`.
+- Deadline: 09:55:39 UTC; no new features after 09:25:39 UTC. Limits: 3 live
+  agents, 4 assignments, 60 worker minutes including waits; 20 reserved for
+  review. No runtime-enforced credit meter; per-run tokens/cost unavailable.
+- Coordinator plan accepted under charter: execute WI-GETTENBERG-0001 first,
+  modifying baseline/evidence, development log, release reconciliation, and
+  scoped downstream WIs. No library, notebook, CI, dependency, or corpus edits
+  in this item. Prior-art check present; native readiness true with no warnings;
+  prompt idempotence check returned no records.
+- Prompt: `PROMPT(WI-GETTENBERG-0001:WI_GETTENBERG_0001)[2026-10-14T07:56:37+00:00]`.
+  Validation: project environment, bound imports, version/format/lint/test,
+  LRH validation, native WI readiness, manual matrix/caller evidence trace,
+  independent review and exact-head checks before internal integration.
+- [Preflight](evidence/gettenberg-pilot-20261014/preflight.json): CLI
+  `0.2.5.dev3596+gd86755f50`; all 18 watched Claude/Codex fingerprints fresh;
+  skip consent invalid as expected. Explicit charter grant supplies run authority.
+  No restamp or consent writes. CLI prompt/readiness/merge operations available.
+- Observation: installed validation guidance supports `scripts/test --log`, but
+  LCATS's actual script forwards that option to unittest. Adapter uses output
+  redirection around `scripts/test`; it preserves tests without modifying tools.
+- Assignment 1: `pilot_caller_audit`, read-only, base equal to main, dispatched
+  about 07:57 UTC, deadline 08:12 UTC, 15-minute ceiling. No allowed write paths,
+  no recursive delegation/network acquisition. Returns cited caller inventory
+  and migration/library-extraction recommendations to coordinator. Other agents
+  from earlier planning runs are completed/errored, not live assignments.
+- Review state: none yet; no staged prerequisites accepted. Remaining scope:
+  baseline, reconciliation, downstream planning, then only qualified work that
+  fits the budget. Next action: inspect current upstream capabilities/cache
+  inputs and establish offline baseline evidence.

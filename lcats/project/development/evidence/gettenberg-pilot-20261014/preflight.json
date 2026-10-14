@@ -1,0 +1,229 @@
+{
+  "run_id": "gettenberg-20261014",
+  "start_utc": "2026-10-14T07:55:39Z",
+  "feature_freeze_utc": "2026-10-14T09:25:39Z",
+  "deadline_utc": "2026-10-14T09:55:39Z",
+  "main_base": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+  "charter_commit": "1dff24a94f37a5f341d11c30301a9cc50cdffe6a",
+  "grant": "Human explicitly instructed: Please start the two-hour pilot as previously discussed.",
+  "backend": "codex_app",
+  "model": "session selected model, inherited without override; exact runtime model identifier unavailable",
+  "per_run_tokens": "unavailable",
+  "per_run_cost": "unavailable",
+  "max_agents": 3,
+  "max_assignments": 4,
+  "worker_budget_minutes": 60,
+  "review_reserve_minutes": 20,
+  "instructions": [
+    "lcats/AGENTS.md",
+    "lcats/STYLE.md",
+    "lcats/project/development/gettenberg-pilot-charter.md"
+  ],
+  "skill_adapter": "Read compatible procedures; no unchanged lrh-execute/lrh-land invocation; coordinator confirms scoped plans and integration only.",
+  "skills": [
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-implement/SKILL.md",
+      "sha256": "48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-work-item/SKILL.md",
+      "sha256": "322c4d174d0ca613e5ed0f84f8c1665d9e7de27d7db291c5dd37c4157ccc9a89"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-execute/SKILL.md",
+      "sha256": "299936903af953d4b47f7ade0bb7729634f79b4343a5fe1fb769a02419aa355c"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-land/SKILL.md",
+      "sha256": "47145fcca6c7e28990c6bd1d2135731f1b52e7fbdd517a5a7c0fa87b4f8b0d29"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-self-review/SKILL.md",
+      "sha256": "d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-implement/references/execution-session-reference.md",
+      "sha256": "58cd53b3f8beb2db412b2deeb9091b415debf09561bdebaf890cdcae6bc8d970"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-implement/references/canonical-validation.md",
+      "sha256": "0ed707b09a8b41d11de7385d3950b360a1f966f42e653768e669be6990e4a13e"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-implement/references/lrh-implement-workflow.md",
+      "sha256": "749e2fbb68a2c1cf954a66828e5cc3fe8dc0e66c18262d9eb541d8bc19605c00"
+    },
+    {
+      "path": "/Users/centaur/.agents/skills/lrh-implement/references/prior-art-check.md",
+      "sha256": "ee4d439d6f6e208f57253a71eb369f203910337533f98d92a1381db46a31e32b"
+    }
+  ],
+  "gate_status": {
+    "profile_exists": true,
+    "fields": {
+      "chain_init_confirmation": "skip_if_opted_in",
+      "confirm_fixes_batch": "auto_unless_unusual",
+      "completion_condition": "PR merged, its execution records landed, and any linked work item resolved.",
+      "stop_work_condition": "Any failing CI check, a reviewer finding that isn't Clear-satisfied on re-verification, or an ambiguous/refused merge-authorization reply."
+    },
+    "read_only_fields": {
+      "closeout_with_merge": null
+    },
+    "consent": {
+      "stored_hash": "1837bade40d9a387bc1226343bc3e301e46b0dad",
+      "current_hash": "d6d7557864fbb65cc360f79de22d8f02d8bf3745",
+      "valid": false
+    },
+    "staleness": {
+      "confirmed_commit": "6bf3ec76eef9a050055250cfa9c9f3ccc04d7c24",
+      "head": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+      "stale": false,
+      "files": [
+        {
+          "path": "claude:lrh-land/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-land/references/land-workflow.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-execute/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-implement/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-confirm-fixes/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-confirm-fixes/references/round-cap-gate.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-review-response/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-closeout/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "claude:lrh-closeout/references/closeout-workflow.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-land/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-land/references/land-workflow.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-execute/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-implement/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-confirm-fixes/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-confirm-fixes/references/round-cap-gate.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-review-response/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-closeout/SKILL.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        },
+        {
+          "path": "codex:lrh-closeout/references/closeout-workflow.md",
+          "stale": false,
+          "reason": "installed file content matches persisted fingerprint",
+          "category": "fresh"
+        }
+      ]
+    },
+    "staleness_error": null,
+    "coverage": {
+      "targets_from_project_config": true,
+      "watched_installations": [
+        {
+          "target": "claude",
+          "scope": "user",
+          "skills_dir": "/Users/centaur/.claude/skills"
+        },
+        {
+          "target": "codex",
+          "scope": "user",
+          "skills_dir": "/Users/centaur/.agents/skills"
+        }
+      ],
+      "unwatched_installations": [
+        {
+          "target": "antigravity",
+          "scope": "user",
+          "skills_dir": "/Users/centaur/.gemini/config/plugins/lrh/skills"
+        }
+      ],
+      "verification_scope": "configured_targets_only"
+    },
+    "cli": {
+      "version": "lrh 0.2.5.dev3596+gd86755f50",
+      "module_path": "/Users/centaur/Tempspace/Projects/LogicalRoboticsHarness/logical_robotics_harness/src/lrh",
+      "chain_defaults_capabilities": [
+        "check-staleness",
+        "status",
+        "restamp"
+      ],
+      "legacy_distributions": []
+    }
+  },
+  "permissions": "Managed worktree writes/git/network require sandbox escalation; charter does not override tooling permissions. No persistent consent changes.",
+  "test_log_adapter": "Installed skill recommends scripts/test --log, but local script passes --log to unittest. Use canonical scripts/test with shell output redirection; no LRH or script repair."
+}
