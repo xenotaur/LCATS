@@ -52,6 +52,10 @@ class RealRecordTests(unittest.TestCase):
                 result = self.parse(entry["file"])
                 self.assertEqual(result.source.data, raw)
                 self.assertEqual(result.source.sha256, entry["sha256"])
+                exported = result.to_dict()
+                self.assertEqual(
+                    base64.b64decode(exported["source"]["data"]["value"]), raw
+                )
                 self.assertEqual(
                     sorted({d.code for d in result.diagnostics}),
                     entry.get("expected_diagnostic_codes", []),
