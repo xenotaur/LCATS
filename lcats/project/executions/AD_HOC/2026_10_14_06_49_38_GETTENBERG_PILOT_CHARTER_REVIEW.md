@@ -2,10 +2,10 @@
 execution_id: 2026_10_14_06_49_38_GETTENBERG_PILOT_CHARTER_REVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_PILOT_CHARTER_REVIEW)[2026-10-14T06:40:00+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/503
-commit:
+commit: 1dff24a94f37a5f341d11c30301a9cc50cdffe6a
 created_at: 2026-10-14T06:49:38+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/503
