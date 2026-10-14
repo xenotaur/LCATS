@@ -1,0 +1,5 @@
+schema_version: 1
+targets:
+  - claude
+  - codex
+scope: user
