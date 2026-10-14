@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_EXPORT_SELFREVIEW)[2026-10-14T08:51:28+00:00
 work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_14_08_30_19_WI_GETTENBERG_0002
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/505
 commit:
 created_at: 2026-10-14T08:52:24+00:00
 agent: codex_app
