@@ -45,7 +45,8 @@ supported. Links, directories, sparse files, PAX/GNU extension entries, unsafe
 paths, duplicate member names, duplicate ebook IDs, malformed RDF and
 unsupported non-book/deletion shapes prevent a complete result. No deletion
 format is guessed. The end marker, padding after it and compression EOF are
-checked. Oversized headers/payload declarations are rejected before allocating
+checked. Exactly one bzip2 stream is accepted; trailing compressed bytes and
+concatenated bzip2 streams are rejected. Oversized headers/payload declarations are rejected before allocating
 their declared content. Parser diagnostics for otherwise supported records are
 retained and counted; they remain visible for future qualification decisions.
 
@@ -92,7 +93,8 @@ with catalog.Catalog("/path/to/new-candidate.sqlite") as library:
     matches = library.search_ids(catalog.Filters(titles=("frankenstein",)))
 ```
 
-`Catalog(path, *, max_record_bytes=2 * 1024**2)` opens SQLite in read-only mode
+`Catalog(path, *, max_record_bytes=2 * 1024**2)` accepts a positive byte limit
+no greater than `sys.maxsize - 65537`, preventing overflow in bounded reads. It opens SQLite in read-only mode
 and requires a complete compatible schema/parser version. `close()` is
 idempotent. Use the context manager; operations after close raise
 `CatalogClosedError`. The reader never implicitly creates a missing database.
@@ -116,7 +118,8 @@ records together. Closing a catalog before consuming its iterator fails.
 `Filters` is immutable and accepts tuples for `ids`, `titles`, `authors`,
 `languages`, `subjects`, `shelves`, `types`, `roles`, and `formats`. There are at
 most 100 values per dimension. Text values are nonempty, at most 4096 characters.
-Unknown constructor fields are rejected. Empty tuples impose no restriction.
+Surrogate code points that cannot be encoded as UTF-8 and unknown constructor
+fields are rejected. Empty tuples impose no restriction.
 
 Dimensions combine with **AND**; values within a dimension combine with **OR**.
 Authors match names and aliases; roles use complete predicate URIs; format

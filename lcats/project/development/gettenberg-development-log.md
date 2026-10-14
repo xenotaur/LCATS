@@ -372,3 +372,11 @@ budget bounds aggregate decoding; final complete status follows all allocating
 evidence writes and integrity checks. No source acquisition or activation.
 Next: assignment2 combined independent review, then final canonical/full-source
 qualification. No new item. Deadline18:43:39/freeze18:13:39 unchanged.
+
+Run2 review dispatch: assignment2 `catalog_review`,17:27UTC at7e4084c0,
+read-only combined implementation/spec review; deadline17:47UTC. Source is
+frozen during review. Worker accounting5/45 minutes used before dispatch;
+40 remain including15 review reserve. Shared weekly usage34% at dispatch
+(+1 percentage point from launch; not attributable run-only consumption).
+Coordinator prepares only the reproducible qualification helper while review
+runs. No full-source or canonical reruns until the candidate is stable.

@@ -11,6 +11,7 @@ import pathlib
 import shutil
 import socket
 import sqlite3
+import sys
 import tarfile
 import tempfile
 import unittest
@@ -247,6 +248,12 @@ class CatalogTests(unittest.TestCase):
         with self.assertRaises(TypeError):
             catalog.Filters(unknown=("x",))
 
+    def test_extreme_reader_limit_and_surrogate_filter_fail_cleanly(self):
+        with self.assertRaises(errors.CatalogInputError):
+            catalog.Catalog(self.path, max_record_bytes=sys.maxsize)
+        with self.assertRaises(errors.CatalogInputError):
+            catalog.Filters(titles=("\ud800",))
+
     def test_missing_does_not_create_file(self):
         with tempfile.TemporaryDirectory() as root:
             path = pathlib.Path(root) / "missing.sqlite"
@@ -443,6 +450,42 @@ class AuthoredArchiveTests(unittest.TestCase):
                     (errors.CatalogIncompleteError, errors.CatalogSchemaError)
                 ):
                     catalog.Catalog(path)
+
+    def test_record_and_accounting_roll_back_together_on_abort(self):
+        small = record(1)
+        with self.assertRaises(errors.CatalogBuildError) as caught:
+            self.build(
+                [
+                    ("one.rdf", small, tarfile.REGTYPE),
+                    ("two.rdf", record(2, "X" * 2000), tarfile.REGTYPE),
+                ],
+                limits=ingestion.BuildLimits(max_member_bytes=len(small) + 1),
+            )
+        result = caught.exception.report
+        self.assertEqual(result.imported, 0)
+        with sqlite3.connect(self.output) as connection:
+            self.assertEqual(
+                connection.execute("SELECT count(*) FROM ebooks").fetchone()[0], 0
+            )
+            self.assertEqual(
+                connection.execute("SELECT count(*) FROM archive_members").fetchone()[
+                    0
+                ],
+                0,
+            )
+        self.assertEqual(result.uncommitted, result.members)
+
+    def test_compressed_trailers_and_concatenated_streams_are_rejected(self):
+        packed = archive_bytes([("one.rdf", record(1), tarfile.REGTYPE)])
+        for index, trailer in enumerate(
+            (b"garbage", b"BZh", bz2.compress(b""), packed)
+        ):
+            with self.subTest(index=index):
+                self.archive.write_bytes(packed + trailer)
+                with self.assertRaises(errors.CatalogBuildError):
+                    ingestion.build_catalog(
+                        self.archive, self.root / f"trailer{index}.sqlite"
+                    )
 
     def test_expanded_limit_counts_tar_padding_not_only_member_payload(self):
         with self.assertRaises(errors.CatalogBuildError) as caught:

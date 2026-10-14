@@ -97,6 +97,33 @@ class _CompressedInput:
         return False
 
 
+class _BzipStream:
+    """Decode one bzip2 stream with bounded output and strict trailing bytes."""
+
+    def __init__(self, compressed):
+        self.compressed = compressed
+        self.decoder = bz2.BZ2Decompressor()
+        self.finished = False
+
+    def read(self, size):
+        if self.finished:
+            return b""
+        while not self.decoder.eof:
+            if self.decoder.needs_input:
+                chunk = self.compressed.read(65536)
+                if not chunk:
+                    raise EOFError("truncated bzip2 stream")
+            else:
+                chunk = b""
+            data = self.decoder.decompress(chunk, max_length=size)
+            if data:
+                return data
+        if self.decoder.unused_data or self.compressed.read(1):
+            raise ValueError("trailing data after bzip2 stream")
+        self.finished = True
+        return b""
+
+
 class _ExpandedInput:
     def __init__(self, stream, limit, check):
         self.stream, self.limit, self.check = stream, limit, check
@@ -262,98 +289,98 @@ def build_catalog(
             )
             connection.commit()
             compressed = _CompressedInput(raw, limits.max_compressed_bytes, check)
-            with bz2.BZ2File(compressed, "rb") as decoder:
-                expanded = _ExpandedInput(decoder, limits.max_expanded_bytes, check)
-                while True:
-                    header = expanded.exact(512)
-                    if header == bytes(512):
-                        if expanded.exact(512) != bytes(512):
-                            raise ValueError("tar requires two end blocks")
-                        while chunk := expanded.read(65536):
-                            if any(chunk):
-                                raise ValueError("nonzero data after tar end marker")
-                        # BZ2File may read ahead; hash any remaining compressed bytes.
-                        while compressed.read(65536):
-                            pass
-                        source_complete = True
-                        break
-                    member = tarfile.TarInfo.frombuf(
-                        header, encoding="utf-8", errors="strict"
+            decoder = _BzipStream(compressed)
+            expanded = _ExpandedInput(decoder, limits.max_expanded_bytes, check)
+            while True:
+                header = expanded.exact(512)
+                if header == bytes(512):
+                    if expanded.exact(512) != bytes(512):
+                        raise ValueError("tar requires two end blocks")
+                    while chunk := expanded.read(65536):
+                        if any(chunk):
+                            raise ValueError("nonzero data after tar end marker")
+                    # Strict decoder has reached compressed EOF; no ignored trailer.
+                    while compressed.read(65536):
+                        pass
+                    source_complete = True
+                    break
+                member = tarfile.TarInfo.frombuf(
+                    header, encoding="utf-8", errors="strict"
+                )
+                members += 1
+                if members > limits.max_members:
+                    raise _LimitExceeded("archive member count exceeded")
+                if member.size < 0 or member.size > limits.max_member_bytes:
+                    raise _LimitExceeded("archive member size exceeded")
+                # Extension records are not interpreted: their declared size is
+                # bounded before any payload allocation, unlike implicit PAX parsing.
+                data = expanded.exact(member.size)
+                expanded.exact((-member.size) % 512)
+                code, message = None, None
+                if not member.isfile() or member.type not in (
+                    tarfile.REGTYPE,
+                    tarfile.AREGTYPE,
+                ):
+                    code, message = (
+                        "unsupported_member",
+                        "only ordinary RDF file members are supported",
                     )
-                    members += 1
-                    if members > limits.max_members:
-                        raise _LimitExceeded("archive member count exceeded")
-                    if member.size < 0 or member.size > limits.max_member_bytes:
-                        raise _LimitExceeded("archive member size exceeded")
-                    # Extension records are not interpreted: their declared size is
-                    # bounded before any payload allocation, unlike implicit PAX parsing.
-                    data = expanded.exact(member.size)
-                    expanded.exact((-member.size) % 512)
-                    code, message = None, None
-                    if not member.isfile() or member.type not in (
-                        tarfile.REGTYPE,
-                        tarfile.AREGTYPE,
-                    ):
-                        code, message = (
-                            "unsupported_member",
-                            "only ordinary RDF file members are supported",
+                elif not _safe_name(member.name) or not member.name.endswith(".rdf"):
+                    code, message = (
+                        "unsafe_member",
+                        "expected safe relative RDF member name",
+                    )
+                elif connection.execute(
+                    "SELECT 1 FROM archive_members WHERE name=? LIMIT 1",
+                    (member.name,),
+                ).fetchone():
+                    code, message = "duplicate_member", "member name repeats"
+                else:
+                    if not connection.in_transaction:
+                        connection.execute("BEGIN")
+                    connection.execute("SAVEPOINT record")
+                    try:
+                        parsed = rdf.parse_record(
+                            data,
+                            source_name=member.name,
+                            max_bytes=limits.max_member_bytes,
                         )
-                    elif not _safe_name(member.name) or not member.name.endswith(
-                        ".rdf"
-                    ):
-                        code, message = (
-                            "unsafe_member",
-                            "expected safe relative RDF member name",
-                        )
-                    elif connection.execute(
-                        "SELECT 1 FROM archive_members WHERE name=? LIMIT 1",
-                        (member.name,),
-                    ).fetchone():
-                        code, message = "duplicate_member", "member name repeats"
-                    else:
-                        connection.execute("SAVEPOINT record")
-                        try:
-                            parsed = rdf.parse_record(
-                                data,
-                                source_name=member.name,
-                                max_bytes=limits.max_member_bytes,
-                            )
-                            _store.insert_record(connection, parsed)
-                        except errors.RecordParseError as exc:
-                            code, message = exc.code, str(exc)
-                        except sqlite3.IntegrityError as exc:
-                            code, message = "record_conflict", str(exc)
-                        except BaseException:
-                            connection.execute("ROLLBACK TO record")
-                            connection.execute("RELEASE record")
-                            raise
-                        if code:
-                            connection.execute("ROLLBACK TO record")
+                        _store.insert_record(connection, parsed)
+                    except errors.RecordParseError as exc:
+                        code, message = exc.code, str(exc)
+                    except sqlite3.IntegrityError as exc:
+                        code, message = "record_conflict", str(exc)
+                    except BaseException:
+                        connection.execute("ROLLBACK TO record")
                         connection.execute("RELEASE record")
-                    connection.execute(
-                        "INSERT INTO archive_members VALUES (?,?,?,?,?,?)",
-                        (
-                            members,
-                            member.name,
-                            member.size,
-                            "rejected" if code else "imported",
-                            code,
-                            message[:4096] if message else None,
-                        ),
+                        raise
+                    if code:
+                        connection.execute("ROLLBACK TO record")
+                    connection.execute("RELEASE record")
+                connection.execute(
+                    "INSERT INTO archive_members VALUES (?,?,?,?,?,?)",
+                    (
+                        members,
+                        member.name,
+                        member.size,
+                        "rejected" if code else "imported",
+                        code,
+                        message[:4096] if message else None,
+                    ),
+                )
+                if members % batch_size == 0:
+                    connection.commit()
+                if _disk_bytes(output) > limits.max_database_bytes:
+                    raise _LimitExceeded(
+                        "candidate plus SQLite sidecars exceeds disk limit"
                     )
-                    if members % batch_size == 0:
-                        connection.commit()
-                    if _disk_bytes(output) > limits.max_database_bytes:
-                        raise _LimitExceeded(
-                            "candidate plus SQLite sidecars exceeds disk limit"
-                        )
-                after = os.fstat(raw.fileno())
-                if (
-                    source_stat.st_size,
-                    source_stat.st_mtime_ns,
-                    source_stat.st_ctime_ns,
-                ) != (after.st_size, after.st_mtime_ns, after.st_ctime_ns):
-                    raise ValueError("archive changed during ingestion")
+            after = os.fstat(raw.fileno())
+            if (
+                source_stat.st_size,
+                source_stat.st_mtime_ns,
+                source_stat.st_ctime_ns,
+            ) != (after.st_size, after.st_mtime_ns, after.st_ctime_ns):
+                raise ValueError("archive changed during ingestion")
             connection.commit()
             summary = report("building")
             if summary.rejected or not summary.imported or summary.uncommitted:

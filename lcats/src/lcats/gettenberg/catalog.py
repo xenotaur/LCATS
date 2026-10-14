@@ -6,6 +6,7 @@ import hashlib
 import json
 import pathlib
 import sqlite3
+import sys
 import zlib
 from collections import abc
 
@@ -59,6 +60,13 @@ class Filters:
                     raise errors.CatalogInputError(
                         f"{field.name} values must be nonempty strings of at most 4096 characters"
                     )
+                elif field.name != "ids":
+                    try:
+                        value.encode("utf-8")
+                    except UnicodeEncodeError as exc:
+                        raise errors.CatalogInputError(
+                            "filter text must be valid Unicode scalar values"
+                        ) from exc
 
 
 def _where(filters, text):
@@ -117,7 +125,9 @@ class Catalog:
         self, path: str | pathlib.Path, *, max_record_bytes: int = rdf.DEFAULT_MAX_BYTES
     ):
         self._connection = None
-        self._max_record_bytes = _integer(max_record_bytes, "max_record_bytes")
+        self._max_record_bytes = _integer(
+            max_record_bytes, "max_record_bytes", maximum=sys.maxsize - 65537
+        )
         path = pathlib.Path(path).resolve()
         if not path.is_file():
             raise errors.CatalogMissingError(str(path))
