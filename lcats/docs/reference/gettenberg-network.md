@@ -70,7 +70,7 @@ decoder, without rewriting their bytes or changing their hashes. Additional fiel
 |---|---|
 | `previous_receipt_sha256` | Previous current receipt for a refresh, or `None` on a cold acquisition. Retained audit link, not a recursively validated chain. |
 | `validated_at` | UTC time of a successful `304`, or `None` for a `200`. Local clock movement can put this before retrieval time. |
-| `validation_headers` | Selected headers actually returned by the latest `304`; empty for `200`. |
+| `validation_headers` | Selected headers actually returned by the latest `304`; must contain a valid validator on persisted reads; empty for `200`. |
 
 `status` records the latest event (`200` or `304`); `headers` contains effective
 selected metadata, carrying omitted fields forward after `304`. `retrieved_at`
@@ -195,7 +195,8 @@ with other characters percent-encoded. Credentials, controls and malformed escap
 are rejected. This normalization makes no claim that two distinct URLs have equal
 bytes. Archive/resource kinds use separate keys and storage locations.
 
-Publication fsyncs the temporary body, publishes it without clobbering an existing
+Publication bounds serialized receipt metadata before linking any body into the
+immutable store. It fsyncs the temporary body, publishes it without clobbering an existing
 hash object, publishes an immutable receipt, then atomically replaces the request
 reference. Only a complete hash-verified receipt/body pair is a cache hit. Failed
 partial bodies are removed when possible; orphan objects/receipts can remain.

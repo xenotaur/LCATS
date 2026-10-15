@@ -1,0 +1,82 @@
+{
+  "run": "gettenberg-20261015-refresh",
+  "pr": "https://github.com/xenotaur/LCATS/pull/513",
+  "supersedes": "Initial qualification source/validation; historical qualification.json retained",
+  "previous_pr_head": "1d1dfc6b657556d2830dd4b804a9db228bedc548",
+  "source_sha256": {
+    "src/lcats/gettenberg/resources.py": "1beeeaed7697feed283760db7c799c2a267fa844910f9908f431af425ace631a",
+    "src/lcats/gettenberg/_resource_types.py": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c",
+    "src/lcats/gettenberg/_resource_io.py": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873",
+    "src/lcats/gettenberg/_resource_transport.py": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d",
+    "src/lcats/gettenberg/_resource_refresh.py": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671",
+    "src/lcats/gettenberg/_resource_decoding.py": "6712f2ca36327724928691e97d2ae71340de48b7c28796f783a746ee8e9f4987",
+    "tests/gettenberg_tests/refresh_test.py": "0da5314b1e6ac2e266ffc7e989b49903ca3c5276c3e09be5f9b82b886c68b0ea",
+    "tests/gettenberg_tests/resources_test.py": "e7f3b2fa7beb5ca8fb7a31195bcdf6a42ce6fde190615c47103f5caed706e2d2",
+    "tests/gettenberg_tests/decoding_test.py": "a6d28b090c498dd31039f963f8428cf5b14df9a6391c358f4e52ae058dde2382",
+    "docs/how-to/gettenberg-resources.md": "b8e56c3dd2403a40d2f9b7d196aa76944aaa794057666d725ac463966ad82a49",
+    "docs/how-to/gettenberg-catalog.md": "b828246e482f9e3824eb381ae0e8dde0597bd002a6766157ba7640bdc1fa8504",
+    "docs/reference/gettenberg-network.md": "899b1e190a47b0b06b66aea3a77c390c01f50ba81c1fa53910dd4bdf14e42faa"
+  },
+  "reproduction": {
+    "command": "python -m unittest <two new refresh regression tests>",
+    "tests": 2,
+    "failing_subcases_before_fix": 8
+  },
+  "repairs": [
+    {
+      "thread": "PRRT_kwDOKlhIbM6sqKeu",
+      "resolution": "Serialize and bound receipt before publishing body; repeated oversized resource/archive responses leave no immutable objects"
+    },
+    {
+      "thread": "PRRT_kwDOKlhIbM6sqKe2",
+      "resolution": "Persisted304 requires valid returned validator; empty/representation-only/malformed evidence is refused"
+    }
+  ],
+  "independent_review": {
+    "agent": "conditional_refresh_review",
+    "recheck": 2,
+    "outstanding_p0_p2": 0,
+    "focused_tests": 156,
+    "seconds": 5.682,
+    "probes": "4 resource/archive x200/304 oversized receipt cases preserve prior files and clean temps;5 invalid persisted receipt decoder cases refused",
+    "all12_hashes_match": true,
+    "eight_unaffected_files_match_previous_head": true,
+    "cumulative_worker_minutes_upper_bound": 13,
+    "remaining_planned_rechecks": 0
+  },
+  "validation": {
+    "canonical": {
+      "command": "scripts/test",
+      "tests": 2851,
+      "seconds": 68.435,
+      "result": "pass"
+    },
+    "focused": {
+      "tests": 156,
+      "seconds": 5.726,
+      "result": "pass"
+    },
+    "format": {
+      "command": "scripts/format --check --diff",
+      "files": 267,
+      "result": "pass"
+    },
+    "lint": {
+      "command": "scripts/lint",
+      "result": "pass"
+    },
+    "lrh": {
+      "errors": 0,
+      "warnings": 351
+    },
+    "diff_check": "pass",
+    "doc_links_fences": "pass"
+  },
+  "acceptance": "Both hosted findings independently cleared; final-head CI required after push",
+  "authority": "Internal integration only; main and canonical native closeout remain human-approved",
+  "usage_checkpoint": {
+    "account_weekly_used_percent": 8,
+    "at": "2026-10-15T07:03:34Z",
+    "per_run_attribution": "unavailable"
+  }
+}

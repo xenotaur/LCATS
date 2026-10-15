@@ -45,3 +45,9 @@ before final verification/integration. Native status remains in_progress until
 human-approved main delivery. A15/A16 catalog composition, automatic routes and
 migration remain outside this run. No external bulk downloads or persistent
 policy/consent changes.
+
+Both hosted first rounds arrived. Two Codex P2 findings were reproduced and repaired;
+Copilot reported zero findings. Final independent recheck cleared both repairs, and
+canonical qualification now passes 2851 tests in 68.435 seconds (156 focused tests).
+[Hosted repair evidence](../../development/evidence/gettenberg-refresh-20261015/hosted-repair.json)
+supersedes the earlier candidate qualification. Final-head CI remains required.

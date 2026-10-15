@@ -49,3 +49,9 @@ Canonical qualification and first hosted rounds remain coordinator work. One
 same-scope repair recheck remains reserved for hosted feedback; do not consume it
 before both CI and all reviewers reply. No manual paid bot retrigger, main promotion
 or native WI closeout. Native record stays in_progress until main delivery.
+
+Reserved recheck2 completed after both hosted first rounds and green prior-head CI.
+Both hosted P2s independently cleared; 156 focused tests and additional publication/
+offline decoder probes passed. All 12 final hashes match the frozen pre-dispatch
+manifest. No further planned rechecks remain. Cumulative worker occupancy under
+13 minutes. [Final repair evidence](../../development/evidence/gettenberg-refresh-20261015/hosted-repair.json).

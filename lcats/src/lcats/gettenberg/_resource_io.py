@@ -16,6 +16,7 @@ import uuid
 
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_types
+from lcats.gettenberg import _resource_refresh
 from lcats.gettenberg import errors
 
 _HASH = re.compile(r"[0-9a-f]{64}")
@@ -209,6 +210,12 @@ class Cache:
                 raise ValueError("final URL does not match route")
             headers = _stored_headers(value["headers"])
             validation_headers = _stored_headers(value.get("validation_headers", []))
+            if value[
+                "status"
+            ] == 304 and not _resource_refresh.valid_validation_headers(
+                validation_headers
+            ):
+                raise ValueError("304 validation needs a valid returned validator")
             if value["status"] == 200 and validation_headers:
                 raise ValueError("200 acquisition cannot claim 304 headers")
             if any(dict(headers).get(key) != val for key, val in validation_headers):
@@ -267,6 +274,7 @@ class Cache:
 
     def publish(self, temporary, receipt, max_bytes, lock_timeout=10.0):
         """Commit body, receipt, then reference; partial publication is never a hit."""
+        payload = self._receipt_payload(receipt)
         archive_lock = (
             _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
             if receipt.kind == "archive"
@@ -285,7 +293,7 @@ class Cache:
                 # failed after link publication. Later retries take it again.
                 temporary.unlink(missing_ok=True)
                 _lifecycle_io.sync_directory(temporary.parent)
-        return self.publish_receipt(receipt)
+        return self._publish_receipt(receipt, payload)
 
     def revalidate(self, artifact, receipt, max_bytes, lock_timeout):
         """Verify unchanged bytes and publish validation without touching their inode.
@@ -293,6 +301,7 @@ class Cache:
         The archive leaf lock excludes retention while checking/publishing; the
         outer network lock is already held. Readers keep stable immutable files.
         """
+        payload = self._receipt_payload(receipt)
         lock = (
             _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
             if receipt.kind == "archive"
@@ -306,15 +315,24 @@ class Cache:
                 raise _resource_types.ResourceIntegrityError(
                     "body_hash", "cached original bytes changed during validation"
                 )
-            return self.publish_receipt(receipt)
+            return self._publish_receipt(receipt, payload)
 
-    def publish_receipt(self, receipt):
-        """Durably append receipt evidence, then atomically select it for the request."""
+    @staticmethod
+    def _receipt_payload(receipt):
+        """Bound metadata before publishing any body, receipt or reference.
+
+        Independently allowed route/header values can exceed the aggregate budget.
+        Reject that deterministic failure before leaving immutable body orphans.
+        """
         payload = _resource_types.canonical_json(_resource_types.receipt_value(receipt))
         if len(payload) > _METADATA_LIMIT:
             raise _resource_types.ResourceIntegrityError(
                 "metadata_limit", "receipt exceeds byte budget"
             )
+        return payload
+
+    def _publish_receipt(self, receipt, payload):
+        """Append prevalidated receipt bytes, then atomically select the receipt."""
         digest = hashlib.sha256(payload).hexdigest()
         receipt_temp = self.temporary()
         try:

@@ -38,6 +38,22 @@ def _date(value):
     return value
 
 
+def valid_validation_headers(headers):
+    """Require a returned validator in persisted 304 evidence, without chain I/O.
+
+    Schema readers cannot prove correspondence to the previous receipt without
+    traversing history, but must refuse a validation event the transport could
+    never produce: absent or malformed returned validators.
+    """
+    values = dict(headers)
+    tag, modified = values.get("etag"), values.get("last-modified")
+    return (
+        (tag is not None or modified is not None)
+        and (tag is None or _etag(tag) is not None)
+        and (modified is None or _date(modified) is not None)
+    )
+
+
 def _date_instant(value):
     """Compare valid HTTP dates across wire forms; obsolete asctime is UTC too."""
     stamp = email.utils.parsedate_to_datetime(value)

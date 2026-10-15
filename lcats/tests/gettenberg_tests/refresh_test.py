@@ -531,6 +531,91 @@ class RefreshTests(unittest.TestCase):
         )
         self.assertEqual(payload, (root / "receipts" / (digest + ".json")).read_bytes())
 
+    def test_oversized_receipt_cannot_publish_unreachable_body_objects(self):
+        # Each URL/header is individually allowed, but their receipt exceeds the
+        # aggregate bound. Reject it before linking an otherwise complete body.
+        origin = "https://example.org"
+        policy = resources.NetworkPolicy(online=True, allowed_origins=(origin,))
+        for kind in ("resource", "archive"):
+            request = resources.SourceRequest.from_url(origin + "/start", kind=kind)
+            for attempt in range(2):
+                replies = [
+                    resources_test.MemoryResponse(
+                        status=302,
+                        headers=(("Location", origin + "/" + str(i) + "x" * 8100),),
+                    )
+                    for i in range(4)
+                ]
+                replies.append(
+                    resources_test.MemoryResponse(
+                        body=f"unique {kind} {attempt}".encode(),
+                        headers=tuple(
+                            (name, "x" * 8192)
+                            for name in (
+                                "Content-Type",
+                                "Content-Encoding",
+                                "ETag",
+                                "Last-Modified",
+                            )
+                        ),
+                    )
+                )
+                client = mock.Mock()
+                client.open.side_effect = replies
+                with (
+                    self.subTest(kind=kind, attempt=attempt),
+                    mock.patch.object(
+                        _resource_transport, "opener", return_value=client
+                    ),
+                ):
+                    with self.assertRaises(resources.ResourceIntegrityError) as caught:
+                        self.store.fetch(request, policy=policy)
+                    self.assertEqual(caught.exception.code, "metadata_limit")
+                    self.assertIsNone(self.store.plan(request).artifact)
+                    self.assertEqual(
+                        list(
+                            (self.cache_dir / "gettenberg/resources/objects").iterdir()
+                        ),
+                        [],
+                    )
+                    self.assertEqual(
+                        list(
+                            (self.cache_dir / "gettenberg/archives").glob("*.tar.bz2")
+                        ),
+                        [],
+                    )
+                    self.assertEqual(
+                        list((self.cache_dir / "gettenberg/resources/tmp").iterdir()),
+                        [],
+                    )
+
+    def test_persisted_304_requires_actual_valid_response_validator(self):
+        self.seed()
+        good = self.refresh()
+        original = json.loads(self.evidence(good).read_bytes())
+        for headers in (
+            [],
+            [["content-type", "text/plain"]],
+            [["etag", "*"]],
+            [["last-modified", "bad"]],
+        ):
+            value = dict(original, validation_headers=headers)
+            effective = dict(original["headers"])
+            effective.update(headers)
+            value["headers"] = [list(pair) for pair in effective.items()]
+            payload = _resource_types.canonical_json(value)
+            digest = hashlib.sha256(payload).hexdigest()
+            root = self.cache_dir / "gettenberg/resources"
+            (root / "receipts" / (digest + ".json")).write_bytes(payload)
+            (root / "refs" / (self.request.key + ".json")).write_text(
+                json.dumps({"schema_version": 1, "receipt": digest})
+            )
+            with (
+                self.subTest(headers=headers),
+                self.assertRaises(resources.ResourceIntegrityError),
+            ):
+                self.store.fetch(self.request)
+
     def test_invalid_validation_schema_fails_even_with_matching_receipt_hash(self):
         self.seed()
         good = self.refresh()
