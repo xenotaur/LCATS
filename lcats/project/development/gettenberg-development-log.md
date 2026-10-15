@@ -911,3 +911,41 @@ default route mapping and transport timeout semantics. The sprint required no
 human intervention after activation. Observation: a narrow planning-only grant
 produced a resumable contract without implementation/review/CI wait overhead;
 its impact on the next run remains unmeasured. No work continues automatically.
+
+## 2026-10-15 00:23 UTC — Routing sprint activation
+
+Human approved the proposed routing qualification sprint. Start 00:23:20,
+seven-minute target 00:30:20, ten-minute hard stop 00:33:20. Single coordinator,
+no assignments or production changes. Clean acquisition branch starts a528ebfd;
+fetched main remains 2f14e4e8. The sandboxed LRH idempotence query could not reach
+GitHub; the authorized network retry succeeded and found no prior execution.
+Native AD_HOC record created. No persistent consent changes.
+
+## 2026-10-15 00:26 UTC — Route evidence and limits
+
+Official mirror/catalog listings establish endpoint candidates and an exact RDF
+archive link. Seven local RDF fixtures contain 113 resource nodes (65 ebooks
+aliases, 27 files paths, 21 cache paths). Added a nine-case input/output table,
+separating documented structure, inferred files-path conversion and unresolved
+ebooks aliases. Alias prevalence exposes a selection/planning interface detail:
+account for route capability offline, without request-based fallback or assumed
+byte equivalence. A22 remains open; the full format scope is unchanged.
+
+A single mirror root-index read timed out; a historical upstream mailing-list
+page could not be retrieved. Neither is treated as a proven service failure or
+conclusive mapping evidence. No ebook/archive bodies were requested. Lesson:
+short qualification grants can reveal a material hidden coverage assumption
+before implementation; retaining explicit uncertainty is useful output. Proposed
+LRH acceptance check: a route qualification record distinguishes source facts,
+inference, unsupported cases and live verification rather than one green flag.
+
+## 2026-10-15 00:28 UTC — Routing validation and checkpoint
+
+Nine-case handoff and hashed fixture inventory complete. Canonical format/lint
+pass; LRH 0 errors and 351 existing warnings. Local links/line bounds and fence
+checks pass. Product code/tests and historical measurements are unchanged; unit
+tests were not rerun. No independent implementation review is claimed. A22 remains
+open, with concrete upstream-alias, selection and operational checks recorded.
+Proceeding only to commit/push and verify the clean checkpoint, then stop within
+the short grant. No intervention was needed after activation. Next implementation
+requires a separate grant; all WI-0005 acceptance obligations remain intact.

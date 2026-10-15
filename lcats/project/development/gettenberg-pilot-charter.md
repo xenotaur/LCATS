@@ -267,3 +267,15 @@ for documentation/control-plane validation, commit and checkpoint. A branch push
 may preserve the checkpoint; no PR/review/CI wait is required for this planning
 tranche. Product source and measured evidence remain unchanged. Other charter
 scope, stewardship and escalation rules continue; persistent consent is unchanged.
+
+## Short routing grant — approved and activated 2026-10-15
+
+The human authorized the proposed 5–10 minute routing qualification sprint with
+"Go for it!" Run `gettenberg-20261015-routes` starts 00:23:20 UTC, target
+00:30:20, hard stop 00:33:20. One coordinator only; no delegation. Scope: existing
+RDF fixtures and official documentation, a grounded routing table, explicit
+uncertainties, runlog and resumable branch checkpoint. No implementation, ebook
+or catalog download, PR/main promotion, WI resolution or future-run grant.
+Reserve the final three minutes for validation and checkpointing; finish early
+if complete. Continue codex/gettenberg-acquisition at a528ebfd; branch push is
+permitted. Other stewardship, review and persistent-policy boundaries remain.

@@ -1,0 +1,165 @@
+{
+  "scope": "saved RDF resource nodes; not full catalog or unique URLs",
+  "families": {
+    "/ebooks": 65,
+    "/files": 27,
+    "/cache": 21
+  },
+  "fixtures": [
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg10000.rdf",
+      "sha256": "708eab35674c25d6543be161d4fdc5f35ce83d839ad534c6ee481c3abf90ae2e",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/10000.html.images",
+        "https://www.gutenberg.org/files/10000/10000-h/10000-h.htm",
+        "https://www.gutenberg.org/ebooks/10000.epub3.images",
+        "https://www.gutenberg.org/ebooks/10000.epub.images",
+        "https://www.gutenberg.org/ebooks/10000.epub.noimages",
+        "https://www.gutenberg.org/ebooks/10000.kf8.images",
+        "https://www.gutenberg.org/ebooks/10000.kindle.images",
+        "https://www.gutenberg.org/ebooks/10000.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/10000.txt.utf-8",
+        "https://www.gutenberg.org/files/10000/10000-0.txt",
+        "https://www.gutenberg.org/ebooks/10000.rdf",
+        "https://www.gutenberg.org/cache/epub/10000/pg10000.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/10000/pg10000.cover.small.jpg",
+        "https://www.gutenberg.org/cache/epub/10000/pg10000-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg10001.rdf",
+      "sha256": "b00978501e7574526d6e8d07296ca5f5547acddcd988598cba3a031ec90fc8cf",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/10001.html.images",
+        "https://www.gutenberg.org/files/10001/10001-h/10001-h.htm",
+        "https://www.gutenberg.org/ebooks/10001.epub3.images",
+        "https://www.gutenberg.org/ebooks/10001.epub.images",
+        "https://www.gutenberg.org/ebooks/10001.epub.noimages",
+        "https://www.gutenberg.org/ebooks/10001.kf8.images",
+        "https://www.gutenberg.org/ebooks/10001.kindle.images",
+        "https://www.gutenberg.org/ebooks/10001.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/10001.txt.utf-8",
+        "https://www.gutenberg.org/files/10001/10001-0.txt",
+        "https://www.gutenberg.org/ebooks/10001.rdf",
+        "https://www.gutenberg.org/cache/epub/10001/pg10001.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/10001/pg10001.cover.small.jpg",
+        "https://www.gutenberg.org/cache/epub/10001/pg10001-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg10040.rdf",
+      "sha256": "eb1f341a0b11cee6e80c8a52d21a78c8cc543f8d4860a36f6574b74dfaa66d26",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/10040.html.images",
+        "https://www.gutenberg.org/ebooks/10040.html.noimages",
+        "https://www.gutenberg.org/ebooks/10040.epub3.images",
+        "https://www.gutenberg.org/ebooks/10040.epub.images",
+        "https://www.gutenberg.org/ebooks/10040.epub.noimages",
+        "https://www.gutenberg.org/ebooks/10040.kf8.images",
+        "https://www.gutenberg.org/ebooks/10040.kindle.images",
+        "https://www.gutenberg.org/ebooks/10040.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/10040.txt.utf-8",
+        "https://www.gutenberg.org/files/10040/10040-0.txt",
+        "https://www.gutenberg.org/ebooks/10040.rdf",
+        "https://www.gutenberg.org/cache/epub/10040/pg10040.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/10040/pg10040.cover.small.jpg",
+        "https://www.gutenberg.org/cache/epub/10040/pg10040-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg11008.rdf",
+      "sha256": "6dc0f1b72b45ee7d6da0962557ccb1320bbd1b1d8e833fd2df3d7582162f6469",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/11008.html.images",
+        "https://www.gutenberg.org/ebooks/11008.html.noimages",
+        "https://www.gutenberg.org/ebooks/11008.epub3.images",
+        "https://www.gutenberg.org/ebooks/11008.epub.images",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 000.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 001.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 002.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 003.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 004.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 005.jpg",
+        "https://www.gutenberg.org/files/11008/images/Antwerp to Gallipoli - 006.jpg",
+        "https://www.gutenberg.org/ebooks/11008.epub.noimages",
+        "https://www.gutenberg.org/ebooks/11008.kf8.images",
+        "https://www.gutenberg.org/ebooks/11008.kindle.images",
+        "https://www.gutenberg.org/ebooks/11008.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/11008.txt.utf-8",
+        "https://www.gutenberg.org/files/11008/11008-0.txt",
+        "https://www.gutenberg.org/files/11008/11008-8.txt",
+        "https://www.gutenberg.org/files/11008/11008.txt",
+        "https://www.gutenberg.org/ebooks/11008.rdf",
+        "https://www.gutenberg.org/cache/epub/11008/pg11008.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/11008/pg11008.cover.small.jpg",
+        "https://www.gutenberg.org/files/11008/11008-8.zip",
+        "https://www.gutenberg.org/files/11008/11008.zip",
+        "https://www.gutenberg.org/cache/epub/11008/pg11008-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg15813.rdf",
+      "sha256": "2d8181521f5dc8ecc726845b3b215d118a87c86701a3e868e6f4324b54c37906",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/15813.html.images",
+        "https://www.gutenberg.org/files/15813/15813-h/15813-h.htm",
+        "https://www.gutenberg.org/ebooks/15813.epub3.images",
+        "https://www.gutenberg.org/ebooks/15813.epub.images",
+        "https://www.gutenberg.org/ebooks/15813.epub.noimages",
+        "https://www.gutenberg.org/ebooks/15813.kf8.images",
+        "https://www.gutenberg.org/ebooks/15813.kindle.images",
+        "https://www.gutenberg.org/ebooks/15813.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/15813.txt.utf-8",
+        "https://www.gutenberg.org/files/15813/15813-8.txt",
+        "https://www.gutenberg.org/ebooks/15813.rdf",
+        "https://www.gutenberg.org/cache/epub/15813/pg15813.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/15813/pg15813.cover.small.jpg",
+        "https://www.gutenberg.org/files/15813/15813-8.zip",
+        "https://www.gutenberg.org/files/15813/15813-h.zip",
+        "https://www.gutenberg.org/cache/epub/15813/pg15813-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg16264.rdf",
+      "sha256": "24ed4072ac89b25a9fde42f06fc5d637e07ece3ad5ee3d5ccf23582b0c237817",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/16264.html.images",
+        "https://www.gutenberg.org/files/16264/16264-h/16264-h.htm",
+        "https://www.gutenberg.org/ebooks/16264.epub3.images",
+        "https://www.gutenberg.org/ebooks/16264.epub.images",
+        "https://www.gutenberg.org/ebooks/16264.epub.noimages",
+        "https://www.gutenberg.org/ebooks/16264.kf8.images",
+        "https://www.gutenberg.org/ebooks/16264.kindle.images",
+        "https://www.gutenberg.org/ebooks/16264.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/16264.txt.utf-8",
+        "https://www.gutenberg.org/files/16264/16264-8.txt",
+        "https://www.gutenberg.org/ebooks/16264.rdf",
+        "https://www.gutenberg.org/cache/epub/16264/pg16264.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/16264/pg16264.cover.small.jpg",
+        "https://www.gutenberg.org/files/16264/16264-8.zip",
+        "https://www.gutenberg.org/files/16264/16264-h.zip",
+        "https://www.gutenberg.org/cache/epub/16264/pg16264-h.zip"
+      ]
+    },
+    {
+      "path": "tests/gettenberg_tests/fixtures/pg84.rdf",
+      "sha256": "0749023a4406a934d92126c9e3fdd6d9975e8dc1ccb941e8c545188844b33628",
+      "resource_uris": [
+        "https://www.gutenberg.org/ebooks/84.html.images",
+        "https://www.gutenberg.org/files/84/84-h/84-h.htm",
+        "https://www.gutenberg.org/ebooks/84.epub3.images",
+        "https://www.gutenberg.org/ebooks/84.epub.images",
+        "https://www.gutenberg.org/ebooks/84.epub.noimages",
+        "https://www.gutenberg.org/ebooks/84.kf8.images",
+        "https://www.gutenberg.org/ebooks/84.kindle.images",
+        "https://www.gutenberg.org/ebooks/84.kindle.noimages",
+        "https://www.gutenberg.org/ebooks/84.txt.utf-8",
+        "https://www.gutenberg.org/files/84/84-0.txt",
+        "https://www.gutenberg.org/ebooks/84.rdf",
+        "https://www.gutenberg.org/cache/epub/84/pg84.cover.medium.jpg",
+        "https://www.gutenberg.org/cache/epub/84/pg84.cover.small.jpg",
+        "https://www.gutenberg.org/cache/epub/84/pg84-h.zip"
+      ]
+    }
+  ]
+}

@@ -72,6 +72,10 @@ of replacement patterns after denial. The official robot, mirror and catalog
 pages below ground this boundary; the two-second interval is the WI's conservative
 local default, not a claim of universal upstream permission.
 
+**Routing checkpoint:** see [the qualification table](gettenberg-route-qualification.md)
+for documented endpoints, inferred mappings and unresolved aliases. A22 remains
+open; the table does not establish live availability or full-format coverage.
+
 **Implementation preflight still required:** choose the concrete supported default
 endpoint/mirror mapping from the official listings and check representative main,
 generated and catalog paths against saved metadata and documentation. Especially
