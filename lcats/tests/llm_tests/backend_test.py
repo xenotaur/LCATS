@@ -22,6 +22,29 @@ class TestLLMBackendProtocol(unittest.TestCase):
         self.assertNotIsInstance(NotABackend(), backend.LLMBackend)
 
 
+class TestRequestRecordingBackendProtocol(unittest.TestCase):
+    """Verify the optional request-capture capability stays separate and optional."""
+
+    def test_recording_is_not_required_of_llm_backends(self):
+        """FakeBackend still satisfies LLMBackend and does not advertise capture."""
+        instance = fake_backend.FakeBackend()
+        self.assertIsInstance(instance, backend.LLMBackend)
+        self.assertNotIsInstance(instance, backend.RequestRecordingBackend)
+
+    def test_a_backend_with_a_recorder_attribute_advertises_capture(self):
+        """An object exposing request_recorder satisfies the optional protocol."""
+
+        class Recording:
+            request_recorder = None
+
+            def complete(self, **_kwargs):
+                raise NotImplementedError
+
+        instance = Recording()
+        self.assertIsInstance(instance, backend.RequestRecordingBackend)
+        self.assertIsInstance(instance, backend.LLMBackend)
+
+
 class TestBackendResponse(unittest.TestCase):
     """Verify BackendResponse field defaults and shape."""
 

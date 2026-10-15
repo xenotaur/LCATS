@@ -72,6 +72,7 @@ DEFAULT_RESULTS_ROOT = (
 DEFAULT_MODEL = "fake-worldcon-spike"
 DEFAULT_MAX_TOKENS = 4096
 TRUNCATION_RETRY_MULTIPLIER = 2
+REQUEST_RECORD_VERSION = "worldcon-spike-request-record-v1"
 RETRY_BACKOFF_SECONDS = 0.25
 RETRY_BACKOFF_MAX_SECONDS = 2.0
 DEFAULT_TEMPERATURE = 0.0
@@ -810,7 +811,25 @@ def _run_model_stage(
     total_output_tokens = 0
     retried_kinds: set[str] = set()
     raw_response: llm_backend.BackendResponse | None = None
+    capture = _RequestCapture(active_backend)
+
+    def record_request(outcome: str) -> None:
+        _write_request_record(
+            output_root=output_root,
+            run_id=run_id,
+            story=story,
+            stage=stage,
+            attempt=attempt,
+            max_tokens=max_tokens,
+            outcome=outcome,
+            capture=capture,
+            options=options,
+            tool_schema=tool_schema,
+        )
+
+    call_outcome = "tool_call"
     while True:
+        capture.reset()
         try:
             response = active_backend.complete(
                 system=system_prompt,
@@ -821,6 +840,7 @@ def _run_model_stage(
                 tool=tool_schema,
             )
             raw_response = response
+            call_outcome = "tool_call" if response.tool_result is not None else "text"
             raw_response.effective_max_tokens = max_tokens
             response = dataclasses.replace(
                 response,
@@ -840,6 +860,7 @@ def _run_model_stage(
                 )
                 response.effective_max_tokens = max_tokens
                 raw_response = response
+                call_outcome = "text_fallback"
                 response = dataclasses.replace(
                     response,
                     input_tokens=response.input_tokens + total_input_tokens,
@@ -856,6 +877,7 @@ def _run_model_stage(
                         output_tokens=error.output_tokens,
                     )
                 break
+            record_request("no_tool_call")
             _persist_backend_failure(
                 output_root, run_id, story, stage, error, attempt, log
             )
@@ -881,6 +903,7 @@ def _run_model_stage(
             total_input_tokens += error_input
             total_output_tokens += error_output
             error.effective_max_tokens = max_tokens
+            record_request(kind)
             raw_path = _persist_backend_failure(
                 output_root, run_id, story, stage, error, attempt, log
             )
@@ -909,6 +932,7 @@ def _run_model_stage(
             error.raw_response_path = raw_path
             _attach_usage(error, total_input_tokens, total_output_tokens, max_tokens)
             raise
+    record_request(call_outcome)
     tool_result = response.tool_result
     raw_path = _write_raw_response(
         output_root=output_root,
@@ -974,6 +998,103 @@ def _run_model_stage(
     response.story_id = story.story_id
     response.checkpoint_reused = False
     return response, tool_result, raw_path, False
+
+
+class _RequestCapture:
+    """Collect the provider request one model call builds, when it can report it.
+
+    Backends that expose the optional `request_recorder` attribute (see
+    llm_backend.RequestRecordingBackend) report the request they actually
+    build. For every other backend the record falls back to the runner-level
+    call arguments and is labelled as such, because the provider-specific
+    transformation is not observable from here.
+    """
+
+    def __init__(self, backend: Any):
+        self.supported = isinstance(backend, llm_backend.RequestRecordingBackend)
+        self.request: dict[str, Any] | None = None
+        self._backend = backend
+
+    def reset(self) -> None:
+        """Forget the previous attempt and (re)install the recorder."""
+
+        self.request = None
+        if self.supported:
+            self._backend.request_recorder = self._store
+
+    def _store(self, request: dict[str, Any]) -> None:
+        self.request = request
+
+
+def _request_record_path(
+    output_root: pathlib.Path,
+    run_id: str,
+    story: SpikeStory,
+    stage: str,
+    attempt: int,
+) -> pathlib.Path:
+    # The name deliberately does not start with the stage name: the raw
+    # artifact index lists every "<stage>*.json" file as an attempt.
+    filename = (
+        f"request-{stage}.json"
+        if attempt == 1
+        else f"request-{stage}-attempt-{attempt}.json"
+    )
+    return output_root / "_raw" / run_id / _checkpoint_item_id(story) / filename
+
+
+def _write_request_record(
+    *,
+    output_root: pathlib.Path,
+    run_id: str,
+    story: SpikeStory,
+    stage: str,
+    attempt: int,
+    max_tokens: int,
+    outcome: str,
+    capture: _RequestCapture,
+    options: RunnerOptions,
+    tool_schema: dict[str, Any],
+) -> pathlib.Path:
+    """Persist the tool-forcing request fields of one model-call attempt.
+
+    The record never holds the system prompt, the messages, the story text, an
+    absolute path, or a credential; those are covered by the stage fingerprint
+    or must not be stored.
+    """
+
+    if capture.request is not None:
+        source = "provider"
+        request = capture.request
+    else:
+        source = "runner"
+        request = {
+            "model": options.model,
+            "temperature": options.temperature,
+            "max_tokens": max_tokens,
+            "tool": {
+                "name": tool_schema.get("name"),
+                "strict": tool_schema.get("strict", False),
+                "input_schema": tool_schema.get("input_schema"),
+            },
+        }
+    path = _request_record_path(output_root, run_id, story, stage, attempt)
+    _write_json_atomic(
+        path,
+        {
+            "version": REQUEST_RECORD_VERSION,
+            "run_id": run_id,
+            "story_id": story.story_id,
+            "stage": stage,
+            "attempt": attempt,
+            "effective_max_tokens": max_tokens,
+            "outcome": outcome,
+            "request_source": source,
+            "request": request,
+        },
+        output_root=output_root,
+    )
+    return path
 
 
 def _model_stage_fingerprint(
