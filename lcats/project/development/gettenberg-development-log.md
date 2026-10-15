@@ -1093,3 +1093,14 @@ qualification.json and review.md preserve source hashes, commands, log hashes,
 accepted repairs and the partial A01–A22 mapping. Native WI is not resolved. Next:
 commit/push child PR targeting acquisition integration branch; inspect first
 hosted review and exact-head CI before any internal merge. Main remains untouched.
+
+
+## 2026-10-15 01:34 UTC — Internal PR opened
+
+Implementation commit 7a00da1c1d78b481811b1803652606840da604eb pushed;
+[PR #510](https://github.com/xenotaur/LCATS/pull/510) targets
+codex/gettenberg-acquisition at bd2998a8, not main. First automatic Codex review
+is running; test, coverage and lint checks are running. No manual retrigger.
+Backfill the PR link in both native execution records, keeping status in_progress.
+This bookkeeping-only follow-up preserves every reviewed product/test/doc hash;
+CI must qualify the resulting exact head before internal integration.
