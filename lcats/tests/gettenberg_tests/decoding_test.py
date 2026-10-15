@@ -128,6 +128,182 @@ class DecodingTests(unittest.TestCase):
                 self.assertEqual(result.source_sha256, hashlib.sha256(data).hexdigest())
                 self.assertEqual(artifact.path.read_bytes(), data)
 
+    def test_plausible_zip_end_records_in_comment_do_not_mask_directory(self):
+        for count, size_from_position, offset_from_position in (
+            (0, False, True),
+            (1, True, False),
+        ):
+            stream = io.BytesIO()
+            with zipfile.ZipFile(stream, "w") as archive:
+                archive.writestr("story.txt", "A story")
+            fake_position = len(stream.getvalue())
+            # Both fake records satisfy EOF/directory arithmetic. One pretends
+            # the archive is empty; the other points at an invalid directory.
+            comment = struct.pack(
+                "<4s4H2LH",
+                b"PK\x05\x06",
+                0,
+                0,
+                count,
+                count,
+                fake_position if size_from_position else 0,
+                fake_position if offset_from_position else 0,
+                0,
+            )
+            with zipfile.ZipFile(stream, "a") as archive:
+                archive.comment = comment
+            data = stream.getvalue()
+            with self.subTest(count=count):
+                result = resources.decode_text(data)
+                self.assertEqual(result.text, "A story")
+                self.assertEqual(result.source_sha256, hashlib.sha256(data).hexdigest())
+
+    def test_end_record_candidates_inside_member_data_are_ignored(self):
+        # Fake indexes can satisfy directory arithmetic yet point inside their
+        # own member, or forge a zero size to hide that overlap. Local headers
+        # are independent evidence that the complete original text must survive.
+        reference = zip_bytes((("story.txt", b"x" * 78),), zipfile.ZIP_STORED)
+        for zero_sizes in (False, True):
+            central = bytearray(reference[117:172])
+            if zero_sizes:
+                struct.pack_into("<3L", central, 16, 0, 0, 0)
+            payload = (
+                b"x"
+                + central
+                + struct.pack("<4s4H2LH", b"PK\x05\x06", 0, 0, 1, 1, 55, 40, 77)
+            )
+            data = zip_bytes((("story.txt", payload),), zipfile.ZIP_STORED)
+            with self.subTest(zero_sizes=zero_sizes):
+                result = resources.decode_text(
+                    data, options=resources.DecodeOptions(encoding_override="latin1")
+                )
+                self.assertEqual(result.text, payload.decode("latin1"))
+        payload = b"x" + struct.pack("<4s4H2LH", b"PK\x05\x06", 1, 0, 1, 1, 40, 0, 77)
+        result = resources.decode_text(
+            zip_bytes((("story.txt", payload),), zipfile.ZIP_STORED)
+        )
+        self.assertEqual(result.text, payload.decode("utf-8"))
+
+    def test_unsupported_looking_fake_local_header_does_not_mask_real_zip(self):
+        reference = zip_bytes((("story.txt", b"x" * 117),), zipfile.ZIP_STORED)
+        local = bytearray(reference[:39])
+        struct.pack_into("<2L", local, 18, 0xFFFFFFFF, 0xFFFFFFFF)
+        central = bytearray(reference[156:211])
+        struct.pack_into("<L", central, 42, 40)
+        payload = (
+            b"x"
+            + local
+            + central
+            + struct.pack("<4s4H2LH", b"PK\x05\x06", 0, 0, 1, 1, 55, 79, 77)
+        )
+        data = zip_bytes((("story.txt", payload),), zipfile.ZIP_STORED)
+        result = resources.decode_text(
+            data, options=resources.DecodeOptions(encoding_override="latin1")
+        )
+        self.assertEqual(result.text, payload.decode("latin1"))
+
+    def test_streaming_zip_data_descriptor(self):
+        class StreamingBuffer(io.BytesIO):
+            def seekable(self):
+                return False
+
+            def seek(self, *args):
+                raise io.UnsupportedOperation("stream cannot seek")
+
+        for method in (zipfile.ZIP_STORED, zipfile.ZIP_DEFLATED):
+            stream = StreamingBuffer()
+            with zipfile.ZipFile(stream, "w", method) as archive:
+                archive.writestr("story.txt", "A streaming story")
+            self.assertEqual(
+                resources.decode_text(stream.getvalue()).text, "A streaming story"
+            )
+
+    def test_container_declarations_must_match_after_http_decoding(self):
+        gzip_data = gzip.compress(b"story")
+        zip_data = zip_bytes((("story.txt", b"story"),))
+        for data, good, bad in (
+            (gzip_data, "application/gzip", "application/zip"),
+            (zip_data, "application/zip", "application/gzip"),
+        ):
+            for claims in ((bad,), (good, bad)):
+                with self.subTest(claims=claims, signature=data[:4]):
+                    self.assert_decode_error(
+                        "container_mismatch", data, catalog_formats=claims
+                    )
+            artifact = self.artifact(
+                gzip.compress(data),
+                (("content-encoding", "gzip"), ("content-type", good)),
+            )
+            self.assertEqual(resources.decode_text(artifact).text, "story")
+            self.assert_decode_error(
+                "container_mismatch", artifact, catalog_formats=(bad,)
+            )
+
+    def test_generic_override_reports_opposite_bom_order(self):
+        for family in ("utf-16", "utf-32"):
+            for order, other in (("be", "le"), ("le", "be")):
+                codec = family + "-" + order
+                bom = getattr(
+                    codecs,
+                    "BOM_" + family.replace("-", "").upper() + "_" + order.upper(),
+                )
+                for media in ("text/plain", "text/html"):
+                    with self.subTest(codec=codec, media=media):
+                        result = resources.decode_text(
+                            bom + "<p>story</p>".encode(codec),
+                            options=resources.DecodeOptions(encoding_override=family),
+                            catalog_formats=(
+                                media + "; charset=" + family + "-" + other,
+                            ),
+                        )
+                        self.assertEqual(result.text, "<p>story</p>")
+                        self.assertEqual(result.encoding, codec)
+                        conflicts = [
+                            d
+                            for d in result.diagnostics
+                            if d.code == "encoding_conflict"
+                        ]
+                        self.assertEqual(len(conflicts), 1)
+                        self.assertEqual(conflicts[0].source, "catalog")
+                        self.assertIn(family + "-" + other, conflicts[0].message)
+
+    def test_generic_override_requires_compatible_bom(self):
+        for family in ("utf-16", "utf-32"):
+            for data in (
+                codecs.BOM_UTF8 + b"x",
+                b"x",
+                (
+                    codecs.BOM_UTF16_BE + b"\x00x"
+                    if family == "utf-32"
+                    else codecs.BOM_UTF32_BE + b"\x00\x00\x00x"
+                ),
+            ):
+                for media in ("text/plain", "text/html"):
+                    with self.subTest(family=family, data=data, media=media):
+                        self.assert_decode_error(
+                            "missing_bom",
+                            data,
+                            options=resources.DecodeOptions(encoding_override=family),
+                            catalog_formats=(media,),
+                        )
+
+    def test_signature_override_preserves_content_feff(self):
+        for text in ("\ufeffstory", "\ufeff<meta charset='utf-8'><p>story</p>"):
+            for media in ("text/plain", "text/html"):
+                data = codecs.BOM_UTF8 + text.encode("utf-8")
+                with self.subTest(text=text, media=media):
+                    result = resources.decode_text(
+                        data,
+                        catalog_formats=(media,),
+                        options=resources.DecodeOptions(encoding_override="utf-8-sig"),
+                    )
+                    self.assertEqual(result.text, text)
+                    self.assertEqual(
+                        result.source_sha256, hashlib.sha256(data).hexdigest()
+                    )
+                    self.assertEqual(result.encoding, "utf-8")
+                    self.assertEqual(result.encoding_source, "override")
+
     def test_plain_utf8_and_empty_payload(self):
         for data in (b"", "A café\r\n".encode()):
             result = resources.decode_text(data)
@@ -544,6 +720,7 @@ class DecodingTests(unittest.TestCase):
         packed = bytearray(zip_bytes((("story.txt", b"hello"),)))
         center = packed.index(b"PK\x01\x02")
         struct.pack_into("<H", packed, center + 8, 1)
+        struct.pack_into("<H", packed, 6, 1)  # Consistent encrypted local/index flags.
         self.assert_decode_error("encrypted_member", bytes(packed))
 
     def test_zip_entry_limit_and_forged_count(self):
@@ -573,6 +750,18 @@ class DecodingTests(unittest.TestCase):
         center = forged.index(b"PK\x01\x02")
         struct.pack_into("<L", forged, center + 24, 1)
         struct.pack_into("<L", forged, center + 16, zlib.crc32(b"a"))
+        # Contradictory local/index metadata is now refused before inflation,
+        # even when an output limit would also reject the true expanded bytes.
+        self.assert_decode_error(
+            "invalid_container",
+            bytes(forged),
+            options=resources.DecodeOptions(max_decoded_bytes=100),
+        )
+        self.assert_decode_error("invalid_container", bytes(forged))
+        # If both headers lie consistently, structural agreement is insufficient.
+        # Independent inflation must still count all bytes and validate full CRC.
+        struct.pack_into("<L", forged, 22, 1)
+        struct.pack_into("<L", forged, 14, zlib.crc32(b"a"))
         self.assert_decode_error(
             "decoded_limit",
             bytes(forged),

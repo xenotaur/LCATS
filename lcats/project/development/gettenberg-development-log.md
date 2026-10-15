@@ -1568,3 +1568,89 @@ recheck before the first hosted round arrived. Recommend reserving that recheck
 until CI and hosted feedback can be batched, or explicitly allowing one final
 repair-verification assignment within an unchanged worker-time ceiling. Do not
 quietly increase the current cap or infer acceptance from green tests alone.
+
+## 2026-10-15 06:03 UTC — PR512 review/integration grant
+
+Human explicitly requested the review-and-integration pass for PR512, renewing
+review/repair/integration authority for this PR only, not a new feature run or main
+promotion. Clean head54401a99, basec1c9a3e6 on codex/gettenberg-acquisition; all four
+head checks green. Native review-response rerun explicitly authorized by this new
+request; link to prior in_progress review record rather than treating it as landed.
+Use the previously read LRH review-response workflow under the charter adapter.
+
+Correction to previous checkpoint: Copilot's first review arrived at05:34:29,
+before the05:38 stop, and was missed by the final CI-only query. Four additional
+unresolved threads concern container declarations and Unicode BOM semantics.
+No integration occurred, so the gap did not land unreviewed defects. Future final
+checks must fetch all review authors/threads alongside CI, never only the first
+bot or recent comments. Historical evidence remains intact with this correction.
+
+Coordinator reproduced all four issues: gzip accepted as declared ZIP; generic
+UTF16 override omitted an opposing endian conflict; UTF8 BOM authorized native
+UTF16 decoding; utf8-sig removed a second content U+FEFF. Repair all before one
+fresh independent review of the entire repair delta, including the earlier ZIP
+comment change. No delegation until fixes/fixtures are stable. Keep original bytes,
+strict errors and charter lifecycle boundaries. Product/API scope unchanged.
+
+### Independent repair review — 06:09 UTC
+
+Fresh reviewer passed60 focused tests and additional MIME/Unicode probes, clearing
+five hosted threads. Stronger ZIP comment counterexamples reproduced by coordinator:
+a fully plausible fake empty EOCD hides the story, or a fake record with matching
+arithmetic points at invalid directory bytes. Select the earliest structurally valid
+directory in the bounded comment window, validating actual records/count and first
+local-header layout before acceptance. Empty archives cannot hide prepended bytes.
+Add both regressions; source remains frozen for same-scope recheck and canonical
+rerun. Prior2824-test canonical pass is historical, not final-repair qualification.
+
+### ZIP candidate validation replan — 06:18 UTC
+
+Review exposed earlier fake EOCD/index bytes inside a stored member, including a
+zero-size forged index that could hide text. Coordinator reproduced them. Signature
+arithmetic and central records are not sufficient proof of a candidate directory.
+Replan within the same repair scope: validate the complete candidate structure and
+local header/name/extent/size agreement (including streaming data descriptors)
+before enforcing unsupported-format/count policies. Two bounded-byte walks avoid
+allocating a member index before acceptance. ZIP64 policy is deferred until complete
+candidate layout is known, preventing unsupported-looking story bytes masking the
+real archive. Genuine ZIP64 remains refused. Explicit regression fixtures preserve
+all original text, including adversarial bytes. No extractor/format scope expansion.
+
+Earlier checks passed2824 and2825 tests but predate the final structural repair.
+An intermediate focused run exposed four error-precedence assertions: preserve
+actual-count and ZIP64 codes; make encrypted fixture coherent in both headers;
+expect invalid_container for contradictory local/index CRC/size rejected before
+inflation. This is stronger early integrity validation, not skipping rejection.
+Fresh reviewer checked these changes and continues same-scope verification.
+
+### Final independent acceptance — 06:20 UTC
+
+Reviewer cleared all six hosted threads and final same-scope repair, running64
+focused tests plus independent MIME/Unicode/EOCD probes. Four final changed-file
+hashes match; all other previously reviewed source/test/doc hashes unchanged.
+One fresh review assignment including bounded followup, under15 worker minutes,
+ended by06:19:45. No active worker. Final canonical qualification underway; no
+further product edits planned. New integration-repair.json supersedes earlier
+pending-repair evidence without rewriting history. Main delivery/closeout remains
+outside this internal integration instruction.
+
+### Inflation regression coverage preserved — 06:22 UTC
+
+Coordinator extended the short-size fixture to forge BOTH local and central headers,
+so early metadata disagreement cannot replace coverage of actual inflation counting.
+The reviewer verified decoded_limit under100bytes and invalid_container without the
+cap;64 focused tests pass, product/docs unchanged, final test hash recorded. Final
+canonical run repeated because package guidance requires scripts/test after test
+changes. Earlier final-product run passed2828 tests in75.923seconds; final test-only
+addition is separately identified. Independent assignment including followups stayed
+under17 worker minutes, no workers active. Avoid repeat canonical runs until repair
+source and tests are frozen in future passes; this pass incurred that overhead.
+
+### Final repair qualification — 06:24 UTC
+
+Final scripts/test passes2828 tests in78.673seconds, with64 focused decoder tests.
+Format265files/lint pass; LRH0errors/351existing warnings; readiness yes; diff check
+passes. Four final changed-file hashes independently verified; remaining nine prior
+hashes unchanged. All six hosted findings cleared by fresh independent review.
+Publish fixes and native continuation record, confirm threads, then require all
+checks on exact final PR head and unchanged integration base before merging.

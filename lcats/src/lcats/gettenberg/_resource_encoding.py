@@ -147,17 +147,30 @@ def decode(payload, media_type, declarations, options, diagnostics):
         if payload.startswith(marker):
             bom = (marker, codec)
             break
+    override = (
+        _codec(options.encoding_override)
+        if options.encoding_override is not None
+        else None
+    )
+    # Resolve byte order before inspecting HTML or comparing declarations. An
+    # unrelated signature cannot authorize a native-endian generic decoder.
+    if override in ("utf-16", "utf-32"):
+        if bom is None or not _compatible(override, bom[1]):
+            raise _decode_types.ResourceDecodeError(
+                "missing_bom", "use a matching BOM or explicit Unicode byte order"
+            )
+        override = bom[1]
+    # This layer removes the one leading BOM. A signature-aware codec would
+    # remove a second U+FEFF that belongs to the text, including in HTML scans.
+    if override == "utf-8-sig":
+        override = "utf-8"
     claims = list(declarations)
     if media_type in ("text/html", "application/xhtml+xml"):
         # Without a BOM, HTML declarations must be ASCII-compatible. With a BOM,
         # decode just the bounded prefix in its proven Unicode byte order. A
         # partial final code unit is held by the incremental decoder, not replaced.
         prefix = payload[: options.html_scan_bytes]
-        scan_codec = (
-            _codec(options.encoding_override)
-            if options.encoding_override is not None
-            else bom[1] if bom else None
-        )
+        scan_codec = override if override is not None else bom[1] if bom else None
         if scan_codec:
             reader = codecs.getincrementaldecoder(scan_codec)(errors="strict")
             skip = (
@@ -201,7 +214,7 @@ def decode(payload, media_type, declarations, options, diagnostics):
             )
     strong = options.encoding_override is not None or bom is not None
     if options.encoding_override is not None:
-        chosen, authority = _codec(options.encoding_override), "override"
+        chosen, authority = override, "override"
     elif bom:
         chosen, authority = bom[1], "bom"
     else:

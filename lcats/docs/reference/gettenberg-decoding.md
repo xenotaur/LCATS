@@ -43,7 +43,8 @@ to plain text with `default_media` diagnostic. This is an explicit interpretatio
 of untyped input, not proof that arbitrary binary input is a story.
 
 One identity/gzip HTTP Content-Encoding is supported, followed by at most one
-gzip or ZIP container. Inflation is bounded before output accumulates. Gzip CRC,
+gzip or ZIP container. Every recognized container MIME declaration must match the
+container signature after HTTP decoding; contradictory claims error. Inflation is bounded before output accumulates. Gzip CRC,
 trailer and complete termination are checked; concatenated streams, trailing data
 and further nested containers error. Recognized unsupported containers error too.
 
@@ -63,9 +64,11 @@ remain byte-retrieval only. Gzip/ZIP support is not a general archive extractor.
 
 Authority order is explicit override, Unicode BOM, HTTP charset, catalog charset,
 HTML declaration, then UTF-8. Compatible codec aliases agree. Generic UTF-16/32
-requires a BOM; otherwise specify the byte order explicitly, avoiding platform
+requires a matching BOM; otherwise specify the byte order explicitly, avoiding platform
 endianness. Compatible BOM bytes are removed; an incompatible override preserves
-them as input to the explicitly chosen decoder.
+them as input to the explicitly chosen decoder. Generic overrides are resolved to
+the matching BOM's byte order before conflict detection. Exactly one leading BOM
+is consumed; a following U+FEFF content character remains, including with utf-8-sig.
 
 Without override/BOM, conflicting declarations raise `ambiguous_encoding` rather
 than guessing. With override/BOM, conflicts and superseded unknown declarations

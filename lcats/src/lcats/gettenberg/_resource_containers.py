@@ -108,36 +108,94 @@ def _member_bytes(data, archive, selected, limit):
 
 
 def _zip_directory(data, limit):
-    """Count actual central records before ZipFile allocates its member index.
+    """Choose the outer valid directory before any EOCD-shaped archive comment.
 
     ZIP64/multidisk and prepended/appended data are deliberately unsupported.
-    Do not trust the declared entry count: ZipFile itself parses until size_cd.
+    Search only the maximum comment window. Candidate arithmetic alone is not
+    evidence of a directory: verify its records before accepting it.
     """
-    # A comment may contain arbitrary signatures. Walk only the bounded EOCD
-    # window, accepting a candidate whose comment and directory reach its true
-    # boundaries. Each search excludes the previous candidate, so work is linear.
-    lower, stop = max(0, len(data) - 65557), len(data)
-    end = -1
-    while stop > lower:
-        candidate = data.rfind(b"PK\x05\x06", lower, stop)
-        if candidate < 0:
+    start = max(0, len(data) - 65557)
+    failure = None
+    while start < len(data):
+        end = data.find(b"PK\x05\x06", start)
+        if end < 0:
             break
-        if candidate + 22 <= len(data):
-            size, offset, comment = struct.unpack_from("<2LH", data, candidate + 12)
-            if candidate + 22 + comment == len(data) and offset + size == candidate:
-                end = candidate
-                break
-        stop = candidate
-    if end < 0:
-        raise _decode_types.ResourceDecodeError(
-            "invalid_container", "missing ZIP directory"
-        )
+        start = end + 4
+        if end + 22 > len(data):
+            continue
+        size, offset, comment = struct.unpack_from("<2LH", data, end + 12)
+        if end + 22 + comment != len(data) or offset + size != end:
+            continue
+        try:
+            _validate_zip_directory(data, end, limit)
+        except _decode_types.ResourceDecodeError as exc:
+            if exc.code != "invalid_container":
+                raise
+            failure = exc
+            continue
+        # The earliest valid record owns all later bytes as its comment. This
+        # prevents a fully plausible fake record inside that comment winning.
+        return end
+    if failure is not None:
+        raise failure
+    raise _decode_types.ResourceDecodeError(
+        "invalid_container", "missing valid ZIP directory"
+    )
+
+
+def _validate_zip_directory(data, end, limit):
+    """Count actual central records before ZipFile allocates its member index."""
     disk, cd_disk, disk_count, count, size, offset, comment = struct.unpack_from(
         "<4H2LH", data, end + 4
     )
     if end + 22 + comment != len(data) or offset + size != end:
         raise _decode_types.ResourceDecodeError(
             "invalid_container", "unsupported ZIP layout or trailing data"
+        )
+    position, actual = offset, 0
+    first_local = None
+    while position < end:
+        if position + 46 > end or data[position : position + 4] != b"PK\x01\x02":
+            raise _decode_types.ResourceDecodeError(
+                "invalid_container", "invalid ZIP central record"
+            )
+        local_offset = struct.unpack_from("<L", data, position + 42)[0]
+        first_local = (
+            local_offset if first_local is None else min(first_local, local_offset)
+        )
+        name_size, extra_size, comment_size = struct.unpack_from(
+            "<3H", data, position + 28
+        )
+        position += 46 + name_size + extra_size + comment_size
+        actual += 1
+    if actual == 0 and offset != 0:
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "empty ZIP has prepended data"
+        )
+    if position != end:
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "ZIP directory count/size mismatch"
+        )
+    if actual and (first_local != 0 or data[:4] != b"PK\x03\x04"):
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "ZIP has prepended data or no first local header"
+        )
+    # Establish the complete candidate's structure before applying format or
+    # count policy. Otherwise unsupported-looking bytes inside a member could
+    # stop the search before the real directory is reached. Walk twice without
+    # allocating an unbounded list of index records.
+    position, local_zip64 = offset, False
+    while position < end:
+        local_zip64 |= _validate_local_layout(data, position, offset)
+        lengths = struct.unpack_from("<3H", data, position + 28)
+        position += 46 + sum(lengths)
+    if local_zip64:
+        raise _decode_types.ResourceDecodeError(
+            "unsupported_container", "ZIP64 local member unsupported"
+        )
+    if actual > limit:
+        raise _decode_types.ResourceDecodeError(
+            "zip_entries_limit", "too many ZIP entries"
         )
     if (
         disk
@@ -150,26 +208,68 @@ def _zip_directory(data, limit):
         raise _decode_types.ResourceDecodeError(
             "unsupported_container", "ZIP64/multidisk ZIP unsupported"
         )
-    position, actual = offset, 0
-    while position < end:
-        if position + 46 > end or data[position : position + 4] != b"PK\x01\x02":
-            raise _decode_types.ResourceDecodeError(
-                "invalid_container", "invalid ZIP central record"
-            )
-        name_size, extra_size, comment_size = struct.unpack_from(
-            "<3H", data, position + 28
-        )
-        position += 46 + name_size + extra_size + comment_size
-        actual += 1
-        if actual > limit:
-            raise _decode_types.ResourceDecodeError(
-                "zip_entries_limit", "too many ZIP entries"
-            )
-    if position != end or actual != count:
+    if actual != count:
         raise _decode_types.ResourceDecodeError(
-            "invalid_container", "ZIP directory count/size mismatch"
+            "invalid_container", "ZIP directory count mismatch"
         )
-    return end
+
+
+def _validate_local_layout(data, central, directory):
+    """Reject candidate indexes embedded inside the member data they describe.
+
+    Check fixed local metadata and optional data descriptors without inflating.
+    Central lengths alone are insufficient: an embedded fake index can claim a
+    zero-length member even though the real local header describes more data.
+    """
+    local = struct.unpack_from("<L", data, central + 42)[0]
+    if local + 30 > directory or data[local : local + 4] != b"PK\x03\x04":
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "invalid local header"
+        )
+    flags, method = struct.unpack_from("<HH", data, central + 8)
+    local_flags, local_method = struct.unpack_from("<HH", data, local + 6)
+    values = struct.unpack_from("<3L", data, central + 16)
+    local_values = struct.unpack_from("<3L", data, local + 14)
+    local_zip64 = 0xFFFFFFFF in local_values[1:]
+    name_size, extra_size = struct.unpack_from("<HH", data, local + 26)
+    central_name_size = struct.unpack_from("<H", data, central + 28)[0]
+    stop = local + 30 + name_size + extra_size + values[1]
+    if (
+        (flags, method) != (local_flags, local_method)
+        or stop > directory
+        or data[local + 30 : local + 30 + name_size]
+        != data[central + 46 : central + 46 + central_name_size]
+    ):
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "local/index layout mismatch"
+        )
+    if local_zip64:
+        # Central 32-bit extents can establish layout for this candidate, but
+        # ZIP64 remains unsupported. Defer that policy until all entries pass.
+        return True
+    if not flags & 8:
+        if local_values != values:
+            raise _decode_types.ResourceDecodeError(
+                "invalid_container", "local/index sizes or CRC disagree"
+            )
+        return False
+    # A streaming writer may put zeroes in its local header. Its descriptor
+    # must still agree with the candidate index, with or without the signature.
+    if any(value not in (0, expected) for value, expected in zip(local_values, values)):
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "invalid streaming local metadata"
+        )
+    expected = struct.pack("<3L", *values)
+    if not (
+        stop + 12 <= directory
+        and data[stop : stop + 12] == expected
+        or stop + 16 <= directory
+        and data[stop : stop + 16] == b"PK\x07\x08" + expected
+    ):
+        raise _decode_types.ResourceDecodeError(
+            "invalid_container", "invalid ZIP data descriptor"
+        )
+    return False
 
 
 def _safe_member(info):
@@ -313,18 +413,19 @@ def unwrap(data, content_encoding, media_types, options):
             "container_mismatch",
             "container policy disagrees with original-byte signature",
         )
-    if container == "none" and any(
-        media
-        in (
-            "application/gzip",
-            "application/x-gzip",
-            "application/zip",
-            "application/x-zip-compressed",
-        )
+    declared_containers = {
+        "application/gzip": "gzip",
+        "application/x-gzip": "gzip",
+        "application/zip": "zip",
+        "application/x-zip-compressed": "zip",
+    }
+    if any(
+        declared_containers[media] != detected
         for media in media_types
+        if media in declared_containers
     ):
         raise _decode_types.ResourceDecodeError(
-            "container_mismatch", "declared container has no matching signature"
+            "container_mismatch", "declared container disagrees with payload signature"
         )
     member, member_media = None, None
     if container == "gzip":
