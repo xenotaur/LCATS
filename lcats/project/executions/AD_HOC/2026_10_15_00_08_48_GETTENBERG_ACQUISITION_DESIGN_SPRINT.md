@@ -50,3 +50,7 @@ codex/gettenberg-acquisition from the recorded checkpoint; fetch/reconcile main,
 verify absolute imports, qualify concrete route mapping, and implement WI-0005
 against acceptance A01–A22. Reserve independent review and stable-source checks.
 No main promotion, WI-0006 execution or automatic grant renewal is implied.
+
+Planning checkpoint: ceeeb8449eb2e6fe347af04cf1b6240b0342b246, pushed to
+codex/gettenberg-acquisition. Final telemetry/checkpoint follows in the runlog;
+this staged documentation record remains nonterminal until main delivery.

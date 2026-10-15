@@ -893,3 +893,21 @@ Single-agent self-check clarified retry/redirect budgets, corrupt-state recovery
 boundaries and conflicting encoding declarations. Independent implementation
 review remains required in the next grant. Next: commit/push a planning checkpoint
 and report its exact identity with remaining scope.
+
+## 2026-10-15 00:16 UTC — Short sprint completion checkpoint
+
+Planning commit ceeeb8449eb2e6fe347af04cf1b6240b0342b246 is pushed to
+codex/gettenberg-acquisition. Design and 22-scenario handoff are complete within
+the grant; only recording this checkpoint and verifying its push remain. No PR,
+main merge, implementation, data download or worker assignment was started.
+Native WI/record status remains nonterminal pending reviewed delivery to main.
+Account-wide weekly usage reads 57% versus 55% at launch; this is not an isolated
+sprint cost measurement. No model upgrade or external paid model call occurred.
+
+Resume after the move with a new bounded WI-0005 implementation grant. Start from
+this branch, reconcile freshly fetched main, verify absolute PYTHONPATH, and use
+gettenberg-acquisition-design.md. The two explicit qualification tasks are the
+default route mapping and transport timeout semantics. The sprint required no
+human intervention after activation. Observation: a narrow planning-only grant
+produced a resumable contract without implementation/review/CI wait overhead;
+its impact on the next run remains unmeasured. No work continues automatically.
