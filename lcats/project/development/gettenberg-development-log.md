@@ -958,3 +958,138 @@ approximately four minutes of the seven-minute target. This final log correction
 uses the observed UTC clock and records the pushed checkpoint; no further domain
 work continues. The handoff remains staged, not promoted to main. The execution
 record remains nonterminal under the charter. No per-run cost estimate is claimed.
+
+## 2026-10-15 00:59 UTC — Acquisition core run activation
+
+Human approved the 60-minute target / 75-minute hard-stop plan. Run starts
+00:59:27, freeze by 01:44:27, target 01:59:27, hard stop 02:14:27 UTC. Base
+bd2998a8, freshly fetched main 2f14e4e8; WI-0002/0004 canonically resolved,
+WI-0005 readiness clean and prior-art check present. Native prompt:
+PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_ACQUISITION_CORE)[2026-10-15T01:00:16+00:00].
+No prior execution for this tranche slug. lrh-implement and its references read;
+charter adapter replaces repeated per-item confirmation and main branching.
+Gate definitions fresh, stored skip consent invalid; explicit human grant applies.
+No policy changes. Python 3.11.9, Black 25.11.0, Ruff 0.15.0; absolute PYTHONPATH
+verified against managed worktree. Shared weekly usage 58%; per-run cost unknown.
+The editable distribution reports an older version, so source SHA/import path,
+not installed package version, identifies this run. No package reinstall.
+
+## 2026-10-15 01:03 UTC — Core tranche decision before implementation
+
+Implement explicit-URL original-byte acquisition: typed request/policy/errors,
+read-only plan, bounded streaming GET, per-cache serialization/pacing, retry and
+redirect policy, immutable hash-verified body/receipt publication and offline
+reuse. Archives share lifecycle's retained archive namespace. Defer conditional
+refresh, decoding, catalog receipt ingestion and automatic Gutenberg resource
+mapping/selection to later WI-0005 tranches; full WI acceptance remains open.
+A caller-supplied permitted concrete URL is sufficient to test this independent
+transport/cache boundary; no unqualified mirror becomes a built-in default.
+
+Read upstream gutenbergsite at 407d5ef950923046fa86aadad57036dfdf5faafc and
+autocat3 at f33e7105cc1113e86a9244f127f43633cc196bb2 in temporary checkouts.
+The harvest implementation uses database filenames; HTMLFormatter.py:86–87
+substitutes generated aliases. Neither inspected path establishes an invertible
+alias-to-filename rule. No upstream implementation is copied. Preserve A22's
+remaining qualification rather than guessing suffixes. This is a scope boundary,
+not a reduction of the final all-format requirement.
+
+API choices: SourceRequest keeps source URI and explicit request URL; NetworkPolicy
+is offline by default and requires explicit allowed origins. GET representation
+is fixed (identity Content-Encoding request, no cookies/auth/proxies). Cache keys
+include storage kind as well as canonical URL and representation version, so the
+same URL requested as archive/resource cannot collide across storage namespaces.
+Reuse private lifecycle I/O through an error-translating resource adapter, without
+changing catalog behavior. Persistent SQLite lock plus atomically persisted pacing
+state; no lock on cache hits/plans. Deadlines are cooperative between bounded I/O
+operations, not hard DNS cancellation. Independent review receives these limits.
+
+## 2026-10-15 01:16 UTC — Acquisition core initial qualification
+
+Explicit-URL core and Diataxis docs implemented. 48 focused tests pass, including
+real-process duplicate suppression and killed lock recovery, HTTP framing/redirect/
+retry boundaries, corruption/no-clobber publication and clock discontinuities.
+Initial test failure was a macOS /var versus /private/var path assertion; resolving
+the temporary root corrected the assertion. No product regression was hidden.
+The format wrapper with empty flags hits an existing Bash empty-array nounset
+issue; supported --quiet/--check flags work. No unrelated wrapper fix is included.
+
+Full canonical suite is running before independent review. No agent assignment
+has been used yet. Feature work is frozen for this tranche now, ahead of the
+minute-45 ceiling; next work is review, validation and bounded repairs. Shared
+usage extraction at this point was unavailable; no cost estimate is inferred.
+The one planned cold review will use a compact specification and exact source
+snapshot, not full session history. No additional item is starting.
+
+## 2026-10-15 01:20 UTC — Checkpoint and independent review dispatch
+
+At the 20-minute checkpoint scope remains the acquisition core; no extra feature
+or item has been added. Initial full suite passed 2724 tests, then 2727 after
+malformed-input/documentation regressions. Focused snapshot now passes 52 tests;
+one additional Retry-After obsolete-date repair is undergoing final full-suite
+qualification. Fail-first numeric-overflow regression demonstrated an untyped
+OverflowError from corrupt pacing JSON; corrected to ResourceIntegrityError.
+The how-to's three code blocks execute against a local fixture in the test suite.
+
+Independent cold-context assignment 1, acquisition_core_review, dispatched
+01:20:28 UTC; deadline 01:35:30 (15 minutes), no recursive delegation or writes.
+Source/test/doc files frozen at /tmp review-files.json hashes; full diff snapshot
+SHA256 1c539ec207fd28fd6457741cc3bc88e500595f490ad8cec9fe70d412ac57e801.
+Native source HEAD bd2998a8 with uncommitted reviewed changes. Canonical full-suite
+recheck runs alongside report-only review; integration waits for both. This small
+sequencing adaptation keeps checks independent without idle elapsed time.
+Weekly shared usage 60% versus 58% at launch, not attributable per-run cost.
+Remaining wall allowance approximately 54 minutes; review occupancy allowance
+15 minutes assigned out of 45 cumulative. No implementation worker was needed.
+
+
+## 2026-10-15 01:29 UTC — Review findings and bounded repairs
+
+Independent assignment 1 returned four verified P2 findings around 01:25 UTC:
+trickling headers/chunk framing could exceed the deadline; post-reference hard-link
+cleanup changed ctime during concurrent verification; unsupported transfer coding
+could enter cached originals; pacing fsync errors incorrectly claimed resource
+publication. Coordinator directly read and ran the top reproduction before fixing:
+0.2-second budgets took 1.313/1.317 seconds for header/chunk trickles. The same
+probe reproduced the cleanup/error-translation cases. Findings were accepted on
+reproduction, not reviewer assertion. Frozen initial snapshot full suite passed
+2728 tests; statement coverage of the four new modules was 95%, which did not
+substitute for adversarial review and missed these behavioral defects.
+
+Repairs add a deadline-aware raw socket reader below HTTP framing; finish hard-link
+cleanup before reference visibility; reject unsupported/ambiguous transfer coding;
+and translate possible-publication errors only at reference replacement. New local
+regressions cover headers, chunk extensions/trailers, supported/unsupported framing,
+a deterministic real publisher/reader overlap and pacing durability injection.
+Coordinator also reproduced a huge finite socket timeout overflow and resource
+warning; policy now bounds I/O timeouts at one day before socket creation. Pacing
+metadata capacity conservatively collapses pending origins to the latest global
+cooldown instead of losing a new Retry-After. Both have regression tests.
+
+58 focused tests pass with ResourceWarning promoted to error. Same-assignment
+repair recheck 1 dispatched 01:28:35, deadline 01:38:30; current seven-file hashes
+frozen in review-files-repaired.json. Initial review occupancy approximately five
+minutes; this recheck has ten minutes maximum. No second worker or new feature
+assignment. Canonical full-suite/format/lint requalification runs in parallel with
+report-only recheck. Primary and native AD_HOC _SELFREVIEW records remain nonterminal.
+
+Process observation: a single compact cold review found substantive issues despite
+broad unit coverage. Reserve real time for repairs and behavior-level probes; a
+coverage percentage alone would have supported a false completion claim. Added
+regressions belong in tests/, temporary probes stay outside the control plane.
+
+
+## 2026-10-15 01:32 UTC — Scoped qualification complete before PR
+
+Independent repair recheck completed 01:30:17 UTC, all four findings resolved and
+no additional actionable regressions. Exact seven-file hashes match the repaired
+snapshot. Reviewer verified real local HTTPS as well as HTTP framing, pacing
+failure and concurrent publication. Coordinator full canonical suite passes 2734
+tests in 76.017 seconds; 58 focused tests, format/lint, LRH and readiness pass.
+One assignment with one recheck used less than seven cumulative worker minutes
+(conservative initial completion bound 01:25:40). No additional assignment needed.
+Shared weekly usage observed 63% at minute30; account-wide, not per-run attribution.
+
+qualification.json and review.md preserve source hashes, commands, log hashes,
+accepted repairs and the partial A01–A22 mapping. Native WI is not resolved. Next:
+commit/push child PR targeting acquisition integration branch; inspect first
+hosted review and exact-head CI before any internal merge. Main remains untouched.

@@ -12,3 +12,5 @@ Reference pages describe exact interfaces and current behavior.
 
 See also: [API key setup](../secrets-setup.md) (how-to, not reference).
 - [Local catalog lifecycle](gettenberg-lifecycle.md)
+
+- [Original-byte acquisition and network policy](gettenberg-network.md)

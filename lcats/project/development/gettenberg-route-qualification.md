@@ -92,3 +92,14 @@ A22 is narrowed, not complete. Before shipping automatic mapping:
 No product code, source fixtures, data cache, catalog or experimental measurement
 was changed. No ebook or archive body was fetched. Product tests and independent
 implementation review remain obligations of the implementation run.
+
+## 2026-10-15 acquisition-core follow-up
+
+A bounded read of upstream source found generated alias construction in
+[autocat3 HTMLFormatter.py](https://github.com/gutenbergtools/autocat3/blob/f33e7105cc1113e86a9244f127f43633cc196bb2/HTMLFormatter.py#L86)
+and database-filename-based mirror links in
+[gutenbergsite harvest.php](https://github.com/gutenbergtools/gutenbergsite/blob/407d5ef950923046fa86aadad57036dfdf5faafc/robot/harvest.php#L76).
+These inspected paths do not establish an inverse alias mapping. No source was
+copied or vendored. A22 remains open. The acquisition-core tranche accepts an
+explicit SourceRequest instead, so transport/cache correctness can be qualified
+without guessing automatic routes or choosing an unverified default mirror.
