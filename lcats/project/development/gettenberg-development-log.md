@@ -1535,3 +1535,36 @@ hosted findings are repaired; first-round CI failures remain recorded, not erase
 Final hashes and validation are in hosted-repair.json, explicitly excluding a claim
 of independent acceptance for the final ZIP changes. Push and await exact-head CI;
 leave PR open, with fresh independent verification as the next bounded action.
+
+### Bounded run checkpoint / stop — 05:38 UTC
+
+Run finishes after approximately 35 minutes, before the 45-minute target and
+60-minute hard stop. [PR #512](https://github.com/xenotaur/LCATS/pull/512) remains
+open against codex/gettenberg-acquisition. Repaired-code head
+caada6e8d50d343d7793226ff48edf35d9a1ec79 has all four hosted checks green:
+coverage, lint and both test runs. [Checkpoint evidence](evidence/gettenberg-decoding-20261015/checkpoint.json)
+retains the exact head/base/check URLs. This final evidence-only commit changes
+no product, tests or docs; hashes were checked against hosted-repair.json. Its own
+CI must still be verified before a later integration. Local canonical 2820 tests,
+56 focused tests and exercised docs pass; no source changes after qualification.
+
+No workers active, one review assignment, two same-scope rechecks, less than eight
+cumulative worker minutes (20-minute ceiling). Shared weekly usage last observed
+78% versus 74% at launch; no per-run cost attribution is available. No external
+bulk downloads, persistent consent/policy edits, CI changes or main promotion.
+Native records remain in_progress, WI-0005 proposed. No automatic renewal.
+
+A18/A19 implementation is staged, not independently accepted in its final form:
+the final ZIP-comment repair still needs a fresh independent check. Both hosted
+threads remain open for authoritative confirmation. Exact next action: a short
+review/integration grant for PR512, verify final hashes/diff and both repairs,
+resolve verified threads, check current head/base/CI, then integrate internally.
+Conditional refresh, catalog receipt composition, route qualification and gatherer
+migration remain unattempted in this run.
+
+Learning: the patch-version test failure and ZIP comment bug were real findings;
+CI and review added distinct evidence. The avoidable delay was spending the final
+recheck before the first hosted round arrived. Recommend reserving that recheck
+until CI and hosted feedback can be batched, or explicitly allowing one final
+repair-verification assignment within an unchanged worker-time ceiling. Do not
+quietly increase the current cap or infer acceptance from green tests alone.
