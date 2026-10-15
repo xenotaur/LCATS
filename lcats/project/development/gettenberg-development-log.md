@@ -1854,3 +1854,81 @@ review returns; qualify only stable repairs; explicitly test writer/reader invar
 parity and aggregate metadata limits; wait for all hosted authors plus CI before
 using the last independent recheck. This run followed the latter three lessons after
 recording the initial snapshot gap, and finished without a separate integration grant.
+
+## Catalog receipt composition run — 2026-10-15 15:20 UTC
+
+Human authorized the next bounded tranche after PR513: WI-0005 A15/A16, catalog
+receipt composition and refresh safety. Start 15:20:21 UTC, target/feature freeze
+16:20:21, hard stop16:50:21 including CI/review/checkpoint. Inherit the approved
+60/90-minute grant, six assignments, four total agents, 45 worker minutes with
+15 reserved for review, maximum30 per assignment and two same-scope rechecks.
+Coordinator implements; one cold independent review before first push, with final
+recheck reserved until all hosted authors and CI. No automatic renewal, main
+promotion, live Gutenberg download, dependency/CI change or policy modification.
+
+Fresh clean base 0afde71e7156eea30898d9ea191ae17c4874b802 includes PR513 staged
+acceptance (A14) and earlier lifecycle staged acceptance. Prior-art/demand check
+is present in WI0005; existing local lifecycle supplies retention, verification,
+count-change approval and pinned readers. Reuse these mechanisms. Readiness yes;
+watched skills clean, persistent skip consent invalid and unchanged. Explicit
+charter adapter authorizes coordinator plan/integration decisions. Native records
+remain in_progress and WI proposed. Weekly account usage10%, not attributable;
+per-run tokens/cost unavailable. Same LCATS environment, PYTHONPATH bound to this
+worktree; no environment changes. Child codex/gettenberg-catalog-receipts targets
+codex/gettenberg-acquisition. Prompt identity:
+PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_CATALOG_RECEIPTS)[2026-10-15T15:20:33+00:00].
+Idempotence found no previous execution.
+
+Pre-implementation decision: accept SourceArtifact as typed local input to setup
+and explicit rebuild; add offline update(SourceArtifact) to reuse a verified active
+generation when archive identity is unchanged, otherwise prepare/verify/activate
+through existing count approval. setup keeps its documented ignore-input-on-hit
+behavior; rebuild always builds. Implicit rebuild preserves acquired provenance.
+No network enters CatalogManager. Receipt validation is shared with decoding;
+validate canonical receipt hash/schema/size, archive-kind identity, and copied
+archive hash/size before preparation. Embed the complete bounded receipt in new
+version2 generation manifests, capped128KiB (receipt64KiB); retain reading version1
+local manifests. Reader and writer enforce the same provenance binding. Unchanged
+update does not rewrite immutable generation provenance; latest validation remains
+in resource receipts. A generation records the receipt used for its construction.
+
+Acceptance: local legacy unknown provenance; acquired setup/rebuild/update;
+unchanged200/304 no build; changed input count approval/recoverable candidate;
+implicit rebuild retains receipt after source cache reference changes; forged,
+oversized, wrong-kind and changed-body evidence fails closed; acquisition/build/
+count failures preserve active catalog and pinned readers. Exercise docs with
+local fixtures, focused unittest, canonical format/lint/scripts/test, LRH validation,
+readiness and diff checks; independent review and four exact-head CI checks before
+internal integration. Changes limited to lifecycle/provenance helper, receipt
+validation reuse, tests and docs plus non-executable control-plane evidence.
+
+### Frozen-source review — 15:52 UTC
+
+Source frozen/fingerprinted before one cold reviewer dispatch at15:47 UTC; no
+product files changed during review. Initial197 focused tests passed8.158s;
+format270 files/lint and executed docs/link/fence checks pass. Reviewer completed
+before15:52 with no P0/P1/P2 findings,104 offline tests and389 Gettenberg tests.
+Its first broader run hit sandbox loopback-bind restrictions; the permitted
+localhost-only rerun passed. Adversarial probe rejected129 malformed variants,
+accepted7 schema-valid variants, and handled deeply nested metadata with structured
+errors. All9 source/test/doc hashes match before/after review. Under5 worker minutes
+used, two rechecks available; final verification reserved for hosted review+CI.
+
+Full canonical scripts/test now runs on accepted frozen source. First test attempt
+had one fixture keyword typo (retries versus max_retries), repaired before the
+197-test qualification. A separate version-report diagnostic initially inherited
+the base Python environment; corrected report confirms Python3.11.9, Black25.11.0,
+Ruff0.15.0 and intended-worktree imports. All reported product tests used that
+project environment. LRH0errors/351existing warnings, readinessyes. Weekly account
+usage12% versus10% at launch, not attributable. No scope expansion or main change.
+Loaded skill fingerprints match the prior run's recorded lrh-implement,
+lrh-self-review and lrh-review-response fingerprints; installed policy untouched.
+
+### Pre-push qualification — 15:54 UTC
+
+Canonical scripts/test passed 2867 tests in 74.388s; all9 product hashes
+remain frozen and independently accepted. Format/lint/docs/readiness/diff checks
+pass; LRH0errors/351existing warnings. Qualification JSON maps A15/A16 to concrete
+fixtures and preserves source identities. No implementation repair was needed
+after independent review. Open the integration-target PR and await both hosted
+authors and exact-head CI; main remains outside this grant.
