@@ -39,3 +39,7 @@ project/development/evidence/gettenberg-selection-20261015/qualification.json.
 
 PR and primary execution identity backfilled. Remains in_progress
 until human-approved main delivery, even if internally integrated.
+
+Final same-assignment recheck also cleared the hosted whitespace-scan repair.
+19 focused tests pass; final hashes are in hosted-repair.json. Total assignment
+occupancy remained under five minutes, including both same-scope rechecks.

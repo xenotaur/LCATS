@@ -202,6 +202,14 @@ class ResourceSelectionTest(unittest.TestCase):
                 self.assertIs(result.resource, ebook.resources[1])
                 self.assertEqual(result.diagnostics[0].code, "invalid_format")
 
+    def test_whitespace_padding_preserves_original_claim(self):
+        padding = " " * 100_000
+        for middle in ("text/plain", "text/plain" + padding + '; charset="utf-8"'):
+            claim = padding + middle + padding
+            result = resources.select_resource(ebook_with((claim,)))
+            self.assertIsNotNone(result.resource)
+            self.assertEqual(result.matched_format, claim)
+
     def test_records_are_immutable(self):
         result = resources.select_resource(ebook_with(("text/plain",)))
         with self.assertRaises(dataclasses.FrozenInstanceError):

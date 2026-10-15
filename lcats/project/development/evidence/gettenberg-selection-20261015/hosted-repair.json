@@ -1,0 +1,56 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/511",
+  "scope": "A17 only",
+  "integration": "deferred; no merge",
+  "initial_ci_head": "a1a766a7229c5b61f635ae31ac150a50e872ccfd",
+  "initial_ci": "four checks successful",
+  "hosted_reviews": {
+    "codex": "completed without findings",
+    "copilot": "one P2 quadratic whitespace scan; reproduced and repaired"
+  },
+  "review_thread": "PRRT_kwDOKlhIbM6smO_e",
+  "repair": "strip for parsing and anchor parameter scans at preceding match end; preserve original claim",
+  "coordinator_before_seconds": [
+    0.12895554199349135,
+    0.5094167919887695
+  ],
+  "coordinator_after": [
+    {
+      "padding_each_end": 5000,
+      "seconds": 0.00047620799159631133
+    },
+    {
+      "padding_each_end": 10000,
+      "seconds": 0.0009275829943362623
+    },
+    {
+      "padding_each_end": 100000,
+      "seconds": 0.009491208009421825
+    }
+  ],
+  "independent_recheck": "clean; 19 tests and whitespace/quoted/escaped probe pass",
+  "same_scope_rechecks_total": 2,
+  "assignments": 1,
+  "worker_occupancy": "under 5 cumulative minutes",
+  "source_hashes_verified": {
+    "src/lcats/gettenberg/_resource_selection.py": "fec3afd3e36610c9e0f7cce1a6e539887a3e45726e2778c5c8244095bb594291",
+    "src/lcats/gettenberg/resources.py": "97e74c9d338ec7f86088ccec490a7754a83a0951b6fd99bd4b428543ad44a57d",
+    "tests/gettenberg_tests/selection_test.py": "8b42e7bfec30586a9562c067eaf3d6009f31e93c8d265ae2b367dd4f96dca392",
+    "tests/gettenberg_tests/resources_test.py": "67e29c50a1999eec8e6a463adc1c2d748d66a01a5a6141e437c397a7392197d4",
+    "docs/how-to/gettenberg-resources.md": "110f81b17cb53acafcc2dd29c08dce318174f90ccc0ff8bf62705cb9082f9002",
+    "docs/reference/gettenberg-network.md": "fc90d395603cdacfbfe3ab45fc5552c00cec0c610d243dba53e2363888ccaf44"
+  },
+  "final_canonical": {
+    "tests": 2763,
+    "seconds": 76.797,
+    "exit_code": 0,
+    "format": "pass",
+    "lint": "pass",
+    "lrh_errors": 0,
+    "lrh_warnings": 351
+  },
+  "new_head_ci": "pending after push",
+  "weekly_used_percent_start": 70,
+  "weekly_used_percent_end": 72,
+  "usage_attribution": "shared account; not per-run consumption"
+}

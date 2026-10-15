@@ -137,10 +137,16 @@ def select_resource(
                     )
                 )
                 continue
-            media_type = claim.split(";", 1)[0].strip().lower()
+            normalized = claim.strip()
+            media = _MEDIA.match(normalized)
+            media_type = media.group().lower()
             parameters = []
             extended_charset = False
-            for parameter in _PARAMETER.finditer(claim):
+            # Anchor each scan at the previous match. Searching from every
+            # position in padding would repeatedly scan the same whitespace.
+            position = media.end()
+            while parameter := _PARAMETER.match(normalized, position):
+                position = parameter.end()
                 name, value = parameter.groups()
                 name = name.lower()
                 if name.startswith("charset*"):

@@ -1311,3 +1311,41 @@ one same-scope recheck used under 4 worker minutes. No active reviewer remains.
 A17 maps to selection_test.py and the five-example loopback documentation test.
 Qualification JSON preserves exact reviewed content and the initial failed run.
 Opening an internal PR; main and native WI/execution lifecycle remain untouched.
+
+### Hosted review repair and stop decision — 02:26 UTC
+
+All four checks passed on a1a766a7; first Codex review completed without findings.
+Copilot then reported one P2 at the 15-minute target: regex finditer rescanned
+whitespace padding quadratically. Coordinator reproduced 5000/10000 spaces at
+0.129/0.509 seconds. Repaired with stripped input and parameter matches anchored
+to the preceding match end, while retaining the original matched_format claim.
+Added 100000-space surrounding/inter-parameter regression. After repair the same
+probe measured 0.00048/0.00093 seconds, and 100000 spaces took 0.00949 seconds.
+These are local diagnostic measurements, not a portable performance guarantee.
+
+Final same-assignment recheck (second of two) resumed within the eight-minute
+cumulative reviewer allowance; its new stop is 02:27:15, within the run hard stop.
+Full tests rerun. Internal integration is deferred: repair-head hosted CI cannot
+be assumed from the prior green head. Preserve the qualified repair/checkpoint,
+record pending hosted validation, and stop without main or integration merge.
+Process lesson: reserve time for the first hosted round even when cold review is
+clean. Small pure APIs can still have metadata-parser performance edge cases.
+
+### Selection sprint stop checkpoint — 02:27 UTC
+
+Final repaired suite passes 2763 tests in 76.797 seconds; 19 focused selection
+tests. Format/lint and diff checks pass; LRH 0 errors / 351 existing warnings.
+All six final independently reviewed hashes match. One review assignment, two
+same-scope rechecks, under five cumulative worker minutes; no active workers.
+
+PR511 remains open against codex/gettenberg-acquisition. Previous head a1a766a7
+had all four hosted checks green; final repair requires its own hosted checks.
+No integration/main merge, force push, branch deletion or bulk download occurred.
+Execution records stay in_progress and WI-0005 stays proposed. Next action is
+verify repair-head CI and review state, then coordinator integration under a new
+grant. Remaining feature scope is refresh, decoding, catalog provenance and routing.
+
+Final evidence: [hosted-repair.json](evidence/gettenberg-selection-20261015/hosted-repair.json).
+Shared weekly meter rose from70% to72%; this is account-wide, not per-run cost.
+The sprint used approximately18minutes including the late review repair and
+checkpoint, within the20-minute hard stop. No implicit continuation or renewal.
