@@ -46,7 +46,8 @@ changed, the manifest fingerprint changes and a resumed run is refused.
    **loopback** URL such as `http://localhost:11434/v1`. The runner treats an
    `openai-compatible` endpoint as no-cost only when its host is loopback
    (`localhost` or a loopback IP address). Any other host takes the paid path,
-   and `--include-heinlein` is then rejected.
+   and `--include-heinlein` is then rejected. For a canary, use the private
+   server described under "Private server and preflight" below, not a shared one.
 2. Model: `gpt-oss:20b` by default. It is the most vetted local candidate in the
    repository and matches the earlier Knight/Suvin trial. `qwen3:30b-a3b` may be
    run as a separate, clearly labeled candidate. One canary uses one model.
@@ -59,6 +60,99 @@ changed, the manifest fingerprint changes and a resumed run is refused.
 5. Use `--max-tokens 8192` in every local command. At the default 4096-token
    cap the evidence stage has been observed to truncate on its first attempt and
    succeed only on the runner's doubled-limit retry.
+
+## Private server and preflight
+
+The WI-SF-0116 rerun shared its Ollama server with another local agent, which
+loaded a different model into the same server during the run, and the machine
+slept for about 90 minutes inside one trial. Both obscure latency and can
+disturb a stochastic run, so a canary should run on a server of its own and be
+checked for both afterwards. The commands below are macOS examples, not
+requirements.
+
+### Procedure
+
+1. Pick a loopback port that is not the default `11434` (this runbook uses
+   `11435`) and confirm nothing is listening on it; no output means it is free:
+
+   ```bash
+   lsof -nP -iTCP:11435 -sTCP:LISTEN
+   ```
+
+2. Start a dedicated server in its own terminal, with its output kept in a
+   file outside the repository. These are the settings the WI-SF-0116 rerun
+   used, with the port changed:
+
+   ```bash
+   OLLAMA_HOST=127.0.0.1:11435 OLLAMA_NO_CLOUD=1 ollama serve > /tmp/ollama-canary-11435.log 2>&1
+   ```
+
+3. Keep the first line of that log (`msg="server config"`). It lists the
+   settings in effect, including `OLLAMA_KEEP_ALIVE`, `OLLAMA_MAX_LOADED_MODELS`
+   and `OLLAMA_CONTEXT_LENGTH`, and belongs in the canary report.
+4. Record the model digest and context length from the preconditions against
+   the private server by pointing the `ollama` command at it, for example
+   `OLLAMA_HOST=127.0.0.1:11435 ollama list` and, once the model is loaded,
+   `OLLAMA_HOST=127.0.0.1:11435 ollama ps`.
+5. Point the runner at it with `--base-url http://localhost:11435/v1` in every
+   command below. Host `localhost` is loopback, so the run stays no-cost.
+6. For a long run, keep the machine awake by wrapping the runner command in
+   `caffeinate -i`, for example `caffeinate -i env OPENAI_API_KEY=ollama
+   PYTHONPATH=src python experimental/science_fiction_analysis_trial/run_worldcon_spike.py ...`.
+   `caffeinate` does not prevent every sleep (for example closing the lid on
+   battery), so the sleep check below still applies.
+7. After the run, check the server log for other clients (see below) and the
+   system log for sleep (see below), and write both outcomes into the report.
+8. When finished, stop only the server you started, by the process ID of that
+   `ollama serve`. Never stop the default server on `11434`: another session may
+   be using it.
+
+### Isolation check after the run
+
+`ollama ps` is necessary but not sufficient. It lists the models loaded at the
+moment you run it, not who sent requests or what ran in between: in the
+WI-SF-0116 rerun its before and after rows were identical while the server log
+showed `gemma4:12b` swaps in the middle. The isolation check is the server log,
+reviewed for the whole run window:
+
+- **Model loads.** Each model load logs one `msg="template selection"` line
+  that names the model (`model=registry.ollama.ai/library/<name>`). In the
+  window, every such line must name the target model. A line for any other
+  model means another client used the server.
+- **Requests.** Each request logs a `[GIN]` line with its method and path.
+  The runner sends only `POST /v1/chat/completions`, and it writes one request
+  record per attempt (`request-<stage>[-attempt-N].json`, see the inspection
+  checklist). The number of `POST /v1/chat/completions` lines in the window
+  should equal the number of request records (a call that failed before it
+  reached the server can have a record and no log line, so account for any
+  difference). Any `POST /api/chat` or
+  `POST /api/show` line was sent by something else: in the WI-SF-0116 server log
+  both came from the other agent. `GET` lines (`/api/tags`, `/api/ps`,
+  `/api/version`, `HEAD /`) can come from your own `ollama list` and
+  `ollama ps` or from tools that poll the server; note them, and treat them as
+  a signal only if you cannot account for them.
+- **Limits of the check.** Every client appears as `127.0.0.1`, so client
+  identity cannot be proven. A matching count and no foreign model loads is
+  evidence of isolation, not proof, and the private port with its own
+  `OLLAMA_HOST` is the actual control. A private server also does not remove
+  run-to-run variation in the model's output.
+
+### Sleep check
+
+If any stage took much longer than the measured runner latency (the run log's
+stage start and end times against the story's `latency_seconds`), look for a
+sleep interval before suspecting the server. On macOS:
+
+```bash
+pmset -g log | grep -E "Entering Sleep|Wake from"
+```
+
+The `Sleep` and `Wake` lines carry local timestamps. Compare them with the
+run log's UTC timestamps, and note that a full wake can be preceded by brief dark
+wakes. In the WI-SF-0116 rerun the machine slept at 22:57:47 EDT and woke at
+00:25:16 EDT, which is what made one stage appear to take 5710 seconds. Do not
+use the latency of a stage that spans a sleep. Latency measured on a server
+that other clients were using is likewise not comparable between runs.
 
 ## Required sequence
 
@@ -82,6 +176,15 @@ changed, the manifest fingerprint changes and a resumed run is refused.
 8. Write `heinlein_canary_report.md` and decide proceed, revise, or stop.
 
 ## Commands
+
+The commands below use the first canary's output roots,
+`results/worldcon_spike/heinlein_canary/local/...`, and the default server
+`http://localhost:11434/v1`. The runner creates an output root with `exist_ok`,
+so running a command unchanged against an existing root writes into it and
+would append to the first canary's persisted results. For a rerun, use a new,
+empty root for every trial (the WI-SF-0116 rerun used
+`results/worldcon_spike/heinlein_canary_v2/local/...`) and confirm it does not
+exist before the run. Use the private server's `--base-url` as described above.
 
 Fake-backend smoke (no model):
 
@@ -139,7 +242,9 @@ For every trial, read and record:
 ## Resource note
 
 Observed on one flag-off story with `gpt-oss:20b`: about 8 minutes per story,
-so about 16 minutes for a two-story trial. The Heinlein stage is expected to add
+so about 16 minutes for a two-story trial. Timings from a shared server, or from a
+run that spanned a machine sleep, are not comparable (see "Private server and
+preflight"). The Heinlein stage is expected to add
 roughly 15 percent, so plan on 18 to 20 minutes per trial and about 80 minutes
 for the baseline plus three trials. These figures come from a single uncommitted
 probe and are planning estimates, not measurements.
