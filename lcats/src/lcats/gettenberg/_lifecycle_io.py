@@ -322,7 +322,7 @@ def _retain_archive(
             os.fsync(stream.fileno())
         if expected is not None and (digest, size) != expected:
             raise errors.CatalogLifecycleError(
-                "retained source differs from the active manifest; implicit rebuild refused"
+                "retained source differs from the expected archive identity"
             )
         target = archives / f"{digest}.tar.bz2"
         try:

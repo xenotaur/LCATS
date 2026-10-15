@@ -33,8 +33,8 @@ True
 Setup copies the local source into managed content-addressed storage, builds
 and verifies a candidate, and activates it only after all checks pass. It
 preserves the original archive. When a valid generation is already active,
-setup reuses it even if an archive argument is supplied; use `rebuild` to change
-its contents. There are no age-based refresh checks or network fallbacks.
+setup reuses it even if an archive argument is supplied; use `rebuild` or
+`update` to change its contents. There are no age-based refresh checks or network fallbacks.
 
 ## Rebuild from the retained source
 
@@ -48,9 +48,9 @@ True
 ```
 
 Omitting the archive uses the active generation's retained source. To use a
-newly acquired local archive, pass its path explicitly. Network acquisition
-and conditional refresh use the separate [acquisition API](gettenberg-resources.md);
-passing the resulting local archive to this catalog remains an explicit step.
+new local archive, pass its path explicitly. For a downloaded archive, pass the
+whole `SourceArtifact` to retain its receipt, as described below. An implicit
+rebuild preserves the active generation's source provenance.
 
 By default, a changed ebook count raises `CatalogCountChangeError` and leaves
 the previous catalog active. The exception exposes `generation_id`, `previous`
@@ -75,6 +75,52 @@ valid generation is active when the writer lock is acquired. It is not an
 approval tied to a previously observed active generation. The activation record
 reports both counts and the previous generation ID. Callers needing a narrower
 approval can re-inspect while arranging exclusive access to their cache.
+
+## Apply a downloaded or refreshed archive
+
+Use the separate [acquisition API](gettenberg-resources.md) with an archive-kind
+request and explicit network policy. The following network example is separate
+from catalog construction; it is not needed for local-only workflows:
+
+```python
+from lcats.gettenberg import resources
+
+store = resources.ResourceStore(cache_dir)
+request = resources.SourceRequest.from_url(archive_url, kind="archive")
+# policy explicitly authorizes the chosen source origin and resource bounds.
+artifact = store.fetch(request, policy=policy)
+generation = manager.setup(artifact)
+
+# Later, when the caller explicitly requests a freshness check:
+artifact = store.refresh(request, policy=policy)
+updated = manager.update(artifact)
+```
+
+`manager.update` is entirely offline. It verifies the receipt and actual archive,
+reuses an unchanged active generation, or builds a candidate from changed bytes.
+A changed ebook count still requires the approval workflow above; use
+`manager.activate(change.generation_id, allow_count_change=True)` after inspecting
+the candidate. Acquiring bytes never implicitly approves a count change.
+
+Given an already acquired archive-kind `artifact`, this offline example checks
+the provenance of a new build and demonstrates unchanged-byte reuse:
+
+```pycon
+>>> acquired = lifecycle.CatalogManager(cache_dir / "acquired")
+>>> built = acquired.setup(artifact)
+>>> built.manifest['source']['receipt_sha256'] == artifact.receipt_sha256
+True
+>>> acquired.update(artifact).reused
+True
+>>> acquired.rebuild().manifest['source'] == built.manifest['source']
+True
+
+```
+
+A reused generation keeps the receipt used to build it. A newer304 receipt lives
+in the resource cache and does not rewrite generation history. Passing only
+`artifact.path` records local input with unknown retrieval provenance. Retained
+catalog provenance survives later changes or loss of resource-cache references.
 
 ## Recover after interruption
 

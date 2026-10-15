@@ -10,6 +10,7 @@ from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_containers
 from lcats.gettenberg import _resource_encoding
 from lcats.gettenberg import _resource_io
+from lcats.gettenberg import _resource_provenance
 from lcats.gettenberg import _resource_types
 
 
@@ -25,37 +26,8 @@ def _source(source, options):
         raise _resource_types.ResourceInputError(
             "invalid_decode_source", "use bytes or SourceArtifact"
         )
+    _resource_provenance.artifact_value(source)
     receipt = source.receipt
-    if not isinstance(receipt, _resource_types.RetrievalReceipt):
-        raise _resource_types.ResourceIntegrityError(
-            "receipt_schema", "invalid source receipt"
-        )
-    # Validate the same receipt schema used for cache reads, including header
-    # bounds/duplicates and origin identity, before using any declaration.
-    try:
-        value = _resource_types.receipt_value(receipt)
-        value["headers"] = [list(pair) for pair in receipt.headers]
-        value["redirects"] = list(receipt.redirects)
-        if receipt.schema_version == 2:
-            value["validation_headers"] = [
-                list(pair) for pair in receipt.validation_headers
-            ]
-        request = _resource_types.SourceRequest(
-            receipt.source_uri, receipt.request_url, receipt.kind, receipt.route_policy
-        )
-        _resource_io.Cache._receipt(value, request)
-        serialized = _resource_types.canonical_json(value)
-    except (TypeError, ValueError) as exc:
-        raise _resource_types.ResourceIntegrityError(
-            "receipt_schema", "invalid source receipt"
-        ) from exc
-    if hashlib.sha256(serialized).hexdigest() != source.receipt_sha256 or (
-        source.sha256,
-        source.size,
-    ) != (receipt.sha256, receipt.size):
-        raise _resource_types.ResourceIntegrityError(
-            "receipt_hash", "artifact and receipt identity disagree"
-        )
     with _resource_io.translated_errors():
         path = pathlib.Path(source.path)
         with _lifecycle_io._source(path) as (stream, before):

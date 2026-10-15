@@ -1,0 +1,86 @@
+{
+  "run": "gettenberg-20261015-catalog-receipts",
+  "scope": "WI-GETTENBERG-0005 A15/A16",
+  "base": "0afde71e7156eea30898d9ea191ae17c4874b802",
+  "started_at": "2026-10-15T15:20:21Z",
+  "target_at": "2026-10-15T16:20:21Z",
+  "hard_stop_at": "2026-10-15T16:50:21Z",
+  "candidate_identity": "frozen source hashes before first commit",
+  "source_sha256": {
+    "src/lcats/gettenberg/lifecycle.py": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912",
+    "src/lcats/gettenberg/_lifecycle_io.py": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a",
+    "src/lcats/gettenberg/_resource_decoding.py": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b",
+    "src/lcats/gettenberg/_catalog_provenance.py": "c86759faa5e5ab15c14dff39fcffb5afac9a9d88e679b591bd7037d1985c7fc6",
+    "src/lcats/gettenberg/_resource_provenance.py": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2",
+    "tests/gettenberg_tests/lifecycle_test.py": "2c658ed85a49d8e32e7b93d687c7d327f14094e0847527bc5fd011c39b136923",
+    "tests/gettenberg_tests/catalog_receipts_test.py": "45cec484fb2c321324420b8c0180ea1da7a841dbd46e647bd0e24c6d883bb04e",
+    "docs/how-to/gettenberg-catalog.md": "a72d2cbeb6ea775a52b714259aef9d4297f843b8f82ba66716a038773a8f8111",
+    "docs/reference/gettenberg-lifecycle.md": "ac4665d22dc8004e34ea0752b6ce102e9307a111f5d4393ee445a0004bc3dcc6"
+  },
+  "validation": {
+    "canonical": {
+      "command": "scripts/test",
+      "tests": 2867,
+      "seconds": 74.388,
+      "result": "pass",
+      "log_sha256": "1034307472980297b0f659a1ececdfb2254d2d315d91eef7e7882db37c82c86b"
+    },
+    "focused": {
+      "command": "python -m unittest tests.gettenberg_tests.catalog_receipts_test tests.gettenberg_tests.lifecycle_test tests.gettenberg_tests.resources_test tests.gettenberg_tests.refresh_test tests.gettenberg_tests.decoding_test",
+      "tests": 197,
+      "seconds": 8.158,
+      "result": "pass"
+    },
+    "format": {
+      "command": "scripts/format --check --diff",
+      "files": 270,
+      "result": "pass"
+    },
+    "lint": {
+      "command": "scripts/lint",
+      "result": "pass"
+    },
+    "lrh": {
+      "command": "lrh validate",
+      "errors": 0,
+      "warnings": 351
+    },
+    "readiness": "yes",
+    "diff_check": "pass",
+    "docs": "both how-to doctest consumers pass; changed links and fences checked"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "PYTHONPATH": "managed-worktree/lcats/src",
+    "cache": "isolated /tmp"
+  },
+  "independent_review": {
+    "agent": "catalog_receipt_review",
+    "mode": "cold diff review",
+    "initial_findings": [],
+    "outstanding_p0_p2": 0,
+    "tests": 389,
+    "seconds": 12.571,
+    "additional_probes": "reported 129 malformed manifest variants rejected, 7 schema-valid variants accepted, deeply nested JSON structured refusal",
+    "all_nine_hashes_matched_before_after": true,
+    "source_frozen_during_review": true,
+    "worker_occupancy_upper_bound_minutes": 5,
+    "assignments": 1,
+    "rechecks_used": 0,
+    "rechecks_reserved": 2,
+    "limitations": "same model family; not a substitute for hosted first rounds/CI; initial broad test sandbox bind failures resolved by localhost permission"
+  },
+  "acceptance": {
+    "A15": "CatalogReceiptTests acquired/local/v1/large-receipt fixtures verify embedded receipt identity, retained body and implicit rebuild; reader adversarial cases verify semantic provenance after outer resealing",
+    "A16": "CatalogRefreshCompositionTests loopback 200/503/304/changed200 composition plus count approval, pinned readers and retained originals; direct malformed archive preserves active; unchanged update verifies sealed DB without rebuild"
+  },
+  "remaining": "Both hosted first-review authors, exact-head CI, internal integration only. Automatic routing and consumer/CLI migration deferred. Native records in_progress/WI proposed until main.",
+  "telemetry": {
+    "per_run_tokens_cost": "unavailable",
+    "account_weekly_used_percent_at_launch": 10,
+    "account_weekly_used_percent_at_review": 12
+  },
+  "network": "localhost tests and GitHub only; no Gutenberg data requests"
+}
