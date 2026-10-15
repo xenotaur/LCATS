@@ -53,3 +53,11 @@ comment edge case. Both repaired, with details and current qualification in
 [hosted-repair.json](../../development/evidence/gettenberg-decoding-20261015/hosted-repair.json).
 ZIP repair awaits independent verification after exhausting the two-recheck grant;
 PR stays open and no internal integration occurs in this run.
+
+The explicitly authorized 06:03 review/integration continuation repaired four
+previously missed Copilot findings and completed independent verification of the
+stronger ZIP candidate cases. Final 2828 canonical tests / 64 focused tests pass;
+all six hosted threads independently cleared. See
+[integration-repair.json](../../development/evidence/gettenberg-decoding-20261015/integration-repair.json)
+and the linked review continuation record. This supersedes the earlier pending
+repair qualification; native main-delivery status remains in_progress.
