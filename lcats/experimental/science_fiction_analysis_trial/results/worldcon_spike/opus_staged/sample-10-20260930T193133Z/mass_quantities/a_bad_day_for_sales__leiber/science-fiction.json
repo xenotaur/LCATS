@@ -1,0 +1,929 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_bad_day_for_sales__leiber-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Radar sensing, radar-foiling paint, and electronic reference-silhouette recognition invoke real scientific/technical principles that materially operate in the story.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-46bb6e4465a35453",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-acc470865a14e17e",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-f0d1e419f83797da",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "Robie, the mobile sales robot, is the engineered invention at the center of the setting, action, and ironic outcome; its construction and behavior drive the entire narrative.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8b19410d9d219eb9",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-93118c0fb2752efd",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-f0d1e419f83797da",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-8f7327f17f69d7a6",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "incidental",
+            "rationale": "The story is set in a near-future with sales robots, weather-controlled air, and the Persian/Hot Truce wars, but the future setting is lightly sketched rather than a clearly developed remote time; no time travel occurs.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-93118c0fb2752efd",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-ad856f94d5860ef7",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "The story extrapolates the logical endpoint of vending-machine development into autonomous mobile sales robots proliferating nationwide, developing consequences from an identifiable technological premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-93118c0fb2752efd",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-d9012e04b86028d5",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No character engages in observation, hypothesis, testing, or evidential revision to drive understanding; Robie's mechanical scanning is automated behavior, not scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The story takes place entirely on Earth in Manhattan; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them despite references to space-themed comics.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.92,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "A nuclear-style bomb detonates over Manhattan, incinerating the crowd and devastating the city; this large-scale disaster is actual and causally central to the story's climax and ironic aftermath.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-cf06a5682f07c419",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-3a45c02310fcd560",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-902979aa792c8bf7",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-46bb6e4465a35453",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-e6b81fd7692182a9",
+        "failures": [],
+        "interval": {
+          "definite_count": 4,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e6b81fd7692182a9",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 13144,
+            "output": 1160
+          }
+        },
+        "status": "complete",
+        "story_hash": "2b2212329f6bf945ff816a7d5f3f52671bb1e127d23f8271372687ad5b4bd55c"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_bad_day_for_sales__leiber-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-mobile-sales-robot",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The robot is given a coherent, immanent, nonsupernatural account: radar sensing, under-scanners, reference silhouettes with acknowledged limits, recorded voice, and novelty service circuits. Its behavior follows systematically from its design as a commercial automaton.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-acc470865a14e17e",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-8b19410d9d219eb9",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-f0d1e419f83797da",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "description": "Robie, the first mobile sales robot, an autonomous vending machine that seeks out customers, radars crowds, recognizes people via reference silhouettes, and runs an elaborate pre-programmed sales routine. He is the 'logical conclusion of the development of vending machines' and a demonstration model for mass production across the country.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-0653d01d94d68643",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-3995d918df94d40f",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-8f7327f17f69d7a6",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ],
+              "rationale": "The robot's unwavering commercial cheer, offering polly-lops and Poppy Pop to charred survivors and a fire hydrant, estranges the reader by contrasting automated consumerist logic against human catastrophe.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-d5ea6b1eff6a0850",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-2dec6b9a364a8863",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-cb73e139325ad4cd",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-93118c0fb2752efd",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-d9012e04b86028d5",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-93118c0fb2752efd",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-acc470865a14e17e",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-8b19410d9d219eb9",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-f0d1e419f83797da",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-d9012e04b86028d5",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-d5ea6b1eff6a0850",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-2dec6b9a364a8863",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-8f7327f17f69d7a6",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.82,
+              "counterevidence": [],
+              "rationale": "Robie governs the whole narrative logic: the story is structured around his sales routine before and after the catastrophe, and its central irony and closing image depend entirely on the robot mechanically peddling wares amid human devastation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-93118c0fb2752efd",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-d5ea6b1eff6a0850",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-2dec6b9a364a8863",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-8f7327f17f69d7a6",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "Robie represents a totalizing extrapolation of vending/automation: a self-propelled sales robot explicitly positioned as a new stage of technology destined to populate 'every street and highway in the country,' altering the commercial and social landscape of the storyworld.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-93118c0fb2752efd",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-d9012e04b86028d5",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-8b19410d9d219eb9",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-nuclear-attack",
+            "cognitive_validation": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The strike is given a coherent technical rationale: a newly developed radar-foiling paint lets the projectile plunge at over three miles a second undetected, an immanent nonsupernatural account.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-46bb6e4465a35453",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-902979aa792c8bf7",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "description": "A radar-foiling nuclear-style missile strike that detonates over Manhattan, incinerating the crowd and devastating the city in the midst of an ongoing 'Hot Truce.'",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-0653d01d94d68643",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-3995d918df94d40f",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ],
+              "rationale": "The reader is warned of the descending missile the oblivious crowd cannot see, creating dramatic irony between wonderful ordinary life and imminent annihilation.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-902979aa792c8bf7",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-cb73e139325ad4cd",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-cf06a5682f07c419",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-3a45c02310fcd560",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-cf06a5682f07c419",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-3a45c02310fcd560",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-46bb6e4465a35453",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-902979aa792c8bf7",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              },
+              {
+                "evidence_id": "sfev-cb73e139325ad4cd",
+                "evidence_set_id": "sfes-e6b81fd7692182a9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-8f7327f17f69d7a6",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-d5ea6b1eff6a0850",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ],
+              "rationale": "The blast is the pivotal event, but it functions as a plot catalyst rather than the governing logic; the narrative's overriding meaning and structure remain centered on Robie's continued mechanical salesmanship, for which the catastrophe is the backdrop.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cf06a5682f07c419",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-3a45c02310fcd560",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "A sudden nuclear attack on a major city is a world-altering catastrophe that transforms the storyworld from bright commercial spectacle to devastation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cf06a5682f07c419",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-3a45c02310fcd560",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                },
+                {
+                  "evidence_id": "sfev-46bb6e4465a35453",
+                  "evidence_set_id": "sfes-e6b81fd7692182a9"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "novum-mobile-sales-robot",
+        "evidence_set_id": "sfes-e6b81fd7692182a9",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e6b81fd7692182a9",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 13491,
+            "output": 2117
+          }
+        },
+        "status": "complete",
+        "story_hash": "2b2212329f6bf945ff816a7d5f3f52671bb1e127d23f8271372687ad5b4bd55c"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-e6b81fd7692182a9",
+    "knight_analysis_id": "mass_quantities__a_bad_day_for_sales__leiber-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_bad_day_for_sales__leiber-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-e6b81fd7692182a9",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 10465,
+            "paragraph_ids": [
+              "p00068"
+            ],
+            "start_char": 10388
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0653d01d94d68643",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A burned survivor flees in terror while Robie continues its sales routine.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But the customer had run away, screaming, and Robie never ran after customers"
+        },
+        {
+          "anchor": {
+            "end_char": 12446,
+            "paragraph_ids": [
+              "p00081"
+            ],
+            "start_char": 12323
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2dec6b9a364a8863",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Robie offers routine reassurance and calls for police who will not come amid the devastation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Stay right here,\" Robie said reassuringly, \"and don't be frightened. I will call a policeman.\" He whistled shrilly, twice."
+        },
+        {
+          "anchor": {
+            "end_char": 12086,
+            "paragraph_ids": [
+              "p00078"
+            ],
+            "start_char": 12057
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3995d918df94d40f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A surviving child cries while pleading with Robie for help.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The little girl began to cry."
+        },
+        {
+          "anchor": {
+            "end_char": 9106,
+            "paragraph_ids": [
+              "p00060"
+            ],
+            "start_char": 8993
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3a45c02310fcd560",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The blast incinerates the surrounding crowd.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The crowd around Robie bloomed, too. Their clothes puffed into petals of flame. Their heads of hair were torches."
+        },
+        {
+          "anchor": {
+            "end_char": 8320,
+            "paragraph_ids": [
+              "p00057"
+            ],
+            "start_char": 8257
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-46bb6e4465a35453",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The incoming projectile uses a newly developed radar-defeating paint.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The silver-green was a newly developed paint that foiled radar."
+        },
+        {
+          "anchor": {
+            "end_char": 2186,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 1989
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8b19410d9d219eb9",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Robie's physical construction and mechanism are described in technical detail.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The lower part of Robie's body was a metal hemisphere hemmed with sponge rubber and not quite touching the sidewalk. The upper was a metal box with black holes in it. The box could swivel and duck."
+        },
+        {
+          "anchor": {
+            "end_char": 13265,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 13085
+          },
+          "confidence": 0.83,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8f7327f17f69d7a6",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The story closes with Robie mechanically continuing to sell products to a rescue squad.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But Robie had gone off to peddle Poppy Pop to the members of a rescue squad which had just come around the corner, more robotlike in their asbestos suits than he in his metal skin."
+        },
+        {
+          "anchor": {
+            "end_char": 8256,
+            "paragraph_ids": [
+              "p00057"
+            ],
+            "start_char": 8028
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-902979aa792c8bf7",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator informs the reader of an approaching threat that the crowd cannot see.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "(But way, way up, where the crowd could not see, the sky was darker still. Purple-dark, with stars showing. And in that purple-dark, a silver-green something, the color of a bud, plunged down at better than three miles a second."
+        },
+        {
+          "anchor": {
+            "end_char": 1052,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 805
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-93118c0fb2752efd",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Robie is presented as a mobile sales robot that actively seeks out customers, an advance over stationary vending machines.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For Robie was the logical conclusion of the development of vending machines. All the earlier ones had stood in one place, on a floor or hanging on a wall, and blankly delivered merchandise in return for coins, whereas Robie searched for customers."
+        },
+        {
+          "anchor": {
+            "end_char": 1742,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 1667
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-acc470865a14e17e",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Robie uses radar-based sensing to detect the crowd around him.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Robie radared the crowd, found that it surrounded him solidly, and stopped."
+        },
+        {
+          "anchor": {
+            "end_char": 8026,
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "start_char": 7851
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ad856f94d5860ef7",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The city environment features weather-controlled air, indicating an altered technological setting.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Alive and amused in the fresh, weather-controlled air between the lines of bright skyscrapers with their winking windows and under a sky so blue you could almost call it dark."
+        },
+        {
+          "anchor": {
+            "end_char": 7850,
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "start_char": 7778
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cb73e139325ad4cd",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The oblivious contentment of the crowd is stated just before the impending disaster known to the reader.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was wonderful to be alive and watching Robie on such an exciting day."
+        },
+        {
+          "anchor": {
+            "end_char": 8991,
+            "paragraph_ids": [
+              "p00059"
+            ],
+            "start_char": 8749
+          },
+          "confidence": 0.93,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cf06a5682f07c419",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A nuclear-style explosion detonates over Manhattan.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Just three seconds later, the silver-green bud bloomed above Manhattan into a globular orange flower. The skyscrapers grew brighter and brighter still, the brightness of the inside of the Sun. The windows winked blossoming white fire-flowers."
+        },
+        {
+          "anchor": {
+            "end_char": 10976,
+            "paragraph_ids": [
+              "p00069"
+            ],
+            "start_char": 10832
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d5ea6b1eff6a0850",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Robie addresses a fire hydrant as a child, obliviously continuing its sales script amid the disaster.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Hello, youngster,\" Robie said. Then, after a long pause, \"Cat got your tongue? Well, I have a little present for you. A nice, lovely polly-lop."
+        },
+        {
+          "anchor": {
+            "end_char": 1663,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 1460
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d9012e04b86028d5",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "It is projected that sales robots will proliferate across the nation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Those who were usually bought anywhere from one to five hundred shares, if they had any money and foresight enough to see that sales robots would eventually be on every street and highway in the country."
+        },
+        {
+          "anchor": {
+            "end_char": 5228,
+            "paragraph_ids": [
+              "p00036"
+            ],
+            "start_char": 5088
+          },
+          "confidence": 0.83,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f0d1e419f83797da",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Robie identifies people using stored reference silhouettes, with limits to the recognition system.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "At this age-level, Robie's reference silhouettes permitted him to distinguish sex, though with occasional amusing and embarrassing miscalls."
+        }
+      ],
+      "story_hash": "2b2212329f6bf945ff816a7d5f3f52671bb1e127d23f8271372687ad5b4bd55c",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_bad_day_for_sales__leiber",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "2b2212329f6bf945ff816a7d5f3f52671bb1e127d23f8271372687ad5b4bd55c",
+  "story_path": "mass_quantities/a_bad_day_for_sales__leiber/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
