@@ -49,7 +49,8 @@ True
 
 Omitting the archive uses the active generation's retained source. To use a
 newly acquired local archive, pass its path explicitly. Network acquisition
-and conditional refresh belong to the later acquisition API.
+and conditional refresh use the separate [acquisition API](gettenberg-resources.md);
+passing the resulting local archive to this catalog remains an explicit step.
 
 By default, a changed ebook count raises `CatalogCountChangeError` and leaves
 the previous catalog active. The exception exposes `generation_id`, `previous`

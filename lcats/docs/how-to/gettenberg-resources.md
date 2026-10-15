@@ -61,7 +61,27 @@ integrity fails, inspect/preserve the evidence; this API intentionally has no
 implicit repair or destructive cleanup operation.
 
 See [the reference](../reference/gettenberg-network.md) for exact limits, errors,
-durability guarantees and the currently unimplemented refresh interface.
+durability guarantees and conditional-refresh semantics.
+
+## Explicitly check for a changed source
+
+Normal fetches reuse verified bytes indefinitely. When you intend a network check,
+inspect a refresh plan and then explicitly refresh with the same allowed-origin
+policy. No separate catalog setup is needed:
+
+```python
+print(store.plan(source, policy=policy, refresh=True).action)
+refreshed = store.refresh(source, policy=policy)
+print(refreshed.receipt.status)  # 304: validated old bytes; 200: full acquisition
+print(refreshed.receipt.retrieved_at, refreshed.receipt.validated_at)
+```
+
+With usable validators the server can avoid sending the body. Without them, refresh
+performs a full GET. A successful refresh retains the previous body and receipt;
+a failure raises an error while preserving the old entry unless a publication error
+explicitly reports that replacement already happened. Use `fetch(source)` afterward
+for offline access. Calling `refresh` without online authority is an error even
+when bytes are cached. It never silently treats a failed refresh as success.
 
 ## Choose a catalog resource without downloading
 

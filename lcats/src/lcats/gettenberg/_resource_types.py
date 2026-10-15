@@ -268,11 +268,34 @@ class RetrievalReceipt:
     headers: tuple[tuple[str, str], ...]
     transport_version: str = "urllib-get-v1"
     status: int = 200
+    validated_at: str | None = None
+    previous_receipt_sha256: str | None = None
+    validation_headers: tuple[tuple[str, str], ...] = ()
+
+
+def receipt_value(receipt):
+    """Serialize a receipt without changing historical schema-1 content identities.
+
+    New optional Python fields must not silently change the hash of a persisted
+    v1 receipt. Schema validation still rejects v1 records carrying v2 evidence.
+    """
+    value = dataclasses.asdict(receipt)
+    if receipt.schema_version == 1:
+        if (
+            receipt.validated_at is not None
+            or receipt.previous_receipt_sha256 is not None
+            or receipt.validation_headers
+        ):
+            raise ResourceIntegrityError("cache_schema", "v2 evidence in v1 receipt")
+        del value["validated_at"]
+        del value["previous_receipt_sha256"]
+        del value["validation_headers"]
+    return value
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class SourceArtifact:
-    """Verified immutable local bytes and the receipt that originally acquired them."""
+    """Verified immutable local bytes and their latest acquisition/validation receipt."""
 
     path: pathlib.Path
     sha256: str
