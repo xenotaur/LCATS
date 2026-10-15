@@ -2072,3 +2072,8 @@ remaining rechecks reserved, including final until both hosted authors and CI.
 Shared weekly usage17% (launch15%), account-wide and not attributable. Preparing
 first PR push; hosted reviews/CI and internal acceptance still pending. Main,
 corpus, policy consent, dependencies and CI configuration remain unchanged.
+
+PR516 opened against codex/gettenberg-acquisition at23:00 UTC, source commit
+f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f. Both native records now carry the PR and
+source-commit backlinks. This evidence-only follow-up changes no reviewed source,
+tests or user docs. First hosted rounds and CI are running; no retrigger.
