@@ -958,3 +958,247 @@ approximately four minutes of the seven-minute target. This final log correction
 uses the observed UTC clock and records the pushed checkpoint; no further domain
 work continues. The handoff remains staged, not promoted to main. The execution
 record remains nonterminal under the charter. No per-run cost estimate is claimed.
+
+## 2026-10-15 00:59 UTC — Acquisition core run activation
+
+Human approved the 60-minute target / 75-minute hard-stop plan. Run starts
+00:59:27, freeze by 01:44:27, target 01:59:27, hard stop 02:14:27 UTC. Base
+bd2998a8, freshly fetched main 2f14e4e8; WI-0002/0004 canonically resolved,
+WI-0005 readiness clean and prior-art check present. Native prompt:
+PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_ACQUISITION_CORE)[2026-10-15T01:00:16+00:00].
+No prior execution for this tranche slug. lrh-implement and its references read;
+charter adapter replaces repeated per-item confirmation and main branching.
+Gate definitions fresh, stored skip consent invalid; explicit human grant applies.
+No policy changes. Python 3.11.9, Black 25.11.0, Ruff 0.15.0; absolute PYTHONPATH
+verified against managed worktree. Shared weekly usage 58%; per-run cost unknown.
+The editable distribution reports an older version, so source SHA/import path,
+not installed package version, identifies this run. No package reinstall.
+
+## 2026-10-15 01:03 UTC — Core tranche decision before implementation
+
+Implement explicit-URL original-byte acquisition: typed request/policy/errors,
+read-only plan, bounded streaming GET, per-cache serialization/pacing, retry and
+redirect policy, immutable hash-verified body/receipt publication and offline
+reuse. Archives share lifecycle's retained archive namespace. Defer conditional
+refresh, decoding, catalog receipt ingestion and automatic Gutenberg resource
+mapping/selection to later WI-0005 tranches; full WI acceptance remains open.
+A caller-supplied permitted concrete URL is sufficient to test this independent
+transport/cache boundary; no unqualified mirror becomes a built-in default.
+
+Read upstream gutenbergsite at 407d5ef950923046fa86aadad57036dfdf5faafc and
+autocat3 at f33e7105cc1113e86a9244f127f43633cc196bb2 in temporary checkouts.
+The harvest implementation uses database filenames; HTMLFormatter.py:86–87
+substitutes generated aliases. Neither inspected path establishes an invertible
+alias-to-filename rule. No upstream implementation is copied. Preserve A22's
+remaining qualification rather than guessing suffixes. This is a scope boundary,
+not a reduction of the final all-format requirement.
+
+API choices: SourceRequest keeps source URI and explicit request URL; NetworkPolicy
+is offline by default and requires explicit allowed origins. GET representation
+is fixed (identity Content-Encoding request, no cookies/auth/proxies). Cache keys
+include storage kind as well as canonical URL and representation version, so the
+same URL requested as archive/resource cannot collide across storage namespaces.
+Reuse private lifecycle I/O through an error-translating resource adapter, without
+changing catalog behavior. Persistent SQLite lock plus atomically persisted pacing
+state; no lock on cache hits/plans. Deadlines are cooperative between bounded I/O
+operations, not hard DNS cancellation. Independent review receives these limits.
+
+## 2026-10-15 01:16 UTC — Acquisition core initial qualification
+
+Explicit-URL core and Diataxis docs implemented. 48 focused tests pass, including
+real-process duplicate suppression and killed lock recovery, HTTP framing/redirect/
+retry boundaries, corruption/no-clobber publication and clock discontinuities.
+Initial test failure was a macOS /var versus /private/var path assertion; resolving
+the temporary root corrected the assertion. No product regression was hidden.
+The format wrapper with empty flags hits an existing Bash empty-array nounset
+issue; supported --quiet/--check flags work. No unrelated wrapper fix is included.
+
+Full canonical suite is running before independent review. No agent assignment
+has been used yet. Feature work is frozen for this tranche now, ahead of the
+minute-45 ceiling; next work is review, validation and bounded repairs. Shared
+usage extraction at this point was unavailable; no cost estimate is inferred.
+The one planned cold review will use a compact specification and exact source
+snapshot, not full session history. No additional item is starting.
+
+## 2026-10-15 01:20 UTC — Checkpoint and independent review dispatch
+
+At the 20-minute checkpoint scope remains the acquisition core; no extra feature
+or item has been added. Initial full suite passed 2724 tests, then 2727 after
+malformed-input/documentation regressions. Focused snapshot now passes 52 tests;
+one additional Retry-After obsolete-date repair is undergoing final full-suite
+qualification. Fail-first numeric-overflow regression demonstrated an untyped
+OverflowError from corrupt pacing JSON; corrected to ResourceIntegrityError.
+The how-to's three code blocks execute against a local fixture in the test suite.
+
+Independent cold-context assignment 1, acquisition_core_review, dispatched
+01:20:28 UTC; deadline 01:35:30 (15 minutes), no recursive delegation or writes.
+Source/test/doc files frozen at /tmp review-files.json hashes; full diff snapshot
+SHA256 1c539ec207fd28fd6457741cc3bc88e500595f490ad8cec9fe70d412ac57e801.
+Native source HEAD bd2998a8 with uncommitted reviewed changes. Canonical full-suite
+recheck runs alongside report-only review; integration waits for both. This small
+sequencing adaptation keeps checks independent without idle elapsed time.
+Weekly shared usage 60% versus 58% at launch, not attributable per-run cost.
+Remaining wall allowance approximately 54 minutes; review occupancy allowance
+15 minutes assigned out of 45 cumulative. No implementation worker was needed.
+
+
+## 2026-10-15 01:29 UTC — Review findings and bounded repairs
+
+Independent assignment 1 returned four verified P2 findings around 01:25 UTC:
+trickling headers/chunk framing could exceed the deadline; post-reference hard-link
+cleanup changed ctime during concurrent verification; unsupported transfer coding
+could enter cached originals; pacing fsync errors incorrectly claimed resource
+publication. Coordinator directly read and ran the top reproduction before fixing:
+0.2-second budgets took 1.313/1.317 seconds for header/chunk trickles. The same
+probe reproduced the cleanup/error-translation cases. Findings were accepted on
+reproduction, not reviewer assertion. Frozen initial snapshot full suite passed
+2728 tests; statement coverage of the four new modules was 95%, which did not
+substitute for adversarial review and missed these behavioral defects.
+
+Repairs add a deadline-aware raw socket reader below HTTP framing; finish hard-link
+cleanup before reference visibility; reject unsupported/ambiguous transfer coding;
+and translate possible-publication errors only at reference replacement. New local
+regressions cover headers, chunk extensions/trailers, supported/unsupported framing,
+a deterministic real publisher/reader overlap and pacing durability injection.
+Coordinator also reproduced a huge finite socket timeout overflow and resource
+warning; policy now bounds I/O timeouts at one day before socket creation. Pacing
+metadata capacity conservatively collapses pending origins to the latest global
+cooldown instead of losing a new Retry-After. Both have regression tests.
+
+58 focused tests pass with ResourceWarning promoted to error. Same-assignment
+repair recheck 1 dispatched 01:28:35, deadline 01:38:30; current seven-file hashes
+frozen in review-files-repaired.json. Initial review occupancy approximately five
+minutes; this recheck has ten minutes maximum. No second worker or new feature
+assignment. Canonical full-suite/format/lint requalification runs in parallel with
+report-only recheck. Primary and native AD_HOC _SELFREVIEW records remain nonterminal.
+
+Process observation: a single compact cold review found substantive issues despite
+broad unit coverage. Reserve real time for repairs and behavior-level probes; a
+coverage percentage alone would have supported a false completion claim. Added
+regressions belong in tests/, temporary probes stay outside the control plane.
+
+
+## 2026-10-15 01:32 UTC — Scoped qualification complete before PR
+
+Independent repair recheck completed 01:30:17 UTC, all four findings resolved and
+no additional actionable regressions. Exact seven-file hashes match the repaired
+snapshot. Reviewer verified real local HTTPS as well as HTTP framing, pacing
+failure and concurrent publication. Coordinator full canonical suite passes 2734
+tests in 76.017 seconds; 58 focused tests, format/lint, LRH and readiness pass.
+One assignment with one recheck used less than seven cumulative worker minutes
+(conservative initial completion bound 01:25:40). No additional assignment needed.
+Shared weekly usage observed 63% at minute30; account-wide, not per-run attribution.
+
+qualification.json and review.md preserve source hashes, commands, log hashes,
+accepted repairs and the partial A01–A22 mapping. Native WI is not resolved. Next:
+commit/push child PR targeting acquisition integration branch; inspect first
+hosted review and exact-head CI before any internal merge. Main remains untouched.
+
+
+## 2026-10-15 01:34 UTC — Internal PR opened
+
+Implementation commit 7a00da1c1d78b481811b1803652606840da604eb pushed;
+[PR #510](https://github.com/xenotaur/LCATS/pull/510) targets
+codex/gettenberg-acquisition at bd2998a8, not main. First automatic Codex review
+is running; test, coverage and lint checks are running. No manual retrigger.
+Backfill the PR link in both native execution records, keeping status in_progress.
+This bookkeeping-only follow-up preserves every reviewed product/test/doc hash;
+CI must qualify the resulting exact head before internal integration.
+
+
+## 2026-10-15 01:40 UTC — Minute-40 checkpoint and hosted review repair
+
+Current pushed head bac92db3, base bd2998a8; first hosted Codex review at source
+commit 7a00da1c found one P2: local temporary-file/publish OSError was caught by
+the network retry handler. The finding is present on current source, valid and
+feasible within scope. A filesystem TimeoutError/ConnectionError could cause
+another GET. No CI failure or main promotion; all current-head checks passed
+before this new repair, which invalidates their source qualification.
+
+lrh-review-response loaded with its references; the charter's explicit bounded
+repair authority supplies the coordinator confirmation, not fabricated human
+approval. Identity matches PR #510. Slug/prompt checks found no previous response.
+Native response prompt minted 01:38:16 and linked record created 01:40:13. Primary
+provenance is the explicitly authored WI-0005 acquisition-core execution; the
+SELFREVIEW sibling is not selected as primary. No comments skipped.
+
+Fail-first regression covers local open/write/flush/fsync/close/publish with
+OSError, TimeoutError and ConnectionError (18 cases): 6 errors/12 failures before
+repair. Translate only local filesystem calls before they reach the network
+handler, leaving HTTP reads as network operations. 59 focused tests now pass with
+resource warnings enabled. Canonical format/lint/full-suite rerun underway.
+Same-assignment recheck 2 (final allowed) dispatched 01:39:50, deadline 01:48:30,
+no new scope or worker. Source snapshot review-files-hosted-fix.json frozen.
+
+At minute40, feature work remains frozen and this is one bounded review repair.
+Approximately20 minutes to target /35 to hard stop remain; if qualification cannot
+finish, preserve the open PR without integration. The first hosted review was not
+skipped or manually retriggered. Pending findings are not treated as acceptance.
+
+
+## 2026-10-15 01:45 UTC — Cross-boundary review adjustment
+
+First automatic Copilot review supplied three additional actionable findings:
+shared archive publication could race catalog retention across hard-link cleanup;
+slow pacing persistence could consume the next-start interval before GET dispatch;
+permanent HTTPException subclasses were retried. All were directly reproduced by
+new fail-first local regressions: catalog Source-changed error with unchanged
+bytes, zero-second dispatch gap after a three-second save, and three GETs for a
+malformed status line. No findings were waived. First Codex local-I/O repair had
+already passed independent recheck and full suite (2735), but new fixes require
+fresh qualification. This is additional boundary coverage from the first hosted
+round, not evidence that the previously repaired cases regressed.
+
+Coordinator replan within the approved scope: introduce a shared archive-publication
+leaf lock in the existing lifecycle I/O module, used by both catalog retention and
+resource publication through temporary-link cleanup. Keep strict inode stability
+checks; do not weaken mutation detection or hold both resource and catalog outer
+locks. Resource-network or catalog-writer → archive-publication is the order;
+never reverse it. Lock waits are bounded and cache hits remain lock-free. This
+small lifecycle adaptation is necessary to satisfy the already-required shared
+archive namespace, and is explicitly reflected in design/reference docs.
+
+Pacing now persists an in-flight marker before dispatch and renews spacing after
+each attempt. A killed holder's uncertain dispatch time incurs a fresh conservative
+interval; slow writes cannot shorten actual starts. Retry classification excludes
+malformed status/header protocol errors. All 261 gettenberg tests pass, including
+existing lifecycle tests and the new cross-publisher/slow-save/protocol cases.
+
+The original independent assignment has used both permitted same-scope rechecks
+and is complete. A second explicit, cold-context boundary-review assignment was
+dispatched around01:45, deadline01:54:30, reviewing all hosted repairs and the
+lifecycle interface adjustment. This is assignment2 of6, not a third follow-up
+hidden under assignment1; cumulative occupancy remains below45minutes. Canonical
+full qualification runs concurrently; product/docs frozen at the 11-file boundary
+snapshot. No new feature work, main promotion or acceptance waiver. If review/CI
+cannot finish by the hard stop, leave an open, clearly unaccepted PR checkpoint.
+
+
+## 2026-10-15 01:54 UTC — Final boundary repairs qualified
+
+Second independent reviewer reproduced post-publication pacing reporting, failed
+archive publication cleanup, killed-publisher linked-orphan cleanup and later
+cleanup racing post-retention catalog verification. Coordinator directly ran both
+archive probes before repairs and after; final probes show expected acquisition
+failure with successful concurrent catalog verification, and offline reuse with
+linked orphans preserved. Completion-pacing failure now reports published=True;
+pre-publication pacing failure remains an integrity error. Cleanup-stat errors
+cannot mask the primary failure. All fixes have permanent boundary regressions.
+
+Archive cleanup is now deliberately conservative: cleanup in the original shared
+leaf-lock section removes temporary links; later cleanup preserves nlink>1 because
+readers may already be verifying the published inode without that lock. Strict
+mutation detection is retained. This is a documented recovery tradeoff, not silent
+orphan deletion or an acceptance waiver. A new fault-test initially omitted its
+patch context and failed its own injection assertion; the harness was corrected,
+not the product behavior or specification.
+
+Final reviewer signal01:52:34 clean across11 hashes;68 resource/50 lifecycle tests.
+Coordinator full canonical suite passes2744 in74.632s; format/lint pass.
+Two assignments total; original reviewer with two rechecks used under9minutes,
+second assignment under8minutes, total under17 of45. No further delegation.
+Shared weekly usage68% near minute53 versus58% launch; account-wide, not per-run
+cost. The pre-second-assignment usage read was missed and taken afterward; record
+this process miss rather than claiming a timely checkpoint. No numerical usage
+stop threshold was agreed. Next is one repair push, current-head CI and thread
+verification; no feature work or main promotion.

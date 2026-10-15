@@ -279,3 +279,23 @@ or catalog download, PR/main promotion, WI resolution or future-run grant.
 Reserve the final three minutes for validation and checkpointing; finish early
 if complete. Continue codex/gettenberg-acquisition at a528ebfd; branch push is
 permitted. Other stewardship, review and persistent-policy boundaries remain.
+
+## Acquisition implementation grant — approved and activated 2026-10-15
+
+The human approved the proposed restaurant run with "Go for it!" Run
+`gettenberg-20261015-core` starts 00:59:27 UTC, target 01:59:27, hard stop
+02:14:27. Checkpoints at minutes 20/40; feature freeze no later than minute 45
+(01:44:27). The last allowance is for review, repair, validation and checkpoint.
+Scope: one coherent tested WI-0005 acquisition tranche, not a promise to finish
+all routing, refresh, decoding and provenance. Continue the acquisition planning
+base bd2998a8; fetched main remains 2f14e4e8. Implement on a child branch
+codex/gettenberg-acquisition-core, with PR base codex/gettenberg-acquisition.
+
+Coordinator plus one independent reviewer planned. Inherit ceilings of four
+concurrent agents, six assignments and 45 cumulative worker minutes, with at
+least 15 reserved for review; no recursive delegation or automatic expansion.
+No new bulk download, main promotion or persistent-consent change. The existing
+coordinator plan/repair/integration adapter applies to lrh-implement; the human's
+run grant authorizes bounded engineering choices without another per-item gate.
+Independent review and canonical validation remain required before integration.
+Finish early if the scoped tranche is complete; preserve unfinished WI criteria.

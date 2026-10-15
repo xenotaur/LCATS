@@ -18,6 +18,7 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Acquire and reuse original source bytes](how-to/gettenberg-resources.md)
 - [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
 
 - [Set up API keys](secrets-setup.md)
@@ -31,6 +32,7 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Original-byte acquisition and network policy](reference/gettenberg-network.md)
 - [Local catalog lifecycle](reference/gettenberg-lifecycle.md)
 
 - [Local Gutenberg catalogs](reference/gettenberg-catalog.md) — explicit local builds and read-only queries.
