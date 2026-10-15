@@ -1349,3 +1349,31 @@ Final evidence: [hosted-repair.json](evidence/gettenberg-selection-20261015/host
 Shared weekly meter rose from70% to72%; this is account-wide, not per-run cost.
 The sprint used approximately18minutes including the late review repair and
 checkpoint, within the20-minute hard stop. No implicit continuation or renewal.
+
+## 2026-10-15 04:51 UTC — PR511 internal integration
+
+The human explicitly requested "Integrate PR 511 please." This authorizes the
+integration and its evidence checkpoint, not another bounded feature run or main
+promotion. Rechecked the exact PR head 5ca97617b72a32162f28826808c65542f38d27ca
+and base c447c15be9f2314201750b9615fdef04af7bf5d9 on
+codex/gettenberg-acquisition immediately before merge. All four final-head checks
+passed (coverage, lint, and both test runs); the only hosted review thread was
+resolved, with independent repair verification already recorded.
+
+[PR #511](https://github.com/xenotaur/LCATS/pull/511) merged at 04:51:55 UTC as
+8c3f9c139977e728b72c12cc3ea8dffb27a0f90d. The integrated tree equals the verified
+PR-head tree; all six independently reviewed source/test/doc hashes still match.
+The prior 2763-test canonical qualification applies to that identical tree.
+No additional product tests were needed for this merge and evidence-only update;
+LRH validation is rerun for the new control-plane records.
+
+[Integration evidence](evidence/gettenberg-selection-20261015/integration.json)
+records the exact head/base, merge and check identities. Historical sprint-stop
+records retain their original pending-CI state; this entry records the subsequent
+outcome. Native executions remain in_progress, WI-0005 remains proposed, and
+main is untouched. No branch deletion or new implementation occurred.
+
+A17 resource selection is now internally integrated. Remaining WI-0005 scope:
+conditional refresh, strict text/container decoding, catalog receipt composition,
+and qualified automatic Gutenberg routing. Further implementation needs a new
+authorized run; integration alone does not renew the expired sprint grant.
