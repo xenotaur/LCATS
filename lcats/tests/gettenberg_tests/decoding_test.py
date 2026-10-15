@@ -73,10 +73,9 @@ class DecodingTests(unittest.TestCase):
         return caught.exception
 
     def test_malformed_html_parser_errors_are_structured(self):
-        # Both fixtures fit the declaration scan bound but trigger different
-        # standard-library parser failures, including entity conversion in attrs.
+        # Numeric entities fit the declaration scan bound but exceed Python's
+        # integer-conversion limit in both direct and http-equiv attributes.
         for payload in (
-            b"<![bogus]><p>story</p>",
             b'<meta charset="&#' + b"1" * 5000 + b';">',
             b'<meta http-equiv="Content-Type" content="text/html; charset=&#'
             + b"1" * 5000
@@ -89,6 +88,45 @@ class DecodingTests(unittest.TestCase):
                 self.assertEqual(error.diagnostics[-1].code, "invalid_html")
                 self.assertEqual(error.diagnostics[-1].source, "html")
                 self.assertIsInstance(error.__cause__, (ValueError, AssertionError))
+
+    def test_unknown_marked_section_never_leaks_parser_exception(self):
+        # Python 3.11.9 raises AssertionError for this section; 3.11.17 accepts
+        # it. Either preserve all markup or return our typed parse error. Never
+        # expose the stdlib exception or silently rewrite the caller's source.
+        payload = b"<![bogus]><p>story</p>"
+        try:
+            result = resources.decode_text(payload, catalog_formats=("text/html",))
+        except resources.ResourceDecodeError as error:
+            self.assertEqual(error.code, "invalid_html")
+            self.assertEqual(error.source_sha256, hashlib.sha256(payload).hexdigest())
+            self.assertEqual(error.diagnostics[-1].code, "invalid_html")
+            self.assertIsInstance(error.__cause__, AssertionError)
+        else:
+            self.assertEqual(result.text, payload.decode("utf-8"))
+            self.assertEqual(result.source_sha256, hashlib.sha256(payload).hexdigest())
+            self.assertEqual(result.encoding_source, "default")
+
+    def test_zip_comment_signatures_are_not_directory_records(self):
+        # Valid archive comments may contain short signatures, a full misleading
+        # EOCD-shaped record, repeated signatures, or the maximum comment length.
+        for comment in (
+            b"comment PK\x05\x06 suffix",
+            b"PK\x05\x06" + b"\x00" * 18,
+            b"PK\x05\x06" * 1000,
+            b"x" * 65531 + b"PK\x05\x06",
+        ):
+            with self.subTest(comment_length=len(comment)):
+                stream = io.BytesIO()
+                with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED) as archive:
+                    archive.writestr("story.txt", "A story")
+                    archive.comment = comment
+                data = stream.getvalue()
+                artifact = self.artifact(data)
+                result = resources.decode_text(artifact)
+                self.assertEqual(result.text, "A story")
+                self.assertEqual(result.zip_member, "story.txt")
+                self.assertEqual(result.source_sha256, hashlib.sha256(data).hexdigest())
+                self.assertEqual(artifact.path.read_bytes(), data)
 
     def test_plain_utf8_and_empty_payload(self):
         for data in (b"", "A café\r\n".encode()):

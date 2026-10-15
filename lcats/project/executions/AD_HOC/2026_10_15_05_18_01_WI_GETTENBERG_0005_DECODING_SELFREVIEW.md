@@ -39,3 +39,8 @@ with sockets prohibited, unchanged raw bytes and unchanged cache file mtimes.
 
 PR and primary execution identity backfilled. Remain in_progress
 until human-approved main delivery; internal integration does not close WI-0005.
+
+Final same-assignment recheck verified Python parser portability test/documentation
+with 55 focused tests. Total two rechecks consumed. The subsequent hosted ZIP-comment
+repair has **not** received independent verification; see hosted-repair.json. Earlier
+clean verdicts do not qualify those later container/test changes for integration.

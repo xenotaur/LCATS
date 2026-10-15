@@ -47,3 +47,9 @@ require passing exact-head CI before internal integration. Native records remain
 in_progress and WI proposed until human-approved main delivery. Conditional refresh,
 catalog receipt composition, qualified automatic routes and gatherer migration
 remain outside this run. No external data download or persistent policy change.
+
+Hosted first round found a Python-patch-specific test assumption and a valid ZIP
+comment edge case. Both repaired, with details and current qualification in
+[hosted-repair.json](../../development/evidence/gettenberg-decoding-20261015/hosted-repair.json).
+ZIP repair awaits independent verification after exhausting the two-recheck grant;
+PR stays open and no internal integration occurs in this run.

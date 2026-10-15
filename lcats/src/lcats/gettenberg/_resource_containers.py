@@ -113,8 +113,22 @@ def _zip_directory(data, limit):
     ZIP64/multidisk and prepended/appended data are deliberately unsupported.
     Do not trust the declared entry count: ZipFile itself parses until size_cd.
     """
-    end = data.rfind(b"PK\x05\x06", max(0, len(data) - 65557))
-    if end < 0 or end + 22 > len(data):
+    # A comment may contain arbitrary signatures. Walk only the bounded EOCD
+    # window, accepting a candidate whose comment and directory reach its true
+    # boundaries. Each search excludes the previous candidate, so work is linear.
+    lower, stop = max(0, len(data) - 65557), len(data)
+    end = -1
+    while stop > lower:
+        candidate = data.rfind(b"PK\x05\x06", lower, stop)
+        if candidate < 0:
+            break
+        if candidate + 22 <= len(data):
+            size, offset, comment = struct.unpack_from("<2LH", data, candidate + 12)
+            if candidate + 22 + comment == len(data) and offset + size == candidate:
+                end = candidate
+                break
+        stop = candidate
+    if end < 0:
         raise _decode_types.ResourceDecodeError(
             "invalid_container", "missing ZIP directory"
         )
@@ -155,6 +169,7 @@ def _zip_directory(data, limit):
         raise _decode_types.ResourceDecodeError(
             "invalid_container", "ZIP directory count/size mismatch"
         )
+    return end
 
 
 def _safe_member(info):
@@ -214,9 +229,13 @@ def _safe_member(info):
 
 def read_zip(data, options):
     """Read one safe text member; validate the entire bounded member index first."""
-    _zip_directory(data, options.max_zip_entries)
+    end = _zip_directory(data, options.max_zip_entries)
+    # ZipFile also searches for the last signature without validating comments.
+    # Give its index reader a comment-free view after our directory validation;
+    # member offsets/bytes stay identical and original provenance uses data.
+    index_data = data[: end + 20] + b"\x00\x00"
     try:
-        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        with zipfile.ZipFile(io.BytesIO(index_data)) as archive:
             entries = archive.infolist()
             seen, candidates = set(), []
             for info in entries:

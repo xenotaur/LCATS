@@ -78,7 +78,9 @@ read from a bounded prefix. Comments, script/style text, inert/text contexts and
 content after the head/body boundary do not supply declarations. Latin-1 is used
 only to inspect ASCII-compatible declaration bytes when no Unicode/override codec
 is known; it is never used as a content-decoding fallback. XML declarations and
-browser error-repair semantics are not implemented. Larger HTML payloads receive
+browser error-repair semantics are not implemented. Malformed-markup acceptance
+can vary with the Python HTML parser version; accepted markup stays intact and
+parser failures become `invalid_html`, never raw parser exceptions. Larger HTML payloads receive
 `html_scan_limit`; declarations beyond that prefix are not assumed to be known.
 HTML markup, whitespace and line endings are otherwise preserved, without assets.
 

@@ -1493,3 +1493,45 @@ retain the session pointer and PR/rerun backlink. Source frozen; first hosted ro
 and exact-head CI remain pending. No worker active. Roughly 23 elapsed minutes;
 22 minutes to target, 37 to hard stop. Remaining scope is validation/review/repair,
 then internal integration if qualified, otherwise a resumable open PR.
+
+### Hosted portability failure — 05:28 UTC
+
+CI uses CPython 3.11.17; local canonical environment is 3.11.9. Hosted test logs
+show the unknown marked section is accepted by the newer HTMLParser, so the test's
+unconditional error expectation failed. Numeric-entity cases passed. Product code
+already preserves accepted markup and translates parser failures; no code change
+is required. Split the version-sensitive fixture into a contract test accepting
+only unchanged successful text/provenance or the documented typed error with source
+hash/diagnostics/cause. Raw exceptions and rewritten text still fail. No skip or
+exception suppression. Document the parser-version limitation explicitly.
+This is a test-assumption repair, not a weakened decoding acceptance criterion.
+
+### First hosted review repair — 05:32 UTC
+
+Hosted first round found P1 test portability (already repaired and independently
+rechecked) and P2 embedded ZIP end-record signatures in a valid archive comment.
+Coordinator reproduced the P2; Python ZipFile also rejects that valid fixture, so
+fixing only preflight would be incomplete. Bounded backward candidate scanning now
+requires exact comment/directory boundaries. The stdlib index reader receives a
+validated comment-free in-memory view, preserving member offsets and original bytes.
+Four fixtures cover short/full misleading signatures, repeated signatures and maximum
+comment length; hashes/raw artifact bytes remain unchanged. No filesystem extraction.
+
+Both allocated same-scope independent rechecks have been consumed. The ZIP repair
+will be pushed after canonical validation but left awaiting fresh independent
+verification; no internal integration is authorized without that evidence. Preserve
+this cap rather than quietly adding an assignment. Process recommendation: batch
+CI and hosted findings before the final reserved recheck, or budget a distinct
+hosted-repair verification slot. The second recheck was dispatched before hosted
+review completed and proved too early. This is sequencing overhead, not a design
+blocker or a reason to weaken review.
+
+### Repaired source qualification — 05:33 UTC
+
+Final canonical scripts/test passes 2820 tests in 79.860 seconds; 56 focused tests.
+Format/lint, LRH (0 errors / 351 existing warnings), readiness and diff check pass.
+The preceding portability-only rerun passed 2819 tests in 83.451 seconds. Both
+hosted findings are repaired; first-round CI failures remain recorded, not erased.
+Final hashes and validation are in hosted-repair.json, explicitly excluding a claim
+of independent acceptance for the final ZIP changes. Push and await exact-head CI;
+leave PR open, with fresh independent verification as the next bounded action.
