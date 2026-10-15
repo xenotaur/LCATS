@@ -1677,3 +1677,146 @@ external bulk download or persistent policy edit. A18/A19 now internally qualifi
 and integrated. Remaining WI scope: conditional refresh, catalog receipt composition
 and qualified automatic routing; gatherer migration follows in its planned work.
 Next feature work requires a new bounded grant.
+
+## Conditional refresh run — 2026-10-15 06:35 UTC
+
+Human authorized conditional refresh and selected a 60-minute target  / 90-minute
+hard stop. Run gettenberg-20261015-refresh starts 06:35:29 UTC; target 07:35:29,
+hard stop 08:05:29, including tools/CI/recovery. Reassess at minute 45; feature
+freeze by minute 60. Scope WI-0005 A14 only: explicit refresh/plan, conditional 304,
+changed 200, provenance, atomic failure safety, tests and docs. No catalog
+composition, automatic routing, gatherer migration, bulk downloads or main
+promotion. Existing charter adapter authorizes coordinator integration only.
+
+Base 9fb1c767c7eeca6cdab23d3b9fcfbe171a738997 is clean and freshly fetched;
+PR512 merge 97dad982 is an ancestor. Child codex/gettenberg-conditional-refresh
+will target codex/gettenberg-acquisition. Readiness yes. Native execution remains
+in_progress and WI proposed until main. LRH 0.2.5.dev3596+gd86755f50: watched
+skills clean, persistent skip consent invalid; this explicit grant does not
+alter it. Python 3.11.9 LCATS env with intended-worktree PYTHONPATH. Account usage
+4% weekly at launch; per-run tokens/cost unavailable and account telemetry is
+not attributable. No paid external model calls or new dependencies.
+
+Coordinator implements; one independent reviewer planned before first push,
+with final same-scope verification reserved until CI AND every hosted author's
+first round arrive. Inherit six-assignment /four-total-agent /45-worker-minute
+ceilings; target 20–30 worker minutes, reserve 15 for final review, max 30 per
+assignment. At most two same-scope repair rechecks per assignment. Normally two
+agents including coordinator; no recursive delegation. Finish early if accepted.
+
+Pre-implementation decisions: preserve v1 receipt/hash readability and use v2
+receipts for new acquisitions/validations, with previous receipt hash and separate
+validation time. 304 preserves original retrieval time/body and publishes only
+new receipt/reference, never relinking old body inode. Validators are syntactically
+checked and bound to the exact cached final URL on every hop. Missing/invalid
+validators cause unconditional GET; unsolicited304 fails. Updated representation
+headers must not contradict cached decoding metadata. Changed 200 uses the existing
+atomic publication path and retains old body/receipt. Refresh rechecks after the
+network lock and coalesces a concurrent successful update; ordinary fetch remains
+network-free on hits. No automatic age freshness or HTTP shared-cache semantics.
+
+Acceptance: ETag/Last-Modified 304, changed 200, cold/malformed/corrupt 304, route
+changes and validator isolation, no-validator fallback, repeated/history reads,
+offline/plan purity, serialized updates, injected publication failures, archive
+safety, v1 receipt/decoder compatibility, and exercised docs. Standards grounding:
+RFC 9110 sections 8.8/13.1, RFC 9111 section 4.3.4. Preserve fail-closed integrity and
+cooperative budgets; do not equate weak validation with byte identity at origin.
+
+Loaded skill fingerprints (SHA256): lrh-implement: 48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165;
+lrh-self-review: d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c;
+lrh-review-response: 42acff29a55c7d8dcc573f68b8c9de876b132ebbe831936f3c6a21239f6bcc8e,
+all under /Users/centaur/.agents/skills/<name>/SKILL.md. Session selected model,
+codex_app backend; runtime does not expose an enforceable per-run credit meter.
+
+### Implementation checkpoint — 06:50 UTC
+
+Source frozen for independent review after 152 focused tests, lint/format, doc
+execution/link/fence checks and LRH validation (0 errors, 351 existing warnings).
+One cold reviewer dispatched at 06:47:45, initial deadline 07:02:45; final hosted
+repair verification remains reserved. No other workers. Implementation took about
+12 minutes; full canonical qualification intentionally waits for stable review.
+
+First regression failure was a test helper serializing the expanded Python record
+as schema 1. Updated it to produce explicit schema 2, while a separate historical
+file fixture proves v1 hash/read/decoding compatibility before and after refresh.
+Added actual validation_headers distinct from merged headers so omitted vs returned
+validators remain auditable. No feature expansion. Freshly fetched main is
+210468236ff4db78d2d7c5218562fa2d166e6400; it is not this internal PR's base.
+
+### Initial review repair — 06:53 UTC
+
+Independent reviewer identified two P2 issues: accepting a validator-less 304
+misapplied RFC 9111 section 4.3.4, and comparing Last-Modified wire strings rejected
+equivalent dates. Coordinator verified the official RFC text, required a matching
+returned validator, compared valid HTTP dates as UTC instants, and tightened
+weekday syntax. Added missing-validator/date-equivalence regressions and preserved
+specific representation-header and publication-fault assertions. Focused 154 tests
+pass in 5.569 seconds; lint/format pass. Reviewer is verifying the consolidated repair.
+
+Process observation: three files changed while initial review was still active,
+with advance notification but without a preserved pre-repair hash snapshot. Initial
+findings are grounded in inspected code/initial tests; acceptance must use final
+repaired hashes. Future runs should capture a source manifest before dispatch and
+wait for initial report before editing, avoiding ambiguous overlapping probes.
+One same-scope recheck used; second remains reserved for hosted feedback. No scope
+expansion or canonical-suite repeat yet. All executable implementation/fixtures
+remain in src/tests; control-plane evidence is Markdown/JSON only.
+
+### Pre-push qualification — 06:57 UTC
+
+Independent acceptance complete, all 12 source/test/doc hashes match. Canonical
+scripts/test passes 2849 tests in 69.672 seconds; 154 focused tests plus independent
+nine-pair date/refusal probes pass. Format (267 files)/lint pass; LRH 0 errors / 351 existing
+warnings. One review assignment with recheck1 used under nine worker minutes;
+no active workers, final recheck reserved for all hosted feedback plus CI. Main
+untouched. [Qualification](evidence/gettenberg-refresh-20261015/qualification.json)
+records final source identities, acceptance mapping and review limitations.
+
+### Hosted review repair — 07:08 UTC
+
+PR513 opened at 06:57:42 with product commit 8ba82684; native backlinks added in
+1d1dfc6b. All four exact-head checks passed. Copilot first round 07:03:19 had zero
+findings; Codex first round 07:04:37 found two valid P2 boundary defects. Both were
+reproduced before production edits: two new tests failed in eight subcases.
+
+Aggregate receipt-size rejection had moved after body linking, leaving avoidable
+unreachable immutable bodies. Restore serialization/size preflight before either
+publication path. Persisted 304 validation_headers could lack any returned validator
+even though transport would refuse such an event. Add shared validator-syntax checks
+to the reader, without unbounded history traversal. Existing cache-reference failure
+and historical-byte preservation remain unchanged. New regressions cover repeated
+oversized resource/archive responses and empty/representation-only/malformed returned
+validators in otherwise hash-consistent receipt files.
+
+Focused 156 tests pass in 5.726 seconds; lint/format/diff check pass. Captured the full
+12-file candidate manifest BEFORE final recheck dispatch at 07:08:20. Four files
+changed; eight previously accepted source/test/docs are unchanged. Final planned
+same-scope recheck has a 15-minute allowance, leaving total worker occupancy under
+24 minutes and the run under its 90-minute hard stop. No active implementation worker,
+no scope expansion; canonical qualification follows stable independent acceptance.
+
+Account-wide weekly usage at 07:03 was 8%, versus 4% launch; not attributable per-run
+telemetry. No numeric usage cap was agreed. We waited for BOTH hosted authors and
+CI before spending this final recheck, avoiding the earlier decoding-run error.
+Observed review gap suggests future LRH acceptance packets explicitly enumerate
+writer/reader invariant parity and aggregate (not only per-field) resource budgets.
+
+### Final independent recheck — 07:11 UTC
+
+Recheck 2 cleared both hosted P2s. Independent 156 tests pass in 5.682 seconds; extra
+resource/archive ×200/304 oversized-metadata probes preserve all prior bodies,
+receipts and references and clean temporary files. Five hash-consistent invalid
+validation receipts also fail offline decoding, including mixed valid/invalid
+validators. All 12 hashes match the pre-dispatch manifest; eight unaffected files
+match 1d1dfc6b. Both hosted authors reviewed 8ba82684, whose only delta to 1d1dfc6b is
+two execution-record backlink lines. One reviewer assignment plus two rechecks used
+under 13 worker minutes; no active workers. Canonical suite is running against
+frozen accepted source. No further feature work or review retrigger is planned.
+
+### Final repair qualification — 07:13 UTC
+
+Final canonical 2851 tests pass in 68.435 seconds; 156 focused tests pass. Format,
+lint, LRH validation (0 errors, 351 existing warnings), docs and diff checks pass.
+Independent review cleared both hosted findings at matching source hashes. Push the
+repair and require green checks on its exact head before any internal merge.
+Initial evidence remains historical; hosted-repair.json records final acceptance.

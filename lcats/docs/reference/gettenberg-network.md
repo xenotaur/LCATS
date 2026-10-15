@@ -5,8 +5,8 @@ verified local cache. It does not require a Gutenberg metadata catalog or
 `gutenbergpy`. The existing `lcats gather` command has not migrated to this API.
 
 This covers acquisition and pure resource selection within WI-GETTENBERG-0005.
-Automatic Gutenberg alias/mirror routing, conditional refresh, and catalog-manifest
-receipt integration are not yet implemented. [Offline decoding](gettenberg-decoding.md)
+Automatic Gutenberg alias/mirror routing and catalog-manifest receipt integration
+are not yet implemented. Explicit conditional refresh is available. [Offline decoding](gettenberg-decoding.md)
 is a separate operation. Every content type can be fetched as original bytes using an
 explicit permitted URL; that does not promise an extractor for the format.
 
@@ -21,8 +21,9 @@ Import the module with `from lcats.gettenberg import resources`.
 | `SourceRequest.from_url(url, kind="resource")` | Convenience constructor retaining the original supplied URI. |
 | `NetworkPolicy(...)` | Immutable authority and resource bounds; offline by default. |
 | `ResourceStore(cache_dir=None)` | Resolves `LCATS_CACHE_DIR` at construction, defaulting to `cache`; creates nothing. |
-| `store.plan(request, policy=NetworkPolicy())` | Reads/verifies cached bytes and returns `AcquisitionPlan`: `reuse`, `download`, or `blocked`, with reason and optional artifact. No network, writes, locks, sleeps or prompts. |
+| `store.plan(request, policy=NetworkPolicy(), refresh=False)` | Reads/verifies cached bytes and returns `AcquisitionPlan`: `reuse`, `refresh`, `download`, or `blocked`, with reason and optional artifact. No network, writes, locks, sleeps or prompts. |
 | `store.fetch(request, policy=NetworkPolicy())` | Returns `SourceArtifact` from verified cache or performs an authorized bounded acquisition. |
+| `store.refresh(request, policy=NetworkPolicy())` | Explicitly validates a cached representation or acquires a complete replacement; requires online authority even on hits. |
 
 A cache hit is usable offline, even when the current origin allowlist is empty.
 It causes no HEAD, refresh or validator request. Limits still apply while reading
@@ -34,8 +35,66 @@ A plan is a description, not approval: `fetch` rechecks cache and current policy
 The receipt records the acquiring caller's source URI and route policy, canonical
 request/final URLs, redirect targets, body identity, UTC retrieval time, status,
 selected headers and schema/transport versions. A later caller reusing those
-bytes receives their original receipt; its different source label does not
+bytes receives their current receipt; its different source label does not
 rewrite acquisition history. Receipt retention does not certify ebook identity.
+
+## Explicit refresh and provenance
+
+`plan(..., refresh=True)` remains read-only. It reports `refresh` for a verified
+hit with online authority, explaining conditional or unconditional GET, `download`
+for an authorized miss, and `blocked` for an offline/disallowed request. A blocked
+plan can still expose the verified cached artifact; this does not authorize refresh.
+It describes current evidence, not a promise about redirects or the eventual response.
+
+`refresh` rechecks the cache after taking the network lock. If another successful
+acquisition/refresh changed the receipt while this call waited, it returns that
+verified update without another request. Sequential explicit calls each refresh.
+It always starts at the requested URL, rechecking redirect policy on every hop.
+Syntactically usable ETag and Last-Modified values are sent only at the **exact
+canonical final URL** recorded by the previous receipt. Neither another path on
+the same origin nor a cross-origin redirect inherits them. Missing or malformed
+validators cause an unconditional GET. Normal `fetch` still does no freshness work.
+
+A matching `304` keeps body/hash, original retrieval time and original caller's
+source label. It appends a new immutable receipt and atomically switches the request
+reference without relinking or rewriting the body. A full `200` records a new
+retrieval, even if its bytes happen to hash identically. Both retain prior receipts
+and bodies. A failed response, invalid cache, or pre-reference publication failure
+leaves the old reference intact; errors are explicit, never silent stale fallback.
+The existing post-reference publication-uncertainty error also applies to refresh.
+
+New receipts use schema 2; schema-1 files remain readable, including by the offline
+decoder, without rewriting their bytes or changing their hashes. Additional fields:
+
+| Field | Meaning |
+|---|---|
+| `previous_receipt_sha256` | Previous current receipt for a refresh, or `None` on a cold acquisition. Retained audit link, not a recursively validated chain. |
+| `validated_at` | UTC time of a successful `304`, or `None` for a `200`. Local clock movement can put this before retrieval time. |
+| `validation_headers` | Selected headers actually returned by the latest `304`; must contain a valid validator on persisted reads; empty for `200`. |
+
+`status` records the latest event (`200` or `304`); `headers` contains effective
+selected metadata, carrying omitted fields forward after `304`. `retrieved_at`
+continues to name the original full-body retrieval. Receipt identity changes even
+when body identity does not. A saved old `SourceArtifact` remains usable by the
+offline decoder. There is no automatic age refresh or pruning.
+
+Validation deliberately fails closed: unsolicited/cold `304`, a response from a
+URL where no conditional headers were sent, or contradictory returned validators
+cannot select old bytes. A returned strong ETag must equal the sent ETag; a weak
+returned tag can weakly match it. Last-Modified governs matching when no ETag was
+sent. The corresponding validator must be returned and match; a missing one fails
+closed. Equivalent valid HTTP date forms compare as UTC instants.
+Malformed/duplicate selected response headers are refused. A changed or newly
+introduced Content-Type/Content-Encoding in `304` is also refused rather than
+reinterpreting the original bytes; this limited client does not automatically retry
+such contradictions unconditionally. The prior entry remains available via `fetch`.
+Weak validation means semantic currency, **not proof that current remote bytes
+are identical**. Local bytes are always independently hashed.
+
+These binding rules follow [HTTP conditional-request semantics](https://www.rfc-editor.org/rfc/rfc9110.html#section-13.1)
+and conservative [304 response identification](https://www.rfc-editor.org/rfc/rfc9111.html#section-4.3.4).
+This is an explicit archival source store, not a browser/shared cache implementing
+Cache-Control freshness, Vary negotiation, authentication, or conditional ranges.
 
 ## Policy and bounds
 
@@ -136,11 +195,12 @@ with other characters percent-encoded. Credentials, controls and malformed escap
 are rejected. This normalization makes no claim that two distinct URLs have equal
 bytes. Archive/resource kinds use separate keys and storage locations.
 
-Publication fsyncs the temporary body, publishes it without clobbering an existing
+Publication bounds serialized receipt metadata before linking any body into the
+immutable store. It fsyncs the temporary body, publishes it without clobbering an existing
 hash object, publishes an immutable receipt, then atomically replaces the request
 reference. Only a complete hash-verified receipt/body pair is a cache hit. Failed
 partial bodies are removed when possible; orphan objects/receipts can remain.
-There is no automatic pruning, repair, partial resume or refresh in this tranche.
+There is no automatic pruning, repair, partial resume or age-based refresh.
 Archive cleanup, including failure cleanup, shares the publication lock. Both resource failure cleanup and catalog
 cleanup retain linked archive temporary orphans so it cannot change an immutable
 archive inode while a lock-free resource reader verifies it.
@@ -169,7 +229,7 @@ All public errors below derive from `resources.ResourceError`, itself a
 | Error | Meaning / response |
 |---|---|
 | `ResourceInputError` | Invalid request/policy; fix caller input. |
-| `ResourcePolicyError` | Offline miss, disallowed origin or HTTPS downgrade. |
+| `ResourcePolicyError` | Offline miss/refresh, disallowed origin or HTTPS downgrade. |
 | `ResourceIntegrityError` | Invalid cache paths, hashes, schema or pacing state; investigate, do not silently redownload over evidence. |
 | `ResourceTransportError` | HTTP/connection/framing/size/deadline failure; no complete new entry promised. |
 | `ResourceDeferredError` | Wait exceeds the current budget; inspect `next_eligible_at` before scheduling another operation. |

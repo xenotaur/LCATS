@@ -16,6 +16,7 @@ import uuid
 
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_types
+from lcats.gettenberg import _resource_refresh
 from lcats.gettenberg import errors
 
 _HASH = re.compile(r"[0-9a-f]{64}")
@@ -50,6 +51,28 @@ def _hash(value):
             "cache_schema", "invalid content identity"
         )
     return value
+
+
+def _stored_headers(headers):
+    """Validate selected persisted headers from retrieval or validation evidence."""
+    if not isinstance(headers, list) or len(headers) > len(_HEADERS):
+        raise ValueError("invalid headers")
+    seen = set()
+    for pair in headers:
+        if not isinstance(pair, list) or len(pair) != 2:
+            raise ValueError("invalid header pair")
+        key, val = pair
+        if (
+            not isinstance(key, str)
+            or key not in _HEADERS
+            or key in seen
+            or not isinstance(val, str)
+            or len(val) > 8192
+            or any(ord(c) < 32 and c != "\t" for c in val)
+        ):
+            raise ValueError("invalid stored header")
+        seen.add(key)
+    return tuple(tuple(pair) for pair in headers)
 
 
 class Cache:
@@ -120,17 +143,25 @@ class Cache:
     def _receipt(value, request):
         """Validate persisted untrusted metadata before constructing public records."""
         try:
-            if set(value) != {
+            version = value.get("schema_version")
+            if type(version) is not int or version not in (1, 2):
+                raise ValueError("unsupported receipt schema")
+            fields = {
                 field.name
                 for field in dataclasses.fields(_resource_types.RetrievalReceipt)
-            }:
+            }
+            if version == 1:
+                fields -= {
+                    "validated_at",
+                    "previous_receipt_sha256",
+                    "validation_headers",
+                }
+            if set(value) != fields:
                 raise ValueError("receipt fields differ from schema")
-            if type(value["schema_version"]) is not int or value["schema_version"] != 1:
-                raise ValueError("unsupported receipt schema")
             if (
                 value["transport_version"] != "urllib-get-v1"
                 or type(value["status"]) is not int
-                or value["status"] != 200
+                or value["status"] not in ((200,) if version == 1 else (200, 304))
             ):
                 raise ValueError("unsupported transport/status")
             original = _resource_types.SourceRequest(
@@ -147,6 +178,26 @@ class Cache:
             stamp = datetime.datetime.fromisoformat(value["retrieved_at"])
             if stamp.tzinfo is None or stamp.utcoffset() != datetime.timedelta(0):
                 raise ValueError("retrieval timestamp must be UTC")
+            if version == 2:
+                previous = value["previous_receipt_sha256"]
+                if previous is not None:
+                    _hash(previous)
+                validated = value["validated_at"]
+                if value["status"] == 304:
+                    if previous is None or not isinstance(validated, str):
+                        raise ValueError(
+                            "validation needs a previous receipt and timestamp"
+                        )
+                    validation_stamp = datetime.datetime.fromisoformat(validated)
+                    if (
+                        validation_stamp.tzinfo is None
+                        or validation_stamp.utcoffset() != datetime.timedelta(0)
+                    ):
+                        raise ValueError("validation timestamp must be UTC")
+                elif validated is not None:
+                    raise ValueError(
+                        "200 acquisition cannot claim a 304 validation time"
+                    )
             redirects = value["redirects"]
             if not isinstance(redirects, list) or len(redirects) > 256:
                 raise ValueError("invalid redirect evidence")
@@ -157,28 +208,21 @@ class Cache:
                 redirects[-1] if redirects else request.request_url
             ):
                 raise ValueError("final URL does not match route")
-            headers = value["headers"]
-            if not isinstance(headers, list) or len(headers) > len(_HEADERS):
-                raise ValueError("invalid headers")
-            seen = set()
-            for pair in headers:
-                if not isinstance(pair, list) or len(pair) != 2:
-                    raise ValueError("invalid header pair")
-                key, val = pair
-                if (
-                    key not in _HEADERS
-                    or key in seen
-                    or not isinstance(val, str)
-                    or len(val) > 8192
-                    or any(ord(c) < 32 and c != "\t" for c in val)
-                ):
-                    raise ValueError("invalid stored header")
-                seen.add(key)
-            value = dict(
-                value,
-                redirects=tuple(redirects),
-                headers=tuple(tuple(pair) for pair in headers),
-            )
+            headers = _stored_headers(value["headers"])
+            validation_headers = _stored_headers(value.get("validation_headers", []))
+            if value[
+                "status"
+            ] == 304 and not _resource_refresh.valid_validation_headers(
+                validation_headers
+            ):
+                raise ValueError("304 validation needs a valid returned validator")
+            if value["status"] == 200 and validation_headers:
+                raise ValueError("200 acquisition cannot claim 304 headers")
+            if any(dict(headers).get(key) != val for key, val in validation_headers):
+                raise ValueError("validation headers disagree with effective headers")
+            value = dict(value, redirects=tuple(redirects), headers=headers)
+            if version == 2:
+                value["validation_headers"] = validation_headers
             return _resource_types.RetrievalReceipt(**value)
         except (
             ValueError,
@@ -230,11 +274,7 @@ class Cache:
 
     def publish(self, temporary, receipt, max_bytes, lock_timeout=10.0):
         """Commit body, receipt, then reference; partial publication is never a hit."""
-        payload = _resource_types.canonical_json(dataclasses.asdict(receipt))
-        if len(payload) > _METADATA_LIMIT:
-            raise _resource_types.ResourceIntegrityError(
-                "metadata_limit", "receipt exceeds byte budget"
-            )
+        payload = self._receipt_payload(receipt)
         archive_lock = (
             _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
             if receipt.kind == "archive"
@@ -253,6 +293,46 @@ class Cache:
                 # failed after link publication. Later retries take it again.
                 temporary.unlink(missing_ok=True)
                 _lifecycle_io.sync_directory(temporary.parent)
+        return self._publish_receipt(receipt, payload)
+
+    def revalidate(self, artifact, receipt, max_bytes, lock_timeout):
+        """Verify unchanged bytes and publish validation without touching their inode.
+
+        The archive leaf lock excludes retention while checking/publishing; the
+        outer network lock is already held. Readers keep stable immutable files.
+        """
+        payload = self._receipt_payload(receipt)
+        lock = (
+            _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
+            if receipt.kind == "archive"
+            else contextlib.nullcontext()
+        )
+        with lock:
+            if _lifecycle_io.hash_file(artifact.path, max_bytes) != (
+                receipt.sha256,
+                receipt.size,
+            ):
+                raise _resource_types.ResourceIntegrityError(
+                    "body_hash", "cached original bytes changed during validation"
+                )
+            return self._publish_receipt(receipt, payload)
+
+    @staticmethod
+    def _receipt_payload(receipt):
+        """Bound metadata before publishing any body, receipt or reference.
+
+        Independently allowed route/header values can exceed the aggregate budget.
+        Reject that deterministic failure before leaving immutable body orphans.
+        """
+        payload = _resource_types.canonical_json(_resource_types.receipt_value(receipt))
+        if len(payload) > _METADATA_LIMIT:
+            raise _resource_types.ResourceIntegrityError(
+                "metadata_limit", "receipt exceeds byte budget"
+            )
+        return payload
+
+    def _publish_receipt(self, receipt, payload):
+        """Append prevalidated receipt bytes, then atomically select the receipt."""
         digest = hashlib.sha256(payload).hexdigest()
         receipt_temp = self.temporary()
         try:
@@ -270,7 +350,7 @@ class Cache:
             # the reference visible, so concurrent integrity checks see stable
             # immutable objects throughout their reads.
             receipt_temp.unlink()
-            _lifecycle_io.sync_directory(temporary.parent)
+            _lifecycle_io.sync_directory(receipt_temp.parent)
             try:
                 _lifecycle_io.atomic_json(
                     self.root / "refs" / (receipt.request_key + ".json"),

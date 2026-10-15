@@ -17,6 +17,7 @@ from urllib import request as urllib_request
 
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
+from lcats.gettenberg import _resource_refresh
 from lcats.gettenberg import _resource_types
 
 _TRANSIENT = {408, 429, 500, 502, 503, 504}
@@ -402,7 +403,7 @@ def _body(response, destination, max_bytes, budget, io_timeout):
     return digest.hexdigest(), size
 
 
-def acquire(source, policy, cache, budget):
+def acquire(source, policy, cache, budget, *, previous=None):
     """Stream one original representation, without alternate URL/format fallback."""
     pacing = Pacing(cache.root / "pacing.json", policy.min_interval)
     client = opener(budget, policy.io_timeout)
@@ -417,11 +418,13 @@ def acquire(source, policy, cache, budget):
         temporary = cache.temporary()
         published = False
         try:
+            conditional = _resource_refresh.validators(previous, url)
             request = urllib_request.Request(
                 url,
                 headers={
                     "Accept-Encoding": "identity",
                     "User-Agent": "LCATS-gettenberg/1",
+                    **conditional,
                 },
                 method="GET",
             )
@@ -491,6 +494,20 @@ def acquire(source, policy, cache, budget):
                     pacing.defer(url, max(2.0 * 2**retries, server_delay or 0))
                     retries += 1
                     continue
+                if status == 304 and previous is not None:
+                    receipt = _resource_refresh.validated_receipt(
+                        previous, url, redirects, conditional, _headers(response)
+                    )
+                    budget.remaining()
+                    artifact = _resource_io.local_call(
+                        cache.revalidate,
+                        previous,
+                        receipt,
+                        policy.byte_limit(source),
+                        min(policy.lock_timeout, budget.remaining()),
+                    )
+                    published = True
+                    return artifact
                 if status != 200:
                     raise _resource_types.ResourceTransportError(
                         "http_status",
@@ -505,7 +522,7 @@ def acquire(source, policy, cache, budget):
                     policy.io_timeout,
                 )
                 receipt = _resource_types.RetrievalReceipt(
-                    1,
+                    2,
                     source.key,
                     source.source_uri,
                     source.request_url,
@@ -517,6 +534,9 @@ def acquire(source, policy, cache, budget):
                     size,
                     datetime.datetime.now(datetime.timezone.utc).isoformat(),
                     headers,
+                    previous_receipt_sha256=(
+                        previous.receipt_sha256 if previous is not None else None
+                    ),
                 )
                 budget.remaining()
                 artifact = _resource_io.local_call(

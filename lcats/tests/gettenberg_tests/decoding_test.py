@@ -42,7 +42,7 @@ class DecodingTests(unittest.TestCase):
         digest = hashlib.sha256(data).hexdigest()
         request = resources.SourceRequest.from_url("https://example.org/book")
         receipt = resources.RetrievalReceipt(
-            1,
+            2,
             request.key,
             request.source_uri,
             request.request_url,

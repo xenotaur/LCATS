@@ -824,10 +824,10 @@ class ResourceTests(unittest.TestCase):
             / "docs/how-to/gettenberg-resources.md"
         )
         blocks = re.findall(r"```python\n(.*?)```", doc.read_text(), re.S)
-        self.assertEqual(len(blocks), 5)
+        self.assertEqual(len(blocks), 6)
         self.server.routes["/story.txt"] = [Reply()]
         # The final examples accept catalog metadata, but selection must not
-        # add requests to the single acquisition performed by the first examples.
+        # add requests beyond the explicit acquisition and refresh examples.
         ebook = models.Ebook(
             42,
             "urn:ebook:42",
@@ -851,7 +851,8 @@ class ResourceTests(unittest.TestCase):
         self.assertIn("blocked offline cache miss", output.stdout.getvalue())
         self.assertEqual(namespace["artifact"].path.read_bytes(), Reply().body)
         self.assertIs(namespace["selection"].resource, ebook.resources[1])
-        self.assertEqual(len(self.server.requests), 1)
+        self.assertEqual(len(self.server.requests), 2)
+        self.assertEqual(namespace["refreshed"].receipt.status, 200)
 
     def test_obsolete_http_date_retry_after_is_interpreted_in_utc(self):
         stamp = datetime.datetime.fromtimestamp(

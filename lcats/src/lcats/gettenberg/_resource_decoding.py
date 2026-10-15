@@ -33,9 +33,13 @@ def _source(source, options):
     # Validate the same receipt schema used for cache reads, including header
     # bounds/duplicates and origin identity, before using any declaration.
     try:
-        value = dataclasses.asdict(receipt)
+        value = _resource_types.receipt_value(receipt)
         value["headers"] = [list(pair) for pair in receipt.headers]
         value["redirects"] = list(receipt.redirects)
+        if receipt.schema_version == 2:
+            value["validation_headers"] = [
+                list(pair) for pair in receipt.validation_headers
+            ]
         request = _resource_types.SourceRequest(
             receipt.source_uri, receipt.request_url, receipt.kind, receipt.route_policy
         )

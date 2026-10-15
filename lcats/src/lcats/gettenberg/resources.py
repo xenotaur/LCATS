@@ -10,6 +10,7 @@ from lcats.gettenberg import _decode_types
 from lcats.gettenberg import _resource_decoding
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
+from lcats.gettenberg import _resource_refresh
 from lcats.gettenberg import _resource_selection
 from lcats.gettenberg import _resource_transport
 from lcats.gettenberg import _resource_types
@@ -71,7 +72,11 @@ class ResourceStore:
             )
 
     def plan(
-        self, request: SourceRequest, *, policy: NetworkPolicy = NetworkPolicy()
+        self,
+        request: SourceRequest,
+        *,
+        policy: NetworkPolicy = NetworkPolicy(),
+        refresh: bool = False,
     ) -> AcquisitionPlan:
         """Inspect a verified cache hit or explain a miss, without writes or requests.
 
@@ -79,14 +84,29 @@ class ResourceStore:
         Reading a hit hashes its bytes, bounded by the policy's size limit.
         """
         self._arguments(request, policy)
+        if type(refresh) is not bool:
+            raise ResourceInputError("invalid_arguments", "refresh must be a bool")
         with _resource_io.translated_errors():
             artifact = self._cache.lookup(request, policy.byte_limit(request))
-        if artifact is not None:
+        if artifact is not None and not refresh:
             return AcquisitionPlan(request, "reuse", "verified original", artifact)
         if not policy.online:
-            return AcquisitionPlan(request, "blocked", "offline cache miss")
+            reason = (
+                "refresh requires online policy" if refresh else "offline cache miss"
+            )
+            return AcquisitionPlan(request, "blocked", reason, artifact)
         if not policy.permits(request.request_url):
-            return AcquisitionPlan(request, "blocked", "origin not permitted")
+            return AcquisitionPlan(request, "blocked", "origin not permitted", artifact)
+        if artifact is not None:
+            conditional = _resource_refresh.validators(
+                artifact, artifact.receipt.final_url
+            )
+            reason = (
+                "conditional GET at cached final URL"
+                if conditional
+                else "unconditional GET; no usable validators"
+            )
+            return AcquisitionPlan(request, "refresh", reason, artifact)
         return AcquisitionPlan(request, "download", "permitted cache miss")
 
     def fetch(
@@ -116,3 +136,39 @@ class ResourceStore:
                 if artifact is not None:
                     return artifact
                 return _resource_transport.acquire(request, policy, self._cache, budget)
+
+    def refresh(
+        self, request: SourceRequest, *, policy: NetworkPolicy = NetworkPolicy()
+    ) -> SourceArtifact:
+        """Explicitly validate a cached original or acquire a complete replacement.
+
+        Requires an online policy even on a hit. Valid validators are sent only
+        at the exact cached final URL. A matching 304 keeps the original bytes
+        and retrieval time, appending a validation receipt; a 200 publishes a new
+        acquisition. Failures preserve the prior entry except when a publication
+        error explicitly reports that reference replacement already occurred.
+
+        Calls overlapping another successful update reuse that update after the
+        lock. Sequential explicit refreshes each request validation. This method
+        never silently returns stale bytes on a network failure.
+        """
+        plan = self.plan(request, policy=policy, refresh=True)
+        if plan.action == "blocked":
+            raise ResourcePolicyError("network_denied", plan.reason)
+        budget = _resource_transport.Budget(policy.seconds(request))
+        with _resource_io.translated_errors():
+            self._cache.directories(create=True)
+            with _lifecycle_io.writer_lock(
+                self._cache.root / "network.lock",
+                min(policy.lock_timeout, budget.remaining()),
+            ):
+                budget.remaining()
+                artifact = self._cache.lookup(request, policy.byte_limit(request))
+                if artifact is not None and (
+                    plan.artifact is None
+                    or artifact.receipt_sha256 != plan.artifact.receipt_sha256
+                ):
+                    return artifact
+                return _resource_transport.acquire(
+                    request, policy, self._cache, budget, previous=artifact
+                )
