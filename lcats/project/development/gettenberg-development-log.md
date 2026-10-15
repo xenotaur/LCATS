@@ -1482,3 +1482,14 @@ and new-doc relative links/fence pairs pass. Initial 2816-test suite also passed
 before the additional boundary test and independent review repair. Qualification
 maps A18/A19 to reviewed source/test/doc hashes and explicit command evidence.
 Source is frozen for PR/hosted review; any repair invalidates affected evidence.
+
+### Internal PR checkpoint — 05:25 UTC
+
+[PR #512](https://github.com/xenotaur/LCATS/pull/512) opened against
+codex/gettenberg-acquisition with implementation commit a1ac41bb. Native primary
+[execution](../executions/WI-GETTENBERG-0005/2026_10_15_05_24_50_WI_GETTENBERG_0005_DECODING.md)
+and [review record](../executions/AD_HOC/2026_10_15_05_18_01_WI_GETTENBERG_0005_DECODING_SELFREVIEW.md)
+retain the session pointer and PR/rerun backlink. Source frozen; first hosted rounds
+and exact-head CI remain pending. No worker active. Roughly 23 elapsed minutes;
+22 minutes to target, 37 to hard stop. Remaining scope is validation/review/repair,
+then internal integration if qualified, otherwise a resumable open PR.
