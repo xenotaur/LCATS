@@ -32,7 +32,12 @@ lint passes. LRH0 errors/351 existing warnings; WI prompt-ready; diff clean.
 Cold independent review:408 Gettenberg tests, no actionable findings. All seven
 frozen source/test/doc hashes unchanged. See
 [qualification](../../development/evidence/gettenberg-routing-20261015/qualification.json).
-Hosted reviews and exact-head CI remain pending; no integration acceptance yet.
+Both first hosted reviews completed without findings; all four final-head CI
+checks passed. Internally merged as26f3828e7235ea6f388d5a4e2671b88387a16151;
+accepted head49c2cc448b235b182e1dc0014c0e6aa669264ff4 and base0a4aa7a8 verified.
+Merge tree equals accepted head; all seven hashes unchanged. See
+[integration evidence](../../development/evidence/gettenberg-routing-20261015/integration.json).
+This is staged acceptance only; main and native terminal status are unchanged.
 
 # Follow-up
 

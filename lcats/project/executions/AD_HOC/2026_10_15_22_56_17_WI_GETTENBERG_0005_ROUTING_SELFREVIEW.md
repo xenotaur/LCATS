@@ -33,5 +33,8 @@ canonical2886 tests plus LRH/readiness. No finding required reproduction.
 
 # Follow-up
 
-First hosted rounds and exact-head CI remain mandatory before internal merge.
+Both first hosted rounds subsequently completed without findings and all four
+final-head CI checks passed. PR516 internally merged; the final head changes
+only record backlinks/runlog relative to hosted-reviewed source. No recheck or
+manual hosted retrigger was needed; all seven source hashes match after merge.
 No main promotion; primary and side records remain in_progress.

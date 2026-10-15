@@ -2077,3 +2077,43 @@ PR516 opened against codex/gettenberg-acquisition at23:00 UTC, source commit
 f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f. Both native records now carry the PR and
 source-commit backlinks. This evidence-only follow-up changes no reviewed source,
 tests or user docs. First hosted rounds and CI are running; no retrigger.
+
+
+## Routing run integration and closeout — 2026-10-15 23:07 UTC
+
+[PR516](https://github.com/xenotaur/LCATS/pull/516) merged at23:06:12 UTC into
+codex/gettenberg-acquisition as26f3828e7235ea6f388d5a4e2671b88387a16151. Immediately
+before merge, fresh base0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1 and final
+head49c2cc448b235b182e1dc0014c0e6aa669264ff4 matched the intended target. All4
+final-head CI checks passed. Copilot recommended approval with0 findings; Codex
+completed with has_any_findings=false and has_unresolved_findings=false. Read
+all review bodies, issue comments and threads without recency/outdated filters;
+all pagination exhausted,0 threads. No manual hosted retrigger or recheck.
+
+Both hosted reviewers examined source commitf0cbb30f; the later head only added
+native PR/commit backlinks and a runlog entry. All seven frozen source/test/doc
+hashes matched. After merge, both expected parents and exact accepted-head tree
+were verified. Canonical2886-test evidence applies unchanged; no redundant full
+suite after evidence-only edits. [Integration evidence](evidence/gettenberg-routing-20261015/integration.json)
+records acceptance, CI, hosted coverage, source hashes and remaining limitations.
+
+Run used about23 minutes of its60-minute target/90-minute hard limit, one cold
+review assignment under3 worker minutes, peak2 agents including coordinator.
+Shared weekly account usage15% at launch,17% before hosted review,19% at closeout;
+these observations are not attributable run cost. No extra scope, automatic
+renewal, real ebook/archive request or mirror operational probe. Main remains
+210468236ff4db78d2d7c5218562fa2d166e6400; watched-skill/consent policy untouched.
+Native executions stay in_progress and WI0005 proposed. Operational default-mirror
+qualification, consumer/CLI migration and later planned work remain; no whole-WI
+completion claim. No active worker remains. This evidence-only integration
+checkpoint receives LRH/readiness/diff validation before push.
+
+Process observation: a bounded search of the upstream library's dedicated URL
+translation module resolved the alias gap that general mirror documentation had
+left open. Cross-checking converter filenames and independently implementing the
+finite protocol facts avoided importing upstream code or relying on its apparent
+template-key bug. Explicit endpoint roots kept route qualification separate from
+live endpoint availability. One coordinator and one compact cold review were
+sufficient; the unused budget did not become another work-item grant. Executable
+how-to tests and unchanged-source fingerprints allowed the remaining time to be
+spent on hosted/CI gates, not repetitive product checks.

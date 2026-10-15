@@ -143,3 +143,22 @@ records the exact source identities and review disposition. This supersedes the
 earlier checkpoint's pending A15/A16 status. Qualified automatic routing remains;
 consumer/CLI migration follows in its planned work. Status remains proposed
 until human-approved main delivery; whole-WI completion is not claimed.
+
+
+## Staged offline-routing acceptance — 2026-10-15
+
+A22's explicit-root routing tranche is independently reviewed and internally
+integrated through [PR516](https://github.com/xenotaur/LCATS/pull/516), merge
+26f3828e7235ea6f388d5a4e2671b88387a16151, verified head
+49c2cc448b235b182e1dc0014c0e6aa669264ff4. Main/generated/catalog routes and17 published
+aliases preserve source identity; route-aware selection retains original order
+and diagnostics. All113 saved RDF resource nodes map; unsafe/unsupported routes
+are explicit. Canonical2886 tests, independent408 Gettenberg tests, clean first
+hosted reviews and four passing final-head CI checks support this acceptance.
+[Integration evidence](../../development/evidence/gettenberg-routing-20261015/integration.json)
+records exact identities, sources, scope and limitations.
+
+No operational default mirror is selected or qualified. That choice/check remains
+before first-use CLI integration, alongside consumer migration and other planned
+work; historical layout coverage is not claimed. This does not resolve the whole
+WI or promote main. Native status remains proposed until human-approved delivery.
