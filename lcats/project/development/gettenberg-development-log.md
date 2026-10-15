@@ -1932,3 +1932,33 @@ pass; LRH0errors/351existing warnings. Qualification JSON maps A15/A16 to concre
 fixtures and preserves source identities. No implementation repair was needed
 after independent review. Open the integration-target PR and await both hosted
 authors and exact-head CI; main remains outside this grant.
+
+### Hosted repair and bounded checkpoint — 16:48 UTC
+
+PR514 opened on8b4b3e1d; native backlinks974d6f61 only changed2 record lines.
+Both first hosted authors reviewed: Copilot0 findings (runtime unavailable there),
+Codex1 validP2. All4 pre-repair checks passed. A lone surrogate in source_uri or
+headers passed ASCII receipt canonicalization but failed strictUTF8 generation
+publication after ingestion. Coordinator reproduced both failures before repair.
+Preflight now rejects invalidUTF8 JSON before retention/build and on read.
+Independent recheck1 cleared all20 additional surrogate probes plus16 offline
+tests;9 candidate hashes match,7 unchanged. Composition17 tests pass; canonical
+2868 tests pass in72.643s; format/lint pass. Evidence: hosted-repair.json.
+
+Clock observations jumped from15:54:28 to16:43:55 during hosted-review inspection.
+The available tool evidence does not establish the cause. This time counts against
+the original15:20:21 start and16:50:21 hard stop; no renewal or exemption inferred.
+Switched to bounded repair/checkpoint only. One assignment plus one recheck used
+under7 worker minutes; no worker active. No manual hosted retrigger, main change,
+bulk download, policy change or scope expansion. Side repair label was minted
+after repair started; primary instruction identity predates all work.
+
+Push qualified repair, then stop without internal merge. Final-head CI and full
+head/base/review-thread verification remain for a subsequent authorized integration
+pass. A15/A16 implementation is a qualified PR candidate, not staged integration
+acceptance. Native executions stay in_progress and WI proposed. Original
+qualification evidence remains historical; hosted-repair.json supersedes its
+source hashes/test count. Shared usage last observed12% versus10% at launch;
+per-run cost unavailable. Process lesson: recheck wall-clock budget immediately
+after delayed tools/resumption and retain a checkpoint reserve; do not let a
+clock gap silently renew the grant.

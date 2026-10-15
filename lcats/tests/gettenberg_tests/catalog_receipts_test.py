@@ -302,6 +302,29 @@ class CatalogReceiptTests(unittest.TestCase):
                 with self.assertRaises(errors.CatalogError):
                     self.manager.activate(first.generation_id)
 
+    def test_non_utf8_receipt_rejected_before_retention_and_build(self):
+        for field in ("source_uri", "header"):
+            with self.subTest(field=field):
+                receipt = self.original.receipt
+                if field == "source_uri":
+                    request = resources.SourceRequest(
+                        "fixture-" + chr(0xD800), receipt.request_url, kind="archive"
+                    )
+                    receipt = dataclasses.replace(
+                        receipt, source_uri=request.source_uri, request_key=request.key
+                    )
+                else:
+                    receipt = dataclasses.replace(
+                        receipt, headers=(("etag", chr(0xD800)),)
+                    )
+                source = self.with_receipt(self.original, receipt)
+                with self.assertRaises(errors.CatalogError):
+                    self.manager.setup(source)
+                self.assertEqual(self.manager.status()["candidates"], [])
+                self.assertEqual(
+                    list((self.manager.root / "archives").glob("*.tar.bz2")), []
+                )
+
     def test_large_valid_receipt_and_legacy_receipt_schema(self):
         for version in (1, 2):
             with self.subTest(version=version):

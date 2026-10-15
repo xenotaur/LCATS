@@ -27,3 +27,11 @@ No verified P0/P1/P2 findings. No fixes applied; no top finding needed re-verifi
 # Follow-up
 
 First hosted reviews and exact-head CI remain required. Up to two same-scope rechecks retained within the grant; final one reserved for all hosted feedback. Native state remains in_progress until human-approved main promotion.
+
+## Hosted repair checkpoint
+
+One verified P2 Unicode serialization boundary repaired and independently cleared
+in same-scope recheck1. Final canonical 2868 tests pass in 72.643s.
+[Repair evidence](../../development/evidence/gettenberg-catalog-20261015/hosted-repair.json)
+supersedes the initial source hashes and test count. Final-head CI and internal
+integration remain pending; this record remains in_progress.

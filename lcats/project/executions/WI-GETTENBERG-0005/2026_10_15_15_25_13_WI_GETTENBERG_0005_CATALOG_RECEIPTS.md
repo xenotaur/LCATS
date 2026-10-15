@@ -27,3 +27,11 @@ Initial 197 focused tests passed in8.158s; formatting/lint pass. First loopback 
 # Follow-up
 
 Qualified automatic routing and consumer/CLI migration remain outside this tranche. Main promotion and native terminal closeout remain human-approved. No new grant is implied.
+
+## Hosted repair checkpoint
+
+One verified P2 Unicode serialization boundary repaired and independently cleared
+in same-scope recheck1. Final canonical 2868 tests pass in 72.643s.
+[Repair evidence](../../development/evidence/gettenberg-catalog-20261015/hosted-repair.json)
+supersedes the initial source hashes and test count. Final-head CI and internal
+integration remain pending; this record remains in_progress.
