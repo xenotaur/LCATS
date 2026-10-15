@@ -4,10 +4,9 @@
 verified local cache. It does not require a Gutenberg metadata catalog or
 `gutenbergpy`. The existing `lcats gather` command has not migrated to this API.
 
-This is the acquisition-core tranche of WI-GETTENBERG-0005. Automatic Gutenberg
-alias/mirror routing, preferred-resource selection, conditional refresh, text
-and container decoding, and catalog-manifest receipt integration are not yet
-implemented. Every content type can be fetched as original bytes using an
+This covers acquisition and pure resource selection within WI-GETTENBERG-0005.
+Automatic Gutenberg alias/mirror routing, conditional refresh, text/container
+decoding, and catalog-manifest receipt integration are not yet implemented. Every content type can be fetched as original bytes using an
 explicit permitted URL; that does not promise an extractor for the format.
 
 ## Public interface
@@ -16,6 +15,7 @@ Import the module with `from lcats.gettenberg import resources`.
 
 | Interface | Behavior |
 |---|---|
+| `select_resource(ebook, preferences=DEFAULT_PREFERENCES)` | Pure declared-format selection with stable source-order ties and diagnostics; see below. |
 | `SourceRequest(source_uri, request_url, kind="resource", route_policy="explicit-url-v1")` | Immutable source identity and explicit request route. No URL-pattern guessing. |
 | `SourceRequest.from_url(url, kind="resource")` | Convenience constructor retaining the original supplied URI. |
 | `NetworkPolicy(...)` | Immutable authority and resource bounds; offline by default. |
@@ -179,3 +179,40 @@ See [the acquisition how-to](../how-to/gettenberg-resources.md) for planning and
 explicit download examples. The control-plane
 [acceptance matrix](../../project/development/gettenberg-acquisition-design.md)
 tracks the remaining work separately from this implemented reference.
+
+## Pure resource selection
+
+`resources.select_resource(ebook, *, preferences=resources.DEFAULT_PREFERENCES)`
+returns an immutable `ResourceSelection`. It performs no I/O and requires no cache
+or catalog setup. The default ordered preferences are `text/plain` with UTF-8,
+any `text/plain`, then `text/html`. Supply a nonempty tuple of
+`ResourcePreference(media_type, charset=None)` to replace that order. Media types
+are exact, case-insensitive type/subtype strings without parameters or wildcards;
+charset aliases known to Python normalize equally, unknown charset names compare
+case-insensitively. None accepts any or absent charset. Invalid caller arguments
+raise `ResourceInputError`. Source media claims must use ASCII MIME syntax;
+malformed, empty or extended (RFC 2231) charset parameters are diagnosed and
+ignored as whole claims rather than guessed.
+
+Ranking is preference index, resource source index, then format source index.
+Every format claim is considered, and all original metadata is preserved. A result
+contains `resource` (the original object), `source_index`, `preference_index`,
+`matched_format` (the unchanged source claim), `diagnostics`, and
+`policy_version="declared-media-v1"`. The four selection fields are None when no
+claim matches. Choosing PDF/EPUB/audio explicitly is supported as metadata
+selection; it does not imply an extractor or permitted download route.
+
+Diagnostics are immutable `SelectionDiagnostic` records with `code`, `message`,
+and optional zero-based `resource_index` / `format_index`. Stable codes are:
+
+| Code | Meaning |
+|---|---|
+| `invalid_format` | Malformed media claim ignored; never silently treated as plain text. |
+| `conflicting_charsets` | Conflicting charset parameters in a claim prevent charset-specific matching; generic media matching remains possible. |
+| `unmatched_resource` | None of this resource's claims matches a preference. |
+| `source_order_tie` | Multiple resources match the winning preference; source order decides. |
+| `no_match` | No resource matches any supplied preference. |
+
+Selection uses declared formats, never URL suffixes, byte sniffing or speculative
+requests. Its encoding hints are not decoding authority. A later decoder must
+independently validate encoding and container evidence.

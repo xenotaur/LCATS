@@ -1241,3 +1241,111 @@ Remaining WI-0005: conditional refresh/304 and provenance composition, pure reso
 selection, strict text/container decoding, and qualified automatic Gutenberg routes.
 Next bounded grant should select one of those coherent tranches; do not interpret
 this run's success as authorization for another run or main promotion.
+
+## 2026-10-15 02:09 UTC — Resource selection sprint grant
+
+Human accepted the proposed A17-only sprint with "go for it!". Start 02:09:18 UTC,
+target 02:24:18, hard stop 02:29:18, including review/checkpoint. Final 7–8 minutes
+reserved for qualification. Base c447c15be9f2314201750b9615fdef04af7bf5d9 on
+codex/gettenberg-acquisition; child codex/gettenberg-resource-selection. One cold
+review assignment, maximum 8 worker minutes, two concurrent agents including
+coordinator; no recursive delegation. No main promotion, WI completion, live
+Gutenberg requests, policy changes or automatic renewal. Existing charter adapter
+authorizes routine bounded implementation and internal integration only.
+
+Plan: resources.select_resource with immutable preferences/results/diagnostics,
+private pure selection module, focused unittest coverage, reference/how-to updates.
+Default UTF-8 plain text, other plain text, HTML; explicit media preferences may
+select any catalog format without promising an extractor. Stable source-order
+ties; no URL/extension guesses, I/O, downloads or mutation. No match is a typed
+result, malformed caller preferences a ResourceInputError. MIME claims are parsed
+conservatively; malformed claims are diagnosed rather than treated as text/plain.
+Multiple format claims remain preserved. Selection is evidence of a declared
+format, not verified byte encoding or route qualification.
+
+Readiness yes/no warnings; prior-art verdict already in WI, no select_resource
+implementation found in current gettenberg. Demand WI-0005/A17 remains partial.
+WI-0002 canonically resolved on main and inherited at base. Skill lrh-implement
+and its required references, lrh-self-review and workflow read under charter
+adapter; package/root AGENTS and STYLE apply. LRH 0.2.5.dev3596+gd86755f50;
+watched gates not stale, persistent skip consent invalid; explicit human run grant
+is authority, consent untouched. Python environment LCATS, explicit worktree
+PYTHONPATH. Canonical format/lint/test/LRH/readiness/diff checks required.
+Shared account weekly meter 70% at launch; per-run cost unavailable.
+
+### Selection sprint qualification checkpoint — 02:15 UTC
+
+17 focused tests pass. Coordinator boundary probe reproduced a NUL-containing
+charset raising ValueError and an invalid non-ASCII codec suffix being normalized
+as UTF-8; source claims now reject controls/non-ASCII and invalid/extended charset
+parameters with invalid_format diagnostics. New regression subcases cover these.
+First canonical run 2761 tests/78.420s failed one executable-documentation test:
+it expected three code blocks, now five. Expanded its real metadata fixture and
+executed all five examples, asserting selection leaves the one-request count
+unchanged; full rerun in progress. No tests skipped or assertions weakened.
+
+One cold independent review dispatched 02:15:18, deadline 02:22:18 (7 minutes),
+against the full diff including new files at base c447c15b. It runs concurrently
+with the repaired canonical test run to preserve the short-run review reserve;
+this is a sequencing adaptation, not waived validation or early PR qualification.
+Shared weekly meter 71% immediately before dispatch. Exact reviewed hashes and
+coordinator verification of findings will be retained. No second assignment.
+
+### Selection review repair — 02:18 UTC
+
+The first corrected canonical suite passed 2761 tests. Cold review then found
+one P2 in stdlib email parameter normalization: malformed charset*1 became UTF-8,
+and a 5000-digit continuation index raised raw ValueError. Coordinator directly
+reproduced both before accepting the finding. Replaced general email parsing with
+validated raw parameter parsing; all charset continuations are explicitly rejected.
+18 focused tests pass, including missing-zero/split/huge continuation regressions.
+Same-assignment recheck and canonical validation run concurrently. No new features.
+
+### Selection qualification complete — 02:20 UTC
+
+Final canonical suite passes 2762 tests in 77.397 seconds; 18 focused tests.
+Format/lint pass (260 Python files); LRH 0 errors / 351 existing warnings.
+Reviewer recheck cleared the P2 and reported no further actionable findings;
+coordinator matched all six product/test/doc SHA256 values. One assignment with
+one same-scope recheck used under 4 worker minutes. No active reviewer remains.
+A17 maps to selection_test.py and the five-example loopback documentation test.
+Qualification JSON preserves exact reviewed content and the initial failed run.
+Opening an internal PR; main and native WI/execution lifecycle remain untouched.
+
+### Hosted review repair and stop decision — 02:26 UTC
+
+All four checks passed on a1a766a7; first Codex review completed without findings.
+Copilot then reported one P2 at the 15-minute target: regex finditer rescanned
+whitespace padding quadratically. Coordinator reproduced 5000/10000 spaces at
+0.129/0.509 seconds. Repaired with stripped input and parameter matches anchored
+to the preceding match end, while retaining the original matched_format claim.
+Added 100000-space surrounding/inter-parameter regression. After repair the same
+probe measured 0.00048/0.00093 seconds, and 100000 spaces took 0.00949 seconds.
+These are local diagnostic measurements, not a portable performance guarantee.
+
+Final same-assignment recheck (second of two) resumed within the eight-minute
+cumulative reviewer allowance; its new stop is 02:27:15, within the run hard stop.
+Full tests rerun. Internal integration is deferred: repair-head hosted CI cannot
+be assumed from the prior green head. Preserve the qualified repair/checkpoint,
+record pending hosted validation, and stop without main or integration merge.
+Process lesson: reserve time for the first hosted round even when cold review is
+clean. Small pure APIs can still have metadata-parser performance edge cases.
+
+### Selection sprint stop checkpoint — 02:27 UTC
+
+Final repaired suite passes 2763 tests in 76.797 seconds; 19 focused selection
+tests. Format/lint and diff checks pass; LRH 0 errors / 351 existing warnings.
+All six final independently reviewed hashes match. One review assignment, two
+same-scope rechecks, under five cumulative worker minutes; no active workers.
+
+PR511 remains open against codex/gettenberg-acquisition. Previous head a1a766a7
+had all four hosted checks green; final repair requires its own hosted checks.
+No integration/main merge, force push, branch deletion or bulk download occurred.
+Execution records stay in_progress and WI-0005 stays proposed. Next action is
+verify repair-head CI and review state, then coordinator integration under a new
+grant. Remaining feature scope is refresh, decoding, catalog provenance and routing.
+
+Final evidence: [hosted-repair.json](evidence/gettenberg-selection-20261015/hosted-repair.json).
+Shared weekly meter rose from70% to72%; this is account-wide, not per-run cost.
+The sprint used approximately18minutes including the late review repair and
+checkpoint, within the20-minute hard stop. No implicit continuation or renewal.

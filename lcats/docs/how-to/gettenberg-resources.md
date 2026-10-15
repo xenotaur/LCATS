@@ -62,3 +62,31 @@ implicit repair or destructive cleanup operation.
 
 See [the reference](../reference/gettenberg-network.md) for exact limits, errors,
 durability guarantees and the currently unimplemented refresh/decoding interfaces.
+
+## Choose a catalog resource without downloading
+
+Given an `ebook` returned by the catalog, inspect the preferred declared format:
+
+```python
+selection = resources.select_resource(ebook)
+if selection.resource is None:
+    print("No supported default format", selection.diagnostics)
+else:
+    print(selection.resource.uri, selection.matched_format)
+    print(selection.diagnostics)
+```
+
+Defaults prefer declared UTF-8 plain text, then other plain text, then HTML.
+You can supply ordered preferences, including formats without a text extractor:
+
+```python
+selection = resources.select_resource(
+    ebook,
+    preferences=(resources.ResourcePreference("application/pdf"),),
+)
+```
+
+This only selects metadata. It does not establish decoder support, verify bytes,
+resolve Gutenberg aliases, authorize an origin or fetch anything. All original
+`ebook.resources` remain available for explicit selection. Once you have a
+qualified concrete download URL, use the acquisition workflow above.
