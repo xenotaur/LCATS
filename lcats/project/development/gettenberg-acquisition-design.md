@@ -73,8 +73,10 @@ pages below ground this boundary; the two-second interval is the WI's conservati
 local default, not a claim of universal upstream permission.
 
 **Routing checkpoint:** see [the qualification table](gettenberg-route-qualification.md)
-for documented endpoints, inferred mappings and unresolved aliases. A22 remains
-open; the table does not establish live availability or full-format coverage.
+for documented endpoints, pinned resolver evidence and qualified offline mappings.
+The 2026-10-15 implementation section supersedes the initial unresolved aliases.
+Automatic routing requires explicit main/generated roots; operational default-mirror
+qualification remains open. The table does not establish live availability.
 
 **Implementation preflight still required:** choose the concrete supported default
 endpoint/mirror mapping from the official listings and check representative main,

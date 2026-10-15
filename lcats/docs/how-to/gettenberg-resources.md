@@ -5,7 +5,8 @@ No Gutenberg metadata catalog is required. First choose a cache directory and
 confirm that the source's automated-access policy permits the request. For
 Gutenberg, consult its [robot policy](https://www.gutenberg.org/policy/robot_access.html)
 and documented machine-access/mirror endpoints; an ebook landing page or format
-alias is not a qualified mirror URL. This API does not yet resolve those aliases.
+alias is not itself a mirror URL. Use the [offline routing workflow](gettenberg-routing.md)
+to map qualified Gutenberg aliases to configured mirror roots.
 
 The URL below is illustrative; replace it with your actual source and allowed
 origin before executing the download step.
@@ -109,4 +110,6 @@ selection = resources.select_resource(
 This only selects metadata. It does not establish decoder support, verify bytes,
 resolve Gutenberg aliases, authorize an origin or fetch anything. All original
 `ebook.resources` remain available for explicit selection. Once you have a
-qualified concrete download URL, use the acquisition workflow above.
+qualified concrete download URL, use the acquisition workflow above, or compose
+selection and routing with `select_routable_resource` as described in the
+[routing workflow](gettenberg-routing.md).

@@ -5,8 +5,8 @@ verified local cache. It does not require a Gutenberg metadata catalog or
 `gutenbergpy`. The existing `lcats gather` command has not migrated to this API.
 
 This covers acquisition and pure resource selection within WI-GETTENBERG-0005.
-Automatic Gutenberg alias/mirror routing and catalog-manifest receipt integration
-are not yet implemented. Explicit conditional refresh is available. [Offline decoding](gettenberg-decoding.md)
+Qualified offline Gutenberg routing with caller-configured mirror roots is available.
+Catalog-manifest receipt integration and explicit conditional refresh are available. [Offline decoding](gettenberg-decoding.md)
 is a separate operation. Every content type can be fetched as original bytes using an
 explicit permitted URL; that does not promise an extractor for the format.
 
@@ -16,7 +16,9 @@ Import the module with `from lcats.gettenberg import resources`.
 
 | Interface | Behavior |
 |---|---|
-| `select_resource(ebook, preferences=DEFAULT_PREFERENCES)` | Pure declared-format selection with stable source-order ties and diagnostics; see below. |
+| `select_resource(ebook, preferences=DEFAULT_PREFERENCES, eligible_indices=None)` | Pure declared-format selection with stable source-order ties and diagnostics; see below. |
+| `GutenbergRoutes(main_root, generated_root, catalog_url=...)` | Validated endpoint layout; pure `resolve(source_uri)` and `catalog_request()`. No default mirror or network authority. |
+| `select_routable_resource(ebook, routes=..., preferences=DEFAULT_PREFERENCES)` | Declared-format selection among qualified routes, with all per-resource route diagnostics. |
 | `SourceRequest(source_uri, request_url, kind="resource", route_policy="explicit-url-v1")` | Immutable source identity and explicit request route. No URL-pattern guessing. |
 | `SourceRequest.from_url(url, kind="resource")` | Convenience constructor retaining the original supplied URI. |
 | `NetworkPolicy(...)` | Immutable authority and resource bounds; offline by default. |
@@ -243,7 +245,7 @@ tracks the remaining work separately from this implemented reference.
 
 ## Pure resource selection
 
-`resources.select_resource(ebook, *, preferences=resources.DEFAULT_PREFERENCES)`
+`resources.select_resource(ebook, *, preferences=resources.DEFAULT_PREFERENCES, eligible_indices=None)`
 returns an immutable `ResourceSelection`. It performs no I/O and requires no cache
 or catalog setup. The default ordered preferences are `text/plain` with UTF-8,
 any `text/plain`, then `text/html`. Supply a nonempty tuple of
@@ -272,8 +274,94 @@ and optional zero-based `resource_index` / `format_index`. Stable codes are:
 | `conflicting_charsets` | Conflicting charset parameters in a claim prevent charset-specific matching; generic media matching remains possible. |
 | `unmatched_resource` | None of this resource's claims matches a preference. |
 | `source_order_tie` | Multiple resources match the winning preference; source order decides. |
-| `no_match` | No resource matches any supplied preference. |
+| `ineligible_resource` | Excluded by the caller's explicit capability filter; original source index retained. |
+| `no_match` | No eligible resource matches any supplied preference. |
 
 Selection uses declared formats, never URL suffixes, byte sniffing or speculative
 requests. Its encoding hints are not decoding authority. A later decoder must
 independently validate encoding and container evidence.
+
+
+`eligible_indices=None` considers every resource. A `frozenset` of zero-based
+integer source positions restricts eligibility; an empty set permits none.
+Out-of-range indices, booleans and mutable sets raise `ResourceInputError`.
+Excluded resources still receive malformed-claim diagnostics; the exclusion
+replaces their unmatched-resource diagnostic. Source ties consider eligible
+candidates only. The MIME ranking policy remains `declared-media-v1`.
+
+## Qualified offline Gutenberg routing
+
+`GutenbergRoutes` requires two directory roots: `main_root` contains digit-sharded
+main paths; `generated_root` contains ebook-ID directories (usually the mirror's
+`cache/epub/`, but a separate generated mirror may have another prefix).
+Trailing slash and authority normalization are automatic. Credentials, queries,
+fragments, dot traversal, encoded separators and repeated/encoded percent escapes
+are rejected in roots. Root validation raises `ResourceInputError`.
+`catalog_url` is independent, defaulting to the published
+`https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2` endpoint;
+`catalog_request()` returns an archive-kind request. An override may have a query,
+but not credentials or a fragment. There is **no operational default mirror**.
+
+`resolve(source_uri)` returns immutable `RouteResolution(request, code, message)`.
+Only the canonical `www.gutenberg.org` HTTP(S) origin with default ports qualifies.
+Host case/default-port normalization is allowed; the complete original source URI
+remains in `SourceRequest.source_uri`. Supported positive decimal IDs have no
+leading zeros. Paths are case-sensitive; query/fragment-bearing URLs, unsafe
+escaping/traversal and directory-only paths are refused. There is no network
+probe, filesystem access, suffix fallback, or interpretation of an HTML page.
+
+| Source path | Output relative to configured root |
+|---|---|
+| `/files/84/84-0.txt` | main: `8/84/84-0.txt` |
+| `/files/10001/10001-h/10001-h.htm` | main: `1/0/0/0/10001/10001-h/10001-h.htm` |
+| `/files/1/1.txt` | main: `0/1/1.txt` |
+| `/cache/epub/84/pg84-h.zip` | generated: `84/pg84-h.zip` |
+| `/cache/generated/1001/1001.epub` | generated: `1001/1001.epub` |
+| `/ebooks/84.txt.utf-8` | generated: `84/pg84.txt` |
+| `/ebooks/84.html.images` | generated: `84/pg84-images.html` |
+
+Full nested suffixes and percent escaping are retained for concrete paths.
+Generated aliases use an explicit finite mapping, never MIME-derived extensions:
+
+| Alias | Generated filename for ebook N |
+|---|---|
+| `txt.utf-8` | `pgN.txt` |
+| `html.images`, `html.noimages` | `pgN-images.html`, `pgN.html` |
+| `epub.images`, `epub.noimages`, `epub3.images` | `pgN-images.epub`, `pgN.epub`, `pgN-images-3.epub` |
+| `kindle.images`, `kindle.noimages`, `kf8.images` | `pgN-images.mobi`, `pgN.mobi`, `pgN-images-kf8.mobi` |
+| `pdf.images`, `pdf.noimages` | `pgN-images.pdf`, `pgN.pdf` |
+| `rdf`, `rst.gen` | `pgN.rdf`, `pgN.rst` |
+| `cover.small`, `cover.medium`, `qrcode` | `pgN.cover.small.jpg`, `pgN.cover.medium.jpg`, `pgN.qrcode.png` |
+| `zip` | `pgN-h.zip` |
+
+This independently written policy follows Project Gutenberg's
+[published resolver conventions](https://github.com/gutenbergtools/libgutenberg/blob/d2d6f250374bb2463336ad7c6d0b0d164d0642db/pg_archive_urls.py#L27),
+[converter filename definitions](https://github.com/gutenbergtools/ebookconverter/blob/88e05f3e22640b61bd30444402adcd656f582c37/ebookconverter/EbookConverter.py#L103)
+and [mirror layout documentation](https://www.gutenberg.org/help/mirroring.html).
+No upstream implementation is vendored. These establish URL conventions, not
+current mirror availability, byte equivalence or trust in a mirror's contents.
+Unknown formats, origins and historical `etext*` layouts remain unsupported for
+automatic mapping; an explicit permitted `SourceRequest` remains available.
+
+| Route code | Meaning |
+|---|---|
+| `qualified` | Request constructed under `gutenberg-mirror-v1`. |
+| `invalid_source` | Malformed or prohibited source URL. |
+| `unsupported_origin` | Origin outside the qualified canonical source host. |
+| `unsafe_path` | Ambiguous query/fragment, escaping or path traversal. |
+| `unsupported_layout` | Unknown path/alias, noncanonical ID or directory-only path. |
+| `invalid_destination` | Composed URL exceeds the transport's URL bounds. |
+
+`select_routable_resource` returns immutable `RoutedSelection(selection, routes)`;
+`routes` has exactly one resolution per original resource in source order.
+Its `request` property is the selected request or None. All route failures remain
+inspectable, including those for a higher-ranked MIME preference. An unsupported
+alias cannot hide a qualified alternative. Changing routes can change which
+resource wins; it never claims that the alternative has the same bytes.
+
+Routing never grants network authority. Pass the resulting request to
+`store.plan`/`fetch` with a separate `NetworkPolicy`; every redirect still requires
+permission. Request-cache identity is the actual URL, not the alias: two source
+URIs mapping to one URL may reuse bytes and retain the original acquiring caller's
+receipt. The current selection/request still retains the current metadata URI.
+See [the routing how-to](../how-to/gettenberg-routing.md) for the complete workflow.

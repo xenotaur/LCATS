@@ -2000,3 +2000,80 @@ unchanged, and this explicit grant supplies integration authority.
 Integration checkpoint validation: LRH0 errors/351 existing warnings, WI0005
 prompt-ready, and diff check clean. Evidence-only checkpoint pushed on the
 integration branch; no product file changed after the verified merge.
+
+## Automatic-routing bounded run — 2026-10-15 22:44 UTC
+
+Human explicitly authorized the proposed next run: WI0005 A22 routing
+qualification, pure route planning, route-aware resource selection, tests/docs
+and review. Start22:44:39 UTC; target/feature freeze23:44:39; hard stop00:14:39
+UTC on2026-10-16. Qualification checkpoint by22:59:39; reassess at minute45.
+Use the existing charter adapter: coordinator implementation, one cold reviewer,
+maximum4 total agents/6 assignments/45 worker minutes with15 reserved for review,
+maximum30 per assignment and two same-scope rechecks. Reserve the final recheck
+until all hosted authors and CI. No automatic renewal or main promotion.
+
+Fresh integration base0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1 includes PR514
+A15/A16 staged acceptance and PR513 A14; dependency evidence is ancestral.
+Child codex/gettenberg-routing targets codex/gettenberg-acquisition. Native WI0005
+readiness yes; records remain in_progress/WI proposed until main delivery.
+Prior-art/demand check is present in the WI; route qualification is the identified
+gap, not a replacement transport. Prompt idempotence found no previous execution.
+Prompt: PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_ROUTING)[2026-10-15T22:46:17+00:00].
+LRH0.2.5.dev3596+gd86755f50, watched skills clean, invalid persistent skip consent
+unchanged; explicit charter grant governs this run. Same project environment and
+worktree-bound PYTHONPATH. Shared weekly usage15% at launch, not attributable;
+per-run cost/tokens unavailable. No paid model calls or dependency/CI changes.
+
+Research official documentation and pinned upstream source first; no client URL
+cascades or human-site scraping. Implement only supported mappings and explicit
+unsupported diagnostics; aliases unresolved by evidence stay unresolved. Preserve
+original resource identity and route version. Keep original metadata and stable
+selection preferences. Network policy remains separate from route construction.
+Unit tests are offline, and any operational endpoint check will be separately
+bounded in requests/bytes/time and recorded before execution. No bulk ebook or
+catalog download, corpus change, CLI/gatherer migration, or policy restamping.
+Expected changes: private routing/public facade and small selection extension,
+fixture tests, Diataxis docs, and non-executable control-plane evidence. Canonical
+format/lint/scripts/test, LRH/readiness/diff checks, frozen source manifest before
+independent review, both hosted rounds and exact-head CI precede internal merge.
+If authoritative alias rules remain unavailable, deliver a clearly labeled subset
+and remaining qualification rather than declare WI0005 complete.
+
+Routing qualification checkpoint (before22:52 UTC): authoritative Project Gutenberg
+libgutenberg pg_archive_urls.py at d2d6f250374bb2463336ad7c6d0b0d164d0642db explicitly
+translates /files and /ebooks, including single-digit IDs. ebookconverter
+EbookConverter.py at88e05f3e22640b61bd30444402adcd656f582c37 independently supplies
+format filenames. These factual URL conventions support independently written
+routing; no upstream GPL implementation is vendored/copied. The upstream helper
+has an apparent template-key mismatch; we do not execute it or inherit its loose
+matching/fallback behavior. Unknown aliases remain unsupported, not guessed.
+
+Chosen API: GutenbergRoutes with required separate main_root and generated_root
+(the latter points at the directory containing ebook-ID directories), independent
+catalog_url default; resolve() returns request or coded diagnostic. Pure
+select_routable_resource composes all route decisions with the existing MIME
+selector through an explicit eligible_indices capability input. Original resource
+indices, order, metadata and MIME diagnostics survive. No default mirror is
+selected or operationally claimed; caller configuration plus NetworkPolicy is
+required. No live endpoint probe is needed for this explicit-root tranche.
+
+
+Routing candidate qualification22:59 UTC: implementation frozen before the cold
+review. Seven product/test/doc hashes matched afterward. Reviewer routing_review
+found no actionable findings; independently408 Gettenberg tests and changed-code
+format/lint passed. Coordinator canonical2886 tests in75.963s; format272 files,
+lint, LRH0 errors/351 pre-existing warnings, readiness and diff checks passed.
+All113 saved RDF resources route;17 published aliases plus concrete paths covered.
+All routing how-to blocks execute against a tiny local server; the receipt test
+checks alias reuse without rewriting original acquisition identity. The initial
+new test omitted the parser's required source_name; corrected before source freeze.
+No product repair needed after review. One assignment, under3 worker minutes;
+remaining rechecks reserved, including final until both hosted authors and CI.
+Shared weekly usage17% (launch15%), account-wide and not attributable. Preparing
+first PR push; hosted reviews/CI and internal acceptance still pending. Main,
+corpus, policy consent, dependencies and CI configuration remain unchanged.
+
+PR516 opened against codex/gettenberg-acquisition at23:00 UTC, source commit
+f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f. Both native records now carry the PR and
+source-commit backlinks. This evidence-only follow-up changes no reviewed source,
+tests or user docs. First hosted rounds and CI are running; no retrigger.
