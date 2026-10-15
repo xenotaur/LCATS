@@ -4,7 +4,7 @@ prompt_id: PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_REFRESH)[2026-10-15T06:3
 work_item: WI-GETTENBERG-0005
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/513
 commit:
 created_at: 2026-10-15T06:37:38+00:00
 agent: codex_app
