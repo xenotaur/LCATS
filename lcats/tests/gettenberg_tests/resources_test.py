@@ -31,6 +31,7 @@ from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
 from lcats.gettenberg import _resource_transport
 from lcats.gettenberg import resources
+from lcats.gettenberg import models
 from lcats.gettenberg import lifecycle
 from lcats.utils import capture
 
@@ -791,9 +792,25 @@ class ResourceTests(unittest.TestCase):
             / "docs/how-to/gettenberg-resources.md"
         )
         blocks = re.findall(r"```python\n(.*?)```", doc.read_text(), re.S)
-        self.assertEqual(len(blocks), 3)
+        self.assertEqual(len(blocks), 5)
         self.server.routes["/story.txt"] = [Reply()]
-        namespace = {}
+        # The final examples accept catalog metadata, but selection must not
+        # add requests to the single acquisition performed by the first examples.
+        ebook = models.Ebook(
+            42,
+            "urn:ebook:42",
+            resources=tuple(
+                models.Resource(
+                    self.server.origin + path,
+                    formats=(models.Term(models.Literal(media)),),
+                )
+                for path, media in (
+                    ("/story.txt", "text/plain; charset=utf-8"),
+                    ("/story.pdf", "application/pdf"),
+                )
+            ),
+        )
+        namespace = {"ebook": ebook}
         with capture.capture_output() as output:
             for block in blocks:
                 code = block.replace("https://example.org", self.server.origin)
@@ -801,6 +818,7 @@ class ResourceTests(unittest.TestCase):
                 exec(compile(code, str(doc), "exec"), namespace)
         self.assertIn("blocked offline cache miss", output.stdout.getvalue())
         self.assertEqual(namespace["artifact"].path.read_bytes(), Reply().body)
+        self.assertIs(namespace["selection"].resource, ebook.resources[1])
         self.assertEqual(len(self.server.requests), 1)
 
     def test_obsolete_http_date_retry_after_is_interpreted_in_utc(self):

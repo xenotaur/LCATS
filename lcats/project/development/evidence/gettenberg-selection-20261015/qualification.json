@@ -1,0 +1,43 @@
+{
+  "base": "c447c15be9f2314201750b9615fdef04af7bf5d9",
+  "acceptance": "WI-GETTENBERG-0005 A17 only",
+  "review": {
+    "assignments": 1,
+    "mode": "cold diff against integration base",
+    "initial_findings": {
+      "P2": 1
+    },
+    "finding": "MIME continuation normalization accepted malformed UTF8 and raised ValueError for huge indices",
+    "coordinator_reproduced": true,
+    "repair": "direct validated parameter parsing rejects charset continuations",
+    "same_scope_rechecks": 1,
+    "remaining_actionable_findings": 0,
+    "focused_tests": 18,
+    "reviewer_extra_adversarial_cases": 7,
+    "source_hashes_verified": {
+      "src/lcats/gettenberg/_resource_selection.py": "c02596f22fde321096a17a0331908f79c55a70b4f202471d8968d06357fdb325",
+      "src/lcats/gettenberg/resources.py": "97e74c9d338ec7f86088ccec490a7754a83a0951b6fd99bd4b428543ad44a57d",
+      "tests/gettenberg_tests/selection_test.py": "d621086982f0d3b35dde0847281bf3a91d093d013dc769ada0e8206906d2aed3",
+      "tests/gettenberg_tests/resources_test.py": "67e29c50a1999eec8e6a463adc1c2d748d66a01a5a6141e437c397a7392197d4",
+      "docs/how-to/gettenberg-resources.md": "110f81b17cb53acafcc2dd29c08dce318174f90ccc0ff8bf62705cb9082f9002",
+      "docs/reference/gettenberg-network.md": "fc90d395603cdacfbfe3ab45fc5552c00cec0c610d243dba53e2363888ccaf44"
+    },
+    "reviewer_loopback_test": "sandbox bind denied; canonical suite owned by coordinator"
+  },
+  "canonical_validation": {
+    "tests": 2762,
+    "seconds": 77.397,
+    "command": "scripts/test",
+    "exit_code": 0,
+    "format": "pass; 260 files unchanged",
+    "lint": "pass",
+    "lrh_errors": 0,
+    "lrh_warnings": 351,
+    "warnings": "existing repository warnings",
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "earlier_failure": "2761-test run failed documentation block-count assertion; expanded fixture executes new examples; subsequent 2761 run passed before review repair"
+  },
+  "no_external_downloads": true
+}

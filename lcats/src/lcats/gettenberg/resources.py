@@ -7,12 +7,19 @@ There is no implicit catalog setup, URL guessing, decoding or cleanup here.
 
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
+from lcats.gettenberg import _resource_selection
 from lcats.gettenberg import _resource_transport
 from lcats.gettenberg import _resource_types
 from lcats.utils import env
 
 # Public records and errors live behind this facade; private modules share the
 # definitions without circular imports or exposing the transport implementation.
+ResourcePreference = _resource_selection.ResourcePreference
+ResourceSelection = _resource_selection.ResourceSelection
+SelectionDiagnostic = _resource_selection.SelectionDiagnostic
+DEFAULT_PREFERENCES = _resource_selection.DEFAULT_PREFERENCES
+select_resource = _resource_selection.select_resource
+
 SourceRequest = _resource_types.SourceRequest
 NetworkPolicy = _resource_types.NetworkPolicy
 SourceArtifact = _resource_types.SourceArtifact
