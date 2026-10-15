@@ -1,7 +1,7 @@
 # Gettenberg route qualification checkpoint
 
-Status: documentation qualification, not implemented, independently reviewed or
-live-download validated. Run `gettenberg-20261015-routes`, 2026-10-15 UTC.
+Historical checkpoint below: initially documentation-only, not implementation or
+live-download validation. See the later implementation qualification section. Run `gettenberg-20261015-routes`, 2026-10-15 UTC.
 Companion to [the acquisition contract](gettenberg-acquisition-design.md), A22.
 Source base: a528ebfdb6c4ecb1b1b05bb4bd5a7b5a0f7b3f0d; fetched main remains
 2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2.
@@ -103,3 +103,49 @@ These inspected paths do not establish an inverse alias mapping. No source was
 copied or vendored. A22 remains open. The acquisition-core tranche accepts an
 explicit SourceRequest instead, so transport/cache correctness can be qualified
 without guessing automatic routes or choosing an unverified default mirror.
+
+
+## Automatic-routing implementation qualification — 2026-10-15
+
+This section supersedes the earlier unresolved R02/R03/R07/R08 and single-digit
+portion of R09. The earlier investigation remains historical evidence.
+Project Gutenberg's own [pg_archive_urls.py lines27–81](https://github.com/gutenbergtools/libgutenberg/blob/d2d6f250374bb2463336ad7c6d0b0d164d0642db/pg_archive_urls.py#L27)
+explicitly defines `/files/` conversion, the single-digit `0/ID` case, and a finite
+`/ebooks/ID.format` map. The [converter at lines103–120](https://github.com/gutenbergtools/ebookconverter/blob/88e05f3e22640b61bd30444402adcd656f582c37/ebookconverter/EbookConverter.py#L103)
+corroborates generated filenames. Source SHA256s:
+
+- pg_archive_urls.py: `f420830ab98cdb71c98fafceb2da90c114f2243d0250fdb04cee9c9516f551b7`
+- EbookConverter.py: `2905056f1cf427f76ce230c0957caabe3897f5dd1f1dee6658b7f6af64aedde5`
+
+These GPL upstream files were inspected for factual URL conventions, not copied,
+vendored or executed. The standalone helper's `format(id=...)` disagrees with its
+`book_id` template key; we do not treat executing that helper as qualification.
+The separate converter and helper's `url_for_type` corroborate the naming contract.
+Our implementation independently composes validated paths, requires exact
+whole-path matches and refuses unknown cases; it does not inherit the upstream
+helper's unrestricted fallback or default HTTP host.
+
+R01–R08 plus the qualified single-digit rule are offline fixtures in
+`tests/gettenberg_tests/routing_test.py`. All113 resource nodes in the seven saved
+RDF fixtures map, preserving original source URIs and metadata. This is fixture
+coverage, not a claim that every historical catalog resource is supported or
+that any remote bytes were fetched. Unknown origins/layouts/aliases and query-
+bearing routes remain explicitly unsupported. Source paths retain nested suffixes,
+ZIP identity and escaping; ambiguous traversal/encoded separators are refused.
+
+API decision: `select_resource` accepts an optional immutable set of eligible
+source positions. `select_routable_resource` computes all route decisions, applies
+that capability filter and preserves MIME diagnostics, original resource identity
+and source-order ties. It exposes every unsupported route instead of silently
+falling through after a failed request. Mapping and origin permission are separate.
+
+`GutenbergRoutes` requires main and generated roots. Catalog endpoint has its own
+published default and override. No default mirror is selected, operationally
+qualified or used in this run; all external reads were public documentation/source,
+not ebook/archive downloads. A future default-mirror choice still needs the
+separately budgeted operational check required above. This deliberate explicit-root
+boundary is not full WI completion or CLI integration. Full-format raw acquisition
+continues to accept caller-supplied permitted URLs independently of this mapping.
+
+Implementation/review/test outcomes are recorded in the run's execution and
+qualification evidence; this research section alone is not independent acceptance.

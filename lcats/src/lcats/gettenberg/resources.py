@@ -10,6 +10,7 @@ from lcats.gettenberg import _decode_types
 from lcats.gettenberg import _resource_decoding
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
+from lcats.gettenberg import _resource_routing
 from lcats.gettenberg import _resource_refresh
 from lcats.gettenberg import _resource_selection
 from lcats.gettenberg import _resource_transport
@@ -23,6 +24,11 @@ ResourceSelection = _resource_selection.ResourceSelection
 SelectionDiagnostic = _resource_selection.SelectionDiagnostic
 DEFAULT_PREFERENCES = _resource_selection.DEFAULT_PREFERENCES
 select_resource = _resource_selection.select_resource
+
+GutenbergRoutes = _resource_routing.GutenbergRoutes
+RouteResolution = _resource_routing.RouteResolution
+RoutedSelection = _resource_routing.RoutedSelection
+select_routable_resource = _resource_routing.select_routable_resource
 
 DecodeOptions = _decode_types.DecodeOptions
 DecodedText = _decode_types.DecodedText

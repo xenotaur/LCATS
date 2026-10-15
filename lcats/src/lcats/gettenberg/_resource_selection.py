@@ -95,6 +95,7 @@ def select_resource(
     ebook: models.Ebook,
     *,
     preferences: tuple[ResourcePreference, ...] = DEFAULT_PREFERENCES,
+    eligible_indices: frozenset[int] | None = None,
 ) -> ResourceSelection:
     """Select by ordered preferences, then source resource and format order.
 
@@ -102,6 +103,9 @@ def select_resource(
         ebook: Metadata whose resources and format claims retain source order.
         preferences: Nonempty immutable tuple of exact media/optional charset
             preferences. Defaults to UTF-8 plain text, other plain text, HTML.
+        eligible_indices: Optional immutable set of source positions permitted by
+            the caller's capabilities. None considers every resource; empty allows
+            none. Excluded resources retain their source indices and diagnostics.
 
     Returns:
         Immutable selection, or a no-match result with diagnostic code no_match.
@@ -118,6 +122,17 @@ def select_resource(
     ):
         raise _resource_types.ResourceInputError(
             "invalid_selection", "use Ebook and a nonempty tuple of ResourcePreference"
+        )
+    if eligible_indices is not None and (
+        not isinstance(eligible_indices, frozenset)
+        or any(
+            type(i) is not int or not 0 <= i < len(ebook.resources)
+            for i in eligible_indices
+        )
+    ):
+        raise _resource_types.ResourceInputError(
+            "invalid_selection",
+            "eligible_indices must be a frozenset of source positions",
         )
     diagnostics = []
     candidates = []
@@ -189,7 +204,15 @@ def select_resource(
                         (preference_index, resource_index, format_index, claim)
                     )
                     break
-        if matches:
+        if eligible_indices is not None and resource_index not in eligible_indices:
+            diagnostics.append(
+                SelectionDiagnostic(
+                    "ineligible_resource",
+                    "Excluded by caller capability",
+                    resource_index,
+                )
+            )
+        elif matches:
             candidates.append(min(matches))
         else:
             diagnostics.append(
