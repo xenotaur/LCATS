@@ -1202,3 +1202,42 @@ cost. The pre-second-assignment usage read was missed and taken afterward; recor
 this process miss rather than claiming a timely checkpoint. No numerical usage
 stop threshold was agreed. Next is one repair push, current-head CI and thread
 verification; no feature work or main promotion.
+
+
+## 2026-10-15 01:58 UTC — Qualified internal integration and run stop
+
+[PR #510](https://github.com/xenotaur/LCATS/pull/510) merged at01:58:01 UTC into
+codex/gettenberg-acquisition, merge735961f15066f1ead2755faf77c97b07f244db5f.
+Verified head7649979714fdb7d6904908f11bb082a0cc54d07a/basebd2998a8,
+all four hosted checks (lint,coverage,two test runs) successful and all four first-round
+review threads resolved before coordinator merge. Both hosted reviewers were observed;
+no manual retrigger. All11 independently reviewed file hashes match the integrated
+tree. 80 local doc links and Markdown fence pairing pass; no executable control-plane
+files. Main remains2f14e4e8. No branch deletion, package publishing or bulk data download.
+
+Completion evidence: [completion.json](evidence/gettenberg-acquisition-core-20261015/completion.json).
+Final canonical suite2744 passing tests;68 acquisition tests. Native WI-0005 stays
+proposed and execution records stayin_progress. Internal integration is staged
+delivery, not main delivery or completion of the Gutenberg replacement. Existing
+merged execution bodies remain historical; this entry records the subsequent outcome.
+
+Process observations: second boundary review was valuable because shared ownership
+exposed failures that isolated resource tests missed. Model the complete publisher /
+reader / cleanup interaction, including process death and post-commit errors, before
+broadening consumer adoption. Preserve a review/repair reserve even for a one-hour
+run. Initial statement coverage did not establish those guarantees. A PR-link-only
+push restarted CI; future native record creation can include known PR metadata in
+one repair push. One final LRH invocation accidentally ran at repository root,
+reported missing focus/current_focus.md and did not stop its shell sequence; rerun
+from lcats/ passed0errors/351existingwarnings before integration. Use fail-fast
+validation sequences with an explicit package working directory in future runs.
+The usage read before assignment2 was missed; subsequent readings are recorded
+honestly. Final shared weekly meter69% versus58% launch is not attributable run cost.
+
+Two assignments, under17cumulative worker minutes, no active workers or further
+feature work. Domain work stops after roughly59minutes, within the60-minute target
+and75-minute hard ceiling; only this final documentation/checkpoint push remains.
+Remaining WI-0005: conditional refresh/304 and provenance composition, pure resource
+selection, strict text/container decoding, and qualified automatic Gutenberg routes.
+Next bounded grant should select one of those coherent tranches; do not interpret
+this run's success as authorization for another run or main promotion.

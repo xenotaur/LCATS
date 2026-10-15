@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-15T01:59:14.962288+00:00",
+  "run": "gettenberg-20261015-core",
+  "result": "qualified acquisition core integrated; whole WI remains open",
+  "pr": 510,
+  "head": "7649979714fdb7d6904908f11bb082a0cc54d07a",
+  "base_before_merge": "bd2998a8ebb9857cbe95d215173c94f1a31f57b1",
+  "target": "codex/gettenberg-acquisition",
+  "merge": "735961f15066f1ead2755faf77c97b07f244db5f",
+  "merged_at": "2026-10-15T01:58:01Z",
+  "main_observed": "2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2",
+  "main_promoted": false,
+  "checks": [
+    {
+      "name": "coverage",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38668200709/job/116204872600"
+    },
+    {
+      "name": "lint",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38668200692/job/116204872244"
+    },
+    {
+      "name": "test",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38668200777/job/116204873538"
+    },
+    {
+      "name": "test",
+      "conclusion": "SUCCESS",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38668196038/job/116204857479"
+    }
+  ],
+  "review_threads": [
+    {
+      "id": "PRRT_kwDOKlhIbM6sloMb",
+      "isResolved": true
+    },
+    {
+      "id": "PRRT_kwDOKlhIbM6slp7y",
+      "isResolved": true
+    },
+    {
+      "id": "PRRT_kwDOKlhIbM6slp8Q",
+      "isResolved": true
+    },
+    {
+      "id": "PRRT_kwDOKlhIbM6slp8c",
+      "isResolved": true
+    }
+  ],
+  "reviewed_source_matches_integrated_tree": true,
+  "canonical_tests": 2744,
+  "resource_tests": 68,
+  "lrh_validation": "0 errors,351 existing warnings from package root",
+  "assignments": 2,
+  "worker_occupancy_upper_bound_minutes": 17,
+  "shared_weekly_usage_percent": {
+    "launch": 58,
+    "finish": 69
+  },
+  "per_run_cost": "unavailable; shared account movement is not attributable",
+  "native_status": "WI proposed; executions in_progress pending whole-WI completion and human-approved main delivery"
+}
