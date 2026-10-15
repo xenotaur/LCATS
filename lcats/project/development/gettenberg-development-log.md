@@ -1654,3 +1654,26 @@ passes. Four final changed-file hashes independently verified; remaining nine pr
 hashes unchanged. All six hosted findings cleared by fresh independent review.
 Publish fixes and native continuation record, confirm threads, then require all
 checks on exact final PR head and unchanged integration base before merging.
+
+### PR512 internally integrated — 06:29 UTC
+
+[PR #512](https://github.com/xenotaur/LCATS/pull/512) merged at2026-10-15T06:29:16Z
+as97dad982500edf343ce4069c9bf2bcee1777e129 into codex/gettenberg-acquisition. Immediately before merge, headabcb6e4ed37e751e3c67080452c98088196fe6a8
+and basec1c9a3e6f6399e421eae40c75a38efaf3f78d7ba matched the qualified/authorized branches; all four
+exact-head checks passed, every review author/thread was re-read, and all six
+independently verified threads were resolved. No unresolved findings remain.
+
+Integrated tree equals verified PR-head tree; all13 source/test/doc hashes match
+final or unchanged prior independent review. Final canonical2828 tests and64
+focused tests therefore apply unchanged. Only non-executable integration evidence
+and this log are appended after merge; LRH validation/diff check rerun, full suite
+not repeated without a product change. [Integration evidence](evidence/gettenberg-decoding-20261015/integration.json)
+retains head/base/merge/check identities and reviewed hashes.
+
+This review/integration pass took approximately26minutes from06:03:13, including
+newly discovered repairs and CI. Main untouched; native executions remain
+in_progress and WI-0005 proposed. No branches deleted, new feature run started,
+external bulk download or persistent policy edit. A18/A19 now internally qualified
+and integrated. Remaining WI scope: conditional refresh, catalog receipt composition
+and qualified automatic routing; gatherer migration follows in its planned work.
+Next feature work requires a new bounded grant.

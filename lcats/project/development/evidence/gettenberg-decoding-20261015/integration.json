@@ -1,0 +1,83 @@
+{
+  "authority": "Human: Perform the review-and-integration pass for #512.",
+  "pr": "https://github.com/xenotaur/LCATS/pull/512",
+  "merged_at": "2026-10-15T06:29:16Z",
+  "merge_commit": "97dad982500edf343ce4069c9bf2bcee1777e129",
+  "verified_head": "abcb6e4ed37e751e3c67080452c98088196fe6a8",
+  "verified_base": "c1c9a3e6f6399e421eae40c75a38efaf3f78d7ba",
+  "base_branch": "codex/gettenberg-acquisition",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T06:28:36Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38692349540/job/116281139485",
+      "name": "coverage",
+      "startedAt": "2026-10-15T06:26:30Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T06:26:34Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38692349541/job/116280942393",
+      "name": "lint",
+      "startedAt": "2026-10-15T06:25:52Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T06:27:58Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38692349523/job/116281123449",
+      "name": "test",
+      "startedAt": "2026-10-15T06:26:27Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T06:27:44Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38692345521/job/116281121538",
+      "name": "test",
+      "startedAt": "2026-10-15T06:26:26Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "resolved_threads": [
+    "PRRT_kwDOKlhIbM6solS0",
+    "PRRT_kwDOKlhIbM6solS9",
+    "PRRT_kwDOKlhIbM6sorHM",
+    "PRRT_kwDOKlhIbM6sorH3",
+    "PRRT_kwDOKlhIbM6sorIc",
+    "PRRT_kwDOKlhIbM6sorIz"
+  ],
+  "unresolved_review_threads": 0,
+  "reviewed_hashes_match_integrated_tree": true,
+  "merge_tree_equals_verified_head_tree": true,
+  "canonical_tests": 2828,
+  "focused_tests": 64,
+  "native_status": "executions in_progress; WI proposed until main delivery",
+  "main_promotion": false,
+  "source_hashes": {
+    "src/lcats/gettenberg/_decode_types.py": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc",
+    "src/lcats/gettenberg/_resource_containers.py": "18a6303bb54c3226fda539adf0dc354f84e56532d9bf7e776b3d3db7c16633c4",
+    "src/lcats/gettenberg/_resource_decoding.py": "74e0802bf44637c4e784ae756fb26f7b0db59f795dd3f321d5b90a3f18bd7b6b",
+    "src/lcats/gettenberg/_resource_encoding.py": "86b4162b0d5599dc3e1292e20f6717a8bb5da2622e459e49ce6684de4ff028b7",
+    "src/lcats/gettenberg/resources.py": "28bedc800c8a147cdd03691ccc5be5e548be14873b17cc6ba938614efe5436ac",
+    "tests/gettenberg_tests/decoding_test.py": "90f05eb44b3b434821bbb2f865a0eaf0ef9441f55b87caabdd99e3b648a90134",
+    "docs/how-to/gettenberg-decoding.md": "c09f02c5e6da9896ef6399d79cbfa31c52521cbc25fc9ecf6b8b7437f48e851b",
+    "docs/reference/gettenberg-decoding.md": "789af9cf90d727e3d24145bbdb8f610f2f41c091f4dc786097c888ffcedd35d8",
+    "docs/how-to/gettenberg-resources.md": "033cd2e28a8c468bf0378ff3b3ffeee03bbc9a3bb85f277d14d980f06dfaf828",
+    "docs/reference/gettenberg-network.md": "e230267a5c8e0943852d18a26315b760429eb2faeef39bc8d771aeed3f35eaab",
+    "docs/index.md": "29b317873b7a5c9fd0baa0561760961f47f4e6b112161b3c414da06654b90fff",
+    "docs/reference/README.md": "f308f62acb646ca910b204efe7321ae3157d656af0741d4e0af175bdbb8d928d",
+    "tests/gettenberg_tests/resources_test.py": "bed05722b6bad1753b19ff4545a1349ae3ae95f6ee8a995b781faa58846f018d"
+  },
+  "postmerge_validation": "LRH validation and diff check; product tree identical to qualified head, no redundant full suite",
+  "historical_evidence": "Earlier missing-review and pending-repair checkpoints retained; this record supersedes delivery status"
+}
